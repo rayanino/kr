@@ -1,0 +1,13 @@
+- **Every major conclusion, design decision, or quality assessment MUST be cross-validated by coworkers BEFORE being reported as final.** This is the single most frequently violated rule in the project — the owner has corrected this 4 times in 2 days.
+- **"Major" means:** Any content quality judgment, any architectural decision, any SPEC amendment, any prompt change, any phase transition decision, any synthesis report. When in doubt: dispatch.
+- **Minimum dispatch for major conclusions:** At least 2 independent sources (CC subagents count as 1 source; each CLI/DR coworker counts as 1 source). For phase gates: all 6 sources.
+- **Available sources (6):**
+  - CC (Claude Code) — subagents for parallel analysis
+  - Codex CLI — schema validation, structural analysis
+  - Gemini CLI — Arabic scholarly accuracy
+  - ChatGPT DR — error patterns, feasibility, architecture (HAS repo access)
+  - Claude DR — scholarly reasoning, boundary quality (HAS repo access)
+  - Gemini DR — Islamic pedagogy, study methodology (needs file uploads)
+- **CC solo analysis is NEVER sufficient for content quality conclusions.** CC can do structural/deterministic checks alone. Any judgment about whether an excerpt is "good", a boundary is "correct", or a classification is "accurate" requires at least one coworker.
+- **The owner is NOT a coworker for technical validation.** The owner provides user experience feedback ("this feels wrong"), which CC and coworkers translate into technical changes. Do not ask the owner to catch technical gaps — that is CC's job, with coworker support.
+- **Failure pattern to avoid:** CC completes analysis → presents results to owner → owner catches a gap CC should have found → CC says "good catch". This should NEVER happen. Dispatch coworkers to catch gaps BEFORE the owner sees anything.

@@ -42,7 +42,7 @@ In Format B, the value is inside the `<span>` tag. The regex's non-greedy `(.*?)
 
 Added: `تأليف` → author_name_raw (4 books), `بعناية` → muhaqiq_name_raw (3), `جمعها` → compiler_name_raw (3), `انتقاء` → compiler_name_raw (11), `تاريخ النشر` → publication_year_raw (4).
 
-**Not added:** `رواية` (26 books) — hadith-specific narration label, needs owner decision.
+**Not added:** `رواية` (26 books) — hadith-specific narration label. Deferred to architect decision with domain coworker input (Gemini CLI for hadith conventions).
 
 ---
 
@@ -104,7 +104,7 @@ These are NOT extraction bugs — they reflect genuine data quality characterist
 
 2. **Remaining 57 books with author_short only** (subset of the 96) — no card field author at all. LLM must infer from text sample and contextual clues.
 
-3. **`رواية` label (26 books)** — needs owner decision on mapping before Step 3. Currently in extra_card_fields.
+3. **`رواية` label (26 books)** — architect decision needed on mapping (with Gemini CLI input on hadith conventions) before Step 3. Currently in extra_card_fields.
 
 4. **Zero duplicate groups** — deduplication logic found no exact-hash or title+author matches, confirming collection diversity.
 

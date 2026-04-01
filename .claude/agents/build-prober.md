@@ -167,7 +167,7 @@ Wrap all output in the standard agent handoff envelope (see `reference/protocols
 ### Downstream Context
 
 For next agent: [key deviations, drift status, high-risk areas]
-Unresolved: [SPEC gaps that need owner decision]
+Unresolved: [SPEC gaps needing clarification — forward to architect for resolution with coworker input]
 Files to re-examine: [paths with deviations or improvisations]
 ```
 

@@ -338,7 +338,7 @@ During autonomous discovery, the source engine evaluates whether a candidate sou
 
 **Relevance classification:**
 - `relevant`: the source covers one or more of the library's sciences and adds knowledge not already well-covered. Action: proceed to acquisition.
-- `partially_relevant`: the source touches the library's sciences but most of its content is outside scope (e.g., a history book with occasional fiqh discussions). Action: flag for owner decision.
+- `partially_relevant`: the source touches the library's sciences but most of its content is outside scope (e.g., a history book with occasional fiqh discussions). Action: CC decides scope based on owner context ("Would including this help your studies?"). If uncertain, include with `trust_tier: flagged`.
 - `not_relevant`: the source is outside the library's knowledge scope entirely. Action: skip, log for future reference.
 
 **Gap-fill relevance.** When relevance evaluation is triggered by a gap-fill request (e.g., "find a Maliki source on topic X"), the evaluation additionally checks whether the candidate specifically addresses the gap. A source that is generally relevant to the science but doesn't cover the specific topic is classified as `partially_relevant`.
@@ -350,7 +350,7 @@ Library state: sciences covered = [fiqh, nahw, usul_al_fiqh, aqidah]. Owner's st
 
 LLM evaluation: "البداية والنهاية is a tarikh (history) work by Ibn Kathir (d. 774 AH). It is primarily a historical chronicle, not a fiqh or nahw text. However, it contains biographical entries for fuqaha and occasional fiqh discussions within historical events."
 
-Classification: `partially_relevant`. Reason: "Primary content is history (outside current science scope), but contains secondary fiqh and biographical content relevant to Hanbali scholars." Action: flagged for owner decision.
+Classification: `partially_relevant`. Reason: "Primary content is history (outside current science scope), but contains secondary fiqh and biographical content relevant to Hanbali scholars." Action: include with `trust_tier: flagged`, scope limited to secondary scholarly content.
 
 Contrasting case: If the candidate were "المغني" by ابن قدامة → classification: `relevant`. Reason: "Comparative Hanbali fiqh, directly covers owner's study focus with comprehensive school-by-school analysis." Action: proceed to acquisition.
 

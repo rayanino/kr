@@ -1,0 +1,8 @@
+- **Before writing ANY Deep Research relay prompt**, verify access capabilities:
+  - **ChatGPT DR (Pro/Deep Research mode):** HAS private repo access via GitHub. Give FILE PATHS, not pasted content. Example: "Read `engines/excerpting/SPEC.md`"
+  - **Claude DR (Deep Research mode):** HAS private repo access via GitHub. Give FILE PATHS, not pasted content.
+  - **Gemini DR:** CANNOT access the repo. Prepare FILE UPLOADS (bundle key files for the owner to upload to the Gemini session).
+  - **ChatGPT (non-research/Thinking mode):** CANNOT access the repo. Paste content or upload files.
+  - **Gemini CLI:** Has LOCAL repo access via `gemini -p`. No relay needed.
+- **NEVER paste full file contents into ChatGPT DR or Claude DR prompts.** This wastes the owner's time and effort. The owner explicitly said (2026-04-01): "NEVER make this mistake again."
+- **For Gemini DR file bundles:** Include the specific files needed for the task, not the entire repo. Keep bundles focused: questionnaire + SPEC + excerpt samples for evaluation tasks.
