@@ -17,6 +17,7 @@ import concurrent.futures
 import datetime
 import json
 import os
+import signal
 import shutil
 import subprocess
 import sys
@@ -482,20 +483,38 @@ def _write_timeout_report(
 
 
 def _terminate_process_tree(proc: subprocess.Popen[Any]) -> None:
-    """Terminate a runner subprocess and its descendants."""
+    """Terminate a runner subprocess and its descendants.
+
+    Try a graceful interrupt first so the child can persist partial artifacts
+    through its KeyboardInterrupt handlers, then fall back to a hard kill.
+    """
     if proc.poll() is not None:
         return
+    grace_seconds = 15
     try:
         if os.name == "nt":
-            subprocess.run(
-                ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                check=False,
-            )
+            try:
+                proc.send_signal(signal.CTRL_BREAK_EVENT)
+                proc.wait(timeout=grace_seconds)
+                return
+            except (subprocess.TimeoutExpired, ValueError, OSError):
+                subprocess.run(
+                    ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                    check=False,
+                )
         else:
-            proc.kill()
+            try:
+                os.killpg(proc.pid, signal.SIGINT)
+                proc.wait(timeout=grace_seconds)
+                return
+            except ProcessLookupError:
+                return
+            except subprocess.TimeoutExpired:
+                pass
+            os.killpg(proc.pid, signal.SIGKILL)
     finally:
         try:
             proc.wait(timeout=30)
