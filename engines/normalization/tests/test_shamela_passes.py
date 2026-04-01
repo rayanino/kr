@@ -14,7 +14,6 @@ Test categories (NEXT.md §F):
 
 from __future__ import annotations
 
-import textwrap
 from pathlib import Path
 
 import pytest
@@ -22,7 +21,6 @@ import pytest
 from engines.normalization.src.normalizers.shamela import (
     CleanedPage,
     RawPage,
-    SeparatedPage,
     ShamelaNormalizer,
     arabic_to_int,
     classify_footnote_type,
@@ -30,6 +28,7 @@ from engines.normalization.src.normalizers.shamela import (
     normalize_whitespace,
 )
 from engines.normalization.src.errors import NormalizationError, NormErrorCode
+from engines.normalization.tests.conftest import _make_source_metadata
 
 # ══════════════════════════════════════════════════════════════════════
 # Test infrastructure
@@ -76,6 +75,53 @@ def _full_pipeline(
     raw = normalizer._pass1_parse(html, volume=volume, seq_offset=0)
     sep = normalizer._pass2_separate(raw)
     return normalizer._pass3_clean(sep)
+
+
+class TestMetadataEnumValidation:
+    def test_invalid_genre_raises_schema_violation(
+        self, normalizer: ShamelaNormalizer, tmp_path: Path,
+    ) -> None:
+        html = _make_html(_wrap_page("النص الأساسي", page_num="١"))
+        path = tmp_path / "bad_genre.htm"
+        path.write_text(html, encoding="utf-8")
+        meta = _make_source_metadata(source_format="shamela_html")
+        object.__setattr__(meta, "genre", "not_a_real_genre")
+
+        with pytest.raises(NormalizationError) as exc_info:
+            normalizer.normalize(path, meta)
+
+        assert exc_info.value.code == NormErrorCode.SCHEMA_VIOLATION
+        assert "genre" in exc_info.value.message
+
+    def test_invalid_text_fidelity_raises_schema_violation(
+        self, normalizer: ShamelaNormalizer, tmp_path: Path,
+    ) -> None:
+        html = _make_html(_wrap_page("النص الأساسي", page_num="١"))
+        path = tmp_path / "bad_fidelity.htm"
+        path.write_text(html, encoding="utf-8")
+        meta = _make_source_metadata(source_format="shamela_html")
+        object.__setattr__(meta, "text_fidelity", "not_a_real_fidelity")
+
+        with pytest.raises(NormalizationError) as exc_info:
+            normalizer.normalize(path, meta)
+
+        assert exc_info.value.code == NormErrorCode.SCHEMA_VIOLATION
+        assert "text_fidelity" in exc_info.value.message
+
+    def test_invalid_structural_format_raises_schema_violation(
+        self, normalizer: ShamelaNormalizer, tmp_path: Path,
+    ) -> None:
+        html = _make_html(_wrap_page("النص الأساسي", page_num="١"))
+        path = tmp_path / "bad_structural_format.htm"
+        path.write_text(html, encoding="utf-8")
+        meta = _make_source_metadata(source_format="shamela_html")
+        object.__setattr__(meta, "structural_format", "not_a_real_format")
+
+        with pytest.raises(NormalizationError) as exc_info:
+            normalizer.normalize(path, meta)
+
+        assert exc_info.value.code == NormErrorCode.SCHEMA_VIOLATION
+        assert "structural_format" in exc_info.value.message
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -506,7 +552,7 @@ class TestFootnoteClassification:
 
     def test_tahqiq_manuscript(self):
         """'في نسخة' → tahqiq_editor."""
-        ft, conf = classify_footnote_type(
+        ft, _conf = classify_footnote_type(
             'في نسخة أ: «فإن كل واحد» وفي نسخة ب: «فإن كلاً»'
         )
         assert ft == "tahqiq_editor"

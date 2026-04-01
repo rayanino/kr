@@ -58,6 +58,34 @@ class TestValidateInput:
 class TestNormalize:
     """Tests for normalize()."""
 
+    def test_invalid_genre_raises_schema_violation(
+        self, normalizer_pt: PlainTextNormalizer, tmp_path: Path,
+    ):
+        text = "بسم الله الرحمن الرحيم"
+        p = _write_txt(tmp_path, text)
+        meta = _make_source_metadata(source_format="plain_text")
+        object.__setattr__(meta, "genre", "not_a_real_genre")
+
+        with pytest.raises(NormalizationError) as exc_info:
+            normalizer_pt.normalize(p, meta)
+
+        assert exc_info.value.code == NormErrorCode.SCHEMA_VIOLATION
+        assert "genre" in exc_info.value.message
+
+    def test_invalid_structural_format_raises_schema_violation(
+        self, normalizer_pt: PlainTextNormalizer, tmp_path: Path,
+    ):
+        text = "بسم الله الرحمن الرحيم"
+        p = _write_txt(tmp_path, text)
+        meta = _make_source_metadata(source_format="plain_text")
+        object.__setattr__(meta, "structural_format", "not_a_real_format")
+
+        with pytest.raises(NormalizationError) as exc_info:
+            normalizer_pt.normalize(p, meta)
+
+        assert exc_info.value.code == NormErrorCode.SCHEMA_VIOLATION
+        assert "structural_format" in exc_info.value.message
+
     def test_simple_txt_produces_valid_package(
         self, normalizer_pt: PlainTextNormalizer, tmp_path: Path,
     ):

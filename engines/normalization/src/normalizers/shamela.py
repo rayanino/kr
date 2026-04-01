@@ -40,7 +40,7 @@ if TYPE_CHECKING:
     )
 from engines.normalization.src.errors import NormalizationError, NormErrorCode
 from engines.normalization.src.normalizers.base import BaseNormalizer
-from engines.source.contracts import SourceMetadata
+from engines.source.contracts import Genre, SourceMetadata
 
 logger = logging.getLogger(__name__)
 
@@ -963,7 +963,17 @@ class ShamelaNormalizer(BaseNormalizer):
         """
         from engines.normalization.src.structure_discovery import discover_structure
 
-        result = discover_structure(cleaned, metadata.source_id, metadata.genre)
+        try:
+            genre = Genre(metadata.genre)
+        except ValueError as exc:
+            raise NormalizationError(
+                code=NormErrorCode.SCHEMA_VIOLATION,
+                message=f"Invalid source genre value: {metadata.genre!r}",
+                source_id=metadata.source_id,
+                recovery="Repair SourceMetadata.genre before normalization.",
+            ) from exc
+
+        result = discover_structure(cleaned, metadata.source_id, genre)
         return (
             result.division_tree,
             result.page_markers,
@@ -1107,8 +1117,13 @@ class ShamelaNormalizer(BaseNormalizer):
             fidelity_str = metadata.text_fidelity
             try:
                 fidelity_level = TextFidelityLevel(fidelity_str)
-            except ValueError:
-                pass
+            except ValueError as exc:
+                raise NormalizationError(
+                    code=NormErrorCode.SCHEMA_VIOLATION,
+                    message=f"Invalid source text_fidelity value: {fidelity_str!r}",
+                    source_id=metadata.source_id,
+                    recovery="Repair SourceMetadata.text_fidelity before normalization.",
+                ) from exc
 
         # Build content units
         content_units: list[ContentUnit] = []
@@ -1225,8 +1240,13 @@ class ShamelaNormalizer(BaseNormalizer):
         # Structural format — use source metadata, map to contract enum
         try:
             structural_format = StructuralFormat(metadata.structural_format)
-        except ValueError:
-            structural_format = StructuralFormat.PROSE
+        except ValueError as exc:
+            raise NormalizationError(
+                code=NormErrorCode.SCHEMA_VIOLATION,
+                message=f"Invalid source structural_format value: {metadata.structural_format!r}",
+                source_id=metadata.source_id,
+                recovery="Repair SourceMetadata.structural_format before normalization.",
+            ) from exc
 
         # Manifest
         manifest = NormalizedManifest(

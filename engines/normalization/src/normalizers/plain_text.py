@@ -126,8 +126,13 @@ class PlainTextNormalizer(BaseNormalizer):
         if genre_str:
             try:
                 genre = Genre(genre_str)
-            except ValueError:
-                pass
+            except ValueError as exc:
+                raise NormalizationError(
+                    code=NormErrorCode.SCHEMA_VIOLATION,
+                    message=f"Invalid source genre value: {genre_str!r}",
+                    source_id=metadata.source_id,
+                    recovery="Repair SourceMetadata.genre before normalization.",
+                ) from exc
 
         structure = discover_structure(
             cleaned_pages, metadata.source_id, genre,
@@ -398,8 +403,13 @@ class PlainTextNormalizer(BaseNormalizer):
         # Structural format
         try:
             structural_format = StructuralFormat(metadata.structural_format)
-        except ValueError:
-            structural_format = StructuralFormat.PROSE
+        except ValueError as exc:
+            raise NormalizationError(
+                code=NormErrorCode.SCHEMA_VIOLATION,
+                message=f"Invalid source structural_format value: {metadata.structural_format!r}",
+                source_id=metadata.source_id,
+                recovery="Repair SourceMetadata.structural_format before normalization.",
+            ) from exc
 
         # Quality report
         quality_report = QualityReport(
