@@ -1,0 +1,77 @@
+model = "gpt-5.4"
+model_reasoning_effort = "xhigh"
+plan_mode_reasoning_effort = "xhigh"
+personality = "pragmatic"
+web_search = "cached"
+
+[features]
+multi_agent = true
+codex_hooks = true
+
+[agents]
+max_threads = 6
+max_depth = 1
+job_max_runtime_seconds = 1800
+
+[profiles.kr_interactive]
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "high"
+personality = "pragmatic"
+web_search = "cached"
+
+[profiles.kr_shadow]
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+model_reasoning_effort = "xhigh"
+plan_mode_reasoning_effort = "xhigh"
+personality = "pragmatic"
+web_search = "disabled"
+
+[profiles.kr_peer_review]
+approval_policy = "never"
+sandbox_mode = "read-only"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "high"
+personality = "pragmatic"
+web_search = "disabled"
+
+[profiles.kr_research]
+approval_policy = "never"
+sandbox_mode = "read-only"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "high"
+personality = "pragmatic"
+web_search = "live"
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.tavily]
+command = "npx"
+args = ["-y", "tavily-mcp@latest"]
+
+[mcp_servers.tavily.env]
+TAVILY_API_KEY = "${TAVILY_API_KEY}"
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.memory.env]
+MEMORY_FILE_PATH = "${HOME}/.claude-memory/kr-engine.jsonl"
+
+# Repo-local override to suppress unrelated home-level MCP auth noise in KR.
+[mcp_servers.stripe]
+url = "https://mcp.stripe.com"
+enabled = false
+
+[mcp_servers.supabase]
+url = "https://mcp.supabase.com/mcp"
+enabled = false
+
+[mcp_servers.vercel]
+url = "https://mcp.vercel.com"
+enabled = false

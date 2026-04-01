@@ -1,0 +1,42 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/dispatch.py session_start.py",
+            "statusMessage": "Loading KR Codex context",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/dispatch.py pre_tool_use_policy.py",
+            "statusMessage": "Checking KR Bash policy",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/dispatch.py stop_quality_gate.py",
+            "statusMessage": "Checking KR validation follow-up",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

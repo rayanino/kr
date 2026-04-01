@@ -805,6 +805,125 @@ def test_wsl_resume_shadow_rehearsal_preserves_bash_runtime_vars() -> None:
     assert 'RUNTIME_DIR=' in completed.stdout
 
 
+def test_wsl_resume_strips_carriage_returns_and_bootstraps_via_tr() -> None:
+    if os.name != "nt":
+        pytest.skip("WSL bootstrap wrapper is Windows-only")
+
+    powershell = shutil.which("powershell") or shutil.which("pwsh")
+    if not powershell:
+        pytest.skip("PowerShell is not available")
+
+    repo_root = Path(__file__).resolve().parents[1]
+    script_path = repo_root / "scripts" / "overnight_codex_wsl_resume.ps1"
+    command = textwrap.dedent(
+        f"""
+        $ErrorActionPreference = 'Stop'
+        $global:WslCalls = @()
+
+        function global:wsl.exe {{
+            $joined = [string]::Join(' ', $args)
+            if ($joined -eq '--status') {{
+                return 'Default Version: 2'
+            }}
+            if ($joined -eq '--list --quiet') {{
+                return 'Ubuntu'
+            }}
+            $global:WslCalls += ,@($args)
+            return '/home/test/kr-codex'
+        }}
+
+        function global:ubuntu2404.exe {{
+            throw 'ubuntu2404.exe should not be called in this test'
+        }}
+
+        & '{script_path}' -RunShadowRehearsal
+
+        foreach ($call in $global:WslCalls) {{
+            $bashCommand = $call[-1]
+            if ($bashCommand.Contains("`r")) {{
+                throw 'Expected WSL bash commands to be sanitized before execution.'
+            }}
+        }}
+
+        $bootstrapCall = $global:WslCalls[1][-1]
+        if ($bootstrapCall -notmatch "tr -d '\\\\r'") {{
+            throw 'Expected bootstrap command to strip CR before piping into bash.'
+        }}
+
+        Write-Output 'WSL_COMMANDS_OK'
+        """
+    ).strip()
+
+    completed = subprocess.run(
+        [powershell, "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", command],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr + completed.stdout
+    assert "WSL_COMMANDS_OK" in completed.stdout
+
+
+def test_wsl_resume_run_cycle_uses_runtime_venv_and_task_filter() -> None:
+    if os.name != "nt":
+        pytest.skip("WSL bootstrap wrapper is Windows-only")
+
+    powershell = shutil.which("powershell") or shutil.which("pwsh")
+    if not powershell:
+        pytest.skip("PowerShell is not available")
+
+    repo_root = Path(__file__).resolve().parents[1]
+    script_path = repo_root / "scripts" / "overnight_codex_wsl_resume.ps1"
+    command = textwrap.dedent(
+        f"""
+        $ErrorActionPreference = 'Stop'
+        $global:WslCalls = @()
+
+        function global:wsl.exe {{
+            $joined = [string]::Join(' ', $args)
+            if ($joined -eq '--status') {{
+                return 'Default Version: 2'
+            }}
+            if ($joined -eq '--list --quiet') {{
+                return 'Ubuntu'
+            }}
+            $global:WslCalls += ,@($args)
+            return '/home/test/kr-codex'
+        }}
+
+        function global:ubuntu2404.exe {{
+            throw 'ubuntu2404.exe should not be called in this test'
+        }}
+
+        & '{script_path}' -RunCycle -Hours 2.5 -SingleTask val-contracts
+
+        $bashCommand = $global:WslCalls[-1][-1]
+        if ($bashCommand -notmatch '\\.venv/bin/python') {{
+            throw 'Expected cycle command to prefer the runtime venv python.'
+        }}
+        if ($bashCommand -notmatch '--task ''val-contracts''') {{
+            throw 'Expected cycle command to include the requested single task.'
+        }}
+        if ($bashCommand -notmatch '--hours 2.5') {{
+            throw 'Expected cycle command to carry the requested hours value.'
+        }}
+
+        Write-Output 'RUN_CYCLE_OK'
+        """
+    ).strip()
+
+    completed = subprocess.run(
+        [powershell, "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", command],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr + completed.stdout
+    assert "RUN_CYCLE_OK" in completed.stdout
+
+
 def test_wsl_resume_does_not_require_get_windows_optional_feature() -> None:
     if os.name != "nt":
         pytest.skip("WSL bootstrap wrapper is Windows-only")

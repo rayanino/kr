@@ -6,6 +6,13 @@ WINDOWS_HOME="${KR_WINDOWS_HOME:-/mnt/c/Users/Rayane}"
 TARGET_DIR="${KR_WSL_RUNTIME_DIR:-$HOME/kr-codex}"
 NODE_MAJOR="${KR_NODE_MAJOR:-22}"
 LOCAL_NPM_PREFIX="${HOME}/.local"
+SOURCE_REPO_IS_WORKTREE=0
+SOURCE_GITDIR=""
+SOURCE_COMMONDIR=""
+SOURCE_CLONE_ROOT=""
+SOURCE_HEAD=""
+SOURCE_BRANCH=""
+SOURCE_REMOTE_URL=""
 
 SYNC_EXCLUDES=(
   --exclude ".claude/session_state.json"
@@ -41,6 +48,40 @@ SYNC_FLAGS=(
 fail() {
   echo "$*" >&2
   exit 1
+}
+
+windows_path_to_wsl() {
+  local path_value="$1"
+  path_value="${path_value//$'\r'/}"
+  path_value="${path_value//\\//}"
+  if [[ "$path_value" =~ ^([A-Za-z]):/(.*)$ ]]; then
+    local drive="${BASH_REMATCH[1],,}"
+    printf '/mnt/%s/%s\n' "$drive" "${BASH_REMATCH[2]}"
+    return
+  fi
+  printf '%s\n' "$path_value"
+}
+
+resolve_repo_path() {
+  local base_dir="$1"
+  local path_value="$2"
+  path_value="${path_value//$'\r'/}"
+  if [[ "$path_value" == /* ]]; then
+    printf '%s\n' "$path_value"
+    return
+  fi
+  if [[ "$path_value" =~ ^[A-Za-z]:[/\\] ]]; then
+    windows_path_to_wsl "$path_value"
+    return
+  fi
+  python3 - "$base_dir" "$path_value" <<'PY'
+from pathlib import Path
+import sys
+
+base_dir = Path(sys.argv[1])
+path_value = sys.argv[2]
+print((base_dir / path_value).resolve())
+PY
 }
 
 resolve_home_path() {
@@ -114,13 +155,105 @@ ensure_base_packages() {
     rsync
 }
 
+ensure_python3_for_path_resolution() {
+  if ! command -v python3 >/dev/null 2>&1; then
+    fail "python3 is required before resolving worktree git metadata paths."
+  fi
+}
+
 if ! grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
   fail "This bootstrap script must run inside WSL."
 fi
 
-if [ ! -d "$WINDOWS_REPO/.git" ]; then
+if [ ! -e "$WINDOWS_REPO/.git" ]; then
   fail "Windows repo not found at $WINDOWS_REPO"
 fi
+
+resolve_source_git_layout() {
+  local git_entry="$WINDOWS_REPO/.git"
+  if [ -d "$git_entry" ]; then
+    SOURCE_REPO_IS_WORKTREE=0
+    SOURCE_GITDIR="$git_entry"
+    SOURCE_COMMONDIR="$git_entry"
+    SOURCE_CLONE_ROOT="$SOURCE_COMMONDIR"
+    SOURCE_HEAD="$(git -C "$WINDOWS_REPO" rev-parse HEAD)"
+    SOURCE_BRANCH="$(git -C "$WINDOWS_REPO" symbolic-ref --quiet --short HEAD || true)"
+    SOURCE_REMOTE_URL="$(git -C "$WINDOWS_REPO" remote get-url origin 2>/dev/null || true)"
+    return
+  fi
+
+  if [ ! -f "$git_entry" ]; then
+    fail "Unsupported git metadata shape at $git_entry"
+  fi
+
+  SOURCE_REPO_IS_WORKTREE=1
+
+  local raw_gitdir
+  raw_gitdir="$(sed -n 's/^gitdir: //p' "$git_entry" | head -n 1)"
+  if [ -z "$raw_gitdir" ]; then
+    fail "Unable to parse worktree gitdir from $git_entry"
+  fi
+
+  SOURCE_GITDIR="$(resolve_repo_path "$WINDOWS_REPO" "$raw_gitdir")"
+  if [ ! -d "$SOURCE_GITDIR" ]; then
+    fail "Resolved worktree gitdir is missing: $SOURCE_GITDIR"
+  fi
+
+  if [ -f "$SOURCE_GITDIR/commondir" ]; then
+    SOURCE_COMMONDIR="$(resolve_repo_path "$SOURCE_GITDIR" "$(cat "$SOURCE_GITDIR/commondir")")"
+  else
+    SOURCE_COMMONDIR="$SOURCE_GITDIR"
+  fi
+
+  SOURCE_CLONE_ROOT="$SOURCE_COMMONDIR"
+  SOURCE_HEAD="$(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" rev-parse HEAD)"
+  SOURCE_BRANCH="$(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" symbolic-ref --quiet --short HEAD || true)"
+  SOURCE_REMOTE_URL="$(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" remote get-url origin 2>/dev/null || true)"
+}
+
+target_repo_usable() {
+  [ -d "$TARGET_DIR/.git" ] || return 1
+  git -C "$TARGET_DIR" rev-parse --git-dir >/dev/null 2>&1
+}
+
+prepare_target_git_repo() {
+  if [ "$SOURCE_REPO_IS_WORKTREE" -eq 0 ]; then
+    return
+  fi
+
+  if target_repo_usable; then
+    git -C "$TARGET_DIR" config core.autocrlf input
+    git -C "$TARGET_DIR" config core.filemode false
+    local current_head
+    current_head="$(git -C "$TARGET_DIR" rev-parse HEAD 2>/dev/null || true)"
+    if [ "$current_head" = "$SOURCE_HEAD" ]; then
+      if [ -n "$SOURCE_REMOTE_URL" ] && git -C "$TARGET_DIR" remote get-url origin >/dev/null 2>&1; then
+        git -C "$TARGET_DIR" remote set-url origin "$SOURCE_REMOTE_URL"
+      fi
+      return
+    fi
+  fi
+
+  local tmp_clone
+  tmp_clone="$(mktemp -d)"
+  git clone -q --no-checkout --no-hardlinks "$SOURCE_CLONE_ROOT" "$tmp_clone"
+  if [ -n "$SOURCE_BRANCH" ] && git -C "$tmp_clone" checkout -q "$SOURCE_BRANCH" >/dev/null 2>&1; then
+    :
+  else
+    git -C "$tmp_clone" checkout -q --detach "$SOURCE_HEAD"
+  fi
+  if [ -n "$SOURCE_REMOTE_URL" ] && git -C "$tmp_clone" remote get-url origin >/dev/null 2>&1; then
+    git -C "$tmp_clone" remote set-url origin "$SOURCE_REMOTE_URL"
+  fi
+
+  rm -rf "$TARGET_DIR/.git"
+  mv "$tmp_clone/.git" "$TARGET_DIR/.git"
+  git -C "$TARGET_DIR" config core.autocrlf input
+  git -C "$TARGET_DIR" config core.filemode false
+  git -C "$TARGET_DIR" checkout -q --detach "$SOURCE_HEAD"
+  git -C "$TARGET_DIR" reset -q --hard "$SOURCE_HEAD"
+  rm -rf "$tmp_clone"
+}
 
 sync_entry() {
   local src="$1"
@@ -140,6 +273,34 @@ sync_dir() {
   fi
   mkdir -p "$dst"
   rsync -a "$src"/ "$dst"/
+}
+
+sync_worktree_overlay() {
+  git -C "$TARGET_DIR" reset -q --hard "$SOURCE_HEAD" || fail "git reset --hard failed in target runtime repo"
+
+  while IFS= read -r -d '' rel_path; do
+    local src_path="$WINDOWS_REPO/$rel_path"
+    local dst_path="$TARGET_DIR/$rel_path"
+    if [ ! -e "$src_path" ]; then
+      continue
+    fi
+    mkdir -p "$(dirname "$dst_path")"
+    rsync "${SYNC_FLAGS[@]}" "$src_path" "$dst_path"
+  done < <(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" diff --name-only --diff-filter=ACMRTUXB -z HEAD)
+
+  while IFS= read -r -d '' rel_path; do
+    rm -rf "$TARGET_DIR/$rel_path"
+  done < <(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" diff --name-only --diff-filter=D -z HEAD)
+
+  while IFS= read -r -d '' rel_path; do
+    local src_path="$WINDOWS_REPO/$rel_path"
+    local dst_path="$TARGET_DIR/$rel_path"
+    if [ ! -e "$src_path" ]; then
+      continue
+    fi
+    mkdir -p "$(dirname "$dst_path")"
+    rsync "${SYNC_FLAGS[@]}" "$src_path" "$dst_path"
+  done < <(git --git-dir="$SOURCE_GITDIR" --work-tree="$WINDOWS_REPO" ls-files --others --exclude-standard -z)
 }
 
 sync_auth_and_config() {
@@ -325,9 +486,12 @@ verify_runtime_sync_surface() {
   done
 }
 
-WINDOWS_HEAD="$(git -C "$WINDOWS_REPO" rev-parse HEAD)"
+WINDOWS_HEAD=""
 TARGET_DIR="$(resolve_home_path "$TARGET_DIR")"
 ensure_local_bin_path
+ensure_python3_for_path_resolution
+resolve_source_git_layout
+WINDOWS_HEAD="$SOURCE_HEAD"
 
 echo "=== KR Codex WSL Bootstrap ==="
 echo "Windows repo: $WINDOWS_REPO"
@@ -363,10 +527,15 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 mkdir -p "$TARGET_DIR"
-rsync "${SYNC_FLAGS[@]}" "${SYNC_EXCLUDES[@]}" "$WINDOWS_REPO/" "$TARGET_DIR/"
+if [ "$SOURCE_REPO_IS_WORKTREE" -eq 0 ]; then
+  rsync "${SYNC_FLAGS[@]}" "${SYNC_EXCLUDES[@]}" "$WINDOWS_REPO/" "$TARGET_DIR/"
+else
+  prepare_target_git_repo
+  sync_worktree_overlay
+fi
 
 cd "$TARGET_DIR"
-if [ ! -d "$TARGET_DIR/.git" ]; then
+if [ ! -e "$TARGET_DIR/.git" ]; then
   fail "Runtime sync did not produce a git repo at $TARGET_DIR"
 fi
 git config core.autocrlf input
