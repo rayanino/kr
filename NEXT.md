@@ -1,185 +1,157 @@
-# NEXT — Excerpting Engine: Implement Evaluation Findings + Re-run
+# NEXT — Excerpting Engine: Deep Q&A + Exhaustive Hardening
 
-## What Happened (2026-03-31 to 2026-04-01)
+## What This Session Does
 
-A comprehensive 6-reviewer evaluation of the excerpting engine's first outputs:
-- **133-excerpt smoke run** (€2.93, GPT-5.4 primary) — evaluated by 5 reviewers
-- **2,303-excerpt campaign** ($96.87, Opus primary, accidental) — full-book data preserved
-- **8 Tier-1 prompt fixes** implemented and committed (H-1 through H-8)
-- **3 Claude DR fixes** implemented (narrator role, المعنى الإجمالي, fawa'id)
-- **Bug fixes**: consensus resolution, ZWNJ, LA-3 threshold, model defaults, CLAUDE.md
-- **Owner reviewed 2 taysir excerpts** → triggered fundamental granularity question
-- **6-reviewer architectural decision** on excerpt granularity (DR-1/DR-2/DR-3)
-- **907 tests pass**, 0 pyright errors on all engine source files
+This is the FINAL excerpting engine hardening operation. Four phases:
 
-## Current State
+0. **Phase 0: Owner Q&A** — Design and conduct a structured questionnaire with the owner to nail down what excerpts should be. This comes FIRST, before any code.
+1. **Phase 1: Smoke Run + Analysis** — Small 2-chunk run (~€3) with current hardened prompts, then exhaustive multi-team analysis.
+2. **Phase 2: Deep Hardening** — Fix everything found in Phase 1 + Q&A, iterate until convergence.
+3. **Phase 3: Full 5-Book Run** — The definitive run (~$15-20) with fully hardened prompts.
 
-```
-Source OK → Normalization OK --- boundary --- Excerpting [HARDENING] → Taxonomy → Synthesis
-                                                ^^^^^^^^^^^^^ YOU ARE HERE
-```
+## Phase 0: Owner Q&A (DO THIS FIRST)
 
-**What's committed:** 14 prompt/code fixes across 8 commits (ef8c7696..063ee4ab).
-**What's NOT committed:** Some diagnostic reports in repo root, Gemini adversarial review.
-**What's NOT implemented:** DR-1, DR-3, CrossReference extension, evidence_refs quality, SPEC amendments.
+### Why This Matters
+Two comments from the owner on campaign excerpts triggered a complete rearchitecture (DR-1/DR-2/DR-3 debate, 6 reviewers, 2 days). The excerpt definition in the SPEC is formally correct but doesn't fully capture what the owner WANTS to experience when using his library. This Q&A closes that gap.
 
-## Immediate Task: Implement DR-1 + DR-3 + Supporting Changes
+### How To Do It
+1. **All coworkers** (Codex, Gemini CLI, ChatGPT DR, Claude DR, Gemini DR) collaboratively design a questionnaire
+2. The questionnaire uses REAL excerpts from the campaign (2,303 excerpts at `integration_tests/campaign_20260331/`) and previous smoke runs as examples
+3. Questions are ONLY end-user questions — NOT domain/pipeline questions:
+   - "When you read this excerpt, what's your reaction?"
+   - "Is this too much? Too little? Just right?"
+   - "What would you do next after reading this?"
+   - "Show me your ideal version of this excerpt"
+   - NOT: "Should DP-4 be modified?" (that's our problem to solve)
+4. Owner fills in the form at his own pace
+5. Team translates answers into SPEC rules and prompt calibrations
+6. Every technical decision traces back to an owner answer
 
-**Read these files first (in order):**
+### Questionnaire Scope
+Cover these dimensions (each with real excerpt examples):
+- **Granularity**: too broad vs too narrow vs just right
+- **Self-containment**: what context do you need alongside an excerpt?
+- **Comparison experience**: show 3 excerpts from different sources on the same topic — is this useful?
+- **Definition handling**: لغة/شرعا pairs — together or separate?
+- **Evidence handling**: ruling+evidence together, or would you prefer them navigable separately?
+- **Scholarly debate**: full khilaf passage vs individual positions?
+- **Genre differences**: does a grammar excerpt feel different from a fiqh excerpt? Should it?
+- **Navigation**: when you finish reading one excerpt, what do you want to see next?
+- **The "no puzzle" rule**: show a PARTIAL excerpt with context_hint — is this acceptable or frustrating?
+- **Study workflow**: walk through a typical study session — what do you open first, what do you compare?
 
-1. `engines/excerpting/domain_rules/DR_DOMAIN_RULES.md` — the proposed rules (DR-1 adopted, DR-2 DEFERRED, DR-3 adopted)
-2. `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl` — the owner's 2 review comments that triggered everything
-3. This file's "Implementation Checklist" section below
-4. `engines/excerpting/SPEC.md` §5.3.2 (grouping rules) and §6.1 (decontextualization)
-5. `engines/excerpting/contracts.py` — CrossReference model (lines ~140-155)
+### What NOT To Ask
+- Pipeline architecture questions
+- SPEC compliance questions  
+- Arabic grammar analysis
+- Technical tradeoff questions
+- Anything a machine can answer by reading the repo
 
-**Context on the 6-reviewer decision (read the memory file for full details):**
-- **DR-1 (Definition Pairs):** ADOPTED (4-1). Split لغة/شرعا definitions when both substantive AND self-containment preserved.
-- **DR-2 (Evidence Splitting):** DEFERRED (2-3 against). Do NOT implement. Improve evidence_refs metadata instead.
-- **DR-3 (Khilaf Preservation):** ADOPTED (5-0). Keep scholarly disagreement passages together. Structural trigger, not word count.
+## Phase 1: Smoke Run + Exhaustive Analysis
 
-## Implementation Checklist
+After Q&A is complete and prompts are adjusted:
 
-### 1. Update DR_DOMAIN_RULES.md to reflect final decision
-- Mark DR-2 as DEFERRED with rationale (3/5 reviewers rejected; VISION §1.2 tension unresolved)
-- Update DR-1 to add self-containment condition: "MUST split... UNLESS splitting breaks self-containment"
-- Update DR-3 to replace 800-word threshold with structural criteria
-
-### 2. Add DR-1 to Phase 2b prompt (phase2_group.py)
-Add DEFINITION PAIR SPLITTING rule to GROUP_SYSTEM_PROMPT:
-```
-DEFINITION PAIR SPLITTING (DR-1):
-When a passage contains both a linguistic definition (تعريف لغوي) and a
-legal/technical definition (تعريف شرعي / اصطلاحي) of the same term,
-split them into separate teaching units IF:
-- Both definitions are substantive (>3 words of definitional content)
-- Each resulting unit achieves at least PARTIAL self-containment
-- Brief glosses ("الطلاق لغة: الترك" — 1 word) stay together
-
-Place relationship statements ("والتعريف الشرعي فرد من...") in the
-شرعي/اصطلاحي unit. Add cross_references between the pair.
-
-Detection markers: في اللغة... وفي الشرع... / لغةً... واصطلاحاً...
-```
-
-### 3. Add DR-3 to Phase 2b prompt (phase2_group.py)
-Add KHILAF PRESERVATION rule:
-```
-KHILAF PRESERVATION (DR-3):
-Scholarly disagreement passages (اختلاف العلماء) that present multiple
-positions with evidence and refutations REMAIN as single teaching units
-WHEN decomposition would lose argumentative structure — specifically:
-- Refutations reference positions by pronouns (هذا القول, الأول)
-- The tarjih depends on comparing all positions
-- Evidence for one position simultaneously refutes another
-
-Detection markers: فذهب... وذهب..., والصحيح/والأرجح/والراجح,
-ورد عليه/وأجاب/فضعيف
-
-DR-3 OVERRIDES other splitting rules for content within khilaf passages.
-```
-
-### 4. Extend CrossReference schema (contracts.py)
-Add two optional fields to CrossReference:
-```python
-target_excerpt_id: Optional[str] = Field(None, description="Links to companion excerpt from same source passage")
-relationship_type: Optional[str] = Field(None, description="Semantic relationship: companion_definition, evidence_for, ruling_proven_by, refutation_of, continuation")
-```
-
-### 5. Update Phase 3 enrichment for split companion detection
-Add enrichment step that detects split companion units (adjacent units from same chunk that were split by DR-1) and populates cross-references between them.
-
-### 6. Improve evidence_refs quality
-Add to enrichment prompt: when a Quranic verse is cited, resolve to canonical (surah, ayah_start, ayah_end) wherever possible. When a hadith is cited with collector name, resolve to canonical collection + number. This enables synthesis-level evidence comparison WITHOUT needing DR-2 splitting.
-
-### 7. SPEC amendments
-- §5.3.2: Add DR-1 and DR-3 rules
-- §6.1: Clarify that DP-4 remains the default (DR-2 deferred)
-- §2.2.2: Update CrossReference schema with new fields
-
-### 8. Update NEXT.md (after implementation)
-After all above is done, rewrite NEXT.md to point to the re-run.
-
-### 9. Re-run (~€3, ~33 min)
 ```bash
 python scripts/run_full_integration.py --backend api --output-dir integration_tests/smoke_api_v2/
 ```
-GPT-5.4 primary (defaults now correct). Compare against smoke_api v1 (133 excerpts, old prompts).
 
-### 10. Evaluate v2 output
-- Run structural validator: `python tools/evaluate_excerpts.py --root integration_tests/smoke_api_v2/`
-- Owner reviews taysir via: `python tools/review.py integration_tests/smoke_api_v2/`
-- Compare: author_id resolution, FULL rate, consensus coverage, ZWNJ count, definition splitting, khilaf handling
+This runs 2 chunks per package (~130 excerpts, ~€3, ~30 min). Then:
 
-## Your Team
+### Analysis Teams (ALL in parallel)
+| Team | Agents | Focus |
+|------|--------|-------|
+| A: Boundary Quality | CC + Codex | Every boundary checked against SPEC |
+| B: Classification | Gemini + ChatGPT DR | Every primary_function verified |
+| C: Arabic Fidelity | Claude DR + Gemini | Diacritics, honorifics, isnad integrity |
+| D: Consensus & Metadata | Codex + CC | author_id, school, evidence_refs |
+| E: Coverage & Gaps | ChatGPT DR + Claude DR | Missing excerpts, over/under-extraction |
+| F: Owner Review | Owner + review tool | Real-user quality assessment |
 
-You have 5 coworkers — USE ALL OF THEM at every major milestone:
-- **Codex** (`codex exec`): schema validation, cross-prompt consistency, stats
-- **Gemini CLI** (`gemini -p`): Arabic scholarly accuracy, convention compliance
-- **ChatGPT Pro** (deep research): independent cross-check, pattern analysis
-- **Claude Chat** (deep research): scholarly review, boundary quality
-- **Gemini Chat** (deep research): scholarly perspective
+### Exit Criteria for Phase 1
+- Owner has reviewed excerpts from at least 2 packages and accepted them
+- All 5 coworkers independently confirm output quality
+- Zero known unaddressed error patterns
+- All automated checks pass
+
+## Phase 2: Deep Hardening
+
+Based on Phase 1 findings:
+- Fix every issue (prompt changes, SPEC amendments, code fixes)
+- Re-run smoke (~€3)
+- Re-evaluate with all teams
+- Iterate until exit criteria met
+
+## Phase 3: Full 5-Book Run
+
+Only when Phase 2 converges:
+```bash
+python scripts/run_full_integration.py --backend api --output-dir integration_tests/v2_final/
+```
+
+~$15-20, full books. Compare against campaign (2,303 excerpts, old prompts, Opus).
+
+---
+
+## Current Engine State
+
+### What's Implemented (917 tests pass)
+- 8 Tier-1 prompt fixes (H-1 through H-8): few-shots, schema split, copy fidelity
+- 3 Claude DR fixes: narrator role, المعنى الإجمالي classification, fawa'id grouping  
+- DR-1 (definition pair splitting): in Phase 2b prompt
+- DR-3 (khilaf preservation): in Phase 2b prompt
+- CrossReference extension: target_excerpt_id + relationship_type
+- DR-1 companion detection: deterministic post-enrichment linking
+- Evidence resolution hints: canonical surah/ayah in cross-references
+- Bug fixes: consensus resolution, ZWNJ, LA-3 threshold, model defaults
+
+### What's Deferred
+- DR-2 (evidence-type splitting): 3/5 reviewers rejected. Deferred to taxonomy pilot.
+- Multi-leaf taxonomy tagging: requires VISION §1.2 amendment. Deferred.
+- Taxonomy engine: being built in parallel. Nahw tree nearly final. Trees NOT trustworthy yet.
+
+### Key Decisions (6-reviewer cross-validated)
+| Decision | Rationale | Score |
+|----------|-----------|-------|
+| GPT-5.4 primary | 3x cheaper, contract-stable, errors are prompt-fixable | 3/5 |
+| DR-1 ADOPT (conditional) | Definition pairs are separate topics; self-containment gate | 4/5 |
+| DR-2 DEFER | Puzzle excerpt risk; VISION §1.2 tension unresolved | 3/5 reject |
+| DR-3 ADOPT (structural) | Khilaf = highest decontextualization risk | 5/5 |
+
+### Model Configuration
+Primary (classify + group + enrich): openai/gpt-5.4  
+Verify: anthropic/claude-opus-4.6  
+Escalation: mistralai/mistral-large-2411
+
+---
 
 ## Research Artifacts (DO NOT DELETE)
 
 ### Diagnostic Reports (repo root)
-| File | Author | Content |
-|------|--------|---------|
-| `BOUNDARY_CONVENTION_DIAGNOSTIC.md` | Claude DR | Boundary errors + convention compliance at 133 scale |
-| `chatgpt-report-diagnostic-analysis.md` | ChatGPT DR | Error patterns (first run, wrong repo) |
-| `chatgpt-deep-research-opus_vs_gpt.md` | ChatGPT DR | Opus vs GPT-5.4 model comparison |
-| `chatgpt-deep-research-granuality-synthesis.md` | ChatGPT DR | Synthesis engine solution analysis |
-| `chatgpt-Adversarial Review of DR-1, DR-2, DR-3.md` | ChatGPT DR | Adversarial review of domain rules |
+- `BOUNDARY_CONVENTION_DIAGNOSTIC.md` — Claude DR boundary analysis (133 excerpts)
+- `chatgpt-report-diagnostic-analysis.md` — ChatGPT error patterns
+- `chatgpt-deep-research-opus_vs_gpt.md` — Opus vs GPT-5.4 model comparison
+- `chatgpt-deep-research-granuality-synthesis.md` — Synthesis engine granularity analysis
+- `chatgpt-Adversarial Review of DR-1, DR-2, DR-3.md` — DR adversarial review
 
 ### Campaign Analysis (integration_tests/campaign_20260331/analysis/)
-| File | Content |
-|------|---------|
-| `campaign_analysis.md` | Executive summary of 2,303 excerpts |
-| `excerpt_catalog.jsonl` | Searchable index of all excerpts |
-| `gold_candidates.jsonl` | 100 gold standard candidates (97 Tier A) |
-| `gold_standard_20_scholarly_review.md` | 20 verified gold excerpts with full metadata |
-| `taxonomy_readiness_flags.jsonl` | 54 flags for downstream risks |
-| `arabic_fidelity_flags.jsonl` | 382 Arabic text quality flags |
-| `convention_compliance_report.md` | 7-check convention audit (5 PASS, 1 MOSTLY PASS, 1 FAIL) |
-| `taysir_scholarly_review.md` | Claude DR's 68-excerpt deep review |
-| `scholarly_reality_check_intra_excerpt.md` | Why intra-excerpt annotation fails on Arabic |
-| `gemini_adversarial_DR_review.md` | Gemini's adversarial review of DR rules |
-| `trace_catalog.jsonl` | 1,100 LLM call cost/latency data |
-| `function_summary.json` | Function distribution by package |
-| `self_containment_summary.json` | FULL/PARTIAL/DEPENDENT rates |
-| `package_summary.json` | Per-package statistics |
-| `run_fingerprint.json` | Campaign metadata |
-
-### Domain Rules
-| File | Content |
-|------|---------|
-| `engines/excerpting/domain_rules/DR_DOMAIN_RULES.md` | DR-1/DR-2/DR-3 (DR-2 deferred) |
-| `reference/handoffs/cross_provider_review_DR_rules.md` | Adversarial review brief |
+19 files: excerpt_catalog.jsonl (2,303 indexed), gold_candidates.jsonl (100), taxonomy_readiness_flags.jsonl (54 flags), arabic_fidelity_flags.jsonl (382 flags), taysir_scholarly_review.md (68-excerpt deep review), convention_compliance_report.md (7 checks), scholarly_reality_check_intra_excerpt.md, gemini_adversarial_DR_review.md, plus catalogs and summaries.
 
 ### Owner Feedback
-| File | Content |
-|------|---------|
-| `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl` | 2 excerpt reviews — fundamental granularity feedback |
+- `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl` — 2 reviews that triggered the granularity debate
 
-## Key Decisions (with rationale)
+---
 
-| Decision | Rationale | Reviewers |
-|----------|-----------|-----------|
-| GPT-5.4 as primary model | 3x cheaper, contract-stable, known errors are prompt-fixable | 3/5 agree (Codex, ChatGPT, my analysis) |
-| DR-1 ADOPT (conditional) | Definition pairs are separate scholarly topics; self-containment gate prevents bad splits | 4/5 agree |
-| DR-2 DEFER | 3/5 reject; "puzzle excerpts" risk; VISION §1.2 vs multi-leaf unresolved | 3/5 reject, deferred to taxonomy pilot |
-| DR-3 ADOPT (structural) | Khilaf passages are the highest decontextualization risk | 5/5 unanimous |
-| Keep medium excerpts as canonical unit | VISION §5.2 taxonomy-independence + §5.3 Rule 3 content integrity | Architecture-mandated |
+## Your Team — USE ALL AT EVERY MILESTONE
+
+| Agent | Access | Use For |
+|-------|--------|---------|
+| **Codex** | CLI (repo) | Schema validation, cross-prompt consistency, stats |
+| **Gemini CLI** | CLI (repo), Gemini 3.1 Pro | Arabic scholarly accuracy, convention compliance |
+| **ChatGPT DR** | Deep Research (repo) | Error patterns, architectural analysis, Q&A design |
+| **Claude DR** | Deep Research (repo) | Scholarly reasoning, boundary quality, edge cases |
+| **Gemini DR** | Deep Research | Islamic study methodology, scholarly pedagogy |
 
 ## Budget
-
-- Smoke v1: €2.93 (done)
-- Campaign: $96.87 (done, accidental)
-- Aborted v2: ~$3.15 (partial, killed)
-- Remaining: ~€17 of original €120 budget
-- Next re-run: ~€3
-
-## Test Status
-
-907 passed, 0 failures. 2 LLM integration tests skip when API key unavailable.
-Pyright: 0 errors on all engine source files.
+- OpenRouter: ~€50 remaining
+- Smoke run: ~€3 per run
+- Full 5-book: ~$15-20
