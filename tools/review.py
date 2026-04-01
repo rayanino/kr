@@ -59,6 +59,15 @@ def _comparison_pair_id(division: str, before_excerpt_id: str | None, after_exce
     return "cmp_" + hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
+def _comparison_key(excerpt: dict) -> str:
+    """Stable comparison key, preferring div_id over display path."""
+    div_id = excerpt.get("div_id")
+    if isinstance(div_id, str) and div_id.strip():
+        return div_id
+    div_path = excerpt.get("div_path") or []
+    return "/".join(div_path)
+
+
 def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
     """Read path (JSONL), upsert entry keyed by key_field, atomic-write back.
 
@@ -440,17 +449,17 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             self._json_response([])
             return
 
-        # Index after-excerpts by div_path string for fast lookup
+        # Index after-excerpts by stable comparison key for fast lookup
         after_by_div: dict[str, list[dict]] = {}
         for ex in after_all:
-            key = "/".join(ex.get("div_path") or [])
+            key = _comparison_key(ex)
             after_by_div.setdefault(key, []).append(ex)
 
         pairs: list[dict] = []
         used_after: set[str] = set()
 
         for before_ex in before_all:
-            div_key = "/".join(before_ex.get("div_path") or [])
+            div_key = _comparison_key(before_ex)
             candidates = after_by_div.get(div_key, [])
             # Pick the first unused candidate in the same division
             matched_after: dict | None = None
@@ -461,14 +470,11 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                     used_after.add(cid)
                     break
 
-            if matched_after is None:
-                continue
-
             legacy_pair_id = f"pair_{len(pairs)+1:03d}"
             pair_id = _comparison_pair_id(
                 div_key,
                 before_ex.get("excerpt_id"),
-                matched_after.get("excerpt_id"),
+                matched_after.get("excerpt_id") if matched_after else None,
             )
             pairs.append({
                 "pair_id": pair_id,
@@ -482,12 +488,38 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                     "div_path": before_ex.get("div_path"),
                     "source": "campaign_20260331/taysir (old prompts)",
                 },
-                "after": {
+                "after": ({
                     "excerpt_id": matched_after.get("excerpt_id"),
                     "primary_text": matched_after.get("primary_text"),
                     "primary_function": matched_after.get("primary_function"),
                     "self_containment": matched_after.get("self_containment"),
                     "div_path": matched_after.get("div_path"),
+                    "source": f"{self.output_dir.name}/taysir (new hardened prompts)",
+                } if matched_after else None),
+            })
+
+        for after_ex in after_all:
+            after_id = after_ex.get("excerpt_id", "")
+            if after_id in used_after:
+                continue
+            div_key = _comparison_key(after_ex)
+            legacy_pair_id = f"pair_{len(pairs)+1:03d}"
+            pair_id = _comparison_pair_id(
+                div_key,
+                None,
+                after_id,
+            )
+            pairs.append({
+                "pair_id": pair_id,
+                "legacy_pair_id": legacy_pair_id,
+                "division": div_key or "(root)",
+                "before": None,
+                "after": {
+                    "excerpt_id": after_ex.get("excerpt_id"),
+                    "primary_text": after_ex.get("primary_text"),
+                    "primary_function": after_ex.get("primary_function"),
+                    "self_containment": after_ex.get("self_containment"),
+                    "div_path": after_ex.get("div_path"),
                     "source": f"{self.output_dir.name}/taysir (new hardened prompts)",
                 },
             })

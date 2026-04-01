@@ -1344,7 +1344,7 @@ function cmpGo(index){
     <div class="cmp-pair">
       <div class="cmp-division">Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
       <div class="cmp-cols">
-        <div class="cmp-col${after?"":" empty"}">
+        <div class="cmp-col${before&&before.primary_text?"":" empty"}">
           <div class="cmp-col-header">
             <span class="cmp-col-label before">Before (old prompts — campaign run)</span>
             <div style="display:flex;gap:0.5rem;align-items:center">
