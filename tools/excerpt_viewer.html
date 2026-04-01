@@ -1337,7 +1337,7 @@ function cmpGo(index){
     {key:"same",label:"Same quality"},
   ].map(vv=>{
     const sel=resp.verdict===vv.key?` sel-${vv.key}`:"";
-    return `<button class="cmp-vbtn${sel}" onclick="cmpSelectVerdict('${vv.key}')">${vv.label}</button>`;
+    return `<button class="cmp-vbtn${sel}" data-v="${vv.key}" onclick="cmpSelectVerdict('${vv.key}')">${vv.label}</button>`;
   }).join("");
 
   $("cmp-content").innerHTML=`
@@ -1406,7 +1406,7 @@ function cmpSelectVerdict(vv){
 async function cmpSave(){
   const pair=cmpPairs[cmpIndex];
   const vbtn=document.querySelector(".cmp-vbtn[class*='sel-']");
-  const verdict=vbtn?vbtn.textContent.toLowerCase().includes("before")?"before":vbtn.textContent.toLowerCase().includes("after")?"after":"same":null;
+  const verdict=vbtn?vbtn.dataset.v:null;
   const comment=$("cmp-comment")?.value.trim()||"";
   if(!verdict){
     const btn=$("cmp-save-btn");
