@@ -535,6 +535,9 @@ function enterMode(mode){
 }
 
 function switchMode(mode){
+  if(currentMode==="questionnaire"&&mode!=="questionnaire"){
+    persistCurrentQDraft();
+  }
   // Hide all containers
   $("viewer").classList.remove("active");
   $("q-wrap").classList.remove("active");
@@ -609,6 +612,9 @@ async function selectPkg(pkg){
   currentPackage=pkg;
   try{
     const[er,fr,sr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`),fetch(`/api/package-state/${pkg}`)]);
+    if(!er.ok||!fr.ok||!sr.ok){
+      throw new Error(`Package fetch failed (${er.status}/${fr.status}/${sr.status})`);
+    }
     excerpts=await er.json();feedback=await fr.json();
     const state=await sr.json();
     if(!excerpts.length){
@@ -956,6 +962,7 @@ document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
 // ═══════════════════════════════════════════════════════════════════════════
 let qInteractions=[];
 let qResponses={};
+let qDrafts={};
 let qCurrentIndex=0;
 
 async function initQuestionnaire(){
@@ -965,7 +972,7 @@ async function initQuestionnaire(){
     const[ir,rr]=await Promise.all([fetch("/api/questionnaire"),fetch("/api/questionnaire/responses")]);
     qInteractions=await ir.json();
     qResponses=await rr.json();
-    if(!qInteractions.length){
+    if(!Array.isArray(qInteractions)||!qInteractions.length){
       $("q-loading").innerHTML='<div class="mode-error">Could not load interactions.json</div>';
       return;
     }
@@ -987,7 +994,7 @@ function renderQSidebar(){
       phases.push({type:"header",label:item.phase_label,phase:item.phase});
       lastPhase=item.phase;
     }
-    const resp=qResponses[item.id];
+    const resp=qDrafts[item.id]||qResponses[item.id];
     let dotCls="";
     if(resp){
       dotCls=resp.immediate_reaction&&resp.immediate_reaction.trim()?"done":"partial";
@@ -1019,10 +1026,11 @@ function renderQSidebar(){
 
 function renderQInteraction(index){
   if(index<0||index>=qInteractions.length)return;
+  persistCurrentQDraft();
   qCurrentIndex=index;
 
   const item=qInteractions[index];
-  const resp=qResponses[item.id]||{};
+  const resp={...(qResponses[item.id]||{}), ...(qDrafts[item.id]||{})};
   const content=$("q-content");
 
   // Multiple choice options HTML
@@ -1159,6 +1167,41 @@ function qMCChange(radio){
   qUpdateSaveBtn();
 }
 
+function currentQDraft(){
+  if(!qInteractions.length||qCurrentIndex<0||qCurrentIndex>=qInteractions.length)return null;
+  const item=qInteractions[qCurrentIndex];
+  const reaction=$("q-reaction")?.value.trim()||"";
+  const detail=$("q-detail")?.value.trim()||"";
+  const checkedRadio=document.querySelector(`input[name="q-mc-${item.id}"]:checked`);
+  const changeMind=$("q-change-mind")?.value.trim()||"";
+  const principles=$("q-principles")?.value.trim()||"";
+  const confidence=document.querySelector(".q-conf-btn[class*='sel-']")?.textContent?.toLowerCase()||"";
+  return {
+    interaction_id:item.id,
+    mc_choice:checkedRadio?checkedRadio.value:null,
+    immediate_reaction:reaction,
+    detailed_analysis:detail||null,
+    confidence:confidence||null,
+    what_would_change_mind:changeMind||null,
+    principles_revealed:principles||null,
+  };
+}
+
+function persistCurrentQDraft(){
+  const draft=currentQDraft();
+  if(!draft)return;
+  const hasContent=Boolean(
+    draft.mc_choice||
+    draft.immediate_reaction||
+    draft.detailed_analysis||
+    draft.confidence||
+    draft.what_would_change_mind||
+    draft.principles_revealed
+  );
+  if(hasContent)qDrafts[draft.interaction_id]=draft;
+  else delete qDrafts[draft.interaction_id];
+}
+
 function qConfSelect(level){
   document.querySelectorAll(".q-conf-btn").forEach(b=>{
     b.className="q-conf-btn"+(b.textContent.toLowerCase()===level?` sel-${level}`:"");
@@ -1206,6 +1249,7 @@ async function qSave(){
   };
 
   qResponses[item.id]=entry;
+  delete qDrafts[item.id];
 
   try{
     await fetch("/api/questionnaire/response",{
@@ -1229,6 +1273,7 @@ async function qSave(){
 }
 
 function qNavigate(delta){
+  persistCurrentQDraft();
   const next=qCurrentIndex+delta;
   if(next>=0&&next<qInteractions.length)renderQInteraction(next);
 }
@@ -1363,12 +1408,20 @@ async function cmpSave(){
   const vbtn=document.querySelector(".cmp-vbtn[class*='sel-']");
   const verdict=vbtn?vbtn.textContent.toLowerCase().includes("before")?"before":vbtn.textContent.toLowerCase().includes("after")?"after":"same":null;
   const comment=$("cmp-comment")?.value.trim()||"";
+  if(!verdict){
+    const btn=$("cmp-save-btn");
+    if(btn){
+      btn.className="cmp-save-btn";
+      btn.textContent="Select a verdict";
+    }
+    return;
+  }
 
   const entry={
     pair_id:pair.pair_id,
     timestamp:new Date().toISOString(),
     division:pair.division,
-    verdict:verdict||"no_verdict",
+    verdict,
     comment:comment||null,
     before_excerpt_id:pair.before?.excerpt_id||null,
     after_excerpt_id:pair.after?.excerpt_id||null,
