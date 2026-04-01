@@ -26,6 +26,8 @@
   - blocks empty comparison verdict submissions
   - preserves malformed feedback lines into dropped sidecars instead of silently deleting them
   - stabilizes comparison verdict persistence on explicit values rather than label text
+  - only marks review/questionnaire/comparison saves successful after real HTTP success
+  - ignores helper directories during package discovery
   - preserves legacy comparison ids and keeps unmatched sides visible
 - Runtime tooling now:
   - emits `last_llm_activity.json`
@@ -34,6 +36,7 @@
   - uses graceful interrupt-first timeout handling before hard kill
   - keeps timeout telemetry best-effort instead of letting telemetry I/O break the run
   - keeps timeout telemetry active in the parallel client path too
+  - validates provider/model ids more strictly and derives CLI backend preflight from actual config defaults
   - preserves malformed JSONL lines into `.dropped.jsonl` sidecars
   - skips browser auto-open by default in WSL review-server runs
 
@@ -61,6 +64,9 @@
 - `acd5ea37` `fix(review): default to no browser launch in WSL`
 - `1842867b` `fix(timeout): add trace health to timeout reports`
 - `f4c8e46e` `fix(review): stabilize comparison verdicts and trace notes`
+- `7e9efed9` `fix(runtime): harden model-id validation and backend inference`
+- `d0e70aac` `fix(review): harden package discovery and report notes`
+- `6d8be970` `fix(review): only mark saves successful after HTTP success`
 
 ## Next Best Lanes
 
