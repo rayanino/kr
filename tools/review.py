@@ -158,7 +158,11 @@ def _read_batch_summary(output_dir: Path) -> dict[str, Any]:
 
 def _should_open_browser() -> bool:
     """Return True when the local environment likely supports browser launch."""
+    if os.environ.get("KR_REVIEW_FORCE_BROWSER") in {"1", "true", "yes"}:
+        return True
     if os.environ.get("KR_REVIEW_NO_BROWSER") in {"1", "true", "yes"}:
+        return False
+    if os.environ.get("WSL_DISTRO_NAME"):
         return False
     if os.name == "nt":
         return True
