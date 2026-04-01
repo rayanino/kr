@@ -1,17 +1,17 @@
 # Active Authority
 
-active_authority: claude
-effective_date: 2026-03-30
-planned_codex_cutover: 2026-04-09
+active_authority: codex
+effective_date: 2026-04-02
+planned_codex_cutover: 2026-04-02
 autonomous_period_end: 2026-07-01
-runtime_mode: shadow_setup
+runtime_mode: autonomous_codex
 owner_interaction: resource_only
 frontier_file: .kr/ACTIVE.md
 rollback_authority: claude
 autonomy_doctrine_file: docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md
-current_scope: Claude remains active authority while Codex validates doctrine and runtime fixes in shadow mode before any canonical cutover. The bounded `-RunCycle` path and the actual repeating-loop entrypoint are now proven on clean proof worktrees and fresh runtime dirs; the remaining step is deciding how to land that validated state onto the canonical owner-facing checkout.
+current_scope: Codex is the active engineering authority for the owner-led April 2-6 execution window. Operate from the clean WSL canonical unattended lane, start in `queue_only`, and treat Claude Code quota pressure as degraded coworker capacity rather than a blocker to owned work.
 codex_scope_after_cutover: Hardening, regression growth, audits, queued patch generation, and unattended runtime operation.
-blocked_after_claude_expiry: CLI backend viability is now proven on bounded proof runs; verify-model remapping and any post-cutover write-scope expansion remain blocked until doctrine gates are satisfied.
+blocked_after_claude_expiry: The restored doctrine file still encodes an April 9 cutover assumption. Until doctrine and authority dates are reconciled, keep operation conservative: queue-only starts, explicit blocker logging, and no promotion or write-scope expansion inferred from the doctrine alone.
 
 ## Interpretation
 
@@ -22,10 +22,10 @@ blocked_after_claude_expiry: CLI backend viability is now proven on bounded proo
 
 ## Cutover Checklist
 
-- Follow `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`.
-- Do not cut over before April 9, 2026.
-- Gate 0 in the doctrine must be fully green before authority flips.
-- Until then, Codex remains in `shadow_setup` and `queue_only`.
+- Early owner-approved cutover took effect on April 2, 2026.
+- Start from `autonomous_codex` with `queue_only` operational discipline.
+- Record Claude Code quota limits explicitly at major milestones and continue under degraded coworker capacity when needed.
+- Reconcile the restored doctrine with the April 2 authority state before relying on doctrine-governed promotions or degraded-mode assumptions beyond the conservative starting lane.
 
 ## Rollback
 
