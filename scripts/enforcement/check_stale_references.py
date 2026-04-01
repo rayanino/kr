@@ -26,6 +26,9 @@ SKIP_PATTERNS = [
     "http", "https", "#", "$", "{", "CLAUDE_", "example", "e.g.",
     "//", "*.py", "*.md", "*.sh", "*.json",  # Glob patterns
     "engines/<", "shared/<", "<n>", "<file>", "<path>",  # Template patterns
+    "phase_N", "phase_N-1",  # Placeholder phase references
+    "rayanino/",  # GitHub repo references (not file paths)
+    "llm_responses/",  # Example paths in documentation
 ]
 
 
