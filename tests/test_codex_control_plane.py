@@ -37,6 +37,7 @@ except ModuleNotFoundError:
     pydantic_stub.ValidationError = _ValidationError
     sys.modules["pydantic"] = pydantic_stub
 auth_check = load_module("scripts/check_runtime_cli_auth.py", "auth_check")
+contract_check = load_module("tools/check_cross_engine_contracts.py", "contract_check")
 hook_utils = load_module(".codex/hooks/hook_utils.py", "hook_utils")
 dispatch = load_module(".codex/hooks/dispatch.py", "dispatch")
 
@@ -192,3 +193,99 @@ def test_start_overnight_codex_prefers_repo_venv() -> None:
     assert 'PYTHON_BIN="python"' in text
     assert 'if [ -x ".venv/bin/python" ]; then' in text
     assert '"$PYTHON_BIN" scripts/overnight_codex_orchestrator.py' in text
+
+
+def test_find_cross_references_detects_contracts_core_imports(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    engines_dir = tmp_path / "engines"
+    (engines_dir / "taxonomy").mkdir(parents=True)
+    (engines_dir / "synthesis").mkdir(parents=True)
+    (engines_dir / "taxonomy" / "contracts_core.py").write_text(
+        "class PlacementAdditions:\n    pass\n",
+        encoding="utf-8",
+    )
+    (engines_dir / "synthesis" / "consumer.py").write_text(
+        "from engines.taxonomy.contracts_core import PlacementAdditions\n",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(contract_check, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(contract_check, "ENGINES_DIR", engines_dir)
+
+    refs = contract_check.find_cross_references()
+    assert refs["taxonomy -> synthesis"] == [
+        "PlacementAdditions (in engines/synthesis/consumer.py)"
+    ]
+
+
+def test_extract_field_constraints_reads_multiline_field_and_type(tmp_path: Path) -> None:
+    contracts_path = tmp_path / "contracts.py"
+    contracts_path.write_text(
+        """
+from pydantic import BaseModel, Field
+
+
+class Example(BaseModel):
+    count: int = Field(
+        default=0,
+        ge=1,
+        le=10,
+    )
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+
+    original_root = contract_check.REPO_ROOT
+    contract_check.REPO_ROOT = tmp_path
+    try:
+        fields = contract_check.extract_field_constraints(contracts_path)
+    finally:
+        contract_check.REPO_ROOT = original_root
+    assert fields["Example.count"]["type"] == "int"
+    assert fields["Example.count"]["constraints"] == {"ge": "1", "le": "10"}
+
+
+def test_check_enum_consistency_flags_mismatched_values(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    engines_dir = tmp_path / "engines"
+    (engines_dir / "alpha").mkdir(parents=True)
+    (engines_dir / "beta").mkdir(parents=True)
+    (engines_dir / "gamma").mkdir(parents=True)
+    (engines_dir / "alpha" / "contracts.py").write_text(
+        """
+from enum import Enum
+
+
+class SharedMode(str, Enum):
+    FIRST = "first"
+    SECOND = "second"
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    (engines_dir / "beta" / "contracts.py").write_text(
+        """
+from enum import Enum
+
+
+class SharedMode(str, Enum):
+    FIRST = "first"
+    THIRD = "third"
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    (engines_dir / "gamma" / "consumer.py").write_text(
+        "from engines.alpha.contracts import SharedMode\n",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(contract_check, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(contract_check, "ENGINES_DIR", engines_dir)
+
+    issues = contract_check.check_enum_consistency()
+    assert len(issues) == 1
+    assert "SharedMode" in issues[0]
