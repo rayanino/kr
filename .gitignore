@@ -74,3 +74,11 @@ phase_c_collection/
 phase_d_collection/
 combined_collection/
 eval_stderr.log
+
+# Large LLM response data - never commit
+integration_tests/*/raw_llm_requests/
+integration_tests/*/raw_llm_responses/
+integration_tests/*/cache/
+integration_tests/*/*/raw_llm_requests/
+integration_tests/*/*/raw_llm_responses/
+integration_tests/*/*/cache/

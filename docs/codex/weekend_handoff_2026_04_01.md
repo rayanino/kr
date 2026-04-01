@@ -95,9 +95,17 @@ The owner has a 3-day offline window (Thu-Sun). During this time the owner will:
 
 **Steps:**
 
-1. Poll `integration_tests/smoke_api_v2/taysir/progress.jsonl` periodically
-   - Check if all ~184 chunks have reached `phase3_consensus` status `done`
-   - Current: 21/184 done. Last entry timestamp: `2026-04-01T14:53:18 UTC`
+1. Check completion status (run ONCE — do not loop/poll):
+   ```bash
+   ls integration_tests/smoke_api_v2/taysir/excerpts.jsonl 2>/dev/null && echo "DONE" || echo "NOT DONE"
+   ```
+   - If `excerpts.jsonl` exists: taysir is DONE. Proceed to step 3.
+   - If NOT: check progress with:
+     ```bash
+     python3 -c "import json; lines=[json.loads(l) for l in open('integration_tests/smoke_api_v2/taysir/progress.jsonl') if l.strip()]; p3=[l for l in lines if l.get('phase')=='phase3_consensus' and l.get('status')=='done']; print(f'{len(p3)}/184 phase3 done, {len(lines)} total entries')"
+     ```
+   - If NOT done: **skip Tasks 2, 4, 5** (they depend on taysir) and proceed to Tasks 3, 6, 7 with ibn_aqil data only. Document: "Taysir was still running. CJ-2/CJ-3 remain placeholders. Taysir review package deferred."
+   - The run was at ~31/184 phase3_consensus as of handoff. It should finish within 2-4 hours on its own.
    
 2. **Completion indicators** (all must exist):
    - `integration_tests/smoke_api_v2/taysir/excerpts.jsonl` -- the final output
@@ -137,13 +145,18 @@ The owner has a 3-day offline window (Thu-Sun). During this time the owner will:
 
 **Goal:** Turn the CJ-2 and CJ-3 placeholder interactions into real before/after and cross-book comparisons with actual Arabic text.
 
+**BEFORE MODIFYING: Back up the validated file:**
+```bash
+cp integration_tests/questionnaire/interactions.json integration_tests/questionnaire/interactions.json.bak
+```
+
 **CJ-2 (Before/After Comparison):**
 
 1. Load both files:
    - Campaign (old): `integration_tests/campaign_20260331/taysir/excerpts.jsonl` (1,283 lines)
    - V2 (new): `integration_tests/smoke_api_v2/taysir/excerpts.jsonl` (pending)
 
-2. Find excerpts from the SAME division (match on `division_id` or `source_chunk_id` field)
+2. Find excerpts from the SAME division (match on `div_id` field in the excerpt JSON). If `div_id` is not present, match on `chunk_id` or the division path component of the `excerpt_id` string.
 
 3. Pick 1-2 pairs where the v2 version is noticeably different from campaign:
    - Different boundaries (excerpt covers more or less text)
@@ -175,7 +188,7 @@ The owner has a 3-day offline window (Thu-Sun). During this time the owner will:
 
 ### Task 3: Create DR relay prompts
 
-**Goal:** Write `docs/codex/weekend_dr_prompts.md` with 3 complete relay prompts the owner can copy-paste from his phone.
+**Goal:** `docs/codex/weekend_dr_prompts.md` ALREADY EXISTS with 3 prompts (created by CC this session). Do NOT overwrite it. Review the existing file — if the prompts are complete and have step-by-step instructions for the owner, SKIP this task. If missing tool-opening instructions (how to access Deep Research mode in each app), add them.
 
 **ChatGPT DR** (HAS private repo access via GitHub -- give FILE PATHS only, NEVER paste content):
 
