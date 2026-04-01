@@ -61,6 +61,34 @@ if [ "$MOD_COUNT" -gt 0 ]; then
     CONTEXT="$CONTEXT | Modified: $MOD_COUNT files"
 fi
 
+
+# F1 ENFORCEMENT: Dispatch state reminder
+if [ -f ".kr/runtime/dispatch_log.jsonl" ]; then
+    LAST_DISPATCH_AGO=$(python3 -c "
+import json, sys
+from datetime import datetime, timedelta, timezone
+now = datetime.now(timezone.utc)
+try:
+    lines = open('.kr/runtime/dispatch_log.jsonl').readlines()
+    if lines:
+        last = json.loads(lines[-1].strip())
+        ts = datetime.fromisoformat(last.get('timestamp','').replace('Z','+00:00'))
+        delta = now - ts
+        hours = delta.total_seconds() / 3600
+        if hours > 2:
+            print(f'NO DISPATCH in {hours:.0f}h')
+except: pass
+" 2>/dev/null)
+    if [ -n "$LAST_DISPATCH_AGO" ]; then
+        CONTEXT="$CONTEXT | DISPATCH: $LAST_DISPATCH_AGO — dispatch coworkers before any major conclusion"
+    fi
+else
+    CONTEXT="$CONTEXT | DISPATCH: No dispatch log found — create .kr/runtime/dispatch_log.jsonl"
+fi
+
+# F2 ENFORCEMENT: Leadership reminder (always injected, compaction-proof)
+CONTEXT="$CONTEXT | ROLE: Senior engineer. After milestones: propose + execute next steps. NEVER say standing by/waiting/should I."
+
 # Only output if we have context to inject
 if [ -n "$CONTEXT" ]; then
     echo "$CONTEXT"

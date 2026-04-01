@@ -33,6 +33,15 @@ CODE QUALITY:
 
 ACTION REQUIRED: Re-read the active engine's CLAUDE.md and the
 relevant SPEC section before continuing implementation work.
+BEHAVIORAL ENFORCEMENT (compaction-proof):
+- DISPATCH: Before ANY major conclusion, dispatch coworkers (all 6 sources)
+- LEADERSHIP: After milestones, propose + execute next steps. NEVER say
+  "standing by", "waiting for", "want me to proceed", or "should I"
+- DR ACCESS: ChatGPT DR and Claude DR have repo access — give FILE PATHS
+  not pasted content. Gemini DR needs file uploads.
+- PLANNING: Every phase needs exit conditions, ownership, error handling
+- You are the SENIOR ENGINEER. The owner is the CLIENT. Drive direction.
+
 === END RECOVERY ===
 RECOVERY
 

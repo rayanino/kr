@@ -79,14 +79,19 @@ OUTPUT FORMAT: Per-excerpt review with:
 ### 3. ChatGPT Deep Research
 
 **Access:** Deep Research mode (relay prompt to owner)
+**Repo access:** YES — ChatGPT DR can read the private `rayanino/kr` GitHub repo directly.
 **Strengths:** Error pattern analysis, architectural analysis, Q&A design, comparative research
-**Limitations:** No direct code execution, no live repo access during DR session
+**Limitations:** No direct code execution
+
+**CRITICAL: Give FILE PATHS, not pasted content. ChatGPT DR has private repo access.**
 
 **Relay prompt template (give this to the owner to paste):**
 ```
-I'm working on the KR excerpting engine hardening. Here is the context:
+I'm working on the KR excerpting engine hardening.
 
-[PASTE: relevant file contents, excerpt examples, or error patterns]
+Read these files from the `rayanino/kr` repository:
+- [FILE PATH 1 — e.g., `engines/excerpting/SPEC.md`]
+- [FILE PATH 2 — e.g., `integration_tests/smoke_api_v2/ibn_aqil_v1/excerpts.jsonl`]
 
 TASK: [Specific analysis or design task]
 
@@ -113,14 +118,19 @@ Please provide your analysis as a structured report with:
 ### 4. Claude Deep Research
 
 **Access:** Deep Research mode (relay prompt to owner)
+**Repo access:** YES — Claude DR can read the private `rayanino/kr` GitHub repo directly.
 **Strengths:** Scholarly reasoning, boundary quality assessment, edge case identification, Arabic linguistic analysis
-**Limitations:** No direct code execution, no live repo access during DR session
+**Limitations:** No direct code execution
+
+**CRITICAL: Give FILE PATHS, not pasted content. Claude DR has private repo access.**
 
 **Relay prompt template (give this to the owner to paste):**
 ```
-I'm working on the KR excerpting engine. Here is the context:
+I'm working on the KR excerpting engine.
 
-[PASTE: relevant SPEC sections, excerpt examples with boundaries, edge cases]
+Read these files from the `rayanino/kr` repository:
+- [FILE PATH 1 — e.g., `engines/excerpting/SPEC.md`]
+- [FILE PATH 2 — e.g., `integration_tests/smoke_api_v2/ibn_aqil_v1/excerpts.jsonl`]
 
 TASK: [Specific scholarly reasoning or boundary analysis task]
 
@@ -148,13 +158,15 @@ Please provide:
 
 **Access:** Deep Research mode (relay prompt to owner)
 **Strengths:** Islamic study methodology, scholarly pedagogy, educational framing
-**Limitations:** No repo access, purely advisory on methodology
+**Limitations:** No repo access — requires file uploads to the Gemini session
 
-**Relay prompt template (give this to the owner to paste):**
+**CRITICAL: Gemini DR CANNOT access the repo. Prepare a file bundle for the owner to UPLOAD.**
+
+**Relay prompt template (give this to the owner to paste AFTER uploading files):**
 ```
-I'm building a personal Islamic scholarly library (KR project) that extracts teaching units from classical texts. Here are sample excerpts:
+I'm building a personal Islamic scholarly library (KR project) that extracts teaching units from classical texts. I've uploaded the relevant files.
 
-[PASTE: 3-5 representative excerpts with their classifications and boundaries]
+[UPLOADED FILES: CC prepares a bundle of specific files for the owner to upload. Include: relevant SPEC sections, excerpt samples, and focused questions.]
 
 TASK: [Specific methodology or pedagogy question]
 
