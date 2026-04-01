@@ -16,7 +16,7 @@ _root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_root))
 
 
-def validate_json_against_model(json_path: Path, model_cls, label: str) -> list[str]:
+def validate_json_against_model(json_path: Path, model_cls: type, label: str) -> list[str]:
     """Validate a JSON file against a Pydantic model.
     
     Returns list of validation errors (empty if valid).
@@ -260,11 +260,29 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
     from engines.normalization.contracts import NormalizedPackage
     from engines.passaging.contracts import PassageStream
     from engines.atomization.contracts import AtomStream
-    from engines.excerpting.contracts import ExcerptStream
     # Taxonomy: contracts_core.py is the authoritative runtime contract.
     # contracts.py is the legacy full-SPEC model (includes deferred features).
     from engines.taxonomy.contracts_core import PlacementAdditions
     from engines.synthesis.contracts import TaxonomyPlacedExcerpt
+
+    def _validate_excerpt_output(data: dict) -> list[str]:
+        """Validate excerpting output has required structure.
+
+        No ExcerptStream Pydantic model exists in excerpting contracts.
+        Validate the envelope shape that the taxonomy engine expects:
+        source_id + non-empty excerpts list with required per-excerpt fields.
+        """
+        errors = []
+        if "source_id" not in data:
+            errors.append("Missing 'source_id' in excerpt output")
+        excerpts = data.get("excerpts", [])
+        if not excerpts:
+            errors.append("No excerpts in excerpt output")
+        for i, exc in enumerate(excerpts[:3]):
+            for field in ("excerpt_id", "source_id", "primary_text"):
+                if field not in exc:
+                    errors.append(f"excerpts[{i}]: missing required field '{field}'")
+        return errors
 
     def _validate_taxonomy_output(data: dict) -> list[str]:
         """Validate taxonomy output against runtime contracts.
@@ -335,7 +353,7 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
         {
             "label": "excerpting → taxonomy",
             "json_path": str(work_dir / "05_excerpt_stream.json"),
-            "model": ExcerptStream,
+            "validator_fn": _validate_excerpt_output,
         },
         {
             "label": "taxonomy → synthesis",

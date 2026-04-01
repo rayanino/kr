@@ -15,8 +15,9 @@ import sys
 import argparse
 
 # Ensure Unicode output works on Windows (cp1252 can't encode → and ⚠)
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+_reconfigure = getattr(sys.stdout, "reconfigure", None)
+if _reconfigure is not None:
+    _reconfigure(encoding="utf-8", errors="replace")
 from pathlib import Path
 
 # Pipeline order
