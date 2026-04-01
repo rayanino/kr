@@ -14,8 +14,8 @@ crashed at runtime on any multi-volume book. Owner caught it; architect didn't.
 This script exists so the architect never misses a cross-engine boundary break again.
 """
 
+import ast
 import logging
-import re
 import sys
 from pathlib import Path
 from collections import defaultdict
@@ -24,6 +24,26 @@ logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ENGINES_DIR = REPO_ROOT / "engines"
+
+
+def _relpath(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _normalized_type(type_text: str | None) -> str | None:
+    if not type_text:
+        return type_text
+    normalized = type_text.replace(" ", "")
+    if normalized.startswith("Optional[") and normalized.endswith("]"):
+        return normalized[len("Optional["):-1]
+    if "|" in normalized:
+        parts = [part for part in normalized.split("|") if part != "None"]
+        if len(parts) == 1:
+            return parts[0]
+    return normalized
 
 
 def find_contract_files() -> list[Path]:
@@ -45,117 +65,149 @@ def extract_field_constraints(filepath: Path) -> dict[str, dict]:
     """
     content = filepath.read_text(encoding="utf-8")
     fields = {}
-    
-    current_class = None
-    for line in content.split("\n"):
-        # Track class definitions
-        class_match = re.match(r"^class (\w+)\(", line)
-        if class_match:
-            current_class = class_match.group(1)
+
+    tree = ast.parse(content, filename=str(filepath))
+    for node in tree.body:
+        if not isinstance(node, ast.ClassDef):
             continue
-        
-        if current_class is None:
-            continue
-        
-        # Track field definitions with constraints
-        field_match = re.match(
-            r"\s+(\w+):\s+.*Field\((.*)\)", line
-        )
-        if field_match:
-            field_name = field_match.group(1)
-            field_args = field_match.group(2)
-            
-            constraints = {}
-            for constraint in ["ge", "le", "gt", "lt", "min_length", "max_length"]:
-                # Word boundary (\b) prevents matching substrings
-                # (e.g., "lt" inside "default")
-                c_match = re.search(rf"\b{constraint}\s*=\s*([^,\)]+)", field_args)
-                if c_match:
-                    constraints[constraint] = c_match.group(1).strip()
-            
+
+        current_class = node.name
+        for item in node.body:
+            if not isinstance(item, ast.AnnAssign):
+                continue
+            if not isinstance(item.target, ast.Name):
+                continue
+            if item.value is None or not isinstance(item.value, ast.Call):
+                continue
+
+            func = item.value.func
+            if not isinstance(func, ast.Name) or func.id != "Field":
+                continue
+
+            constraints: dict[str, str] = {}
+            for keyword in item.value.keywords:
+                if keyword.arg in {"ge", "le", "gt", "lt", "min_length", "max_length"}:
+                    constraints[keyword.arg] = ast.unparse(keyword.value).strip()
+
             if constraints:
-                key = f"{current_class}.{field_name}"
+                key = f"{current_class}.{item.target.id}"
                 fields[key] = {
-                    "file": str(filepath.relative_to(REPO_ROOT)),
+                    "file": _relpath(filepath),
+                    "type": ast.unparse(item.annotation).strip(),
                     "constraints": constraints,
                 }
-    
+
     return fields
 
 
 def extract_shared_types(filepath: Path) -> dict[str, list[str]]:
     """Extract enum/model names and their values from a contracts file."""
-    content = filepath.read_text(encoding="utf-8")
-    types = {}
-    
-    current_class = None
-    current_values = []
-    in_enum = False
-    
-    for line in content.split("\n"):
-        class_match = re.match(r"^class (\w+)\(.*Enum\)", line)
-        if class_match:
-            if current_class and current_values:
-                types[current_class] = current_values
-            current_class = class_match.group(1)
-            current_values = []
-            in_enum = True
+    tree = ast.parse(filepath.read_text(encoding="utf-8"), filename=str(filepath))
+    types: dict[str, list[str]] = {}
+
+    for node in tree.body:
+        if not isinstance(node, ast.ClassDef):
             continue
-        
-        if in_enum and current_class:
-            val_match = re.match(r'\s+\w+\s*=\s*"([^"]+)"', line)
-            if val_match:
-                current_values.append(val_match.group(1))
-            elif line.strip() and not line.strip().startswith("#") and not line.strip().startswith('"""'):
-                if not line.strip().startswith('"') and "=" not in line:
-                    if current_class and current_values:
-                        types[current_class] = current_values
-                    current_class = None
-                    current_values = []
-                    in_enum = False
-    
-    if current_class and current_values:
-        types[current_class] = current_values
-    
+        if not any(isinstance(base, ast.Name) and base.id.endswith("Enum") for base in node.bases):
+            continue
+
+        values: list[str] = []
+        for item in node.body:
+            if not isinstance(item, ast.Assign) or len(item.targets) != 1:
+                continue
+            if not isinstance(item.targets[0], ast.Name):
+                continue
+            try:
+                value = ast.literal_eval(item.value)
+            except Exception:
+                continue
+            if isinstance(value, str):
+                values.append(value)
+        if values:
+            types[node.name] = values
+
     return types
 
 
 def find_cross_references() -> dict[str, list[str]]:
     """Find which engines import types from other engines."""
     refs = defaultdict(list)
-    
+
     for py_file in ENGINES_DIR.rglob("*.py"):
         if "__pycache__" in str(py_file):
             continue
         try:
             content = py_file.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
+            tree = ast.parse(content, filename=str(py_file))
+        except (UnicodeDecodeError, SyntaxError):
             continue
-        
-        # Join continuation lines (multi-line imports)
-        joined = re.sub(r"\(\s*\n\s*", "(", content)
-        joined = re.sub(r",\s*\n\s*", ", ", joined)
-        joined = re.sub(r"\s*\n\s*\)", ")", joined)
-        
-        for line in joined.split("\n"):
-            # Single-line import
-            import_match = re.match(
-                r"from engines\.(\w+)\.contracts import \(?(.+?)\)?$", line
-            )
-            if import_match:
-                source_engine = import_match.group(1)
-                imported = import_match.group(2).strip()
-                consumer_engine = None
-                parts = py_file.relative_to(ENGINES_DIR).parts
-                if parts:
-                    consumer_engine = parts[0]
-                
-                if consumer_engine and consumer_engine != source_engine and imported:
-                    refs[f"{source_engine} -> {consumer_engine}"].append(
-                        f"{imported.strip()} (in {py_file.relative_to(REPO_ROOT)})"
-                    )
-    
+
+        consumer_engine = None
+        parts = py_file.relative_to(ENGINES_DIR).parts
+        if parts:
+            consumer_engine = parts[0]
+
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.ImportFrom) or not node.module:
+                continue
+            module_parts = node.module.split(".")
+            if len(module_parts) != 3 or module_parts[0] != "engines":
+                continue
+            if module_parts[2] not in {"contracts", "contracts_core"}:
+                continue
+
+            source_engine = module_parts[1]
+            if not consumer_engine or consumer_engine == source_engine:
+                continue
+
+            imported = ", ".join(alias.name for alias in node.names if alias.name != "*").strip()
+            if imported:
+                refs[f"{source_engine} -> {consumer_engine}"].append(
+                    f"{imported} (in {py_file.relative_to(REPO_ROOT)})"
+                )
+
     return refs
+
+
+def check_enum_consistency() -> list[str]:
+    """Check that same-named enums do not silently diverge across contracts."""
+    all_types: dict[str, list[dict[str, object]]] = defaultdict(list)
+    issues: list[str] = []
+    imported_names = {
+        entry.split(" (in ", 1)[0]
+        for imports in find_cross_references().values()
+        for entry in imports
+    }
+
+    for contracts_file in find_contract_files():
+        engine = contracts_file.relative_to(ENGINES_DIR).parts[0]
+        for type_name, values in extract_shared_types(contracts_file).items():
+            if type_name not in imported_names:
+                continue
+            all_types[type_name].append(
+                {
+                    "engine": engine,
+                    "file": _relpath(contracts_file),
+                    "values": values,
+                }
+            )
+
+    for type_name, occurrences in all_types.items():
+        if len(occurrences) < 2:
+            continue
+        value_groups: dict[tuple[str, ...], list[dict[str, object]]] = defaultdict(list)
+        for occ in occurrences:
+            value_groups[tuple(occ["values"])].append(occ)
+        if len(value_groups) > 1:
+            issue_parts = [f"MISMATCH: enum '{type_name}' has different values:"]
+            for _, group in value_groups.items():
+                for occ in group:
+                    issue_parts.append(
+                        f"  {occ['engine']}/{type_name}: {occ['values']} ({occ['file']})"
+                    )
+            issues.append("\n".join(issue_parts))
+
+    return issues
 
 
 def check_field_consistency() -> list[str]:
@@ -190,16 +242,17 @@ def check_field_consistency() -> list[str]:
         # Group by constraint values
         constraint_groups = defaultdict(list)
         for occ in occurrences:
-            constraint_key = str(sorted(occ["constraints"].items()))
+            normalized_type = _normalized_type(occ.get("type"))
+            constraint_key = str((normalized_type, sorted(occ["constraints"].items())))
             constraint_groups[constraint_key].append(occ)
         
         if len(constraint_groups) > 1:
-            issue_parts = [f"MISMATCH: '{field_name}' has different constraints:"]
+            issue_parts = [f"MISMATCH: '{field_name}' has different types/constraints:"]
             for _, group in constraint_groups.items():
                 for occ in group:
                     issue_parts.append(
                         f"  {occ['engine']}/{occ['class_field']}: "
-                        f"{occ['constraints']} ({occ['file']})"
+                        f"type={occ.get('type')} constraints={occ['constraints']} ({occ['file']})"
                     )
             issues.append("\n".join(issue_parts))
     
@@ -231,7 +284,7 @@ def main() -> None:
         logger.info("")
 
     # 3. Field constraint consistency
-    issues = check_field_consistency()
+    issues = check_field_consistency() + check_enum_consistency()
     if issues:
         logger.info("ISSUES FOUND: %d", len(issues))
         logger.info("-" * 50)
