@@ -373,6 +373,28 @@ OUTPUT: Pedagogical evaluation preparation report with specific criteria per int
    git commit -m "fix(tools): web UI issues found during end-to-end validation"
    ```
 
+### Excerpt JSONL Schema Reference
+
+Every line in `excerpts.jsonl` is a JSON object with these key fields (use for Tasks 2, 4, 5):
+
+| Field | Type | Use for matching/analysis |
+|-------|------|--------------------------|
+| `excerpt_id` | str | Unique ID (NOT stable across runs — do NOT match on this) |
+| `div_id` | str | Division ID — use for MATCHING across campaign vs v2 |
+| `primary_text` | str | Full Arabic text of the excerpt |
+| `primary_function` | str | Classification (definition, rule_statement, evidence_hadith, etc.) |
+| `self_containment` | str | FULL / PARTIAL / DEPENDENT |
+| `context_hint` | str/null | Context note for PARTIAL excerpts |
+| `excerpt_topic` | list[str] | Topic keywords |
+| `school` | str/null | School attribution if detected |
+| `div_path` | list[str] | Structural path in the book |
+| `start_word` / `end_word` | int | Word offsets in the chunk |
+
+**Matching campaign vs v2:** Use `div_id` to find excerpts from the same book division across both runs.
+**"Noticeably different" criteria for Task 2:** Use mechanical checks: `primary_function` differs, OR `len(primary_text)` ratio > 1.3 or < 0.7, OR `self_containment` differs.
+
+---
+
 ### Task 7: Environment hardening (if time allows)
 
 **Depends on:** Tasks 1-6 complete or blocked
