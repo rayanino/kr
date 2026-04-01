@@ -1,0 +1,10 @@
+- **No content quality conclusion from a single model's judgment.** This extends D-041 (multi-model consensus for LLM calls) to the human-level workflow. If a single coworker or a single CC session evaluates an excerpt and declares it "good" or "bad", that conclusion is PRELIMINARY — not final.
+- **For automated consensus (pipeline code):** Use the LiteLLM + Instructor pattern documented in `.claude/skills/consensus-pattern/SKILL.md`. Minimum 2 independent models. Temperature=0. Identical prompts.
+- **For manual/coworker consensus (evaluation workflow):** At least 2 independent coworker evaluations must agree before a content quality conclusion is recorded as final. Independent means: different models, not seeing each other's output before forming their assessment.
+- **Exceptions that do NOT require consensus:**
+  - Structural checks: JSON schema validation, field presence, type checking
+  - Deterministic tests: pytest assertions, pyright type checking, boundary contract validation
+  - Cost/count metrics: excerpt counts, token usage, processing time
+  - These are objective, reproducible checks — not content judgments.
+- **PRELIMINARY marking:** When only one evaluator has assessed a content quality dimension, mark the finding as `[PRELIMINARY — awaiting confirmation]`. Do not act on PRELIMINARY findings as if they are confirmed — wait for a second evaluator, or explicitly accept the risk with justification.
+- **Why this matters (OPS-DEC-006):** The entire excerpting hardening operation exists because single-model evaluation missed quality problems that the owner immediately noticed. Two comments triggered a full rearchitecture (DR-1/DR-2/DR-3 debate, 6 reviewers, 2 days). If the hardening operation itself uses single-model evaluation, it reproduces the same failure mode.

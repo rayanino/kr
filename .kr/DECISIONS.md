@@ -126,3 +126,34 @@ Evidence that analyzer-first evaluation adds more maintenance cost than interpre
 - `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`
 - `.kr/ACTIVE.md`
 - `.kr/HANDOFF.md`
+
+### OPS-DEC-006 — Adopt 4-phase excerpting hardening with mandatory multi-coworker evaluation
+Status: active
+Date: 2026-04-01
+
+#### Decision
+The excerpting engine's final hardening will follow a 4-phase protocol (Owner Q&A, Smoke Run + Analysis, Deep Hardening, Full 5-Book Run) with all 5 coworkers (Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, Gemini DR) dispatched at every milestone. No phase may conclude without independent confirmation from all available coworkers.
+
+#### Why
+Two owner comments on campaign excerpts (2,303 excerpts, $96.87) triggered a complete rearchitecture (DR-1/DR-2/DR-3 debate, 6 reviewers, 2 days of analysis). The root cause: single-model evaluation missed quality problems that the owner immediately noticed. The excerpt definition in the SPEC was formally correct but did not capture what the owner WANTS to experience. Multi-coworker evaluation at every milestone prevents this class of failure.
+
+#### Evidence basis
+- Owner feedback at `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl` (2 reviews)
+- 6-reviewer cross-validation of DR-1/DR-2/DR-3 decisions
+- Campaign analysis (19 files at `integration_tests/campaign_20260331/analysis/`)
+- Prior single-model evaluations that passed but did not satisfy the owner
+
+#### Consequences
+1. Every major milestone requires all 5 coworkers before concluding.
+2. No content quality conclusion from a single model's judgment (extends D-041 to workflow level).
+3. Phase 0 (Q&A) must complete before any prompt tuning.
+4. Budget allocation: ~EUR 50 remaining for ~3 smoke runs + 1 full run.
+
+#### What would reverse this
+Evidence that fewer evaluators catch the same issues at lower cost, or that the owner's quality expectations have been fully encoded in automated checks, making multi-coworker review redundant.
+
+#### Related artifacts
+- `NEXT.md`
+- `.kr/ACTIVE.md`
+- `.claude/rules/coworker-dispatch.md`
+- `.claude/rules/no-single-model-conclusion.md`

@@ -74,15 +74,30 @@ def check_hook_paths(
 
 
 def check_orphaned_hooks(project: Path, referenced: set[str]) -> list[str]:
-    """Find .sh files in .claude/hooks/ not referenced in settings.json."""
+    """Find .sh files in .claude/hooks/ not referenced in settings.json.
+
+    Scripts that are called by other hook scripts (utilities) are not
+    orphans even if they don't appear directly in settings.json.
+    """
     issues: list[str] = []
     hooks_dir = project / ".claude" / "hooks"
     if not hooks_dir.is_dir():
         return issues
 
+    # Build set of scripts referenced by OTHER hook scripts (utilities)
+    indirectly_referenced: set[str] = set()
+    for sh_file in hooks_dir.glob("*.sh"):
+        content = sh_file.read_text(encoding="utf-8", errors="ignore")
+        for other_sh in hooks_dir.glob("*.sh"):
+            if other_sh == sh_file:
+                continue
+            if other_sh.name in content:
+                rel = other_sh.relative_to(project).as_posix()
+                indirectly_referenced.add(rel)
+
     for sh_file in sorted(hooks_dir.glob("*.sh")):
         relative = sh_file.relative_to(project).as_posix()
-        if relative not in referenced:
+        if relative not in referenced and relative not in indirectly_referenced:
             issues.append(
                 f"ORPHAN: '{relative}' exists but is not referenced "
                 f"in settings.json"
@@ -199,6 +214,15 @@ def check_rule_files(project: Path) -> list[str]:
                 continue
             if any(c in match for c in ("*", "{", "|", "&&", "=")):
                 continue
+            # Skip paths marked as runtime-generated (followed by
+            # parenthetical note like "created on first error")
+            match_pos = content.find(f"`{match}`")
+            if match_pos != -1:
+                after = content[match_pos + len(match) + 2:match_pos + len(match) + 80]
+                if re.match(
+                    r"\s*\((?:created|generated|produced)", after
+                ):
+                    continue
             ref_path = project / match
             if not ref_path.exists():
                 issues.append(

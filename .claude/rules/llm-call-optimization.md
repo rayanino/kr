@@ -36,7 +36,7 @@
   - Test results are reusable artifacts, not disposable validation. A phase run that costs EUR 5 in API calls produces data worth EUR 5 — treat it accordingly.
 - **Error recovery — no silent failures:**
   - On API timeout or HTTP error, retry with exponential backoff: wait 2s, 4s, 8s (max 3 attempts). Use jitter (random 0-1s addition) to avoid thundering herd on rate limits.
-  - Log all failures with: timestamp (ISO 8601), model name, book_id, phase, HTTP status code, error message, retry count. Write to both the console log and `tests/results/source_engine/ERROR_LOG.json`.
+  - Log all failures with: timestamp (ISO 8601), model name, book_id, phase, HTTP status code, error message, retry count. Write to both the console log and `tests/results/source_engine/ERROR_LOG.json` (created on first error if it does not exist).
   - After max retries, record the failure in the phase manifest as `status: "api_error"` with the error details. Do NOT silently skip the book — downstream engines must know this book was not successfully processed.
   - For rate limit errors (HTTP 429), respect the `Retry-After` header. If no header is present, use a minimum 60s backoff before retrying.
   - After a partial batch failure (some books succeed, some fail), persist all successful results immediately. Never discard successful results because some books in the batch failed.

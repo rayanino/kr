@@ -1,6 +1,6 @@
 # Hook Wiring Status — Reference
 
-Updated 2026-03-31. All hooks are LIVE in `.claude/settings.json`.
+Updated 2026-04-01. All hooks are LIVE in `.claude/settings.json`.
 
 ## Active PreToolUse Hooks
 
@@ -27,6 +27,7 @@ Updated 2026-03-31. All hooks are LIVE in `.claude/settings.json`.
 | Boundary check (D-023) | `Write\|Edit\|MultiEdit` | `boundary-check.sh` | LIVE |
 | Diacritic preservation | `Write\|Edit\|MultiEdit` | `diacritic-preservation.sh` | LIVE |
 | SPEC coverage check | `Write\|Edit\|MultiEdit` | `spec-coverage-check.sh` | LIVE |
+| SPEC quality validation | `Write\|Edit\|MultiEdit` | `spec-validate.sh` | LIVE |
 
 ## Other Lifecycle Hooks
 
@@ -58,6 +59,12 @@ Test individual hooks:
 1. **Circuit breaker:** `echo '{"tool_input":{"command":"echo test"}}' | bash .claude/hooks/circuit-breaker.sh` — exits 0
 2. **Cost guard:** `echo '{"tool_input":{"command":"python openrouter"}}' | bash .claude/hooks/cost-guard.sh` — exits 0 (under budget)
 3. **No-ask-human:** Set `KR_OVERNIGHT=1`, run `echo '{"tool_input":{"question":"test?"}}' | bash .claude/hooks/no-ask-human.sh` — outputs block decision
+
+## Archived Scripts
+
+| Script | Reason | Location |
+|--------|--------|----------|
+| `run-tests-async.sh` | Superseded by `auto-test.sh` | `.claude/hooks/archived/` |
 
 ## Related
 

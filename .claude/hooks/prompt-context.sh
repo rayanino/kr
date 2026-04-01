@@ -46,6 +46,15 @@ except: pass
     fi
 fi
 
+# Excerpting hardening phase detection
+if [ -d "integration_tests/v2_final" ]; then
+    CONTEXT="$CONTEXT | Phase: 3 (Full run)"
+elif [ -d "integration_tests/smoke_api_v2" ] && find "integration_tests/smoke_api_v2" -name "*.jsonl" -print -quit 2>/dev/null | grep -q .; then
+    CONTEXT="$CONTEXT | Phase: 1-2 (Smoke/Hardening)"
+elif [ -d "integration_tests/questionnaire" ] && [ ! -f "integration_tests/questionnaire/COMPLETE" ]; then
+    CONTEXT="$CONTEXT | Phase: 0 (Q&A)"
+fi
+
 # Modified files count (quick orientation)
 MOD_COUNT=$(git diff --name-only HEAD 2>/dev/null | wc -l | tr -d ' ' || echo "0")
 if [ "$MOD_COUNT" -gt 0 ]; then
