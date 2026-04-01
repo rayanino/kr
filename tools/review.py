@@ -17,6 +17,7 @@ Additional modes served from integration_tests/questionnaire/:
 """
 from __future__ import annotations
 
+import datetime
 import hashlib
 import json
 import logging
@@ -64,22 +65,50 @@ def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
     Returns total number of records after upsert.
     """
     existing: dict[str, str] = {}
+    dropped: list[dict[str, str | int]] = []
     if path.exists():
         with open(path, encoding="utf-8") as f:
-            for line in f:
+            for line_no, line in enumerate(f, start=1):
                 stripped = line.strip()
                 if stripped:
                     try:
                         old = json.loads(stripped)
-                        existing[old[key_field]] = stripped
-                    except (json.JSONDecodeError, KeyError):
-                        pass
+                        key = str(old[key_field])
+                        existing[key] = stripped
+                    except json.JSONDecodeError:
+                        dropped.append({
+                            "line_number": line_no,
+                            "reason": "json_decode_error",
+                            "raw_line": stripped,
+                        })
+                    except KeyError:
+                        dropped.append({
+                            "line_number": line_no,
+                            "reason": f"missing_key:{key_field}",
+                            "raw_line": stripped,
+                        })
     existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
     temp = path.with_suffix(path.suffix + ".tmp")
     with open(temp, "w", encoding="utf-8") as f:
         for line in existing.values():
             f.write(line + "\n")
     temp.replace(path)
+    if dropped:
+        dropped_path = path.with_name(path.name + ".dropped.jsonl")
+        with open(dropped_path, "a", encoding="utf-8") as f:
+            for item in dropped:
+                record = {
+                    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                    "source_file": str(path),
+                    **item,
+                }
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        logger.warning(
+            "Preserved %d malformed JSONL line(s) from %s in %s",
+            len(dropped),
+            path,
+            dropped_path,
+        )
     return len(existing)
 
 
@@ -116,6 +145,15 @@ def _read_batch_summary(output_dir: Path) -> dict[str, Any]:
     summary_path = output_dir / "SUMMARY.json"
     data = _read_json_file(summary_path)
     return data if isinstance(data, dict) else {}
+
+
+def _should_open_browser() -> bool:
+    """Return True when the local environment likely supports browser launch."""
+    if os.environ.get("KR_REVIEW_NO_BROWSER") in {"1", "true", "yes"}:
+        return False
+    if os.name == "nt":
+        return True
+    return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
 
 
 # ---------------------------------------------------------------------------
@@ -525,7 +563,8 @@ def main() -> None:
     logger.info("  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
     logger.info("  Press Ctrl+C to stop\n")
 
-    webbrowser.open(url)
+    if _should_open_browser():
+        webbrowser.open(url)
 
     try:
         server.serve_forever()

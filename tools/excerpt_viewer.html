@@ -506,6 +506,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 // ─── Global utilities ─────────────────────────────────────────────────────
 let excerpts=[], currentIndex=0, currentPackage="", feedback={}, pollTimer=null;
 let packageMeta={};
+let packagePollTimer=null;
 let selectedIssues=new Set();
 let currentFilter="all";
 let currentMode="home"; // "home" | "review" | "questionnaire" | "comparison"
@@ -528,6 +529,7 @@ const ISSUE_TAGS=[
 
 // ─── Mode switching ────────────────────────────────────────────────────────
 function enterMode(mode){
+  stopPackagePolling();
   $("pkg-picker").style.display="none";
   switchMode(mode);
 }
@@ -557,6 +559,7 @@ function switchMode(mode){
 }
 
 function goHome(){
+  stopPackagePolling();
   if(pollTimer)clearInterval(pollTimer);
   $("viewer").classList.remove("active");
   $("q-wrap").classList.remove("active");
@@ -566,11 +569,23 @@ function goHome(){
   loadPackages();
 }
 
+function stopPackagePolling(){
+  if(packagePollTimer){
+    clearTimeout(packagePollTimer);
+    packagePollTimer=null;
+  }
+}
+
+function schedulePackagePoll(delay){
+  stopPackagePolling();
+  packagePollTimer=setTimeout(loadPackages, delay);
+}
+
 // ─── Package Loading ───────────────────────────────────────────────────────
 async function loadPackages(){
   try{
     const r=await fetch("/api/packages");const pkgs=await r.json();
-    if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';setTimeout(loadPackages,5000);return}
+    if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';schedulePackagePoll(5000);return}
     packageMeta=Object.fromEntries(pkgs.map(p=>[p.name,p]));
     $("pkg-list").innerHTML=pkgs.map(p=>{
       const pct=p.excerpt_count&&p.feedback_count?Math.round(p.feedback_count/p.excerpt_count*100):0;
@@ -586,8 +601,8 @@ async function loadPackages(){
       const className = state==='error' ? ' failed' : (!clickable ? ' empty' : '');
       return `<div class="pkg-card${className}" onclick="${clickable?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="s ${state==='error'?'error':state==='success'?'success':'unknown'}">${statusLabel}</div>${extra}</div>`;
     }).join("");
-    setTimeout(loadPackages,10000);
-  }catch{setTimeout(loadPackages,3000)}
+    schedulePackagePoll(10000);
+  }catch{schedulePackagePoll(3000)}
 }
 
 async function selectPkg(pkg){
