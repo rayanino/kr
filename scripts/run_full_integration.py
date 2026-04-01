@@ -712,10 +712,12 @@ def _determine_needed_backends() -> list[str]:
     from engines.excerpting.contracts import ExcerptingConfig
 
     model_override = os.environ.get("KR_PRIMARY_MODEL", "")
-    config = ExcerptingConfig()
+    config = ExcerptingConfig().model_copy(
+        update={"ESCALATION_MODEL": "google/gemini-2.5-pro"}
+    )
 
     needed = set()
-    primary_models = [model_override] if model_override else [config.CLASSIFY_MODEL]
+    primary_models = [model_override] if model_override else [config.CLASSIFY_MODEL or ""]
 
     for model in primary_models:
         if model.startswith("anthropic/"):
@@ -726,7 +728,7 @@ def _determine_needed_backends() -> list[str]:
             needed.add("gemini")
 
     # Verify model — respect KR_VERIFY_MODEL override
-    verify_model = os.environ.get("KR_VERIFY_MODEL", config.VERIFY_MODEL)
+    verify_model = os.environ.get("KR_VERIFY_MODEL") or config.VERIFY_MODEL or ""
     if verify_model.startswith("anthropic/"):
         needed.add("claude")
     elif verify_model.startswith("openai/"):
@@ -734,15 +736,13 @@ def _determine_needed_backends() -> list[str]:
     elif verify_model.startswith("google/"):
         needed.add("gemini")
 
-    escalation_model = config.ESCALATION_MODEL
+    escalation_model = config.ESCALATION_MODEL or ""
     if escalation_model.startswith("anthropic/"):
         needed.add("claude")
     elif escalation_model.startswith("openai/"):
         needed.add("codex")
     elif escalation_model.startswith("google/"):
         needed.add("gemini")
-    elif escalation_model.startswith("mistralai/"):
-        needed.add("codex")
 
     return sorted(needed)
 

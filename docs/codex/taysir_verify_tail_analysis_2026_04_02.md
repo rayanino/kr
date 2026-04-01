@@ -46,6 +46,12 @@ The more interesting clue is `verify_0121`:
 
 So the verifier path was already showing unstable or degraded behavior before the final missing response.
 
+One important code-path note: the child consensus runner operates on the parsed
+`VerificationResult` object returned by `verify_chunk()` and does **not** inspect
+raw `finish_reason` or token-usage metadata. That makes the `verify_0121`
+metadata anomaly an auxiliary signal about provider/runtime behavior, not direct
+evidence that the child itself treated that call as a failure.
+
 ## Practical Interpretation
 
 The trace tail is more consistent with **runtime/provider instability on the verification lane** than with a single obviously oversized request:
