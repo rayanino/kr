@@ -299,22 +299,22 @@ The later shell-construction failure around `set -euo pipefail` in `scripts/over
 
 Observed branch-local proof:
 
-- two consecutive bounded `-RunCycle` runs succeeded on `codex/doctrine-reconcile-20260401_1015`
-- a short repeating-loop rehearsal via `scripts/run_overnight_codex_shadow_loop.ps1` also completed successful `val-contracts` cycles on the same branch/runtime path
+- two consecutive bounded `-RunCycle` runs succeeded on proof worktrees
+- a short repeating-loop rehearsal via `scripts/run_overnight_codex_shadow_loop.ps1` completed multiple successful `val-contracts` cycles on a clean mainline proof worktree when pointed at a fresh runtime dir
 - `val-contracts` completed successfully in the successful proof runs
 - `state.json`, `run_snapshots`, and `MORNING_REPORT.md` all updated with current-run data on the successful path
 
 Current interpretation:
 
-- the bounded scheduler-safe `-RunCycle` path is proven on the reconciliation branch
-- the actual repeating-loop entrypoint is also proven on the reconciliation branch
-- canonical sign-off still depends on landing the fixes onto the intended checkout and rerunning the proof there
+- the bounded scheduler-safe `-RunCycle` path is proven on proof worktrees
+- the actual repeating-loop entrypoint is also proven on a clean mainline proof worktree
+- canonical sign-off now depends less on technical uncertainty and more on how to move the proven state onto the intended owner-facing checkout without trampling its dirty local state
 
 ## 13. Exact Next Steps Before April 9, 2026
 
 1. Keep the doctrine work on a clean reconciliation branch or worktree until the latest cycle-to-cycle wrapper bug is resolved.
 2. Keep `.claude/`, `CLAUDE.md`, `NEXT.md`, and the external review inputs read-only.
 3. Land and peer-review the wrapper/bootstrap fixes from this reconciliation branch.
-4. Re-run the actual repeating shadow loop from the intended checkout after landing the fixes there.
-5. If the repeating loop also stays stable, re-evaluate Gate 0.
+4. Choose the landing path for the proven commit set: apply onto the canonical checkout, or adopt a clean canonical worktree for unattended runtime use.
+5. Once that landing path is chosen, run one final confirmation proof from the chosen canonical lane.
 6. Delay cutover if Gate 0 is not fully green by **April 9, 2026**.

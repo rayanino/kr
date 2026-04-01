@@ -78,14 +78,14 @@ The later shell-construction failure and the subsequent Windows-worktree bootstr
 Observed branch-local proof:
 
 - two consecutive bounded `-RunCycle` runs succeeded
-- a short repeating-loop rehearsal via `scripts/run_overnight_codex_shadow_loop.ps1` also completed successful `val-contracts` cycles
+- a short repeating-loop rehearsal via `scripts/run_overnight_codex_shadow_loop.ps1` also completed multiple successful `val-contracts` cycles on a clean mainline proof worktree when pointed at a fresh runtime dir
 
-Treat the loop logic as proven on the reconciliation branch.
+Treat the loop logic as proven on proof worktrees.
 
-Canonical readiness still requires rerunning the same proof from the intended checkout after these fixes are landed there:
+Canonical readiness still requires one final confirmation run from the chosen canonical unattended lane:
 
 1. `scripts/run_overnight_codex_shadow_loop.ps1`
-2. the intended checkout, not just the reconciliation worktree
+2. the final owner-facing checkout or clean canonical worktree that will actually be used for unattended runtime
 
 ## Cutover Readiness
 

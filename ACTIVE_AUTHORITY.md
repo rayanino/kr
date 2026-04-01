@@ -9,7 +9,7 @@ owner_interaction: resource_only
 frontier_file: .kr/ACTIVE.md
 rollback_authority: claude
 autonomy_doctrine_file: docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md
-current_scope: Claude remains active authority while Codex validates doctrine and runtime fixes in shadow mode before any canonical cutover. The bounded `-RunCycle` path and a short repeating-loop rehearsal are proven on proof worktrees; the intended checkout still needs the same proof after landing.
+current_scope: Claude remains active authority while Codex validates doctrine and runtime fixes in shadow mode before any canonical cutover. The bounded `-RunCycle` path and the actual repeating-loop entrypoint are now proven on clean proof worktrees and fresh runtime dirs; the remaining step is deciding how to land that validated state onto the canonical owner-facing checkout.
 codex_scope_after_cutover: Hardening, regression growth, audits, queued patch generation, and unattended runtime operation.
 blocked_after_claude_expiry: CLI backend viability is now proven on bounded proof runs; verify-model remapping and any post-cutover write-scope expansion remain blocked until doctrine gates are satisfied.
 
