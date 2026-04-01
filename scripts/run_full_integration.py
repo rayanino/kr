@@ -709,11 +709,13 @@ def _preflight_cli(backends: list[str]) -> bool:
 
 def _determine_needed_backends() -> list[str]:
     """Determine which CLI backends the current config will use."""
-    model_override = os.environ.get("KR_PRIMARY_MODEL", "")
+    from engines.excerpting.contracts import ExcerptingConfig
 
-    # Default: Claude for classify/group/enrich, Codex for verify, Gemini for escalation
+    model_override = os.environ.get("KR_PRIMARY_MODEL", "")
+    config = ExcerptingConfig()
+
     needed = set()
-    primary_models = [model_override] if model_override else ["anthropic/claude-opus-4-6"]
+    primary_models = [model_override] if model_override else [config.CLASSIFY_MODEL]
 
     for model in primary_models:
         if model.startswith("anthropic/"):
@@ -724,7 +726,7 @@ def _determine_needed_backends() -> list[str]:
             needed.add("gemini")
 
     # Verify model — respect KR_VERIFY_MODEL override
-    verify_model = os.environ.get("KR_VERIFY_MODEL", "openai/gpt-5.4")
+    verify_model = os.environ.get("KR_VERIFY_MODEL", config.VERIFY_MODEL)
     if verify_model.startswith("anthropic/"):
         needed.add("claude")
     elif verify_model.startswith("openai/"):
@@ -732,8 +734,15 @@ def _determine_needed_backends() -> list[str]:
     elif verify_model.startswith("google/"):
         needed.add("gemini")
 
-    # Escalation model — default is google/gemini-2.5-pro
-    needed.add("gemini")
+    escalation_model = config.ESCALATION_MODEL
+    if escalation_model.startswith("anthropic/"):
+        needed.add("claude")
+    elif escalation_model.startswith("openai/"):
+        needed.add("codex")
+    elif escalation_model.startswith("google/"):
+        needed.add("gemini")
+    elif escalation_model.startswith("mistralai/"):
+        needed.add("codex")
 
     return sorted(needed)
 

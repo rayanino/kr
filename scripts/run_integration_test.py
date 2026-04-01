@@ -379,6 +379,17 @@ def create_mock_clients() -> tuple[Any, Any, Any]:
     return enrich_client, verify_client, escalation_client
 
 
+def _provider_name(model_id: str) -> str:
+    """Return provider prefix from provider/model ids, fail loudly otherwise."""
+    provider, sep, _model = model_id.partition("/")
+    if not sep or not provider:
+        raise ValueError(
+            f"Expected provider/model identifier, got {model_id!r}. "
+            "Use OpenRouter-style ids such as 'openai/gpt-5.4'."
+        )
+    return provider
+
+
 # ---------------------------------------------------------------------------
 # Pre-run checklist
 # ---------------------------------------------------------------------------
@@ -823,8 +834,8 @@ def run_pipeline(
         logger.info("Verify model override via KR_VERIFY_MODEL: %s", verify_override)
 
     # D-041: hard-fail on same-provider consensus
-    primary_provider = config.CLASSIFY_MODEL.split("/")[0]
-    verify_provider = config.VERIFY_MODEL.split("/")[0]
+    primary_provider = _provider_name(config.CLASSIFY_MODEL)
+    verify_provider = _provider_name(config.VERIFY_MODEL)
     if primary_provider == verify_provider:
         raise ValueError(
             f"D-041 violation: primary ({config.CLASSIFY_MODEL}) and verify "
