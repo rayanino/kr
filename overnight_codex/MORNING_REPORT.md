@@ -24,9 +24,11 @@
   - explains failed comparison state
   - preserves questionnaire drafts locally
   - blocks empty comparison verdict submissions
+  - preserves legacy comparison ids and keeps unmatched sides visible
 - Runtime tooling now:
   - emits `last_llm_activity.json`
   - emits timeout reports automatically
+  - emits timeout trace-health summaries
   - uses graceful interrupt-first timeout handling before hard kill
   - preserves malformed JSONL lines into `.dropped.jsonl` sidecars
   - skips browser auto-open by default in WSL review-server runs
@@ -53,6 +55,7 @@
 - `0bb50ce2` `fix(review): preserve questionnaire drafts and require verdicts`
 - `dba2c0b2` `fix(review): keep unmatched comparison pairs visible`
 - `acd5ea37` `fix(review): default to no browser launch in WSL`
+- `1842867b` `fix(timeout): add trace health to timeout reports`
 
 ## Next Best Lanes
 
