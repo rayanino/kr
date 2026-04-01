@@ -1,0 +1,901 @@
+taxonomy:
+  id: nahw_v2_0
+  title: علم النحو
+  methodology: 4-researcher synthesis (2 knowledge + 2 corpus, 302 books), dual-provider
+    merge
+  validated: true
+  date: '2026-03-31'
+  nodes:
+  - id: muqaddimat_al_nahw_wa_usuluh
+    title: مقدمات النحو وأصوله
+    children:
+    - id: al_kalam_wa_ma_yataallafu_minhu
+      title: الكلام وما يتألف منه
+      children:
+      - id: tarif_al_kalam_wa_al_kalim_wa_al_kalima_wa_al_qawl
+        title: تعريف الكلام والكلم والكلمة والقول
+        leaf: true
+        confidence: HIGH
+      - id: aqsam_al_kalima_al_thalatha
+        title: أقسام الكلمة الثلاثة (الاسم والفعل والحرف)
+        leaf: true
+        confidence: HIGH
+      - id: alamat_al_ism
+        title: علامات الاسم
+        leaf: true
+        confidence: HIGH
+      - id: alamat_al_fil_wa_aqsamuh
+        title: علامات الفعل وأقسامه (الماضي والمضارع والأمر)
+        leaf: true
+        confidence: HIGH
+      - id: al_harf_wa_aqsamuh
+        title: الحرف وأقسامه
+        leaf: true
+        confidence: HIGH
+    - id: al_irab_wa_al_bina
+      title: الإعراب والبناء
+      children:
+      - id: tarif_al_irab_wa_aqsamuhu_al_arbaa
+        title: تعريف الإعراب وأقسامه الأربعة (رفع ونصب وجر وجزم)
+        leaf: true
+        confidence: HIGH
+      - id: al_irab_al_lafzi_wa_al_taqdiri_wa_al_mahalli
+        title: الإعراب اللفظي والتقديري والمحلي
+        leaf: true
+        confidence: HIGH
+      - id: al_bina_wa_asbabuh
+        title: البناء وأسبابه
+        leaf: true
+        confidence: HIGH
+      - id: al_murab_wa_al_mabni_min_al_asma
+        title: المعرب والمبني من الأسماء
+        leaf: true
+        confidence: HIGH
+      - id: bina_al_afal_wa_al_huruf
+        title: بناء الأفعال والحروف
+        leaf: true
+        confidence: HIGH
+    - id: al_alamat_al_irabiyya_wa_nawwabuha
+      title: العلامات الإعرابية ونوابها
+      children:
+      - id: al_alamat_al_asliyya_wa_al_fariyya
+        title: العلامات الأصلية والفرعية
+        leaf: true
+        confidence: HIGH
+      - id: al_asma_al_sitta_wa_irabuha
+        title: الأسماء الستة وإعرابها
+        leaf: true
+        confidence: HIGH
+      - id: al_muthanna_wa_irabuh
+        title: المثنى وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: jam_al_mudhakkar_al_salim_wa_irabuh
+        title: جمع المذكر السالم وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: jam_al_muannath_al_salim_wa_irabuh
+        title: جمع المؤنث السالم وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: al_afal_al_khamsa_wa_irabuha
+        title: الأفعال الخمسة وإعرابها
+        leaf: true
+        confidence: HIGH
+    - id: irab_al_jumal
+      title: إعراب الجمل
+      children:
+      - id: al_jumal_allati_laha_mahall_wa_allati_la_mahall_laha
+        title: الجمل التي لها محل من الإعراب والتي لا محل لها
+        leaf: true
+        confidence: MEDIUM
+  - id: al_asma_wa_al_maarif
+    title: الأسماء والمعارف
+    children:
+    - id: al_nakira_wa_al_marifa
+      title: النكرة والمعرفة
+      children:
+      - id: al_nakira_wa_al_marifa_wa_maratib_al_tarif
+        title: النكرة والمعرفة ومراتب التعريف
+        leaf: true
+        confidence: HIGH
+      - id: aqsam_al_maarif
+        title: أقسام المعارف
+        leaf: true
+        confidence: HIGH
+    - id: al_damir
+      title: الضمير
+      children:
+      - id: al_damir_al_muttasil
+        title: الضمير المتصل
+        leaf: true
+        confidence: HIGH
+      - id: al_damir_al_munfasil
+        title: الضمير المنفصل
+        leaf: true
+        confidence: HIGH
+      - id: al_damir_al_mustatir_wa_damir_al_shan_wa_al_fasl
+        title: الضمير المستتر وضمير الشأن والفصل
+        leaf: true
+        confidence: MEDIUM
+      - id: nun_al_wiqaya
+        title: نون الوقاية
+        leaf: true
+        confidence: MEDIUM
+    - id: al_alam
+      title: العلم
+      children:
+      - id: al_alam_wa_anwauh
+        title: العلم وأنواعه (الشخصي والجنسي والمركب)
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_wa_al_kunya_wa_al_laqab
+        title: الاسم والكنية واللقب
+        leaf: true
+        confidence: HIGH
+    - id: ism_al_ishara
+      title: اسم الإشارة
+      children:
+      - id: asma_al_ishara_wa_ahkamuha
+        title: أسماء الإشارة وأحكامها
+        leaf: true
+        confidence: HIGH
+    - id: al_mawsul
+      title: الموصول
+      children:
+      - id: al_mawsul_al_ismi_wa_al_harfi
+        title: الموصول الاسمي والحرفي
+        leaf: true
+        confidence: HIGH
+      - id: silat_al_mawsul_wa_anwauha
+        title: صلة الموصول وأنواعها
+        leaf: true
+        confidence: HIGH
+      - id: al_aid_wa_ahkam_hadhfih
+        title: العائد وأحكام حذفه
+        leaf: true
+        confidence: HIGH
+    - id: al_muarraf_bi_al
+      title: المعرف بأل
+      children:
+      - id: al_tarif_wa_anwauhu
+        title: أل التعريف وأنواعها (العهدية والجنسية والزائدة والموصولة)
+        leaf: true
+        confidence: HIGH
+    - id: ma_la_yansarif
+      title: ما لا ينصرف
+      children:
+      - id: ilal_man_al_sarf
+        title: علل منع الصرف
+        leaf: true
+        confidence: HIGH
+      - id: al_mamnu_li_illa_wa_al_mamnu_li_illatayni
+        title: الممنوع لعلة والممنوع لعلتين
+        leaf: true
+        confidence: MEDIUM
+      - id: sarf_al_mamnu_min_al_sarf
+        title: صرف الممنوع من الصرف
+        leaf: true
+        confidence: HIGH
+  - id: al_jumla_al_ismiyya_wa_al_nawasiq
+    title: الجملة الاسمية والنواسخ
+    children:
+    - id: al_mubtada_wa_al_khabar
+      title: المبتدأ والخبر
+      children:
+      - id: al_ibtida
+        title: الابتداء
+        leaf: true
+        confidence: HIGH
+      - id: musawwighat_al_ibtida_bi_al_nakira
+        title: مسوغات الابتداء بالنكرة
+        leaf: true
+        confidence: HIGH
+      - id: al_mubtada_al_wasfi_al_mustaghni_bi_marfuihi
+        title: المبتدأ الوصفي المستغني بمرفوعه
+        leaf: true
+        confidence: MEDIUM
+      - id: al_khabar_wa_anwauh
+        title: الخبر وأنواعه (المفرد والجملة وشبه الجملة)
+        leaf: true
+        confidence: HIGH
+      - id: taqdim_al_khabar_wa_takhiruh
+        title: تقديم الخبر وتأخيره (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+      - id: hadhf_al_mubtada_aw_al_khabar
+        title: حذف المبتدأ أو الخبر (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+      - id: taaddud_al_khabar
+        title: تعدد الخبر
+        leaf: true
+        confidence: HIGH
+    - id: kana_wa_akhawatuha
+      title: كان وأخواتها
+      children:
+      - id: kana_wa_akhawatuha_al_tamma_wa_al_naqisa
+        title: كان وأخواتها (التامة والناقصة)
+        leaf: true
+        confidence: HIGH
+      - id: al_mutasarrif_wa_al_jamid_min_akhawat_kana
+        title: المتصرف والجامد من أخوات كان
+        leaf: true
+        confidence: HIGH
+      - id: ahkam_khabar_kana
+        title: أحكام خبر كان (تقديمه وتأخيره وحذفه)
+        leaf: true
+        confidence: HIGH
+      - id: ziyadat_kana_wa_hadhfuha
+        title: زيادة كان وحذفها
+        leaf: true
+        confidence: HIGH
+    - id: al_huruf_al_mushabbaha_bi_laysa
+      title: الحروف المشبهة بليس
+      children:
+      - id: ma_wa_la_wa_lat_wa_in_al_amilat_amal_laysa_wa_shurutuha
+        title: ما ولا ولات وإن العاملات عمل ليس وشروطها
+        leaf: true
+        confidence: MEDIUM
+    - id: afal_al_muqaraba_wa_al_raja_wa_al_shuru
+      title: أفعال المقاربة والرجاء والشروع
+      children:
+      - id: afal_al_muqaraba
+        title: أفعال المقاربة
+        leaf: true
+        confidence: HIGH
+      - id: afal_al_raja
+        title: أفعال الرجاء
+        leaf: true
+        confidence: HIGH
+      - id: afal_al_shuru
+        title: أفعال الشروع
+        leaf: true
+        confidence: HIGH
+    - id: inna_wa_akhawatuha
+      title: إن وأخواتها
+      children:
+      - id: inna_wa_akhawatuha_wa_amaluh
+        title: إن وأخواتها وعملها
+        leaf: true
+        confidence: HIGH
+      - id: fath_hamzat_inna_wa_kasruha
+        title: فتح همزة إن وكسرها
+        leaf: true
+        confidence: HIGH
+    - id: la_al_nafiya_lil_jins
+      title: لا النافية للجنس
+      children:
+      - id: la_al_nafiya_lil_jins_wa_shurut_amalih
+        title: لا النافية للجنس وشروط عملها واسمها
+        leaf: true
+        confidence: HIGH
+      - id: khabar_la_al_nafiya_lil_jins
+        title: خبر لا النافية للجنس
+        leaf: true
+        confidence: HIGH
+      - id: naat_ism_la_wa_atfuh
+        title: نعت اسم لا وعطفه
+        leaf: true
+        confidence: MEDIUM
+    - id: zanna_wa_akhawatuha
+      title: ظن وأخواتها
+      children:
+      - id: zanna_wa_akhawatuha_afal_al_qulub_wa_al_tasyir
+        title: ظن وأخواتها (أفعال القلوب وأفعال التصيير)
+        leaf: true
+        confidence: HIGH
+      - id: al_ilgha_wa_al_taliq
+        title: الإلغاء والتعليق
+        leaf: true
+        confidence: HIGH
+      - id: aalam_wa_ara
+        title: أعلم وأرى (المتعدي إلى ثلاثة مفاعيل)
+        leaf: true
+        confidence: HIGH
+  - id: al_jumla_al_filiyya
+    title: الجملة الفعلية
+    children:
+    - id: al_fail
+      title: الفاعل
+      children:
+      - id: al_fail_wa_ahkamuh
+        title: الفاعل وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: mutabaqat_al_fil_li_failih
+        title: مطابقة الفعل لفاعله
+        leaf: true
+        confidence: HIGH
+    - id: al_naib_an_al_fail
+      title: النائب عن الفاعل
+      children:
+      - id: al_naib_an_al_fail_wa_ma_yanub_anhu
+        title: النائب عن الفاعل وما ينوب عنه
+        leaf: true
+        confidence: HIGH
+      - id: bina_al_fil_lil_majhul
+        title: بناء الفعل للمجهول (تغيير الصيغة)
+        leaf: true
+        confidence: HIGH
+    - id: taaddi_al_fil_wa_luzumuh
+      title: تعدي الفعل ولزومه
+      children:
+      - id: al_mutaaddi_wa_al_lazim_wa_tadiyat_al_lazim
+        title: المتعدي واللازم وتعدية اللازم
+        leaf: true
+        confidence: HIGH
+    - id: al_ishtighal
+      title: الاشتغال
+      children:
+      - id: wujub_nasb_al_mashghul_anhu
+        title: وجوب نصب المشغول عنه
+        leaf: true
+        confidence: HIGH
+      - id: rujhan_nasb_al_mashghul_anhu
+        title: رجحان نصب المشغول عنه
+        leaf: true
+        confidence: HIGH
+      - id: rujhan_raf_al_mashghul_anhu
+        title: رجحان رفع المشغول عنه
+        leaf: true
+        confidence: HIGH
+      - id: istiwa_al_raf_wa_al_nasb_fi_bab_al_ishtighal
+        title: استواء الرفع والنصب في باب الاشتغال
+        leaf: true
+        confidence: HIGH
+    - id: al_tanazu_fi_al_amal
+      title: التنازع في العمل
+      children:
+      - id: al_tanazu_fi_al_amal_wa_shurutuh
+        title: التنازع في العمل وشروطه
+        leaf: true
+        confidence: HIGH
+      - id: imal_al_awwal_wa_imal_al_thani
+        title: إعمال الأول وإعمال الثاني
+        leaf: true
+        confidence: HIGH
+      - id: hukm_damir_al_mutanaza_fih
+        title: حكم ضمير المتنازع فيه
+        leaf: true
+        confidence: MEDIUM
+    - id: irab_al_fil_al_mudari
+      title: إعراب الفعل المضارع
+      children:
+      - id: raf_al_mudari
+        title: رفع المضارع
+        leaf: true
+        confidence: HIGH
+      - id: nawasib_al_mudari
+        title: نواصب المضارع (أن ولن وكي وإذن)
+        leaf: true
+        confidence: HIGH
+      - id: an_al_mudmara
+        title: أن المضمرة وجوبًا وجوازًا
+        leaf: true
+        confidence: HIGH
+      - id: jawazim_al_fil_al_wahid
+        title: جوازم الفعل الواحد (لم ولمّا ولام الأمر ولا الناهية)
+        leaf: true
+        confidence: HIGH
+      - id: adawat_al_shart_al_jazima_wa_jawab_al_shart
+        title: أدوات الشرط الجازمة وجواب الشرط
+        leaf: true
+        confidence: HIGH
+      - id: law_wa_lawla_wa_lawma_wa_amma
+        title: لو ولولا ولوما وأما
+        leaf: true
+        confidence: MEDIUM
+      - id: nuna_al_tawkid_al_thaqila_wa_al_khafifa
+        title: نونا التوكيد الثقيلة والخفيفة
+        leaf: true
+        confidence: HIGH
+  - id: al_fadlat_wa_al_mutaalliqat
+    title: الفضلات والمتعلقات
+    children:
+    - id: al_maful_bih
+      title: المفعول به
+      children:
+      - id: al_maful_bih_wa_ahkamuh
+        title: المفعول به وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: taqdim_al_maful_bih_ala_al_fail
+        title: تقديم المفعول به على الفاعل (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+      - id: hadhf_al_maful_bih
+        title: حذف المفعول به
+        leaf: true
+        confidence: MEDIUM
+    - id: al_maful_al_mutlaq
+      title: المفعول المطلق
+      children:
+      - id: al_maful_al_mutlaq_wa_anwauh
+        title: المفعول المطلق وأنواعه (التوكيدي والنوعي والعددي)
+        leaf: true
+        confidence: HIGH
+      - id: naib_al_maful_al_mutlaq
+        title: نائب المفعول المطلق
+        leaf: true
+        confidence: HIGH
+      - id: hadhf_amil_al_maful_al_mutlaq
+        title: حذف عامل المفعول المطلق
+        leaf: true
+        confidence: HIGH
+    - id: al_maful_lah
+      title: المفعول له
+      children:
+      - id: al_maful_lah_wa_shurutuh
+        title: المفعول له وشروطه
+        leaf: true
+        confidence: HIGH
+      - id: nasb_al_maful_lah_wa_jaruh
+        title: نصب المفعول له وجره
+        leaf: true
+        confidence: HIGH
+    - id: al_maful_fih
+      title: المفعول فيه (الظرف)
+      children:
+      - id: zarf_al_zaman
+        title: ظرف الزمان
+        leaf: true
+        confidence: HIGH
+      - id: zarf_al_makan
+        title: ظرف المكان
+        leaf: true
+        confidence: HIGH
+      - id: al_mutasarrif_wa_ghayr_al_mutasarrif_min_al_zuruf
+        title: المتصرف وغير المتصرف من الظروف
+        leaf: true
+        confidence: HIGH
+    - id: al_maful_maah
+      title: المفعول معه
+      children:
+      - id: al_maful_maah_wa_waw_al_maiyya
+        title: المفعول معه وواو المعية
+        leaf: true
+        confidence: HIGH
+      - id: ahwal_al_ism_baad_al_waw_bayna_al_maiyya_wa_al_atf
+        title: أحوال الاسم بعد الواو بين المعية والعطف
+        leaf: true
+        confidence: HIGH
+    - id: al_hal
+      title: الحال
+      children:
+      - id: al_hal_al_mufrada_wa_shurutuha
+        title: الحال المفردة وشروطها
+        leaf: true
+        confidence: HIGH
+      - id: al_hal_al_jumla_wa_shibh_al_jumla
+        title: الحال الجملة وشبه الجملة
+        leaf: true
+        confidence: HIGH
+      - id: al_hal_al_muassisa_wa_al_muakkida
+        title: الحال المؤسسة والمؤكدة
+        leaf: true
+        confidence: HIGH
+      - id: waw_al_haliyya
+        title: واو الحالية
+        leaf: true
+        confidence: HIGH
+    - id: al_tamyiz
+      title: التمييز
+      children:
+      - id: tamyiz_al_dhat
+        title: تمييز الذات (المفرد)
+        leaf: true
+        confidence: HIGH
+      - id: tamyiz_al_nisba_tamyiz_al_jumla
+        title: تمييز الجملة
+        leaf: true
+        confidence: HIGH
+      - id: al_tamyiz_al_muhawwal_wa_ahkamuh
+        title: التمييز المحول وأحكامه
+        leaf: true
+        confidence: MEDIUM
+    - id: al_istithna
+      title: الاستثناء
+      children:
+      - id: al_mustathna_bi_illa_wa_ahkamuh
+        title: المستثنى بإلا وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: al_istithna_al_mufarragh
+        title: الاستثناء المفرغ
+        leaf: true
+        confidence: HIGH
+      - id: al_mustathna_bi_ghayr_wa_siwa
+        title: المستثنى بغير وسوى
+        leaf: true
+        confidence: HIGH
+      - id: al_mustathna_bi_khala_wa_ada_wa_hasha
+        title: المستثنى بخلا وعدا وحاشا
+        leaf: true
+        confidence: HIGH
+      - id: al_istithna_bi_laysa_wa_la_yakun
+        title: الاستثناء بليس ولا يكون
+        leaf: true
+        confidence: MEDIUM
+    - id: huruf_al_jarr
+      title: حروف الجر
+      children:
+      - id: huruf_al_jarr_al_asliyya_wa_maaniha
+        title: حروف الجر الأصلية ومعانيها
+        leaf: true
+        confidence: HIGH
+      - id: huruf_al_jarr_al_zaida_wa_shibh_al_zaida
+        title: حروف الجر الزائدة وشبه الزائدة
+        leaf: true
+        confidence: HIGH
+      - id: hadhf_harf_al_jarr_wa_baqa_amalih
+        title: حذف حرف الجر وبقاء عمله
+        leaf: true
+        confidence: HIGH
+      - id: niyabat_huruf_al_jarr_baduha_an_bad
+        title: نيابة حروف الجر بعضها عن بعض
+        leaf: true
+        confidence: MEDIUM
+      - id: mudh_wa_mundhu
+        title: مذ ومنذ
+        leaf: true
+        confidence: MEDIUM
+      - id: rubba
+        title: رُبَّ
+        leaf: true
+        confidence: MEDIUM
+      - id: hatta
+        title: حتى
+        leaf: true
+        confidence: MEDIUM
+    - id: al_idafa
+      title: الإضافة
+      children:
+      - id: al_idafa_al_mahda_wa_ghayr_al_mahda
+        title: الإضافة المحضة وغير المحضة (اللفظية والمعنوية)
+        leaf: true
+        confidence: HIGH
+      - id: al_mudaf_ila_ya_al_mutakallim
+        title: المضاف إلى ياء المتكلم
+        leaf: true
+        confidence: MEDIUM
+  - id: al_asma_al_amila_wa_al_mushtaqqat_al_amila
+    title: الأسماء العاملة والمشتقات العاملة
+    children:
+    - id: imal_al_masdar
+      title: إعمال المصدر
+      children:
+      - id: al_masdar_al_sarih_wa_imaluh
+        title: المصدر الصريح وإعماله
+        leaf: true
+        confidence: HIGH
+      - id: imal_ism_al_masdar
+        title: إعمال اسم المصدر
+        leaf: true
+        confidence: MEDIUM
+      - id: hadhf_amil_al_masdar_wa_niyabatuh_anhu
+        title: حذف عامل المصدر ونيابته عنه
+        leaf: true
+        confidence: HIGH
+    - id: imal_ism_al_fail
+      title: إعمال اسم الفاعل
+      children:
+      - id: ism_al_fail_wa_siyaghatuh_wa_shurut_imalih
+        title: اسم الفاعل وصياغته وشروط إعماله
+        leaf: true
+        confidence: HIGH
+      - id: maamul_ism_al_fail_wa_ahkamuh
+        title: معمول اسم الفاعل وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: siyagh_al_mubalaghah_wa_imaluha
+        title: صيغ المبالغة وإعمالها
+        leaf: true
+        confidence: MEDIUM
+    - id: imal_ism_al_maful
+      title: إعمال اسم المفعول
+      children:
+      - id: ism_al_maful_wa_imaluh
+        title: اسم المفعول وإعماله
+        leaf: true
+        confidence: HIGH
+    - id: imal_al_sifa_al_mushabbaha
+      title: إعمال الصفة المشبهة
+      children:
+      - id: al_sifa_al_mushabbaha_wa_imaluha
+        title: الصفة المشبهة وإعمالها
+        leaf: true
+        confidence: HIGH
+      - id: maamul_al_sifa_al_mushabbaha
+        title: معمول الصفة المشبهة
+        leaf: true
+        confidence: MEDIUM
+    - id: afal_al_tafdil
+      title: أفعل التفضيل
+      children:
+      - id: afal_al_tafdil_wa_siyaghatuh
+        title: أفعل التفضيل وصياغته
+        leaf: true
+        confidence: HIGH
+      - id: ahwal_afal_al_tafdil_al_thalath
+        title: أحوال أفعل التفضيل الثلاث
+        leaf: true
+        confidence: HIGH
+      - id: amal_afal_al_tafdil_wa_mutabaqatuh
+        title: عمل أفعل التفضيل ومطابقته
+        leaf: true
+        confidence: HIGH
+  - id: al_tawabi
+    title: التوابع
+    children:
+    - id: al_naat
+      title: النعت
+      children:
+      - id: al_naat_al_haqiqi
+        title: النعت الحقيقي
+        leaf: true
+        confidence: HIGH
+      - id: al_naat_al_sababi
+        title: النعت السببي
+        leaf: true
+        confidence: HIGH
+      - id: al_naat_bi_al_jumla_wa_shibh_al_jumla
+        title: النعت بالجملة وشبه الجملة
+        leaf: true
+        confidence: HIGH
+      - id: qat_al_naat
+        title: قطع النعت
+        leaf: true
+        confidence: MEDIUM
+    - id: al_tawkid
+      title: التوكيد
+      children:
+      - id: al_tawkid_al_lafzi
+        title: التوكيد اللفظي
+        leaf: true
+        confidence: HIGH
+      - id: al_tawkid_al_manawi
+        title: التوكيد المعنوي
+        leaf: true
+        confidence: HIGH
+    - id: al_atf
+      title: العطف
+      children:
+      - id: atf_al_bayan
+        title: عطف البيان
+        leaf: true
+        confidence: HIGH
+      - id: atf_al_nasaq
+        title: عطف النسق
+        leaf: true
+        confidence: HIGH
+      - id: huruf_al_atf_wa_maaniha
+        title: حروف العطف ومعانيها
+        leaf: true
+        confidence: HIGH
+    - id: al_badal
+      title: البدل
+      children:
+      - id: badal_al_kull_min_al_kull
+        title: بدل الكل من الكل
+        leaf: true
+        confidence: HIGH
+      - id: badal_al_baad_min_al_kull
+        title: بدل البعض من الكل
+        leaf: true
+        confidence: HIGH
+      - id: badal_al_ishtimal
+        title: بدل الاشتمال
+        leaf: true
+        confidence: HIGH
+      - id: al_badal_al_mubayin
+        title: البدل المباين
+        leaf: true
+        confidence: MEDIUM
+  - id: al_nida_wa_tawabiuh
+    title: النداء وتوابعه
+    children:
+    - id: al_nida
+      title: النداء
+      children:
+      - id: adawat_al_nida_wa_aqsam_al_munada
+        title: أدوات النداء وأقسام المنادى
+        leaf: true
+        confidence: HIGH
+      - id: irab_al_munada_wa_ahkamuh
+        title: إعراب المنادى وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: ahkam_tabi_al_munada
+        title: أحكام تابع المنادى
+        leaf: true
+        confidence: HIGH
+      - id: al_munada_al_mudaf_ila_ya_al_mutakallim
+        title: المنادى المضاف إلى ياء المتكلم
+        leaf: true
+        confidence: MEDIUM
+    - id: asma_lazimat_al_nida
+      title: أسماء لازمت النداء
+      children:
+      - id: asma_lazimat_al_nida_wa_ahkamuha
+        title: أسماء لازمت النداء وأحكامها
+        leaf: true
+        confidence: HIGH
+    - id: al_istighatha
+      title: الاستغاثة
+      children:
+      - id: al_mustaghath_bihi_wa_al_mustaghath_lahu
+        title: المستغاث به والمستغاث له
+        leaf: true
+        confidence: HIGH
+      - id: lam_al_istighatha
+        title: لام الاستغاثة
+        leaf: true
+        confidence: HIGH
+    - id: al_nudba
+      title: الندبة
+      children:
+      - id: al_nudba_wa_ahkamuha
+        title: الندبة وأحكامها
+        leaf: true
+        confidence: HIGH
+      - id: alif_al_nudba_wa_hauha
+        title: ألف الندبة وهاؤها
+        leaf: true
+        confidence: MEDIUM
+    - id: al_tarkhim
+      title: الترخيم
+      children:
+      - id: shurut_al_tarkhim
+        title: شروط الترخيم
+        leaf: true
+        confidence: HIGH
+      - id: lughata_al_tarkhim
+        title: لغتا الترخيم
+        leaf: true
+        confidence: HIGH
+      - id: al_tarkhim_fi_ghayr_al_nida_li_al_darura
+        title: الترخيم في غير النداء للضرورة
+        leaf: true
+        confidence: MEDIUM
+    - id: al_ikhtisas
+      title: الاختصاص
+      children:
+      - id: al_mansub_ala_al_ikhtisas
+        title: المنصوب على الاختصاص
+        leaf: true
+        confidence: HIGH
+  - id: al_asalib_al_nahwiyya_al_khassa
+    title: الأساليب النحوية الخاصة
+    children:
+    - id: al_taajjub
+      title: التعجب
+      children:
+      - id: sighat_ma_afala
+        title: صيغة ما أفعل
+        leaf: true
+        confidence: HIGH
+      - id: sighat_afil_bihi
+        title: صيغة أفعل به
+        leaf: true
+        confidence: HIGH
+      - id: al_taajjub_mimma_faqada_al_shurut
+        title: التعجب مما فقد الشروط
+        leaf: true
+        confidence: MEDIUM
+    - id: al_madh_wa_al_dhamm
+      title: المدح والذم
+      children:
+      - id: niama_wa_bisa_wa_ma_jara_majrahum
+        title: نعم وبئس وما جرى مجراهما
+        leaf: true
+        confidence: HIGH
+      - id: al_makhsus_bi_al_madh_wa_al_dhamm
+        title: المخصوص بالمدح والذم
+        leaf: true
+        confidence: MEDIUM
+      - id: hubbadha_wa_la_hubbadha
+        title: حبذا ولا حبذا
+        leaf: true
+        confidence: HIGH
+    - id: al_qasam
+      title: القسم
+      children:
+      - id: adawat_al_qasam
+        title: أدوات القسم
+        leaf: true
+        confidence: HIGH
+      - id: jawab_al_qasam_wa_al_lam_al_muwatti_a
+        title: جواب القسم واللام الموطئة
+        leaf: true
+        confidence: HIGH
+    - id: asma_al_afal_wa_al_aswat
+      title: أسماء الأفعال والأصوات
+      children:
+      - id: asma_al_afal
+        title: أسماء الأفعال
+        leaf: true
+        confidence: HIGH
+      - id: asma_al_aswat
+        title: أسماء الأصوات
+        leaf: true
+        confidence: MEDIUM
+    - id: al_tahdhir_wa_al_ighra
+      title: التحذير والإغراء
+      children:
+      - id: al_tahdhir
+        title: التحذير
+        leaf: true
+        confidence: HIGH
+      - id: al_ighra
+        title: الإغراء
+        leaf: true
+        confidence: HIGH
+    - id: al_adad
+      title: العدد
+      children:
+      - id: al_adad_al_mufrad
+        title: العدد المفرد
+        leaf: true
+        confidence: HIGH
+      - id: al_adad_al_murakkab
+        title: العدد المركب
+        leaf: true
+        confidence: HIGH
+      - id: al_adad_al_matuf
+        title: العدد المعطوف
+        leaf: true
+        confidence: HIGH
+      - id: tamyiz_al_adad_wa_ahkam_al_madud
+        title: تمييز العدد وأحكام المعدود
+        leaf: true
+        confidence: MEDIUM
+      - id: al_adad_al_tartibi_wa_siyaghat_fail
+        title: العدد الترتيبي وصياغة فاعل من العدد
+        leaf: true
+        confidence: MEDIUM
+    - id: kinayat_al_adad
+      title: كنايات العدد
+      children:
+      - id: kam_al_istifhamiyya
+        title: كم الاستفهامية
+        leaf: true
+        confidence: HIGH
+      - id: kam_al_khabariyya
+        title: كم الخبرية
+        leaf: true
+        confidence: HIGH
+      - id: kaayyin
+        title: كأين
+        leaf: true
+        confidence: MEDIUM
+      - id: kadha
+        title: كذا
+        leaf: true
+        confidence: MEDIUM
+    - id: al_hikaya
+      title: الحكاية
+      children:
+      - id: hikayat_al_jumla
+        title: حكاية الجملة
+        leaf: true
+        confidence: HIGH
+      - id: hikayat_al_mufrad
+        title: حكاية المفرد
+        leaf: true
+        confidence: HIGH
+      - id: hikayat_hal_al_mufrad_wa_sifatih
+        title: حكاية حال المفرد وصفته
+        leaf: true
+        confidence: MEDIUM
+    - id: al_ikhbar_bi_al_ladhi_wa_al_alif_wa_al_lam
+      title: الإخبار بالذي والألف واللام
+      children:
+      - id: al_ikhbar_bi_al_ladhi_wa_furuhi
+        title: الإخبار بالذي وفروعه
+        leaf: true
+        confidence: HIGH
+      - id: al_ikhbar_bi_al_alif_wa_al_lam
+        title: الإخبار بالألف واللام
+        leaf: true
+        confidence: HIGH
