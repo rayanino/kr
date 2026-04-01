@@ -95,6 +95,8 @@ After finishing (or any time), try **Comparison Mode**. This shows the same exce
 
 Click **"Comparison Mode"** on the home screen, or use the tab bar at the top of the page.
 
+If Comparison Mode says it is unavailable because the weekend `taysir` v2 run failed, that is expected for the current dataset. Continue with Questionnaire Mode and Review Mode; the comparison pairs will be restored once a valid `taysir` output exists.
+
 ---
 
 ## Tips

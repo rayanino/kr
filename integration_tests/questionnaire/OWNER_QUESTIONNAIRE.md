@@ -572,13 +572,13 @@ Which version would you most want to study from? Which would be most useful when
 
 ## CJ-2 --- Before and After (Placeholder)
 
-_This interaction will be filled in once the next test run completes. It will show you the same passage processed by two different versions of the system, and ask which result is better._
+_This interaction is still pending. The current weekend `taysir` v2 run failed before it produced final excerpts, so the before/after pair for this slot is not ready yet. Keep moving through the questionnaire; the team will fill this once a valid comparison source exists._
 
 ---
 
 ## CJ-3 --- Cross-Book Comparison (Placeholder)
 
-_This interaction will be filled in when cross-book topic matches are available. It will show you the same topic discussed in two or three different books, and ask how the excerpts compare._
+_This interaction is still pending. The current weekend `taysir` v2 run failed before it produced final excerpts, so the intended cross-book comparison is not ready yet. Keep moving through the questionnaire; the team will fill this once a valid comparison source exists._
 
 ---
 
