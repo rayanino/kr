@@ -760,7 +760,21 @@ def _process_chunk(
                             time.sleep(2**attempt)
 
                     if not verification_done:
-                        ctx.final_excerpts = ctx.enriched_excerpts
+                        ctx.final_excerpts = [
+                            exc.model_copy(
+                                update={
+                                    "review_flags": [
+                                        *list(exc.review_flags or []),
+                                        *(
+                                            []
+                                            if "verification_skipped" in (exc.review_flags or [])
+                                            else ["verification_skipped"]
+                                        ),
+                                    ]
+                                }
+                            )
+                            for exc in ctx.enriched_excerpts
+                        ]
                         if progress is not None:
                             progress.mark_failed(
                                 chunk_id, "phase3_consensus", "EX-M-011"
