@@ -36,6 +36,7 @@
   - generates per-book `analysis/` folders for the synced `smoke_api_v2` run
   - generates `integration_tests/smoke_api_v2/analysis/campaign_summary.{json,md}`
   - carries batch timeout timing/error/cost into the `taysir` book and campaign summaries
+  - now carries that failed-run accounting through the shared per-book analysis path too
   - exposes three evidence packets for the top-ranked anomaly classes:
     - `docs/codex/ex_v002_drop_packet_2026_04_02.md`
     - `docs/codex/ex_c003_phase2a_failure_packet_2026_04_02.md`
@@ -84,6 +85,7 @@
 - `572dafff` `docs(analysis): add EX-C-003 phase2a failure packet`
 - `c92eb658` `docs(analysis): add taysir scale-collapse packet`
 - `9c187bd5` `fix(analysis): account for batch timeouts in overnight summaries`
+- `519bdb79` `fix(analysis): preserve failed-run accounting in analysis stack`
 
 ## Next Best Lanes
 
