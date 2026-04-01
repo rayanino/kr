@@ -14,6 +14,7 @@
 - Future timed-out package runs now have a much better chance of preserving partial artifacts and diagnostic breadcrumbs.
 - The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
 - A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
+- The top three structural priorities now each have their own evidence packet on disk.
 
 ## What Improved Tonight
 
@@ -35,6 +36,10 @@
   - generates per-book `analysis/` folders for the synced `smoke_api_v2` run
   - generates `integration_tests/smoke_api_v2/analysis/campaign_summary.{json,md}`
   - carries batch timeout timing/error/cost into the `taysir` book and campaign summaries
+  - exposes three evidence packets for the top-ranked anomaly classes:
+    - `docs/codex/ex_v002_drop_packet_2026_04_02.md`
+    - `docs/codex/ex_c003_phase2a_failure_packet_2026_04_02.md`
+    - `docs/codex/taysir_scale_collapse_packet_2026_04_02.md`
 - Runtime tooling now:
   - emits `last_llm_activity.json`
   - emits timeout reports automatically
@@ -74,6 +79,11 @@
 - `d0e70aac` `fix(review): harden package discovery and report notes`
 - `6d8be970` `fix(review): only mark saves successful after HTTP success`
 - `78f32964` `docs(analysis): generate smoke_api_v2 campaign and book analyses`
+- `9bd725d8` `docs(runtime): add prioritized smoke_api_v2 findings`
+- `1fc1c5fc` `docs(analysis): add EX-V-002 drop evidence packet`
+- `572dafff` `docs(analysis): add EX-C-003 phase2a failure packet`
+- `c92eb658` `docs(analysis): add taysir scale-collapse packet`
+- `9c187bd5` `fix(analysis): account for batch timeouts in overnight summaries`
 
 ## Next Best Lanes
 
