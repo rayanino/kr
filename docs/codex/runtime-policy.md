@@ -10,8 +10,8 @@
 
 - Windows-side prerequisites: enable `Microsoft-Windows-Subsystem-Linux`, reboot, and install `Ubuntu 24.04 LTS`.
 - First post-reboot launch: run `ubuntu2404.exe` once and finish the Linux user creation.
-- Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal [-RuntimeDir <canonical-wsl-lane>]`
-- The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current Windows checkout into its target runtime dir, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal. When the canonical unattended lane is not `~/kr-codex`, pass it explicitly with `-RuntimeDir`.
+- Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal -RuntimeDir ~/kr-canonical-unattended`
+- The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the selected clean Windows source checkout into its target runtime dir, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal. Do not use the dirty original Windows checkout as that source.
 
 ## Runtime Profiles
 

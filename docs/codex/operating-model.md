@@ -22,9 +22,10 @@ Read in this order:
 ## Session Start
 
 1. Read `ACTIVE_AUTHORITY.md`.
-2. Rebuild current context from `.kr/ACTIVE.md` and `.kr/HANDOFF.md`.
-3. Read the relevant engine `CLAUDE.md`.
-4. Select the quality-gate mode before editing anything.
+2. Read the active doctrine file referenced there during the current autonomous period.
+3. Rebuild current context from `.kr/ACTIVE.md` and `.kr/HANDOFF.md`.
+4. Read the relevant engine `CLAUDE.md`.
+5. Select the quality-gate mode before editing anything.
 
 ## Quality-Gate Mapping
 

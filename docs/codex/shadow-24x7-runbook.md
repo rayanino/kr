@@ -22,11 +22,11 @@ Use repeated bounded runs, not one infinite process.
 
 Recommended entrypoint:
 
-- `powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1 -RunCycle -Hours 1.5`
+- `powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1 -RuntimeDir ~/kr-canonical-unattended -RunCycle -Hours 1.5`
 
 Recommended overnight loop:
 
-- `powershell -ExecutionPolicy Bypass -File .\scripts\run_overnight_codex_shadow_loop.ps1 -TotalHours 8 -CycleHours 1.5 -IntervalMinutes 120`
+- `powershell -ExecutionPolicy Bypass -File .\scripts\run_overnight_codex_shadow_loop.ps1 -RuntimeDir ~/kr-canonical-unattended -TotalHours 8 -CycleHours 1.5 -IntervalMinutes 120`
 
 Scheduler rules:
 

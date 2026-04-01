@@ -11,7 +11,7 @@ rollback_authority: claude
 autonomy_doctrine_file: docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md
 current_scope: Codex is the active engineering authority for the owner-led April 2-6 execution window. Operate from the clean WSL canonical unattended lane, start in `queue_only`, and treat Claude Code quota pressure as degraded coworker capacity rather than a blocker to owned work.
 codex_scope_after_cutover: Hardening, regression growth, audits, queued patch generation, and unattended runtime operation.
-blocked_after_claude_expiry: The restored doctrine file still encodes an April 9 cutover assumption. Until doctrine and authority dates are reconciled, keep operation conservative: queue-only starts, explicit blocker logging, and no promotion or write-scope expansion inferred from the doctrine alone.
+blocked_after_claude_expiry: The doctrine is aligned to the April 2 cutover, but keep operation conservative: stay `queue_only` until the canonical loop/wrapper path is re-confirmed on this lane and coworker health stays stable.
 
 ## Interpretation
 
@@ -25,7 +25,7 @@ blocked_after_claude_expiry: The restored doctrine file still encodes an April 9
 - Early owner-approved cutover took effect on April 2, 2026.
 - Start from `autonomous_codex` with `queue_only` operational discipline.
 - Record Claude Code quota limits explicitly at major milestones and continue under degraded coworker capacity when needed.
-- Reconcile the restored doctrine with the April 2 authority state before relying on doctrine-governed promotions or degraded-mode assumptions beyond the conservative starting lane.
+- Keep doctrine-governed promotions blocked until the canonical loop/wrapper path is re-confirmed on this lane and coworker health stays stable.
 
 ## Rollback
 

@@ -315,5 +315,5 @@ Current interpretation:
 1. Keep `.claude/`, `CLAUDE.md`, `NEXT.md`, and the external review inputs read-only.
 2. Treat the clean WSL canonical lane as the unattended runtime host and keep the dirty Windows checkout untouched.
 3. Run and monitor the final confirmation proof from the chosen canonical lane.
-4. Reconcile doctrine/date wording with the landed April 2 authority state before relying on doctrine-governed promotions beyond conservative `queue_only`.
+4. Re-confirm the canonical loop/wrapper entrypoints on this lane before relaxing conservative `queue_only`.
 5. Keep degraded-mode reporting explicit whenever Claude Code auth or Gemini capacity is unavailable.
