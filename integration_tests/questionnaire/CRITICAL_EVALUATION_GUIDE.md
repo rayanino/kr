@@ -21,7 +21,7 @@ The 6-coworker evaluation catches these issues BEFORE translating answers into S
 ```
 codex exec "
 TASK: Audit the owner's questionnaire responses for internal contradictions.
-SCOPE: integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md (completed)
+SCOPE: integration_tests/questionnaire/questionnaire_responses.jsonl (completed)
 CHECKS:
 1. Does answer X contradict answer Y? List all contradiction pairs.
 2. Does the priority ranking (S-1) resolve the contradictions?
@@ -37,7 +37,7 @@ OUTPUT FORMAT: Contradiction matrix + vagueness flags.
 ```
 gemini -p "
 TASK: Evaluate whether the owner's stated principles align with how Arabic scholarly texts actually work.
-CONTEXT: Read the owner's completed questionnaire at integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md
+CONTEXT: Read the owner's completed questionnaire at integration_tests/questionnaire/questionnaire_responses.jsonl
 CHECK AGAINST: .claude/rules/arabic-scholarly-conventions.md
 FOCUS:
 1. Does the owner's definition splitting preference account for how Arabic definitions actually appear in fiqh vs nahw vs hadith texts?
@@ -54,7 +54,7 @@ OUTPUT FORMAT: Per-dimension accuracy assessment with specific Arabic text examp
 **Dispatch via owner relay (has repo access):**
 ```
 TASK: Assess whether the owner's stated preferences can actually be implemented in the excerpting pipeline.
-CONTEXT: Read the completed questionnaire at integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md
+CONTEXT: Read the completed questionnaire at integration_tests/questionnaire/questionnaire_responses.jsonl
 AND the excerpting SPEC at engines/excerpting/SPEC.md
 AND the prompt templates at engines/excerpting/src/
 FOCUS:

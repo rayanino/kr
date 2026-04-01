@@ -10,15 +10,25 @@ There are **40 questions** split into 4 phases. You do not need to answer all of
 
 ## How to start
 
-**Step 1.** Open a terminal and run:
+**Step 1.** Open a terminal:
+- **Windows:** Press the Windows key, type `cmd`, press Enter
+- Or: Right-click the Start button → click "Terminal"
 
+**Step 2.** Navigate to the project folder by typing:
 ```
-python tools/review.py integration_tests/smoke_api
+cd Desktop\kr
 ```
 
-**Step 2.** Your browser opens automatically at `http://127.0.0.1:8384`
+**Step 3.** Start the server by typing:
+```
+python tools/review.py integration_tests/smoke_api_v2/
+```
 
-**Step 3.** Click **"Questionnaire Mode"** on the home screen.
+**Step 4.** Your browser opens automatically at `http://127.0.0.1:8384`
+- You should see a dark page with buttons for "Questionnaire Mode", "Comparison Mode", and package names
+- If the browser does NOT open: manually open Chrome/Edge and go to `http://127.0.0.1:8384`
+
+**Step 5.** Click **"Questionnaire Mode"** to start answering questions.
 
 ---
 
@@ -73,9 +83,15 @@ Each answer is one line of JSON. You can always go back and change an answer —
 
 ---
 
+## Review Mode
+
+You can also browse and rate individual excerpts. Click a package name (like "ibn_aqil_v1" or "taysir") on the home screen. Use Accept / Needs Work / Reject to rate each excerpt.
+
+---
+
 ## Comparison Mode
 
-After finishing (or any time), you can also try **Comparison Mode**. This shows the same excerpt produced by two different versions of the pipeline side by side, and asks you: which one is better?
+After finishing (or any time), try **Comparison Mode**. This shows the same excerpt produced by two different versions of the pipeline side by side, and asks you: which one is better?
 
 Click **"Comparison Mode"** on the home screen, or use the tab bar at the top of the page.
 
@@ -88,11 +104,49 @@ Click **"Comparison Mode"** on the home screen, or use the tab bar at the top of
 - You can close the browser and come back later — progress is always saved.
 - The questions in Phase 1 have no excerpts — they ask about your study habits and expectations. Answer in your own words.
 - Questions marked **Edge Case** are specifically tricky situations. Take a little more time with those.
+- Write in Arabic or English — whichever feels more natural for each answer.
+
+---
+
+## Dispatching Deep Research Prompts
+
+During the weekend, you can also dispatch 3 prompts to ChatGPT, Claude, and Gemini for their opinions. The prompts are ready at:
+```
+docs/codex/weekend_dr_prompts.md
+```
+
+**For ChatGPT:** Open chat.openai.com → New chat → Paste the ChatGPT prompt
+**For Claude:** Open claude.ai → New conversation → Paste the Claude prompt
+**For Gemini:** Open gemini.google.com → Upload the 3 files listed in the prompt → Paste the Gemini prompt
+
+When you get a response: **save it as a file** in `docs/coworker_reports/2026-04-01_phase0_hardening/` with a name like `chatgpt_dr_weekend_review.md`. Or just paste it into a text file anywhere — we'll find it Monday.
+
+---
+
+## When you are done
+
+When you have answered all 40 questions (or as many as you can):
+
+1. **Your answers are already saved** in `questionnaire_responses.jsonl` — no need to do anything special
+2. **Close the browser tab** and close the terminal (Ctrl+C or just close the window)
+3. **Save your work to the repository** by opening a terminal and typing:
+   ```
+   cd Desktop\kr
+   git add -A
+   git commit -m "owner feedback: questionnaire responses + excerpt reviews"
+   git push
+   ```
+   If this doesn't work, don't worry — your answers are saved locally and we'll commit them Monday.
+4. **Any DR responses** you received: save them somewhere on your Desktop. We'll integrate them Monday.
 
 ---
 
 ## If something goes wrong
 
-- If the page shows an error, make sure the server is still running (the terminal should show `KR Excerpt Reviewer`).
-- If you close the terminal by accident, run the start command again — your saved answers will still be there.
-- If you want to restart from the beginning, delete `questionnaire_responses.jsonl` and start fresh.
+- **"python is not recognized"**: Make sure Python is installed. Open Microsoft Store → search "Python" → install Python 3.13.
+- **The page shows an error**: Make sure the terminal is still running (you should see `KR Excerpt Reviewer` text). If it closed, run the start command again from Step 3.
+- **The browser did not open**: Manually go to `http://127.0.0.1:8384` in Chrome or Edge.
+- **Arabic text looks broken**: Make sure you have internet access — the fonts load from Google. If offline, the text may look less polished but should still be readable.
+- **You closed the terminal by accident**: Run the start command again — your saved answers are still there.
+- **You want to change a previous answer**: Click on any question in the left sidebar to go back to it. Save again to overwrite.
+- **You want to restart from the beginning**: Delete `integration_tests/questionnaire/questionnaire_responses.jsonl` and start fresh.

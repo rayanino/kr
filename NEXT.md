@@ -6,7 +6,7 @@
 
 ### Phase 0 Status: QUESTIONNAIRE DELIVERED
 
-The owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` (~35 interactions, 15-25 hours across multiple sessions). CC does NOT wait idly. Concurrent work continues below.
+The owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` (~40 interactions, 15-25 hours across multiple sessions). CC does NOT wait idly. Concurrent work continues below.
 
 **Questionnaire artifacts (all at `integration_tests/questionnaire/`):**
 
@@ -82,7 +82,7 @@ The v2 run processed ALL taysir chunks (184) instead of the intended 2 per packa
 
 | # | Check | Owner | Status |
 |---|-------|-------|--------|
-| 1 | Owner questionnaire responses complete (all 35 interactions answered) | CC verifies | PENDING |
+| 1 | Owner questionnaire responses complete (all 40 interactions answered) | CC verifies | PENDING |
 | 2 | 6-coworker critical evaluation complete (all 6, or N-1 with 48h timeout) | CC dispatches | PENDING |
 | 3 | All contradictions resolved (either by owner clarification or S-1 priority ranking) | CC decides | PENDING |
 | 4 | SPEC amendments written per `TEAM_TRANSLATION_GUIDE.md` column mapping | CC writes | PENDING |
@@ -257,7 +257,7 @@ python scripts/run_full_integration.py \
 | Scenario | Wait | Then |
 |----------|------|------|
 | Questionnaire not started after delivery | 48h | CC sends a reminder with an estimated time commitment. |
-| Questionnaire in progress but stalled | 72h since last answer | CC sends progress check: "You've completed X/35 interactions. Take your time -- no rush." |
+| Questionnaire in progress but stalled | 72h since last answer | CC sends progress check: "You've completed X/40 interactions. Take your time -- no rush." |
 | Questionnaire complete but challenges unanswered | 72h | CC proceeds using S-1 priority ranking + coworker-confirmed resolution. Documents decision. |
 | Owner spot-check (Phase 1/2/3) not returned | 48h | CC proceeds with coworker-only evaluation. Notes "owner review pending" in report. |
 

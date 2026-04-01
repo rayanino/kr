@@ -305,8 +305,12 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         against campaign_20260331/taysir (old prompts) by div_path position.
         Each pair: { pair_id, division, before: {...}, after: {...} }
         """
-        before_file = self.output_dir / "smoke_api" / "taysir" / "excerpts.jsonl"
-        after_file = self.output_dir / "campaign_20260331" / "taysir" / "excerpts.jsonl"
+        # Comparison: current output_dir has "after" (v2), campaign has "before"
+        # output_dir is e.g. integration_tests/smoke_api_v2/
+        # campaign is always at integration_tests/campaign_20260331/ (sibling)
+        repo_root = self.output_dir.parent.parent  # integration_tests/../ = repo root
+        after_file = self.output_dir / "taysir" / "excerpts.jsonl"
+        before_file = repo_root / "integration_tests" / "campaign_20260331" / "taysir" / "excerpts.jsonl"
 
         def _load(path: Path) -> list[dict]:
             items: list[dict] = []
