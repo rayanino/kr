@@ -15,7 +15,7 @@
 ## Operational
 
 - Total time: 28801.0s
-- Total cost: EUR 0.0000
+- Total cost: EUR 42.8193
 - LLM calls: 0
 
 ## Anomalies

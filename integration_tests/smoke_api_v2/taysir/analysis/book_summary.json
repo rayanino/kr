@@ -9,7 +9,7 @@
   "anomaly_count": 4,
   "review_candidate_count": 3107,
   "total_time_seconds": 28800.96,
-  "total_cost": 0,
+  "total_cost": 42.819313,
   "metrics": {
     "unit_yield_ratio": {
       "name": "unit_yield_ratio",
