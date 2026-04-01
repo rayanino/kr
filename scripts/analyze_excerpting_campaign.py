@@ -36,6 +36,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _load_json(path: Path) -> dict | list | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
 def discover_books(campaign_dir: Path) -> list[Path]:
     """Find book run subdirectories in a campaign directory."""
     books = []
@@ -289,6 +298,12 @@ def main() -> None:
         sys.exit(1)
 
     output_dir = args.output_dir or (campaign_dir / "analysis")
+    summary_data = _load_json(campaign_dir / "SUMMARY.json")
+    summary_packages = (
+        summary_data.get("packages", {})
+        if isinstance(summary_data, dict)
+        else {}
+    )
 
     book_dirs = discover_books(campaign_dir)
     if not book_dirs:
@@ -303,6 +318,24 @@ def main() -> None:
         logger.info("Analyzing %s ...", book_dir.name)
         run_data = load_book_run(book_dir)
         result = analyze_book(run_data)
+        pkg_summary = (
+            summary_packages.get(book_dir.name, {})
+            if isinstance(summary_packages, dict)
+            else {}
+        )
+        if isinstance(pkg_summary, dict):
+            result.error_count = max(
+                result.error_count,
+                int(pkg_summary.get("error_count", 0) or 0),
+            )
+            if result.total_time_seconds == 0:
+                result.total_time_seconds = float(
+                    pkg_summary.get("time_seconds", 0.0) or 0.0
+                )
+            if result.total_cost == 0:
+                result.total_cost = float(
+                    pkg_summary.get("cost_estimate", 0.0) or 0.0
+                )
 
         # Also write per-book outputs
         book_output = book_dir / "analysis"

@@ -1,0 +1,205 @@
+{
+  "book_name": "ibn_aqil_v1",
+  "source_id": "src_test0001",
+  "structural_status": "STRUCTURAL_FAIL",
+  "phase1_chunk_count": 14,
+  "phase2b_unit_count": 243,
+  "excerpt_count": 241,
+  "error_count": 3,
+  "anomaly_count": 2,
+  "review_candidate_count": 60,
+  "total_time_seconds": 2655.41,
+  "total_cost": 4.403729,
+  "metrics": {
+    "unit_yield_ratio": {
+      "name": "unit_yield_ratio",
+      "value": 0.9918,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "phase1_chunk_count": {
+      "name": "phase1_chunk_count",
+      "value": 14,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "phase2b_unit_count": {
+      "name": "phase2b_unit_count",
+      "value": 243,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "final_excerpt_count": {
+      "name": "final_excerpt_count",
+      "value": 241,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "unit_loss_count": {
+      "name": "unit_loss_count",
+      "value": 2,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "chunk_coverage_ratio": {
+      "name": "chunk_coverage_ratio",
+      "value": 0.8571,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "truncation_count": {
+      "name": "truncation_count",
+      "value": 0,
+      "tier": "decision_grade_structural",
+      "provenance": "deterministic_structural"
+    },
+    "zero_output_with_activity": {
+      "name": "zero_output_with_activity",
+      "value": false,
+      "tier": "decision_grade_structural",
+      "provenance": "deterministic_structural"
+    },
+    "error_count": {
+      "name": "error_count",
+      "value": 3,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "total_time_seconds": {
+      "name": "total_time_seconds",
+      "value": 2655.41,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase1_time_seconds": {
+      "name": "phase1_time_seconds",
+      "value": 0.06,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase2a_time_seconds": {
+      "name": "phase2a_time_seconds",
+      "value": 1111.86,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase2b_time_seconds": {
+      "name": "phase2b_time_seconds",
+      "value": 570.51,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase3_time_seconds": {
+      "name": "phase3_time_seconds",
+      "value": 972.95,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_llm_cost": {
+      "name": "total_llm_cost",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_tokens_in": {
+      "name": "total_tokens_in",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_tokens_out": {
+      "name": "total_tokens_out",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "call_count_by_inferred_phase": {
+      "name": "call_count_by_inferred_phase",
+      "value": {},
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "call_count_by_model": {
+      "name": "call_count_by_model",
+      "value": {},
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "partial_rate": {
+      "name": "partial_rate",
+      "value": 0.166,
+      "tier": "review_risk_triage",
+      "provenance": "heuristic_extracted"
+    },
+    "dependent_count": {
+      "name": "dependent_count",
+      "value": 3,
+      "tier": "review_risk_triage",
+      "provenance": "heuristic_extracted"
+    },
+    "review_flag_count": {
+      "name": "review_flag_count",
+      "value": 26,
+      "tier": "review_risk_triage",
+      "provenance": "heuristic_extracted"
+    },
+    "gate_flag_count": {
+      "name": "gate_flag_count",
+      "value": 3,
+      "tier": "review_risk_triage",
+      "provenance": "heuristic_extracted"
+    },
+    "function_distribution": {
+      "name": "function_distribution",
+      "value": {
+        "definition": 39,
+        "example": 4,
+        "rule_statement": 137,
+        "opinion_statement": 36,
+        "condition_exception": 20,
+        "editorial_note": 1,
+        "evidence_quran": 2,
+        "evidence_hadith": 1,
+        "refutation": 1
+      },
+      "tier": "descriptive",
+      "provenance": "heuristic_extracted"
+    },
+    "self_containment_distribution": {
+      "name": "self_containment_distribution",
+      "value": {
+        "FULL": 198,
+        "PARTIAL": 40,
+        "DEPENDENT": 3
+      },
+      "tier": "descriptive",
+      "provenance": "heuristic_extracted"
+    },
+    "mean_excerpt_word_count": {
+      "name": "mean_excerpt_word_count",
+      "value": 132.3,
+      "tier": "descriptive",
+      "provenance": "heuristic_extracted"
+    },
+    "school_attribution_rate": {
+      "name": "school_attribution_rate",
+      "value": 0.0,
+      "tier": "descriptive",
+      "provenance": "heuristic_extracted"
+    },
+    "quoted_scholars_rate": {
+      "name": "quoted_scholars_rate",
+      "value": 0.61,
+      "tier": "descriptive",
+      "provenance": "heuristic_extracted"
+    }
+  },
+  "trace_summary": [],
+  "observability_limitations": [
+    "EX-V-002 dropped unit identity unknown: processing_log records error codes but not affected unit indices. The analyzer correlates by count but cannot confirm the specific unit-to-error mapping.",
+    "Failed Phase 2a/2b chunks may be absent, not logged: if a chunk's classification fails, no output file is written. The analyzer detects absence but cannot distinguish 'not attempted' (--max-chunks) from 'attempted and failed silently'.",
+    "Validation drops are not first-class artifacts: dropped units have no dedicated artifact. The analyzer infers drops from the gap between phase2b unit set and excerpt set.",
+    "gate_queue verification not invoked by runner: gate_queue.jsonl is empty in all test books despite GATE_ON_* flags being true. The analyzer notes gate_count=0 but cannot determine if gates should have fired.",
+    "Pre-L-001 runs lack chunk_id in raw traces: the analyzer reads chunk_id from request JSON when present (post-L-001); for older run directories chunk_id is None (semantic phase inference unaffected)."
+  ]
+}
