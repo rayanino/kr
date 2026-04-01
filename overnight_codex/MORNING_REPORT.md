@@ -16,6 +16,7 @@
 - A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
 - The top three structural priorities now each have their own evidence packet on disk.
 - The chunk-limit investigation currently points to launch/wrapper omission, not a proven child-runner `--max-chunks` bug.
+- A protected-state divergence note now exists for the stale `L-001` status in `.kr/HANDOFF.md`.
 
 ## What Improved Tonight
 
@@ -96,3 +97,4 @@
 4. Use the ranked priority memo to focus the next serious hardening lane on unit loss first, Phase 2a failures second, and the `taysir` scale-collapse third.
 5. Treat `docs/codex/chunk_limit_investigation_2026_04_02.md` as the current truth on the `--max-chunks` question until contrary evidence appears.
 6. Use the repo virtualenv mock probe as the cheap future verification path before any paid smoke run.
+7. Treat `docs/codex/protected_state_divergence_2026_04_02.md` as the note of record where protected files are stale but cannot be edited in the unattended lane.
