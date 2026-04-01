@@ -412,6 +412,78 @@ def _write_timeout_report(
         ).isoformat().replace("+00:00", "Z")
         return f"{latest.name} @ {ts}"
 
+    def _trace_health() -> dict[str, Any]:
+        req_root = pkg_output / "raw_llm_requests"
+        resp_root = pkg_output / "raw_llm_responses"
+        summary: dict[str, Any] = {
+            "request_counts": {},
+            "response_counts": {},
+            "missing_response_calls": [],
+            "abnormal_responses": [],
+        }
+        if not req_root.is_dir() or not resp_root.is_dir():
+            return summary
+
+        request_files = sorted(p for p in req_root.glob("*.json") if p.is_file())
+        response_files = sorted(p for p in resp_root.glob("*.json") if p.is_file())
+
+        def _prefix(name: str) -> str:
+            return name.split("_")[0]
+
+        request_counts: dict[str, int] = {}
+        response_counts: dict[str, int] = {}
+        for path in request_files:
+            key = _prefix(path.stem)
+            request_counts[key] = request_counts.get(key, 0) + 1
+        for path in response_files:
+            key = _prefix(path.stem)
+            response_counts[key] = response_counts.get(key, 0) + 1
+        summary["request_counts"] = request_counts
+        summary["response_counts"] = response_counts
+
+        response_stems = {
+            path.stem
+            for path in response_files
+            if not path.name.endswith("_error.json")
+        }
+        error_response_stems = {
+            path.stem[:-6]
+            for path in response_files
+            if path.name.endswith("_error.json")
+        }
+        summary["missing_response_calls"] = [
+            path.stem
+            for path in request_files
+            if path.stem not in response_stems and path.stem not in error_response_stems
+        ]
+
+        abnormal: list[dict[str, Any]] = []
+        for path in response_files:
+            if path.name.endswith("_error.json"):
+                continue
+            try:
+                entry = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if not isinstance(entry, dict):
+                continue
+            usage = entry.get("usage") or {}
+            completion_tokens = usage.get("completion_tokens")
+            finish_reason = entry.get("finish_reason")
+            if finish_reason in (None, "") or (
+                isinstance(completion_tokens, int) and completion_tokens <= 1
+            ):
+                abnormal.append({
+                    "call_id": entry.get("call_id", path.stem),
+                    "finish_reason": finish_reason,
+                    "completion_tokens": completion_tokens,
+                    "latency_seconds": entry.get("latency_seconds"),
+                })
+        summary["abnormal_responses"] = abnormal[-5:]
+        return summary
+
+    trace_health = _trace_health()
+
     lines = [
         "# Timeout Report",
         "",
@@ -457,6 +529,16 @@ def _write_timeout_report(
         f"- Latest request file: `{_latest_file_info('raw_llm_requests')}`",
         f"- Latest response file: `{_latest_file_info('raw_llm_responses')}`",
     ])
+
+    if trace_health["request_counts"] or trace_health["response_counts"]:
+        lines.extend([
+            "",
+            "## Trace Health",
+            "",
+            "```json",
+            json.dumps(trace_health, ensure_ascii=False, indent=2),
+            "```",
+        ])
 
     if isinstance(last_activity, dict) and last_activity:
         lines.extend([
