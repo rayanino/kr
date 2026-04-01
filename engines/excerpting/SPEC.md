@@ -1979,6 +1979,7 @@ Each code is defined exactly once in the section where its triggering condition 
 | `EX-M-008` | Gate entry not written despite gate trigger | CRITICAL | Retry write. If retry fails, halt source processing — the uncertainty is now invisible. | §7.4 (V-P3-7) |
 | `EX-M-009` | Footnote `ref_marker` offset outside excerpt's character range | WARNING | Remove footnote from this excerpt's `footnotes_relevant` | §7.4 (V-P3-8) |
 | `EX-M-010` | Unknown content type in `content_types` set | WARNING | Log; likely indicates a new scholarly function type not in the enum | §7.4 (V-P3-9) |
+| `EX-M-011` | Consensus verification failed after all retries | WARNING | Keep enrichment output, add `verification_skipped`, and log reduced-confidence consensus degradation | §7.3 / §7.4 |
 
 **Validation (EX-V-*):**
 
@@ -2011,6 +2012,11 @@ Recovery follows a consistent pattern: retry → degrade → skip → flag.
 3. If all retries exhausted:
    - Phase 2 failures (EX-C-001, EX-C-002): skip the entire chunk. No teaching units are produced for this chunk. The chunk is flagged for reprocessing in the processing log.
    - Phase 3 enrichment failure (EX-M-002): produce the excerpt with deterministic metadata only (§7.1). LLM-enriched fields default to empty/null. The excerpt is structurally valid but informationally incomplete.
+
+**Consensus verification failures (EX-M-011):**
+1. Retry up to `RETRY_COUNT` times with the configured verification timeout/backoff policy.
+2. If all retries are exhausted, keep the enrichment-stage excerpt output rather than dropping the excerpt.
+3. Append `verification_skipped` to `review_flags` and record `EX-M-011` in the processing result so downstream consumers can distinguish degraded verification from a fully verified excerpt.
 
 **Offset normalization failures (EX-C-003):**
 1. The normalization algorithm (§5.4.1) attempts snippet-based alignment as fallback.
@@ -2401,4 +2407,3 @@ C-7 (same-model evaluation bias) is a concern because Claude Opus 4.6 both produ
 **Regression testing:** All gold baselines (experiment fixtures + owner-verified excerpts from evaluation) are re-run when: the LLM model string changes, a prompt template is modified, a configuration threshold is adjusted, or the consensus verification logic is modified. Regressions in boundary accuracy or self-containment accuracy block the change.
 
 ---
-
