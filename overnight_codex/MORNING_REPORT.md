@@ -15,6 +15,7 @@
 - The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
 - A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
 - The top three structural priorities now each have their own evidence packet on disk.
+- The chunk-limit investigation currently points to launch/wrapper omission, not a proven child-runner `--max-chunks` bug.
 
 ## What Improved Tonight
 
@@ -93,3 +94,5 @@
 2. Keep tightening timeout diagnosis around the missing verification response path.
 3. Avoid taysir-dependent tasks until a valid output file exists.
 4. Use the ranked priority memo to focus the next serious hardening lane on unit loss first, Phase 2a failures second, and the `taysir` scale-collapse third.
+5. Treat `docs/codex/chunk_limit_investigation_2026_04_02.md` as the current truth on the `--max-chunks` question until contrary evidence appears.
+6. Use the repo virtualenv mock probe as the cheap future verification path before any paid smoke run.
