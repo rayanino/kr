@@ -1,0 +1,706 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَابُ صَلَاةِ العيدَين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 35,
+    "text_snippet": "سمي عيداً لأنه يعود ويتكرر، والأعياد قديمة ف",
+    "scholarly_function": "definition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 2,
+    "start_word": 36,
+    "end_word": 83,
+    "text_snippet": "وأمد الله أمة محمد صلى الله عليه وسلم بعيد ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 3,
+    "start_word": 84,
+    "end_word": 97,
+    "text_snippet": "وشرع لهم الاجتماع للصلاة في هذين العيدين، ليت",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 98,
+    "end_word": 118,
+    "text_snippet": "وتحقق هذه الاجتماعات الإسلامية من المصالح الد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 5,
+    "start_word": 119,
+    "end_word": 204,
+    "text_snippet": "قال ابن القيم في الهدى ما خلاصته: كان يصلي ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 6,
+    "start_word": 205,
+    "end_word": 223,
+    "text_snippet": "ورخص لمن يشهد صلاة العيد أن يجلس للخطبة أو أن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 7,
+    "start_word": 224,
+    "end_word": 266,
+    "text_snippet": "قال ابن دقيق العيد لا خلاف في أن صلاة العيدين",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 8,
+    "start_word": 267,
+    "end_word": 268,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 269,
+    "end_word": 290,
+    "text_snippet": "عَنْ عَبدِ الله بن عُمَرَ رضي الله عنهما قَال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 291,
+    "end_word": 292,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 293,
+    "end_word": 315,
+    "text_snippet": "كان من عادة النبي صلى الله عليه وسلم وخلفائه ",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 12,
+    "start_word": 316,
+    "end_word": 326,
+    "text_snippet": "ففيه تقديم الصلاة على الخطبتين، وتأتي بقية أح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 327,
+    "end_word": 328,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 329,
+    "end_word": 432,
+    "text_snippet": "عَن البَرَاءِ بن عَازبٍ رضي الله عنهما قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 433,
+    "end_word": 434,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 435,
+    "end_word": 475,
+    "text_snippet": "نسك: النسك، الذبح، \" والنسيكة \" الذبيحة، ويأت",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 476,
+    "end_word": 477,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 478,
+    "end_word": 620,
+    "text_snippet": "خطب النبي صلى الله عليه وسلم في يوم عيد الأضح",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 19,
+    "start_word": 621,
+    "end_word": 646,
+    "text_snippet": "قال صلى الله عليه وسلم: \" نعم \" ولكن هذا الحكم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 20,
+    "start_word": 647,
+    "end_word": 650,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 651,
+    "end_word": 668,
+    "text_snippet": "1- فيه تقديم الصلاة على الخطبة في صلاة العيد،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 669,
+    "end_word": 684,
+    "text_snippet": "2- وفيه أن من حضر الصلاة والذكر، ثم ذبح بعد ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 23,
+    "start_word": 685,
+    "end_word": 704,
+    "text_snippet": "3- وفيه أن حضور الصلاة من علامات قبول النسك.\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 705,
+    "end_word": 749,
+    "text_snippet": "4- وأن وقت الذبح يدخل بانتهاء الصلاة. قال ابن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 25,
+    "start_word": 750,
+    "end_word": 767,
+    "text_snippet": "5- وفيه أن يوم العيد يوم فرح وسرور، وأكل، وشر",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 26,
+    "start_word": 768,
+    "end_word": 781,
+    "text_snippet": "6- أنه لا يجزئ في الهدى والأضاحي من المعزى، إ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 782,
+    "end_word": 798,
+    "text_snippet": "7- تخصيص النبي صلى الله عليه وسلم أبا بردة بإ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 28,
+    "start_word": 799,
+    "end_word": 859,
+    "text_snippet": "8- قال ابن دقيق العيد: وفيه دليل على أن المأم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 860,
+    "end_word": 861,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 862,
+    "end_word": 900,
+    "text_snippet": "عَنْ جُنْدُب بن عَبْدِ الله البجَليِّ رضي الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 901,
+    "end_word": 901,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 902,
+    "end_word": 924,
+    "text_snippet": "البجلي: بفتح الباء والجيم منسوب إلى قبيلته (بَ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 925,
+    "end_word": 926,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 927,
+    "end_word": 1023,
+    "text_snippet": "ابتدأ النبي صلى الله عليه وسلم يوم النحر بالص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1024,
+    "end_word": 1025,
+    "text_snippet": "خلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1026,
+    "end_word": 1071,
+    "text_snippet": "ذهب أبو حنيفة ومالك والثوري إلى أن الأضحية وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1072,
+    "end_word": 1073,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1074,
+    "end_word": 1162,
+    "text_snippet": "عَنْ جَابر رضي الله عنه قال: \" شَهِدْتُ مَع رَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1163,
+    "end_word": 1163,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1164,
+    "end_word": 1227,
+    "text_snippet": "سِطَة النساء: بكسر السين وفتح الطاء المخففة، ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1228,
+    "end_word": 1229,
+    "text_snippet": "المعنى الإِجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1230,
+    "end_word": 1380,
+    "text_snippet": "صلي النبي صلى الله عليه وسلم بأصحابه صلاة الع",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1381,
+    "end_word": 1384,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1385,
+    "end_word": 1391,
+    "text_snippet": "1- البداءة بصلاة العيد قبل الخطبة، وتقدم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1392,
+    "end_word": 1399,
+    "text_snippet": "2- أنه ليس لصلاة العيد أذان ولا إقامة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1400,
+    "end_word": 1404,
+    "text_snippet": "3- استحباب كون الخطيب قائماً.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1405,
+    "end_word": 1426,
+    "text_snippet": "4- أن يأمر الخطيب بتقوى الله تعالى، التي هي ج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1427,
+    "end_word": 1459,
+    "text_snippet": "5- تذكريهم بلزوم التقوى والطاعة لله، بذكر الو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1460,
+    "end_word": 1474,
+    "text_snippet": "6- إفراد النساء بموعظة، إذا كنّ بعيدات لا يسم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1475,
+    "end_word": 1489,
+    "text_snippet": "7- أن النساء كن يخرجن إلى صلاة العيد في عهد ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1490,
+    "end_word": 1500,
+    "text_snippet": "8- أن يتنحَّيْنَ عن الرجال ولا يخالطهم في المس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1501,
+    "end_word": 1516,
+    "text_snippet": "9- كون النساء أكثر الناس دخولا في النار بسبب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1517,
+    "end_word": 1526,
+    "text_snippet": "10- أن كلام الفاحش وكفر النعم سبب من دخول الن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1527,
+    "end_word": 1536,
+    "text_snippet": "11- أن الصدقة من أسباب النجاة من عذاب الله تع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1537,
+    "end_word": 1548,
+    "text_snippet": "12- مخاطبة نساء الصحابة للنبي صلى الله عليه و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1549,
+    "end_word": 1587,
+    "text_snippet": "13- فقه نساء الصحابة وفهمهن، لأن هذه المتكلمة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1588,
+    "end_word": 1600,
+    "text_snippet": "14- مبادرتهن إلى فعل الخير، إذ أسرعن إلى الصد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1601,
+    "end_word": 1614,
+    "text_snippet": "15- أن المرأة الرشيدة تتصدق من مالها بغير إذن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1615,
+    "end_word": 1621,
+    "text_snippet": "16- أخذ منه جواز ثقب الأذن المرأة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1622,
+    "end_word": 1623,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1624,
+    "end_word": 1677,
+    "text_snippet": "عَنْ أمِّ عَطِيَّة نُسيبة الأنصاريَّة رضي الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1678,
+    "end_word": 1679,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1680,
+    "end_word": 1736,
+    "text_snippet": "العواتق: جمع \" عاتق \" المرأة الشابة أول ما تب",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1737,
+    "end_word": 1738,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1739,
+    "end_word": 1844,
+    "text_snippet": "يوم عيد الفطر ويوم عيد الأضحى من الأيام المفض",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1845,
+    "end_word": 1846,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1847,
+    "end_word": 1963,
+    "text_snippet": "اختلف العلماء في حكم صلاة العيد.\nفذهب الإمام ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1964,
+    "end_word": 1991,
+    "text_snippet": "واستدلوا على ذلك بقوله تعالى: {فَصَلِّ لِربِّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1992,
+    "end_word": 2008,
+    "text_snippet": "ولأمره بخروج العواتق والمخدرات، وأمرهم بصلاته",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2009,
+    "end_word": 2021,
+    "text_snippet": "والأمر في كل هذه الأدلة يقتضي الوجوب، وكذلك م",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2022,
+    "end_word": 2072,
+    "text_snippet": "أما حديث الأعرابي، فليس فيه ما يدل على عدم وج",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2073,
+    "end_word": 2087,
+    "text_snippet": "وشيخ الإسلام \" ابن تيمية \" يميل إلى وجوبها عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2088,
+    "end_word": 2091,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2092,
+    "end_word": 2123,
+    "text_snippet": "1- وجوب صلاة العيد حتى على النساء في ظاهر الح",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2124,
+    "end_word": 2130,
+    "text_snippet": "2- وجوب اجتناب الحائض المسجد لئلا تلوثه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2131,
+    "end_word": 2137,
+    "text_snippet": "3- أن مصلى العيد له حكم المساجد.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2138,
+    "end_word": 2147,
+    "text_snippet": "4- أن الحائض غير ممنوعة من الدعاء وذكر الله ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2148,
+    "end_word": 2160,
+    "text_snippet": "5- فضل يوم العيد وكونه مرجوًّا لإجابة الدعاء،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2161,
+    "end_word": 2163,
+    "text_snippet": "التكبير في العيدين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2164,
+    "end_word": 2171,
+    "text_snippet": "وهو ملخص من كلام شيخ الإسلام ابن تيمية.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2172,
+    "end_word": 2204,
+    "text_snippet": "وقته: أصح الأقوال في التكبير الذي عليه جمهور ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2205,
+    "end_word": 2289,
+    "text_snippet": "صفته: وصفة التكبير المنقول عن أكثر الصحابة ما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2290,
+    "end_word": 2405,
+    "text_snippet": "وقاعدتنا في هذا الباب أصح القواعد، وهي أن جمي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2406,
+    "end_word": 2409,
+    "text_snippet": "التكبير عند الأمور الهامة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2410,
+    "end_word": 2483,
+    "text_snippet": "قال رحمه الله: إذا كانت السنة قد جاءت بالتكبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2484,
+    "end_word": 2569,
+    "text_snippet": "وهذا كله يبين أن التكبير مشروع في المواضع الك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2570,
+    "end_word": 2595,
+    "text_snippet": "ولهذا فإني أهيب بجميع المسلمين أن يفزعوا إلى ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  }
+]

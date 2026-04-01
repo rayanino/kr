@@ -1,0 +1,442 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌باب فضْل صَلاة الجماعَةِ وَوجوبها",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 59,
+    "text_snippet": "من سُمُوّ هذه الشريعة: أنها تشرع في كثير من ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 2,
+    "start_word": 60,
+    "end_word": 88,
+    "text_snippet": "وأول هذه المؤتمرات، صلاة الجماعة في المسجد، ف",
+    "scholarly_function": "example",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 3,
+    "start_word": 89,
+    "end_word": 90,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 91,
+    "end_word": 117,
+    "text_snippet": "عَن عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 118,
+    "end_word": 119,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 120,
+    "end_word": 125,
+    "text_snippet": "1- \"الفذّ\": بالفاء والذال المعجمة، الفرد.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 126,
+    "end_word": 149,
+    "text_snippet": "2- \"درجة\": قال ابن الأثير: لم يقل جزءاً ولا ن",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 150,
+    "end_word": 151,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 152,
+    "end_word": 193,
+    "text_snippet": "يشير هذا الحديث إلى بيان فضل صلاة الجماعة على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 194,
+    "end_word": 203,
+    "text_snippet": "ولاشك أن من ضيع هذا الربح الكبير محروم وأي مح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 11,
+    "start_word": 204,
+    "end_word": 207,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 208,
+    "end_word": 214,
+    "text_snippet": "1- فيه بيان فضل الصلاة مع الجماعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 215,
+    "end_word": 224,
+    "text_snippet": "2- فيه بيان قلة ثواب صلاة المنفرد بالنسبة لصلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 225,
+    "end_word": 233,
+    "text_snippet": "3- الفرق الكبير في الثواب، بين صلاتي الجماعة و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 234,
+    "end_word": 272,
+    "text_snippet": "4- صحة صلاة المنفرد وإجزاؤها عنه، لأن لفظ \" أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 273,
+    "end_word": 274,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 275,
+    "end_word": 359,
+    "text_snippet": "عَنْ أبى هريرة رضي الله عنه قَالَ: قَالَ رَسُول",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 360,
+    "end_word": 361,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 362,
+    "end_word": 371,
+    "text_snippet": "1- \"فأحرق\": بتشديد الراء، ويروى تخفيفها، والت",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 372,
+    "end_word": 393,
+    "text_snippet": "2- \"حبوا\": قال ابن الأثير: الحبو أن يمشى على ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 394,
+    "end_word": 395,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 396,
+    "end_word": 546,
+    "text_snippet": "لما كان المنافقون يراؤون الناس، ولا يذكرون الل",
+    "scholarly_function": "narration",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 23,
+    "start_word": 547,
+    "end_word": 548,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 549,
+    "end_word": 554,
+    "text_snippet": "اختلف العلماء في حكم صلاة الجماعة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 555,
+    "end_word": 564,
+    "text_snippet": "فذهبت طائفة من الحنفية والمالكية والشافعية: إل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 565,
+    "end_word": 581,
+    "text_snippet": "وذهبت طائفة أخرى من هؤلاء إلى أنها فرض كفاية،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 582,
+    "end_word": 591,
+    "text_snippet": "وذهب الإمام أحمد وأتباعه، وأهل الحديث، إلى أنه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 592,
+    "end_word": 599,
+    "text_snippet": "وبالغت الظاهرية، فذهبوا إلى أنها شرط لصحة الصل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 600,
+    "end_word": 611,
+    "text_snippet": "واختار هذا القول أبو الوفاء بن عقيل الحنبلي، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 612,
+    "end_word": 614,
+    "text_snippet": "أدلة هذه المذاهب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 615,
+    "end_word": 629,
+    "text_snippet": "استدل الذاهبون إلى أنها سنة بحديث \"صلاة الجماع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 630,
+    "end_word": 641,
+    "text_snippet": "ووجه استدلالهم: أن كلا من صلاة الجماعة وصلاة ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 33,
+    "start_word": 642,
+    "end_word": 654,
+    "text_snippet": "وتأولوا حديث الباب بتأويلات بعيدة متكلفة، مذك",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 34,
+    "start_word": 655,
+    "end_word": 674,
+    "text_snippet": "أما أدلة من ذهبوا إلى أنها فرض كفاية، فهي أدلة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 35,
+    "start_word": 675,
+    "end_word": 685,
+    "text_snippet": "وليس هذا دليلا مستقيماً، لأن هؤلاء هم بقتلهم، ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 686,
+    "end_word": 706,
+    "text_snippet": "ولو كانت فرض كفاية، لكان وجوبها ساقطاً من هؤلا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 37,
+    "start_word": 707,
+    "end_word": 715,
+    "text_snippet": "أما أدلة الموجبين لها على الأعيان، فهي صحيحة ص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 38,
+    "start_word": 716,
+    "end_word": 736,
+    "text_snippet": "فمنها: حديث أبي هريرة هذا الذي معنا، فإنه صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 39,
+    "start_word": 737,
+    "end_word": 758,
+    "text_snippet": "ومنها: حديث الأعمى الذي استأذن النبي صلى الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 759,
+    "end_word": 766,
+    "text_snippet": "ومنها: مشروعيتها في أشد الحالات، وهى وقت القتا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 41,
+    "start_word": 767,
+    "end_word": 774,
+    "text_snippet": "وغير ذلك من أدلة ناصعة، لا تقبل التأويل.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 42,
+    "start_word": 775,
+    "end_word": 802,
+    "text_snippet": "أما أحاديث المفاضلة، فلا دلالة فيها على عدم ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 803,
+    "end_word": 835,
+    "text_snippet": "أما دليل الغالين في ذلك، وهم من يرون أنها شرط ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 44,
+    "start_word": 836,
+    "end_word": 865,
+    "text_snippet": "والراجح أن الحديث موقوف لا مرفوع، وقد تكلم الع",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 45,
+    "start_word": 866,
+    "end_word": 876,
+    "text_snippet": "وهذا التعبير كثير في لسان الشارع، يريد بنفي ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 46,
+    "start_word": 877,
+    "end_word": 900,
+    "text_snippet": "وحديث: \" صلاة الجماعة أفضل من صلاة الفذ بسبع و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 47,
+    "start_word": 901,
+    "end_word": 958,
+    "text_snippet": "بعد أن ذكر \" ابن القيم \" في كتاب الصلاة \" مذاه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 48,
+    "start_word": 959,
+    "end_word": 962,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 963,
+    "end_word": 971,
+    "text_snippet": "1- أن صلاة الجماعة فرض عين، على الرجال البالغي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 972,
+    "end_word": 981,
+    "text_snippet": "2- أن من ترك الجماعة بلا عذر، آثم يستحق العقوب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 982,
+    "end_word": 1003,
+    "text_snippet": "3- أن درء المفاسد، مقدم على جلب المصالح-، فإنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1004,
+    "end_word": 1021,
+    "text_snippet": "4- أن المنافقين لم يقصدوا بعبادتهم إلا الرياء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1022,
+    "end_word": 1026,
+    "text_snippet": "5- فضل صلاتي العشاء والفجر.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1027,
+    "end_word": 1052,
+    "text_snippet": "6- ثقل صلاتي الفجر والعشاء: محمول على أدائهما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

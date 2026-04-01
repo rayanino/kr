@@ -1,0 +1,52 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 0,
+    "end_word": 143,
+    "text_snippet": "الحديث الثالث\nعَنْ سَعد بْنِ أبى وَقاص رضي الله عنه قَالَ: رَدّ رَسُولُ الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement",
+      "cross_reference"
+    ],
+    "description_arabic": "الحديث في النهي عن التبتل وبيان معناه وأن العبادة المشروعة تجمع بين حق الله وحق النفس.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتملة في أصل المعنى مع الحديث وشرح الغريب والمعنى الإجمالي، لكن عبارة: «وتقدم معنى الحديث، في الذي قبله» إحالة خارجية، كما أن الاستدلال التفصيلي الفقهي ليس مبسوطًا استقلالًا."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 144,
+    "end_word": 245,
+    "text_snippet": "فائدة:\nفي حاشية الصنعاني على شرح العمدة ما يلي:\nأخاف على الزاهد أن تكون شهو",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "refutation"
+    ],
+    "description_arabic": "فائدة في التحذير من الزهد المتكلف والرياء الخفي وانتقاد مسالك المتزهدين المخالفة لهدي النبي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

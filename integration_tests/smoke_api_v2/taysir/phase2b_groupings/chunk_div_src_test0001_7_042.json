@@ -1,0 +1,549 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتابُ اللبَاس",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان باب اللباس وبداية الفصل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 2,
+    "end_word": 30,
+    "text_snippet": "الحديث الأول\nعَنْ عُمَرَ بْنِ الخطابِ رضي الله عنه قالَ: قَالَ رَسُول الله صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث النهي عن لبس الحرير ووعيد من لبسه في الدنيا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 31,
+    "end_word": 204,
+    "text_snippet": "الحديث الثاني\nعَنْ حُذَيفَةَ بنِ اليَمَانِ رضي الله عنه قَالَ: سمعتُ رَسُولَ الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث النهي عن الحرير وآنية الذهب والفضة مع المعنى الإجمالي وعلله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 205,
+    "end_word": 220,
+    "text_snippet": "ما يستفاد من الحديثين:\n1- تحريم لبس الحرير والديباج على الذكور، والوعيد الشديد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم لبس الحرير والديباج على الذكور مع الوعيد الشديد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 221,
+    "end_word": 237,
+    "text_snippet": "2- يباح للنساء لبسُه، لكونهن في حاجة إلى الزينة للأزواج. وحِله للنساء، وتحريمه ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "إباحة الحرير للنساء وتحريمه على الرجال بإجماع العلماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 238,
+    "end_word": 294,
+    "text_snippet": "3- تحريم الأكل والشرب في صحاف الذهب والفضة وآنيتهما، للذكور والإناث، لكونهما لل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "تحريم الأكل والشرب في آنية الذهب والفضة وإلحاق سائر الاستعمالات بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 295,
+    "end_word": 326,
+    "text_snippet": "5- يجرى في هذا الوعيد ما تقدم من كلام شيخ الإسلام (ابن تيميه) من أن الأشياء لا ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه إلى تقييد الوعيد بشروطه وموانعه على طريقة ابن تيمية.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "يعتمد على كلام سابق لابن تيمية لم يُذكر هنا، وفيه إحالة صريحة إلى ما تقدم."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 327,
+    "end_word": 381,
+    "text_snippet": "الحديث الثالث ⌜1⌝\nعَنْ عُمَرَ بن الْخَطاب رضي الله عنه: أنَّ رَسُولَ الله صلى ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "حديث استثناء اليسير من الحرير بقدر إصبعين إلى أربع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 382,
+    "end_word": 394,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه تحريم لبس الحرير، على الرجال دون النساء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم لبس الحرير على الرجال دون النساء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 395,
+    "end_word": 422,
+    "text_snippet": "2- فيه استثناء قدر الإصبعين أو الثلاث أو الأربع، إذا كان تابعا لغيره.\nأما المنف",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "استثناء القدر اليسير التابع من الحرير ومنع المنفرد قليله وكثيره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 423,
+    "end_word": 484,
+    "text_snippet": "الحديث الرابع\nعَن الْبَرَاءِ بْنِ عَازِبٍ رضي الله عنه قَالَ: مَا رَأيْتُ مِنِ ذِ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "وصف هيئة النبي في الحلة الحمراء وبيان معنى اللمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 485,
+    "end_word": 535,
+    "text_snippet": "ما يستفاد من الحديثين:\n1- فيه جواز لبس الأحمر، وقد ورد النهي عنه، فحمله العلماء",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز لبس الأحمر وحمل النهي على الأحمر الخالص دون الحبرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      32,
+      33
+    ],
+    "start_word": 536,
+    "end_word": 601,
+    "text_snippet": "2- وفيه دليل على حسن توفير الرأس حتى يبلغ المنكبين أو فوقهما أو تحتهما قليلا، ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "استحباب توفير شعر الرأس وذم القزع والهيئات المبتدعة المشابهة للفرنج.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 602,
+    "end_word": 635,
+    "text_snippet": "3- في الحديث بيان خلْقِ النبي صلى الله عليه وسلم الظاهر من حسن الشعر ورحابة الص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان جمال خِلقة النبي صلى الله عليه وسلم وكمال خُلُقه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 636,
+    "end_word": 1126,
+    "text_snippet": "الحديث الخامس\nعَن البَرَاءِ بن عَازِبٍ رضي الله عنه قَالَ: أمَرَنَا رَسُولُ الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "refutation",
+      "rule_statement",
+      "condition_exception",
+      "evidence_rational",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "حديث الأمر بسبع والنهي عن سبع مع شرح ألفاظه ومعناه الإجمالي وعلله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      60,
+      61
+    ],
+    "start_word": 1127,
+    "end_word": 1146,
+    "text_snippet": "ما يستفاد من الحديث:\n1- استحباب عيادة المريض وتجب إذا كان يجب بره. كالوالدين، أ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب عيادة المريض ووجوبها في حق من يلزم بره أو عند المفسدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      62,
+      63
+    ],
+    "start_word": 1147,
+    "end_word": 1184,
+    "text_snippet": "2- استحباب اتباع الجنائز للصلاة عليها ودفنها، وهو فرض كفاية: يسقط مع قيام من يكف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "حكم اتباع الجنائز وكونه فرض كفاية وبيان أجر الصلاة والدفن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      64
+    ],
+    "start_word": 1185,
+    "end_word": 1202,
+    "text_snippet": "ْتشميت العاطس إذا حمد الله بقوله: (ورحمك الله) وهو واجب إلى نهاية ثلاث مرات، وبع",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تشميت العاطس إذا حمد الله إلى ثلاث مرات ثم الدعاء له بالشفاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه اضطراب لفظي في النص: (بقوله: ورحمك الله) والمراد تشميت العاطس بقول المشمِّت له."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 1203,
+    "end_word": 1219,
+    "text_snippet": "4- إبرار قسم المقسم، وهو من مستحب، لما فيه من جبر القلب وإجابة طلبه في غير إثم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب إبرار قسم المقسم إذا خلا من الإثم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      66
+    ],
+    "start_word": 1220,
+    "end_word": 1238,
+    "text_snippet": "5- وفيه وجوب نصر المظلوم بقدر استطاعته، لأنه من النهي عن المنكر. وفيه رد للشر، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب نصر المظلوم بحسب الاستطاعة لما فيه من رد الظلم والمنكر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      67,
+      68
+    ],
+    "start_word": 1239,
+    "end_word": 1272,
+    "text_snippet": "6- إجابة الدعوة. فإن كانت لعرس وجبت الإجابة إن لم يكن ثَمَّ منكر لا يقدر على إزا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "حكم إجابة الدعوة ووجوبها في الوليمة بشروط واستحبابها في غيرها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      69
+    ],
+    "start_word": 1273,
+    "end_word": 1284,
+    "text_snippet": "7- إفشاء السلام بين المسلمين، لأنه دعاء بالسلامة، وعنوان على المحبة والإخاء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب إفشاء السلام لما يورثه من المحبة والإخاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      70,
+      71
+    ],
+    "start_word": 1285,
+    "end_word": 1300,
+    "text_snippet": "8- النهي عن تختم الرجال بخواتم الذهب، فهو محرم.\nوقد ابتلى به كثير من الشباب الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "تحريم تختم الرجال بالذهب والتنبيه إلى شيوع المخالفة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      72
+    ],
+    "start_word": 1301,
+    "end_word": 1315,
+    "text_snippet": "9- النهي عن الشرب بآنية الفضة، وأعظم منه الذهب، وألحق به سائر الاستعمالات، إلا ل",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [],
+    "description_arabic": "تحريم الشرب بآنية الفضة والذهب وإلحاق سائر الاستعمالات بها إلا السلاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 1316,
+    "end_word": 1354,
+    "text_snippet": "10- النهي عن لبس القسي والحرير، والإستبرق، والديباج للرجال.\nومثله جعل المياثر لل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_qiyas"
+    ],
+    "description_arabic": "تحريم لبس أنواع الحرير للرجال وإلحاق المياثر والستور المصورة بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      75,
+      76
+    ],
+    "start_word": 1355,
+    "end_word": 1418,
+    "text_snippet": "الحديث السادس\nعَنِ ابْن عُمَرَ رضي الله عنهما: أنَّ رَسُولَ الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث اتخاذ النبي خاتماً من ذهب ثم نزعه ونسخ إباحته للرجال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      77,
+      78
+    ],
+    "start_word": 1419,
+    "end_word": 1436,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على استحباب التختم، وأنه من زينة النبي صلى الل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب التختم وكونه من زينة النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 1437,
+    "end_word": 1454,
+    "text_snippet": "2- أن يجعل فصه من قبل الراحة ليقبض عليه في المحال القذرة، إذا كان فيه اسم الله ت",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "استحباب جعل فص الخاتم إلى باطن الكف إذا كان فيه اسم الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      80,
+      81
+    ],
+    "start_word": 1455,
+    "end_word": 1485,
+    "text_snippet": "3- أن التختم بخاتم الذهب كان مباحاً للرجال أولا، ثم نسخ.\n4- تحريم التختم بخاتم ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان نسخ إباحة خاتم الذهب للرجال واستقرار تحريمه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      82
+    ],
+    "start_word": 1486,
+    "end_word": 1505,
+    "text_snippet": "5- فضل الصحابة، وسرعة اقتدائهم بالنبي صلى الله عليه وسلم، إذ نزعوا خواتيمهم ساعة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل الصحابة في سرعة امتثالهم واقتدائهم بالنبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      83
+    ],
+    "start_word": 1506,
+    "end_word": 1521,
+    "text_snippet": "6- أن يكون التختم باليد اليمنى، لأن اليمين لكل طيب، والشمال معدة لمباشرة الأشياء",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب التختم في اليد اليمنى لأنها موضع الطيب والتكريم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      84
+    ],
+    "start_word": 1522,
+    "end_word": 1545,
+    "text_snippet": "7- في هذا وأمثاله من الأحاديث المتقدمة وغيرها، الزجر عن لبس خواتم الذهب، وبيان أ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "تأكيد الزجر عن خواتم الذهب وذم اعتياد الناس لها اليوم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى أحاديث متقدمة وغيرها، لكن أصل الحكم والزجر مفهوم من نفس العبارة."
+  }
+]

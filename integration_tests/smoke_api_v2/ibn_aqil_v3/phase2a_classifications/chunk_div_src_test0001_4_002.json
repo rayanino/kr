@@ -1,0 +1,58 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌الاستغاثة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 10,
+    "text_snippet": "إذا استغيث اسم منادى خفضا … باللام مفتوحا كيا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 11,
+    "end_word": 39,
+    "text_snippet": "يقال يا لزيد لعمرو فيجر المستغاث بلام مفتوحة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 40,
+    "end_word": 51,
+    "text_snippet": "وافتح مع المعطوف إن كررت يا … وفي سوى ذلك ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 52,
+    "end_word": 123,
+    "text_snippet": "إذا عطف على المستغاث مستغاث آخر فإما أن تتكرر",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 124,
+    "end_word": 134,
+    "text_snippet": "ولام ما استغيث عاقبت ألف … ومثله اسم ذو تعج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 135,
+    "end_word": 173,
+    "text_snippet": "تحذف لام المستغاث ويؤتى بألف في آخره عوضا ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

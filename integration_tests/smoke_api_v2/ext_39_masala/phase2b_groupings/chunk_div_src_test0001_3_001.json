@@ -1,0 +1,55 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 113,
+    "text_snippet": "4-‌‌ ما يجوز للحاضرين وغيرهم.\n18 - ويجوز لهم كشف وجه الميت وتقبيله بين عيني",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان جواز كشف وجه الميت وتقبيله، مع الاستدلال بفعل أبي بكر رضي الله عنه وبكائه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 114,
+    "end_word": 152,
+    "text_snippet": "وحديث عبد الله بن جعفر رضي الله عنه:\nأن النبي صلى الله عليه وسلم أمهل آل جعفر ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "حديث إمهال آل جعفر ثلاثة أيام، والدلالة على تحديد البكاء المشروع إلى ثلاث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدلالة الفقهية مفهومة، لكن عبارة الإحالة: «وسيأتي لفظه في التعزية» تشير إلى موضع لاحق، كما أن تمام الحديث غير مذكور هنا."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 153,
+    "end_word": 242,
+    "text_snippet": "صحيح وحديث أنس رضي الله عنه قال:\nدخلنا مع رسول الله صلى الله عليه وسلم على أب",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "حديث تقبيل النبي صلى الله عليه وسلم إبراهيم وبكائه عليه، وبيان أن الدمع رحمة لا ينافي الصبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

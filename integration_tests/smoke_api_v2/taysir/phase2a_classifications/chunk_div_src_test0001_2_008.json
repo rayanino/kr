@@ -1,0 +1,322 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌باب حكم تقديم الرمي ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 6,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 68,
+    "text_snippet": "عَنْ عَبْدِ الله (2)\nبْنِ عَمْرِو بْنِ الْعَاصِ رضي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 69,
+    "end_word": 70,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 71,
+    "end_word": 102,
+    "text_snippet": "اليوم العاشر من ذي الحجة هو يوم النحر ويوم الحج ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 5,
+    "start_word": 103,
+    "end_word": 114,
+    "text_snippet": "1- الرمي 2- والنحر 3- والحلق أو التقصير 4- وال",
+    "scholarly_function": "example",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 6,
+    "start_word": 115,
+    "end_word": 133,
+    "text_snippet": "والمشروع أن يأتي بهن على هذا الترتيب، اقتداءً ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 134,
+    "end_word": 163,
+    "text_snippet": "فيبدأ برمي جمرة العقبة، لأن رميها تحية \"منى\"، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 164,
+    "end_word": 177,
+    "text_snippet": "ثم يحلق، أو يقصر ابتداء بالتحلل من الإحرام، وتأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 178,
+    "end_word": 194,
+    "text_snippet": "هذا ما يشرع للحاج، وهذا ما فعله النبي صلى الله ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 195,
+    "end_word": 198,
+    "text_snippet": "ولكن الشارع رحيم عليم.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.6
+  },
+  {
+    "segment_index": 11,
+    "start_word": 199,
+    "end_word": 217,
+    "text_snippet": "فإذا قدم أحد بعض هذه اْلأعمال على بعض، جهلاً با",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 218,
+    "end_word": 230,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم وقف في حجة ا",
+    "scholarly_function": "narration",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 13,
+    "start_word": 231,
+    "end_word": 242,
+    "text_snippet": "فقال رجل: لم أشعر فحلقت قبل أن أذبح. قال: اذبح",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 243,
+    "end_word": 255,
+    "text_snippet": "وجاء آخر فقال: لم أشعر فنحرت قبل أن أرمي. قال:",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 256,
+    "end_word": 278,
+    "text_snippet": "قال الراوي: فما سئل صلى الله عليه وسلم عن شيء ",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 16,
+    "start_word": 279,
+    "end_word": 282,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 283,
+    "end_word": 294,
+    "text_snippet": "1- وقوف العالم في أيام المناسك لإفتاء الناس وإر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 295,
+    "end_word": 311,
+    "text_snippet": "2- جواز تقديم كل من الرمي، والنحر، والحلق أو ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 312,
+    "end_word": 318,
+    "text_snippet": "ويأتي الخلاف في العامد إن شاء الله.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 20,
+    "start_word": 319,
+    "end_word": 336,
+    "text_snippet": "3- بدء يوم النحر برمي جمرة العقبة. ومن حكمة الر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 21,
+    "start_word": 337,
+    "end_word": 365,
+    "text_snippet": "وهذه مقارنة عنت لي ولم أر أحداً من العلماء قد ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 366,
+    "end_word": 367,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 368,
+    "end_word": 386,
+    "text_snippet": "أجمع العلماء على مشروعية ترتيب الرمي والنحر وال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 387,
+    "end_word": 399,
+    "text_snippet": "فيبدأ بالرمي، ثم ينحر الهدي، ثم الحلق أو التقصي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 400,
+    "end_word": 408,
+    "text_snippet": "واختلفوا في جواز تقديم بعضها على بعض بالنسبة ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 409,
+    "end_word": 449,
+    "text_snippet": "فذهب الشافعي والإمام أحمد في المشهور عنه: إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 450,
+    "end_word": 472,
+    "text_snippet": "وهذا أحد طرق الحديث الذي معنا في الباب، وفي بع",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 28,
+    "start_word": 473,
+    "end_word": 504,
+    "text_snippet": "قال الطبري: لم يسقط النبي صلى الله عليه وسلم ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 29,
+    "start_word": 505,
+    "end_word": 520,
+    "text_snippet": "كما لو ترك الرمي ونحوه، فإنه لم يأثم بتركه ناسي",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 30,
+    "start_word": 521,
+    "end_word": 539,
+    "text_snippet": "وما ذهب إليه الإمامان، الشافعي، وأحمد، هو مذهب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 31,
+    "start_word": 540,
+    "end_word": 584,
+    "text_snippet": "وذهب بعض العلماء: إلى أن رفع الإثم يكون بحال ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 585,
+    "end_word": 614,
+    "text_snippet": "أما الإجزاء فقد قال الشيخ \"ابن قدامة\" في كتابه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 33,
+    "start_word": 615,
+    "end_word": 626,
+    "text_snippet": "واختلفوا في وجوب الدم على من قدم المؤخر من هذه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 627,
+    "end_word": 670,
+    "text_snippet": "فذهب الجمهور من السلف، وفقهاء الحديث، ومنهم ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 671,
+    "end_word": 692,
+    "text_snippet": "ووجوب الفدية يحتاج إلى دليل، ولو كان واجباً حي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 693,
+    "end_word": 717,
+    "text_snippet": "وذهب بعض العلماء - ومنهم سعيد بن جبير وقتادة -",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 718,
+    "end_word": 733,
+    "text_snippet": "ولأن النبي صلى الله عليه وسلم رتبها وقال: خذوا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 38,
+    "start_word": 734,
+    "end_word": 769,
+    "text_snippet": "فقد قال الأثرم: سمعت أبا عبد الله يسأل عن رجل ",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 39,
+    "start_word": 770,
+    "end_word": 811,
+    "text_snippet": "وقال ابن دقيق العيد - بعد أن نقل كلام الإمام أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  }
+]

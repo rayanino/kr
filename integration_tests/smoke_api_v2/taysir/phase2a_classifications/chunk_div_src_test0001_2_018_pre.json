@@ -1,0 +1,162 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 74,
+    "text_snippet": "اختلاف العلماء:\nذهب كثير من العلماء، ومنهم الشا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 75,
+    "end_word": 127,
+    "text_snippet": "وذهب بعضهم- ومنهم المالكية- إلى الجواز في الخم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 128,
+    "end_word": 134,
+    "text_snippet": "‌‌باب بيع النخل بعد التأبير\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 135,
+    "end_word": 162,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أن ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 163,
+    "end_word": 179,
+    "text_snippet": "ولـ \" مسلم \" ⌜1⌝ و\" مَنْ ابتَاعَ عَبْدا فَمَالُهُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 180,
+    "end_word": 180,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 181,
+    "end_word": 199,
+    "text_snippet": "أبرت: بتخفيف الباء وتشديدها.\nفالأول: أبرت النخل",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 200,
+    "end_word": 211,
+    "text_snippet": "والتأبير: التلقيح، وهو وضع شيء من طلع ذكر النخل",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 212,
+    "end_word": 225,
+    "text_snippet": "المبتاع: هو المشترى، بقرينة الإشارة إلى البائع ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 226,
+    "end_word": 227,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 228,
+    "end_word": 363,
+    "text_snippet": "أول العمل في ثمرة النخل هو تلقيحه، ولهذا فإن ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 364,
+    "end_word": 367,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 368,
+    "end_word": 379,
+    "text_snippet": "1- أن من باع نخلا قد أُبّر، فثمرته للبائع، وهذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 380,
+    "end_word": 391,
+    "text_snippet": "2- أن من باع نخلا لم يؤبر، فثمرته للمشترى، وهذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 392,
+    "end_word": 404,
+    "text_snippet": "3- إن استثنى البائع الثمرة التي لم تؤبر، أو بعض",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 405,
+    "end_word": 415,
+    "text_snippet": "4- إن اشرط المشترى دخول الثمرة المؤبرة بالعقد، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 416,
+    "end_word": 438,
+    "text_snippet": "5- صحة اشتراط بعض الثمرة مأخوذ من حذف المفعول ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 439,
+    "end_word": 473,
+    "text_snippet": "6- إن كان بعض ثمره مؤبرا، وبعضه غير مؤبر، فالص",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 474,
+    "end_word": 499,
+    "text_snippet": "7- ألحق الفقهاء بالبيع جميع التصرفات: كأن يكون ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 500,
+    "end_word": 544,
+    "text_snippet": "8- دخول الثمرة في البيع إذا اشتريت قبل التأبير،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

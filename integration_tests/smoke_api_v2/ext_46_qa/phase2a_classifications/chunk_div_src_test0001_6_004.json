@@ -1,0 +1,242 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "تنبيه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 23,
+    "text_snippet": "قال ابن الأنباري: ذهب قوم إلى أنه لا يجب على ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 65,
+    "text_snippet": "وقال آخرون: يجب ترتيبها، فعلى هذا أول الأسئلة فس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 66,
+    "end_word": 83,
+    "text_snippet": "ثم المطالبة؛ لأن المنع إنكار العلة، والمطالبة إق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 4,
+    "start_word": 84,
+    "end_word": 107,
+    "text_snippet": "ثم النقض لما فيه من تسليم صلاحية العلة لو سلمت م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 5,
+    "start_word": 108,
+    "end_word": 123,
+    "text_snippet": "ثم المعارضة لأنها ابتداء دليل مستقبل في مقابلة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 6,
+    "start_word": 124,
+    "end_word": 124,
+    "text_snippet": "تذنيب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 125,
+    "end_word": 140,
+    "text_snippet": "قال ابن الأنباري:\nالسؤال طلب الجواب بأداته، ومبن",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 141,
+    "end_word": 154,
+    "text_snippet": "فالسائل: ينبغي له أن يقصد قصد المستفهم، ولهذا قا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 155,
+    "end_word": 167,
+    "text_snippet": "والجمهور على أنه لابد له من مذهب لئلا ينتشر الكل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 168,
+    "end_word": 182,
+    "text_snippet": "وأن يسأل عما يثبت فيه الاستفهام فقد قيل: ما ثبت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 11,
+    "start_word": 183,
+    "end_word": 189,
+    "text_snippet": "كأن يسأل عن حد النحو وأقسام الكلام.",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 190,
+    "end_word": 197,
+    "text_snippet": "فإن سأل عن وجود النطق والكلام كان فاسدا.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 13,
+    "start_word": 198,
+    "end_word": 214,
+    "text_snippet": "وأن لا يسأل إلا عن ما يلائم مذهبه فإن سأل عما لا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 215,
+    "end_word": 230,
+    "text_snippet": "كأن يسأل الكوفي عن الابتداء لم كان عمله الرفع دو",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 231,
+    "end_word": 241,
+    "text_snippet": "وأن لا ينتقل من سؤال إلى سؤال فإن انتقل عد منقطع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 242,
+    "end_word": 250,
+    "text_snippet": "والمسئول به أدوات الاستفهام المعروفة وليكن مفهوم",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 17,
+    "start_word": 251,
+    "end_word": 257,
+    "text_snippet": "كأن يقول ما تقول في اشتقاق الاسم؟",
+    "scholarly_function": "example",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 258,
+    "end_word": 267,
+    "text_snippet": "فإن كان مبهما غير مفهوم لم يستحق الجواب كأن يقول",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 268,
+    "end_word": 271,
+    "text_snippet": "ما تقول في الاسم؟",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 272,
+    "end_word": 282,
+    "text_snippet": "لأنه لا يدري: أسأل عن حده؟ أن اشتقاقه؟ أم غير ذل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 283,
+    "end_word": 300,
+    "text_snippet": "والمسئول منه شرطه كونه أهلا بأن يكون السؤال من أ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 22,
+    "start_word": 301,
+    "end_word": 341,
+    "text_snippet": "وعليه أن يأخذ في ذكر الجواب بعد تعيين السؤال فإن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 23,
+    "start_word": 342,
+    "end_word": 355,
+    "text_snippet": "وقيل يعد منقطعا لأنه تصدى لمنصب الاستدلال فينبغي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 24,
+    "start_word": 356,
+    "end_word": 365,
+    "text_snippet": "والمسئول عنه ينبغي أن يكون مما يمكن إدراكه كأنوا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 366,
+    "end_word": 386,
+    "text_snippet": "فإن كان لا يمكن إدراكه كأعداد جميع الألفاظ والكل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 387,
+    "end_word": 404,
+    "text_snippet": "والجواب: هو المطابق للسؤال من غير زيادة ولا نقصا",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 405,
+    "end_word": 428,
+    "text_snippet": "وقال قوم: يجوز الفرض في بعض الصور كأن يسأل عن جو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 429,
+    "end_word": 437,
+    "text_snippet": "لأن من سأل عن الكل فقد سأل عن البعض.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 29,
+    "start_word": 438,
+    "end_word": 455,
+    "text_snippet": "وقال آخرون لا يجوز في الجواب وإنما يجوز في الدلي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

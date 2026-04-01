@@ -1,0 +1,295 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 36,
+    "text_snippet": "8-‌‌ علامات حسن الخاتمة.\n25 - ثم إن الشارع الحكيم قد جعل علامات بينات يستدل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مقدمة تبين أن لحسن الخاتمة علامات ظاهرة يستبشر بها المؤمن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 37,
+    "end_word": 62,
+    "text_snippet": "الأول: نطقه بالشهادة عند الموت وفيه أحاديث مذكورة في الأصل منها قوله صلى الله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "علامة حسن الخاتمة أن يختم للمرء بالنطق بالشهادة عند الموت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول المصنف: «وفيه أحاديث مذكورة في الأصل»، لكن الحديث المذكور يكفي لإفادة أصل المعنى."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 63,
+    "end_word": 103,
+    "text_snippet": "الثانية: الموت برشح الجبين لحديث بريدة بن الخصيب رضي الله عنه:\nصحيح أنه كان ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "رشح الجبين عند الموت من علامات حسن الخاتمة للمؤمن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظ «صحيح أنه كان بخراسان» يوحي بحكم سابق على الحديث وسياق اختصار في التخريج، لكن الدلالة العامة مفهومة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 104,
+    "end_word": 133,
+    "text_snippet": "الثالثة: الحديث بمجموع طرقه حسن أو صحيح الموت ليلة الجمعة أو نهارها لقوله صلى ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت ليلة الجمعة أو نهارها علامة يرجى معها حسن الخاتمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 134,
+    "end_word": 226,
+    "text_snippet": "الرابعة: الاستشهاد في ساحة القتال قال الله تعالى: {وَلا تَحْسَبَنَّ الَّذِينَ ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "الاستشهاد في القتال من أعظم علامات حسن الخاتمة وفضائل الشهيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 227,
+    "end_word": 293,
+    "text_snippet": "الخامسة: الموت غازيا في سبيل الله لقوله صلى الله عليه وسلم:\n\"ما تعدون الشهيد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "من مات غازيا في سبيل الله نال وصف الشهادة وكان ذلك من حسن الخاتمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 294,
+    "end_word": 308,
+    "text_snippet": "السادسة: الموت بالطاعون وفيه أحاديث منها قوله صلى الله عليه وسلم:\n\"الطاعون شه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت بالطاعون شهادة للمسلم وعلامة من علامات حسن الخاتمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله «وفيه أحاديث منها» يدل على وجود أدلة أخرى خارج الوحدة، لكن الحكم ودليله المذكوران مكتملان."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 309,
+    "end_word": 326,
+    "text_snippet": "السابعة: الموت بداء البطن لقوله صلى الله عليه وسلم في الحديث المتقدم:\n\"ومن ما",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت بداء البطن من علامات حسن الخاتمة وله حكم الشهادة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل مقتطع من «الحديث المتقدم»، فيفهم الحكم لكن الإشارة مرجعية إلى سياق سابق خارج الوحدة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 327,
+    "end_word": 347,
+    "text_snippet": "الثامنة والتاسعة: الموت بالغرق والهدم لقوله صلى الله عليه وسلم:\n\"الشهداء خمسة:",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت بالغرق أو تحت الهدم من أسباب الشهادة وعلامات حسن الخاتمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 348,
+    "end_word": 406,
+    "text_snippet": "العاشرة: موت المرأة في نفاسها بسبب ولدها لحديث عبادة بن الصامت:\nأن رسول الله ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "موت المرأة في نفاسها بسبب ولدها شهادة وعلامة حسن خاتمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بعض ألفاظ الحديث مشروحة عادة في الحواشي مثل «جمعاء» و«بسرره»، وقد يحتاج الطالب شرحها لفهم أدق."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 407,
+    "end_word": 450,
+    "text_snippet": "الحادية عشرة والثانية عشرة: الموت باالحرق وذات الجنب1 وفيه أحاديث أشهرها عن جا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت بالحرق أو بذات الجنب من أنواع الشهادة وعلامات حسن الخاتمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح «ذات الجنب» قد يحتاج معرفة طبية/لغوية خارجية، كما أن قوله «وفيه أحاديث أشهرها» يشير إلى أدلة أخرى."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 451,
+    "end_word": 475,
+    "text_snippet": "الثالثة عشرة: الموت بداء السل لقوله صلى الله عليه وسلم:\n\"القتل في سبيل الله شه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الموت بداء السل داخل في الشهادة وهو من علامات حسن الخاتمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح «السل» مفهوم إجمالاً لكنه قد يحتاج تعريفاً طبياً أو لغوياً أدق للطالب المبتدئ."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 476,
+    "end_word": 503,
+    "text_snippet": "الرابعة عشرة: الموت في سبيل الدفاع عن المال المراد غصبه وفيه أحاديث منها:\n\"من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "من قتل مدافعا عن ماله المأخوذ بغير حق فهو شهيد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة «وفيه أحاديث منها» تدل على مزيد أدلة خارج الوحدة، لكن الحديث المذكور يثبت الحكم الأساسي."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 504,
+    "end_word": 543,
+    "text_snippet": "الخامسة عشرة والسادسة عشر: الموت في سبيل الدفاع عن الدين والنفس لقوله صلى الله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "من قتل دفاعا عن أهله أو دينه أو دمه فهو شهيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      29,
+      30
+    ],
+    "start_word": 544,
+    "end_word": 574,
+    "text_snippet": "السابعة عشرة: الموت مرابطا في سبيل الله فيه حديثان أحدهما:\nرباط يوم وليلة خير",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "من مات مرابطا في سبيل الله فله أجر مستمر وأمان من الفتان.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله «فيه حديثان أحدهما» يصرح بوجود حديث آخر خارج الوحدة، لكن الحديث المذكور كاف في أصل الدلالة."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 575,
+    "end_word": 622,
+    "text_snippet": "الثامنة عشرة: الموت على عمل صالح لقوله صلى الله عليه وسلم:\n\"من قال: لا إله إل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الختم على عمل صالح من ذكر أو صيام أو صدقة من علامات حسن الخاتمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      33,
+      34,
+      35
+    ],
+    "start_word": 623,
+    "end_word": 655,
+    "text_snippet": "التاسعة عشرة: من قتله الإمام الجائر لأنه قام إليه فنصحه لقوله صلى الله عليه وس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "editorial_note"
+    ],
+    "description_arabic": "من قتله الإمام الجائر بسبب نصحه وأمره بالمعروف فهو من سادة الشهداء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

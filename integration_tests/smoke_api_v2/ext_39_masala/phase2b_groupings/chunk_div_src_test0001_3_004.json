@@ -1,0 +1,59 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 51,
+    "text_snippet": "7-‌‌ النعي الجائز\n23 - ويجوز إعلان الوفاة إذا لم يقترن به ما يشبه نعي الجاهل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان جواز إعلان الوفاة وضابطه، ومتى قد يجب، مع الاستدلال بنعي النجاشي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5
+    ],
+    "start_word": 52,
+    "end_word": 80,
+    "text_snippet": "24 - ويستحب للمخبر أن يطلب من الناس أن يستغفروا للميت لقوله صلى الله علي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "cross_reference"
+    ],
+    "description_arabic": "استحباب طلب الاستغفار للميت عند الإخبار بوفاته، مع الاستدلال بحديث النجاشي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة إلى المسألة 60 ليست لازمة لفهم أصل الحكم، لكنها تشير إلى تتمة متعلقة بالموضوع."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 81,
+    "end_word": 114,
+    "text_snippet": "قلت: فقول الناس في بعض البلاد: الفاتحة على روح فلان مخالف للسنة المذكورة ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "cross_reference"
+    ],
+    "description_arabic": "إنكار قول الناس: الفاتحة على روح فلان، وبيان أنه بدعة وعدم وصول القراءة للميت على الراجح.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير \"السنة المذكورة\" يعود إلى ما سبق من طلب الاستغفار للميت، وعبارة \"على القول الصحيح\" تذكر ترجيحًا سيأتي تفصيل دليله لاحقًا."
+  }
+]

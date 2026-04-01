@@ -1,0 +1,626 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌عطف النسق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 36,
+    "text_snippet": "تال بحرف متبع عطف النسق … كاخصص بود وثناء من ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 52,
+    "text_snippet": "فالعطف مطلقا بواو ثم فا … حتى أم أو كفيك صدق ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 3,
+    "start_word": 53,
+    "end_word": 98,
+    "text_snippet": "أحدهما: ما يشرك المعطوف مع المعطوف عليه مطلقا",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 99,
+    "end_word": 119,
+    "text_snippet": "والثاني: ما يشرك لفظا فقط وهو المراد بقوله:\nوأ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 120,
+    "end_word": 145,
+    "text_snippet": "هذه الثلاثة تشرك الثاني مع الأول في إعرابه لا ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 146,
+    "end_word": 156,
+    "text_snippet": "فاعطف بواو لاحقا أو سابقا … في الحكم أو مصاحبا ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 7,
+    "start_word": 157,
+    "end_word": 218,
+    "text_snippet": "لما ذكر حروف العطف التسعة شرع في ذكر معانيها.\nف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 219,
+    "end_word": 223,
+    "text_snippet": "ومذهب الكوفيين أنها للترتيب ورد بقوله تعالى: {إ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 9,
+    "start_word": 224,
+    "end_word": 233,
+    "text_snippet": "بقوله تعالى: {إِنْ هِيَ إِلَاّ حَيَاتُنَا الدُّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 234,
+    "end_word": 293,
+    "text_snippet": "واخصص بها عطف الذي لا يغنى … متبوعه كاصطف هذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 294,
+    "end_word": 300,
+    "text_snippet": "والفاء للترتيب باتصال … وثم للترتيب بانفصال",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 301,
+    "end_word": 323,
+    "text_snippet": "أي تدل الفاء على تأخر المعطوف عن المعطوف عليه م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 324,
+    "end_word": 329,
+    "text_snippet": "ومنه قوله تعالى: {الَّذِي خَلَقَ فَسَوَّى}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 330,
+    "end_word": 344,
+    "text_snippet": "وجاء زيد ثم عمرو ومنه قوله تعالى: {وَاللهُ خَلَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 345,
+    "end_word": 356,
+    "text_snippet": "واخصص بفاء عطف ما ليس صله … على الذي استقر أنه ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 16,
+    "start_word": 357,
+    "end_word": 417,
+    "text_snippet": "اختصت الفاء بأنها تعطف ما لا يصلح أن يكون صلة ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 418,
+    "end_word": 429,
+    "text_snippet": "بعضا بحتى أعطف على كل ولا … يكون إلا غاية الذي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 430,
+    "end_word": 453,
+    "text_snippet": "يشترط في المعطوف بحتى أن يكون بعضا مما قبله وغ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 454,
+    "end_word": 466,
+    "text_snippet": "وأم بها أعطف إثر همز التسويه … أو همزة عن لفظ ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 20,
+    "start_word": 467,
+    "end_word": 484,
+    "text_snippet": "أم على قسمين منقطعة وستأتي ومتصلة وهي التي تقع ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 485,
+    "end_word": 492,
+    "text_snippet": "ومنه قوله تعالى: {سَوَاءٌ عَلَيْنَا أَجَزِعْنَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 493,
+    "end_word": 507,
+    "text_snippet": "والتي تقع بعد همزة مغنية عن أي نحو أزيد عندك أم",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 23,
+    "start_word": 508,
+    "end_word": 538,
+    "text_snippet": "وربما أسقطت الهمزة إن … كان خفا المعنى بحذفها ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 539,
+    "end_word": 552,
+    "text_snippet": "ومنه قراءة ابن محيصن {سَوَاءٌ عَلَيْهِمْ أَنْذَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 553,
+    "end_word": 568,
+    "text_snippet": "وقول الشاعر:\n294 - لعمرك ما أدرى وإن كنت داريا ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 569,
+    "end_word": 570,
+    "text_snippet": "أي أبسبع.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 27,
+    "start_word": 571,
+    "end_word": 581,
+    "text_snippet": "وبانقطاع وبمعنى بل وفت … إن تك مما قيدت به خلت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 28,
+    "start_word": 582,
+    "end_word": 599,
+    "text_snippet": "أي إذا لم يتقدم على أم همزة التسوية ولا همزة مغ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 600,
+    "end_word": 614,
+    "text_snippet": "كقوله تعالى: {لا رَيْبَ فِيهِ مِنْ رَبِّ الْعَا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 615,
+    "end_word": 623,
+    "text_snippet": "ومثله إنها لإبل أم شاء أي بل هي شاء.",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 31,
+    "start_word": 624,
+    "end_word": 688,
+    "text_snippet": "خير أبح قسم بأو وأبهم … وأشكك وإضراب بها أيضا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 689,
+    "end_word": 700,
+    "text_snippet": "ومنه قوله تعالى: {وَإِنَّا أَوْ إِيَّاكُمْ لَع",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 701,
+    "end_word": 713,
+    "text_snippet": "وللشك نحو جاء زيد أو عمرو إذا كنت شاكا في إلجائ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 714,
+    "end_word": 740,
+    "text_snippet": "كقوله:\n295 - ماذا ترى في عيال قد برمت بهم … لم ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 35,
+    "start_word": 741,
+    "end_word": 743,
+    "text_snippet": "أي بل زادوا.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 36,
+    "start_word": 744,
+    "end_word": 762,
+    "text_snippet": "وربما عاقبت الواو إذا … لم يلف ذو النطق للبس م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 763,
+    "end_word": 778,
+    "text_snippet": "كقوله:\n296 - جاء الخلافة أو كانت له قدرا … كما ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 779,
+    "end_word": 852,
+    "text_snippet": "ومثل أو في القصد إما الثانية … في نحو إما ذي و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 853,
+    "end_word": 865,
+    "text_snippet": "وأول لكن نفيا أو نهيا ولا … نداء أو أمرا أو إث",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 866,
+    "end_word": 928,
+    "text_snippet": "أي إنما يعطف بلكن بعد النفي نحو ما ضربت زيدا لك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 929,
+    "end_word": 950,
+    "text_snippet": "وبل كلكن بعد مصحوبيها … كلم أكن في مربع بل تيه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 42,
+    "start_word": 951,
+    "end_word": 987,
+    "text_snippet": "يعطف ببل في النفي والنهي فتكون كلكن في أنها تقر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 43,
+    "start_word": 988,
+    "end_word": 1016,
+    "text_snippet": "ويعطف بها في الخبر المثبت والأمر فتفيد الإضراب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1017,
+    "end_word": 1038,
+    "text_snippet": "وإن على ضمير رفع متصل … عطفت فافصل بالضمير ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1039,
+    "end_word": 1058,
+    "text_snippet": "إذا عطفت على ضمير الرفع المتصل وجب أن تفصل بينه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1059,
+    "end_word": 1078,
+    "text_snippet": "نحو قوله تعالى: {لَقَدْ كُنْتُمْ أَنْتُمْ وَآبَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1079,
+    "end_word": 1095,
+    "text_snippet": "وورد أيضا الفصل بغير الضمير وإليه أشار بقوله أو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1096,
+    "end_word": 1118,
+    "text_snippet": "ومنه قوله تعالى: {جَنَّاتُ عَدْنٍ يَدْخُلُونَهَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1119,
+    "end_word": 1140,
+    "text_snippet": "ومثله الفصل بلا النافية كقوله تعالى: {مَا أَشْر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1141,
+    "end_word": 1150,
+    "text_snippet": "والضمير المرفوع المستتر في ذلك كالمتصل نحو أضرب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1151,
+    "end_word": 1171,
+    "text_snippet": "ومنه قوله تعالى: {اسْكُنْ أَنْتَ وَزَوْجُكَ الْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1172,
+    "end_word": 1189,
+    "text_snippet": "وأشار بقوله وبلا فصل يرد إلى أنه قد ورد في النظم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1190,
+    "end_word": 1202,
+    "text_snippet": "كقوله\n297 - قلت إذ أقبلت وزهر تهادى … كنعاج ال",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1203,
+    "end_word": 1210,
+    "text_snippet": "فقوله: وزهر معطوف على الضمير المستتر في أقبلت.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1211,
+    "end_word": 1287,
+    "text_snippet": "وقد ورد ذلك في النثر قليلا حكى سيبويه رحمه الله",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1288,
+    "end_word": 1298,
+    "text_snippet": "هذا مذهب الجمهور وأجاز ذلك الكوفيون واختاره الم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1299,
+    "end_word": 1309,
+    "text_snippet": "وعود خافض لدى عطف على … ضمير خفض لازما قد جعل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1310,
+    "end_word": 1348,
+    "text_snippet": "وليس عندي لازما إذ قد أتى … في النثر والنظم ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1349,
+    "end_word": 1365,
+    "text_snippet": "فمن النثر قراءة حمزة {وَاتَّقُوا اللهَ الَّذِي ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1366,
+    "end_word": 1393,
+    "text_snippet": "ومن النظم ما أنشده سيبويه رحمه الله تعالى:\n298 ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1394,
+    "end_word": 1416,
+    "text_snippet": "والفاء قد تحذف مع ما عطفت … والواو إذ لا لبس و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1417,
+    "end_word": 1448,
+    "text_snippet": "قد تحذف الفاء مع معطوفها للدلالة ومنه قوله تعال",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1449,
+    "end_word": 1460,
+    "text_snippet": "وكذلك الواو ومنه قولهم راكب الناقة طليحان أي را",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1461,
+    "end_word": 1472,
+    "text_snippet": "وانفردت الواو من بين حروف العطف بأنها تعطف عاملا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1473,
+    "end_word": 1485,
+    "text_snippet": "ومنه قوله:\n299 - إذا ما الغانيات برزن يوما … وز",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1486,
+    "end_word": 1497,
+    "text_snippet": "فالعيون مفعول بفعل محذوف والتقدير وكحلن العيون ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1498,
+    "end_word": 1508,
+    "text_snippet": "وحذف متبوع بدا هنا استبح … وعطفك الفعل عل الفع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1509,
+    "end_word": 1523,
+    "text_snippet": "قد يحذف المعطوف عليه للدلالة عليه وجعل منه قوله",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1524,
+    "end_word": 1539,
+    "text_snippet": "قال الزمخشري التقدير ألم تأتكم آياتي فلم تكن تت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1540,
+    "end_word": 1566,
+    "text_snippet": "وأشار بقوله وعطفك الفعل إلى آخره إلى أن العطف ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1567,
+    "end_word": 1577,
+    "text_snippet": "واعطف على اسم شبه فعل فعلا … وعكسا استعمل تجده",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1578,
+    "end_word": 1601,
+    "text_snippet": "يجوز أن يعطف الفعل على الاسم المشبه للفعل كاسم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1602,
+    "end_word": 1610,
+    "text_snippet": "فمن الأول قوله تعالى: {فَالْمُغِيرَاتِ صُبْحاً",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1611,
+    "end_word": 1619,
+    "text_snippet": "وجعل منه قوله تعالى: {إِنَّ الْمُصَّدِّقِينَ وَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1620,
+    "end_word": 1633,
+    "text_snippet": "ومن الثاني قوله:\n300 - فألفيته يوما يبير عدوه …",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1634,
+    "end_word": 1645,
+    "text_snippet": "وقوله:\n301 - بات يغشيها بعضب باتر … يقصد في أس",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1646,
+    "end_word": 1653,
+    "text_snippet": "فمجر معطوف على يبير وجائر معطوف على يقصد.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.75
+  }
+]

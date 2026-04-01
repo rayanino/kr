@@ -1,0 +1,226 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "‌‌بَابُ سنَن الراتبة ⌜1⌝\nوتأكيد ركعتي سنة الفجر وفضل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 21,
+    "text_snippet": "للصلوات المكتوبة سنن راتبة، صحت فيها السنة المطه",
+    "scholarly_function": "definition",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 2,
+    "start_word": 22,
+    "end_word": 38,
+    "text_snippet": "ولها فوائد عظيمة، وعوائد جسيمة، من زيادة الحسنات ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 48,
+    "text_snippet": "لذا ينبغي الاعتناء بها والمحافظة الشديدة عليها. ه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 49,
+    "end_word": 75,
+    "text_snippet": "أما في السفر، فلم ينقل عن النبي صلى الله عليه وسل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 5,
+    "start_word": 76,
+    "end_word": 77,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 78,
+    "end_word": 152,
+    "text_snippet": "عَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما قال: صَل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 153,
+    "end_word": 154,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 155,
+    "end_word": 204,
+    "text_snippet": "في هذا الحديث بيان للسنن الراتبة للصلوات الخمس. و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 205,
+    "end_word": 248,
+    "text_snippet": "وكان لابن عمر رضي الله عنه اتصال ببيت النبي صلى ا",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 249,
+    "end_word": 271,
+    "text_snippet": "امتثالا لقوله تعالى: {يَا أيهَا الَّذِينَ آمَنُوا ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 272,
+    "end_word": 318,
+    "text_snippet": "فكان لا يدخل عليه في الساعة التي قبل صلاة الفجر، ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 12,
+    "start_word": 319,
+    "end_word": 322,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 323,
+    "end_word": 329,
+    "text_snippet": "1- استحباب هذه الرواتب المذكورة، والمواظبة عليها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 330,
+    "end_word": 339,
+    "text_snippet": "2- أن \" العصر\" ليس لها راتبة من هذه المؤكدات.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 340,
+    "end_word": 358,
+    "text_snippet": "3- أن راتب \" المغرب \" و \" العشاء \" و \" الفجر\" وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 359,
+    "end_word": 363,
+    "text_snippet": "4- التخفيف في ركعتي الفجر.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 364,
+    "end_word": 390,
+    "text_snippet": "5-ورد في بعض الأحاديث الصحيحة، أن للظهر سِتا، أرب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 18,
+    "start_word": 391,
+    "end_word": 415,
+    "text_snippet": "6- بعض هذه الرواتب تكون قبل الفريضة لتهيئة نفس ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 19,
+    "start_word": 416,
+    "end_word": 417,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 418,
+    "end_word": 453,
+    "text_snippet": "عن عائِشَةَ رضي الله عنها قَالَتْ: لَمْ يَكن النبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 454,
+    "end_word": 455,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 456,
+    "end_word": 509,
+    "text_snippet": "في هذا الحديث بيان لما لركعتي الفجر من الأهمية وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 23,
+    "start_word": 510,
+    "end_word": 513,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 514,
+    "end_word": 522,
+    "text_snippet": "1- الاستحباب المؤكد في ركعتي الفجر. فلا ينبغي إهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 523,
+    "end_word": 532,
+    "text_snippet": "2- فضلهما العظيم، حيث جعلا خيراً من الدنيا وما في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 533,
+    "end_word": 543,
+    "text_snippet": "3- كون النبي صلى الله عليه وسلم يتعاهدهما أكثر من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 544,
+    "end_word": 563,
+    "text_snippet": "4- أن إهمال من أهملهما -على سهولتهما وعظم أجرهما ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.69
+  }
+]

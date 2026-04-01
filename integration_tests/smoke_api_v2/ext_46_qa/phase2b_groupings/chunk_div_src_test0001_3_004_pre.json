@@ -1,0 +1,114 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "خاتمة\n\nقال الشيخ بهاء الدين بن النحاس في التعليقة:\n\" النقل عن النفي فيه شيء",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تنبيه ابن النحاس إلى أن مجرد عدم السماع لا يثبت عدم الوقوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 29,
+    "end_word": 100,
+    "text_snippet": "\n\nتنبيه\nالنقل عند ابن الأنباري\n\nبعد أن حررت هذا الكتاب بفروعه وجدت ابن الأنباري ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "condition_exception"
+    ],
+    "description_arabic": "تعريف النقل عند ابن الأنباري وبيان ما يدخل فيه وما يخرج عنه من الشاذ وغيره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 101,
+    "end_word": 123,
+    "text_snippet": "\nوهو ينقسم إلى تواتر وآحاد فأما التواتر فلغة القرآن وما تواتر من السنة وكلام ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف النقل المتواتر وبيان أنه دليل قطعي في النحو يفيد العلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 124,
+    "end_word": 210,
+    "text_snippet": "\nوأما الآحاد فما تفرد بنقله بعض أهل اللغة ولم يوجد فيه شرط التواتر وهو دليل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "تعريف خبر الآحاد في اللغة وشروط قبوله وحكم نقل العدل وأهل الأهواء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 211,
+    "end_word": 329,
+    "text_snippet": "\nوأما المرسل: وهو الذي انقطع سنده نحو أن يروي ابن دريد عن أبي زيد.\nوالمجهول",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational",
+      "opinion_statement",
+      "refutation",
+      "example"
+    ],
+    "description_arabic": "تعريف المرسل والمجهول وحكم عدم قبولهما مع ذكر قول المخالف والرد عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 330,
+    "end_word": 347,
+    "text_snippet": "\nواختلف العلماء في جواز الإجازة والصحيح جوازها هذا حاصل ما ذكره ابن الأنباري",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر الخلاف في الإجازة وترجيح جوازها عند ابن الأنباري.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الترجيح مفهوم، لكن المقصود بالإجازة هنا يحتاج معرفة اصطلاحية سابقة في باب النقل والرواية."
+  }
+]

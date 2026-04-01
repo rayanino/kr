@@ -1,0 +1,97 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 91,
+    "text_snippet": "‌‌بَابُ التشهد\nعَنْ عَبْدِ الله بْنِ مَسْعُودٍ رضي الله عنه قال: \"عَلَّمَني رَسُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "نص حديث ابن مسعود في التشهد بألفاظه المختلفة وما فيه من السلام والدعاء بعده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 92,
+    "end_word": 266,
+    "text_snippet": "المعنى الإجمالي:\nيذكر عبد الله بن مسعود رضي الله عنه: أن النبي صلى الله عليه وس",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "شرح إجمالي لمعاني ألفاظ التشهد وترتيب الثناء والدعاء والشهادتين ودلالة العبودية والرسالة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 267,
+    "end_word": 364,
+    "text_snippet": "فائدة:\nورد للتشهد صفات متعددة، ولكن أفضلها وأجملها، تشهد ابن مسعود الذي ساقه ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن أفضل صيغ التشهد تشهد ابن مسعود مع نقل ترجيح الأئمة والمحدثين له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 365,
+    "end_word": 380,
+    "text_snippet": "وفي وجوب التشهدين خلاف بين العلماء، تقدم الكلام على التشهد الأوسط في حديث عائشة ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "إحالة إلى موضع سابق في مسألة وجوب التشهدين وخصوصا التشهد الأوسط.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "هذه الوحدة إحالية محضة، وتعتمد على كلام سابق في حديث عائشة رقم [80]، فلا تتضمن الأقوال ولا أدلتها."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 381,
+    "end_word": 413,
+    "text_snippet": "فائدة ثانية:\nقال السبكي: إن في الصلاة حقا للعباد مع حق الله، وإن من تركها أخل بح",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استنباط السبكي أن في الصلاة حقا للمؤمنين جميعا بسبب السلام عليهم في التشهد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المقصود بضمير \"تركها\" يفهم من السياق أنه ترك هذه الجملة من التشهد أو الصلاة، لكن العبارة تحتمل وتستفيد من الرجوع لما قبلها."
+  }
+]

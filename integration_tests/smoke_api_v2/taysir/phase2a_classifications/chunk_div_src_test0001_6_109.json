@@ -1,0 +1,410 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 24,
+    "text_snippet": "\"كان فيما أنزل من القرآن عَشر رضعات معلومات يحر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 25,
+    "end_word": 80,
+    "text_snippet": "وما جاء في صحيح (مسلمٍ) أيضاً في قصة سهلة، زوجة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 81,
+    "end_word": 88,
+    "text_snippet": "وأجابت هذه الطائفة، عن أدلة الطائفتين الأوليين ف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 89,
+    "end_word": 104,
+    "text_snippet": "وأما من يرون أن قليله وكثيره يحرم، فجوابهم الحديث",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 105,
+    "end_word": 122,
+    "text_snippet": "وأما جواب أصحاب الثلاث، فهو أن دليلهم مفهوم، وال",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 123,
+    "end_word": 123,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 124,
+    "end_word": 132,
+    "text_snippet": "ما هي الرضعة التي يحصل بها العدد، وما مقدارها؟",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 133,
+    "end_word": 153,
+    "text_snippet": "الشارع ذكر الرضعة وأطلقها إلى ما يعرفه الناس ويعد",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 154,
+    "end_word": 177,
+    "text_snippet": "والناس لا يعدون الأكلة: إلا الوجبة التامة، سواء ت",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 178,
+    "end_word": 197,
+    "text_snippet": "فالصحيح أنها لا تحسب رضعة إلا ما رضعه الصبي، ثم ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 198,
+    "end_word": 218,
+    "text_snippet": "وهو مذهب الشافعي، وهى الرواية الثانية عن الإمام أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 219,
+    "end_word": 242,
+    "text_snippet": "أما إذا نقلته المرضعة من ثدي إلى ثدي، أو جاءه ما ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 243,
+    "end_word": 266,
+    "text_snippet": "واختلف العلماء في وقت الرضاع الذي يتعلق به التحري",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 267,
+    "end_word": 276,
+    "text_snippet": "الأول: أن الرضاع المعتبر، هو ما كان في الحولين فق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 277,
+    "end_word": 285,
+    "text_snippet": "الثاني: هو ما كان في الصغر، ولم يقدروه بزمان.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 15,
+    "start_word": 286,
+    "end_word": 295,
+    "text_snippet": "الثالث: أن الرضاع يحرِّم ولو كان للكبير البالغ، أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 296,
+    "end_word": 321,
+    "text_snippet": "الرابع: أن الرضاع لا يكون محرماً إلا ما كان في ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 322,
+    "end_word": 354,
+    "text_snippet": "فذهب إلى الأول، الشافعي، وأحمد، وصاحبا أبي حنيفة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 355,
+    "end_word": 381,
+    "text_snippet": "واستدلوا على ذلك بقوله تعالى: {وَالوَالِدَاتُ يُر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 382,
+    "end_word": 396,
+    "text_snippet": "وحديث \" إنما الرضاعة من المجاعة \"، المتقدم، ومدة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 397,
+    "end_word": 413,
+    "text_snippet": "وما رواه الدارقطني بإسناد صحيح عن ابن عباس يرفعه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 414,
+    "end_word": 432,
+    "text_snippet": "وفي سنن أبي داود من حديث ابن مسعود يرفعه \"لا يحر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 433,
+    "end_word": 440,
+    "text_snippet": "ورضاع الكبير لا ينبت اللحم ولا ينشز العظم.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 23,
+    "start_word": 441,
+    "end_word": 452,
+    "text_snippet": "وذهب إلى القول الثاني، أزواج النبي صلى الله عليه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 453,
+    "end_word": 490,
+    "text_snippet": "وروي عن ابن عمر، وابن المسيب، واختاره شيخ الإسلام",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 25,
+    "start_word": 491,
+    "end_word": 522,
+    "text_snippet": "وذهب إلى القول الثالث، طائفة من السلف والخلف، منه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 523,
+    "end_word": 540,
+    "text_snippet": "وكانت عائشة إذا أحبت أن يدخل عليها أحد من الرجال،",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 541,
+    "end_word": 582,
+    "text_snippet": "ودليل هؤلاء، ما صح عن النبي صلى الله عليه وسلم [أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 583,
+    "end_word": 589,
+    "text_snippet": "وهذا حديث صحيح ليس في ثبوته كلام.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 29,
+    "start_word": 590,
+    "end_word": 597,
+    "text_snippet": "ولكن أصحاب القول بالحولين يجيبون عنه بأحد جوابين.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 30,
+    "start_word": 598,
+    "end_word": 615,
+    "text_snippet": "الأول: أنه منسوخ، ولكن دعوى النسخ، تحتاج إلى معرف",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 616,
+    "end_word": 634,
+    "text_snippet": "ولو كان منسوخا، لقاله الذين يُحَاجُّون عائشة في ه",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 635,
+    "end_word": 647,
+    "text_snippet": "الجواب الثاني: دعوى الخصوصية، فيرون هذه رخصةً خاص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 33,
+    "start_word": 648,
+    "end_word": 676,
+    "text_snippet": "وتخريج هذا المسلك لهم، أنهم يقولون: جاءت سهلة شا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 34,
+    "start_word": 677,
+    "end_word": 727,
+    "text_snippet": "قالوا: ويتعين هذا المسلك، وإلا لَزِمَنا أحدُ مسلك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 728,
+    "end_word": 766,
+    "text_snippet": "وذهب إلى القول الرابع (وهو أن تأييد رضاع الكبير ر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 36,
+    "start_word": 767,
+    "end_word": 794,
+    "text_snippet": "والخصوصية لـ (سالم) وحده لم تثبت، فتكون خصوصية في",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 37,
+    "start_word": 795,
+    "end_word": 823,
+    "text_snippet": "ورجح هذا المسلك (ابن القيم) في (الهدى) فقال: وهذا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 38,
+    "start_word": 824,
+    "end_word": 825,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 826,
+    "end_word": 868,
+    "text_snippet": "عَنْ عُقْبَةَ بن الحَارِثِ: أنَهُ تَزَوَّجَ أم يحي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 869,
+    "end_word": 870,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 41,
+    "start_word": 871,
+    "end_word": 932,
+    "text_snippet": "تزوَّج (عقبة بن الحارث) أم يحيى بنت أبي إهاب (2) ",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 933,
+    "end_word": 936,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 43,
+    "start_word": 937,
+    "end_word": 946,
+    "text_snippet": "1- أنه إذا ثبت الرضاع المحرم بين الزوجين، انفسخ ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 947,
+    "end_word": 963,
+    "text_snippet": "2- أن الرضاع يثبت، وتترتب أحكامه بشهادة امرأة واح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 964,
+    "end_word": 997,
+    "text_snippet": "3- وفيه إثبات القاعدة الشرعية العامة وهي: (يثبت ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 46,
+    "start_word": 998,
+    "end_word": 1017,
+    "text_snippet": "4- قبول شهادة الرقيق إذا كان عَدْلاً، لقوله، \" أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1018,
+    "end_word": 1028,
+    "text_snippet": "5- الإنكار على من حاول البقاء على المحرمات، ولو ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1029,
+    "end_word": 1052,
+    "text_snippet": "6- أن وطء الشبهة لا يوجب شيئاً، وصاحبه معذور عن ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1053,
+    "end_word": 1054,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1055,
+    "end_word": 1060,
+    "text_snippet": "اختلف العلماء في شهادة ثبوت الرضاع.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  }
+]

@@ -1,0 +1,280 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "3- وجوب إحداد المرأة على زوجها المتوفى، أربعة أشهر وعشراً وعموم الحديث يفيد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب إحداد الزوجة المتوفى عنها زوجها وعموم الحكم لجميع الزوجات.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى عموم الحديث دون ذكر نص الحديث نفسه، فيحتاج القارئ إلى السياق السابق لمعرفة الدليل المشار إليه."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 24,
+    "end_word": 34,
+    "text_snippet": "4- قوله: \" تؤمن بالله واليوم الأخر \" سيق للزجر والتهديد.",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن قيد الإيمان في العبارة المقصودة خرج للزجر والتهديد.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "يعتمد على نص سابق خارج المقطع؛ فالضمير في قوله وموضع العبارة المذكورة غير مذكورين هنا."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 35,
+    "end_word": 64,
+    "text_snippet": "5- الحكمة في تحديد المدة بأربعة أشهر. عشر، أنها المدة التي يتكامل فيها تخليق ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل حكمة تحديد عدة الإحداد بأربعة أشهر وعشر من جهة الجنين وبراءة الرحم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 65,
+    "end_word": 85,
+    "text_snippet": "6- والإحداد: هو اجتنابها كل ما يدعو إلي جماعها ويرغب في النظر إليها، من الزين",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الإحداد بأنه ترك ما يدعو إلى نكاح المرأة من الزينة والطيب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "التعريف مفهوم، لكن عبارة وسيأتي بيانه تشير إلى تفصيل لاحق خارج الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 86,
+    "end_word": 330,
+    "text_snippet": "‌‌بَابُ مَا تجتنبه الحَاد ⌜1⌝\nالحديث الأول\nعَنْ أمِّ عَطِيَّةَ رضي الله عنها أنّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أم عطية في أحكام إحداد المتوفى عنها زوجها مع شرح ألفاظه ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 331,
+    "end_word": 345,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن إحداد المرأة على ميت فوق ثلاث، غير زوجها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن إحداد المرأة على غير الزوج أكثر من ثلاثة أيام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 346,
+    "end_word": 353,
+    "text_snippet": "2- إباحة الثلاث فما دون، تفريجا عن النفس.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إباحة الإحداد ثلاثة أيام فأقل على غير الزوج ترفيها عن النفس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 354,
+    "end_word": 368,
+    "text_snippet": "3-وجوب إحداد المرأة على زوجها أربعة أشهر وعشراً، ما لم تكون حاملاً فبوضع الحم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب إحداد الزوجة أربعة أشهر وعشراً واستثناء الحامل بانقضاء عدتها بالوضع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة تختم بقول الكاتب وتقدم، وهو إحالة إلى تفصيل سابق أو لاحق خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 369,
+    "end_word": 392,
+    "text_snippet": "4- الإحداد. معناه: ترك الزينة وما يدعو إلى نكاحها.\nفعليه تجتنب كل حلي، وكل طيب",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الإحداد وبيان ما تتركه المعتدة من الحلي والطيب والكحل والثياب الملفتة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 393,
+    "end_word": 495,
+    "text_snippet": "5- يباح لها الثوب المصبوغ لغير الزينة.\nوالتجمل وضده، راجعان إلى عُرْف كل زمان ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "إباحة الثوب المصبوغ لغير الزينة وضبط معنى التجمل والترك بالعرف مع نقل كلام ابن تيمية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 496,
+    "end_word": 509,
+    "text_snippet": "6- يباح أن تضع في فرجها بعد الطهر، هذا المشابه للطيب، لقطع الرائحة الكريهة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز استعمال ما يزيل الرائحة الكريهة بعد الطهر في الفرج دون قصد الزينة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة بقول هذا المشابه للطيب مبهمة قليلاً وتفهم أكمل بالرجوع إلى الحديث السابق وشرح ألفاظه."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "start_word": 510,
+    "end_word": 825,
+    "text_snippet": "الحديث الثاني\nعَنْ أم سَلَمَة رضي الله عنها قَالَت: جاءت امرأة إلى رسول الله ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أم سلمة في منع الكحل للمعتدة وذكر تخفيف الإسلام لما كان في الجاهلية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      38,
+      39
+    ],
+    "start_word": 826,
+    "end_word": 839,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الإحداد أربعة أشهر وعشراً، على المتوفى عنها زوجها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب إحداد المتوفى عنها زوجها مدة أربعة أشهر وعشر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      40,
+      41,
+      42
+    ],
+    "start_word": 840,
+    "end_word": 882,
+    "text_snippet": "2- أن تجتنب كل زينة، من لباس، وطيب، وحلي، وكحل وغيرها.\nومن الزينة هذه المساحيق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "definition"
+    ],
+    "description_arabic": "وجوب اجتناب المعتدة جميع أنواع الزينة وبيان أمثلتها القديمة والمعاصرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      43,
+      44
+    ],
+    "start_word": 883,
+    "end_word": 915,
+    "text_snippet": "3- أن تجتنب الكحل الذي يكون زينة في العين ولو لحاجة إليه.\nولا بأس بالتداوي، بم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "منع الكحل الزيني للمعتدة، مع استثناء التداوي بما لا زينة فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      45,
+      46,
+      47
+    ],
+    "start_word": 916,
+    "end_word": 990,
+    "text_snippet": "4- يُسرُّ هذه الشريعة وسماحتها، حيث خففت آثار الجاهلية وأثقالها.\nومن ذلك ما كان",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان يسر الشريعة في أحكام الإحداد مع حفظ حق الزوج وإباحة النظافة والمخالطة المباحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

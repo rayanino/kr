@@ -1,0 +1,290 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "‌‌إعمال المصدر\nبفعله المصدر ألحق في العمل … مض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 1,
+    "start_word": 14,
+    "end_word": 26,
+    "text_snippet": "إن كان فعل مع أن أو ما يحل … محله ولأسم مصدر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 2,
+    "start_word": 27,
+    "end_word": 32,
+    "text_snippet": "يعمل المصدر عمل الفعل في موضعين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 33,
+    "end_word": 63,
+    "text_snippet": "أحدها: أن يكون نائبا مناب الفعل نحو ضربا زيدا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 4,
+    "start_word": 64,
+    "end_word": 88,
+    "text_snippet": "والموضع الثاني: أن يكون المصدر مقدرا ب أن والف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 89,
+    "end_word": 126,
+    "text_snippet": "نحو عجبت من ضربك زيدا أمس أو غدا والتقدير: من ",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 127,
+    "end_word": 181,
+    "text_snippet": "وهذا المصدر المقدر يعمل في ثلاثة أحوال مضافا ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 182,
+    "end_word": 198,
+    "text_snippet": "ومن إعمال المنون قوله تعالى: {أَوْ إِطْعَامٌ ف",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 199,
+    "end_word": 214,
+    "text_snippet": "وقول الشاعر:\nبضرب بالسيوف رؤوس قوم … أزلنا هام",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 9,
+    "start_word": 215,
+    "end_word": 231,
+    "text_snippet": "ومن إعماله وهو محلى بـ \"أل\" قوله:\n247 - ضعيف ا",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 10,
+    "start_word": 232,
+    "end_word": 243,
+    "text_snippet": "وقوله:\n248 - فإنك والتأبين عروة بعدما … دعاك وأ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 11,
+    "start_word": 244,
+    "end_word": 258,
+    "text_snippet": "وقوله:\n249 - لقد علمت أولى المغيرة أنني … كررت ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 259,
+    "end_word": 272,
+    "text_snippet": "فـ \"أعدءاه\" منصوب بـ \"النكاية\" و\"عروة\" منصوب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 273,
+    "end_word": 328,
+    "text_snippet": "وأشار بقوله ولاسم مصدر عمل إلى أن اسم المصدر قد",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 329,
+    "end_word": 391,
+    "text_snippet": "واحترز بذلك مما خلا من بعض ما في فعله لفظا ولم",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 392,
+    "end_word": 435,
+    "text_snippet": "واحترز بقوله دون تعويض مما خلا من بعض ما في فعل",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 436,
+    "end_word": 453,
+    "text_snippet": "وزعم ابن المصنف أن عطاء مصدر وأن همزته حذفت تخف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 17,
+    "start_word": 454,
+    "end_word": 475,
+    "text_snippet": "ومن إعمال اسم المصدر قوله:\n250 - أكفرا بعد رد ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 18,
+    "start_word": 476,
+    "end_word": 488,
+    "text_snippet": "ومنه حديث الموطأ من قبلة الرجل امرأته الوضوء ف ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 489,
+    "end_word": 504,
+    "text_snippet": "وقوله:\n251 - إذا صح عون الخالق المرء لم يجد … ع",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 20,
+    "start_word": 505,
+    "end_word": 516,
+    "text_snippet": "وقوله:\n252 - بعشرتك الكرام تعد منهم … فلا ترين ",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 21,
+    "start_word": 517,
+    "end_word": 533,
+    "text_snippet": "وإعمال اسم المصدر قليل ومن ادعى الإجماع على جوا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 534,
+    "end_word": 564,
+    "text_snippet": "وقال الصيمري إعماله شاذ وأنشد أكفرا البيت وقال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 23,
+    "start_word": 565,
+    "end_word": 600,
+    "text_snippet": "وبعد جره الذي أضيف له … كمل بنصب أو برفع عمله ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 601,
+    "end_word": 613,
+    "text_snippet": "ومنه قوله:\nتنفى يداها الحصى في كل هاجرة … نفى ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 25,
+    "start_word": 614,
+    "end_word": 620,
+    "text_snippet": "وليس هذا الثاني مخصوصا بالضرورة خلافا لبعضهم",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 26,
+    "start_word": 621,
+    "end_word": 637,
+    "text_snippet": "وجعل منه قوله تعالى: {وَلِلَّهِ عَلَى النَّاسِ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 27,
+    "start_word": 638,
+    "end_word": 663,
+    "text_snippet": "ورد بأنه يصير المعنى ولله على جميع الناس أن يحج",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 28,
+    "start_word": 664,
+    "end_word": 674,
+    "text_snippet": "وقيل من مبتدأ والخبر محذوف والتقدير من استطاع م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 675,
+    "end_word": 691,
+    "text_snippet": "ويضاف المصدر أيضا إلى الظرف ثم يرفع الفاعل وينص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 692,
+    "end_word": 734,
+    "text_snippet": "وجر ما يتبع ما جر ومن … راعى في الإتباع المحل ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 31,
+    "start_word": 735,
+    "end_word": 751,
+    "text_snippet": "ومن إتباعه على المحل قوله:\n254 - حتى تهجر في ا",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 32,
+    "start_word": 752,
+    "end_word": 759,
+    "text_snippet": "فرفع المظلوم لكونه نعتا ل لمعقب على المحل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 33,
+    "start_word": 760,
+    "end_word": 775,
+    "text_snippet": "وإذا أضيف إلى المعفول فهو مجرور لفظا منصوب محلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 34,
+    "start_word": 776,
+    "end_word": 790,
+    "text_snippet": "ومن مراعاة المحل قوله:\n255 - قد كنت داينت بها ",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 35,
+    "start_word": 791,
+    "end_word": 796,
+    "text_snippet": "ف الليانا معطوف على محل الإفلاس.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

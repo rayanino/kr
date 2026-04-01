@@ -1,0 +1,42 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "مسألة\nفي اجتماع ضدين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 6,
+    "text_snippet": "\n\nقال في الخصائص:",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 55,
+    "text_snippet": "\n\" اعلم أن التضاد في هذه اللغة جار مجرى التضاد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 3,
+    "start_word": 56,
+    "end_word": 71,
+    "text_snippet": "\nوهذا جار مجرى الضدين المترادفين على المحل ا",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 72,
+    "end_word": 81,
+    "text_snippet": "\nوكذلك أيضا حذف التنوين للإضافة وحذف تاء الت",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  }
+]

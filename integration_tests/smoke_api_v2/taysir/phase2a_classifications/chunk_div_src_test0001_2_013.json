@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌باب وجوب المبيت بمنى ⌜1⌝\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 36,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 37,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 38,
+    "end_word": 80,
+    "text_snippet": "سقايته: المراد بها سقاية الحجيج؛ فخدمة الحجاج،",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 81,
+    "end_word": 82,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 83,
+    "end_word": 152,
+    "text_snippet": "المبيت بـ\"منى\" ليالي التشريق، أحد واجبات الحج ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 153,
+    "end_word": 156,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 157,
+    "end_word": 163,
+    "text_snippet": "1- وجوب المبيت بـ\"منى\" ليالي أيام التشريق.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 164,
+    "end_word": 170,
+    "text_snippet": "2- المراد بالمبيت، الإقامة بـ\"منى\" أكثر الليل.",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 171,
+    "end_word": 197,
+    "text_snippet": "3- الرخصة في ترك المبيت لسقاة الحاج، وألحقوا به",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 198,
+    "end_word": 211,
+    "text_snippet": "4- ما كان عليه أهل مكة في جاهليتهم من إكرام الح",
+    "scholarly_function": "narration",
+    "confidence": 0.53
+  }
+]

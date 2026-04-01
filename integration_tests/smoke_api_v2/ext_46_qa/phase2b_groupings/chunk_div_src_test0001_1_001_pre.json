@@ -1,0 +1,128 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 92,
+    "text_snippet": "الكتاب الثاني\n\nفي‌‌ الإجماع والمراد به إجماع نحاة البلدين: البصرة والكوفة\nقال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "condition_exception",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف إجماع النحاة وبيان متى يكون حجة مع قيد عدم مخالفة الجماعة إلا بعد إمعان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 93,
+    "end_word": 161,
+    "text_snippet": "وقال في موضع آخر:\n\" يجوز الاحتجاج بإجماع الفريقين وذلك كإنكار أبي العباس جوا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "الاحتجاج بإجماع البصريين والكوفيين، وأن مخالفته معتبرة ما لم يعارض نصا أو قياسا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة ضمنية إلى مسألة نحوية مخصوصة في تقديم خبر ليس، وفهم المثال التفصيلي يفيد أكثر، لكن أصل القاعدة والترجيح واضحان."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9
+    ],
+    "start_word": 162,
+    "end_word": 263,
+    "text_snippet": "قال:\n\" فمما جاز خلاف الإجماع الواقع فيه منذ بدئ هذا العلم وإلى آخر هذا الوقت ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "مثال لجواز مخالفة الإجماع النحوي في إعراب: هذا جحر ضب خرب، مع تعليل المؤلف له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 264,
+    "end_word": 280,
+    "text_snippet": "وقال غيره: إجماع النحاة على الأمور اللغوية معتبر خلافا لمن تردد فيه وخرقه ممن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير اعتبار إجماع النحاة في المسائل اللغوية وأن خرقه ممنوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 281,
+    "end_word": 316,
+    "text_snippet": "وقال ابن الخشاب في المرتجل:\n\" لو قيل: إن من الشرط لا موضع لها من الإعراب لكان",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "مثال على قول محتمل في الإعراب يُترك لا لضعفه فقط بل لمخالفته للمتقدمين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم منه أصل المنع من مخالفة المتقدمين، لكن مصطلحا من الشرط وإن الشرطية يحتاجان معرفة نحوية سابقة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 317,
+    "end_word": 335,
+    "text_snippet": "(مسألة)\nوإجماع العرب أيضا حجة، ولكن أنى لنا بالوقوف عليه؟!\nومن صوره أن يتكل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "بيان حجية إجماع العرب والتنبيه إلى صعوبة الوقوف عليه، مع صورة من صوره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 336,
+    "end_word": 424,
+    "text_snippet": "قال ابن مالك في (شرح التسهيل):\n(استدل على جواز توسط خبر (ما) الحجازية ونصبه ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "استدلال ابن مالك على جواز توسط خبر ما الحجازية من سكوت العرب عن إنكار بيت الفرزدق.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتفية في تقرير وجه الاستدلال، لكن فهم مصطلح ما الحجازية وتفاصيل الخلاف النحوي يحتاج معرفة سابقة."
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌العطف\nالعطف إما ذو بيان أو نسق … والغرض الآن بيان ما سبق",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "تمهيد يبين أن العطف قسمان وأن المقصود هنا عطف البيان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 13,
+    "end_word": 87,
+    "text_snippet": "فذو البيان تابع شبه الصفه … حقيقة القصد به منكشفه\nالعطف كما ذكر ضربان:\nأحده",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "تعريف عطف البيان وبيان خصائصه وتمييزه من الصفة والتوكيد والنسق والبدل بالمثال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 88,
+    "end_word": 123,
+    "text_snippet": "فأولينه من وفاق الأول … ما من وفاق الأول النعت ولي\nلما كان عطف البيان مشب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب موافقة عطف البيان لمتبوعه في الإعراب والتعريف والتنكير والجنس والعدد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 124,
+    "end_word": 176,
+    "text_snippet": "فقد يكونان منكرين … كما يكونان معرفين\nذهب أكثر النحويين إلى امتناع كون عطف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "الخلاف في جواز تنكير عطف البيان ومتبوعه مع الاستدلال بآيتين على الجواز.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 177,
+    "end_word": 267,
+    "text_snippet": "وصالحا لبد يلية يرى … في غير نحو يا غلام يعمرا\nونحو بشر تابع البكري … وليس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الأصل أن عطف البيان يصلح بدلا، مع استثناء المنادى المعرفة المفردة المعربة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      15,
+      16,
+      17
+    ],
+    "start_word": 268,
+    "end_word": 392,
+    "text_snippet": "الثانية: أن يكون التابع خاليا من أل والمتبوع بأل، وقد أضيفت إليه صفة بأل، ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "الاستثناء الثاني الذي يتعين فيه عطف البيان، مع مثاله والتنبيه على خلاف الفراء والفارسي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد بعض التعليل على ما سبق في باب الإضافة، وقوله: «لما عرفت في باب الإضافة» إحالة خارجية تحتاج معرفة سابقة."
+  }
+]

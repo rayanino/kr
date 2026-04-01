@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "‌‌المعرف بأداة التعريف\nأل حرف تعريف أو اللام فق",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 56,
+    "text_snippet": "اختلف النحويون في حرف التعريف في الرجل ونحوه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 57,
+    "end_word": 66,
+    "text_snippet": "وقوله تعالى: {كَمَا أَرْسَلْنَا إِلَى فِرْعَوْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 67,
+    "end_word": 78,
+    "text_snippet": "ولاستغراق الجنس نحو إن الإنسان لفي خسر وعلامت",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 79,
+    "end_word": 92,
+    "text_snippet": "ولتعريف الحقيقة نحو الرجل خير من المرأة أي هذ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 93,
+    "end_word": 112,
+    "text_snippet": "والنمط ضرب من البسط والجمع أنماط مثل سبب وأسبا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 113,
+    "end_word": 122,
+    "text_snippet": "وقد تزاد لازما: كاللات … والآن والذين ثم اللات",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 123,
+    "end_word": 133,
+    "text_snippet": "ولاضطرار: كبنات الأوبر … كذا وطبت النفس يا قيس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 8,
+    "start_word": 134,
+    "end_word": 151,
+    "text_snippet": "ذكر المصنف في هذين البيتين أن الألف واللام تأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 152,
+    "end_word": 175,
+    "text_snippet": "ثم مثل الزائدة اللازمة ب اللات (1) وهو اسم صنم",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 176,
+    "end_word": 216,
+    "text_snippet": "واللام الداخلة عليه فذهب قوم إلى أنها لتعريف ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 217,
+    "end_word": 315,
+    "text_snippet": "ومثل أيضا ب الذين واللات والمراد بهما ما دخل ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 316,
+    "end_word": 372,
+    "text_snippet": "وأما الزائدة غير اللازمة فهي الداخلة اضطرارا ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 373,
+    "end_word": 432,
+    "text_snippet": "37 - رأيتك لما أن عرفت وجوهنا … صددت وطبت النف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 433,
+    "end_word": 453,
+    "text_snippet": "وبعض الأعلام عليه دخلا … للمح ما قد كان عنه نق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 15,
+    "start_word": 454,
+    "end_word": 575,
+    "text_snippet": "ذكر المصنف فيما تقدم أن الألف واللام تكون معرف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 576,
+    "end_word": 690,
+    "text_snippet": "وحاصله أنك إذا أردت بالمنقول من صفة ⌜3⌝ ونحوه ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 17,
+    "start_word": 691,
+    "end_word": 701,
+    "text_snippet": "وقد يصير علما بالغلبه … مضاف أو مصحوب أل كالعق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 18,
+    "start_word": 702,
+    "end_word": 715,
+    "text_snippet": "وحذف أل ذي إن تناد أو تضف … أوجب وفي غيرهما قد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 716,
+    "end_word": 759,
+    "text_snippet": "من أقسام الألف واللام أنها تكون للغلبة نحو الم",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 20,
+    "start_word": 760,
+    "end_word": 785,
+    "text_snippet": "وحكم هذه الألف واللام أنها لا تحذف إلا في الند",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 786,
+    "end_word": 803,
+    "text_snippet": "وقد تحذف في غيرهما شذوذا سمع من كلامهم هذا عيو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 804,
+    "end_word": 820,
+    "text_snippet": "وقد يكون العلم بالغلبة أيضا مضافا كابن عمر واب",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 23,
+    "start_word": 821,
+    "end_word": 868,
+    "text_snippet": " دون غيرهم من أولادهم وإن كان حقه الصدق عليهم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  }
+]

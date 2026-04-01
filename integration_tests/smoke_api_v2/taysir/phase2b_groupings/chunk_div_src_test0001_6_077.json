@@ -1,0 +1,188 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 62,
+    "text_snippet": "وهذا قول وسط في الموضوع، وفيه توسعة على الناس، الذين اضطروا إلى التعامل بها،",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "cross_reference"
+    ],
+    "description_arabic": "ذكر ترجيح قولٍ وسط في المسألة السابقة مع الإشارة إلى بسطها ورسالةٍ فيها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة تشير إلى مسألة سابقة غير مذكورة هنا بقول: «وهذا قول وسط»، فلا يُعرف موضوع الخلاف إلا من السياق السابق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 63,
+    "end_word": 101,
+    "text_snippet": "‌‌بَابُ الرَّهن ⌜1⌝\nالرهن: بفتح الراء وسكون الهاء، وهو، لغة: - الثبوت والدوام.\n",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف الرهن لغة وشرعًا ووجه أخذ المعنى الشرعي من الأصل اللغوي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 102,
+    "end_word": 197,
+    "text_snippet": "وهو جائز بالكتاب، والسنة، والإجماع، والقياس الصحيح.\nأما الكتاب فقوله تعالى:",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "إثبات جواز الرهن بأدلته من الكتاب والسنة والإجماع والمعقول وبيان فائدته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 198,
+    "end_word": 235,
+    "text_snippet": "وأكمل التوثق إذا قبض الرهن عند المرتهن، أو العدل الذي يرضى الراهن والمرتهن بق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان أن كمال التوثق في الرهن يكون بالقبض، مع صحة الرهن بدونه وكونه أنقص فائدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 236,
+    "end_word": 321,
+    "text_snippet": "الحديث الأول\nعَنْ عَاِئشةَ رَضىٍ الله عَنْها: أن رَسُولَ الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث رهن النبي ﷺ درعه عند يهودي وشرح ما يدل عليه من زهده وقلة ادخاره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 322,
+    "end_word": 334,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جواز الرهن مع ثبوته في الكتاب العزيز أيضاً.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى من الحديث: تقرير جواز الرهن وموافقته لما ثبت في القرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 335,
+    "end_word": 376,
+    "text_snippet": "2- جواز معاملة الكفار، وأنها ليست من الركون إليهم المنهي عنه. قال الصنعاني: و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الفائدة الثانية: جواز معاملة الكفار، وأن ذلك ليس من الركون المنهي عنه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24,
+      25,
+      26
+    ],
+    "start_word": 377,
+    "end_word": 439,
+    "text_snippet": "3- وفيه جواز معاملة مَنْ أكثر ماله حرام، ما لم يعلم أن عين المتعامل به حرام. ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "الفائدة الثالثة: جواز معاملة من غلب الحرام على ماله بشرط عدم العلم بحرمة العين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 440,
+    "end_word": 491,
+    "text_snippet": "4- وليس في الحديث دليل على جواز بيع السلاح على الكفار، لأن الدرع ليس من السلا",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الفائدة الرابعة: نفي الاستدلال بالحديث على بيع السلاح للكفار وتحريم إعانتهم به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 492,
+    "end_word": 514,
+    "text_snippet": "5- فيه ما كان عليه النبي صلى الله عليه وسلم من الإقلال والزهد، رغبة فيما عند ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الخامسة: بيان زهد النبي ﷺ وكرمه وعدم إمساكه المال عنده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

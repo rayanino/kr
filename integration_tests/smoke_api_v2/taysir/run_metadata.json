@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-04-01T16:18:30.624340+00:00",
+  "error_count": 1,
+  "errors": [
+    "batch_timeout: exceeded 28800s in batch runner"
+  ],
+  "batch_elapsed_seconds": 28800.96
+}

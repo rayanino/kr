@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "الرجوع عند تعذر أو تعسُّر الاستيفاء، أنه لا يرج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 1,
+    "start_word": 29,
+    "end_word": 84,
+    "text_snippet": "وإن لم يكن راضياً بالحوالة على المعسر ونحوه، أو ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 2,
+    "start_word": 85,
+    "end_word": 94,
+    "text_snippet": "‌‌بَابُ مَنْ وَجَد سلْعَته عند رجل قد أفلس\nالحدي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 95,
+    "end_word": 136,
+    "text_snippet": "عَنْ أَبي هُرَيْرة رَضِىَ الله عَنْة قالَ: قَالَ ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 137,
+    "end_word": 138,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 139,
+    "end_word": 201,
+    "text_snippet": "من باع متاعه لأحد، أو أودعه، أو أقرضه إياه ونحوه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 202,
+    "end_word": 218,
+    "text_snippet": "فحينئذ يكون أحق به من الغرماء المتحاصي (2) المال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 219,
+    "end_word": 252,
+    "text_snippet": "فإن كان المبيع ونحوه قد تغير بما يخرجه عن اسمه و",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 253,
+    "end_word": 256,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 257,
+    "end_word": 280,
+    "text_snippet": "1- أن من وجد متاعه عند أحد قد أفلس فله الرجوع في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 281,
+    "end_word": 297,
+    "text_snippet": "قال ابن دقيق العيد: دلالته قوية.\nقال الإصطخري م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 298,
+    "end_word": 317,
+    "text_snippet": "2- يراد \" بصاحب المتاع\" في الحديث، البائع وغيره،",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 318,
+    "end_word": 327,
+    "text_snippet": "ولا ينافي العموم أن يصرح باسم [البائع] في بعض ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 13,
+    "start_word": 328,
+    "end_word": 342,
+    "text_snippet": "3- أن تكون موجودات المفلس لا تفي بديونه، وهذا ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 343,
+    "end_word": 358,
+    "text_snippet": "4- أن تكون عين المتاع موجودة عند المشترى، هذا ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 359,
+    "end_word": 375,
+    "text_snippet": "5- أن يكون الثمن غير مقبوض من المشترى. فإن قبض ك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 376,
+    "end_word": 385,
+    "text_snippet": "وهذا الشرط مأخوذ من المعنى المفهوم، ومن بعض ألفا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 17,
+    "start_word": 386,
+    "end_word": 406,
+    "text_snippet": "6- الذي يفهم من عموم لفظ الحديث، أن الغرماء لو ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 407,
+    "end_word": 445,
+    "text_snippet": "قلت: وأرى أننا إذا رجعنا إلى مراد الشارع وهو [حف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 446,
+    "end_word": 479,
+    "text_snippet": "قال \" ابن رشد \": تقدر السلعة.\nفإن كانت قيمتها مس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 480,
+    "end_word": 503,
+    "text_snippet": "7- أن تكون السلعة بحالها لم يتلف منها شيء، ولم ت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 504,
+    "end_word": 512,
+    "text_snippet": "فإن تغيرت صفاتها، أو تلف بعضها فهو أسوة بالغرماء",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 513,
+    "end_word": 551,
+    "text_snippet": "8- أن لا يتعلق بها حق من شفعة، أو رهن، وأولى من ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 552,
+    "end_word": 561,
+    "text_snippet": "هذه هي الشروط المعتبرة للرجوع في عين المتاع عند ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 24,
+    "start_word": 562,
+    "end_word": 572,
+    "text_snippet": "وبعضها أخذ من لفظ الأحاديث، وبعضها من المعنى الم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 25,
+    "start_word": 573,
+    "end_word": 574,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 575,
+    "end_word": 606,
+    "text_snippet": "ذهبت الحنفية إلى أن البائع غير مستحق لأخذ عين ما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 607,
+    "end_word": 630,
+    "text_snippet": "وتأولوا الحديث بأنه خبر واحد مخالف للأصول، وحمل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 28,
+    "start_word": 631,
+    "end_word": 643,
+    "text_snippet": "ولو كان كذلك لما قيد بالإفلاس، فإنه يرجع بهذه ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 644,
+    "end_word": 652,
+    "text_snippet": "والحق ما ذهب إليه جمهور العلماء من العمل بالحدي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 30,
+    "start_word": 653,
+    "end_word": 688,
+    "text_snippet": "قال الشوكاني: \" والاعتذار بأنه الحديث، مخالف للأ",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 689,
+    "end_word": 703,
+    "text_snippet": "قال بعض العلماء: لو حكم الحاكم بخلاف هذا الحديث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 32,
+    "start_word": 704,
+    "end_word": 723,
+    "text_snippet": "ولولا شهرة هذا الخلاف للحنفية ما ذكرته، ولكنى قص",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 724,
+    "end_word": 751,
+    "text_snippet": "وقد أذكر في هذا الكتاب بعض الخلافات الضعيفة، لش",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  }
+]

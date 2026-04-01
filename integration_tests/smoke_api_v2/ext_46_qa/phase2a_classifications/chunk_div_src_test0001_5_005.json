@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "المسألة السابعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 6,
+    "text_snippet": "ينقسم أيضا إلى رخصة وغيرها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 15,
+    "text_snippet": "والرخصة: ما جاز استعماله لضرورة الشعر ويتفاوت",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 16,
+    "end_word": 27,
+    "text_snippet": "وقد يلحق بالضرورة ما في معناها وهو الحاجة إلى ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 4,
+    "start_word": 28,
+    "end_word": 46,
+    "text_snippet": "فالضرورة الحسنة: ما لا يستهجن، ولا تستوحش م",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 47,
+    "end_word": 59,
+    "text_snippet": "وأسهل الضرورات: تسكين عين (فعلة) في الجمع با",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 6,
+    "start_word": 60,
+    "end_word": 63,
+    "text_snippet": "فتستريح النفس من زفراتها",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 64,
+    "end_word": 89,
+    "text_snippet": "والضرورة المستقبحة: ما تستوحش منه النفس، كال",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 90,
+    "end_word": 104,
+    "text_snippet": "قال حازم في (منهاج البلغاء):\n\" وأشد ما تستوحش",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 105,
+    "end_word": 121,
+    "text_snippet": "قال: وأقبح ضرائر: الزيادة المؤدية لما ليس أصل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 122,
+    "end_word": 123,
+    "text_snippet": "أي أنظر.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 11,
+    "start_word": 124,
+    "end_word": 131,
+    "text_snippet": "أو الزيادة المؤدية لما يقل في الكلام، كقوله:\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 12,
+    "start_word": 132,
+    "end_word": 133,
+    "text_snippet": "طأطأت شيمالي",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 134,
+    "end_word": 135,
+    "text_snippet": "أراد: شمالي.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 14,
+    "start_word": 136,
+    "end_word": 145,
+    "text_snippet": "وكذلك يستقبح النقص المجحف كقول لبيد:\nدرس الم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 15,
+    "start_word": 146,
+    "end_word": 147,
+    "text_snippet": "أراد المنازل.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 148,
+    "end_word": 159,
+    "text_snippet": "وكذلك العدول عن صيغة لأخرى كقول الحطيئة:\nجدل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 17,
+    "start_word": 160,
+    "end_word": 161,
+    "text_snippet": "أراد سليمان.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 18,
+    "start_word": 162,
+    "end_word": 176,
+    "text_snippet": "وقد اختلف الناس في حد الضرورة، فقال ابن مالك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 177,
+    "end_word": 188,
+    "text_snippet": "وقال ابن عصفور: الشعر نفسه ضرورة، وإن كان يم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 189,
+    "end_word": 211,
+    "text_snippet": "قال بعضهم: وهذا الخلاف هو الخلاف الذي يعبر ع",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 21,
+    "start_word": 212,
+    "end_word": 228,
+    "text_snippet": "وأيد بعضهم الأول بأنه ليس في كلام العرب ضرور",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  }
+]

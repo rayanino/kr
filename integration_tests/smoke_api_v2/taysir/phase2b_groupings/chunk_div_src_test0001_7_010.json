@@ -1,0 +1,502 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَابُ المرُور بَيْن يَدَي المصَلّي",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في حكم المرور بين يدي المصلي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 5,
+    "end_word": 126,
+    "text_snippet": "الحديث الأول\nعَنْ أبي جُهَيْم بنِ الصِّمَّةِ الأنصَارِي رضيَ الله تَعَالَي عَنْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أبي جهيم في وعيد المار بين يدي المصلي مع بيان معناه وشك الراوي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 127,
+    "end_word": 149,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم المرور بين يدي المصلي، إذا لم يكن له سترة، أو الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم المرور أمام المصلي أو بينه وبين سترته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 150,
+    "end_word": 159,
+    "text_snippet": "2- وجوب الابتعاد عن المرور بين يديه، لهذا الوعيد الشديد.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب اجتناب المرور بين يدي المصلي بسبب شدة الوعيد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوعيد المشار إليه مفهوم من الحديث السابق، ولا يذكر نصه داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 160,
+    "end_word": 184,
+    "text_snippet": "3- أن الأولى للمصلى أن لا يصلي في طرق الناس، وفي الأمكنة التي لابُدَّ لهم من ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تجنب الصلاة في مواضع مرور الناس دفعاً للنقص والإثم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      10,
+      11,
+      12
+    ],
+    "start_word": 185,
+    "end_word": 258,
+    "text_snippet": "4- شك الراوي في الأربعين: هل يراد بها اليوم أو الشهر أو العام؟\nولكن ليس المراد",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان أن ذكر الأربعين للمبالغة لا للحصر مع الاستدلال بالقرآن ورواية أخرى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 259,
+    "end_word": 286,
+    "text_snippet": "5- أما في مكة، فقد قال شيخ الإسلام ابن تيمية: \" لو صلى المصلى في المسجد والناس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "قول ابن تيمية في عدم كراهة المرور أمام المصلي في المسجد الحرام حال الطواف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 287,
+    "end_word": 392,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه قَالَ: سَمِعْتُ رَسولَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أبي سعيد في دفع المار بين يدي المصلي إلى سترته وشرح معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 393,
+    "end_word": 406,
+    "text_snippet": "الأحكام التي في الحديث:\n1- مشروعة السترة للمصلى لِيَقيَ صلاته من النقص أو القطع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية اتخاذ السترة للمصلي حفظاً لصلاته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 407,
+    "end_word": 421,
+    "text_snippet": "2- مشروعية قربها منها، ليتمكن من رَدّ من يمر بينه وبينها، ولئلا يضيق على المارّ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب قرب السترة من المصلي لرد المار وعدم التضييق على الناس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 422,
+    "end_word": 432,
+    "text_snippet": "3- تحريم المرور بين المصلى وبين سترته، لأنه من عمل الشيطان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم المرور بين المصلي وستره وبيان أنه من عمل الشيطان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 433,
+    "end_word": 476,
+    "text_snippet": "4- منع من يريد المرور بين المصلى وبين سترته، ويكون بإشارة أو تسبيح أوَّلاً، فإن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كيفية منع المار بين المصلي وسترته بالتدرج دون المشي في الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 477,
+    "end_word": 501,
+    "text_snippet": "5- أن المدفوع لو تسبب موته من الدفع، فليس على الدافع ذنب ولا قوَدّ.\nلأن دفعه مأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "عدم ضمان الدافع إذا هلك المار بسبب الدفع المأذون فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 502,
+    "end_word": 515,
+    "text_snippet": "6- الحكمة في رَدَّة ألا يقع في الصلاة خلل، ولئلا يقع المار في الإثم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان الحكمة من رد المار حفظاً للصلاة ومنعاً لإثم المار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 516,
+    "end_word": 546,
+    "text_snippet": "7- ما تقدم من دفع المارة ومقاتلته، وعدم الضمان في ذلك لمن جعل أمامه سترة.\nفأما ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "دفع المار وعدم الضمان خاص بمن اتخذ سترة دون المفرط بتركها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتحت العبارة بإحالة على ما تقدم من أحكام الدفع والضمان، ففهمها التام يستفيد من السياق السابق."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 547,
+    "end_word": 562,
+    "text_snippet": "8- أن مدافعة كل صائل، تكون بالأسهل فالأسهل.\nفلا يجوز مبادرته بالشدة، حتى تنفد و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة دفع الصائل بالتدرج من الأخف إلى الأشد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 563,
+    "end_word": 580,
+    "text_snippet": "9- ذهب الجمهور إلي أنه لو مر ولم يدفعه فلا ينبغي له أن يرده، لأن فيه إعادة للم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مذهب الجمهور في عدم رد المار بعد وقوع المرور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 581,
+    "end_word": 609,
+    "text_snippet": "10- وذكر ابن دقيق العيد أن المصلى يختص بالإثم دون المار إذا لم يكن للمار مندوحة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تفصيل ابن دقيق العيد في الإثم بين المصلي والمار بحسب وجود المندوحة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تحديد الإثم هنا مرتبط بسياق المرور بين يدي المصلي، وهو مفهوم من الباب لكنه غير مصرح به كاملاً داخل الوحدة."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 610,
+    "end_word": 624,
+    "text_snippet": "11- إذا كان العمل في الصلاة لمصلحتها فإنه لا ينقصها ولا يبطلها: لأنه شيء جائز.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "العمل في الصلاة لمصلحتها لا يبطلها ولا ينقصها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "start_word": 625,
+    "end_word": 808,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بْنِ عَبَّاس ورَضىَ الله عَنْهُمَا قال: أقْبَلْتُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "cross_reference",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عباس في مرور الأتان مع شرح ألفاظه وبيان معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      40,
+      41
+    ],
+    "start_word": 809,
+    "end_word": 837,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن مرور الحمار بين يدي المصلى لا ينقص صلاته ولا يقطعها. و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مرور الحمار أمام المصلي لا يقطع الصلاة ولا ينقصها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى خلاف سيأتي لاحقاً بقول المؤلف: ويأتي الخلاف في هذا."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 838,
+    "end_word": 873,
+    "text_snippet": "2- أن عبد الله بن عباس حين توفي النبي صلى الله عليه وسلم، كان قد بلغ أو قارب ال",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "استفادة عمر ابن عباس عند وفاة النبي من قصة حجة الوداع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 874,
+    "end_word": 904,
+    "text_snippet": "3- أن إقرار النبي صلى الله عليه وسلم من سنته، لأنه لا يقر أحدا كل باطل.\nفعدم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إقرار النبي حجة، وعدم إنكاره يدل على صحة الفعل والصلاة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمائر في عدم الإنكار على ابن عباس تعود إلى القصة السابقة، فهي مفهومة أكثر مع الحديث السابق."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 905,
+    "end_word": 927,
+    "text_snippet": "4- استدل بالحديث على أن سترة الإمام هي سترة للمأموم، وقد عنون له الإمام البخاري",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بحديث ابن عباس على أن سترة الإمام سترة للمأمومين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال معتمد على الحديث المتقدم ولا يذكر وجهه كاملاً داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 928,
+    "end_word": 1038,
+    "text_snippet": "الحديث الرابع\nعَنْ عَائِشَةَ رضىَ الله عَنْهَا قالَتْ: كُنْتُ أنامُ بَيْنَ يَدَيْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "حديث عائشة في نومها أمام النبي واستدلالها به على عدم قطع المرأة للصلاة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن ردّاً على حديث قطع الصلاة بالحمار والكلب والمرأة دون إيراد نص الحديث المعارض كاملاً."
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      49,
+      50
+    ],
+    "start_word": 1039,
+    "end_word": 1054,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز اعتراض النائم بين يدي المصلى إذا كان بحاجة كضيق المك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز نوم أو اعتراض المحتاج أمام المصلي عند ضيق المكان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      51
+    ],
+    "start_word": 1055,
+    "end_word": 1065,
+    "text_snippet": "2- أن اعتراض المرأة أمام المصلى، لا يقطع الصلاة ولا ينقصها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مرور المرأة أو اعتراضها أمام المصلي لا يقطع الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      52,
+      53
+    ],
+    "start_word": 1066,
+    "end_word": 1109,
+    "text_snippet": "3- أن مس المرأة ولو بلا حائل لا ينقض الوضوء، لأن النبي صلى الله عليه وسلم يغمزه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الاستدلال على أن مس المرأة لا ينقض الوضوء إلا مع قيد الشهوة عند العلماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      54
+    ],
+    "start_word": 1110,
+    "end_word": 1131,
+    "text_snippet": "4- ما كان النبي صلى الله عليه وسلم وأهله عليه من ضيق الحياة، رغبة فيما عند الله",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "بيان زهد النبي وأهله وضيق عيشهم في الدنيا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      55
+    ],
+    "start_word": 1132,
+    "end_word": 1142,
+    "text_snippet": "5- جواز مثل هذه الحركة في الصلاة، وأنهَا لا تخِلُّ بها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الحركة اليسيرة في الصلاة إذا دعت الحاجة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة بقول المؤلف مثل هذه الحركة تعود إلى غمز النبي لعائشة في الحديث السابق."
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "start_word": 1143,
+    "end_word": 1248,
+    "text_snippet": "اختلاف العلماء\nاختلف العلماء، في المرأة، والحمار، والكلب الأسود، أتقطع الصلاة ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف العلماء في قطع المرأة والحمار والكلب للصلاة مع أدلة المذاهب وترجيحاتهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "توجد إحالات إلى حديثي عائشة وابن عباس المتقدمين بقول المؤلف: الذي تقدم، والذي قبله."
+  }
+]

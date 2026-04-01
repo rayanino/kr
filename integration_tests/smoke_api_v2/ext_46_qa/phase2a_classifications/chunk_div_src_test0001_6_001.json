@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "تنبيه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 18,
+    "text_snippet": "كان قوم من النحاة المتقدمين يعيبون على عاصم وحم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 19,
+    "end_word": 83,
+    "text_snippet": "وهم مخطئون في ذلك، فإن قراءاتهم ثابتة بالاسانيد",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 84,
+    "end_word": 94,
+    "text_snippet": "وعلى جواز الفصل بين المضاف والمضاف إليه بمفعوله",
+    "scholarly_function": "example",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 4,
+    "start_word": 95,
+    "end_word": 106,
+    "text_snippet": "(قتل أولادهم شركائهم).\nوعلى جواز سكون لام الأمر",
+    "scholarly_function": "example",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 5,
+    "start_word": 107,
+    "end_word": 120,
+    "text_snippet": "(ثم ليقطع)\nفإن قلت فقد روي عن عثمان أنه قال: لم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 6,
+    "start_word": 121,
+    "end_word": 153,
+    "text_snippet": "إن فيه لحنا ستقيمه العرب بألسنتها.\nوعن عروة قال:",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 154,
+    "end_word": 163,
+    "text_snippet": "فقالت يا ابن أختي، هذا عمل الكتاب، أخطأوا في الك",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 164,
+    "end_word": 176,
+    "text_snippet": "أخرجهما أبو عبيد، في فضائله فكيف يستقيم الاستدلا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 9,
+    "start_word": 177,
+    "end_word": 256,
+    "text_snippet": "قلت: معاذ الله كيف يظن أولا بالصحابة أنهم يلحنون",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 257,
+    "end_word": 262,
+    "text_snippet": "هذا مما يستحيل عقلا وشرعا وعادة.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 263,
+    "end_word": 276,
+    "text_snippet": "وقد أجاب العلماء عن ذلك بأجوبة عديدة، بسطتها في ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 277,
+    "end_word": 333,
+    "text_snippet": "وأحسن ما يقال في أثر عثمان _ رضي الله عنه _ بعد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 334,
+    "end_word": 378,
+    "text_snippet": "فهذا الأثر لا إشكال فيه فكأنه لما عرض عليه، عند ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 14,
+    "start_word": 379,
+    "end_word": 406,
+    "text_snippet": "ولعل من روى ذلك الأثر حرفه، ولم يتقن اللفظ الذي ص",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  }
+]

@@ -1,0 +1,95 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 124,
+    "text_snippet": "المسألة الثانية\n\nللنحو حدود شتى، وأليقها بهذا الكتاب قول ابن جني (في الخصائص",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف النحو عند ابن جني وشرح أصل لفظ النحو وسبب تخصيصه بهذا العلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 125,
+    "end_word": 154,
+    "text_snippet": "وقال صاحب (المستوفي):\" النحو صناعة علمية ينظر لها أصحابها في ألفاظ العرب ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف النحو عند صاحب المستوفي من جهة تأليف الألفاظ وربط النظم بالمعنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 155,
+    "end_word": 170,
+    "text_snippet": "وقال الخضراوي:\n\" النحو علم بأقيسة تغيير ذوات الكلم وأواخرها بالنسبة إلى لغ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الخضراوي للنحو بأنه علم بأقيسة تغير ذوات الكلم وأواخرها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 171,
+    "end_word": 222,
+    "text_snippet": "وقال ابن عصفور:\n\" النحو علم مستخرج بالمقاييس المستنبطة من استقراء كلام الع",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "تعريف ابن عصفور للنحو مع اعتراض ابن الحاج عليه وبيان وجه النقد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 223,
+    "end_word": 263,
+    "text_snippet": "وقال صاحب (البديع):\n\" النحو صناعة علمية يعرف بها أحوال كلام العرب من جهة ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف صاحب البديع للنحو مع تنبيه المؤلف على معنى العلم في حدود العلوم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "التعقيب الأخير يشير إلى الإيراد على كلام ابن عصفور السابق، وفهمه التام يستفيد من مراجعة الوحدة السابقة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 264,
+    "end_word": 278,
+    "text_snippet": "وقال ابن السراج في (الأصول):\n\" النحو علم استخرجه المتقدمون من استقراء كلام",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف ابن السراج للنحو بأنه علم مستخرج من استقراء كلام العرب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

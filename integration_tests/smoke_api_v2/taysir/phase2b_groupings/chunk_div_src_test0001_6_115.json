@@ -1,0 +1,806 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "‌‌‌‌كِتَابُ القَضَاء\nالقضاء بالمد لغة: إحكام الأمر والفراغ منه. قال تعالى: {فَ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف القضاء لغة وشرعًا في اصطلاح الفقهاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 29,
+    "end_word": 268,
+    "text_snippet": "وا لأصل في القضاء ومشروعيته، الكتاب، والسنة، والإجماع، والقياس.\nفأما الكتاب: ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_qiyas",
+      "cross_reference"
+    ],
+    "description_arabic": "أدلة مشروعية القضاء من الكتاب والسنة والإجماع والقياس والمعقول، وبيان ضرورته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 269,
+    "end_word": 376,
+    "text_snippet": "الحديث الأول\nعَنْ عائشَةَ رضي الله عنها قَالَت: قَالَ رَسُولُ الله صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث من أحدث في الأمر مع معناه الإجمالي وأن الأعمال تُقبل أو تُرد بحسب الشرع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 377,
+    "end_word": 398,
+    "text_snippet": "ما يستفاد من الحديث:\n1- قال النووي: \" وهذا الحديث قاعدة عظيمة من قواعد الإسلام",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن الحديث قاعدة عظيمة من قواعد الإسلام وجوامع كلمه صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 399,
+    "end_word": 411,
+    "text_snippet": "2-وقال أيضاً: فإنه (أي: الحديث) صريح في رد كل البدع والمخترعات ⌜1⌝ .",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلالة الحديث الصريحة على رد البدع والمخترعات في الدين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 412,
+    "end_word": 428,
+    "text_snippet": "3- وقال أيضاً: \" وفي هذا الحديث دليل لمن يقول من الأصوليين إن النهي يقتضي الفس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بالحديث على أن النهي يقتضي الفساد عند الأصوليين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم القاعدة الأصولية ومعنى الفساد إلى معرفة أصولية سابقة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 429,
+    "end_word": 443,
+    "text_snippet": "4- وقال أيضا: \"وهذا الحديث ينبغي حفظه واستعماله في إبطال المنكرات وإشاعة الاست",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحث على حفظ الحديث واستعماله في إبطال المنكرات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 444,
+    "end_word": 463,
+    "text_snippet": "5- وفيه دليل على أن الأصل في العبادات الحظر، فلا يشرع منها ولا يزاد فيها إلا م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأصل في العبادات المنع حتى يثبت التشريع من الله ورسوله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25,
+      26,
+      27
+    ],
+    "start_word": 464,
+    "end_word": 507,
+    "text_snippet": "6- قال النووي أيضاً: (فيه دليل على أن المأخوذ بالعقد الفاسد يجب رده على صاحبه ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "وجوب رد المأخوذ بالعقد الفاسد، مع الاستدلال بحديث الوليدة والغنم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث الشاهد مقتطع من قصة أطول، وفهمه التام يستفيد من معرفة سياق الواقعة."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 508,
+    "end_word": 532,
+    "text_snippet": "7- قال النووي أيضا: \" وفيه دليل على من ابتدع في الدين بدعة لا توافق الشرع فإثم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثم المبتدع ورد عمله واستحقاقه الوعيد إذا خالف الشرع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 533,
+    "end_word": 569,
+    "text_snippet": "8- قال شيخنا \"عبد الرحمن بن سعدي\": [ووجه مناسبة هذا الحديث لهذا الباب: أنه لو ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجه مناسبة الحديث لباب القضاء وأن حكم القاضي المخالف للشرع مردود.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة الباب المصنف فيه الحديث، وهو باب القضاء، لفهم تمام المناسبة."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 570,
+    "end_word": 649,
+    "text_snippet": "9- قال الصنعاني: يفيد أن كل عمل ليس عليه أمره صلى الله عليه وسلم مردود، والذي ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن الحديث يدل منطوقًا على رد المحدثات ومفهومًا على قبول الموافق للسنة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة ضمنية إلى منطوق الحديث ومفهومه، ويحتاج طالب العلم إلى معرفة دلالة المفهوم."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 650,
+    "end_word": 806,
+    "text_snippet": "قال شيخ الإسلام رحمه الله تعالى:\nدعاوى التهم مثل القتل أو قطع الطريق أو السرقة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "تقسيم المتهمين إلى بريء ومجهول وفاجر، وبيان حكم حبس كل قسم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      36,
+      37,
+      38
+    ],
+    "start_word": 807,
+    "end_word": 875,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قالت: دَخَلَتْ هِنْدُ بِنْت عتْبَةَ ام",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث هند بنت عتبة في أخذ النفقة من مال الزوج الشحيح بالمعروف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      39,
+      40,
+      41
+    ],
+    "start_word": 876,
+    "end_word": 909,
+    "text_snippet": "ما يستفاد من الحديث:\nيؤخذ من هذا الحديث فوائد وأحكام، سألخصها من شرح الإمام ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "وجوب نفقة الزوجة والأولاد الفقراء والصغار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 910,
+    "end_word": 917,
+    "text_snippet": "2- أن النفقة تقدر بكفاية المنفق عليه وحاله.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقدير النفقة بحسب الكفاية وحال المنفَق عليه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستحسن معرفة أن المراد نفقة الزوجة والأولاد من سياق الحديث السابق."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 918,
+    "end_word": 925,
+    "text_snippet": "3- جواز سماع كلام الأجنبية للحاجة. والله المستعان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز سماع كلام الأجنبية عند وجود الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 926,
+    "end_word": 937,
+    "text_snippet": "4 جواز ذكر الإنسان بما يكره للشكوى والفتيا، إذا لم يقصد الغيبة.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز ذكر الإنسان بما يكره لأجل الشكوى أو الفتيا بشرط عدم قصد الغيبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 938,
+    "end_word": 1018,
+    "text_snippet": "5- فيه [مسألة الظفر] وهى أن من كان له على إنسان حق فمنعه منه وتمكن من أخذه منه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مسألة الظفر: أقوال العلماء فيها، وترجيح التفصيل بين الحق الظاهر والخفي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح مسألة الظفر قد يحتاج تعريفًا أوسع، كما أن الاستدلال بحديث ولا تخن من خانك لم يذكر نصه كاملاً."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      49,
+      50,
+      51,
+      52
+    ],
+    "start_word": 1019,
+    "end_word": 1089,
+    "text_snippet": "6- اختلف العلماء: هل هذا الحكم من الني صلى الله عليه وسلم لهند قضاء أو فتوى؟ ف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الخلاف في كون حكم هند قضاءً أو فتيا، وآثار ذلك، مع ذكر القول الصحيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      53
+    ],
+    "start_word": 1090,
+    "end_word": 1116,
+    "text_snippet": "7- وفيه اعتماد العرف في الأمور التي ليس فيها تحديد شرعي، فقد جعل لها من النفقة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اعتماد العرف في تقدير الأمور التي لم يرد فيها تحديد شرعي، كالنفقة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 1117,
+    "end_word": 1306,
+    "text_snippet": "الحديث الثالث\nعَنْ أم سَلَمةَ رضي الله عنها: أنَّ رَسُولَ الله صلى الله عليه وسل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث القضاء بالظاهر مع شرح ألفاظه ومعناه الإجمالي والتحذير من أكل الحقوق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      61,
+      62
+    ],
+    "start_word": 1307,
+    "end_word": 1350,
+    "text_snippet": "ما يستفاد من الحديث\n1- فيه أن النبي صلى الله عليه وسلم لا يعلم الغيب والأمور ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أن النبي صلى الله عليه وسلم لا يعلم الغيب إلا ما علّمه الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      63
+    ],
+    "start_word": 1351,
+    "end_word": 1390,
+    "text_snippet": "2- أنه يجوز عليه صلى الله عليه وسلم في أمور الأحكام، ما يجوز على غيره. فإنه إن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن النبي يحكم في الخصومات بالظاهر كما يحكم غيره من الحكام.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه ضمير يعود إلى النبي صلى الله عليه وسلم واضح، لكن تمام الفهم يستفيد من الحديث السابق."
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      64
+    ],
+    "start_word": 1391,
+    "end_word": 1414,
+    "text_snippet": "3- إنما كلف بالحكم بالظاهر، مع إمكان إطلاع الله إياه على الباطن، فيحكم بيقين نف",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الحكمة في تكليفه الحكم بالظاهر ليكون قدوة وتشريعًا للأمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في إياه يعود إلى النبي صلى الله عليه وسلم، وفهمه أوضح مع سياق الحديث."
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 1415,
+    "end_word": 1442,
+    "text_snippet": "4- فيه تسلية وعزاء للحكام.\nفإنه إذا كان النبي صلى الله عليه وسلم قد يظن غير الص",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "في الحديث تسلية للحكام إذا أخطؤوا بسبب قوة حجة الخصم ظاهرًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      66,
+      67,
+      68
+    ],
+    "start_word": 1443,
+    "end_word": 1537,
+    "text_snippet": "5- اتفق الأصوليون على أنه صلى الله عليه وسلم لا يُقَر على خطأ. في الأحكام. فكيف",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "الجمع بين عدم إقرار النبي على الخطأ وبين حكمه بالظاهر في الخصومات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      69,
+      70
+    ],
+    "start_word": 1538,
+    "end_word": 1589,
+    "text_snippet": "6- أن حكم الحاكم لا يحيل ما في الباطن، ولا يحل حراما، وهو مذهب جماهير علماء ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "حكم القاضي لا يغيّر الباطن ولا يحل الحرام، مع أمثلة توضيحية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      71
+    ],
+    "start_word": 1590,
+    "end_word": 1600,
+    "text_snippet": "7- التقييد ب (المسلم) خرج مخرج الغالب، وإلا فمثله الذمي والمعاهد.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "ذكر المسلم في الحديث خرج على الغالب ويشمل الذمي والمعاهد كذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة موضع لفظ المسلم في الحديث السابق."
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      72
+    ],
+    "start_word": 1601,
+    "end_word": 1628,
+    "text_snippet": "8- قوله: \"فليحملها أو ليذرها\" فيه تهديد شديد ووعيد أكيد على من أخذ أموال الناس ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الوعيد الشديد لمن يأخذ أموال الناس بالدعاوى الكاذبة والحيل المحرمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى لفظ الحديث السابق، لكنه مفهوم إجمالًا."
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 1629,
+    "end_word": 1680,
+    "text_snippet": "9- قال شيخ الإسلام: الصحابة إذا تكلموا باجتهادهم ينزهون شرع الرسول صلى الله علي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تنزيه الصحابة لشرع الرسول عن خطئهم عند الاجتهاد، مع أمثلة من آثارهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتطلب معرفة بعض المصطلحات مثل المفوضة والكلالة لفهم الأمثلة تمامًا."
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      75,
+      76,
+      77
+    ],
+    "start_word": 1681,
+    "end_word": 1734,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْد الرَّحْمنِ بن أبي بَكْرَةَ قَالَ: كَتَبَ أبي وَكَتَبْتُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث النهي عن الحكم والقاضي غضبان، مع روايته الأخرى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      78,
+      79,
+      80,
+      81,
+      82
+    ],
+    "start_word": 1735,
+    "end_word": 1829,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه أنه يحرم على القاضي أن يحكم بين الخصمين وهو غضبان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "تحريم الحكم حال الغضب، وعلته، وإلحاق ما يشوش الفكر، وصحة الحكم إن وافق الحق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      83
+    ],
+    "start_word": 1830,
+    "end_word": 1854,
+    "text_snippet": "5- في الحديث، النصح للمسلمين، لاسيما ولاة الأمر الذين- بصلاحهم واستقامة أحوالهم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل نصح ولاة الأمر بالطرق الحسنة لما فيه من صلاح المسلمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 1855,
+    "end_word": 2126,
+    "text_snippet": "الحديث الخامس\nعَنْ أبى بَكرْ رضي الله عنه قالَ: قَالَ رَسُول الله صلى الله عليه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أكبر الكبائر مع معناه الإجمالي وبيان خطر الشرك والعقوق وشهادة الزور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      88,
+      89
+    ],
+    "start_word": 2127,
+    "end_word": 2151,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تقسيم الذنوب إلى كبائر وصغائر، ويدل له أيضاً قوله تعال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات تقسيم الذنوب إلى كبائر وصغائر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال إلى آية قرآنية دون نقلها كاملة في هذا الموضع."
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      90
+    ],
+    "start_word": 2152,
+    "end_word": 2193,
+    "text_snippet": "2- اختلف العلماء في تمييز الكبيرة من الصغيرة.\nوأحسن ما حدت به الكبيرة ما قاله ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ضابط الكبيرة عند ابن تيمية وما تمتاز به من حد أو وعيد ونحوهما.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بعض الألفاظ في آخر الحد مثل نفي إيمان أو دخول جنة تحتاج ضبطًا ومراجعة الصياغة."
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      91
+    ],
+    "start_word": 2194,
+    "end_word": 2233,
+    "text_snippet": "3- أن أعظم الذنوب الشرك بالله، لأنه جعله صدر الكبائر وقد قال تعالى {إن الله لا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن أعظم الذنوب الشرك بالله، مع الاستدلال بالقرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      92,
+      93
+    ],
+    "start_word": 2234,
+    "end_word": 2274,
+    "text_snippet": "4- عظم حقوق الوالدين، إذ قرن حقهما بحق الله تعالى.\nوقد ذكر الله تعالى حقهما مع ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "عظم حق الوالدين ووروده مقرونًا بحق الله في القرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      94,
+      95
+    ],
+    "start_word": 2275,
+    "end_word": 2349,
+    "text_snippet": "5- خطر شهادة الزور وقول الزور وتحريمه، فقد اهتم بهما النبي صلى الله عليه وسلم ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم شهادة الزور وبيان سبب عظم خطرها وكثرة التساهل فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      96
+    ],
+    "start_word": 2350,
+    "end_word": 2368,
+    "text_snippet": "7- نصح النبي صلى الله عليه وسلم وتبليغه لأمته كل ما ينفعهم، وتحذيره مما يضرهم. ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كمال نصح النبي لأمته وتبليغه ما ينفعهم وتحذيره مما يضرهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      97
+    ],
+    "start_word": 2369,
+    "end_word": 2390,
+    "text_snippet": "8- حسن تعليمه صلى الله عليه وسلم حينما ألقى عليهم هذه المسائل المهمة بطريق التن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من حسن تعليمه صلى الله عليه وسلم استعمال التنبيه لترسيخ المعاني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      98,
+      99
+    ],
+    "start_word": 2391,
+    "end_word": 2433,
+    "text_snippet": "9- يراد بعقوق الوالدين، كل ما يكرهان من الأقوال والأفعال. والنهىُ عن عقوقهما، ي",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف عقوق الوالدين وأن النهي عن أدناه يدل على ما فوقه من الأذى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 43,
+    "segment_indices": [
+      100,
+      101,
+      102,
+      103,
+      104
+    ],
+    "start_word": 2434,
+    "end_word": 2572,
+    "text_snippet": "الحديث السادس\nعَنْ ابْنِ عباس رضي الله عنهما: أنَّ النَّبي صلى الله عليه وسلم قَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث البينة على المدعي واليمين على المدعى عليه، مع بيان حكمته الإجمالية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 44,
+    "segment_indices": [
+      105,
+      106
+    ],
+    "start_word": 2573,
+    "end_word": 2598,
+    "text_snippet": "ما يستفاد من الحديث:\n1-قال ابن دقيق العيد: (الحديث دليل على أنه لا يجوز الحكم إ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب الحكم بالقانون الشرعي المرتب، وإن غلب على الظن صدق المدعي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير القانون الشرعي المرتب يحتاج ردّه إلى الحديث السابق لفهم المراد بالبينة واليمين."
+  },
+  {
+    "unit_index": 45,
+    "segment_indices": [
+      107,
+      108,
+      109
+    ],
+    "start_word": 2599,
+    "end_word": 2660,
+    "text_snippet": "2- أن اليمين على المدعى عليه. وفي رواية البيهقى: أن البينة على المدَّعى.\n3- كون",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "قاعدة البينة على المدعي واليمين على المدعى عليه، وبيان علتها وحكمتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 46,
+    "segment_indices": [
+      110
+    ],
+    "start_word": 2661,
+    "end_word": 2675,
+    "text_snippet": "5- بهذا تعلم أن هذا الحديث قاعدة عظمى من قواعد القضاء، فعليها يدور غالب الأحكام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "هذا الحديث أصل عظيم تدور عليه غالب أحكام القضاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتوقف فهم المشار إليه على معرفة الحديث السابق."
+  },
+  {
+    "unit_index": 47,
+    "segment_indices": [
+      111,
+      112,
+      113
+    ],
+    "start_word": 2676,
+    "end_word": 2733,
+    "text_snippet": "6- البينة: اسم لكل ما أبان الحق وأظهره، من الشهود وقرائن الحال، ووصف المدَعَى ف",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "opinion_statement",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف البينة، وبيان أثر وصف العين وحيازة اليد في الترجيح القضائي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بعض الأمثلة مثل اللقطة وحيازة اليد تحتاج معرفة فقهية سابقة لتكتمل صورتها."
+  }
+]

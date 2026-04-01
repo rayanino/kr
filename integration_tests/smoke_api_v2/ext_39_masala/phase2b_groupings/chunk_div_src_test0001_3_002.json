@@ -1,0 +1,105 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 132,
+    "text_snippet": "5-‌‌ ما يجب على أقارب الميت.\n19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "وجوب الصبر والرضا عند سماع وفاة الميت والاستدلال عليه بالآية والحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 133,
+    "end_word": 190,
+    "text_snippet": "والصبر على وفاة الأولاد له أجر عظيم وقد جاء في ذلك أحاديث كثيرة أذكر بعض",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "فضل الصبر على موت الأولاد وأن من مات له ثلاثة منهم نال هو وأبواه الجنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 191,
+    "end_word": 207,
+    "text_snippet": "ثانيا: أيما امرأة مات لها ثلاثة من الولد كانوا حجابا من النار. قالت: امر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن موت ثلاثة من الأولاد يكون حجابا للأم من النار، وكذا الاثنين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 208,
+    "end_word": 236,
+    "text_snippet": "الثاني: الاسترجاع وهو أن يقولك إنا لله وإنا راجعون للآية المتقدمة ويزيد عل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تعريف الاسترجاع المشروع عند المصيبة وصيغته المأثورة مع الدعاء الوارد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال النص على الآية المتقدمة وحديث أم سلمة دون إيراد نصهما كاملين، فالمعنى واضح لكن كمال الاستدلال يحتاج الرجوع إليهما."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 237,
+    "end_word": 344,
+    "text_snippet": "20 - ولا ينافي الصبر أن تمتنع المرأة من الزينة كلها حدادا على وفاة ولدها أ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز إحداد المرأة على غير الزوج ثلاثة أيام، وعلى الزوج أربعة أشهر وعشرا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 345,
+    "end_word": 390,
+    "text_snippet": "21 - ولكنها إذا لم تحد على غير زوجها إرضاء للزوج وقضاء لوطره منها فهو أفضل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "الأفضل ترك الإحداد على غير الزوج إذا كان في ذلك إرضاء الزوج وتحقيق مصلحة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذكر الحكم وعلله إجمالا، لكنه أحال قصة أم سليم وأبي طلحة إلى الأصل دون ذكرها، فتفصيل وجه الاستدلال يحتاج مرجعا خارجيا."
+  }
+]

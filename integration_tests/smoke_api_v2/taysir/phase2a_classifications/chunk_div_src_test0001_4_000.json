@@ -1,0 +1,186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 16,
+    "text_snippet": "وتطمئن في اعتدالك ⌜1⌝ ثم اسجد حتى تطمئن ساج",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 17,
+    "end_word": 34,
+    "text_snippet": "وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 35,
+    "end_word": 38,
+    "text_snippet": "في الحديث ثلاثة مباحث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 43,
+    "text_snippet": "المبحث الأول: في خلاف العلماء.\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 44,
+    "end_word": 59,
+    "text_snippet": "فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 60,
+    "end_word": 66,
+    "text_snippet": "مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 67,
+    "end_word": 78,
+    "text_snippet": "وبإحدى روايات هذا الحديث \" ثم اقرأ ما تيسر معك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 79,
+    "end_word": 89,
+    "text_snippet": "وذهب الجمهور إلى عدم صحة الصلاة بدون الفاتحة ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 90,
+    "end_word": 104,
+    "text_snippet": "مستدلين بقوله عليه الصلاة والسلام: \" لا صلَاةَ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 105,
+    "end_word": 121,
+    "text_snippet": "فالتقدير: لا صلاة توجد، وعدم وجودها شرعا هو عدم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 10,
+    "start_word": 122,
+    "end_word": 127,
+    "text_snippet": "وأدلة عدم صحة الصلاة بدونها كثيرة.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 11,
+    "start_word": 128,
+    "end_word": 149,
+    "text_snippet": "وأجابوا عن الآية بأنها جاءت لبيان القرآن في قيا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 150,
+    "end_word": 171,
+    "text_snippet": "وأجابوا عن الحديث، بأن هذه الرواية مجملة تفسرها",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 172,
+    "end_word": 183,
+    "text_snippet": "وقد سكت عنه أبو داود. وما سكت عنه فإنه لا قدح ف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 14,
+    "start_word": 184,
+    "end_word": 194,
+    "text_snippet": "ولابن حبان في حديثه \"واقرأ بأم القرآن ثم اقرأ ب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 195,
+    "end_word": 211,
+    "text_snippet": "قال ابن الهمام: \" الأولى الحكم بأنه صلى الله عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 16,
+    "start_word": 212,
+    "end_word": 223,
+    "text_snippet": "ثم إن بعض العلماء يرى وجوب الفاتحة في الركعة ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 224,
+    "end_word": 232,
+    "text_snippet": "والجمهور يرى وجوبها في كل ركعة، ويدل له قوله: \"",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 18,
+    "start_word": 233,
+    "end_word": 238,
+    "text_snippet": "\"ثم افْعَلْ ذلِكَ في صَلَاتِكَ كُلهَا\".\n",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 239,
+    "end_word": 267,
+    "text_snippet": "قال الحافظ ابن حجر: وحديث أبي قتادة في البخاري ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 20,
+    "start_word": 268,
+    "end_word": 277,
+    "text_snippet": "ثم اختلفوا في وجوب الطمأنينة في الاعتدال من الر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 278,
+    "end_word": 282,
+    "text_snippet": "فذهب الحنفية إلى علم وجوبها.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 22,
+    "start_word": 283,
+    "end_word": 305,
+    "text_snippet": "وذهب الجمهور إلى وجوبها، وحجتهم هذا الحديث الصحي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  }
+]

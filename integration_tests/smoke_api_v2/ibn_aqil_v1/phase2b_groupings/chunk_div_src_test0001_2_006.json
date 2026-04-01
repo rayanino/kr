@@ -1,0 +1,542 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 41,
+    "text_snippet": "‌‌الموصول\nموصول الأسماء الذي الأنثى التي … واليا إذا ما ثنيا لا تثبت ⌜1⌝\nبل ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن الموصول ينقسم إلى اسمي وحرفي مع افتتاح باب الموصول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5
+    ],
+    "start_word": 42,
+    "end_word": 104,
+    "text_snippet": "ولم يذكر المصنف الموصولات الحرفية وهي خمسة أحرف:\nأحدها: أن المصدرية وتوصل ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "editorial_note",
+      "condition_exception"
+    ],
+    "description_arabic": "تعريف أن المصدرية الموصولة، وبيان صلتها بالأفعال، واستثناء وقوع غير المتصرف بعدها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 105,
+    "end_word": 135,
+    "text_snippet": "ومنها: أن وتوصل باسمها وخبرها نحو عجبت من أن زيدا قائم ومنه قوله تعالى: {أ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان أن الموصولة المثقلة والمخففة من أن تتوصلان بالاسم والخبر مع الفرق في الاسم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 136,
+    "end_word": 146,
+    "text_snippet": "ومنها: \"كي\" وتوصل بفعل مضارع فقط مثل: جئت لكي تكرم زيدا.\n",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف كي الموصولة وأنها لا توصل إلا بالفعل المضارع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 147,
+    "end_word": 247,
+    "text_snippet": "ومنها: \"ما\" وتكون مصدرية ظرفية نحو لا أصحبك ما دمت منطلقا أي مدة دوامك منط",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example",
+      "rule_statement"
+    ],
+    "description_arabic": "تفصيل ما المصدرية: الظرفية وغير الظرفية، وأنواع صلاتها، وما يكثر فيها ويقل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 248,
+    "end_word": 309,
+    "text_snippet": "إلى بيت قعيدته لكاع ومنها: لو وتوصل بالماضي نحو وددت لو قام زيد والمضارع نح",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف لو الموصولة، وبيان أن المراد بموصول الأسماء الاحتراز عن الموصول الحرفي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "خاتمة الوحدة تشير إلى سبق ذكر علامة الموصول الحرفي، مما يستحسن معه سياق سابق، لكن أصل المعنى مفهوم."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 310,
+    "end_word": 410,
+    "text_snippet": "وأما الموصول الاسمي ف الذي للمفرد المذكر ⌜3⌝ والتي للمفرد المؤنثة فإن ثنيت أ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_quran",
+      "opinion_statement",
+      "rule_statement"
+    ],
+    "description_arabic": "أحكام تثنية الذي والتي، وجواز تشديد النون، وإلحاق ذان وتان وذين وتين بذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 411,
+    "end_word": 792,
+    "text_snippet": "جمع الذي الألى الذين مطلقا … وبعضهم بالواو رفعا نطقا (2) باللات واللاء التي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "استعمال الألى في جمع المذكر وغيره، مع الشواهد الشعرية وشرحها وبيان توسع العرب فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      28,
+      29,
+      30
+    ],
+    "start_word": 793,
+    "end_word": 836,
+    "text_snippet": "ويقال للمذكر العاقل في الجمع الذين مطلقا أي رفعا ونصبا وجرا فتقول جاءني الذ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "بيان استعمال الذين لجمع المذكر العاقل مطلقا، ولغة هذيل في الذون رفعا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      31,
+      32,
+      33
+    ],
+    "start_word": 837,
+    "end_word": 892,
+    "text_snippet": "يوم النخيل غارة ملحاحا ويقال في جمع المؤنث اللات واللاء بحذف الياء فتقول جا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "صيغ جمع المؤنث في الموصول: اللات واللاء واللاتي واللائي، وورود اللاء والأولى بمعاني أخرى.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاح النص متعلق بتمام الشاهد السابق، لكن الحكم النحوي وصوره مفهومة بذاتها."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 893,
+    "end_word": 1058,
+    "text_snippet": "فكل فتاة تترك الحجل أقصما ومن وما وأل تساوي ما ذكر … وهكذا ذو عند طييء شهر ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_quran",
+      "example"
+    ],
+    "description_arabic": "بيان أن من وما وأل تأتي بلفظ واحد، وغلبة ما لغير العاقل ومن للعاقل مع الشواهد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بداية الوحدة متصلة بآخر شاهد سابق، إلا أن المقصود النحوي بعده واضح ومستقل."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 1059,
+    "end_word": 1109,
+    "text_snippet": "وأما الألف واللام فتكون للعاقل ولغيره نحو جاءني القائم والمركوب واختلف فيها",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في حقيقة أل: اسم موصول أو حرف موصول أو حرف تعريف، وحكم من وما المصدرية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 1110,
+    "end_word": 1286,
+    "text_snippet": "ولغة طييء استعمال ذو موصولة وتكون للعاقل ولغيره وأشهر لغاتهم فيها أنها تكون",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "لغة طيء في ذو وذات الموصولة، وصورها في الإفراد والتثنية والجمع، وبناؤها وإعرابها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      48,
+      49,
+      50
+    ],
+    "start_word": 1287,
+    "end_word": 1451,
+    "text_snippet": "ومثل ماذا بعد ما استفهام … أو من إذا لم تلغ في الكلام (2) يعني أن ذا اختصت ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "استعمال ذا موصولة بعد من وما الاستفهاميتين، وشرط ذلك، ومتى تكون ملغاة ضمن أداة الاستفهام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      51,
+      52,
+      53,
+      54
+    ],
+    "start_word": 1452,
+    "end_word": 1567,
+    "text_snippet": "وكلها يلزم بعده صله … على ضمير لائق مشتملة (2) الموصولات كلها حرفية كانت أو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب الصلة بعد الموصول، واشتمال صلة الاسمي على ضمير مناسب، وجواز مراعاة اللفظ أو المعنى في من وما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      55,
+      56
+    ],
+    "start_word": 1568,
+    "end_word": 1603,
+    "text_snippet": "وجملة أو شبهها الذي وصل … به كمن عندي الذي ابنه كفل (1) صلة الموصول لا تكون",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف صلة الموصول بأنها جملة أو شبه جملة، وبيان المراد بشبه الجملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 1604,
+    "end_word": 1695,
+    "text_snippet": "ويشترط في الجملة الموصول بها ثلاثة شروط:\nأحدها: أن تكون خبرية (1)\nالثاني: كو",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شروط الجملة الواقعة صلة: الخبرية، وخلوها من التعجب، واستغناؤها عما قبلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1696,
+    "end_word": 1750,
+    "text_snippet": "ويشترط في الظرف والجار والمجرور أن يكونا تامين والمعنى بالتام أن يكون في الو",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "اشتراط تمام الظرف والجار والمجرور إذا وقعا صلة، وامتناع الوصل بهما عند عدم الفائدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      62,
+      63,
+      64
+    ],
+    "start_word": 1751,
+    "end_word": 1823,
+    "text_snippet": "وصفة صريحة صلة أل … وكونها بمعرب الأفعال قل (1) الألف واللام لا توصل إلا بال",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "opinion_statement"
+    ],
+    "description_arabic": "أن صلة أل الأصل فيها الصفة الصريحة، مع الخلاف في دخولها على الصفة المشبهة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      65,
+      66,
+      67
+    ],
+    "start_word": 1824,
+    "end_word": 1873,
+    "text_snippet": "وقد شذ وصل الألف واللام بالفعل المضارع وإليه أشار بقوله وكونها بمعرب الأفعال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "شذوذ وصل أل بالفعل المضارع، وخلاف البصريين والمصنف في اختصاصه بالشعر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77
+    ],
+    "start_word": 1874,
+    "end_word": 2213,
+    "text_snippet": "وقد جاء وصلها بالجملة الإسمية وبالظرف شذوذا فمن الأول قوله:\n31 - من القوم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "editorial_note",
+      "opinion_statement",
+      "evidence_quran",
+      "refutation"
+    ],
+    "description_arabic": "شواهد وصل أل بالجملة الاسمية والظرف، وتخريجات العلماء لها، والاعتراض على بعض تلك التخريجات.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يضم نقاشا طويلا في تخريج شواهد متعددة، وبعض الأمثلة يعتمد على معرفة أوسع بمباحث الحذف والترخيم."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 2214,
+    "end_word": 2443,
+    "text_snippet": "أي كما وأعربت ما لم تضف … وصدر وصلها ضمير انحذف (1)\nيعني أن أيا مثل ما في أ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "structural_transition",
+      "condition_exception",
+      "evidence_quran",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "أحوال أي الموصولة الأربع، ومواضع إعرابها وبنائها بحسب الإضافة وذكر صدر الصلة أو حذفه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      88,
+      89,
+      90,
+      91,
+      92
+    ],
+    "start_word": 2444,
+    "end_word": 2531,
+    "text_snippet": "وبعضهم أعرب مطلقا وفي …\nذا الحذف أيا غير أي يقتفي (1)\nإن يستطل وصل وإن لم ي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "قول من يعرب أي مطلقا، والانتقال إلى قواعد حذف العائد وشروطه إجمالا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الوحدة تمهد لمسائل تفصيلية تأتي بعدها في حذف العائد، فالفائدة الإجمالية مفهومة لكن تمام التفصيل لاحق."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "start_word": 2532,
+    "end_word": 3350,
+    "text_snippet": "وأشار بقوله وفي ذا الحذف إلى آخره إلى المواضع التي يحذف فيها العائد على الم",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference",
+      "editorial_note"
+    ],
+    "description_arabic": "تفصيل حذف العائد المرفوع، ومواضع الجواز والمنع، وضابط منع الحذف إذا صلح الباقي صلة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد في أوله على إحالة إلى عبارة النظم السابقة، لكن التفصيل والضابطات الرئيسة واردة داخله."
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111
+    ],
+    "start_word": 3351,
+    "end_word": 3873,
+    "text_snippet": "وأشار بقوله: والحذف عندهم كثير منجلي إلى آخره إلى العائد المنصوب.\nوشرط جواز ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference",
+      "evidence_quran",
+      "editorial_note",
+      "example",
+      "refutation"
+    ],
+    "description_arabic": "أحكام حذف العائد المنصوب: مواضع جوازه بالفعل والوصف، وقيوده، ومواضع امتناعه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124
+    ],
+    "start_word": 3874,
+    "end_word": 4175,
+    "text_snippet": "كذاك حذف ما بوصف خفضا … كأنت قاض بعد أمر من قضى (2)\nكذا الذي جر بما الموصول",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement",
+      "structural_transition",
+      "evidence_quran",
+      "editorial_note",
+      "example",
+      "cross_reference"
+    ],
+    "description_arabic": "أحكام حذف العائد المجرور بالإضافة أو بالحرف، وشروط الجواز، وما يمتنع فيه الحذف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

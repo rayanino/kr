@@ -1,0 +1,380 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 86,
+    "text_snippet": "ما يؤخذ هن الحديث:\n1-كون النبي صلى الله عليه وسلم يعتكف العشر الوسطى، طلب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث ليلة القدر السابقة في خمس نقاط مستقلة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا مقطع فوائد مشتق من حديث سابق غير موجود هنا، وبعض الإشارات مثل \"هذا الحديث\" تعود إلى نص خارج الوحدة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 87,
+    "end_word": 121,
+    "text_snippet": "‌‌بَاب الاعتِكَاف\nالاعتكاف: في اللغة، لزوم الشيء وحبس النفس عليه، ومنه قوله",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran"
+    ],
+    "description_arabic": "تعريف الاعتكاف لغة وشرعاً مع الاستدلال اللغوي بالقرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "أما حكمه: فقد أجمع العلماء على مشروعيته، وأجمعوا أيضاً على أنه مستحب ليس بو",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكم الاعتكاف وأنه مشروع مستحب بإجماع العلماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 136,
+    "end_word": 246,
+    "text_snippet": "وأما حكمته وفائدته: - فقد قال \"ابن القيم \" في \"الهدى\" لما كان صلاح القلب و",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "حكمة الاعتكاف في جمع القلب على الله وقطع العلائق عن الخلق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7,
+      8,
+      9
+    ],
+    "start_word": 247,
+    "end_word": 288,
+    "text_snippet": "وذكر عقيب الصيام لمناسبتين:\nالأولى: أن جملة الكلام على الصيام سيتناول صيام ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "سبب ذكر باب الاعتكاف عقب الصيام ووجه المناسبة بينهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 289,
+    "end_word": 330,
+    "text_snippet": "وقد اشترط الحنفية والمالكية لصحة الاعتكاف، الصيام. ورد عليهم الصنعاني بأنه ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "قول من اشترط الصوم للاعتكاف والرد عليه بعدم دلالة الفعل المجرد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 331,
+    "end_word": 434,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ رَسُولَ اللَه صلى الله عليه و",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث اعتكاف النبي في العشر الأواخر ومعناه الإجمالي ودوامه عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 435,
+    "end_word": 522,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، وأنه من سنة النبي صلى الله عليه وسلم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الأول من مشروعية الاعتكاف ووقته واستمراره.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "وحدة فوائد مشتقة من الحديث الأول، وبعض العبارات مثل \"استقر أخيراً\" و\"بعده\" تُفهم أكمل مع نص الحديث السابق."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 523,
+    "end_word": 558,
+    "text_snippet": "6- أنه لا بأس من أن يحتجز المعتكف ما يخلو به إذا لم يضيق على المصلين. لما أخ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز اتخاذ المعتكف موضعاً يختلي فيه إذا لم يضر بالمصلين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 559,
+    "end_word": 599,
+    "text_snippet": "7- يؤخذ من معنى الاعتكاف، ومن مقصده أن المعتكف يجتنب الجماع ودواعيه، والخروج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ما ينبغي للمعتكف اجتنابه من الجماع والخروج وأعمال الدنيا وكثرة المخالطة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 600,
+    "end_word": 628,
+    "text_snippet": "8- أن شرط الاعتكاف أن يكون في مسجد تقام فيه الجماعة لقوله تعالى: {وأنتم عاك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "اشتراط المسجد الذي تقام فيه الجماعة للمعتكف مع دليله القرآني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 629,
+    "end_word": 872,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها: أنَّها كَانَتْ ترَجِّلُ النَّبِي ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ترجيل عائشة للنبي وهو معتكف وبيان أحكام الحائض والخروج للحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 873,
+    "end_word": 961,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الاعتكاف لا يمنع من ترجيل الشعر وغسله وأنواع التنظ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الثاني في أحكام المعتكف والحائض والخروج من المسجد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه فوائد مستنبطة من الحديث الثاني، وبعضها أوضح عند ضم الحديث السابق مثل مسألة إخراج بعض البدن وعدم مكث الحائض في المسجد."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 962,
+    "end_word": 1047,
+    "text_snippet": "الحديث الثالث\nعَنْ عُمَرَ بْنِ الْخَطًابِ رضي الله عنه قال: قُلْتُ: يَا رَسُو",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث نذر عمر الاعتكاف وأمر النبي له بالوفاء به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      37,
+      38
+    ],
+    "start_word": 1048,
+    "end_word": 1090,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الوفاء بالنذر، ولو عقد في حال الكفر.\n2- إذا عيَّن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الثالث في وجوب الوفاء بالنذر وتعين المسجد ووجوب الاعتكاف بالنذر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 1091,
+    "end_word": 1128,
+    "text_snippet": "4-ورد في الحديث نذر \" ليلة \" وورد \"يوماً\" وورد مطلقاً. فمن أخذ برواية الليل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "اختلاف العلماء في اشتراط الصوم للاعتكاف بناءً على اختلاف روايات اليوم والليلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 1129,
+    "end_word": 1454,
+    "text_snippet": "الحديث الرابع\nعَنْ صَفِيَّةَ بِنْتِ حُييٍّ رضي الله عنها قَالَتْ: كَانَ رَسُوْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث صفية في زيارة المعتكف ودرء التهمة وشرح غريبه ومعناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      47,
+      48,
+      49
+    ],
+    "start_word": 1455,
+    "end_word": 1557,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، لاسيما في العشر الأواخر من رمضان.\n2-",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد الحديث الرابع الأولى في الاعتكاف والمحادثة اليسيرة ودرء التهمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هي فوائد مستنبطة من الحديث الرابع، والعبارات التفسيرية مثل \"وفيه\" و\"هذا متأكد\" تتضح أكثر مع أصل الحديث."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      50
+    ],
+    "start_word": 1558,
+    "end_word": 1591,
+    "text_snippet": "6- وفيه شفقة النبي صلى الله عليه وسلم على أمته:\nفإنه يعلم من ظاهر الحال أن ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان شفقة النبي بأمته وتحذيره من وسوسة الشيطان وإن لم يظهر موجب التهمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قوله \"وفيه\" راجعة إلى الحديث الرابع السابق، وفهم سبب الشفقة مرتبط بسياق قصة صفية."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      51
+    ],
+    "start_word": 1592,
+    "end_word": 1610,
+    "text_snippet": "7- قال بعض العلماء: ومنه ينبغي للحاكم أن يبيِّن للمحكوم عليه وجه الحكم، إذا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "استنباط بعض العلماء وجوب بيان الحاكم وجه الحكم دفعاً للتهمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظة \"ومنه\" تحيل إلى الحديث الرابع السابق، فالأصل الاستدلالي خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1611,
+    "end_word": 1623,
+    "text_snippet": "8- جواز خلوة المعتكف بزوجه ومحادثتها، إذا لم يُثِرْ ذلك شهوته المنافية للاعتك",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز خلوة المعتكف بزوجته ومحادثتها بشرط أمن الشهوة المنافية للاعتكاف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      53,
+      54
+    ],
+    "start_word": 1624,
+    "end_word": 1675,
+    "text_snippet": "9- قال ابن دقيق العيد: وفي الحديث دليل على هجوم خواطر الشيطان على النفس. وما",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "هجوم وساوس الشيطان على النفس وعدم المؤاخذة بما لا يقدر العبد على دفعه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قول ابن دقيق العيد مفهوم إجمالاً، لكن عبارة \"وفي الحديث\" ترجع إلى الحديث الرابع السابق."
+  }
+]

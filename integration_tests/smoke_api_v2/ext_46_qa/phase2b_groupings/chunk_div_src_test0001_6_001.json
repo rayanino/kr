@@ -1,0 +1,69 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 106,
+    "text_snippet": "تنبيه\nكان قوم من النحاة المتقدمين يعيبون على عاصم وحمزة وابن عامر قراءات ب",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "الرد على طعن بعض النحاة في قراءات الأئمة وبيان الاحتجاج بها في العربية مع أمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 107,
+    "end_word": 276,
+    "text_snippet": "(ثم ليقطع)\nفإن قلت فقد روي عن عثمان أنه قال: لما عرض عليه المصاحف: إن فيه ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "condition_exception",
+      "narration",
+      "editorial_note",
+      "evidence_rational",
+      "cross_reference"
+    ],
+    "description_arabic": "إيراد إشكال آثار عثمان وعائشة في اللحن، ثم الجواب عنه باستحالته عقلا وشرعا وعادة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتفية في عرض السؤال والجواب إجمالا، لكن عبارة الاستدلال السابقة المشار إليها في قول المصنف: «فكيف يستقيم الاستدلال بكل ما فيه» تحتاج إلى السياق السابق لفهم مرجع «ما فيه» على وجه أدق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 277,
+    "end_word": 406,
+    "text_snippet": "وأحسن ما يقال في أثر عثمان _ رضي الله عنه _ بعد تضعيفه بالاضطراب الواقع في ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "cross_reference"
+    ],
+    "description_arabic": "ترجيح أن أثر عثمان وقع فيه تحريف، وبيان الرواية المصححة التي تزيل الإشكال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

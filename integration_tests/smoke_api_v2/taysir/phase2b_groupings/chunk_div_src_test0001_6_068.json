@@ -1,0 +1,155 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 155,
+    "text_snippet": "وأجابوا عن حديث ابن عمر بأجوبة، أحسنها أنه منسوخ بحديث ابن عباس، الذي خطب ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان جواب القائلين بالنسخ بين حديثي ابن عمر وابن عباس وأدلتهم وترجيح ابن تيمية له.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم كوحدة مستقلة في تقرير النسخ، لكن معرفة نص حديثي ابن عمر وابن عباس السابقين تساعد على تمام تصور محل النزاع."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 156,
+    "end_word": 517,
+    "text_snippet": "‌‌بَابُ التلبيَة\nالحديث الأول\nَعنْ عَبْدِ الله بْن عُمَرَ رضي الله عنهما: أنّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition",
+      "opinion_statement",
+      "rule_statement"
+    ],
+    "description_arabic": "نص حديث التلبية وزيادة ابن عمر وشرح ألفاظه وبيان معناه الإجمالي العقدي والعبادي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 518,
+    "end_word": 542,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية التلبية في الحج والعمرة، وتأكدها فيه لأنها شع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات مشروعية التلبية في الحج والعمرة والتنبيه إلى الخلاف في وجوبها واستحبابها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 543,
+    "end_word": 568,
+    "text_snippet": "2- الأفضل أن تكون بهذه الصيغة فقط للاتِّباع، ولما تحتويه هذه الجمل من المعا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل الاقتصار على صيغة التلبية المأثورة، مع جواز الزيادة عليها بلا حرج.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 569,
+    "end_word": 636,
+    "text_snippet": "3- أن التلبية شعار الحج كالتكبير شعار الصلاة فيستحب الإكثار منها، لاسيما عن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب الإكثار من التلبية ومواضع تأكدها ووقت قطعها عند الشروع في رمي جمرة العقبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 637,
+    "end_word": 673,
+    "text_snippet": "4- تقدم في المعنى الإجمالي ما تحتويه التلبية من أنواع الذكر، من الإقامة على",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "التلبية مشتملة على أنواع التوحيد والذكر وإثبات الوحدانية والمحامد والملك لله.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "هذه الفائدة تحيل صراحة إلى المعنى الإجمالي السابق بقولها: تقدم في المعنى الإجمالي، فلا تستقل تماماً دون النص المحال عليه."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 674,
+    "end_word": 692,
+    "text_snippet": "5- مادامت التلبية شعار الحج، فينبغي رفع الصوت بها للرجال.\nأما المرأة فتخفض ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم رفع الصوت بالتلبية للرجال، واستثناء المرأة فتخفض صوتها خشية الفتنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 693,
+    "end_word": 789,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية التلبية في الحج، لأنها شعاره.\nواخت",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "عرض أقوال العلماء في حكم التلبية بين السنة والوجوب والركنية مع دليل القائلين بالركنية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة تعرض محل الخلاف والأقوال ودليل القول الأخير، لكنها لا تذكر أدلة المالكية ولا تستكمل بقية مناقشة الأدلة أو الترجيح."
+  }
+]

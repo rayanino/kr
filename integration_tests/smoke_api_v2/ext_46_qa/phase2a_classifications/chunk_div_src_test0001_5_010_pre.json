@@ -1,0 +1,186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "الفرع الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 34,
+    "text_snippet": "\n\nقال ابن جني:\n\" اللغات على اختلافها كلها حجة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 35,
+    "end_word": 42,
+    "text_snippet": "\nوسيأتي في ذلك مزيد كلام في (الكتاب السادس).",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 43,
+    "text_snippet": "\n\nالخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 44,
+    "end_word": 107,
+    "text_snippet": "\n\nقال ابن جني:\n\"علة امتناع الأخذ عن أهل المدر ك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 108,
+    "end_word": 173,
+    "text_snippet": "\nقال:\n\" وعلى ذلك العمل في وقتنا هذا لأنا لا نك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 6,
+    "start_word": 174,
+    "end_word": 189,
+    "text_snippet": "\nوقد قال الفراء في بعض كلامه: \" إلا أن تسمع شيئا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 190,
+    "end_word": 190,
+    "text_snippet": "\n\nالسادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 191,
+    "end_word": 195,
+    "text_snippet": "\nفي العربي الفصيح ينتقل لسانه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 196,
+    "end_word": 227,
+    "text_snippet": "\nقال ابن جني:\n\" العمل في ذلك أن تنظر حال ما ان",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 228,
+    "end_word": 309,
+    "text_snippet": "\nقال:\n\" فإن قيل: فما يؤمنك _ أن يكون كما وجدت ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 310,
+    "end_word": 310,
+    "text_snippet": "\nالسابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 311,
+    "end_word": 313,
+    "text_snippet": "\nفي تداخل اللغات",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 314,
+    "end_word": 514,
+    "text_snippet": "\n\nقال في (الخصائص):\n\" إذا اجتمع في كلام الفصيح ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 515,
+    "end_word": 545,
+    "text_snippet": "\nقال الأصمعي:\n\" اختلف رجلان في الصقر فقال أحدهم",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 546,
+    "end_word": 657,
+    "text_snippet": "\n\" وعلى هذا يتخرج جميع ما ورد من التداخل نحو: ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 16,
+    "start_word": 658,
+    "end_word": 661,
+    "text_snippet": "\nانتهى كلام ابن جني.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 662,
+    "end_word": 669,
+    "text_snippet": "\nوقد حكى غيره في استعمال اللغتين المتداخلتين قولي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 670,
+    "end_word": 673,
+    "text_snippet": "\nأحدهما: أنه يجوز مطلقا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 674,
+    "end_word": 685,
+    "text_snippet": "\nوالثاني: إنما يجوز بشرط ألا يؤدي إلى استعمال ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 686,
+    "end_word": 686,
+    "text_snippet": "\nالثامن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 687,
+    "end_word": 704,
+    "text_snippet": "\n\nأجمعوا على أنه لا يحتج بكلام المولدين والمحدثين",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 705,
+    "end_word": 749,
+    "text_snippet": "\nفإنه استشهد على مسألة بقول حبيب بن أوس ثم قال:\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  }
+]

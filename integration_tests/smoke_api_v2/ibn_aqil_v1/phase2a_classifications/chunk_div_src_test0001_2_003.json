@@ -1,0 +1,706 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌النكرة والمعرفة ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 14,
+    "text_snippet": "نكرة قابل أل مؤثرا … أو واقع موقع ما قد ذكر",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 15,
+    "end_word": 102,
+    "text_snippet": "النكرة: ما يقبل أل وتؤثر فيه التعريف أو يقع ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 103,
+    "end_word": 112,
+    "text_snippet": "وغيره معرفة كهم وذي … وهند وابني والغلام وا",
+    "scholarly_function": "definition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 4,
+    "start_word": 113,
+    "end_word": 142,
+    "text_snippet": "أي غير النكرة المعرفة وهي ستة أقسام:\nالمضمر ك",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 143,
+    "end_word": 153,
+    "text_snippet": "فما لذي غيبة أو حضور … كأنت وهو سم بالضمير (1",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 154,
+    "end_word": 176,
+    "text_snippet": "يشير إلى أن الضمير ما دل على غيبة كهو أو حضور",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 177,
+    "end_word": 202,
+    "text_snippet": "وذو اتصال منه ما لا يبتدا … ولا يلي إلا اختيا",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 203,
+    "end_word": 236,
+    "text_snippet": "الضمير البارز ينقسم: إلى متصل ومنفصل فالمتصل ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 237,
+    "end_word": 252,
+    "text_snippet": "13 - أعوذ برب العرش من فئة بغت … عليّ فما لي ",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 10,
+    "start_word": 253,
+    "end_word": 267,
+    "text_snippet": "14 - وما علينا إذا ما كنت جارتنا … أن لا يجاو",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 11,
+    "start_word": 268,
+    "end_word": 284,
+    "text_snippet": "= لا تذر على الارض من الكافرين ديارا) يريد لا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 12,
+    "start_word": 285,
+    "end_word": 304,
+    "text_snippet": "المعنى: إذا كنت جارتنا فلا نكترث بعدم مجاورة أ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 305,
+    "end_word": 514,
+    "text_snippet": "الاعراب: \" وما \" نافية \" نبالي \" فعل مضارع، وف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 515,
+    "end_word": 527,
+    "text_snippet": "الشاهد فيه: قوله \" إلاك \" حيث وقع الضمير المت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 15,
+    "start_word": 528,
+    "end_word": 561,
+    "text_snippet": "وقال المبرد: ليست الرواية كما أنشدها النحاة \"",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 562,
+    "end_word": 574,
+    "text_snippet": "وكل مضمر له البنا يجب … ولفظ ما جر كلفظ ما نص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 17,
+    "start_word": 575,
+    "end_word": 646,
+    "text_snippet": "المضمرات كلها مبنية لشبهها بالحروف في الجمود (",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 18,
+    "start_word": 647,
+    "end_word": 658,
+    "text_snippet": "للرفع والنصب وجر نا صلح … كأعرف بنا فإننا نلنا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 659,
+    "end_word": 671,
+    "text_snippet": "أي صلح لفظ نا للرفع نحو نلنا وللنصب نحو فإننا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 672,
+    "end_word": 705,
+    "text_snippet": "ومما يستعمل للرفع والنصب والجر الياء فمثال الر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 706,
+    "end_word": 789,
+    "text_snippet": "وإنما لم يذكر المصنف الياء وهم لأنهما لا يشبها",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 22,
+    "start_word": 790,
+    "end_word": 799,
+    "text_snippet": "وألف والواو والنون لما … غاب وغيره كقاما واعلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 23,
+    "start_word": 800,
+    "end_word": 847,
+    "text_snippet": "الألف والواو والنون من ضمائر الرفع المتصلة وتك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 848,
+    "end_word": 859,
+    "text_snippet": "ومن ضمير الرفع ما يستتر … كافعل أوافق نغتبط إ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 860,
+    "end_word": 870,
+    "text_snippet": "ينقسم الضمير إلى مستتر وبارز (2) والمستتر إلى ",
+    "scholarly_function": "definition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 26,
+    "start_word": 871,
+    "end_word": 885,
+    "text_snippet": "والمراد بواجب الاستتار ما لا يحل محله الظاهر و",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 886,
+    "end_word": 897,
+    "text_snippet": "وذكر المصنف في هذا البيت من المواضع التي يجب ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 28,
+    "start_word": 898,
+    "end_word": 952,
+    "text_snippet": "الأول: فعل الأمر للواحد المخاطب كافعل التقدير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 953,
+    "end_word": 972,
+    "text_snippet": "الثاني: الفعل المضارع الذي في أوله الهمزة نحو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 30,
+    "start_word": 973,
+    "end_word": 983,
+    "text_snippet": "الثالث: الفعل المضارع الذي في أوله النون نحو ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 984,
+    "end_word": 1015,
+    "text_snippet": "الرابع: الفعل المضارع الذي في أوله التاء لخاطب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1016,
+    "end_word": 1027,
+    "text_snippet": "هذا (1) ما ذكره المصنف من المواضع التي يجب فيه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1028,
+    "end_word": 1065,
+    "text_snippet": "ومثال جائز الاستتار زيد يقوم أي هو وهذا الضمير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1066,
+    "end_word": 1076,
+    "text_snippet": "وذو ارتفاع وانفصال أنا … هو وأنت والفروع لا ت",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1077,
+    "end_word": 1152,
+    "text_snippet": "تقدم أن الضمير ينقسم إلى مستتر وإلى بارز وسبق ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1153,
+    "end_word": 1163,
+    "text_snippet": "وذو انتصاب في انفصال جعلا … إياي والتفريع ليس",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1164,
+    "end_word": 1206,
+    "text_snippet": "أشار في هذا البيت إلى المنصوب المنفصل وهو: اثن",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1207,
+    "end_word": 1219,
+    "text_snippet": "(2) وفي اختيار لا يجيء المنفصل … إذا تأتى أن ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1220,
+    "end_word": 1249,
+    "text_snippet": "كل موضع أمكن أن يؤتى فيه بالضمير المتصل لا يجو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1250,
+    "end_word": 1259,
+    "text_snippet": "فإن لم يمكن الإتيان بالمتصل تعين المنفصل نحو إ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1260,
+    "end_word": 1272,
+    "text_snippet": "⌜7⌝ وقد جاء الضمير في الشعر منفصلا مع إمكان ال",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1273,
+    "end_word": 1285,
+    "text_snippet": "15 - بالباعث الوارث الأموات قد ضمنت … إياهم ا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1286,
+    "end_word": 1307,
+    "text_snippet": "وصل أو افصل هاء سلنيه وما … أشبهه في كنته الخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1308,
+    "end_word": 1366,
+    "text_snippet": "أشار في هذين البيتين إلى المواضع التي يجوز أن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1367,
+    "end_word": 1396,
+    "text_snippet": "وظاهر كلام المصنف أنه يجوز في هذه المسألة الان",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1397,
+    "end_word": 1433,
+    "text_snippet": "في كنته الخلف انتمى إلى أنه إذا كان خبر كان وأ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1434,
+    "end_word": 1485,
+    "text_snippet": "وكذلك المختار عند المصنف الاتصال في نحو خلتنيه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1486,
+    "end_word": 1497,
+    "text_snippet": "16 - إذا قالت حذام فصدقوها … فإن القول ما قال",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1498,
+    "end_word": 1508,
+    "text_snippet": "وقدم الأخص في اتصال\n… وقدمن ما شئت في انفصال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1509,
+    "end_word": 1610,
+    "text_snippet": "ضمير المتكلم أخص من ضمير المخاطب وضمير المخاطب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1611,
+    "end_word": 1663,
+    "text_snippet": "وإليه\nأشار بقوله وقدمن ما شئت في انفصال وهذا ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1664,
+    "end_word": 1675,
+    "text_snippet": "وفي اتحاد الرتبة الزم فصلا … وقد يبيح الغيب في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1676,
+    "end_word": 1740,
+    "text_snippet": "إذا اجتمع ضميران وكانا منصوبين واتحدا في الرتب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1741,
+    "end_word": 1769,
+    "text_snippet": "وربما أثبت هذا البيت في بعض نسخ الألفية وليس م",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1770,
+    "end_word": 1781,
+    "text_snippet": "بالباعث الوارث الأموات قد ضمنت … إياهم الأرض ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1782,
+    "end_word": 1785,
+    "text_snippet": "وقد تقدم ذكر ذلك.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1786,
+    "end_word": 1798,
+    "text_snippet": "وقبل يا النفس مع الفعل التزم … نون وقاية وليس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1799,
+    "end_word": 1830,
+    "text_snippet": "إذا اتصل بالفعل ياء المتكلم لحقته لزوما نون تس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1831,
+    "end_word": 1842,
+    "text_snippet": "17 - عددت قومي كعديد الطيس … إذ ذهب القوم الك",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1843,
+    "end_word": 1873,
+    "text_snippet": "واختلف في أفعل في التعجب هل تلزمه نون الوقاية ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1874,
+    "end_word": 1883,
+    "text_snippet": "وليتني فشاوليتي ندرا … ومع لعل اعكس وكن مخبرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1884,
+    "end_word": 1915,
+    "text_snippet": "في البقايات واضطرارا خففا … مني وعني بعض من ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1916,
+    "end_word": 1927,
+    "text_snippet": "18 - كمنية جابر إذ قال ليتي … أصادفه وأتلف جل",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1928,
+    "end_word": 1936,
+    "text_snippet": "والكثير في لسان العرب ثبوتها وبه ورد القرآن قا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1937,
+    "end_word": 1942,
+    "text_snippet": "الله تعالى: {يَا لَيْتَنِي كُنْتُ مَعَهُمْ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1943,
+    "end_word": 1953,
+    "text_snippet": "وأما لعل فذكر أنها بعكس ليت فالفصيح تجريدها من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1954,
+    "end_word": 1960,
+    "text_snippet": "تعالى حكاية عن فرعون: {لَعَلِّي أَبْلُغُ الأَسْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1961,
+    "end_word": 1977,
+    "text_snippet": "ويقل ثبوت النون كقول الشاعر: 19 - فقلت أعيران",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1978,
+    "end_word": 2025,
+    "text_snippet": "ثم ذكر أنك بالخيار في الباقيات أي في باقي أخوا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2026,
+    "end_word": 2040,
+    "text_snippet": "قال الشاعر:\n20 - أيها السائل عنهم وعني … لست م",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2041,
+    "end_word": 2053,
+    "text_snippet": "وفي لدني لدني قل وفي … قدني وقطني الحذف أيضا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2054,
+    "end_word": 2063,
+    "text_snippet": "أشار بهذا إلى أن الفصيح في لدني إثبات النون كق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2064,
+    "end_word": 2077,
+    "text_snippet": "تعالى: {قَدْ بَلَغْتَ مِنْ لَدُنِّي عُذْراً} وي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2078,
+    "end_word": 2099,
+    "text_snippet": "والكثير في قد وقط ثبوت النون نحو قدني وقطني وي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2100,
+    "end_word": 2112,
+    "text_snippet": "21 - قدني من نصر الخبيبين قدي … ليس الإمام بال",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2113,
+    "end_word": 2237,
+    "text_snippet": "= محل جر \" من نصر \" جار ومجرور متعلق بمحذوف خب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2238,
+    "end_word": 2299,
+    "text_snippet": "الشاهد فيه: قوله \" قدني \" و\" قدى \" حيث أثبت ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2300,
+    "end_word": 2466,
+    "text_snippet": "وقال الاعلم: \" وإثباتها (النون) في قد وقط هو ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2467,
+    "end_word": 2519,
+    "text_snippet": "_________\nولابن هشام ههنا كلام كثير وتفريعات ط",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2520,
+    "end_word": 2532,
+    "text_snippet": "هذا، ولم يتكلم المصنف ولا الشارح عن الاسم المع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2533,
+    "end_word": 2556,
+    "text_snippet": "واعلم أن الاصل في الاسم المعرب ألا تتصل به نون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2557,
+    "end_word": 2567,
+    "text_snippet": "في قوله صلى الله عليه وسلم: \" فهل أنتم صادقون",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2568,
+    "end_word": 2580,
+    "text_snippet": "وفي قول الشاعر: وليس الموافيني ليرفد خائبا فإ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2581,
+    "end_word": 2594,
+    "text_snippet": "وفي قول الآخر: ألا فتى من بني ذبيان يحملني ولي",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2595,
+    "end_word": 2607,
+    "text_snippet": "وفي قول الآخر: وليس بمعييني وفي الناس ممتع صد",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2608,
+    "end_word": 2623,
+    "text_snippet": "كما لحقت أفعل التفضيل في قوله صلى الله عليه وس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2624,
+    "end_word": 2628,
+    "text_snippet": "لمشابهة أفعل التفضيل لفعل التعجيب.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  }
+]

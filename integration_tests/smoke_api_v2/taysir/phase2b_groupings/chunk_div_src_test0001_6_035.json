@@ -1,0 +1,44 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 0,
+    "end_word": 222,
+    "text_snippet": "‌‌بَابُ كَيفية الصَّلَاة على النبي صلى الله عليه وسلم ⌜1⌝\nالحديث الأول\nعَنْ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition"
+    ],
+    "description_arabic": "بيان صيغة الصلاة على النبي صلى الله عليه وسلم وشرح معناها الإجمالي ومعنى الحمد والمجد فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 223,
+    "end_word": 265,
+    "text_snippet": "اختلاف العلماء:\nذهب الإمامان، الشافعي، وأحمد، إلى وجوب الصلاة على النبي صلى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض قول الشافعي وأحمد بوجوب الصلاة على النبي في التشهد الأخير وذكر دليلهم من الحديث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر قولًا واحدًا في سياق عنوان «اختلاف العلماء» دون عرض بقية الأقوال أو الترجيح بينها، كما يحيل إلى الحديث السابق بلفظ «الحديث»."
+  }
+]

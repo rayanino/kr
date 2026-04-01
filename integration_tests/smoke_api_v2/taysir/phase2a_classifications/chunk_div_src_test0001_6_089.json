@@ -1,0 +1,226 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 16,
+    "text_snippet": "غيره أصلح منه وأنفع للموقوف عليهم ففيه عن الإم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 1,
+    "start_word": 17,
+    "end_word": 46,
+    "text_snippet": "والثانية، الجواز، وهى اختيار شيخ الإسلام. وعلي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 2,
+    "start_word": 47,
+    "end_word": 84,
+    "text_snippet": "ولكن في هذه الحال لا ينبغي أن يستقل الناظر في ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 3,
+    "start_word": 85,
+    "end_word": 125,
+    "text_snippet": "وهذا هو الجاري في محاكم المملكة، فإنه لا يباع و",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 4,
+    "start_word": 126,
+    "end_word": 127,
+    "text_snippet": "‌‌باَبُ الهِبَة\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 128,
+    "end_word": 145,
+    "text_snippet": "الهبة: - بكسر الهاء وتخفيف الباء. وهى- شرعا- تم",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 146,
+    "end_word": 159,
+    "text_snippet": "منها: - الهدية المطلقة، والإبراء من الدين، والص",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 160,
+    "end_word": 169,
+    "text_snippet": "فالهبة المطلقة: - ما قصد بها التودد إلى الموهوب",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 170,
+    "end_word": 177,
+    "text_snippet": "والصدقة: - ما قصد بها محض ثواب الآخرة.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 178,
+    "end_word": 190,
+    "text_snippet": "والعطية: - هي الهبة في مرض الموت المخوف، وتشارك",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 191,
+    "end_word": 198,
+    "text_snippet": "وهبة الدين: - هي إبراء المدين من الدين.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 199,
+    "end_word": 213,
+    "text_snippet": "وهبة الثواب: - وهى ما قصد بها أخذ عوضها، وهى من",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 214,
+    "end_word": 223,
+    "text_snippet": "ولكن إذا أطلقت الهبة، فالمراد بها الأولى من هذه",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 224,
+    "end_word": 253,
+    "text_snippet": "ولها فوائد وحكم كثيرة، من إسداء المعروف، والتعا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 14,
+    "start_word": 254,
+    "end_word": 282,
+    "text_snippet": "فهنا تحقق من المصالح والمنافع الشيء الكثير، وتك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 15,
+    "start_word": 283,
+    "end_word": 284,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 285,
+    "end_word": 331,
+    "text_snippet": "عَنْ عُمَرَ رضي الله عنه قَالَ: حَمَلْت عَلَى فر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 332,
+    "end_word": 346,
+    "text_snippet": "وفي لفظ: \" فَإنَّ الذِي يَعُودُ فِي صَدَقتِهِ كا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 347,
+    "end_word": 348,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 349,
+    "end_word": 370,
+    "text_snippet": "وَعَنِ ابْن عَباس رضي الله عنهما: أنَ رَسُولَ ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 371,
+    "end_word": 372,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 373,
+    "end_word": 435,
+    "text_snippet": "أعان عمر بن الخطاب رضي الله عنه رجلا على الجهاد",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 436,
+    "end_word": 489,
+    "text_snippet": "فنهاه النبي صلى الله عليه وسلم عن شرائه ولو بأق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 23,
+    "start_word": 490,
+    "end_word": 520,
+    "text_snippet": "ثم ضرب مثلا للتنفير من العود في الصدقة بأبشع صو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 521,
+    "end_word": 524,
+    "text_snippet": "ما يستفاد من الحديثين:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 25,
+    "start_word": 525,
+    "end_word": 545,
+    "text_snippet": "1- استحباب الإعانة على الجهاد في سبيل الله، وأن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 546,
+    "end_word": 575,
+    "text_snippet": "2- أن عمر تصدت على ذلك المجاهد بالفرس ولم يجعل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 576,
+    "end_word": 602,
+    "text_snippet": "3- النهى عن شراء الصدقة، لأنها خرجت لله، فلا ين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

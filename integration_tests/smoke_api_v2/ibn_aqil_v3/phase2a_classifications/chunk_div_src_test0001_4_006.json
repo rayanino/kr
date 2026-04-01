@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌التحذير والإغراء",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 10,
+    "text_snippet": "إياك والشر ونحوه نصب … محذر بما استتاره وجب\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 11,
+    "end_word": 22,
+    "text_snippet": "ودون عطف ذا لإيا انسب وما … سواه ستر فعله ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 23,
+    "end_word": 33,
+    "text_snippet": "إلا مع العطف أو التكرار … كـ \"الضيغم الضيغم ي",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "التحذير: تنبيه المخاطب على أمر يجب الاحتراز منه",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 42,
+    "end_word": 58,
+    "text_snippet": "فإن كان بإياك وأخواته وهو إياك وإياكما وإياكم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 59,
+    "end_word": 71,
+    "text_snippet": "فمثاله مع العطف إياك والشر فإياك منصوب بفعل مض",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 72,
+    "end_word": 84,
+    "text_snippet": "ومثاله بدون العطف إياك أن تفعل كذا أي إياك من ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 85,
+    "end_word": 101,
+    "text_snippet": "وإن كان بغير إياك وأخواته وهو المراد بقوله: وما",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 102,
+    "end_word": 112,
+    "text_snippet": "كقولك ماز رأسك والسيف أي يا مازن ق رأسك واحذر ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 113,
+    "end_word": 120,
+    "text_snippet": "أو التكرار نحو الضيغم الضيغم أي احذر الضيغم",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 121,
+    "end_word": 130,
+    "text_snippet": "فإن لم يكن عطف ولا تكرار جاز إضمار الناصب وإظه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 131,
+    "end_word": 141,
+    "text_snippet": "نحو الأسد أي احذر الأسد فإن شئت أظهرت وإن شئت ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 142,
+    "end_word": 152,
+    "text_snippet": "وشذ إياي وإياه أشذ … وعن سبيل القصد من قاس ان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 14,
+    "start_word": 153,
+    "end_word": 162,
+    "text_snippet": "حق التحذير أن يكون للمخاطب وشذ مجيئه للمتكلم ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 15,
+    "start_word": 163,
+    "end_word": 167,
+    "text_snippet": "إياي وأن يحذف أحدكم الأرنب",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 16,
+    "start_word": 168,
+    "end_word": 180,
+    "text_snippet": "وأشذ منه مجيئه للغائب في قوله إذا بلغ\nالرجل ال",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 17,
+    "start_word": 181,
+    "end_word": 186,
+    "text_snippet": "ولا يقاس على شيء من ذلك.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 187,
+    "end_word": 198,
+    "text_snippet": "وكمحذر بلا إيا اجعلا … مغرى به في كل ما قد فصلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 19,
+    "start_word": 199,
+    "end_word": 224,
+    "text_snippet": "الإغراء هو أمر المخاطب بلزوم ما يحمد به وهو كال",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 225,
+    "end_word": 240,
+    "text_snippet": "فمثال ما يجب معه إضمار الناصب قولك أخاك أخاك و",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 241,
+    "end_word": 251,
+    "text_snippet": "ومثل ما لا يلزم معه الإضمار قولك أخاك أي الزم ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 65,
+    "text_snippet": "فقال: لا أعلم شيئاً يدفعه.\nوبهذا القول، قال إسحاق، والظاهرية، وانتصر له ابن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_qiyas",
+      "evidence_rational"
+    ],
+    "description_arabic": "إثبات قول قطع جاحد العارية وذكر مستنده من الحديث والقياس والمعنى.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى قول سابق بضمير الهاء في «يدفعه»، ويعتمد على «حديث الباب» وقصة المخزومية وحديث «لا قطع على خائن» دون إيراد نص الحديث الأول كاملاً."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 66,
+    "end_word": 118,
+    "text_snippet": "تنبيه:\nبإجماع العلماء أن الغاصب والمختلس والمنتهب لا يقطعون، وليس ذلك لأنهم ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "بيان إجماع العلماء على عدم قطع الغاصب والمختلس والمنتهب مع التعزير ورد المال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن تعليلًا محالًا على ما «نقلناه في أول الباب عن القاضي عياض»، فبعض وجه الاستدلال المفصل خارج الوحدة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 119,
+    "end_word": 183,
+    "text_snippet": "‌‌بَابُ حد الخمْر\nللخمر- في اللغةَ ثلاثة معان:\n1- الستر والتغطية، ومنه: اخت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان المعاني اللغوية الثلاثة للخمر ووجه تسميتها مشتقة منها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 184,
+    "end_word": 204,
+    "text_snippet": "وتعريفها- شرعاً: أنها اسم لكل ما خامر العقل وغطَاه من أي نوع من\nالأشربة لح",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تعريف الخمر شرعاً بأنها كل ما غطى العقل من الأشربة مع الاستدلال بالحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

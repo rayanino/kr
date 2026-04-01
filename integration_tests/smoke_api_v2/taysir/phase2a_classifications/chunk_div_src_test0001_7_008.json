@@ -1,0 +1,874 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ القِراءَة في الصَّلاة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 43,
+    "text_snippet": "مباحث هذا الباب، الكلام على قراءة الفاتحة في ا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 2,
+    "start_word": 44,
+    "end_word": 45,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 46,
+    "end_word": 69,
+    "text_snippet": "عَنْ عُبَادَةَ بْنِ الصَّامِتِ رضي الله عنه أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 70,
+    "end_word": 71,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 72,
+    "end_word": 96,
+    "text_snippet": "سورة الفاتحة، هي أم القرآن وروحه، لأنها جمعت أ",
+    "scholarly_function": "definition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 6,
+    "start_word": 97,
+    "end_word": 120,
+    "text_snippet": "ثم اشتملت على أفضل دعاء، وأجل مطلوب، وسؤال ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 121,
+    "end_word": 136,
+    "text_snippet": "لذا فرضت قراءتها في كل ركعة، وأنيطَت صحة الصلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 137,
+    "end_word": 155,
+    "text_snippet": "ويؤكد نفي حقيقتها الشرعية ما أخرجه ابن خزيمة ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 156,
+    "end_word": 157,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 158,
+    "end_word": 176,
+    "text_snippet": "تقدم أن مذهب الحنفية أن المشروع عندهم قراءة ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 177,
+    "end_word": 197,
+    "text_snippet": "والصحيح ما ذهب إليه الجمهور من تعيُّن الفاتحةَ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 198,
+    "end_word": 216,
+    "text_snippet": "واختلفوا في قراءتها للمأموم، فذهبت الحنابلة وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 217,
+    "end_word": 229,
+    "text_snippet": "وذهبت الشافعية وأهل الحديث إلى وجوب قراءتها لك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 230,
+    "end_word": 257,
+    "text_snippet": "وذهبت المالكية إلى وجوب قراءتها على المأموم في",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 258,
+    "end_word": 280,
+    "text_snippet": "استدل الحنفية بحديث \"من صلى خلف إمام، فقراءة ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 16,
+    "start_word": 281,
+    "end_word": 288,
+    "text_snippet": "واستدل الشافعية ومن وافقهم بحديث عبادة الذي مع",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 17,
+    "start_word": 289,
+    "end_word": 311,
+    "text_snippet": "أجابوا عن حديث \"من صلى خلف الإمام الخ … \" بما ",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 312,
+    "end_word": 327,
+    "text_snippet": "وأما الآية وحديث \"إذا قرأ فأنصتوا\" ونحوهما، فه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 19,
+    "start_word": 328,
+    "end_word": 352,
+    "text_snippet": "قلت: ويطمئن القلب إلى التفصيل الذي ذهب إليه ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 353,
+    "end_word": 398,
+    "text_snippet": "ولأن قراءة الفاتحة تفوت المأموم في السرية إذا ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 399,
+    "end_word": 402,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 403,
+    "end_word": 418,
+    "text_snippet": "1- وجوب قراءة الفاتحة في كل ركعة من الصلاة، وأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 419,
+    "end_word": 432,
+    "text_snippet": "2- بطلان الصلاة بتركها من المتعمد والجاهل وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 433,
+    "end_word": 454,
+    "text_snippet": "3- لكن تقدم أن الصحيح من الأقوال الثلاثة، أنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 455,
+    "end_word": 455,
+    "text_snippet": "*",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 26,
+    "start_word": 456,
+    "end_word": 457,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 458,
+    "end_word": 520,
+    "text_snippet": "عَنْ أبي قَتادةَ الأنصَاري رضي الله عنه قَال: ك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 521,
+    "end_word": 522,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 523,
+    "end_word": 572,
+    "text_snippet": "كان النبي صلى الله عليه وسلم يراعي في صلاته ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 30,
+    "start_word": 573,
+    "end_word": 612,
+    "text_snippet": "وأيضا ليدرك المتخلفون كل الصلاة، كأن يطيل الرك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 31,
+    "start_word": 613,
+    "end_word": 628,
+    "text_snippet": "وكان صلى الله عليه وسلم يفعل ذلك أيضا في صلاة ",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 32,
+    "start_word": 629,
+    "end_word": 646,
+    "text_snippet": "وكانت قراءته في الظهر والعصر سرا، إلا أنه قد ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 33,
+    "start_word": 647,
+    "end_word": 652,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 653,
+    "end_word": 664,
+    "text_snippet": "1- مشروعية القراءة بعد الفاتحة في الركعتين الأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 665,
+    "end_word": 673,
+    "text_snippet": "2- استحباب الاقتصار على الفاتحة في الركعتين ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 674,
+    "end_word": 683,
+    "text_snippet": "3- تطويل الركعة الأولى على الثانية، من صلاة ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 684,
+    "end_word": 688,
+    "text_snippet": "4- استحباب الإسرار بهاتين الصلاتين.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 689,
+    "end_word": 696,
+    "text_snippet": "5- جواز الجهر ببعض الآيات، وخاصة لقصد التعليم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 697,
+    "end_word": 706,
+    "text_snippet": "6- استحباب تطويل الركعة الأولى على الثانية، من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 40,
+    "start_word": 707,
+    "end_word": 725,
+    "text_snippet": "7- قال النووي: الوجه الثاني أنه يستحب تطويل ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 726,
+    "end_word": 727,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 728,
+    "end_word": 746,
+    "text_snippet": "عن جُبَيرِ بن مُطْعِمٍ رضي الله عنه قَالَ: سَمِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 747,
+    "end_word": 748,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 749,
+    "end_word": 772,
+    "text_snippet": "العادة في صلاة النبي صلى الله عليه وسلم أنه كا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 45,
+    "start_word": 773,
+    "end_word": 801,
+    "text_snippet": "ولكنه قد يترك العادة فيقصر ما حقه التطويل لبيا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 46,
+    "start_word": 802,
+    "end_word": 805,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 47,
+    "start_word": 806,
+    "end_word": 813,
+    "text_snippet": "1- أن المشروع، هو الجهر في صلاة المغرب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 814,
+    "end_word": 818,
+    "text_snippet": "2- جواز إطالة القراءة فيها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 819,
+    "end_word": 820,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 821,
+    "end_word": 853,
+    "text_snippet": "عَنِ الْبَرَاء بْن عَازِبٍ رضي الله عنهما: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 854,
+    "end_word": 855,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 856,
+    "end_word": 867,
+    "text_snippet": "سورة \" التين\" من قصار المفصل التي تقرأ في صلاة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 53,
+    "start_word": 868,
+    "end_word": 897,
+    "text_snippet": "وقد قرأ بها النبي صلى الله عليه وسلم في صلاة \"",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 54,
+    "start_word": 898,
+    "end_word": 923,
+    "text_snippet": "ومع كون النبي صلى الله عليه وسلم مسافراً، فإنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 55,
+    "start_word": 924,
+    "end_word": 927,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 56,
+    "start_word": 928,
+    "end_word": 935,
+    "text_snippet": "1- جواز قراءة قصار المفصل، في صلاة العشاء.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 57,
+    "start_word": 936,
+    "end_word": 952,
+    "text_snippet": "2- أن الأحسن تخفيف الصلاة في السفر، ومراعاة حا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 58,
+    "start_word": 953,
+    "end_word": 966,
+    "text_snippet": "3- استحباب تحسين الصوت في القراءة ولو في الصلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 59,
+    "start_word": 967,
+    "end_word": 968,
+    "text_snippet": "الحَديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 60,
+    "start_word": 969,
+    "end_word": 1036,
+    "text_snippet": "عَنْ عَائِشَةََ رضي الله عنها: أنَّ رَسُولَ الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1037,
+    "end_word": 1038,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1039,
+    "end_word": 1048,
+    "text_snippet": "أمرَ النبي صلى الله عليه وسلم بعض أصحابه على س",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1049,
+    "end_word": 1072,
+    "text_snippet": "ومن عادة الأمراء أَنًهم هم الأئمة في الصلاة، و",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1073,
+    "end_word": 1112,
+    "text_snippet": "فلما رجعوا من غزوتهم إلى النبي صلى الله عليه و",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1113,
+    "end_word": 1134,
+    "text_snippet": "فقال رسول الله صلى الله عليه وسلم: أخبروه، أنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1135,
+    "end_word": 1138,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1139,
+    "end_word": 1150,
+    "text_snippet": "1- جواز قراءة قصار المفصل، حتى في غير صلاة الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1151,
+    "end_word": 1156,
+    "text_snippet": "2- فضل سورة الإخلاص واستحباب قراءتها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1157,
+    "end_word": 1216,
+    "text_snippet": "3- أن تفضيل بعض القرآن على بعض، عائد لما يحتوى",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1217,
+    "end_word": 1239,
+    "text_snippet": "4- أن الأعمال يكتب ثوابها بسبب ما يصاحبها من ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1240,
+    "end_word": 1252,
+    "text_snippet": "5- أنه ينبغي أن يكون أصحاب الولايات والقيادات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1253,
+    "end_word": 1269,
+    "text_snippet": "6- أنه من أحب صفات الله وَتَذوَّق حلاوة مناجات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1270,
+    "end_word": 1285,
+    "text_snippet": "7- أن إخبار الوالي الأكبر عن أعمال الأمراء وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1286,
+    "end_word": 1287,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1288,
+    "end_word": 1320,
+    "text_snippet": "عَنْ جَابِرٍ رضي الله عنه: أن رَسولَ الله صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1321,
+    "end_word": 1322,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1323,
+    "end_word": 1376,
+    "text_snippet": "لما بلغ النبي صلى الله عليه وسلم في أن مُعاذاً",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1377,
+    "end_word": 1387,
+    "text_snippet": "أما إذا كان المسلم يصلي وحده، فله أن يطول ما ش",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1388,
+    "end_word": 1391,
+    "text_snippet": "الأحكام المأخوذة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1392,
+    "end_word": 1404,
+    "text_snippet": "1- أن المتوسط في القراءة في الصلاة هذه السور ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1405,
+    "end_word": 1416,
+    "text_snippet": "2- أنه يستحب للإمام مراعاة الضعفاء، بتخفيف الص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1417,
+    "end_word": 1430,
+    "text_snippet": "3- أن سياسة الناس بالرفق واللين، هي السياسة ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1431,
+    "end_word": 1444,
+    "text_snippet": "4- حسن تعليم النبي صلى الله عليه وسلم وملاطفته",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1445,
+    "end_word": 1456,
+    "text_snippet": "5- رأفته صلى الله عليه وسلم بأمته، لاسيما الضع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1457,
+    "end_word": 1458,
+    "text_snippet": "الحديث السابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1459,
+    "end_word": 1484,
+    "text_snippet": "عَنْ أنَسِ بن مَالِكٍ رضي الله عنه: أنَّ النَّب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1485,
+    "end_word": 1501,
+    "text_snippet": "وفي رواية: صَلَيتُ مَع أبي بَكرٍ وَعُمَرَ وَعُث",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1502,
+    "end_word": 1536,
+    "text_snippet": "ولـ\"مسلم\": صَليْتُ خَلْفَ النَبي صلى الله عليه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1537,
+    "end_word": 1538,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1539,
+    "end_word": 1584,
+    "text_snippet": "يذكر أنس بن مالك، رضى الله عنه: أنه- مع طول صح",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1585,
+    "end_word": 1586,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1587,
+    "end_word": 1598,
+    "text_snippet": "ذهب الأئمة الثلاثة، أبو حنيفة، والشافعي، وأحمد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1599,
+    "end_word": 1604,
+    "text_snippet": "وذهب الإمام مالك: إلى عدم مشروعيها.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1605,
+    "end_word": 1630,
+    "text_snippet": "واستدل مالك ببعض الروايات في حديث أنس: [لا يذك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1631,
+    "end_word": 1669,
+    "text_snippet": "واستدل الأئمة الثلاثة على مشروعيتها بأحاديث كث",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1670,
+    "end_word": 1676,
+    "text_snippet": "ثم اختلف الأئمة في الحكم بالجهر بها.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1677,
+    "end_word": 1681,
+    "text_snippet": "فذهب إلى مشروعيته، الإمام الشافعي.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1682,
+    "end_word": 1688,
+    "text_snippet": "وذهب إلى مشروعية الإسرار، أبو حنيفة، وأحمد.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1689,
+    "end_word": 1725,
+    "text_snippet": "واستدل الشافعي وأتباعه بحديث أنس، حين سئل عن ك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1726,
+    "end_word": 1757,
+    "text_snippet": "وبحديث أم سلمة حين سئلت عن قراءته أيضاً، فقالت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 101,
+    "start_word": 1758,
+    "end_word": 1767,
+    "text_snippet": "ولا يتم للشافعي بهذين الحديثين وأمثالهما، استد",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 102,
+    "start_word": 1768,
+    "end_word": 1806,
+    "text_snippet": "فإنهما يدلان على صفة قراءة النبي صلى الله عليه",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 103,
+    "start_word": 1807,
+    "end_word": 1845,
+    "text_snippet": "واستدل الإمامان \"أبو حنيفة\" و \"أحمد\" بأحاديث ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 104,
+    "start_word": 1846,
+    "end_word": 1862,
+    "text_snippet": "ويحملون نَفْئَ القراءة في بعض الروايات، على عد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 105,
+    "start_word": 1863,
+    "end_word": 1866,
+    "text_snippet": "ما يؤخذ من الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 106,
+    "start_word": 1867,
+    "end_word": 1880,
+    "text_snippet": "1- مشروعية قراءة \" بسم الله الرحمن الرحيم \" بع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 107,
+    "start_word": 1881,
+    "end_word": 1889,
+    "text_snippet": "2- أن تكون قراءتها سراً، ولو في الصلاة الجهري",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 108,
+    "start_word": 1890,
+    "end_word": 1896,
+    "text_snippet": "3- أن البسملة، ليست آية من الفاتحة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

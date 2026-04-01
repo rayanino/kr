@@ -1,0 +1,567 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 22,
+    "text_snippet": "وقد سلط عليه عبد الملك بن مروان، فقد قتله غدراً صبراً. وقد هزم جيشه وقتل أ",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "إشارة تاريخية إلى مقتل عمرو بن الزبير وهزيمة جيشه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله عليه يعود على شخص مذكور قبل هذا المقتطف، فتحتاج العبارة إلى سياق سابق لتعيينه."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 23,
+    "end_word": 36,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- إفادة العلم وقت الحاجة إليه، وهي مناسباته، لأنه أبلغ.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب تعليم العلم عند وقت الحاجة لأنه أبلغ في التأثير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 37,
+    "end_word": 49,
+    "text_snippet": "2- نصح ولاة الأمور، وأن يكون ذلك بلطف ولين، لأنه أنجح في المقصود.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية نصح ولاة الأمور بالرفق واللين لتحقيق المقصود.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 50,
+    "end_word": 77,
+    "text_snippet": "3- تأكيد الخبر بما يثبته ويؤيده، من بيان الطرق الوثيقة، التي وصل منها، لكونه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أهمية توثيق الأخبار بذكر طرق التحمل والنقل الموثوقة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 78,
+    "end_word": 92,
+    "text_snippet": "4- البداءة بالحمد والثناء على الله تعالى، في الخطب والمخاطبات، والرسائل وغيره",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب افتتاح الكلام المهم بحمد الله والثناء عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 93,
+    "end_word": 124,
+    "text_snippet": "5- تحريم الله لمكة منذ خلق السماوات والأرض، مما يدل على أنها لم تفضل لمناسبا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان قدم حرمة مكة وأن تحريم إبراهيم كان إظهاراً لتحريم الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 125,
+    "end_word": 135,
+    "text_snippet": "6- أن الإيمان الصحيح هو الرادع عن محارم الله وتعدِّي حدوده.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الإيمان الصحيح يزجر صاحبه عن المحرمات وتجاوز الحدود.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 136,
+    "end_word": 155,
+    "text_snippet": "7- تحريم سفك الدماء في مكة، وظاهره التحريم مطلقاً. ويأتي بحثه إن شاء الله تع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم سفك الدماء في مكة وظهور عموم هذا التحريم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال المصنف تفصيل المسألة إلى حديث لاحق، فالوحدة مفهومة إجمالاً لكن ينقصها التفصيل الخلافي."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 156,
+    "end_word": 179,
+    "text_snippet": "8- تحريم قطع شجرها، ظاهره سواء أن يكون قد نبت بنفسه أو غرسه آدمي. ويأتي بحثه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم قطع شجر مكة وذكر ظاهر العموم في النابت والمغروس.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى بحث لاحق في الحديث التالي، فالحكم الإجمالي مفهوم لكن تفاصيل الخلاف مؤجلة."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 180,
+    "end_word": 196,
+    "text_snippet": "9- أنه لا يحل لأحد أن يترخص بقتال رسول الله صلى الله عليه وسلم، فيقاتل في مك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "لا يجوز لأحد الاحتجاج بقتال النبي في مكة لإباحة القتال فيها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المقصود إجمالاً، لكن عبارة الترخّص بقتال رسول الله متفرعة عن حديث سابق غير مذكور هنا."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 197,
+    "end_word": 211,
+    "text_snippet": "10- أنها أبيحت للنبي صلى الله عليه وسلم ساعة، لم تبح قبلها، ولن تباح بعدها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "خصوصية إباحة مكة للنبي ساعة من نهار دون غيره.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في أنها يعود على مكة، وهو مفهوم من السياق العام القريب لا من الجملة وحدها."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 212,
+    "end_word": 224,
+    "text_snippet": "11- أن النبي فتح مكة عَنْوَةً لقوله\" فإن أحد ترخص بقتال رسول الله\".",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بلفظ الحديث على أن فتح مكة كان عنوة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل المذكور مقتضب ومبتور عن تمام الحديث، فيحتاج القارئ إلى النص الكامل لفهم وجه الاستدلال."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 225,
+    "end_word": 244,
+    "text_snippet": "12- وجوب تبليغ العلم لمن يعلمه، لاسيما عند الحاجة إليه. وهذا ما حمل أبا شريح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تبليغ العلم عند الحاجة وبيان باعث نصيحة أبي شريح.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة إلى أبي شريح وعمرو بن سعيد تحتاج معرفة الحديث السابق وقصته لفهم المثال المذكور."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 245,
+    "end_word": 264,
+    "text_snippet": "13- قال ابن جرير: وفيه دليل على قبول خبر الواحد لأنه معلوم أن كل من شهد الخط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "استدلال ابن جرير بالحديث على قبول خبر الواحد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في فيه يعود على حديث سابق، والاستدلال مفهوم إجمالاً لكنه متعلق بسياق الخطبة المذكورة قبله."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 265,
+    "end_word": 279,
+    "text_snippet": "تنبيه:\nبحوث هذا الحديث الخلافية، أخرناها إلى الحديث الذي بعد هذا، لأن معنى ا",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تنبيه منهجي بتأخير المباحث الخلافية إلى الحديث التالي لتقارب المعنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 280,
+    "end_word": 302,
+    "text_snippet": "تنبيه آخر:\nقال شيخ الإسلام: ولا يقطع شيء من شجر الحرم ولا من نباته، إلا الإز",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "اختيار شيخ الإسلام تحريم نبات الحرم إلا الإذخر وما غرسه الناس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 303,
+    "end_word": 363,
+    "text_snippet": "ثم قال رحمه الله: وأما زيارة المساجد التي بنيت بمكة غير المسجد الحرام: كمسجد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم مشروعية قصد المساجد والبقاع المحدثة بمكة للزيارة والتعبد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 364,
+    "end_word": 435,
+    "text_snippet": "تنبيه ثالث:\nحينما هم عمرو بن سعيد بمحاربة عبد الله بن الزبير بأمر من يزيد بن ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "سرد وقعة عمرو بن سعيد وعمرو بن الزبير وما انتهت إليه الحملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 436,
+    "end_word": 882,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَبَّاسٍ رضي الله عنهما قال: قَالَ رَسُولُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "narration"
+    ],
+    "description_arabic": "الحديث الثاني مع شرح ألفاظه ومعناه الإجمالي في الهجرة والجهاد وحرمة مكة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      37,
+      38,
+      39
+    ],
+    "start_word": 883,
+    "end_word": 913,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- انقطاع الهجرة من مكة إلى غيرها، لأنها ـ ولله الحمد- بلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "انقطاع الهجرة من مكة وبقاء الهجرة من دار لا يستطيع المسلم إظهار دينه فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      40,
+      41
+    ],
+    "start_word": 914,
+    "end_word": 933,
+    "text_snippet": "2- أن الجهاد باقٍ، واجب عند وجوده، ونيته عند عدمه.\nوكذلك النية الصالحة، ركن أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بقاء مشروعية الجهاد وأهمية النية الصالحة في قبول الأعمال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      42,
+      43
+    ],
+    "start_word": 934,
+    "end_word": 962,
+    "text_snippet": "3- قوله \"وإذا استنفرتم فانفروا\" أي: إذا طلبتم للجهاد فأجيبوا ففيه وجوب النفر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب النفير إذا استنفر الإمام، ووجوبه على من عيّنه خاصة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 963,
+    "end_word": 973,
+    "text_snippet": "4- تحريم القتال في مكة، فلا يحل لأحد إلى يوم القيامة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم القتال في مكة إلى يوم القيامة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      45
+    ],
+    "start_word": 974,
+    "end_word": 997,
+    "text_snippet": "5- أن حلها للنبي صلى الله عليه وسلم خاصة من خصائصه، وأنها أحلت له ساعة، ثم ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "خصوصية إباحة مكة للنبي ساعة ثم عود حرمتها كما كانت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في حلها وأحلت يعود على مكة، وهو مفهوم من السياق القريب لكن ليس مصرّحاً به داخل العبارة."
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      46
+    ],
+    "start_word": 998,
+    "end_word": 1015,
+    "text_snippet": "6- تحريم قطع الشوك في حَرَمِهَا، وتحريم قطع الشجر الذي ليس فيه شوك من باب أو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم قطع شوك الحرم وشجره وكلئه بطريق الأولى.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في حرمها يعود على مكة، وهو معلوم من السياق السابق لا من الجملة وحدها."
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      47
+    ],
+    "start_word": 1016,
+    "end_word": 1031,
+    "text_snippet": "7- تحريم تنفير صيده، وحبسه وقتله أشد حرمة بطريق الأولى. والصيد، هو الحيوان ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم تنفير صيد الحرم وبيان أن قتله أشد، مع تعريف الصيد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في صيده يعود على الحرم أو مكة، وهو مفهوم بالسياق القريب."
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 1032,
+    "end_word": 1041,
+    "text_snippet": "8- تحريم أخذ اللقطة فيها، إلا لمن أخذها لِيُعَرِّفها دائماً.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "تحريم لقطة الحرم إلا لمن يأخذها بقصد التعريف الدائم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في فيها يعود على مكة أو الحرم، وهو محتاج إلى السياق السابق."
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 1042,
+    "end_word": 1054,
+    "text_snippet": "9- استثناء \"الإذخر\" من الكلأ، للحاجة الشديدة إليه. فيجوز أخذه رطباً أو يابساً",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "استثناء الإذخر من نبات الحرم لجواز أخذه عند الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      50,
+      51
+    ],
+    "start_word": 1055,
+    "end_word": 1080,
+    "text_snippet": "10- أن بعض السُنَّة، تكون بفهم يلقيه الله على نبيه صلى الله عليه وسلم.\nكما قا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "إثبات أن من السنة ما يكون ببيان نبوي مؤيد بالوحي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1081,
+    "end_word": 1095,
+    "text_snippet": "11- أن الفصل اليسير الذي لا يُعَدُّ قاطعاً للكلام، لا يضر بين المستثنى والمست",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفصل اليسير لا يضر في صحة الاستثناء بين المستثنى والمستثنى منه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      53
+    ],
+    "start_word": 1096,
+    "end_word": 1111,
+    "text_snippet": "12- أن مكة فتحها النبي صلى الله عليه وسلم عَنْوَةً، ويأتي بيانه إن شاء الله ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات أن فتح مكة كان عنوة مع الإحالة إلى مزيد بيان.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحكم مذكور لكن وجه الاستدلال والبيان مؤجلان إلى ما بعده."
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      54,
+      55,
+      56,
+      57,
+      58
+    ],
+    "start_word": 1112,
+    "end_word": 1174,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على تحريم قطع شجر الحرم وَكَلَئِهِ الْبَرِّيِّ ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "إجماع في نبات الحرم والإذخر، وخلاف في الشجر الذي أنبته الآدمي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72
+    ],
+    "start_word": 1175,
+    "end_word": 1480,
+    "text_snippet": "واختلفوا في جواز قتل من وجب عليه القتل فلجأ إلى الحرم.\nفذهب إلى تحريمه جمهور",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_qiyas",
+      "evidence_quran",
+      "refutation",
+      "evidence_rational",
+      "evidence_ijma",
+      "rule_statement"
+    ],
+    "description_arabic": "خلاف العلماء في إقامة القتل والحدود على اللاجئ إلى الحرم وأدلة الفريقين والاعتراضات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 1481,
+    "end_word": 1761,
+    "text_snippet": "واختلفوا: هل فتح النبي صلى الله عليه وسلم مكة صلحاً أو عنوة؟.\nذهب الأكثرون م",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "narration",
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في كون فتح مكة صلحاً أو عنوة مع أدلة الجمهور والشافعي والجواب عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

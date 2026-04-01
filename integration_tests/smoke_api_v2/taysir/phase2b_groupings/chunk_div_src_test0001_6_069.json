@@ -1,0 +1,61 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 42,
+    "text_snippet": "وفي الحديث: \"أتَانِي جِبْرِيلُ فَأَمَرَنِي أن آمُرَ أَصْحَابِي أَنْ يَرْفَعوا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "definition",
+      "editorial_note"
+    ],
+    "description_arabic": "الاستدلال بحديث التلبية على وجوب رفع الصوت بها مع تأييد المؤلف لذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 43,
+    "end_word": 140,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام ما خلاصته: النية في الحج والعمرة: لا خلاف بين المسلمين",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان حقيقة النية في الحج والعمرة وأنها تشتمل على قصد المعبود وقصد العبادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 141,
+    "end_word": 203,
+    "text_snippet": "وقال رحمه الله: ولا يكون الرجل محرماً بمجرد ما في قلبه من قصد الحج ونيته فإن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أن نية الحج وحدها لا تُدخل في الإحرام حتى يقترن بها قول أو عمل.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله: وقال رحمه الله يعود إلى شيخ الإسلام المذكور قبله، ومعرفته تحتاج إلى السياق السابق."
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "قال ابن حجر: \"وهو صحيح الإسناد\".",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم ابن حجر على الإسناد بالصحة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا حكم على حديث سابق غير مذكور هنا، فلا يُعرف كامل محلّ التصحيح من هذا المقتطف وحده."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 6,
+    "end_word": 15,
+    "text_snippet": "3- تحريم النميمة بين الناس وأنها من أسباب عذاب القبر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم النميمة وأنها سبب من أسباب عذاب القبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "4- رحمة النبي صلى الله عليه وسلم بأصحابه وحرصه على إبعاد الشر عنهما.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إظهار رحمة النبي صلى الله عليه وسلم بأصحابه وحرصه على دفع الشر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله: «عنهما» يعود إلى شخصين مذكورين قبل هذا المقتطف، فلا يكتمل المرجع داخله."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 29,
+    "end_word": 41,
+    "text_snippet": "5- الستر على الذنوب والعيوب. فإنه لم يصرح باسمي صاحبي القبرين، ولعله مقصو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "استفادة خلق الستر على الذنوب والعيوب من عدم التصريح باسمَي صاحبي القبرين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج إلى معرفة قصة صاحبي القبرين السابقة، لكن أصل الاستدلال على الستر مفهوم من نفس الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 42,
+    "end_word": 73,
+    "text_snippet": "6- قوله: \"ما يعذبان في كبير\" أي بسبب ذنب كبير تركه كليهما، فإن ترك النميم",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "شرح معنى قوله: «ما يعذبان في كبير» وبيان وجهه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفسر عبارة واردة في حديث سابق غير منقول كاملا، لكن المعنى المقصود من العبارة وعلته مذكوران هنا."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 74,
+    "end_word": 102,
+    "text_snippet": "فائدة: اختلف العلماء في انتفاع الميت بعمل الحي حينما يجعل الحي ثواب قربته ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عرض الخلاف في إهداء ثواب عمل الحي للميت وذكر قول الإمام أحمد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "وردت الإشارة إلى «النصوص الواردة فيه» دون نقلها، فالدليل غير مكتمل داخل الوحدة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 103,
+    "end_word": 138,
+    "text_snippet": "أما ابن تيمية فقد نقل عنه في ذلك قولان:\nأحدهما: أنه ينتفع بذلك باتفاق الأئ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان القولين المنقولين عن ابن تيمية في انتفاع الميت بإهداء القرب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 139,
+    "end_word": 155,
+    "text_snippet": "وقال الصنعانى: الميت يصح أن يوهب له أي قربة.. أما لحوق سائر القرب ففيها خلا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "قول الصنعاني في جواز هبة القرب للميت وترجيحه لحوق سائر القرب به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 156,
+    "end_word": 174,
+    "text_snippet": "وذكر ابن تيمية أن الأخبار قد استفاضت بمعرفة الميت بأحوال أهله وأصحابه في ال",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "ذكر استفاضة الأخبار في معرفة الميت بأحوال أهله وسروره وحزنه بها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال إلى «الأخبار» دون نقل نصوصها، فالإثبات التفصيلي يحتاج إلى الرجوع للمصادر."
+  }
+]

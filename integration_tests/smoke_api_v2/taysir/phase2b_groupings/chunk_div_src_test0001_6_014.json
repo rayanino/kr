@@ -1,0 +1,71 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 29,
+    "text_snippet": "الفاء للترتيب. وقد صرح. بذلك في بعض الأحاديث.\nمنها ما رواه النسائي عن أم سلمة أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "إثبات أن الفاء تفيد الترتيب مع الاستدلال بحديث أم سلمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بضمير «بذلك» إلى معنى سابق غير مذكور هنا، كما أن دلالة الحديث على محل الترتيب تحتاج معرفة السياق الأسبق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 30,
+    "end_word": 57,
+    "text_snippet": "3- أن يجيب المؤذن في كل أحواله، إن لم يكن في خلاء أو على حاجته، لأن كل ذكر ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "حكم إجابة المؤذن في جميع الأحوال مع استثناء حال الخلاء وقضاء الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 58,
+    "end_word": 167,
+    "text_snippet": "4- ظاهر الحديث أن السامع يجيب المؤذن بمثل ما يقول في كل جمل الأذان.\nوالذي عند ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان حكم جواب الحيعلة وأن الجمهور يقولون الحوقلة مع الحديث والتعليل.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة «ظاهر الحديث» تشير إلى حديث سبق ذكره خارج الوحدة، لكن رأي الجمهور ودليله الحديثي والتعليل العقلي مذكوران بما يكفي لفهم المسألة إجمالاً."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 168,
+    "end_word": 213,
+    "text_snippet": "فائدة:\nروى البخاري في صحيحه، عن جابر بن عبد الله: أن رسول الله صلى الله عليه و",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فضل الدعاء بعد سماع النداء ونيل شفاعة النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 449,
+    "text_snippet": "9-‌‌ ثناء الناس على الميت.\n26 - والثناء بالخير على الميت من جمع من المسلمين ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "بيان حكم الثناء الصادق على الميت، وعدد الشهود المعتبر، وإبطال الشهادة المبتدعة بعد الجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 450,
+    "end_word": 555,
+    "text_snippet": "الوفاة عند الكسوف؟\n27 - وإذا اتفق وفاة أحد مع انكساف الشمس أو القمر فلا يدل ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "إبطال الاعتقاد بأن الكسوف عند وفاة شخص يدل على عظمته، وبيان أنه آية للتخويف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

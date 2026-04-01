@@ -1,0 +1,120 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌باب فضل الحلق وجواز التقصير",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في فضل الحلق وجواز التقصير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 5,
+    "end_word": 134,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما أَنَّ رَسُولَ الله صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث فضل الحلق على التقصير مع المعنى الإجمالي وبيان استثناء عمرة التمتع عند ضيق الوقت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 135,
+    "end_word": 149,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الحلق أو التقصير. والصحيح أنَّ أحدهما واجب للحج و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان مشروعية الحلق أو التقصير وأن أحدهما واجب في الحج والعمرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 150,
+    "end_word": 182,
+    "text_snippet": "2- فضل الحلق على التقصير في حق الرجال، وهو مجمع عليه.\nوهذا ما لم يكن في عمرة مت",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "فضل الحلق على التقصير للرجال مع استثناء المتمتع إذا ضاق الوقت ولم ينبت الشعر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله: «وهذا» يعود إلى تفضيل الحلق المذكور قبله، وهو مفهوم داخل الوحدة، لكن فهم الاستثناء العملي يستفيد من سياق أحكام التمتع."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 183,
+    "end_word": 196,
+    "text_snippet": "3- المراد بالحلق استئصال شعر الرأس بأي شي، والتقصير الأخذ من أطرافه، بقدر أنملة",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الحلق بأنه استئصال الشعر، والتقصير بأنه أخذ أطرافه بقدر أنملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "4- المشروع، هو الاكتفاء بالحلق أو التقصير، لا الإتيان بهما جميعاً.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المشروع أن يكتفي المكلف بالحلق أو بالتقصير دون الجمع بينهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 208,
+    "end_word": 243,
+    "text_snippet": "5- استدل بتفضيل الحلق على التقصير، بأنهما نسكان من مناسك الحج، وليسا لاستباحة ال",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "الاستدلال على أن الحلق والتقصير نسكان مستقلان، وترجيح قول الجمهور والأئمة الأربعة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر ترجيح «الأصح من قولي العلماء» دون تفصيل القول الآخر وأصحابه، فالوحدة مفهومة إجمالاً لكن المقارنة العلمية التامة تحتاج سياقاً أوسع."
+  }
+]

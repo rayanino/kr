@@ -1,0 +1,394 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 86,
+    "text_snippet": "2 - نفع الميت والإحسان إليه بالسلام عليه والدعاء والاستغفار له وهذا خاص ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان نفع الميت المسلم بالسلام والدعاء والاستغفار مع صيغ الأذكار الواردة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 87,
+    "end_word": 334,
+    "text_snippet": "120 - وأما قراءة القرآن عند زيارتها فمما لا أصل له في السنة بل الأحاديث ا",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "إبطال مشروعية قراءة القرآن عند القبور وذكر أدلة السنة وآثار السلف في كراهتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 335,
+    "end_word": 400,
+    "text_snippet": "121 - ويجوز رفع اليدين في الدعاء لها لحديث عائشة رضي الله عنه قالت:\nحسن خ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "جواز رفع اليدين عند الدعاء لأهل القبور بدليل حديث عائشة في البقيع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 401,
+    "end_word": 448,
+    "text_snippet": "122 - ولكنه لا يستقبل القبور حين الدعاء لها بل الكعبة لنهيه صلى الله عليه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "الدعاء عند القبور يكون باستقبال القبلة لا القبور؛ لأن الدعاء من العبادة وله حكم الصلاة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "استدل بالنهي عن الصلاة إلى القبور مع إحالة ضمنية إلى دليل سيأتي، ونص الحديث المشار إليه غير مذكور كاملا داخل الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 449,
+    "end_word": 534,
+    "text_snippet": "123 - وإذا زار قبر الكافر فلا يسلم عليه ولا يدعوه له بل يبشره بالنار كذلك",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "حكم زيارة قبر الكافر: لا سلام ولا دعاء له، بل يُخبر بما ورد من الوعيد بالنار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 535,
+    "end_word": 596,
+    "text_snippet": "124 - ولا يمشي بين قبور المسلمين في نعليه لحديث بشير بن الحنظلية المتقدم.",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "النهي عن المشي بين قبور المسلمين بالنعلين وذكر حديث صاحب السبتيتين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في أول الحديث إحالة إلى كونه متقدما، لكن متن الدليل الأساس مذكور بما يكفي لفهم الحكم."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 597,
+    "end_word": 637,
+    "text_snippet": "125 - ولا يشرع وضع الأس ونحوها من الرياحين والورود على القبور لأنه لم يكن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "عدم مشروعية وضع الرياحين والورود على القبور لأنه ليس من عمل السلف وهو من البدع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18,
+      19,
+      20
+    ],
+    "start_word": 638,
+    "end_word": 670,
+    "text_snippet": "126 - ويحرم عند القبور ما يأتي:\n1 - الذبح لوجه الله لقوله صلى الله عليه و",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "تحريم الذبح عند القبور ولو كان لوجه الله، مع بيان صورة العقر الجاهلي عند القبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 671,
+    "end_word": 897,
+    "text_snippet": "2- رفعها زيادة على التراب الخارج منها.\n3 - طليها بالكلس ونحوه.\n4 - الكتاب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "condition_exception",
+      "cross_reference"
+    ],
+    "description_arabic": "المحرمات المتعلقة بهيئة القبر: رفعه وتجصيصه والكتابة والبناء والقعود عليه مع أدلتها وضبط التسوية المشروعة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      33,
+      34
+    ],
+    "start_word": 898,
+    "end_word": 972,
+    "text_snippet": "الخامس: عن أبي هريرة أن رسول الله صلى الله عليه وسلم قال:\n\"لأن يجلس أحدك",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "التغليظ في الجلوس على القبر أو المشي عليه بذكر الوعيد الشديد في الحديثين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "start_word": 973,
+    "end_word": 1166,
+    "text_snippet": "السابع: عن أبي مرثد الغنوي قال: سمعت رسول الله صلى الله عليه وسلم يقول: \"",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement",
+      "opinion_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "تحريم الصلاة إلى القبور، وبيان درجته، وأن قصد تعظيمها يفضي إلى الشرك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "start_word": 1167,
+    "end_word": 1253,
+    "text_snippet": "8 - الصلاة عندها ولو بدون استقبال وفيه أحاديث:\nالأول: عن أبي سعيد الخدري ",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "النهي عن الصلاة عند القبور ولو بلا استقبال، والاستدلال بأحاديث المقبرة والبيوت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "start_word": 1254,
+    "end_word": 1590,
+    "text_snippet": "9 - بناء المساجد عليها.\nوفيه أحاديث أذكر بعضها:\nالأول: عن عائشة وعبد الله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "definition",
+      "editorial_note"
+    ],
+    "description_arabic": "تحريم اتخاذ القبور مساجد وبيان أن ذلك يشمل البناء عليها والصلاة إليها والسجود عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      55
+    ],
+    "start_word": 1591,
+    "end_word": 1633,
+    "text_snippet": "10 - اتخاذها عيدا تقصد في أوقات معينة ومواسم معروفة للتعبد عندها أو لغيرها",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "النهي عن اتخاذ القبور عيدا يقصد في أوقات مخصوصة، بدليل حديث أبي هريرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "start_word": 1634,
+    "end_word": 1795,
+    "text_snippet": "11 - السفر إليها:\nوفيه أحاديث:\nالأول:\nعن أبي هريرة عن النبي صلى الله عليه",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "النهي عن شد الرحال إلى القبور والمواضع غير المساجد الثلاثة، مع تطبيق الصحابة لذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65,
+      66
+    ],
+    "start_word": 1796,
+    "end_word": 1948,
+    "text_snippet": "12 - إيقاد السرج عندها.\nوالدليل على ذلك عدة أمور:\nأولا: كونه بدعة محدثة لا",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "evidence_hadith",
+      "cross_reference",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "تحريم إيقاد السرج على القبور لكونه بدعة وإضاعة مال وتشبها بالمجوس، مع تعليل المؤلف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن إحالة إلى المسألة 42 في دليل إضاعة المال، مما يجعل بعض وجه الاستدلال معتمدا على سياق سابق."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      67,
+      68,
+      69,
+      70,
+      71,
+      72
+    ],
+    "start_word": 1949,
+    "end_word": 2374,
+    "text_snippet": "13 - كسر عظامها.\nوالدليل عليه قوله صلى الله عليه وسلم: \"إن كسر عظم المؤمن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement",
+      "opinion_statement",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "تحريم كسر عظام الميت المؤمن وحرمة نبش قبره بغير سبب شرعي، مع تطبيقات معاصرة على المقابر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في نقل النووي إحالة إلى المسألة 107 بقول: كنحو ما سبق، لكن أصل الحكم والضابط العام واضحان داخل الوحدة."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      73,
+      74,
+      75,
+      76,
+      77
+    ],
+    "start_word": 2375,
+    "end_word": 2459,
+    "text_snippet": "2 - أنه لا حرمة لعظام غير المؤمنين لإضافة العظم إلى المؤمن في قوله:\nعظم ا",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement",
+      "structural_transition",
+      "rule_statement",
+      "cross_reference"
+    ],
+    "description_arabic": "بيان أن عظام غير المؤمن لا تلحقها حرمة عظام المؤمن، وتطبيق ذلك على التشريح الطبي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاحه برقم فرعي يدل على كونه متفرعا عن المسألة السابقة، مع إحالة إلى المسألة التالية، لكن الحكم المقصود مفهوم."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      78,
+      79,
+      80
+    ],
+    "start_word": 2460,
+    "end_word": 2688,
+    "text_snippet": "127 - ويجوز نبش قبور الكفار لأنه لا حرمة لها كما دل عليه مفهوم الحديث السا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز نبش قبور الكفار وعدم حرمتها، والاستدلال بقصة نبش قبور المشركين لبناء المسجد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذكر أن الحكم دل عليه مفهوم الحديث السابق، لكن حديث أنس المنقول وتخريج الحافظ يكفيان لفهم أصل المسألة."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      81
+    ],
+    "start_word": 2689,
+    "end_word": 2720,
+    "text_snippet": "وهذا آخر ما يسر الله تبارك وتعالى من تلخيص أحكام الجنائز سائلا المولى عز ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "خاتمة المؤلف ودعاؤه بعد الفراغ من تلخيص أحكام الجنائز.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

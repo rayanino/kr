@@ -1,0 +1,1010 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌المعرب والمبني ⌜1⌝\nوالاسم منه معرب ومبني … ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 27,
+    "text_snippet": "يشير إلى أن الاسم ينقسم إلى قسمين:\nأحدهما: المعرب ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 28,
+    "end_word": 56,
+    "text_snippet": "والثاني: المبني وهو ما أشبه الحروف وهو المعني ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 57,
+    "end_word": 104,
+    "text_snippet": "ثم نوع المصنف وجوه الشبه في البيتين الذين بعد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 4,
+    "start_word": 105,
+    "end_word": 117,
+    "text_snippet": "⌜2⌝ كالشبه الوضعي في اسمي جئتنا … والمعنوي ف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 118,
+    "end_word": 126,
+    "text_snippet": "وكنيابة عن الفعل بلا … تأثر وكافتقار أصلا (2)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 127,
+    "end_word": 137,
+    "text_snippet": "ذكر في هذين البيتين وجوه شبه الاسم بالحرف في ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 138,
+    "end_word": 200,
+    "text_snippet": "فالأول: شبهه له في الوضع كأن يكون الاسم موضوع",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 201,
+    "end_word": 300,
+    "text_snippet": "والثاني: شبه الاسم له في المعنى وهو قسمان أحد",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 301,
+    "end_word": 332,
+    "text_snippet": "والثالث: شبهه له في النيابة عن الفعل وعدم التأ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 333,
+    "end_word": 369,
+    "text_snippet": "واحترز بقوله بلا تأثر عما ناب عن الفعل وهو متأ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 370,
+    "end_word": 409,
+    "text_snippet": "وحاصل ما ذكره المصنف أن المصدر الموضوع موضع ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 410,
+    "end_word": 432,
+    "text_snippet": "وهذا الذي ذكره المصنف مبني على أن أسماء الأفعا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 13,
+    "start_word": 433,
+    "end_word": 481,
+    "text_snippet": "والرابع: شبه الحرف في الافتقار اللازم وإليه أش",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 482,
+    "end_word": 493,
+    "text_snippet": "ومعرب الأسماء ما قد سلما … من شبه الحرف كأرض ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 494,
+    "end_word": 548,
+    "text_snippet": "يريد أن المعرب خلاف المبني وقد تقدم أن المبني ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 549,
+    "end_word": 568,
+    "text_snippet": "وينقسم المعرب أيضا إلى متمكن أمكن وهو المنصرف",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 569,
+    "end_word": 585,
+    "text_snippet": "ومصابيح، فغير المتمكن هو المبني والمتمكن هو ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 18,
+    "start_word": 586,
+    "end_word": 595,
+    "text_snippet": "وفعل أمر ومضي بنيا … وأعربوا مضارعا إن عريا (2",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 596,
+    "end_word": 607,
+    "text_snippet": "من نون توكيد مباشر ومن … نون إناث كيرعن من فت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 608,
+    "end_word": 671,
+    "text_snippet": "لما فرغ من بيان المعرب والمبني من الأسماء شرع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 672,
+    "end_word": 702,
+    "text_snippet": "والمبني من الأفعال ضربان:\nأحدهما: ما اتفق على ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 703,
+    "end_word": 724,
+    "text_snippet": "والثاني: ما اختلف في بنائه والراجح أنه مبني وه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 725,
+    "end_word": 796,
+    "text_snippet": "والمعرب من الأفعال هو المضارع ولا يعرب إلا إذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 797,
+    "end_word": 847,
+    "text_snippet": "وكذلك يعرب الفعل المضارع إذا فصل بينه وبين نون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 848,
+    "end_word": 900,
+    "text_snippet": "وهذا هو المراد بقوله وأعربوا مضارعا إن عريا من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 901,
+    "end_word": 974,
+    "text_snippet": "وذهب الأخفش إلى أنه مبني مع نون التوكيد سواء ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 975,
+    "end_word": 985,
+    "text_snippet": "وكل حرف مستحق للبنا … والأصل في المبني أن يسك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 986,
+    "end_word": 998,
+    "text_snippet": "ومنه ذو فتح وذو كسر وضم … كأين أمس حيث والساك",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 29,
+    "start_word": 999,
+    "end_word": 1072,
+    "text_snippet": "الحروف كلها مبنية إذ لا يعتورها ما تفتقر في دل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1073,
+    "end_word": 1101,
+    "text_snippet": "وعلم مما مثلنا به أن البناء على الكسر والضم لا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1102,
+    "end_word": 1112,
+    "text_snippet": "والرفع والنصب اجعلن إعرابا … لاسم وفعل نحو لن ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1113,
+    "end_word": 1124,
+    "text_snippet": "والاسم قد خصص بالجر … كما قد خصص الفعل بأن ين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1125,
+    "end_word": 1136,
+    "text_snippet": "فارفع بضم وانصبن فتحا وجر … كسرا كذكر الله عب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1137,
+    "end_word": 1149,
+    "text_snippet": "واجزم بتسكين وغير ما ذكر … ينوب نحو جا أخو بن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1150,
+    "end_word": 1224,
+    "text_snippet": "أنواع الإعراب أربعة: الرفع والنصب والجر والجزم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1225,
+    "end_word": 1236,
+    "text_snippet": "وارفع بواو وانصبن بالألف … واجرر بياء ما من ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1237,
+    "end_word": 1340,
+    "text_snippet": "شرع في بيان ما يعرب بالنيابة عما سبق ذكره والم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1341,
+    "end_word": 1354,
+    "text_snippet": "⌜10⌝ من ذاك ذو إن صحبة أبانا … والفم حيث الميم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1355,
+    "end_word": 1430,
+    "text_snippet": "أي من الأسماء التي ترفع بالواو وتنصب بالألف وت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1431,
+    "end_word": 1443,
+    "text_snippet": "4 - فإما كرام موسرون لقيتهم … فحسبي من ذو عند",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1444,
+    "end_word": 2117,
+    "text_snippet": "_________\nاستشهد به ابن هشام في أوضح المسالك ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 2118,
+    "end_word": 2134,
+    "text_snippet": "قال ابن منظور في لسان العرب: \" وأما قول الشاع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 43,
+    "start_word": 2135,
+    "end_word": 2181,
+    "text_snippet": "وكذلك يشترط في إعراب الفم بهذه الأحرف زوال الم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 2182,
+    "end_word": 2193,
+    "text_snippet": "أب أخ حم كذاك وهن … والنقص في هذا الأخير أحسن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 45,
+    "start_word": 2194,
+    "end_word": 2203,
+    "text_snippet": "وفي أب وتالييه يندر … وقصرها من نقصهن أشهر (2",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 46,
+    "start_word": 2204,
+    "end_word": 2248,
+    "text_snippet": "يعني أن أبا وأخا وحما تجري مجرى ذو وفم اللذين ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 47,
+    "start_word": 2249,
+    "end_word": 2274,
+    "text_snippet": "وأما هن فالفصيح فيه أن يعرب بالحركات الظاهرة ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 2275,
+    "end_word": 2320,
+    "text_snippet": "⌜11⌝ وإليه أشار بقوله والنقص في هذا الأخير أحس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 49,
+    "start_word": 2321,
+    "end_word": 2380,
+    "text_snippet": "وأشار المصنف بقوله وفي أب وتالييه يندر إلى آخر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2381,
+    "end_word": 2395,
+    "text_snippet": "وهذه اللغة نادرة في أب وتالييه ولهذا قال وفي أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2396,
+    "end_word": 2449,
+    "text_snippet": "واللغة الأخرى في أب وتالييه أن يكون بالألف رفع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2450,
+    "end_word": 2491,
+    "text_snippet": "وحاصل ما ذكره أن في أب وأخ وحم ثلاث لغات أشهره",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2492,
+    "end_word": 2505,
+    "text_snippet": "وشرط ذا الإعراب أن يضفن لا … لليا كجا أخو أبيك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2506,
+    "end_word": 2649,
+    "text_snippet": "ذكر النحويون لإعراب هذه الأسماء بالحروف شروطا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2650,
+    "end_word": 2741,
+    "text_snippet": "ولم يذكر المصنف رحمه الله تعالى من هذه الأربعة",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2742,
+    "end_word": 2768,
+    "text_snippet": "واعلم أن ذو لا تستعمل إلا مضافة ولا تضاف إلى ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2769,
+    "end_word": 2779,
+    "text_snippet": "(1) بالألف ارفع المثنى وكلا … إذا بمضمر مضافا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2780,
+    "end_word": 2787,
+    "text_snippet": "كلتا كذاك اثنان واثنتان … كابنين وابنتين يجري",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2788,
+    "end_word": 2801,
+    "text_snippet": "⌜12⌝\nوتخلف الياء في جميعها الألف … جرا ونصبا بع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2802,
+    "end_word": 2887,
+    "text_snippet": "ذكر المصنف رحمه الله تعالى أن مما تنوب فيه الح",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2888,
+    "end_word": 2905,
+    "text_snippet": "⌜13⌝ فإنه صالح للتجريد فتقول قمر ولكن يعطف عل",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2906,
+    "end_word": 3018,
+    "text_snippet": "وأشار المصنف بقوله بالألف ارفع المثنى وكلا إلى",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 63,
+    "start_word": 3019,
+    "end_word": 3118,
+    "text_snippet": "(2) ثم بين أن اثنين واثنتين يجريان مجرى ابنين ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 64,
+    "start_word": 3119,
+    "end_word": 3137,
+    "text_snippet": "وما ذكره المصنف من أن المثنى والملحق به يكونان",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 65,
+    "start_word": 3138,
+    "end_word": 3160,
+    "text_snippet": "ومن العرب (1) من يجعل المثنى\nوالملحق به بالألف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 66,
+    "start_word": 3161,
+    "end_word": 3171,
+    "text_snippet": "وارفع بواو وبيا اجرر وانصب … سالم جمع عامر ومذ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 3172,
+    "end_word": 3312,
+    "text_snippet": "ذكر المصنف قسمين يعربان بالحروف أحدهما الأسماء",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 68,
+    "start_word": 3313,
+    "end_word": 3451,
+    "text_snippet": "ويشترط في الصفة أن تكون صفة لمذكر عاقل خالية م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 69,
+    "start_word": 3452,
+    "end_word": 3511,
+    "text_snippet": "وأشار المصنف رحمه الله إلى الجامد الجامع للشرو",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 70,
+    "start_word": 3512,
+    "end_word": 3520,
+    "text_snippet": "وشبه ذين وبه عشرونا … وبابه ألحق والأهلونا ⌜14",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 3521,
+    "end_word": 3528,
+    "text_snippet": "أولو وعالمون عليونا … وأرضون شذ والسنونا (2)\nو",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 72,
+    "start_word": 3529,
+    "end_word": 3541,
+    "text_snippet": "وبابه ومثل حين قد يرد … ذا الباب وهو عند قوم ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 73,
+    "start_word": 3542,
+    "end_word": 3595,
+    "text_snippet": "أشار المصنف رحمه الله بقوله وشبه ذين إلى شبه ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 74,
+    "start_word": 3596,
+    "end_word": 3722,
+    "text_snippet": "وجمع المذكر السالم هو ما سلم فيه بناء الواحد و",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 75,
+    "start_word": 3723,
+    "end_word": 3774,
+    "text_snippet": "وأشار بقوله وبابه إلى باب سنة وهو كل اسم ثلاثي",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 76,
+    "start_word": 3775,
+    "end_word": 3821,
+    "text_snippet": "وأشار بقوله: ومثل حين قد يرد ذا الباب إلى أن س",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 77,
+    "start_word": 3822,
+    "end_word": 3836,
+    "text_snippet": "ومنه قوله صلى الله عليه وسلم اللهم اجعلها عليه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 78,
+    "start_word": 3837,
+    "end_word": 3850,
+    "text_snippet": "ومثله قول الشاعر:\nدعاني من نجد فإن سنينه … لعب",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 79,
+    "start_word": 3851,
+    "end_word": 3863,
+    "text_snippet": "الشاهد فيه: إجراء السنين مجرى الحين في الإعراب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 80,
+    "start_word": 3864,
+    "end_word": 3875,
+    "text_snippet": "ونون مجموع وما به التحق … فافتح وقل من بكسره ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 81,
+    "start_word": 3876,
+    "end_word": 3886,
+    "text_snippet": "ونون ما ثني والملحق به … بعكس ذاك استعملوه فان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 82,
+    "start_word": 3887,
+    "end_word": 3898,
+    "text_snippet": "حق نون الجمع وما ألحق به الفتح وقد تكسر شذوذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 83,
+    "start_word": 3899,
+    "end_word": 3907,
+    "text_snippet": "عرفنا جعفرا وبني أبيه … وأنكرنا زعانف آخرين\nوق",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 84,
+    "start_word": 3908,
+    "end_word": 3919,
+    "text_snippet": "9 - أكل الدهر حل وارتحال … أما يبقي علي ولا يق",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 85,
+    "start_word": 3920,
+    "end_word": 3928,
+    "text_snippet": "وماذا تبتغي الشعراء مني … وقد جاوزت حد الأربع",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 86,
+    "start_word": 3929,
+    "end_word": 3937,
+    "text_snippet": "وليس كسرها لغة خلافا لمن زعم ذلك.\nوحق نون المث",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 87,
+    "start_word": 3938,
+    "end_word": 3956,
+    "text_snippet": "نى والملحق به الكسر وفتحها لغة ومنه قوله:\n10\nع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 88,
+    "start_word": 3957,
+    "end_word": 3999,
+    "text_snippet": "وظاهر كلام المصنف رحمه الله تعالى أن فتح النون",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 89,
+    "start_word": 4000,
+    "end_word": 4016,
+    "text_snippet": "(1) ومن الفتح مع الألف قول الشاعر:\n11 - أعرف م",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 90,
+    "start_word": 4017,
+    "end_word": 4026,
+    "text_snippet": "وقد قيل إنه مصنوع (1) فلا يحتج به.\nوما بتا وأل",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 91,
+    "start_word": 4027,
+    "end_word": 4037,
+    "text_snippet": "ف قد جمعا … يكسر في الجر وفي النصب معا (1)\nلما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 92,
+    "start_word": 4038,
+    "end_word": 4118,
+    "text_snippet": "لما فرغ من الكلام على الذي تنوب فيه الحروف عن ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 93,
+    "start_word": 4119,
+    "end_word": 4192,
+    "text_snippet": "⌜16⌝ فإن تاءه أصلية والمراد منه ما كانت الألف ",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 94,
+    "start_word": 4193,
+    "end_word": 4226,
+    "text_snippet": "وحكم هذا الجمع أن يرفع بالضمة وينصب ويجر بالك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 95,
+    "start_word": 4227,
+    "end_word": 4240,
+    "text_snippet": "(2) كذا أولات والذي اسما قد جعل … كأذرعات فيه ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 96,
+    "start_word": 4241,
+    "end_word": 4271,
+    "text_snippet": "أشار بقوله كذا أولات إلى أن أولات تجرى مجرى جم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 97,
+    "start_word": 4272,
+    "end_word": 4332,
+    "text_snippet": "ثم أشار بقوله والذي اسما قد جعل إلى أن ما سمي ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 98,
+    "start_word": 4333,
+    "end_word": 4349,
+    "text_snippet": "الثاني أنه يرفع بالضمة وينصب ويجر بالفتحة ويحذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 99,
+    "start_word": 4350,
+    "end_word": 4378,
+    "text_snippet": "ويروى قوله:\n12 - تنورتها من أذرعات وأهلها … بي",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 100,
+    "start_word": 4379,
+    "end_word": 4393,
+    "text_snippet": "وجر بالفتحة ما لا ينصرف … ما لم يضف أو يك بعد ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 101,
+    "start_word": 4394,
+    "end_word": 4462,
+    "text_snippet": "أشار بهذا البيت إلى القسم الثاني مما ناب فيه ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 102,
+    "start_word": 4463,
+    "end_word": 4470,
+    "text_snippet": "واجعل لنحو يفعلان النونا … رفعا وتدعين وتسألون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 103,
+    "start_word": 4471,
+    "end_word": 4480,
+    "text_snippet": "(3) وحذفها للجزم والنصب سمه … كلم تكوني لتروم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 104,
+    "start_word": 4481,
+    "end_word": 4561,
+    "text_snippet": "⌜18⌝\nلما فرغ من الكلام على ما يعرب من الأسماء ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 105,
+    "start_word": 4562,
+    "end_word": 4612,
+    "text_snippet": "فهذه الأمثلة الخمسة وهي يفعلان وتفعلان ويفعلون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 106,
+    "start_word": 4613,
+    "end_word": 4623,
+    "text_snippet": "ومنه قوله تعالى {فَإِنْ لَمْ تَفْعَلُوا وَلَنْ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 107,
+    "start_word": 4624,
+    "end_word": 4631,
+    "text_snippet": "وسم معتلا من الأسماء ما … كالمصطفى والمرتقي مك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 108,
+    "start_word": 4632,
+    "end_word": 4640,
+    "text_snippet": "ارما ⌜19⌝\nفالأول الإعراب فيه قدرا … جميعه وهو ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 109,
+    "start_word": 4641,
+    "end_word": 4651,
+    "text_snippet": "لذي قد قصرا (2) والثان منقوص ونصبه ظهر … ورفع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 110,
+    "start_word": 4652,
+    "end_word": 4720,
+    "text_snippet": "كذا أيضا يجر ⌜20⌝\nشرع في ذكر إعراب المعتل من ا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 111,
+    "start_word": 4721,
+    "end_word": 4768,
+    "text_snippet": "فالمقصور هو: الاسم المعرب الذي في آخره ألف لاز",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 112,
+    "start_word": 4769,
+    "end_word": 4819,
+    "text_snippet": "وأشار بقوله والثاني منقوص إلى المرتقي\nفالمنقوص",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 113,
+    "start_word": 4820,
+    "end_word": 4830,
+    "text_snippet": "وحكم هذا المنقوص أنه يظهر فيه النصب ⌜21⌝ نحو ر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 114,
+    "start_word": 4831,
+    "end_word": 4838,
+    "text_snippet": "وقال الله تعالى: {يَا قَوْمَنَا أَجِيبُوا دَاعِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 115,
+    "start_word": 4839,
+    "end_word": 4863,
+    "text_snippet": "ويقدر فيه الرفع والجر لثقلهما على الياء (2) نح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 116,
+    "start_word": 4864,
+    "end_word": 4921,
+    "text_snippet": "وعلم مما ذكر أن الاسم لا يكون في آخره واو قبله",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 117,
+    "start_word": 4922,
+    "end_word": 4934,
+    "text_snippet": "وأي فعل آخر منه ألف … أو واو أو ياء فمعتلا عرف",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 118,
+    "start_word": 4935,
+    "end_word": 4962,
+    "text_snippet": "أشار إلى أن المعتل من الأفعال هو ما كان في آخر",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 119,
+    "start_word": 4963,
+    "end_word": 4972,
+    "text_snippet": "فالألف انو فيه غير الجزم … وأبد نصب ما كيدعو ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 120,
+    "start_word": 4973,
+    "end_word": 4981,
+    "text_snippet": "رمي (1)\nوالرفع فيهما انو واحذف جازما … ثلاثهن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 121,
+    "start_word": 4982,
+    "end_word": 5036,
+    "text_snippet": "تقض حكما لازما (2) ذكر في هذين البيتين كيفية ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 122,
+    "start_word": 5037,
+    "end_word": 5057,
+    "text_snippet": "وأشار بقوله وأبد نصب ما كيدعو يرمي إلى أن الن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 123,
+    "start_word": 5058,
+    "end_word": 5079,
+    "text_snippet": "وأشار بقوله والرفع فيهما انو إلى أن الرفع يقدر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 124,
+    "start_word": 5080,
+    "end_word": 5107,
+    "text_snippet": "وأشار بقوله واحذف جازما ثلاثهن إلى أن الثلاث ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 125,
+    "start_word": 5108,
+    "end_word": 5133,
+    "text_snippet": "وحاصل ما ذكره أن الرفع يقدر في الألف والواو وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

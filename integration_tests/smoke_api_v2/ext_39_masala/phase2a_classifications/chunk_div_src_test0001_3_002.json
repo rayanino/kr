@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "5-‌‌ ما يجب على أقارب الميت.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 6,
+    "end_word": 16,
+    "text_snippet": "19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 17,
+    "end_word": 54,
+    "text_snippet": "الأول: الصبر والرضا بالقدر لقوله تعالى: {وَلَنَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 55,
+    "end_word": 132,
+    "text_snippet": "ولحديث أنس بن مالك رضي الله عنه قال:\nمر رسول ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 133,
+    "end_word": 147,
+    "text_snippet": "والصبر على وفاة الأولاد له أجر عظيم وقد جاء في ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 5,
+    "start_word": 148,
+    "end_word": 190,
+    "text_snippet": "أولا: ما من مسلمين يموت لهما ثلاثة من الولد لم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 191,
+    "end_word": 207,
+    "text_snippet": "ثانيا: أيما امرأة مات لها ثلاثة من الولد كانوا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 208,
+    "end_word": 221,
+    "text_snippet": "الثاني: الاسترجاع وهو أن يقولك إنا لله وإنا راجع",
+    "scholarly_function": "definition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 8,
+    "start_word": 222,
+    "end_word": 236,
+    "text_snippet": "اللهم أجرني في مصيبتي واخلف لي خيرا منها لحديث ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 9,
+    "start_word": 237,
+    "end_word": 310,
+    "text_snippet": "20 - ولا ينافي الصبر أن تمتنع المرأة من الزينة ك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 311,
+    "end_word": 344,
+    "text_snippet": "ثم دخلت على زينب بنت جحش حين توفي أخوها فدعت بط",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 345,
+    "end_word": 383,
+    "text_snippet": "21 - ولكنها إذا لم تحد على غير زوجها إرضاء للزوج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 12,
+    "start_word": 384,
+    "end_word": 390,
+    "text_snippet": "ولولا ذلك لسقتها هنا فلتراجع في الأصل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  }
+]

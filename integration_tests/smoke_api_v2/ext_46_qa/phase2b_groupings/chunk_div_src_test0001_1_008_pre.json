@@ -1,0 +1,89 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 9,
+    "text_snippet": "الكتاب السابع\n\nفي‌‌ أحوال مستنبط هذا العلم ومستخرجه\nفيه مسائل",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب الممهد لبحث أحوال مستنبط علم النحو.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 10,
+    "end_word": 298,
+    "text_snippet": "المسألة الأولى\nفي أول من وضع النحو والتصريف\n\nاشتهر أن أول من وضع النحو علي ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "عرض الأقوال والنقول في أول من وضع النحو والتصريف وتسلسل أئمة هذا العلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 299,
+    "end_word": 373,
+    "text_snippet": "الثانية\n\nشرط المستنبط لشيء من مسائل هذا العلم، المرتقي عن رتبة التقليد أن ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان شروط من يستنبط مسائل النحو وما يلزمه من معرفة اللغة والرواة والإجماع والخلاف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 374,
+    "end_word": 443,
+    "text_snippet": "\nالثالثة\n\nلابن مالك في النحو طريقة سلكها بين طريقي البصريين والكوفيين، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح منهج ابن مالك المتوسط بين الكوفيين والبصريين وترجيح ابن هشام له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 444,
+    "end_word": 485,
+    "text_snippet": "\nالرابعة\n\nقال في الخصائص:\n\"إذ أداك القياس إلى شيء ما ثم سمعت العرب قد نط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "تقرير تقديم السماع العربي على القياس، مع تشبيهه بنقض الاجتهاد عند ظهور النص.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قول المصنف: «قال في الخصائص» يعود إلى صاحب الكتاب المعروف عند أهل الفن، وهو ابن جني، ولم يصرح به داخل الوحدة."
+  }
+]

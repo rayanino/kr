@@ -1,0 +1,114 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "المسألة التاسعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 7,
+    "text_snippet": "اختلف: هل بين العربي والعجمي واسطة؟",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 2,
+    "start_word": 8,
+    "end_word": 31,
+    "text_snippet": "فقال ابن عصفور: نعم. قال في (الممتع):\n\" إذا ن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 32,
+    "end_word": 44,
+    "text_snippet": "ورده الخضراوي بأن كل كلام ليس عربيا، فهو عجمي",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 45,
+    "end_word": 81,
+    "text_snippet": "وقول أبو حيان في (شرح التسهيل):\n\"العجمي عندنا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 82,
+    "end_word": 93,
+    "text_snippet": "_ يوافق رأي ابن عصفور، حيث عبر بالنقل، ولا نق",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 6,
+    "start_word": 94,
+    "end_word": 100,
+    "text_snippet": "قال النحاة: وتعرف عجمة الاسم بوجوه ⌜1⌝:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 101,
+    "end_word": 107,
+    "text_snippet": "أحدها: أن ينقل ذلك عن أحد الأئمة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 108,
+    "end_word": 125,
+    "text_snippet": "الثاني: خروجه عن أوزان الأسماء العربية، نحو: إ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 9,
+    "start_word": 126,
+    "end_word": 142,
+    "text_snippet": "الثالث: أن يكون في أوله نون ثم راء، نحو نرجس،",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 143,
+    "end_word": 158,
+    "text_snippet": "الرابع: أن يكون آخره زاي بعد دال، نحو: المهند",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 159,
+    "end_word": 167,
+    "text_snippet": "الخامس: أن يجتمع فيه الصاد والجيم، نحو: الصول",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 12,
+    "start_word": 168,
+    "end_word": 175,
+    "text_snippet": "السادس: أن يجتمع فيه الجيم والقاف، نحو: المنج",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 176,
+    "end_word": 207,
+    "text_snippet": "السابع: أن يكون خماسيا أو رباعيا عاريا من حرو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  }
+]

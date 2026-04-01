@@ -1,0 +1,97 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 64,
+    "text_snippet": "‌‌الندبة\nما للمنادى اجعل لمندوب وما … نكر لم يندب ولا ما أبهما\nويندب ا",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف المندوب وبيان ما يندب من المعارف وما لا يندب من النكرة والمبهم والموصول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 65,
+    "end_word": 128,
+    "text_snippet": "ومنتهى المندوب صله بالألف … متلوها إن كان مثلها حذف\nكذاك تنوين الذي به ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم إلحاق ألف الندبة بآخر المندوب، وحذف الألف الأصلية أو التنوين قبلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 129,
+    "end_word": 294,
+    "text_snippet": "والشكل حتما أوله مجانسا … إن يكن الفتح بوهم لابسا إذا كان آخر ما تلحقه ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement",
+      "example",
+      "cross_reference"
+    ],
+    "description_arabic": "كيفية ضبط ما قبل ألف الندبة، ومتى يفتح، ومتى يجانس بالواو أو الياء دفعًا للبس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 295,
+    "end_word": 343,
+    "text_snippet": "وواقفا زد هاء سكت إن ترد … وإن تشأ فالمد والها لا تزد أي إذا وقف على ال",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "حكم الوقف على المندوب بإلحاق هاء السكت أو الاقتصار على الألف، وعدم إثباتها وصلاً إلا ضرورة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 344,
+    "end_word": 438,
+    "text_snippet": "وقائل واعبديا واعبدا … من في الندا اليا ذا سكون أبدى\nأي إذا ندب المضاف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام ندبة المضاف إلى ياء المتكلم بحسب لغات العرب، وموضع جواز الوجهين واعبديا وواعبدا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,298 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "11-‌‌ تكفين الميت.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 24,
+    "text_snippet": "33 - وبعد الفراغ من غسل الميت يجب تكفينه لأمر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 2,
+    "start_word": 25,
+    "end_word": 33,
+    "text_snippet": "\". . . . وكفنوه. . . .\" الحديث.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "وقد تقدم بتمامه في الفصل 3 فقرة د",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 42,
+    "end_word": 58,
+    "text_snippet": "34 - والكفن أو ثمنه من مال الميت ولو لم يخلف غير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 59,
+    "end_word": 144,
+    "text_snippet": "صحيح هاجرنا مع رسول الله صلى الله عليه وسلم في س",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 145,
+    "end_word": 163,
+    "text_snippet": "35 - وينبغي أن يكون الكفن طائلا سابغا يستر جميع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 164,
+    "end_word": 216,
+    "text_snippet": "أن النبي صلى الله عليه وسلم خطب يوما فذكر رجلا م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 217,
+    "end_word": 232,
+    "text_snippet": "قال العلماء:\nوالمراد بإحسان الكفن نظافته وكثافته",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 9,
+    "start_word": 233,
+    "end_word": 276,
+    "text_snippet": "36 - فإن ضاق الكفن عن ذلك ولم يتيسر السابغ ستر ب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 277,
+    "end_word": 289,
+    "text_snippet": "\"ضعوها مما يلي رأسه وفي رواية: غطوا بها رأسه وا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 290,
+    "end_word": 294,
+    "text_snippet": "وتقدم بتمامه في المسألة 34.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 295,
+    "end_word": 322,
+    "text_snippet": "37 - وإذا قلت الأكفان وكثرت الموتى جاز تكفين الج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 323,
+    "end_word": 415,
+    "text_snippet": "حسن لما كان يوم أحد مر رسول الله صلى الله عليه و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 416,
+    "end_word": 437,
+    "text_snippet": "38 - ولا يجوز نزع ثياب الشهيد التي قتل فيها بل ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 438,
+    "end_word": 440,
+    "text_snippet": "\"زملوهم في ثيابهم\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 441,
+    "end_word": 461,
+    "text_snippet": "39 - ويستحب تكفينه بثوب واحد أو أكثر فوق ثيابه ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 17,
+    "start_word": 462,
+    "end_word": 466,
+    "text_snippet": "وتقدم حديثه في المسألة 34.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 467,
+    "end_word": 485,
+    "text_snippet": "40 - والمحرم يكفن في ثوبيه اللذين مات فيهما لقو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 486,
+    "end_word": 495,
+    "text_snippet": ". . . . وكفنوه في ثوبيه اللذين أحرم فيهما.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 496,
+    "end_word": 502,
+    "text_snippet": "وتقدم بتمامه في الفصل 3 فقرة د",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 503,
+    "end_word": 508,
+    "text_snippet": "41 - ويستحب في الكفن أمور:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 509,
+    "end_word": 515,
+    "text_snippet": "الأول: البياض لقوله صلى الله عليه وسلم:\n\"البسوا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 23,
+    "start_word": 516,
+    "end_word": 525,
+    "text_snippet": "\"البسوا من ثيابكم البياض فإنها خير ثيابكم وكفنو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 526,
+    "end_word": 535,
+    "text_snippet": "الثاني: كونه ثلاثة أثواب لحديث عائشة رضي الله عن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 25,
+    "start_word": 536,
+    "end_word": 559,
+    "text_snippet": "إن رسول الله صلى الله عليه وسلم كفن في ثلاثة أثو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 560,
+    "end_word": 572,
+    "text_snippet": "الثالث: أن يكون أحدها ثوب حبرة1 إذا تيسر لقوله ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 27,
+    "start_word": 573,
+    "end_word": 581,
+    "text_snippet": "\"إذا توفي أحدكم فوجد شيئا فليكفن في ثوب حبرة\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 582,
+    "end_word": 590,
+    "text_snippet": "الرابع: صحيح تبخيره ثلاثا لقوله صلى الله عليه وس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 29,
+    "start_word": 591,
+    "end_word": 595,
+    "text_snippet": "\"إذا أجمرتم الميت فأجمروه ثلاثا\"",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 596,
+    "end_word": 609,
+    "text_snippet": "وهذا الحكم لا يشمل المحرم لقوله صلى الله عليه وس",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 31,
+    "start_word": 610,
+    "end_word": 617,
+    "text_snippet": ". . . . \"ولا تطيبوه. . .\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 618,
+    "end_word": 663,
+    "text_snippet": "42 - ولا يجوز المغالاة في الكفن ولا الزيادة فيه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 664,
+    "end_word": 674,
+    "text_snippet": "\"إن الله كره لكم ثلاثا: قيل وقال وإضاعة المال و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 675,
+    "end_word": 688,
+    "text_snippet": "ويعجبني بهذه المناسبة ما قاله العلامة أو الطيب ف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 35,
+    "start_word": 689,
+    "end_word": 738,
+    "text_snippet": "وليس تكثير الأكفان والمغالاة في أثمانها بمحمود ف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 36,
+    "start_word": 739,
+    "end_word": 749,
+    "text_snippet": "43 - والمرأة في ذلك كالرجل إذ لا دليل على التفري",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  }
+]

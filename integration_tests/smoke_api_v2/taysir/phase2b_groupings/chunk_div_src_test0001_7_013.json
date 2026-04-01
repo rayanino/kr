@@ -1,0 +1,104 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 22,
+    "text_snippet": "2- علة النهي أن النساء لا يطقن مثل هذه المشاهد المحزنة والمواقف المؤثرة، فربما ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان العلة العقلية للنهي عن اتباع النساء للجنائز.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر علة النهي دون ذكر المنهي عنه كاملاً في نفس الوحدة، فيحتاج إلى معرفة السياق السابق وهو اتباع النساء للجنائز."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 23,
+    "end_word": 43,
+    "text_snippet": "3- الأصل في النهي التحريم إلا أن أم عطية فهمت من قرينة الحال أن نهيهن عن اتباع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الأصل أن النهي للتحريم مع استثناء مستفاد من قرينة حال حديث أم عطية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة إجمالاً، لكنها تعتمد على معرفة حديث أم عطية وقرينة الحال التي استندت إليها في فهم عدم الجزم."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 44,
+    "end_word": 64,
+    "text_snippet": "4- لكن قال ابن دقيق العيد: قد وردت أحاديث أدل على التشديد في اتباع الجنائز أكث",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل ترجيح ابن دقيق العيد لوجود أحاديث أشد في النهي عن اتباع الجنائز.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يقرر وجود أحاديث أقوى دلالة على التشديد دون ذكر نصوصها، فيحتاج الطالب إلى السياق السابق أو الأدلة المشار إليها."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 65,
+    "end_word": 187,
+    "text_snippet": "‌‌بَابٌ في مَوقِف الإمام من الميت\nعَنْ سمرة بنِ جُنْدَب رضي الله عنه قال: صَليت",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "example",
+      "narration"
+    ],
+    "description_arabic": "حديث موقف الإمام من المرأة في صلاة الجنازة مع شرح ألفاظه ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 188,
+    "end_word": 196,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الصلاة على الجنازة ومشروعيتها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استفادة مشروعية الصلاة على الجنازة من الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 197,
+    "end_word": 224,
+    "text_snippet": "2- أن موقف الإمام من المرأة يكون وسطها، سواء ماتت من نفاس أو غيره.\nفالعبرة من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم وقوف الإمام عند وسط المرأة في الجنازة وأن النفاس غير مؤثر في الحكم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

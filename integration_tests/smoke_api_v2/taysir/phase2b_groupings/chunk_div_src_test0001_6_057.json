@@ -1,0 +1,516 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "3- أن النفساء- وإن حازت الشهادة بموتها في نفاسها- يصلى عليها فلا تأخذ حكم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم النفساء إذا ماتت في نفاسها وأنها تُصلَّى عليها ولا تأخذ حكم شهيد المعركة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "4- علل بعضهم الحكمة في الوقوف وسط المرأة بأنه أستر لها من الناس.",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تعليل بعض العلماء للوقوف وسط جنازة المرأة بأنه أستر لها من الناس.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم التعليل، لكن يحتاج القارئ لمعرفة الحكم السابق المقصود وهو موضع وقوف الإمام عند صلاة الجنازة على المرأة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 29,
+    "end_word": 78,
+    "text_snippet": "فائدة:\nموقف الإمام من الرجل إزاء رأسه، لما روى الترمذي وحسنه \"أن أنساً صَلَّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان موضع وقوف الإمام في صلاة الجنازة: عند رأس الرجل ووسط المرأة بدليل حديث أنس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 79,
+    "end_word": 105,
+    "text_snippet": "وإذا اجتمع جنائز، فيكفيهن صلاة واحدة.\nفإن كانوا نوعاً واحدا، قدم إلى الأمام ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "أحكام ترتيب الجنائز المجتمعة: تكفيها صلاة واحدة، ويقدَّم الأفضل، ويقدَّم الرجال على النساء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 106,
+    "end_word": 129,
+    "text_snippet": "والصلاة على الجنازة شفاعة من المصلين للميت.\nفينبغي إخلاص الدعاء، وإحضار القلب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الصلاة على الجنازة شفاعة للميت، ولذلك يُشرع إخلاص الدعاء وإحضار القلب فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 130,
+    "end_word": 168,
+    "text_snippet": "‌‌‌‌باب في تحْريم التسخط بالفعل والقول\nالحديث الأول\nعَنْ أبي ⌜1⌝ مُوسَى- عَبْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث البراءة من الصالقة والحالقة والشاقة مع تفسير الصالقة وبيان تحريم التسخط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 169,
+    "end_word": 425,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي عَبدِ الله بن مَسعُوُد رَضىَ الله عَنْهُ عَن النبيِّ صل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "حديث تحريم ضرب الخدود وشق الجيوب ودعوى الجاهلية مع شرح ألفاظه ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 426,
+    "end_word": 514,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم التسخط من أقدار الله المؤلمة، وإظهار ذلك بالنياحة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم التسخط من أقدار الله، وتقليد الجاهلية، وكون هذه الأفعال من الكبائر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا مأخوذ من الحديث السابق، وبعض الاستدلال على كونها من الكبائر مبني على براءة النبي ممن فعلها، وهو مفهوم أكثر مع معرفة النص السابق."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 515,
+    "end_word": 545,
+    "text_snippet": "والنبي صلى الله عليه وسلم حزن وذرفت عيناه وقال: لا نقول إلا ما يرضى الرب. وبع",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "إثبات جواز الحزن والبكاء غير المنافي للصبر، مع الإشارة إلى اختلاف أنظار العلماء فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفيد المعنى العام، لكن عبارة \"وبعضهم استحب البكاء\" وذكر آراء العلماء تحتاج سياقاً أوسع لبيان محل الخلاف وحدوده."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 546,
+    "end_word": 717,
+    "text_snippet": "فائدتان:\nالأولى: الإيمان بالله تعالى، وحسن رجاء العبد بره ومثوبته، ظل ظليل يأو",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "أثر الإيمان والرجاء في تهوين المصائب ومنع اليأس، مع الاستشهاد بحديث عجبًا للمؤمن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 718,
+    "end_word": 941,
+    "text_snippet": "الثانية: مذهب أهل السنة والجماعة، أن المسلم لا يخرج من دائرة الإسلام بمجرد فع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "definition",
+      "condition_exception",
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "بيان مذهب أهل السنة في عدم تكفير صاحب الكبيرة، وتأويل نصوص الوعيد بتفصيل ابن تيمية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 942,
+    "end_word": 1161,
+    "text_snippet": "الحديث الثالث\nعَنْ عَائِشَةَ رضي الله عنها قالت: لَمَّا اشتَكَى النَبي صلى الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث كنيسة الحبشة وبيان خطر بناء المساجد على القبور والتصاوير وأن فاعليه شرار الخلق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      41
+    ],
+    "start_word": 1162,
+    "end_word": 1190,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم البناء على القبور، وأنه من التشبه بالمشركين، ومن و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم البناء على القبور وكونه من التشبه بالمشركين ومن وسائل الشرك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "القاعدة مفهومة، لكنها منصوصة على أنها مستفادة من الحديث السابق، فمعرفة الحديث تزيد اكتمال الاستدلال."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 1191,
+    "end_word": 1343,
+    "text_snippet": "قال ابن دقيق العيد رحمه الله: فيه دليل على تحريم مثل هذا الفعل، وقد تظاهرت دل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "أقوال العلماء في تحريم تصوير ذوات الأرواح، والرد على التفريق بين ما له ظل وما لا ظل له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      46
+    ],
+    "start_word": 1344,
+    "end_word": 1364,
+    "text_snippet": "3- أن من عمل هذا، فهو من شر خلق الله لما في عمله من المحاذير الكثيرة والعواقب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من بنى على القبور أو صور لأجلها فهو من شرار الخلق لعظم محاذير فعله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة \"هذا\" يعود إلى الأفعال المذكورة في الحديث السابق وفوائده، فلا يتضح المراد تماماً دونها."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      47
+    ],
+    "start_word": 1365,
+    "end_word": 1382,
+    "text_snippet": "4- فيه كمال نصح النبي صلى الله عليه وسلم إذ لم يصرفه عن الموعظة ما يقاسيه من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إظهار كمال نصح النبي صلى الله عليه وسلم واهتمامه بالموعظة رغم شدة المرض.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في \"فيه\" يعود إلى الحديث السابق، فالفائدة مفهومة إجمالاً لكنها مرتبطة بسياق الرواية السابقة."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 1383,
+    "end_word": 1544,
+    "text_snippet": "الحديث الرابع\nعن عَائشة رضي الله عنها قالت قَالَ رَسول الله صلى الله عليه وسلم",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث لعن متخذي قبور الأنبياء مساجد، وشرح سببه، وعمل الصحابة في صيانة قبره الشريف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      54,
+      55,
+      56
+    ],
+    "start_word": 1545,
+    "end_word": 1673,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي الأكيد، والتحريم الشديد، من اتخاذ القبور مساجد، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "تحريم اتخاذ القبور مساجد والصلاة عندها، مع بيان ذريعة الشرك والاستدلال بأثر السلف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1674,
+    "end_word": 1691,
+    "text_snippet": "2- أن هذا من فعل اليهود والنصارى، فمن فعله فقد اقتفى أثرهم، وترك سنة محمد علي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اتخاذ القبور مساجد من فعل اليهود والنصارى، وفاعله متبع لسبيلهم تارك للسنة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة \"هذا\" يحتاج الرجوع إلى الفعل المذكور قبله، وهو اتخاذ القبور مساجد أو الصلاة عندها."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1692,
+    "end_word": 1706,
+    "text_snippet": "3- أن الصلاة عند القبر، سواء كانت بمسجد أو بغير مسجد، من وسائل الشرك الأكبر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الصلاة عند القبور، في مسجد أو غيره، وسيلة من وسائل الشرك الأكبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1707,
+    "end_word": 1726,
+    "text_snippet": "4- أن الله تعالى صان نبيه عليه الصلاة والسلام عن أن يُعْمَلَ الشرك عنده، فألهم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من حفظ الله لنبيه أن صانه عن وقوع الشرك عند قبره وألهم أصحابه صيانة ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1727,
+    "end_word": 1737,
+    "text_snippet": "5- أن هذا من وصاياه الأخيرة التي أعدها لآخر أيامه لتحفظ.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التحذير من اتخاذ القبور مساجد من وصايا النبي الأخيرة المؤكدة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة \"هذا\" يعود إلى النهي المذكور في الحديث السابق، فلا يستغني تماماً عن سياقه."
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 1738,
+    "end_word": 1868,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي هُريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "narration"
+    ],
+    "description_arabic": "حديث القيراطين في شهود الجنازة والصلاة عليها ودفنها، مع بيان عظم الثواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      65,
+      66
+    ],
+    "start_word": 1869,
+    "end_word": 1912,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الفضل العظيم في الصلاة على الجنازة وتشييعها حتى تدفن. وق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "فضل الصلاة على الجنازة وتشييعها حتى تدفن، وذكر أفضلية المشي أمامها عند الجمهور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      67
+    ],
+    "start_word": 1913,
+    "end_word": 1926,
+    "text_snippet": "2- أنه يحصل للمصلى والمشيع حتى تدفن، ثواب لا يعلم قدره إلا الله تعالى.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من صلى على الجنازة وشيعها حتى تدفن نال ثواباً عظيماً لا يحيط بقدره إلا الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      68
+    ],
+    "start_word": 1927,
+    "end_word": 1940,
+    "text_snippet": "3- أن في الصلاة على الميت، وتشييع جنازته، إحساناً إلى الميت، وإلى المصلى والمش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الصلاة على الميت وتشييع جنازته إحسان متعدٍّ إلى الميت وإلى المصلين والمشيعين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      69
+    ],
+    "start_word": 1941,
+    "end_word": 1955,
+    "text_snippet": "4- فضل الله تعالى على الميت، حيث حض على تكثير الشفعاء له بأجر من عنده.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من فضل الله على الميت أنه رغّب الناس في الشفاعة له بأجور عظيمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      70,
+      71
+    ],
+    "start_word": 1956,
+    "end_word": 1973,
+    "text_snippet": "5- أن نسبة الثواب بنسبة الأعمال التي يقوم بها العبد.\nحيث إنه جعل للمصلى قيراط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الثواب يزداد بزيادة العمل؛ فللمصلي قيراط ولمن صلى وشيّع حتى الدفن قيراطان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      72,
+      73,
+      74
+    ],
+    "start_word": 1974,
+    "end_word": 2052,
+    "text_snippet": "زيارة القبور:\nقال شيخ الإسلام ابن تيمية: الزيارة تنقسم إلى قسمين: زيارة شرعية",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم زيارة القبور إلى شرعية، وبيان أن الشرعية قصد السلام على الميت والدعاء له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      75,
+      76
+    ],
+    "start_word": 2053,
+    "end_word": 2106,
+    "text_snippet": "وأما الزيارة البدعية فمثل قصد قبر بعض الأنبياء والصالحين للصلاة عنده، أو الدعا",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف الزيارة البدعية للقبور وذكر صورها والحكم بأنها من البدع المنهي عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

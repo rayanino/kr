@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "2- مشروعية تكبيرة الركوع، وأن يكون في حال الان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 22,
+    "text_snippet": "3- التسميع للإمام والمنفرد، ويكون في حال الرفع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 23,
+    "end_word": 32,
+    "text_snippet": "4- التحميد لكل من الإمام، والمأموم، والمنفرد، ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 33,
+    "end_word": 38,
+    "text_snippet": "5- الطمأنينة بعد الرفع من الركوع.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 39,
+    "end_word": 47,
+    "text_snippet": "6- التكبير في حال الهوِي من القيام إلى السجود.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 48,
+    "end_word": 57,
+    "text_snippet": "7- التكبير حال الرفع من السجود إلى الجلوس بين ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 58,
+    "end_word": 68,
+    "text_snippet": "8- أن يفعل ما تقدم- عدا تكبيرة الإحرام- في جميع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 69,
+    "end_word": 81,
+    "text_snippet": "9- التكبير حيال القيام من التشهد الأول إلى القيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 82,
+    "end_word": 111,
+    "text_snippet": "10- المفهوم من لفظ (حين) أن التكبير يقارن الانت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 112,
+    "end_word": 127,
+    "text_snippet": "11- ذكر ناصر الدين بن المنير أن تجديد التكبير ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 128,
+    "end_word": 157,
+    "text_snippet": "فائدة:\nورد في بعض روايات الحديث \"ربنا لَكَ الحم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 11,
+    "start_word": 158,
+    "end_word": 159,
+    "text_snippet": "الحديث السابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 160,
+    "end_word": 204,
+    "text_snippet": "عَنْ البَرَاء بن عَازِبٍ رضي الله عنهما قال: رَم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  }
+]

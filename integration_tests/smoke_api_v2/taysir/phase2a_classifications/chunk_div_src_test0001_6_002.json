@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "قال ابن حجر: \"وهو صحيح الإسناد\".",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 6,
+    "end_word": 15,
+    "text_snippet": "3- تحريم النميمة بين الناس وأنها من أسباب عذاب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "4- رحمة النبي صلى الله عليه وسلم بأصحابه وحرص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 3,
+    "start_word": 29,
+    "end_word": 33,
+    "text_snippet": "5- الستر على الذنوب والعيوب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "فإنه لم يصرح باسمي صاحبي القبرين، ولعله مقصود.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 5,
+    "start_word": 42,
+    "end_word": 73,
+    "text_snippet": "6- قوله: \"ما يعذبان في كبير\" أي بسبب ذنب ك",
+    "scholarly_function": "definition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 6,
+    "start_word": 74,
+    "end_word": 81,
+    "text_snippet": "فائدة: اختلف العلماء في انتفاع الميت بعمل الحي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 7,
+    "start_word": 82,
+    "end_word": 91,
+    "text_snippet": "حينما يجعل الحي ثواب قربته البدنية أو المالية",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 8,
+    "start_word": 92,
+    "end_word": 102,
+    "text_snippet": "فقال الإمام أحمد: الميت يصل إليه كل خير للنص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 103,
+    "end_word": 111,
+    "text_snippet": "أما ابن تيمية فقد نقل عنه في ذلك قولان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 10,
+    "start_word": 112,
+    "end_word": 117,
+    "text_snippet": "أحدهما: أنه ينتفع بذلك باتفاق الأئمة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 118,
+    "end_word": 138,
+    "text_snippet": "الثاني: أنه لم يكن من عادة السلف إذا فعلوا إحد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 139,
+    "end_word": 153,
+    "text_snippet": "وقال الصنعانى: الميت يصح أن يوهب له أي قربة.. ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 154,
+    "end_word": 155,
+    "text_snippet": "والحق لحوقها.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 156,
+    "end_word": 174,
+    "text_snippet": "وذكر ابن تيمية أن الأخبار قد استفاضت بمعرفة ال",
+    "scholarly_function": "narration",
+    "confidence": 0.58
+  }
+]

@@ -1154,7 +1154,7 @@ async function initComparison(){
     cmpPairs=await pr.json();
     cmpResponses=await rr.json();
     if(!cmpPairs.length){
-      $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. Ensure smoke_api and campaign_20260331 packages exist with excerpts.</div>';
+      $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
       return;
     }
     $("cmp-loading").style.display="none";
@@ -1195,7 +1195,7 @@ function cmpGo(index){
       <div class="cmp-cols">
         <div class="cmp-col${after?"":" empty"}">
           <div class="cmp-col-header">
-            <span class="cmp-col-label before">Before (new hardened prompts)</span>
+            <span class="cmp-col-label before">Before (old prompts — campaign run)</span>
             <div style="display:flex;gap:0.5rem;align-items:center">
               <span class="cmp-col-fn">${esc(before.primary_function||"?")}</span>
               <span class="cmp-col-sc">${esc(before.self_containment||"FULL")}</span>
@@ -1209,7 +1209,7 @@ function cmpGo(index){
         </div>
         <div class="cmp-col${after?"":" empty"}">
           <div class="cmp-col-header">
-            <span class="cmp-col-label after">After (old prompts — campaign run)</span>
+            <span class="cmp-col-label after">After (new hardened prompts)</span>
             ${after?`<div style="display:flex;gap:0.5rem;align-items:center">
               <span class="cmp-col-fn">${esc(after.primary_function||"?")}</span>
               <span class="cmp-col-sc">${esc(after.self_containment||"FULL")}</span>

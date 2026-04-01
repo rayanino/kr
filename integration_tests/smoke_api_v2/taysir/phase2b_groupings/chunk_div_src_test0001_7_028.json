@@ -1,0 +1,252 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 91,
+    "text_snippet": "‌‌بَابُ تحْريم بَيْع الخبائث\nمن صفات النبي صلى الله عليه وسلم في الكتب الساب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "بيان قاعدة الشريعة في تحليل الطيبات وتحريم الخبائث وعمومها في المستجدات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 92,
+    "end_word": 167,
+    "text_snippet": "الحديث الأول\nعَنْ جَابرِ رَضَ الله عَنْهُ: أنَهُ سَمِعَ رَسُول الله صلى الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "نص حديث تحريم بيع الخمر والميتة والخنزير والأصنام وسؤال شحوم الميتة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث قائم بذاته غالباً، لكن بعض الألفاظ الغريبة ومعنى الضمير في قوله: «هو حرام» يتضح أكثر من الشرح اللاحق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 168,
+    "end_word": 289,
+    "text_snippet": "الغريب:\nعام الفتح: هو فتح مكة، وكان في السنة الثامنة من الهجرة في شهر رمضان.",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح غريب ألفاظ الحديث وبيان المراد بالمصطلحات والعبارات الواردة فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الوحدة مفهومة في الجملة، لكنها تشرح ألفاظ حديث سابق لم يُذكر نصه داخلها، فبعض الشروح يحسن فهمها بضم الحديث."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 290,
+    "end_word": 543,
+    "text_snippet": "المعنى الإجمالي:\nجاءت هذه الشريعة الإسلامية السامية، بكل ما فيه صلاح للبشر، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "المعنى الإجمالي للحديث وبيان مفاسد الخمر والميتة والخنزير والأصنام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 544,
+    "end_word": 615,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم بيع الخمر وعمله وما يعينها عليه وشربه، أو التدا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم الخمر وكل مسكر وبيان علل التحريم ومفاسده العامة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 616,
+    "end_word": 653,
+    "text_snippet": "3- تحريم الميتة، لحمها، وشحمها، ودمها، وعصبها، وكل ما تسري الحياة فيه من أجزا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم الميتة وأجزائها التي تحلها الحياة وبيان سبب تحريم بيعها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22,
+      23
+    ],
+    "start_word": 654,
+    "end_word": 716,
+    "text_snippet": "4- استثنى جمهور العلماء، الشعر، والوبر، والصوف، والريش من الميتة، لأنه ليس له",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "استثناء أجزاء من الميتة وحكم جلدها بعد الدبغ مع ترجيح قول الجمهور.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "القول والترجيح واضحان، لكن الحديث الدال على تطهير الجلد ذُكر مختصراً دون تخريج أو تمام سياقه."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 717,
+    "end_word": 758,
+    "text_snippet": "5- تحريم بيع الخنزير: - ويحرم أكله وملامسته وقربه، فهو من الخبائث التي هي مفس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم بيع الخنزير وأكله وبيان أضراره الحسية والمعنوية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 759,
+    "end_word": 838,
+    "text_snippet": "6- تحريم بيع الأصنام، لما تجره من شر كبير على العقل، والدين، باتخاذها وترويجه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "تحريم بيع الأصنام وما يلحق بها من الصلبان والتماثيل والصور والأفلام الماجنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 839,
+    "end_word": 875,
+    "text_snippet": "7- أن درء المفاسد مقدم على جلب المصالح. لا سيما إذا كانت المفاسد أرجح من المصا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تقرير قاعدة تقديم درء المفاسد على جلب المصالح بدليل شحوم الميتة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "القاعدة مفهومة، لكن الاستدلال يعتمد على الحديث السابق، وقد أُشير إليه بالمعنى لا بالنص الكامل."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 876,
+    "end_word": 905,
+    "text_snippet": "8- استعمال النجاسة على وجه لا يتعدى لا بأس به، فإنه لم ينههم عنه لما أعلموه ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز استعمال النجاسة إذا لم تتعدَّ وبيان رجوع الضمير إلى البيع لا الاستعمال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحكم واضح، لكن تعليلُه مبني على واقعة الحديث السابقة المشار إليها بالضمائر."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      33,
+      34,
+      35
+    ],
+    "start_word": 906,
+    "end_word": 955,
+    "text_snippet": "9- أن التحيل على محارم الله، سبب لغضبه ولعنه، فإن من يأتي الأمر، عالما تحريمه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "ذم التحيل على المحرمات وبيان أنه أشد من مجرد الوقوع في المعصية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 956,
+    "end_word": 983,
+    "text_snippet": "10- أن الحيل هي سنة اليهود، المغضوب عليهم.\n11- أن حبهم للمادة قديم، حملهم على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان أن التحيل من سنن اليهود وأن حب المادة جرّهم إلى المحرمات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 984,
+    "end_word": 1145,
+    "text_snippet": "قلما ذكر لهم النبي صلى الله عليه وسلم تحريم هذه الأشياء، ذكروا له منافع في شح",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "شرح قصة تحايل اليهود على الشحوم والتحذير من اتباعهم في الحيل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

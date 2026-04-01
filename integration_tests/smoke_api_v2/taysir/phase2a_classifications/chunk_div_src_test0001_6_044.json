@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 21,
+    "text_snippet": "بوقت الحاجة، وهى إذا جدَّ به السير، واختارها شي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 1,
+    "start_word": 22,
+    "end_word": 43,
+    "text_snippet": "قال الباجي: كراهة مالك للجمع خشية أن يفعله من ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 44,
+    "end_word": 57,
+    "text_snippet": "وذهب أبو حنيفة إلى عدم جواز الجمع إلا في عرفة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 58,
+    "end_word": 105,
+    "text_snippet": "واستدل الجمهور بأحاديث الجمع المطلقة عن تقييد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 4,
+    "start_word": 106,
+    "end_word": 137,
+    "text_snippet": "قال ابن عبد البر: هذا الحديث ثابت الإسناد وذك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 5,
+    "start_word": 138,
+    "end_word": 151,
+    "text_snippet": "وفي هذا رد قاطع على من قال: لا يجمع إلا من جد",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 152,
+    "end_word": 188,
+    "text_snippet": "أما دليل الإمام مالك، وشيخ الإسلام، وابن القي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 189,
+    "end_word": 197,
+    "text_snippet": "ولكن عند الجمهور زيادة دلالة في أحاديثها يحسن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 8,
+    "start_word": 198,
+    "end_word": 212,
+    "text_snippet": "ولأن السفر موطن مشقة في النزول والسير، ولأن رخ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 213,
+    "end_word": 238,
+    "text_snippet": "\" وابن القيم \" في \" الهدى \" جعل حديث معاذ ونح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 239,
+    "end_word": 246,
+    "text_snippet": "أما رأى أبي حنيفة فمردود بالسنن الصحيحة الصريح",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 247,
+    "end_word": 247,
+    "text_snippet": "فوائد:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 248,
+    "end_word": 261,
+    "text_snippet": "الأولى: ما ذكره المؤلف في الجمع لأجل السفر وه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 13,
+    "start_word": 262,
+    "end_word": 283,
+    "text_snippet": "منها: المطر، فقد روى \" البخاري \" أن النبي صلى",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 284,
+    "end_word": 298,
+    "text_snippet": "وخص الجمع هناك بالمغرب والعشاء فقط دون الظهر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 15,
+    "start_word": 299,
+    "end_word": 333,
+    "text_snippet": "وكذلك المرض، فقد روى \" مسلم \" أن النبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 334,
+    "end_word": 347,
+    "text_snippet": "وليس هناك إلا المرض. وقد جوزه كثير من العلماء",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 348,
+    "end_word": 375,
+    "text_snippet": "وقال به جماعة من الشافعية فمنهم الخطابي، واخت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 376,
+    "end_word": 384,
+    "text_snippet": "وقد ثبت جواز الجمع للمستحاضة، وهو نوع من المر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 19,
+    "start_word": 385,
+    "end_word": 386,
+    "text_snippet": "الفائدة الثانية:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 387,
+    "end_word": 397,
+    "text_snippet": "أن السفر الذي يباح فيه الجمع، قد اختلف العلماء",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 398,
+    "end_word": 409,
+    "text_snippet": "فجعله الإمامان، الشافعى، وأحمد، يومين قاصدين،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 410,
+    "end_word": 428,
+    "text_snippet": "واختار الشيخ تقي الدين أن كل ما يسمى سفرا، طا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 429,
+    "end_word": 456,
+    "text_snippet": "وقال: إن نصوص الكتاب والسنة ليس فيها تفريق بي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 24,
+    "start_word": 457,
+    "end_word": 467,
+    "text_snippet": "وما ذهب إليه شيخ الإسلام هو مذهب الظاهرية. ون",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 25,
+    "start_word": 468,
+    "end_word": 483,
+    "text_snippet": "وقال \" ابن القيم \" في \" الهدى \": \" وأما مايرو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 484,
+    "end_word": 494,
+    "text_snippet": "أو اليومين، أو الثلاثة، فلم يصح عنه منها شيء ",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 27,
+    "start_word": 495,
+    "end_word": 496,
+    "text_snippet": "الفائدة الثالثة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 497,
+    "end_word": 515,
+    "text_snippet": "عند جمهور العلماء، أن ترك الجمع أفضل من الجم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 516,
+    "end_word": 519,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 520,
+    "end_word": 530,
+    "text_snippet": "1- جواز الجمع بين صلاتي الظهر والعصر، وبين صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 531,
+    "end_word": 546,
+    "text_snippet": "2- عموم الحديث يفيد جواز جمع التقديم والتأخير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 547,
+    "end_word": 562,
+    "text_snippet": "- ظاهره أنه خاص بما إذا جدَّ به السَّيْر، وتقد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 33,
+    "start_word": 563,
+    "end_word": 601,
+    "text_snippet": "قال ابن دقيق العيد: والحديث يدل على الجمع إذا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  }
+]

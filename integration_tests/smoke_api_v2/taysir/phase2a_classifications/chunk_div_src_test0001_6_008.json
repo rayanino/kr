@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 127,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن أحب الأعمال إلى الله تع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 128,
+    "end_word": 128,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 129,
+    "end_word": 261,
+    "text_snippet": "سئل النبي صلى الله عليه وسلم عن المفاضلة في الأ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 3,
+    "start_word": 262,
+    "end_word": 263,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 264,
+    "end_word": 291,
+    "text_snippet": "عن عَائشَةَ قالت: لقَدْ كَانَ النبي صلى الله علي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 292,
+    "end_word": 310,
+    "text_snippet": "قال: المروط، أكسية معلمة تكون من خَزٍّ، وتكون م",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 311,
+    "end_word": 312,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 313,
+    "end_word": 342,
+    "text_snippet": "1- \"معلمة\": بفتح اللام وتشديدها.\n2- \"الغَلَس\": ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 343,
+    "end_word": 344,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 345,
+    "end_word": 385,
+    "text_snippet": "تذكر عائشة رضي الله عنها، أن نساء الصحابة، كن ي",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 10,
+    "start_word": 386,
+    "end_word": 387,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 388,
+    "end_word": 395,
+    "text_snippet": "اختلف العلماء في الأفضل في وقت صلاة الفجر.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 396,
+    "end_word": 410,
+    "text_snippet": "فذهب الحنفية إلى أن الإسفار فيها أفضل، لحديث \"",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 411,
+    "end_word": 414,
+    "text_snippet": "قال الترمذي: حسن صحيح.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 14,
+    "start_word": 415,
+    "end_word": 429,
+    "text_snippet": "وذهب الجمهور، ومنهم الأئمة الثلاثة إلى أن التغ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 430,
+    "end_word": 497,
+    "text_snippet": "وأجابوا عن حديث \" أسفروا بالفجر … إلخ \" بأجوبة",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 498,
+    "end_word": 501,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 502,
+    "end_word": 530,
+    "text_snippet": "1- استحباب المبادرة إلى صلاة الصبح في أول وقته",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 531,
+    "end_word": 532,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 533,
+    "end_word": 576,
+    "text_snippet": "عن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قال: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 577,
+    "end_word": 578,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 579,
+    "end_word": 627,
+    "text_snippet": "1- \" الهاجرة \": هي شدة الحر بعد الزوال. مأخوذة ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 628,
+    "end_word": 629,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 630,
+    "end_word": 668,
+    "text_snippet": "في هذا الحديث بيان الأفضل في الوقت، لأداء الصل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

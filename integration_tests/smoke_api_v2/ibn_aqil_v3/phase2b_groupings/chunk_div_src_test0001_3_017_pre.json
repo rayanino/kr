@@ -1,0 +1,128 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 30,
+    "text_snippet": "فصل\nتابع ذي الضم المضاف دون أل … ألزمه نصبا كأزيد ذا الحيل\nأي إذا كان تابع ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم تابع المنادى المضموم إذا كان مضافا غير مقترن بأل، وأنه يجب نصبه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 31,
+    "end_word": 84,
+    "text_snippet": "وما سواه انصب أو ارفع واجعلا … كمستقل نسقا وبدلا\nأي ما سوى المضاف المذكور ي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان ما يجوز فيه الرفع والنصب من توابع المنادى غير المضاف المجرد من أل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 85,
+    "end_word": 136,
+    "text_snippet": "وأما عطف النسق والبدل ففي حكم المنادى المستقل فيجب ضمه إذا كان مفردا نحو يا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم عطف النسق والبدل مع المنادى، وأنهما يعاملان معاملة المنادى المستقل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 137,
+    "end_word": 201,
+    "text_snippet": "وإن يكن مصحوب أل مانسقا … ففيه وجهان ورفع ينتقى\nأي إنما يجب بناء المنسوق عل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "حكم المنسوق المصحوب بأل بعد المنادى، ووجها الرفع والنصب، وترجيح الرفع مع الدليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 202,
+    "end_word": 292,
+    "text_snippet": "وأيها مصحوب أل بعد صفه … يلزم بالرفع لدى ذي المعرفه\nوأيهذا أيها الذي ورد … ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "أحكام نداء أيها وأيهذا: رفع الصفة بعد أي، وخلاف المازني، وما توصف به أي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 293,
+    "end_word": 346,
+    "text_snippet": "وذو إشارة كأي في الصفة … إن كان تركها يفيت المعرفه\nيقال يا هذا الرجل فيجب رف",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حكم الصفة بعد اسم الإشارة في النداء، ومتى يجب رفعها ومتى يجوز الوجهان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 347,
+    "end_word": 449,
+    "text_snippet": "في نحو سعد سعد الأوس ينتصب … ثان وضم وافتتح أولا تصب\nيقال\n\" يا سعد سعد الأوس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم تكرار الاسم في النداء مثل يا سعد سعد الأوس، مع توجيهات سيبويه والمبرد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

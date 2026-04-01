@@ -1,0 +1,71 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 11,
+    "text_snippet": "الفصل الثاني\nفي المقيس\nوهل يوصف بأنه من كلام العرب أو لا؟",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الفصل وبيان موضوع البحث في المقيس وحكم نسبته إلى كلام العرب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 12,
+    "end_word": 203,
+    "text_snippet": "قال المازني:\n\"ما قيس على كلام العرب فهو من كلام العرب \"\nقال: \" ألا ترى أن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "example",
+      "refutation"
+    ],
+    "description_arabic": "إثبات أن ما قيس على كلام العرب يعد من كلامهم مع الأمثلة ودفع اعتراض الخليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 204,
+    "end_word": 233,
+    "text_snippet": "قال: \" وذكر أبو بكر أن منفعة الاشتقاق لصاحبه أن يسمع الرجل اللفظة فيشك ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان فائدة الاشتقاق في إزالة الاستيحاش من الألفاظ وتثبيت اللغة بالقياس.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المعنى العام مستقلا، لكن قوله: «وهذا تثبيت اللغة بالقياس» مرتبط بالسياق السابق في تقرير حجية القياس."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 234,
+    "end_word": 286,
+    "text_snippet": "وقال في موضع آخر من الخصائص:\n\"من قوة القياس عندهم اعتقاد النحويين أن ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "نقل آخر يقرر قوة القياس ويفرق بين القياس على الأكثر والأقل استعمالا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

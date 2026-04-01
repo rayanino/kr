@@ -1,0 +1,722 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "‌‌باب النهي عن بيع الثمرة\nقبل بُدُوِّ صلاحها ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 10,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 11,
+    "end_word": 35,
+    "text_snippet": "عَنْ عَبْدِ اللَه بْن عُمَرَ رَضىَ الله عَنْهُمَا:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 36,
+    "end_word": 37,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 38,
+    "end_word": 77,
+    "text_snippet": "عن أنس بن مالك رضي الله عنه: أن رسول الله صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 78,
+    "end_word": 78,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 79,
+    "end_word": 96,
+    "text_snippet": "تزهى: بضم التاء من \" أزهى يزهى \" والإزهاء في ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 97,
+    "end_word": 106,
+    "text_snippet": "حتى يبدو: قال النووي: هو بمعنى يظهر، وهو بلا ه",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 107,
+    "end_word": 108,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 109,
+    "end_word": 125,
+    "text_snippet": "كانت الثمار مُعَرضة لكثير من الآفات قبل بُدُو ص",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 126,
+    "end_word": 144,
+    "text_snippet": "فنهى النبي البائع والمشترى عن بيعها حتى تزهى، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 145,
+    "end_word": 172,
+    "text_snippet": "ثم علل الشارع المنع من تبايعها، بأنه لو أتت علي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 173,
+    "end_word": 176,
+    "text_snippet": "ما يؤخذ من الحديثين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 177,
+    "end_word": 184,
+    "text_snippet": "1- النهْيُ عن بيع الثمار قبل بُدُو صلاحها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 185,
+    "end_word": 192,
+    "text_snippet": "2- النهى يقتضي الفساد، فيكون بيعها غير صحيح.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 193,
+    "end_word": 211,
+    "text_snippet": "3- جواز بيعها بعد بُدُو صلاحها. وكذلك لو باعها ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 16,
+    "start_word": 212,
+    "end_word": 265,
+    "text_snippet": "4- أن دليل الصلاح في ثمر النحل، الاحمرار أو الا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 266,
+    "end_word": 320,
+    "text_snippet": "5- الحكمة في النهى، هو أنها قبل بُدو الصلاح، مع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 321,
+    "end_word": 335,
+    "text_snippet": "6- فيه تحريم أكل أموال الناس بغير حق، ولو بما ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 336,
+    "end_word": 337,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 338,
+    "end_word": 383,
+    "text_snippet": "عَنْ عَيْدِ الله بن عُمَرَ رضي الله عنهما قَالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 384,
+    "end_word": 384,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 385,
+    "end_word": 412,
+    "text_snippet": "المزابنة: بضم الميم، وفتح الزاى، والباء، والنون",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 413,
+    "end_word": 414,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 415,
+    "end_word": 450,
+    "text_snippet": "نهى النبي صلى الله عليه وسلم عن المزابنة، التي ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 451,
+    "end_word": 484,
+    "text_snippet": "وذلك، كأن يبيع ثمر حائطه إن كان نخلا، بتمر كيل",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 485,
+    "end_word": 488,
+    "text_snippet": "الاختلاف في معنى المزابنة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 489,
+    "end_word": 498,
+    "text_snippet": "أجمع العلماء على أن هذه الصورة المذكورة في الح",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 499,
+    "end_word": 532,
+    "text_snippet": "ولكن الإمام الشافعي، جعل هذه الصور، أصل المزاب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 533,
+    "end_word": 548,
+    "text_snippet": "وعلى فرض أنها تفاسير رواتها من الصحابة، فهم أع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 30,
+    "start_word": 549,
+    "end_word": 580,
+    "text_snippet": "أما الإمام مالك، فمعنى المزابنة عنده، أنها بيع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 581,
+    "end_word": 594,
+    "text_snippet": "وقد رجع في تفسيرها إلى أصلها اللغوي، وقد تقدمت",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 32,
+    "start_word": 595,
+    "end_word": 606,
+    "text_snippet": "ويترجح- عندي- تفسير مالك، لأنه جامع لكثير من ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 607,
+    "end_word": 633,
+    "text_snippet": "وأما التفاسير المذكورة، فلا تنافي، لأن عادة ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 34,
+    "start_word": 634,
+    "end_word": 637,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 638,
+    "end_word": 641,
+    "text_snippet": "1- النهى عن المزابنة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 642,
+    "end_word": 648,
+    "text_snippet": "2- تعريفها بهذه الصور، التي توضح أصلها.",
+    "scholarly_function": "definition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 37,
+    "start_word": 649,
+    "end_word": 656,
+    "text_snippet": "3- أن بيوعاتها فاسدة، لأن النهي يقتضي الفساد.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 657,
+    "end_word": 693,
+    "text_snippet": "4- حكمة النهي عنها، ما فيها من المخاطرة والقمار",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 694,
+    "end_word": 745,
+    "text_snippet": "5- فيه دليل على تحريم بيع الرطب بادر، لعدم الع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 40,
+    "start_word": 746,
+    "end_word": 747,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 748,
+    "end_word": 782,
+    "text_snippet": "عَن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 783,
+    "end_word": 788,
+    "text_snippet": "المحاقلة: - بيع الحنطة في سنبلها.",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 43,
+    "start_word": 789,
+    "end_word": 789,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 790,
+    "end_word": 813,
+    "text_snippet": "المخابرة: على وزن المفاعلة، مأخوذة من \" الخبار",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 814,
+    "end_word": 848,
+    "text_snippet": "المحاقلة: مأخوذة من \" الحقل\" وهو الزرع وموضعه،",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 849,
+    "end_word": 864,
+    "text_snippet": "المعنى الإجمالي:\nتقدم أن الأصل في المعاملات ال",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 47,
+    "start_word": 865,
+    "end_word": 896,
+    "text_snippet": "وما ورد عن الشارع الحكيم، من النهى عن بعض المع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 48,
+    "start_word": 897,
+    "end_word": 918,
+    "text_snippet": "ومن تلك المعاملات الراجعة إلى الجهالة وإلى الر",
+    "scholarly_function": "definition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 49,
+    "start_word": 919,
+    "end_word": 939,
+    "text_snippet": "فهنا جهل أحد العوضين، لأنه مستور بأوراقه وتبنه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 940,
+    "end_word": 951,
+    "text_snippet": "ومثل المحاقلة، المزابنة: التي هي بيع التمر على",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 51,
+    "start_word": 952,
+    "end_word": 958,
+    "text_snippet": "فما يقال في الأول، يقال في هذا.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 52,
+    "start_word": 959,
+    "end_word": 973,
+    "text_snippet": "واستثنى من ذلك، مسألة \" العرايا \" بشروطها، للح",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 53,
+    "start_word": 974,
+    "end_word": 992,
+    "text_snippet": "كما نهى عن بيع الثمر قبل بدو صلاحه، حفظا للحقو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 54,
+    "start_word": 993,
+    "end_word": 996,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 55,
+    "start_word": 997,
+    "end_word": 1002,
+    "text_snippet": "1- النهى عن المخابرة، والمحاقلة، والمزابنة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1003,
+    "end_word": 1008,
+    "text_snippet": "2- استثنى من المزابنة، العرايا، للحاجة.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1009,
+    "end_word": 1024,
+    "text_snippet": "3- النهى عن هذه. لما فيها من الجهل بتساوي العو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1025,
+    "end_word": 1039,
+    "text_snippet": "4- من باب أولى يحرم البيع إذا علم التفاضل بين ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1040,
+    "end_word": 1049,
+    "text_snippet": "5- النهي عن بيع الثمر قبل بُدو صلاحه، لأمن الع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1050,
+    "end_word": 1051,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1052,
+    "end_word": 1073,
+    "text_snippet": "عَنْ أبي مَسْعُودٍ الأنصاري رَضىَ الله عَنْهُ: أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1074,
+    "end_word": 1074,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1075,
+    "end_word": 1107,
+    "text_snippet": "مهر البغي: البغي: بفتح الباء الموحدة، وكسر الغ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1108,
+    "end_word": 1118,
+    "text_snippet": "حُلوان الكاهن: الحُلوان بضم الحاء، مصدر \" حلوته",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1119,
+    "end_word": 1137,
+    "text_snippet": "قال في فتح الباري: وأصله من \" الحلاوة \" شبه با",
+    "scholarly_function": "definition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1138,
+    "end_word": 1158,
+    "text_snippet": "وأما الكاهن: فهو الذي يدعى علم الأشياء المغيبة",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1159,
+    "end_word": 1160,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1161,
+    "end_word": 1173,
+    "text_snippet": "لطلب الرزق طرق كريمة شريفة طيبة، جعلها الله عو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1174,
+    "end_word": 1202,
+    "text_snippet": "فلما كان في الطرق الأولى كفاية عن الثانية، ولم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1203,
+    "end_word": 1214,
+    "text_snippet": "1- بيع الكلب: فإنه خبيث رجس، ثمنه خبيث لا يحوز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1215,
+    "end_word": 1226,
+    "text_snippet": "2- وكذلك ما تأخذه الزانية مقابل فجورها، الذي ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1227,
+    "end_word": 1248,
+    "text_snippet": "3- ومثله ما يأخذه أهل الدجل والتضليل، ممن يدعو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1249,
+    "end_word": 1266,
+    "text_snippet": "كل هذه طرق خبيثة محرمة، لا يجوز فعلها، ولا تسل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1267,
+    "end_word": 1270,
+    "text_snippet": "ما يستفاد من الحديث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1271,
+    "end_word": 1293,
+    "text_snippet": "1- النهى عن بيع الكلب، تحريم ثمنه، ولا فرق بين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1294,
+    "end_word": 1314,
+    "text_snippet": "2- تحريم البغاء وتحريم ما يؤخذ عليه، سواء كان ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1315,
+    "end_word": 1335,
+    "text_snippet": "3- تحريم \" الكهانة \" ونحوها من العرافة، والتنج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1336,
+    "end_word": 1354,
+    "text_snippet": "4- من هذه المنهيات وغيرها، يعلم أن الشريعة نهى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1355,
+    "end_word": 1356,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1357,
+    "end_word": 1379,
+    "text_snippet": "عَنْ رَافِعِ بْن خَديج: أنً رسُولَ اللَه صلى الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1380,
+    "end_word": 1381,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1382,
+    "end_word": 1414,
+    "text_snippet": "يبين لنا النبي صلى الله عليه وسلم المكاسب الخب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1415,
+    "end_word": 1418,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1419,
+    "end_word": 1429,
+    "text_snippet": "1- النهى عن ثمن الكلب، ومهر البغي، واجتناب ما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1430,
+    "end_word": 1442,
+    "text_snippet": "2- النهى عن كسب الحجام، لأنها مهنه زرية، مخلة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1443,
+    "end_word": 1467,
+    "text_snippet": "3- قال شيخ الإسلام إذا عرف الحرام بعينه لم يؤك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1468,
+    "end_word": 1469,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1470,
+    "end_word": 1474,
+    "text_snippet": "اختلف العلماء في كسب الحجام.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1475,
+    "end_word": 1501,
+    "text_snippet": "فذهبت طائفة من العلماء إلى أنه محرم لهذا الحدي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  }
+]

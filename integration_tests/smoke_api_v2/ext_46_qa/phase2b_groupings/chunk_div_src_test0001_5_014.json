@@ -1,0 +1,49 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 35,
+    "text_snippet": "مسألة\nالقياس جلي وخفي\n\nفمن الأول: قياس حذف النون من المثنى في صلة الألف وال",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان انقسام القياس إلى جلي وخفي مع مثال للجلي وتقرير أبي حيان له.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة إجمالا، لكن تعريف الجلي والخفي ليس مذكورا صراحة، واقتصر النص على مثال للجلي دون بيان مقابل الخفي."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 36,
+    "end_word": 97,
+    "text_snippet": "خاتمة\n\nقد يجتمع السماع والإجماع والقياس دليلا على مسألة\n\nقال في شرح التسهيل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "evidence_rational",
+      "evidence_qiyas",
+      "evidence_ijma"
+    ],
+    "description_arabic": "إثبات جواز دخول الباء في خبر ما التميمية والاستدلال له بالسماع والقياس والإجماع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,650 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 7,
+    "text_snippet": "‌‌فصل في ما ولا ولات وإن المشبهات بليس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 8,
+    "end_word": 20,
+    "text_snippet": "إعمال ليس أعملت ما دون إن … مع بقا النفي وترتي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 2,
+    "start_word": 21,
+    "end_word": 34,
+    "text_snippet": "وسبق حرف جر أو ظرف ك ما … بي أنت معنيا أجاز ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 3,
+    "start_word": 35,
+    "end_word": 77,
+    "text_snippet": "تقدم في أول باب كان وأخواتها أن نواسخ الابتداء ت",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 78,
+    "end_word": 101,
+    "text_snippet": "أما ما فلغة بني تميم أنها لا تعمل شيئا فتقول ما ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 102,
+    "end_word": 126,
+    "text_snippet": "وذلك لأن ما حرف لا يختص لدخوله على الاسم نحو ما ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 127,
+    "end_word": 150,
+    "text_snippet": "ولغة أهل الحجاز إعمالها كعمل ليس لشبهها بها في أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 151,
+    "end_word": 156,
+    "text_snippet": "قال الله تعالى: {مَا هَذَا بَشَراً}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 157,
+    "end_word": 161,
+    "text_snippet": "وقال تعالى: {مَا هُنَّ أُمَّهَاتِهِمْ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 162,
+    "end_word": 174,
+    "text_snippet": "وقال الشاعر:\n75 - أبناؤها مكتنفون أباهم … حنقو ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 175,
+    "end_word": 185,
+    "text_snippet": "لكن لا تعمل عندهم إلا بشروط ستة ذكر المصنف منها ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 11,
+    "start_word": 186,
+    "end_word": 204,
+    "text_snippet": "الأول: ألا يزاد بعدها إن فإن زيدت بطل عملها نحو ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 205,
+    "end_word": 209,
+    "text_snippet": "وأجاز ذلك بعضهم (1) .",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 210,
+    "end_word": 223,
+    "text_snippet": "الثاني: ألا ينتقض النفي بإلا نحو ما زيد إلا قائم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 224,
+    "end_word": 230,
+    "text_snippet": "وكقوله تعالى: {مَا أَنْتُمْ إِلَاّ بَشَرٌ مِثْلُ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 231,
+    "end_word": 235,
+    "text_snippet": "وقوله {وَمَا أَنَا إِلَاّ نَذِيرٌ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 236,
+    "end_word": 238,
+    "text_snippet": "خلافا لمن أجازه.",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 239,
+    "end_word": 264,
+    "text_snippet": "(2) الثالث: ألا يتقدم خبرها على اسمها وهو غير ظر",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 265,
+    "end_word": 267,
+    "text_snippet": "وفي ذلك خلاف.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 19,
+    "start_word": 268,
+    "end_word": 293,
+    "text_snippet": "(1) فإن كان ظرفا أو جارا ومجرورا فقدمته فقلت ما ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 294,
+    "end_word": 320,
+    "text_snippet": "فمن جعلها عاملة قال إن الظرف والجار والمجرور في ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 321,
+    "end_word": 382,
+    "text_snippet": "وهذا الثاني هو ظاهر كلام المصنف فإنه شرط في إعمال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 383,
+    "end_word": 409,
+    "text_snippet": "الشرط الرابع: ألا يتقدم معمول الخبر على الاسم وهو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 410,
+    "end_word": 426,
+    "text_snippet": "ومن أجاز بقاء العمل مع تقدم الخبر يجيز بقاء العمل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 24,
+    "start_word": 427,
+    "end_word": 448,
+    "text_snippet": "وقد يقال لا يلزم ذلك لما في الإعمال مع تقدم المعم",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 25,
+    "start_word": 449,
+    "end_word": 477,
+    "text_snippet": "فإن كان المعمول ظرفا أو جارا ومجرورا لم يبطل عمله",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 478,
+    "end_word": 496,
+    "text_snippet": "وهذا الشرط مفهوم من كلام المصنف لتخصيصه جواز تقدي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 27,
+    "start_word": 497,
+    "end_word": 521,
+    "text_snippet": "الشرط الخامس: ألا تتكرر ما فإن تكررت بطل عملها نح",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 522,
+    "end_word": 525,
+    "text_snippet": "وأجازه بعضهم ⌜2⌝ .",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 29,
+    "start_word": 526,
+    "end_word": 567,
+    "text_snippet": "الشرط السادس: ألا يبدل من خبرها موجب فإن أبدل بطل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 568,
+    "end_word": 609,
+    "text_snippet": "وكلام سيبويه رحمه الله تعالى في هذه المسألة محتمل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 610,
+    "end_word": 651,
+    "text_snippet": "واختلف شراح الكتاب فيما يرجع إليه قوله استوت اللغ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 652,
+    "end_word": 684,
+    "text_snippet": "وقال قوم هو راجع إلى الاسم الواقع بعد إلا والمراد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 685,
+    "end_word": 697,
+    "text_snippet": "وتوجيه كل من القولين وترجيح المختار منهما وهو الث",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 34,
+    "start_word": 698,
+    "end_word": 710,
+    "text_snippet": "ورفع معطوف بلكن أو ببل … من بعد منصوب بما الزم ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 35,
+    "start_word": 711,
+    "end_word": 725,
+    "text_snippet": "(2) إذا وقع بعد خبر ما عاطف فلا يخلو إما أن يكون ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 36,
+    "start_word": 726,
+    "end_word": 762,
+    "text_snippet": "فإن كان مقتضيا للإيجاب تعين رفع الاسم الواقع بعده",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 763,
+    "end_word": 776,
+    "text_snippet": "ولا يجوز نصب قاعد عطفا على خبر ما لأن ما لا تعمل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 777,
+    "end_word": 809,
+    "text_snippet": "وإن كان الحرف العاطف غير مقتض للإيجاب كالواو ونحو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 810,
+    "end_word": 828,
+    "text_snippet": "ففهم من تخصيص المصنف وجوب الرفع بما إذا وقع الاسم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 40,
+    "start_word": 829,
+    "end_word": 841,
+    "text_snippet": "وبعد ما وليس جر البا الخبر … وبعد لا ونفي كان قد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 842,
+    "end_word": 852,
+    "text_snippet": "(1) تزاد الباء كثيرا في الخبر بعد ليس وما نحو قول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 42,
+    "start_word": 853,
+    "end_word": 857,
+    "text_snippet": "تعالى: {أَلَيْسَ اللهُ بِكَافٍ عَبْدَهُ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 858,
+    "end_word": 863,
+    "text_snippet": "و {أَلَيْسَ اللهُ بِعَزِيزٍ ذِي انْتِقَامٍ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 864,
+    "end_word": 868,
+    "text_snippet": "{وَمَا رَبُّكَ بِغَافِلٍ عَمَّا يَعْمَلُونَ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 869,
+    "end_word": 873,
+    "text_snippet": "و {وَمَا رَبُّكَ بِظَلَاّمٍ لِلْعَبِيدِ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 874,
+    "end_word": 902,
+    "text_snippet": "ولا تختص زيادة الباء بعد ما بكونها حجازية خلافا ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 47,
+    "start_word": 903,
+    "end_word": 914,
+    "text_snippet": "فلا التفات إلى من منع ذلك وهو موجود في أشعارهم (1",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 48,
+    "start_word": 915,
+    "end_word": 934,
+    "text_snippet": "وقد اضطرب رأي الفارسي في ذلك فمرة قال لا تزاد الب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 49,
+    "start_word": 935,
+    "end_word": 959,
+    "text_snippet": "وقد وردت زيادة الباء قليلا في خبر لا كقوله: 76 - ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 50,
+    "start_word": 960,
+    "end_word": 981,
+    "text_snippet": "وفي خبر مضارع كان المنفية بلم كقوله:\n77 - وإن مدت",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 982,
+    "end_word": 994,
+    "text_snippet": "في النكرات أعملت كليس لا … وقد تلي لات وإن ذا ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 52,
+    "start_word": 995,
+    "end_word": 1009,
+    "text_snippet": "وما ل \"لات\" في سوى حين عمل … وحذف ذي الرفع فشا و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1010,
+    "end_word": 1026,
+    "text_snippet": "تقدم أن الحروف العاملة عمل ليس أربعة وقد تقدم الك",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1027,
+    "end_word": 1037,
+    "text_snippet": "أما لا فمذهب الحجازيين إعمالها عمل ليس ومذهب تميم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1038,
+    "end_word": 1046,
+    "text_snippet": "ولا تعمل عند الحجازيين إلا بشروط ثلاثة ⌜4⌝ :",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1047,
+    "end_word": 1058,
+    "text_snippet": "أحدها: أن يكون الاسم والخبر نكرتين نحو لا رجل أفض",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1059,
+    "end_word": 1074,
+    "text_snippet": "قوله:\n78 - تعز فلا شيء على الأرض باقيا … ولا وزر ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1075,
+    "end_word": 1088,
+    "text_snippet": "وقوله:\n79 - نصرتك إذ لا صاحب غير خاذل … فبوئت ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1089,
+    "end_word": 1097,
+    "text_snippet": "وزعم بعضهم أنها قد تعمل في المعرفة وأنشد للنابغة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1098,
+    "end_word": 1123,
+    "text_snippet": "80 - بدت فعل ذي ود فلما تبعتها … تولت وبقت حاجتي",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1124,
+    "end_word": 1141,
+    "text_snippet": "واختلف كلام المصنف في هذا البيت فمرة قال إنه مؤو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1142,
+    "end_word": 1153,
+    "text_snippet": "الشرط الثاني: ألا يتقدم خبرها على اسمها فلا نقول ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1154,
+    "end_word": 1172,
+    "text_snippet": "الشرط الثالث: ألا ينتقض النفي بإلا فلا تقول لا رج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1173,
+    "end_word": 1177,
+    "text_snippet": "ولم يتعرض المصنف لهذين الشرطين.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1178,
+    "end_word": 1196,
+    "text_snippet": "وأما إن النافية فمذهب أكثر البصريين والفراء أنها ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1197,
+    "end_word": 1227,
+    "text_snippet": "وقال به من البصريين أبو العباس المبرد وأبو بكر بن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1228,
+    "end_word": 1245,
+    "text_snippet": "وقد ورد السماع به قال الشاعر:\n81 - إن هو مستوليا ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1246,
+    "end_word": 1260,
+    "text_snippet": "وقال آخر:\n82 - إن المرء ميتا بانقضاء حياته … ولك",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1261,
+    "end_word": 1283,
+    "text_snippet": "وذكر ابن جني في المحتسب أن سعيد بن جبير رضي الله ",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1284,
+    "end_word": 1306,
+    "text_snippet": "ولا يشترط في اسمها وخبرها أن يكونا نكرتين بل تعمل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1307,
+    "end_word": 1316,
+    "text_snippet": "وأما لات فهي لا النافية زيدت عليها تاء التأنيث مف",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1317,
+    "end_word": 1348,
+    "text_snippet": "ومذهب الجمهور أنها تعمل عمل ليس فترفع الاسم وتنصب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1349,
+    "end_word": 1370,
+    "text_snippet": "ومنه قوله تعالى: {وَلاتَ حِينَ مَنَاصٍ} بنصب الحي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1371,
+    "end_word": 1395,
+    "text_snippet": "وقد قرئ شذوذا ولات حين مناص برفع الحين على أنه اس",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1396,
+    "end_word": 1405,
+    "text_snippet": "وهذا هو المراد بقوله وحذف ذي الرفع إلى آخر البيت.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1406,
+    "end_word": 1417,
+    "text_snippet": "وأشار بقوله وما للات في سوى حين عمل إلى ما ذكره ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1418,
+    "end_word": 1463,
+    "text_snippet": "من أن لات لا تعمل إلا في الحين واختلف الناس فيه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1464,
+    "end_word": 1481,
+    "text_snippet": "ومن عملها فيما رادفه قول الشاعر:\n83 - ندم البغاة",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1482,
+    "end_word": 1490,
+    "text_snippet": "وكلام المصنف محتمل للقولين (1) وجزم بالثاني في ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1491,
+    "end_word": 1526,
+    "text_snippet": "(2) ومذهب الأخفش أنها لا تعمل شيئا وأنه إن وجد ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  }
+]

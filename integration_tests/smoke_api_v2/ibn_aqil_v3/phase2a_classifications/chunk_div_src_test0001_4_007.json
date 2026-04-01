@@ -1,0 +1,130 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌أسماء الأفعال والأصوات",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 27,
+    "text_snippet": "ما ناب عن فعل كشتان وصه … هم اسم فعل وكذا أوه",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 28,
+    "end_word": 117,
+    "text_snippet": "أسماء الأفعال: ألفاظ تقوم مقام الأفعال في الدل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 118,
+    "end_word": 126,
+    "text_snippet": "والفعل من أسمائه عليكا … وهكذا دونك مع إل",
+    "scholarly_function": "definition",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 4,
+    "start_word": 127,
+    "end_word": 134,
+    "text_snippet": "كذا رويد بله ناصبين … ويعملان الخفض مصدرين",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 5,
+    "start_word": 135,
+    "end_word": 205,
+    "text_snippet": "من أسماء الأفعال ما هو في أصله ظرف وما هو مج",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 206,
+    "end_word": 218,
+    "text_snippet": "وما لما تنوب عنه من عمل … لها وأخر ما لذي في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 7,
+    "start_word": 219,
+    "end_word": 267,
+    "text_snippet": "أي يثبت لأسماء الأفعال من العمل ما يثبت لما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 268,
+    "end_word": 295,
+    "text_snippet": "وإن كان ذلك الفعل يرفع وينصب كان اسم الفعل ك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 296,
+    "end_word": 328,
+    "text_snippet": "وأشار بقوله وأخر ما لذي فيه العمل إلى أن معم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 329,
+    "end_word": 337,
+    "text_snippet": "واحكم بتنكير الذي ينون … منها وتعريف سواه بي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 338,
+    "end_word": 369,
+    "text_snippet": "الدليل على أن ما سمى بأسماء الأفعال أسماء لح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 12,
+    "start_word": 370,
+    "end_word": 381,
+    "text_snippet": "وما به خوطب مالا يعقل … من مشبه اسم الفعل صو",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 13,
+    "start_word": 382,
+    "end_word": 395,
+    "text_snippet": "كذا الذي أجدى حكاية كـ \"قب \" … والزم بنا النو",
+    "scholarly_function": "definition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 14,
+    "start_word": 396,
+    "end_word": 429,
+    "text_snippet": "أسماء الأصوات ألفاظ استعملت كأسماء الأفعال ف",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 430,
+    "end_word": 475,
+    "text_snippet": "وأشار بقوله والزم بنا النوعين إلى أن أسماء ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

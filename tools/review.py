@@ -44,6 +44,16 @@ def _content_hash(excerpt: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
+def _comparison_pair_id(division: str, before_excerpt_id: str | None, after_excerpt_id: str | None) -> str:
+    """Stable comparison pair ID derived from both sides of the pair."""
+    payload = "|".join([
+        division or "(root)",
+        before_excerpt_id or "",
+        after_excerpt_id or "",
+    ])
+    return "cmp_" + hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
+
+
 def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
     """Read path (JSONL), upsert entry keyed by key_field, atomic-write back.
 
@@ -301,14 +311,12 @@ class ReviewHandler(SimpleHTTPRequestHandler):
     def _api_get_comparisons(self) -> None:
         """Return before/after comparison pairs.
 
-        Pairs are built by matching excerpts from smoke_api/taysir (new hardened prompts)
-        against campaign_20260331/taysir (old prompts) by div_path position.
+        Pairs are built by matching excerpts from campaign_20260331/taysir (old prompts)
+        against the current output_dir taysir run (new hardened prompts) by division path.
+        If the current taysir run failed or has no excerpts yet, return an empty list.
         Each pair: { pair_id, division, before: {...}, after: {...} }
         """
-        # Comparison: current output_dir has "after" (v2), campaign has "before"
-        # output_dir is e.g. integration_tests/smoke_api_v2/
-        # campaign is always at integration_tests/campaign_20260331/ (sibling)
-        repo_root = self.output_dir.parent.parent  # integration_tests/../ = repo root
+        repo_root = Path(__file__).parent.parent
         after_file = self.output_dir / "taysir" / "excerpts.jsonl"
         before_file = repo_root / "integration_tests" / "campaign_20260331" / "taysir" / "excerpts.jsonl"
 
@@ -326,8 +334,15 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                             pass
             return items
 
+        if not before_file.exists() or not after_file.exists():
+            self._json_response([])
+            return
+
         before_all = _load(before_file)
         after_all = _load(after_file)
+        if not before_all or not after_all:
+            self._json_response([])
+            return
 
         # Index after-excerpts by div_path string for fast lookup
         after_by_div: dict[str, list[dict]] = {}
@@ -350,7 +365,14 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                     used_after.add(cid)
                     break
 
-            pair_id = f"pair_{len(pairs)+1:03d}"
+            if matched_after is None:
+                continue
+
+            pair_id = _comparison_pair_id(
+                div_key,
+                before_ex.get("excerpt_id"),
+                matched_after.get("excerpt_id"),
+            )
             pairs.append({
                 "pair_id": pair_id,
                 "division": div_key or "(root)",
@@ -360,16 +382,16 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                     "primary_function": before_ex.get("primary_function"),
                     "self_containment": before_ex.get("self_containment"),
                     "div_path": before_ex.get("div_path"),
-                    "source": "smoke_api/taysir (new prompts)",
+                    "source": "campaign_20260331/taysir (old prompts)",
                 },
                 "after": {
-                    "excerpt_id": matched_after.get("excerpt_id") if matched_after else None,
-                    "primary_text": matched_after.get("primary_text") if matched_after else None,
-                    "primary_function": matched_after.get("primary_function") if matched_after else None,
-                    "self_containment": matched_after.get("self_containment") if matched_after else None,
-                    "div_path": matched_after.get("div_path") if matched_after else None,
-                    "source": "campaign_20260331/taysir (old prompts)" if matched_after else None,
-                } if matched_after else None,
+                    "excerpt_id": matched_after.get("excerpt_id"),
+                    "primary_text": matched_after.get("primary_text"),
+                    "primary_function": matched_after.get("primary_function"),
+                    "self_containment": matched_after.get("self_containment"),
+                    "div_path": matched_after.get("div_path"),
+                    "source": f"{self.output_dir.name}/taysir (new hardened prompts)",
+                },
             })
 
         self._json_response(pairs)

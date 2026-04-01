@@ -1,0 +1,658 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 18,
+    "text_snippet": "2 - نفع الميت والإحسان إليه بالسلام عليه والدعاء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 19,
+    "end_word": 42,
+    "text_snippet": "الأول:\nالسلام عليكم أهل دار قوم مؤمنين وإنا وإيا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 2,
+    "start_word": 43,
+    "end_word": 61,
+    "text_snippet": "الثاني:\nالسلام على أهل الديار من المؤمنين وال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 3,
+    "start_word": 62,
+    "end_word": 86,
+    "text_snippet": "الثالث:\nالسلام عليكم أهل الديار من المؤمنين وا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 4,
+    "start_word": 87,
+    "end_word": 201,
+    "text_snippet": "120 - وأما قراءة القرآن عند زيارتها فمما لا أصل",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 202,
+    "end_word": 224,
+    "text_snippet": "ومما يقوي عدم المشروعية قوله صلى الله عليه وسل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 225,
+    "end_word": 263,
+    "text_snippet": "فقد أشار صلى الله عليه وسلم إلى أن القبور ليست",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 7,
+    "start_word": 264,
+    "end_word": 271,
+    "text_snippet": "وهو قوله:\n\"صلوا في بيوتكم ولا تتخذوها قبورا\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 272,
+    "end_word": 318,
+    "text_snippet": "وترجم له البخاري بقوله: باب كراهية الصلاة في ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 9,
+    "start_word": 319,
+    "end_word": 334,
+    "text_snippet": "فقال أبو داود في مسائله ص 158:\nسمعت أحمد سئل ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 335,
+    "end_word": 400,
+    "text_snippet": "121 - ويجوز رفع اليدين في الدعاء لها لحديث عائش",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 401,
+    "end_word": 437,
+    "text_snippet": "122 - ولكنه لا يستقبل القبور حين الدعاء لها بل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 438,
+    "end_word": 448,
+    "text_snippet": "\"الدعاء هو العبادة\" ثم قرأ: {وَقَالَ رَبُّكُمُ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 449,
+    "end_word": 517,
+    "text_snippet": "123 - وإذا زار قبر الكافر فلا يسلم عليه ولا يد",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 518,
+    "end_word": 534,
+    "text_snippet": "قال: فأسلم الأعرابي بعد فقال:\nلقد كلفني رسول ا",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 535,
+    "end_word": 596,
+    "text_snippet": "124 - ولا يمشي بين قبور المسلمين في نعليه لحدي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 597,
+    "end_word": 626,
+    "text_snippet": "125 - ولا يشرع وضع الأس ونحوها من الرياحين والو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 627,
+    "end_word": 637,
+    "text_snippet": "\"كل بدعة ضلالة وإن رآها الناس حسنة\".\nما يحرم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 18,
+    "start_word": 638,
+    "end_word": 644,
+    "text_snippet": "126 - ويحرم عند القبور ما يأتي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 645,
+    "end_word": 658,
+    "text_snippet": "1 - الذبح لوجه الله لقوله صلى الله عليه وسلم:\n",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 659,
+    "end_word": 670,
+    "text_snippet": "قال عبد الرزاق بن همام:\nكانوا يعقرون عند القبر",
+    "scholarly_function": "narration",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 21,
+    "start_word": 671,
+    "end_word": 677,
+    "text_snippet": "2- رفعها زيادة على التراب الخارج منها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 678,
+    "end_word": 682,
+    "text_snippet": "3 - طليها بالكلس ونحوه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 23,
+    "start_word": 683,
+    "end_word": 686,
+    "text_snippet": "4 - الكتابة عليها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 687,
+    "end_word": 690,
+    "text_snippet": "5 - البناء عليها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 25,
+    "start_word": 691,
+    "end_word": 694,
+    "text_snippet": "6 - القعود عليها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 695,
+    "end_word": 697,
+    "text_snippet": "وفي ذلك أحاديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 698,
+    "end_word": 726,
+    "text_snippet": "الأول: عن جابر رضي الله عنه قال:\nنهى رسول الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 727,
+    "end_word": 743,
+    "text_snippet": "الثاني:\nعن أبي سعيد وهو الخدري:\nأن النبي صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 744,
+    "end_word": 783,
+    "text_snippet": "الثالث: عن أبي الهياج الأسدي قال:\nقال لي علي ب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 784,
+    "end_word": 851,
+    "text_snippet": "الرابع: عن ثمامة بن شفي قال: خرجنا مع فضالة بن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 852,
+    "end_word": 892,
+    "text_snippet": "وظاهره تسويتها بالأرض بحيث لا ترفع إطلاقا وهذا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 32,
+    "start_word": 893,
+    "end_word": 897,
+    "text_snippet": "انظر المرقاة 2 / 372.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 898,
+    "end_word": 929,
+    "text_snippet": "الخامس: عن أبي هريرة أن رسول الله صلى الله علي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 930,
+    "end_word": 972,
+    "text_snippet": "السادس: عن عقبة بن عامر رضي الله عنه قال: قال ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 35,
+    "start_word": 973,
+    "end_word": 993,
+    "text_snippet": "السابع: عن أبي مرثد الغنوي قال: سمعت رسول الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 36,
+    "start_word": 994,
+    "end_word": 1001,
+    "text_snippet": "7 - الصلاة إلى القبور للحديث المتقدم آنفا.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1002,
+    "end_word": 1098,
+    "text_snippet": "وفيه دليل على تحريم الصلاة إلى القبر لظاهر الن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1099,
+    "end_word": 1115,
+    "text_snippet": "وينبغي أن يعلم أن التحريم المذكور إنما هو إذا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1116,
+    "end_word": 1166,
+    "text_snippet": "قال الشيخ علي القاري في المرقاة 2 / 372 في شرح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1167,
+    "end_word": 1175,
+    "text_snippet": "8 - الصلاة عندها ولو بدون استقبال وفيه أحاديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1176,
+    "end_word": 1194,
+    "text_snippet": "الأول: عن أبي سعيد الخدري قال: قال رسول الله ص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1195,
+    "end_word": 1208,
+    "text_snippet": "الثاني: عن أنس:\n\"أن النبي صلى الله عليه وسلم ن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1209,
+    "end_word": 1227,
+    "text_snippet": "الثالث: عن ابن عمر عن النبي صلى الله عليه وسلم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1228,
+    "end_word": 1253,
+    "text_snippet": "الرابع: عن أبي هريرة قال: قال رسول الله صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1254,
+    "end_word": 1258,
+    "text_snippet": "9 - بناء المساجد عليها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1259,
+    "end_word": 1262,
+    "text_snippet": "وفيه أحاديث أذكر بعضها:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1263,
+    "end_word": 1307,
+    "text_snippet": "الأول: عن عائشة وعبد الله بن عباس معا قالا:\nلم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1308,
+    "end_word": 1320,
+    "text_snippet": "قالت في رواية: فلولا ذاك أبرز قبره غير أنه خشي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1321,
+    "end_word": 1338,
+    "text_snippet": "الثاني: قوله صلى الله عليه وسلم:\n\"اللهم لا تجع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1339,
+    "end_word": 1408,
+    "text_snippet": "الثالث: عن جندب قال: سمعت النبي صلى الله عليه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1409,
+    "end_word": 1436,
+    "text_snippet": "الرابع: عن عبد الله بن مسعود قال: سمعت رسول ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1437,
+    "end_word": 1501,
+    "text_snippet": "الخامس: عن عائشة قالت:\nلما كان مرض النبي صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1502,
+    "end_word": 1523,
+    "text_snippet": "والاتخاذ المذكور في الأحاديث المتقدمة يشمل عدة",
+    "scholarly_function": "definition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1524,
+    "end_word": 1590,
+    "text_snippet": "والمعنى الثاني ظاهر من الاتخاذ والآخران مع دخو",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1591,
+    "end_word": 1633,
+    "text_snippet": "10 - اتخاذها عيدا تقصد في أوقات معينة ومواسم م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1634,
+    "end_word": 1637,
+    "text_snippet": "11 - السفر إليها:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1638,
+    "end_word": 1639,
+    "text_snippet": "وفيه أحاديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1640,
+    "end_word": 1671,
+    "text_snippet": "الأول:\nعن أبي هريرة عن النبي صلى الله عليه وسل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1672,
+    "end_word": 1702,
+    "text_snippet": "الثاني: عن أبي سعيد الخدري قال: سمعت رسول الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1703,
+    "end_word": 1752,
+    "text_snippet": "الثالث: عن أبي بصرة الغفاري أنه لقي أبا هريرة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1753,
+    "end_word": 1795,
+    "text_snippet": "الرابع: عن قزعة قال:\nأردت الخروج إلى الطور فسأ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1796,
+    "end_word": 1805,
+    "text_snippet": "12 - إيقاد السرج عندها.\nوالدليل على ذلك عدة أم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1806,
+    "end_word": 1834,
+    "text_snippet": "أولا: كونه بدعة محدثة لا يعرفها السلف الصالح و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1835,
+    "end_word": 1848,
+    "text_snippet": "ثانيا: أن فيه إضاعة للمال وهو منهي عنه بالنص ك",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1849,
+    "end_word": 1892,
+    "text_snippet": "ثالثا: أن فيه تشبها بالمجوس عباد النار قال ابن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1893,
+    "end_word": 1948,
+    "text_snippet": "قلت: ولم يورد بالإضافة إلى ما ذكر من التعليل د",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1949,
+    "end_word": 1967,
+    "text_snippet": "13 - كسر عظامها.\nوالدليل عليه قوله صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1968,
+    "end_word": 1992,
+    "text_snippet": "والحديث دليل على تحريم كسر عظم الميت المؤمن ول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1993,
+    "end_word": 2018,
+    "text_snippet": "كذا في كشاف القناع 2 / 127 ونحو ذلك في سائر ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2019,
+    "end_word": 2026,
+    "text_snippet": "لما علمت من الحديث أنه ككسر عظم الحي.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2027,
+    "end_word": 2101,
+    "text_snippet": "وقال النووي في المجموع 5 / 303 ما مختصره:\nولا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2102,
+    "end_word": 2374,
+    "text_snippet": "قلت: ومنه تعلم تحريم ما ترتكبه بعض الحكومات ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2375,
+    "end_word": 2390,
+    "text_snippet": "2 - أنه لا حرمة لعظام غير المؤمنين لإضافة العظ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2391,
+    "end_word": 2417,
+    "text_snippet": "فأفاد أن عظم الكافر ليس كذلك وقد أشار إلى هذا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2418,
+    "end_word": 2443,
+    "text_snippet": "ومن ذلك يعرف الجواب عن السؤال الذي يتردد على أ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2444,
+    "end_word": 2453,
+    "text_snippet": "والجواب: لا يجوز ذلك في عظام المؤمن ويجوز في غ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2454,
+    "end_word": 2459,
+    "text_snippet": "ويؤديه ما يأتي في المسألة التالية:",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2460,
+    "end_word": 2637,
+    "text_snippet": "127 - ويجوز نبش قبور الكفار لأنه لا حرمة لها ك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2638,
+    "end_word": 2653,
+    "text_snippet": "وفي رواية من حديث عائشة رضي الله عنها:\nاللهم إ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2654,
+    "end_word": 2688,
+    "text_snippet": "الحافظ في الفتح:\nوفي الحديث جواز التصرف في الم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2689,
+    "end_word": 2720,
+    "text_snippet": "وهذا آخر ما يسر الله تبارك وتعالى من تلخيص أحك",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  }
+]

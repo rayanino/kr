@@ -1,0 +1,82 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "الكتاب الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 23,
+    "text_snippet": "\n\nفي‌‌ الاستصحاب قال ابن الأنباري:\n\" هو إبقاء حال ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 51,
+    "text_snippet": "قال: \" وهو من الأدلة المعتبرة كاستصحاب حال الأصل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 52,
+    "end_word": 91,
+    "text_snippet": "وقال في الإنصاف:\n\" احتج البصريون على عدم تركيب ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 92,
+    "end_word": 150,
+    "text_snippet": "وقال في موضع آخر منه:\n\" احتج البصريون على أنه ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 151,
+    "end_word": 182,
+    "text_snippet": "وقال ابن مالك:\n\" من قال: أن كان وأخواتها لا تدل ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 183,
+    "end_word": 222,
+    "text_snippet": "قلت: والمسائل التي استدل فيها النحاة بالأصل كثيرة",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 223,
+    "end_word": 257,
+    "text_snippet": "وقال الأندلسي في شرح المفصل:\nاستدل الكوفيون عل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 258,
+    "end_word": 313,
+    "text_snippet": "وقال ابن الأنباري في أصوله:\n\" استصحاب الحال من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 314,
+    "end_word": 379,
+    "text_snippet": "وقال في جدله:\n\" الاعتراض على الاستدلال باستصحاب ",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  }
+]

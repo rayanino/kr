@@ -1,0 +1,230 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 27,
+    "text_snippet": "أمورهم. ويعتبرون هذا من المفاخر الجليلة فجاء الإسلام فزاد من\nإكرامهم فعسى ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه أدبي على إكرام ضيوف الرحمن والاقتداء بآداب الإسلام في خدمتهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 28,
+    "end_word": 91,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء: هل المبيت واجب، أو مستحب؟.\nفذهب الجمهور – و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض الخلاف في حكم المبيت بمزدلفة وذكر قول الجمهور وأدلته وقول المخالفين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 92,
+    "end_word": 111,
+    "text_snippet": "واختلفوا في وجوب الدم في تركه وهو مبنيٌّ على الخلاف السابق.\nفمن أوجبه، أوجب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أن وجوب الدم بترك المبيت مبني على الخلاف في وجوبه أو استحبابه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد فهمه على معرفة أن الضمير في تركه يعود إلى المبيت بمزدلفة المذكور في الوحدة السابقة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 112,
+    "end_word": 314,
+    "text_snippet": "‌‌باب جمع المغرب والعشاء في مزدلفة\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث جمع المغرب والعشاء بمزدلفة مع شرح ألفاظه وبيان معناه الإجمالي وحكمته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 315,
+    "end_word": 329,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية جمع التأخير بين المغرب والعشاء في \"مزدلفة\" في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات مشروعية جمع التأخير بين المغرب والعشاء بمزدلفة ليلة النحر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 330,
+    "end_word": 348,
+    "text_snippet": "2- الحكمة في هذا - والله أعلم - التخفيف والتيسير على الحاج، فهم في مشقة من ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان الحكمة من الجمع بمزدلفة وهي التخفيف والتيسير على الحجاج في مشقة النسك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة في هذا يعود إلى حكم الجمع المذكور في الفائدة السابقة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 349,
+    "end_word": 364,
+    "text_snippet": "3- فيؤخذ منه يسر الشريعة وسهولتها، رحمةً من الشارع، الذي علم قدرة الناس وطا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استنباط يسر الشريعة ومراعاتها لقدرة الناس وطاقتهم من تشريع الجمع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في منه يعود إلى الحديث السابق أو حكم الجمع المستفاد منه."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 365,
+    "end_word": 406,
+    "text_snippet": "4- أن يقام لكل صلاة من المغرب والعشاء، إقامة واحدة.\n5- لم يذكر في هذا الحدي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان أن لكل صلاة إقامة، وأن الأذان ثبت من حديث جابر بأذان واحد وإقامتين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستفيد تماماً مع معرفة أن المقصود صلاتا المغرب والعشاء المجموعتان بمزدلفة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 407,
+    "end_word": 440,
+    "text_snippet": "6- أنه لا يشرع التنفل بين المجموعتين ولا بعدهما، فهو من باب التيسير والتخفيف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "النهي عن التنفل بين الصلاتين المجموعتين وبعدهما لأجل التخفيف والتفرغ للمناسك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المقصود بالمجموعتين صلاتا المغرب والعشاء بمزدلفة، وهو مفهوم من السياق السابق."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 441,
+    "end_word": 495,
+    "text_snippet": "7- قال شيخ الإسلام: والسنة أن يبيت بمزدلفة إلى أن يطلع الفجر فيصلي بها الفج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "صفة المبيت والدفع من مزدلفة عند شيخ الإسلام، مع استثناء الضعفة في التعجل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 496,
+    "end_word": 597,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في سبب الجمع بين المغرب والعشاء في \"مزدلفة\".\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "cross_reference",
+      "evidence_rational"
+    ],
+    "description_arabic": "الخلاف في سبب الجمع بمزدلفة: أهو للسفر أم للنسك، وبيان ترجيح الجمع لكل حاج.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية بقول المصنف: تقدم لنا أن الصحيح أن السفر لا يقدر بمدة ولا مسافة."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 598,
+    "end_word": 808,
+    "text_snippet": "واختلفوا في الأذان والإقامة لهاتين الصلاتين.\nفذهب بعضهم- ومنهم سفيان - إلى أ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "editorial_note",
+      "refutation"
+    ],
+    "description_arabic": "عرض أقوال العلماء في الأذان والإقامة بمزدلفة وترجيح الأذان الواحد والإقامتين برواية جابر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المراد بهاتين الصلاتين هو المغرب والعشاء بمزدلفة، وهو مفهوم من السياق القريب لا من هذه الوحدة وحدها تماماً."
+  }
+]

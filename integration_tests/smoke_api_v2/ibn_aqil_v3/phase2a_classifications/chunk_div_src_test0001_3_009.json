@@ -1,0 +1,442 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌نعم وبئس وما جرى مجراهما\nفعلان غير متصرفين ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 22,
+    "text_snippet": "مقارنى أل أو مضافين لما … قارنها ك عقبى الكرما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 23,
+    "end_word": 31,
+    "text_snippet": "ويرفعان مضمرا يفسره … مميز ك نعم قوما معشره",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 32,
+    "end_word": 51,
+    "text_snippet": "مذهب جمهور النحويين أن نعم وبئس فعلان بدليل ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 4,
+    "start_word": 52,
+    "end_word": 84,
+    "text_snippet": "وذهب جماعة من الكوفيين ومنهم الفراء إلى أنهما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 85,
+    "end_word": 130,
+    "text_snippet": "وخرج على جعل نعم وبئس مفعولين لقول محذوف واقع",
+    "scholarly_function": "refutation",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 6,
+    "start_word": 131,
+    "end_word": 150,
+    "text_snippet": "وهذان الفعلان لا يتصرفان فلا يستعمل منهما غير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 151,
+    "end_word": 160,
+    "text_snippet": "الأول: أن يكون محلى بالألف واللام نحو نعم الرج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 161,
+    "end_word": 167,
+    "text_snippet": "ومنه قوله تعالى: {نِعْمَ الْمَوْلَى وَنِعْمَ النَّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 168,
+    "end_word": 204,
+    "text_snippet": "واختلف في هذه اللام فقال قوم هي للجنس حقيقة فم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 205,
+    "end_word": 216,
+    "text_snippet": "الثاني: أن يكون مضافا إلى ما فيه أل كقوله نعم ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 217,
+    "end_word": 222,
+    "text_snippet": "ومنه قوله تعالى: {وَلَنِعْمَ دَارُ الْمُتَّقِينَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 223,
+    "end_word": 244,
+    "text_snippet": "الثالث: أن يكون مضمرا مفسرا بنكرة بعده منصوبة ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 245,
+    "end_word": 255,
+    "text_snippet": "وزعم بعضهم أن معشره مرفوع بنعم وهو الفاعل ولا ض",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 256,
+    "end_word": 264,
+    "text_snippet": "وقال بعض هؤلاء إن قوما حال وبعضهم إنه تمييز",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 265,
+    "end_word": 273,
+    "text_snippet": "ومثل نعم قوما معشره قوله تعالى: {بِئْسَ لِلظَّا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 274,
+    "end_word": 289,
+    "text_snippet": "وقول الشاعر:\n273 - لنعم موئلا المولى إذا حذرت …",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 17,
+    "start_word": 290,
+    "end_word": 305,
+    "text_snippet": "وقول الآخر:\n274 - تقول عرسى وهي لي في عومره … ",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 306,
+    "end_word": 342,
+    "text_snippet": "وجمع تميز وفاعل ظهر … فيه خلاف عنهم قد اشتهر\nا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 343,
+    "end_word": 359,
+    "text_snippet": "وذهب قوم إلى الجواز واستدلوا بقوله:\n275 - والتغ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 360,
+    "end_word": 373,
+    "text_snippet": "وقوله:\n276 - تزود مثل زاد أبيك فينا … فنعم الزا",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 374,
+    "end_word": 398,
+    "text_snippet": "وفصل بعضهم فقال إن أفاد التمييز فائدة زائدة على",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 399,
+    "end_word": 412,
+    "text_snippet": "فإن كان الفاعل مضمرا جاز الجمع بينه وبين التميي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 413,
+    "end_word": 423,
+    "text_snippet": "وما مميز وقيل فاعل … في نحو نعم ما يقول الفاضل\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 424,
+    "end_word": 435,
+    "text_snippet": "تقع ما بعد نعم وبئس فتقول نعم ما أو نعما وبئس م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 25,
+    "start_word": 436,
+    "end_word": 443,
+    "text_snippet": "ومنه قوله تعالى: {إِنْ تُبْدُوا الصَّدَقَاتِ فَن",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 444,
+    "end_word": 450,
+    "text_snippet": "وقوله تعالى: {بِئْسَمَا اشْتَرَوْا بِهِ أَنْفُسَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 451,
+    "end_word": 478,
+    "text_snippet": "واختلف في ما هذه فقال قوم هي نكرة منصوبة على ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 479,
+    "end_word": 489,
+    "text_snippet": "ويذكر المخصوص بعد مبتدأ … أو خبر أسم ليس يبدو أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 29,
+    "start_word": 490,
+    "end_word": 536,
+    "text_snippet": "يذكر بعد نعم وبئس وفاعلهما اسم مرفوع هو المخصوص",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 30,
+    "start_word": 537,
+    "end_word": 543,
+    "text_snippet": "أحدهما: أنه مبتدأ والجملة قبله خبر عنه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 544,
+    "end_word": 559,
+    "text_snippet": "والثاني: أنه خبر مبتدأ محذوف وجوبا والتقدير هو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 560,
+    "end_word": 573,
+    "text_snippet": "ومنع بعضهم الوجه الثاني وأوجب الأول وقيل هو مبت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 33,
+    "start_word": 574,
+    "end_word": 584,
+    "text_snippet": "وإن يقدم مشعر به كفى … كـ \"العلم نعم المقتنى وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 34,
+    "start_word": 585,
+    "end_word": 597,
+    "text_snippet": "إذا تقدم ما يدل على المخصوص بالمدح أو الذم أغنى",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 35,
+    "start_word": 598,
+    "end_word": 608,
+    "text_snippet": "كقوله تعالى: في أيوب {إِنَّا وَجَدْنَاهُ صَابِر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 609,
+    "end_word": 621,
+    "text_snippet": "أي نعم العبد أيوب فحذف المخصوص بالمدح وهو أيوب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 37,
+    "start_word": 622,
+    "end_word": 632,
+    "text_snippet": "واجعل كبئس \"ساء\" واجعل فعلا … من ذي ثلاثة كنعم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 38,
+    "start_word": 633,
+    "end_word": 673,
+    "text_snippet": "تستعمل ساء في الذم استعمال بئس فلا يكون فاعلها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 674,
+    "end_word": 681,
+    "text_snippet": "ومنه قوله تعالى: {سَاءَ مَثَلاً الْقَوْمُ الَّذِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 682,
+    "end_word": 692,
+    "text_snippet": "ويذكر بعدها المخصوص بالذم كما يذكر بعد بئس وإعر",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 41,
+    "start_word": 693,
+    "end_word": 737,
+    "text_snippet": "وأشار بقوله واجعل فعلا إلى أن كل فعل ثلاثي يجوز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 42,
+    "start_word": 738,
+    "end_word": 757,
+    "text_snippet": "ومقتضى هذا الإطلاق أنه يجوز في علم أن يقال علم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 43,
+    "start_word": 758,
+    "end_word": 804,
+    "text_snippet": "وصرح غيره أنه لا يجوز تحويل علم وجهل وسمع إلى ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 44,
+    "start_word": 805,
+    "end_word": 816,
+    "text_snippet": "ومثل نعم حبذا الفاعل ذا … وإن ترد ذما فقل لا حب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 45,
+    "start_word": 817,
+    "end_word": 827,
+    "text_snippet": "يقال في المدح حبذا زيد وفي الذم لا حبذا زيد كقو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 46,
+    "start_word": 828,
+    "end_word": 842,
+    "text_snippet": "277 - ألا حبذا أهل الملا غير أنه … إذا ذكرت مى ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 47,
+    "start_word": 843,
+    "end_word": 901,
+    "text_snippet": "واختلف في إعرابها فذهب أبو علي الفارسي في البغد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 902,
+    "end_word": 936,
+    "text_snippet": "وذهب المبرد في المقتضب وابن السراج في الأصول وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 937,
+    "end_word": 957,
+    "text_snippet": "وذهب قوم منهم ابن درستويه إلى أن حبذا فعل ماض و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 958,
+    "end_word": 969,
+    "text_snippet": "وأول ذا المخصوص أيا كان لا … تعدل بذا فهو يضاهى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 970,
+    "end_word": 1044,
+    "text_snippet": "أي أوقع المخصوص بالمدح أو الذم بعد ذا على أي حا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1045,
+    "end_word": 1058,
+    "text_snippet": "وما سوى ذا أرفع بحب أو فجر … بالبا ودون ذا انضم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1059,
+    "end_word": 1118,
+    "text_snippet": "يعني أنه إذا وقع بعد حب غير ذا من الأسماء جاز ف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1119,
+    "end_word": 1133,
+    "text_snippet": "وروى بالوجهين قوله:\n278 - فقلت أقتلوها عنكم بمز",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  }
+]

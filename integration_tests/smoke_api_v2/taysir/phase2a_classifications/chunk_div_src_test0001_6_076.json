@@ -1,0 +1,658 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَابُ الرِّبا والصَّرْف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 17,
+    "text_snippet": "الربا في اللغة: الزيادة، ومنه قوله تعالى: {فإذا ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 18,
+    "end_word": 23,
+    "text_snippet": "وفى الشرع: الزيادة في أشياء مخصوصة.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 24,
+    "end_word": 70,
+    "text_snippet": "وهو محرم بالكتاب، والسنة، والإجماع، والقياس الص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 4,
+    "start_word": 71,
+    "end_word": 100,
+    "text_snippet": "وتحريمه: - مقتضى العدل والقياس، لأن التعامل به ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 101,
+    "end_word": 153,
+    "text_snippet": "منها: - تضخم المال بطريق غير مشروعة، لأنه تضخم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 154,
+    "end_word": 167,
+    "text_snippet": "وهذا مصداق للحديث النبوي الشريف \"يأتي على الناس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 168,
+    "end_word": 176,
+    "text_snippet": "وبسط هذه البحوث والرد عليها، له كتب غير هذا.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 177,
+    "end_word": 185,
+    "text_snippet": "أما الصرف: فمادته تدور على التقلب والتغير في الأ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 186,
+    "end_word": 205,
+    "text_snippet": "قال في اللسان: \"الصرف بيع الذهب بالفضة وبالعكس،",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 206,
+    "end_word": 207,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 208,
+    "end_word": 249,
+    "text_snippet": "عَنْ عُمَرَ بْنِ الْخطَابِ رَضىَ الله عَنْهُ قَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 250,
+    "end_word": 261,
+    "text_snippet": "إلا هاء وهاء: فيهما لغات، أشهرها المد وفتح الهمز",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 13,
+    "start_word": 262,
+    "end_word": 339,
+    "text_snippet": "المعنى الإجمالي:\nيبين النبي صلى الله عليه وسلم ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 340,
+    "end_word": 420,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم بيع الذهب بالفضة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 421,
+    "end_word": 422,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 423,
+    "end_word": 486,
+    "text_snippet": "عَنْ أبي سَعيد الخُدرِىّ رضي الله عنه: أنَ رَسول",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 487,
+    "end_word": 533,
+    "text_snippet": "الغريب:\n1- الورق: هو الفضة مضروبة أو غير مضروبة",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 534,
+    "end_word": 614,
+    "text_snippet": "المعنى الإجمالي:\nفي هذا الحديث الشريف ينهى النب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 19,
+    "start_word": 615,
+    "end_word": 739,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الذهب بالذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 740,
+    "end_word": 741,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 742,
+    "end_word": 798,
+    "text_snippet": "أجمع العلماء على تحريم التفاضل ⌜3⌝ والنساء في ج",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 22,
+    "start_word": 799,
+    "end_word": 810,
+    "text_snippet": "فهو نص في منع التفاضل في الجنس الواحد من هذه ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 23,
+    "start_word": 811,
+    "end_word": 853,
+    "text_snippet": "وأما منع النسيئة، فيستفاد من مثل حديث عمر بن ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 854,
+    "end_word": 899,
+    "text_snippet": "ويجوز بيع الجنس الواحد من هذه الستة بالجنس الآخ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 25,
+    "start_word": 900,
+    "end_word": 912,
+    "text_snippet": "وقد ذهبت الظاهرية إلى أن الربا لا يتعدى هذه الأج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 913,
+    "end_word": 958,
+    "text_snippet": "وأما جمهور العلماء فقد عَدّوا الحكم إلى غيرها م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 959,
+    "end_word": 1027,
+    "text_snippet": "فالرواية المشهورة عن الإمام أحمد، في الذهب والفض",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1028,
+    "end_word": 1099,
+    "text_snippet": "ويستدلون على ثبوت هذا التعليل عندهم، بما رواه أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1100,
+    "end_word": 1152,
+    "text_snippet": "وذهب الشافعي إلى أن العلة، الطعم والجنس، والعلة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1153,
+    "end_word": 1203,
+    "text_snippet": "ووافق الإمام مالك الشافعي في النقدين، أم غيرهما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1204,
+    "end_word": 1289,
+    "text_snippet": "وهناك رواية أخرى عن الإمام أحمد هي مذهب الإمام ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1290,
+    "end_word": 1302,
+    "text_snippet": "وبهذا القول تجتمع الأحاديث الواردة في هذه المسأل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1303,
+    "end_word": 1323,
+    "text_snippet": "وقد اختار هذا القول [صاحب المغنى] والشارح عبد ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1324,
+    "end_word": 1324,
+    "text_snippet": "تلخيص:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1325,
+    "end_word": 1389,
+    "text_snippet": "قال في المغنى: فالحاصل إن ما اجتمع فيه الكيل وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1390,
+    "end_word": 1430,
+    "text_snippet": "واختلف أهل العلم فيه، والأولى- إن شاء الله- حِل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1431,
+    "end_word": 1432,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1433,
+    "end_word": 1508,
+    "text_snippet": "عَن أبي سَعِيدٍ الخُدري رَضىَ الله عَنْهُ قَالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1509,
+    "end_word": 1531,
+    "text_snippet": "الغريب:\nبَرْني: من تمر المدينة الجيد، وهو معروف",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1532,
+    "end_word": 1622,
+    "text_snippet": "المعنى الإجمالي:\nجاء بلال إلى النبي صلى الله علي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1623,
+    "end_word": 1820,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم ربا الفضل بالتمر،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1821,
+    "end_word": 1822,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1823,
+    "end_word": 1831,
+    "text_snippet": "اختلف العلماء في حكم المسألة العينة، التي تقدم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1832,
+    "end_word": 1856,
+    "text_snippet": "فذهب الأئمة الثلاثة، أبو حنيفة، ومالك، وأحمد وأت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1857,
+    "end_word": 1896,
+    "text_snippet": "لما روى أحمد، وأبو داود عن ابن عمر قال: سمعت رس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1897,
+    "end_word": 1949,
+    "text_snippet": "وما رواه أحمد أيضاً [أن أم ولد زيد بن أرقم، أخبر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1950,
+    "end_word": 1970,
+    "text_snippet": "والظاهر أنها لا تقول مثل هذا باجتهاد منها، لأن ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1971,
+    "end_word": 1980,
+    "text_snippet": "وأجاز الشافعي بيع العينة، أخذاً بعموم ما رواه ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1981,
+    "end_word": 2041,
+    "text_snippet": "عن أبي سعيد، وأبى هريرة [أن رسول الله صلى الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2042,
+    "end_word": 2069,
+    "text_snippet": "فعموم هذا الحديث يدل على أنه لا بأس أن يكون الذ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2070,
+    "end_word": 2083,
+    "text_snippet": "وعند الأصوليين [أن ترك الاستفصال في مقام الاحتم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2084,
+    "end_word": 2099,
+    "text_snippet": "أما [مسألة التورق] التي معناها، أن يشتري السلعة",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2100,
+    "end_word": 2103,
+    "text_snippet": "فالمشهور عند أصحابنا جوازها.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2104,
+    "end_word": 2117,
+    "text_snippet": "وكان شيخنا \" عبد الرحمن السعدي \" يجيزها، ويرى ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2118,
+    "end_word": 2177,
+    "text_snippet": "وقال في أحد كتبه: \"لأن المشترى لم يبعها على الب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2178,
+    "end_word": 2190,
+    "text_snippet": "والرواية الثانية عن الإمام أحمد، التحريم، واختا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2191,
+    "end_word": 2227,
+    "text_snippet": "وقال ابن القيم \"وكان شيخنا- ابن تيمية- رحمه الل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2228,
+    "end_word": 2268,
+    "text_snippet": "والمانعون من \"العينة\" جعلوها من باب الذرائع الم",
+    "scholarly_function": "refutation",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2269,
+    "end_word": 2289,
+    "text_snippet": "فإن قوله: \"بع الجمع\" مطلق، يقيد بالعقود الصحيحة",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2290,
+    "end_word": 2321,
+    "text_snippet": "وبهذا تبين فساد قول الذين يحاولون الاستدلال على",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2322,
+    "end_word": 2336,
+    "text_snippet": "ومن أراد بسط هذا، فعليه ب \" إعلام الموقعين \" لا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2337,
+    "end_word": 2338,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2339,
+    "end_word": 2372,
+    "text_snippet": "عَنْ أبي المِنْهَالِ قال: سَالتُ البَرَاءَ بنَ ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2373,
+    "end_word": 2442,
+    "text_snippet": "المعنى الإجمالي:\nسأل أبو المنهال، البراء بن عازب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2443,
+    "end_word": 2505,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الذهب بالف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2506,
+    "end_word": 2507,
+    "text_snippet": "الحديث الخميس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2508,
+    "end_word": 2547,
+    "text_snippet": "عَنْ أبي بَكْرَةَ قَالَ: نَهَى رَسُولُ الله صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2548,
+    "end_word": 2608,
+    "text_snippet": "المعنى الإجمالي:\nلما كان بيع الذهب بالذهب، والف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2609,
+    "end_word": 2749,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم بيع الذهب بالذهب،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2750,
+    "end_word": 2755,
+    "text_snippet": "اختلاف العلماء في (الأوراق البنكية) :",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2756,
+    "end_word": 2788,
+    "text_snippet": "في هذه الأزمان الأخيرة، أخذ الناس يتعاملون بدل ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2789,
+    "end_word": 2801,
+    "text_snippet": "فمنهم: من يرى أنها من بيع السندات والديون والصكو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2802,
+    "end_word": 2843,
+    "text_snippet": "ومنهم: من يرى أنها عروض من عروض التجارة، فلا يج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2844,
+    "end_word": 2848,
+    "text_snippet": "وهذان القولان في غاية الضعف.",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2849,
+    "end_word": 2862,
+    "text_snippet": "فأما الأول: ففيه تشديد، وحرج وضيق، وطبع ديننا ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2863,
+    "end_word": 2880,
+    "text_snippet": "والثاني: فيه فتح لباب شر كبير، وهو الربا بأنواعه",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2881,
+    "end_word": 2894,
+    "text_snippet": "ومنهم: من يرى أن حكمها، حكم النقدين، يجرى فيها ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2895,
+    "end_word": 2912,
+    "text_snippet": "وهذا له وجه من الصحة، لقوة مأخذه، ويستدلون على ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2913,
+    "end_word": 2925,
+    "text_snippet": "وأحسن الأقوال في ذلك وأعدلها وأقربها للصواب، هو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2926,
+    "end_word": 2934,
+    "text_snippet": "فنجرى فيها ربا النسيئة، ولا نجرى عليها ربا الفض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2935,
+    "end_word": 2960,
+    "text_snippet": "فيجوز بيع بعضها ببعض، أو بأحد النقدين متفاضلة و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  }
+]

@@ -1,0 +1,1274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 7,
+    "text_snippet": "‌‌بَابُ صفَة صَلاة النَّبي صلى الله عليه وسلم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 8,
+    "end_word": 49,
+    "text_snippet": "يذكر المصنف في هذا الباب طرفاً من الأحاديث الصحي",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 66,
+    "text_snippet": "وقد قال صلى الله عليه وسلم: \" صَلُّوا كما رأيت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 3,
+    "start_word": 67,
+    "end_word": 98,
+    "text_snippet": "ونظرا إلى أن أفعاله صلى الله عليه وسلم بيان للأو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 4,
+    "start_word": 99,
+    "end_word": 100,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 101,
+    "end_word": 166,
+    "text_snippet": "عَنْ أبي هريرة رضي الله عنه قال: كَانَ رسول الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 167,
+    "end_word": 168,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 169,
+    "end_word": 194,
+    "text_snippet": "1- \"هنيهة\": قال في القاموس (الْهِنو) بالكسر، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 195,
+    "end_word": 208,
+    "text_snippet": "وأصلها \" هَنْوَةٌ \" أي شيء يسير، ويروى \" هُنَيه",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 209,
+    "end_word": 215,
+    "text_snippet": "قلت: المراد هنا: أن يسكت سكتة لطيفة.",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 216,
+    "end_word": 222,
+    "text_snippet": "2- \"الثلج والبَرَد\": البرد، بالتحريك، حب الغما",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 223,
+    "end_word": 244,
+    "text_snippet": "3- \"أرَأيتُ سكوتك\": بضم تاء \" رأيت \". والمراد ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 245,
+    "end_word": 250,
+    "text_snippet": "4- \"الدنس\": بفتح الدال والنون: الوسخ.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 251,
+    "end_word": 264,
+    "text_snippet": "5- \"بأبي أنت وأمي\": الباء متعلقة بمحذوف، والتقد",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 265,
+    "end_word": 266,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 267,
+    "end_word": 343,
+    "text_snippet": "كان النبي صلى الله عليه وسلم إذا كبر للصلاة تكبي",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 344,
+    "end_word": 417,
+    "text_snippet": "وهذا دعاء في غاية المناسبة في هذا المقام الشريف،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 17,
+    "start_word": 418,
+    "end_word": 419,
+    "text_snippet": "أحكام الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 420,
+    "end_word": 425,
+    "text_snippet": "1- استحباب دعاء الاستفتاح في الصلاة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 426,
+    "end_word": 440,
+    "text_snippet": "2- أن مكانه بعد تكبيرة الإحرام وقبل قراءة الفاتح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 441,
+    "end_word": 448,
+    "text_snippet": "3- أن يُسِرَّ به ولو كانت الصلاة جهرية.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 449,
+    "end_word": 459,
+    "text_snippet": "4- أنه لا يطال فيه الدعاء، ولاسيما في الجماعة لل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 460,
+    "end_word": 475,
+    "text_snippet": "5- حرص الصحابة رضي الله عنهم على أحوال الرسول صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 23,
+    "start_word": 476,
+    "end_word": 492,
+    "text_snippet": "6- أنه ينبغي في مواطن الدعاء أن يُلح الإنسان ويك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 493,
+    "end_word": 518,
+    "text_snippet": "فإن هذه الدعوات تدور كلها على مَحْو الذنوب والإبع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 25,
+    "start_word": 519,
+    "end_word": 519,
+    "text_snippet": "فائدتان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 520,
+    "end_word": 530,
+    "text_snippet": "الأولى: ثبت عن النبي صلى الله عليه وسلم استفتاحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 27,
+    "start_word": 531,
+    "end_word": 543,
+    "text_snippet": "منها هذا الدعاء الذي معنا \" اللهم باعد بيني وبين",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 544,
+    "end_word": 553,
+    "text_snippet": "ومنها: \"وَجّهْت وَجْهِيَ لِلَّذِي فَطَر السموَاتِ",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 554,
+    "end_word": 562,
+    "text_snippet": "ومنها: \" سبحانك اللهم وبحمدك وتبارك اسمك.. الخ \".",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 563,
+    "end_word": 566,
+    "text_snippet": "وكلها جائزة، لأنها واردة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 567,
+    "end_word": 591,
+    "text_snippet": "ولكن الإمام أحمد اختار الأخير منها. \" سبحانك الل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 592,
+    "end_word": 618,
+    "text_snippet": "وينبغي للمصلي أن لا يقتصر دائماً على واحد منها، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 619,
+    "end_word": 647,
+    "text_snippet": "الثانية: من المعلوم أن الماء الساخن أبلغ في إزال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 34,
+    "start_word": 648,
+    "end_word": 684,
+    "text_snippet": "الجواب: قد حصل من العلماء تَلمّسات كثيرة في طلب ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 35,
+    "start_word": 685,
+    "end_word": 686,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 687,
+    "end_word": 771,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَتْ: \"كَانَ رَسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 37,
+    "start_word": 772,
+    "end_word": 773,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 774,
+    "end_word": 932,
+    "text_snippet": "تصف عائشة رضي الله عنها بهذا الحديث الجليل صلاة ",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 39,
+    "start_word": 933,
+    "end_word": 933,
+    "text_snippet": "ملاحظة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 40,
+    "start_word": 934,
+    "end_word": 970,
+    "text_snippet": "هذا الحديث لم يخرجه إلا مسلم فقط، وله علة، وهي أ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 971,
+    "end_word": 972,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 973,
+    "end_word": 978,
+    "text_snippet": "1- \"بالحمدُ لله\": الرفع على الحكاية.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 979,
+    "end_word": 999,
+    "text_snippet": "2- \"لم يشخِص\": بضم الياء وإسكان الشين المعجمة، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1000,
+    "end_word": 1015,
+    "text_snippet": "3- \"لم يُصَوِّبه\": بضم الياء، وفتح الصاد المهملة",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1016,
+    "end_word": 1022,
+    "text_snippet": "4- \"يفرُش\": بضم الراء وكسرها، والضم أشهر.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1023,
+    "end_word": 1033,
+    "text_snippet": "5- \"عُقبة\": بضم العين. فسره أبو عبيد وغيره بالإِ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1034,
+    "end_word": 1041,
+    "text_snippet": "6- \"يستفتح\": أي يفتح فالسين للتأكيد لا للطلب.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1042,
+    "end_word": 1043,
+    "text_snippet": "أحكام الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1044,
+    "end_word": 1067,
+    "text_snippet": "1- ما ذكرته عائشة هذا من صفة صلاة النبي عليه الصل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1068,
+    "end_word": 1098,
+    "text_snippet": "2- وجوب تكبيرة الإحرام التي تحرم كل قول وفعل ينا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1099,
+    "end_word": 1111,
+    "text_snippet": "3- وجوب قراءة الفاتحة بدون بسملة، ويأتي استحباب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1112,
+    "end_word": 1121,
+    "text_snippet": "4- وجوب الركوع، والأفضل فيه الاستواء، بلا رفع، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1122,
+    "end_word": 1131,
+    "text_snippet": "5- وجوب الرفع من الركوع، ووجوب الاعتدال في القيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1132,
+    "end_word": 1140,
+    "text_snippet": "6- وجوب السجود، ووجوب الرفع منه، والاعتدال قاعدا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1141,
+    "end_word": 1154,
+    "text_snippet": "7- وجوب التشهد بعد كل ركعتين، فإن كانت الصلاة ثن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1155,
+    "end_word": 1214,
+    "text_snippet": "8- مشروعية افتراش المصلى رجله اليسرى ونصب اليمنى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1215,
+    "end_word": 1248,
+    "text_snippet": "9- النهي عن مشابهة الشيطان في جلوسه، وذلك بأن يج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1249,
+    "end_word": 1266,
+    "text_snippet": "10- النهي عن مشابهة السبع في افتراشه، وذلك بأن ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1267,
+    "end_word": 1282,
+    "text_snippet": "11- وجوب ختم الصلاة بالتسليم، وهو دعاء للمصلين و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1283,
+    "end_word": 1284,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1285,
+    "end_word": 1308,
+    "text_snippet": "الصحيح عند الأصوليين: أن أفعال النبي صلى الله عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1309,
+    "end_word": 1341,
+    "text_snippet": "وهذه الأفعال والأقوال الموصوفة في هذا الحديث، تد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1342,
+    "end_word": 1351,
+    "text_snippet": "فمن ذلك التشهد الأول، والجلوس له في الصلاة ذات ا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1352,
+    "end_word": 1378,
+    "text_snippet": "فقد ذهب الإمام \" أحمد \" و\" الليث \" و \" إسحاق \" ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1379,
+    "end_word": 1388,
+    "text_snippet": "مستدلين بالأحاديث الواردة في التشهد من غير تقييد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1389,
+    "end_word": 1429,
+    "text_snippet": "فمنها هذا الحديث الذي معنا، ومنها حديث عبد الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1430,
+    "end_word": 1447,
+    "text_snippet": "وذهب الأئمة \" أبو حنيفة \" و\" مالك \" و\" الشافعي ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1448,
+    "end_word": 1471,
+    "text_snippet": "ودليلهم أن النبي صلى الله عليه وسلم تركهما سَهْو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1472,
+    "end_word": 1484,
+    "text_snippet": "والجواب: أن الرجوع إليهما إنما يجب إذا ذكر المصل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1485,
+    "end_word": 1522,
+    "text_snippet": "لما روى أبو داود، عن المغيرة بن شعبة عن النبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1523,
+    "end_word": 1528,
+    "text_snippet": "واختلفوا في الصفة المستحبة في الجلوس.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1529,
+    "end_word": 1614,
+    "text_snippet": "فذهبت الحنفية إلى الافتراش في جميع جلسات الصلاة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1615,
+    "end_word": 1644,
+    "text_snippet": "ودليل الحنفية، ما رواه سعيد بن منصور، عن وائل بن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1645,
+    "end_word": 1667,
+    "text_snippet": "وما رواه أحمد عن رفاعة بن رافع: أن النبي صلى الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1668,
+    "end_word": 1694,
+    "text_snippet": "وبما أخرجه الترمذى وصححه، من حديث أبي حميد: \" أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1695,
+    "end_word": 1704,
+    "text_snippet": "وأما صفة الجلوس بين السجدتين فهو الافتراش عند ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1705,
+    "end_word": 1728,
+    "text_snippet": "ووجه الدلالة: من هذه الأحاديث أن رواتها ذكروا ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1729,
+    "end_word": 1763,
+    "text_snippet": "ودليل المالكية مال روى عن عبد الله بن مسعود: \" أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1764,
+    "end_word": 1801,
+    "text_snippet": "ودليل الشافعية والحنابلة: أن الأحاديث التي وردت ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1802,
+    "end_word": 1829,
+    "text_snippet": "وما ذكره \" مسلم \" من حديث عبد الله بن الزبير: \" ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1830,
+    "end_word": 1856,
+    "text_snippet": "وفي حديث أبي حميد أيضاً، عند أبي حاتم في صحيحه و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1857,
+    "end_word": 1870,
+    "text_snippet": "ولكن وقع اختلاف بين الشافعية والحنابلة، في الصلا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1871,
+    "end_word": 1901,
+    "text_snippet": "فالشافعية يرون أن فيه التورك، لأن قوله في حديث أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1902,
+    "end_word": 1937,
+    "text_snippet": "والحنابلة يقولون: إن التورك خاص بالتشهد الأخير م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1938,
+    "end_word": 1965,
+    "text_snippet": "وعللوا لذلك، بأن التورك بالصلاة ذات التشهدين، لي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1966,
+    "end_word": 1982,
+    "text_snippet": "ورجح \"ابن القيم\" هذا الافتراش في \"زاد المعاد\" ول",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1983,
+    "end_word": 1997,
+    "text_snippet": "وأفضل التشهد، تشهد عبد الله بن مسعود، وهو أصحها،",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1998,
+    "end_word": 2028,
+    "text_snippet": "وصفته: \" التحيات لله، والصلوات والطيبات، السلام ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 89,
+    "start_word": 2029,
+    "end_word": 2041,
+    "text_snippet": "وأجمع العلماء على مشروعية التسليم، ولكن اختلفوا:",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2042,
+    "end_word": 2051,
+    "text_snippet": "والصحيح أن المشروع تسليمتان، لصحة أحاديثهما، وضع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2052,
+    "end_word": 2067,
+    "text_snippet": "وعلى فرض صحة أحاديث التسليمة، فإن أحاديث التسليم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2068,
+    "end_word": 2071,
+    "text_snippet": "واختلفوا في وجوب التسليم.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 93,
+    "start_word": 2072,
+    "end_word": 2106,
+    "text_snippet": "فذهبت الحنفية إلى عدم وجوبه، مستدلين بما أخرجه ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 94,
+    "start_word": 2107,
+    "end_word": 2120,
+    "text_snippet": "واستدلوا بحديث المسيء في صلاته، حيث لم يأمره الن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 95,
+    "start_word": 2121,
+    "end_word": 2139,
+    "text_snippet": "وأجيب بأن حديث ابن عمر، اتفق الحفاظ على ضعفه.\nوق",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 96,
+    "start_word": 2140,
+    "end_word": 2150,
+    "text_snippet": "أما حديث المسيء فلا ينافي الوجوب، فإن هذا زيادة،",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 97,
+    "start_word": 2151,
+    "end_word": 2187,
+    "text_snippet": "وذهب جمهور الصحابة والتابعين، ومن أصحاب المذاهب،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 98,
+    "start_word": 2188,
+    "end_word": 2189,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 99,
+    "start_word": 2190,
+    "end_word": 2235,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 100,
+    "start_word": 2236,
+    "end_word": 2237,
+    "text_snippet": "المعنى الإِجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 101,
+    "start_word": 2238,
+    "end_word": 2313,
+    "text_snippet": "الصلاة مأدبة كريمة، جمعت كل ما لذَ وطاب، فكل عضو",
+    "scholarly_function": "narration",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 102,
+    "start_word": 2314,
+    "end_word": 2315,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 103,
+    "start_word": 2316,
+    "end_word": 2337,
+    "text_snippet": "أجمع العلماء على مشروعية رفع اليدين عند تكبيرة ا",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 104,
+    "start_word": 2338,
+    "end_word": 2365,
+    "text_snippet": "واختلف العلماء في رفع اليدين عند غيرها.\nفذهب جمه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 105,
+    "start_word": 2366,
+    "end_word": 2421,
+    "text_snippet": "قال ابن المديني: هذا الحديث حجة على الخلق، ومن س",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 106,
+    "start_word": 2422,
+    "end_word": 2469,
+    "text_snippet": "وفي رواية عن الإمام أحمد اختارها المجد، وحفيده ش",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 107,
+    "start_word": 2470,
+    "end_word": 2483,
+    "text_snippet": "لما روي البخاري عن ابن عمر: أن النبي صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 108,
+    "start_word": 2484,
+    "end_word": 2506,
+    "text_snippet": "ولما في حديث أبي حميد عند أبي داود، والترمذى وصح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 109,
+    "start_word": 2507,
+    "end_word": 2526,
+    "text_snippet": "وذهب \" مالك \" في أشهر الروايات عنه، وأبو حنيفة: ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 110,
+    "start_word": 2527,
+    "end_word": 2551,
+    "text_snippet": "وحجتهم حديث البراء بن عازب عند أبي داود \" رأيت ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 111,
+    "start_word": 2552,
+    "end_word": 2571,
+    "text_snippet": "وقد اتفق الحفاظ على أنه قوله \" ثم لم يعد \" مدرجة",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 112,
+    "start_word": 2572,
+    "end_word": 2605,
+    "text_snippet": "واحتجوا أيضا بما روى عن ابن مسعود، عند أحمد، وأب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 113,
+    "start_word": 2606,
+    "end_word": 2624,
+    "text_snippet": "ولكنه لم يثبت عند ابن مبارك، وعده ابن أبي حاتم خ",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 114,
+    "start_word": 2625,
+    "end_word": 2651,
+    "text_snippet": "فتلخص من هذا استحباب رفع اليدين في المواضع الأرب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 115,
+    "start_word": 2652,
+    "end_word": 2656,
+    "text_snippet": "ف\nما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 116,
+    "start_word": 2657,
+    "end_word": 2672,
+    "text_snippet": "1- استحباب رفع اليدين عند تكبيرة الإحرام بإجماع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 117,
+    "start_word": 2673,
+    "end_word": 2679,
+    "text_snippet": "2- أن يكون الرفع إلى مقابل المنكبين.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 118,
+    "start_word": 2680,
+    "end_word": 2691,
+    "text_snippet": "3- أن النبي صلى الله عليه وسلم، لم يفعل الرفع في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 119,
+    "start_word": 2692,
+    "end_word": 2706,
+    "text_snippet": "4- حكم الله في ذلك كثيرة، وأجمع العلماء على أنه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 120,
+    "start_word": 2707,
+    "end_word": 2736,
+    "text_snippet": "فمنهم من قال: وزينة للصلاة.\nومنهم من قال: رفع لح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 121,
+    "start_word": 2737,
+    "end_word": 2748,
+    "text_snippet": "لا منافاة بين هذه الأقوال وغيرها. فلله في شرائعه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 122,
+    "start_word": 2749,
+    "end_word": 2756,
+    "text_snippet": "والخضوع والطاعة لله تعالى من أجل الحكم والأسرار.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 123,
+    "start_word": 2757,
+    "end_word": 2758,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 124,
+    "start_word": 2759,
+    "end_word": 2791,
+    "text_snippet": "عَنْ عَبْدِ الله بن عباس رضي الله عنهما قالَ: قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 125,
+    "start_word": 2792,
+    "end_word": 2793,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 126,
+    "start_word": 2794,
+    "end_word": 2847,
+    "text_snippet": "أمر الله تعالى نبيه محمداً صلى الله عليه وسلم أن",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 127,
+    "start_word": 2848,
+    "end_word": 2849,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 128,
+    "start_word": 2850,
+    "end_word": 2862,
+    "text_snippet": "أجمع العلماء على مشروعية السجود على هذه الأعضاء ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 129,
+    "start_word": 2863,
+    "end_word": 2882,
+    "text_snippet": "والذي يدل عليه هذا الحديث الصحيح أن السجود، واجب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 130,
+    "start_word": 2883,
+    "end_word": 2890,
+    "text_snippet": "ويرى بعض العلماء أن الواجب الجبهة، والباقي مستحب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 131,
+    "start_word": 2891,
+    "end_word": 2901,
+    "text_snippet": "ويرى أبو حنيفة، أن الأنف يجزئ عن الجبهة، والصحيح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 132,
+    "start_word": 2902,
+    "end_word": 2905,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 133,
+    "start_word": 2906,
+    "end_word": 2937,
+    "text_snippet": "1- وجوب السجود على هذه الأعضاء السبعة جميعها وهو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 134,
+    "start_word": 2938,
+    "end_word": 2949,
+    "text_snippet": "2- أن الأنف تابع للجبهة، وهو متمم للسجود، وعليه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 135,
+    "start_word": 2950,
+    "end_word": 2950,
+    "text_snippet": "فائدتان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 136,
+    "start_word": 2951,
+    "end_word": 3006,
+    "text_snippet": "الأولى: أنه لا بأس بالسجود على حائل سوى أعضاء ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 137,
+    "start_word": 3007,
+    "end_word": 3048,
+    "text_snippet": "الثانية: أن يضع أعضاء سجوده بالترتيب الذي كان ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 138,
+    "start_word": 3049,
+    "end_word": 3050,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 139,
+    "start_word": 3051,
+    "end_word": 3127,
+    "text_snippet": "عَنْ أبي هُرَيرَة رضي الله عنه: كَانَ رَسُولُ الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 140,
+    "start_word": 3128,
+    "end_word": 3129,
+    "text_snippet": "الحديث االسادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 141,
+    "start_word": 3130,
+    "end_word": 3191,
+    "text_snippet": "عَنْ مُطَرّفِ بنِ عَبْدِ الله بن الشخيرِ، قال: صَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 142,
+    "start_word": 3192,
+    "end_word": 3193,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 143,
+    "start_word": 3194,
+    "end_word": 3295,
+    "text_snippet": "في هذين الحديثين الشريفين بيان شعار الصلاة، وهو ",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 144,
+    "start_word": 3296,
+    "end_word": 3297,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 145,
+    "start_word": 3298,
+    "end_word": 3310,
+    "text_snippet": "أجمع العلماء على وجوب تكبيرة الإحرام، للنص عليها",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 146,
+    "start_word": 3311,
+    "end_word": 3349,
+    "text_snippet": "واختلفوا فيما عداها من التكبيرات.\nفذهب أكثر الفق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 147,
+    "start_word": 3350,
+    "end_word": 3371,
+    "text_snippet": "وذهب الإمام أحمد، وداود الظاهري، إلى وجوب تكبيرا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 148,
+    "start_word": 3372,
+    "end_word": 3407,
+    "text_snippet": "ولما روى أبو داود عن على بن يحيى بن خلاد عن عمه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 149,
+    "start_word": 3408,
+    "end_word": 3433,
+    "text_snippet": "وأجابوا عن حديث المسيء، بأنه أتى في طريق أبي داو",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 150,
+    "start_word": 3434,
+    "end_word": 3451,
+    "text_snippet": "واختلفوا في جمع المصلي بين التسميع وهو قول: \"سمع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 151,
+    "start_word": 3452,
+    "end_word": 3488,
+    "text_snippet": "فذهب إلى وجوبه على كل مصل، من إمام، ومأموم، ومنفر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 152,
+    "start_word": 3489,
+    "end_word": 3521,
+    "text_snippet": "وحجتهم حديث الباب، وما أخرجه الدارقطني عن بريدة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 153,
+    "start_word": 3522,
+    "end_word": 3547,
+    "text_snippet": "واحتجوا أيضاً بما نقل من الإجماع على وجوبه، على ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 154,
+    "start_word": 3548,
+    "end_word": 3585,
+    "text_snippet": "وذهب إلى عدم وجوب الجمع بين التسميع والتحميد على",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 155,
+    "start_word": 3586,
+    "end_word": 3618,
+    "text_snippet": "واحتج هؤلاء الفقهاء، على عدم الوجوب، بحديث أبي ه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 156,
+    "start_word": 3619,
+    "end_word": 3665,
+    "text_snippet": "وأجابوا عن أدلة أصحاب المذاهب الأول بما يأتي:\nأم",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 157,
+    "start_word": 3666,
+    "end_word": 3669,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 158,
+    "start_word": 3670,
+    "end_word": 3678,
+    "text_snippet": "1- مشروعية تكبيرة الإحرام، وأن تكون في حال القيام",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

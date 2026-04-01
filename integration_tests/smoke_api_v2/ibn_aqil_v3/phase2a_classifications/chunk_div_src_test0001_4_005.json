@@ -1,0 +1,58 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 9,
+    "text_snippet": "‌‌الاختصاص\nالاختصاص كنداء دون يا … كأيها الفتى",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 10,
+    "end_word": 23,
+    "text_snippet": "وقد يرى ذا دون أي تلو أل … كمثل نحن العرب أ",
+    "scholarly_function": "example",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 38,
+    "text_snippet": "الاختصاص: يشبه النداء لفظا ويخالفه من ثلاثة ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 45,
+    "text_snippet": "والثاني: أنه لا بد أن يسبقه شيء\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 46,
+    "end_word": 61,
+    "text_snippet": "والثالث: أن تصاحبه الألف واللام وذلك كقولك أ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 5,
+    "start_word": 62,
+    "end_word": 74,
+    "text_snippet": "وقوله صلى الله عليه وسلم: \"نحن معاشر الأنبياء",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 75,
+    "end_word": 84,
+    "text_snippet": "وهو منصوب بفعل مضمر والتقدير أخص العرب وأخص ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  }
+]

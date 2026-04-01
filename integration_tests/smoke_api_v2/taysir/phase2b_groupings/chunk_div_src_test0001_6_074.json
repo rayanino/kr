@@ -1,0 +1,152 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "ومجهولة مدة حصوله-\nوهذه من البيعات المجهولة، التي يكثر ضررها وعذرها، فتفض",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "unclassified"
+    ],
+    "description_arabic": "بيان أن هذا البيع من البيوع المجهولة المؤدية إلى الضرر والنزاع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على مرجع سابق في عبارة «هذا البيع» ووصف المبيع، فبداية المسألة ناقصة دون السياق السابق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 14,
+    "end_word": 45,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهى عن هذا البيع على كلا التفسيرين، لأنه إن كان على ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استخراج حكم النهي عن هذا البيع على التفسيرين وبيان علته في كل منهما.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى «الحديث» و«كلا التفسيرين» دون ذكر نص الحديث ولا التفسيرين السابقين، فتحتاج العبارة إلى سياق سابق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 46,
+    "end_word": 66,
+    "text_snippet": "2- النص على هذا النوع من البيع، لأنه من بيعات الجاهلية، وإلا فهو عام في كل ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن التنصيص على هذا البيع لا يخصص الحكم بل يعم كل بيع فيه جهالة وغرر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 67,
+    "end_word": 90,
+    "text_snippet": "3- حكمة النهى، أنه من بيع الغرر المفضي إلى الميسر والقمار، وأكل المال بالباطل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكمة النهي عن بيع الغرر لما يفضي إليه من ميسر وأكل مال بالباطل وخصومة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 91,
+    "end_word": 178,
+    "text_snippet": "قاعدة في المعاملات المحرمة ملخصة\nمن كلام شيخ الإسلام ابن تيمية\nالأصل في ذلك أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "قاعدة كلية في تحريم أكل الأموال بالباطل وأن أصله في المعاوضات الربا والميسر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 179,
+    "end_word": 214,
+    "text_snippet": "ثم إن رسول الله صلى الله عليه وسلم فصل ما أجمله الله في كتابه، فنهى عن بيع ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بنهي النبي عن بيع الغرر وبيان أنه من الميسر مع أمثلة له.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذُكر معنى نهيه عن بيع الغرر دون نص الحديث الكامل أو تخريجه، مع أن العبارة مفهومة إجمالاً."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 215,
+    "end_word": 251,
+    "text_snippet": "أما الربا فتحريمه في القرآن أشد، وذكره النبي صلى الله عليه وسلم في الكبائر، ل",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل شدة تحريم الربا بأنه ظلم للمحتاج الذي تدعوه الضرورة إلى الزيادة المؤجلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 252,
+    "end_word": 329,
+    "text_snippet": "وقد حرم الرسول صلى الله عليه وسلم أشياء يخفي فيها الفساد، لأنها مفضية إلى الف",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان الفرق بين الربا والغرر وأن الغرر اليسير التابع يرخص فيه عند الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 330,
+    "end_word": 424,
+    "text_snippet": "أما الربا فإنه لما احتاج الناس إلى العرايا أرخص في بيعها بالخرص، ولم يجوز ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترجيح منهج أهل المدينة وفقهاء الحديث في باب الربا وتشديدهم في سد ذرائعه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إشارات اصطلاحية مثل العرايا والخرص والنصاب تحتاج معرفة فقهية سابقة، لكن أصل الفكرة مكتمل."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 425,
+    "end_word": 524,
+    "text_snippet": "وأما الغرر فمن أشد ما قيل فيه قولا أبي حنيفة والشافعي، فإنه يدخل في هذا الاسم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مقارنة أقوال الفقهاء في الغرر وبيان توسع أبي حنيفة والشافعي وترجيح مذهب مالك وقرب أحمد منه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

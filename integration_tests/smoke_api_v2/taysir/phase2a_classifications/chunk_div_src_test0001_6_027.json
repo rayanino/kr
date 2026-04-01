@@ -1,0 +1,98 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌بَابُ الإبراد في الظهر من شدّة الحَر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 8,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 9,
+    "end_word": 40,
+    "text_snippet": "عَنْ عَبدِ الله بنِ عُمَرَ، وَأبي هُرَيرةَ رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 41,
+    "end_word": 42,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 43,
+    "end_word": 65,
+    "text_snippet": "أبردوا: يقال \"أبرد \" إذا دخل في وقت البرد كـ\" أ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 84,
+    "text_snippet": "من فيح جهنم: انتشار حرها وغليانها، و \" من \" هنا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 85,
+    "end_word": 112,
+    "text_snippet": "قال المِزِّى: وهو مثل ما روى عن عائشة بإسناد جي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 7,
+    "start_word": 113,
+    "end_word": 114,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 115,
+    "end_word": 175,
+    "text_snippet": "روح الصلاة ولُبُّهَا، الخشوع وإحضار القلب فيها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 176,
+    "end_word": 195,
+    "text_snippet": "لهذه المعاني الجليلة، شرع تأخير هذه الصلاة عن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 196,
+    "end_word": 199,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 200,
+    "end_word": 214,
+    "text_snippet": "1- استحباب تأخير صلاة الظهر في شدة الحر إلى أن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  }
+]

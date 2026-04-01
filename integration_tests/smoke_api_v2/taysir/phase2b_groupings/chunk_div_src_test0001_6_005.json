@@ -1,0 +1,271 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 61,
+    "text_snippet": "‌‌بَاب في المذي وغَيره\nالمذيُ: هو السائل الذي يخرج من الذكر، عند هيجان الشهوة، ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف المذي وبيان صفته وموضع البحث في أحكام نجاسته ونقضه للوضوء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 62,
+    "end_word": 264,
+    "text_snippet": "الحديث\nعَنْ عَلِىِّ بْنِ أبى طَالِب رضي الله عنه قَال: كُنْتُ رَجُلا مَذّاءً، فَا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference",
+      "definition",
+      "structural_transition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث علي في المذي مع شرح ألفاظه وبيان أن حكمه غسل الذكر والوضوء دون الغسل الأكبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 265,
+    "end_word": 362,
+    "text_snippet": "اختلاف العلماء:\nذهب الحنابلة، وبعض المالكية: إلى وجوب غسل الذكر كله، مستدلين به",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "عرض الخلاف في قدر غسل الذكر من المذي وترجيح وجوب غسل الذكر كله بأدلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 363,
+    "end_word": 382,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- نجاسة المَذيِ، وأنه يجب غسله. ولكن يعفى عن يسيره بسبب ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان نجاسة المذي ووجوب غسله مع ذكر العفو عن يسيره للمشقة عند بعض العلماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 383,
+    "end_word": 392,
+    "text_snippet": "2- أنه من نواقض الوضوء، لأنه خارج من أحد السبيلين.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المذي ناقض للوضوء لأنه خارج من أحد السبيلين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 393,
+    "end_word": 404,
+    "text_snippet": "3- وجوب غسل الذكر.\nوقد ورد في بعض الأحاديث (وغسل الأنثيين) .\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "وجوب غسل الذكر من المذي مع الإشارة إلى روايات ذكرت غسل الأنثيين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة إلى بعض الأحاديث في غسل الأنثيين جاءت بلا نصها، فتحتاج مراجعة الروايات لفهم قوة الاستدلال."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 405,
+    "end_word": 413,
+    "text_snippet": "4- أنه لا يوجب غسل البدن كالجنابة، وهو إجماع.\n",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "المذي لا يوجب الغسل الأكبر، بل هذا الحكم محل إجماع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 414,
+    "end_word": 427,
+    "text_snippet": "5- أنه لا يكفى في إزالة المذىِ الاستجمار بالحجارة كالبول بل لابد من الماء.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "لا يجزئ الاستجمار في إزالة المذي، بل لا بد من استعمال الماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 428,
+    "end_word": 586,
+    "text_snippet": "حكم في حصول الحدث\nعن عَبّادٍ بنِ تَميمٍ، عَنْ عَبْدِ الله بنِ زَيد بنِ عَاصِمٍ ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "حديث الشك في الحدث وتقرير قاعدة بقاء اليقين وعدم الالتفات إلى الشك مع أمثلة تطبيقية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      35,
+      36
+    ],
+    "start_word": 587,
+    "end_word": 602,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- القاعدة العامة وهي\" أن\" الأصل بقاء ما كان على ما كان.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج القاعدة العامة أن الأصل بقاء ما كان على ما كان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 603,
+    "end_word": 613,
+    "text_snippet": "2- أن مجرد الشك في الحدث، لا يبطل الوضوء، ولا الصلاة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الشك المجرد في الحدث لا ينقض الوضوء ولا يبطل الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 614,
+    "end_word": 621,
+    "text_snippet": "3- تحريم الانصراف من الصلاة لغير سبب بين.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم قطع الصلاة والانصراف منها بلا سبب ظاهر متيقن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 622,
+    "end_word": 633,
+    "text_snippet": "4- أن الريح الخارجة من الدبر، بصوت أو بغير صوت، ناقضة للوضوء.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الريح الخارجة من الدبر ناقضة للوضوء سواء صاحبتها أصوات أم لا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      40,
+      41
+    ],
+    "start_word": 634,
+    "end_word": 657,
+    "text_snippet": "5- يراد من سماع الصوت ووجدان الريح في الحديث، التيقن من ذلك.\nفلو كان لا يسمع و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "المقصود من الصوت والريح حصول اليقين، وينتقض الوضوء بكل طريق أفاد اليقين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      42,
+      43,
+      44
+    ],
+    "start_word": 658,
+    "end_word": 718,
+    "text_snippet": "حكم بول الصبي والصبية\nعَنْ أُم قَيْسِ بِنْتَ مِحْصَنِ اْلأسديَة أنها أتَتْ بِابْن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "افتتاح مسألة بول الصبي والصبية بحديث أم قيس مع الإشارة إلى شاهد من حديث عائشة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص انتهى قبل تمام حديث عائشة وقبل بيان المعنى والحكم المستنبط، فالوحدة تمثل بداية المسألة لا تمامها."
+  }
+]

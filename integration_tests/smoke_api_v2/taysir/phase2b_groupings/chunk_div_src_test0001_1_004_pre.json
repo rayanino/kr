@@ -1,0 +1,234 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كتاب الأشربة",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان باب الأشربة وبداية موضوع أحكام الأشربة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3
+    ],
+    "start_word": 2,
+    "end_word": 73,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ عُمَرَ قَالَ عَلَى",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث عمر في تحريم الخمر وبيان أنها ما خامر العقل، وذكر ثلاث مسائل تمنى البيان فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 74,
+    "end_word": 160,
+    "text_snippet": "ما يستفاد من الحديث:\nتقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "بيان أن الخمر اسم لكل ما خامر العقل من أي شراب، وأن الأنواع المذكورة داخلة فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى كلام سابق عن تعريف الخمر والخلاف في حدها، لكن أصل النتيجة التعليمية واضح داخل الوحدة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 161,
+    "end_word": 240,
+    "text_snippet": "2- أن العالم مهما بلغ من العلم، فإنه لا يحيط به، ويخفى عليه أشياء.\nوليس في الصح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "أن العالم قد يخفى عليه بعض العلم، ولا يلزم من ذلك تقصير النبي في البيان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 241,
+    "end_word": 291,
+    "text_snippet": "3- المسألة الأولى توريث الجد مع الإخوة الأشقاء أو لأب.\nفزيد بن ثابت، وجمهور العل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عرض الخلاف في توريث الجد مع الإخوة بين التشريك والإسقاط وجعل الجد بمنزلة الأب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16
+    ],
+    "start_word": 292,
+    "end_word": 370,
+    "text_snippet": "4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية ال",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "description_arabic": "تعريف الكلالة بأنه من مات بلا ولد ولا والد، مع الاستدلال بالآية ونقل اتفاق الجمهور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 371,
+    "end_word": 437,
+    "text_snippet": "5- الثالثة أبواب من الربا، ولعل هذا من المسائل التي اختلف العلماء فيها.\nفحرمها ب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان أن بعض أبواب الربا وقع فيها الخلاف لاختلاف الفهم وبلوغ الأدلة، مع حسن قصد العلماء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة تشير إلى أبواب من الربا دون تعيينها، فتفصيل المسائل المختلف فيها يحتاج سياقاً خارج الوحدة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "start_word": 438,
+    "end_word": 537,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ النبي صلى الله عليه وسلم سُئِلَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "rule_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "حديث البتع مع تفسيره وبيان أن كل شراب مسكر فهو حرام مهما اختلف اسمه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 538,
+    "end_word": 677,
+    "text_snippet": "الحديث الحادي والتسعون بعد الثلاثمائة\nعَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث عمر في إنكار بيع الخمر وبيان تحريم التحيل على المحرمات بقياسه على فعل اليهود.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      33,
+      34
+    ],
+    "start_word": 678,
+    "end_word": 695,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم المعاملة بالخمر، ببيع، أو شراء، أو عمل، أو إعانة، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم جميع صور المعاملة المتعلقة بالخمر من بيع وشراء وعمل وإعانة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      35
+    ],
+    "start_word": 696,
+    "end_word": 710,
+    "text_snippet": "2- تحريم الحيل، فإن الله تعالى لما حرم الخمر، حرم ثمنه الذي هو وسيلة إليه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم الحيل على المحرمات، وأن تحريم الخمر يستلزم تحريم ثمنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 711,
+    "end_word": 727,
+    "text_snippet": "3- من باعه فقد شابه اليهود الذين- لما حرمت عليم الشحوم- أذابوها وباعوها، وكلوا ثم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من باع الخمر شابه اليهود في التحيل ببيع ما حرم الله عليهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "التشبيه باليهود مفهوم إجمالاً، لكن تمام سياقه ودليله مذكور في الحديث السابق."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 728,
+    "end_word": 747,
+    "text_snippet": "4- أن كل محرم ثمنه حرام، لأنه لا يباح التوصل إليه بأي طريق.\nفالوسائل، لها، أحكام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة أن كل محرم فثمنه حرام، وأن الوسائل تأخذ أحكام المقاصد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 18,
+    "text_snippet": "‌‌العلم ⌜1⌝\nاسم يعين المسمى مطلقا … علمه كجع",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 19,
+    "end_word": 61,
+    "text_snippet": "العلم هو: الاسم الذي يعين مسماه مطلقا أي بلا ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 62,
+    "end_word": 110,
+    "text_snippet": "ثم مثل الشيخ بأعلام الأناسي وغيرهم تنبيها على",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 111,
+    "end_word": 121,
+    "text_snippet": "واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 122,
+    "end_word": 163,
+    "text_snippet": "ينقسم العلم إلى ثلاثة أقسام: إلى اسم وكنية ول",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 164,
+    "end_word": 191,
+    "text_snippet": "وأشار بقوله وأخرن ذا إلخ إلى أن اللقب إذا صحب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 192,
+    "end_word": 207,
+    "text_snippet": "ومنه قوله: 22 - بأن ذا الكلب عمرا خيرهم حسبا ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 208,
+    "end_word": 335,
+    "text_snippet": "وظاهر كلام المصنف أنه يجب تأخير اللقب إذا صحب",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 8,
+    "start_word": 336,
+    "end_word": 346,
+    "text_snippet": "وإن يكونا مفردين فأضف … حتما وإلا أتبع الذي ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 347,
+    "end_word": 366,
+    "text_snippet": "إذا اجتمع الاسم واللقب فإما أن يكونا مفردين أو",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 10,
+    "start_word": 367,
+    "end_word": 384,
+    "text_snippet": "فإن كانا مفردين وجب عند البصريين الإضافة ⌜4⌝ ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 385,
+    "end_word": 397,
+    "text_snippet": "وأجاز الكوفيون الإتباع فتقول هذا سعيد كرز ورأي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 398,
+    "end_word": 405,
+    "text_snippet": "ووافقهم المصنف على ذلك في غير هذا الكتاب.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 406,
+    "end_word": 440,
+    "text_snippet": "وإن لم يكونا مفردين بأن كانا مركبين نحو عبد ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 441,
+    "end_word": 463,
+    "text_snippet": "نحو مررت بزيد أنف الناقة وأنف الناقة فالرفع عل",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 464,
+    "end_word": 493,
+    "text_snippet": "فيقطع مع المرفوع إلى النصب ومع المنصوب إلى الر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 494,
+    "end_word": 503,
+    "text_snippet": "ومنه منقول كفضل وأسد … وذو ارتجال كسعاد وأدد ",
+    "scholarly_function": "definition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 17,
+    "start_word": 504,
+    "end_word": 515,
+    "text_snippet": "وجملة وما بمزج ركبا … ذا إن بغير ويه تم أعراب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 18,
+    "start_word": 516,
+    "end_word": 526,
+    "text_snippet": "وشاع في الأعلام ذو الإضافة … كعبد شمس وأبي قح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 19,
+    "start_word": 527,
+    "end_word": 579,
+    "text_snippet": "ينقسم العلم إلى: مرتجل وإلى منقول فالمرتجل هو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 580,
+    "end_word": 592,
+    "text_snippet": "وحكمها أنها تحكى فتقول جاءني زيد قائم ورأيت زي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 593,
+    "end_word": 596,
+    "text_snippet": "وهذه من الأعلام المركبة.",
+    "scholarly_function": "definition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 22,
+    "start_word": 597,
+    "end_word": 668,
+    "text_snippet": "ومنها أيضا ما ركب تركيب مزج كبعلبك ومعدي كرب و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 669,
+    "end_word": 681,
+    "text_snippet": "وتقول فيما ختم بويه جاءني سيبويه ورأيت سيبويه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 682,
+    "end_word": 695,
+    "text_snippet": "وأجاز بعضهم إعرابه إعراب ما لا ينصرف نحو جاءني",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 696,
+    "end_word": 722,
+    "text_snippet": "ومنها: ما ركب تركيب إضافة كعبد شمس وأبي قحافة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 723,
+    "end_word": 743,
+    "text_snippet": "ونبه بالمثالين على أن الجزء الأول يكون معربا ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 27,
+    "start_word": 744,
+    "end_word": 754,
+    "text_snippet": "ووضعوا لبعض الأجناس علم … كعلم الأشخاص لفظا ",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 28,
+    "start_word": 755,
+    "end_word": 764,
+    "text_snippet": "من ذاك أم عريط للعقرب … وهكذا ثعالة للثعلب (2",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 29,
+    "start_word": 765,
+    "end_word": 773,
+    "text_snippet": "ومثله برة للمبره … كذا فجار علم للفجرة (1)\nالع",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 30,
+    "start_word": 774,
+    "end_word": 825,
+    "text_snippet": "العلم على قسمين: علم شخص وعلم جنس فعلم الشخص ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 826,
+    "end_word": 852,
+    "text_snippet": "وعلم الجنس كعلم الشخص في حكمه اللفظي فتقول هذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 853,
+    "end_word": 883,
+    "text_snippet": "وحكم علم الجنس في المعنى كحكم النكرة من جهة أن",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 33,
+    "start_word": 884,
+    "end_word": 898,
+    "text_snippet": "وعلم الجنس: يكون للشخص كما تقدم ويكون للمعنى ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  }
+]

@@ -1,0 +1,290 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "وما روي من طريق عبد الرحمن، موافق لمعنى الآية، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 1,
+    "start_word": 14,
+    "end_word": 23,
+    "text_snippet": "وما ورد من طريق عبد الله بن معقل، يفيد الترتيب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 42,
+    "text_snippet": "لهذا فإن ابن حزم، حكم على رواية عبد الله بالاض",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 117,
+    "text_snippet": "والذي أرى: أن ما ذهب إليه \"أبو محمد\" هو أحسن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 118,
+    "end_word": 127,
+    "text_snippet": "ورواية مالك في الموطأ \"أي ذلك فعلت أجزأ \"والله",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 5,
+    "start_word": 128,
+    "end_word": 130,
+    "text_snippet": "‌‌بَابُ حرمَة مَكة\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 131,
+    "end_word": 171,
+    "text_snippet": "حرمة \"مكة\" المكرمة مستمدة من هذا البيت المعظم،",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 172,
+    "end_word": 182,
+    "text_snippet": "ومازال معظماً مكرماً محجوجاً منذ بُنيَ حتى يفسد",
+    "scholarly_function": "narration",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 8,
+    "start_word": 183,
+    "end_word": 193,
+    "text_snippet": "فما دام الدين قائماً فقد جعله الله {مَثَابَةً لِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 194,
+    "end_word": 212,
+    "text_snippet": "وقد عظمه العرب في جاهليتهم، وجاءوا إليه من أقطا",
+    "scholarly_function": "narration",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 10,
+    "start_word": 213,
+    "end_word": 231,
+    "text_snippet": "وجاء الإسلام فزاد من تعظيمه وتقديسه - وقد حماه ",
+    "scholarly_function": "narration",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 11,
+    "start_word": 232,
+    "end_word": 255,
+    "text_snippet": "والمجاورة فيه من أفضل العبادات لمن رزق الاستقام",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 12,
+    "start_word": 256,
+    "end_word": 273,
+    "text_snippet": "رزقنا الله العمل الصالح المرضي وجهه الكريم، وجن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 13,
+    "start_word": 274,
+    "end_word": 282,
+    "text_snippet": "وتقدم في أول الكتاب شيء من حِكَمِ الحج وأسرارِه",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 283,
+    "end_word": 310,
+    "text_snippet": "وكون الحج إلى هذا البيت له حِكَم ومناسبات أخرى،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 15,
+    "start_word": 311,
+    "end_word": 326,
+    "text_snippet": "ومنها أن هذه البقعة هي مولد النبي صلى الله عليه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 16,
+    "start_word": 327,
+    "end_word": 337,
+    "text_snippet": "فالمسلمون يجددون بها عهداً وهي عاصمتهم الأولى و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 17,
+    "start_word": 338,
+    "end_word": 357,
+    "text_snippet": "جمع الله المسلمين على التُّقَى ولَمَّ كلمتهم في",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 18,
+    "start_word": 358,
+    "end_word": 359,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 360,
+    "end_word": 505,
+    "text_snippet": "عَنْ أبِي شُرَيْحٍ خُوَيْلِدِ بْنِ عَمْرو الْخُز",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 506,
+    "end_word": 516,
+    "text_snippet": "الخربة: بالخاء المعجمة، والراء المهملة. قيل: ال",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 517,
+    "end_word": 526,
+    "text_snippet": "وأصلها في سرقة الإبل قال الشاعر:\nوالخارِبُ الِّ",
+    "scholarly_function": "example",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 22,
+    "start_word": 527,
+    "end_word": 527,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 23,
+    "start_word": 528,
+    "end_word": 540,
+    "text_snippet": "ايذن لي: أصله \"إأذن لي\" بهمزتين فقلبت الثانية ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 541,
+    "end_word": 557,
+    "text_snippet": "أن يسفك بها دماً: - بكسر الفاء وضمها - قال الهرو",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 558,
+    "end_word": 567,
+    "text_snippet": "ساعة من نهار: هي ما بين طلوع الشمس وصلاة العصر.",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 568,
+    "end_word": 573,
+    "text_snippet": "لا يعيذ: لا يجير ولا يعصم.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 574,
+    "end_word": 587,
+    "text_snippet": "لا يعضد بها شجرة: هو مثل ضرب يضرب - بكسر الضاد ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 588,
+    "end_word": 589,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 590,
+    "end_word": 747,
+    "text_snippet": "لما أراد عمرو بن سعيد بن العاص، المعروف بالأشدق",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 748,
+    "end_word": 775,
+    "text_snippet": "فإذا كان تحريمها قديماً ومن الله \"فلا يحل لامرئ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 31,
+    "start_word": 776,
+    "end_word": 797,
+    "text_snippet": "فإن أحد ترخص بقتالي يوم الفتح، فقولوا: إنك لست ك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 32,
+    "start_word": 798,
+    "end_word": 820,
+    "text_snippet": "على أنه لم يحل القتال بها دائماً، وإنما هي ساعة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 33,
+    "start_word": 821,
+    "end_word": 833,
+    "text_snippet": "لهذا بلغتك أيها الأمير، لكوني شاهداً هذا الكلام",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 34,
+    "start_word": 834,
+    "end_word": 859,
+    "text_snippet": "فقال الناس لأبي شريح: بماذا أجابك عمرو؟ فقال: أ",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 35,
+    "start_word": 860,
+    "end_word": 872,
+    "text_snippet": "وهذه محاولة منه باطلة، فإنه متوجه لقتال من هو أ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,301 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "9- أن من باع عبداً، وقد جعل بين يديه مالا يتصرف به، فالمال للبائع إلا أن ي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم مال العبد المبيع وأنه للبائع إلا ما يشترطه المشتري مع الصفقة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 34,
+    "end_word": 54,
+    "text_snippet": "10- لا يضر أن يكون مع العبد المبيع ما يدخله الربا مع الثمن، كأن يتبعه فضة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز تبعية ما فيه شبهة ربا مع العبد المبيع لأنه تابع لا مقصود",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4
+    ],
+    "start_word": 55,
+    "end_word": 92,
+    "text_snippet": "11- قال شيخ الإسلام: بيع الزرع بشرط التبقية لا يجوز باتفاق العلماء. وإن اش",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "condition_exception"
+    ],
+    "description_arabic": "تفصيل حكم بيع الزرع بشرط التبقية أو القطع أو مطلقا مع ذكر الاتفاق والخلاف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 93,
+    "end_word": 215,
+    "text_snippet": "‌‌بَابُ نهي المشتري عن بيع الطعام قبل قبضه\nالحديث الأول\nعَنْ عَبْدِ الله بن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "حديث النهي عن بيع الطعام قبل قبضه مع شرح ألفاظه وبيان معناه وحكمته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 216,
+    "end_word": 226,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الطعام قبل قبضه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج الحكم الأساسي من الحديث وهو النهي عن بيع الطعام قبل القبض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 227,
+    "end_word": 265,
+    "text_snippet": "2- في لفظ [حتى يستوفيه] ما يشعر بأنه خاص بما يحتاج إلى حق توفية، وهو المكي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلالة اختلاف ألفاظ الحديث على عموم النهي أو اختصاصه بالمكيل والموزون",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المقصود أكثر مع معرفة ألفاظ الحديث السابقة كاملة وسياق الخلاف المشار إليه بقول المؤلف: ويأتي الخلاف."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 266,
+    "end_word": 271,
+    "text_snippet": "3- جواز بيعه بعد القبض والاستيفاء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز بيع الطعام بعد تمام القبض والاستيفاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 272,
+    "end_word": 303,
+    "text_snippet": "4- النهى ورد في الحديث بالتصرف فيه بالبيع، ولكن ألحق كثير من العلماء- ومنه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "إلحاق بعض العقود بالبيع في المنع قبل القبض كالإجارة والرهن والهبة بعوض",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله فيه يعود إلى الطعام أو المبيع قبل القبض من السياق السابق، وهو مفهوم غالبا لكن يحتاج استحضار ما قبله."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 304,
+    "end_word": 330,
+    "text_snippet": "5- أما ماعدا البيع وما يجرى مجراه، فيجوز التصرف فيه، لأنها عقود يتسامح فيها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التصرف قبل القبض في غير البيع وما في معناه مع تعليل ذلك",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج تعيين مرجع الضمير في قوله فيه إلى السياق السابق، وهو المبيع قبل القبض."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 331,
+    "end_word": 391,
+    "text_snippet": "اختلاف العلماء:\nذهبت الحنفية والشافعية، إلى المنع من بيع أي شيء قبل قبضه، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مذهب الحنفية والشافعية ومن وافقهم في منع بيع كل مبيع قبل قبضه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 392,
+    "end_word": 405,
+    "text_snippet": "وذهبت المالكية في المشهور عنهم، إلى منع ما بيع من الطعام بالكيل والوزن خاصة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "المشهور عند المالكية قصر المنع على الطعام المكيل والموزون",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 406,
+    "end_word": 505,
+    "text_snippet": "وذهبت الحنابلة، في المشهور من مذهبهم: إلى منع ما بيع بكيل، أو وزن أو عد، أ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "المشهور عند الحنابلة في منع بيع ما يحتاج إلى توفية وذكر رواية أخرى في الطعام",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة ضمنية إلى آراء سابقة بعبارة الذين بعدهم وإلى المشهور المذكور قبله، لكنه يفهم في الجملة مستقلا."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      25,
+      26,
+      27
+    ],
+    "start_word": 506,
+    "end_word": 588,
+    "text_snippet": "أدلة هذه الأقوال:\nاستدل الحنفية والشافعية ومن وافقهم، بما رواه أحمد، والنس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أدلة من عمم المنع في كل مبيع قبل القبض من حديث حكيم بن حزام وزيد بن ثابت",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      28,
+      29,
+      30
+    ],
+    "start_word": 589,
+    "end_word": 680,
+    "text_snippet": "واستدل المالكية، الذين يرون أن المنع في مكيل الطعام وموزونه، بما رواه\" مسل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "أحاديث المالكية في قصر المنع على الطعام الذي يستوفى كيلا أو وزنا",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 681,
+    "end_word": 833,
+    "text_snippet": "أما الذين لا يفرقون في المطعوم، بين الجزاف وغيرِه، فيستدلون، بما رواه \" ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "الاستدلال لعموم المنع في المطعوم جزافا وغيره والجواب عن استدلال المخالف بمفهوم اللقب",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن إحالة إلى حديثي ابن عمر وأبي هريرة المتقدمين وإلى مذاهب سابقة، لكنه يشتمل على أصل الاستدلال والجواب إجمالا."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      36,
+      37,
+      38
+    ],
+    "start_word": 834,
+    "end_word": 928,
+    "text_snippet": "أما أدلة المشهور من مذهب الحنابلة، فهي مفاهيم أحاديث الطعام، أيضا، لأنها ن",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "أدلة المشهور عند الحنابلة من مفهوم أحاديث الطعام وتعدية الحكم إلى ما يحتاج توفية",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم مع استحضار المذهب الحنبلي المذكور قبل هذا الموضع، وفيه بعض الإحالة على أحاديث الطعام السابقة دون نقلها كاملة."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      39,
+      40
+    ],
+    "start_word": 929,
+    "end_word": 980,
+    "text_snippet": "فائدتان:\nالأولى: فقهاء المذاهب يجعلون ضمان التلف في الآفة السماوية-: هي مال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "علاقة صحة التصرف قبل القبض بضمان التلف عند نزول الآفة السماوية",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا الحكم مبني على اختلاف المذاهب المتقدم في صور القبض والمنع، وقد صرح النص بذلك بقوله على حسب اختلافهم المتقدم."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 981,
+    "end_word": 1020,
+    "text_snippet": "الثانية: في صفة قبض المبيعات: يحصل قبض ما يبيع بكيل، بكيله. وما بيع بوزن، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان كيفية قبض المبيعات المختلفة وما يكون به قبض المنقول والعقار والثمر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

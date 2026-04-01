@@ -2,6 +2,14 @@
 
 Dispatch these from your phone/browser. Each is self-contained — just paste into the respective DR session.
 
+## Before You Paste
+
+- ChatGPT DR: open ChatGPT, start a new chat, switch the tool/chat mode to `Deep Research`, then paste Prompt 1 exactly as written.
+- Claude DR: open Claude, start a new chat, switch the chat mode to `Research` or `Deep Research` if that option is shown, then paste Prompt 2 exactly as written.
+- Gemini DR: open Gemini, start a new chat, switch to `Deep Research` or the closest research mode shown in the UI, upload the listed files first, then paste Prompt 3.
+- If any app asks to confirm web browsing, repository access, or file access, allow it for that session.
+- Keep the repo file paths exactly as written. Do not paste file contents into ChatGPT DR or Claude DR.
+
 ---
 
 ## 1. ChatGPT DR (Pro Deep Research Mode)

@@ -1,0 +1,55 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 59,
+    "text_snippet": "‌‌أسماء لازمت النداء\nوفل بعض ما يخص بالندا … لؤمان نومان كذا واطردا\nفي سب ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "بيان الأسماء الملازمة للنداء، وأمثلتها، وذكر شيوع ألفاظ السب الخاصة بالنداء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 60,
+    "end_word": 132,
+    "text_snippet": "وأشار بقوله واطردا في سب الأنثى إلى أنه ينقاس في النداء استعمال فعال مبني",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "قاعدة قياس بناء «فعال» على الكسر في نداء سب الأنثى وفي معنى الأمر من الفعل الثلاثي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 133,
+    "end_word": 165,
+    "text_snippet": "وأشار بقوله وجر في الشعر فل إلى أن بعض الأسماء المخصوصة بالنداء قد تستعم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "جواز استعمال بعض الأسماء المختصة بالنداء في غير النداء في الشعر مع التمثيل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

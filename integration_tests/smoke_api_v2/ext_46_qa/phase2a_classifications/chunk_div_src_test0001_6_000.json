@@ -1,0 +1,154 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 22,
+    "text_snippet": "وقيل: لعله كان يجتمع حكيمان، أو ثلاثة فصاعدا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 1,
+    "start_word": 23,
+    "end_word": 49,
+    "text_snippet": "وقيل: أصل اللغات كلها من الأصوات المسموعات، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 52,
+    "text_snippet": "واستحسنه ابن جني.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 53,
+    "end_word": 69,
+    "text_snippet": "والمذهب الثالث: الوقف، أي لا يدري: أهي من وضع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 70,
+    "end_word": 75,
+    "text_snippet": "وهو الذي اختاره ابن جني أخيرا.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 76,
+    "end_word": 76,
+    "text_snippet": "تنبيهان:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 77,
+    "end_word": 90,
+    "text_snippet": "الأول: زعم بعضهم أنه لا فائدة لهذا الخلاف. وليس",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 91,
+    "end_word": 98,
+    "text_snippet": "الأولى: فقهية، ولذا ذكرت هذه المسألة في أصوله.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 8,
+    "start_word": 99,
+    "end_word": 121,
+    "text_snippet": "والأخرى: نحوية، ولهذا ذكرها في أصوله تبعا لابن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 9,
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "وإطباق أكثر النحاة على أن المصحفات ليست بكلام ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 10,
+    "start_word": 136,
+    "end_word": 139,
+    "text_snippet": "الثاني: قال ابن جني:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 11,
+    "start_word": 140,
+    "end_word": 163,
+    "text_snippet": "الصواب، وهو رأي أبي الحسن الأخفش، سواء قلنا با",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 164,
+    "end_word": 206,
+    "text_snippet": "قال الأخفش: اختلاف لغات العرب إنما جاء من قبل ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 207,
+    "end_word": 232,
+    "text_snippet": "قال: وبجوز أن يكون الموضوع الأول ضربا واحدا، ث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 233,
+    "end_word": 252,
+    "text_snippet": "قال وأما أي الأجناس الثلاثة: الاسم، والفعل، وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 15,
+    "start_word": 253,
+    "end_word": 256,
+    "text_snippet": "وبه صرح أبو علي.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 16,
+    "start_word": 257,
+    "end_word": 288,
+    "text_snippet": "قال: وكان الأخفش يذهب إلى أن ما غير لكثرة استعم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 289,
+    "end_word": 300,
+    "text_snippet": "قال: ويجوز أن يكون كانت قديما معربة، فلما كثرت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 18,
+    "start_word": 301,
+    "end_word": 337,
+    "text_snippet": "قال: والقول عندي هو الأول، لأنه أدل على حكمتها",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  }
+]

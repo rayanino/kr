@@ -1,0 +1,213 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 0,
+    "end_word": 162,
+    "text_snippet": "‌‌بَابُ الوِتر\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضىَ الله عَنْهُمَا ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث ابن عمر في صفة صلاة الليل والوتر مع شرح ألفاظه ومعناه الإجمالي وفضل جعل الوتر آخر الليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 163,
+    "end_word": 501,
+    "text_snippet": "اختلاف العلماء:\nظاهر الحديث يقتضي عدم الزيادة في صلاة النافلة على ركعتين، ع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "خلاف الفقهاء في الزيادة على ركعتين أو النقص عنهما في النافلة والوتر، وأدلة الأقوال والجمع بينها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 502,
+    "end_word": 518,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- يستدل به على أن صلاة الليل ركعتان ركعتان، بلا زيادة ول",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استدلال المصنف بالحديث على أن صلاة الليل تؤدى ركعتين ركعتين دون زيادة أو نقصان.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قوله \"به\" تعود إلى الحديث السابق، والقاعدة مفهومة أكثر بضم نص الحديث."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 519,
+    "end_word": 530,
+    "text_snippet": "2- أن الوتر يكون آخر صلاة الليل لمن وثق من نفسه بالقيام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل جعل الوتر آخر صلاة الليل لمن كان واثقًا من الاستيقاظ والقيام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 531,
+    "end_word": 537,
+    "text_snippet": "3- أن وقت الوتر ينتهي بطلوع الفجر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان نهاية وقت الوتر وأنه ينقضي بطلوع الفجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 538,
+    "end_word": 593,
+    "text_snippet": "4- الأفضل أن الوتر يكون بعد صلاة شفع. فتقديم شفع قبل الوتر هو السنة. والاقت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الأفضلية في تقديم الشفع قبل الوتر، وجواز الاقتصار على ركعة واحدة مع ذكر الدليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 594,
+    "end_word": 602,
+    "text_snippet": "5- إجابة السائل على مشهد من الناس لتعميم الفائدة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية جواب السائل أمام الناس إذا ترتب عليه نشر العلم وتعميم الفائدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 603,
+    "end_word": 634,
+    "text_snippet": "6- استحباب الوتر، وقد قيل بوجوبه، الراجح أنه ليس بواجب، لكنه من أفضل التطوعا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم الوتر بين الاستحباب والوجوب، مع ترجيح عدم الوجوب وبيان عظيم فضله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 635,
+    "end_word": 702,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قالَتْ: مِنْ كُل الليل قَدْ أوتَر ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث عائشة في سعة وقت الوتر من بعد العشاء إلى الفجر، وأن الأفضل إيقاعه في السحر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 703,
+    "end_word": 715,
+    "text_snippet": "الأحكام:\n1- جواز صلاة الوتر في أول الليل، وأوسطه، وآخره، لأن الجميع وقتها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز فعل الوتر في جميع أجزاء الليل بعد العشاء، لأن الوقت يشملها كلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 716,
+    "end_word": 729,
+    "text_snippet": "2- أن الأفضل أن يكون وتره في آخر الليل، لمن وثق من نفسه بالقيام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أفضلية تأخير الوتر إلى آخر الليل لمن كان يرجو القيام له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30,
+      31,
+      32
+    ],
+    "start_word": 730,
+    "end_word": 762,
+    "text_snippet": "اختلاف العلماء:\nاتفق العلماء أن ابتداء وقته بعد صلاة العشاء، واختلفوا في نها",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ابتداء وقت الوتر بعد العشاء، وذكر الخلاف في نهاية وقته بين الصبح والفجر.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "النص الأخير مبتور عند قول المصنف: \"وذهب الإمام أحمد في المشهور من مذهبه إلى أن\"، فلم تكتمل الأقوال ولا وجه الخلاف."
+  }
+]

@@ -1,0 +1,426 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "فقال: لا أعلم شيئاً يدفعه.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 13,
+    "text_snippet": "وبهذا القول، قال إسحاق، والظاهرية، وانتصر له ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 14,
+    "end_word": 34,
+    "text_snippet": "واستدلوا بهذا الحديث الذي جاء في قصة المخزومية",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 35,
+    "end_word": 51,
+    "text_snippet": "والمعنى الموجود في السارق موجود مثله في جاحد",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 4,
+    "start_word": 52,
+    "end_word": 65,
+    "text_snippet": "والمعُيِرُ مُحْسِن، والجاحد ير يد قطع الإحسان وا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 66,
+    "text_snippet": "تنبيه:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 67,
+    "end_word": 96,
+    "text_snippet": "بإجماع العلماء أن الغاصب والمختلس والمنتهب لا ي",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 97,
+    "end_word": 118,
+    "text_snippet": "وإنما لم يقطعوا، لما نقلناه في أول الباب عن الق",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 8,
+    "start_word": 119,
+    "end_word": 121,
+    "text_snippet": "‌‌بَابُ حد الخمْر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 122,
+    "end_word": 164,
+    "text_snippet": "للخمر- في اللغةَ ثلاثة معان:\n1- الستر والتغطية،",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 165,
+    "end_word": 183,
+    "text_snippet": "فمن هذه المعانيْ الثلاثة أخذ اسم الخمرة، لأنها ",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 11,
+    "start_word": 184,
+    "end_word": 204,
+    "text_snippet": "وتعريفها- شرعاً: أنها اسم لكل ما خامر العقل وغ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 205,
+    "end_word": 210,
+    "text_snippet": "وهو محرم بالكتاب، والسنة، وإجماع الأمة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 211,
+    "end_word": 240,
+    "text_snippet": "أما الكتاب، فقوله تعالى: {يَا آُيَّهَا الذِينَ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 241,
+    "end_word": 254,
+    "text_snippet": "وأما السنة: فأحاديث كثيرة، منها ما رواه مسلم: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 255,
+    "end_word": 258,
+    "text_snippet": "وأجمعت الأمة على تحريمها.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 259,
+    "end_word": 275,
+    "text_snippet": "حكمة تحريمها التشريعية: لا يحتمل المقام هنا ذكر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 17,
+    "start_word": 276,
+    "end_word": 309,
+    "text_snippet": "ويكفيك قوله تعالى: {إنَّمَا يُريدُ الشيطَانُ أن",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 310,
+    "end_word": 325,
+    "text_snippet": "وقال صلى الله عليه وسلم: \" الخمر أم الخبائث \" ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 326,
+    "end_word": 337,
+    "text_snippet": "أما مضرتها الدينية، والأخلاقية، والعقلية، فهي م",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 20,
+    "start_word": 338,
+    "end_word": 353,
+    "text_snippet": "وأما مضرتها البدنية، فقد أجمع عليها الأطباء لأن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 21,
+    "start_word": 354,
+    "end_word": 370,
+    "text_snippet": "لهذا حرمها الشارع الحكيم، وإنَ ما تجره هذه الجر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 22,
+    "start_word": 371,
+    "end_word": 396,
+    "text_snippet": "ولو لم يكن فيها إلا ذهاب العقل لكفى سببا للتحري",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 23,
+    "start_word": 397,
+    "end_word": 404,
+    "text_snippet": "فَدَاء هذا بعض أمراضه، كيف يرضاه عاقل لنفسه؟!",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 405,
+    "end_word": 414,
+    "text_snippet": "ولِعظَمِ خطرها، وكثرة ضررها، حاربتها الحكومات ف",
+    "scholarly_function": "example",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 25,
+    "start_word": 415,
+    "end_word": 436,
+    "text_snippet": "ولكن كثيرا من الناس لا يعقلون، فتجدهم يتهافتون ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 26,
+    "start_word": 437,
+    "end_word": 441,
+    "text_snippet": "الحديث الثالث والخمسون بعد الثلاثمائة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 442,
+    "end_word": 490,
+    "text_snippet": "عن أنسَ بْنِ مَالِك رضي الله عنه: أنَّ النَّبيَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 491,
+    "end_word": 492,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 493,
+    "end_word": 571,
+    "text_snippet": "شرب رجل الخمر على عهد النبي صلى الله عليه وسلم،",
+    "scholarly_function": "narration",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 572,
+    "end_word": 575,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 576,
+    "end_word": 623,
+    "text_snippet": "1- ثبوت الحد في الخمر، وهو مذهب عامة العلماء.\n2",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 624,
+    "end_word": 633,
+    "text_snippet": "أما الاستبداد، فعمل المعجبين بأنفسهم، المتكبرين",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 33,
+    "start_word": 634,
+    "end_word": 635,
+    "text_snippet": "اختلاق العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 34,
+    "start_word": 636,
+    "end_word": 662,
+    "text_snippet": "اختلف العلماء في حد الخمر: هل هو ثمانون جلدة، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 663,
+    "end_word": 695,
+    "text_snippet": "ذهب الأئمة أحمد، ومالك، وأبو حنيفة، والثوري، وم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 36,
+    "start_word": 696,
+    "end_word": 728,
+    "text_snippet": "وذهب الشافعي إلى أن الحد أربعون، وهو رواية عن ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 729,
+    "end_word": 773,
+    "text_snippet": "قال شيخ الإسلام (ابن تيميه) فيما نقل عنه في الا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 774,
+    "end_word": 801,
+    "text_snippet": "وقال في المغنى (ولا ينعقد الإجماع على ما خالف ف",
+    "scholarly_function": "refutation",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 39,
+    "start_word": 802,
+    "end_word": 813,
+    "text_snippet": "ويقصد بهذا، الرد على من قال: إن الثمانين كانت ب",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 814,
+    "end_word": 843,
+    "text_snippet": "وقد أجمعت الأمة على أن الشارب إذا سكر بأي نوع م",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 844,
+    "end_word": 900,
+    "text_snippet": "وذهب جماهير العلماء من السلف والخلف: إلى أن ما ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 901,
+    "end_word": 913,
+    "text_snippet": "وبه قال عطاء، ومجاهد، وطاوس، والقاسم بن محمد، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 43,
+    "start_word": 914,
+    "end_word": 926,
+    "text_snippet": "وهو مذهب الأئمة الثلاثة: أحمد، والشافعي، ومالك،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 44,
+    "start_word": 927,
+    "end_word": 945,
+    "text_snippet": "وأما أهل الكوفة فيرون أن الأشربة المسكرة من غير",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 45,
+    "start_word": 946,
+    "end_word": 955,
+    "text_snippet": "أما مع الإسكار فقد تقدم أن الإجماع على إقامة ال",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 46,
+    "start_word": 956,
+    "end_word": 976,
+    "text_snippet": "وليس لهؤلاء من الأدلة إلا أن اسم الخمر حقيقة لا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 47,
+    "start_word": 977,
+    "end_word": 980,
+    "text_snippet": "واستدلوا على مذهبهم بأحاديث.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 48,
+    "start_word": 981,
+    "end_word": 989,
+    "text_snippet": "قال العلماء- ومنهم الأثرم، وابن المنذر: إنها مع",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 49,
+    "start_word": 990,
+    "end_word": 1008,
+    "text_snippet": "وأما أدلة جماهير الأمة، على أن كل مسكر خمر، يحر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1009,
+    "end_word": 1015,
+    "text_snippet": "فأما الكتاب، فعمم تحريم الخمر، ونهى عنه.",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1016,
+    "end_word": 1024,
+    "text_snippet": "والخمر: - ما خامر العقل وغطاه من أي نوع.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1025,
+    "end_word": 1059,
+    "text_snippet": "وأما السنة فقد صح عنه صلى الله عليه وسلم أنه قا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  }
+]

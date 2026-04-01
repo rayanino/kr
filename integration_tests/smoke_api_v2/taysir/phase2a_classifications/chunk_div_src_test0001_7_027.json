@@ -1,0 +1,346 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "9- أن من باع عبداً، وقد جعل بين يديه مالا يتصر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 34,
+    "end_word": 54,
+    "text_snippet": "10- لا يضر أن يكون مع العبد المبيع ما يدخله ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 55,
+    "end_word": 66,
+    "text_snippet": "11- قال شيخ الإسلام: بيع الزرع بشرط التبقية لا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 3,
+    "start_word": 67,
+    "end_word": 72,
+    "text_snippet": "وإن اشتراه بشرط القطع جاز بالاتفاق.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 73,
+    "end_word": 92,
+    "text_snippet": "وإن باعه مطلقا لم يجز عند جماهير العلماء، فإن ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 5,
+    "start_word": 93,
+    "end_word": 102,
+    "text_snippet": "‌‌بَابُ نهي المشتري عن بيع الطعام قبل قبضه\nالح",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 103,
+    "end_word": 127,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أن ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 128,
+    "end_word": 137,
+    "text_snippet": "وفي لفظ: \" حَتَّى يَقْبِضَهُ \" وعن ابن عباس.. ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 138,
+    "end_word": 138,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 139,
+    "end_word": 150,
+    "text_snippet": "من ابتاع: يعنى من اشترى. طعاماً- لغة- كل مطعوم",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 151,
+    "end_word": 162,
+    "text_snippet": "وفي الصدر الأول، إذا أطلق الطعام في الحجاز، ا",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 163,
+    "end_word": 164,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 165,
+    "end_word": 204,
+    "text_snippet": "لما كان قبض الطعام من متممات العقد، ومكملات ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 205,
+    "end_word": 215,
+    "text_snippet": "فاٍن كان بخسارة، حاول المشترى الفسخ، وإن كان ب",
+    "scholarly_function": "example",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 14,
+    "start_word": 216,
+    "end_word": 219,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 220,
+    "end_word": 226,
+    "text_snippet": "1- النهى عن بيع الطعام قبل قبضه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 227,
+    "end_word": 265,
+    "text_snippet": "2- في لفظ [حتى يستوفيه] ما يشعر بأنه خاص بما ي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 17,
+    "start_word": 266,
+    "end_word": 271,
+    "text_snippet": "3- جواز بيعه بعد القبض والاستيفاء.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 272,
+    "end_word": 303,
+    "text_snippet": "4- النهى ورد في الحديث بالتصرف فيه بالبيع، ولك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 19,
+    "start_word": 304,
+    "end_word": 330,
+    "text_snippet": "5- أما ماعدا البيع وما يجرى مجراه، فيجوز التصرف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 20,
+    "start_word": 331,
+    "end_word": 332,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 333,
+    "end_word": 391,
+    "text_snippet": "ذهبت الحنفية والشافعية، إلى المنع من بيع أي شي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 392,
+    "end_word": 405,
+    "text_snippet": "وذهبت المالكية في المشهور عنهم، إلى منع ما بيع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 406,
+    "end_word": 452,
+    "text_snippet": "وذهبت الحنابلة، في المشهور من مذهبهم: إلى منع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 453,
+    "end_word": 505,
+    "text_snippet": "وفي هذا القدر من البيع تجتمع آراء جميع العلماء",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 25,
+    "start_word": 506,
+    "end_word": 508,
+    "text_snippet": "أدلة هذه الأقوال:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 509,
+    "end_word": 549,
+    "text_snippet": "استدل الحنفية والشافعية ومن وافقهم، بما رواه أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 550,
+    "end_word": 588,
+    "text_snippet": "وما رواه أبو داود، والدارقطنى، وصححه الحاكم، و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 589,
+    "end_word": 632,
+    "text_snippet": "واستدل المالكية، الذين يرون أن المنع في مكيل ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 633,
+    "end_word": 661,
+    "text_snippet": "ومثله في \" مسلم \" و \" أحمد \" أيضا عن أبى هرير",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 662,
+    "end_word": 680,
+    "text_snippet": "ولـ\" مسلم \": ثم أنَ النبِي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 681,
+    "end_word": 730,
+    "text_snippet": "أما الذين لا يفرقون في المطعوم، بين الجزاف وغير",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 731,
+    "end_word": 744,
+    "text_snippet": "وفي أحد ألفاظ هذا الحديث: \" مَن ابتاعَ طَعَاماً",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 745,
+    "end_word": 757,
+    "text_snippet": "وهذه أحاديث تعُمُّ الجزاف وغيره، مع أن حديث اب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 34,
+    "start_word": 758,
+    "end_word": 784,
+    "text_snippet": "وهذه الأدلة لا تنافي حديثي ابن عمر، وأبي هريرة",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 35,
+    "start_word": 785,
+    "end_word": 833,
+    "text_snippet": "وأدلة هاتين الطائفتين تدل- بمفهومها- على اختصا",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 36,
+    "start_word": 834,
+    "end_word": 868,
+    "text_snippet": "أما أدلة المشهور من مذهب الحنابلة، فهي مفاهيم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 37,
+    "start_word": 869,
+    "end_word": 893,
+    "text_snippet": "ولما روى عن ابن عمر \" مَضَتِ السنةُ أن مَا أدر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 38,
+    "start_word": 894,
+    "end_word": 928,
+    "text_snippet": "ثم عَدَّوِا هذا الحكم، إلى كل ما يحتاج إلى حق ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 39,
+    "start_word": 929,
+    "end_word": 929,
+    "text_snippet": "فائدتان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 930,
+    "end_word": 980,
+    "text_snippet": "الأولى: فقهاء المذاهب يجعلون ضمان التلف في الآ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 41,
+    "start_word": 981,
+    "end_word": 1009,
+    "text_snippet": "الثانية: في صفة قبض المبيعات: يحصل قبض ما يبيع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1010,
+    "end_word": 1020,
+    "text_snippet": "والعقار والثمر على الشجر، بتخليته، بأن يرفع ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

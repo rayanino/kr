@@ -1,0 +1,129 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 45,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم أخبر أن من ظلم قليلا أو كثيراً من الأرض جا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان شدة الوعيد على ظلم الأرض وغصبها يوم القيامة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على الحديث السابق في أصل الاستدلال، ولم يرد نص الحديث بلفظه الكامل هنا."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 46,
+    "end_word": 63,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الغصب، لأنه من الظلم الذي حرمه الله على نفسه، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج حكم تحريم الغصب وكونه من الظلم المحرم شرعاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة في قولهم: من الحديث، تحتاج إلى معرفة الحديث السابق، لكن الحكم نفسه مفهوم."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 64,
+    "end_word": 74,
+    "text_snippet": "2- أن الظلم حرام، في القليل والكثير، وهنا فائدة ذكر الشبر\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إفادة أن الظلم محرم في القليل والكثير دون فرق.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة فائدة ذكر الشبر تشير إلى سياق حديث سابق لم يذكر هنا."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 75,
+    "end_word": 94,
+    "text_snippet": "3- أن العقار يكون مغصوبا بوضع اليد، ويكون مستولى عليه. قال القرطبي: ومن الحد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان إمكان غصب العقار والأرض وأن ذلك من الكبائر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال بقول القرطبي متعلق بالحديث السابق غير المذكور نصه هنا."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 95,
+    "end_word": 148,
+    "text_snippet": "4- أن من ملك ظاهر أرض، ملك باطنها إلى تخومها.\nفلا يجوز أن ينقب أحد من تحته،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان أن ملك الأرض يشمل باطنها وهواءها وما يترتب على ذلك من أحكام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 149,
+    "end_word": 210,
+    "text_snippet": "5- قال شيخ الإسلام: إذا اختلط الحرام بالحلال، كالمقبوض غصبا والربا والميسر،",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم اختلاط المال الحرام بالحلال وأثر الغلبة والاشتباه في المعاملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 211,
+    "end_word": 258,
+    "text_snippet": "6َ وقال أيضاً: المال إذا تعذر معرفة مالكه صرف في مصالح المسلمين عند جماهير ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم المال المجهول المالك وأنه يصرف في مصالح المسلمين أو يتصدق به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 259,
+    "end_word": 299,
+    "text_snippet": "فائدة:\nقال في المغني: وما كان في الشوارع والطرقات والرحبات بين العمران فليس ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم إحياء ما في الشوارع والطرقات والرحبات العامة وجواز الارتفاق بها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص ينتهي عند قوله: ويجوز الارتفاق بالقعود، ويبدو أن تمام بعض التفصيل أو القيد غير وارد في المقتطف."
+  }
+]

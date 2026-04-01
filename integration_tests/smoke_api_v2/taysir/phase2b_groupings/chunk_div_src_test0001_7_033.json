@@ -1,0 +1,81 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 74,
+    "text_snippet": "‌‌بَابُ تحريم إحداد المَرْأة أكثر من ثلاثة إلا على زوج\nالإحداد: في اللغة: الم",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف الإحداد وبيان مشروعيته بالإجماع وذكر بعض حكمه وفوائده للمرأة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 75,
+    "end_word": 228,
+    "text_snippet": "عَنْ زَينبَ بِنْتِ أم سَلمَةَ قَالَت: تُوُفي حَمِيمٌ لأم حَبيبة، فدَعَتْ بِصُف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أم حبيبة في النهي عن الإحداد فوق ثلاث إلا على الزوج مع شرح ألفاظه ومعناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 229,
+    "end_word": 245,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الإحداد على ميت أكثر من ثلاثة أيام، إلا المرأة ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم الإحداد على غير الزوج فوق ثلاثة أيام، واستثناء عدة الزوجة على زوجها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد هذا الحكم على الحديث السابق في تقرير دليله، وعبارة الاستثناء تشير إلى عدة الوفاة المعروفة خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 246,
+    "end_word": 262,
+    "text_snippet": "2- إباحة الثلاث على غير الزوج، تخفيفا للمصيبة، وترويحاً للنفس بإبدائها شيئاً ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إباحة الإحداد ثلاثة أيام على غير الزوج وبيان الحكمة من هذا التخفيف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المراد كاملاً مع الرجوع إلى الحديث السابق الذي هو أصل هذا الحكم وحدوده."
+  }
+]

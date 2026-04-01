@@ -1,0 +1,98 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "وأمره بالأكل وأخبره أنها المانع له من أكلها أنه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 1,
+    "start_word": 34,
+    "end_word": 36,
+    "text_snippet": "الأحكام من الحديثين:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 48,
+    "text_snippet": "1- النهي عن إتيان المساجد لمن أكل ثوماً، أو بص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 85,
+    "text_snippet": "2- يلحق بهذه الأشياء، كل ذي رائحة كريهة تتأذى ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 86,
+    "end_word": 109,
+    "text_snippet": "3- كراهة أكل هذه الأشياء لمن عليه حضور الصلاة ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 5,
+    "start_word": 110,
+    "end_word": 120,
+    "text_snippet": "4- حكمة النهي عن إتيان المساجد، ألا يتأذى بها ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 121,
+    "end_word": 134,
+    "text_snippet": "5- النهي عن الإيذاء بكل وسيلة. هذه وسيلة منصوص ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 135,
+    "end_word": 158,
+    "text_snippet": "6- أن الامتناع عن أكل الثوم ونحوه، ليس لتحريمه،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 159,
+    "end_word": 159,
+    "text_snippet": "فائدة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 160,
+    "end_word": 173,
+    "text_snippet": "قد استدل بعض العلماء على إباحة أكل هذه الأشياء",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 174,
+    "end_word": 190,
+    "text_snippet": "ووجه الدلالة، أنها لو كانت فرض عين، لوجب اجتنا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 11,
+    "start_word": 191,
+    "end_word": 235,
+    "text_snippet": "والحق أنه لا وجه لاستدلالهم، لأن فعل المباحات،",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  }
+]

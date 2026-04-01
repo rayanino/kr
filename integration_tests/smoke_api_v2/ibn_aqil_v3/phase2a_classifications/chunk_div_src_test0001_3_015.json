@@ -1,0 +1,234 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌البدل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 9,
+    "text_snippet": "\nالتابع المقصود بالحكم بلا … واسطة هو المسمى ب",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 10,
+    "end_word": 67,
+    "text_snippet": "\nالبدل: هو التابع المقصود بالنسبة بلا واسطة ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 68,
+    "end_word": 91,
+    "text_snippet": "\nمطابقا أو بعضا أو ما يشتمل … عليه يلفى أو ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 92,
+    "end_word": 100,
+    "text_snippet": "\nكزره خالدا وقبله اليدا … واعرفه حقه وخذ نبلا",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 5,
+    "start_word": 101,
+    "end_word": 105,
+    "text_snippet": "\nمدى البدل على أربعة أقسام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 106,
+    "end_word": 125,
+    "text_snippet": "\nالأول: بدل الكل من الكل: وهو البدل المطابق ل",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 126,
+    "end_word": 136,
+    "text_snippet": "\nالثاني: بدل البعض من الكل: نحو أكلت الرغيف ث",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 137,
+    "end_word": 151,
+    "text_snippet": "\nالثالث: بدل الاشتمال: وهو الدال على معنى في ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 152,
+    "end_word": 165,
+    "text_snippet": "\nالرابع: البدل المباين للمبدل منه: وهو المراد",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 166,
+    "end_word": 219,
+    "text_snippet": "\nأحدهما: ما يقصد متبوعه كما يقصد هو ويسمى بدل",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 220,
+    "end_word": 280,
+    "text_snippet": "\nالثاني: مالا يقصد متبوعه بل يكون المقصود الب",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 281,
+    "end_word": 311,
+    "text_snippet": "\nوقوله خذ نبلا مدى يصلح أن يكون مثالا لكل من ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 312,
+    "end_word": 322,
+    "text_snippet": "\nومن ضمير الحاضر الظاهر لا … تبدله إلا ما إحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 14,
+    "start_word": 323,
+    "end_word": 331,
+    "text_snippet": "\nأو اقتضى بعضا أو اشتمالا … كإنك ابتهاجك اشتما",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 15,
+    "start_word": 332,
+    "end_word": 358,
+    "text_snippet": "\nأي لا ببدل الظاهر من ضمير الحاضر إلا إن كان ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 359,
+    "end_word": 374,
+    "text_snippet": "\nفالأول: كقوله تعالى: {تَكُونُ لَنَا عِيداً لأ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 375,
+    "end_word": 383,
+    "text_snippet": " فإن لم يدل على الإحاطة امتنع نحو رأيتك زيدا.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 384,
+    "end_word": 404,
+    "text_snippet": "\nوالثاني كقوله\n302 - (ذرينى إن أمرك لن يطاعا ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 19,
+    "start_word": 405,
+    "end_word": 425,
+    "text_snippet": "\nوالثالث كقوله\n303 - (أو عدني بالسجن والأداهم",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 20,
+    "start_word": 426,
+    "end_word": 447,
+    "text_snippet": " وفهم من كلامه أنه يبدل الظاهر من الظاهر مطلق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 21,
+    "start_word": 448,
+    "end_word": 459,
+    "text_snippet": "\nوبدل المضمن الهمز يلى … همزا ك \"من ذا أسعيد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 460,
+    "end_word": 487,
+    "text_snippet": " إذا أبدل من أسم الاستفهام وجب دخول همزة الاس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 488,
+    "end_word": 498,
+    "text_snippet": "\nويبدل الفعل من الفعل كمن … يصل إلينا يستعن ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 24,
+    "start_word": 499,
+    "end_word": 513,
+    "text_snippet": "\nكما يبدل الاسم من الاسم يبدل الفعل من الفعل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 514,
+    "end_word": 524,
+    "text_snippet": " ومثله قوله تعالى: {وَمَنْ يَفْعَلْ ذَلِكَ يَل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 525,
+    "end_word": 532,
+    "text_snippet": " فيضاعف بدل من يلق فإعرابه بإعرابه وهو الجزم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 533,
+    "end_word": 547,
+    "text_snippet": " وكذا قوله:\n304 - إن على الله أن تبعايعا … تؤخ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 28,
+    "start_word": 548,
+    "end_word": 553,
+    "text_snippet": "\nفتؤخذ بدل من تبايعا ولذلك نصب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

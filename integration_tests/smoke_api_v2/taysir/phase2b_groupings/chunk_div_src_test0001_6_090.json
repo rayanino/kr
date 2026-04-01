@@ -1,0 +1,71 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "4- يحرم العود في الصدقة، وهو مذهب جمهور العلماء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم الرجوع في الصدقة وأنه مذهب جمهور العلماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 9,
+    "end_word": 20,
+    "text_snippet": "5- التنفير من ذلك بهذا المثل الذي هو الغاية في البشاعة والدناءة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان شدة الزجر عن الرجوع في الصدقة بهذا المثل القبيح.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة في قوله: «من ذلك» يعود على مسألة سابقة هي العود في الصدقة، والمثل المشار إليه غير مذكور في هذا المقتطف."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 21,
+    "end_word": 77,
+    "text_snippet": "6- استثنى جمهور العلماء من تحريم العودة في الهبة ما يهبه الوالد لولده، فإن ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "استثناء رجوع الوالد فيما وهبه لولده مع دليله من الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 78,
+    "end_word": 250,
+    "text_snippet": "‌‌بَابُ العَدل بَيْن الأولاد في العطِية ⌜1⌝\nالحديث الأول\nعَن النَعْمَانِ بْنِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث النعمان بن بشير في وجوب العدل بين الأولاد في العطية وشرح معناه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة تشتمل على أصل الحديث وبعض ألفاظه مع المعنى الإجمالي، لكن الشرح التعليلي في آخرها منقطع عند قوله: «عمل مناف للتقوى» ولم يكتمل وجه الاستدلال أو الحكم النهائي في المقتطف."
+  }
+]

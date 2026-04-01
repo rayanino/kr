@@ -1,0 +1,103 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 289,
+    "text_snippet": "فصل\n\nوأما كلام العرب فيحتج منه بما ثبت عن الفصحاء الموثوق بعربيتهم قال أب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "بيان القبائل التي يحتج بكلامها في العربية والقبائل التي لا يحتج بها وسبب ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 290,
+    "end_word": 321,
+    "text_snippet": "ونقل ذلك أبو حيان في (شرح التسهيل) معترضا به على ابن مالك حيث عني في ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "اعتراض أبي حيان على ابن مالك في نقله لغات قبائل ليست من معتمد أئمة العربية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة تشير بقولها: «ونقل ذلك» إلى كلام الفارابي السابق، وفهم وجه الاعتراض يكتمل بمعرفة معيار القبائل المحتج بلغاتها المذكور قبله."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 322,
+    "end_word": 349,
+    "text_snippet": "ثم الاعتماد على ما رواه الثقات عنهم بالأسانيد المعتبرة من نثرهم ونظمهم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير أن المعتمد في نقل كلام العرب هو رواية الثقات بالأسانيد المعتبرة من النثر والشعر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 350,
+    "end_word": 404,
+    "text_snippet": "ومما يعتمد عليه في ذلك مصنفات الإمام الشافعي – رضي الله عنه – فقد قال اب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "الاستدلال على اعتماد مصنفات الشافعي في اللغة بنقل الإمام أحمد أن كلامه فيها حجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 405,
+    "end_word": 589,
+    "text_snippet": "فروع\n\nأحدها:\n\nينقسم المسموع إلى مطرد وشاذ. قال في (الخصائص):\n\" وأصل موا",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف المطرد والشاذ في المسموع وبيان أقسام الاطراد والشذوذ الأربعة مع أمثلتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 590,
+    "end_word": 604,
+    "text_snippet": "\nوقال الشيخ جمال الدين بن هشام:\n\" اعلم أنهم يستعملون غالبا وكثيرا ونادر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى ألفاظ يستعملها النحاة في مراتب الشيوع والاستعمال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص مقتطع وينتهي قبل تمام كلام ابن هشام، فلا يكتمل المقصود من تعداد هذه الألفاظ ولا بيان معانيها."
+  }
+]

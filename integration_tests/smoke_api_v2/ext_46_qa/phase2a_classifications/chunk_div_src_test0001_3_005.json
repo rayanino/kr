@@ -1,0 +1,162 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "فصل\nمما يشبه تداخل اللغات السابق تركيبُ المذاه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "ويشبهه في أصول الفقه إحداث قول ثالث، والتلفي",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 2,
+    "start_word": 29,
+    "end_word": 40,
+    "text_snippet": "وذلك أن تضم بعض المذاهب إلى بعض، وتنتحل بين ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 41,
+    "end_word": 63,
+    "text_snippet": "مثاله أن المازني كان يعتقد مذهب يونس في رد ال",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 64,
+    "end_word": 85,
+    "text_snippet": "وسيبويه إذا استوفى التحقير مثاله لا يرد، فيق",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 86,
+    "end_word": 126,
+    "text_snippet": "فقد تحصل إذن للمازني مذهب مركب من مذهب الرجل",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 127,
+    "end_word": 148,
+    "text_snippet": "ويونس يرد ولا يصرف، فيقول: رأيت يريئي.\nوسيبو",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 149,
+    "end_word": 157,
+    "text_snippet": "فقد عرف تركب مذهب المازني عن مذهب الرجلين.\n(",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 8,
+    "start_word": 158,
+    "end_word": 182,
+    "text_snippet": "قال أبو البقاء في (التبيين)\n(جاء في الشعر (لو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 9,
+    "start_word": 183,
+    "end_word": 214,
+    "text_snippet": "قال أبو البقاء: وعندي أنه يمكن أمران آخران:\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 215,
+    "end_word": 252,
+    "text_snippet": "ويمكن أن يقال: موضعه نصب؛ لأنه من ضمائر المن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 253,
+    "end_word": 270,
+    "text_snippet": "وكذلك قولهم: لي ملؤه عسلا، فهذا منصوب، وليس ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 271,
+    "end_word": 286,
+    "text_snippet": "ومثل ذلك يمكن في (لولاي) و (لولاك) وهو أن يج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 13,
+    "start_word": 287,
+    "end_word": 315,
+    "text_snippet": "فإن قيل: الحكم بأنه لا موضع له وأن موضعه نصب",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 316,
+    "end_word": 345,
+    "text_snippet": "فالجواب عنه من وجهين:\nأحدهما: أن هذا من إجما",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 346,
+    "end_word": 360,
+    "text_snippet": "والثاني أن أهل العصر الواحد إذا اختلفوا على ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 361,
+    "end_word": 371,
+    "text_snippet": "هذا معلوم من أصول الشريعة، وأصولُ اللغة محمو",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 372,
+    "end_word": 394,
+    "text_snippet": "وقد صنع مثل ذلك من النحويين على الخصوص أبو ع",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 395,
+    "end_word": 418,
+    "text_snippet": "منها أن لفظة (كل) لا يدخلها الألف واللام في ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 19,
+    "start_word": 419,
+    "end_word": 431,
+    "text_snippet": "فغيرُ ممتنع أن يذهب ذاهب هنا إلى مذهب ثالث؛ ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  }
+]

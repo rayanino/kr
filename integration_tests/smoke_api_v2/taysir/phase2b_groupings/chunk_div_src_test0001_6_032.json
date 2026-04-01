@@ -1,0 +1,126 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "وأمره بالأكل وأخبره أنها المانع له من أكلها أنه صلى الله عليه وسلم له اتصال ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل امتناع النبي عن أكلها مع أمره غيره بها لاتصاله الخاص بربه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه ضمائر وإشارات إلى أشياء مذكورة قبل هذا المقطع، كالهاء في أكلها وأمره، فيحتاج إلى سياق الحديث السابق لتعيين المقصود."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 34,
+    "end_word": 48,
+    "text_snippet": "الأحكام من الحديثين:\n1- النهي عن إتيان المساجد لمن أكل ثوماً، أو بصلاً، أو ك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن دخول المسجد لمن أكل الثوم أو البصل أو الكراث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 49,
+    "end_word": 85,
+    "text_snippet": "2- يلحق بهذه الأشياء، كل ذي رائحة كريهة تتأذى منها الملائكة أو المصلون. كراح",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [],
+    "description_arabic": "إلحاق كل ذي رائحة كريهة بالثوم والبصل، ومنه رائحة التبغ ووجوب إزالتها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم إجمالاً، لكن عبارة يلحق بهذه الأشياء تعتمد على ما قبلها في تعيين الأصل المقيس عليه."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 86,
+    "end_word": 109,
+    "text_snippet": "3- كراهة أكل هذه الأشياء لمن عليه حضور الصلاة في المسجد، لئلا تفوته الجماعة ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "كراهة أكل ذوات الروائح لمن تلزمه الجماعة، وتحريمها إذا قصد بها إسقاط الحضور.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المراد بهذه الأشياء يعود على المذكور قبل هذا الموضع، لكن الحكم وشرطه واستثناؤه واضحان إجمالاً."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 110,
+    "end_word": 120,
+    "text_snippet": "4- حكمة النهي عن إتيان المساجد، ألا يتأذى بها الملائكة والمصلون.\n",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان علة النهي عن إتيان المسجد وهي دفع الأذى عن الملائكة والمصلين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في بها يرجع إلى أشياء سبق ذكرها، إلا أن العلة العامة مفهومة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 121,
+    "end_word": 134,
+    "text_snippet": "5- النهي عن الإيذاء بكل وسيلة. هذه وسيلة منصوص عليها، فالإلحاق بها صحيح مقيس",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تقرير قاعدة النهي عن الإيذاء وقياس سائر وسائله على المنصوص.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في هذه وسيلة منصوص عليها تحتاج إلى معرفة الوسيلة المذكورة قبله، لكن القاعدة القياسية مفهومة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 135,
+    "end_word": 158,
+    "text_snippet": "6- أن الامتناع عن أكل الثوم ونحوه، ليس لتحريمه، بدليل أمر النبي صلى الله عليه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "امتناع النبي عن أكل الثوم لا يدل على التحريم، لأن غيره أُمر بأكله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 159,
+    "end_word": 235,
+    "text_snippet": "فائدة:\nقد استدل بعض العلماء على إباحة أكل هذه الأشياء، بأن صلاة الجماعة فرض ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "عرض استدلال بعض العلماء على الإباحة بفرض الكفاية ثم رد هذا الاستدلال وتقييده بالحيلة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتملة من حيث عرض القول ودليله والرد عليه، لكن عبارة هذه الأشياء تحتاج إلى السياق السابق لتحديد أفرادها."
+  }
+]

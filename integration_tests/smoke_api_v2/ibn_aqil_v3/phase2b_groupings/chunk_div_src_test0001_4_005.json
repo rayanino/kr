@@ -1,0 +1,42 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "‌‌الاختصاص\nالاختصاص كنداء دون يا … كأيها الفتى بإثر ارجونيا\nوقد يرى ذا دو",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "تعريف الاختصاص في النظم وذكر مثال عليه بصيغة أيها وبغير أي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "البيت التعليمي مختصر وفيه ألفاظ نظم تحتاج شرحا خارجيا مثل «إثر ارجونيا» ومراد «ذا»."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 24,
+    "end_word": 84,
+    "text_snippet": "الاختصاص: يشبه النداء لفظا ويخالفه من ثلاثة أوجه: أحدها: أنه لا يستعمل م",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "evidence_hadith",
+      "rule_statement"
+    ],
+    "description_arabic": "بيان حقيقة الاختصاص وفروقه عن النداء مع أمثلته وحكم نصبه بالفعل المضمر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

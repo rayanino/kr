@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "الكتاب الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 19,
+    "text_snippet": "\n\nفي‌‌ القياس قال ابن الأنباري في (جدله)\nهو حمل ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 20,
+    "end_word": 46,
+    "text_snippet": "\nوهو معظم أدلة النحو، والمعول في غالب مسائله عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 3,
+    "start_word": 47,
+    "end_word": 63,
+    "text_snippet": "\nوقال صاحب (المستوفي) كل علم فبعضه مأخوذ بالسما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 64,
+    "end_word": 116,
+    "text_snippet": "\nقال (فالفقه بعضه بالنصوص الواردة في الكتاب وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 117,
+    "end_word": 132,
+    "text_snippet": "\nكقولهم: الحرف الذي تختلس حركته هو في حكم المتح",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 133,
+    "end_word": 147,
+    "text_snippet": "\nوكقولهم: الحركات أنواع: صاعد عال، ومنحدر سافل ",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 148,
+    "end_word": 191,
+    "text_snippet": "\nوقال ابن الأنباري في (أصوله)\nاعلم أن إنكار الق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 192,
+    "end_word": 233,
+    "text_snippet": "\nوذلك أنا أجمعنا على أنه إذا قال العربي: كتب زي",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 234,
+    "end_word": 313,
+    "text_snippet": "\nوكذلك القول في سائر العوامل الداخلة على الأسماء",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 314,
+    "end_word": 339,
+    "text_snippet": "\nألا ترى أن (القارورة) سميت بذلك لاستقرار الشيء",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  }
+]

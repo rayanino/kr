@@ -1,0 +1,104 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 117,
+    "text_snippet": "‌‌أسماء الأفعال والأصوات\nما ناب عن فعل كشتان وصه … هم اسم فعل وكذا أوه ومه\nو",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف أسماء الأفعال وبيان معانيها وأنواعها مع أمثلة الأمر والماضي والمضارع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5
+    ],
+    "start_word": 118,
+    "end_word": 205,
+    "text_snippet": "والفعل من أسمائه عليكا … وهكذا دونك مع إليكا\nكذا رويد بله ناصبين … ويعملان ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أسماء الأفعال المنقولة من الظرف والجار والمجرور وحكم رويد وبله مع النصب والجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 206,
+    "end_word": 328,
+    "text_snippet": "وما لما تنوب عنه من عمل … لها وأخر ما لذي فيه العمل\nأي يثبت لأسماء الأفعال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام عمل اسم الفعل بحسب الفعل المنوب عنه، ووجوب تأخير معموله عنه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 329,
+    "end_word": 369,
+    "text_snippet": "واحكم بتنكير الذي ينون … منها وتعريف سواه بين\nالدليل على أن ما سمى بأسماء ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "قاعدة تنكير أسماء الأفعال المنونة وتعريف غير المنون مع دليل ذلك من التنوين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 370,
+    "end_word": 429,
+    "text_snippet": "وما به خوطب مالا يعقل … من مشبه اسم الفعل صوتا يجعل\nكذا الذي أجدى حكاية كـ ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف أسماء الأصوات وبيان نوعيها: خطاب ما لا يعقل، وحكاية الأصوات مع أمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 430,
+    "end_word": 475,
+    "text_snippet": "وأشار بقوله والزم بنا النوعين إلى أن أسماء الأفعال وأسماء الأصوات كلها مبني",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن أسماء الأفعال وأسماء الأصوات كلها مبنية وذكر علة بنائها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن إحالة إلى ما سبق في باب المعرب والمبني وعبارة الشارح السابقة، لكن أصل الحكم وعلته الإجمالية مفهومان داخل الوحدة."
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 35,
+    "text_snippet": "‌‌كِتَابُ الأطعمة\nالأصل في الطعام والشراب واللباس، الحل.\nفلا يحرم منها إلا ما ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان الأصل الكلي في الأطعمة والأشربة واللباس وأن الأصل فيها الحل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 36,
+    "end_word": 125,
+    "text_snippet": "الحديث الأول\nعَنِ النُعْمَانِ بْنِ بَشِير رضي الله عنه قَالَ: سَمِعْتُ رَسُولَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "نص حديث النعمان بن بشير في الحلال والحرام والمشتبهات وأثر القلب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 126,
+    "end_word": 208,
+    "text_snippet": "الغريب:\nمُشْتبهات: بضم الميم وسكون الشين.\nاستبرأ: بكسر الهمزة- من البراءة، أي ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح غريب ألفاظ الحديث مثل المشتبهات واستبرأ والحمى ويرتع ومضغة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 209,
+    "end_word": 304,
+    "text_snippet": "المعنى الإجمالي:\nسمع النعمان بن بشي رضي الله عنهما النبي صلى الله عليه وسلم يق",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "بيان أن الأحكام ثلاثة أقسام: حلال بين وحرام بين ومشتبه بينهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 305,
+    "end_word": 356,
+    "text_snippet": "منها: تعارض الأدلة، بحيث لا يظهر الجمع لا الترجيح بينها، فهذا مشتبه في حق المج",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "من أسباب الاشتباه تعارض الأدلة أو أقوال العلماء، والورع حينئذ ترك المشتبه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم مستقلا غالبا، لكن ضمير \"منها\" يعود إلى أسباب الاشتباه المذكورة في الوحدة السابقة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 357,
+    "end_word": 368,
+    "text_snippet": "ومنها: ما جاء في النهى عنها حديث ضعيف، يوقع الشك في مدلوله.\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "من أسباب الاشتباه ورود حديث ضعيف في النهي يورث التردد في الحكم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة مفهومة، لكن افتتاحها بـ\"ومنها\" يحيل إلى سياق تعداد أسباب الاشتباه."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 369,
+    "end_word": 397,
+    "text_snippet": "ومنها: المكروهات جميعها، فهي رقية (أي: سُلَّم يوصل) إلى فعل المحرمات والإقدام ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "المكروهات طريق إلى المحرمات، وتركها يعصم النفس ويمنعها من التجرؤ على الحرام.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المعنى مكتمل تقريبا، لكن \"ومنها\" متعلق بتعداد سابق لأقسام المشتبه."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 398,
+    "end_word": 442,
+    "text_snippet": "ومنها: المباح الذي يخشى أن يكون ذريعة إلى المحرم، أو يجر- في بعض الأحول- إلى ا",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "المباح إذا صار ذريعة إلى الحرام أو أفضى إليه بالإفراط كان موضع ورع وترك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "القاعدة واضحة، لكن بداية الوحدة بـ\"ومنها\" تربطها بسياق تعداد أسباب الاشتباه."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 443,
+    "end_word": 488,
+    "text_snippet": "ثم ضرب صلى الله عليه وسلم مثلا للمحرمات، بالحمى الذي يتخذه الخلفاء والملوك مرع",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "شرح تمثيل المحرمات بالحمى والمشتبهات بالراعي القريب منه وخطر الوقوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      29,
+      30,
+      31
+    ],
+    "start_word": 489,
+    "end_word": 557,
+    "text_snippet": "ثم ذكر صلى الله عليه وسلم أن في الجسد لحمة صغيرة لطيفة، بقدر ما يمضغ، وأن هذه ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أن صلاح القلب سبب صلاح الجسد كله وفساده سبب فساد الأعمال كلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 558,
+    "end_word": 587,
+    "text_snippet": "وبالجملة، فهذا حديث عظيم جليل، وقاعدة من قواعد الإسلام، وأصل من أصول الشريعة، ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تقويم عام للحديث وبيان عظمته وأنه أصل من أصول الشريعة وجوامع الكلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

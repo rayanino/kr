@@ -1,0 +1,338 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ تحْريم بَيْع الخبائث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 55,
+    "text_snippet": "من صفات النبي صلى الله عليه وسلم في الكتب الساب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 56,
+    "end_word": 65,
+    "text_snippet": "وهذا من كمال هذه الشريعة، ومن عناصر البقاء وا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 3,
+    "start_word": 66,
+    "end_word": 91,
+    "text_snippet": "وتأمل الحديث الآتي تجدْ أن المحرمات فيه عُددَت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 4,
+    "start_word": 92,
+    "end_word": 93,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 94,
+    "end_word": 167,
+    "text_snippet": "عَنْ جَابرِ رَضَ الله عَنْهُ: أنَهُ سَمِعَ رَسُو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 168,
+    "end_word": 168,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 169,
+    "end_word": 182,
+    "text_snippet": "عام الفتح: هو فتح مكة، وكان في السنة الثامنة م",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 183,
+    "end_word": 194,
+    "text_snippet": "حرَّم: بإعادة الضمير إلى الواحد، تأدباً مع الله",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 195,
+    "end_word": 206,
+    "text_snippet": "الميتة: بفتح الميم، ما ماتت حتف أنفها، أو ذُكتْ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 207,
+    "end_word": 223,
+    "text_snippet": "الأصنام: مفرده \" صنم \" وهو \" الوثن \" المتخذ من",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 224,
+    "end_word": 239,
+    "text_snippet": "أرأيت شحوم الميتة: أخبرني عن حكم بيع شحوم المي",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 240,
+    "end_word": 257,
+    "text_snippet": "يستصبح بها الناس: أي يستضيئون به، حين يجعلونه ",
+    "scholarly_function": "definition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 13,
+    "start_word": 258,
+    "end_word": 276,
+    "text_snippet": "قاتل الله اليهود: لعنهم الله، لما ارتكبوه من ه",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 14,
+    "start_word": 277,
+    "end_word": 289,
+    "text_snippet": "جملوه: بفتح الجيم والميم المخففة. أي أذابوه. و",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 290,
+    "end_word": 291,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 292,
+    "end_word": 543,
+    "text_snippet": "جاءت هذه الشريعة الإسلامية السامية، بكل ما فيه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 17,
+    "start_word": 544,
+    "end_word": 547,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 548,
+    "end_word": 588,
+    "text_snippet": "1- تحريم بيع الخمر وعمله وما يعينها عليه وشربه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 589,
+    "end_word": 615,
+    "text_snippet": "2- حرمت لما فيها من المضار الكبيرة والمفاسد ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 616,
+    "end_word": 653,
+    "text_snippet": "3- تحريم الميتة، لحمها، وشحمها، ودمها، وعصبها،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 654,
+    "end_word": 675,
+    "text_snippet": "4- استثنى جمهور العلماء، الشعر، والوبر، والصوف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 22,
+    "start_word": 676,
+    "end_word": 701,
+    "text_snippet": "أما جلدها، فهو نجس قبل الدبغ، لكن بعد أن يدبغ ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 23,
+    "start_word": 702,
+    "end_word": 716,
+    "text_snippet": "والأول أولى، لأن النبي صلى الله عليه وسلم قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 24,
+    "start_word": 717,
+    "end_word": 758,
+    "text_snippet": "5- تحريم بيع الخنزير: - ويحرم أكله وملامسته وق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 759,
+    "end_word": 775,
+    "text_snippet": "6- تحريم بيع الأصنام، لما تجره من شر كبير على ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 776,
+    "end_word": 787,
+    "text_snippet": "ومن ذلك الصليب، الذي هو شعار النصارى. والتماثي",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 788,
+    "end_word": 809,
+    "text_snippet": "ومنها أيضا هذه الصور التي تظهر في المجلات والص",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 810,
+    "end_word": 819,
+    "text_snippet": "ومنها الأفلام السينمائية، خصوصا المناظر الماجن",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 820,
+    "end_word": 838,
+    "text_snippet": "فهذه كلها شر لا خير فيه، ومفسدة لا مصلحة فيها،",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 30,
+    "start_word": 839,
+    "end_word": 854,
+    "text_snippet": "7- أن درء المفاسد مقدم على جلب المصالح. لا سيما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 855,
+    "end_word": 875,
+    "text_snippet": "فإن مصالح شحوم الميتة، لم تبح بيعها، والمعاملة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 32,
+    "start_word": 876,
+    "end_word": 905,
+    "text_snippet": "8- استعمال النجاسة على وجه لا يتعدى لا بأس به،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 906,
+    "end_word": 926,
+    "text_snippet": "9- أن التحيل على محارم الله، سبب لغضبه ولعنه، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 927,
+    "end_word": 937,
+    "text_snippet": "لأن الأول معترف بالاعتداء على حدود الله ويرج ل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 35,
+    "start_word": 938,
+    "end_word": 955,
+    "text_snippet": "وأما الثاني، فهو مخادع لله تعالى، وبحيلته هذه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 956,
+    "end_word": 963,
+    "text_snippet": "10- أن الحيل هي سنة اليهود، المغضوب عليهم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 964,
+    "end_word": 983,
+    "text_snippet": "11- أن حبهم للمادة قديم، حملهم على الحيل ونقض ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 38,
+    "start_word": 984,
+    "end_word": 1027,
+    "text_snippet": "قلما ذكر لهم النبي صلى الله عليه وسلم تحريم هذ",
+    "scholarly_function": "narration",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1028,
+    "end_word": 1059,
+    "text_snippet": "ثم من كان رأفته ونصحه بأمته، حذرهم مما وقع فيه",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1060,
+    "end_word": 1109,
+    "text_snippet": "وبين لهم أنه تعالى لما حرم على اليهود الشحوم، ",
+    "scholarly_function": "narration",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1110,
+    "end_word": 1145,
+    "text_snippet": "ولقد أصابنا ما أصابهم من ارتكاب الحيل، ومخادعة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  }
+]

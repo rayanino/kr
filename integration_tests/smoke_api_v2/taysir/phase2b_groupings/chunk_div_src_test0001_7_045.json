@@ -1,0 +1,141 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 0,
+    "end_word": 220,
+    "text_snippet": "قال ابن حجر في \"بلوغ المرام\": [وقيل: إن السعاية مدرجة] .\nقال النسائى: [بل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "evidence_rational"
+    ],
+    "description_arabic": "عرض الخلاف في إدراج السعاية وترجيح رفعها وبيان وجه الجمع بين الحديثين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 221,
+    "end_word": 254,
+    "text_snippet": "‌‌بَابُ بَيْع المدبَّر\nالمدبَّر: - اسم مفعول، وهو الرقيق الذي علق عتقه بموت ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف المدبر وسبب تسميته واشتقاق اللفظ لغة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 255,
+    "end_word": 377,
+    "text_snippet": "الحديث العشرون بعد الأربعمائة\nعَنْ جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما ق",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث بيع المدبر مع شرح لفظ دبر وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 378,
+    "end_word": 392,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على صحة التدبر، وهو متفق عليه بين العلماء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات صحة التدبير وذكر اتفاق العلماء عليه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم مستقلاً، لكن عبارة \"من الحديث\" تحيل إلى الحديث السابق، ومصطلح التدبير غير معرّف داخل هذه الوحدة إلا لمن يعرف الباب."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 393,
+    "end_word": 419,
+    "text_snippet": "2- أن المدبَّر يعتق من ثلث المال، لا من رأس المال، لأن حكمه حكم الوصية، لأن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن المدبر يعتق من الثلث لأنه في حكم الوصية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 420,
+    "end_word": 458,
+    "text_snippet": "3- جواز بيع المدبر مطلقا للحاجة، كالدَّين والنفقة، بل أجاز الشافعي وأحمد بيع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم بيع المدبر وذكر قول الشافعي وأحمد في التوسع فيه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن استدلالاً بقول \"هذا الحديث\" دون نقل نص الحديث داخل الوحدة، ففهم وجه الاستدلال الكامل يستفيد من الرجوع للوحدة السابقة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 459,
+    "end_word": 510,
+    "text_snippet": "4- أن الأولى والأحسن لمن ليس عنده سَعَةُ في الرزق أن يجعل ذلك لنفسه ولمن يع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "الأولى للمعسر تقديم نفسه وعياله، والموسر يغتنم الإنفاق في الخير",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 511,
+    "end_word": 676,
+    "text_snippet": "\n\nوالحمد لله الذي بنعمته تتم الصالحات، والصلاة والسلام على نبينا محمد وعلى ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "خاتمة المؤلف وتاريخ الفراغ من الشرح ثم تاريخ تصحيح الجزء وتحقيقه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,160 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 83,
+    "text_snippet": "إسلامية، وعرف الناس دين الله وشرائعه، وأقبلوا عليه راغبين فيه، غير مكرهين، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_hadith"
+    ],
+    "description_arabic": "ختم العبادة بالاستغفار والتسبيح مع الاستدلال بدعائه صلى الله عليه وسلم ومعنى ألفاظه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بداية الوحدة متعلقة بسياق سابق عن عبادة أو سورة لم يذكر هنا، لكن أصل الحكم والدليل والشرح الداخلي مفهومة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 84,
+    "end_word": 96,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- استحباب الإكثار من هذا الدعاء، في الركوع والسج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب الإكثار من هذا الدعاء في الركوع والسجود.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة إلى \"هذا الدعاء\" تعود إلى الدعاء المذكور في الوحدة السابقة، فلا يستقل الاسم المرجعي تماماً دونها."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 97,
+    "end_word": 109,
+    "text_snippet": "2- أن تختم العبادات- وخصوصاً الصلاة- بالاستغفار، ليتدارك ما حصل فيها من النقص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية ختم العبادات ولا سيما الصلاة بالاستغفار لجبر النقص.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 110,
+    "end_word": 127,
+    "text_snippet": "3- أن أحسن ما يتوسل به إلى الله في قبول الدعاء، هو ذكر محامده وتنزيهه عن النق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أفضل ما يتوسل به في الدعاء ذكر محامد الله وتنزيهه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 128,
+    "end_word": 143,
+    "text_snippet": "4- أن المتعبد بهما، حرص على حفظ عباداته، فلا ينبغي أن يأمن من الزلل والنقص في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المتعبد يحفظ عبادته ولا يأمن الزلل والنقص فيها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في \"بهما\" يعود إلى أمرين مذكورين قبل هذا، وهما غير مصرح بهما داخل الوحدة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 144,
+    "end_word": 150,
+    "text_snippet": "5- فضيلة الاستغفار، وطلبه في كل حال.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان فضل الاستغفار واستحباب طلبه في جميع الأحوال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 151,
+    "end_word": 236,
+    "text_snippet": "6- ذكر شيخ الإسلام ابن تيمية أن المشهور عن الإمام أحمد أنه لايدعو في الصلاة إ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "رأي ابن تيمية في المأثور من دعاء الصلاة وحكم الدعاء غير المأثور فيها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشتمل على إحالة إلى قوله \"ثم ليختر من الدعاء ما شاء\" دون إيراد الحديث كاملاً، كما أن بعض الترجيح مبني على سياق سابق."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 237,
+    "end_word": 342,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام ابن تيمية: وأما دعاء الإمام والمأمومين جميعا عقب الصلاة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "عدم مشروعية الدعاء الجماعي عقب الصلاة المكتوبة وكون موطن ما بعد السلام للذكر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 343,
+    "end_word": 364,
+    "text_snippet": "فائدة أخرى:\nبناء على ما رجح من عدم مشروعية الدعاء بعد السلام من الصلاة، يظهر ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عدم مشروعية رفع اليدين بعد السلام تبعاً لعدم مشروعية الدعاء في هذا الموطن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة مبنية على ترجيح سابق بعدم مشروعية الدعاء بعد السلام، وهو مذكور في الوحدة السابقة لا داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 365,
+    "end_word": 454,
+    "text_snippet": "أما رفع اليدين في الدعاء في مواطن أخرى فهو مما جاءت به الأخبار والأحاديث الصحي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ثبوت مشروعية رفع اليدين في الدعاء في مواضع أخرى بالأحاديث الصحيحة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستشهد بأحاديث وآثار دون نقل ألفاظها كاملة، وبعض الإحالات مثل كتاب \"الأدب المفرد\" تحتاج معرفة خارجية."
+  }
+]

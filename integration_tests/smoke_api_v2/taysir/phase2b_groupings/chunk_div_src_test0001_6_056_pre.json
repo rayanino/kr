@@ -1,0 +1,104 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 93,
+    "text_snippet": "‌‌بَابٌ في الكفن\nعَنْ عَائِشةَ رضي الله عنها: أنَّ رَسُولَ الله صلى الله عليه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "narration"
+    ],
+    "description_arabic": "حديث تكفين النبي صلى الله عليه وسلم في ثلاثة أثواب مع شرح ألفاظه ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 94,
+    "end_word": 134,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كفن النبي صلى الله عليه وسلم بثلاثة أثواب ليس معها قميص ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان صفة كفن النبي وأن المراد نفي القميص والعمامة عن التكفين كله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستند إلى الحديث السابق في إثبات الحكم، وذكر الشافعي والنووي يفهم أكثر مع معرفة سياق الشرح السابق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 135,
+    "end_word": 140,
+    "text_snippet": "2- استحباب البياض والنظافة في الكفن.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب اختيار الكفن الأبيض النظيف للميت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحكم واضح، لكن دليله مأخوذ من الحديث السابق ولم يذكر هنا نصاً."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 141,
+    "end_word": 166,
+    "text_snippet": "3- أن هذه الحال هي أكمل حال لتكفين الميت، لأن الله تعالى. هدى أصحاب نبيه إلى أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كون التكفين بهذه الصفة أكمل أحوال تكفين الميت اتباعاً لهدي النبي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قولِه: هذه الحال تعود إلى الصفة المذكورة في الحديث السابق، فهي تحتاج مرجعاً قريباً."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 167,
+    "end_word": 185,
+    "text_snippet": "4- وفيه جواز الزيادة في الكفن، على اللفافة الواحدة، ولو وجد من يعارض في ذلك من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الزيادة على اللفافة الواحدة في الكفن ولو اعترض وارث أو غريم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه ضمير وإحالة إلى الحديث السابق بوصفه دليلاً على الحكم، ولم يذكر وجه الاستدلال كاملاً هنا."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 186,
+    "end_word": 208,
+    "text_snippet": "فائدة:\nالمستحب في كفن الرجل أن يكون ثلاث لفائف، والمرأة في خمسة أثواب، إزار، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عدد الأكفان المستحب للرجل والمرأة مع بيان القدر الواجب في ستر الميت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

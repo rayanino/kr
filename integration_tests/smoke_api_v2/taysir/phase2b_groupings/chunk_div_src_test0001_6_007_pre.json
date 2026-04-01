@@ -1,0 +1,81 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "تحسين الهيئة وتنظيف البدن والاحتياط للطهارة، ومخالفة شعار الكفار، وامتثال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يبيّن مقاصد سنن الفطرة من التجمّل والتنظف والاحتياط للطهارة ومخالفة الكفار.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة تبدو تعليلاً ختامياً لما سبق من خصال مذكورة قبل هذا المقتطف، فلا يتضح تماماً ما هي الأمور المشار إليها إلا بسياق سابق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 14,
+    "end_word": 66,
+    "text_snippet": "7- أن ما يفعله الآن الشبان والشابات من تطويل الأظافر، وما يفعله الذكور من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يحكم بمنع تطويل الأظافر وإعفاء الشوارب، ويذم التقليد الأعمى المخالف للذوق والشرع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 67,
+    "end_word": 122,
+    "text_snippet": "اختلاف العلماء:\nاتفقت العلماء على استحباب فعل الأشياء المذكورة عدا الختان، ف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "يعرض الخلاف في حكم الختان ووقته ومن يجب عليه، ثم يرجح وجوبه على الرجال عند البلوغ.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقولِه: \"الأشياء المذكورة\" إلى خصال سبقت في السياق، لكن مسألة الختان نفسها وخلاصتها مفهومة داخل الوحدة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 123,
+    "end_word": 162,
+    "text_snippet": "فائدة: الختان الشرعي هو قطع القلفة الساترة لحشفة الذكر.\nويوجد في البلاد المت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "يعرّف الختان الشرعي، ويفرق بينه وبين السلخ المحرم الذي هو تعذيب وتمثيل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 163,
+    "end_word": 168,
+    "text_snippet": "وفقنا الله جميعا لاتباع شرعه الطاهر.",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "دعاء ختامي بالتوفيق لاتباع الشرع الطاهر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

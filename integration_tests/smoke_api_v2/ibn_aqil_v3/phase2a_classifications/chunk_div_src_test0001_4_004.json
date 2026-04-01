@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌الترخيم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 9,
+    "text_snippet": "ترخيما أحذف آخر المنادى … كياسعا فيمن دعا سعا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 2,
+    "start_word": 10,
+    "end_word": 46,
+    "text_snippet": "الترخيم: في اللغة ترقيق الصوت ومنه قوله:\n315 ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 47,
+    "end_word": 89,
+    "text_snippet": "وجوزنه مطلقا في كل ما …\nأنث بالها والذي قد رخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 90,
+    "end_word": 149,
+    "text_snippet": "فإن كان مؤنثا بالهاء جاز ترخيمه مطلقا أي سواء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 150,
+    "end_word": 168,
+    "text_snippet": "وأشار بقوله واحظلا إلخ إلى القسم الثاني وهو ما ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 6,
+    "start_word": 169,
+    "end_word": 194,
+    "text_snippet": "الأول: أن يكون رباعيا فأكثر\nالثاني: أن يكون عل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 195,
+    "end_word": 229,
+    "text_snippet": "وخرج ما كان على ثلاثة أحرف كزيد وعمرو وما كان ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 230,
+    "end_word": 252,
+    "text_snippet": "وأما ما ركب تركيب مزج فيرخم بحذف عجزه وهو مفهو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 253,
+    "end_word": 273,
+    "text_snippet": "ومع الآخر احذف الذي تلا …\nإن زيد لينا ساكنا م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 274,
+    "end_word": 332,
+    "text_snippet": "أي يجب أن يحذف مع الآخر ما قبله إن كان زائدا ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 333,
+    "end_word": 375,
+    "text_snippet": "وأما فرعون ونحوه وهو ما كان قبل واوه فتحة أو ق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 376,
+    "end_word": 386,
+    "text_snippet": "والعجز أحذف من مركب وقل …\nترخيم جملة وذا عمرو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 13,
+    "start_word": 387,
+    "end_word": 459,
+    "text_snippet": "تقدم أن المركب تركيب مزج يرخم وذكر هنا أن ترخي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 460,
+    "end_word": 471,
+    "text_snippet": "وإن نويت بعد حذف ما حذف …\nفالباقي استعمل بما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 472,
+    "end_word": 483,
+    "text_snippet": "واجعله إن لم تنو محذوفا كما …\nلو كان بالآخر وض",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 16,
+    "start_word": 484,
+    "end_word": 495,
+    "text_snippet": "فقل على الأول في ثمود يا …\nثمو ياثمى على الثا",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 496,
+    "end_word": 634,
+    "text_snippet": "يجوز في المرخم لغتان: إحداهما: أن ينوى المحذوف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 635,
+    "end_word": 643,
+    "text_snippet": "والتزم الأول في كمسلمه …\nوجوز الوجهين في كمسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 19,
+    "start_word": 644,
+    "end_word": 704,
+    "text_snippet": "إذا رخم ما فيه تاء التأنيث للفرق بين المذكر وا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 705,
+    "end_word": 714,
+    "text_snippet": "ولاضطرار رخموا دون ندا …\nما للندا يصلح نحو أحم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 21,
+    "start_word": 715,
+    "end_word": 757,
+    "text_snippet": "قد سبق أن الترخيم حذف أواخر الكلم في النداء وق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  }
+]

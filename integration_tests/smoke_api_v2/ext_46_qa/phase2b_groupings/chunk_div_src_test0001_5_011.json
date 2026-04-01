@@ -1,0 +1,26 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 0,
+    "end_word": 116,
+    "text_snippet": "مسألة في الدور\n\nقال في الخصائص:\n\" وذلك أن تؤدي الصنعة إلى حكم ما مثله أن يقت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "example",
+      "condition_exception"
+    ],
+    "description_arabic": "قاعدة الدور الصرفي وأنه إذا أدى التغيير إلى الرجوع لما فُرَّ منه لزم البقاء على الأصل مع المثال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,677 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 0,
+    "end_word": 62,
+    "text_snippet": "‌‌بَابُ التمتّع\nالأنساك ثلاثة: 1- تمتع 2- وقران 3- وإفراد\nأما التمتع فهو أن ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "تعريف الأنساك الثلاثة: التمتع والقران والإفراد مع التنبيه إلى الخلاف في الأفضل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 63,
+    "end_word": 326,
+    "text_snippet": "الحديث الأول\nعَنْ أبي جَمْرة نَصْرِ بْنِ عِمْرَانَ الضَّبْعِيِّ، قال: سَألتُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_quran",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث ابن عباس في الأمر بالتمتع وبيان الهدي، مع شرح ألفاظه ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 327,
+    "end_word": 344,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز التمتع والإتيان بالعمرة في أشهر الحج، كما انعقد عل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات جواز التمتع والعمرة في أشهر الحج وذكر انعقاد الإجماع على ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 345,
+    "end_word": 364,
+    "text_snippet": "2- أن المراد بالهدي المذكور في قوله تعالى: {فَمَا استَيْسَرَ مِنَ الهَدْيِ} ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان المراد بالهدي في آية التمتع وأنواعه من بدنة أو بقرة أو شاة أو شِرك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 365,
+    "end_word": 396,
+    "text_snippet": "3- الاستئناس بالرؤيا فيما يقوم عليه الدليل الشرعي، تأييداً بها، لأنها عظيمة ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز الاستئناس بالرؤيا لتأييد ما قام عليه الدليل الشرعي، مع تقرير ابن دقيق العيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 397,
+    "end_word": 405,
+    "text_snippet": "4- الفرح بإصابة الحق، والاغتباط به، لأنه علامة التوفيق.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل الفرح بإصابة الحق وأنه من علامات توفيق الله للعبد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 406,
+    "end_word": 547,
+    "text_snippet": "الحديث الثاني\nعَنْ حَفْصَةَ زَوْجِ النَّبِيِّ صلى الله عليه وسلم، أَنَّها قَال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث حفصة في سبب عدم تحلل النبي صلى الله عليه وسلم لكونه ساق الهدي ولبد رأسه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 548,
+    "end_word": 563,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون النبي صلى الله عليه وسلم حج قارناً، كما تقدم تحقيقه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الاستدلال بالحديث على أن حج النبي صلى الله عليه وسلم كان قراناً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول المؤلف: «كما تقدم تحقيقه»، وفهمه التام يستفيد من المناقشات اللاحقة في نوع نسك النبي."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 564,
+    "end_word": 577,
+    "text_snippet": "2- مشروعية سَوْقِ الهدي من الأماكن البعيدة، وأنه سنة النبي صلى الله عليه وسلم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية سوق الهدي من البلاد البعيدة وكونه من سنة النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 578,
+    "end_word": 603,
+    "text_snippet": "3- مشروعية تقليد الهدي، وذلك بأن يوضع في رقابها قلائد من الأشياء التي لم يجر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية تقليد الهدي وبيان صورته والحكمة من إعلامه ليُصان ولا يُتعرض له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 604,
+    "end_word": 627,
+    "text_snippet": "4- مشروعية تلبيد الشعر المرسل في الإحرام، كما هو فعل النبي صلى الله عليه وسلم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية تلبيد الشعر حال الإحرام وبيان معناه بأنه ما يمسك الشعر عن الانتفاش.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 628,
+    "end_word": 642,
+    "text_snippet": "5- أن سوق الْهَدْي من الحل، يمنع المحرم من التحلل حتى ينحر هديه يوم النحر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم من ساق الهدي أنه يبقى على إحرامه حتى ينحر هديه يوم النحر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 643,
+    "end_word": 660,
+    "text_snippet": "6- إذا لم يَسُق الْهَدْيَ، فَيُشرع له فسْخَ حجه إلى عمرة، ويحل منها، ثمَّ يحرم ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "إذا لم يسق المحرم الهدي شُرع له فسخ الحج إلى عمرة ثم الإحرام بالحج في وقته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "start_word": 661,
+    "end_word": 883,
+    "text_snippet": "الحديث الثالث ⌜2⌝\nعَنْ عِمْرَانَ بْنِ حُصَيْنٍ رضي الله عنه، قال: أُنْزِلَتْ آ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "editorial_note",
+      "structural_transition",
+      "narration",
+      "rule_statement",
+      "evidence_quran",
+      "evidence_ijma",
+      "refutation",
+      "opinion_statement"
+    ],
+    "description_arabic": "حديث عمران بن حصين في بقاء مشروعية التمتع، وبيان أدلته والرد على من نهى عنه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      55
+    ],
+    "start_word": 884,
+    "end_word": 927,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية التمتع وثبوته في الكتاب والسنة.\n2- أنه قد توفي ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ثبوت مشروعية التمتع بالكتاب والسنة وبقاء حكمه بعد وفاة النبي وعدم نسخه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 928,
+    "end_word": 943,
+    "text_snippet": "4- قوله: \"لم ينزل قرآن يحرمها\" دليل على ثبوت النسخ في الشريعة وأن القرآن ينس",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بلفظ الحديث على ثبوت النسخ في الشريعة وإمكان نسخ القرآن بالقرآن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على فهم عبارة الحديث السابقة «لم ينزل قرآن يحرمها»، وهي مذكورة في الوحدة السابقة لا في هذه القطعة نفسها."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 944,
+    "end_word": 978,
+    "text_snippet": "5- قوله: ولم ينه عنها دليل على جواز نسخ القرآن بالسنة.\nووجهته أنه لو لم يكن ا",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بقول الراوي «ولم ينه عنها» على جواز نسخ القرآن بالسنة مع تعليل ذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مبني على عبارة الحديث السابقة «ولم ينه عنها»، فيحتاج القارئ إلى نص الحديث أو الوحدة السابقة لتمام السياق."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      58,
+      59,
+      60
+    ],
+    "start_word": 979,
+    "end_word": 1060,
+    "text_snippet": "6- قوله: \"قال رجل برأيه ما شاء\" فسره البخاري بعمر بن الخطاب. وروي أيضا عن عث",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "تفسير المراد بالرجل الناهي عن المتعة وبيان اجتهادهم، مع تقديم النص على كل اجتهاد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير «الرجل» وضمائر المسألة تعود على الحديث السابق عن المتعة، فيستفيد فهمها من الرجوع إلى نصه."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72
+    ],
+    "start_word": 1061,
+    "end_word": 1505,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قَالَ: تَمَتَّعَ رَسُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث ابن عمر في صفة حج النبي وأصحابه وأحكام الهدي والفسخ والطواف والسعي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 1506,
+    "end_word": 1527,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون النبي صلى الله عليه وسلم أحرم متمتعاً، وهو القران، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن تمتع النبي صلى الله عليه وسلم المقصود هنا هو القران عند المؤلف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول المؤلف «ويأتي تحقيق الخلاف»، كما أن تفسير التمتع هنا بالقران اصطلاحي يحتاج معرفة سياق الخلاف."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      75
+    ],
+    "start_word": 1528,
+    "end_word": 1541,
+    "text_snippet": "2- مشروعية سوق الهدي من الحل، فهو من فعل النبي صلى الله عليه وسلم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية سوق الهدي من الحل والاستدلال عليه بفعل النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      76
+    ],
+    "start_word": 1542,
+    "end_word": 1566,
+    "text_snippet": "3- جواز الأنساك الثلاثة: 1- التمتع 2- والقران 3- والإفراد، إذ أقر النبي صلى ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الأنساك الثلاثة كلها لإقرار النبي صلى الله عليه وسلم أصحابه عليها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشتمل على إحالة: «ويأتي الخلاف في بيان أفضلها»، فالحكم مفهوم لكن تتميم البحث في الأفضل خارج الوحدة."
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      77,
+      78
+    ],
+    "start_word": 1567,
+    "end_word": 1627,
+    "text_snippet": "4- مشروعية فسخ الحج إلى العمرة لمن لم يَسُقِ الهدي، وتحلله، وبقاء من ساقه على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "حكم فسخ الحج إلى عمرة لمن لم يسق الهدي، وذكر صورة من ضاق عليه الوقت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة صريحة إلى تحقيق لاحق: هل الفسخ للوجوب أو للاستحباب، فلا يستقل بحسم هذه المسألة."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 1628,
+    "end_word": 1643,
+    "text_snippet": "5- أن فسخ الحج لمن لم يسق الهدي، يكون ولو بعد طواف القدوم والسعي، وينقلبان لل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز فسخ الحج إلى عمرة بعد طواف القدوم والسعي وانقلابهما للعمرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      80,
+      81,
+      82,
+      83,
+      84
+    ],
+    "start_word": 1644,
+    "end_word": 1711,
+    "text_snippet": "6- أن على من لم يجد الهدي، صيام عشرة أيام، ثلاثة في الحج، وسبعة بعد الرجوع إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "opinion_statement",
+      "evidence_rational",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "حكم صيام بدل الهدي ووقت الثلاثة أيام، مع الخلاف والترجيح والقياس المؤيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      85
+    ],
+    "start_word": 1712,
+    "end_word": 1727,
+    "text_snippet": "7- مشروعية طواف القدوم لغير المتمتع، الذي لم يسق الهدي، وهو سنة، لأنه تحية ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم طواف القدوم لغير المتمتع الذي لم يسق الهدي وأنه سنة تحيةً للمسجد الحرام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      86
+    ],
+    "start_word": 1728,
+    "end_word": 1742,
+    "text_snippet": "8- استلام الحجر الأسود في أول الطواف، وتقدم مشروعية ذلك، في كل طوافه، إن سهل.",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية استلام الحجر الأسود في أول الطواف وعند تيسره في الأشواط كلها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى بيان سابق بقول المؤلف «وتقدم مشروعية ذلك»، فالحكم مفهوم لكن تفصيله خارج الوحدة."
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      87
+    ],
+    "start_word": 1743,
+    "end_word": 1753,
+    "text_snippet": "9- الرمل في الثلاثة، من طواف القدوم، والمشي في الأربعة الباقية.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صفة الرمل في طواف القدوم: الإسراع في الثلاثة الأولى والمشي في الأربعة الباقية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      88
+    ],
+    "start_word": 1754,
+    "end_word": 1760,
+    "text_snippet": "10- مشروعية ركعتي الطواف، عند مقام إبراهيم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية صلاة ركعتي الطواف عند مقام إبراهيم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      89
+    ],
+    "start_word": 1761,
+    "end_word": 1783,
+    "text_snippet": "11- السعي بين الصفا والمروة بعد طواف القدوم سبعاً، وهو أحد أركان الحج على الص",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم السعي بين الصفا والمروة والخلاف في كونه ركناً أو واجباً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      90
+    ],
+    "start_word": 1784,
+    "end_word": 1791,
+    "text_snippet": "12- المولاة بين الطواف والسعي مستحب، وقيل: شرط.",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في الموالاة بين الطواف والسعي: هل هي مستحبة أم شرط؟",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      91
+    ],
+    "start_word": 1792,
+    "end_word": 1805,
+    "text_snippet": "13- أن سائق الهدي يتحلل من حجه يوم النحر بعد الرمي، والنحر للتحلل الأول.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وقت تحلل سائق الهدي يوم النحر وبيان أن الرمي والنحر من أسباب التحلل الأول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      92
+    ],
+    "start_word": 1806,
+    "end_word": 1821,
+    "text_snippet": "14- طواف الإفاضة هو الركن الأعظم للحج.\nوالسنة والأفضل، أن يكون يوم النحر، بع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مكانة طواف الإفاضة وأنه الركن الأعظم، ووقت فعله الأفضل يوم النحر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      93
+    ],
+    "start_word": 1822,
+    "end_word": 1833,
+    "text_snippet": "15- التحلل الكامل بعد طواف الإفاضة من كل شيء حرم عليه بإحرامه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن التحلل الكامل يكون بعد طواف الإفاضة فيحل للمحرم كل ما كان ممنوعاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      94
+    ],
+    "start_word": 1834,
+    "end_word": 1857,
+    "text_snippet": "16- أن هذه الأفعال من النبي صلى الله عليه وسلم، تشريع لأمته.\nفكل من أحرم كإحر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أفعال النبي في الحج تشريع للأمة، ومن أحرم كإحرامه فعل مثل أفعاله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102
+    ],
+    "start_word": 1858,
+    "end_word": 2259,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء ⌜3⌝ : هل حج النبي صلى الله عليه وسلم مُفْرِداً،",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "عرض الخلاف في نسك النبي صلى الله عليه وسلم وترجيح القران والجمع بين الروايات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      103,
+      104,
+      105
+    ],
+    "start_word": 2260,
+    "end_word": 2340,
+    "text_snippet": "واختلفوا: أي الأنساك الثلاثة أفضل.\nفالمشهور في مذهب الإمام أحمد، أن التمتع أف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "القول بأن التمتع أفضل الأنساك وذكر أدلته وبعض من اختاره من السلف والفقهاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      106
+    ],
+    "start_word": 2341,
+    "end_word": 2381,
+    "text_snippet": "وذهب الثوري، وأهل الرأي: إلى اختيار القران، لما في الصحيحين عن أنس سمعت رسول",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "القول بتفضيل القران لأنه نسك النبي صلى الله عليه وسلم كما في حديث أنس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      107,
+      108
+    ],
+    "start_word": 2382,
+    "end_word": 2447,
+    "text_snippet": "وهناك مسلك وسط، تجتمع فيه الأدلة، وهو أن التمتع أفضل لمن لم يسق الهدي، كالذين",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الترجيح الوسط: التمتع أفضل لغير سائق الهدي، والقران أفضل لمن ساق الهدي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      109
+    ],
+    "start_word": 2448,
+    "end_word": 2494,
+    "text_snippet": "أما مذهب مالك، وظاهر مذهب الشافعي، فالإفراد.\nودليلهم \"أن النبي صلى الله عليه ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "القول بتفضيل الإفراد وذكر دليله، ثم الجواب عنه بأن المراد إفراد الأعمال لا النسك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

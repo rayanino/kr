@@ -1,0 +1,330 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 7,
+    "text_snippet": "الفصل الأول\nفي المقيس عليه\nوفيه مسائل\nالأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 8,
+    "end_word": 23,
+    "text_snippet": "\n\nمن شرطه ألا يكون شاذا خارجا عن سنن القياس ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 38,
+    "text_snippet": "كتصحيح استحوذ واستصوب واستنوق وكحذف نون الت",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 53,
+    "text_snippet": "ووجه ضعفه في القياس أن التوكيد للتحقيق وإنما ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 54,
+    "end_word": 65,
+    "text_snippet": "وكحذف صلة الضمير دون الضمة في قوله:\nله زجل كأ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 110,
+    "text_snippet": "ووجه ضعفه في القياس أنه ليس على حد الوصل ولا ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 111,
+    "end_word": 118,
+    "text_snippet": "نعم يجوز على ما استعمل للضرورة في الضرورة.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 7,
+    "start_word": 119,
+    "end_word": 144,
+    "text_snippet": "قال أبو علي:\nكما جاز لنا أن نقيس منثورنا على ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 145,
+    "end_word": 180,
+    "text_snippet": "قال ابن جني:\n\" فإن قيل: هلا امتنع متابعتهم في",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 181,
+    "end_word": 195,
+    "text_snippet": "قيل: ليس جميع الشعر القديم مرتجلا بل كان لهم",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 196,
+    "end_word": 209,
+    "text_snippet": "روي عن زهير أنه عمل سبع قصائد في سبع سنين فك",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 210,
+    "end_word": 233,
+    "text_snippet": "وعن ابن أبي حفصة قال: كنت أعمل القصيدة في أرب",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 234,
+    "end_word": 244,
+    "text_snippet": "وحكاياتهم في ذلك كثيرة\nوأيضا فإن من المولدين ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 13,
+    "start_word": 245,
+    "end_word": 245,
+    "text_snippet": "الثانية",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 246,
+    "end_word": 255,
+    "text_snippet": "\n\nكما لا يقاس على الشاذ نطقا لا يقاس عليه ترك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 256,
+    "end_word": 304,
+    "text_snippet": "قال في الخصائص:\n\" إذا كان الشيء شاذا في السماع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 305,
+    "end_word": 306,
+    "text_snippet": "انتهى الثالثة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 17,
+    "start_word": 307,
+    "end_word": 323,
+    "text_snippet": "\n\nليس من شرط المقيس عليه الكثرة فقد يقاس على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 324,
+    "end_word": 407,
+    "text_snippet": "مثال الأول: قولهم في النسب إلى شنوءة شنئي فلك",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 408,
+    "end_word": 420,
+    "text_snippet": "قال أبو الحسن: فإن قلت: إنما جاء هذا في حرف و",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 421,
+    "end_word": 425,
+    "text_snippet": "فالجواب:\nأنه جميع ما جاء.",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 426,
+    "end_word": 496,
+    "text_snippet": "قال في الخصائص:\n\" وما ألطف هذا الجواب ومعناه أ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 497,
+    "end_word": 528,
+    "text_snippet": "ومثال الثاني: قولهم في ثقيف وقريش وسليم ثقفي ",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 529,
+    "end_word": 529,
+    "text_snippet": "الرابعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 530,
+    "end_word": 551,
+    "text_snippet": "\n\nالقياس في العربية على أربعة أقسام:\nحمل فرع ع",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 552,
+    "end_word": 564,
+    "text_snippet": "وينبغي أن يسمى الأول والثالث: قياس المساوي وا",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 26,
+    "start_word": 565,
+    "end_word": 586,
+    "text_snippet": "فمن أمثلة الأول: إعلان الجمع وتصحيحه حملا على",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 587,
+    "end_word": 601,
+    "text_snippet": "ومن أمثلة الثاني: إعلان المصدر لإعلان فعله وت",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 602,
+    "end_word": 927,
+    "text_snippet": "وفي الخصائص:\n\" من حمل الأصل على الفرع تشبيها ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 928,
+    "end_word": 958,
+    "text_snippet": "وفي التذكرة لأبي حيان\nذكر بعضهم أنه إنما اشتر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 30,
+    "start_word": 959,
+    "end_word": 982,
+    "text_snippet": "قال أبو حيان:\n\"وهذا من حمل الأصل على الفرع لأ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 983,
+    "end_word": 993,
+    "text_snippet": "وأما الثالث:\nفالنظير إما في اللفظ أو في المعنى",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 994,
+    "end_word": 1073,
+    "text_snippet": "فمن أمثلة الأول زيادة إن بعد ما المصدرية الظرف",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1074,
+    "end_word": 1123,
+    "text_snippet": "ومن أمثلة الثاني: جواز (غير قائم الزيدان) حمل",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1124,
+    "end_word": 1157,
+    "text_snippet": "ومن أمثلة الثالث اسم التفضيل وأفعل في التعجب ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1158,
+    "end_word": 1173,
+    "text_snippet": "قال الجوهري:\n\" ولم يسمع تصغيره إلا في أملح وأح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1174,
+    "end_word": 1192,
+    "text_snippet": "وأما الرابع: فمن أمثلته النصب بـ (لم) حملا عل",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1193,
+    "end_word": 1255,
+    "text_snippet": "وفي الجزولية: \" قد يحمل الشيئ على مقابله وعلى",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1256,
+    "end_word": 1256,
+    "text_snippet": "الخامسة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1257,
+    "end_word": 1267,
+    "text_snippet": "\n\nاختلف هل يجوز تعدد الأصول المقيس عليها لفرع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1268,
+    "end_word": 1283,
+    "text_snippet": "ومن أمثلة ذلك: (أي) في الاستفهام والشرط فإنها",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  }
+]

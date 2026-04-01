@@ -1,0 +1,54 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 30,
+    "text_snippet": "والرواية الثانية عن الإمام \" أحمد \" أن الثلاثة كلها تقطع الصلاة لحديث أبي ذر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان رواية عن أحمد في قطع الصلاة بالثلاثة، مع ذكر من وافقها ونسبتها للمذهب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى \"الثلاثة\" و\"حديث أبي ذر المذكور\" دون بيانها أو إيراد نص الحديث داخل الوحدة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4
+    ],
+    "start_word": 31,
+    "end_word": 65,
+    "text_snippet": "فائدة:\nإنما خص الكلب الأسود بذلك دون سائر الكلاب، لأنه شيطان، كما في الحديث",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان سبب تخصيص الكلب الأسود بالحكم، وأن علته كونه شيطاناً، مع الاستدلال بالحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 66,
+    "end_word": 123,
+    "text_snippet": "‌‌بَابٌ جَامع\nذكر المؤلف في هذا الباب أنواعاً من أعمال الصلاة، فرأيت أن أجعل ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مقدمة تحريرية لهيكلة الباب، وبيان سبب إعادة ترتيب بعض الأحاديث بحسب المناسبة الموضوعية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

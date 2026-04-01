@@ -1,0 +1,50 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "‌‌أسماء لازمت النداء\nوفل بعض ما يخص بالندا … لؤم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 1,
+    "start_word": 24,
+    "end_word": 35,
+    "text_snippet": "وشاع في سب الذكور فعل … ولا تقس وجر في الشعر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 2,
+    "start_word": 36,
+    "end_word": 59,
+    "text_snippet": "من الأسماء ما لا يستعمل إلا في النداء نحو يا فل ",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 60,
+    "end_word": 132,
+    "text_snippet": "وأشار بقوله واطردا في سب الأنثى إلى أنه ينقاس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 133,
+    "end_word": 152,
+    "text_snippet": "وأشار بقوله وجر في الشعر فل إلى أن بعض الأسم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 5,
+    "start_word": 153,
+    "end_word": 165,
+    "text_snippet": "313 - تضل منه إبلي بالهوجل … في لجة أمسك فل",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  }
+]

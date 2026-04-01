@@ -1,0 +1,880 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 24,
+    "text_snippet": "فَقَالَ النَّبي صلى الله عليه وسلم: \"اُطلْبوهُ، واقْتلوهُ\" فَقَتَلْتُهُ، فَنَف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "نص الحديث في استحقاق قاتل العدو سلبه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث هنا جزء من سياق سابق غير مذكور، وفيه ضمائر وإحالات تحتاج لمعرفة القصة الكاملة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 25,
+    "end_word": 38,
+    "text_snippet": "الغريب:\nسَلَبَهُ: بفتح السين واللام والباء، وهي ثياب المقتول، وسلاحه، ودابته ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف السلب وبيان ما يدخل فيه من متاع المقتول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 39,
+    "end_word": 58,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه أن من قتل قتيلاً وأقام على قتله إياه بَينةً، فله ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم استحقاق القاتل سلب قتيله إذا أقام البينة على قتله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول المصنف: «الذي تقدم تعريفه»، لكن أصل الحكم مفهوم مستقلاً."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 59,
+    "end_word": 70,
+    "text_snippet": "2- أن السلب للقاتل، سواء قاله قائد الجيش قبل القتال أو بعده.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "السلب حق للقاتل سواء صدر التنفيل قبل القتال أو بعده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 71,
+    "end_word": 82,
+    "text_snippet": "3- إعطاء القاتل سلب قتيله من باب التشجيع والتحمس على قتال الأعداء.\n",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الحكمة من إعطاء السلب أنها تشجع على قتال الأعداء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 83,
+    "end_word": 122,
+    "text_snippet": "4- قتل العن الذي يبعثه الأعداء ليخبر المسلمين، ويتعرف على أحوالهم، لأن في ترك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم قتل جاسوس العدو، مع استثناء الرسل من الأذى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 123,
+    "end_word": 203,
+    "text_snippet": "الحديث العاشر\nعَنْ عَبْد الله بْنِ عُمَرَ رضي الله عنهما قَالَ: بَعَثَ رَسُول ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث السرية إلى نجد مع شرح ألفاظ السرية والسهمان والنفل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 204,
+    "end_word": 218,
+    "text_snippet": "ما يستفاد من الحديث:\n1- بعث السرايا لإضعاف العدو، ومفاجأته إذا رأى الإمام ذلك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية بعث السرايا إذا رأى الإمام في ذلك مصلحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 219,
+    "end_word": 230,
+    "text_snippet": "2- حل الغنيمة للغازين الغانمين، وهذا مما خصت به هذه الأمة المحمدية.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إباحة الغنائم لهذه الأمة وأنها من خصائصها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 231,
+    "end_word": 242,
+    "text_snippet": "3- أن السرية إذا كانت مستقلة، ليست تابعة للجيش، فغنيمتها لها وحدها.\n",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "غنيمة السرية المستقلة تختص بها دون سائر الجيش.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 243,
+    "end_word": 264,
+    "text_snippet": "4- جواز تنفيل الغانمين زيادة على أسهمهم، إذا رأى الإمام ذلك مصلحة.\nويكون النف",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز التنفيل للمصلحة مع ذكر الخلاف في كونه من الخمس أو أصل الغنيمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 265,
+    "end_word": 367,
+    "text_snippet": "الحديث الحادي عشر\nعَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما عَنْ النَّبي صلى ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث لواء الغادر وبيان معنى الغدر وخطورته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      26,
+      27,
+      28
+    ],
+    "start_word": 368,
+    "end_word": 428,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم الغدر بالمهادَن والمعاهَد.\nوأعظم الغدر أن يقع م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran"
+    ],
+    "description_arabic": "تحريم الغدر بالمعاهد والمهادن، ووجوب نبذ العهد عند خوف الخيانة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 429,
+    "end_word": 449,
+    "text_snippet": "2- ويشمل الغدر المتوعَّد عليه، كل من ائتُمنك على دمٍ، أو عِرْضٍ، أو سِرٍّ، أو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وعيد الغدر يشمل كل خيانة للأمانة في الدم والعرض والسر والمال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 450,
+    "end_word": 484,
+    "text_snippet": "3- هذا الخزي الشنيع والفضيحة الكبرى للغادر يوم القيامة، لأنه أخفى غدرته وخيانت",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "سبب فضيحة الغادر يوم القيامة، مع الاستشهاد بحديث النهي عن الخيانة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      32,
+      33
+    ],
+    "start_word": 485,
+    "end_word": 516,
+    "text_snippet": "الحديث الثاني عشر\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ امْرَأةً و",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث النهي عن قتل النساء والصبيان في المغازي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 517,
+    "end_word": 531,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الذي عليه القتل والمقاتلة، هم الرجال المقاتلون من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "القتل في الجهاد متوجه إلى الرجال المقاتلين من الكفار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 532,
+    "end_word": 596,
+    "text_snippet": "2- أن من لم يقاتل من النساء، والصبيان، والشيوخ الفانين، والرهبان، لا يقتلون، ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "غير المقاتلين لا يقتلون، إلا عند المشاركة بالرأي أو تعذر التمييز العام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      37,
+      38
+    ],
+    "start_word": 597,
+    "end_word": 633,
+    "text_snippet": "الحديث الثالث عشر\nعَنْ أنس بْن مالك رضي الله عنه: أنَّ عَبْدَ الرَّحْمن بنَ عَو",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث الترخيص لعبد الرحمن والزبير في لبس الحرير للحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      39,
+      40,
+      41
+    ],
+    "start_word": 634,
+    "end_word": 682,
+    "text_snippet": "ما يستفاد من الحديث:\n1- يؤخذ من قوله: [فرخص] ما تقدم من تحريم الحرير على الذكو",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "تحريم الحرير على الذكور مع استثناء لبسه للحاجة أو لمصلحة الجهاد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفقرة تعتمد في صدرها على إحالة خارجية: «ما تقدم من تحريم الحرير»، لكن الاستثناء والحكم الرئيس مفهوم."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 683,
+    "end_word": 1026,
+    "text_snippet": "الحديث الرابع عشر\nعَنْ عُمَرَ بْنِ الخَطَّابِ رضي الله عنه قَالَ: كَانَتْ أمْوا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث أموال بني النضير وشرح ألفاظ الفيء مع قصتها ومعناها الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      54,
+      55
+    ],
+    "start_word": 1027,
+    "end_word": 1070,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن أموال بنى النضير صارت فيئا لمصالح المسلمين العامة، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "كل مال حصل من الكفار بلا قتال فهو فيء لمصالح المسلمين العامة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 1071,
+    "end_word": 1081,
+    "text_snippet": "2- يكون للإمام منه ما يكفيه ويكفي من يمون. والله المستعان.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "للإمام من الفيء ما يكفيه ويكفي من تلزمه نفقته.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «منه» يعود إلى الفيء المذكور في الوحدة السابقة."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      57,
+      58
+    ],
+    "start_word": 1082,
+    "end_word": 1100,
+    "text_snippet": "3- وأن يتحرى الإمام في صرف الفيء وبيت مال المسلمين المصالح النافعة.\nويبدأ بالأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ينبغي للإمام تحري المصالح في صرف الفيء وتقديم الأهم فالأهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1101,
+    "end_word": 1123,
+    "text_snippet": "4- جواز ادّخار القوت، وأنه لا ينافى التوكل على الله تعالى فإن النبي صلى الله عل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز ادخار القوت وأنه لا ينافي التوكل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74
+    ],
+    "start_word": 1124,
+    "end_word": 1364,
+    "text_snippet": "الحديث الخامس عشر\nعَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما قَالَ: أجْرَي النّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "editorial_note",
+      "structural_transition",
+      "definition",
+      "rule_statement",
+      "evidence_quran",
+      "narration"
+    ],
+    "description_arabic": "حديث إجراء الخيل وشرح ألفاظه وبيان علاقته بالإعداد للجهاد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      75,
+      76,
+      77
+    ],
+    "start_word": 1365,
+    "end_word": 1390,
+    "text_snippet": "ما يستفاد من الحديث:\n1- مشروعية التمرن وتعلم الفنون العسكرية، والعلوم الحربية،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية التمرن العسكري وأن وسائله تختلف باختلاف الأزمنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      78
+    ],
+    "start_word": 1391,
+    "end_word": 1429,
+    "text_snippet": "2- يحتمل أن تكون المسابقة بِعِوَض أو بغيره، وهى جائزة على كلا الأمرين، وإن كان",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "جواز المسابقة بعوض أو بغير عوض لمصلحة التدريب على الجهاد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      79,
+      80,
+      81
+    ],
+    "start_word": 1430,
+    "end_word": 1485,
+    "text_snippet": "3- لا يتقيد هذا بإجراء الخيل، فكل ما أعان على قتال الأعداء من الأسلحة والمراكب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعميم جواز المسابقة بعوض لكل ما يعين على الجهاد، وإلحاق مسائل العلم بذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في قوله «هذا» إحالة على حكم المسابقة السابق، لكن المقصود يتبين من بقية الوحدة."
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      82
+    ],
+    "start_word": 1486,
+    "end_word": 1546,
+    "text_snippet": "4- أن مثل هذه المسابقة من الرياضة المحمودة التي تنشط الجسم وتقويه، وتعين على ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المسابقة النافعة للجهاد من الرياضة المحمودة بخلاف ما يضيع الوقت والمال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في «مثل هذه المسابقة» تعود إلى المسابقة المذكورة في السياق السابق."
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      83
+    ],
+    "start_word": 1547,
+    "end_word": 1577,
+    "text_snippet": "5- أن يُجعل للمسابقة على الخيل والرمي بالبنادق وغيرهما، أمد مناسب لهما. ولذا ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ينبغي تحديد مسافة مناسبة للمسابقة بحسب نوع الخيل أو آلة الرمي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      84,
+      85
+    ],
+    "start_word": 1578,
+    "end_word": 1618,
+    "text_snippet": "الحديث السادس عشر\nعَن عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قَالَ: عُرِضْتُ عَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث عرض ابن عمر يوم أحد والخندق وإجازته في الثانية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      86,
+      87
+    ],
+    "start_word": 1619,
+    "end_word": 1666,
+    "text_snippet": "ما يستفاد من الحديث:\n1- غزوة (أحد) سنة ثلاث من الهجرة، و (غزوة الخندق) سنة خمس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استدلال من الحديث على سن ابن عمر وقدرته على القتال بين أحد والخندق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      88,
+      89
+    ],
+    "start_word": 1667,
+    "end_word": 1695,
+    "text_snippet": "2- أن البلوغ يحصل في تمام الخامسة عشر، أو بإنزال المَني، أو بنبات عانته، وهو ا",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "علامات بلوغ الذكر والأنثى وتمام الخامسة عشرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      90,
+      91
+    ],
+    "start_word": 1696,
+    "end_word": 1738,
+    "text_snippet": "3- أنه ينبغي للقائد والأمير، تفقُّدُ رجال جيشه وسلاحهم، لأنه أكمل للأهبة والاست",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية استعراض الجيش ورد غير الصالح من الرجال والسلاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      92,
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "start_word": 1739,
+    "end_word": 1803,
+    "text_snippet": "الحديث السابع عشر\nوَعَنْهُ (يَعْنى ابْنَ عُمَرَ رضي الله عنهما أنَّ رَسُولَ الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_quran"
+    ],
+    "description_arabic": "حديث سهام الفارس والراجل مع بيان معنى النفل في الاستعمالين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «وعنه» فُسِّر داخل النص، لكن الحديث مختصر وفيه لفظ «قسم ني النفل» يحتاج ضبطاً من الأصل."
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      98,
+      99
+    ],
+    "start_word": 1804,
+    "end_word": 1849,
+    "text_snippet": "2- أن يجعل للفارس من الغنيمة ثلاثة أسهم، سهم له، وسهمان لفرسه. ويجعل سهم واحد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "للفارس ثلاثة أسهم، وهذا بعد إخراج ما يتقدم القسمة من حقوق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      100,
+      101
+    ],
+    "start_word": 1850,
+    "end_word": 1873,
+    "text_snippet": "الحديث الثامن عشر\nوَعَنْهُ أنَّ رَسُولَ الله صلى الله عليه وسلم كانَ يُنَفِّلُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث تنفيل بعض السرايا زيادة على قسمة عامة الجيش.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «وعنه» يعود إلى ابن عمر من السياق السابق."
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      102,
+      103,
+      104
+    ],
+    "start_word": 1874,
+    "end_word": 1919,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا التنفيل هو غير أسهم المجاهدين، بل زيادة يعطونها نا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "التنفيل زيادة على السهام الأصلية، وتقديره راجع لاجتهاد الإمام ومصلحة المال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في «هذا التنفيل» تعتمد على الحديث السابق، لكن الحكم نفسه واضح."
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      105
+    ],
+    "start_word": 1920,
+    "end_word": 1937,
+    "text_snippet": "2- إعطاء بعض الجيش زيادة على أسهمهم أو تخصيص بعض السرايا بزيادة على غيرهم، لقص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يجوز تفضيل بعض الجيش أو بعض السرايا بزيادة لمصلحة الترغيب والتشجيع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      106
+    ],
+    "start_word": 1938,
+    "end_word": 1970,
+    "text_snippet": "3- أن هذا فعل النبي صلى الله عليه وسلم، فهو دليل على أنه لا يخل في إخلاصهم، ول",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنفيل لا يقدح في الإخلاص إذا كان أصل الجهاد لإعلاء كلمة الله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في «هذا» تعود إلى التنفيل المذكور قبلها."
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      107,
+      108,
+      109,
+      110
+    ],
+    "start_word": 1971,
+    "end_word": 2151,
+    "text_snippet": "4- قال ابن دقيق العيد: وللحديث تعلق بمسائل الإخلاص في الأعمال وما يضر من المق",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_quran"
+    ],
+    "description_arabic": "بحث في أثر المقاصد التابعة على الإخلاص، مع أدلة الإجماع والآيات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      111,
+      112,
+      113,
+      114
+    ],
+    "start_word": 2152,
+    "end_word": 2252,
+    "text_snippet": "الحديث التاسع عشر\nعَن أبى مُوسَى (عَبْدِ الله بْنِ قيْس) عَنِ النبي صلى الله عل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث النهي عن حمل السلاح على المسلمين وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 43,
+    "segment_indices": [
+      115,
+      116,
+      117
+    ],
+    "start_word": 2253,
+    "end_word": 2309,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم الخروج على الأئمة، وهم الحكام، ولو حصل منهم بعض ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم الخروج على الأئمة إلا عند الكفر، وبيان مفسدة الخروج عليهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 44,
+    "segment_indices": [
+      118
+    ],
+    "start_word": 2310,
+    "end_word": 2319,
+    "text_snippet": "3- تحريم إخافة المسلمين بالسلاح وغيره، ولو على وجه المزاح.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يحرم إخافة المسلمين بالسلاح وغيره ولو كان على سبيل المزاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 45,
+    "segment_indices": [
+      119,
+      120,
+      121,
+      122
+    ],
+    "start_word": 2320,
+    "end_word": 2474,
+    "text_snippet": "الحديث العشرون\nعَن أبى مُوسَى قَالٍ: سُئِلَ رَسُولُ الله صلى الله عليه وسلم عَن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "سؤال عن القتال للشجاعة أو الحمية أو الرياء، وجواب معيار القتال في سبيل الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 46,
+    "segment_indices": [
+      123,
+      124
+    ],
+    "start_word": 2475,
+    "end_word": 2489,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الأصل في صلاح الأعمال وفسادها، النية. فهي مدار ذلك.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النية هي الأصل في صلاح الأعمال وفسادها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 47,
+    "segment_indices": [
+      125
+    ],
+    "start_word": 2490,
+    "end_word": 2513,
+    "text_snippet": "2- لذا فإن من قاتل الكفار لقصد الرياء، أو الحمية، أو لإظهار الشجاعة، أو لغير ذ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من قاتل لغير إعلاء كلمة الله فليس قتاله في سبيل الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 48,
+    "segment_indices": [
+      126
+    ],
+    "start_word": 2514,
+    "end_word": 2527,
+    "text_snippet": "3- أن الذي قتاله في سبيل الله، هو من قاتل لإعلاء كلمة الله تعالى.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القتال المشروع في سبيل الله هو ما قصد به إعلاء كلمة الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 49,
+    "segment_indices": [
+      127,
+      128,
+      129,
+      130
+    ],
+    "start_word": 2528,
+    "end_word": 2599,
+    "text_snippet": "4- إذا انضم إلى قصد إعلاء كلمة الله قصد المغنم، فهل يكون في سبيل الله؟.\nقال ا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "opinion_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "إذا انضم قصد المغنم إلى نية الجهاد فالأصح أنه لا يضر تبعاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 50,
+    "segment_indices": [
+      131,
+      132
+    ],
+    "start_word": 2600,
+    "end_word": 2626,
+    "text_snippet": "5- مدافعة الأعداء عن الأوطان والحرمات، من القتال المقدس. ومن قتل فيه، فهو شهيد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الدفاع عن الأوطان والحرمات قتال مشروع، والمقتول فيه شهيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]
