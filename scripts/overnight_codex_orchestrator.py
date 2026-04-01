@@ -803,7 +803,9 @@ def determine_apply_mode() -> tuple[str, bool, bool, list[str], dict[str, str]]:
         notes.append("Baseline tests failed at launch; auto-apply disabled.")
     claude_active, claude_notes = detect_active_claude_session()
     notes.extend(claude_notes)
-    apply_mode = "conditional_auto_apply" if baseline_clean and baseline_tests_passed else "queue_only"
+    apply_mode = "queue_only"
+    if baseline_clean and baseline_tests_passed:
+        notes.append("Conservative queue-only start remains in force until promotion gates are implemented.")
     if claude_active:
         apply_mode = "queue_only"
     active_authority = authority.get("active_authority", "claude")

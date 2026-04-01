@@ -615,6 +615,27 @@ def test_run_overnight_resume_refreshes_apply_mode(
     assert resumed.runtime_mode == "shadow_setup"
 
 
+def test_determine_apply_mode_starts_queue_only_in_autonomous_codex(
+    monkeypatch: MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        orchestrator,
+        "load_active_authority",
+        lambda: {"active_authority": "codex", "runtime_mode": "autonomous_codex"},
+    )
+    monkeypatch.setattr(orchestrator, "git_status_porcelain", lambda: "")
+    monkeypatch.setattr(orchestrator, "run_baseline_tests", lambda: True)
+    monkeypatch.setattr(orchestrator, "detect_active_claude_session", lambda: (False, []))
+
+    apply_mode, baseline_clean, baseline_tests_passed, notes, authority = orchestrator.determine_apply_mode()
+
+    assert apply_mode == "queue_only"
+    assert baseline_clean is True
+    assert baseline_tests_passed is True
+    assert authority == {"active_authority": "codex", "runtime_mode": "autonomous_codex"}
+    assert "Conservative queue-only start remains in force until promotion gates are implemented." in notes
+
+
 def test_execute_task_write_path_fails_when_no_durable_commit(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:
