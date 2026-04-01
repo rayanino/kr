@@ -78,15 +78,23 @@ Cover these dimensions (each with real excerpt examples):
 - Technical tradeoff questions
 - Anything a machine can answer by reading the repo
 
+## V2 Run Data Usage Plan
+
+The v2 smoke run at `integration_tests/smoke_api_v2/` cost ~$55 and produced a full-book taysir dataset with hardened prompts (GPT-5.4 primary, H-1 through H-8 fixes). This data MUST be fully used — no waste. Seven specific uses:
+
+1. **CJ-2 questionnaire interaction** — Before/after comparison for the owner (same passage, old vs new prompts)
+2. **Phase 1 six-team analysis** — All 6 analysis teams evaluate v2 output quality
+3. **Owner-principle test** — After questionnaire, run every v2 excerpt through the owner's stated principles as pass/fail
+4. **Before/after regression** — Campaign (1,283 excerpts, Opus) vs v2 (taysir, GPT-5.4). Measure every improvement and regression.
+5. **Edge case mining** — 520 raw LLM responses reveal model reasoning at boundaries. Diagnostic gold.
+6. **Training data** — Raw outputs + structured excerpts + eventual owner evaluation labels (Rule 13)
+7. **Prompt calibration baseline** — V2 becomes the BEFORE for the next iteration after questionnaire-driven prompt changes
+
+**NOTE:** The run processed ALL 184 taysir chunks (full book), not the intended 2 chunks per package. This was unintentional but produces more valuable data. The cost discrepancy (~$55 vs estimated €3) is because of this full-book behavior. Investigate and fix the chunk-limit logic in `scripts/run_full_integration.py` before the next run.
+
 ## Phase 1: Smoke Run + Exhaustive Analysis
 
-After Q&A is complete and prompts are adjusted:
-
-```bash
-python scripts/run_full_integration.py --backend api --output-dir integration_tests/smoke_api_v2/
-```
-
-This runs 2 chunks per package (~130 excerpts, ~€3, ~30 min). Then:
+After Q&A is complete and prompts are adjusted, the v2 data above serves as the Phase 1 input. No new run is needed unless prompts change significantly. Then:
 
 ### Analysis Teams (ALL in parallel)
 | Team | Agents | Focus |
