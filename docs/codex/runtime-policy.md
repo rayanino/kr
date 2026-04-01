@@ -10,8 +10,8 @@
 
 - Windows-side prerequisites: enable `Microsoft-Windows-Subsystem-Linux`, reboot, and install `Ubuntu 24.04 LTS`.
 - First post-reboot launch: run `ubuntu2404.exe` once and finish the Linux user creation.
-- Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal`
-- The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current Windows checkout into `~/kr-codex`, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal.
+- Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal [-RuntimeDir <canonical-wsl-lane>]`
+- The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current Windows checkout into its target runtime dir, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal. When the canonical unattended lane is not `~/kr-codex`, pass it explicitly with `-RuntimeDir`.
 
 ## Runtime Profiles
 
@@ -105,7 +105,7 @@ Every unattended run must leave:
 
 ## Daily Report Contract
 
-During the April 9, 2026 to July 1, 2026 doctrine period:
+During the active April 2, 2026 to July 1, 2026 doctrine period:
 
 - the single source of truth is `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`
 - the owner gets one frozen daily `MORNING_REPORT.md`

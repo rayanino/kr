@@ -1,6 +1,6 @@
-# KR Autonomous Doctrine: April 9 to July 1, 2026
+# KR Autonomous Doctrine: April 2 to July 1, 2026
 
-**Authority:** Governing for KR Codex unattended control-plane operation during the April 9, 2026 to July 1, 2026 period. When this file conflicts with older Codex runtime notes, this file wins for this period.
+**Authority:** Governing for KR Codex unattended control-plane operation during the active April 2, 2026 to July 1, 2026 period. The filename is retained from the original April 9 plan, but the owner-approved Codex cutover took effect on April 2, 2026. When this file conflicts with older Codex runtime notes, this file wins for this period.
 
 **Council inputs synthesized:**
 - `docs/codex/reviews/2026-04-01-july-doctrine/claude-chat.md`
@@ -20,7 +20,7 @@ The system is a hardening-first control plane, not a feature factory. A delayed 
 
 During this period:
 
-- Codex is the control-plane authority starting on **April 9, 2026**, not before.
+- Codex is the control-plane authority starting on **April 2, 2026**.
 - The owner is interrupted only for:
   - major architecture or scope changes
   - resources, purchases, credentials, or access
@@ -35,7 +35,7 @@ During this period:
 
 ## 2. Scope
 
-### Before April 9, 2026
+### Before April 2, 2026
 
 Authority remains `claude`. Codex stays in `shadow_setup` and `queue_only`.
 
@@ -55,7 +55,7 @@ Not allowed:
 - SPEC changes
 - protected-area writes
 
-### April 9 to July 1, 2026
+### April 2 to July 1, 2026
 
 Codex may own:
 
@@ -85,7 +85,7 @@ Default cycle:
 
 - duration: `1.5h`
 - cadence: every `2h`
-- host: WSL clone at `~/kr-codex`
+- host: WSL clone at `/home/rayane/kr-canonical-unattended`
 - overlap rule: never start a new instance while one is running
 
 Every cycle must:
@@ -173,7 +173,7 @@ For the autonomous period, use this budget:
 
 This is a zero-feature period.
 
-No autonomous BUILD authorization exists for new engines between **April 9, 2026** and **July 1, 2026**.
+No autonomous BUILD authorization exists for new engines between **April 2, 2026** and **July 1, 2026**.
 
 ## 7. Quota Doctrine
 
@@ -235,9 +235,9 @@ Meaning:
 
 Silence is never approval.
 
-## 9. Gate 0 Before April 9, 2026
+## 9. Gate 0 For The April 2, 2026 Cutover
 
-Cutover does not happen unless all of these are true:
+Treat the early April 2 owner-approved cutover as valid only if all of these are true:
 
 1. The repo-local Codex control-plane surface is restored and in sync.
 2. Windows setup audit passes.
@@ -246,9 +246,9 @@ Cutover does not happen unless all of these are true:
 5. Backend proof is green enough for the path Codex will own.
 6. Blocking hook enforcement is installed, peer-reviewed, and reads `.kr/codex_write_prefixes.txt`.
 7. Rollback procedure is rehearsed.
-8. `ACTIVE_AUTHORITY.md` is updated for the April 9, 2026 cutover and points at this doctrine.
+8. `ACTIVE_AUTHORITY.md` is updated for the April 2, 2026 cutover and points at this doctrine.
 
-If any Gate 0 item is red on **April 9, 2026**, cutover delays.
+If any Gate 0 item is red after the April 2 cutover, keep operation conservative and `queue_only` until the gap is reconciled.
 
 ## 10. Gate Model After Cutover
 
@@ -308,13 +308,12 @@ Current interpretation:
 
 - the bounded scheduler-safe `-RunCycle` path is proven on proof worktrees
 - the actual repeating-loop entrypoint is also proven on a clean mainline proof worktree
-- canonical sign-off now depends less on technical uncertainty and more on how to move the proven state onto the intended owner-facing checkout without trampling its dirty local state
+- the clean WSL canonical lane is now chosen, and continued conservative operation depends on keeping doctrine/runtime wording aligned with that landed state
 
-## 13. Exact Next Steps Before April 9, 2026
+## 13. Exact Next Steps After The April 2, 2026 Cutover
 
-1. Keep the doctrine work on a clean reconciliation branch or worktree until the latest cycle-to-cycle wrapper bug is resolved.
-2. Keep `.claude/`, `CLAUDE.md`, `NEXT.md`, and the external review inputs read-only.
-3. Land and peer-review the wrapper/bootstrap fixes from this reconciliation branch.
-4. Choose the landing path for the proven commit set: apply onto the canonical checkout, or adopt a clean canonical worktree for unattended runtime use.
-5. Once that landing path is chosen, run one final confirmation proof from the chosen canonical lane.
-6. Delay cutover if Gate 0 is not fully green by **April 9, 2026**.
+1. Keep `.claude/`, `CLAUDE.md`, `NEXT.md`, and the external review inputs read-only.
+2. Treat the clean WSL canonical lane as the unattended runtime host and keep the dirty Windows checkout untouched.
+3. Run and monitor the final confirmation proof from the chosen canonical lane.
+4. Reconcile doctrine/date wording with the landed April 2 authority state before relying on doctrine-governed promotions beyond conservative `queue_only`.
+5. Keep degraded-mode reporting explicit whenever Claude Code auth or Gemini capacity is unavailable.

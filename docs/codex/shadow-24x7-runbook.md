@@ -1,13 +1,13 @@
-# Shadow 24x7 Runbook
+# Shadow 24x7 Runbook (Historical Pre-Cutover Reference)
 
-This runbook defines the pre-cutover shadow shape for KR Codex on the current Windows + WSL machine.
+This runbook records the pre-cutover shadow shape that proved the runtime before the early April 2, 2026 Codex cutover. Keep it as historical proof guidance; the live authority lane is defined by `ACTIVE_AUTHORITY.md`.
 
 ## Host
 
 - Windows is the supervisory host and secondary interactive lane.
-- WSL clone at `~/kr-codex` is the canonical unattended lane.
+- The clean WSL clone at `/home/rayane/kr-canonical-unattended` is the current canonical unattended lane.
 - `.venv` lives inside the WSL clone.
-- Pre-cutover runs remain in `shadow_setup` and `queue_only`.
+- The pre-cutover proof runs remained in `shadow_setup` and `queue_only`.
 
 ## Coworkers
 
@@ -53,7 +53,7 @@ Not allowed:
 Before a bounded run, verify the runtime surface from both sides:
 
 - Windows: `python scripts/check_codex_kr_setup.py`
-- WSL: `cd ~/kr-codex && .venv/bin/python scripts/check_codex_kr_setup.py --auth-preflight`
+- WSL: `cd /home/rayane/kr-canonical-unattended && .venv/bin/python scripts/check_codex_kr_setup.py --auth-preflight`
 
 If setup audit fails, do not start another cycle until parity is fixed.
 
@@ -82,14 +82,14 @@ Observed branch-local proof:
 
 Treat the loop logic as proven on proof worktrees.
 
-Canonical readiness still requires one final confirmation run from the chosen canonical unattended lane:
+The final sign-off step for the landing path is one confirmation run from the chosen canonical unattended lane:
 
 1. `scripts/run_overnight_codex_shadow_loop.ps1`
-2. the final owner-facing checkout or clean canonical worktree that will actually be used for unattended runtime
+2. the clean WSL canonical lane at `/home/rayane/kr-canonical-unattended`
 
-## Cutover Readiness
+## Historical Cutover Readiness
 
-Do not switch authority on **April 9, 2026** unless:
+The April 2, 2026 owner-approved cutover was supposed to stay blocked unless:
 
 - Gate 0 from the canonical doctrine is fully green
 - shadow runs are stable

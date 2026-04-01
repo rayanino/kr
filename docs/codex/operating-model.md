@@ -7,7 +7,7 @@ Codex does not get a separate truth system.
 Read in this order:
 
 1. `ACTIVE_AUTHORITY.md`
-2. `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md` during the April 9, 2026 to July 1, 2026 period
+2. `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md` during the active April 2, 2026 to July 1, 2026 autonomous period
 3. `CLAUDE.md`
 4. `.kr/ACTIVE.md`
 5. `.kr/HANDOFF.md`
@@ -54,4 +54,4 @@ The unattended runtime must never stop and wait for the owner.
 - Preferred host: WSL runtime clone.
 - Default pre-cutover mode: shadow, queue-only, no engine-code writes.
 - Default post-cutover starting mode: `autonomous_codex + queue_only`.
-- During the April 9, 2026 to July 1, 2026 doctrine period, the canonical doctrine file controls cadence, degraded modes, budget, stop rules, and cutover gates.
+- During the active April 2, 2026 to July 1, 2026 doctrine period, the canonical doctrine file controls cadence, degraded modes, budget, stop rules, and cutover gates.
