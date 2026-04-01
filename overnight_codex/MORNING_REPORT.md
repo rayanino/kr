@@ -34,6 +34,7 @@
   - only marks review/questionnaire/comparison saves successful after real HTTP success
   - ignores helper directories during package discovery
   - preserves legacy comparison ids and keeps unmatched sides visible
+  - aligns owner-facing questionnaire/start docs with the current blocked comparison state
 - Analysis layer now:
   - generates per-book `analysis/` folders for the synced `smoke_api_v2` run
   - generates `integration_tests/smoke_api_v2/analysis/campaign_summary.{json,md}`
