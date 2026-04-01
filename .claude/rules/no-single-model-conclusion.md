@@ -1,10 +1,22 @@
-- **No content quality conclusion from a single model's judgment.** This extends D-041 (multi-model consensus for LLM calls) to the human-level workflow. If a single coworker or a single CC session evaluates an excerpt and declares it "good" or "bad", that conclusion is PRELIMINARY — not final.
+- **No content quality conclusion from a single model's judgment.** This extends D-041 (multi-model consensus for LLM calls) to the human-level workflow. If a single coworker, a single CC session, a single CC agent, or the architect (Claude Chat) evaluates an excerpt and declares it "good" or "bad", that conclusion is PRELIMINARY — not final.
+- **Scope:** This rule applies to ALL evaluators: coworkers, CC sessions, CC agents, AND the architect. It applies to ALL engines (excerpting, taxonomy, synthesis, normalization), not only excerpting. The architect's own reviews are single-model conclusions subject to the same PRELIMINARY marking requirement.
 - **For automated consensus (pipeline code):** Use the LiteLLM + Instructor pattern documented in `.claude/skills/consensus-pattern/SKILL.md`. Minimum 2 independent models. Temperature=0. Identical prompts.
 - **For manual/coworker consensus (evaluation workflow):** At least 2 independent coworker evaluations must agree before a content quality conclusion is recorded as final. Independent means: different models, not seeing each other's output before forming their assessment.
-- **Exceptions that do NOT require consensus:**
-  - Structural checks: JSON schema validation, field presence, type checking
-  - Deterministic tests: pytest assertions, pyright type checking, boundary contract validation
-  - Cost/count metrics: excerpt counts, token usage, processing time
-  - These are objective, reproducible checks — not content judgments.
+- **Model diversity vs prompt diversity:** Two evaluations from the same model with different prompts (e.g., verifier-a and verifier-b, both Opus) provide prompt diversity but NOT model diversity. This counts as 1 evaluator toward the 2-evaluator minimum, not 2. Cross-provider confirmation (e.g., Anthropic + OpenAI) is strongest. Same-provider different-tier (e.g., Opus + Sonnet) is acceptable but weaker.
+- **Exceptions that do NOT require consensus (structural checks only):**
+
+  | Structural (no consensus needed) | Content (consensus required) |
+  |---|---|
+  | JSON schema validation, field presence/type | Excerpt boundary quality assessment |
+  | pytest assertions, pyright type checking | Classification accuracy (correct enum value) |
+  | Cost/count metrics, token usage | Self-containment adequacy for a reader |
+  | Boundary contract validation | Arabic fidelity and scholarly convention compliance |
+  | Checking an enum value IS VALID | Checking the CORRECT enum value was chosen |
+  | `word_start < word_end` | Boundary fell at a natural scholarly break |
+
+  **Key distinction:** Checking that `primary_function` is one of the 16 valid enum values is structural. Checking whether a passage about إجماع العلماء is correctly classified as `evidence_ijma` rather than `opinion_statement` is a content quality judgment. When in doubt: treat it as content.
 - **PRELIMINARY marking:** When only one evaluator has assessed a content quality dimension, mark the finding as `[PRELIMINARY — awaiting confirmation]`. Do not act on PRELIMINARY findings as if they are confirmed — wait for a second evaluator, or explicitly accept the risk with justification.
+- **Retroactive clause:** Pre-existing analysis reports that make content quality conclusions without multi-model confirmation are treated as PRELIMINARY regardless of when they were written. Their conclusions may be used as working hypotheses but must not be treated as confirmed findings. Specifically: gold excerpts selected by a single model must be re-validated by a second evaluator before being used as few-shot examples in production prompts.
+- **Owner confirmation tier:** Owner feedback counts as independent confirmation for content quality affecting the reading experience (granularity, self-containment, boundary placement, classification). One model evaluation + owner acceptance = confirmed. Owner rejection overrides any number of model confirmations — OPS-DEC-006 exists because the owner caught what all models missed. However, owner feedback is non-authoritative on technical feasibility: the owner's stated preference may conflict with technical constraints, and coworker review of owner responses is mandatory before translating answers into SPEC amendments.
+- **Agent gate decisions:** Agent recommendations (PROCEED/ITERATE/BLOCK) are content quality conclusions and require multi-evaluator confirmation. A single agent's recommendation is PRELIMINARY regardless of model tier.
 - **Why this matters (OPS-DEC-006):** The entire excerpting hardening operation exists because single-model evaluation missed quality problems that the owner immediately noticed. Two comments triggered a full rearchitecture (DR-1/DR-2/DR-3 debate, 6 reviewers, 2 days). If the hardening operation itself uses single-model evaluation, it reproduces the same failure mode.

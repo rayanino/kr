@@ -1,11 +1,42 @@
 # NEXT — Excerpting Engine: Deep Q&A + Exhaustive Hardening
 
-## What This Session Does
+## IMMEDIATE STATE (updated 2026-04-01)
+
+**You are the Phase 0 orchestrator. Start here.**
+
+### What's done
+- Environment hardening: dispatch skill, questionnaire template, no-single-model rule, hooks — all committed
+- Role definition: embedded in CLAUDE.md, `.claude/rules/role-definition.md`, `.kr/ACTIVE.md`, memory
+- Prompt hardening: 8 Tier-1 fixes (H-1 through H-8), DR-1/DR-3 in prompts, model defaults fixed
+- V2 smoke run: **in progress or recently completed** at `integration_tests/smoke_api_v2/`
+  - 2 packages done: ibn_aqil_v1 (241 excerpts, €4.40), ibn_aqil_v3 (278 excerpts, €4.30)
+  - **Cost per run is ~€12-15 total, NOT the original €3 estimate.** Hardened prompts produce 3-4x more excerpts per package.
+  - Check SUMMARY.json for final status
+
+### What's pending — YOUR FIRST TASK
+Two coworker validation reports are incoming. The owner will paste them into this session:
+1. **Claude Chat DR report**: stress-tested the dispatch protocol and no-single-model rule for failure modes
+2. **ChatGPT Pro DR report**: optimized the questionnaire format (question types, ordering, scoring)
+
+**When you receive both reports:**
+1. Synthesize their feedback into a unified set of changes
+2. Update `integration_tests/questionnaire/QUESTIONNAIRE_TEMPLATE.md` based on synthesis
+3. Prepare the actual owner Q&A — select real excerpt examples from campaign data, render them as readable text (not JSON)
+4. Present the Q&A to the owner section by section
+
+### What NOT to do
+- Do not re-run the smoke. Wait for v2 results first.
+- Do not re-dispatch the same coworkers. Their reports are coming.
+- Do not start Phase 1 analysis until Phase 0 (Q&A) is complete.
+
+---
+
+## What This Operation Does
 
 This is the FINAL excerpting engine hardening operation. Four phases:
 
 0. **Phase 0: Owner Q&A** — Design and conduct a structured questionnaire with the owner to nail down what excerpts should be. This comes FIRST, before any code.
-1. **Phase 1: Smoke Run + Analysis** — Small 2-chunk run (~€3) with current hardened prompts, then exhaustive multi-team analysis.
+1. **Phase 1: Smoke Run + Analysis** — Analyze v2 smoke results with exhaustive multi-team review.
 2. **Phase 2: Deep Hardening** — Fix everything found in Phase 1 + Q&A, iterate until convergence.
 3. **Phase 3: Full 5-Book Run** — The definitive run (~$15-20) with fully hardened prompts.
 

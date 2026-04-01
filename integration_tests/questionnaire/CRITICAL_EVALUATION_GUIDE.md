@@ -1,0 +1,143 @@
+# Critical Evaluation Guide (Document E)
+
+> After the owner completes the questionnaire, ALL 6 coworkers evaluate his responses. This document defines what each coworker checks and how to synthesize findings.
+
+## Why This Exists
+
+The owner explicitly requested that his feedback be treated as non-authoritative input, not as directives. His stated preferences could be:
+- **Internally contradictory** (e.g., wanting absolute self-containment AND per-evidence splitting)
+- **Technically infeasible** (e.g., requiring computation that exceeds budget)
+- **Scholarly inaccurate** (e.g., misunderstanding how a particular Islamic science organizes knowledge)
+- **Over-specified** (e.g., stating a rule so rigid that it breaks on 20% of real texts)
+- **Under-specified** (e.g., saying "it depends" without giving a decision criterion)
+
+The 6-coworker evaluation catches these issues BEFORE translating answers into SPEC rules.
+
+## Evaluation Assignments
+
+### 1. Codex CLI — Internal Consistency Audit
+
+**Dispatch template:**
+```
+codex exec "
+TASK: Audit the owner's questionnaire responses for internal contradictions.
+SCOPE: integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md (completed)
+CHECKS:
+1. Does answer X contradict answer Y? List all contradiction pairs.
+2. Does the priority ranking (S-1) resolve the contradictions?
+3. Are any answers so vague they cannot be translated into a rule?
+4. Count: how many HIGH confidence, MEDIUM, LOW? Flag dimensions where the owner is least sure.
+OUTPUT FORMAT: Contradiction matrix + vagueness flags.
+"
+```
+
+### 2. Gemini CLI — Arabic Scholarly Accuracy
+
+**Dispatch template:**
+```
+gemini -p "
+TASK: Evaluate whether the owner's stated principles align with how Arabic scholarly texts actually work.
+CONTEXT: Read the owner's completed questionnaire at integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md
+CHECK AGAINST: .claude/rules/arabic-scholarly-conventions.md
+FOCUS:
+1. Does the owner's definition splitting preference account for how Arabic definitions actually appear in fiqh vs nahw vs hadith texts?
+2. Does the evidence handling preference work for texts where evidence is interwoven with commentary?
+3. Are there scholarly text patterns the owner hasn't considered?
+4. CRITICAL CHECK: Does the owner's coupling preference for G-4 correctly handle Mutlaq/Muqayyad (absolute/restricted) relationships? A layperson may split a Muqayyad clause from its Mutlaq ruling because it 'feels too long' — this would produce legally invalid excerpts.
+5. Does the owner's khilaf preference (K-1/K-2) account for classical nested dialectics (munadhara), or only modern numbered-list format?
+OUTPUT FORMAT: Per-dimension accuracy assessment with specific Arabic text examples.
+"
+```
+
+### 3. ChatGPT DR — Technical Feasibility Assessment
+
+**Dispatch via owner relay (has repo access):**
+```
+TASK: Assess whether the owner's stated preferences can actually be implemented in the excerpting pipeline.
+CONTEXT: Read the completed questionnaire at integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md
+AND the excerpting SPEC at engines/excerpting/SPEC.md
+AND the prompt templates at engines/excerpting/src/
+FOCUS:
+1. Which preferences require new LLM capabilities that don't exist in current prompts?
+2. Which preferences would increase API cost significantly (>2x)?
+3. Which preferences conflict with the current pipeline architecture?
+4. Which preferences are already implemented and the owner doesn't realize it?
+OUTPUT FORMAT: Feasibility matrix — per preference: ALREADY DONE / EASY / HARD / INFEASIBLE + reasoning.
+```
+
+### 4. Claude DR — Scholarly Reasoning Soundness
+
+**Dispatch via owner relay (needs context pasted):**
+```
+TASK: Evaluate whether the owner's stated principles produce a coherent scholarly library.
+CONTEXT: [Paste: completed questionnaire, relevant SPEC sections, owner's original 2 feedback comments from campaign]
+FOCUS:
+1. Do the owner's principles, taken together, produce excerpts that would be useful to an Islamic studies student?
+2. Are there scholarly use cases the owner hasn't thought of? (e.g., comparative madhab study, hadith grading, usul al-fiqh methodology)
+3. Does the granularity the owner wants actually enable the cross-scholar comparison that KR is designed for?
+4. Where is the owner's scholarly intuition strongest vs weakest?
+OUTPUT FORMAT: Per-principle scholarly assessment + missing use cases.
+```
+
+### 5. Gemini DR — Pedagogical Alignment
+
+**Dispatch via owner relay (needs file uploads):**
+
+Prepare file bundle:
+- Completed questionnaire
+- 5-8 example excerpts from the questionnaire
+- Owner's original 2 feedback comments
+- Brief summary of KR's purpose (1 paragraph)
+
+```
+TASK: Evaluate whether the owner's excerpt preferences align with how Islamic studies is actually taught and studied.
+FOCUS:
+1. In traditional Islamic study (متون + شروح + حواشي), how are texts actually used? Does the owner's excerpting preference match this?
+2. Would a student studying الفقه المقارن (comparative fiqh) find this excerpting approach useful?
+3. Does the genre-specific preference (if any) match how different sciences are actually taught?
+4. Are there study workflow patterns (مراجعة, مذاكرة, تحقيق) that the excerpts should support but the questionnaire didn't cover?
+OUTPUT FORMAT: Pedagogical alignment report + missing workflow considerations.
+```
+
+### 6. CC (Claude Code) — SPEC Alignment Check
+
+**Run internally:**
+1. Read the completed questionnaire
+2. Read excerpting/SPEC.md §4 in full
+3. For each owner answer, check: does this create an impossible SPEC conflict?
+4. Flag any answer that would require changes to engines OTHER than excerpting (normalization, passaging, atomization, taxonomy, synthesis)
+5. Estimate the implementation effort: how many prompt changes, code changes, test changes per answer?
+
+## Synthesis Protocol
+
+After all 6 coworkers return:
+
+### Step 1: Collect
+Gather all 6 reports into `integration_tests/questionnaire/evaluation_reports/`
+
+### Step 2: Categorize each owner answer
+
+| Category | Meaning | Action |
+|----------|---------|--------|
+| **CONFIRMED** | 2+ coworkers agree with the owner | Translate to SPEC rule |
+| **CHALLENGED** | 1+ coworker disagrees, with reasoning | Present challenge to owner |
+| **CONTRADICTION** | Owner's own answers conflict | Present conflict to owner with concrete example |
+| **INFEASIBLE** | Technically cannot be built as stated | Propose alternative that preserves the owner's intent |
+| **MISSING** | Coworker identifies a gap the owner didn't address | Add to follow-up questions |
+
+### Step 3: Present challenges to owner
+For each CHALLENGED, CONTRADICTION, or INFEASIBLE item:
+- Show the owner his original answer
+- Show the coworker's challenge with evidence
+- Ask the owner to confirm, modify, or defer
+
+### Step 4: Produce final calibration
+Only CONFIRMED + owner-resolved items become SPEC amendments.
+Every amendment records: owner answer ID, coworker confirmations, challenge resolution (if any).
+
+## Timing
+
+- Dispatch all 6 coworkers in parallel after the owner completes the questionnaire
+- Allow 24-48 hours for DR coworkers to respond
+- Synthesis within 1 session after all reports are in
+- Owner review of challenges: at the owner's pace

@@ -23,7 +23,7 @@ Show a compact dashboard of the excerpting hardening operation status. Do ALL of
 
 7. **Analysis teams**: Check if any team reports exist (A-F from NEXT.md).
 
-8. **Engine test status**: `python -m pytest engines/5_excerpting/tests/ -q --tb=no 2>&1 | tail -1`
+8. **Engine test status**: `python -m pytest engines/excerpting/tests/ -q --tb=no 2>&1 | tail -1`
 
 Format as a compact ASCII table:
 ```

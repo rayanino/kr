@@ -39,6 +39,8 @@ OUTPUT FORMAT: Structured checklist with PASS/FAIL per check and evidence for ea
 - Verify metadata pass-through (D-023) across pipeline stages
 - Detect structural anomalies (empty fields, unexpected nulls, duplicate IDs)
 
+**See also:** `docs/codex/dispatch-templates.md` for specialized Codex dispatch templates (code review, regression hunting, contract audit, Arabic-risk structural review, backend probing).
+
 ---
 
 ### 2. Gemini CLI
@@ -56,7 +58,7 @@ CONTEXT: Read [specific files] for background.
 EXCERPTS TO REVIEW: [file path to excerpts.jsonl or specific excerpt IDs]
 CHECK AGAINST:
 - .claude/rules/arabic-scholarly-conventions.md
-- engines/5_excerpting/SPEC.md §4 [specific section]
+- engines/excerpting/SPEC.md §4 [specific section]
 OUTPUT FORMAT: Per-excerpt review with:
   - Arabic text fidelity: [PASS/FLAG with specific issue]
   - Scholarly convention compliance: [PASS/FLAG with rule citation]

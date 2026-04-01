@@ -1,5 +1,7 @@
 # Codex Dispatch Templates
 
+**See also:** `.claude/skills/coworker-dispatch/SKILL.md` for the master coworker dispatch protocol and Codex's role in multi-coworker milestones.
+
 Use these templates as starting points for `explorer` and `worker` agents.
 
 ## Read-Only Code Reviewer

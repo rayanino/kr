@@ -68,6 +68,7 @@ When you're unsure whether to fix a subtle edge case or move on to the next phas
 10. ABD legacy has zero authority (D-019). SPECs define what to build.
 11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `RESULT_PRESERVATION.md`.
 12. Every single action needs to be thoroughly thought-out, reviewed and optimized before being implemented.
+13. **ALL data is future training material.** The endgoal is to train local LLM(s) that live in the library. Every excerpt, API response, evaluation trace, owner feedback entry, coworker report, and metadata record is potential training data. NEVER delete data. Always preserve full outputs with provenance (model, prompt version, timestamp, confidence).
 
 ## Before Starting Work
 
