@@ -52,12 +52,19 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .pkg-card.empty{opacity:0.25;cursor:default;pointer-events:none}
 #load-error{color:var(--red);font-size:0.8rem;padding:0.5rem;display:none}
 
+/* ── Mode Tab Bar ───────────── */
+#mode-tabs{display:none;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:20;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;display:none;align-items:center;gap:2px;padding:4px 8px}
+#mode-tabs.active{display:flex}
+.mtab{padding:0.28rem 1.1rem;border:none;border-radius:5px;background:transparent;color:var(--text3);cursor:pointer;font-family:var(--font-ui);font-size:0.75rem;font-weight:500;letter-spacing:0.04em;transition:all .15s}
+.mtab:hover{color:var(--text2);background:var(--surface2)}
+.mtab.active{color:var(--gold);background:var(--gold-dim)}
+
 /* ── Three-Column Layout ────── */
 #viewer{display:none;height:100vh;grid-template-columns:250px minmax(0,1fr) clamp(400px,31vw,480px);grid-template-rows:44px 1fr;overflow:hidden}
 #viewer.active{display:grid}
 
 /* ── Top Bar ────────────────── */
-#topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+#topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);z-index:10;position:relative}
 .nav{display:flex;align-items:center;gap:0.4rem}
 .nbtn{background:none;border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.55rem;color:var(--text2);cursor:pointer;font-family:var(--font-ui);font-size:0.8rem;transition:all .15s}
 .nbtn:hover{border-color:var(--gold);color:var(--text)}
@@ -202,29 +209,195 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .krow kbd{background:var(--surface3);border:1px solid var(--border2);border-radius:3px;padding:0.05rem 0.4rem;font-family:var(--font-mono);font-size:0.68rem;color:var(--text)}
 .ksep{height:1px;background:var(--border);margin:0.35rem 0}
 
+/* ── Questionnaire Mode ─────── */
+#q-wrap{display:none;height:100vh;grid-template-columns:280px 1fr;grid-template-rows:44px 1fr;overflow:hidden}
+#q-wrap.active{display:grid}
+
+/* Q Top bar shares #topbar — hidden via class swap */
+#q-topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);z-index:10;position:relative}
+#q-topbar .q-prog-bar{flex:1;max-width:240px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin:0 1.5rem}
+#q-topbar .q-prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+#q-topbar .q-prog-label{font-size:0.72rem;color:var(--text2);font-family:var(--font-mono)}
+
+/* Q Sidebar */
+#q-sidebar{grid-column:1;display:flex;flex-direction:column;background:var(--surface);border-right:1px solid var(--border);overflow:hidden}
+.q-phase-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);padding:0.6rem 0.75rem 0.3rem;font-weight:600;border-bottom:1px solid var(--border)}
+#q-list{flex:1;overflow-y:auto;padding:0.3rem 0}
+#q-list::-webkit-scrollbar{width:4px}#q-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.q-item{padding:0.45rem 0.75rem;cursor:pointer;margin:1px 4px;border-radius:5px;transition:background .1s;display:flex;align-items:center;gap:0.5rem}
+.q-item:hover{background:var(--surface2)}
+.q-item.active{background:var(--gold-dim);border-left:2px solid var(--gold);padding-left:calc(0.75rem - 2px)}
+.q-item .q-num{font-size:0.62rem;color:var(--text3);font-family:var(--font-mono);min-width:22px;flex-shrink:0}
+.q-item .q-id-badge{font-size:0.62rem;padding:0.07rem 0.3rem;border-radius:3px;background:var(--surface3);color:var(--accent);flex-shrink:0}
+.q-item .q-title{font-size:0.8rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.q-item.active .q-title{color:var(--text)}
+.q-item .q-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--border2)}
+.q-item .q-dot.done{background:var(--green)}
+.q-item .q-dot.partial{background:var(--amber)}
+.q-phase-sep{height:1px;background:var(--border);margin:4px 0}
+
+/* Q Main area */
+#q-main{grid-column:2;overflow-y:auto;padding:2.5rem 3rem;background:var(--bg);display:flex;flex-direction:column;align-items:center}
+#q-main::-webkit-scrollbar{width:5px}#q-main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.q-card{width:100%;max-width:780px;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,0.35);animation:fadeIn .2s ease-out}
+
+.q-card-header{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:1rem;justify-content:space-between}
+.q-header-left{display:flex;flex-direction:column;gap:0.3rem}
+.q-phase-tag{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);font-weight:600}
+.q-card-title{font-size:1.1rem;font-weight:500;color:var(--gold)}
+.q-edge-badge{padding:0.2rem 0.6rem;background:var(--amber-soft);color:var(--amber);border:1px solid rgba(207,162,78,0.3);border-radius:12px;font-size:0.65rem;font-weight:500;white-space:nowrap;align-self:flex-start;margin-top:0.25rem}
+
+.q-context-note{padding:0.8rem 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);font-size:0.82rem;color:var(--text2);line-height:1.6}
+.q-context-note .cn-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.25rem}
+
+.q-excerpt-block{padding:1rem 1.5rem;border-bottom:1px solid var(--border)}
+.q-excerpt-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.5rem}
+.q-excerpt-source{font-size:0.65rem;color:var(--text3);font-family:var(--font-mono);margin-bottom:0.5rem}
+.q-excerpt-text{font-family:var(--font-ar);font-size:1.5rem;line-height:2.2;direction:rtl;text-align:right;color:var(--text);padding:1rem 1.2rem;background:var(--bg);border:1px solid var(--border2);border-radius:8px;white-space:pre-wrap;word-wrap:break-word}
+
+.q-question-block{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border)}
+.q-question-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.6rem}
+.q-question-text{font-size:0.92rem;color:var(--text);line-height:1.7}
+
+.q-mc-block{padding:0.8rem 1.5rem;border-bottom:1px solid var(--border)}
+.q-mc-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.6rem}
+.q-mc-options{display:flex;flex-direction:column;gap:0.4rem}
+.q-mc-option{display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0.8rem;border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:all .15s;background:transparent}
+.q-mc-option:hover{border-color:var(--text3);background:var(--surface2)}
+.q-mc-option.selected{border-color:var(--gold);background:var(--gold-dim)}
+.q-mc-option input[type=radio]{margin-top:0.18rem;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.q-mc-option .opt-text{font-size:0.88rem;color:var(--text2);line-height:1.5;cursor:pointer}
+.q-mc-option.selected .opt-text{color:var(--text)}
+
+.q-response-block{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+.q-field-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.4rem}
+.q-field-required::after{content:" *";color:var(--red);font-size:0.7rem}
+.q-textarea{width:100%;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s;min-height:120px}
+.q-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
+.q-textarea::placeholder{color:var(--text3);font-style:italic}
+.q-textarea.required-empty{border-color:var(--red);box-shadow:0 0 0 2px var(--red-soft)}
+
+.q-detail-toggle{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.75rem;font-family:var(--font-ui);padding:0.3rem 0;display:flex;align-items:center;gap:0.3rem;margin-top:0.5rem;transition:color .1s}
+.q-detail-toggle:hover{color:var(--text2)}
+.q-detail-area{display:none;margin-top:0.6rem}
+.q-detail-area.open{display:block}
+
+.q-confidence-block{padding:0.8rem 1.5rem;border-bottom:1px solid var(--border)}
+.q-conf-row{display:flex;gap:0.5rem;margin-top:0.4rem}
+.q-conf-btn{padding:0.35rem 0.9rem;border:1px solid var(--border2);border-radius:5px;background:transparent;color:var(--text3);cursor:pointer;font-family:var(--font-ui);font-size:0.75rem;transition:all .15s}
+.q-conf-btn:hover{border-color:var(--text2);color:var(--text2)}
+.q-conf-btn.sel-high{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+.q-conf-btn.sel-medium{border-color:var(--amber);color:var(--amber);background:var(--amber-soft)}
+.q-conf-btn.sel-low{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+
+.q-edge-block{padding:0.9rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(207,162,78,0.03)}
+.q-edge-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--amber);font-weight:600;margin-bottom:0.3rem}
+.q-edge-desc{font-size:0.78rem;color:var(--text2);margin-bottom:0.7rem;line-height:1.5}
+
+.q-action-row{padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.q-save-btn{padding:0.55rem 1.8rem;background:var(--surface3);color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:0.85rem;font-family:var(--font-ui);font-weight:500;transition:all .15s}
+.q-save-btn:hover{opacity:0.85}
+.q-save-btn.ready{background:var(--gold);color:#111;border-color:var(--gold)}
+.q-save-btn.saved{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.q-nav-btns{display:flex;gap:0.5rem}
+.q-nav-btn{padding:0.4rem 0.8rem;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);cursor:pointer;font-size:0.78rem;font-family:var(--font-ui);transition:all .15s}
+.q-nav-btn:hover{border-color:var(--gold);color:var(--text)}
+.q-nav-btn:disabled{opacity:0.2;cursor:default;pointer-events:none}
+.q-status-msg{font-size:0.72rem;color:var(--green);font-family:var(--font-mono);opacity:0;transition:opacity .4s}
+.q-status-msg.show{opacity:1}
+
+/* ── Comparison Mode ─────────── */
+#cmp-wrap{display:none;height:100vh;grid-template-rows:44px 1fr;overflow:hidden}
+#cmp-wrap.active{display:grid}
+
+#cmp-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+#cmp-topbar .cmp-title{font-size:0.82rem;color:var(--gold);font-weight:500}
+#cmp-topbar .cmp-pos{font-size:0.72rem;color:var(--text2);font-family:var(--font-mono)}
+
+#cmp-main{overflow-y:auto;padding:1.5rem 2rem;background:var(--bg)}
+#cmp-main::-webkit-scrollbar{width:5px}#cmp-main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.cmp-pair{max-width:1300px;margin:0 auto}
+.cmp-division{font-size:0.72rem;color:var(--text2);margin-bottom:0.8rem;font-family:var(--font-mono)}
+.cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem}
+.cmp-col{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cmp-col-header{padding:0.6rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cmp-col-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:600}
+.cmp-col-label.before{color:var(--accent)}
+.cmp-col-label.after{color:var(--gold)}
+.cmp-col-fn{font-size:0.62rem;padding:0.08rem 0.35rem;border-radius:3px;background:var(--surface3);color:var(--text2)}
+.cmp-col-sc{font-size:0.62rem;color:var(--text3)}
+.cmp-col-body{padding:1rem 1.2rem}
+.cmp-text{font-family:var(--font-ar);font-size:1.35rem;line-height:2.1;direction:rtl;text-align:right;color:var(--text);white-space:pre-wrap;word-wrap:break-word}
+.cmp-col.empty .cmp-col-body{display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--text3);font-size:0.82rem;font-style:italic}
+
+.cmp-verdict-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem}
+.cmp-verdict-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.6rem}
+.cmp-verdict-btns{display:flex;gap:0.5rem;margin-bottom:0.8rem;flex-wrap:wrap}
+.cmp-vbtn{padding:0.45rem 1rem;border:1px solid var(--border2);border-radius:5px;background:transparent;color:var(--text2);cursor:pointer;font-family:var(--font-ui);font-size:0.8rem;transition:all .15s}
+.cmp-vbtn:hover{border-color:var(--text3);background:var(--surface2)}
+.cmp-vbtn.sel-before{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.cmp-vbtn.sel-after{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.cmp-vbtn.sel-same{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+.cmp-comment{width:100%;padding:0.7rem 0.9rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.85rem;resize:vertical;line-height:1.6;min-height:80px;transition:border-color .15s}
+.cmp-comment:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
+.cmp-comment::placeholder{color:var(--text3);font-style:italic}
+
+.cmp-action-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.7rem;gap:1rem}
+.cmp-save-btn{padding:0.45rem 1.4rem;background:var(--surface3);color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:0.8rem;font-family:var(--font-ui);font-weight:500;transition:all .15s}
+.cmp-save-btn.ready{background:var(--gold);color:#111;border-color:var(--gold)}
+.cmp-save-btn.saved{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.cmp-nav-row{display:flex;gap:0.5rem;align-items:center}
+.cmp-nav-btn{padding:0.35rem 0.7rem;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);cursor:pointer;font-size:0.75rem;font-family:var(--font-ui);transition:all .15s}
+.cmp-nav-btn:hover{border-color:var(--gold);color:var(--text)}
+.cmp-nav-btn:disabled{opacity:0.2;cursor:default;pointer-events:none}
+.cmp-pos{font-size:0.72rem;color:var(--text2);font-family:var(--font-mono)}
+
+/* loading / error states */
+.mode-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:1rem;color:var(--text2);font-size:0.88rem}
+.mode-error{padding:2rem;color:var(--red);font-size:0.85rem;text-align:center}
+
 /* ── Animations ─────────────── */
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .doc{animation:fadeIn .2s ease-out}
+.q-card{animation:fadeIn .2s ease-out}
 </style>
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════════════════════
+     PACKAGE PICKER
+═══════════════════════════════════════════════════════════ -->
 <div id="pkg-picker">
   <div class="picker-mark">خ</div>
   <h1><span>KR</span> Excerpt Review</h1>
   <div class="sub">Select a package to review</div>
   <div id="pkg-list"></div>
   <div id="load-error"></div>
+  <div style="margin-top:1.5rem;display:flex;gap:0.8rem">
+    <button class="nbtn" onclick="enterMode('questionnaire')" style="padding:0.5rem 1.3rem;font-size:0.82rem">Questionnaire Mode</button>
+    <button class="nbtn" onclick="enterMode('comparison')" style="padding:0.5rem 1.3rem;font-size:0.82rem">Comparison Mode</button>
+  </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     REVIEW MODE  (unchanged three-column layout)
+═══════════════════════════════════════════════════════════ -->
 <div id="viewer">
   <div id="topbar">
     <div class="nav">
-      <button class="nbtn" id="prev-btn" title="Previous (←)">&#9664;</button>
+      <button class="nbtn" id="prev-btn" title="Previous (&#8592;)">&#9664;</button>
       <span id="pos">0/0</span>
-      <button class="nbtn" id="next-btn" title="Next (→)">&#9654;</button>
+      <button class="nbtn" id="next-btn" title="Next (&#8594;)">&#9654;</button>
     </div>
     <span id="pkg-label" title="Back to packages"></span>
+    <!-- mode tabs embedded in topbar centre -->
+    <div id="mode-tabs">
+      <button class="mtab active" onclick="switchMode('review')">Review</button>
+      <button class="mtab" onclick="switchMode('questionnaire')">Questionnaire</button>
+      <button class="mtab" onclick="switchMode('comparison')">Comparison</button>
+    </div>
     <div class="tbar-r">
       <span id="live-dot" style="width:7px;height:7px;border-radius:50%;background:var(--green);display:none" title="Live — polling for new excerpts"></span>
       <button class="tbtn" id="shortcuts-btn" title="Shortcuts (?)">?</button>
@@ -242,6 +415,64 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
   <div id="right"></div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     QUESTIONNAIRE MODE
+═══════════════════════════════════════════════════════════ -->
+<div id="q-wrap">
+  <div id="q-topbar">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <span style="font-size:0.82rem;color:var(--gold);font-weight:500">KR Questionnaire</span>
+      <span id="q-pos" style="font-size:0.72rem;color:var(--text2);font-family:var(--font-mono)">0/0</span>
+    </div>
+    <div class="q-prog-bar"><div id="q-prog-fill" class="q-prog-fill" style="width:0%"></div></div>
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <span id="q-prog-label" class="q-prog-label">0 of 40</span>
+      <div id="mode-tabs-q" style="display:flex;gap:2px;padding:3px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px">
+        <button class="mtab" onclick="switchMode('review')">Review</button>
+        <button class="mtab active" onclick="switchMode('questionnaire')">Questionnaire</button>
+        <button class="mtab" onclick="switchMode('comparison')">Comparison</button>
+      </div>
+      <button class="nbtn" onclick="goHome()">&#8617; Back</button>
+    </div>
+  </div>
+  <div id="q-sidebar">
+    <div id="q-list"></div>
+  </div>
+  <div id="q-main">
+    <div class="mode-loading" id="q-loading">Loading interactions...</div>
+    <div id="q-content" style="width:100%;max-width:780px;display:none"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COMPARISON MODE
+═══════════════════════════════════════════════════════════ -->
+<div id="cmp-wrap">
+  <div id="cmp-topbar">
+    <div style="display:flex;align-items:center;gap:0.7rem">
+      <span class="cmp-title">Before / After Comparison</span>
+      <span id="cmp-pos-top" class="cmp-pos">0/0</span>
+    </div>
+    <div style="display:flex;gap:2px;padding:3px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px">
+      <button class="mtab" onclick="switchMode('review')">Review</button>
+      <button class="mtab" onclick="switchMode('questionnaire')">Questionnaire</button>
+      <button class="mtab active" onclick="switchMode('comparison')">Comparison</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.5rem">
+      <button class="nbtn" id="cmp-prev-btn" onclick="cmpGo(cmpIndex-1)" disabled>&#9664;</button>
+      <button class="nbtn" id="cmp-next-btn" onclick="cmpGo(cmpIndex+1)">&#9654;</button>
+      <button class="nbtn" onclick="goHome()">&#8617; Back</button>
+    </div>
+  </div>
+  <div id="cmp-main">
+    <div class="mode-loading" id="cmp-loading">Loading comparison pairs...</div>
+    <div id="cmp-content" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SHORTCUTS MODAL
+═══════════════════════════════════════════════════════════ -->
 <div id="shortcuts">
   <div class="modal">
     <h3>Keyboard Shortcuts</h3>
@@ -261,10 +492,16 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
 <script>
+// ─── Global utilities ─────────────────────────────────────────────────────
 let excerpts=[], currentIndex=0, currentPackage="", feedback={}, pollTimer=null;
 let selectedIssues=new Set();
 let currentFilter="all";
+let currentMode="home"; // "home" | "review" | "questionnaire" | "comparison"
+
 const $=id=>document.getElementById(id);
 const esc=s=>{if(s==null)return"\u2014";const d=document.createElement("div");d.textContent=String(s);return d.innerHTML};
 const v=val=>(val===null||val===undefined||val===""?"\u2014":val);
@@ -281,7 +518,47 @@ const ISSUE_TAGS=[
   {id:"needs_merge",label:"Merge"},
 ];
 
-// ── Package Loading ──
+// ─── Mode switching ────────────────────────────────────────────────────────
+function enterMode(mode){
+  $("pkg-picker").style.display="none";
+  switchMode(mode);
+}
+
+function switchMode(mode){
+  // Hide all containers
+  $("viewer").classList.remove("active");
+  $("q-wrap").classList.remove("active");
+  $("cmp-wrap").classList.remove("active");
+
+  currentMode=mode;
+
+  if(mode==="review"){
+    if(currentPackage){
+      $("viewer").classList.add("active");
+    }else{
+      goHome();
+      return;
+    }
+  } else if(mode==="questionnaire"){
+    $("q-wrap").classList.add("active");
+    if(!qInteractions.length)initQuestionnaire();
+  } else if(mode==="comparison"){
+    $("cmp-wrap").classList.add("active");
+    if(!cmpPairs.length)initComparison();
+  }
+}
+
+function goHome(){
+  if(pollTimer)clearInterval(pollTimer);
+  $("viewer").classList.remove("active");
+  $("q-wrap").classList.remove("active");
+  $("cmp-wrap").classList.remove("active");
+  $("pkg-picker").style.display="flex";
+  currentMode="home";
+  loadPackages();
+}
+
+// ─── Package Loading ───────────────────────────────────────────────────────
 async function loadPackages(){
   try{
     const r=await fetch("/api/packages");const pkgs=await r.json();
@@ -301,7 +578,10 @@ async function selectPkg(pkg){
     excerpts=await er.json();feedback=await fr.json();
     if(!excerpts.length){alert("No excerpts yet.");return}
     currentIndex=0;currentFilter="all";
-    $("pkg-picker").style.display="none";$("viewer").classList.add("active");$("pkg-label").textContent=pkg;
+    $("pkg-picker").style.display="none";
+    currentMode="review";
+    $("viewer").classList.add("active");
+    $("pkg-label").textContent=pkg;
     document.querySelectorAll(".fbtn").forEach(b=>{b.classList.toggle("active",b.dataset.filter==="all")});
     renderList();render();startPolling();
   }catch(e){alert("Load failed: "+e.message)}
@@ -309,7 +589,9 @@ async function selectPkg(pkg){
 
 function backToPackages(){
   if(pollTimer)clearInterval(pollTimer);
-  $("viewer").classList.remove("active");$("pkg-picker").style.display="flex";
+  $("viewer").classList.remove("active");
+  $("pkg-picker").style.display="flex";
+  currentMode="home";
   excerpts=[];currentIndex=0;loadPackages();
 }
 
@@ -323,7 +605,7 @@ function startPolling(){
   },10000);
 }
 
-// ── Filtering ──
+// ─── Review mode: Filtering ────────────────────────────────────────────────
 function getFilteredIndices(){
   if(currentFilter==="all")return excerpts.map((_,i)=>i);
   if(currentFilter==="unreviewed")return excerpts.map((_,i)=>i).filter(i=>!feedback[excerpts[i].excerpt_id]);
@@ -331,7 +613,7 @@ function getFilteredIndices(){
   return excerpts.map((_,i)=>i);
 }
 
-// ── List Panel ──
+// ─── Review mode: List Panel ───────────────────────────────────────────────
 function renderList(){
   const indices=getFilteredIndices();
   $("left").innerHTML=indices.map(i=>{
@@ -357,7 +639,7 @@ function renderList(){
 
 function go(i){currentIndex=i;render();renderList()}
 
-// ── Center: Reading Zone ──
+// ─── Review mode: Center ───────────────────────────────────────────────────
 function render(){
   const ex=excerpts[currentIndex];if(!ex)return;
   $("pos").textContent=`${currentIndex+1}/${excerpts.length}`;
@@ -375,17 +657,14 @@ function render(){
     warnHtml=`<div class="warn-band ${cls}"><span class="wlabel">${sc}</span>${esc(ex.self_containment_notes||"")}${ex.context_hint?`<div class="ctx">${esc(ex.context_hint)}</div>`:""}</div>`;
   }
 
-  // Topics — embedded in document card
   const topics=(ex.excerpt_topic||[]).map(t=>`<span class="topic-chip">${esc(t)}</span>`).join("");
 
-  // Scholars
   let scholarsHtml="";
   if(ex.quoted_scholars?.length){
     const rows=ex.quoted_scholars.map(s=>`<tr><td class="ar" dir="rtl">${esc(s.mention_text)}</td><td class="ar" dir="rtl">${v(s.resolved_name)}</td><td>${v(s.role)}</td><td>${s.confidence!=null?s.confidence.toFixed(2):"\u2014"}</td></tr>`).join("");
     scholarsHtml=`<table class="stbl"><thead><tr><th>Mention</th><th>Resolved</th><th>Role</th><th>Conf</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
-  // Evidence
   const refs=ex.evidence_refs||[],tak=ex.takhrij_data||[],xrefs=ex.cross_references||[];
   let evidHtml="";
   if(refs.length+tak.length+xrefs.length===0)evidHtml='<span class="muted">No evidence</span>';
@@ -426,13 +705,11 @@ function render(){
 
 function toggleSec(el){el.querySelector(".arrow").classList.toggle("open");el.nextElementSibling.classList.toggle("open")}
 
-// ── Right Panel ──
+// ─── Review mode: Right Panel ──────────────────────────────────────────────
 function renderRight(ex){
-  // Restore feedback state
   const fb=feedback[ex.excerpt_id]||{};
   selectedIssues=new Set(fb.issues||[]);
 
-  // Verdict buttons
   const verdicts=["accept","needs_work","reject"];
   const labels={accept:"\u2713 Accept",needs_work:"\u26A0 Needs Work",reject:"\u2717 Reject"};
   const icons={accept:"\u2713",needs_work:"\u26A0",reject:"\u2717"};
@@ -442,17 +719,14 @@ function renderRight(ex){
     return `<button class="vbtn${sel}" data-v="${vv}"><span class="v-icon">${icons[vv]}</span>${labels[vv]}<span class="v-key">${keys[vv]}</span></button>`;
   }).join("");
 
-  // Issue tags
   const tagsHtml=ISSUE_TAGS.map(t=>{
     const sel=selectedIssues.has(t.id)?" selected":"";
     return `<button class="issue-tag${sel}" data-tag="${t.id}">${t.label}</button>`;
   }).join("");
 
-  // Progress
   const reviewed=Object.keys(feedback).length;
   const pct=excerpts.length?Math.round(reviewed/excerpts.length*100):0;
 
-  // Diagnostics
   const cm=ex.consensus_metadata;
   let consHtml='<span class="muted">\u2014</span>';
   if(cm?.decisions?.length){
@@ -503,13 +777,9 @@ function renderRight(ex){
     </div>
   `;
 
-  // Wire verdict buttons
   document.querySelectorAll(".vbtn").forEach(b=>b.addEventListener("click",()=>selectVerdict(b.dataset.v)));
-  // Wire issue tags
   document.querySelectorAll(".issue-tag").forEach(b=>b.addEventListener("click",()=>toggleIssue(b.dataset.tag)));
-  // Wire save
   $("save-btn").addEventListener("click",saveAndNext);
-  // Wire comment changes to update save button
   const c=$("comment");if(c)c.addEventListener("input",updateSaveBtn);
 }
 
@@ -542,7 +812,6 @@ function updateSaveBtn(){
   }
 }
 
-// ── Feedback ──
 async function saveAndNext(){
   const ex=excerpts[currentIndex];
   const vbtn=document.querySelector(".vbtn[class*='sel-']");
@@ -576,13 +845,11 @@ async function saveAndNext(){
   if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}else{render();renderList()}
 }
 
-// ── Navigation ──
 $("prev-btn").addEventListener("click",()=>{if(currentIndex>0){currentIndex--;render();renderList()}});
 $("next-btn").addEventListener("click",()=>{if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}});
 $("pkg-label").addEventListener("click",backToPackages);
 $("shortcuts-btn").addEventListener("click",()=>$("shortcuts").classList.toggle("open"));
 
-// ── Filter buttons ──
 document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   currentFilter=b.dataset.filter;
   document.querySelectorAll(".fbtn").forEach(bb=>bb.classList.remove("active"));
@@ -590,8 +857,472 @@ document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   renderList();
 }));
 
-// ── Keyboard ──
+// ═══════════════════════════════════════════════════════════════════════════
+// QUESTIONNAIRE MODE
+// ═══════════════════════════════════════════════════════════════════════════
+let qInteractions=[];
+let qResponses={};
+let qCurrentIndex=0;
+
+async function initQuestionnaire(){
+  $("q-loading").style.display="flex";
+  $("q-content").style.display="none";
+  try{
+    const[ir,rr]=await Promise.all([fetch("/api/questionnaire"),fetch("/api/questionnaire/responses")]);
+    qInteractions=await ir.json();
+    qResponses=await rr.json();
+    if(!qInteractions.length){
+      $("q-loading").innerHTML='<div class="mode-error">Could not load interactions.json</div>';
+      return;
+    }
+    $("q-loading").style.display="none";
+    $("q-content").style.display="block";
+    renderQSidebar();
+    renderQInteraction(qCurrentIndex);
+  }catch(e){
+    $("q-loading").innerHTML=`<div class="mode-error">Error loading questionnaire: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderQSidebar(){
+  // Group by phase for section labels
+  const phases=[];
+  let lastPhase="";
+  qInteractions.forEach((item,i)=>{
+    if(item.phase!==lastPhase){
+      phases.push({type:"header",label:item.phase_label,phase:item.phase});
+      lastPhase=item.phase;
+    }
+    const resp=qResponses[item.id];
+    let dotCls="";
+    if(resp){
+      dotCls=resp.immediate_reaction&&resp.immediate_reaction.trim()?"done":"partial";
+    }
+    phases.push({type:"item",item,index:i,dotCls});
+  });
+
+  $("q-list").innerHTML=phases.map(p=>{
+    if(p.type==="header"){
+      return `<div class="q-phase-label">${esc(p.label)}</div>`;
+    }
+    const item=p.item;
+    const active=p.index===qCurrentIndex;
+    return `<div class="q-item${active?" active":""}" onclick="renderQInteraction(${p.index})">
+      <span class="q-num">${p.index+1}</span>
+      <span class="q-id-badge">${esc(item.id)}</span>
+      <span class="q-title">${esc(item.title)}</span>
+      <span class="q-dot${p.dotCls?" "+p.dotCls:""}"></span>
+    </div>`;
+  }).join("");
+
+  // Update progress bar
+  const done=Object.values(qResponses).filter(r=>r.immediate_reaction&&r.immediate_reaction.trim()).length;
+  const pct=qInteractions.length?Math.round(done/qInteractions.length*100):0;
+  $("q-prog-fill").style.width=pct+"%";
+  $("q-prog-label").textContent=`${done} of ${qInteractions.length}`;
+  $("q-pos").textContent=`${qCurrentIndex+1}/${qInteractions.length}`;
+}
+
+function renderQInteraction(index){
+  if(index<0||index>=qInteractions.length)return;
+  qCurrentIndex=index;
+
+  const item=qInteractions[index];
+  const resp=qResponses[item.id]||{};
+  const content=$("q-content");
+
+  // Multiple choice options HTML
+  let mcHtml="";
+  if(item.multiple_choice&&item.multiple_choice.length){
+    const opts=item.multiple_choice.map((opt,oi)=>{
+      const sel=(resp.mc_choice===opt)?" selected":"";
+      return `<label class="q-mc-option${sel}">
+        <input type="radio" name="q-mc-${item.id}" value="${esc(opt)}" ${resp.mc_choice===opt?"checked":""} onchange="qMCChange(this)">
+        <span class="opt-text">${esc(opt)}</span>
+      </label>`;
+    }).join("");
+    mcHtml=`<div class="q-mc-block">
+      <div class="q-mc-label">Your assessment</div>
+      <div class="q-mc-options">${opts}</div>
+    </div>`;
+  }
+
+  // Edge case extra fields
+  let edgeHtml="";
+  if(item.is_edge_case){
+    edgeHtml=`<div class="q-edge-block">
+      <div class="q-edge-label">Edge Case Fields</div>
+      <div class="q-edge-desc">This is an edge case interaction. Two additional fields help capture your reasoning.</div>
+      <div style="margin-bottom:0.8rem">
+        <div class="q-field-label">What would change your mind about this excerpt?</div>
+        <textarea class="q-textarea" id="q-change-mind" rows="3" placeholder="What evidence or condition would lead you to a different answer?">${esc(resp.what_would_change_mind||"")}</textarea>
+      </div>
+      <div>
+        <div class="q-field-label">What principles does this reveal about the pipeline?</div>
+        <textarea class="q-textarea" id="q-principles" rows="3" placeholder="What does your reaction tell us about what good excerpting should look like?">${esc(resp.principles_revealed||"")}</textarea>
+      </div>
+    </div>`;
+  }
+
+  // Confidence buttons
+  const conf=resp.confidence||"";
+  const confBtns=["High","Medium","Low"].map(c=>{
+    const cls=conf===c.toLowerCase()?` sel-${c.toLowerCase()}`:"";
+    return `<button class="q-conf-btn${cls}" onclick="qConfSelect('${c.toLowerCase()}')">${c}</button>`;
+  }).join("");
+
+  // Saved indicator
+  const hasSaved=resp.immediate_reaction&&resp.immediate_reaction.trim();
+
+  content.innerHTML=`
+    <div class="q-card">
+      <div class="q-card-header">
+        <div class="q-header-left">
+          <div class="q-phase-tag">${esc(item.phase_label)}</div>
+          <div class="q-card-title">${esc(item.title)}</div>
+          ${item.is_edge_case?'<div class="q-edge-badge">Edge Case</div>':""}
+        </div>
+        <div style="font-size:0.72rem;color:var(--text3);font-family:var(--font-mono);text-align:right;flex-shrink:0">
+          ${esc(item.id)}<br>${index+1} / ${qInteractions.length}
+        </div>
+      </div>
+
+      ${item.context_note?`<div class="q-context-note">
+        <div class="cn-label">Context</div>
+        ${esc(item.context_note)}
+      </div>`:""}
+
+      ${item.excerpt_text?`<div class="q-excerpt-block">
+        <div class="q-excerpt-label">Excerpt to evaluate</div>
+        ${item.excerpt_source?`<div class="q-excerpt-source">${esc(item.excerpt_source)}</div>`:""}
+        <div class="q-excerpt-text" dir="rtl" lang="ar">${esc(item.excerpt_text)}</div>
+      </div>`:""}
+
+      <div class="q-question-block">
+        <div class="q-question-label">Question</div>
+        <div class="q-question-text">${esc(item.question)}</div>
+      </div>
+
+      ${mcHtml}
+
+      <div class="q-response-block">
+        <div class="q-field-label q-field-required">Immediate reaction</div>
+        <textarea class="q-textarea" id="q-reaction" rows="5"
+          placeholder="Write your immediate, honest reaction. Don't overthink it — what is your gut response?"
+          oninput="qUpdateSaveBtn()">${esc(resp.immediate_reaction||"")}</textarea>
+
+        <button class="q-detail-toggle" onclick="qToggleDetail(this)">
+          <span class="q-detail-arrow">+</span> Add detailed analysis (optional)
+        </button>
+        <div class="q-detail-area${resp.detailed_analysis?" open":""}">
+          <div class="q-field-label" style="margin-top:0.4rem">Detailed analysis</div>
+          <textarea class="q-textarea" id="q-detail" rows="4"
+            placeholder="Optional: deeper analysis, comparison to other excerpts, specific suggestions...">${esc(resp.detailed_analysis||"")}</textarea>
+        </div>
+      </div>
+
+      ${edgeHtml}
+
+      <div class="q-confidence-block">
+        <div class="q-field-label">Confidence in your response</div>
+        <div class="q-conf-row">${confBtns}</div>
+      </div>
+
+      <div class="q-action-row">
+        <div style="display:flex;align-items:center;gap:0.7rem">
+          <button class="q-save-btn${hasSaved?" saved":""}" id="q-save-btn" onclick="qSave()">
+            ${hasSaved?"Saved \u2713":"Save Response"}
+          </button>
+          <span class="q-status-msg" id="q-status">Saved</span>
+        </div>
+        <div class="q-nav-btns">
+          <button class="q-nav-btn" id="q-prev-btn" onclick="qNavigate(-1)" ${index===0?"disabled":""}>&#9664; Prev</button>
+          <button class="q-nav-btn" id="q-next-btn" onclick="qNavigate(1)" ${index===qInteractions.length-1?"disabled":""}>Next &#9654;</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Sync sidebar scroll to active item
+  renderQSidebar();
+  const activeEl=$("q-list").querySelector(".q-item.active");
+  if(activeEl)activeEl.scrollIntoView({block:"nearest",behavior:"smooth"});
+
+  // Scroll card to top
+  $("q-main").scrollTop=0;
+}
+
+function qToggleDetail(btn){
+  const area=btn.nextElementSibling;
+  area.classList.toggle("open");
+  btn.querySelector(".q-detail-arrow").textContent=area.classList.contains("open")?"\u2212":"+";
+}
+
+function qMCChange(radio){
+  document.querySelectorAll(".q-mc-option").forEach(opt=>{
+    opt.classList.toggle("selected",opt.querySelector("input")==radio&&radio.checked);
+  });
+  qUpdateSaveBtn();
+}
+
+function qConfSelect(level){
+  document.querySelectorAll(".q-conf-btn").forEach(b=>{
+    b.className="q-conf-btn"+(b.textContent.toLowerCase()===level?` sel-${level}`:"");
+  });
+  qUpdateSaveBtn();
+}
+
+function qUpdateSaveBtn(){
+  const btn=$("q-save-btn");if(!btn)return;
+  const reaction=$("q-reaction")?.value.trim();
+  if(reaction){
+    btn.className="q-save-btn ready";
+    btn.textContent="Save Response";
+  }
+}
+
+async function qSave(){
+  const item=qInteractions[qCurrentIndex];
+  const reaction=$("q-reaction")?.value.trim();
+  if(!reaction){
+    const ta=$("q-reaction");if(ta)ta.classList.add("required-empty");
+    setTimeout(()=>{const ta=$("q-reaction");if(ta)ta.classList.remove("required-empty")},2000);
+    return;
+  }
+
+  const detail=$("q-detail")?.value.trim()||"";
+  const checkedRadio=document.querySelector(`input[name="q-mc-${item.id}"]:checked`);
+  const mc=checkedRadio?checkedRadio.value:"";
+  const conf=document.querySelector(".q-conf-btn[class*='sel-']")?.textContent.toLowerCase()||"";
+  const changeMind=$("q-change-mind")?.value.trim()||"";
+  const principles=$("q-principles")?.value.trim()||"";
+
+  const entry={
+    interaction_id:item.id,
+    timestamp:new Date().toISOString(),
+    phase:item.phase,
+    title:item.title,
+    mc_choice:mc||null,
+    immediate_reaction:reaction,
+    detailed_analysis:detail||null,
+    confidence:conf||null,
+    what_would_change_mind:changeMind||null,
+    principles_revealed:principles||null,
+    is_edge_case:item.is_edge_case,
+  };
+
+  qResponses[item.id]=entry;
+
+  try{
+    await fetch("/api/questionnaire/response",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(entry)
+    });
+    const btn=$("q-save-btn");
+    const status=$("q-status");
+    if(btn){btn.className="q-save-btn saved";btn.textContent="Saved \u2713"}
+    if(status){status.classList.add("show");setTimeout(()=>status.classList.remove("show"),2000)}
+    renderQSidebar();
+    // Auto-advance to next after save if not on last
+    setTimeout(()=>{
+      if(qCurrentIndex<qInteractions.length-1)qNavigate(1);
+    },600);
+  }catch(e){
+    console.error("Q save failed:",e);
+    const btn=$("q-save-btn");if(btn){btn.style.background="var(--red-soft)";btn.style.color="var(--red)";btn.textContent="Save failed"}
+  }
+}
+
+function qNavigate(delta){
+  const next=qCurrentIndex+delta;
+  if(next>=0&&next<qInteractions.length)renderQInteraction(next);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// COMPARISON MODE
+// ═══════════════════════════════════════════════════════════════════════════
+let cmpPairs=[];
+let cmpResponses={};
+let cmpIndex=0;
+
+async function initComparison(){
+  $("cmp-loading").style.display="flex";
+  $("cmp-content").style.display="none";
+  try{
+    const[pr,rr]=await Promise.all([fetch("/api/comparisons"),fetch("/api/comparison/responses")]);
+    cmpPairs=await pr.json();
+    cmpResponses=await rr.json();
+    if(!cmpPairs.length){
+      $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. Ensure smoke_api and campaign_20260331 packages exist with excerpts.</div>';
+      return;
+    }
+    $("cmp-loading").style.display="none";
+    $("cmp-content").style.display="block";
+    cmpGo(0);
+  }catch(e){
+    $("cmp-loading").innerHTML=`<div class="mode-error">Error loading comparisons: ${esc(e.message)}</div>`;
+  }
+}
+
+function cmpGo(index){
+  if(index<0||index>=cmpPairs.length)return;
+  cmpIndex=index;
+  const pair=cmpPairs[index];
+  const resp=cmpResponses[pair.pair_id]||{};
+
+  $("cmp-prev-btn").disabled=index===0;
+  $("cmp-next-btn").disabled=index===cmpPairs.length-1;
+  $("cmp-pos-top").textContent=`${index+1}/${cmpPairs.length}`;
+
+  const before=pair.before||{};
+  const after=pair.after||null;
+
+  const hasSaved=resp.verdict&&resp.verdict.trim();
+
+  const verdictBtns=[
+    {key:"before",label:"Before is better"},
+    {key:"after",label:"After is better"},
+    {key:"same",label:"Same quality"},
+  ].map(vv=>{
+    const sel=resp.verdict===vv.key?` sel-${vv.key}`:"";
+    return `<button class="cmp-vbtn${sel}" onclick="cmpSelectVerdict('${vv.key}')">${vv.label}</button>`;
+  }).join("");
+
+  $("cmp-content").innerHTML=`
+    <div class="cmp-pair">
+      <div class="cmp-division">Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
+      <div class="cmp-cols">
+        <div class="cmp-col${after?"":" empty"}">
+          <div class="cmp-col-header">
+            <span class="cmp-col-label before">Before (new hardened prompts)</span>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <span class="cmp-col-fn">${esc(before.primary_function||"?")}</span>
+              <span class="cmp-col-sc">${esc(before.self_containment||"FULL")}</span>
+            </div>
+          </div>
+          <div class="cmp-col-body">
+            ${before.primary_text
+              ?`<div class="cmp-text" dir="rtl" lang="ar">${esc(before.primary_text)}</div>`
+              :'<span class="muted">No excerpt</span>'}
+          </div>
+        </div>
+        <div class="cmp-col${after?"":" empty"}">
+          <div class="cmp-col-header">
+            <span class="cmp-col-label after">After (old prompts — campaign run)</span>
+            ${after?`<div style="display:flex;gap:0.5rem;align-items:center">
+              <span class="cmp-col-fn">${esc(after.primary_function||"?")}</span>
+              <span class="cmp-col-sc">${esc(after.self_containment||"FULL")}</span>
+            </div>`:""}
+          </div>
+          <div class="cmp-col-body">
+            ${after&&after.primary_text
+              ?`<div class="cmp-text" dir="rtl" lang="ar">${esc(after.primary_text)}</div>`
+              :'<span style="color:var(--text3);font-style:italic;font-size:0.82rem">No matching excerpt in this division</span>'}
+          </div>
+        </div>
+      </div>
+
+      <div class="cmp-verdict-row">
+        <div class="cmp-verdict-label">Your verdict</div>
+        <div class="cmp-verdict-btns">${verdictBtns}</div>
+        <textarea class="cmp-comment" id="cmp-comment" rows="3"
+          placeholder="Optional: what specifically is different? Which choice feels better and why?">${esc(resp.comment||"")}</textarea>
+        <div class="cmp-action-row">
+          <button class="cmp-save-btn${hasSaved?" saved":""}" id="cmp-save-btn" onclick="cmpSave()">
+            ${hasSaved?"Saved \u2713":"Save Verdict"}
+          </button>
+          <div class="cmp-nav-row">
+            <span class="cmp-pos">${index+1}/${cmpPairs.length}</span>
+            <button class="cmp-nav-btn" onclick="cmpGo(cmpIndex-1)" ${index===0?"disabled":""}>&#9664;</button>
+            <button class="cmp-nav-btn" onclick="cmpGo(cmpIndex+1)" ${index===cmpPairs.length-1?"disabled":""}>&#9654;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("cmp-main").scrollTop=0;
+}
+
+function cmpSelectVerdict(vv){
+  document.querySelectorAll(".cmp-vbtn").forEach(b=>{b.className="cmp-vbtn"});
+  const btn=document.querySelector(`.cmp-vbtn[onclick="cmpSelectVerdict('${vv}')"]`);
+  if(btn)btn.classList.add(`sel-${vv}`);
+  const save=$("cmp-save-btn");if(save){save.className="cmp-save-btn ready"}
+}
+
+async function cmpSave(){
+  const pair=cmpPairs[cmpIndex];
+  const vbtn=document.querySelector(".cmp-vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.textContent.toLowerCase().includes("before")?"before":vbtn.textContent.toLowerCase().includes("after")?"after":"same":null;
+  const comment=$("cmp-comment")?.value.trim()||"";
+
+  const entry={
+    pair_id:pair.pair_id,
+    timestamp:new Date().toISOString(),
+    division:pair.division,
+    verdict:verdict||"no_verdict",
+    comment:comment||null,
+    before_excerpt_id:pair.before?.excerpt_id||null,
+    after_excerpt_id:pair.after?.excerpt_id||null,
+  };
+
+  cmpResponses[pair.pair_id]=entry;
+
+  try{
+    await fetch("/api/comparison/response",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(entry)
+    });
+    const btn=$("cmp-save-btn");
+    if(btn){btn.className="cmp-save-btn saved";btn.textContent="Saved \u2713"}
+    // Auto-advance
+    setTimeout(()=>{
+      if(cmpIndex<cmpPairs.length-1)cmpGo(cmpIndex+1);
+    },600);
+  }catch(e){
+    console.error("Cmp save failed:",e);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// KEYBOARD NAVIGATION
+// ═══════════════════════════════════════════════════════════════════════════
 document.addEventListener("keydown",e=>{
+  if($("shortcuts").classList.contains("open")){
+    if(e.key==="Escape")$("shortcuts").classList.remove("open");
+    return;
+  }
+
+  // Questionnaire mode keyboard nav
+  if(currentMode==="questionnaire"){
+    if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT"){
+      if(e.key==="Enter"&&e.ctrlKey){e.preventDefault();qSave()}
+      if(e.key==="Escape"){e.target.blur()}
+      return;
+    }
+    if(e.key==="ArrowRight"||e.key==="ArrowDown"){qNavigate(1)}
+    else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){qNavigate(-1)}
+    else if(e.key==="Enter"){qSave()}
+    return;
+  }
+
+  // Comparison mode keyboard nav
+  if(currentMode==="comparison"){
+    if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT"){
+      if(e.key==="Enter"&&e.ctrlKey){e.preventDefault();cmpSave()}
+      if(e.key==="Escape"){e.target.blur()}
+      return;
+    }
+    if(e.key==="ArrowRight"){cmpGo(cmpIndex+1)}
+    else if(e.key==="ArrowLeft"){cmpGo(cmpIndex-1)}
+    else if(e.key==="Enter"){cmpSave()}
+    return;
+  }
+
+  // Review mode keyboard nav (unchanged)
   if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT"){
     if(e.key==="Enter"&&e.ctrlKey){e.preventDefault();saveAndNext()}
     if(e.key==="Escape"){e.target.blur()}
@@ -610,6 +1341,7 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="Escape"){$("shortcuts").classList.remove("open");backToPackages()}
 });
 
+// ─── Init ──────────────────────────────────────────────────────────────────
 loadPackages();
 </script>
 </body>

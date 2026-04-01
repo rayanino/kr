@@ -6,6 +6,14 @@ Usage:
 
 Opens browser automatically. Excerpts update live as the pipeline writes them.
 Feedback saves to {output-dir}/{package}/owner_feedback.jsonl.
+
+Additional modes served from integration_tests/questionnaire/:
+  GET  /api/questionnaire            — 40 structured interactions
+  GET  /api/questionnaire/responses  — all saved responses (keyed by id)
+  POST /api/questionnaire/response   — upsert one response
+  GET  /api/comparisons              — comparison pairs (before/after excerpts)
+  GET  /api/comparison/responses     — all saved comparison verdicts
+  POST /api/comparison/response      — upsert one comparison verdict
 """
 from __future__ import annotations
 
@@ -20,6 +28,10 @@ from pathlib import Path
 from urllib.parse import unquote
 
 
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
 def _content_hash(excerpt: dict) -> str:
     """SHA-256 of key fields — detects stale feedback on changed excerpts."""
     payload = (
@@ -32,11 +44,58 @@ def _content_hash(excerpt: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
+def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
+    """Read path (JSONL), upsert entry keyed by key_field, atomic-write back.
+
+    Returns total number of records after upsert.
+    """
+    existing: dict[str, str] = {}
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                stripped = line.strip()
+                if stripped:
+                    try:
+                        old = json.loads(stripped)
+                        existing[old[key_field]] = stripped
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+    existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
+    temp = path.with_suffix(path.suffix + ".tmp")
+    with open(temp, "w", encoding="utf-8") as f:
+        for line in existing.values():
+            f.write(line + "\n")
+    temp.replace(path)
+    return len(existing)
+
+
+def _read_jsonl_keyed(path: Path, key_field: str) -> dict:
+    """Read a JSONL file and return a dict keyed by key_field."""
+    result: dict = {}
+    if not path.exists():
+        return result
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            stripped = line.strip()
+            if stripped:
+                try:
+                    entry = json.loads(stripped)
+                    result[entry[key_field]] = entry
+                except (json.JSONDecodeError, KeyError):
+                    pass
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Request handler
+# ---------------------------------------------------------------------------
+
 class ReviewHandler(SimpleHTTPRequestHandler):
     """Routes API requests and serves the HTML viewer."""
 
     output_dir: Path
     viewer_html: Path
+    questionnaire_dir: Path  # integration_tests/questionnaire/
 
     def log_message(self, fmt: str, *args: object) -> None:
         # Quieter logging — only show API calls
@@ -52,6 +111,8 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         if not requested.is_dir():
             return None
         return requested
+
+    # ------------------------------------------------------------------ routing
 
     def do_GET(self) -> None:
         path = unquote(self.path).split("?")[0]
@@ -72,6 +133,16 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 self.send_error(403, "Invalid package path")
                 return
             self._api_get_feedback(pkg)
+        # ── Questionnaire endpoints ──────────────────────────────────────────
+        elif path == "/api/questionnaire":
+            self._api_get_questionnaire()
+        elif path == "/api/questionnaire/responses":
+            self._api_get_questionnaire_responses()
+        # ── Comparison endpoints ─────────────────────────────────────────────
+        elif path == "/api/comparisons":
+            self._api_get_comparisons()
+        elif path == "/api/comparison/responses":
+            self._api_get_comparison_responses()
         else:
             self.send_error(404)
 
@@ -83,8 +154,14 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 self.send_error(403, "Invalid package path")
                 return
             self._api_post_feedback(pkg)
+        elif path == "/api/questionnaire/response":
+            self._api_post_questionnaire_response()
+        elif path == "/api/comparison/response":
+            self._api_post_comparison_response()
         else:
             self.send_error(404)
+
+    # ------------------------------------------------------------------ helpers
 
     def _serve_html(self) -> None:
         content = self.viewer_html.read_bytes()
@@ -101,6 +178,18 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def _read_body(self) -> dict | None:
+        """Read and parse JSON request body. Returns None on error."""
+        length = int(self.headers.get("Content-Length", 0))
+        body = self.rfile.read(length).decode("utf-8")
+        try:
+            return json.loads(body)
+        except json.JSONDecodeError:
+            self._json_response({"error": "Invalid JSON"}, 400)
+            return None
+
+    # ------------------------------------------------------------------ review endpoints (unchanged)
 
     def _api_packages(self) -> None:
         """List packages with excerpt counts."""
@@ -148,27 +237,13 @@ class ReviewHandler(SimpleHTTPRequestHandler):
     def _api_get_feedback(self, pkg: str) -> None:
         """Read existing feedback."""
         fb_file = self.output_dir / pkg / "owner_feedback.jsonl"
-        feedback = {}
-        if fb_file.exists():
-            with open(fb_file, encoding="utf-8") as f:
-                for line in f:
-                    stripped = line.strip()
-                    if stripped:
-                        try:
-                            entry = json.loads(stripped)
-                            feedback[entry["excerpt_id"]] = entry
-                        except (json.JSONDecodeError, KeyError):
-                            pass
+        feedback = _read_jsonl_keyed(fb_file, "excerpt_id")
         self._json_response(feedback)
 
     def _api_post_feedback(self, pkg: str) -> None:
         """Append feedback entry to owner_feedback.jsonl."""
-        length = int(self.headers.get("Content-Length", 0))
-        body = self.rfile.read(length).decode("utf-8")
-        try:
-            entry = json.loads(body)
-        except json.JSONDecodeError:
-            self._json_response({"error": "Invalid JSON"}, 400)
+        entry = self._read_body()
+        if entry is None:
             return
 
         fb_file = self.output_dir / pkg / "owner_feedback.jsonl"
@@ -178,31 +253,152 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             self._json_response({"error": f"Cannot create directory: {exc}"}, 500)
             return
 
-        # Read existing, deduplicate by excerpt_id (last entry wins)
-        existing: dict[str, str] = {}
-        if fb_file.exists():
-            with open(fb_file, encoding="utf-8") as f:
+        total = _upsert_jsonl(fb_file, "excerpt_id", entry)
+        self._json_response({"ok": True, "total": total})
+
+    # ------------------------------------------------------------------ questionnaire endpoints
+
+    def _api_get_questionnaire(self) -> None:
+        """Return the 40 structured interactions from interactions.json."""
+        interactions_file = self.questionnaire_dir / "interactions.json"
+        if not interactions_file.exists():
+            self._json_response({"error": "interactions.json not found"}, 404)
+            return
+        try:
+            with open(interactions_file, encoding="utf-8") as f:
+                data = json.load(f)
+            self._json_response(data)
+        except (json.JSONDecodeError, OSError) as exc:
+            self._json_response({"error": str(exc)}, 500)
+
+    def _api_get_questionnaire_responses(self) -> None:
+        """Return all saved questionnaire responses keyed by interaction id."""
+        responses_file = self.questionnaire_dir / "questionnaire_responses.jsonl"
+        responses = _read_jsonl_keyed(responses_file, "interaction_id")
+        self._json_response(responses)
+
+    def _api_post_questionnaire_response(self) -> None:
+        """Upsert one questionnaire response."""
+        entry = self._read_body()
+        if entry is None:
+            return
+        if "interaction_id" not in entry:
+            self._json_response({"error": "Missing interaction_id"}, 400)
+            return
+
+        responses_file = self.questionnaire_dir / "questionnaire_responses.jsonl"
+        try:
+            responses_file.parent.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            self._json_response({"error": f"Cannot create directory: {exc}"}, 500)
+            return
+
+        total = _upsert_jsonl(responses_file, "interaction_id", entry)
+        self._json_response({"ok": True, "total": total})
+
+    # ------------------------------------------------------------------ comparison endpoints
+
+    def _api_get_comparisons(self) -> None:
+        """Return before/after comparison pairs.
+
+        Pairs are built by matching excerpts from smoke_api/taysir (new hardened prompts)
+        against campaign_20260331/taysir (old prompts) by div_path position.
+        Each pair: { pair_id, division, before: {...}, after: {...} }
+        """
+        before_file = self.output_dir / "smoke_api" / "taysir" / "excerpts.jsonl"
+        after_file = self.output_dir / "campaign_20260331" / "taysir" / "excerpts.jsonl"
+
+        def _load(path: Path) -> list[dict]:
+            items: list[dict] = []
+            if not path.exists():
+                return items
+            with open(path, encoding="utf-8") as f:
                 for line in f:
                     stripped = line.strip()
                     if stripped:
                         try:
-                            old = json.loads(stripped)
-                            existing[old["excerpt_id"]] = stripped
-                        except (json.JSONDecodeError, KeyError):
+                            items.append(json.loads(stripped))
+                        except json.JSONDecodeError:
                             pass
+            return items
 
-        # Upsert
-        existing[entry["excerpt_id"]] = json.dumps(entry, ensure_ascii=False)
+        before_all = _load(before_file)
+        after_all = _load(after_file)
 
-        # Atomic write
-        temp = fb_file.with_suffix(".jsonl.tmp")
-        with open(temp, "w", encoding="utf-8") as f:
-            for line in existing.values():
-                f.write(line + "\n")
-        temp.replace(fb_file)
+        # Index after-excerpts by div_path string for fast lookup
+        after_by_div: dict[str, list[dict]] = {}
+        for ex in after_all:
+            key = "/".join(ex.get("div_path") or [])
+            after_by_div.setdefault(key, []).append(ex)
 
-        self._json_response({"ok": True, "total": len(existing)})
+        pairs: list[dict] = []
+        used_after: set[str] = set()
 
+        for before_ex in before_all:
+            div_key = "/".join(before_ex.get("div_path") or [])
+            candidates = after_by_div.get(div_key, [])
+            # Pick the first unused candidate in the same division
+            matched_after: dict | None = None
+            for cand in candidates:
+                cid = cand.get("excerpt_id", "")
+                if cid not in used_after:
+                    matched_after = cand
+                    used_after.add(cid)
+                    break
+
+            pair_id = f"pair_{len(pairs)+1:03d}"
+            pairs.append({
+                "pair_id": pair_id,
+                "division": div_key or "(root)",
+                "before": {
+                    "excerpt_id": before_ex.get("excerpt_id"),
+                    "primary_text": before_ex.get("primary_text"),
+                    "primary_function": before_ex.get("primary_function"),
+                    "self_containment": before_ex.get("self_containment"),
+                    "div_path": before_ex.get("div_path"),
+                    "source": "smoke_api/taysir (new prompts)",
+                },
+                "after": {
+                    "excerpt_id": matched_after.get("excerpt_id") if matched_after else None,
+                    "primary_text": matched_after.get("primary_text") if matched_after else None,
+                    "primary_function": matched_after.get("primary_function") if matched_after else None,
+                    "self_containment": matched_after.get("self_containment") if matched_after else None,
+                    "div_path": matched_after.get("div_path") if matched_after else None,
+                    "source": "campaign_20260331/taysir (old prompts)" if matched_after else None,
+                } if matched_after else None,
+            })
+
+        self._json_response(pairs)
+
+    def _api_get_comparison_responses(self) -> None:
+        """Return all saved comparison verdicts keyed by pair_id."""
+        responses_file = self.questionnaire_dir / "comparison_responses.jsonl"
+        responses = _read_jsonl_keyed(responses_file, "pair_id")
+        self._json_response(responses)
+
+    def _api_post_comparison_response(self) -> None:
+        """Upsert one comparison verdict."""
+        entry = self._read_body()
+        if entry is None:
+            return
+        if "pair_id" not in entry:
+            self._json_response({"error": "Missing pair_id"}, 400)
+            return
+
+        responses_file = self.questionnaire_dir / "comparison_responses.jsonl"
+        try:
+            responses_file.parent.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            self._json_response({"error": f"Cannot create directory: {exc}"}, 500)
+            return
+
+        total = _upsert_jsonl(responses_file, "pair_id", entry)
+        self._json_response({"ok": True, "total": total})
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
 
 def main() -> None:
     if len(sys.argv) < 2:
@@ -220,17 +416,29 @@ def main() -> None:
         print(f"Error: {viewer_html} not found")
         sys.exit(1)
 
+    # Questionnaire dir is always integration_tests/questionnaire/ relative to repo root
+    # (one level up from tools/)
+    repo_root = Path(__file__).parent.parent
+    questionnaire_dir = repo_root / "integration_tests" / "questionnaire"
+    if not questionnaire_dir.exists():
+        print(f"Warning: questionnaire dir not found at {questionnaire_dir}")
+        print("Questionnaire and Comparison modes will not function.")
+
     ReviewHandler.output_dir = output_dir
     ReviewHandler.viewer_html = viewer_html
+    ReviewHandler.questionnaire_dir = questionnaire_dir
 
     port = int(os.environ.get("KR_REVIEW_PORT", "8384"))
     server = HTTPServer(("127.0.0.1", port), ReviewHandler)
 
     url = f"http://127.0.0.1:{port}/"
     print(f"KR Excerpt Reviewer")
-    print(f"  Output dir: {output_dir}")
-    print(f"  Viewer:     {url}")
-    print(f"  Feedback:   {{package}}/owner_feedback.jsonl")
+    print(f"  Output dir:       {output_dir}")
+    print(f"  Questionnaire:    {questionnaire_dir}")
+    print(f"  Viewer:           {url}")
+    print(f"  Feedback:         {{package}}/owner_feedback.jsonl")
+    print(f"  Q responses:      integration_tests/questionnaire/questionnaire_responses.jsonl")
+    print(f"  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
     print(f"  Press Ctrl+C to stop\n")
 
     webbrowser.open(url)
