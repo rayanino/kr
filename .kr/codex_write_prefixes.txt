@@ -1,0 +1,11 @@
+# Repo-root-relative runtime artifact prefixes only.
+overnight_codex/backlog.json
+overnight_codex/state.json
+overnight_codex/progress.md
+overnight_codex/MORNING_REPORT.md
+overnight_codex/CUMULATIVE_FINDINGS.md
+overnight_codex/FINDINGS_TRACKER.md
+overnight_codex/queue/
+overnight_codex/results/
+overnight_codex/run_snapshots/
+overnight_codex/worktrees/
