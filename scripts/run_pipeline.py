@@ -261,33 +261,54 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
     from engines.passaging.contracts import PassageStream
     from engines.atomization.contracts import AtomStream
     from engines.excerpting.contracts import ExcerptStream
-    from engines.taxonomy.contracts import PlacedExcerptAdditions, TreeNode
+    # Taxonomy: contracts_core.py is the authoritative runtime contract.
+    # contracts.py is the legacy full-SPEC model (includes deferred features).
+    from engines.taxonomy.contracts_core import PlacementAdditions
+    from engines.synthesis.contracts import TaxonomyPlacedExcerpt
 
     def _validate_taxonomy_output(data: dict) -> list[str]:
-        """Validate taxonomy output's placements and tree against contracts."""
-        errors = []
-        # Validate tree
-        tree = data.get("tree")
-        if tree is None:
-            errors.append("Missing 'tree' key in taxonomy output")
-        else:
-            try:
-                TreeNode.model_validate(tree)
-            except Exception as e:
-                errors.append(f"tree: {e}")
+        """Validate taxonomy output against runtime contracts.
 
-        # Validate each placement
+        Validates placement additions against contracts_core.PlacementAdditions
+        (the authoritative runtime shape). Legacy tracer-era shapes
+        (contracts.PlacedExcerptAdditions, contracts.TreeNode) are NOT
+        validated — they are not the active boundary.
+
+        A1 partial: full synthesis-side validation against TaxonomyPlacedExcerpt
+        is deferred. The tracer still emits an aggregate {tree, placements}
+        structure with legacy fields. Once the tracer is updated to emit the
+        runtime per-excerpt shape, enable TaxonomyPlacedExcerpt validation here.
+        """
+        errors = []
         placements = data.get("placements", [])
         if not placements:
             errors.append("No placements in taxonomy output")
+
+        # Validate each placement's taxonomy additions against runtime contract
         for i, p in enumerate(placements):
             try:
-                PlacedExcerptAdditions.model_validate(p)
+                PlacementAdditions.model_validate(p)
             except Exception as e:
-                errors.append(f"placements[{i}]: {e}")
+                errors.append(f"placements[{i}] vs PlacementAdditions: {e}")
                 if i >= 2:  # Cap at 3 errors to avoid flood
-                    errors.append(f"... and {len(placements) - i - 1} more placements not checked")
+                    errors.append(
+                        f"... and {len(placements) - i - 1} more placements not checked"
+                    )
                     break
+
+        # A1 partial: synthesis-side input contract.
+        # TaxonomyPlacedExcerpt requires upstream excerpt fields (excerpt_id,
+        # source_id, primary_text) merged with PlacementAdditions. The tracer
+        # does not merge upstream fields, so this check is expected to fail
+        # until the tracer is updated. Report only the first failure.
+        for i, p in enumerate(placements[:1]):
+            try:
+                TaxonomyPlacedExcerpt.model_validate(p)
+            except Exception as e:
+                errors.append(
+                    f"[A1-partial] placements[{i}] vs TaxonomyPlacedExcerpt: {e}"
+                )
+
         return errors
 
     return [

@@ -24,8 +24,15 @@ ENGINES_DIR = REPO_ROOT / "engines"
 
 
 def find_contract_files() -> list[Path]:
-    """Find all contracts.py files across engines."""
-    return sorted(ENGINES_DIR.rglob("contracts.py"))
+    """Find all contract files across engines.
+
+    Includes both contracts.py and contracts_core.py. Taxonomy uses
+    contracts_core.py as the authoritative runtime contract; contracts.py
+    is the legacy full-SPEC model with deferred features.
+    """
+    files = set(ENGINES_DIR.rglob("contracts.py"))
+    files |= set(ENGINES_DIR.rglob("contracts_core.py"))
+    return sorted(files)
 
 
 def extract_field_constraints(filepath: Path) -> dict[str, dict]:
@@ -57,7 +64,9 @@ def extract_field_constraints(filepath: Path) -> dict[str, dict]:
             
             constraints = {}
             for constraint in ["ge", "le", "gt", "lt", "min_length", "max_length"]:
-                c_match = re.search(rf"{constraint}\s*=\s*([^,\)]+)", field_args)
+                # Word boundary (\b) prevents matching substrings
+                # (e.g., "lt" inside "default")
+                c_match = re.search(rf"\b{constraint}\s*=\s*([^,\)]+)", field_args)
                 if c_match:
                     constraints[constraint] = c_match.group(1).strip()
             

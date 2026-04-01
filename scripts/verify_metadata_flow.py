@@ -29,6 +29,14 @@ ENGINE_DIRS = {
     name: Path(f'engines/{name}/SPEC.md') for name in PIPELINE
 }
 
+# Engines where the SPEC output section describes more fields than the
+# runtime contract actually emits (deferred features, human-gate, etc.).
+# For these engines, SPEC-based field analysis overestimates the active
+# boundary. The authoritative runtime contract file is listed here.
+_DUAL_CONTRACT_ENGINES = {
+    'taxonomy': 'engines/taxonomy/contracts_core.py',
+}
+
 
 def extract_field_names(spec_text: str, section_pattern: str) -> set:
     """Extract field names mentioned in a SPEC section.
@@ -123,8 +131,16 @@ def print_result(result: dict):
         print(f"  ERROR: {result['error']}")
         return
 
+    boundary = result['boundary']
     print(f"\n{'='*60}")
-    print(f"  Boundary: {result['boundary']}")
+    print(f"  Boundary: {boundary}")
+
+    # Flag dual-contract engines where SPEC overstates the runtime boundary
+    upstream_name = boundary.split(' → ')[0].strip() if ' → ' in boundary else ''
+    if upstream_name in _DUAL_CONTRACT_ENGINES:
+        print(f"  NOTE: {upstream_name} runtime contract is {_DUAL_CONTRACT_ENGINES[upstream_name]}")
+        print(f"        SPEC output section includes deferred fields not in runtime shape.")
+
     print(f"  Upstream output fields: {result['upstream_output_fields']}")
     print(f"  Downstream input fields: {result['downstream_input_fields']}")
     print(f"  Downstream output fields: {result['downstream_output_fields']}")
