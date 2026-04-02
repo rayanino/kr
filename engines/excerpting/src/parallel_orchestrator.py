@@ -305,7 +305,7 @@ def _process_chunk(
     Uses the Semaphore only around LLM calls.
     Returns the updated context with results or error.
     """
-    from pydantic import ValidationError
+    from pydantic import ValidationError  # pyright: ignore[reportMissingImports]
 
     from engines.excerpting.src.phase2_classify import (
         classify_chunk,
@@ -314,6 +314,7 @@ def _process_chunk(
     )
     from engines.excerpting.src.phase2_group import group_chunk, verify_units
     from engines.excerpting.src.phase3_consensus import (
+        _build_gate_entry,
         _needs_consensus,
         check_gate_triggers,
         resolve_consensus,
@@ -711,6 +712,14 @@ def _process_chunk(
                                     updated = updated.model_copy(
                                         update={"gate_flags": gate_flags}
                                     )
+                                    for gc in gate_codes:
+                                        ctx.gate_entries.append(
+                                            _build_gate_entry(
+                                                updated,
+                                                gc,
+                                                source_metadata or {},
+                                            )
+                                        )
 
                                 additional_gates = check_gate_triggers(
                                     updated,
@@ -728,10 +737,11 @@ def _process_chunk(
                                             }
                                         )
                                     ctx.gate_entries.append(
-                                        {
-                                            "excerpt_id": updated.excerpt_id,
-                                            "gate_code": gc,
-                                        }
+                                        _build_gate_entry(
+                                            updated,
+                                            gc,
+                                            source_metadata or {},
+                                        )
                                     )
 
                                 resolved.append(updated)

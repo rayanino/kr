@@ -21,6 +21,7 @@ from engines.excerpting.src.parallel_orchestrator import (
     _process_chunk,
     run_parallel_pipeline,
 )
+from engines.excerpting.tests.conftest import _make_excerpt_record
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -412,6 +413,98 @@ class TestProcessChunk:
         progress.mark_failed.assert_called_once_with(
             chunk.chunk_id, "phase3_consensus", "EX-M-011"
         )
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus.resolve_consensus")
+    @patch("engines.excerpting.src.phase3_consensus.verify_chunk")
+    @patch("engines.excerpting.src.phase3_consensus.check_gate_triggers")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_emits_full_gate_entries(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_check_gates: MagicMock,
+        mock_verify_chunk: MagicMock,
+        mock_resolve_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_gate_test",
+            div_id=chunk.div_id,
+            unit_index=0,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = [{"verification_type": "school"}]
+
+        vi = MagicMock()
+        vi.item_index = 0
+        mock_verify_chunk.return_value = (
+            MagicMock(items=[vi]),
+            [(excerpt, [{"verification_type": "SCHOOL_ATTRIBUTION"}])],
+        )
+        mock_resolve_consensus.return_value = (excerpt, None, ["EX-G-001"])
+        mock_check_gates.return_value = ["EX-G-003"]
+
+        mock_build_det.return_value = [excerpt]
+        mock_enrich.return_value = MagicMock()
+        mock_apply_enrich.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=MagicMock(),
+            escalation_client=MagicMock(),
+            config=config,
+            controller=controller,
+            progress=None,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={"source_school": "حنبلي"},
+        )
+
+        assert result.completed is True
+        assert [entry["gate_code"] for entry in result.gate_entries] == [
+            "EX-G-001",
+            "EX-G-003",
+        ]
+        for entry in result.gate_entries:
+            assert entry["excerpt_id"] == "exc_gate_test"
+            assert entry["status"] == "pending"
+            assert "timestamp" in entry
+            assert "context" in entry
+            assert "primary_text_snippet" in entry["context"]
 
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
     def test_process_chunk_classify_failure(
