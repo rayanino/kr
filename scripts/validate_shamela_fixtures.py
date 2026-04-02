@@ -10,8 +10,11 @@ Usage:
 
 from __future__ import annotations
 
+import argparse
+import json
 import re
 import sys
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 PAGE_TEXT_START = "<div class='PageText'>"
@@ -26,9 +29,36 @@ PAGE_NUMBER_SPAN_RE = re.compile(
 FN_SEPARATOR_RE = re.compile(r"<hr\s+[^>]*width\s*=\s*['\"]?(\d{2,3})")
 
 
-def validate_fixture(path: Path) -> list[str]:
-    """Validate a single Shamela HTML fixture. Returns list of warnings."""
-    warnings: list[str] = []
+@dataclass(frozen=True)
+class FixtureFinding:
+    """One fixture validation finding."""
+    path: str
+    severity: str
+    code: str
+    message: str
+
+
+def _add_finding(
+    findings: list[FixtureFinding],
+    *,
+    path: Path,
+    severity: str,
+    code: str,
+    message: str,
+) -> None:
+    findings.append(
+        FixtureFinding(
+            path=str(path),
+            severity=severity,
+            code=code,
+            message=message,
+        )
+    )
+
+
+def validate_fixture(path: Path) -> list[FixtureFinding]:
+    """Validate a single Shamela HTML fixture. Returns structured findings."""
+    findings: list[FixtureFinding] = []
 
     if path.is_dir():
         htm_files = sorted(
@@ -38,20 +68,38 @@ def validate_fixture(path: Path) -> list[str]:
         htm_files = [path]
 
     if not htm_files:
-        warnings.append(f"No .htm/.html files found in {path}")
-        return warnings
+        _add_finding(
+            findings,
+            path=path,
+            severity="error",
+            code="missing_html",
+            message=f"No .htm/.html files found in {path}",
+        )
+        return findings
 
     for htm_file in htm_files:
         try:
             text = htm_file.read_text(encoding="utf-8")
         except UnicodeDecodeError:
-            warnings.append(f"{htm_file.name}: not valid UTF-8")
+            _add_finding(
+                findings,
+                path=htm_file,
+                severity="error",
+                code="invalid_utf8",
+                message=f"{htm_file.name}: not valid UTF-8",
+            )
             continue
 
         # Check PageText divs exist
         page_count = text.count(PAGE_TEXT_START)
         if page_count == 0:
-            warnings.append(f"{htm_file.name}: no PageText divs found")
+            _add_finding(
+                findings,
+                path=htm_file,
+                severity="error",
+                code="missing_pagetext",
+                message=f"{htm_file.name}: no PageText divs found",
+            )
             continue
 
         # Split into page blocks
@@ -75,14 +123,44 @@ def validate_fixture(path: Path) -> list[str]:
             has_page_num = PAGE_NUM_RE.search(block) is not None
             has_page_num_span = PAGE_NUMBER_SPAN_RE.search(block) is not None
             has_metadata_title = METADATA_TITLE_RE.search(block) is not None
+            has_category = "القسم" in block
+            is_metadata_page = not has_page_num and not seen_numbered
 
             # Check: metadata pages should NOT have PageNumber spans
-            if not has_page_num and not seen_numbered:
+            if is_metadata_page:
                 # This looks like a metadata page
                 if has_page_num_span:
-                    warnings.append(
-                        f"{htm_file.name} page {i+1}: metadata page has "
-                        f"PageNumber span (real Shamela metadata pages don't)"
+                    _add_finding(
+                        findings,
+                        path=htm_file,
+                        severity="warning",
+                        code="metadata_has_page_number",
+                        message=(
+                            f"{htm_file.name} page {i+1}: metadata page has "
+                            f"PageNumber span (real Shamela metadata pages don't)"
+                        ),
+                    )
+                if not has_metadata_title:
+                    _add_finding(
+                        findings,
+                        path=htm_file,
+                        severity="warning",
+                        code="metadata_missing_title_span",
+                        message=(
+                            f"{htm_file.name} page {i+1}: metadata page missing "
+                            f"expected <span class='title'> header"
+                        ),
+                    )
+                if not has_category:
+                    _add_finding(
+                        findings,
+                        path=htm_file,
+                        severity="warning",
+                        code="metadata_missing_category",
+                        message=(
+                            f"{htm_file.name} page {i+1}: metadata page missing "
+                            f"'القسم' field"
+                        ),
                     )
             else:
                 seen_numbered = True
@@ -92,34 +170,94 @@ def validate_fixture(path: Path) -> list[str]:
             if pn_match:
                 digits = pn_match.group(1)
                 if any(c.isascii() and c.isdigit() for c in digits):
-                    warnings.append(
-                        f"{htm_file.name} page {i+1}: uses Western digits "
-                        f"'{digits}' (most Shamela uses Arabic-Indic ٠-٩)"
+                    _add_finding(
+                        findings,
+                        path=htm_file,
+                        severity="warning",
+                        code="western_page_digits",
+                        message=(
+                            f"{htm_file.name} page {i+1}: uses Western digits "
+                            f"'{digits}' (most Shamela uses Arabic-Indic ٠-٩)"
+                        ),
                     )
 
             # Check: content pages should have PageHead div
             if has_page_num and not PAGE_HEAD_RE.search(block):
-                # Not all pages have PageHead (some simplified fixtures)
-                pass  # Advisory only, don't warn
+                _add_finding(
+                    findings,
+                    path=htm_file,
+                    severity="warning",
+                    code="missing_pagehead",
+                    message=(
+                        f"{htm_file.name} page {i+1}: numbered content page "
+                        f"missing PageHead div"
+                    ),
+                )
 
             # Check: footnote separator width should be in 80-100 range
             for m in FN_SEPARATOR_RE.finditer(block):
                 width = int(m.group(1))
                 if width < 80 or width > 100:
-                    warnings.append(
-                        f"{htm_file.name} page {i+1}: <hr> width={width} "
-                        f"outside 80-100 range (not a footnote separator)"
+                    _add_finding(
+                        findings,
+                        path=htm_file,
+                        severity="warning",
+                        code="hr_width_out_of_range",
+                        message=(
+                            f"{htm_file.name} page {i+1}: <hr> width={width} "
+                            f"outside 80-100 range (not a footnote separator)"
+                        ),
                     )
 
-    return warnings
+        if page_count < 2:
+            _add_finding(
+                findings,
+                path=htm_file,
+                severity="warning",
+                code="metadata_only_fixture",
+                message=(
+                    f"{htm_file.name}: fixture has only {page_count} PageText block(s); "
+                    f"it may be metadata-only or too small to exercise body-page logic"
+                ),
+            )
+
+    return findings
+
+
+def build_summary(findings: list[FixtureFinding], target_count: int) -> dict:
+    """Build a machine-readable validation summary."""
+    by_severity: dict[str, int] = {"error": 0, "warning": 0}
+    by_code: dict[str, int] = {}
+    files: dict[str, int] = {}
+    for finding in findings:
+        by_severity[finding.severity] = by_severity.get(finding.severity, 0) + 1
+        by_code[finding.code] = by_code.get(finding.code, 0) + 1
+        files[finding.path] = files.get(finding.path, 0) + 1
+
+    score = max(0, 100 - by_severity.get("error", 0) * 25 - by_severity.get("warning", 0) * 5)
+    return {
+        "targets_checked": target_count,
+        "finding_count": len(findings),
+        "by_severity": by_severity,
+        "by_code": by_code,
+        "affected_files": files,
+        "quality_score": score,
+        "findings": [asdict(f) for f in findings],
+    }
 
 
 def main() -> int:
     """Validate fixtures and print results."""
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    if len(sys.argv) > 1:
-        targets = [Path(sys.argv[1])]
+    parser = argparse.ArgumentParser(description="Validate Shamela HTML fixtures.")
+    parser.add_argument("fixture_path", nargs="?", help="Optional fixture file or directory to validate")
+    parser.add_argument("--json-out", type=Path, default=None, help="Optional path to write a machine-readable JSON report")
+    parser.add_argument("--fail-on-warning", action="store_true", help="Return non-zero when warnings are present")
+    args = parser.parse_args()
+
+    if args.fixture_path:
+        targets = [Path(args.fixture_path)]
     else:
         # Validate all fixture directories
         targets = []
@@ -139,19 +277,38 @@ def main() -> int:
         print("No fixtures found to validate.")
         return 1
 
-    total_warnings = 0
+    all_findings: list[FixtureFinding] = []
     for target in targets:
-        warnings = validate_fixture(target)
-        if warnings:
+        findings = validate_fixture(target)
+        all_findings.extend(findings)
+        if findings:
             print(f"\n{target.name}:")
-            for w in warnings:
-                print(f"  - {w}")
-            total_warnings += len(warnings)
+            for finding in findings:
+                print(f"  - [{finding.severity.upper()}:{finding.code}] {finding.message}")
 
-    if total_warnings == 0:
+    if not all_findings:
         print(f"All {len(targets)} fixtures valid.")
     else:
-        print(f"\n{total_warnings} warning(s) across {len(targets)} fixtures.")
+        summary = build_summary(all_findings, len(targets))
+        print(
+            f"\n{summary['finding_count']} finding(s) across {len(targets)} targets. "
+            f"Score={summary['quality_score']}/100"
+        )
+        print(
+            f"Errors={summary['by_severity'].get('error', 0)} "
+            f"Warnings={summary['by_severity'].get('warning', 0)}"
+        )
+        if args.json_out is not None:
+            args.json_out.write_text(
+                json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            print(f"JSON report written to: {args.json_out}")
+
+        if summary["by_severity"].get("error", 0) > 0:
+            return 2
+        if args.fail_on_warning and summary["by_severity"].get("warning", 0) > 0:
+            return 3
 
     return 0
 
