@@ -27,11 +27,28 @@ from .conftest import _make_excerpt_record
 
 def _make_gate_entry(**overrides: object) -> dict[str, object]:
     """Factory for SPEC-complete gate_queue.jsonl rows."""
+    gate_code = str(overrides.get("gate_code", "EX-G-001"))
+    context_override = overrides.pop("context", None)
+    if gate_code == "EX-G-002":
+        context: dict[str, object] = {
+            "primary_text": "نص عربي كامل",
+            "primary_text_snippet": "نص عربي",
+            "self_containment_notes": "يحتاج إلى السياق السابق",
+            "adjacent_teaching_units": [],
+            "failed_criteria_context": "يحتاج إلى السياق السابق",
+        }
+        if isinstance(context_override, dict):
+            context.update(context_override)
+    else:
+        context = {"primary_text_snippet": "نص عربي"}
+        if isinstance(context_override, dict):
+            context.update(context_override)
+
     entry: dict[str, object] = {
         "excerpt_id": "exc_gate_0_0_0",
-        "gate_code": "EX-G-001",
+        "gate_code": gate_code,
         "timestamp": "2026-03-24T00:00:00+00:00",
-        "context": {"primary_text_snippet": "نص عربي"},
+        "context": context,
         "status": "pending",
     }
     entry.update(overrides)
@@ -264,6 +281,24 @@ class TestWriteGateQueue:
         with pytest.raises(ResumeMergeError, match="status must be 'pending'"):
             write_gate_queue(
                 [_make_gate_entry(status="resolved")],
+                tmp_path,
+            )
+
+    def test_ex_g_002_missing_dependency_context_raises(self, tmp_path: Path) -> None:
+        """EX-G-002 gate rows must include owner-actionable dependency context."""
+        with pytest.raises(ResumeMergeError, match="self_containment_notes"):
+            write_gate_queue(
+                [
+                    _make_gate_entry(
+                        gate_code="EX-G-002",
+                        context={
+                            "primary_text_snippet": "نص عربي",
+                            "self_containment_notes": "",
+                            "adjacent_teaching_units": [],
+                            "failed_criteria_context": "سبب الاعتماد",
+                        },
+                    )
+                ],
                 tmp_path,
             )
 

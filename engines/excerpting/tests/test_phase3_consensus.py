@@ -1071,12 +1071,19 @@ class TestGateEntryAssessments:
         assert a["resolution_method"] == "all_3_disagree_gate"
 
     def test_gate_entry_ex_g_002_contains_dependency_notes(self) -> None:
-        """Owner-facing EX-G-002 gate entries must carry dependency notes."""
+        """Owner-facing EX-G-002 gate entries must carry dependency + adjacent context."""
         notes = "يتوقف فهم هذا الموضع على الفقرة السابقة"
+        previous = _make_excerpt_record(
+            excerpt_id="exc_prev",
+            unit_index=0,
+            primary_text="هذا هو السياق السابق الذي يعتمد عليه الكلام",
+        )
         exc = _make_excerpt_record(
+            excerpt_id="exc_dep",
             self_containment=SelfContainmentLevel.DEPENDENT,
             self_containment_notes=notes,
             context_hint=None,
+            unit_index=1,
             consensus_metadata=ConsensusRecord(decisions=[
                 ConsensusDecision(
                     decision_type="self_containment",
@@ -1090,8 +1097,21 @@ class TestGateEntryAssessments:
                 ),
             ]),
         )
-        entry = _build_gate_entry(exc, ExcerptingErrorCodes.EX_G_002, _SOURCE_META)
+        following = _make_excerpt_record(
+            excerpt_id="exc_next",
+            unit_index=2,
+            primary_text="وهذا هو السياق اللاحق في نفس القطعة",
+        )
+        entry = _build_gate_entry(
+            exc,
+            ExcerptingErrorCodes.EX_G_002,
+            _SOURCE_META,
+            [previous, exc, following],
+        )
         assert entry["context"]["self_containment_notes"] == notes  # type: ignore[index]
+        assert entry["context"]["failed_criteria_context"] == notes  # type: ignore[index]
+        adjacent = entry["context"]["adjacent_teaching_units"]  # type: ignore[index]
+        assert [item["excerpt_id"] for item in adjacent] == ["exc_prev", "exc_next"]
         assessment = entry["context"]["assessments"][0]  # type: ignore[index]
         assert assessment["dependency_notes"] == notes
 

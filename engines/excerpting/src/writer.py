@@ -58,6 +58,27 @@ def _validate_gate_entry(
         raise ResumeMergeError(
             f"{source_desc}: context must be a non-empty object."
         )
+    if gate_code == "EX-G-002":
+        primary_text_snippet = context.get("primary_text_snippet")
+        self_containment_notes = context.get("self_containment_notes")
+        adjacent_teaching_units = context.get("adjacent_teaching_units")
+        failed_criteria_context = context.get("failed_criteria_context")
+        if not isinstance(primary_text_snippet, str) or not primary_text_snippet:
+            raise ResumeMergeError(
+                f"{source_desc}: EX-G-002 context must include non-empty primary_text_snippet."
+            )
+        if not isinstance(self_containment_notes, str) or not self_containment_notes:
+            raise ResumeMergeError(
+                f"{source_desc}: EX-G-002 context must include non-empty self_containment_notes."
+            )
+        if not isinstance(adjacent_teaching_units, list):
+            raise ResumeMergeError(
+                f"{source_desc}: EX-G-002 context must include adjacent_teaching_units list."
+            )
+        if not isinstance(failed_criteria_context, str) or not failed_criteria_context:
+            raise ResumeMergeError(
+                f"{source_desc}: EX-G-002 context must include non-empty failed_criteria_context."
+            )
     if status != "pending":
         raise ResumeMergeError(
             f"{source_desc}: status must be 'pending'."

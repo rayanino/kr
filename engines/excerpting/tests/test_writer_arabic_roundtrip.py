@@ -46,11 +46,28 @@ def _bytes_match(original: str, roundtripped: str) -> bool:
 
 def _make_gate_entry(**overrides: object) -> dict[str, object]:
     """Factory for SPEC-complete gate_queue.jsonl rows."""
+    gate_code = str(overrides.get("gate_code", "EX-G-001"))
+    context_override = overrides.pop("context", None)
+    if gate_code == "EX-G-002":
+        context: dict[str, object] = {
+            "primary_text": "نص عربي كامل",
+            "primary_text_snippet": "نص عربي",
+            "self_containment_notes": "يحتاج إلى السياق السابق",
+            "adjacent_teaching_units": [],
+            "failed_criteria_context": "يحتاج إلى السياق السابق",
+        }
+        if isinstance(context_override, dict):
+            context.update(context_override)
+    else:
+        context = {"primary_text_snippet": "نص عربي"}
+        if isinstance(context_override, dict):
+            context.update(context_override)
+
     entry: dict[str, object] = {
         "excerpt_id": "exc_gq_0_0_0",
-        "gate_code": "EX-G-001",
+        "gate_code": gate_code,
         "timestamp": "2026-03-24T00:00:00+00:00",
-        "context": {"primary_text_snippet": "نص عربي"},
+        "context": context,
         "status": "pending",
     }
     entry.update(overrides)

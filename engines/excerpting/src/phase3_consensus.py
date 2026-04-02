@@ -822,6 +822,7 @@ def _build_gate_entry(
     excerpt: ExcerptRecord,
     gate_code: str,
     source_metadata: dict[str, str],
+    chunk_excerpts: Optional[list[ExcerptRecord]] = None,
 ) -> dict[str, object]:
     """Build a gate queue entry per §7.3.4 format."""
     import datetime
@@ -844,16 +845,39 @@ def _build_gate_entry(
             if d.decision_type == "self_containment" and d.dependency_notes:
                 dependency_notes = d.dependency_notes
 
+    adjacent_teaching_units: list[dict[str, object]] = []
+    if chunk_excerpts:
+        ordered = sorted(chunk_excerpts, key=lambda exc: exc.unit_index)
+        for idx, candidate in enumerate(ordered):
+            if candidate.excerpt_id != excerpt.excerpt_id:
+                continue
+            for neighbor_idx in (idx - 1, idx + 1):
+                if 0 <= neighbor_idx < len(ordered):
+                    neighbor = ordered[neighbor_idx]
+                    adjacent_teaching_units.append(
+                        {
+                            "excerpt_id": neighbor.excerpt_id,
+                            "unit_index": neighbor.unit_index,
+                            "primary_text_snippet": neighbor.primary_text[:200],
+                            "self_containment": neighbor.self_containment.value,
+                            "self_containment_notes": neighbor.self_containment_notes,
+                        }
+                    )
+            break
+
     return {
         "excerpt_id": excerpt.excerpt_id,
         "gate_code": gate_code,
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "context": {
+            "primary_text": excerpt.primary_text,
             "primary_text_snippet": excerpt.primary_text[:200],
             "assessments": assessments,
             "source_metadata": source_metadata,
             "self_containment": excerpt.self_containment.value,
             "self_containment_notes": dependency_notes,
+            "adjacent_teaching_units": adjacent_teaching_units,
+            "failed_criteria_context": dependency_notes,
             "school": excerpt.school,
             "attribution": {
                 "layer_id": excerpt.primary_author_layer.layer_id,
@@ -1161,7 +1185,7 @@ def run_consensus(
                 # Build gate entries
                 for gc in gate_codes:
                     all_gates.append(
-                        _build_gate_entry(updated, gc, source_metadata)
+                        _build_gate_entry(updated, gc, source_metadata, chunk_excerpts)
                     )
 
             # Final gate check (catches edge cases not from resolve_consensus)
@@ -1174,7 +1198,7 @@ def run_consensus(
                         update={"gate_flags": list(updated.gate_flags) + [gc]}
                     )
                     all_gates.append(
-                        _build_gate_entry(updated, gc, source_metadata)
+                        _build_gate_entry(updated, gc, source_metadata, chunk_excerpts)
                     )
 
             all_results.append(updated)
