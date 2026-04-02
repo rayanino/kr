@@ -385,15 +385,19 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
     # ------------------------------------------------------------------ questionnaire endpoints
 
+    def _load_questionnaire(self) -> list[dict]:
+        interactions_file = self.questionnaire_dir / "interactions.json"
+        with open(interactions_file, encoding="utf-8") as f:
+            return json.load(f)
+
     def _api_get_questionnaire(self) -> None:
-        """Return the 40 structured interactions from interactions.json."""
+        """Return structured questionnaire interactions from interactions.json."""
         interactions_file = self.questionnaire_dir / "interactions.json"
         if not interactions_file.exists():
             self._json_response({"error": "interactions.json not found"}, 404)
             return
         try:
-            with open(interactions_file, encoding="utf-8") as f:
-                data = json.load(f)
+            data = self._load_questionnaire()
             self._json_response(data)
         except (json.JSONDecodeError, OSError) as exc:
             self._json_response({"error": str(exc)}, 500)
@@ -411,6 +415,25 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             return
         if "interaction_id" not in entry:
             self._json_response({"error": "Missing interaction_id"}, 400)
+            return
+        try:
+            interactions = self._load_questionnaire()
+        except (json.JSONDecodeError, OSError) as exc:
+            self._json_response({"error": f"Cannot read interactions.json: {exc}"}, 500)
+            return
+        interaction = next((item for item in interactions if item.get("id") == entry["interaction_id"]), None)
+        if interaction is None:
+            self._json_response({"error": f"Unknown interaction_id: {entry['interaction_id']}"}, 400)
+            return
+        if interaction.get("availability") == "blocked_pending_source":
+            self._json_response(
+                {
+                    "error": "Interaction is blocked pending source material",
+                    "interaction_id": entry["interaction_id"],
+                    "blocked_reason": interaction.get("blocked_reason"),
+                },
+                409,
+            )
             return
 
         responses_file = self.questionnaire_dir / "questionnaire_responses.jsonl"

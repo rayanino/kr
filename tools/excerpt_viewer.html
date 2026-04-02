@@ -234,6 +234,8 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-item{padding:0.45rem 0.75rem;cursor:pointer;margin:1px 4px;border-radius:5px;transition:background .1s;display:flex;align-items:center;gap:0.5rem}
 .q-item:hover{background:var(--surface2)}
 .q-item.active{background:var(--gold-dim);border-left:2px solid var(--gold);padding-left:calc(0.75rem - 2px)}
+.q-item.blocked{opacity:0.72}
+.q-item.blocked .q-title{color:var(--text3)}
 .q-item .q-num{font-size:0.62rem;color:var(--text3);font-family:var(--font-mono);min-width:22px;flex-shrink:0}
 .q-item .q-id-badge{font-size:0.62rem;padding:0.07rem 0.3rem;border-radius:3px;background:var(--surface3);color:var(--accent);flex-shrink:0}
 .q-item .q-title{font-size:0.8rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
@@ -241,6 +243,8 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-item .q-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--border2)}
 .q-item .q-dot.done{background:var(--green)}
 .q-item .q-dot.partial{background:var(--amber)}
+.q-item .q-dot.blocked{background:var(--red)}
+.q-item .q-lock{font-size:0.56rem;color:var(--red);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0}
 .q-phase-sep{height:1px;background:var(--border);margin:4px 0}
 
 /* Q Main area */
@@ -257,6 +261,10 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 
 .q-context-note{padding:0.8rem 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);font-size:0.82rem;color:var(--text2);line-height:1.6}
 .q-context-note .cn-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.25rem}
+.q-blocked-note{padding:1rem 1.5rem;background:var(--red-soft);border-bottom:1px solid rgba(186,70,70,0.25)}
+.q-blocked-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--red);font-weight:700;margin-bottom:0.35rem}
+.q-blocked-reason{font-size:0.86rem;color:var(--text);line-height:1.65}
+.q-blocked-help{margin-top:0.55rem;font-size:0.78rem;color:var(--text2);line-height:1.55}
 
 .q-excerpt-block{padding:1rem 1.5rem;border-bottom:1px solid var(--border)}
 .q-excerpt-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.5rem}
@@ -307,6 +315,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-save-btn:hover{opacity:0.85}
 .q-save-btn.ready{background:var(--gold);color:#111;border-color:var(--gold)}
 .q-save-btn.saved{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.q-save-btn.blocked{background:var(--surface2);color:var(--text3);border-style:dashed;cursor:default}
 .q-nav-btns{display:flex;gap:0.5rem}
 .q-nav-btn{padding:0.4rem 0.8rem;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);cursor:pointer;font-size:0.78rem;font-family:var(--font-ui);transition:all .15s}
 .q-nav-btn:hover{border-color:var(--gold);color:var(--text)}
@@ -433,7 +442,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
     </div>
     <div class="q-prog-bar"><div id="q-prog-fill" class="q-prog-fill" style="width:0%"></div></div>
     <div style="display:flex;align-items:center;gap:0.6rem">
-      <span id="q-prog-label" class="q-prog-label">0 of 40</span>
+      <span id="q-prog-label" class="q-prog-label">0 of 0 active</span>
       <div id="mode-tabs-q" style="display:flex;gap:2px;padding:3px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px">
         <button class="mtab" onclick="switchMode('review')">Review</button>
         <button class="mtab active" onclick="switchMode('questionnaire')">Questionnaire</button>
@@ -968,6 +977,19 @@ let qResponses={};
 let qDrafts={};
 let qCurrentIndex=0;
 
+function qIsBlocked(item){
+  return item&&item.availability==="blocked_pending_source";
+}
+
+function qFindNextIndex(start,delta){
+  let idx=start+delta;
+  while(idx>=0&&idx<qInteractions.length){
+    if(!qIsBlocked(qInteractions[idx]))return idx;
+    idx+=delta;
+  }
+  return -1;
+}
+
 async function initQuestionnaire(){
   $("q-loading").style.display="flex";
   $("q-content").style.display="none";
@@ -991,15 +1013,17 @@ async function initQuestionnaire(){
 function renderQSidebar(){
   // Group by phase for section labels
   const phases=[];
-  let lastPhase="";
+  let lastPhaseLabel="";
   qInteractions.forEach((item,i)=>{
-    if(item.phase!==lastPhase){
+    if(item.phase_label!==lastPhaseLabel){
       phases.push({type:"header",label:item.phase_label,phase:item.phase});
-      lastPhase=item.phase;
+      lastPhaseLabel=item.phase_label;
     }
     const resp=qDrafts[item.id]||qResponses[item.id];
     let dotCls="";
-    if(resp){
+    if(qIsBlocked(item)){
+      dotCls="blocked";
+    }else if(resp){
       dotCls=resp.immediate_reaction&&resp.immediate_reaction.trim()?"done":"partial";
     }
     phases.push({type:"item",item,index:i,dotCls});
@@ -1011,19 +1035,25 @@ function renderQSidebar(){
     }
     const item=p.item;
     const active=p.index===qCurrentIndex;
-    return `<div class="q-item${active?" active":""}" onclick="renderQInteraction(${p.index})">
+    const blocked=qIsBlocked(item);
+    return `<div class="q-item${active?" active":""}${blocked?" blocked":""}" onclick="renderQInteraction(${p.index})">
       <span class="q-num">${p.index+1}</span>
       <span class="q-id-badge">${esc(item.id)}</span>
       <span class="q-title">${esc(item.title)}</span>
+      ${blocked?'<span class="q-lock">locked</span>':""}
       <span class="q-dot${p.dotCls?" "+p.dotCls:""}"></span>
     </div>`;
   }).join("");
 
   // Update progress bar
-  const done=Object.values(qResponses).filter(r=>r.immediate_reaction&&r.immediate_reaction.trim()).length;
-  const pct=qInteractions.length?Math.round(done/qInteractions.length*100):0;
+  const activeItems=qInteractions.filter(item=>!qIsBlocked(item));
+  const done=activeItems.filter(item=>{
+    const resp=qDrafts[item.id]||qResponses[item.id];
+    return Boolean(resp&&resp.immediate_reaction&&resp.immediate_reaction.trim());
+  }).length;
+  const pct=activeItems.length?Math.round(done/activeItems.length*100):0;
   $("q-prog-fill").style.width=pct+"%";
-  $("q-prog-label").textContent=`${done} of ${qInteractions.length}`;
+  $("q-prog-label").textContent=`${done} of ${activeItems.length} active`;
   $("q-pos").textContent=`${qCurrentIndex+1}/${qInteractions.length}`;
 }
 
@@ -1034,11 +1064,12 @@ function renderQInteraction(index){
 
   const item=qInteractions[index];
   const resp={...(qResponses[item.id]||{}), ...(qDrafts[item.id]||{})};
+  const blocked=qIsBlocked(item);
   const content=$("q-content");
 
   // Multiple choice options HTML
   let mcHtml="";
-  if(item.multiple_choice&&item.multiple_choice.length){
+  if(!blocked&&item.multiple_choice&&item.multiple_choice.length){
     const opts=item.multiple_choice.map((opt,oi)=>{
       const sel=(resp.mc_choice===opt)?" selected":"";
       return `<label class="q-mc-option${sel}">
@@ -1054,7 +1085,7 @@ function renderQInteraction(index){
 
   // Edge case extra fields
   let edgeHtml="";
-  if(item.is_edge_case){
+  if(!blocked&&item.is_edge_case){
     edgeHtml=`<div class="q-edge-block">
       <div class="q-edge-label">Edge Case Fields</div>
       <div class="q-edge-desc">This is an edge case interaction. Two additional fields help capture your reasoning.</div>
@@ -1078,6 +1109,8 @@ function renderQInteraction(index){
 
   // Saved indicator
   const hasSaved=resp.immediate_reaction&&resp.immediate_reaction.trim();
+  const prevIndex=qFindNextIndex(index,-1);
+  const nextIndex=qFindNextIndex(index,1);
 
   content.innerHTML=`
     <div class="q-card">
@@ -1097,6 +1130,12 @@ function renderQInteraction(index){
         ${esc(item.context_note)}
       </div>`:""}
 
+      ${blocked?`<div class="q-blocked-note">
+        <div class="q-blocked-label">Blocked Pending Source Material</div>
+        <div class="q-blocked-reason">${esc(item.blocked_reason||"This interaction is intentionally locked until the required source material exists.")}</div>
+        <div class="q-blocked-help">This slot is reserved, not answerable yet, and not counted in your active progress.</div>
+      </div>`:""}
+
       ${item.excerpt_text?`<div class="q-excerpt-block">
         <div class="q-excerpt-label">Excerpt to evaluate</div>
         ${item.excerpt_source?`<div class="q-excerpt-source">${esc(item.excerpt_source)}</div>`:""}
@@ -1110,7 +1149,7 @@ function renderQInteraction(index){
 
       ${mcHtml}
 
-      <div class="q-response-block">
+      ${blocked?"":`<div class="q-response-block">
         <div class="q-field-label q-field-required">Immediate reaction</div>
         <textarea class="q-textarea" id="q-reaction" rows="5"
           placeholder="Write your immediate, honest reaction. Don't overthink it — what is your gut response?"
@@ -1124,25 +1163,25 @@ function renderQInteraction(index){
           <textarea class="q-textarea" id="q-detail" rows="4"
             placeholder="Optional: deeper analysis, comparison to other excerpts, specific suggestions...">${esc(resp.detailed_analysis||"")}</textarea>
         </div>
-      </div>
+      </div>`}
 
       ${edgeHtml}
 
-      <div class="q-confidence-block">
+      ${blocked?"":`<div class="q-confidence-block">
         <div class="q-field-label">Confidence in your response</div>
         <div class="q-conf-row">${confBtns}</div>
-      </div>
+      </div>`}
 
       <div class="q-action-row">
         <div style="display:flex;align-items:center;gap:0.7rem">
-          <button class="q-save-btn${hasSaved?" saved":""}" id="q-save-btn" onclick="qSave()">
-            ${hasSaved?"Saved \u2713":"Save Response"}
+          <button class="q-save-btn${blocked?" blocked":hasSaved?" saved":""}" id="q-save-btn" onclick="qSave()">
+            ${blocked?"Locked":hasSaved?"Saved \u2713":"Save Response"}
           </button>
-          <span class="q-status-msg" id="q-status">Saved</span>
+          <span class="q-status-msg" id="q-status">${blocked?"Blocked":"Saved"}</span>
         </div>
         <div class="q-nav-btns">
-          <button class="q-nav-btn" id="q-prev-btn" onclick="qNavigate(-1)" ${index===0?"disabled":""}>&#9664; Prev</button>
-          <button class="q-nav-btn" id="q-next-btn" onclick="qNavigate(1)" ${index===qInteractions.length-1?"disabled":""}>Next &#9654;</button>
+          <button class="q-nav-btn" id="q-prev-btn" onclick="qNavigate(-1)" ${prevIndex===-1?"disabled":""}>&#9664; Prev</button>
+          <button class="q-nav-btn" id="q-next-btn" onclick="qNavigate(1)" ${nextIndex===-1?"disabled":""}>Next &#9654;</button>
         </div>
       </div>
     </div>
@@ -1214,6 +1253,12 @@ function qConfSelect(level){
 
 function qUpdateSaveBtn(){
   const btn=$("q-save-btn");if(!btn)return;
+  const item=qInteractions[qCurrentIndex];
+  if(qIsBlocked(item)){
+    btn.className="q-save-btn blocked";
+    btn.textContent="Locked";
+    return;
+  }
   const reaction=$("q-reaction")?.value.trim();
   if(reaction){
     btn.className="q-save-btn ready";
@@ -1223,6 +1268,7 @@ function qUpdateSaveBtn(){
 
 async function qSave(){
   const item=qInteractions[qCurrentIndex];
+  if(qIsBlocked(item))return;
   const reaction=$("q-reaction")?.value.trim();
   if(!reaction){
     const ta=$("q-reaction");if(ta)ta.classList.add("required-empty");
@@ -1277,8 +1323,8 @@ async function qSave(){
 
 function qNavigate(delta){
   persistCurrentQDraft();
-  const next=qCurrentIndex+delta;
-  if(next>=0&&next<qInteractions.length)renderQInteraction(next);
+  const next=qFindNextIndex(qCurrentIndex,delta);
+  if(next!==-1)renderQInteraction(next);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

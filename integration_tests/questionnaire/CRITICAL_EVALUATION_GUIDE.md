@@ -13,6 +13,10 @@ The owner explicitly requested that his feedback be treated as non-authoritative
 
 The 6-coworker evaluation catches these issues BEFORE translating answers into SPEC rules.
 
+If the owner also answers `SUPPLEMENTAL_OWNER_QUESTIONS.md`, evaluate those
+responses in the same pass. Treat the supplement as additional calibration
+input, not as a separate workflow.
+
 ## Evaluation Assignments
 
 ### 1. Codex CLI — Internal Consistency Audit
@@ -124,6 +128,7 @@ Gather all 6 reports into `integration_tests/questionnaire/evaluation_reports/`
 | **CONTRADICTION** | Owner's own answers conflict | Present conflict to owner with concrete example |
 | **INFEASIBLE** | Technically cannot be built as stated | Propose alternative that preserves the owner's intent |
 | **MISSING** | Coworker identifies a gap the owner didn't address | Add to follow-up questions |
+| **PENDING_SOURCE** | The questionnaire slot was intentionally blocked because the source material did not exist yet | Carry it forward as deferred; do not synthesize it as owner input |
 
 ### Step 3: Present challenges to owner
 For each CHALLENGED, CONTRADICTION, or INFEASIBLE item:

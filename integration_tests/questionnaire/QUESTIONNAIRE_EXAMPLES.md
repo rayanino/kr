@@ -10,10 +10,11 @@ All excerpts from `campaign_20260331` unless noted:
 - **Prompts:** Pre-hardening (v0 prompts, before H-1 through H-8 fixes)
 - **Temperature:** 0.0
 
-**V2 smoke data** (when used for CJ-2, CJ-3):
-- **Run:** smoke_api_v2 (April 1, 2026, ONGOING)
+**V2 smoke data** (reserved for CJ-2, CJ-3 when valid):
+- **Run:** smoke_api_v2 (April 1, 2026, `taysir` failed)
 - **Models:** GPT-5.4 (classify/group/enrich), Claude Opus 4.6 (verify)
 - **Prompts:** Post-hardening (with H-1 through H-8 + DR-1/DR-3 fixes)
+- **Current status:** `CJ-2` and `CJ-3` stay blocked until a valid comparison source exists
 
 ---
 
@@ -112,11 +113,12 @@ All excerpts from `campaign_20260331` unless noted:
 - **Function:** definition | **Self-containment:** FULL | **Length:** 448 chars
 - **Edge case tested:** DR-1 extension — three definitions (لغة, اصطلاحا, مذهب-specific). One, two, or three excerpts?
 
-### E-1: Multiple Quranic Verses
+### E-1: Proof Plus Explanatory Wisdom
 - **Excerpt ID:** `exc_src_test0001_div_src_test0001_6_094_0_1`
 - **Source:** campaign_20260331/taysir/excerpts.jsonl
 - **Function:** evidence_quran | **Self-containment:** FULL | **Length:** 521 chars
-- **Edge case tested:** DR-2 boundary — multiple verses as evidence. Per-verse splitting or grouped?
+- **Selection rationale:** The passage mixes proof with reflective explanation about mercy, benefit, and divine wisdom. It is no longer just an evidence-type question.
+- **Edge case tested:** DR-2 boundary — should explanatory wisdom stay fused to proof material, or become a separate unit?
 
 ### E-2: Hadith as Evidence
 - **Excerpt ID:** `exc_src_test0001_div_src_test0001_1_002_pre_0_4`
@@ -156,11 +158,38 @@ All excerpts from `campaign_20260331` unless noted:
 - **Source:** campaign_20260331/ext_46_qa/excerpts.jsonl
 - **Function:** definition | **Length:** 268 chars | **Science:** Usul al-Nahw
 
+### GN-2: Reused Grammar Example
+- **Excerpt ID:** `exc_src_test0001_div_src_test0001_2_001_0_11`
+- **Source:** campaign_20260331/ibn_aqil_v1/excerpts.jsonl
+- **Selection rationale:** Reuses GN-1 excerpt B because the owner question is specifically about whether the example sentence (الشاهد) inside that rule must stay with the rule.
+- **Edge case tested:** Whether nahw examples can be detached from the rule without destroying understanding.
+
 ### L-1: Editorial/Scholarly Note
 - **Excerpt ID:** `exc_src_test0001_div_src_test0001_1_002_pre_0_3`
 - **Source:** campaign_20260331/taysir/excerpts.jsonl
 - **Function:** editorial_note | **Self-containment:** FULL | **Length:** 566 chars
 - **Edge case tested:** Layer attribution — who is the "author" of an editorial note?
+
+### L-2: Real Matn + Sharh Layering Example
+- **Excerpt ID:** `exc_src_test0001_div_src_test0001_2_004_0_1`
+- **Source:** campaign_20260331/ibn_aqil_v1/excerpts.jsonl
+- **Function:** definition | **Self-containment:** FULL
+- **Selection rationale:** Real mixed-layer example where the Alfiyyah matn line is immediately followed by Ibn Aqil's explanation. Tests structure, authorship, and whether explicit layer labels are required.
+- **Edge case tested:** Multi-layer attribution clarity — if matn and sharh are shown together, can the owner still trust the entry without explicit labels?
+
+### L-3: Substantive Footnote Example
+- **Excerpt ID:** `exc_src_test0001_div_src_test0001_6_094_0_1`
+- **Source:** campaign_20260331/taysir/excerpts.jsonl
+- **Function:** evidence_quran | **Self-containment:** FULL
+- **Selection rationale:** The visible excerpt contains a real footnote marker (`⌜1⌝`) and a substantive explanatory footnote on `الكظم`. The owner question also asks whether the same rule should apply to takhrij/grading notes.
+- **Edge case tested:** Inline vs linked vs hidden treatment for substantive footnotes and source/grading apparatus.
+
+### QA-1: Formal Objection and Response
+- **Excerpt ID:** `exc_src_test0001_div_src_test0001_3_003_0_3`
+- **Source:** campaign_20260331/ext_46_qa/excerpts.jsonl
+- **Function:** refutation | **Self-containment:** FULL
+- **Selection rationale:** Concrete objection/response passage, not an invented structure. The text explicitly stages the objection, proposed answer, rebuttal, and later comment.
+- **Edge case tested:** Whether formal scholarly objection and response can ever be safely separated.
 
 ### M-1: Metadata Display
 - **Excerpt ID:** `exc_src_test0001_div_src_test0001_6_018_0_5`
@@ -176,13 +205,13 @@ All excerpts from `campaign_20260331` unless noted:
 - Uses excerpt `E-3` hypothetically split 3 ways
 - No new excerpt needed — the comparison is constructed from the same text
 
-### CJ-2: PLACEHOLDER (v2 smoke data needed)
+### CJ-2: BLOCKED (before/after comparison source missing)
 - Intended to compare the same passage from campaign (Opus) vs smoke_api_v2 (GPT-5.4 hardened)
-- Currently blocked because the weekend `taysir` v2 run failed before final excerpts were written
+- Currently blocked because the weekend `taysir` v2 run failed before valid comparison pairs were written
 
-### CJ-3: PLACEHOLDER (cross-book comparison)
+### CJ-3: BLOCKED (cross-book comparison source missing)
 - Intended to use the closest topic matches available across 2 books
-- Currently blocked because the weekend `taysir` v2 run failed before final excerpts were written
+- Currently blocked because the weekend `taysir` v2 run failed before valid cross-book comparison material was assembled
 
 ### CJ-4: Metadata Sufficiency
 - Uses excerpt `M-1` with metadata rendered in plain language

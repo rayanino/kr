@@ -4,7 +4,7 @@
 
 This is your personal evaluation session for the KR library. You will read excerpts from your books and tell us what you think about them. Your answers shape how the pipeline works — this is the most important feedback you can give.
 
-There are **40 questions** split into 4 phases. You do not need to answer all of them in one sitting. Your progress is saved automatically after each question.
+There are **40 core questionnaire slots** split into 4 phases. Right now, **38 are answerable** and **2 comparison slots are intentionally locked** because the weekend `taysir` v2 run failed before valid comparison material existed. After the core packet, there is also a small optional supplemental packet in markdown.
 
 ---
 
@@ -36,7 +36,10 @@ python tools/review.py integration_tests/smoke_api_v2/
 
 The screen is split into two parts:
 
-- **Left sidebar** — all 40 questions with a coloured dot showing which ones you have answered (green dot = answered, no dot = not yet answered)
+- **Left sidebar** — all questionnaire slots with a status marker
+  - green dot = answered
+  - no dot = not yet answered
+  - locked item = intentionally blocked pending missing comparison material and not counted in active progress
 - **Main area** — the current question
 
 For most questions you will see:
@@ -99,6 +102,18 @@ If Comparison Mode says it is unavailable because the weekend `taysir` v2 run fa
 
 ---
 
+## Supplemental Questions
+
+If you still have time and want to maximize the value of your weekend feedback,
+also answer:
+
+- `SUPPLEMENTAL_OWNER_QUESTIONS.md`
+
+These are a small set of high-signal follow-up questions covering gaps that are
+still not fully covered by the main questionnaire.
+
+---
+
 ## Tips
 
 - There are no wrong answers. Your gut reaction is valuable.
@@ -123,11 +138,16 @@ docs/codex/weekend_dr_prompts.md
 
 When you get a response: **save it as a file** in `docs/coworker_reports/2026-04-01_phase0_hardening/` with a name like `chatgpt_dr_weekend_review.md`. Or just paste it into a text file anywhere — we'll find it Monday.
 
+**Recommended cadence:**
+- After finishing Phase 1 Foundations: dispatch at least one DR prompt so the coworkers can react early to your mental model and first impressions
+- After finishing the full core packet: dispatch all available DR prompts
+- After answering the supplemental questions: dispatch again if your thinking changed in a major way
+
 ---
 
 ## When you are done
 
-When you have answered all 40 questions (or as many as you can):
+When you have answered the active core questions (38 answerable right now, plus any supplementals you choose to do):
 
 1. **Your answers are already saved** in `questionnaire_responses.jsonl` — no need to do anything special
 2. **Close the browser tab** and close the terminal (Ctrl+C or just close the window)
