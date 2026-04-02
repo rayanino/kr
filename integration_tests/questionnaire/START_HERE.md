@@ -137,6 +137,11 @@ During the weekend, you can also dispatch 3 prompts to ChatGPT, Claude, and Gemi
 docs/codex/weekend_dr_prompts.md
 ```
 
+Important:
+- ChatGPT and Claude browser DR usually see only pushed/remote repo state unless you paste or upload current local files
+- if the current questionnaire work is unpushed, do not assume those tools can see it
+- Gemini DR is safer for unpushed local work because the workflow already expects file uploads
+
 **For ChatGPT:** Open chat.openai.com → New chat → Paste the ChatGPT prompt
 **For Claude:** Open claude.ai → New conversation → Paste the Claude prompt
 **For Gemini:** Open gemini.google.com → Upload the 3 files listed in the prompt → Paste the Gemini prompt

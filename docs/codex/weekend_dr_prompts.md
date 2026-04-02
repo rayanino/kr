@@ -6,6 +6,11 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 
 - Current questionnaire state: 40 core slots, 38 answerable right now, 2 comparison slots intentionally blocked (`CJ-2`, `CJ-3`), plus 6 optional supplemental owner questions.
 - Owner-answer guardrail: the owner's responses are high-value signal, but never final authority. Treat them as feedback to be challenged, not as commands to obey literally.
+- Remote-vs-local rule: ChatGPT DR and Claude DR usually see only what is available in the remote repo or what you paste into the chat. They do **not** automatically see current unpushed local files.
+- If the current work has not been pushed, do **not** ask ChatGPT DR or Claude DR to review the "current repo state" by file path alone. Either:
+  - push the relevant branch first, or
+  - paste/upload the current local files you want reviewed.
+- Gemini DR is the safest browser DR path for unpushed local work because it already expects explicit file uploads.
 - ChatGPT DR: open ChatGPT, start a new chat, switch the tool/chat mode to `Deep Research`, then paste Prompt 1 exactly as written.
 - Claude DR: open Claude, start a new chat, switch the chat mode to `Research` or `Deep Research` if that option is shown, then paste Prompt 2 exactly as written.
 - Gemini DR: open Gemini, start a new chat, switch to `Deep Research` or the closest research mode shown in the UI, upload the listed files first, then paste Prompt 3.
@@ -18,7 +23,13 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 
 > **Task: Pre-review the KR excerpting questionnaire before the owner fills it in.**
 >
-> Read these files from the `rayanino/kr` GitHub repository:
+> First check whether the files you can access are the current intended state.
+> If you only have GitHub remote access and the current local questionnaire work
+> is unpushed, say that explicitly and do **not** pretend you reviewed the
+> current local packet.
+>
+> Read these files from the `rayanino/kr` GitHub repository **only if they are
+> the intended review target**, otherwise use the pasted/uploaded local files:
 > - `integration_tests/questionnaire/interactions.json` — 40 structured questionnaire interactions
 > - `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` — the full questionnaire text
 > - `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md` — the post-completion evaluation plan
@@ -41,7 +52,13 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 
 > **Task: Prepare your evaluation criteria for the owner's questionnaire responses.**
 >
-> Read these files from the `rayanino/kr` GitHub repository:
+> First check whether the files you can access are the current intended state.
+> If you only have GitHub remote access and the current local questionnaire work
+> is unpushed, say that explicitly and do **not** pretend you reviewed the
+> current local packet.
+>
+> Read these files from the `rayanino/kr` GitHub repository **only if they are
+> the intended review target**, otherwise use the pasted/uploaded local files:
 > - `integration_tests/questionnaire/interactions.json` — 40 questionnaire interactions
 > - `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md` — your role as one of 6 evaluators
 > - `engines/excerpting/SPEC.md` — the excerpting SPEC (focus on §4 domain rules, §6 decontextualization prevention)
@@ -92,11 +109,21 @@ In all three post-completion prompts, assume this rule:
 the owner's answers are valuable but non-authoritative, and must be stress-tested
 for contradictions, scholarly risk, feasibility, and long-run product damage.
 
+Also assume this access rule:
+- if you only see the remote repo, you only see pushed state
+- if the current questionnaire responses or packet edits are local and unpushed, do not claim to have reviewed them unless they were pasted or uploaded into the DR session
+
 ## 4. ChatGPT DR (Post-Completion Review)
 
 > **Task: Critically review the owner's completed KR excerpting questionnaire responses.**
 >
-> Read these files from the `rayanino/kr` GitHub repository:
+> First check whether the files you can access are the current intended state.
+> If the owner's responses or questionnaire edits are local and unpushed, say
+> explicitly that remote-only access is stale and review only the pasted/uploaded
+> files instead.
+>
+> Read these files from the `rayanino/kr` GitHub repository **only if they are
+> the intended review target**, otherwise use the pasted/uploaded local files:
 > - `integration_tests/questionnaire/questionnaire_responses.jsonl` — the owner's saved responses
 > - `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` — the exact questions he answered
 > - `integration_tests/questionnaire/SUPPLEMENTAL_OWNER_QUESTIONS.md` — optional follow-up questions, if any were answered
@@ -118,7 +145,13 @@ for contradictions, scholarly risk, feasibility, and long-run product damage.
 
 > **Task: Evaluate the scholarly soundness of the owner's completed questionnaire responses.**
 >
-> Read these files from the `rayanino/kr` GitHub repository:
+> First check whether the files you can access are the current intended state.
+> If the owner's responses or questionnaire edits are local and unpushed, say
+> explicitly that remote-only access is stale and review only the pasted/uploaded
+> files instead.
+>
+> Read these files from the `rayanino/kr` GitHub repository **only if they are
+> the intended review target**, otherwise use the pasted/uploaded local files:
 > - `integration_tests/questionnaire/questionnaire_responses.jsonl`
 > - `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md`
 > - `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md`
