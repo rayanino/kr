@@ -94,6 +94,21 @@ def classify_provenance(path: Path) -> str:
     return "unknown"
 
 
+def load_fixture_category(path: Path) -> str | None:
+    """Load edge-case category metadata when available."""
+    if path.is_file() and path.suffix == ".htm":
+        sidecar = path.with_suffix(".json")
+        if sidecar.exists():
+            try:
+                data = json.loads(sidecar.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                return None
+            category = data.get("category")
+            if isinstance(category, str) and category:
+                return category
+    return None
+
+
 def collect_corpus_drift_findings() -> list[FixtureFinding]:
     """Check a few critical fixture corpus docs for obvious count drift."""
     findings: list[FixtureFinding] = []
@@ -120,6 +135,48 @@ def collect_corpus_drift_findings() -> list[FixtureFinding]:
                     )
         except (OSError, json.JSONDecodeError, ValueError):
             pass
+
+    expected_count: int | None = None
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if isinstance(manifest, dict):
+                expected_count = len(manifest)
+        except (OSError, json.JSONDecodeError):
+            expected_count = None
+
+    if expected_count is not None:
+        doc_checks = [
+            (
+                Path("reference/SHAMELA_COLLECTION.md"),
+                re.compile(r"In the repo.*?:\s*(\d+)\s+selected fixtures", re.IGNORECASE | re.DOTALL),
+            ),
+            (
+                Path("engines/source/tests/test_deterministic.py"),
+                re.compile(r"all\s+(\d+)\s+Shamela fixtures", re.IGNORECASE),
+            ),
+        ]
+        for doc_path, pattern in doc_checks:
+            if not doc_path.exists():
+                continue
+            try:
+                text = doc_path.read_text(encoding="utf-8")
+            except OSError:
+                continue
+            match = pattern.search(text)
+            if match:
+                doc_count = int(match.group(1))
+                if doc_count != expected_count:
+                    _add_finding(
+                        findings,
+                        path=doc_path,
+                        severity="warning",
+                        code="fixture_doc_count_drift",
+                        message=(
+                            f"{doc_path.name}: document says {doc_count} fixtures, "
+                            f"but shamela_real/MANIFEST.json contains {expected_count}"
+                        ),
+                    )
     return findings
 
 
@@ -297,6 +354,7 @@ def build_summary(findings: list[FixtureFinding], target_count: int, targets: li
     by_code: dict[str, int] = {}
     files: dict[str, int] = {}
     by_provenance: dict[str, int] = {}
+    by_category: dict[str, int] = {}
     for finding in findings:
         by_severity[finding.severity] = by_severity.get(finding.severity, 0) + 1
         by_code[finding.code] = by_code.get(finding.code, 0) + 1
@@ -304,6 +362,9 @@ def build_summary(findings: list[FixtureFinding], target_count: int, targets: li
     for target in targets:
         provenance = classify_provenance(target)
         by_provenance[provenance] = by_provenance.get(provenance, 0) + 1
+        category = load_fixture_category(target)
+        if category:
+            by_category[category] = by_category.get(category, 0) + 1
 
     score = max(0, 100 - by_severity.get("error", 0) * 25 - by_severity.get("warning", 0) * 5)
     return {
@@ -312,6 +373,7 @@ def build_summary(findings: list[FixtureFinding], target_count: int, targets: li
         "by_severity": by_severity,
         "by_code": by_code,
         "by_provenance": by_provenance,
+        "by_category": by_category,
         "affected_files": files,
         "quality_score": score,
         "findings": [asdict(f) for f in findings],
