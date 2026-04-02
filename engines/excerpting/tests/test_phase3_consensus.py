@@ -7,6 +7,9 @@ disagreement resolution, context hint repair, gate entries, no-consensus path.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+from unittest.mock import MagicMock
+
 import pytest
 
 from engines.excerpting.contracts import (
@@ -49,6 +52,12 @@ _SOURCE_META = {
     "science": "فقه",
     "source_school": "حنبلي",
 }
+_ZERO_CONFIDENCE = float("0")
+
+
+def _make_escalation_response(author_id: str, reasoning: str) -> SimpleNamespace:
+    """Return a minimal escalation response object."""
+    return SimpleNamespace(author_id=author_id, reasoning=reasoning)
 
 
 def _make_vi(
@@ -249,15 +258,8 @@ class TestAttributionEscalation:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
-        # Mock escalation that agrees with enrichment
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_a", reasoning="test")
+            return_value=_make_escalation_response("sch_a", "test")
         )
 
         result, _cr, gates = resolve_consensus(
@@ -278,14 +280,8 @@ class TestAttributionEscalation:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_c", reasoning="third opinion")
+            return_value=_make_escalation_response("sch_c", "third opinion")
         )
 
         result, _cr, gates = resolve_consensus(
@@ -425,7 +421,7 @@ class TestGateEntries:
                 layer_id="sharh", author_id="sch_a",
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
-            attribution_confidence=0.0,
+            attribution_confidence=_ZERO_CONFIDENCE,
         )
         config = ExcerptingConfig()
         gates = check_gate_triggers(exc, _SOURCE_META, config)
@@ -576,6 +572,32 @@ class TestFullConsensusFlow:
         assert len(result) == 1
         assert "verification_skipped" in result[0].review_flags
 
+    def test_verification_failure_marks_progress_with_ex_m_011(self) -> None:
+        chunk = _make_assembled_chunk()
+        exc = _make_excerpt_record(
+            div_id=chunk.div_id,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+        verify_client = _make_mock_instructor_client(
+            side_effect=Exception("API error")
+        )
+        progress = MagicMock()
+        progress.is_done.return_value = False
+        config = ExcerptingConfig()
+
+        result, _gates = run_consensus(
+            [exc], [chunk], verify_client, None, config, progress=progress
+        )
+
+        assert len(result) == 1
+        assert "verification_skipped" in result[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_consensus",
+            ExcerptingErrorCodes.EX_M_011,
+        )
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Fix 1 Tests: Attribution majority winner applied to excerpt
@@ -595,14 +617,8 @@ class TestAttributionMajorityApplied:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.8)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_b", reasoning="verifier correct")
+            return_value=_make_escalation_response("sch_b", "verifier correct")
         )
 
         result, _cr, _gates = resolve_consensus(
@@ -624,14 +640,8 @@ class TestAttributionMajorityApplied:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_a", reasoning="enrichment correct")
+            return_value=_make_escalation_response("sch_a", "enrichment correct")
         )
 
         result, _cr, _gates = resolve_consensus(
@@ -643,7 +653,7 @@ class TestAttributionMajorityApplied:
         assert result.primary_author_layer.rule_applied == "LA-3"
 
     def test_all_3_disagree_keeps_enrichment(self) -> None:
-        """enrichment=sch_a, verifier=sch_b, escalation=sch_c → keeps sch_a, confidence=0.0."""
+        """enrichment=sch_a, verifier=sch_b, escalation=sch_c → keeps sch_a, confidence drops to zero."""
         exc = _make_excerpt_record(
             primary_author_layer=AuthorAttribution(
                 layer_id="sharh", author_id="sch_a",
@@ -652,14 +662,8 @@ class TestAttributionMajorityApplied:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_c", reasoning="third")
+            return_value=_make_escalation_response("sch_c", "third")
         )
 
         result, _cr, _gates = resolve_consensus(
@@ -680,14 +684,8 @@ class TestAttributionMajorityApplied:
         )
         vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.8)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_b", reasoning="correct")
+            return_value=_make_escalation_response("sch_b", "correct")
         )
 
         result, _cr, _gates = resolve_consensus(
@@ -1004,14 +1002,8 @@ class TestPhantomVoterRemoved:
         # Verifier disagrees but provides no alternative_value
         vi = _make_vi(agrees=False, alternative_value=None, confidence=0.5)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_a", reasoning="agree with enrichment")
+            return_value=_make_escalation_response("sch_a", "agree with enrichment")
         )
 
         result, _cr, gates = resolve_consensus(
@@ -1035,14 +1027,8 @@ class TestPhantomVoterRemoved:
         )
         vi = _make_vi(agrees=False, alternative_value=None, confidence=0.5)
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="sch_b", reasoning="different")
+            return_value=_make_escalation_response("sch_b", "different")
         )
 
         result, _cr, gates = resolve_consensus(
@@ -1102,14 +1088,8 @@ class TestVerifierSchemaAlternativeValue:
             confidence=0.85,
         )
 
-        from pydantic import BaseModel
-
-        class EscResp(BaseModel):
-            author_id: str
-            reasoning: str
-
         esc_client = _make_mock_instructor_client(
-            return_value=EscResp(author_id="ابن عقيل", reasoning="sharh layer")
+            return_value=_make_escalation_response("ابن عقيل", "sharh layer")
         )
 
         meta = {"author_name": "ابن عقيل"}

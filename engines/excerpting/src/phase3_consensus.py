@@ -14,7 +14,7 @@ import time
 from collections import defaultdict
 from typing import TYPE_CHECKING, Optional
 
-import instructor
+import instructor  # pyright: ignore[reportMissingImports]
 
 from engines.excerpting.contracts import (
     AssembledChunk,
@@ -525,7 +525,7 @@ def _call_escalation(
 
     try:
         # Simple text response for escalation — we just need a string
-        from pydantic import BaseModel, Field
+        from pydantic import BaseModel, Field  # pyright: ignore[reportMissingImports]
 
         class EscalationResponse(BaseModel):
             author_id: str = Field(description="The correct author attribution")
@@ -1012,7 +1012,7 @@ def run_consensus(
                 progress.mark_failed(
                     chunk_id,
                     "phase3_consensus",
-                    "verification_all_retries_failed",
+                    ExcerptingErrorCodes.EX_M_011,
                 )
             for exc in chunk_excerpts:
                 flags = list(exc.review_flags)
