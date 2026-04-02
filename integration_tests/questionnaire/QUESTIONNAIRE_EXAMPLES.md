@@ -177,12 +177,12 @@ All excerpts from `campaign_20260331` unless noted:
 - No new excerpt needed — the comparison is constructed from the same text
 
 ### CJ-2: PLACEHOLDER (v2 smoke data needed)
-- Will compare same passage from campaign (Opus) vs smoke_api_v2 (GPT-5.4 hardened)
-- Requires v2 run to complete
+- Intended to compare the same passage from campaign (Opus) vs smoke_api_v2 (GPT-5.4 hardened)
+- Currently blocked because the weekend `taysir` v2 run failed before final excerpts were written
 
 ### CJ-3: PLACEHOLDER (cross-book comparison)
-- Will use closest topic matches available across 2 books
-- Limited by zero topics appearing in 3+ books
+- Intended to use the closest topic matches available across 2 books
+- Currently blocked because the weekend `taysir` v2 run failed before final excerpts were written
 
 ### CJ-4: Metadata Sufficiency
 - Uses excerpt `M-1` with metadata rendered in plain language
