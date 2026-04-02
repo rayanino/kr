@@ -9,7 +9,7 @@ import threading
 import time
 from pathlib import Path
 from typing import Any
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 
@@ -670,6 +670,94 @@ class TestProcessChunk:
         assert result.error is None
         assert result.final_excerpts is not None
         cache.load.assert_called_once()
+        mock_enrich.assert_not_called()
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_degrades_incomplete_cached_enrichment_on_resume(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_enrich"
+        cache = MagicMock()
+        cache.load.return_value = EnrichmentResult(
+            enrichments=[],
+            total_units=0,
+        )
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        exc0 = _make_excerpt_record(
+            excerpt_id="exc_resume_enrich_0",
+            div_id=chunk.div_id,
+            unit_index=0,
+        )
+        exc1 = _make_excerpt_record(
+            excerpt_id="exc_resume_enrich_1",
+            div_id=chunk.div_id,
+            unit_index=1,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = []
+        mock_build_det.return_value = [exc0, exc1]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert all(
+            "llm_enrichment_failed" in exc.review_flags
+            for exc in result.final_excerpts
+        )
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_enrich",
+            "EX-M-002",
+        )
+        assert (
+            call(chunk.chunk_id, "phase3_enrich")
+            not in progress.mark_done.call_args_list
+        )
         mock_enrich.assert_not_called()
 
     @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")

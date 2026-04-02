@@ -335,6 +335,7 @@ def _process_chunk(
     )
     from engines.excerpting.src.phase3_enrichment import (
         ENRICH_SYSTEM_PROMPT,
+        EnrichmentBatchCoverageError,
         _build_enrichment_user_message,
         _compute_enrich_max_tokens,
         apply_enrichment,
@@ -576,17 +577,46 @@ def _process_chunk(
                 )
 
             if cached_enrichment is not None:
-                logger.info(
-                    "[%s] Phase 3 enrich: cache hit%s",
-                    chunk_id,
-                    " (resume)" if is_enrich_resume else "",
-                )
-                ctx.enriched_excerpts = apply_enrichment(
-                    ctx.excerpts,
-                    cached_enrichment,
-                )
-                if progress is not None:
-                    progress.mark_done(chunk_id, "phase3_enrich")
+                try:
+                    logger.info(
+                        "[%s] Phase 3 enrich: cache hit%s",
+                        chunk_id,
+                        " (resume)" if is_enrich_resume else "",
+                    )
+                    ctx.enriched_excerpts = apply_enrichment(
+                        ctx.excerpts,
+                        cached_enrichment,
+                    )
+                except EnrichmentBatchCoverageError as exc:
+                    logger.error(
+                        "%s: [%s] Cached enrichment batch failed coverage validation: %s",
+                        "EX-M-002",
+                        chunk_id,
+                        exc,
+                    )
+                    if is_enrich_resume:
+                        ctx.enriched_excerpts = [
+                            ex.model_copy(
+                                update={
+                                    "review_flags": [
+                                        *list(ex.review_flags or []),
+                                        *(
+                                            []
+                                            if "llm_enrichment_failed" in (ex.review_flags or [])
+                                            else ["llm_enrichment_failed"]
+                                        ),
+                                    ]
+                                }
+                            )
+                            for ex in ctx.excerpts
+                        ]
+                        if progress is not None:
+                            progress.mark_failed(chunk_id, "phase3_enrich", "EX-M-002")
+                    else:
+                        cached_enrichment = None
+                else:
+                    if progress is not None:
+                        progress.mark_done(chunk_id, "phase3_enrich")
             elif is_enrich_resume:
                 logger.error(
                     "%s: [%s] Phase 3 enrich was marked done but cache is missing. "
@@ -694,6 +724,8 @@ def _process_chunk(
                         )
         else:
             ctx.enriched_excerpts = ctx.excerpts
+
+        assert ctx.enriched_excerpts is not None
 
         # Phase 3 Consensus
         if verify_client is not None and enrich_client is not None:
