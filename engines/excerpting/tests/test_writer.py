@@ -147,6 +147,24 @@ class TestWriteExcerpts:
         with pytest.raises(ResumeMergeError, match="Corrupt existing excerpts.jsonl"):
             write_excerpts([_make_excerpt_record()], tmp_path)
 
+    def test_schema_incomplete_existing_excerpts_row_raises(self, tmp_path: Path) -> None:
+        """JSON-valid but schema-incomplete excerpt rows must fail on resume."""
+        path = tmp_path / "excerpts.jsonl"
+        path.write_text('{"excerpt_id": "ok"}\n', encoding="utf-8")
+
+        with pytest.raises(ResumeMergeError, match="Corrupt existing excerpts.jsonl"):
+            write_excerpts([_make_excerpt_record()], tmp_path)
+
+    def test_duplicate_existing_excerpt_id_raises(self, tmp_path: Path) -> None:
+        """Duplicate excerpt_id rows in an existing excerpts.jsonl file must fail loudly."""
+        path = tmp_path / "excerpts.jsonl"
+        duplicate = _make_excerpt_record(excerpt_id="exc_dup_0_0_0")
+        line = json.dumps(duplicate.model_dump(mode="json"), ensure_ascii=False)
+        path.write_text(f"{line}\n{line}\n", encoding="utf-8")
+
+        with pytest.raises(ResumeMergeError, match="duplicate excerpt_id"):
+            write_excerpts([_make_excerpt_record()], tmp_path)
+
 
 # ═══════════════════════════════════════════════════════════════════
 # write_gate_queue

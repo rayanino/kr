@@ -110,12 +110,20 @@ def write_excerpts(
                 if not stripped:
                     continue
                 try:
-                    eid = json.loads(stripped)["excerpt_id"]
-                    merged[eid] = stripped
-                except (json.JSONDecodeError, KeyError) as exc:
+                    existing = ExcerptRecord.model_validate_json(stripped)
+                except (json.JSONDecodeError, ValueError) as exc:
                     raise ResumeMergeError(
                         f"Corrupt existing excerpts.jsonl at line {line_num}: {exc}"
                     ) from exc
+                if existing.excerpt_id in merged:
+                    raise ResumeMergeError(
+                        "Corrupt existing excerpts.jsonl at line "
+                        f"{line_num}: duplicate excerpt_id {existing.excerpt_id!r}."
+                    )
+                merged[existing.excerpt_id] = json.dumps(
+                    existing.model_dump(mode="json"),
+                    ensure_ascii=False,
+                )
 
     existing_count = len(merged)
 
