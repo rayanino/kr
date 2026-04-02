@@ -1,0 +1,522 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 11,
+    "text_snippet": "والأصل في الأخبار أن تؤخرا … وجوزوا التقديم إذ ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 12,
+    "end_word": 52,
+    "text_snippet": "الأصل تقديم المبتدأ وتأخير الخبر وذلك لأن الخبر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 53,
+    "end_word": 95,
+    "text_snippet": "وقد وقع في كلام بعضهم أن\nمذهب الكوفيين منع تقدم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 3,
+    "start_word": 96,
+    "end_word": 127,
+    "text_snippet": "نعم منع الكوفيون التقديم في مثل زيد قائم وزيد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 4,
+    "start_word": 128,
+    "end_word": 137,
+    "text_snippet": "ومنه قولهم مشنوء من يشنؤك فمن مبتدأ ومشنوء خ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 138,
+    "end_word": 166,
+    "text_snippet": "وقام أبوه زيد ومنه قوله:\n49 - قد ثكلت أمه من ك",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 167,
+    "end_word": 195,
+    "text_snippet": "وأبوه منطلق زيد ومنه قوله: 50 - إلى ملك ما أمه",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 196,
+    "end_word": 224,
+    "text_snippet": "ونقل الشريف أبو السعادات هبة الله بن الشجري ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 8,
+    "start_word": 225,
+    "end_word": 260,
+    "text_snippet": "فامنعه حين يستوي الجزآن … عرفا ونكرا عادمي بيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 261,
+    "end_word": 290,
+    "text_snippet": "ينقسم الخبر بالنظر إلى تقديمه على المبتدأ أو تأ",
+    "scholarly_function": "definition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 10,
+    "start_word": 291,
+    "end_word": 301,
+    "text_snippet": "فأشار بهذه الأبيات إلى الخبر الواجب التأخير فذك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 302,
+    "end_word": 351,
+    "text_snippet": "الأول: أن يكون كل من المبتدأ والخبر معرفة أو نك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 352,
+    "end_word": 432,
+    "text_snippet": "(2) وأنت تريد أن يكون خبرا من غير دليل يدل عليه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 13,
+    "start_word": 433,
+    "end_word": 483,
+    "text_snippet": "والثاني: أن يكون الخبر فعلا رافعا لضمير المبتدأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 484,
+    "end_word": 535,
+    "text_snippet": "فلو كان الفعل رافعا لظاهر - نحو: زيد قام أبوه -",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 15,
+    "start_word": 536,
+    "end_word": 565,
+    "text_snippet": "وإذا عرفت هذا فقول المصنف كذا إذا ما الفعل كان ",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 566,
+    "end_word": 597,
+    "text_snippet": "الثالث: أن يكون الخبر محصورا بإنما نحو إنما زيد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 598,
+    "end_word": 626,
+    "text_snippet": "وقد جاء التقديم مع إلا شذوذا كقول الشاعر:\n52 - ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 18,
+    "start_word": 627,
+    "end_word": 665,
+    "text_snippet": "الرابع: أن يكون خبرا لمبتدأ قد دخلت عليه لام ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 666,
+    "end_word": 689,
+    "text_snippet": "وقد جاء التقديم شذوذا كقول الشاعر:\n53 - خالي لأ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 690,
+    "end_word": 719,
+    "text_snippet": "الخامس: أن يكون المبتدأ له صدر الكلام كأسماء ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 720,
+    "end_word": 763,
+    "text_snippet": "ونحو عندي درهم ولي وطر … ملتزم فيه تقدم الخبر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 764,
+    "end_word": 780,
+    "text_snippet": "أشار في هذه الأبيات إلى القسم الثالث وهو وجوب ت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 23,
+    "start_word": 781,
+    "end_word": 830,
+    "text_snippet": "الأول: أن يكون المبتدأ نكرة ليس لها مسوغ إلا تق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 831,
+    "end_word": 843,
+    "text_snippet": "فإن كان للنكرة مسوغ جاز الأمران نحو رجل ظريف ع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 844,
+    "end_word": 885,
+    "text_snippet": "الثاني: أن يشتمل المبتدأ على ضمير يعود على شيء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 886,
+    "end_word": 981,
+    "text_snippet": "وهذا مراد المصنف بقوله كذا إذا عاد عليه مضمر ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 982,
+    "end_word": 1038,
+    "text_snippet": "ومثل قولك في الدار صاحبها قولهم على التمرة مثل",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1039,
+    "end_word": 1107,
+    "text_snippet": "وقد جرى الخلاف في جواز ضرب غلامه زيدا (1) مع أن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1108,
+    "end_word": 1157,
+    "text_snippet": "(2) الثالث: أن يكون الخبر له صدر الكلام وهو الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1158,
+    "end_word": 1178,
+    "text_snippet": "الرابع: أن يكون المبتدأ محصورا نحو إنما في الدا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1179,
+    "end_word": 1203,
+    "text_snippet": "وحذف ما يعلم جائز كما … تقول زيد بعد من عندكما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1204,
+    "end_word": 1244,
+    "text_snippet": "يحذف كل من المبتدأ والخبر إذا دل عليه دليل جواز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1245,
+    "end_word": 1263,
+    "text_snippet": "قال الشاعر:\n55 - نحن بما عندنا وأنت بما …\nعندك ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1264,
+    "end_word": 1574,
+    "text_snippet": "_________\n= الانصاري، ونسبه غيرهما - ومنهم العب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1575,
+    "end_word": 1586,
+    "text_snippet": "ومثال حذف المبتدأ أن يقال كيف زيد فتقول صحيح أ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1587,
+    "end_word": 1597,
+    "text_snippet": "وإن شئت صرحت بكل واحد منهما فقلت زيد عندنا وهو ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1598,
+    "end_word": 1617,
+    "text_snippet": "ومثله قوله تعالى: {مَنْ عَمِلَ صَالِحاً فَلِنَفْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1618,
+    "end_word": 1694,
+    "text_snippet": "قيل وقد يحذف الجزآن أعني المبتدأ والخبر للدلالة",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1695,
+    "end_word": 1741,
+    "text_snippet": "وبعد لولا غالبا حذف الخبر … حتم وفي نص يمين ذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1742,
+    "end_word": 1753,
+    "text_snippet": "حاصل ما في هذه الأبيات أن الخبر يجب حذفه في أرب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1754,
+    "end_word": 1769,
+    "text_snippet": "الأول: أن يكون خبرا لمبتدأ بعد لولا نحو لولا زي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1770,
+    "end_word": 1792,
+    "text_snippet": "واحترز بقوله غالبا عما ورد ذكره فيه شذوذا كقوله",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1793,
+    "end_word": 2137,
+    "text_snippet": "_________\n= معد زائد بدليل إدغام الدال في الدال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 2138,
+    "end_word": 2280,
+    "text_snippet": "وهذا الذي ذكره المصنف في هذا الكتاب من أن الحذف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 45,
+    "start_word": 2281,
+    "end_word": 2347,
+    "text_snippet": "الموضع الثاني: أن يكون المبتدأ نصا في اليمين (1",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 2348,
+    "end_word": 2374,
+    "text_snippet": "فإن لم يكن المبتدأ نصا في اليمين لم يجب حذف الخ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 2375,
+    "end_word": 2439,
+    "text_snippet": "الموضع الثالث: أن يقع بعد المبتدأ واو هي نص في ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 2440,
+    "end_word": 2455,
+    "text_snippet": "فإن لم تكن الواو نصا في المعية لم يحذف الخبر وج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 2456,
+    "end_word": 2533,
+    "text_snippet": "الموضع الرابع: أن يكون المبتدأ مصدرا وبعده حال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2534,
+    "end_word": 2625,
+    "text_snippet": "ونبه المصنف بقوله وقبل حال على أن الخبر المحذوف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2626,
+    "end_word": 2663,
+    "text_snippet": "والمضاف إلى هذا المصدر حكمه كحكم المصدر نحو أت",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2664,
+    "end_word": 2680,
+    "text_snippet": "ولم يذكر المصنف المواضع التي يحذف فيها المبتدأ ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2681,
+    "end_word": 2717,
+    "text_snippet": "الأول: النعت المقطوع إلى الرفع في مدح نحو مررت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2718,
+    "end_word": 2750,
+    "text_snippet": "الموضع الثانية: أن يكون الخبر مخصوص نعم أو بئس ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2751,
+    "end_word": 2782,
+    "text_snippet": "الموضع الثالث: ما حكى الفارسي من كلامهم في ذمتي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2783,
+    "end_word": 2812,
+    "text_snippet": "الموضع الرابع: أن يكون الخبر مصدرا نائبا مناب ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2813,
+    "end_word": 2823,
+    "text_snippet": "وأخبروا باثنين أو بأكثرا … عن واحد كهم سراة شع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2824,
+    "end_word": 2868,
+    "text_snippet": "اختلف النحويون في جواز تعدد خبر المبتدأ الواحد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2869,
+    "end_word": 2909,
+    "text_snippet": "وذهب بعضهم إلى أنه لا يتعدد الخبر إلا إذا كان ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2910,
+    "end_word": 2922,
+    "text_snippet": "وقول الشاعر:\n58 - من يك ذابت فهذا بتي … مقيظ مص",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2923,
+    "end_word": 3225,
+    "text_snippet": "_________\n= أخذته من نعجات ست وزاد على ذلك كله ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 62,
+    "start_word": 3226,
+    "end_word": 3238,
+    "text_snippet": "وقوله:\n59 - ينام بإحدى مقلتيه ويتقي … بأخرى الم",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 63,
+    "start_word": 3239,
+    "end_word": 3294,
+    "text_snippet": "وزعم بعضهم أنه لا يتعدد الخبر إلا إذا كان من جن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 64,
+    "start_word": 3295,
+    "end_word": 3313,
+    "text_snippet": "ومنه قوله تعالى: {فَإذَا هِيَ حيَّةٌ تَسْعَى} جو",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.94
+  }
+]

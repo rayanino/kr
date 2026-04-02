@@ -1,0 +1,186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "ونسأل الله تعالى العصمة والهداية، وأن يرينا الحق ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 30,
+    "text_snippet": "12- تحريم الحيل، وأنها لا تغير الحقائق، ولو سمي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 31,
+    "end_word": 49,
+    "text_snippet": "13- أن الشرع جاء. بكل ما فيه الخير والحذر من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 50,
+    "end_word": 71,
+    "text_snippet": "14- أن المحرمات المعدودة في الحديث نماذج لأنوا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 72,
+    "end_word": 80,
+    "text_snippet": "فكأن هذا الحديث سيق لبيان أنواع الخبائث ⌜1⌝ .",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 5,
+    "start_word": 81,
+    "end_word": 82,
+    "text_snippet": "‌‌بابُ السَّلَم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 83,
+    "end_word": 97,
+    "text_snippet": "السلم: - هو السلف، وزنا ومعنى، وسمى سلما، لتسل",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 98,
+    "end_word": 116,
+    "text_snippet": "وتعريفه شرعا: عقد على موصوف في الذمة، مؤجل بثم",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 117,
+    "end_word": 160,
+    "text_snippet": "والأصل في جوازه، الكتاب، والسنة، والإجماعِ، وا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 161,
+    "end_word": 184,
+    "text_snippet": "وأما السنة، فمنها حديث الباب الآتي. وإما الإج",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 10,
+    "start_word": 185,
+    "end_word": 191,
+    "text_snippet": "وهو على وفق القياس والمصلحة للبائع والمشترى.",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 192,
+    "end_word": 252,
+    "text_snippet": "فالبائع ينتفع بشراء السلعة بأقل من قيمتها حاضر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 253,
+    "end_word": 279,
+    "text_snippet": "وقد ظن بعض العلماء خروجه عن القياس، وعدوه من ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 280,
+    "end_word": 303,
+    "text_snippet": "فإن حديث حكيم يحمل على بيع عين معينة ليست في م",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 304,
+    "end_word": 318,
+    "text_snippet": "أو يحمل على السلم، الذي يظن المسلم أنه لا يتمك",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 15,
+    "start_word": 319,
+    "end_word": 358,
+    "text_snippet": "فأما السلم الذي استوفى شروطه، فليس من الحديث ف",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 16,
+    "start_word": 359,
+    "end_word": 360,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 361,
+    "end_word": 401,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاسِ رَضىَ الله عَنْه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 402,
+    "end_word": 403,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 19,
+    "start_word": 404,
+    "end_word": 506,
+    "text_snippet": "قدم النبي صلى الله عليه وسلم مهاجرا، فوجد أهل ",
+    "scholarly_function": "narration",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 20,
+    "start_word": 507,
+    "end_word": 510,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 511,
+    "end_word": 557,
+    "text_snippet": "يشترط في السلم ما يشترط في البيع، لأنه أحد أنو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 558,
+    "end_word": 582,
+    "text_snippet": "ويزيد السلم على هذه الشروط شروطاً ترجع إلى زيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

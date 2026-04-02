@@ -35,6 +35,45 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _load_json(path: Path) -> dict | list | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _apply_parent_summary_fallback(result: BookAnalysisResult, run_dir: Path) -> None:
+    """Use parent campaign SUMMARY.json to fill missing timing/error/cost fields."""
+    summary_data = _load_json(run_dir.parent / "SUMMARY.json")
+    summary_packages = (
+        summary_data.get("packages", {})
+        if isinstance(summary_data, dict)
+        else {}
+    )
+    pkg_summary = (
+        summary_packages.get(run_dir.name, {})
+        if isinstance(summary_packages, dict)
+        else {}
+    )
+    if not isinstance(pkg_summary, dict):
+        return
+
+    result.error_count = max(
+        result.error_count,
+        int(pkg_summary.get("error_count", 0) or 0),
+    )
+    if result.total_time_seconds == 0:
+        result.total_time_seconds = float(
+            pkg_summary.get("time_seconds", 0.0) or 0.0
+        )
+    if result.total_cost == 0:
+        result.total_cost = float(
+            pkg_summary.get("cost_estimate", 0.0) or 0.0
+        )
+
+
 def write_outputs(result: BookAnalysisResult, output_dir: Path) -> None:
     """Write all per-book analysis outputs."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -195,6 +234,7 @@ def main() -> None:
 
     run_data = load_book_run(run_dir)
     result = analyze_book(run_data)
+    _apply_parent_summary_fallback(result, run_dir)
     write_outputs(result, output_dir)
 
 

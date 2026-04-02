@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 10,
+    "text_snippet": "‌‌التوكيد\nبالنفس أو بالعين الاسم أكدا … مع ضمير ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 1,
+    "start_word": 11,
+    "end_word": 20,
+    "text_snippet": "واجمعهما بأفعل إن تبعا … ما ليس واحد تكن متب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 21,
+    "end_word": 22,
+    "text_snippet": "التوكيد قسمان:",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 23,
+    "end_word": 32,
+    "text_snippet": "أحدهما: التوكيد اللفظي وسيأتي\nوالثاني: التوكيد ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 33,
+    "end_word": 54,
+    "text_snippet": "أحدهما: ما يرفع توهم مضاف إلى المؤكد وهو المراد",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 55,
+    "end_word": 121,
+    "text_snippet": "لزيد وهو يرفع توهم أن يكون التقدير جاء خبر زيد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 6,
+    "start_word": 122,
+    "end_word": 131,
+    "text_snippet": "وكلا اذكر في الشمول وكلا … كلتا جميعا بالضمير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 132,
+    "end_word": 211,
+    "text_snippet": "هذا هو الضرب الثاني: من التوكيد المعنوي وهو ما ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 212,
+    "end_word": 222,
+    "text_snippet": "واستعملوا أيضا ككل فاعله … من عم في التوكيد مث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 9,
+    "start_word": 223,
+    "end_word": 267,
+    "text_snippet": "أي استعمل العرب للدلالة على الشمول ككل عامة مض",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 10,
+    "start_word": 268,
+    "end_word": 276,
+    "text_snippet": "وبعد كل أكدوا بأجمعا … جمعاء أجمعين ثم جمعا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 277,
+    "end_word": 320,
+    "text_snippet": "أي يجاء بعد كل بأجمع وما بعدها لتقوية قصد الشم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 321,
+    "end_word": 331,
+    "text_snippet": "ودون كل قد يجيء أجمع … جمعاء أجمعون ثم جمع\nأي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 332,
+    "end_word": 378,
+    "text_snippet": "قد ورد استعمال العرب أجمع في التوكيد غير مسبوق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 14,
+    "start_word": 379,
+    "end_word": 392,
+    "text_snippet": "ومنه قوله: 289 - يا ليتني كنت صبيا مرضعا … تحمل",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 393,
+    "end_word": 402,
+    "text_snippet": "إذا بكيت قبلتني أربعا … إذا ظللت الدهر أبكي أ",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 16,
+    "start_word": 403,
+    "end_word": 413,
+    "text_snippet": "وإن يفد كيد منكور قبل … وعن نحاة البصرة المنع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 17,
+    "start_word": 414,
+    "end_word": 444,
+    "text_snippet": "مذهب البصريين أنه لا يجوز توكيد النكرة سواء كان",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 445,
+    "end_word": 454,
+    "text_snippet": "نحو صمت شهرا كله ومنه قوله\nتحملني الذلفاء حولا",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 455,
+    "end_word": 462,
+    "text_snippet": "وقوله:\n290 - قد صرت البكرة يوما أجمعا",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 463,
+    "end_word": 473,
+    "text_snippet": "وأغن بكلتا في مثنى وكلا … عن وزن فعلاء ووزن أف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 474,
+    "end_word": 506,
+    "text_snippet": "قد تقدم أن المثنى يؤكد بالنفس أو العين وبكلا وك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 507,
+    "end_word": 515,
+    "text_snippet": "وإن تؤكد الضمير المتصل … بالنفس والعين فبعد ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 516,
+    "end_word": 525,
+    "text_snippet": "عينت ذا الرفع وأكدوا بما … سواهما والقيد لن يل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 24,
+    "start_word": 526,
+    "end_word": 592,
+    "text_snippet": "لا يجوز توكيد الضمير المرفوع المتصل بالنفس أو ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 25,
+    "start_word": 593,
+    "end_word": 623,
+    "text_snippet": "وما من التوكيد لفظي يجئ … مكررا كقولك أدرجى أدر",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 624,
+    "end_word": 636,
+    "text_snippet": "291 - فأين إلى أين النجاة ببغلتي … أتاك أتاك ال",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 637,
+    "end_word": 645,
+    "text_snippet": "وقوله تعالى: {كَلَاّ إِذَا دُكَّتِ الأَرْضُ دَكّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 646,
+    "end_word": 657,
+    "text_snippet": "ولا تعد لفظ ضمير متصل … إلا مع اللفظ الذي به و",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 29,
+    "start_word": 658,
+    "end_word": 686,
+    "text_snippet": "أي إذا أريد تكرير لفظ الضمير المتصل للتوكيد لم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 687,
+    "end_word": 696,
+    "text_snippet": "كذا الحروف غير ما تحصلا … به جواب كنعم وكبلى\nأ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 31,
+    "start_word": 697,
+    "end_word": 774,
+    "text_snippet": "أي كذلك إذا أريد توكيد الحرف الذي ليس للجواب يج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 775,
+    "end_word": 785,
+    "text_snippet": "ومضمر الرفع الذي قد انفصل … أكد به كل ضمير اتصل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 33,
+    "start_word": 786,
+    "end_word": 813,
+    "text_snippet": "أي يجوز أن يؤكد بضمير الرفع المنفصل كل ضمير متص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

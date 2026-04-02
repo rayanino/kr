@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "فَرَكعَتَهُ، فَاعتِدَالَهُ بَعدَ رُكُوعِهِ، فسجدتهُ،",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 35,
+    "text_snippet": "وتقدم الكلام عليه- وثبت أنه يقف في اعتداله بعد ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 36,
+    "end_word": 51,
+    "text_snippet": "وليس لدى الحنفية، دليل على ما ذهبوا إليه، ولا ج",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 52,
+    "end_word": 64,
+    "text_snippet": "المبحث الثاني: في كيفية الاستدلال بهذا الحديث ع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 65,
+    "end_word": 91,
+    "text_snippet": "قال في \"سبل السلام\": واعلم أن هذا حديث جليل، تك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 92,
+    "end_word": 193,
+    "text_snippet": "أما الاستدلال على أن كل ما ذكر فيه واجب، فلأنه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 194,
+    "end_word": 211,
+    "text_snippet": "وأما الاستدلال على أن كل ما لم يذكر فيه لا يجب،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 212,
+    "end_word": 236,
+    "text_snippet": "فلو ترك ذكر بعض ما يجب لكان فيه تأخير البيان عن",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 8,
+    "start_word": 237,
+    "end_word": 289,
+    "text_snippet": "ثم إن عارض الوجوب الدالة عليه ألفاظ هذا الحديث ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 290,
+    "end_word": 319,
+    "text_snippet": "وإن جاءت صيغة أمر بشيء لم يذكر في هذا الحديث، ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 320,
+    "end_word": 327,
+    "text_snippet": "المبحث الثالث: في الأحكام المأخوذة من هذا الحديث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 328,
+    "end_word": 397,
+    "text_snippet": "1- الأعمال المذكورة في هذا الحديث هي أركان الصل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 398,
+    "end_word": 403,
+    "text_snippet": "قال النووي: إنها معلومة لدى السائل\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 404,
+    "end_word": 417,
+    "text_snippet": "2- أن يفعل ذلك في كل ركعة، ماعدا تكبيرة الإحرام",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 418,
+    "end_word": 444,
+    "text_snippet": "3- دل هذا الحدث على عدم وجوب ما لم يذكر فيه من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 445,
+    "end_word": 464,
+    "text_snippet": "4- وفيه دليل على وجوب الترتيب بين هذه الأعمال، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 465,
+    "end_word": 486,
+    "text_snippet": "5- أن هذه الأركان للصلاة، لا تسقط لا سهواً ولا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 487,
+    "end_word": 500,
+    "text_snippet": "6- يدل هذا الحديث على عدم صحة صلاة المسيء، فلول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 501,
+    "end_word": 512,
+    "text_snippet": "7- يدل على أن الجاهل تجزىء منه الصلاة الناقصة، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 513,
+    "end_word": 545,
+    "text_snippet": "8- فيه دليل على مشروعية حسن التعليم والأمر بالم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 20,
+    "start_word": 546,
+    "end_word": 569,
+    "text_snippet": "9- وأنه يستحب للمسئول أن يزيد في الجراب إذا اقت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 21,
+    "start_word": 570,
+    "end_word": 586,
+    "text_snippet": "10- أن الاستفتاح، والتعوذ، ورفع اليدين، وجعلهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 587,
+    "end_word": 599,
+    "text_snippet": "11- وفيه أن المعلم يبدأ في تعليمه بالأهم فالأهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 600,
+    "end_word": 665,
+    "text_snippet": "12- قال الصنعاني: واعلم أن حديث المسيء في صلاته",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  }
+]

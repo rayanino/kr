@@ -1,0 +1,137 @@
+{
+  "book_name": "taysir",
+  "source_id": "src_test0001",
+  "structural_status": "STRUCTURAL_FAIL",
+  "phase1_chunk_count": 184,
+  "phase2b_unit_count": 3107,
+  "excerpt_count": 0,
+  "error_count": 1,
+  "anomaly_count": 4,
+  "review_candidate_count": 3107,
+  "total_time_seconds": 28800.96,
+  "total_cost": 42.819313,
+  "metrics": {
+    "unit_yield_ratio": {
+      "name": "unit_yield_ratio",
+      "value": 0.0,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "phase1_chunk_count": {
+      "name": "phase1_chunk_count",
+      "value": 184,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "phase2b_unit_count": {
+      "name": "phase2b_unit_count",
+      "value": 3107,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "final_excerpt_count": {
+      "name": "final_excerpt_count",
+      "value": 0,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "unit_loss_count": {
+      "name": "unit_loss_count",
+      "value": 3107,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "chunk_coverage_ratio": {
+      "name": "chunk_coverage_ratio",
+      "value": 0.9728,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "truncation_count": {
+      "name": "truncation_count",
+      "value": 0,
+      "tier": "decision_grade_structural",
+      "provenance": "deterministic_structural"
+    },
+    "zero_output_with_activity": {
+      "name": "zero_output_with_activity",
+      "value": false,
+      "tier": "decision_grade_structural",
+      "provenance": "deterministic_structural"
+    },
+    "error_count": {
+      "name": "error_count",
+      "value": 1,
+      "tier": "decision_grade_structural",
+      "provenance": "artifact_accounting"
+    },
+    "total_time_seconds": {
+      "name": "total_time_seconds",
+      "value": 28800.96,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase1_time_seconds": {
+      "name": "phase1_time_seconds",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase2a_time_seconds": {
+      "name": "phase2a_time_seconds",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase2b_time_seconds": {
+      "name": "phase2b_time_seconds",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "phase3_time_seconds": {
+      "name": "phase3_time_seconds",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_llm_cost": {
+      "name": "total_llm_cost",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_tokens_in": {
+      "name": "total_tokens_in",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "total_tokens_out": {
+      "name": "total_tokens_out",
+      "value": 0,
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "call_count_by_inferred_phase": {
+      "name": "call_count_by_inferred_phase",
+      "value": {},
+      "tier": "operational",
+      "provenance": "derived_operational"
+    },
+    "call_count_by_model": {
+      "name": "call_count_by_model",
+      "value": {},
+      "tier": "operational",
+      "provenance": "derived_operational"
+    }
+  },
+  "trace_summary": [],
+  "observability_limitations": [
+    "EX-V-002 dropped unit identity unknown: processing_log records error codes but not affected unit indices. The analyzer correlates by count but cannot confirm the specific unit-to-error mapping.",
+    "Failed Phase 2a/2b chunks may be absent, not logged: if a chunk's classification fails, no output file is written. The analyzer detects absence but cannot distinguish 'not attempted' (--max-chunks) from 'attempted and failed silently'.",
+    "Validation drops are not first-class artifacts: dropped units have no dedicated artifact. The analyzer infers drops from the gap between phase2b unit set and excerpt set.",
+    "gate_queue verification not invoked by runner: gate_queue.jsonl is empty in all test books despite GATE_ON_* flags being true. The analyzer notes gate_count=0 but cannot determine if gates should have fired.",
+    "Pre-L-001 runs lack chunk_id in raw traces: the analyzer reads chunk_id from request JSON when present (post-L-001); for older run directories chunk_id is None (semantic phase inference unaffected)."
+  ]
+}

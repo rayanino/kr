@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 45,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم أخبر أن من ظلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 1,
+    "start_word": 46,
+    "end_word": 49,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 63,
+    "text_snippet": "1- تحريم الغصب، لأنه من الظلم الذي حرمه الله ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 64,
+    "end_word": 74,
+    "text_snippet": "2- أن الظلم حرام، في القليل والكثير، وهنا فائد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 75,
+    "end_word": 84,
+    "text_snippet": "3- أن العقار يكون مغصوبا بوضع اليد، ويكون مستو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 85,
+    "end_word": 94,
+    "text_snippet": "قال القرطبي: ومن الحديث إمكان غصب الأرض وأنه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 95,
+    "end_word": 104,
+    "text_snippet": "4- أن من ملك ظاهر أرض، ملك باطنها إلى تخومها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 105,
+    "end_word": 134,
+    "text_snippet": "فلا يجوز أن ينقب أحد من تحته، أو يجعل نفقا أو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 135,
+    "end_word": 148,
+    "text_snippet": "كما أن العلماء قالوا: إن الهواء تابع للقرار،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 149,
+    "end_word": 210,
+    "text_snippet": "5- قال شيخ الإسلام: إذا اختلط الحرام بالحلال،",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 211,
+    "end_word": 258,
+    "text_snippet": "6َ وقال أيضاً: المال إذا تعذر معرفة مالكه صرف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 259,
+    "end_word": 259,
+    "text_snippet": "فائدة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 260,
+    "end_word": 299,
+    "text_snippet": "قال في المغني: وما كان في الشوارع والطرقات وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  }
+]

@@ -1,0 +1,228 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 0,
+    "end_word": 194,
+    "text_snippet": "‌‌بَابُ ما جاء في الاستئمار وَالاستئذان\nعَنْ أبي هريرة رضي الله عنه أنَ رَسُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث استئمار الثيب واستئذان البكر مع شرح ألفاظه ومعناه وسبب الاكتفاء بسكوت البكر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 195,
+    "end_word": 218,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن نكاح الثيب قبل استئمارها وطلبها ذلك وقد ورد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم نكاح الثيب قبل استئمارها وأن النهي يقتضي بطلان العقد بدون إذنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 219,
+    "end_word": 233,
+    "text_snippet": "2- النهْيُ عن نكاح البكر قبل استئذانها، ومقتضى طلب إذنها، أن نكاحها بدونه ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم نكاح البكر قبل استئذانها وأن العقد بدون إذنها باطل أيضا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 234,
+    "end_word": 289,
+    "text_snippet": "3- يفيد طلب إذنها: أن المراد بها البالغة، وإلا لم يكن لاستئذانها فائدة، لو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلالة الاستئذان على أن المراد بالبكر هنا البالغة دون الصغيرة مع نقل تأييد العلماء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المقصود غالبا، لكن عبارة «طلب إذنها» ومرجع الضمير يعودان إلى الحديث السابق، فيحتاج القارئ لمعرفة أن الكلام في استئذان البكر."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 290,
+    "end_word": 302,
+    "text_snippet": "4- عبر عن البكر بالاستئذان لغلبة الحياء عليها، فلا تكون موافقتها بأمر كالثي",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان سبب التعبير عن البكر بالاستئذان دون الاستئمار لغلبة الحياء عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 303,
+    "end_word": 328,
+    "text_snippet": "5- يكفى في إذنها السكوت لحيائها -غالبا- عن النطق. والأحسن أن يجعل لموافقتها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كفاية سكوت البكر في الإذن واستحباب تحديد أجل تعلم بعده أن سكوتها موافقة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 329,
+    "end_word": 363,
+    "text_snippet": "6- لا يكفي في استئمار الثيب واستئذان البكر مجرد الإخبار بالزواج، بل لا بد م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تعريف المرأة بالزوج تعريفا تاما، وأن مجرد الإخبار بالزواج لا يكفي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 364,
+    "end_word": 415,
+    "text_snippet": "7- قال شيخ الإسلام: من كان لها ولي من النسب وهو العصبة فهذه يزوجها الولي بإ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "من يزوج المرأة عند وجود الولي العصبة أو عدمه، ودور نائب الحاكم أو الإمام المطاع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمائر في «هذه» و«يزوجها» مفهومة من السياق العام للمرأة المستأذنة، لكن الوحدة لا تذكر ابتداء نوع المسألة وهو تزويج المرأة بإذنها."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 416,
+    "end_word": 477,
+    "text_snippet": "8- وقال شيخ الإسلام الإشهاد على إذن المرأة ليس شرطا في صحة العقد عند جماهير",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم الإشهاد على إذن المرأة وأنه ليس شرطا عند الجمهور مع بيان فائدة استحبابه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 478,
+    "end_word": 496,
+    "text_snippet": "اختلاف العلماء:\nليس هناك نزاع بين العلماء، في أن البالغة العاقلة الثيب لا ت",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "نقل الاتفاق على أن الثيب البالغة العاقلة لا تجبر على النكاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 497,
+    "end_word": 543,
+    "text_snippet": "وليس هناك نزاع أيضا في أن البكر التي دون التسع، ليس لها إذن، فلأبيها تزويجه",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الاتفاق على أن الصغيرة دون التسع لا إذن لها، والاستدلال بزواج عائشة رضي الله عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 544,
+    "end_word": 599,
+    "text_snippet": "فالمشهور من مذهب الإمام أحمد أن لأبيها إجبارها، وهو مذهب مالك، والشافعي، وإ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "القول الأول في البكر البالغة: أن للأب إجبارها، مع دليلهم من حديث ابن عباس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "start_word": 600,
+    "end_word": 819,
+    "text_snippet": "الرواية الثانية عن الإمام أحمد، ليس له إجبارها وهو مذهب الإمام أبي حنيفة وا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "refutation",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "القول الراجح عند المصنف في منع إجبار الأب للبكر البالغة مع أدلته الحديثية والعقلية ورد الاعتراض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,168 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 61,
+    "text_snippet": "العلماء: ليس للإبراد في الشريعة تحديد، وبين الصنعاني أن الأقَرب في الاستدل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الإبراد لا حدَّ مقدر له، وأن مقداره يُعرف بظهور الفيء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر حديث أبي ذر بالمعنى والاستدلال عليه دون تخريج كامل أو تمام نصه، كما أن مفهوم الإبراد يفترض معرفة سابقة يسيرة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 62,
+    "end_word": 77,
+    "text_snippet": "2- أن الحكمة في ذلك، هو طلب راحة المصلى، ليكون أحضر لقلبه وأبعد له عن القلق",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكمة تأخير الصلاة في الحر لتحصيل راحة المصلي وحضور قلبه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قوله: \"في ذلك\" تعود إلى الإبراد المذكور قبله، فالوحدة مفهومة غالبًا لكن تحتاج سياقًا قريبًا."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 78,
+    "end_word": 102,
+    "text_snippet": "3- أن الحكم يدور مع علته، فمتى وجد الحر في بلد، وجدت فضيلة التأخير.\nوأما ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "قاعدة دوران استحباب التأخير مع وجود الحر، وانتفاؤه في البلاد الباردة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 103,
+    "end_word": 134,
+    "text_snippet": "4- ظاهر الحديث، والمفهوم من الحكمة في هذا التأخير، أن الحكم عام في حق من يؤ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عموم حكم الإبراد لمن يصلي جماعة في المسجد ولمن يصلي منفردًا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على مرجع سابق في قوله: \"الحديث\" و\"هذا التأخير\"، لكن الحكم المستفاد واضح بذاته."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 135,
+    "end_word": 148,
+    "text_snippet": "5- أنه يشرع للمصلى أن يؤدي الصلاة بعيدا عن كل شاغل عنها ومُلْهٍ فيها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب إبعاد المصلي عن كل ما يشغله ويلهيه في الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 149,
+    "end_word": 200,
+    "text_snippet": "فائدة:\nقال شيخنا \"عبد الرحمن بن ناصر بن سعدي\" عند كلام له على هذا الحديث:\nول",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "refutation"
+    ],
+    "description_arabic": "الجمع بين الأسباب الغيبية والمشاهدة، ووجوب إثباتهما، وخطأ من أنكر أحدهما.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول: \"هذا الحديث\" وذكر \"الكسوف وغيره\" دون بسط السياق، لكن أصل الفائدة العقدية واضح."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 201,
+    "end_word": 277,
+    "text_snippet": "الحديث الثاني\nعَنْ أنَس بْنِ مَالِكٍ رضي الله عنه قَالَ: كنا نُصَلي مَعَ رَسُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أنس في السجود على الثوب لشدة الحر مع شرحه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 278,
+    "end_word": 304,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن وقت صلاة النبي صلى الله عليه وسلم بأصحابه الظهر في ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استفادة أن صلاة الظهر في الحر تقع بعد انكسار حرارة الشمس مع بقاء أثرها بالأرض.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هو من قسم الفوائد المستخرجة من الحديث السابق، ويفهم تمامًا أكثر عند ضمه إلى حديث أنس."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 305,
+    "end_word": 352,
+    "text_snippet": "2- جواز السجود على حائل من ثوب غيره عند الحاجة إليه، من حر، وبرد، وشوك، ونحو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز السجود على حائل عند الحاجة، مع تفصيل بعض العلماء بين المنفصل والمتصل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 353,
+    "end_word": 420,
+    "text_snippet": "التوفيق بين الحديثين:\nظاهر هذين الحديثين المتقدمين التعارض، ولذا حاول العلما",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "توجيه التعارض الظاهري بين حديث الإبراد وحديث السجود على الثوب، وترجيح مذهب الجمهور.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة الحديثين المتقدمين المشار إليهما بقول: \"هذين الحديثين\"، لكن خلاصة التوفيق والراجح مذكورة."
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌التحذير والإغراء",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في التحذير والإغراء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3
+    ],
+    "start_word": 2,
+    "end_word": 33,
+    "text_snippet": "إياك والشر ونحوه نصب … محذر بما استتاره وجب\nودون عطف ذا لإيا انسب وما … س",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "قاعدة نصب المحذَّر في التحذير بإياك وبغيرها، ومواضع وجوب إضمار الفعل.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "البيت منظوم ومجمل، وتوضيحه التفصيلي وتعريف التحذير يأتيان في القطع اللاحقة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 34,
+    "end_word": 84,
+    "text_snippet": "التحذير: تنبيه المخاطب على أمر يجب الاحتراز منه\nفإن كان بإياك وأخواته وهو إ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "definition",
+      "example"
+    ],
+    "description_arabic": "تعريف التحذير، وحكم إضمار الناصب وجوبًا إذا كان التحذير بإياك وأخواتها مع الأمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 85,
+    "end_word": 141,
+    "text_snippet": "وإن كان بغير إياك وأخواته وهو المراد بقوله: وما سواه فلا يجب إضمار الناصب ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "حكم التحذير بغير إياك: وجوب إضمار الناصب مع العطف أو التكرار، وجوازه بدونهما.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير: «وهو المراد بقوله: وما سواه» يحيل إلى البيت السابق، لكن الحكم نفسه مع أمثلته واضح داخل الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 142,
+    "end_word": 186,
+    "text_snippet": "وشذ إياي وإياه أشذ … وعن سبيل القصد من قاس انتبذ\nحق التحذير أن يكون للمخاط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "الأصل أن التحذير للمخاطب، وشذ استعماله للمتكلم والغائب، ولا يقاس على ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 187,
+    "end_word": 251,
+    "text_snippet": "وكمحذر بلا إيا اجعلا … مغرى به في كل ما قد فصلا\nالإغراء هو أمر المخاطب بلزو",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "تعريف الإغراء، وبيان أنه كالتَّحذير في أحكام إضمار الناصب دون استعمال إيا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

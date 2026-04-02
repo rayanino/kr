@@ -33,9 +33,9 @@
     "context_note": "This excerpt introduces the section on wiping over leather socks (المسح على الخفين) and establishes its legal basis.",
     "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything. Take your time.",
     "multiple_choice": [
-      "A: Accept as-is — this works well as a standalone piece of knowledge",
-      "B: Needs improvement — something is missing or unclear",
-      "C: Reject — this should not be its own entry in the library"
+      "A: Works well as-is — this stands on its own",
+      "B: Partly works — something is missing or unclear",
+      "C: Doesn't work as its own entry"
     ],
     "is_edge_case": false
   },
@@ -49,9 +49,9 @@
     "context_note": "This excerpt discusses the scholarly disagreement about the hand that is cut in the ruling on theft.",
     "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything.",
     "multiple_choice": [
-      "A: Accept as-is — this works as a standalone entry",
-      "B: Needs improvement — it feels incomplete",
-      "C: Reject — this is too short/fragmented to be useful on its own"
+      "A: Works as a standalone entry",
+      "B: Partly works — it feels incomplete",
+      "C: Doesn't work as its own entry"
     ],
     "is_edge_case": false
   },
@@ -63,11 +63,11 @@
     "excerpt_text": "المعنى الإجمالي:\nطلق عبد الله بن عمر رضي الله عنهما امرأته وهي حائض، فذكر ذلك أبوه للنبي صلى الله عليه وسلم، فتغيظ غضبا، حيث طلقها طلاقا محرما، لم يوافق السنة.\nثم أمره بمراجعْتها وإمساكها حتى تطهر من تلك الحيضة ثم تحيض أخرى ثم تطهر منها.\nوبعد ذلك- إن بدا له طلاقها ولم ير في نفسه رغبة في بقائها- فليطلقها قبل أن يطأها.\nفتلك العدة، التي أمر الله بالطلاق فيها لمن شاء.\nومع أن الطلاق في الحيض محرم ليس على السنة، فقد حسبت عليه تلك الطلقة من طلاقها، فامتثل رضي الله عنه أمر نبيه، فراجعها.",
     "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
     "context_note": "هذا شرح لحديث عبد الله بن عمر أنه طلق امرأته وهي حائض فأمره النبي صلى الله عليه وسلم بمراجعتها.",
-    "question": "Read both the note and the excerpt. What is your reaction? Does the note change how you experience the excerpt? Would you want this summary note shown or hidden by default?",
+    "question": "Read both the note and the excerpt. Answer two things clearly: (1) does the excerpt still work if the note is removed, or is the note necessary for understanding it? (2) if the note is useful, should it be shown by default, or only opened when you want extra context?",
     "multiple_choice": [
-      "A: The note is essential — always show it",
-      "B: The note helps but the excerpt works without it",
-      "C: The excerpt should be rewritten to stand on its own without needing a note"
+      "A: The note is essential and should be shown by default",
+      "B: The note helps, but it should stay secondary or collapsible",
+      "C: The excerpt should stand on its own without needing the note"
     ],
     "is_edge_case": false
   },
@@ -99,15 +99,15 @@
     "id": "F-8",
     "phase": "foundations",
     "phase_label": "Phase 1: Foundations",
-    "title": "A Design Question",
+    "title": "A Risk Preference Question",
     "excerpt_text": null,
     "excerpt_source": null,
     "context_note": null,
-    "question": "Should the system that breaks books into excerpts know in advance what topics the library covers (like a table of contents of Islamic knowledge), or should it work without that knowledge to avoid being biased? If the system knows the topic structure in advance, what worries you? And if it works blind without any topic structure, what worries you? What could go wrong in each case?",
+    "question": "This is not asking you to design the system. It is asking which failure worries you more. If the system knows the topic structure in advance, what worries you most — becoming rigid too early, forcing texts into the wrong boxes, or importing bias? If it works blind without any topic structure, what worries you most — becoming chaotic, missing distinctions, or producing inconsistent excerpt boundaries? Which kind of failure feels more dangerous to you, and why?",
     "multiple_choice": [
-      "A: The system should know the topic structure in advance",
-      "B: The system should work without prior topic knowledge",
-      "C: Some combination — I would need to think about which parts should be guided"
+      "A: Premature structure worries me more",
+      "B: Structurelessness worries me more",
+      "C: Neither extreme — the real issue is where guidance should and should not be used"
     ],
     "is_edge_case": false
   },
@@ -275,15 +275,15 @@
     "id": "E-1",
     "phase": "deep_dives",
     "phase_label": "Phase 2: Dimension Deep Dives — Evidence Handling",
-    "title": "Multiple Quranic Citations",
+    "title": "Proof Plus Explanatory Wisdom",
     "excerpt_text": "وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .\nومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.\nوهى من محاسن الإسلام، إذ جعل لصاحب المال جزءاً من ماله، يعود عليه ثوابه وأجره بعد موته.\nوهي من لطف الله بعباده ورحمته بهم، حينما أباح لهم من أموالهم عند خروجهم من الدنيا أن يتزودوا لآخرتهم بنصيب منها.\nلهذا جاء في بعض الأحاديث القُدسيةِ قول الله تعالى: \" يا ابن آدم جعلت لك نصيباً من مالك حين أخذت بكظمك لأطهِّرَكَ به وأزكِّيَكَ \".",
     "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
-    "context_note": "This excerpt establishes the legality of the bequest (wasiyyah) through Quran, Sunnah, and scholarly consensus.",
-    "question": "This text cites evidence from the Quran, the Sunnah, and scholarly consensus — all to support one ruling. Should each type of evidence be its own excerpt, or do they belong together because they all serve the same purpose? Follow-up: Where is the boundary between \"grouped evidence for one ruling\" and \"each piece of evidence deserves its own entry\"?",
+    "context_note": "This excerpt establishes the legality of the bequest (wasiyyah), then explains the mercy, wisdom, and benefit behind that ruling.",
+    "question": "This passage does more than cite proof: it also explains why the ruling is a mercy and benefit. Should the proofs and this explanatory reflection stay together as one teaching unit, or should the bare proofs be separated from the author's explanatory wisdom? Follow-up: when does explanatory wisdom belong with the proof, and when does it become a second topic?",
     "multiple_choice": [
-      "A: Keep together — all these proofs support one ruling and belong together",
-      "B: Separate each type of evidence (Quran, Sunnah, consensus) into its own entry",
-      "C: Keep the ruling statement separate, but group all the evidence together"
+      "A: Keep the proofs and explanatory reflection together — they form one teaching unit",
+      "B: Keep the proofs together, but separate the explanatory reflection",
+      "C: Separate the proof material from the explanatory wisdom entirely"
     ],
     "is_edge_case": true
   },
@@ -390,8 +390,8 @@
     "title": "The Grammar Example (الشاهد)",
     "excerpt_text": null,
     "excerpt_source": null,
-    "context_note": "Referring to the grammar excerpt from GN-1: \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم.\" In grammar texts, the example sentence (الشاهد) — like \"يا زيد\" or \"زيد قائم\" — is central to understanding the rule.",
-    "question": "Should the example sentence (الشاهد) be inside the rule excerpt, or should it be its own separate entry? If the example is separated from the rule, can you still understand the rule?",
+    "context_note": "Referring to the grammar excerpt from GN-1: \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم.\" In grammar texts, the example sentence (الشاهد) — like \"يا زيد\" or \"زيد قائم\" — is central to understanding the rule. If grammar is not a science you actively study, answer from a simple reader's perspective: would separating the example make the explanation easier or harder to understand?",
+    "question": "Should the example sentence (الشاهد) stay inside the rule excerpt, or could it be its own separate entry? If the example is separated from the rule, can you still understand the rule well enough as a reader?",
     "multiple_choice": [
       "A: The example should always be inside the rule excerpt — they cannot be separated",
       "B: The example can be its own entry if it is also used in other rules",
@@ -420,14 +420,14 @@
     "phase": "deep_dives",
     "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
     "title": "Commentary Quoting Original Text",
-    "excerpt_text": null,
-    "excerpt_source": null,
-    "context_note": null,
-    "question": "When a commentary (sharh) quotes the original text (matn) it is explaining — for example, when Ibn Aqil quotes a verse from Ibn Malik's Alfiyyah and then explains it — should the library show this as one excerpt or two? The commentary is meaningless without the original text. The original text exists independently. Who is the \"author\" of the commentary excerpt — the commentator (Ibn Aqil) or the original author (Ibn Malik)?",
+    "excerpt_text": "واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحبا ⌜2⌝\nينقسم العلم إلى ثلاثة أقسام: إلى اسم وكنية ولقب والمراد بالاسم هنا ما ليس بكنية ولا لقب كزيد وعمرو وبالكنية ما كان في أوله أب أو أم كأبي عبد الله وأم الخير وباللقب ما أشعر بمدح كزين العابدين أو ذم كأنف الناقة.",
+    "excerpt_source": "شرح ابن عقيل / Campaign run / Claude Opus classification",
+    "context_note": "The first line is the original matn line from Ibn Malik's Alfiyyah. The lines after it are Ibn Aqil's explanation. The library needs to decide whether to keep them together, how to attribute them, and whether it must label which words belong to which layer.",
+    "question": "In this example, the matn line and the sharh are shown together. Should the library keep them in one entry, or split them into two linked entries? And regardless of structure, does the library need to explicitly label which words belong to Ibn Malik and which belong to Ibn Aqil? If that distinction is blurred, how damaging is that to your trust?",
     "multiple_choice": [
-      "A: One excerpt — the commentary only makes sense alongside the original text",
-      "B: Two excerpts — the original text is its own entry, the commentary is its own entry with a link",
-      "C: The author should be shown as both — Ibn Aqil commenting on Ibn Malik"
+      "A: Keep them together, but clearly distinguish matn from sharh",
+      "B: Split them into two linked entries, each with its own author",
+      "C: Structure matters less than making authorship and layer boundaries unmistakable"
     ],
     "is_edge_case": false
   },
@@ -436,21 +436,21 @@
     "phase": "deep_dives",
     "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
     "title": "Footnotes in Scholarly Texts",
-    "excerpt_text": null,
-    "excerpt_source": null,
-    "context_note": null,
-    "question": "Many scholarly books have footnotes added by editors. Some footnotes are simple references. Others add real scholarly content — explaining a difficult word, noting a different version of the text, or providing additional evidence. When a footnote adds real scholarly content, how should the library handle it?",
+    "excerpt_text": "وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .\nومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.\nوهى من محاسن الإسلام، إذ جعل لصاحب المال جزءاً من ماله، يعود عليه ثوابه وأجره بعد موته.\nوهي من لطف الله بعباده ورحمته بهم، حينما أباح لهم من أموالهم عند خروجهم من الدنيا أن يتزودوا لآخرتهم بنصيب منها.\nلهذا جاء في بعض الأحاديث القُدسيةِ قول الله تعالى: \" يا ابن آدم جعلت لك نصيباً من مالك حين أخذت بكظمك ⌜1⌝ لأطهِّرَكَ به وأزكِّيَكَ \".",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt includes an editor footnote marker: ⌜1⌝. Footnote 1 explains the word \"بكظمك\" as: \"الكظم: مخرج النفس من الحلق ويريد: عند خروج نفسه وانقطاع نفسه.\" Treat this as a real example of a substantive explanatory footnote. Also consider whether your answer changes when the note is not a word explanation but hadith source-tracing, grading, or takhrij information.",
+    "question": "When a footnote like this adds real scholarly value, how should the library handle it? Should it stay inline with the main excerpt, become a linked side note, or stay hidden unless you ask for it? And does your answer change if the note is source-tracing, grading, or takhrij information rather than just a word explanation?",
     "multiple_choice": [
-      "A: Show it as part of the main excerpt",
-      "B: Its own separate entry linked to the main excerpt",
-      "C: Hidden but accessible — show a small indicator and reveal on click"
+      "A: Keep substantive footnotes inline with the main excerpt",
+      "B: Make them linked side notes separate from the main excerpt",
+      "C: Keep them hidden by default, but clearly accessible when needed"
     ],
     "is_edge_case": false
   },
   {
     "id": "QA-1",
     "phase": "deep_dives",
-    "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
+    "phase_label": "Phase 2: Dimension Deep Dives — Question/Answer Structure",
     "title": "A Scholarly Objection and Response",
     "excerpt_text": "الإشكال الثاني: أن من شرط التواتر استواء الطرفين والواسطة.\nفهب أنا علمنا حصول شرائط التواتر في حفاظ اللغة والنحو والتصريف في زماننا فكيف نعلم حصولها في سائر الأزمنة؟\nوإذا جهلنا شرط التواتر جهلنا التواتر ضرورة لأن الجهل بالشرط يوجب الجهل بالمشروط.\nفإن قيل: الطريق إليه أمران:\nأحدهما: أن الذين شاهدناهم أخبرونا أن الذين أخبروهم بهذه اللغات كانوا موصوفين بالصفات المعتبرة في التواتر وأن الذين أخبروا من أخبرهم كانوا كذلك إلى أن يتصل النقل بزمان الرسول صلى الله عليه وسلم.",
     "excerpt_source": "الاقتراح في أصول النحو / Campaign run / Claude Opus classification",
@@ -502,6 +502,8 @@
     "title": "Before and After Comparison",
     "excerpt_text": null,
     "excerpt_source": null,
+    "availability": "blocked_pending_source",
+    "blocked_reason": "The weekend taysir v2 run failed before valid before/after comparison pairs were produced.",
     "context_note": "This interaction will show the same passage processed by two different versions of the system. Use the Comparison mode (tab at the top) to see Before vs. After pairs for any available book.",
     "question": "After comparing the before and after excerpts in Comparison mode: which version is generally better? What specific differences do you notice? What did the new system improve, and what did it make worse?",
     "multiple_choice": [
@@ -518,6 +520,8 @@
     "title": "Cross-Book Comparison",
     "excerpt_text": null,
     "excerpt_source": null,
+    "availability": "blocked_pending_source",
+    "blocked_reason": "The weekend taysir v2 run failed before valid cross-book comparison material could be assembled.",
     "context_note": "This interaction will be filled in when cross-book topic matches are available. It will show you the same topic discussed in two or three different books.",
     "question": "When you see the same topic covered in two different books, what do you look for? Do you want the library to highlight where they agree, where they differ, or just show them side by side without commentary?",
     "multiple_choice": [

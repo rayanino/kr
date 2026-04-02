@@ -1,0 +1,740 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 41,
+    "text_snippet": "‌‌بَاب الغُسْل مِنَ الجنَابة\nالغسل -بضم الغين- اسم الاغتسال، الذي هو تعميم ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف الغسل والجنابة وبيان موضوع الباب وما يشتمل عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 42,
+    "end_word": 124,
+    "text_snippet": "وهو من جملة الطهارة المشروعة للصلاة، ومن النظافة المرغب فيهِا.\n{وَإنْ كُنْتُم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "مشروعية غسل الجنابة وكونه طهارة للصلاة مع بيان حكمته الشرعية والصحية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 125,
+    "end_word": 361,
+    "text_snippet": "الحديث الأول\nعَنْ أبي هُرَيْرَةَ رضي الله عنه: أن النبي صلى الله عليه وسلم لقي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "cross_reference",
+      "narration"
+    ],
+    "description_arabic": "حديث أبي هريرة في لقاء الجنب للنبي وشرح ألفاظه وبيان أن المؤمن لا ينجس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 362,
+    "end_word": 372,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون الجنابة ليست نجاسة تحل البدن.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الجنابة وصف حدث لا نجاسة حسية تصيب بدن الجنب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 373,
+    "end_word": 401,
+    "text_snippet": "2- كون الإنسان لا تنجس ذاته، لا حيا، ولا ميتا. وليس معناه أن بدنه لا تصيبه الن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذات الإنسان طاهرة حياً وميتاً مع إمكان تلوث بدنه بالنجاسة العارضة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 402,
+    "end_word": 407,
+    "text_snippet": "3- جواز تأخير الغسل من الجنابة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز تأخير غسل الجنابة وعدم وجوبه فوراً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 408,
+    "end_word": 417,
+    "text_snippet": "4- تعظيم أهل الفضل، والعلم، والصلاح، ومجالستهم على أحسن الهيئات.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تعظيم أهل الفضل ومجالستهم على أحسن هيئة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 418,
+    "end_word": 444,
+    "text_snippet": "5- مشروعية استئذان التابع للمتبوع في الانصراف، فقد أنكر النبي صلى الله عليه وس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية استئذان التابع للمتبوع عند الانصراف وأنه من حسن الأدب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعليل الإنكار مرتبط بسياق حديث أبي هريرة السابق، وإن كان أصل الحكم مفهوماً."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 445,
+    "end_word": 667,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالتْ: كان رَسولُ الله صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "صفة غسل النبي من الجنابة كما روتها عائشة مع شرح ألفاظ الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      37,
+      38
+    ],
+    "start_word": 668,
+    "end_word": 691,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الغسل من الجنابة. سواء أكان ذلك لإنزال المنى أم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية الغسل من الجنابة بسبب الإنزال أو الإيلاج.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: \"كما سيأتي صريحا في حديث أبي هريرة\" يحيل إلى دليل لاحق خارج الوحدة."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 692,
+    "end_word": 715,
+    "text_snippet": "2- أن الغسل الكامل، ما ذكر في هذا الحديث، من تقديم غسل اليدين، ثم الوضوء، ثم ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان صفة الغسل الكامل وترتيب أفعاله من اليدين إلى سائر البدن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة \"ما ذكر في هذا الحديث\" تعتمد على الحديث السابق لفهم تفاصيل الصفة."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 716,
+    "end_word": 732,
+    "text_snippet": "3- قولها: \" كان إذا اغتسل \": يدل على تكرار هذا الفعل منه عند الغسل من الجنابة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صيغة كان إذا اغتسل تدل على تكرر هذه الصفة النبوية في الغسل.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال متعلق بلفظ سابق من الحديث غير مذكور كاملاً في هذه الوحدة."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      41
+    ],
+    "start_word": 733,
+    "end_word": 743,
+    "text_snippet": "4- جواز نظر أحد الزوجين لعورة الآخر، وغسلهما من إناء واحد.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز نظر الزوجين إلى عورة بعضهما والاغتسال من إناء واحد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 744,
+    "end_word": 769,
+    "text_snippet": "5- تقديم غسل أعضاء الوضوء في ابتداء الغسل على الغسل منْ الجنابة، عدا غسل الرجل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تقديم أعضاء الوضوء في الغسل وتأخير غسل الرجلين إلى آخره.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: \"كما سيأتي\" يدل على أن تمام مناقشة تأخير الرجلين في موضع لاحق."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 770,
+    "end_word": 803,
+    "text_snippet": "6- قولها: \" ثم توضأ وضوءه للصلاة … ثم غسل سائر جسده\": يدل على أن غسل أعضاء ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "غسل أعضاء الوضوء في غسل الجنابة يرفع الحدثين الأكبر والأصغر معاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مبني على ألفاظ الحديث المنقول قبل هذه الوحدة."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 804,
+    "end_word": 807,
+    "text_snippet": "7- سائر الجسد: بقيته.\n",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "معنى عبارة سائر الجسد أنه بقية البدن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "start_word": 808,
+    "end_word": 950,
+    "text_snippet": "الحديث الثالث\nعَنْ مَيْمُونَةَ بنْتِ الْحَارثِ زَوْج النبي صلى الله عليه وسلم أ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث ميمونة في صفة غسل الجنابة مع تفسير ألفاظه المشكلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      52,
+      53,
+      54
+    ],
+    "start_word": 951,
+    "end_word": 981,
+    "text_snippet": "ما يؤخذ من الحديث:\nهذا الحديث نحو الحديث السابق، وفيه فوائد نجملها فيما يلي.\n1",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "في حديث ميمونة تفصيل عدد غسل اليدين مرتين أو ثلاثاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المقارنة مع \"الحديث الأول\" تحتاج إلى الرجوع للسياق السابق، لكن الفائدة نفسها مفهومة."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      55,
+      56
+    ],
+    "start_word": 982,
+    "end_word": 1027,
+    "text_snippet": "2- في هذا الحديث أنه بعد غسل اليدين غسل فرجه ثم مسح يديه بالأرض مرتين أو ثلاثا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "غسل الفرج ثم مسح اليد بالأرض لإزالة اللزوجة، والتنبيه على نية رفع الجنابة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة \"في هذا الحديث\" تشير إلى حديث ميمونة السابق لفهم موضع الحكم."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1028,
+    "end_word": 1079,
+    "text_snippet": "4- في الحديث الأول ذكر أنه توضأ وضوء الصلاة، ويقتضي أنه غسل رجليه. وهذا الحديث",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الجمع بين روايتي عائشة وميمونة في غسل الرجلين أثناء الغسل وبعده.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة تذكر الروايتين المتعارضتين والترجيح بينهما، لكنها تحيل إلى الحديثين السابقين لفهم النصوص الأصلية."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1080,
+    "end_word": 1097,
+    "text_snippet": "5- في هذا الحديث أن ميمونة جاءته بخرقة لينشف بها أعضاءه، فلم يقبلها وإنما نفض ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترك التنشيف بعد الغسل جائز، ونفض الماء باليدين كافٍ.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستفادة مرتبطة بسياق حديث ميمونة المذكور قبله."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1098,
+    "end_word": 1110,
+    "text_snippet": "6- أنه لا يجب دَلكُ الجسد في الغُسل. وهو كالدلك في الوضوء سنة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلك الجسد في الغسل سنة وليس واجباً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1111,
+    "end_word": 1132,
+    "text_snippet": "7- أنه لا يغسل أعضاء الوضوء للجنابة بعد غسلها في الوضوء. فقد صحح النووي أنه يج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "غسلة واحدة لأعضاء الوضوء تجزئ عن الوضوء وعن غسل الجنابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1133,
+    "end_word": 1167,
+    "text_snippet": "8- أن غسل الجسد مرة واحدة وبعضهم يجعله ثلاثا، قياساً على الوضوء، ولا قياس مع ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الراجح أن غسل الجسد في الجنابة مرة واحدة، ورد القياس على الوضوء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: \"ولا قياس مع النص\" يشير إلى نص سابق لم يذكر هنا كاملاً."
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65
+    ],
+    "start_word": 1168,
+    "end_word": 1261,
+    "text_snippet": "حكم من ينام جنب\nعَنْ عَبْدِ الله بن عُمَرَ أن عمر بن الخَطَّابِ رضي الله عنه قَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث نوم الجنب بعد الوضوء وشرح معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "start_word": 1262,
+    "end_word": 1303,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز نوم الجنب قبل الغسل إذا توضأ.\n2- أن الكمال أن لا ينا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "أحكام نوم الجنب: الجواز مع الوضوء، والأفضل الاغتسال، وكراهة تركهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      71,
+      72,
+      73,
+      74
+    ],
+    "start_word": 1304,
+    "end_word": 1461,
+    "text_snippet": "حكم احتلام المرأة\nعَنْ أم سَلَمَةَ زَوْج النبي صلى الله عليه وسلم قَالتْ: جَاءَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أم سليم في احتلام المرأة ووجوب الغسل برؤية الماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      75,
+      76
+    ],
+    "start_word": 1462,
+    "end_word": 1476,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن المرأة عليها الغسل حين تحتلم، إذا أنزلت ورأت الماء.\n",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب الغسل على المرأة المحتلمة مشروط برؤية إنزال الماء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 1477,
+    "end_word": 1495,
+    "text_snippet": "2- أن المرأة تُنْزِل كما يُنْزِلُ الرجل، ومن ذاك يكون الشبه في الولد، كما أشار ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات إنزال المرأة وأن له أثراً في الشبه في الولد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: \"كما أشار إلى هذا بقية الحديث\" يحيل إلى نص غير مذكور داخل الوحدة."
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      78
+    ],
+    "start_word": 1496,
+    "end_word": 1551,
+    "text_snippet": "3- إثبات صفة الحياء لله جلّ وعلا، إثباتا يليق بجلاله، على أنه لا يمتنع تعالى م",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات صفة الحياء لله على الوجه اللائق مع بيان معنى النفي المتضمن للكمال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 1552,
+    "end_word": 1567,
+    "text_snippet": "4- أن الحياء لا ينبغي أن يمنع من تعلُّم العلم، حتى في المسائل التي يستحيا مهنا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحياء لا يمنع من طلب العلم والسؤال عن مسائل الفروج.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 1568,
+    "end_word": 1592,
+    "text_snippet": "5- أن من الأدب وحسن المخاطبة، أن يقدم أمام الكلام الذي يستحيا منه مقدمة تناسب ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من حسن الأدب تمهيد الكلام المستحيا منه بمقدمة مناسبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      81,
+      82,
+      83,
+      84
+    ],
+    "start_word": 1593,
+    "end_word": 1682,
+    "text_snippet": "بيان حكم المني\nعن عَائِشَة قَالَتْ: كنتُ أغْسِل الْجَنَابةَ مَنْ ثَوبِ رَسولِ ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في غسل المني وفركه من ثوب النبي مع بيان حال الرطب واليابس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93
+    ],
+    "start_word": 1683,
+    "end_word": 1824,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في نجاسة المني.\nفذهبت الحنفية، والمالكية إلى نجا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "خلاف العلماء في المني، وأدلة نجاسته وطهارته، وجواب القائلين بالطهارة عن المعارض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      94,
+      95
+    ],
+    "start_word": 1825,
+    "end_word": 1838,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- طهارة المني، وعدم وجوب غسله من البدن والثياب وغيرها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الراجح طهارة المني وعدم وجوب غسله من البدن والثوب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      96
+    ],
+    "start_word": 1839,
+    "end_word": 1848,
+    "text_snippet": "2- استحباب إزالته عن الثوب والبدن فيغسل رطباً، ويفرك يابساً.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يستحب إزالة المني: غسله إن كان رطباً وفركه إن كان يابساً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103
+    ],
+    "start_word": 1849,
+    "end_word": 1964,
+    "text_snippet": "بيان أن الجماع يوجب الغسل سواء حصل معه إنزال أم لم ينزل\nعَنْ أبى هُريرة رضي الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث وجوب الغسل بالإيلاج ولو لم يحصل إنزال مع شرح كناياته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      104,
+      105,
+      106
+    ],
+    "start_word": 1965,
+    "end_word": 2002,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الغسل من إيلاج الذَّكَرِ في الفرج، وإن لم يحصل إنزال",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "الإيلاج يوجب الغسل ولو بلا إنزال، وهو ناسخ لظاهر حديث الماء من الماء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "حديث \"الماء من الماء\" ذُكر بالإحالة دون نصه الكامل، وهو مشهور لكن السياق يزيد البيان."
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      107,
+      108,
+      109,
+      110,
+      111
+    ],
+    "start_word": 2003,
+    "end_word": 2198,
+    "text_snippet": "بيان مقدار الماء الذي يكفي للغسل من الجنابة\nعَنْ أبي جَعْفَر مُحَمَدِ بْنِ عَلِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "narration"
+    ],
+    "description_arabic": "حديث جابر في كفاية الصاع للغسل من الجنابة مع التعريف بالقائل المعترض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      112,
+      113,
+      114
+    ],
+    "start_word": 2199,
+    "end_word": 2233,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الغسل من الجنابة، وذلك بإفاضة الماء على العضو، وسيل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "حصول غسل الجنابة بإفاضة الماء على الأعضاء، دون دلالة الحديث على وجوب الدلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "نقل \"بداية المجتهد\" مختصر وإحالته الخارجية تحتاج معرفة أوسع بمحل الاستدلال."
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      115
+    ],
+    "start_word": 2234,
+    "end_word": 2271,
+    "text_snippet": "3- أن الصاع الذي هو أربعة أمداد، يكفى للغسل من الجنابة. قال ابن دقيق العيد: ولي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الصاع يكفي للغسل غالباً، وليس ذلك على سبيل التحديد اللازم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      116
+    ],
+    "start_word": 2272,
+    "end_word": 2277,
+    "text_snippet": "4- استحباب التخفيف في ماء الطهارة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب الاقتصاد في استعمال ماء الطهارة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      117
+    ],
+    "start_word": 2278,
+    "end_word": 2288,
+    "text_snippet": "5- الإنكار على من يخالف سنة النبي صلى الله عليه وسلم.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية الإنكار على من خالف السنة الثابتة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

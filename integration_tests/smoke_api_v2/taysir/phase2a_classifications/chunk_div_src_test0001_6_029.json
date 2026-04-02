@@ -1,0 +1,410 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَابُ قضَاء الصَّلاة الفائتة وتعجيلها",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 50,
+    "text_snippet": "عَنْ أنَس بْنِ مَالِكٍ رضي الله عنه قال: قَالَ رَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 51,
+    "end_word": 52,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 53,
+    "end_word": 137,
+    "text_snippet": "الصلاة لها وقت محدد في أوله وآخره، لا يجوز تقديم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 138,
+    "end_word": 139,
+    "text_snippet": "ختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 140,
+    "end_word": 166,
+    "text_snippet": "اختلف العلماء: هل تجب المبادرة إلى فعلها عند ذكر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 167,
+    "end_word": 175,
+    "text_snippet": "وذهب الشافعي إلى استحباب قضائها على الفور ويجوز ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 176,
+    "end_word": 211,
+    "text_snippet": "واستدل الشافعي بأنه صلى الله عليه وسلم -حين نام ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 212,
+    "end_word": 220,
+    "text_snippet": "واحتج الجمهور بحديث الباب، حيث رتب الصلاة على الذ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 221,
+    "end_word": 247,
+    "text_snippet": "وأجابوا عن استدلال الشافعي بأنه ليس معنى الفورية",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 248,
+    "end_word": 268,
+    "text_snippet": "هذا وقد أطال في هذا \" ابن القيم \" رحمه الله في ك",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 269,
+    "end_word": 279,
+    "text_snippet": "واختلفوا في تاركها عمداً حتى خرج وقتها: هل يقضيه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 12,
+    "start_word": 280,
+    "end_word": 297,
+    "text_snippet": "وسألخص هذا الموضوع من كلام \" ابن القيم \" في كتاب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 298,
+    "end_word": 313,
+    "text_snippet": "قد اتفق العلماء على حصول الإثم العظيم الذي يلحق ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 314,
+    "end_word": 329,
+    "text_snippet": "ولكن ذهب الأئمة الأربعة إلى وجوب القضاء عليه مع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 330,
+    "end_word": 362,
+    "text_snippet": "وقالت طائفة من السلف والخلف: من تعمد تأخير الصلا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 363,
+    "end_word": 383,
+    "text_snippet": "استدل موجبو القضاء، بأنه إذا كان القضاء واجبا عل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 384,
+    "end_word": 414,
+    "text_snippet": "وأيضاً، فإن النبي صلى الله عليه وسلم صلَّى العصر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 415,
+    "end_word": 422,
+    "text_snippet": "وانتصر لوجوب القضاء أبو عمر بن عبد البر.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 19,
+    "start_word": 423,
+    "end_word": 448,
+    "text_snippet": "ومن الذاهبين إلى عدم القضاء، الظاهرية، وشيخ الإس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 449,
+    "end_word": 480,
+    "text_snippet": "ومن تلك الأدلة، المفهوم من هذا الحديث، فإن منطوق",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 21,
+    "start_word": 481,
+    "end_word": 495,
+    "text_snippet": "فمثل هذه العبادات، لا تقبل إلا في أوقاتها، ومنها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 22,
+    "start_word": 496,
+    "end_word": 574,
+    "text_snippet": "وقوله صلى الله عليه وسلم\" مَنْ أدرَكَ ركعةً مِنَ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 23,
+    "start_word": 575,
+    "end_word": 594,
+    "text_snippet": "وأما عدم قبول قضائها من المفرط في تأخيرها بعد ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 595,
+    "end_word": 601,
+    "text_snippet": "وإنما لم تقبل منه، عقوبة وتغليظاً عليه.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 25,
+    "start_word": 602,
+    "end_word": 613,
+    "text_snippet": "قد بسط رحمه الله القول فيها، فمن أراد استقصاء ذل",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 614,
+    "end_word": 672,
+    "text_snippet": "وأما كلام شيخ الإسلام في الموضوع، فقد قال في \" ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 27,
+    "start_word": 673,
+    "end_word": 682,
+    "text_snippet": "وهذا ما أردت تلخيصه في هذه المسألة والله أعلم بال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 683,
+    "end_word": 688,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 689,
+    "end_word": 697,
+    "text_snippet": "1- وجوب قضاء الصلاة على الناسي والنائم عند ذكرها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 698,
+    "end_word": 708,
+    "text_snippet": "2- وجوب المبادرة إلى فعلها، لأن تأخيرها بعد تذكره",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 709,
+    "end_word": 745,
+    "text_snippet": "3- عدم الإثم على من أخرها لعذر من نحو نسيان ونوم،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 746,
+    "end_word": 771,
+    "text_snippet": "والكفارة المذكورة، ليست عن ذنب ارتكب، وإنما معنى",
+    "scholarly_function": "definition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 33,
+    "start_word": 772,
+    "end_word": 777,
+    "text_snippet": "بَابُ جَواز إمَامة ⌜2⌝ المتنفّل بالمفترض",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 778,
+    "end_word": 808,
+    "text_snippet": "عن جَابِر ِبن عَبْدِ الله رضي الله عنهما: أنَّ مُع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 809,
+    "end_word": 810,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 811,
+    "end_word": 875,
+    "text_snippet": "كانت منازل بني سلمة، جماعة معاذ بن جبل الأنصاري ",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 37,
+    "start_word": 876,
+    "end_word": 877,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 38,
+    "start_word": 878,
+    "end_word": 922,
+    "text_snippet": "اختلف في صحة إمامة المتنفل بالمفترض.\nفذهب الزهري",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 923,
+    "end_word": 966,
+    "text_snippet": "وذهب عطاء، والأوزاعي، والشافعي، وأبو ثور، وهو روا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 967,
+    "end_word": 979,
+    "text_snippet": "ومن المعلوم أن إحدى صلاتيه نفل، فلا بد أن تكون ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 980,
+    "end_word": 994,
+    "text_snippet": "منها أن الأولى التي برئت بها الذمة، هي صلاته مع ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 42,
+    "start_word": 995,
+    "end_word": 1017,
+    "text_snippet": "ومنها: أنه ما كان ليجعل صلاته مع النبي صلى الله ع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1018,
+    "end_word": 1037,
+    "text_snippet": "وقد أطال \" ابن حزم \" في نصر هذا القول، ودحض حجج ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1038,
+    "end_word": 1077,
+    "text_snippet": "ومن أدلة مصححي صلاة المفترض خلف المتنفل: أن النبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1078,
+    "end_word": 1117,
+    "text_snippet": "وليس في هذا مخالفة للإمام، لأن المخالفة المنهي عن",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1118,
+    "end_word": 1130,
+    "text_snippet": "ومن المؤيدين لهذا القول، شيخنا عبد الرحمن بن ناصر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1131,
+    "end_word": 1134,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1135,
+    "end_word": 1145,
+    "text_snippet": "1- جواز إمامة المتنفل بالمفترض، وأنه ليس من المخا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1146,
+    "end_word": 1152,
+    "text_snippet": "2- جواز إمامة المفترض بالمتنفل بطريق الأولى.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1153,
+    "end_word": 1184,
+    "text_snippet": "3- جواز إعادة الصلاة المكتوبة، لاسيما إذا كان هنا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

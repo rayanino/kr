@@ -1,0 +1,24 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 81,
+    "text_snippet": "مسألة\nفي اجتماع ضدين\n\nقال في الخصائص:\n\" اعلم أن التضاد في هذه اللغة جار مجر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "example"
+    ],
+    "description_arabic": "بيان قاعدة اجتماع الضدين وأن الحكم للطارئ مع أمثلة نحوية توضحها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتملة المعنى في تقرير القاعدة وأمثلتها، لكن عبارة \"قال في الخصائص\" إحالة خارجية، وبعض الخلفية الاصطلاحية في معنى التضاد عند أهل الكلام قد تفيد لفهم أتم."
+  }
+]

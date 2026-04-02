@@ -26,16 +26,18 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
 # Ensure stdout/stderr can handle Arabic text on Windows (cp1252 default)
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+stdout_reconfigure = getattr(sys.stdout, "reconfigure", None)
+if callable(stdout_reconfigure):
+    stdout_reconfigure(encoding="utf-8", errors="replace")
+stderr_reconfigure = getattr(sys.stderr, "reconfigure", None)
+if callable(stderr_reconfigure):
+    stderr_reconfigure(encoding="utf-8", errors="replace")
 
 # Ensure project root is on sys.path so local imports work without PYTHONPATH
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 if TYPE_CHECKING:
-    import instructor
+    import instructor  # type: ignore[import-not-found]
 
     from engines.normalization.contracts import NormalizedPackage
 
@@ -56,8 +58,8 @@ logger = logging.getLogger("integration_test")
 
 def create_client(timeout: int = 120) -> instructor.Instructor:
     """Create an Instructor client via OpenRouter (mode=JSON)."""
-    import instructor
-    import openai
+    import instructor  # type: ignore[import-not-found]
+    import openai  # type: ignore[import-not-found]
 
     api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
@@ -100,6 +102,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
     resp_dir = output_dir / "raw_llm_responses"
     req_dir.mkdir(parents=True, exist_ok=True)
     resp_dir.mkdir(parents=True, exist_ok=True)
+    last_activity_path = output_dir / "last_llm_activity.json"
 
     call_counter: dict[str, int] = {"n": 0}
     call_start_time: dict[str, float] = {"t": 0.0}
@@ -107,6 +110,17 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
         "semantic_phase": None,
         "chunk_id": None,
     }
+
+    def _write_last_activity(entry: dict[str, Any]) -> None:
+        temp = last_activity_path.with_suffix(".json.tmp")
+        try:
+            temp.write_text(
+                json.dumps(entry, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            temp.replace(last_activity_path)
+        except OSError as exc:
+            logger.warning("Failed to persist last_llm_activity.json: %s", exc)
 
     def on_request(**kwargs: Any) -> None:
         call_counter["n"] += 1
@@ -131,6 +145,17 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
         path.write_text(
             json.dumps(entry, ensure_ascii=False, indent=2),
             encoding="utf-8",
+        )
+        _write_last_activity(
+            {
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "event": "request",
+                "call_id": call_id,
+                "client_name": client_name,
+                "semantic_phase": trace_context.get("semantic_phase"),
+                "chunk_id": trace_context.get("chunk_id"),
+                "model": kwargs.get("model"),
+            }
         )
 
     def on_response(response: Any) -> None:
@@ -168,6 +193,18 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             json.dumps(entry, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
+        _write_last_activity(
+            {
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "event": "response",
+                "call_id": call_id,
+                "client_name": client_name,
+                "semantic_phase": trace_context.get("semantic_phase"),
+                "chunk_id": trace_context.get("chunk_id"),
+                "model": getattr(response, "model", None),
+                "finish_reason": finish_reason,
+            }
+        )
 
     def on_error(error: Exception) -> None:
         call_id = f"{client_name}_{call_counter['n']:04d}"
@@ -190,6 +227,18 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
         path.write_text(
             json.dumps(entry, ensure_ascii=False, indent=2),
             encoding="utf-8",
+        )
+        _write_last_activity(
+            {
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "event": "error",
+                "call_id": call_id,
+                "client_name": client_name,
+                "semantic_phase": trace_context.get("semantic_phase"),
+                "chunk_id": trace_context.get("chunk_id"),
+                "error_type": type(error).__name__,
+                "error": str(error)[:500],
+            }
         )
 
     return on_request, on_response, on_error, trace_context
@@ -282,7 +331,7 @@ def get_git_info() -> dict[str, Any]:
 
 def validate_api_key() -> bool:
     """Test OpenRouter API key with a minimal 10-token call."""
-    import openai
+    import openai  # type: ignore[import-not-found]
 
     api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
@@ -328,6 +377,17 @@ def create_mock_clients() -> tuple[Any, Any, Any]:
     escalation_client = MagicMock(name="mock_escalation_client")
 
     return enrich_client, verify_client, escalation_client
+
+
+def _provider_name(model_id: str) -> str:
+    """Return provider prefix from provider/model ids, fail loudly otherwise."""
+    provider, sep, _model = model_id.partition("/")
+    if not sep or not provider:
+        raise ValueError(
+            f"Expected provider/model identifier, got {model_id!r}. "
+            "Use OpenRouter-style ids such as 'openai/gpt-5.4'."
+        )
+    return provider
 
 
 # ---------------------------------------------------------------------------
@@ -693,7 +753,7 @@ def run_pipeline(
     ri_session = None
     if traces_dir and not mock:
         try:
-            import recursive_improve as ri
+            import recursive_improve as ri  # type: ignore[import-not-found]
 
             ri.patch()  # captures SDK-based calls (OpenRouter/Instructor)
             ri_session = ri.session(
@@ -774,8 +834,8 @@ def run_pipeline(
         logger.info("Verify model override via KR_VERIFY_MODEL: %s", verify_override)
 
     # D-041: hard-fail on same-provider consensus
-    primary_provider = config.CLASSIFY_MODEL.split("/")[0]
-    verify_provider = config.VERIFY_MODEL.split("/")[0]
+    primary_provider = _provider_name(config.CLASSIFY_MODEL)
+    verify_provider = _provider_name(config.VERIFY_MODEL)
     if primary_provider == verify_provider:
         raise ValueError(
             f"D-041 violation: primary ({config.CLASSIFY_MODEL}) and verify "
@@ -887,7 +947,7 @@ def run_pipeline(
                             author_canonical_id=None,
                             start=0,
                             end=len(text),
-                            confidence=1.0,
+                            confidence=0.95,
                         )
                     ],
                     content_flags=ContentFlags(),
@@ -975,23 +1035,64 @@ def run_pipeline(
         )
 
         if backend == "cli":
+            factory_counts = {"enrich": 0, "verify": 0, "escalation": 0}
+
+            def _logged_client(base_name: str, client: Any) -> Any:
+                factory_counts[base_name] += 1
+                client_name = f"{base_name}_p{factory_counts[base_name]:03d}"
+                req_hook, resp_hook, err_hook, _ctx = make_hook_logger(
+                    output_dir,
+                    client_name,
+                )
+                client.on("completion:kwargs", req_hook)
+                client.on("completion:response", resp_hook)
+                client.on("completion:error", err_hook)
+                if ri_session is not None:
+                    from shared.llm.ri_trace_bridge import attach as ri_attach
+
+                    ri_attach(client, ri_session)
+                return client
+
             def _enrich_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("enrich", create_cli_client())
 
             def _verify_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("verify", create_cli_client())
 
             def _escalation_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("escalation", create_cli_client())
         else:
+            factory_counts = {"enrich": 0, "verify": 0, "escalation": 0}
+
+            def _logged_client(base_name: str, client: Any) -> Any:
+                factory_counts[base_name] += 1
+                client_name = f"{base_name}_p{factory_counts[base_name]:03d}"
+                req_hook, resp_hook, err_hook, _ctx = make_hook_logger(
+                    output_dir,
+                    client_name,
+                )
+                client.on("completion:kwargs", req_hook)
+                client.on("completion:response", resp_hook)
+                client.on("completion:error", err_hook)
+                return client
+
             def _enrich_factory() -> Any:
-                return create_client(timeout=config.ENRICH_TIMEOUT)
+                return _logged_client(
+                    "enrich",
+                    create_client(timeout=config.ENRICH_TIMEOUT),
+                )
 
             def _verify_factory() -> Any:
-                return create_client(timeout=config.VERIFY_TIMEOUT)
+                return _logged_client(
+                    "verify",
+                    create_client(timeout=config.VERIFY_TIMEOUT),
+                )
 
             def _escalation_factory() -> Any:
-                return create_client(timeout=config.ESCALATION_TIMEOUT)
+                return _logged_client(
+                    "escalation",
+                    create_client(timeout=config.ESCALATION_TIMEOUT),
+                )
 
         t0 = time.monotonic()
         try:
@@ -1088,6 +1189,7 @@ def run_pipeline(
                     all_errors, f"llm_call_errors:{llm_error_count}"
                 )
 
+            assert source_id is not None
             write_processing_log(
                 source_id=source_id,
                 errors=all_errors,
@@ -1436,6 +1538,7 @@ def run_pipeline(
         if llm_error_count > 0:
             _append_error_once(all_errors, f"llm_call_errors:{llm_error_count}")
 
+        assert source_id is not None
         write_processing_log(
             source_id=source_id,
             errors=all_errors,

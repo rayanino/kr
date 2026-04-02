@@ -1,0 +1,906 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌‌‌بَاب الفرائض",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 22,
+    "text_snippet": "جمع (فريضة) بمعنى مفروضة و (المفروض) المقدر",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 23,
+    "end_word": 29,
+    "text_snippet": "وتعريفها شرعا: العلم بقسمة المواريث بين مستحقي",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 30,
+    "end_word": 39,
+    "text_snippet": "والأصل فيها، الكتاب لقوله تعالى: {يوصيِكم الله ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 40,
+    "end_word": 50,
+    "text_snippet": "والسنة، لحديث ابن عباس الآتي: وإجماع الأمة على",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 5,
+    "start_word": 51,
+    "end_word": 90,
+    "text_snippet": "ولما كانت الأموال وقسمتها، محطَّ الأطماع، وكان ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 91,
+    "end_word": 116,
+    "text_snippet": "وأشار إليها بقوله تعالى: {لا تَدْرُون أيُّهُمْ أقْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 117,
+    "end_word": 124,
+    "text_snippet": "والقياس يخرج بنا عن موضوع الكتاب ويطيله علينا.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 125,
+    "end_word": 138,
+    "text_snippet": "وتدبر كتاب الله مع الأوضاع البشرية، بهداية ونور،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 9,
+    "start_word": 139,
+    "end_word": 174,
+    "text_snippet": "بعد قسمة (الحكيم الخبير) يأتي دعاة [التجديد] من ",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 175,
+    "end_word": 187,
+    "text_snippet": "والحق: أنَّ هؤلاء المهووسين، جهلوا القوانين السما",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 188,
+    "end_word": 222,
+    "text_snippet": "وهم - في نعيقهم - بين امرأة أحست بمركب نقصها، ف",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 223,
+    "end_word": 227,
+    "text_snippet": "وهذا العلم علم شريف جليل.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 13,
+    "start_word": 228,
+    "end_word": 239,
+    "text_snippet": "وقد حث النبي صلى الله عليه وسلم، على تعلمه وتعلي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 14,
+    "start_word": 240,
+    "end_word": 257,
+    "text_snippet": "منها: حديث ابن مسعود مرفوعا \" تعلموا الفرائض، وع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 15,
+    "start_word": 258,
+    "end_word": 268,
+    "text_snippet": "وقد أفرده العلماء بالتصانيف الكثيرة، من النظم وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 16,
+    "start_word": 269,
+    "end_word": 291,
+    "text_snippet": "ويكفى في تعلم أحكامه فهم الآيات الثلاث من سورة ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 17,
+    "start_word": 292,
+    "end_word": 305,
+    "text_snippet": "ونورد هنا مقدمات تتعلق بهذا المقام، لتكمل الفائد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 18,
+    "start_word": 306,
+    "end_word": 308,
+    "text_snippet": "فللإرث أسباب ثلاثة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 309,
+    "end_word": 320,
+    "text_snippet": "الأول: النسب، وهي القرابة لقوله تعالى: {وَأولُو ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 321,
+    "end_word": 330,
+    "text_snippet": "الثاني: النكاح الصحيح لقوله: {وَلَكُم نِصْفُ مَا ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 331,
+    "end_word": 340,
+    "text_snippet": "الثالث: الولاء، لحديث ابن عمر مرفوعاً \"الولاء لح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 341,
+    "end_word": 367,
+    "text_snippet": "وأما غير هذه الثلاثة، فلا تكون سبباً للإرث على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 368,
+    "end_word": 389,
+    "text_snippet": "وللإرث موانع، إذا وجدت أو وجد شيء منها، امتنع ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 390,
+    "end_word": 392,
+    "text_snippet": "وموانع الإرث ثلاثة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 393,
+    "end_word": 445,
+    "text_snippet": "الأول: القتل، فمن قتل مورثه، أو تسبب لقتله بغير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 26,
+    "start_word": 446,
+    "end_word": 466,
+    "text_snippet": "الثاني: الرق. فلا يرث العبد قريبه، لأنه لو ورث لك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 467,
+    "end_word": 478,
+    "text_snippet": "الثالث: اختلاف الدين. ويأتي بيانه في حديث أسامة،",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 479,
+    "end_word": 480,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 481,
+    "end_word": 522,
+    "text_snippet": "عَنْ عَبْدِ الله بن عَباس رضي الله عنهما عَن الَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 523,
+    "end_word": 524,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 525,
+    "end_word": 596,
+    "text_snippet": "يأمر النبي صلى الله عليه وسلم القائمين على قسمة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 32,
+    "start_word": 597,
+    "end_word": 610,
+    "text_snippet": "\" خلاصة عن الإرث وكيفيته، مسبقاة من القرآن الكري",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 33,
+    "start_word": 611,
+    "end_word": 639,
+    "text_snippet": "نبدأ بما بدأ الله به من توريث ذوي الفروض الذين ن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 34,
+    "start_word": 640,
+    "end_word": 663,
+    "text_snippet": "فالفروض المقدرة في كتاب الله تعالى ستة: 1- النصف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 35,
+    "start_word": 664,
+    "end_word": 681,
+    "text_snippet": "1- النصف: ويكون للبنت، ولبنت الابن وإن نزل، لقوله",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 36,
+    "start_word": 682,
+    "end_word": 692,
+    "text_snippet": "وهذا التوريث بالإجماع، بشرط أن لا يكون معهن غيره",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 37,
+    "start_word": 693,
+    "end_word": 722,
+    "text_snippet": "وهو (أي النصف) فرض الزوج أيضا، بشرط أن لا يكون ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 723,
+    "end_word": 758,
+    "text_snippet": "وهو (أي النصف) فرض الأخت الشقيقة، وإن لم توجد، ف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 39,
+    "start_word": 759,
+    "end_word": 797,
+    "text_snippet": "2- الربع: ويكون للزوج مع وجود الفرع الوارث، لقوله",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 798,
+    "end_word": 815,
+    "text_snippet": "3- الثمن: للزوجة فأكثر، مع وجود الفرع الوارث، لقو",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 41,
+    "start_word": 816,
+    "end_word": 823,
+    "text_snippet": "4- الثلثان: للبنتين ولبنتي الابن، إذا لم يعصَّبن.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 42,
+    "start_word": 824,
+    "end_word": 897,
+    "text_snippet": "ودليل توريثهما الثلثين، حديث امرأة سعد بن الربيع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 898,
+    "end_word": 921,
+    "text_snippet": "وتأخذان الثلثين بالقياس على الأختين المنصوص عليه",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 44,
+    "start_word": 922,
+    "end_word": 962,
+    "text_snippet": "وأما الثلاث من البنات، وبنات الابن فلهن الثلثان ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 45,
+    "start_word": 963,
+    "end_word": 976,
+    "text_snippet": "وبإجماع العلماء، والمراد بالثنتين، بنتا الأبوين،",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 46,
+    "start_word": 977,
+    "end_word": 989,
+    "text_snippet": "5- والثلث: فرض الأم مع عدم الفرع الوارث للميت، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 990,
+    "end_word": 1003,
+    "text_snippet": "فدليل الشرط الأول، قوله تعالى: {فإن لم يكن له ول",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1004,
+    "end_word": 1014,
+    "text_snippet": "ودليل الشرط الثاني، قوله تعالى: {فإن كان له إخوة",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1015,
+    "end_word": 1050,
+    "text_snippet": "وهو فرض الإخوة لأم، من الاثنين فصاعدا، يستوي ذكر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1051,
+    "end_word": 1059,
+    "text_snippet": "وأجمع العلماء على أن المراد بالأخ والأخت، ولد ال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1060,
+    "end_word": 1072,
+    "text_snippet": "وقرأ ابن مسعود، وسعد بن أبي وقاص {وله أخ أو أخت ",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1073,
+    "end_word": 1090,
+    "text_snippet": "وقد ورد في إرثهم آثار، وشرط إرثهن عدم الأم ويشتر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.54
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1091,
+    "end_word": 1130,
+    "text_snippet": "وهو (أي السدس) فرض ولد الأم الواحد، ذكرا كان أو ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1131,
+    "end_word": 1173,
+    "text_snippet": "وهو (أي السدس) فرض بنت الابن فأكثر مع بنت الصلب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1174,
+    "end_word": 1182,
+    "text_snippet": "وكذا حكم بنت ابن ابن، مع بنت ابن، وهكذا.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1183,
+    "end_word": 1193,
+    "text_snippet": "ومثل بنت الابن مع البنت، الأخت لأب مع الشقيقة، ق",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1194,
+    "end_word": 1204,
+    "text_snippet": "والسدس: للأب أو للجد عند عدم الأب، ومع وجود الفر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1205,
+    "end_word": 1218,
+    "text_snippet": "هذه هي الفروض الستة المذكورة في القرآن الكريم، و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1219,
+    "end_word": 1266,
+    "text_snippet": "فإن بقي بعد أصحابها شيء أخذه العاصب عملا بقوله ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1267,
+    "end_word": 1277,
+    "text_snippet": "وللتعصيب، جهات بعضها أقرب من بعض، فيرثون الميت ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1278,
+    "end_word": 1293,
+    "text_snippet": "وجهات العصوبة، بُنوُّة، ثم أبُوُّة، ثم أخُوُّة وبن",
+    "scholarly_function": "definition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1294,
+    "end_word": 1301,
+    "text_snippet": "فيقدم الأقرب جهة، كالابن فإنه مقدم على الأب.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1302,
+    "end_word": 1317,
+    "text_snippet": "فإن كانوا في جهة واحدة، قدم الأقرب منزلة على الم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1318,
+    "end_word": 1340,
+    "text_snippet": "فإن كانوا في جهة واحدة واستوت منزلهم من الميت، ق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1341,
+    "end_word": 1346,
+    "text_snippet": "ويحجب الورثة بعضهم بعضا حرماناً ونقصانا.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1347,
+    "end_word": 1361,
+    "text_snippet": "فالنقصان يدخل على جميعهم. والحرمان لا يدخل على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1362,
+    "end_word": 1369,
+    "text_snippet": "والأب يسقط الجد، والجد يسقط الجد الأعلى منه.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1370,
+    "end_word": 1378,
+    "text_snippet": "والأم تسقط الجدات، وكل جدة تسقط الجدة التي فوقها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1379,
+    "end_word": 1392,
+    "text_snippet": "والابن يسقط ابن الابن وكل ابن ابن أعلى يسقط من ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1393,
+    "end_word": 1400,
+    "text_snippet": "ويسقط الإخوة الأشقاء، بالابن، وبالأب، وبالجد على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1401,
+    "end_word": 1409,
+    "text_snippet": "والإخوة لأب يسقطون بمن تسقط به الأشقاء وبالأخ ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1410,
+    "end_word": 1421,
+    "text_snippet": "وبنو الإخوة يسقطون بالأب، وبكل جد لأب، وبالإخوة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1422,
+    "end_word": 1429,
+    "text_snippet": "وأولاد الأم، يسقطون بالفروع مطلقا، وبالأصول من ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1430,
+    "end_word": 1435,
+    "text_snippet": "وبنت الابن، تسقط ببنت الصلب فأكثر.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1436,
+    "end_word": 1459,
+    "text_snippet": "وكل بنت ابن نازل تسقط باثنتين فأكثر ممن فوقها، م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1460,
+    "end_word": 1472,
+    "text_snippet": "وتسقط الأخوات لأب بالشقيقتين فأكثر، ما لم يكن مع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1473,
+    "end_word": 1498,
+    "text_snippet": "هذه خلاصة سقناها لبيان المواريث بمناسبة شرح هذا ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1499,
+    "end_word": 1500,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1501,
+    "end_word": 1533,
+    "text_snippet": "عن أسامة بن زيد قال: قلت يا رسول الله، أتنزل غدا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1534,
+    "end_word": 1534,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1535,
+    "end_word": 1543,
+    "text_snippet": "الرباع: محلات الإقامة، والمراد هنا الدور. والربا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1544,
+    "end_word": 1545,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1546,
+    "end_word": 1633,
+    "text_snippet": "لما جاء النبي صلى الله عليه وسلم لفتح مكة سأله أ",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1634,
+    "end_word": 1673,
+    "text_snippet": "لأن الإرث مبناه على الصلة والقربى والنفع، وهي من",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1674,
+    "end_word": 1685,
+    "text_snippet": "جمع الله المسلمين على التقوى، وقوى صلاتهم وعلاقا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1686,
+    "end_word": 1689,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1690,
+    "end_word": 1720,
+    "text_snippet": "1- جواز بيع بيوت مكة، فقد أقر النبي صلى الله عليه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1721,
+    "end_word": 1730,
+    "text_snippet": "2- أن المسلم لا يرث الكافر، ولا الكافر يرث المسل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1731,
+    "end_word": 1745,
+    "text_snippet": "3- أن الإسلام هو أقوى الروابط، وأن اختلاف الدين،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1746,
+    "end_word": 1808,
+    "text_snippet": "4- قال النووي كلاما مؤداه أن التوارث بين المسلمين",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1809,
+    "end_word": 1810,
+    "text_snippet": "الحديث الثالث\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1811,
+    "end_word": 1829,
+    "text_snippet": "عَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1830,
+    "end_word": 1831,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1832,
+    "end_word": 1884,
+    "text_snippet": "الوَلاء لحمَة كلحمَةِ النسب، من حيث إن كلا منهما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1885,
+    "end_word": 1888,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1889,
+    "end_word": 1921,
+    "text_snippet": "1- قال ابن دقيق العيد: الولاء حق ثبت بوصف، وهو ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1922,
+    "end_word": 1933,
+    "text_snippet": "2- النهي عن بيع الولاء، وعن هبته، وعن غيرهما من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1934,
+    "end_word": 1941,
+    "text_snippet": "3- أن العقد باطل لأن النَّفي يقتضي الفساد.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1942,
+    "end_word": 1967,
+    "text_snippet": "4- أن هذه العلاقة الباقية التي لا تنفصم، كما لا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1968,
+    "end_word": 1969,
+    "text_snippet": "الحديث الرابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 101,
+    "start_word": 1970,
+    "end_word": 2048,
+    "text_snippet": "عَنْ عَاِئشَةَ رضي الله عنها قالت: كانت في بريرةَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 102,
+    "start_word": 2049,
+    "end_word": 2049,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 103,
+    "start_word": 2050,
+    "end_word": 2066,
+    "text_snippet": "برمة: قال في القاموس: البرمة- بالضم- قِدْر من حجا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 104,
+    "start_word": 2067,
+    "end_word": 2068,
+    "text_snippet": "المعنى الإجمالى:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 105,
+    "start_word": 2069,
+    "end_word": 2238,
+    "text_snippet": "تذكر عائشة رضي الله عنها من بركة مولاتها بريرة م",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 106,
+    "start_word": 2239,
+    "end_word": 2242,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 107,
+    "start_word": 2243,
+    "end_word": 2280,
+    "text_snippet": "1- أن الأمة إذا عتقت تحت عبد يكون لها الخيار يين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 108,
+    "start_word": 2281,
+    "end_word": 2297,
+    "text_snippet": "2- فيه يبان اعتبار الكفاءة في النسب بين الزوجين.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 109,
+    "start_word": 2298,
+    "end_word": 2325,
+    "text_snippet": "3- أن الفقر إذا تصدق عليه فأهدى من صدقته إلى من ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 110,
+    "start_word": 2326,
+    "end_word": 2337,
+    "text_snippet": "4- فيه دليل على سؤال صاحب البيت أهله عن شؤون منز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 111,
+    "start_word": 2338,
+    "end_word": 2350,
+    "text_snippet": "5- وفيه انحصار الولاء بالمعتق، فلا يكون لغيره، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 112,
+    "start_word": 2351,
+    "end_word": 2377,
+    "text_snippet": "6- أنه ما دام بهذه الصفة من اللصوق، إذ عُدَّ لحمة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  }
+]

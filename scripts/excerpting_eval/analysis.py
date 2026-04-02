@@ -59,7 +59,10 @@ def detect_unit_loss(
     # C1: When validation_drops.jsonl is available, we know exactly which
     # units were dropped — upgrade evidence from inferred to observed.
     if validation_drops:
-        dropped_unit_indices = {d.get("unit_index") for d in validation_drops}
+        dropped_unit_indices = {
+            idx for idx in (d.get("unit_index") for d in validation_drops)
+            if idx is not None
+        }
         if all(e.key.unit_index in dropped_unit_indices for e in lost):
             evidence_basis = EvidenceBasis.OBSERVED
             interpretation = (
@@ -361,9 +364,11 @@ def compute_metrics(
     processing_log: dict,
     timing: dict,
     excerpts: list[dict],
+    run_metadata: dict | None = None,
 ) -> list[TieredMetric]:
     """Compute all tiered metrics from the canonical ledger and traces."""
     metrics: list[TieredMetric] = []
+    run_metadata = run_metadata or {}
 
     # Counts
     phase2b_count = sum(1 for e in ledger.values() if e.has_phase2b)
@@ -432,7 +437,11 @@ def compute_metrics(
         provenance="deterministic_structural",
     ))
 
-    error_count = processing_log.get("error_count", 0)
+    error_count = int(
+        processing_log.get("error_count", 0)
+        or run_metadata.get("error_count", 0)
+        or 0
+    )
     metrics.append(TieredMetric(
         name="error_count",
         value=error_count,
@@ -445,6 +454,8 @@ def compute_metrics(
         timing.get(k, 0)
         for k in ("load_package", "phase1", "phase2a", "phase2b", "phase3")
     )
+    if total_time == 0:
+        total_time = float(run_metadata.get("batch_elapsed_seconds", 0.0) or 0.0)
     metrics.append(TieredMetric(
         name="total_time_seconds",
         value=round(total_time, 2),
@@ -806,6 +817,7 @@ def analyze_book(run_data: dict) -> BookAnalysisResult:
     traces = run_data["traces"]
     processing_log = run_data["processing_log"]
     timing = run_data["timing"]
+    run_metadata = run_data["run_metadata"]
     excerpts = run_data["excerpts"]
     run_dir_str = str(run_data["run_dir"])
 
@@ -819,7 +831,7 @@ def analyze_book(run_data: dict) -> BookAnalysisResult:
     status = determine_status(anomalies)
     metrics = compute_metrics(
         ledger, chunk_records, traces,
-        processing_log, timing, excerpts,
+        processing_log, timing, excerpts, run_metadata=run_metadata,
     )
     candidates = generate_review_candidates(ledger, anomalies, run_dir_str)
 
@@ -827,6 +839,13 @@ def analyze_book(run_data: dict) -> BookAnalysisResult:
     total_time = sum(
         timing.get(k, 0)
         for k in ("load_package", "phase1", "phase2a", "phase2b", "phase3")
+    )
+    if total_time == 0:
+        total_time = float(run_metadata.get("batch_elapsed_seconds", 0.0) or 0.0)
+    error_count = int(
+        processing_log.get("error_count", 0)
+        or run_metadata.get("error_count", 0)
+        or 0
     )
 
     return BookAnalysisResult(
@@ -844,7 +863,7 @@ def analyze_book(run_data: dict) -> BookAnalysisResult:
             1 for e in ledger.values() if e.has_phase2b
         ),
         excerpt_count=len(excerpts),
-        error_count=processing_log.get("error_count", 0),
+        error_count=error_count,
         total_time_seconds=total_time,
         total_cost=total_cost,
     )

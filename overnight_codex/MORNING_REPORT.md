@@ -1,54 +1,116 @@
-# Overnight Codex Report — 2026-03-30
+# Overnight Codex Report — 2026-04-02
 
-- Active authority: `claude`
-- Runtime mode: `shadow_setup`
-- Status: **COMPLETED**
-- Apply mode: `queue_only`
-- Launch head: `915784b6`
-- Tasks: 9 completed, 0 failed, 0 queued, 8 skipped
-- Delta vs previous run: completed +9, failed +0, queued +0
+- Active authority: `codex`
+- Runtime mode: `autonomous_codex`
+- Status: **RUNNING PRODUCTIVELY**
+- Host: WSL checkout
+- Weekend lane: handoff follow-through + runtime/review hardening
 
-## Launch Notes
-- Main repo was dirty at launch; auto-apply disabled.
-- .claude/session_state.json was updated recently; assuming Claude session is active.
-- Detected running claude.exe processes; forcing queue-only mode.
-- Active authority is claude; forcing queue-only mode.
+## Top Signals
 
-## Tonight's Top Signals
-- `ki-layer-merge-excerpting` [skipped/none]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `ki-text-integrity-excerpting` [skipped/none]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `harden-recent-excerpting` [skipped/none]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `spec-audit-normalization` [skipped/none]: insufficient time
-- `spec-audit-source` [skipped/none]: insufficient time
+- `taysir` is definitively `FAILED`, not stalled or complete.
+- The failure point is deep in `phase3_consensus`, around the missing verifier response `verify_0124`.
+- The owner-facing review system is materially safer and clearer than it was at session start.
+- Future timed-out package runs now have a much better chance of preserving partial artifacts and diagnostic breadcrumbs.
+- The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
+- A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
+- A single opening brief for the next engine-fix session now exists at `docs/codex/next_engine_opening_brief_2026_04_02.md`.
+- The top three structural priorities now each have their own evidence packet on disk.
+- The top two repair-map docs now exist for the first engine-opening lane:
+- The repair-map docs now exist for all three top-priority lanes:
+  - `docs/codex/ex_v002_repair_map_2026_04_02.md`
+  - `docs/codex/ex_c003_repair_map_2026_04_02.md`
+  - `docs/codex/taysir_timeout_repair_map_2026_04_02.md`
+- The chunk-limit investigation currently points to launch/wrapper omission, not a proven child-runner `--max-chunks` bug.
+- A protected-state divergence note now exists for the stale `L-001` status in `.kr/HANDOFF.md`.
 
-## New vs Recurring
-- New signals this run: 8
-- Recurring signals from the previous snapshot: 0
-- New: `ki-layer-merge-excerpting` (skipped)
-- New: `ki-text-integrity-excerpting` (skipped)
-- New: `harden-recent-excerpting` (skipped)
+## What Improved Tonight
 
-## Blocked Work
-- `ki-layer-merge-excerpting` [skipped]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `ki-text-integrity-excerpting` [skipped]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `harden-recent-excerpting` [skipped]: shadow setup blocks write prefixes: ['engines/excerpting/src/', 'engines/excerpting/tests/']
-- `spec-audit-normalization` [skipped]: insufficient time
-- `spec-audit-source` [skipped]: insufficient time
+- Synced the safe non-raw `smoke_api_v2` artifact set into WSL.
+- Created `integration_tests/smoke_api_v2/taysir/STALL_REPORT.md`.
+- Wrote `docs/codex/taysir_timeout_analysis_2026_04_02.md`.
+- Review UI now:
+  - surfaces failed packages explicitly
+  - opens failed packages into a blocker panel
+  - explains failed comparison state
+  - preserves questionnaire drafts locally
+  - blocks empty comparison verdict submissions
+  - preserves malformed feedback lines into dropped sidecars instead of silently deleting them
+  - stabilizes comparison verdict persistence on explicit values rather than label text
+  - only marks review/questionnaire/comparison saves successful after real HTTP success
+  - ignores helper directories during package discovery
+  - preserves legacy comparison ids and keeps unmatched sides visible
+  - aligns owner-facing questionnaire/start docs with the current blocked comparison state
+  - aligns the questionnaire example audit trail with the same blocked comparison state
+- Analysis layer now:
+  - generates per-book `analysis/` folders for the synced `smoke_api_v2` run
+  - generates `integration_tests/smoke_api_v2/analysis/campaign_summary.{json,md}`
+  - carries batch timeout timing/error/cost into the `taysir` book and campaign summaries
+  - now carries that failed-run accounting through the shared per-book analysis path too
+  - exposes three evidence packets for the top-ranked anomaly classes:
+    - `docs/codex/ex_v002_drop_packet_2026_04_02.md`
+    - `docs/codex/ex_c003_phase2a_failure_packet_2026_04_02.md`
+    - `docs/codex/taysir_scale_collapse_packet_2026_04_02.md`
+- Runtime tooling now:
+  - emits `last_llm_activity.json`
+  - emits timeout reports automatically
+  - emits timeout trace-health summaries
+  - uses graceful interrupt-first timeout handling before hard kill
+  - keeps timeout telemetry best-effort instead of letting telemetry I/O break the run
+  - keeps timeout telemetry active in the parallel client path too
+  - validates provider/model ids more strictly and derives CLI backend preflight from actual config defaults
+  - preserves malformed JSONL lines into `.dropped.jsonl` sidecars
+  - skips browser auto-open by default in WSL review-server runs
+- Fixture-quality tooling now:
+  - emits scored Shamela fixture validation reports with severity/code counts
+  - supports machine-readable JSON output for future automation
+  - now covers the wider evaluation corpus by default (`shamela_real`, `shamela_extended`, `shamela_edge_cases`, engine normalization fixtures)
+  - now reports provenance/category coverage and fixture/doc count drift
+  - now supports explicit waiver files so intentional exceptions can be separated from active drift
+  - now has a compact summary note at `docs/codex/fixture_quality_summary_2026_04_02.md`
+  - the explicit `12` vs `13` Shamela fixture count drift has been corrected in the main human-facing references
 
-## Coverage And Validation Movement
-- `review-recent-excerpting` [review/analysis_lane]: Completed a shadow-lane code review for the recent excerpting changes, wrote the full report to `overnight/results/review-recent-excerpting/review.md`, and found 3 high-severity issues plus 1 medium-severity issue. Targeted pytest execution was attempted via `uv`, but the environment has no accessible Python interpreter.
-- `val-contracts` [validation/analysis_lane]: Read-only `val-contracts` review completed in the current checkout. The real boundary risk is not the old checker result; it is that `excerpting -> taxonomy -> synthesis` still describes a pre-merge excerpt schema, and the current validation scripts are too stale to catch that drift reliably.
-- `test-coverage-excerpting` [test/analysis_lane]: Wrote the Phase 1 excerpting coverage matrix to the overnight results folder and identified the main direct/partial/gap areas plus one SPEC/test contradiction.
-- `test-coverage-normalization` [test/analysis_lane]: Created the requested normalization coverage matrix artifact under overnight/results and verified its contents. The report maps SPEC §4 rule groups to active normalization tests, marks covered/partial/missing areas, and highlights the main gaps: non-Shamela normalizers, most §4.B transformative capabilities, and the plain-text multi-layer spec/test mismatch.
-- `test-coverage-source` [test/analysis_lane]: Wrote the source-engine section 4 coverage matrix to the overnight results artifact and sanity-checked the rule counts against the matrix.
-- `spec-audit-excerpting` [spec/analysis_lane]: Completed a read-only local audit of `engines/excerpting/SPEC.md`. The strongest SPEC defects are an undocumented external `source_metadata` dependency and an underspecified `processing_log.jsonl` side-output contract; there is also a missing Phase 3 failure-path definition for schema-valid but incomplete enrichment payloads.
+## Current Blockers
 
-## Findings Registry
-- Known tracked findings: 4
-- `A4`: Make consensus use one gate-generation path and remove the unused middle return value from `resolve_consensus\(\)`. (seen 1 times)
-- `A3`: Factor the common Phase 2 retry/backoff/error-feedback loop into a small internal helper. (seen 1 times)
-- `A2`: Extract one shared split-chunk resolver for enrichment and consensus. (seen 1 times)
+- `taysir` has no `excerpts.jsonl`, so weekend handoff Tasks 2, 4, and 5 remain skipped by rule.
+- The exact reason `verify_0124` never produced a response is still unresolved; current evidence narrows it to an in-flight verification call, but not to a single provider/network/root cause.
 
-## Snapshot
-- Snapshot file: `overnight_codex/run_snapshots/2026-03-30T13-04-44.735865_00-00.json`
-- Failure classes this run: none
+## Coworker Health
+
+- Claude CLI: healthy
+- Gemini CLI: healthy again after earlier capacity failures
+- Codex subagents: used repeatedly for read-only validation and regression review
+
+## Checkpoint Commits
+
+- `7821a7f6` `fix(handoff): sync smoke_api_v2 artifacts and repair review UI`
+- `1ec45e2b` `fix(runtime): surface failed packages and capture timeout activity`
+- `37f50a04` `fix(timeout): preserve partial artifacts on package timeout`
+- `69869c56` `fix(runtime): harden timeout and review controls`
+- `e0830f9d` `fix(review): preserve dropped feedback lines and polling state`
+- `5be2b897` `fix(review): preserve legacy comparisons and parallel diagnostics`
+- `0bb50ce2` `fix(review): preserve questionnaire drafts and require verdicts`
+- `dba2c0b2` `fix(review): keep unmatched comparison pairs visible`
+- `acd5ea37` `fix(review): default to no browser launch in WSL`
+- `1842867b` `fix(timeout): add trace health to timeout reports`
+- `f4c8e46e` `fix(review): stabilize comparison verdicts and trace notes`
+- `7e9efed9` `fix(runtime): harden model-id validation and backend inference`
+- `d0e70aac` `fix(review): harden package discovery and report notes`
+- `6d8be970` `fix(review): only mark saves successful after HTTP success`
+- `78f32964` `docs(analysis): generate smoke_api_v2 campaign and book analyses`
+- `9bd725d8` `docs(runtime): add prioritized smoke_api_v2 findings`
+- `1fc1c5fc` `docs(analysis): add EX-V-002 drop evidence packet`
+- `572dafff` `docs(analysis): add EX-C-003 phase2a failure packet`
+- `c92eb658` `docs(analysis): add taysir scale-collapse packet`
+- `9c187bd5` `fix(analysis): account for batch timeouts in overnight summaries`
+- `519bdb79` `fix(analysis): preserve failed-run accounting in analysis stack`
+
+## Next Best Lanes
+
+1. Continue runtime/report hardening while the owner sleeps.
+2. Keep tightening timeout diagnosis around the missing verification response path.
+3. Avoid taysir-dependent tasks until a valid output file exists.
+4. Use the ranked priority memo to focus the next serious hardening lane on unit loss first, Phase 2a failures second, and the `taysir` scale-collapse third.
+5. Treat `docs/codex/chunk_limit_investigation_2026_04_02.md` as the current truth on the `--max-chunks` question until contrary evidence appears.
+6. Use the repo virtualenv mock probe as the cheap future verification path before any paid smoke run.
+7. Treat `docs/codex/protected_state_divergence_2026_04_02.md` as the note of record where protected files are stale but cannot be edited in the unattended lane.

@@ -1,0 +1,83 @@
+[
+  {
+    "book_name": "ext_39_masala",
+    "source_id": "src_test0001",
+    "structural_status": "STRUCTURAL_FAIL",
+    "phase1_chunks": 16,
+    "phase2b_units": 203,
+    "excerpts": 200,
+    "errors": 3,
+    "anomaly_count": 1,
+    "anomaly_categories": [
+      "grouped_unit_loss"
+    ],
+    "time_seconds": 2301.76,
+    "cost": 3.27352
+  },
+  {
+    "book_name": "ext_46_qa",
+    "source_id": "src_test0001",
+    "structural_status": "STRUCTURAL_FAIL",
+    "phase1_chunks": 38,
+    "phase2b_units": 289,
+    "excerpts": 277,
+    "errors": 13,
+    "anomaly_count": 2,
+    "anomaly_categories": [
+      "grouped_unit_loss",
+      "phase2a_chunk_failures"
+    ],
+    "time_seconds": 2761.76,
+    "cost": 4.296018
+  },
+  {
+    "book_name": "ibn_aqil_v1",
+    "source_id": "src_test0001",
+    "structural_status": "STRUCTURAL_FAIL",
+    "phase1_chunks": 14,
+    "phase2b_units": 243,
+    "excerpts": 241,
+    "errors": 3,
+    "anomaly_count": 2,
+    "anomaly_categories": [
+      "grouped_unit_loss",
+      "phase2a_chunk_failures"
+    ],
+    "time_seconds": 2655.41,
+    "cost": 4.403729
+  },
+  {
+    "book_name": "ibn_aqil_v3",
+    "source_id": "src_test0001",
+    "structural_status": "STRUCTURAL_FAIL",
+    "phase1_chunks": 28,
+    "phase2b_units": 283,
+    "excerpts": 278,
+    "errors": 6,
+    "anomaly_count": 2,
+    "anomaly_categories": [
+      "grouped_unit_loss",
+      "phase2a_chunk_failures"
+    ],
+    "time_seconds": 2669.51,
+    "cost": 4.297653
+  },
+  {
+    "book_name": "taysir",
+    "source_id": "src_test0001",
+    "structural_status": "STRUCTURAL_FAIL",
+    "phase1_chunks": 184,
+    "phase2b_units": 3107,
+    "excerpts": 0,
+    "errors": 1,
+    "anomaly_count": 4,
+    "anomaly_categories": [
+      "grouped_unit_loss",
+      "phase2a_chunk_failures",
+      "phase2b_chunk_failures",
+      "zero_excerpt_run_with_upstream_activity"
+    ],
+    "time_seconds": 28800.96,
+    "cost": 42.819313
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "المسألة السادسة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 14,
+    "text_snippet": "الحكم النحوي ينقسم إلى: واجب، وممنوع، وحسن، ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 15,
+    "end_word": 30,
+    "text_snippet": "فالواجب: كرفع الفاعل، وتأخره عن الفعل، ونصب ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 31,
+    "end_word": 33,
+    "text_snippet": "والممنوع كأضداد ذلك.",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "والحسن: كرفع المضارع الواقع جزاء بعد شرط ماض",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 5,
+    "start_word": 42,
+    "end_word": 46,
+    "text_snippet": "والقبيح: كرفعه بعد شرط مضارع.",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 47,
+    "end_word": 55,
+    "text_snippet": "وخلاف الأولى: كتقديم الفاعل في نحو: ضرب غلام",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 56,
+    "end_word": 72,
+    "text_snippet": "والجائز على السواء: كحذف المبتدأ، أو الخبر، أ",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 73,
+    "end_word": 110,
+    "text_snippet": "وقد اجتمعت الاقسام الستة في عمل الصفة المشبهة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 111,
+    "end_word": 120,
+    "text_snippet": "وعملها: إما رفع أو نصب، أو جر، فتلك ستة وثلاث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 121,
+    "end_word": 144,
+    "text_snippet": "والجر ممنوع في أربع صور: أن تكون بـ (أل) والم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 145,
+    "end_word": 161,
+    "text_snippet": "وخلاف الأولى في صورتين: أن تكون الصفة مجردة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 162,
+    "end_word": 181,
+    "text_snippet": "والرفع قبيح في أربع صور: أن يكون المعمول مجر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 182,
+    "end_word": 214,
+    "text_snippet": "والحسن فيها النصب أو الجر، والنصب خلاف الأولى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 215,
+    "end_word": 229,
+    "text_snippet": "وواجب في صورتين: أن تكون الصفة بـ (أل) ، وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 230,
+    "end_word": 248,
+    "text_snippet": "وتجوز الأوجه الثلاثة على السواء في صورتين: أن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

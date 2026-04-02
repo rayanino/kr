@@ -1,0 +1,43 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 50,
+    "text_snippet": "الكتاب الأول\n\nفي‌‌ السماع وأعني به ما ثبت في كلام من يوثق بفصاحته، فشمل كلام ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف السماع وبيان أنواعه الثلاثة واشتراط ثبوت كل نوع منها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 51,
+    "end_word": 184,
+    "text_snippet": "\nأما القرآن فكل ما ورد أنه قريء به جاز الاحتجاج به في العربية، سواء كان متوا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "حكم الاحتجاج بالقراءات كلها في العربية، وخصوصا الشاذ منها، مع دعوى الاتفاق وأمثلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,682 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "وهذا ليس من خصائص الإحرام، ولكنه مشروع بحسب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 38,
+    "text_snippet": "قلت: والغسل الذي تجادل فيه ابن عباس والمسور ليس",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 39,
+    "end_word": 45,
+    "text_snippet": "‌‌بَابُ فَسخ الحَج إلى العمْرة\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 46,
+    "end_word": 170,
+    "text_snippet": "عَنْ جَابِرِ بْنِ عَبْدِ الله قالَ: أَهَّلَ النَّبِيّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 171,
+    "end_word": 172,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 173,
+    "end_word": 407,
+    "text_snippet": "يصف \"جابر بن عبد الله\" رضي الله عنهما حجة النبي ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 408,
+    "end_word": 411,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 412,
+    "end_word": 424,
+    "text_snippet": "1- كون النبي صلى الله عليه وسلم أحرم ومعه الهدي، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 425,
+    "end_word": 450,
+    "text_snippet": "2- أن ترك سوق الهدي جائز، لأن أكثر الصحابة لم يسق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 451,
+    "end_word": 470,
+    "text_snippet": "3- فقه علي رضي الله عنه، فإنه حين لم يعرف أيّ الأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 471,
+    "end_word": 476,
+    "text_snippet": "4- جواز تعليق الإحرام بإحرام الغير.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 477,
+    "end_word": 516,
+    "text_snippet": "5- أن النبي صلى الله عليه وسلم أمر أصحابه الذين ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 517,
+    "end_word": 535,
+    "text_snippet": "6- أن من ساق الهدي، منعه ذلك من الإحلال، وبقي على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 536,
+    "end_word": 544,
+    "text_snippet": "7- جواز المبالغة في الكلام، لاستيضاح الحقائق، وتب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 545,
+    "end_word": 570,
+    "text_snippet": "8- تَمنِّي النبي صلى الله عليه وسلم، أنه لم يسق ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 15,
+    "start_word": 571,
+    "end_word": 590,
+    "text_snippet": "9- جواز تمني الأمور الفائتة إذا كانت من مصالح الد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 591,
+    "end_word": 608,
+    "text_snippet": "10- جواز فعل المناسك للحائض، ماعدا الطواف بالبيت،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 609,
+    "end_word": 641,
+    "text_snippet": "11- أن السعي من شرطه أن يقع بعد طواف نسك. ولذا لم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 642,
+    "end_word": 683,
+    "text_snippet": "12- جواز الإتيان بالعمرة من أدنى الحل بعد الحج ول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 684,
+    "end_word": 740,
+    "text_snippet": "13- أن الإحرام بالعمرة لابد أن يكون من خارج الحرم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 741,
+    "end_word": 760,
+    "text_snippet": "14- قوله: \"أهل بالحج\" ظاهره أنه مُفرِد.\nوتقدم ال",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 761,
+    "end_word": 767,
+    "text_snippet": "اختلاف العلماء، في فسخ الحج إلى عمرة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 768,
+    "end_word": 793,
+    "text_snippet": "أجمع العلماء على أن الصحابة الذين مع النبي صلى ال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 794,
+    "end_word": 806,
+    "text_snippet": "واختلفوا: هل هذا الفسخ لمن بعدهم أيضاً، أم لهم خ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 807,
+    "end_word": 828,
+    "text_snippet": "فذهب الأئمة الثلاثة، أبو حنيفة، ومالك، والشافعي، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 829,
+    "end_word": 844,
+    "text_snippet": "وذهب الإمام أحمد، وأهل الحديث، والظاهرية. ومن ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 845,
+    "end_word": 888,
+    "text_snippet": "استدل الأولون بما رواه أبو داود عن \"أبي ذر\" كان ي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 889,
+    "end_word": 916,
+    "text_snippet": "وبما رواه الخمسة عن الحارث بن بلال، عن أبيه بلال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 917,
+    "end_word": 951,
+    "text_snippet": "فعند الجمهور أن حديث بلال ناسخ لأحاديث الفسخ، فه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 29,
+    "start_word": 952,
+    "end_word": 968,
+    "text_snippet": "واستدل الآخرون على فسخ الحج بأحاديث صحيحة جيدة ق",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 30,
+    "start_word": 969,
+    "end_word": 1002,
+    "text_snippet": "منها حديث جابر، وسراقة بن مالك، وأبي سعيد الخدري",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1003,
+    "end_word": 1018,
+    "text_snippet": "كل هؤلاء رَوَوْا أحاديث كثيرة ـ وبعضها في الصحيح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1019,
+    "end_word": 1065,
+    "text_snippet": "ولهذا، لما قال سلمة بن شبيب للإمام أحمد: يا أبا ",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1066,
+    "end_word": 1096,
+    "text_snippet": "وقد أورد المصنف رحمه الله تعالى في هذا الكتاب، م",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1097,
+    "end_word": 1139,
+    "text_snippet": "الأول: ما رواه \"مسلم\" عن أبي سعيد الخدري رضي الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1140,
+    "end_word": 1183,
+    "text_snippet": "والثاني: ما رواه \"مسلم\" و\"ابن ماجه\" عن أسماء بنت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1184,
+    "end_word": 1191,
+    "text_snippet": "وهذه أحاديث عامة للصحابة ولمن بعدهم، إلى الأبد.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1192,
+    "end_word": 1203,
+    "text_snippet": "فإن الأحكام الشرعية، لا تكون لجيل دون جيل، ولا لط",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1204,
+    "end_word": 1208,
+    "text_snippet": "فمن ادّعى الخصوصية، فعليه الدليل.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1209,
+    "end_word": 1232,
+    "text_snippet": "وكيف ولما سأل سراقة بن مالك النبي صلى الله عليه و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1233,
+    "end_word": 1249,
+    "text_snippet": "وقد وردت هذه الأحاديث في واقعة متأخرة، لم يأت بع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1250,
+    "end_word": 1281,
+    "text_snippet": "بل ورد ما يبعد دعوى النسخ، حين قيل للنبي صلى الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1282,
+    "end_word": 1292,
+    "text_snippet": "أما دعوى الجمهور النسخ، بحديث بلال بن الحارث، فب",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1293,
+    "end_word": 1316,
+    "text_snippet": "لأن الإمام أحمد قال في حديثه: حديث بلال بن الحار",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1317,
+    "end_word": 1347,
+    "text_snippet": "وقال أيضاً: أرأيت لو عرف الحارث بن بلال؟ إلا أن ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1348,
+    "end_word": 1366,
+    "text_snippet": "وأما أثر أبي ذر، فهو رَأيٌ له، وقد خالفه غيره فيه",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1367,
+    "end_word": 1379,
+    "text_snippet": "وممن اختار الفسخ، شيخ الإسلام \"ابن تيمية\" قدس ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1380,
+    "end_word": 1406,
+    "text_snippet": "وقد أطال \"ابن القيم\" البحث في الموضوع في كتابه [",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1407,
+    "end_word": 1414,
+    "text_snippet": "ثم اختلف القائلون بالفسخ: أهو للوجوب أم للاستحبا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1415,
+    "end_word": 1444,
+    "text_snippet": "فذهب الإمام أحمد: إلى استحباب الفسخ. قال شيخ الإ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1445,
+    "end_word": 1468,
+    "text_snippet": "ولعل قصر الإمام \"أحمد\" لأحاديث الأمر بالفسخ مع ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1469,
+    "end_word": 1499,
+    "text_snippet": "وذهب ابن عباس في المفهوم من كلامه: إلى أنه فرض م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1500,
+    "end_word": 1513,
+    "text_snippet": "وذهب \"ابن حزم\" إلى ما ذهب إليه ابن عباس، حيث يقو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1514,
+    "end_word": 1538,
+    "text_snippet": "ومن أراد الحج، فإنه إذا جاء إلى الميقات، فإن كان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1539,
+    "end_word": 1559,
+    "text_snippet": "فإن أحرم بحج أو بقران حج وعمرة، ففرض عليه أن يفسخ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1560,
+    "end_word": 1603,
+    "text_snippet": "وذهب ابن القيم إلى هذا الرأي حيث قال في كتابه زا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1604,
+    "end_word": 1643,
+    "text_snippet": "فوالله ما نسخ هذا في حياته ولا بعده، ولا صح حرف ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1644,
+    "end_word": 1664,
+    "text_snippet": "فما ندري ما تقدم على هذه الأحاديث وهذا الأمر الم",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1665,
+    "end_word": 1686,
+    "text_snippet": "فهؤلاء، لما رأوا تكاثر الأحاديث في الأمر به، وغض",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1687,
+    "end_word": 1698,
+    "text_snippet": "وحديث البراء المشار إليه هو ما أخرجه ابن ماجه، و",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1699,
+    "end_word": 1770,
+    "text_snippet": "عن البراء بن عازب قال: \"خرج رسول الله صلى الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1771,
+    "end_word": 1776,
+    "text_snippet": "فهذا وأمثاله، متمسك من أوجبوا الفسخ.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1777,
+    "end_word": 1778,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1779,
+    "end_word": 1809,
+    "text_snippet": "عن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1810,
+    "end_word": 1811,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1812,
+    "end_word": 1862,
+    "text_snippet": "يقول جابر: قدمنا في حجة الوداع مع رسول الله صلى ",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1863,
+    "end_word": 1872,
+    "text_snippet": "وهذا الحديث، أحد أدلة من يرون فسخ الحج إلى عمرة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1873,
+    "end_word": 1874,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1875,
+    "end_word": 1911,
+    "text_snippet": "عَنْ عَبْدِ اللهِ بْنِ عبَّاسٍ رضي الله عنهما قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1912,
+    "end_word": 1913,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1914,
+    "end_word": 2003,
+    "text_snippet": "يذكر ابن عباس رضي الله عنهما: أن النبي صلى الله ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2004,
+    "end_word": 2009,
+    "text_snippet": "وهذا من أدلة القائلين بالفسخ أيضاً.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2010,
+    "end_word": 2011,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2012,
+    "end_word": 2041,
+    "text_snippet": "عَنْ عُرْوَةَ بْنِ الزُّيَيْرِ قال: سُئِلَ أُسَامَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2042,
+    "end_word": 2047,
+    "text_snippet": "العنق: انبساط السير، و\"النص\" فوق ذلك.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2048,
+    "end_word": 2048,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2049,
+    "end_word": 2066,
+    "text_snippet": "العنق والنص: \" العنق\" بفتح العين والنون. و\"النص\"",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2067,
+    "end_word": 2071,
+    "text_snippet": "الفجوة: بفتح الفاء، المكان المتسع.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2072,
+    "end_word": 2073,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2074,
+    "end_word": 2169,
+    "text_snippet": "كان أسامة بن زيد رضى الله عنهما رديف النبي صلى ا",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2170,
+    "end_word": 2173,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2174,
+    "end_word": 2193,
+    "text_snippet": "1- كون أسامة بن زيد رديف النبي صلى الله عليه وسل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2194,
+    "end_word": 2213,
+    "text_snippet": "2- كان سيره صلى الله عليه وسلم انبساطاً لا تباطُ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2214,
+    "end_word": 2236,
+    "text_snippet": "3- إذا وجد فجوة ليس فيها أحد، حرك دابته مع ما هو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2237,
+    "end_word": 2300,
+    "text_snippet": "4- أن ما عليه الناس اليوم من الطيش، والخفة، والس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

@@ -1,0 +1,526 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 19,
+    "text_snippet": "‌‌بَابُ الصَّدَاق\nهو العِوَضُ الذي في النكاح أو بعده، للمرأة. بمقابل استباحة ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الصداق وبيان أنه عوض للمرأة في عقد النكاح أو بعده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 20,
+    "end_word": 67,
+    "text_snippet": "وهو مشروع فْي الكتاب، والسنة، والإجماع، والقياس.\nفأما الكتاب: فقوله تعالى: {",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "إثبات مشروعية الصداق بالكتاب والسنة والإجماع والقياس.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل القرآني ذُكر بعضه فقط بلفظ: {وَآتوا النِّسَاءَ صَدُقاتهِن نِحْلَة}، ودليل السنة أُشير إليه إجمالاً مع مثال واحد دون استيعاب."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 68,
+    "end_word": 202,
+    "text_snippet": "ولم يجعل الشرع حدا لأكثره ولا لأقله، إلا أنه يستحب تخفيفه لقوله صلى الله علي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان عدم تحديد أكثر الصداق وأقله، مع استحباب تخفيفه وذكر علله وآثاره الاجتماعية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 203,
+    "end_word": 304,
+    "text_snippet": "الحديث الأول\nعَن أنَس بن مَالِكٍ رَضي الله عَنْة أن النبي صلى الله عليه وسلم أ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث صفية رضي الله عنها وشرح كيفية جعل عتقها صداقها عند زواج النبي بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 305,
+    "end_word": 319,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز عتق الرجل أمته، وجعل عتقها صداقاً لها، وتكون زوجته",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز أن يعتق الرجل أمته ويجعل عتقها صداقًا ثم يتزوجها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 320,
+    "end_word": 337,
+    "text_snippet": "2- أنه لا يشترط لذلك إذنها ولا شهود، ولا ولي، كما لا يشترط التقيد بلفظ الإنكا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان ما لا يشترط عند جعل العتق صداقًا من إذن وشهود وولي ولفظ مخصوص.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله: لذلك يعود إلى المسألة السابقة وهي جعل العتق صداقًا، فيحتاج القارئ إلى هذا السياق القريب."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 338,
+    "end_word": 348,
+    "text_snippet": "3- فيه دليل على جواز كون الصداق منفعة دينية أو دنيوية:",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز أن يكون الصداق منفعة دينية أو دنيوية لا عينًا مالية فقط.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال بلفظ: فيه دليل يعود على الحديث السابق وقصته، فالوحدة مفهومة إجمالاً لكن دليلها التفصيلي خارجها."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 349,
+    "end_word": 497,
+    "text_snippet": "4- وفي مثل هذه القصة في زواج النبي صلى الله عليه وسلم، ما يدل على كمال رأفته ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الاستدلال بزواج صفية على رحمة النبي والرد على من يفسر تعدد زوجاته بالشهوة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة قصة زواج صفية المذكورة قبل هذه الوحدة، وإن كان أصل الرد ومقصوده واضحين."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 498,
+    "end_word": 593,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في جواز جعل العتق صداقا.\nفذهب الإمام أحمد وإسح",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "خلاف الفقهاء في جعل العتق صداقًا مع أدلة المجيزين ورد تأويل المانعين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "start_word": 594,
+    "end_word": 847,
+    "text_snippet": "الحديث الثاني\nعَنْ سَهل بن سَعدٍ الساعِدِي: أن النبي صلى الله عليه وسلم أعتَقَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_quran",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث الواهبة نفسها وبيان تزويج الرجل المرأة بما معه من القرآن وتعليل ذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بداية الحديث المندرجة هنا فيها تكرار ظاهر لحديث صفية قبل قصة الواهبة، مما يوحي باضطراب نقلي؛ إلا أن المقصود العام للوحدة واضح."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      39,
+      40
+    ],
+    "start_word": 848,
+    "end_word": 865,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جواز عرض المرأة نفسها، أو الرجل ابنته، على رجل من أهل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز عرض المرأة نفسها أو عرض الرجل موليته على صاحب الدين والصلاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 866,
+    "end_word": 940,
+    "text_snippet": "2- جواز نظر من له رغبة في الزواج إلى المرأة التي يريد الزواج منها، والحكمة في ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "جواز نظر الخاطب إلى من يريد نكاحها مع التنبيه إلى الوسط بين الإفراط والتفريط.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال بقول النبي: \"انظر إليها...\" ورد مختصرًا دون تمام سياق الحديث، لكنه مشهور ومعناه واضح."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 941,
+    "end_word": 951,
+    "text_snippet": "3- ولاية الإمام على المرأة التي ليس لها ولي من أقربائها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات ولاية الإمام على المرأة التي لا ولي لها من قرابتها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "وجه الاستدلال من الحديث السابق غير مذكور داخل الوحدة."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 952,
+    "end_word": 961,
+    "text_snippet": "4- أنه لابد من الصداق في النكاح، لأنه أحد العوضين.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب أصل الصداق في النكاح واعتباره أحد العوضين في العقد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      45
+    ],
+    "start_word": 962,
+    "end_word": 989,
+    "text_snippet": "5- يجوز أن يكون يسيرا جداً للعجز لقوله: \"ولو خاتما من حديد\". على أنه يستحب تخ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز قلة الصداق جدًا عند العجز مع بقاء استحباب تخفيفه مطلقًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      46,
+      47
+    ],
+    "start_word": 990,
+    "end_word": 1034,
+    "text_snippet": "6- الأولى ذكر الصداق في العقد ليكون، أقطع للنزاع، فإن لم يذكر، صح العقد، ورجع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "استحباب ذكر الصداق في العقد، وأن العقد يصح بدونه ويرجع عندئذ إلى مهر المثل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 1035,
+    "end_word": 1046,
+    "text_snippet": "7- أن خطبة العقد لا تجب، حيث لم تذكر في هذا الحديث.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم وجوب خطبة النكاح قبل العقد لعدم ذكرها في الحديث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "التعليل مبني على الحديث السابق غير المدرج هنا."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      49,
+      50,
+      51
+    ],
+    "start_word": 1047,
+    "end_word": 1100,
+    "text_snippet": "8- أنه يصح أن يكون الصداق منفعة، كتعليم قرآن، أو فقه، أو أدب، أو صنعة، أو غير ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "جواز جعل المنفعة صداقًا، والرد على من منع إصداق تعليم القرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 1101,
+    "end_word": 1218,
+    "text_snippet": "9- أن النكاح ينعقد بكل لفظ دال عليه.\nوالدليل على ذلك، ألفاظ الحديث. فقد ورد ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "انعقاد النكاح بكل لفظ دال عليه مع عرض خلاف المقيِّدين بلفظ مخصوص وترجيح العموم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1219,
+    "end_word": 1242,
+    "text_snippet": "10- في الحديث حسن خلقه ولطفه صلى الله عليه وسلم، إذ لم يردها حين لم يرغب فيها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إبراز حسن خلق النبي ولطفه في تعامله مع المرأة الواهبة نفسها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قوله: في الحديث تعتمد على قصة المرأة الواهبة الواردة قبل هذه الوحدة."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1243,
+    "end_word": 1290,
+    "text_snippet": "11- قال بعض العلماء: لا دلالة بحديث الكتاب على جواز لبس خاتم الحديد، لأنه لا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن حديث الخاتم لا يدل على جواز لبس خاتم الحديد عند بعض العلماء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير: حديث الكتاب غير واضح وحده، والمراد حديث الباب السابق في التماس خاتم من حديد."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "start_word": 1291,
+    "end_word": 1547,
+    "text_snippet": "الحديث الثالث\nعَنْ أنَس بن مالِكٍ رضي الله عنه: أنَ رَسُولَ الله صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational",
+      "narration"
+    ],
+    "description_arabic": "حديث عبد الرحمن بن عوف وشرح ألفاظه وبيان معناه في الصداق والوليمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      72,
+      73
+    ],
+    "start_word": 1548,
+    "end_word": 1561,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كراهة التطيب بالزعفران وما يظهر أثره من الطيب، للرجال.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "كراهة تطيب الرجال بالزعفران وما يظهر أثره على البدن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      74
+    ],
+    "start_word": 1562,
+    "end_word": 1573,
+    "text_snippet": "2- تفقد الوالي والقائد لأصحابه، وسؤاله عن أحوالهم وأعمالهم.، التي تعنيه وتعنيه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تفقد الوالي لأصحابه وسؤاله عن أحوالهم وما يصلحهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      75
+    ],
+    "start_word": 1574,
+    "end_word": 1591,
+    "text_snippet": "3- استحباب تخفيف الصداق. فهذا عبد الرحمن بن عوف، لم يصدق زوجته إلا وزن خمسة د",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تخفيف الصداق والاستدلال بصداق عبد الرحمن بن عوف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      76
+    ],
+    "start_word": 1592,
+    "end_word": 1603,
+    "text_snippet": "4- الإشارة إلى أصل الصداق في النكاح، بناء على مقتضي الشرع والعادة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى أصل مشروعية الصداق في النكاح بمقتضى الشرع والعرف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 1604,
+    "end_word": 1621,
+    "text_snippet": "5- الدعاء للمتزوج بالبركة. وقد ورد الدعاء للمتزوج بهذا الدعاء \"بارك الله لك وب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية الدعاء للمتزوج بالبركة والدعاء المأثور في ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      78,
+      79
+    ],
+    "start_word": 1622,
+    "end_word": 1676,
+    "text_snippet": "6- مشروعية الوليمة من الزوج، وأن لا تقل عن شاة إذا كان من ذوى اليسار. قال ابن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية الوليمة وآدابها ومن يدعى إليها مع اجتناب السرف والخيلاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 1677,
+    "end_word": 1696,
+    "text_snippet": "8- قال شيخ الإسلام: أجمع العلماء على جواز عقد النكاح بدون فرض الصداق، وتستحق ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "نقل الإجماع على صحة النكاح بلا تسمية صداق، مع استحقاق مهر المثل بالدخول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      81,
+      82,
+      83
+    ],
+    "start_word": 1697,
+    "end_word": 1768,
+    "text_snippet": "9- وقال أيضا: وإذا أصدقها ديناَ كثيرا في ذمته، وهو ينوي ألا يعطيها إياه كان ذل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "حكم من سمى صداقًا كبيرًا في الذمة مع نية عدم الوفاء، وذم التكلف بما لا يطاق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

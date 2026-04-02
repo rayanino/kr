@@ -1,0 +1,144 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "الكتاب الرابع\n\nفي‌‌ الاستصحاب قال ابن الأنباري:\n\" هو إبقاء حال اللفظ على ما ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الاستصحاب عند ابن الأنباري بكونه إبقاء الأصل حتى يقوم ناقل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 24,
+    "end_word": 51,
+    "text_snippet": "قال: \" وهو من الأدلة المعتبرة كاستصحاب حال الأصل في الأسماء وهو الإعراب حتى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الاستصحاب من الأدلة المعتبرة مع مثال الأسماء والأفعال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المقصود غالبا، لكن مصطلح الاستصحاب وتعليل المثالين يحسنان بالرجوع إلى التعريف السابق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 52,
+    "end_word": 91,
+    "text_snippet": "وقال في الإنصاف:\n\" احتج البصريون على عدم تركيب كم بأن الأصل الإفراد والتركيب",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "مثال احتجاج البصريين بالأصل في مسألة تركيب كم واعتبار الاستصحاب دليلا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مكتمل، لكن فهم مسألة تركيب كم ووجه الخلاف فيها يحتاج معرفة نحوية سابقة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 92,
+    "end_word": 150,
+    "text_snippet": "وقال في موضع آخر منه:\n\" احتج البصريون على أنه لا يجوز الجر بحرف محذوف بلا ع",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الاحتجاج بالإجماع والأصل على منع الجر بحرف محذوف بلا عوض.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة بذاتها، لكن بعض تفاصيل المصطلحات كالعوض ومواضع الحذف تحتاج خلفية نحوية."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 151,
+    "end_word": 182,
+    "text_snippet": "وقال ابن مالك:\n\" من قال: أن كان وأخواتها لا تدل على على الحدث فهو مردود بأن ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "رد قول نفي الحدث عن كان وأخواتها بالتمسك بأصل دلالة الفعل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 183,
+    "end_word": 222,
+    "text_snippet": "قلت: والمسائل التي استدل فيها النحاة بالأصل كثيرة جدا لا تحصى كقولهم: الأصل ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "تنبيه إلى كثرة مسائل الاستدلال بالأصل مع ذكر أمثلة نحوية متنوعة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفقرة مستقلة إجمالا، لكن بعض الأمثلة موجزة وتحتاج شرحا خارجيا لتفصيل معناها ووجه الاستدلال."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 223,
+    "end_word": 257,
+    "text_snippet": "وقال الأندلسي في شرح المفصل:\nاستدل الكوفيون على أن الضمير في لولاك ونحوه مرف",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [
+      "evidence_ijma"
+    ],
+    "description_arabic": "استدلال الكوفيين على رفع الضمير في لولاك بالقياس والاستصحاب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال نفسه ظاهر، لكن مسألة لولاك والخلاف الإعرابي فيها تحتاج معرفة مسبقة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 258,
+    "end_word": 313,
+    "text_snippet": "وقال ابن الأنباري في أصوله:\n\" استصحاب الحال من أضعف الأدلة ولهذا لا يجوز التم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان ضعف الاستصحاب وأنه لا يعمل به عند وجود دليل ناقل عن الأصل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 314,
+    "end_word": 379,
+    "text_snippet": "وقال في جدله:\n\" الاعتراض على الاستدلال باستصحاب الحال بأن يذكر دليلا على زوال",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "عرض اعتراض على الاستصحاب بذكر دليل ناقل، ثم الجواب عنه بمثال فعل الأمر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "السؤال والجواب مكتملان، لكن مثال فعل الأمر ومصطلحات الشبه والمضارعة تحتاج خلفية نحوية."
+  }
+]

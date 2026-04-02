@@ -1,0 +1,123 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 17,
+    "text_snippet": "‌‌كِتاب الجَنَائز\nالجنائز: جمع \" جنازة \" بالفتح، والكسر أفصح. اسم يطلق على ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الجنائز لغة وبيان أنها تطلق على الميت وعلى سريره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 18,
+    "end_word": 40,
+    "text_snippet": "وللميت أحكام كثيرة، ذكروا هنا منها، الصلاة وما يتعلق بها، من التغسيل والتكفين",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "بيان موضوع هذا الباب وأنه يختص بالصلاة على الميت وتجهيزه دون الحقوق المالية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى أبواب الوصايا والفرائض لفهم تفصيل الحقوق المالية المذكورة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 41,
+    "end_word": 67,
+    "text_snippet": "وبما أن الكتاب مختصر، فإن المصنف لم يأت بكل ما تدعو الحاجة إليه من الأحاديث ا",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه المحقق أو الشارح إلى اختصار الكتاب وأنه سيذكر فوائد حديثية مكملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 68,
+    "end_word": 77,
+    "text_snippet": "فمن حق المريض على إخوانه المسلمين عيادته، وإدخال السرور عليه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حق المريض في العيادة وإدخال السرور عليه من إخوانه المسلمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 78,
+    "end_word": 118,
+    "text_snippet": "فإذا كان في حال خطره، يذكر بالتوبة، وقضاء الديون، والوصية، لاسيما فيما يجب عل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "ما يشرع تذكير المحتضر به من التوبة والديون والوصية مع الرفق وحسن الظن بالله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 119,
+    "end_word": 130,
+    "text_snippet": "فإذا حضره الموت، سُنَّ لمن حضره تلقينه الشهادتين بلطف، وتوجيه إلى القبلة.\n",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "السنة عند حضور الموت تلقين الشهادتين برفق وتوجيه المحتضر إلى القبلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 131,
+    "end_word": 144,
+    "text_snippet": "فإذا مات غمضت عيناه، ولينت مفاصله، وأسرع بتجهيزه، ما لم يكن في تأخيره مصلحة.\n",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "ما يفعل بالميت بعد وفاته من تغميض عينيه وتليين مفاصله وتعجيل تجهيزه إلا لمصلحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 145,
+    "end_word": 178,
+    "text_snippet": "وتغسيل الميت، وتكفينه، وحمله، والصلاة عليه، ودفنه. فروض كفاية، إذا قام بها من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "تجهيز الميت والصلاة عليه ودفنه من فروض الكفاية، ويأثم القادر العالم إذا تركها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

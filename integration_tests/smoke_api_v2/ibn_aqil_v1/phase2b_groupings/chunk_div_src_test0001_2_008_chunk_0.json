@@ -1,0 +1,691 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 90,
+    "text_snippet": "‌‌الابتداء\nمبتدأ زيد وعاذر خبر … إن قلت زيد عاذر من اعتذر ⌜1⌝\nوأول مبتدأ و",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان قسمي المبتدأ: ما له خبر، وما سد فاعله مسد الخبر مع التمثيل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 91,
+    "end_word": 359,
+    "text_snippet": "ويقاس على هذا ما كان مثله وهو كل وصف اعتمد على استفهام أو نفي نحو أقائم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "narration"
+    ],
+    "description_arabic": "شروط ابتداء الوصف الرافع فاعلا، واعتماده على استفهام أو نفي، وما يتفرع عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 360,
+    "end_word": 483,
+    "text_snippet": "ومذهب البصريين إلا الأخفش أن هذا الوصف لا يكون مبتدأ إلا إذا اعتمد على نفي ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "example"
+    ],
+    "description_arabic": "خلاف البصريين والأخفش والكوفيين في اشتراط الاعتماد على نفي أو استفهام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 484,
+    "end_word": 514,
+    "text_snippet": "والثان مبتدأ وذا الوصف خبر … إن في سوى الإفراد طبقا استقر (1) الوصف مع الف",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم مطابقة الوصف لفاعله إلى مطابقة وعدم مطابقة، وبيان نوعي كل قسم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 515,
+    "end_word": 642,
+    "text_snippet": "فإن تطابقا إفرادا نحو أقائم زيد جاز فيه وجهان (1) :\nأحدهما: أن يكون الوصف ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_rational"
+    ],
+    "description_arabic": "حكم تطابق الوصف وفاعله في الإفراد، والوجهان الجائزان، وترجيح أحدهما في الآية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 643,
+    "end_word": 716,
+    "text_snippet": "وإن تطابقا تثنية نحو أقائمان الزيدان أو جمعا نحو أقائمون الزيدون فما بعد الو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم تطابق الوصف وفاعله في التثنية والجمع، واستثناء لغة أكلوني البراغيث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 717,
+    "end_word": 753,
+    "text_snippet": "وإن لم يتطابقا وهو قسمان ممتنع وجائز كما تقدم فمثال الممتنع أقائمان زيد وأقا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم عدم المطابقة بين الوصف وما بعده، وبيان صورتي الامتناع والجواز.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 754,
+    "end_word": 894,
+    "text_snippet": "⌜5⌝ ورفعوا مبتدأ بالابتدا … كذاك رفع خبر بالمبتدا (1)\nمذهب سيبويه وجمهور الب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "الخلاف في العامل في المبتدأ والخبر، وشرح مذهب سيبويه وترجيحه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 895,
+    "end_word": 972,
+    "text_snippet": "والخبر: الجزء المتم الفائدة … كالله بر والأيادي شاهده (2)\nعرف المصنف الخبر ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "تعريف الخبر، والاعتراض على تعريف المصنف، وذكر تعريف بديل أخص منه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 973,
+    "end_word": 1112,
+    "text_snippet": "ومفردا يأتي ويأتي جمله … حاوية معنى الذي سيقت له ⌜7⌝\nوإن تكن إياه معنى اكتف",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "تقسيم الخبر إلى مفرد وجملة، وبيان الروابط التي تربط الجملة الخبرية بالمبتدأ.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 1113,
+    "end_word": 1185,
+    "text_snippet": "وإن كانت الجملة الواقعة خبرا هي المبتدأ في المعنى لم تحتج إلى رابط وهذا معنى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إذا كانت الجملة الخبرية عين المبتدأ معنى استغنت عن الرابط مع الأمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "start_word": 1186,
+    "end_word": 1448,
+    "text_snippet": "والمفرد الجامد فارغ وإن … يشتق فهو ذو ضمير مستكن ⌜10⌝\nتقدم الكلام في الخبر ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "تحمل الخبر المفرد للضمير: الجامد والمشتق، ومذاهب البصريين والكوفيين وشروط ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      50,
+      51
+    ],
+    "start_word": 1449,
+    "end_word": 1514,
+    "text_snippet": "وأبرزنه مطلقا حيث تلا … ما ليس معناه له محصلا ⌜11⌝ إذا جرى الخبر المشتق على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم الضمير في الخبر المشتق إذا جرى على من هو له، وجواز إبراز الضمير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55
+    ],
+    "start_word": 1515,
+    "end_word": 1691,
+    "text_snippet": "فإن جرى على غير من هو له وهو المراد بهذا البيت وجب إبراز الضمير سواء أمن الل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "حكم إبراز الضمير إذا جرى الخبر المشتق على غير من هو له، مع الخلاف والترجيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 1692,
+    "end_word": 2264,
+    "text_snippet": "وأخبروا بظرف أو بحرف جر … ناوين معنى كائن أو استقر (1) تقدم أن الخبر يكون م",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "refutation",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "الإخبار بالظرف والجار والمجرور، وتقدير متعلقهما، ومذاهب النحاة في ذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة في أصلها، لكن طول الحاشية التحريرية يتضمن نقاشا خارج صلب المسألة وبعض الإحالات إلى أقوال سابقة وأعلام تحتاج معرفة خارجية."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 2265,
+    "end_word": 2329,
+    "text_snippet": "وكما يجب حذف عامل الظرف والجار والمجرور إذا وقعا خبرا كذلك يجب حذفه إذا وقعا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب حذف عامل الظرف والجار والمجرور في الخبر والصفة والحال والصلة بتفصيله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      66,
+      67
+    ],
+    "start_word": 2330,
+    "end_word": 2379,
+    "text_snippet": "ولا يكون اسم زمان خبرا … عن جثة وإن يفد فأخبرا (1) ظرف المكان يقع خبرا عن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفرق بين ظرف المكان وظرف الزمان في وقوعهما خبرا عن الجثة أو المعنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      68,
+      69,
+      70,
+      71
+    ],
+    "start_word": 2380,
+    "end_word": 2476,
+    "text_snippet": "قال المصنف إلا إذا أفاد نحو الليلة الهلال والرطب شهري ربيع فإن لم يفد لم يقع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الخلاف في وقوع اسم الزمان خبرا عن الجثة إذا أفاد، مع شرط الإفادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      72,
+      73,
+      74,
+      75
+    ],
+    "start_word": 2477,
+    "end_word": 2535,
+    "text_snippet": "ولا يجوز الابتدا بالنكرة … ما لم تفد: كعند زيد نمره (1)\nوهل فتى فيكم؟ فما خ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أصل المبتدأ المعرفة، وجواز الابتداء بالنكرة إذا أفادت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      76
+    ],
+    "start_word": 2536,
+    "end_word": 2567,
+    "text_snippet": "أحدها: أن يتقدم الخبر عليها وهو ظرف أو جار ومجرور (3) نحو:\nفي الدار رجل وعن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: تقدم الخبر إذا كان ظرفا أو جارا ومجرورا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 2568,
+    "end_word": 2578,
+    "text_snippet": "الثاني: أن يتقدم على النكرة استفهام (2) نحو: هل فتى فيكم؟\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: تقدم الاستفهام عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      78
+    ],
+    "start_word": 2579,
+    "end_word": 2588,
+    "text_snippet": "الثالث: أن يتقدم عليها نفي (3) نحو: ما خل لنا.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: تقدم النفي عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 2589,
+    "end_word": 2597,
+    "text_snippet": "الرابع: أن توصف ⌜13⌝ نحو رجل من الكرام عندنا.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن تكون موصوفة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 2598,
+    "end_word": 2607,
+    "text_snippet": "الخامس: أن تكون عاملة (2) نحو رغبة في الخير خير.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن تكون عاملة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      81
+    ],
+    "start_word": 2608,
+    "end_word": 2615,
+    "text_snippet": "السادس: أن تكون مضافة نحو عمل بر يزين.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: الإضافة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      82,
+      83
+    ],
+    "start_word": 2616,
+    "end_word": 2648,
+    "text_snippet": "هذا ما ذكره المصنف في هذا الكتاب وقد أنهاها غير المصنف إلى نيف وثلاثين موضعا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "التنبيه على كثرة مسوغات الابتداء بالنكرة، وذكر السابع منها وهو الشرط.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم المذكور، لكن صدر الوحدة إحالة تحريرية على ما سبق من تعداد المسوغات."
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      84
+    ],
+    "start_word": 2649,
+    "end_word": 2662,
+    "text_snippet": "الثامن: أن تكون جوابا نحو أن يقال من عندك فتقول رجل التقدير رجل عندي.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن تقع جوابا لسؤال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      85
+    ],
+    "start_word": 2663,
+    "end_word": 2669,
+    "text_snippet": "التاسع: أن تكون عامة نحو كل يموت.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: العموم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      86
+    ],
+    "start_word": 2670,
+    "end_word": 2694,
+    "text_snippet": "العاشر: أن يقصد بها التنويع كقوله:\n44 - فأقبلت زحفا على الركبتين … فثوب لبس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: قصد التنويع، مع مثال شعري.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      87
+    ],
+    "start_word": 2695,
+    "end_word": 2704,
+    "text_snippet": "الحادي عشر:أن تكون دعاء نحو: {سَلامٌ عَلَى إِلْ يَاسِينَ} .\n",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن تكون دعاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      88
+    ],
+    "start_word": 2705,
+    "end_word": 2716,
+    "text_snippet": "الثاني عشر: أن يكون فيها معنى التعجب (1) نحو ما أحسن زيدا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: إفادة معنى التعجب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المثال يحتاج معرفة بأسلوب التعجب وإعرابه، وإلا فأصل المسوغ ظاهر."
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      89
+    ],
+    "start_word": 2717,
+    "end_word": 2812,
+    "text_snippet": "الثالث عشر: أن تكون خلفا من موصوف نحو مؤمن خير من كافر.\nالرابع عشر: أن تكون",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدة مسوغات: الخلف من موصوف، والتصغير، ومعنى الحصر مع بيان أحد القولين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      90
+    ],
+    "start_word": 2813,
+    "end_word": 2834,
+    "text_snippet": "السادس عشر: أن يقع قبلها واو الحال كقوله:\n45 - سرينا ونجم قد أضاء فمذ بدا …",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن تقع بعد واو الحال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      91
+    ],
+    "start_word": 2835,
+    "end_word": 2845,
+    "text_snippet": "السابع عشر: أن تكون معطوفة على معرفة نحو زيد ورجل قائمان.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: عطفها على معرفة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      92
+    ],
+    "start_word": 2846,
+    "end_word": 2857,
+    "text_snippet": "الثامن عشر: أن تكون معطوفة على وصف نحو تميمي ورجل في الدار.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: عطفها على وصف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      93
+    ],
+    "start_word": 2858,
+    "end_word": 2869,
+    "text_snippet": "التاسع عشر: أن يعطف عليها موصوف نحو رجل وامرأة طويلة في الدار.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: أن يعطف عليها موصوف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      94,
+      95
+    ],
+    "start_word": 2870,
+    "end_word": 3242,
+    "text_snippet": "العشرون: أن تكون مبهمة كقول امرئ القيس:\n46 - مرسعة بين أرساغه … به عسم يبتغ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: الإبهام، مع شاهد شعري وحاشية مطولة عليه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أصل المسوغ واضح، لكن الحاشية الشعرية واللغوية طويلة وتتضمن نقولا ونسبة البيت، وهي زائدة على أصل التعليم."
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      96
+    ],
+    "start_word": 3243,
+    "end_word": 3262,
+    "text_snippet": "الحادي والعشرون: أن تقع بعد لولا كقوله:\n47 - لولا اصطبار لأودى كل ذي مقة … ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: وقوعها بعد لولا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      97
+    ],
+    "start_word": 3263,
+    "end_word": 3278,
+    "text_snippet": "الثاني والعشرون: أن تقع بعد فاء الجزاء كقولهم إن ذهب عير فعير في الرباط (1) ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: وقوعها بعد فاء الجزاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      98
+    ],
+    "start_word": 3279,
+    "end_word": 3289,
+    "text_snippet": "الثالث والعشرون: أن تدخل على النكرة لام الابتداء نحو لرجل قائم.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: دخول لام الابتداء عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      99,
+      100
+    ],
+    "start_word": 3290,
+    "end_word": 3334,
+    "text_snippet": "الرابع والعشرون: أن تكون بعد كم الخبرية نحو قوله:\n48 - كم عمة لك يا جرير وخ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "من مسوغات الابتداء بالنكرة: وقوعها بعد كم الخبرية، مع ختام التعداد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

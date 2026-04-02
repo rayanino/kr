@@ -68,9 +68,11 @@ def analyze_package(pkg_dir: Path) -> dict:
     if meta and isinstance(meta, dict):
         result["error_count"] = meta.get("error_count", 0)
         result["errors"] = meta.get("errors", [])
+        result["batch_elapsed_seconds"] = meta.get("batch_elapsed_seconds", 0.0)
     else:
         result["error_count"] = 0
         result["errors"] = []
+        result["batch_elapsed_seconds"] = 0.0
 
     # Timing per phase
     timing = load_json(pkg_dir / "timing.json")
@@ -81,7 +83,7 @@ def analyze_package(pkg_dir: Path) -> dict:
         )
     else:
         result["timing"] = {}
-        result["total_time_seconds"] = 0.0
+        result["total_time_seconds"] = float(result.get("batch_elapsed_seconds", 0.0) or 0.0)
 
     # Retry analysis from raw_llm_requests/
     req_dir = pkg_dir / "raw_llm_requests"
@@ -108,6 +110,8 @@ def analyze_package(pkg_dir: Path) -> dict:
                 err_msg = str(resp.get("error", "")).lower()
                 if "timeout" in err_msg or "timed out" in err_msg:
                     timeout_errors += 1
+    if any("batch_timeout" in str(err).lower() for err in result["errors"]):
+        timeout_errors += 1
 
     result["retry_count"] = retry_count
     result["timeout_errors"] = timeout_errors
@@ -281,7 +285,8 @@ def main() -> int:
         return 1
 
     # Read top-level SUMMARY.json
-    summary_data = load_json(output_dir / "SUMMARY.json")
+    loaded_summary = load_json(output_dir / "SUMMARY.json")
+    summary_data = loaded_summary if isinstance(loaded_summary, dict) else None
 
     # Discover package directories
     pkg_dirs = sorted(

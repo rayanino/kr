@@ -1,0 +1,875 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 98,
+    "text_snippet": "‌‌بَابُ صفَة صَلاة النَّبي صلى الله عليه وسلم\nيذكر المصنف في هذا الباب طرفاً ",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "editorial_note",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "مقدمة الباب في وجوب اتباع صفة صلاة النبي والاقتداء بأفعاله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 99,
+    "end_word": 417,
+    "text_snippet": "الحديث الأول\nعَنْ أبي هريرة رضي الله عنه قال: كَانَ رسول الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث دعاء الاستفتاح مع شرح ألفاظه ومعناه ومناسبة ألفاظه للمقام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 418,
+    "end_word": 425,
+    "text_snippet": "أحكام الحديث:\n1- استحباب دعاء الاستفتاح في الصلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان استحباب دعاء الاستفتاح في الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 426,
+    "end_word": 440,
+    "text_snippet": "2- أن مكانه بعد تكبيرة الإحرام وقبل قراءة الفاتحة في الركعة الأولى من كل صلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "موضع دعاء الاستفتاح بعد تكبيرة الإحرام وقبل الفاتحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 441,
+    "end_word": 448,
+    "text_snippet": "3- أن يُسِرَّ به ولو كانت الصلاة جهرية.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب الإسرار بدعاء الاستفتاح ولو في الصلاة الجهرية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 449,
+    "end_word": 459,
+    "text_snippet": "4- أنه لا يطال فيه الدعاء، ولاسيما في الجماعة للصلوات المكتوبة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم إطالة دعاء الاستفتاح خاصة في الجماعة والمكتوبات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 460,
+    "end_word": 475,
+    "text_snippet": "5- حرص الصحابة رضي الله عنهم على أحوال الرسول صلى الله عليه وسلم في حركاته وس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إبراز حرص الصحابة على تتبع هيئة صلاة النبي وأحواله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 476,
+    "end_word": 518,
+    "text_snippet": "6- أنه ينبغي في مواطن الدعاء أن يُلح الإنسان ويكثر في طلب الشيء، ولو بطريق ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "استحباب الإلحاح في الدعاء وتكرار الألفاظ المتقاربة لمعنى واحد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 519,
+    "end_word": 618,
+    "text_snippet": "فائدتان:\nالأولى: ثبت عن النبي صلى الله عليه وسلم استفتاحات كثيرة للصلاة.\nمنها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعدد صيغ الاستفتاح وجوازها واستحباب التنويع بينها وعدم لزوم واحدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      33,
+      34
+    ],
+    "start_word": 619,
+    "end_word": 684,
+    "text_snippet": "الثانية: من المعلوم أن الماء الساخن أبلغ في إزالة الأوساخ والإنقاء مما هو مذك",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "سؤال وجواب في مناسبة ذكر الثلج والبرد في دعاء الاستفتاح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "start_word": 685,
+    "end_word": 932,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالَتْ: \"كَانَ رَسُولُ الله صلى ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في صفة صلاة النبي مع بيان هيئات الركوع والسجود والجلوس والتسليم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      39,
+      40
+    ],
+    "start_word": 933,
+    "end_word": 970,
+    "text_snippet": "ملاحظة:\nهذا الحديث لم يخرجه إلا مسلم فقط، وله علة، وهي أنه أتى من طريق أبي ال",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تنبيه على علة إسناد حديث عائشة وخصوصية إخراج مسلم له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 971,
+    "end_word": 1041,
+    "text_snippet": "غريب الحديث:\n1- \"بالحمدُ لله\": الرفع على الحكاية.\n2- \"لم يشخِص\": بضم الياء",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح غريب ألفاظ حديث عائشة المتعلقة بهيئات الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      48,
+      49
+    ],
+    "start_word": 1042,
+    "end_word": 1067,
+    "text_snippet": "أحكام الحديث:\n1- ما ذكرته عائشة هذا من صفة صلاة النبي عليه الصلاة والسلام، هو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "دلالة صيغة كان على أن هذه الصفات هي الحال الدائمة للنبي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      50
+    ],
+    "start_word": 1068,
+    "end_word": 1098,
+    "text_snippet": "2- وجوب تكبيرة الإحرام التي تحرم كل قول وفعل ينافي أقوال الصلاة وأفعالها، وأن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تكبيرة الإحرام وأنها لا تستبدل بغير هذه الصيغة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      51
+    ],
+    "start_word": 1099,
+    "end_word": 1111,
+    "text_snippet": "3- وجوب قراءة الفاتحة بدون بسملة، ويأتي استحباب قراءتها سرّاً إن شاء الله.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب قراءة الفاتحة وذكر مسألة البسملة معها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال إلى بيان لاحق في استحباب قراءة البسملة سرًّا، فالوحدة مفهومة إجمالاً لكن تفاصيل المسألة خارجها."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1112,
+    "end_word": 1121,
+    "text_snippet": "4- وجوب الركوع، والأفضل فيه الاستواء، بلا رفع، ولا خفض.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الركوع واستحباب استواء الرأس فيه بلا رفع ولا خفض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      53
+    ],
+    "start_word": 1122,
+    "end_word": 1131,
+    "text_snippet": "5- وجوب الرفع من الركوع، ووجوب الاعتدال في القيام بعده.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الرفع من الركوع والاعتدال قائماً بعده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      54
+    ],
+    "start_word": 1132,
+    "end_word": 1140,
+    "text_snippet": "6- وجوب السجود، ووجوب الرفع منه، والاعتدال قاعداً بعده.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب السجود والرفع منه والاعتدال في الجلسة بين السجدتين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      55
+    ],
+    "start_word": 1141,
+    "end_word": 1154,
+    "text_snippet": "7- وجوب التشهد بعد كل ركعتين، فإن كانت الصلاة ثنائية سلم بعده،، وإلا قام.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "وجوب التشهد بعد كل ركعتين مع حكم الثنائية وما زاد عليها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 1155,
+    "end_word": 1214,
+    "text_snippet": "8- مشروعية افتراش المصلى رجله اليسرى ونصب اليمنى في الجلوس في غير التشهد الأخ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية الافتراش في الجلوس وبيان اختصاص بعض صفاته بالرجال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتضمن الوحدة إحالة إلى أحاديث أخرى في التورك والافتراش، فتفصيل الاستدلال خارجها."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1215,
+    "end_word": 1248,
+    "text_snippet": "9- النهي عن مشابهة الشيطان في جلوسه، وذلك بأن يجلس على عقبيه ويفرش قدميه على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "النهي عن الجلسات المشابهة لجلوس الشيطان وبيان صورها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1249,
+    "end_word": 1266,
+    "text_snippet": "10- النهي عن مشابهة السبع في افتراشه، وذلك بأن يبسط المصلى ذراعيه في الأرض، ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "النهي عن افتراش الذراعين في السجود تشبهاً بالسبع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1267,
+    "end_word": 1282,
+    "text_snippet": "11- وجوب ختم الصلاة بالتسليم، وهو دعاء للمصلين والحاضرين والغائبين الصالحين ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب ختم الصلاة بالتسليم وبيان معناه العام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      60,
+      61,
+      62
+    ],
+    "start_word": 1283,
+    "end_word": 1341,
+    "text_snippet": "اختلاف العلماء:\nالصحيح عند الأصوليين: أن أفعال النبي صلى الله عليه وسلم لا تد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "قاعدة دلالة أفعال النبي على الوجوب هنا باقترانها بحديث صلوا كما رأيتموني أصلي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "start_word": 1342,
+    "end_word": 1522,
+    "text_snippet": "فمن ذلك التشهد الأول، والجلوس له في الصلاة ذات التشهدين.\nفقد ذهب الإمام \" أح",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "condition_exception"
+    ],
+    "description_arabic": "خلاف الفقهاء في وجوب التشهد الأول والجلوس له مع أدلة الفريقين والجواب عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      71,
+      72,
+      73,
+      74,
+      75
+    ],
+    "start_word": 1523,
+    "end_word": 1694,
+    "text_snippet": "واختلفوا في الصفة المستحبة في الجلوس.\nفذهبت الحنفية إلى الافتراش في جميع جلسا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "مذهب الحنفية في الافتراش في جميع جلسات الصلاة وأدلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "start_word": 1695,
+    "end_word": 1856,
+    "text_snippet": "وأما صفة الجلوس بين السجدتين فهو الافتراش عند الشافعية والحنابلة.\nووجه الدلال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "مذاهب المالكية والشافعية والحنابلة في صفة الجلوس وأوجه الاستدلال لها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تبدأ الوحدة بذكر الافتراش بين السجدتين عند الشافعية والحنابلة ثم تنتقل لأدلة المالكية والشافعية والحنابلة في التشهد، فيحتاج القارئ إلى الانتباه لتعدد الجزئيات داخل مسألة الجلوس."
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      82,
+      83,
+      84,
+      85,
+      86
+    ],
+    "start_word": 1857,
+    "end_word": 1982,
+    "text_snippet": "ولكن وقع اختلاف بين الشافعية والحنابلة، في الصلاة التي ليس فيها إلا تشهد واحد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف الشافعية والحنابلة في جلوس الصلاة ذات التشهد الواحد مع الترجيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      87,
+      88
+    ],
+    "start_word": 1983,
+    "end_word": 2028,
+    "text_snippet": "وأفضل التشهد، تشهد عبد الله بن مسعود، وهو أصحها، ولذا فقد أجمع العلماء على اخ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "أفضل صيغ التشهد هو تشهد ابن مسعود مع ذكر نصه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      89,
+      90,
+      91
+    ],
+    "start_word": 2029,
+    "end_word": 2067,
+    "text_snippet": "وأجمع العلماء على مشروعية التسليم، ولكن اختلفوا: هل المشروع تسليمتان أو تسليم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "الخلاف في عدد التسليم المشروع وترجيح التسليمتين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      92,
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "start_word": 2068,
+    "end_word": 2187,
+    "text_snippet": "واختلفوا في وجوب التسليم.\nفذهبت الحنفية إلى عدم وجوبه، مستدلين بما أخرجه التر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في وجوب التسليم مع أدلة الحنفية والجمهور والجواب عن أدلة النافين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      98,
+      99,
+      100,
+      101
+    ],
+    "start_word": 2188,
+    "end_word": 2313,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ النَّبيَّ صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عمر في رفع اليدين في الصلاة وشرح مواضعه ومعناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114
+    ],
+    "start_word": 2314,
+    "end_word": 2651,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية رفع اليدين عند تكبيرة الإحرام لتواتر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_hadith",
+      "refutation",
+      "rule_statement"
+    ],
+    "description_arabic": "الخلاف في مواضع رفع اليدين وأدلته وترجيح استحبابه في أربعة مواضع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      115,
+      116
+    ],
+    "start_word": 2652,
+    "end_word": 2672,
+    "text_snippet": "ف\nما يؤخذ من الحديث:\n1- استحباب رفع اليدين عند تكبيرة الإحرام بإجماع العلماء ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب رفع اليدين عند الإحرام وعند الركوع والرفع منه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      117
+    ],
+    "start_word": 2673,
+    "end_word": 2679,
+    "text_snippet": "2- أن يكون الرفع إلى مقابل المنكبين.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صفة رفع اليدين وأنه يكون إلى حذو المنكبين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      118
+    ],
+    "start_word": 2680,
+    "end_word": 2691,
+    "text_snippet": "3- أن النبي صلى الله عليه وسلم، لم يفعل الرفع في السجود.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم مشروعية رفع اليدين في السجود وفق هذا الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      119,
+      120,
+      121,
+      122
+    ],
+    "start_word": 2692,
+    "end_word": 2756,
+    "text_snippet": "4- حكم الله في ذلك كثيرة، وأجمع العلماء على أنه عبادة لليدين. وتلمسوا حكما أخ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم رفع اليدين في الصلاة والجمع بين التعليلات المذكورة فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      123,
+      124,
+      125,
+      126
+    ],
+    "start_word": 2757,
+    "end_word": 2847,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بن عباس رضي الله عنهما قالَ: قَالَ رَسُولُ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث السجود على سبعة أعضاء مع بيان المراد بهذه الأعضاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      127,
+      128,
+      129,
+      130,
+      131
+    ],
+    "start_word": 2848,
+    "end_word": 2901,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية السجود على هذه الأعضاء السبعة، واختل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "opinion_statement"
+    ],
+    "description_arabic": "الخلاف في الواجب من أعضاء السجود وترجيح وجوب السجود على السبعة كلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      132,
+      133
+    ],
+    "start_word": 2902,
+    "end_word": 2937,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب السجود على هذه الأعضاء السبعة جميعها وهو مذهب الإم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب السجود على الأعضاء السبعة وما فيه من تعظيم وخضوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      134
+    ],
+    "start_word": 2938,
+    "end_word": 2949,
+    "text_snippet": "2- أن الأنف تابع للجبهة، وهو متمم للسجود، وعليه فلا تكفي بدونه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأنف تابع للجبهة ولا يجزئ السجود بدونه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      135,
+      136
+    ],
+    "start_word": 2950,
+    "end_word": 3006,
+    "text_snippet": "فائدتان:\nالأولى: أنه لا بأس بالسجود على حائل سوى أعضاء السجود، فإنه يحرم أن ي",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم السجود على الحائل وبيان ما يجوز منه وما يكره وما يحرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 43,
+    "segment_indices": [
+      137
+    ],
+    "start_word": 3007,
+    "end_word": 3048,
+    "text_snippet": "الثانية: أن يضع أعضاء سجوده بالترتيب الذي كان النبي صلى الله عليه وسلم يفعله.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترتيب وضع أعضاء السجود والنهي عن بروك البعير.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى النهي النبوي عن تقديم اليدين قبل الركبتين دون إيراد نص الحديث، فيحتاج إلى معرفة الدليل من خارج الوحدة."
+  },
+  {
+    "unit_index": 44,
+    "segment_indices": [
+      138,
+      139,
+      140,
+      141,
+      142,
+      143
+    ],
+    "start_word": 3049,
+    "end_word": 3295,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي هُرَيرَة رضي الله عنه: كَانَ رَسُولُ الله صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديثا التكبيرات في الصلاة وبيان أنها شعار تعظيم الله في الانتقالات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 45,
+    "segment_indices": [
+      144,
+      145,
+      146,
+      147,
+      148,
+      149
+    ],
+    "start_word": 3296,
+    "end_word": 3433,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على وجوب تكبيرة الإحرام، للنص عليها في حديث المس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_hadith",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في وجوب تكبيرات الانتقال وأدلة القائلين بالوجوب والجواب عن المعارض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 46,
+    "segment_indices": [
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156
+    ],
+    "start_word": 3434,
+    "end_word": 3665,
+    "text_snippet": "واختلفوا في جمع المصلي بين التسميع وهو قول: \"سمع الله لمن حمده\" والتحميد وهو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_ijma",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في جمع المأموم بين التسميع والتحميد مع أدلة الطرفين وترجيح الجواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 47,
+    "segment_indices": [
+      157,
+      158
+    ],
+    "start_word": 3666,
+    "end_word": 3678,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية تكبيرة الإحرام، وأن تكون في حال القيام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية تكبيرة الإحرام وكونها حال القيام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

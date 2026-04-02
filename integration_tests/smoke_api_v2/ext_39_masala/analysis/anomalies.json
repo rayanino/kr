@@ -1,0 +1,40 @@
+[
+  {
+    "anomaly_id": "ANO-UNIT-LOSS",
+    "category": "grouped_unit_loss",
+    "severity": "structural_fail",
+    "evidence_basis": "observed",
+    "summary": "3 grouped unit(s) lost between Phase 2b and final excerpts",
+    "observed_facts": [
+      "3 grouped unit(s) missing from final excerpts",
+      "Missing unit indices: [0, 4, 5]",
+      "validation_drops.jsonl confirms 3 drop(s) with per-unit identity"
+    ],
+    "inferred_interpretation": "All 3 lost unit(s) confirmed in validation_drops.jsonl. Dropped unit indices: [0, 4, 5].",
+    "affected_keys": [
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_2_000_pre",
+        "chunk_index": 0,
+        "unit_index": 5
+      },
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_3_005",
+        "chunk_index": 0,
+        "unit_index": 4
+      },
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_3_011",
+        "chunk_index": 0,
+        "unit_index": 0
+      }
+    ],
+    "evidence_paths": [
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ext_39_masala/phase2b_groupings/",
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ext_39_masala/excerpts.jsonl",
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ext_39_masala/processing_log.jsonl"
+    ]
+  }
+]

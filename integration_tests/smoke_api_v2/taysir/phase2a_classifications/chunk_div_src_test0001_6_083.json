@@ -1,0 +1,146 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 43,
+    "text_snippet": "3- ورد مثل هذه القضية في زمن عمر فقد روى مالك ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 1,
+    "start_word": 44,
+    "end_word": 57,
+    "text_snippet": "ولم يعلم لعمر مخالف في هذه القضية من الصحابة، ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 58,
+    "end_word": 82,
+    "text_snippet": "4- أن الشارع عظم حقوق الجار وأكد حرمته، فله ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 83,
+    "end_word": 98,
+    "text_snippet": "أما العمومات التي يستدلون بها على عدم الوجوب، ",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 4,
+    "start_word": 99,
+    "end_word": 100,
+    "text_snippet": "‌‌بَابُ الغصْبِ\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 101,
+    "end_word": 107,
+    "text_snippet": "مصدر \" غصبه يغصبه \" أخذه ظلماً.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 108,
+    "end_word": 116,
+    "text_snippet": "والغصب شرعاً: هو الاستيلاء على مال غيره بغير ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 117,
+    "end_word": 124,
+    "text_snippet": "وهو من الظلم المحرم في الكتاب، والسنة، والإجما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 8,
+    "start_word": 125,
+    "end_word": 136,
+    "text_snippet": "ويجب على الغاصب رد ما غصبه، لأنه من رد المظالم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 137,
+    "end_word": 138,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 139,
+    "end_word": 163,
+    "text_snippet": "عَنْ عَائِشَةَ رَضى الله عَنْهَا: أنَ رَسُولَ الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 164,
+    "end_word": 164,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 165,
+    "end_word": 180,
+    "text_snippet": "قيد شبر: بكسر القاف وسكون الياء، أي قدر. وذكر ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 13,
+    "start_word": 181,
+    "end_word": 194,
+    "text_snippet": "طوقه: بضم الطاء وتشديد الواو المكسورة، مبنى لل",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 195,
+    "end_word": 199,
+    "text_snippet": "أرضين: بفتح الراء ويجوز إسكانها.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 200,
+    "end_word": 213,
+    "text_snippet": "الظلم: لغة وضع الشيء في غير محله. وشرعا التصرف",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 214,
+    "end_word": 215,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 216,
+    "end_word": 243,
+    "text_snippet": "مال الإنسان على الإنسان حرام، فلا يحل لأحد أخذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

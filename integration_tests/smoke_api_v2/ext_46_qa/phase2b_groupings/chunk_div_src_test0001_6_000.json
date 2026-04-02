@@ -1,0 +1,121 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 22,
+    "text_snippet": "وقيل: لعله كان يجتمع حكيمان، أو ثلاثة فصاعدا، فيحتاجون إلى الإبانة عن ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "قولٌ في نشأة اللغة باصطلاح جماعة يضعون ألفاظا للأشياء المعلومة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 23,
+    "end_word": 52,
+    "text_snippet": "وقيل: أصل اللغات كلها من الأصوات المسموعات، كدوي الريح والرعد، وخرير الما",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "قولٌ بأن أصل اللغات من محاكاة الأصوات المسموعة مع استحسان ابن جني له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 53,
+    "end_word": 75,
+    "text_snippet": "والمذهب الثالث: الوقف، أي لا يدري: أهي من وضع الله أو البشر لعدم دليل قاط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "المذهب الثالث هو الوقف في واضع اللغة لعدم الدليل القاطع، وهو اختيار ابن جني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 76,
+    "end_word": 135,
+    "text_snippet": "تنبيهان:\nالأول: زعم بعضهم أنه لا فائدة لهذا الخلاف. وليس كذلك، بل ذكر له ف",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "condition_exception",
+      "evidence_ijma"
+    ],
+    "description_arabic": "بيان فائدة الخلاف في أصل اللغة، فقهيا ونحويا، وأثره في مسألة قلب اللغة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم إجمالا، لكن الإشارة إلى الخلاف السابق في أصل اللغة وإلى معنى قلب اللغة تحتاج سياقا أوسع لفهم أدق."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 136,
+    "end_word": 232,
+    "text_snippet": "الثاني: قال ابن جني:\nالصواب، وهو رأي أبي الحسن الأخفش، سواء قلنا بالتوقيف ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ترجيح أن اللغة لم توضع دفعة واحدة بل نشأت متلاحقة، مع تفسير اختلاف اللغات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 233,
+    "end_word": 256,
+    "text_snippet": "قال وأما أي الأجناس الثلاثة: الاسم، والفعل، والحرف، وضع قبل؟ فلا يدرى ذلك",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم الجزم بأي الأنواع الثلاثة من الكلام وُضع أولا، مع تصريح أبي علي بذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 257,
+    "end_word": 337,
+    "text_snippet": "قال: وكان الأخفش يذهب إلى أن ما غير لكثرة استعماله، إنما تصورته العرب قبل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "رأي الأخفش في التغيير لكثرة الاستعمال وتعليل ابن جني لترجيح سبق تصور العرب له.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله \"القول عندي هو الأول\" يعود إلى احتمالين مذكورين داخل الوحدة إجمالا، لكن فهم الخلفية الكاملة لمسألة الإعراب والبناء يفيد أكثر."
+  }
+]

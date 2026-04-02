@@ -1,0 +1,298 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 11,
+    "text_snippet": "صلى الله عليه وسلم: \"عليكم بسنتي وسنة الخلفا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 12,
+    "end_word": 21,
+    "text_snippet": "وقد أجمع المسلمون على أنه أحد مواقيت الحج ولله ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 22,
+    "end_word": 145,
+    "text_snippet": "وقد قمت بشهر محرم في عام 1402 هـ من مكة المكرمة",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 146,
+    "end_word": 160,
+    "text_snippet": "ويحرم من العقيق- الشيعة - مخالفة لعمر رضي الل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 4,
+    "start_word": 161,
+    "end_word": 229,
+    "text_snippet": "والمسافة من ميقات ذات عرق حتى مكة مائة كيلاً. ",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 230,
+    "end_word": 255,
+    "text_snippet": "ملاحظة: جميع مواقيت الإحرام أودية عظام ولذا فإن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 6,
+    "start_word": 256,
+    "end_word": 256,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 257,
+    "end_word": 357,
+    "text_snippet": "جاء في قرار مجلس كبار العلماء رقم 5730 تاريخ 2",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 358,
+    "end_word": 411,
+    "text_snippet": "أولاً: أن الفتوى الصادرة من فضيلة الشيخ عبد الل",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 412,
+    "end_word": 451,
+    "text_snippet": "ثانياً: لا يجوز لمن مر بميقات من المواقيت المكا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 452,
+    "end_word": 487,
+    "text_snippet": "اهـ الخلاصة من القرار وبهذا انتهى بحثي عن الموا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 488,
+    "end_word": 489,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 490,
+    "end_word": 576,
+    "text_snippet": "لهذا البيت الحرام، التكريم، والتعظيم، والتقديس،",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 13,
+    "start_word": 577,
+    "end_word": 580,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 581,
+    "end_word": 594,
+    "text_snippet": "1- جعل هذه الأمكنة المذكورة مواقيت، لا يحل لمن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 595,
+    "end_word": 606,
+    "text_snippet": "2- أن ميقات من دون المواقيت من مكانه الذي هو سا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 607,
+    "end_word": 615,
+    "text_snippet": "3- أن ميقات أهل مكة منها، وهذا في الحج.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 616,
+    "end_word": 629,
+    "text_snippet": "أما العمرة، فلا بد من الخروج إلى الحل وهو قول ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 630,
+    "end_word": 639,
+    "text_snippet": "وقال المحب الطبري: \"لا أعلم أحداً جعل مكة ميقا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 640,
+    "end_word": 647,
+    "text_snippet": "وقصة عائشة مشهورة ثابتة فلا يقاومها مفهوم الحدي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 20,
+    "start_word": 648,
+    "end_word": 696,
+    "text_snippet": "4- يدل قوله: \"ممن أراد الحج والعمرة\" أن من أرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 697,
+    "end_word": 709,
+    "text_snippet": "وفي هذه المسألة خلاف بين العلماء، ويأتي تحقيقه ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 710,
+    "end_word": 733,
+    "text_snippet": "رحمة من الله تعالى بخلقه، حيث جعل لكل جهة ميقا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 23,
+    "start_word": 734,
+    "end_word": 747,
+    "text_snippet": "ولو جعل الميقات في جهة واحدة، لَشقَّ على من لم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 748,
+    "end_word": 765,
+    "text_snippet": "6- في تقدير النبي صلى الله عليه وسلم هذه المواقي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 25,
+    "start_word": 766,
+    "end_word": 786,
+    "text_snippet": "فقد حددها، ووقتها، وأهلها لم يسلموا، إشعاراً من",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 26,
+    "start_word": 787,
+    "end_word": 812,
+    "text_snippet": "7- تعظيم هذا البيت وتقديسه، إذ جعل له هذا الحمى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 27,
+    "start_word": 813,
+    "end_word": 814,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 815,
+    "end_word": 829,
+    "text_snippet": "أجمع العلماء على مشروعية الإحرام لمن أراد دخول ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 830,
+    "end_word": 837,
+    "text_snippet": "وأجمعوا على وجوب الإحرام لمن أراد دخوله للنسك.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 838,
+    "end_word": 853,
+    "text_snippet": "واختلفوا في وجوبه على من أراد الدخول لغير نسك،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 854,
+    "end_word": 871,
+    "text_snippet": "فذهب الأئمة الثلاثة: أبو حنيفة، ومالك، وأحمد: إ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 872,
+    "end_word": 904,
+    "text_snippet": "مستدلين بقوله صلى الله عليه وسلم في مكة: \"إنَّه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 905,
+    "end_word": 917,
+    "text_snippet": "واستدلوا بحديث ابن عباس عند البيهقي بلفظ: \"لا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 918,
+    "end_word": 922,
+    "text_snippet": "قال ابن حجر: إسناده جيد.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 35,
+    "start_word": 923,
+    "end_word": 968,
+    "text_snippet": "وذهب الإمام الشافعي في المشهور عنه: إلى جواز ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 969,
+    "end_word": 979,
+    "text_snippet": "واستدلوا على ذلك بقوله في هذا الحديث: \"ممن أرا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  }
+]

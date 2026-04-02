@@ -1,0 +1,498 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌أفعال المقاربة\nككان كاد وعسى لكن ندر … غير ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 48,
+    "text_snippet": "هذا هو القسم الثاني من الأفعال الناسخة للابتداء ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 2,
+    "start_word": 49,
+    "end_word": 63,
+    "text_snippet": "والصحيح أنها فعل بدليل اتصال تاء الفاعل وأخو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 64,
+    "end_word": 76,
+    "text_snippet": "وهذه الأفعال تسمى أفعال المقاربة وليست كلها لل",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 77,
+    "end_word": 85,
+    "text_snippet": "أحدها: ما دل على المقاربة وهي كاد وكرب وأوشك\n",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 86,
+    "end_word": 94,
+    "text_snippet": "والثاني: ما دل على الرجاء وهي عسى وحرى واخلولق",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 95,
+    "end_word": 105,
+    "text_snippet": "والثالث: ما دل على الإنشاء وهي جعل وطفق وأخذ ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 106,
+    "end_word": 114,
+    "text_snippet": "فتسميتها أفعال المقاربة من باب تسمية الكل باسم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 8,
+    "start_word": 115,
+    "end_word": 161,
+    "text_snippet": "وكلها تدخل على المبتدأ والخبر فترفع المبتدأ اسم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 162,
+    "end_word": 175,
+    "text_snippet": "84 - أكثرت في العذل ملحا دائما … لا تكثرن إني ع",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 176,
+    "end_word": 189,
+    "text_snippet": "85 - فأبت إلى فهم وما كدت آئبا … وكم مثلها فا",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 11,
+    "start_word": 190,
+    "end_word": 241,
+    "text_snippet": "وهذا هو مراد المصنف بقوله لكن ندر إلى آخره لكن",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 242,
+    "end_word": 280,
+    "text_snippet": "وكونه بدون أن بعد عسى … نزر وكاد الأمر فيه عك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 281,
+    "end_word": 296,
+    "text_snippet": "ولم يرد في القرآن إلا مقترنا ب أن قال الله تعا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 297,
+    "end_word": 303,
+    "text_snippet": "وقال عز وجل: {عَسَى رَبُّكُمْ أَنْ يَرْحَمَكُمْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 304,
+    "end_word": 321,
+    "text_snippet": "ومن وروده بدون أن قوله:\n86 - عسى الكرب الذي أم",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 322,
+    "end_word": 452,
+    "text_snippet": "روى أكثر هذه القصيدة أبو علي القالي في أماليه،",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 17,
+    "start_word": 453,
+    "end_word": 560,
+    "text_snippet": "الاعراب: \" عسى \" فعل ماض ناقص \" الكرب \" اسم ع",
+    "scholarly_function": "definition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 18,
+    "start_word": 561,
+    "end_word": 635,
+    "text_snippet": "الشاهد فيه: قوله \" يكون وراءه - إلخ \" حيث وقع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 636,
+    "end_word": 650,
+    "text_snippet": "87 - عسى فرج يأتي به الله إنه … له كل يوم في خ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 651,
+    "end_word": 683,
+    "text_snippet": "وأما كاد فذكر المصنف أنها عكس عسى فيكون الكثير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 684,
+    "end_word": 693,
+    "text_snippet": "فمن تجريده من أن قوله تعالى: {فَذَبَحُوهَا وَم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 694,
+    "end_word": 704,
+    "text_snippet": "وقال {مِنْ بَعْدِ مَا كَادَ يَزِيغُ قُلُوبُ فَر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 705,
+    "end_word": 724,
+    "text_snippet": "ومن اقترانه ب أن قوله صلى الله عليه وسلم: \"ما ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 725,
+    "end_word": 737,
+    "text_snippet": "88 - كادت النفس أن تفيض عليه … إذ غدا حشو ريط",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 25,
+    "start_word": 738,
+    "end_word": 814,
+    "text_snippet": "وكعسى حرى ولكن جعلا … خبرها حتما بأن متصلا (1",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 26,
+    "start_word": 815,
+    "end_word": 832,
+    "text_snippet": "فمن اقترانه بها قوله:\n89 - ولو سئل الناس التراب",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 833,
+    "end_word": 848,
+    "text_snippet": "ومن تجرده منها قوله:\n90 - يوشك من فر من منيته ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 849,
+    "end_word": 902,
+    "text_snippet": "ومثل كاد في الأصح كربا … وترك أن مع ذي الشروع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 903,
+    "end_word": 915,
+    "text_snippet": "91 - كرب القلب من جواه يذوب … حين قال الوشاة:",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 916,
+    "end_word": 934,
+    "text_snippet": "وسمع من اقترانه بها قوله:\n92 - سقاها ذوو الأحلا",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 935,
+    "end_word": 1239,
+    "text_snippet": "_________\n= ابن إسماعيل بن هشام بن المغيرة، وال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1240,
+    "end_word": 1286,
+    "text_snippet": "ومعنى قوله وترك أن مع ذي الشروع وجبا أن ما دل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1287,
+    "end_word": 1309,
+    "text_snippet": "واستعملوا مضارعا لأوشكا … وكاد لا غير وزادوا م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1310,
+    "end_word": 1316,
+    "text_snippet": "نحو قوله تعالى: {يَكَادُونَ يَسْطُونَ} وقول الش",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1317,
+    "end_word": 1322,
+    "text_snippet": "يوشك من فر من منيته (1)\n",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1323,
+    "end_word": 1344,
+    "text_snippet": "وزعم الأصمعي أنه لم يستعمل يوشك إلا بلفظ المض",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1345,
+    "end_word": 1362,
+    "text_snippet": "وقد ورد في الشعر كقوله:\nولو سئل الناس التراب ل",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1363,
+    "end_word": 1370,
+    "text_snippet": "نعم الكثير فيها استعمال المضارع وقل استعمال ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1371,
+    "end_word": 1385,
+    "text_snippet": "وقول المصنف وزادوا موشكا معناه أنه قد ورد أيضا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1386,
+    "end_word": 1396,
+    "text_snippet": "93 - فموشكة أرضنا أن تعود … خلاف الأنيس وحوشا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1397,
+    "end_word": 1417,
+    "text_snippet": "وقد يشعر تخصيصه أوشك بالذكر أنه لم يستعمل اسم ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1418,
+    "end_word": 1430,
+    "text_snippet": "94 - أموت أسى يوم الرجام وإنني … يقينا لرهن با",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1431,
+    "end_word": 1438,
+    "text_snippet": "وقد ذكر المصنف هذا في غير هذا الكتاب.\n",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1439,
+    "end_word": 1482,
+    "text_snippet": "وأفهم كلام المصنف أن غير كاد وأوشك من أفعال هذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1483,
+    "end_word": 1497,
+    "text_snippet": "بعد عسى اخلولق أوشك قد يرد … غنى ب \"أن يفعل\" ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1498,
+    "end_word": 1505,
+    "text_snippet": "اختصت عسى واخلولق وأوشك بأنها تستعمل ناقصة وتا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1506,
+    "end_word": 1510,
+    "text_snippet": "فأما الناقصة فقد سبق ذكرها.\n",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1511,
+    "end_word": 1544,
+    "text_snippet": "وأما التامة فهي المسندة إلى أن والفعل نحو عسى ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1545,
+    "end_word": 1597,
+    "text_snippet": "وهذا إذا لم يل الفعل الذي بعد أن اسم ظاهر يصح ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1598,
+    "end_word": 1644,
+    "text_snippet": "ما ذكره الشلوبين وتجويز وجه آخر وهو أن يكون\nما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1645,
+    "end_word": 1652,
+    "text_snippet": "وتظهر فائدة هذا الخلاف في التثنية والجمع والتأن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1653,
+    "end_word": 1683,
+    "text_snippet": "فتقول على مذهب غير الشلوبين عسى أن يقوما الزيد",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1684,
+    "end_word": 1711,
+    "text_snippet": "وعلى رأى الشلوبين يجب أن تقول عسى أن يقوم الزي",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1712,
+    "end_word": 1724,
+    "text_snippet": "وجردن عسى أو ارفع مضمرا … بها إذا اسم قبلها ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1725,
+    "end_word": 1792,
+    "text_snippet": "اختصت عسى من بين سائر أفعال هذا الباب بأنها إذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1793,
+    "end_word": 1799,
+    "text_snippet": "ونظهر فائدة ذلك في التثنية والجمع والتأنيث؟\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1800,
+    "end_word": 1847,
+    "text_snippet": "فتقول على لغة تميم: هند عست أن تقوم والزيدان ع",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1848,
+    "end_word": 1876,
+    "text_snippet": "وأما غير عسى من أفعال هذا الباب فيجب الإضمار ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1877,
+    "end_word": 1889,
+    "text_snippet": "والفتح والكسر أجز في السين من … نحو عسيت وانتق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1890,
+    "end_word": 1917,
+    "text_snippet": "إذا اتصل بـ\"عسى\" ضمير موضوع للرفع وهو لمتكلم ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1918,
+    "end_word": 1928,
+    "text_snippet": "وقرأ نافع فهل عسيتم إن توليتم بكسر السين وقرأ ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  }
+]

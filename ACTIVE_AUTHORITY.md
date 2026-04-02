@@ -1,17 +1,17 @@
 # Active Authority
 
-active_authority: claude
-effective_date: 2026-03-30
-planned_codex_cutover: 2026-04-09
+active_authority: codex
+effective_date: 2026-04-02
+planned_codex_cutover: 2026-04-02
 autonomous_period_end: 2026-07-01
-runtime_mode: shadow_setup
+runtime_mode: autonomous_codex
 owner_interaction: resource_only
 frontier_file: .kr/ACTIVE.md
 rollback_authority: claude
 autonomy_doctrine_file: docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md
-current_scope: Claude remains active authority while Codex restores and proves the takeover control plane in shadow mode.
-codex_scope_after_cutover: Hardening, regression growth, audits, bounded feature work, and unattended runtime operation.
-blocked_after_claude_expiry: Primary Claude-backed excerpting calls remain blocked unless an alternative backend is proven.
+current_scope: Codex is the active engineering authority for the owner-led April 2-6 execution window. Operate from the WSL checkout, start in `queue_only`, and treat Claude Code quota pressure as degraded coworker capacity rather than a blocker to owned work.
+codex_scope_after_cutover: Hardening, regression growth, audits, queued patch generation, and unattended runtime operation.
+blocked_after_claude_expiry: The referenced doctrine file is currently missing from `docs/codex`. Until that control-plane gap is repaired, keep operation conservative: queue-only starts, explicit blocker logging, and no policy expansion inferred from the missing doctrine file.
 
 ## Interpretation
 
@@ -22,10 +22,10 @@ blocked_after_claude_expiry: Primary Claude-backed excerpting calls remain block
 
 ## Cutover Checklist
 
-- Follow `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`.
-- Do not cut over before April 9, 2026.
-- Gate 0 in the doctrine must be fully green before authority flips.
-- Until then, Codex remains in `shadow_setup` and `queue_only`.
+- Early owner-approved cutover took effect on April 2, 2026.
+- Start from `autonomous_codex` with `queue_only` operational discipline.
+- Record Claude Code quota limits explicitly at major milestones and continue under degraded coworker capacity when needed.
+- Restore or replace `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md` before relying on doctrine-governed promotions or degraded-mode assumptions beyond the conservative starting lane.
 
 ## Rollback
 

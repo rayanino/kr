@@ -1,0 +1,451 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 102,
+    "text_snippet": "‌‌النكرة والمعرفة ⌜1⌝\nنكرة قابل أل مؤثرا … أو واقع موقع ما قد ذكرا (2)\nالنكر",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "تعريف النكرة وبيان ضابطها مع أمثلة ما يقبل أل وما يقع موقعه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 103,
+    "end_word": 142,
+    "text_snippet": "وغيره معرفة كهم وذي … وهند وابني والغلام والذي (1)\nأي غير النكرة المعرفة وهي ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن المعرفة ستة أقسام مع تعداد أنواعها إجمالا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 143,
+    "end_word": 176,
+    "text_snippet": "فما لذي غيبة أو حضور … كأنت وهو سم بالضمير (1)\nيشير إلى أن الضمير ما دل على ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الضمير بأنه ما دل على غيبة أو حضور وذكر قسميه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 177,
+    "end_word": 561,
+    "text_snippet": "وذو اتصال منه ما لا يبتدا … ولا يلي إلا اختيارا أبدا (2) كالياء والكاف من ابن",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example",
+      "editorial_note",
+      "rule_statement",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعريف الضمير المتصل وبيان أنه لا يقع بعد إلا اختيارا، مع الشاهد والخلاف في روايته.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يُفهم المقصود في الجملة، لكن بعض الشرح والإعراب المطوّل في الشواهد يعتمد على سياق نحوي أوسع وعلى معرفة اصطلاح الشذوذ."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 562,
+    "end_word": 646,
+    "text_snippet": "وكل مضمر له البنا يجب … ولفظ ما جر كلفظ ما نصب ⌜2⌝\nالمضمرات كلها مبنية لشبهها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "وجوب بناء الضمائر وبيان اشتراك كثير من ألفاظها بين حالتي الجر والنصب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 647,
+    "end_word": 789,
+    "text_snippet": "للرفع والنصب وجر نا صلح … كأعرف بنا فإننا نلنا المنح ⌜3⌝\nأي صلح لفظ نا للرفع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان الضمائر المشتركة بين الرفع والنصب والجر، وخصوصية نا مقارنة بالياء وهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 790,
+    "end_word": 847,
+    "text_snippet": "وألف والواو والنون لما … غاب وغيره كقاما واعلما (2)\nالألف والواو والنون من ضم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الألف والواو والنون ضمائر رفع متصلة للغائب والمخاطب دون المتكلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 848,
+    "end_word": 1065,
+    "text_snippet": "ومن ضمير الرفع ما يستتر … كافعل أوافق نغتبط إذ تشكر ⌜5⌝\nينقسم الضمير إلى مست",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم الضمير إلى مستتر وبارز، وبيان مواضع وجوب الاستتار وجوازه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 1066,
+    "end_word": 1152,
+    "text_snippet": "وذو ارتفاع وانفصال أنا … هو وأنت والفروع لا تشتبه (1)\nتقدم أن الضمير ينقسم إ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "حصر الضمائر المنفصلة المرفوعة وبيان أنواعها للمتكلم والمخاطب والغائب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 1153,
+    "end_word": 1206,
+    "text_snippet": "وذو انتصاب في انفصال جعلا … إياي والتفريع ليس مشكلا ⌜6⌝\nأشار في هذا البيت إل",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "حصر الضمائر المنفصلة المنصوبة وبيان صورها المختلفة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "start_word": 1207,
+    "end_word": 1285,
+    "text_snippet": "(2) وفي اختيار لا يجيء المنفصل … إذا تأتى أن يجيء المتصل (1)\nكل موضع أمكن أن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "الأصل تقديم الضمير المتصل على المنفصل عند الإمكان، واستثناء ما يتعذر فيه الاتصال والشاهد الشعري.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      43,
+      44,
+      45
+    ],
+    "start_word": 1286,
+    "end_word": 1396,
+    "text_snippet": "وصل أو افصل هاء سلنيه وما … أشبهه في كنته الخلف انتمى (1) كذاك خلتنيه، واتصال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز الاتصال والانفصال في هاء سلنيه ونحوه، مع الخلاف في المختار.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة، لكن اصطلاح قوله: ما يتعدى إلى مفعولين الثاني منهما ليس خبرا في الأصل يحتاج معرفة سابقة ببعض أبواب التعدية."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      46
+    ],
+    "start_word": 1397,
+    "end_word": 1433,
+    "text_snippet": "في كنته الخلف انتمى إلى أنه إذا كان خبر كان وأخواتها ضميرا فإنه يجوز اتصاله ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في الأرجح من اتصال ضمير خبر كان وانفصاله في نحو كنته وكنت إياه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      47,
+      48
+    ],
+    "start_word": 1434,
+    "end_word": 1497,
+    "text_snippet": "وكذلك المختار عند المصنف الاتصال في نحو خلتنيه (2) وهو كل فعل تعدى إلى مفعول",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "الخلاف في المختار في نحو خلتنيه، وترجيح مذهب سيبويه في الانفصال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الترجيح واضح، لكن مثال الباب وتعريفه يحتاجان إلمامًا سابقًا بمفعولي ظن وأخواتها."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      49,
+      50,
+      51
+    ],
+    "start_word": 1498,
+    "end_word": 1663,
+    "text_snippet": "وقدم الأخص في اتصال\n… وقدمن ما شئت في انفصال (1)\nضمير المتكلم أخص من ضمير ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب تقديم الأخص عند اتصال الضميرين، وجواز التقديم في الانفصال بشرط أمن اللبس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 1664,
+    "end_word": 1785,
+    "text_snippet": "وفي اتحاد الرتبة الزم فصلا … وقد يبيح الغيب فيه وصلا (2)\nإذا اجتمع ضميران وكا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "example",
+      "cross_reference"
+    ],
+    "description_arabic": "إذا اتحد الضميران المنصوبان في الرتبة لزم الفصل، ويستثنى بعض صور الغائبين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المعنى الأساس مكتمل، لكن الإحالة في آخر الوحدة إلى ما تقدم، والتنبيه على بيت الكافية، يزيدان الحاجة إلى سياق سابق."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 1786,
+    "end_word": 1873,
+    "text_snippet": "وقبل يا النفس مع الفعل التزم … نون وقاية وليسي قد نظم (2)\nإذا اتصل بالفعل ياء",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "وجوب نون الوقاية مع الفعل وياء المتكلم، وشذوذ حذفها مع ليس، والخلاف في أفعل التعجب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "start_word": 1874,
+    "end_word": 1942,
+    "text_snippet": "وليتني فشاوليتي ندرا … ومع لعل اعكس وكن مخبرا (2)\nفي البقايات واضطرارا خففا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "evidence_quran"
+    ],
+    "description_arabic": "حكم نون الوقاية مع ليت، وأن حذفها معها نادر وثبوتها هو الكثير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      66,
+      67,
+      68
+    ],
+    "start_word": 1943,
+    "end_word": 1977,
+    "text_snippet": "وأما لعل فذكر أنها بعكس ليت فالفصيح تجريدها من النون كقوله تعالى حكاية عن فرع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "example"
+    ],
+    "description_arabic": "حكم نون الوقاية مع لعل، وأن الفصيح حذفها ويقل إثباتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      69,
+      70
+    ],
+    "start_word": 1978,
+    "end_word": 2040,
+    "text_snippet": "ثم ذكر أنك بالخيار في الباقيات أي في باقي أخوات ليت ولعل وهي إن وأن وكأن ولك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "التخيير في نون الوقاية مع إن وأن وكأن ولكن، وبيان الشاذ في مني وعني.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير الباقيات يعتمد على سبق ذكر ليت ولعل، لكنه يمكن فهمه غالبًا من داخل الوحدة مع تعداد الحروف."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      71,
+      72,
+      73
+    ],
+    "start_word": 2041,
+    "end_word": 2077,
+    "text_snippet": "وفي لدني لدني قل وفي … قدني وقطني الحذف أيضا قد يفي ⌜11⌝\nأشار بهذا إلى أن ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "الفصيح في لدني إثبات نون الوقاية، ويقل حذفها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      74,
+      75,
+      76,
+      77,
+      78
+    ],
+    "start_word": 2078,
+    "end_word": 2466,
+    "text_snippet": "والكثير في قد وقط ثبوت النون نحو قدني وقطني ويقل الحذف نحو قدي وقطي أي حسبي ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "editorial_note",
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم نون الوقاية في قد وقط، مع الشاهد والخلاف في كون الحذف شاذا أو قليلا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      79,
+      80
+    ],
+    "start_word": 2467,
+    "end_word": 2532,
+    "text_snippet": "_________\nولابن هشام ههنا كلام كثير وتفريعات طويلة لم يسبقه إليها أحد من قدام",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه تحريري على تفريعات ابن هشام، والتنبيه إلى مسألة الاسم المضاف لياء المتكلم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هي ملاحظة تحريرية لا تعليم مستقل فيها إلا بالإشارة إلى موضع بحث لاحق."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 2533,
+    "end_word": 2628,
+    "text_snippet": "واعلم أن الاصل في الاسم المعرب ألا تتصل به نون الوقاية، نحو ضاربي ومكرمي وقد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "example",
+      "evidence_rational"
+    ],
+    "description_arabic": "الأصل أن الاسم المعرب لا تلحقه نون الوقاية، وبيان مواضع لحوقها لشبهه بالفعل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

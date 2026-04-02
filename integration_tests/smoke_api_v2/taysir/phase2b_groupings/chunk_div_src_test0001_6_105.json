@@ -1,0 +1,50 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 0,
+    "end_word": 136,
+    "text_snippet": "الحديث الثاني\nعَنِ ابنِ عباس رضي الله عنهما قَال: قال رسول الله صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث دعاء الجماع مع المعنى الإجمالي وآثاره التعبدية والوقائية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 137,
+    "end_word": 273,
+    "text_snippet": "تنبيه:\nذكر القاضي عياض: أنه لم يحمل هذا الحديث على العموم في جميع الضرر والو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "condition_exception",
+      "example",
+      "refutation"
+    ],
+    "description_arabic": "مناقشة عموم نفي ضرر الشيطان وبيان أن الأسباب قد تتخلف لوجود الموانع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

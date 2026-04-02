@@ -1,0 +1,52 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 39,
+    "text_snippet": "‌‌الاستغاثة\nإذا استغيث اسم منادى خفضا … باللام مفتوحا كيا للمرتضى\nيقال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان حكم جر المستغاث بلام مفتوحة والمستغاث له بلام مكسورة مع تعليل ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 40,
+    "end_word": 123,
+    "text_snippet": "وافتح مع المعطوف إن كررت يا … وفي سوى ذلك بالكسر ائتيا إذا عطف على ال",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تفصيل حكم لام المعطوف على المستغاث عند تكرار يا أو تركها، وحكم المستغاث له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 124,
+    "end_word": 173,
+    "text_snippet": "ولام ما استغيث عاقبت ألف … ومثله اسم ذو تعجب ألف\nتحذف لام المستغاث ويؤ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تعويض ألف عن لام المستغاث، وإلحاق المتعجب منه به في هذا الحكم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

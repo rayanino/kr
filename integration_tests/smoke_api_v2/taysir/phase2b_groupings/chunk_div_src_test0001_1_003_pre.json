@@ -1,0 +1,333 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 19,
+    "text_snippet": "‌‌كتاب الرَّضَاع\nالرَّضاع: بفتح الراء وكسرها، مصدر رضع الثدي إذا مصه.\nوتعريفه ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الرضاع لغة وشرعًا وبيان حقيقته الاصطلاحية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 20,
+    "end_word": 27,
+    "text_snippet": "وحكم الرضاع ثابت بالكتاب، والسنة، والإجماع. ونصوصه مشهورة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات أصل حكم الرضاع بالأدلة الكلية من الكتاب والسنة والإجماع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال إلى نصوص مشهورة دون ذكر أمثلة نصية مفصلة، فالأصل مفهوم لكن شواهد الأدلة غير مذكورة داخل الوحدة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 28,
+    "end_word": 63,
+    "text_snippet": "والأحكام المترتبة على الرضاع، تحريم النكاح، وإباحة النظر والخلوة، والمحرمية ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الأحكام المترتبة على الرضاع مع بيان حكمة التحريم ووجه الشبه بالنسب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 64,
+    "end_word": 80,
+    "text_snippet": "ولذا كره العلماء، استرضاع الكافرة، والفاسقة، وسيئة الخُلق أو مَنْ بها مرض ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كراهة استرضاع الكافرة والفاسقة ومن يخشى ضررها على الطفل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 81,
+    "end_word": 91,
+    "text_snippet": "واستحبوا أن يختار المرضعة، الحسنة الخُلُق والخَلْق، فإن الرضاع يُغير الطباع.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب اختيار المرضعة الصالحة الحسنة خُلُقًا وخَلْقًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 92,
+    "end_word": 141,
+    "text_snippet": "والأحسن أنه لا يرضعه إلا أمه، لاًنَّه أنفع وأمري وأحسن عاقبة، من اختلاط المحا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "ترجيح إرضاع الأم لولدها وذكر منافعه الشرعية والبدنية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 142,
+    "end_word": 266,
+    "text_snippet": "الحديث الأول\nعَن بن عَباس رضي الله عنهما قَالَ: قالَ رسول الله صلى الله عليه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديثا بنت حمزة وعائشة في أن الرضاع يحرم ما يحرم من النسب مع شرحهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 267,
+    "end_word": 297,
+    "text_snippet": "ما يستفاد من الحديث:\n1- ما يثبت في الرضاع من المحرمية، ومنها تحريم النكاح.\n2-",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات محرمية الرضاع وأنه يلحق بالنسب في التحريم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 298,
+    "end_word": 366,
+    "text_snippet": "3- الذين تنشر فيهم المحرمية من أجل الرضاع، هم المرتضع وفروعه، أبناؤه وبناته و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان من تنتشر فيهم محرمية الرضاع ومن لا تدخلهم الحرمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 367,
+    "end_word": 690,
+    "text_snippet": "الحديث الثالث\nوَعَنْهَا قَالَتْ: إن أفلحَ- أخَا أبي القُعَيْس- استأذن عَليَّ بَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "cross_reference",
+      "evidence_quran",
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أفلح وشرح ألفاظه وبيان أن زوج المرضعة وأقاربه تصيبهم الحرمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 691,
+    "end_word": 753,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على ثبوت حكم الرضاع من زوج المرضعة وأقاربه، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ثبوت لبن الفحل وانتشار حرمة الرضاع من جهة الزوج والمرأة معًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 754,
+    "end_word": 944,
+    "text_snippet": "2- فيه دليل على وجوب احتجاب النساء من الرجال غير المحارم، مع صريح القرآن في ذ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation",
+      "evidence_rational",
+      "evidence_quran",
+      "editorial_note"
+    ],
+    "description_arabic": "وجوب الحجاب والرد على دعاة السفور بعلله الشرعية والعقلية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 945,
+    "end_word": 1065,
+    "text_snippet": "الحديث الرابع\nوَعَنْهَا قالَت: دَخَلَ عَلَي رسول الله صلى الله عليه وسلم وعندي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث إنما الرضاعة من المجاعة وشرحه في تقييد الرضاع المحرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      46,
+      47
+    ],
+    "start_word": 1066,
+    "end_word": 1107,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- غيرة الرجل على أهله ومحارمه، من مخالطة الأجانب.\n2- إذا أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد تتعلق بالغيرة والتثبت وضبط الرضاع المحرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      48,
+      49
+    ],
+    "start_word": 1108,
+    "end_word": 1166,
+    "text_snippet": "4- أنه لابد أن يكون الرضاع في وقت الحاجة إلى تغذيته، فإن الرضاعة من المجاعة، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "اشتراط وقوع الرضاع زمن الحاجة إلى اللبن وبيان حكمته.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أشار إلى أن تحديد العدد والوقت والخلاف سيأتي لاحقًا، فالمعنى العام مكتمل لكن تفاصيل الضبط مؤجلة."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      50,
+      51,
+      52
+    ],
+    "start_word": 1167,
+    "end_word": 1227,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في قدر الرضاع المحرم.\nفذهب طائفة من السلف والخ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "القول بأن قليل الرضاع وكثيره يحرمان مع تعليل هذا المذهب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      53,
+      54,
+      55
+    ],
+    "start_word": 1228,
+    "end_word": 1278,
+    "text_snippet": "وذهبت طائفة أخرى: إلى أنه لا يثبت التحريم بأقل من ثلاث رضعات. وهذا قول أبي ثو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "rule_statement"
+    ],
+    "description_arabic": "القول باشتراط ثلاث رضعات فأكثر لإثبات التحريم ودليله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      56,
+      57
+    ],
+    "start_word": 1279,
+    "end_word": 1321,
+    "text_snippet": "وذهبت طائفة ثالثة إلى أنه لا يثبت بأقَل من خمس رضعات.\nوهذا قول عبد الله بن مس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "القول باشتراط خمس رضعات فأكثر مع عزوه لأصحابه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذكر الدليل إحالةً إلى حديث في صحيح مسلم عن عائشة دون إيراد نصه، فالقول معروف لكن دليلُه غير مكتمل داخل الوحدة."
+  }
+]

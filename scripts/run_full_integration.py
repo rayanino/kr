@@ -17,10 +17,10 @@ import concurrent.futures
 import datetime
 import json
 import os
+import signal
 import shutil
 import subprocess
 import sys
-import tempfile
 import threading
 import time
 from pathlib import Path
@@ -362,21 +362,244 @@ def _persist_resume_marker(
         print(f"WARNING: Failed to persist resume marker in {meta_path}: {exc}")
 
 
+def _write_timeout_report(
+    pkg_output: Path,
+    *,
+    timeout_seconds: int,
+    elapsed_pkg: float,
+) -> None:
+    """Write a durable timeout report from whatever artifacts exist on disk."""
+    report_path = pkg_output / "STALL_REPORT.md"
+    progress_path = pkg_output / "progress.jsonl"
+    excerpts_path = pkg_output / "excerpts.jsonl"
+    timing_path = pkg_output / "timing.json"
+    processing_log_path = pkg_output / "processing_log.jsonl"
+    last_activity_path = pkg_output / "last_llm_activity.json"
+    meta = _read_json_file(pkg_output / "run_metadata.json") or {}
+    last_activity = _read_json_file(last_activity_path)
+
+    phase_counts: dict[tuple[str, str], int] = {}
+    last_entry: dict[str, Any] | None = None
+    total_entries = 0
+    if progress_path.exists():
+        try:
+            for raw in progress_path.read_text(encoding="utf-8").splitlines():
+                raw = raw.strip()
+                if not raw:
+                    continue
+                entry = json.loads(raw)
+                if not isinstance(entry, dict):
+                    continue
+                total_entries += 1
+                phase = str(entry.get("phase", "unknown"))
+                status = str(entry.get("status", "unknown"))
+                phase_counts[(phase, status)] = phase_counts.get((phase, status), 0) + 1
+                last_entry = entry
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    def _latest_file_info(subdir: str) -> str:
+        root = pkg_output / subdir
+        if not root.is_dir():
+            return "none"
+        files = [p for p in root.glob("*.json") if p.is_file()]
+        if not files:
+            return "none"
+        latest = max(files, key=lambda p: p.stat().st_mtime)
+        ts = datetime.datetime.fromtimestamp(
+            latest.stat().st_mtime,
+            datetime.timezone.utc,
+        ).isoformat().replace("+00:00", "Z")
+        return f"{latest.name} @ {ts}"
+
+    def _trace_health() -> dict[str, Any]:
+        req_root = pkg_output / "raw_llm_requests"
+        resp_root = pkg_output / "raw_llm_responses"
+        summary: dict[str, Any] = {
+            "request_counts": {},
+            "response_counts": {},
+            "missing_response_calls": [],
+            "abnormal_responses": [],
+        }
+        if not req_root.is_dir() or not resp_root.is_dir():
+            return summary
+
+        request_files = sorted(p for p in req_root.glob("*.json") if p.is_file())
+        response_files = sorted(p for p in resp_root.glob("*.json") if p.is_file())
+
+        def _prefix(name: str) -> str:
+            return name.split("_")[0]
+
+        request_counts: dict[str, int] = {}
+        response_counts: dict[str, int] = {}
+        for path in request_files:
+            key = _prefix(path.stem)
+            request_counts[key] = request_counts.get(key, 0) + 1
+        for path in response_files:
+            key = _prefix(path.stem)
+            response_counts[key] = response_counts.get(key, 0) + 1
+        summary["request_counts"] = request_counts
+        summary["response_counts"] = response_counts
+
+        response_stems = {
+            path.stem
+            for path in response_files
+            if not path.name.endswith("_error.json")
+        }
+        error_response_stems = {
+            path.stem[:-6]
+            for path in response_files
+            if path.name.endswith("_error.json")
+        }
+        summary["missing_response_calls"] = [
+            path.stem
+            for path in request_files
+            if path.stem not in response_stems and path.stem not in error_response_stems
+        ]
+
+        abnormal: list[dict[str, Any]] = []
+        for path in response_files:
+            if path.name.endswith("_error.json"):
+                continue
+            try:
+                entry = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if not isinstance(entry, dict):
+                continue
+            usage = entry.get("usage") or {}
+            completion_tokens = usage.get("completion_tokens")
+            finish_reason = entry.get("finish_reason")
+            if finish_reason in (None, "") or (
+                isinstance(completion_tokens, int) and completion_tokens <= 1
+            ):
+                abnormal.append({
+                    "call_id": entry.get("call_id", path.stem),
+                    "finish_reason": finish_reason,
+                    "completion_tokens": completion_tokens,
+                    "latency_seconds": entry.get("latency_seconds"),
+                })
+        summary["abnormal_responses"] = abnormal[-5:]
+        return summary
+
+    trace_health = _trace_health()
+
+    lines = [
+        "# Timeout Report",
+        "",
+        f"- Timeout marker: `batch_timeout: exceeded {timeout_seconds}s in batch runner`",
+        f"- Elapsed seconds: `{round(elapsed_pkg, 2)}`",
+        f"- `excerpts.jsonl` present: `{excerpts_path.exists()}`",
+        f"- `processing_log.jsonl` present: `{processing_log_path.exists()}`",
+        f"- `timing.json` present: `{timing_path.exists()}`",
+        "",
+        "## run_metadata.json",
+        "",
+        "```json",
+        json.dumps(meta, ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## Progress Snapshot",
+        "",
+        f"- Total progress entries: `{total_entries}`",
+    ]
+
+    if last_entry is not None:
+        lines.extend([
+            "- Last progress entry:",
+            "",
+            "```json",
+            json.dumps(last_entry, ensure_ascii=False),
+            "```",
+        ])
+
+    if phase_counts:
+        lines.extend([
+            "",
+            "- Phase/status counts:",
+        ])
+        for (phase, status), count in sorted(phase_counts.items()):
+            lines.append(f"  - `{phase}` / `{status}`: `{count}`")
+
+    lines.extend([
+        "",
+        "## Raw Trace Tail",
+        "",
+        f"- `last_llm_activity.json` present: `{last_activity_path.exists()}`",
+        f"- Latest request file: `{_latest_file_info('raw_llm_requests')}`",
+        f"- Latest response file: `{_latest_file_info('raw_llm_responses')}`",
+    ])
+
+    if trace_health["request_counts"] or trace_health["response_counts"]:
+        lines.extend([
+            "",
+            "## Trace Health",
+            "",
+            "```json",
+            json.dumps(trace_health, ensure_ascii=False, indent=2),
+            "```",
+        ])
+
+    if isinstance(last_activity, dict) and last_activity:
+        lines.extend([
+            "",
+            "## Last LLM Activity",
+            "",
+            "```json",
+            json.dumps(last_activity, ensure_ascii=False, indent=2),
+            "```",
+        ])
+
+    lines.extend([
+        "",
+        "## Note",
+        "",
+        "- This report is written by the batch runner after killing a timed-out package subprocess.",
+        "- Missing `processing_log.jsonl`, `timing.json`, or `excerpts.jsonl` usually means the child process never reached the output-writing block.",
+    ])
+
+    try:
+        report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    except OSError as exc:
+        print(f"WARNING: Failed to write timeout report {report_path}: {exc}")
+
+
 def _terminate_process_tree(proc: subprocess.Popen[Any]) -> None:
-    """Terminate a runner subprocess and its descendants."""
+    """Terminate a runner subprocess and its descendants.
+
+    Try a graceful interrupt first so the child can persist partial artifacts
+    through its KeyboardInterrupt handlers, then fall back to a hard kill.
+    """
     if proc.poll() is not None:
         return
+    grace_seconds = 15
     try:
         if os.name == "nt":
-            subprocess.run(
-                ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                check=False,
-            )
+            try:
+                proc.send_signal(signal.CTRL_BREAK_EVENT)
+                proc.wait(timeout=grace_seconds)
+                return
+            except (subprocess.TimeoutExpired, ValueError, OSError):
+                subprocess.run(
+                    ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                    check=False,
+                )
         else:
-            proc.kill()
+            try:
+                os.killpg(proc.pid, signal.SIGINT)
+                proc.wait(timeout=grace_seconds)
+                return
+            except ProcessLookupError:
+                return
+            except subprocess.TimeoutExpired:
+                pass
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                return
     finally:
         try:
             proc.wait(timeout=30)
@@ -486,11 +709,15 @@ def _preflight_cli(backends: list[str]) -> bool:
 
 def _determine_needed_backends() -> list[str]:
     """Determine which CLI backends the current config will use."""
-    model_override = os.environ.get("KR_PRIMARY_MODEL", "")
+    from engines.excerpting.contracts import ExcerptingConfig
 
-    # Default: Claude for classify/group/enrich, Codex for verify, Gemini for escalation
+    model_override = os.environ.get("KR_PRIMARY_MODEL", "")
+    config = ExcerptingConfig().model_copy(
+        update={"ESCALATION_MODEL": "google/gemini-2.5-pro"}
+    )
+
     needed = set()
-    primary_models = [model_override] if model_override else ["anthropic/claude-opus-4-6"]
+    primary_models = [model_override] if model_override else [config.CLASSIFY_MODEL or ""]
 
     for model in primary_models:
         if model.startswith("anthropic/"):
@@ -501,7 +728,7 @@ def _determine_needed_backends() -> list[str]:
             needed.add("gemini")
 
     # Verify model — respect KR_VERIFY_MODEL override
-    verify_model = os.environ.get("KR_VERIFY_MODEL", "openai/gpt-5.4")
+    verify_model = os.environ.get("KR_VERIFY_MODEL") or config.VERIFY_MODEL or ""
     if verify_model.startswith("anthropic/"):
         needed.add("claude")
     elif verify_model.startswith("openai/"):
@@ -509,8 +736,13 @@ def _determine_needed_backends() -> list[str]:
     elif verify_model.startswith("google/"):
         needed.add("gemini")
 
-    # Escalation model — default is google/gemini-2.5-pro
-    needed.add("gemini")
+    escalation_model = config.ESCALATION_MODEL or ""
+    if escalation_model.startswith("anthropic/"):
+        needed.add("claude")
+    elif escalation_model.startswith("openai/"):
+        needed.add("codex")
+    elif escalation_model.startswith("google/"):
+        needed.add("gemini")
 
     return sorted(needed)
 
@@ -630,6 +862,11 @@ def _run_single_package(
         _persist_resume_marker(
             pkg_output,
             fallback_error=marker,
+            elapsed_pkg=elapsed_pkg,
+        )
+        _write_timeout_report(
+            pkg_output,
+            timeout_seconds=per_package_timeout,
             elapsed_pkg=elapsed_pkg,
         )
         pkg_result = _build_package_result(
@@ -893,7 +1130,7 @@ def main() -> int:
     summary_path = args.output_dir / SUMMARY_FILENAME
     print(f"Summary saved to: {summary_path}")
 
-    return 0 if summary["totals"]["packages_failed"] == 0 else 1
+    return 0 if summary.get("complete") and summary["totals"]["packages_failed"] == 0 else 1
 
 
 if __name__ == "__main__":

@@ -1,0 +1,140 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 21,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام رحمه الله تعالى: وأما العزل فقد حرمه طائفة من العلماء، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم العزل وذكر الخلاف فيه وأن مذهب الأئمة الأربعة جوازه بإذن المرأة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 22,
+    "end_word": 98,
+    "text_snippet": "فائدة ثانية:\nوقال أيضا: المرأة إذا تزوجت كان زوجها أملك بها من أبويها، وطاعة ز",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقديم طاعة الزوج على الأبوين في لزوم البيت والانتقال معه إذا قام بحقوقها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 99,
+    "end_word": 368,
+    "text_snippet": "‌‌بَابُ النّهي عن الخلْوَة بِالأجنبية\nعَنْ عُقْبَةَ بن عَامِر: أنَّ رَسُولَ الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث النهي عن الدخول على الأجنبيات وشرح ألفاظه وبيان معنى الحمو الموت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 369,
+    "end_word": 384,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهي عن الدخول على الأجنبيات والخلوة بهن، سدا لذريعة و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن الدخول على الأجنبيات والخلوة بهن سدا لذريعة الفاحشة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 385,
+    "end_word": 418,
+    "text_snippet": "2- أن ذلك عام في الأجانب من أخي الزوج وأقاربه، الذين ليسوا محارم للمرأة. قال اب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عموم الحكم في أقارب الزوج غير المحارم مع تقييده بما إذا أفضى الدخول إلى خلوة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 419,
+    "end_word": 429,
+    "text_snippet": "3- التحريم -هنا- من باب تحريم الوسائل، والوسائل لها أحكام المقاصد.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن تحريم الخلوة هنا من باب الوسائل وأن الوسائل تتبع المقاصد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 430,
+    "end_word": 439,
+    "text_snippet": "4- الابتعاد عن مواطن الزلل عامة، خشية الوقوع في الشر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحث على اجتناب مواطن الزلل والشر على وجه العموم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 440,
+    "end_word": 471,
+    "text_snippet": "5- قال شيخ الإسلام: كان عمر بن الخطاب يأمر العزاب ألا يسكنوا بين المتأهلين، وأل",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "أثر وتطبيق عملي في إبعاد أسباب الفتنة بسكنى العزاب والمتأهلين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المثال في نفسه، لكن تمام وجه الاستدلال يتضح أكثر بالرجوع إلى الفائدة السابقة عن اجتناب مواطن الزلل."
+  }
+]

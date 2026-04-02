@@ -1,0 +1,148 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 110,
+    "text_snippet": "‌‌أبنية أسماء الفاعلين والمفعولين (والصفات المشبهات بها)\nكفاعل صغ اسم فا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "قاعدة صياغة اسم الفاعل من الثلاثي المفتوح العين والمتعدي والمكسور المتعدي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5
+    ],
+    "start_word": 111,
+    "end_word": 210,
+    "text_snippet": "وهو قليل في فعلت وفعل … غير معدى بل قياسه فعل وأفعل فعلان نحو أشر … ونحو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان قلة فاعل في اللازم والمضموم، وذكر الأوزان القياسية البديلة لاسم الفاعل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 211,
+    "end_word": 317,
+    "text_snippet": "وفعل أولى وفعيل بفعل … كالضخم والجميل والفعل جمل\nوأفعل فيه قليل وفعل … وب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "أوزان اسم الفاعل من فعل المضموم العين، والتنبيه على مجيئه نادرا بغير فاعل.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن إحالة بلفظ «وتقدم» إلى قاعدة سابقة، لكن المعنى الأساسي مفهوم مع الأمثلة المذكورة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 318,
+    "end_word": 434,
+    "text_snippet": "وزنة المضارع اسم فاعل … من غير ذي الثلاث كالمواصل\nمع كسر متلو الأخير مطلق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "طريقة صياغة اسمي الفاعل والمفعول من الفعل الزائد على ثلاثة أحرف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 435,
+    "end_word": 472,
+    "text_snippet": "وفي اسم مفعول الثلاثي أطرد … زنة مفعول كآت من قصد\nإذا أريد بناء اسم المفع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القاعدة المطردة في بناء اسم المفعول من الفعل الثلاثي على وزن مفعول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16
+    ],
+    "start_word": 473,
+    "end_word": 531,
+    "text_snippet": "وناب نقلا عنه ذو فعيل … نحو فتاة أو فتى كحيل\nينوب فعيل عن مفعول في الدلال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "نيابة وزن فعيل عن مفعول في المعنى، مع أمثلته وبيان أنه سماعي غير مقيس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 532,
+    "end_word": 663,
+    "text_snippet": "وزعم ابن المصنف أن نيابة فعيل عن مفعول كثيرة وليست مقيسة بالإجماع وفي دعو",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "مناقشة دعوى الإجماع في نيابة فعيل عن مفعول، وذكر توجيه محتمل لكلام ابن المصنف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 664,
+    "end_word": 691,
+    "text_snippet": "ونبه المصنف بقوله نحو فتاة أو فتى كحيل على أن فعيلا بمعنى مفعول يستوى فيه ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى استواء المذكر والمؤنث في فعيل بمعنى مفعول مع إحالة إلى باب التأنيث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة إجمالا، لكنها تحيل إلى تفصيل لاحق في باب التأنيث لتمام بيان المسألة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 692,
+    "end_word": 724,
+    "text_snippet": "وزعم المصنف في التسهيل أن فعيلا ينوب عن مفعول في الدلالة على معناه لا في ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "خلاف في عمل فعيل بمعنى مفعول: هل ينوب في الدلالة فقط أم يعمل عمله أيضا؟",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

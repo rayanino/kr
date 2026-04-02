@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "فصل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 12,
+    "text_snippet": "تابع ذي الضم المضاف دون أل … ألزمه نصبا كأزيد ذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 13,
+    "end_word": 30,
+    "text_snippet": "أي إذا كان تابع المنادى المضموم مضافا غير مصاحب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 31,
+    "end_word": 40,
+    "text_snippet": "وما سواه انصب أو ارفع واجعلا … كمستقل نسقا وبد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 41,
+    "end_word": 84,
+    "text_snippet": "أي ما سوى المضاف المذكور يجوز رفعه ونصبه وهو الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 85,
+    "end_word": 136,
+    "text_snippet": "وأما عطف النسق والبدل ففي حكم المنادى المستقل في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 137,
+    "end_word": 146,
+    "text_snippet": "وإن يكن مصحوب أل مانسقا … ففيه وجهان ورفع ينتقى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 147,
+    "end_word": 190,
+    "text_snippet": "أي إنما يجب بناء المنسوق على الضم إذا كان مفردا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 191,
+    "end_word": 201,
+    "text_snippet": "ومنه قوله تعالى: {يَا جِبَالُ أَوِّبِي مَعَهُ وَال",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 202,
+    "end_word": 212,
+    "text_snippet": "وأيها مصحوب أل بعد صفه … يلزم بالرفع لدى ذي الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 213,
+    "end_word": 222,
+    "text_snippet": "وأيهذا أيها الذي ورد … ووصف أي بسوى هذا يرد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 223,
+    "end_word": 252,
+    "text_snippet": "يقال يا أيها الرجل ويا أيهذا ويا أيها الذي فعل ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 253,
+    "end_word": 267,
+    "text_snippet": "وأجاز المازني نصبه قياسا على جواز نصب الظريف في ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 268,
+    "end_word": 292,
+    "text_snippet": "ولا توصف أي إلا باسم جنس محلى بأل كالرجل أو باسم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 293,
+    "end_word": 303,
+    "text_snippet": "وذو إشارة كأي في الصفة … إن كان تركها يفيت الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 304,
+    "end_word": 346,
+    "text_snippet": "يقال يا هذا الرجل فيجب رفع الرجل إن جعل هذا وصل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 347,
+    "end_word": 358,
+    "text_snippet": "في نحو سعد سعد الأوس ينتصب … ثان وضم وافتتح أو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 359,
+    "end_word": 359,
+    "text_snippet": "يقال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 18,
+    "start_word": 360,
+    "end_word": 377,
+    "text_snippet": "\" يا سعد سعد الأوس\"\nو311 - يا تيم تيم عدي 312 - ",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 378,
+    "end_word": 406,
+    "text_snippet": "فيجب نصب الثاني ويجوز في الأول الضم والنصب فإن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 407,
+    "end_word": 425,
+    "text_snippet": "وإن نصب الأول: فمذهب سيبويه أنه مضاف إلى ما بعد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 426,
+    "end_word": 449,
+    "text_snippet": "ومذهب المبرد أنه مضاف إلى محذوف مثل ما أضيف إليه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  }
+]

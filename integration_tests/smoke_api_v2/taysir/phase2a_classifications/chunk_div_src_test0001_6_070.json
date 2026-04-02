@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَاب سَفر المَرأة بدُون محْرم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 6,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 36,
+    "text_snippet": "عَنْ أَبِي هُرَيْرةَ رَضيَ الله عَنْة قَالَ: قَالَ ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 37,
+    "end_word": 48,
+    "text_snippet": "وفي لفظ ⌜1⌝ للبخاري: \"لا تُسَافِرُ مَسِيرَةَ يَو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 49,
+    "end_word": 50,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 51,
+    "end_word": 61,
+    "text_snippet": "المرأة مظنة الشهوة والطمع، وهي لا تكاد تقي نفسها ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 62,
+    "end_word": 75,
+    "text_snippet": "ولا يغار عليها مثل محارمها، الذين يرون أن النَّيْ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 76,
+    "end_word": 85,
+    "text_snippet": "والرجل الأجنبي حينما يخلو بالأجنبية، يكون معرضاً ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 86,
+    "end_word": 134,
+    "text_snippet": "لهذه المحاذير، التي هي وسيلة في وقوعٍ الفاحشة وان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 135,
+    "end_word": 156,
+    "text_snippet": "وناشدها الشارع في إيمانها بالله واليوم الآخر.\nإن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 157,
+    "end_word": 158,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 159,
+    "end_word": 175,
+    "text_snippet": "وهي تكفي عن الاستنباطات، لأنها تشتمل عليها:\nهذه خ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 176,
+    "end_word": 194,
+    "text_snippet": "فقد اختلفوا: هل المرأة مستطيعة الحج بدون المحرم، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 195,
+    "end_word": 207,
+    "text_snippet": "الصحيح: أنه لا يحل خروجها بدون محرم لأي سفر، فتكو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 208,
+    "end_word": 223,
+    "text_snippet": "واختلفوا في الكبيرة، التي لا تميل إليها النفس: هل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 15,
+    "start_word": 224,
+    "end_word": 239,
+    "text_snippet": "الصحيح الأخير. لأن الحديث عام في كل امرأة، ولا يخ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 240,
+    "end_word": 255,
+    "text_snippet": "واختلفوا هل يكفي أن تكون مع رفقة أمينة، أو تسافر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 256,
+    "end_word": 266,
+    "text_snippet": "ظاهر الحديث أنه لابد من المحرم، لأن غيرة المحرم و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 267,
+    "end_word": 305,
+    "text_snippet": "وقال شيخ الإسلام ابن تيمية: إذا كانت المرأة من ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 306,
+    "end_word": 388,
+    "text_snippet": "وقد أجمع المسلمون أنه لا يجوز السفر للمرأة بدون م",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 20,
+    "start_word": 389,
+    "end_word": 422,
+    "text_snippet": "والذين أخذوا بظاهر حديث المنع من السفر قالوا: إن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 423,
+    "end_word": 429,
+    "text_snippet": "واختلفوا في تحديد السفر، تبعاً لاختلاف الأحاديث.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 430,
+    "end_word": 437,
+    "text_snippet": "فمنها \"يوم\" و\" يومان\" و\"ثلاث ليال\" و\"ليلة\"، و\"",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 23,
+    "start_word": 438,
+    "end_word": 456,
+    "text_snippet": "والأحوط أن يؤخذ بأقلها، لأنه لا ينافي ما فوقه، ويك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  }
+]

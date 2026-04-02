@@ -1,0 +1,1386 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتاب الصيَام",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 5,
+    "text_snippet": "أصله في اللغة: الإمساك.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 6,
+    "end_word": 18,
+    "text_snippet": "وفي الشرع: الإمساك عن المفطرات مع النية، من طل",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 19,
+    "end_word": 27,
+    "text_snippet": "وصيام شهر رمضان، هو الركن الثالث من أركان الإس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 4,
+    "start_word": 28,
+    "end_word": 53,
+    "text_snippet": "والصيام من أفضل العبادات، لأنه تجتمع فيه أنواع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 54,
+    "end_word": 66,
+    "text_snippet": "ولأن الله تعالى نسب الصوم إلى نفسه، ووعد بالجز",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 6,
+    "start_word": 67,
+    "end_word": 76,
+    "text_snippet": "ولأنه سرٌّ بين الرب وببن عبده، فهو من أعظم الأ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 7,
+    "start_word": 77,
+    "end_word": 118,
+    "text_snippet": "أما حِكَمه وأسراره فليس في مقدور هذه النبذة الم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 119,
+    "end_word": 140,
+    "text_snippet": "فمن تلك الحكم السامية عبادة الله، والخضوع له، ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 9,
+    "start_word": 141,
+    "end_word": 153,
+    "text_snippet": "فإن القوة تغرى بالطغيان والبطر {كَلَاّ إِنَّ ا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 154,
+    "end_word": 173,
+    "text_snippet": "فليعلم أنه ضعيف فقير، بين يدي الله حينما يرى ض",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 11,
+    "start_word": 174,
+    "end_word": 203,
+    "text_snippet": "ومنها، حكم اجتماعية، من اجتماعهم على عبادة واح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 204,
+    "end_word": 215,
+    "text_snippet": "وليس شيء أقوى من هذه الإرادة المتينة، التي لا ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 13,
+    "start_word": 216,
+    "end_word": 232,
+    "text_snippet": "كما أنه سبب عطف بعضهم على بعض، ورحمة بعضهم بع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 233,
+    "end_word": 258,
+    "text_snippet": "فيتذكر أن أخاه الفقير يعاني هذه الآلام دَهْرَه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 15,
+    "start_word": 259,
+    "end_word": 276,
+    "text_snippet": "ومنها، حكم أخلاقية تَربوِية، فهو يعلِّم الصبر ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 16,
+    "start_word": 277,
+    "end_word": 286,
+    "text_snippet": "ومنها حكم صِحَّيَّة، فإن المعدة بيت الداء، وال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 17,
+    "start_word": 287,
+    "end_word": 300,
+    "text_snippet": "ولابد للمعدة أن تأخذ فترة استراحة واستجمام، بع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 301,
+    "end_word": 310,
+    "text_snippet": "هذه نبَذة يسيرة إلى شيء من حكم الله تعالى وأسر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 311,
+    "end_word": 331,
+    "text_snippet": "واستقصاء ما يحيط به العقل البشري يحتاج إلى تصا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 332,
+    "end_word": 333,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 334,
+    "end_word": 360,
+    "text_snippet": "عَنْ أبي هُريرة رضي الله عنه قال: قَال رَسُولُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 361,
+    "end_word": 361,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 362,
+    "end_word": 374,
+    "text_snippet": "لا تَقَدَّموا: بفتح التاء والدال، على حذف تاء ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 375,
+    "end_word": 376,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 377,
+    "end_word": 395,
+    "text_snippet": "الشارع الحكيم يريد التمييز بين العبادات والعاد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 26,
+    "start_word": 396,
+    "end_word": 445,
+    "text_snippet": "لذا فإنه نهى عن تقدم شهر رمضان بصيام يوم أو يو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 27,
+    "start_word": 446,
+    "end_word": 449,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 450,
+    "end_word": 458,
+    "text_snippet": "1- النهي عن تقدم رمضان بصيام يوم أو يومين.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 459,
+    "end_word": 472,
+    "text_snippet": "2- الرخصة في ذلك لمن صادف قبل رمضان له عادة ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 473,
+    "end_word": 495,
+    "text_snippet": "3- من حكمة ذلك- والله أعلم- تمييز فرائض العباد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 31,
+    "start_word": 496,
+    "end_word": 497,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 498,
+    "end_word": 526,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 527,
+    "end_word": 527,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 528,
+    "end_word": 543,
+    "text_snippet": "غم عيكم: بالبناء للمجهول استتر عليكم بحاجب، من",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 35,
+    "start_word": 544,
+    "end_word": 555,
+    "text_snippet": "فاقدروا له: يعني قدروا له في الحساب، فأكملوا ع",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 36,
+    "start_word": 556,
+    "end_word": 567,
+    "text_snippet": "وقيل: معناه \"اقدروا\" ضيقوا، بأن يضيق على شعبا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 37,
+    "start_word": 568,
+    "end_word": 573,
+    "text_snippet": "وعلى هذين التفسيرين، حصل الخلاف الآتي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 38,
+    "start_word": 574,
+    "end_word": 581,
+    "text_snippet": "ويجوز الضم والكسر في (دال) - اقدروا له.",
+    "scholarly_function": "definition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 39,
+    "start_word": 582,
+    "end_word": 596,
+    "text_snippet": "قوله: \"فصوموا\" يريد أن ينوى الصيام وتبيت تلك ا",
+    "scholarly_function": "definition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 40,
+    "start_word": 597,
+    "end_word": 598,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 599,
+    "end_word": 609,
+    "text_snippet": "أحكام الشرع الشريف تبني على الأصل، فلا يعدل عن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 42,
+    "start_word": 610,
+    "end_word": 639,
+    "text_snippet": "ومن ذلك أن الأصل بقاء شعبان، وأن الذمة بريئة م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 43,
+    "start_word": 640,
+    "end_word": 653,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم، أناط صيام ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 44,
+    "start_word": 654,
+    "end_word": 667,
+    "text_snippet": "فإن كان هناك مانع من غيم، أو قتر، أو نحوهما، أ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 45,
+    "start_word": 668,
+    "end_word": 685,
+    "text_snippet": "وذلك بأن يتموا شعبان ثلاثين، ثم يصوموا. لأن هذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 46,
+    "start_word": 686,
+    "end_word": 687,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 688,
+    "end_word": 710,
+    "text_snippet": "اختلف العلماء في حكم صيام يوم الثلاثين من شعبا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 48,
+    "start_word": 711,
+    "end_word": 744,
+    "text_snippet": "فالمشهور في مذهب الإمام \"أحمد\" الذي قال كثير م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 745,
+    "end_word": 764,
+    "text_snippet": "وهذه الرواية عن الإمام \"أحمد\" من المفردات، وهي",
+    "scholarly_function": "narration",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 50,
+    "start_word": 765,
+    "end_word": 786,
+    "text_snippet": "وذهب جمهور العلماء ومنهم الأئمة الثلاثة \"أبو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 787,
+    "end_word": 801,
+    "text_snippet": "واختار هذا القول، شيخ الإسلام \"ابن تيمية\" وقا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 52,
+    "start_word": 802,
+    "end_word": 817,
+    "text_snippet": "وقال صاحب \"الفروع\": لم أجد عن أحمد صريح الوجو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 53,
+    "start_word": 818,
+    "end_word": 828,
+    "text_snippet": "واختار هذه الرواية من كبار أئمة المذهب \"أبو ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 54,
+    "start_word": 829,
+    "end_word": 851,
+    "text_snippet": "ودليل هذا القول ما رواه الشيخان عن أبي هريرة م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 55,
+    "start_word": 852,
+    "end_word": 867,
+    "text_snippet": "وهذا الحديث وأمثاله يبين أن معنى \" فاقدروا له،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 56,
+    "start_word": 868,
+    "end_word": 960,
+    "text_snippet": "وقد حقق \" ابن القيم\" هذا الموضوع في كتابه \"ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 57,
+    "start_word": 961,
+    "end_word": 973,
+    "text_snippet": "واختلفوا فيما إذا رُئي الهلال ببلد، فهل يلزم ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 974,
+    "end_word": 1004,
+    "text_snippet": "فالمشهور عن الإمام، \"أحمد\" وأتباعه، وجوب الصوم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1005,
+    "end_word": 1024,
+    "text_snippet": "وذهب بعضهم إلى عدم وجوبه، وأن لكل أهل بلد رؤيت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1025,
+    "end_word": 1085,
+    "text_snippet": "لما روى كريب: قال قدمت الشام، واستهل رمضان وأن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1086,
+    "end_word": 1092,
+    "text_snippet": "وذهب الشافعي في المشهور عنه إلى التفصيل.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1093,
+    "end_word": 1149,
+    "text_snippet": "وهو أنه، إن اختلفت المطالع، فلكل قوم حكم مطلعه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1150,
+    "end_word": 1153,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1154,
+    "end_word": 1194,
+    "text_snippet": "1- أن صيام شهر رمضان معلق برؤية الناس أو بعضهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1195,
+    "end_word": 1199,
+    "text_snippet": "2- وكذلك الفطر معلق بذاك.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1200,
+    "end_word": 1220,
+    "text_snippet": "3- أنه إن لم يُرَ الهلال لم يصوموا إلا بتكميل ش",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1221,
+    "end_word": 1255,
+    "text_snippet": "4- إنه إن حصل غيم أو قتر، قدروا عدة شعبان تمام",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1256,
+    "end_word": 1266,
+    "text_snippet": "5- أنه يجب الصيام يوم الثلاثين من شعبان، مع ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1267,
+    "end_word": 1268,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1269,
+    "end_word": 1288,
+    "text_snippet": "عَنْ أنس ْبنِ مَالِكٍ رضي الله عنه قَالَ: قَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1289,
+    "end_word": 1289,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1290,
+    "end_word": 1297,
+    "text_snippet": "سحور بفتح السين، ما يتسحر به، وبضمها الفعل.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1298,
+    "end_word": 1307,
+    "text_snippet": "والبركة مضافة إلى كل من الفعل وما يتسحر به جمي",
+    "scholarly_function": "definition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1308,
+    "end_word": 1309,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1310,
+    "end_word": 1336,
+    "text_snippet": "يأمر النبي صلى الله عليه وسلم بالتسحر، الذي هو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1337,
+    "end_word": 1350,
+    "text_snippet": "فمن بركة السحور، ما يحصل به من الإعانة على طاع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1351,
+    "end_word": 1356,
+    "text_snippet": "فإن الجائع والظامئ، يكسل عن العبادة.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1357,
+    "end_word": 1379,
+    "text_snippet": "ومن بركة السحور أن الصائم إذا تسحر لا يمل إعاد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1380,
+    "end_word": 1390,
+    "text_snippet": "ومن بركة السحور، الثواب الحاصل من متابعة الرسو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1391,
+    "end_word": 1408,
+    "text_snippet": "ومن بركته أيضاً، أن المتسحر يقوم في آخر الليل،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1409,
+    "end_word": 1414,
+    "text_snippet": "بخلاف من لم يتسحر. وهذا مشاهد.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1415,
+    "end_word": 1430,
+    "text_snippet": "فإن عدد المصلين في صلاة الصبح مع الجماعة في رم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1431,
+    "end_word": 1454,
+    "text_snippet": "ومن بركة السحور، أنه عبادة، إذا نوي به الاستعا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1455,
+    "end_word": 1458,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1459,
+    "end_word": 1465,
+    "text_snippet": "1- استحباب السحور وامتثال الأمر الشرعي بفعله.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1466,
+    "end_word": 1498,
+    "text_snippet": "2- لما يحصل فيه من البركة، فلا ينبغي تركه، وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1499,
+    "end_word": 1515,
+    "text_snippet": "3- ظاهر الأمر الوجوب، ولكن ثبوت الوصال عن النب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1516,
+    "end_word": 1556,
+    "text_snippet": "4- يرى الصوفية أن مدة تناول السحور كمدة لإفطار",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1557,
+    "end_word": 1558,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1559,
+    "end_word": 1595,
+    "text_snippet": "عَنْ انس بْنِ مَالِكٍ عَنْ زيْد بْن ثَابِتٍ رضي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1596,
+    "end_word": 1596,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1597,
+    "end_word": 1600,
+    "text_snippet": "الأذان: يريد به. الإقامة.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1601,
+    "end_word": 1630,
+    "text_snippet": "ويبين ذلك ما في الصحيحين عن أنس عن زيد قال: تس",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1631,
+    "end_word": 1632,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1633,
+    "end_word": 1664,
+    "text_snippet": "يروي أنس بن مالك، عن زيد بن ثابت رضي الله عنهما",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1665,
+    "end_word": 1685,
+    "text_snippet": "ولذا فإنه ـ لما تسحر- قام إلى صلاة الصبح، فسأل",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1686,
+    "end_word": 1689,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1690,
+    "end_word": 1696,
+    "text_snippet": "1- أفضلية تأخير السحور إلى قبيل الفجر.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1697,
+    "end_word": 1705,
+    "text_snippet": "2- المبادرة بصلاة الصباح، حيث قربت من وقت الإم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1706,
+    "end_word": 1728,
+    "text_snippet": "3- أن وقت الإمساك هو طلوع الفجر، كما قال الله ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 101,
+    "start_word": 1729,
+    "end_word": 1767,
+    "text_snippet": "بهذا نعلم أن ما يجعله الناس من وقتين، وقت للإم",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 102,
+    "start_word": 1768,
+    "end_word": 1769,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 103,
+    "start_word": 1770,
+    "end_word": 1793,
+    "text_snippet": "عَنْ عَائِشَةَ وَأمُّ سَلَمَةَ رضي الله عنهما:\n",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 104,
+    "start_word": 1794,
+    "end_word": 1795,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 105,
+    "start_word": 1796,
+    "end_word": 1815,
+    "text_snippet": "كان النبي صلى الله عليه وسلم بجامع في الليل، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 106,
+    "start_word": 1816,
+    "end_word": 1839,
+    "text_snippet": "وهذا الحكم في رمضان وغيره، وهذا مذهب جمهور الع",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 107,
+    "start_word": 1840,
+    "end_word": 1843,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 108,
+    "start_word": 1844,
+    "end_word": 1853,
+    "text_snippet": "1- صحة صوم من أصبح جنباً، من جماع في الليل.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 109,
+    "start_word": 1854,
+    "end_word": 1869,
+    "text_snippet": "2- يقاس على الجماع الاحتلام بطريق الأولى، لأنه",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 110,
+    "start_word": 1870,
+    "end_word": 1881,
+    "text_snippet": "3- أنه لا فرق بين الصوم الواجب والنفل، ولا بين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 111,
+    "start_word": 1882,
+    "end_word": 1892,
+    "text_snippet": "4- جواز الجماع في ليالي رمضان، ولو كان قبيل طل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 112,
+    "start_word": 1893,
+    "end_word": 1936,
+    "text_snippet": "وأخذ بعضهم جواز الصيام من الجنب من قوله تعالى:",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 113,
+    "start_word": 1937,
+    "end_word": 1947,
+    "text_snippet": "5- فضل نساء النبي صلى الله عليه وسلم وإحسانهن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 114,
+    "start_word": 1948,
+    "end_word": 1982,
+    "text_snippet": "فقد نقلن عن النبي صلى الله عليه وسلم من العلم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 115,
+    "start_word": 1983,
+    "end_word": 1984,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 116,
+    "start_word": 1985,
+    "end_word": 2011,
+    "text_snippet": "عَنْ أَبِي هُرَيْرَة رضي الله عنه: أن النبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 117,
+    "start_word": 2012,
+    "end_word": 2013,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 118,
+    "start_word": 2014,
+    "end_word": 2030,
+    "text_snippet": "بنيت هذه الشريعة على اليسر والسهولة، والتكليف ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 119,
+    "start_word": 2031,
+    "end_word": 2065,
+    "text_snippet": "ومن ذلك أن من أكل أو شرب. أو فعل مفطراً غيرهما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 120,
+    "start_word": 2066,
+    "end_word": 2067,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 121,
+    "start_word": 2068,
+    "end_word": 2079,
+    "text_snippet": "الجمهور من العلماء على أن الأكل والشرب من الناس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 122,
+    "start_word": 2080,
+    "end_word": 2092,
+    "text_snippet": "والخلاف بينهم في الجماع: هل له حكم الأكل والشر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 123,
+    "start_word": 2093,
+    "end_word": 2108,
+    "text_snippet": "فذهب الإمام \" أحمد\" وأتباعه إلى أن الجماع مفسد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 124,
+    "start_word": 2109,
+    "end_word": 2121,
+    "text_snippet": "وإذا كان في نهار رمضان فهو موجب للكفارة، وهو م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 125,
+    "start_word": 2122,
+    "end_word": 2138,
+    "text_snippet": "ودليلهم على ذلك مفهوم الحديث الذي اقتصر على ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 126,
+    "start_word": 2139,
+    "end_word": 2146,
+    "text_snippet": "ولأن النسيان في الجماع بعيد، بخلاف الأكل والشر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 127,
+    "start_word": 2147,
+    "end_word": 2165,
+    "text_snippet": "وذهب الأئمة، أبو حنيفة، والشافعي، وداود، وابن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 128,
+    "start_word": 2166,
+    "end_word": 2196,
+    "text_snippet": "أولاً: لما روى الحاكم من حديث أبي هريرة رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 129,
+    "start_word": 2197,
+    "end_word": 2217,
+    "text_snippet": "ثانياً: العمومات الواردة في مثل قوله تعالى: {ر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 130,
+    "start_word": 2218,
+    "end_word": 2228,
+    "text_snippet": "ثالثاً: أن المخالفين في صحة الصوم يوافقون على ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 131,
+    "start_word": 2229,
+    "end_word": 2237,
+    "text_snippet": "وإذا كان معذوراً فإن العذر شامل، ولا وجه للتفر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 132,
+    "start_word": 2238,
+    "end_word": 2258,
+    "text_snippet": "وأجابوا عن دليل الحنابلة بأن تعليق الحكم في ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 133,
+    "start_word": 2259,
+    "end_word": 2262,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 134,
+    "start_word": 2263,
+    "end_word": 2272,
+    "text_snippet": "1- صحة صوم من أكل أو شرب أو جامع ناسياً.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 135,
+    "start_word": 2273,
+    "end_word": 2284,
+    "text_snippet": "2- أنه ليس عليه إثم في أكله وشرابه، لأنه ليس ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 136,
+    "start_word": 2285,
+    "end_word": 2304,
+    "text_snippet": "3- معنى إطعامه من الله تعالى وسقيه، أنه وقع من",
+    "scholarly_function": "definition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 137,
+    "start_word": 2305,
+    "end_word": 2306,
+    "text_snippet": "الحديث السابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 138,
+    "start_word": 2307,
+    "end_word": 2453,
+    "text_snippet": "عَنْ أبي هُريرة رضي الله عنه قَال: بَينماَ نَح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 139,
+    "start_word": 2454,
+    "end_word": 2458,
+    "text_snippet": "الحَرَّةُ: الأرْضُ، َتَرْكَبُهَا حجارة سود.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 140,
+    "start_word": 2459,
+    "end_word": 2459,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 141,
+    "start_word": 2460,
+    "end_word": 2468,
+    "text_snippet": "بينما: ظرف زمان يغلب أن يضاف إلى جملة اسمية.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 142,
+    "start_word": 2469,
+    "end_word": 2484,
+    "text_snippet": "بعرق: \"العرق\" بفتحتين: هو الزنبيل، يعمل من سعف",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 143,
+    "start_word": 2485,
+    "end_word": 2493,
+    "text_snippet": "اللابة: هي الحرة: وهي الأرض التي تعلوها حجارة ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 144,
+    "start_word": 2494,
+    "end_word": 2499,
+    "text_snippet": "والمدينة النبوية بين حرتين، شرقية وغربية.",
+    "scholarly_function": "definition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 145,
+    "start_word": 2500,
+    "end_word": 2508,
+    "text_snippet": "المِكْتَل: القفة من الخوص وهي قفص من ورق النخل",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 146,
+    "start_word": 2509,
+    "end_word": 2510,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 147,
+    "start_word": 2511,
+    "end_word": 2740,
+    "text_snippet": "جاء سلمة بن صخر البياضي إلى النبي صلى الله علي",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 148,
+    "start_word": 2741,
+    "end_word": 2742,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 149,
+    "start_word": 2743,
+    "end_word": 2751,
+    "text_snippet": "يرى عامة العلماء، وجوب الكفارة على من جامع متع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 150,
+    "start_word": 2752,
+    "end_word": 2761,
+    "text_snippet": "واختلفوا في الناسي، وتقدم أن الصحيح أنه ليس عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 151,
+    "start_word": 2762,
+    "end_word": 2769,
+    "text_snippet": "واختلفوا: هل وجوب الكفارة على التخيير أو الترت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 152,
+    "start_word": 2770,
+    "end_word": 2811,
+    "text_snippet": "فذهب مالك، وأحمد في إحدى الروايتين عنهما: إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 153,
+    "start_word": 2812,
+    "end_word": 2842,
+    "text_snippet": "وذهب الجمهور من العلماء، كالشافعي وأبي حنيفة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 154,
+    "start_word": 2843,
+    "end_word": 2855,
+    "text_snippet": "ولو أخذ بحديث التخيير لم يمكن العمل بحديث التر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 155,
+    "start_word": 2856,
+    "end_word": 2892,
+    "text_snippet": "واختلفوا هل تسقط الكفارة مع العجز عنها، كما هو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 156,
+    "start_word": 2893,
+    "end_word": 2944,
+    "text_snippet": "وذهب الجمهور إلى أنها لا تسقط بالإعسار، لأنه ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 157,
+    "start_word": 2945,
+    "end_word": 2966,
+    "text_snippet": "أما الترخيص له في إطعامه أهله، فقد قال بعض الع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 158,
+    "start_word": 2967,
+    "end_word": 2970,
+    "text_snippet": "لأحكام المأخوذة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 159,
+    "start_word": 2971,
+    "end_word": 2995,
+    "text_snippet": "1- أن الوطء في نهار رمضان من الفواحش المهلكات،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 160,
+    "start_word": 2996,
+    "end_word": 3019,
+    "text_snippet": "2- أن الواطئ عمداً يجب عليه الكفارة، وهي على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 161,
+    "start_word": 3020,
+    "end_word": 3043,
+    "text_snippet": "3- أن الكفارة لا تسقط مع الإعسار، لأن النبي صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 162,
+    "start_word": 3044,
+    "end_word": 3051,
+    "text_snippet": "4- جواز التكفير عن الغير ولو من أجنبي.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 163,
+    "start_word": 3052,
+    "end_word": 3063,
+    "text_snippet": "5- أن له الأكل منها وإطعامها أهله ما دامت مخرج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 164,
+    "start_word": 3064,
+    "end_word": 3077,
+    "text_snippet": "6- ظاهر الحديث أنه لا فرق في الرقبة بين الكافر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 165,
+    "start_word": 3078,
+    "end_word": 3097,
+    "text_snippet": "والصحيح الذي عليه الجمهور: أنه لابد من إيمانها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 166,
+    "start_word": 3098,
+    "end_word": 3121,
+    "text_snippet": "7- حسن خلق النبي صلى الله عليه وسلم، وكرم الوف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 167,
+    "start_word": 3122,
+    "end_word": 3136,
+    "text_snippet": "8- أن من ارتكب معصية لا حدَّ فيها، ثم جاء تائب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 168,
+    "start_word": 3137,
+    "end_word": 3146,
+    "text_snippet": "خلاصة فوائد من كلام شيخ الإسلام ابن تيمية رحم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 169,
+    "start_word": 3147,
+    "end_word": 3274,
+    "text_snippet": "قال:\nيُفطِّر بالنص والإجماع الأكلُ والشربُ والج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 170,
+    "start_word": 3275,
+    "end_word": 3470,
+    "text_snippet": "وأما الكحل والحقنة وما يقطر في الإحليل، ومداوا",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 171,
+    "start_word": 3471,
+    "end_word": 3533,
+    "text_snippet": "أما الجماع فإنه إحدى الشهوتين، فجرى مجرى الأكل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 172,
+    "start_word": 3534,
+    "end_word": 3577,
+    "text_snippet": "والعلماء متنازعون في الحجامة هل تفطر أو لا؟ وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  }
+]

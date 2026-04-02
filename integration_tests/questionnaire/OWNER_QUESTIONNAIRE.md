@@ -2,7 +2,7 @@
 
 ## What This Is
 
-This document asks you to read real excerpts from your library and tell us what you think. Your reactions, preferences, and judgments will directly shape how the library breaks books into individual pieces of knowledge.
+This document asks you to read real excerpts from your library and tell us what you think. Your reactions, preferences, and judgments are a major source of calibration input for the team, but they will always be critically evaluated before becoming any rule or system behavior.
 
 There are no wrong answers. Every answer you give --- even uncertainty, contradiction, or a change of mind --- is valuable information for the team.
 
@@ -10,11 +10,14 @@ There are no wrong answers. Every answer you give --- even uncertainty, contradi
 
 **Languages:** Write in Arabic, English, or a mix --- whichever feels natural for each response.
 
-**Time:** This will take approximately 15-25 hours spread across multiple sessions. You do not need to finish in one sitting. Work through it at your own pace over several days. There are approximately 35 interactions across four phases.
+**Time:** This will take approximately 15-25 hours spread across multiple sessions. You do not need to finish in one sitting. Work through it at your own pace over several days. There are 40 core questionnaire slots across four phases; 38 are answerable right now, and 2 comparison slots are intentionally blocked until valid comparison material exists. If you still have energy after the core packet, there is also a small supplemental packet with 6 optional follow-up questions.
 
 **Note on text quality:** Some excerpts contain minor artifacts from the original source texts (OCR errors, inconsistent diacritics). These are NOT errors we introduced --- they reflect the actual quality of the data the system processes. If you notice something that looks wrong in the Arabic text, note it in your response.
 
 **Important:** Your answers are the starting point, not the final word. The full engineering team (6 independent reviewers) will critically evaluate every response, looking for contradictions, feasibility issues, and blind spots. If a preference you state conflicts with a real constraint, we will bring it back to you for discussion. Your input is respected and taken seriously --- which is exactly why it goes through rigorous review.
+
+If you want the strongest explicit version of that rule, read:
+`OWNER_FEEDBACK_GUARDRAIL.md`
 
 ---
 
@@ -85,7 +88,7 @@ This excerpt comes with a note explaining what came before it. Read both.
 
 _Source: Taysir al-Allam / campaign run / Claude Opus classification_
 
-Read both the note and the excerpt. What is your reaction? Does the note change how you experience the excerpt?
+Read both the note and the excerpt. Answer two things clearly: (1) does the excerpt still work if the note is removed, or is the note necessary for understanding it? (2) if the note is useful, should it be shown by default, or only opened when you want extra context?
 
 ---
 
@@ -116,13 +119,17 @@ What failure would make you stop using the library? What is the worst thing it c
 
 ---
 
-## F-8 --- A Design Question
+## F-8 --- A Risk Preference Question
 
 _No excerpt to read._
 
-You once raised a question: should the system that breaks books into excerpts know in advance what topics the library covers (like a table of contents of Islamic knowledge), or should it work without that knowledge to avoid being biased?
+This is not asking you to design the system. It is asking which failure worries you more.
 
-Let us explore both sides. If the system knows the topic structure in advance, what worries you? And if it works blind without any topic structure, what worries you? What could go wrong in each case?
+If the system knows the topic structure in advance, what worries you most? For example: becoming rigid too early, forcing texts into the wrong boxes, or importing bias.
+
+If the system works blind without any topic structure, what worries you most? For example: becoming chaotic, missing distinctions, or producing inconsistent excerpt boundaries.
+
+Which kind of failure feels more dangerous to you, and why?
 
 ---
 
@@ -341,9 +348,9 @@ If a term has THREE definitions --- a linguistic meaning (لغة), a technical m
 
 ---
 
-### E-1 --- Multiple Quranic Citations [EDGE CASE]
+### E-1 --- Proof Plus Explanatory Wisdom [EDGE CASE]
 
-Read this excerpt. It establishes the legality of the bequest (wasiyyah) through Quran, Sunnah, and scholarly consensus.
+Read this excerpt. It establishes the legality of the bequest (wasiyyah), then explains the mercy, wisdom, and benefit behind that ruling.
 
 > وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .
 > ومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.
@@ -353,9 +360,9 @@ Read this excerpt. It establishes the legality of the bequest (wasiyyah) through
 
 _Source: Taysir al-Allam / campaign run / Claude Opus classification_
 
-This text cites evidence from the Quran, the Sunnah, and scholarly consensus --- all to support one ruling. Should each type of evidence be its own excerpt, or do they belong together because they all serve the same purpose?
+This passage does more than cite proof: it also explains why the ruling is a mercy and benefit. Should the proofs and this explanatory reflection stay together as one teaching unit, or should the bare proofs be separated from the author's explanatory wisdom?
 
-**Follow-up:** Where is the boundary between "grouped evidence for one ruling" and "each piece of evidence deserves its own entry"?
+**Follow-up:** When does explanatory wisdom belong with the proof, and when does it become a second topic?
 
 ---
 
@@ -486,6 +493,8 @@ Look at these three excerpts from three different Islamic sciences. Do they feel
 
 Look at the grammar excerpt (Excerpt B) from GN-1 again. In grammar texts, the example sentence (الشاهد --- the sentence that illustrates the rule, like "يا زيد" or "زيد قائم") is central to understanding the rule.
 
+If grammar is not a science you actively study, answer from a simple reader's perspective: would separating the example make the explanation easier or harder to understand?
+
 Should the example sentence be inside the rule excerpt, or should it be its own separate entry? If the example is separated from the rule, can you still understand the rule?
 
 ---
@@ -510,17 +519,40 @@ This is a note added by the book's author (al-Bassam) as his own commentary and 
 
 ### L-2 --- Commentary Quoting Original Text
 
-_No excerpt to read._
+Read this excerpt from _Sharh Ibn Aqil ala Alfiyyat Ibn Malik_.
 
-When a commentary (sharh) quotes the original text (matn) it is explaining --- for example, when Ibn Aqil quotes a verse from Ibn Malik's Alfiyyah and then explains it --- should the library show this as one excerpt or two? The commentary is meaningless without the original text. The original text exists independently. Who is the "author" of the commentary excerpt --- the commentator (Ibn Aqil) or the original author (Ibn Malik)?
+> واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحبا ⌜2⌝
+> ينقسم العلم إلى ثلاثة أقسام: إلى اسم وكنية ولقب والمراد بالاسم هنا ما ليس بكنية ولا لقب كزيد وعمرو وبالكنية ما كان في أوله أب أو أم كأبي عبد الله وأم الخير وباللقب ما أشعر بمدح كزين العابدين أو ذم كأنف الناقة.
+
+_Source: Sharh Ibn Aqil / campaign run / Claude Opus classification_
+
+In this example, the matn line and the sharh are shown together. Should the library keep them in one entry, or split them into two linked entries? And regardless of structure, does the library need to explicitly label which words belong to Ibn Malik and which belong to Ibn Aqil? If that distinction is blurred, how damaging is that to your trust?
 
 ---
 
 ### L-3 --- Footnotes in Scholarly Texts
 
-_No excerpt to read._
+Read this excerpt. It includes a substantive footnote marker.
 
-Many scholarly books have footnotes added by editors. Some footnotes are simple references ("See Sahih al-Bukhari, hadith 1234"). Others add real scholarly content --- for example, explaining a difficult word, noting a different version of the text, or providing additional evidence. When a footnote adds real scholarly content, how should the library handle it? Should it be: (a) shown as part of the main excerpt, (b) its own separate entry linked to the main excerpt, or (c) hidden but accessible if you want to see it?
+> وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .
+> ومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.
+> وهى من محاسن الإسلام، إذ جعل لصاحب المال جزءاً من ماله، يعود عليه ثوابه وأجره بعد موته.
+> وهي من لطف الله بعباده ورحمته بهم، حينما أباح لهم من أموالهم عند خروجهم من الدنيا أن يتزودوا لآخرتهم بنصيب منها.
+> لهذا جاء في بعض الأحاديث القُدسيةِ قول الله تعالى: " يا ابن آدم جعلت لك نصيباً من مالك حين أخذت بكظمك ⌜1⌝ لأطهِّرَكَ به وأزكِّيَكَ ".
+
+**The footnote:**
+
+> ⌜1⌝ الكظم: مخرج النفس من الحلق ويريد: عند خروج نفسه وانقطاع نفسه.
+
+_Source: Taysir al-Allam / campaign run / Claude Opus classification_
+
+When a footnote like this adds real scholarly value, how should the library handle it? Should it stay inline with the main excerpt, become a linked side note, or stay hidden unless you ask for it?
+
+**Follow-up:** Does your answer change if the note is source-tracing, grading, or takhrij information rather than just a word explanation?
+
+---
+
+## Question/Answer Structure --- Should Objections Stay With Responses?
 
 ---
 
@@ -537,6 +569,10 @@ Read this passage from a book about the principles of Arabic grammar (al-Iqtirah
 _Source: al-Iqtirah fi Usul al-Nahw / campaign run / Claude Opus classification_
 
 This text has a question-and-answer structure: a scholarly objection ("the problem is..."), followed by a formal response ("if one says: the solution is..."). Should the objection and the response always stay together in one entry? Or could the objection be one entry and the response another, linked together?
+
+---
+
+## Uncertainty and Review Policy
 
 ---
 
@@ -570,15 +606,15 @@ Which version would you most want to study from? Which would be most useful when
 
 ---
 
-## CJ-2 --- Before and After (Placeholder)
+## CJ-2 --- Before and After Comparison (Blocked For Now)
 
-_This interaction will be filled in once the next test run completes. It will show you the same passage processed by two different versions of the system, and ask which result is better._
+_This interaction is still pending. The current weekend `taysir` v2 run failed before it produced valid before/after comparison pairs, so this slot is intentionally blocked for now. Keep moving through the questionnaire; the team will fill this once a valid comparison source exists._
 
 ---
 
-## CJ-3 --- Cross-Book Comparison (Placeholder)
+## CJ-3 --- Cross-Book Comparison (Blocked For Now)
 
-_This interaction will be filled in when cross-book topic matches are available. It will show you the same topic discussed in two or three different books, and ask how the excerpts compare._
+_This interaction is still pending. The current weekend `taysir` v2 run failed before it produced valid cross-book comparison material, so this slot is intentionally blocked for now. Keep moving through the questionnaire; the team will fill this once a valid comparison source exists._
 
 ---
 
@@ -669,7 +705,7 @@ Your responses go through a structured review process:
 1. The full engineering team (6 independent reviewers, using different analysis tools) evaluates every answer you give
 2. They look for: internal contradictions in your answers, feasibility constraints you may not be aware of, dimensions you may have missed
 3. If they find a tension between two of your answers, or between your preference and a real constraint, they bring it back to you for discussion
-4. Only after this review process do your answers become rules that govern how the library works
-5. Every rule traces back to a specific answer you gave here --- nothing is invented without your input
+4. Only after this review process can parts of your feedback influence later rules, settings, or calibration decisions about how the library behaves
+5. Some changes will be influenced by your answers, while others come from scholarly constraints, safety rules, and feasibility limits that do not depend on your input alone
 
-Take your time. Your answers are the foundation that everything else is built on.
+Take your time. Your answers are important starting input for what comes next.

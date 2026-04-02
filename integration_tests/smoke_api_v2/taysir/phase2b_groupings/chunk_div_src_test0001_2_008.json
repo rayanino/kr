@@ -1,0 +1,171 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌باب حكم تقديم الرمي ⌜1⌝",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في حكم تقديم الرمي على غيره من أعمال يوم النحر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هو عنوان فقط، ويفهم المقصود العام لكنه لا يقدّم حكماً أو دليلاً كاملاً."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 5,
+    "end_word": 278,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله (2)\nبْنِ عَمْرِو بْنِ الْعَاصِ رضي الله عنهما: أ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "example",
+      "evidence_rational",
+      "condition_exception",
+      "narration"
+    ],
+    "description_arabic": "حديث تقديم بعض أعمال يوم النحر مع شرح معناه وأن الترتيب مشروع ويعفى الناسي والجاهل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 279,
+    "end_word": 294,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وقوف العالم في أيام المناسك لإفتاء الناس وإرشادهم في أمر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استفادة مشروعية تصدي العالم في أيام المناسك لإفتاء الحجاج وتعليمهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 295,
+    "end_word": 318,
+    "text_snippet": "2- جواز تقديم كل من الرمي، والنحر، والحلق أو التقصير، والإفاضة بعضها على بعض من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "جواز تقديم أعمال يوم النحر بعضها على بعض للناسي والجاهل مع التنبيه إلى خلاف العامد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال إلى خلاف العامد دون تفصيله داخل الوحدة، فالمقصود الأساسي واضح لكن تتميم البحث خارجها."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 319,
+    "end_word": 365,
+    "text_snippet": "3- بدء يوم النحر برمي جمرة العقبة. ومن حكمة الرمي طرد الشيطان، فهو شبيه بتقديم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان أن بداية يوم النحر تكون برمي جمرة العقبة مع ذكر حكمة الرمي ومقارنة مؤلفه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      22,
+      23,
+      24
+    ],
+    "start_word": 366,
+    "end_word": 399,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية ترتيب الرمي والنحر والحلق أو التقصير و",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "إجماع العلماء على مشروعية ترتيب أعمال يوم النحر على وفق فعل النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 400,
+    "end_word": 614,
+    "text_snippet": "واختلفوا في جواز تقديم بعضها على بعض بالنسبة للعامد.\nفذهب الشافعي والإمام أحمد ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "evidence_rational",
+      "example",
+      "evidence_hadith"
+    ],
+    "description_arabic": "خلاف العلماء في تقديم أعمال يوم النحر عمداً، وأدلة المجيزين، وتفصيل الإثم والإجزاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستند بعض الاستدلال إلى الحديث السابق بطرقته المشهورة وإلى عبارة \"الحديث الذي معنا\"، لكن معظم البدائل والأدلة والترجيحات المفهومة مذكورة داخل الوحدة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "start_word": 615,
+    "end_word": 811,
+    "text_snippet": "واختلفوا في وجوب الدم على من قدم المؤخر من هذه المناسك الأربعة.\nفذهب الجمهور من",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith",
+      "narration"
+    ],
+    "description_arabic": "الخلاف في وجوب الدم على من قدّم بعض مناسك يوم النحر، مع أدلة الجمهور والمخالفين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

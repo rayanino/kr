@@ -600,12 +600,12 @@ class TestTextUtils:
 
 
 # ──────────────────────────────────────────────────────────────────
-# Shamela Extraction — Parametrized Across All 12 Fixtures
+# Shamela Extraction — Parametrized Across All 13 Fixtures
 # ──────────────────────────────────────────────────────────────────
 
 
 class TestShamelaExtraction:
-    """Core extraction tests parametrized over all 12 Shamela fixtures."""
+    """Core extraction tests parametrized over all 13 Shamela fixtures."""
 
     @pytest.mark.parametrize("fixture_name", ALL_SHAMELA_FIXTURES)
     def test_title_extraction(self, fixture_name: str) -> None:

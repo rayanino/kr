@@ -1,0 +1,146 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌العطف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 12,
+    "text_snippet": "العطف إما ذو بيان أو نسق … والغرض الآن بيان ما ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 2,
+    "start_word": 13,
+    "end_word": 22,
+    "text_snippet": "فذو البيان تابع شبه الصفه … حقيقة القصد به منك",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 23,
+    "end_word": 37,
+    "text_snippet": "العطف كما ذكر ضربان:\nأحدهما: عطف النسق وسيأت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 38,
+    "end_word": 56,
+    "text_snippet": "وعطف البيان هو: التابع الجامد المشبه للصفة في ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 57,
+    "end_word": 87,
+    "text_snippet": "فعمر عطف بيان لأنه موضح لأبي حفص فخرج بقوله ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 6,
+    "start_word": 88,
+    "end_word": 98,
+    "text_snippet": "فأولينه من وفاق الأول … ما من وفاق الأول النعت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 7,
+    "start_word": 99,
+    "end_word": 123,
+    "text_snippet": "لما كان عطف البيان مشبها للصفة لزم فيه موافقة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 124,
+    "end_word": 130,
+    "text_snippet": "فقد يكونان منكرين … كما يكونان معرفين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 9,
+    "start_word": 131,
+    "end_word": 152,
+    "text_snippet": "ذهب أكثر النحويين إلى امتناع كون عطف البيان وم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 153,
+    "end_word": 176,
+    "text_snippet": "قيل ومن تنكيرهما قوله تعالى: {يُوقَدُ مِنْ شَجَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 177,
+    "end_word": 187,
+    "text_snippet": "وصالحا لبد يلية يرى … في غير نحو يا غلام يعمرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 12,
+    "start_word": 188,
+    "end_word": 196,
+    "text_snippet": "ونحو بشر تابع البكري … وليس أن يبدل بالمرضي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 13,
+    "start_word": 197,
+    "end_word": 213,
+    "text_snippet": "كل ما جاز أن يكون عطف بيان، جاز أن يكون بدلا، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 214,
+    "end_word": 267,
+    "text_snippet": "واستثنى المصنف بذلك مسألتين، يتعين فيهما كون ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 268,
+    "end_word": 338,
+    "text_snippet": "الثانية: أن يكون التابع خاليا من أل والمتبوع ب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 339,
+    "end_word": 371,
+    "text_snippet": "ومثل: أنا الضارب الرجل زيد قوله:\nأنا ابن التار",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 372,
+    "end_word": 392,
+    "text_snippet": "وأشار بقوله وليس أن يبدل بالمرضى إلى أن تجويز ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  }
+]

@@ -1,0 +1,73 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 19,
+    "text_snippet": "الكتاب الثالث\n\nفي‌‌ القياس قال ابن الأنباري في (جدله)\nهو حمل غير المنقول عل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف القياس في النحو بأنه حمل غير المنقول على المنقول لاتحاد المعنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 20,
+    "end_word": 46,
+    "text_snippet": "\nوهو معظم أدلة النحو، والمعول في غالب مسائله عليه، كما قيل:\nإنما النحو قيا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن القياس معظم أدلة النحو وأن النحو مبني على مقاييس مستنبطة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 47,
+    "end_word": 147,
+    "text_snippet": "\nوقال صاحب (المستوفي) كل علم فبعضه مأخوذ بالسماع والنصوص، وبعضه بالاستنباط ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "تقسيم العلوم إلى سماع وقياس وانتزاع، وبيان موقع النحو بينها مع أمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 148,
+    "end_word": 339,
+    "text_snippet": "\nوقال ابن الأنباري في (أصوله)\nاعلم أن إنكار القياس في النحو لا يتحقق؛ لأن ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "إثبات حجية القياس في النحو، وبيان استحالـة إنكاره، والفرق بينه وبين اللغة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

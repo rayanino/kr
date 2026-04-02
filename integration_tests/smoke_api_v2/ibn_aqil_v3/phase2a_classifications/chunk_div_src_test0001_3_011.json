@@ -1,0 +1,394 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌(التوابع)\nالنعت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 11,
+    "text_snippet": "يتبع في الإعراب الأسماء الأول … نعت وتوكيد وعط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 2,
+    "start_word": 12,
+    "end_word": 42,
+    "text_snippet": "التابع: هو الاسم المشارك لما قبله في إعرابه مطلق",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 81,
+    "text_snippet": "ويخرج بقولك مطلقا الخبر وحال المنصوب فإنهما لا ",
+    "scholarly_function": "refutation",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 82,
+    "end_word": 92,
+    "text_snippet": "والتابع على خمسة أنواع: النعت والتوكيد وعطف الب",
+    "scholarly_function": "definition",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 5,
+    "start_word": 93,
+    "end_word": 104,
+    "text_snippet": "فالنعت تابع متم ما سبق … بوسمه أو وسم ما به أعت",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 105,
+    "end_word": 131,
+    "text_snippet": "عرف النعت بأنه: التابع المكمل متبوعه ببيان صفة ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 132,
+    "end_word": 158,
+    "text_snippet": "فقوله التابع يشمل التوابع كلها وقوله المكمل إلى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 159,
+    "end_word": 165,
+    "text_snippet": "ومنه قوله تعالى: {بِسْمِ اللهِ الرَّحْمَنِ الرَّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 166,
+    "end_word": 176,
+    "text_snippet": "وللذم نحو مررت بزيد الفاسق ومنه قوله تعالى: {فَا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 177,
+    "end_word": 197,
+    "text_snippet": "الشَّيْطَانِ الرَّجِيمِ} وللترحم نحو مررت بزيد ا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 11,
+    "start_word": 198,
+    "end_word": 209,
+    "text_snippet": "وليعط في التعريف والتنكير ما … لما تلا ك امرر ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 210,
+    "end_word": 246,
+    "text_snippet": "النعت يجب فيه أن يتبع ما قبله في إعرابه وتعريفه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 247,
+    "end_word": 256,
+    "text_snippet": "وهو لدى التوحيد والتذكيرأو … سواهما كالفعل فأقف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 257,
+    "end_word": 356,
+    "text_snippet": "تقدم أن النعت لا بد من مطابقته للمنعوت في الإعرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 357,
+    "end_word": 389,
+    "text_snippet": "وأما في التثنية والجمع فيكون مفردا فيجري مجرى ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 390,
+    "end_word": 486,
+    "text_snippet": "فالحاصل أن النعت إذا رفع ضميرا طابق المنعوت في أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 487,
+    "end_word": 495,
+    "text_snippet": "وأنعت بمشتق كصعب وذرب … وشبهه كذا وذي والمنتسب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 18,
+    "start_word": 496,
+    "end_word": 561,
+    "text_snippet": "لا ينعت إلا بمشتق لفظا أو تأويلا والمراد بالمشتق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 562,
+    "end_word": 569,
+    "text_snippet": "ونعتوا بجملة منكرا … فأعطيت ما أعطيته خبرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 570,
+    "end_word": 606,
+    "text_snippet": "تقع الجملة نعتا كما تقع خبرا وحالا وهي مؤولة بال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 607,
+    "end_word": 626,
+    "text_snippet": "وزعم بعضهم أنه يجوز نعت المعرف بالألف واللام الج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 627,
+    "end_word": 636,
+    "text_snippet": "وقول الشاعر:\n286 - ولقد أمر على اللئيم يسبني … ",
+    "scholarly_function": "example",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 23,
+    "start_word": 637,
+    "end_word": 656,
+    "text_snippet": "فمضيت ثمت قلت لا يعنيني فـ \"نسلخ\" صفة لليل ويسب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 24,
+    "start_word": 657,
+    "end_word": 678,
+    "text_snippet": "وأشار بقوله فأعطيت ما أعطيته خبرا إلى أنه لا بد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 679,
+    "end_word": 743,
+    "text_snippet": "287 - وما أدرى أغيرهم تناء … وطول الدهر أم مال ",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 26,
+    "start_word": 744,
+    "end_word": 754,
+    "text_snippet": "وامنع هنا إبقاع ذات الطلب … وإن أتت فالقول أضمر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 755,
+    "end_word": 834,
+    "text_snippet": "لا تقع الجملة الطلبية صفة فلا تقول مررت برجل أضر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 835,
+    "end_word": 889,
+    "text_snippet": "وذلك كقوله:\n288 - حتى إذا جن الظلام واختلط … جا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 29,
+    "start_word": 890,
+    "end_word": 912,
+    "text_snippet": "فإن قلت هل يلزم هذا التقدير في الجملة الطلبية إذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 30,
+    "start_word": 913,
+    "end_word": 926,
+    "text_snippet": "فالجواب أن فيه خلافا فمذهب ابن السراج والفارسي ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 927,
+    "end_word": 933,
+    "text_snippet": "ونعتوا بمصدر كثيرا … فالتزموا الإفراد والتذكيرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 934,
+    "end_word": 1000,
+    "text_snippet": "يكثر استعمال المصدر نعتا نحو مررت برجل عدل وبرج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1001,
+    "end_word": 1021,
+    "text_snippet": "ونعت غير واحد إذا اختلف … فعاطفا فرقه لا إذا ائ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1022,
+    "end_word": 1048,
+    "text_snippet": "فإن اختلف وجب التفريق بالعطف فتقول مررت بالزيدين",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1049,
+    "end_word": 1057,
+    "text_snippet": "ونعت معمولى وحيدى معنى … وعمل أتبع بغير استثنا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1058,
+    "end_word": 1138,
+    "text_snippet": "إذا نعت معمولان لعاملين متحدى المعنى والعمل أتبع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1139,
+    "end_word": 1147,
+    "text_snippet": "وإن نعوت كثرت وقد تلت … مفتقرا لذكرهن أنبعت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1148,
+    "end_word": 1166,
+    "text_snippet": "إذا تكررت النعوت وكان المنعوت لا يتضح إلا بها جم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1167,
+    "end_word": 1178,
+    "text_snippet": "واقطع أو أتبع إن يكن معينا … بدونها أو بعضها اق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1179,
+    "end_word": 1208,
+    "text_snippet": "إذا كان المنعوت متضحا بدونها كلها جاز فيها جميعه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1209,
+    "end_word": 1220,
+    "text_snippet": "وارفع أو أنصب إن قطعت مضمرا … مبتدأ أو ناصبا لن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1221,
+    "end_word": 1247,
+    "text_snippet": "أي إذا قطع النعت عن المنعوت رفع على إضمار مبتدأ ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1248,
+    "end_word": 1312,
+    "text_snippet": "وقول المصنف لن يظهرا معناه أنه يجب إضمار الرافع ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1313,
+    "end_word": 1323,
+    "text_snippet": "وما من المنعوت والنعت عقل … يجوز حذفه وفي النعت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1324,
+    "end_word": 1334,
+    "text_snippet": "أي يجوز حذف المنعوت وإقامة النعت مقامه إذا دل عل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1335,
+    "end_word": 1343,
+    "text_snippet": "نحو قوله تعالى: {أَنِ اعْمَلْ سَابِغَاتٍ} أي درو",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1344,
+    "end_word": 1353,
+    "text_snippet": "وكذلك يحذف النعت إذ دل عليه دليل لكنه قليل ومنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1354,
+    "end_word": 1369,
+    "text_snippet": "قوله تعالى: {قَالُوا الآنَ جِئْتَ بِالْحَقِّ} أ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  }
+]

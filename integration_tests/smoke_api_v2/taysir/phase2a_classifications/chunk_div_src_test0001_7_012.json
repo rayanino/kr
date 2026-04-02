@@ -1,0 +1,490 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌بَاب في صفة تغسيل الميّت وتشييع الجنازة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 8,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 9,
+    "end_word": 84,
+    "text_snippet": "عَنْ أمّ عَطِيةَ الأنصَاريَّةِ قَالَتْ: دَخَل عَلَيْن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 85,
+    "end_word": 85,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 86,
+    "end_word": 92,
+    "text_snippet": "رأيتن ذلك: بكسر الكاف، لأن المخاطبة أنثى.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 93,
+    "end_word": 102,
+    "text_snippet": "سدر: هو شجر النبق، والذي يغسل به ورقه بعد طحن",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 103,
+    "end_word": 111,
+    "text_snippet": "كافور: نوع من الطيب، من خواصه أنه يصلب الجسد.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 112,
+    "end_word": 114,
+    "text_snippet": "آذنني: أي أعلمني.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 115,
+    "end_word": 127,
+    "text_snippet": "حقوه: بفتح الحاء وكسرها. موضع شد الإزار، توسع",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 128,
+    "end_word": 142,
+    "text_snippet": "أشعرنها إياه: الشعار، بالكسر، ما في الجسد من ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 143,
+    "end_word": 156,
+    "text_snippet": "بميامنها: الميامن: - جمع \" ميمنة \" بمعنى اليمي",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 157,
+    "end_word": 158,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 159,
+    "end_word": 274,
+    "text_snippet": "لما توفيت \" زينب \" بنت النبي صلى الله عليه وسلم ",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 275,
+    "end_word": 278,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 279,
+    "end_word": 286,
+    "text_snippet": "1- وجوب غسل الميت المسلم، وأنه فرض كفاية.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 287,
+    "end_word": 308,
+    "text_snippet": "2- أن المرأة لا يغسلها إلا النساء، وبالعكس، إلا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 309,
+    "end_word": 355,
+    "text_snippet": "3- أن يكون بثلاث غسلات، فإن لم يكف، فخمس، فإن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 356,
+    "end_word": 367,
+    "text_snippet": "وبعد ذلك إن كان ثَمَّ خارج، سد المحل الذي يخرج ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 368,
+    "end_word": 379,
+    "text_snippet": "4- أن يقطع الغاسل غسلاته على وتر، ثلاث، أو خمس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 380,
+    "end_word": 397,
+    "text_snippet": "5- أن يكون مع الماء سدر، لأنه ينقى، ويصلب جسد ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 20,
+    "start_word": 398,
+    "end_word": 421,
+    "text_snippet": "6- أن يطيب الميت مع آخر غسلاته، لئلا يذهب الما",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 21,
+    "start_word": 422,
+    "end_word": 430,
+    "text_snippet": "7- البداءة بغسل الأعضاء الشريفة، وهي: الميامن، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 431,
+    "end_word": 438,
+    "text_snippet": "8- ضفر الشعر ثلاث ضفائر، وجعله خلف الميت.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 439,
+    "end_word": 546,
+    "text_snippet": "9- التبرك بآثار النبي صلى الله عليه وسلم، وهذا ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 24,
+    "start_word": 547,
+    "end_word": 548,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 549,
+    "end_word": 602,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 603,
+    "end_word": 612,
+    "text_snippet": "قال المصنف رضى الله عنه: الوقص، كسر العنق ⌜1⌝ ",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 27,
+    "start_word": 613,
+    "end_word": 614,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 615,
+    "end_word": 618,
+    "text_snippet": "وقصته: صرعته فكسرت عنقه.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 619,
+    "end_word": 635,
+    "text_snippet": "لا تحنطوه: لا تجعلوا في شيء من غسله أو كفنه حنو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 636,
+    "end_word": 651,
+    "text_snippet": "لا تخمروا: لا تغطوا يبعث ملبيا: أي يبعث وهو يقو",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 31,
+    "start_word": 652,
+    "end_word": 653,
+    "text_snippet": "المعنى الإِجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 654,
+    "end_word": 733,
+    "text_snippet": "بينما كان رجل من الصحابة واقفاً في عرفة على راح",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 734,
+    "end_word": 737,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 738,
+    "end_word": 744,
+    "text_snippet": "1- وجوب تغسيل الميت، وأنه فرض كفاية.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 745,
+    "end_word": 755,
+    "text_snippet": "2- جواز اغتسال المحرم، كما ثبت ذلك في حديث أبي ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 36,
+    "start_word": 756,
+    "end_word": 767,
+    "text_snippet": "3- الاعتناء بنظافة الميت وتنقيته، إذ أمرهم أن يج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 768,
+    "end_word": 794,
+    "text_snippet": "4- أن تغير الماء بالطاهرات، لا يخرج الماء عن كو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 38,
+    "start_word": 795,
+    "end_word": 813,
+    "text_snippet": "بل الصحيح أنه يبقى طاهراً بذاته مطهراً لغيره كم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 39,
+    "start_word": 814,
+    "end_word": 825,
+    "text_snippet": "5- وجوب تكفين الميت، وأن الكفن مقدم على حق الغر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 40,
+    "start_word": 826,
+    "end_word": 888,
+    "text_snippet": "6- تحريم تغطية رأس الميت المحربم، والوجه للأنثى",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 41,
+    "start_word": 889,
+    "end_word": 904,
+    "text_snippet": "7- تحريم الطيب على المحرم، حياْ أو ميتا، ذكرا أ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 42,
+    "start_word": 905,
+    "end_word": 922,
+    "text_snippet": "8- أن المحرم غير ممنوع من مباشرة الأشياء التي ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 923,
+    "end_word": 942,
+    "text_snippet": "9- جواز الاقتصار في الكفن على الإزار والرداء.\nوب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 943,
+    "end_word": 957,
+    "text_snippet": "10- فضل من مات محرماً، وأن عمله لا ينقطع إلى يو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 45,
+    "start_word": 958,
+    "end_word": 988,
+    "text_snippet": "11- أن من شرع في عمل صالح - من طلب علم أو جهاد،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 46,
+    "start_word": 989,
+    "end_word": 990,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 991,
+    "end_word": 1020,
+    "text_snippet": "عَنْ أبي هُريرة رضىَ الله عَنْهُ عَنِ النَّبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1021,
+    "end_word": 1022,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1023,
+    "end_word": 1110,
+    "text_snippet": "الإنسان من روح وجسد، وفضله وشرفه، ونفعه، وثمرته",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1111,
+    "end_word": 1114,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1115,
+    "end_word": 1132,
+    "text_snippet": "1- استحباب الإسراع بتجهيز الميت وفي حمله، لكن ب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1133,
+    "end_word": 1167,
+    "text_snippet": "2- يقيد الإسراع بما إذا لم يكن الموت فجأة يخشى ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1168,
+    "end_word": 1175,
+    "text_snippet": "3- فيه طلب مصاحبة الأخيار، والابتعاد عن الأشرار",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1176,
+    "end_word": 1203,
+    "text_snippet": "4- قال شيخ الإسلام ابن تيمية: من كان مظهراً للإ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1204,
+    "end_word": 1205,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1206,
+    "end_word": 1220,
+    "text_snippet": "عَن أم عطيةَ الأنصارية رضي الله عنها قالَتْ: نُه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1221,
+    "end_word": 1222,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1223,
+    "end_word": 1273,
+    "text_snippet": "أم عطية الأنصارية من الصحابيات الجليلات تفيد أن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1274,
+    "end_word": 1277,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1278,
+    "end_word": 1296,
+    "text_snippet": "1- نهي النساء عن اتباع الجنائز، وهو عام في اتبا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  }
+]

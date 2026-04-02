@@ -1,0 +1,114 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "المسألة الرابعة\nفي مناسبة الألفاظ للمعاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 6,
+    "end_word": 8,
+    "text_snippet": "قال في (الخصائص):",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 9,
+    "end_word": 18,
+    "text_snippet": "هذا موضع شريف، نبه عليه الخليل، وسيبويه، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 19,
+    "end_word": 34,
+    "text_snippet": "قال الخليل: كأنهم توهموا في صوت الجندب استطال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 35,
+    "end_word": 56,
+    "text_snippet": "وقال سيبويه في المصادر التي جاءت على الفعل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 57,
+    "end_word": 66,
+    "text_snippet": "قال ابن جني: وقد وجدت أشياء كثيرة من هذا النمط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 67,
+    "end_word": 79,
+    "text_snippet": "من ذلك المصادر الرباعية المضعفة، تأتي للتكري",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 80,
+    "end_word": 85,
+    "text_snippet": "والفعلي تأتي للسرعة، نحو: الجمزي، والولقي.",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 86,
+    "end_word": 120,
+    "text_snippet": "ومن ذلك باب استفعل، جعلوه للطلب، لما فيه من",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 9,
+    "start_word": 121,
+    "end_word": 163,
+    "text_snippet": "وكذلك جعلوا تكرير العين دالا على تكرير الفعل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 164,
+    "end_word": 179,
+    "text_snippet": "ومن ذلك قولهم: الخضم لأكل الرطب، والقضم لأكل",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 180,
+    "end_word": 195,
+    "text_snippet": "والنضح للماء ونحوه، والنضخ أقوى منه، فجعلوا ",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 196,
+    "end_word": 226,
+    "text_snippet": "ومن ذلك قولهم: القد طولا، والقط عرضا، لأن ال",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 227,
+    "end_word": 232,
+    "text_snippet": "وهذا الباب واسع جدا، لايمكن استقصاؤه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  }
+]

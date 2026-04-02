@@ -1,0 +1,378 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 46,
+    "text_snippet": "يصف البراء بن عازب صلاة النبي صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 2,
+    "start_word": 47,
+    "end_word": 55,
+    "text_snippet": "وليس معناه: أن القيام والجلوس للتشهد، بقدر ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 56,
+    "end_word": 79,
+    "text_snippet": "وإنما معناه أنه لا يخفف واحداً ويثقل الآخر.\nوإ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 4,
+    "start_word": 80,
+    "end_word": 83,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 84,
+    "end_word": 101,
+    "text_snippet": "1- الأفضل أن يكون الركوع والاعتدال منه، والسجو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 102,
+    "end_word": 112,
+    "text_snippet": "2- أن يكون القيام للقراءة والجلوس للتشهد الأخي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 113,
+    "end_word": 126,
+    "text_snippet": "3- أن تكون الصلاة في جملتها متناسبة، فيكون طول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 127,
+    "end_word": 145,
+    "text_snippet": "4- ثبوت الطمأنينة في الاعتدال من الركوع والسجو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 146,
+    "end_word": 193,
+    "text_snippet": "5- زعم بعضهم أن الرفع من الركوع ركن صغير، لأنه",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 194,
+    "end_word": 194,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 195,
+    "end_word": 231,
+    "text_snippet": "لكون المعهود من صلاة النبي صلى الله عليه وسلم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 12,
+    "start_word": 232,
+    "end_word": 237,
+    "text_snippet": "فالنووي جعلها صفة عارضة وليست دائمة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 238,
+    "end_word": 254,
+    "text_snippet": "وابن دقيق العيد قال: يقتضي هذا تخفيف ما العادة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 255,
+    "end_word": 278,
+    "text_snippet": "وهداني الله تعالى إلى المعنى المذكور في \"المعن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 15,
+    "start_word": 279,
+    "end_word": 301,
+    "text_snippet": "ومثل القراءة القعود للتشهد. ثم بعد كتابته، وج",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 16,
+    "start_word": 302,
+    "end_word": 303,
+    "text_snippet": "الحديث الثامن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 304,
+    "end_word": 364,
+    "text_snippet": "عَنْ ثَابِتٍ البناني، عَنْ أنَس بن مَالِك رضي ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 365,
+    "end_word": 368,
+    "text_snippet": "المعنى الإجمالي (2) :",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 369,
+    "end_word": 457,
+    "text_snippet": "يقول \" أنس \" رضي الله عنه، إني سأجتهد فلا اقَص",
+    "scholarly_function": "narration",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 20,
+    "start_word": 458,
+    "end_word": 461,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 462,
+    "end_word": 480,
+    "text_snippet": "فيه دليل على مشروعية تطويل القيام بعد الركوع، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 481,
+    "end_word": 482,
+    "text_snippet": "الحديث التاسع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 483,
+    "end_word": 508,
+    "text_snippet": "عَنْ أنَس بن مَالِك رضي الله عنه قَالَ: \" مَا ص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 509,
+    "end_word": 510,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 511,
+    "end_word": 573,
+    "text_snippet": "ينفي أنس بن مالك أن يكون صلى خلف أي إمام من ال",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 26,
+    "start_word": 574,
+    "end_word": 577,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 578,
+    "end_word": 610,
+    "text_snippet": "1- أن يأتي الإمام بالصلاة خفيفة، حتى لا يشق عل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 611,
+    "end_word": 636,
+    "text_snippet": "2- أن صلاة النبي صلى الله عليه وسلم أكمل صلاة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 637,
+    "end_word": 684,
+    "text_snippet": "3- فيه جواز إمامة المفضول للفاضل، على تقدير أن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 30,
+    "start_word": 685,
+    "end_word": 686,
+    "text_snippet": "الحديث العاشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 687,
+    "end_word": 750,
+    "text_snippet": "عَنْ أبي قِلابَةَ ⌜2⌝ عَبْدِ الله بنِ زَيد الجَر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 751,
+    "end_word": 752,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 753,
+    "end_word": 836,
+    "text_snippet": "يقول أبو قلابة: جاءنا مالك بن الحويرث أحد الص",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 34,
+    "start_word": 837,
+    "end_word": 838,
+    "text_snippet": "اختلاف العلماء",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 35,
+    "start_word": 839,
+    "end_word": 854,
+    "text_snippet": "الجلسة المشار إليها في هذا الحديث هي ما تسمى ع",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 36,
+    "start_word": 855,
+    "end_word": 863,
+    "text_snippet": "ولا خلاف عندهم في إباحتها، وإنما الخلاف في است",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 37,
+    "start_word": 864,
+    "end_word": 897,
+    "text_snippet": "فذهب إلى استحبابها، الشافعي في المشهور من مذه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 38,
+    "start_word": 898,
+    "end_word": 901,
+    "text_snippet": "ومن المحدثين، الثوري، وإسحاق.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 39,
+    "start_word": 902,
+    "end_word": 920,
+    "text_snippet": "ومن الأئمة، أبو حنيفة، ومالك، وهو المشهور من م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 921,
+    "end_word": 932,
+    "text_snippet": "قال الترمذي: وعليه العمل عند أهل العلم، وقال ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 41,
+    "start_word": 933,
+    "end_word": 947,
+    "text_snippet": "ومال بعض العلماء إلى فعلها عند الحاجة إليها، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 42,
+    "start_word": 948,
+    "end_word": 960,
+    "text_snippet": "قال ابن قدامة في \"المغنى\" وهذا فيه جمع بين ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 43,
+    "start_word": 961,
+    "end_word": 964,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 965,
+    "end_word": 973,
+    "text_snippet": "1- استحباب جلسة الاستراحة، وتقدم أن الصحيح اس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 974,
+    "end_word": 982,
+    "text_snippet": "2- أن موضعها عند النهوض من السجود إلى القيام.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 983,
+    "end_word": 998,
+    "text_snippet": "3- أن القصد منها الاستراحة لبعد السجود من الق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

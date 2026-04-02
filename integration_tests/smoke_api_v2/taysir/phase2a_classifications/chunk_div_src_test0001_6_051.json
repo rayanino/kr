@@ -1,0 +1,330 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ الاستِسقَاء\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 19,
+    "text_snippet": "هو لغة: طلبك السقيا لنفسك أو لغيرك.\nوشرعا: طل",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 20,
+    "end_word": 32,
+    "text_snippet": "صلاة الاستسقاء من ذوات الأسباب التي تشرع عند و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 33,
+    "end_word": 45,
+    "text_snippet": "وسببها: تضرر الناس بالقحط من انقطاع الأمطار، أ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 46,
+    "end_word": 47,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 48,
+    "end_word": 77,
+    "text_snippet": "عَنْ عَبْدِ الله بن عَاصِم المَازنيِّ قال: خَرَج",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 78,
+    "end_word": 79,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 80,
+    "end_word": 144,
+    "text_snippet": "لما أجدبت الأرض في عهد النبي صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 145,
+    "end_word": 148,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 149,
+    "end_word": 168,
+    "text_snippet": "1- مشروعية صلاة الاستسقاء، وأجمع العلماء على ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 10,
+    "start_word": 169,
+    "end_word": 187,
+    "text_snippet": "2- أنه يشرع لها خطبة، تشتمل على ما يناسب الحال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 188,
+    "end_word": 198,
+    "text_snippet": "3- أن تكون الخطبة قبل الصلاة، وقد ورد في بعض ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 12,
+    "start_word": 199,
+    "end_word": 215,
+    "text_snippet": "ففي مسند الإمام أحمد أنه يبدأ بالصلاة قبل الخط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 216,
+    "end_word": 230,
+    "text_snippet": "وعن الإمام أحمد في ذلك ثلاث روايات:\nأ- تقديم ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 231,
+    "end_word": 238,
+    "text_snippet": "4- استقبال القبلة عند الدعاء، لأنها مظنة الإجا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 239,
+    "end_word": 253,
+    "text_snippet": "5- مشروعية تحويل الرداء أثناء الدعاء، تفاؤلاً ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 254,
+    "end_word": 268,
+    "text_snippet": "6- الجهر في صلاة الاستسقاء بالقراءة، وهذا شأن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 269,
+    "end_word": 286,
+    "text_snippet": "7- أن تكون صلاتها في الصحراء، لتتسع للناس، ولي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 287,
+    "end_word": 288,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 289,
+    "end_word": 462,
+    "text_snippet": "عَن أنس بن مَالِك: أنَّ رَجُلا دَخَلَ المَسْجِدَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 463,
+    "end_word": 497,
+    "text_snippet": "الظِّراب: الجبال الصغار. و \"والآكام \" جمع \" أكم",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 498,
+    "end_word": 498,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 499,
+    "end_word": 514,
+    "text_snippet": "دار القضاء: دار لعمر بن الخطاب رضي الله عنه، ب",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 515,
+    "end_word": 520,
+    "text_snippet": "يغثنا: هو بالجزم لأنه جواب الطلب.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 521,
+    "end_word": 533,
+    "text_snippet": "ولا قزعة: \" القزعة \" القطعة الرقيقة من السحاب،",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 534,
+    "end_word": 552,
+    "text_snippet": "سَلْع: بفتح السين وسكون اللام، جبل قرب المدينة",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 553,
+    "end_word": 563,
+    "text_snippet": "الترسْ: صفيحة مستديرة من حديد، يتَّقُونَ بها في",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 564,
+    "end_word": 592,
+    "text_snippet": "الآكام والظراب: \" الآكام \" التلون المرتفعة من ا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 593,
+    "end_word": 606,
+    "text_snippet": "ما رأينا الشمس سبتاً بكسر السين وفتحها: يعنى أ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 607,
+    "end_word": 615,
+    "text_snippet": "يمسكها: يجوز فيه الرفع، ويجوز الجزم في جواب ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 616,
+    "end_word": 617,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 618,
+    "end_word": 865,
+    "text_snippet": "كان النبي صلى الله عليه وسلم قائما يخطب في مسج",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 32,
+    "start_word": 866,
+    "end_word": 869,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 870,
+    "end_word": 881,
+    "text_snippet": "1- مشروعية الخطبة قائماً وإباحة مكالمة الخطيب، ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 34,
+    "start_word": 882,
+    "end_word": 904,
+    "text_snippet": "2- مشروعية الاستسقاء في الخطبة، واقتصر عليها أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 905,
+    "end_word": 957,
+    "text_snippet": "3- رفع اليدين في الدعاء، لأن فيه معنى الافتقار",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 36,
+    "start_word": 958,
+    "end_word": 979,
+    "text_snippet": "4- معجز من معجزات النبي صلى الله عليه وسلم وكرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 37,
+    "start_word": 980,
+    "end_word": 996,
+    "text_snippet": "5- أن فعل الأسباب لطلب الرزق، من الدعاء، والضر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 997,
+    "end_word": 1004,
+    "text_snippet": "6- استحباب الدعاء بهذا الدعاء النبوي لطلب الغي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1005,
+    "end_word": 1030,
+    "text_snippet": "7- جواز الاستصحاء عند الضرر بالمطر. وخص بقاء ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1031,
+    "end_word": 1092,
+    "text_snippet": "8- جواز طلب الدعاء ممَّن يظن فيهم الصلاح والتقى",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

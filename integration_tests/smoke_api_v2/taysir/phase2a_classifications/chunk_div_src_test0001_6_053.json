@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتاب الجَنَائز\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 17,
+    "text_snippet": "الجنائز: جمع \" جنازة \" بالفتح، والكسر أفصح. اسم ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 18,
+    "end_word": 33,
+    "text_snippet": "وللميت أحكام كثيرة، ذكروا هنا منها، الصلاة وما ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 3,
+    "start_word": 34,
+    "end_word": 40,
+    "text_snippet": "أما الحقوق المالية، فتأتي في الوصايا والفرائض.\n",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 41,
+    "end_word": 67,
+    "text_snippet": "وبما أن الكتاب مختصر، فإن المصنف لم يأت بكل ما ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 68,
+    "end_word": 77,
+    "text_snippet": "فمن حق المريض على إخوانه المسلمين عيادته، وإدخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 6,
+    "start_word": 78,
+    "end_word": 118,
+    "text_snippet": "فإذا كان في حال خطره، يذكر بالتوبة، وقضاء الديو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 119,
+    "end_word": 130,
+    "text_snippet": "فإذا حضره الموت، سُنَّ لمن حضره تلقينه الشهادتي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 131,
+    "end_word": 144,
+    "text_snippet": "فإذا مات غمضت عيناه، ولينت مفاصله، وأسرع بتجهي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 145,
+    "end_word": 165,
+    "text_snippet": "وتغسيل الميت، وتكفينه، وحمله، والصلاة عليه، ودف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 166,
+    "end_word": 178,
+    "text_snippet": "فإن ترك، صار الإثم على من علم حاله، وقدر على ذل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  }
+]

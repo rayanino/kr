@@ -1,0 +1,65 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 37,
+    "text_snippet": "‌‌باَبُ عشرَة النسَاء\nفي هذا الباب يتكلم العلماء على معاشرة كل واحد من الزوج",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تمهيد الباب وبيان موضوعه في حقوق الزوجين وآداب المعاشرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 38,
+    "end_word": 124,
+    "text_snippet": "وخلاصة ما نقوله هنا: أن لكل من الزوجين على صاحبه حقوقا، فليحرص كل منهما عل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب أداء كل من الزوجين حقوق الآخر مع استحباب المسامحة وبيان أثر ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 125,
+    "end_word": 295,
+    "text_snippet": "الحديث الأول\nعَنْ أنَس بن مالك رضي الله عنه قَالَ: مِن السنةِ إذَا تزَوَّجَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث القسم بين الزوجات وشرح وجوب العدل وتفصيل إقامة الزوج عند البكر والثيب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

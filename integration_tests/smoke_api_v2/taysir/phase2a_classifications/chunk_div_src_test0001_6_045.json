@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 55,
+    "text_snippet": "يكن ليجوز إلغاؤها، لكن إذا صح الجمع في حالة الن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 1,
+    "start_word": 56,
+    "end_word": 77,
+    "text_snippet": "4- يدل الحديث وغيره من الأحاديث أن الجمع يختص با",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 78,
+    "end_word": 82,
+    "text_snippet": "‌‌بَابُ قصْر الصَّلاة في السفر\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 83,
+    "end_word": 90,
+    "text_snippet": "القصر: هو للصلوات الرباعية، وهي الظهر، والعصر وا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 91,
+    "end_word": 101,
+    "text_snippet": "ونقل ابن المنذر الإجماع على أنه لا قصر في المغرب",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 102,
+    "end_word": 115,
+    "text_snippet": "وليس له سبب إلا السفر، لأنه من رخصه التي شرعت رح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 6,
+    "start_word": 116,
+    "end_word": 145,
+    "text_snippet": "عَنْ عَبْدِ الله بْن عُمَرَ رضىَ الله عَنْهُمَا قا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 146,
+    "end_word": 147,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 148,
+    "end_word": 169,
+    "text_snippet": "يذكر عبد الله بن عمر أنه صحب النبي صلى الله عليه",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 170,
+    "end_word": 180,
+    "text_snippet": "فكان كل منهم يقصر الصلاة الرباعية إلى ركعتين، ول",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 181,
+    "end_word": 182,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 183,
+    "end_word": 204,
+    "text_snippet": "اختلف العلماء في القصر: هل هو واجب أو رخصة، يستح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 205,
+    "end_word": 218,
+    "text_snippet": "وذهب أبو حنيفة، إلى وجوب القصر، ونصره ابن حزم وق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 219,
+    "end_word": 230,
+    "text_snippet": "وأدلة الموجبين للقصر، مداومة النبي صلى الله عليه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 14,
+    "start_word": 231,
+    "end_word": 239,
+    "text_snippet": "وأجيب بأن الفعل لا يدل على الوجوب عند الجمهور.\n",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 240,
+    "end_word": 256,
+    "text_snippet": "واستدلوا أيضاً بحديث عائشة في الصحيحين \" فُرِضتِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 257,
+    "end_word": 279,
+    "text_snippet": "وأجيب عنه بأجوبة، أحسنها أن هذا من كلام عائشة، و",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 280,
+    "end_word": 302,
+    "text_snippet": "أما أدلة الجمهور على عدم وجوب القصر فقوله تعالى:",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 303,
+    "end_word": 312,
+    "text_snippet": "وبأن الأصل الإتمام، والقصر إنما يكون من شيء أطول",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 313,
+    "end_word": 334,
+    "text_snippet": "وبحديث عائشة: \" أن النبي صلى الله عليه وسلم كان ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 335,
+    "end_word": 369,
+    "text_snippet": "وقد أجيب عن أدلة الجمهور بأن الآية وردت في قصر ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 370,
+    "end_word": 391,
+    "text_snippet": "قلت: الأولى للمسافر أن لايدع القصر، اتباعاً للنبي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 392,
+    "end_word": 451,
+    "text_snippet": "وشيخ الإسلام \" ابن تيمية \" نقل عنه في \" الاختيار",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 23,
+    "start_word": 452,
+    "end_word": 455,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 456,
+    "end_word": 464,
+    "text_snippet": "1- مشروعية قصر الصلاة الرباعية في السفر إلى ركعتي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 465,
+    "end_word": 479,
+    "text_snippet": "2- أن القصر هو سنة النبي صلى الله عليه وسلم، وسن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 480,
+    "end_word": 490,
+    "text_snippet": "3- أن القصر عام في سفر الحج والجهاد، وكل سفر طاع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 491,
+    "end_word": 522,
+    "text_snippet": "وقد ألحق العلماء الأسفار المباحة قال النووي: ذهب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 28,
+    "start_word": 523,
+    "end_word": 535,
+    "text_snippet": "4- لطف المولى بخلقه، وسماحة هذه الشريعة المحمدية،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 29,
+    "start_word": 536,
+    "end_word": 546,
+    "text_snippet": "فإنه لما كان السفر مظنة المشقة، رخّص لهم في نقص ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 30,
+    "start_word": 547,
+    "end_word": 556,
+    "text_snippet": "وإذا زادت المشقة بقتال العدو، خفف عنهم بعض الصلا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 31,
+    "start_word": 557,
+    "end_word": 576,
+    "text_snippet": "5- السفر في هذا الحديث مطلق، لم يقيد بالطويل، وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 577,
+    "end_word": 587,
+    "text_snippet": "أما تقييده بمدة معينة، أو بفراسخ محدودة، فلم يثبت",
+    "scholarly_function": "refutation",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 33,
+    "start_word": 588,
+    "end_word": 617,
+    "text_snippet": "قال شيخ الإسلام ابن تيمية رحمه الله: السفر لم يح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  }
+]

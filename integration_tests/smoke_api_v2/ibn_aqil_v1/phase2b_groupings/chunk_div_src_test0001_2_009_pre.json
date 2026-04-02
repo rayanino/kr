@@ -1,0 +1,350 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 47,
+    "text_snippet": "‌‌كان وأخواتها\nترفع كان المبتدا اسما والخبر … تنصبه ككان سيدا عمر ⌜1⌝\nككان ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان عمل كان وأخواتها، وذكر أفرادها، واشتراط النفي لزال وأخواتها وسبق ما لدام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 48,
+    "end_word": 126,
+    "text_snippet": "لما فرغ من الكلام على المبتدأ والخبر شرع في ذكر نواسخ الابتداء وهي قسمان أفعا",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "تمهيد باب النواسخ وبيان أن كان وأخواتها ترفع الاسم وتنصب الخبر، مع خلاف ليس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 127,
+    "end_word": 312,
+    "text_snippet": "وهذه الأفعال قسمان منها ما يعمل هذا العمل بلا شرط: وهي كان وظل وبات وأضحى وأص",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement",
+      "structural_transition",
+      "evidence_quran",
+      "example"
+    ],
+    "description_arabic": "تقسيم كان وأخواتها إلى ما يعمل بلا شرط، وبيان شرط النفي أو شبهه في زال وأخواتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 313,
+    "end_word": 435,
+    "text_snippet": "القسم الثاني: ما يشترط في عمله أن يسبقه ما المصدرية الظرفية وهو دام كقولك أعط ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_quran",
+      "definition"
+    ],
+    "description_arabic": "بيان شرط عمل دام بسبق ما المصدرية الظرفية، وشرح معاني أفعال هذا الباب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 436,
+    "end_word": 591,
+    "text_snippet": "وغير ماض مثله قد عملا … إن كان غير الماض منه استعملا ⌜2⌝\nهذه الأفعال على قسم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "evidence_quran",
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان المتصرف وغير المتصرف من كان وأخواتها، وعمل غير الماضي منها، وحكم المصدر والأمر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      27,
+      28,
+      29
+    ],
+    "start_word": 592,
+    "end_word": 688,
+    "text_snippet": "وفي جميعها توسط الخبر … أجز وكل سبقه دام حظر (2) مرده أن أخبار هذه الأفعال إن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_quran"
+    ],
+    "description_arabic": "جواز توسط خبر كان وأخواتها بين الفعل والاسم ما لم يجب تقديمه أو تأخيره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 689,
+    "end_word": 729,
+    "text_snippet": "وكذلك سائر أفعال هذا الباب من المتصرف وغيره يجوز توسط أخبارها بالشرط المذكور و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في تقديم خبر ليس على اسمها مع ترجيح جوازه والاستدلال بالشعر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على الشرط المذكور قبله في جواز التوسط، وهو مفهوم من السياق لكنه غير مصرح به كاملا داخل الوحدة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 730,
+    "end_word": 852,
+    "text_snippet": "وذكر ابن معط أن خبر دام لا يتقدم على اسمها فلا تقول لا أصاحبك ما دام قائما زيد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في تقديم خبر دام على اسمها وعلى دام نفسها، مع بيان محل المنع والترجيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 853,
+    "end_word": 969,
+    "text_snippet": "كذاك سبق خبر ما النافية … فجيء بها متلوة لا تاليه ⌜3⌝\nيعني أنه لا يجوز أن يتقد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم تقديم خبر كان وأخواتها عند النفي بما، وما يفهم من جوازه بغير ما أو على الفعل وحده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      37,
+      38,
+      39
+    ],
+    "start_word": 970,
+    "end_word": 1090,
+    "text_snippet": "ومنع سبق خبر ليس اصطفى … وذو تمام ما برفع يكتفي (1)\nوما سواه ناقص والنقص في … ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "الخلاف في تقديم خبر ليس عليها، مع عرض أدلة المجوزين والمانعين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      40,
+      41,
+      42
+    ],
+    "start_word": 1091,
+    "end_word": 1188,
+    "text_snippet": "وقوله وذو تمام إلى آخره معناه أن هذه الأفعال انقسمت إلى قسمين أحدهما: ما يكون ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "تعريف التام والناقص من كان وأخواتها، وبيان ما يستعمل تاما منها مع أمثلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      43,
+      44,
+      45
+    ],
+    "start_word": 1189,
+    "end_word": 1320,
+    "text_snippet": "ولا يلي العامل معمول الخبر … إلا إذا ظرفا أتى أو حرف جر (1) يعني أنه لا يجوز ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم تقدم معمول خبر كان وأخواتها بعد الفعل، واستثناء الظرف والجار والمجرور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 1321,
+    "end_word": 2485,
+    "text_snippet": "ومضمر الشأن اسما انو إن وقع … موهم ما استبان أنه امتنع (1) يعني أنه إذا ورد من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "editorial_note",
+      "opinion_statement"
+    ],
+    "description_arabic": "تأويل الشواهد الموهمة لتقديم معمول الخبر بجعل اسم كان أو ليس ضمير الشأن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "start_word": 2486,
+    "end_word": 2997,
+    "text_snippet": "وقد تزاد كان في حشو كما كان … أصح علم من تقدما ⌜5⌝\nكان على ثلاثة أقسام\nأحدها: ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "بيان زيادة كان في الحشو، ومواضعها القياسية والسماعية، والخلاف في بعض شواهدها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65
+    ],
+    "start_word": 2998,
+    "end_word": 3075,
+    "text_snippet": "ذفونها ويبقون الخبر … وبعد إن ولو كثيرا ذا اشتهر (1)\nتحذف كان مع اسمها ويبقى ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "حذف كان مع اسمها وإبقاء خبرها بعد إن ولو، وذكر الشاذ بعد لدن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "start_word": 3076,
+    "end_word": 3272,
+    "text_snippet": "وبعد أن تعويض ما عنها ارتكب … كمثل أما أنت برا فاقترب (1)\nذكر في هذا البيت أن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "example"
+    ],
+    "description_arabic": "حذف كان بعد أن المصدرية مع التعويض عنها بما، وشروط الاستعمال ومنع الجمع بين العوض والمعوض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78
+    ],
+    "start_word": 3273,
+    "end_word": 3468,
+    "text_snippet": "ومن مضارع لكان منجزم … تحذف نون وهو حذف ما التزم (2) إذا جزم الفعل المضارع من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "opinion_statement",
+      "evidence_quran",
+      "evidence_hadith",
+      "condition_exception"
+    ],
+    "description_arabic": "حكم حذف نون يكن المجزومة، ومواضع الجواز والمنع، والخلاف عند لقاء الساكن أو الضمير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

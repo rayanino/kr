@@ -1,0 +1,258 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌صفة صلاة الجنازة.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 68,
+    "text_snippet": "75 - ويكبر عليها أربعا أو خمسا إلى تسع تكبيرات ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 69,
+    "end_word": 87,
+    "text_snippet": "76 - ويشرع له أن يرفع يديه في التكبيرة الأولى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 88,
+    "end_word": 112,
+    "text_snippet": "77 - ثم يضع يده اليمنى على ظهر كفه اليسرى وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 113,
+    "end_word": 123,
+    "text_snippet": "وأما الوضع تحت السرة فضعيف اتفاقا كما قال النو",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 5,
+    "start_word": 124,
+    "end_word": 141,
+    "text_snippet": "78 - ثم يقرأ عقب التكبيرة الأولى فاتحة الكتاب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 142,
+    "end_word": 170,
+    "text_snippet": "صحيح صليت خلف ابن عباس رضي الله عنه على جنازة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 171,
+    "end_word": 181,
+    "text_snippet": "79 - ويقرأ سرا لحديث أبي أمامة بن سهل قال:\nصحيح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 8,
+    "start_word": 182,
+    "end_word": 200,
+    "text_snippet": "السنة في الصلاة على الجنازة أن يقرأ في التكبير",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 201,
+    "end_word": 227,
+    "text_snippet": "80 - ثم يكبر التكبيرة الثانية ويصلي على النبي ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 228,
+    "end_word": 282,
+    "text_snippet": "أن السنة في الصلاة على الجنازة أن يكبر الإمام ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 283,
+    "end_word": 319,
+    "text_snippet": "وأما صيغة الصلاة على النبي صلى الله عليه وسلم ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 320,
+    "end_word": 339,
+    "text_snippet": "81 - ثم يأتي ببقية التكبيرات ويخلص الدعاء فيها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 340,
+    "end_word": 347,
+    "text_snippet": "\"إذا صليتم على الميت فأخلصوا له الدعاء\" 3.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 348,
+    "end_word": 365,
+    "text_snippet": "82 - ويدعو فيها بما ثبت عنه صلى الله عليه وسلم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 366,
+    "end_word": 419,
+    "text_snippet": "الأول:\nاللهم اغفر له وارحمه وعافه واعف عنه وأكر",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 420,
+    "end_word": 450,
+    "text_snippet": "الثاني:\nاللهم اغفر لحينا وميتنا وشاهدنا وغائبنا",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 451,
+    "end_word": 476,
+    "text_snippet": "الثالث:\nاللهم إن فلان ابن فلان في ذمتك وحبل جوا",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 477,
+    "end_word": 499,
+    "text_snippet": "الرابع:\nاللهم عبدك وابن أمتك احتاج إلى رحمتك وأ",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 500,
+    "end_word": 506,
+    "text_snippet": "ثم يدعوا ما شاء الله أن يدعو.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 20,
+    "start_word": 507,
+    "end_word": 527,
+    "text_snippet": "83 - والدعاء بين التكبيرة الأخيرة والتسليم مشرو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 528,
+    "end_word": 558,
+    "text_snippet": "شهدته وكبر على جنازة أربعا ثم قام ساعة - يعني -",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 559,
+    "end_word": 583,
+    "text_snippet": "84 - ثم يسلم تسليمتين مثل تسليمه في الصلاة المك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 584,
+    "end_word": 638,
+    "text_snippet": "ثلاث خلال كان رسول الله صلى الله عليه وسلم يفعل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 639,
+    "end_word": 652,
+    "text_snippet": "85 - ويجوز الاقتصار على التلسيمة الأولى فقط لحد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 653,
+    "end_word": 668,
+    "text_snippet": "أن رسول الله صلى الله عليه وسلم صلى على جنازة ف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 669,
+    "end_word": 686,
+    "text_snippet": "86 - والسنة أن يسلم في الجنازة سرا الإمام ومن و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 687,
+    "end_word": 690,
+    "text_snippet": "في المسألة 80 بلفظ:",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 28,
+    "start_word": 691,
+    "end_word": 705,
+    "text_snippet": "ثم يسلم سرا في نفسه حين ينصرف والسنة أن يفعل م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 706,
+    "end_word": 729,
+    "text_snippet": "87 - ولا تجوز الصلاة على الجنازة في الأوقات الث",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 30,
+    "start_word": 730,
+    "end_word": 766,
+    "text_snippet": "ثلاث ساعات كان رسول الله صلى الله عليه وسلم ينها",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 767,
+    "end_word": 780,
+    "text_snippet": "وهو بعمومه يشمل الصلاة على الجنازة وهو الذي فهم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  }
+]

@@ -1,0 +1,1002 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "‌‌الموصول\nموصول الأسماء الذي الأنثى التي … واليا ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 1,
+    "start_word": 14,
+    "end_word": 36,
+    "text_snippet": "بل ما تليه أوله العلامة … والنون إن تشدد فلا ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 41,
+    "text_snippet": "ينقسم الموصول إلى اسمي وحرفي.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 42,
+    "end_word": 49,
+    "text_snippet": "ولم يذكر المصنف الموصولات الحرفية وهي خمسة أح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 50,
+    "end_word": 76,
+    "text_snippet": "أحدها: أن المصدرية وتوصل بالفعل المنصرف ماضيا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 77,
+    "end_word": 104,
+    "text_snippet": "فإن وقع بعدها فعل غير متصرف نحو قوله تعالى: {",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 105,
+    "end_word": 115,
+    "text_snippet": "ومنها: أن وتوصل باسمها وخبرها نحو عجبت من أن ز",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 116,
+    "end_word": 122,
+    "text_snippet": "ومنه قوله تعالى: {أَوَلَمْ يَكْفِهِمْ أَنَّا أَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 123,
+    "end_word": 135,
+    "text_snippet": "وأن المخففة كالمثقلة وتوصل باسمها وخبرها لكن ا",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 136,
+    "end_word": 146,
+    "text_snippet": "ومنها: \"كي\" وتوصل بفعل مضارع فقط مثل: جئت لكي",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 147,
+    "end_word": 183,
+    "text_snippet": "ومنها: \"ما\" وتكون مصدرية ظرفية نحو لا أصحبك م",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 184,
+    "end_word": 204,
+    "text_snippet": "ومنه ⌜2⌝ بما نسوا يوم الحساب وبالجملة الإسمية ",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 12,
+    "start_word": 205,
+    "end_word": 237,
+    "text_snippet": "وأكثر ما توصل الظرفية المصدرية بالماضي أو بالمض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 13,
+    "start_word": 238,
+    "end_word": 247,
+    "text_snippet": "ومنه قوله:\n25 - أطوف ما أطوف ثم آوي …\n",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 14,
+    "start_word": 248,
+    "end_word": 266,
+    "text_snippet": "إلى بيت قعيدته لكاع ومنها: لو وتوصل بالماضي نح",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 267,
+    "end_word": 309,
+    "text_snippet": "فقول المصنف موصول الأسماء احتراز من الموصول ال",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 310,
+    "end_word": 352,
+    "text_snippet": "وأما الموصول الاسمي ف الذي للمفرد المذكر ⌜3⌝ وا",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 353,
+    "end_word": 357,
+    "text_snippet": "وقد قرئ واللذان يأتيانها منكم\n",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 18,
+    "start_word": 358,
+    "end_word": 368,
+    "text_snippet": "ويجوز التشديد أيضا مع الياء وهو مذهب الكوفيين ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 19,
+    "start_word": 369,
+    "end_word": 375,
+    "text_snippet": "وقد قرئ {ربنا أرنا اللذين} بتشديد النون\n",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 376,
+    "end_word": 410,
+    "text_snippet": "وهذا التشديد يجوز أيضا في تثنية ذا وتا اسمي ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 411,
+    "end_word": 432,
+    "text_snippet": "جمع الذي الألى الذين مطلقا … وبعضهم بالواو رفع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 22,
+    "start_word": 433,
+    "end_word": 451,
+    "text_snippet": "يقال في جمع المذكر الألى مطلقا عاقلا كان أو غي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 23,
+    "start_word": 452,
+    "end_word": 470,
+    "text_snippet": "وقد اجتمع الأمران في قوله:\n26 - وتبلى الألى يس",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 24,
+    "start_word": 471,
+    "end_word": 486,
+    "text_snippet": "= وتبلي من بيننا الدارعين والمقاتلة فوق الخيول",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 25,
+    "start_word": 487,
+    "end_word": 620,
+    "text_snippet": "الاعراب: \" وتبلي \" فعل مضارع، وفاعله ضمير مستت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 621,
+    "end_word": 690,
+    "text_snippet": "الشاهد فيه: قوله \" الاولى يستلئمون \"، وقوله \" ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 691,
+    "end_word": 792,
+    "text_snippet": "ومن استعمال \" الالى \" في جمع الاناث العاقلات ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 793,
+    "end_word": 814,
+    "text_snippet": "ويقال للمذكر العاقل في الجمع الذين مطلقا أي رف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 815,
+    "end_word": 827,
+    "text_snippet": "وبعض العرب يقول الذون في الرفع والذين في النصب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 828,
+    "end_word": 836,
+    "text_snippet": "ومنه قوله:\n27 - نحن الذون صبحوا الصباحا …\n",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 837,
+    "end_word": 860,
+    "text_snippet": "يوم النخيل غارة ملحاحا ويقال في جمع المؤنث الل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 32,
+    "start_word": 861,
+    "end_word": 879,
+    "text_snippet": "وقد ورد اللاء بمعنى الذين قال الشاعر:\n28 - فما",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 33,
+    "start_word": 880,
+    "end_word": 892,
+    "text_snippet": "كما قد تجيء الأولى بمعنى اللاء كقوله:\nفأما الأ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 893,
+    "end_word": 973,
+    "text_snippet": "فكل فتاة تترك الحجل أقصما ومن وما وأل تساوي ما",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 35,
+    "start_word": 974,
+    "end_word": 985,
+    "text_snippet": "وأكثر ما تستعمل ما في غير العاقل وقد تستعمل في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 36,
+    "start_word": 986,
+    "end_word": 995,
+    "text_snippet": "ومنه قوله: تعالى: {فَانْكِحُوا مَا طَابَ لَكُمْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 37,
+    "start_word": 996,
+    "end_word": 1005,
+    "text_snippet": "وقولهم سبحان ما سخركن لنا وسبحان ما يسبح الرعد",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1006,
+    "end_word": 1017,
+    "text_snippet": "و\"من\" بالعكس فأكثر ما تستعمل في العاقل وقد تست",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1018,
+    "end_word": 1028,
+    "text_snippet": "كقوله تعالى: {وَمِنْهُمْ مَنْ يَمْشِي عَلَى أَر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1029,
+    "end_word": 1058,
+    "text_snippet": "ومنه قول الشاعر:\n29 - بكيت على سرب القطا إذ مر",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1059,
+    "end_word": 1091,
+    "text_snippet": "وأما الألف واللام فتكون للعاقل ولغيره نحو جاءن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1092,
+    "end_word": 1109,
+    "text_snippet": "وأما من وما غير المصدرية فاسمان اتفاقا وأما ما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1110,
+    "end_word": 1130,
+    "text_snippet": "ولغة طييء استعمال ذو موصولة وتكون للعاقل ولغير",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1131,
+    "end_word": 1206,
+    "text_snippet": "فتقول جاءني ذو قام وذو قامت وذو قاما وذو قامتا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1207,
+    "end_word": 1239,
+    "text_snippet": "والأشهر في ذو هذه أعني الموصولة أن تكون مبنية ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1240,
+    "end_word": 1260,
+    "text_snippet": "وقد روى قوله:\nفإما كرام موسرون لقيتهم … فحسبي ",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1261,
+    "end_word": 1286,
+    "text_snippet": "وأما ذات فالفصيح فيها أن تكون مبنية على الضم ر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1287,
+    "end_word": 1342,
+    "text_snippet": "ومثل ماذا بعد ما استفهام … أو من إذا لم تلغ في",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1343,
+    "end_word": 1399,
+    "text_snippet": "وشرط استعمالها موصولة أن تكون مسبوقة ب ما أو م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1400,
+    "end_word": 1451,
+    "text_snippet": "واحترز بقوله إذا لم تلغ في الكلام من أن تجعل م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1452,
+    "end_word": 1461,
+    "text_snippet": "وكلها يلزم بعده صله … على ضمير لائق مشتملة (2)",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1462,
+    "end_word": 1474,
+    "text_snippet": "الموصولات كلها حرفية كانت أو اسمية يلزم أن يقع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1475,
+    "end_word": 1520,
+    "text_snippet": "ويشترط في صلة الموصول الاسمي أن تشتمل على ضمير",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1521,
+    "end_word": 1567,
+    "text_snippet": "وقد يكون الموصول لفظه مفردا مذكرا ومعناه مثنى ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1568,
+    "end_word": 1580,
+    "text_snippet": "وجملة أو شبهها الذي وصل … به كمن عندي الذي ابن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1581,
+    "end_word": 1603,
+    "text_snippet": "صلة الموصول لا تكون إلا جملة أو شبه جملة ونعني",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1604,
+    "end_word": 1610,
+    "text_snippet": "ويشترط في الجملة الموصول بها ثلاثة شروط:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1611,
+    "end_word": 1615,
+    "text_snippet": "أحدها: أن تكون خبرية (1)\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1616,
+    "end_word": 1622,
+    "text_snippet": "الثاني: كونها خالية من معنى التعجب (2)\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1623,
+    "end_word": 1695,
+    "text_snippet": "الثالث: كونها غير مفتقرة إلى\nكلام قبلها واحترز",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1696,
+    "end_word": 1750,
+    "text_snippet": "ويشترط في الظرف والجار والمجرور أن يكونا تامين",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1751,
+    "end_word": 1760,
+    "text_snippet": "وصفة صريحة صلة أل … وكونها بمعرب الأفعال قل (1",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1761,
+    "end_word": 1793,
+    "text_snippet": "الألف واللام لا توصل إلا بالصفة الصريحة قال ال",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1794,
+    "end_word": 1823,
+    "text_snippet": "وفي كون الألف واللام الداخلتين على الصفة المشب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1824,
+    "end_word": 1837,
+    "text_snippet": "وقد شذ وصل الألف واللام بالفعل المضارع وإليه أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1838,
+    "end_word": 1853,
+    "text_snippet": "ومنه قوله: 30 - ما أنت بالحكم الترضى حكومته …\n",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1854,
+    "end_word": 1873,
+    "text_snippet": "وهذا عند جمهور البصريين مخصوص بالشعر وزعم الم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1874,
+    "end_word": 1883,
+    "text_snippet": "وقد جاء وصلها بالجملة الإسمية وبالظرف شذوذا فم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1884,
+    "end_word": 1897,
+    "text_snippet": "31 - من القوم الرسول الله منهم … لهم دانت رقاب",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1898,
+    "end_word": 1917,
+    "text_snippet": "= الشاهد فيه: قوله \" الرسول الله منهم \" حيث وص",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1918,
+    "end_word": 2037,
+    "text_snippet": "ومن العلماء من يجيب عن هذا الشاهد ونحوه بأن \" ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2038,
+    "end_word": 2049,
+    "text_snippet": "وعليه خرجوا قول الله تعالى: (وخضتم كالذي خاضوا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2050,
+    "end_word": 2080,
+    "text_snippet": "وفي الآية تخريجان آخران، أحدهما: أن الذي موصول",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2081,
+    "end_word": 2136,
+    "text_snippet": "قالوا: وربما حذف الشاعر الكلمة كلها، فلم يبق م",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2137,
+    "end_word": 2180,
+    "text_snippet": "وبعض العلماء يجعل الحروف التي تفتتح بها بعض سو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2181,
+    "end_word": 2195,
+    "text_snippet": "قلت: وهذا الذي ذهبوا إليه ليس إلا قياما من ورط",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2196,
+    "end_word": 2213,
+    "text_snippet": "= ومن الثاني قوله:\n32 - من لا يزال شاكرا على ا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2214,
+    "end_word": 2225,
+    "text_snippet": "أي كما وأعربت ما لم تضف … وصدر وصلها ضمير انحذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2226,
+    "end_word": 2248,
+    "text_snippet": "يعني أن أيا مثل ما في أنها تكون بلفظ واحد للمذ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2249,
+    "end_word": 2254,
+    "text_snippet": "ثم إن أيا لها أربعة أحوال:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2255,
+    "end_word": 2265,
+    "text_snippet": "أحدها: أن تضاف ويذكر صدر صلتها نحو: يعجبني أيه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2266,
+    "end_word": 2277,
+    "text_snippet": "الثاني: أن لا تضاف ولا يذكر صدر صلتها نحو: يعج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2278,
+    "end_word": 2327,
+    "text_snippet": "الثالث: أن لا تضاف ويذكر صدر صلتها نحو: يعجبني",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2328,
+    "end_word": 2353,
+    "text_snippet": "الرابع: أن تضاف ويحذف صدر الصلة نحو يعجبني أيه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2354,
+    "end_word": 2367,
+    "text_snippet": "وعليه قوله تعالى: {ثُمَّ لَنَنْزِعَنَّ مِنْ كُل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2368,
+    "end_word": 2377,
+    "text_snippet": "وقول الشاعر:\n33 - إذا ما لقيت بني مالك …\n",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2378,
+    "end_word": 2443,
+    "text_snippet": "فسلم على أيهم أفضل وهذا مستفاد من قوله وأعربت ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 88,
+    "start_word": 2444,
+    "end_word": 2455,
+    "text_snippet": "وبعضهم أعرب مطلقا وفي …\nذا الحذف أيا غير أي يق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 89,
+    "start_word": 2456,
+    "end_word": 2468,
+    "text_snippet": "إن يستطل وصل وإن لم يستطل … فالحذف نزر وأبوا أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2469,
+    "end_word": 2479,
+    "text_snippet": "إن صلح الباقي لوصل مكمل … والحذف عندهم كثير من",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2480,
+    "end_word": 2492,
+    "text_snippet": "في عائد متصل إن انتصب …\nبفعل أو وصف كمن نرجو ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2493,
+    "end_word": 2531,
+    "text_snippet": "يعني أن بعض العرب أعرب أيا مطلقا أي وإن أضيفت ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 93,
+    "start_word": 2532,
+    "end_word": 2553,
+    "text_snippet": "وأشار بقوله وفي ذا الحذف إلى آخره إلى المواضع ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 94,
+    "start_word": 2554,
+    "end_word": 2589,
+    "text_snippet": "فإن كان مرفوعا لم يحذف إلا إذا كان مبتدأ وخبره",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 95,
+    "start_word": 2590,
+    "end_word": 3070,
+    "text_snippet": "وأما المبتدأ فيحذف مع أي وإن لم تطل الصلة كما ت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 96,
+    "start_word": 3071,
+    "end_word": 3238,
+    "text_snippet": "وأشار بقوله وأبوا أن يختزل إن صلح الباقي لوصل ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 97,
+    "start_word": 3239,
+    "end_word": 3350,
+    "text_snippet": "وبهذا يظهر لك ما في كلام المصنف من الإبهام فإن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 98,
+    "start_word": 3351,
+    "end_word": 3361,
+    "text_snippet": "وأشار بقوله: والحذف عندهم كثير منجلي إلى آخره ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 99,
+    "start_word": 3362,
+    "end_word": 3380,
+    "text_snippet": "وشرط جواز حذفه أن يكون متصلا منصوبا بفعل تام أ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 100,
+    "start_word": 3381,
+    "end_word": 3389,
+    "text_snippet": "فيجوز حذف الهاء من ضربته فتقول جاء الذي ضربت و",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 101,
+    "start_word": 3390,
+    "end_word": 3396,
+    "text_snippet": "ومنه قوله تعالى: {ذَرْنِي وَمَنْ خَلَقْتُ وَحِي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 102,
+    "start_word": 3397,
+    "end_word": 3403,
+    "text_snippet": "وقوله تعالى: {أَهَذَا الَّذِي بَعَثَ اللهُ رَسو",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 103,
+    "start_word": 3404,
+    "end_word": 3418,
+    "text_snippet": "التقدير خلقته وبعثه ⌜6⌝ وكذلك يجوز حذف الهاء م",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 104,
+    "start_word": 3419,
+    "end_word": 3435,
+    "text_snippet": "ومنه قوله:\n34 - ما الله موليك فضل فاحمدنه به …",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 105,
+    "start_word": 3436,
+    "end_word": 3443,
+    "text_snippet": "تقديره: الذي الله موليكه فضل فحذفت الهاء.\n____",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 106,
+    "start_word": 3444,
+    "end_word": 3470,
+    "text_snippet": "= أن تستوجب عليه سبحانه شيئا من ذلك، فاحمد ربك",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 107,
+    "start_word": 3471,
+    "end_word": 3658,
+    "text_snippet": "الاعراب: \" ما \" أسم موصول مبتدأ \" الله \" مبتدأ ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 108,
+    "start_word": 3659,
+    "end_word": 3696,
+    "text_snippet": "الشاهد فيه: قوله: \" ما الله موليك \" حيث حذف الض",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 109,
+    "start_word": 3697,
+    "end_word": 3800,
+    "text_snippet": "واعلم أنه يشترط في حذف العائد المنصوب بالوصف أ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 110,
+    "start_word": 3801,
+    "end_word": 3819,
+    "text_snippet": "وكلام المصنف يقتضي أنه كثير وليس كذلك بل الكثي",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 111,
+    "start_word": 3820,
+    "end_word": 3873,
+    "text_snippet": "فإن كان الضمير منفصلا ⌜7⌝ لم يجز الحذف نحو جاء ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 112,
+    "start_word": 3874,
+    "end_word": 3886,
+    "text_snippet": "كذاك حذف ما بوصف خفضا … كأنت قاض بعد أمر من قض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 113,
+    "start_word": 3887,
+    "end_word": 3900,
+    "text_snippet": "كذا الذي جر بما الموصول جر … ك مر بالذي مررت ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 114,
+    "start_word": 3901,
+    "end_word": 3921,
+    "text_snippet": "لما فرغ من الكلام على الضمير المرفوع والمنصوب ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 115,
+    "start_word": 3922,
+    "end_word": 3972,
+    "text_snippet": "فإن كان مجرورا بالإضافة لم يحذف إلا إذا كان مج",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 116,
+    "start_word": 3973,
+    "end_word": 3983,
+    "text_snippet": "وأشار بقوله كأنت قاض إلى قوله تعالى: {فَاقْضِ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 117,
+    "start_word": 3984,
+    "end_word": 4004,
+    "text_snippet": "التقدير ما أنت قاضيه فحذفت الهاء وكأن المصنف ا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 118,
+    "start_word": 4005,
+    "end_word": 4039,
+    "text_snippet": "وإن كان مجرورا بحرف فلا يحذف إلا إن دخل على ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 119,
+    "start_word": 4040,
+    "end_word": 4045,
+    "text_snippet": "قال الله تعالى: {وَيَشْرَبُ مِمَّا تَشْرَبُونَ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 120,
+    "start_word": 4046,
+    "end_word": 4056,
+    "text_snippet": "أي منه وتقول مررت بالذي أنت مار أي به ومنه قول",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 121,
+    "start_word": 4057,
+    "end_word": 4071,
+    "text_snippet": "35 - وقد كنت تخفي حب سمراء حقبة … فبح لان منها",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 122,
+    "start_word": 4072,
+    "end_word": 4075,
+    "text_snippet": "أي أنت بائح به.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 123,
+    "start_word": 4076,
+    "end_word": 4131,
+    "text_snippet": "فإن اختلف الحرفان لم يجز الحذف نحو مررت بالذي ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 124,
+    "start_word": 4132,
+    "end_word": 4175,
+    "text_snippet": "وهذا كله هو المشار إليه بقوله كذا الذي جر بما ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.85
+  }
+]

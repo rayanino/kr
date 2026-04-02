@@ -1,0 +1,110 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "4- جواز التعليم بالفعل، ليكون أبقى في ذهن المتعلم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان جواز التعليم بالفعل وأنه أرسخ في ذهن المتعلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 9,
+    "end_word": 35,
+    "text_snippet": "5- جواز فعل العبادة لأجل التعليم، وأنه ليس من التشريك في العمل فإن الأصل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز أداء العبادة بقصد التعليم وأن ذلك لا يعد من التشريك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 36,
+    "end_word": 122,
+    "text_snippet": "الحديث الحادي عشر\nعَنْ عَبْدِ الله بنِ مَالِكٍ \"ابن بُحَينةَ\" رضيَ الله عَنْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث تفريج اليدين في السجود مع شرحه وبيان دلالته على النشاط في الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 123,
+    "end_word": 178,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فيه دليل على استحباب هذه الهيئة في السجود، وهى مباعد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "استحباب مباعدة العضدين عن الجنبين في السجود وتخصيصه بحال السجود جمعًا بين الروايات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12
+    ],
+    "start_word": 179,
+    "end_word": 207,
+    "text_snippet": "2- في ذلك حِكَم كثيرة، وفوائد جسيمة.\nمنها: - إظهار النشاط والرغبة في الصلاة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان حكم وفوائد هذه الهيئة في السجود من إظهار النشاط وإعطاء الأعضاء حقها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 208,
+    "end_word": 258,
+    "text_snippet": "فائدة:\nخص بعض الفقهاء، ومنهم الحنابلة، هذا الحكم بالرجل دون المرأة، لأنه ي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "قول بعض الفقهاء بتخصيص تفريج السجود بالرجل دون المرأة مع تعليلهم واستدلالهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم أصل الحكم من السياق السابق؛ كما أن الحديث المستدل به مرسل ويحتاج معرفة درجته وأثرها في الاستدلال."
+  }
+]

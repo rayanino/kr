@@ -1,0 +1,143 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "كما كان يصعد وينزل على درج المنبر، ليريهم صلاته.\nوكما كان يفتح الباب لعائش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان جواز الحركة اليسيرة في الصلاة عند الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 34,
+    "end_word": 88,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز مثل هذه الحركة في صلاة الفريضة والنافلة، من الإ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثلاث: جواز الحركة اليسيرة، وحكم ملامسة مظنة النجاسة، وخلق النبي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى الحديث السابق بقولهم: مثل هذه الحركة، وهنا، فلا يتضح المثال المقصود إلا من السياق السابق."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 89,
+    "end_word": 117,
+    "text_snippet": "فائدة:\nقسم بعض العلماء الحركة في الصلاة إلى أربعة أقسام حسب الاستقراء والت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "تقسيم الحركة في الصلاة وبيان القسم المحرم المبطل وهو الكثير المتوالي بلا ضرورة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 118,
+    "end_word": 146,
+    "text_snippet": "القسم الثاني: يكره في ولا يبطلها: وهو اليسير لغير حاجة، مما ليس لمصلحة الص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان القسم المكروه من الحركة في الصلاة وأنه اليسير بلا حاجة ولا يبطلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 147,
+    "end_word": 186,
+    "text_snippet": "القسم الثالث: الحركة المباحة وهي اليسيرة للحاجة: ولعل هذا القسم، هو ما كان",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان الحركة المباحة في الصلاة وأنها اليسيرة للحاجة مع أمثلتها النبوية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 187,
+    "end_word": 221,
+    "text_snippet": "القسم الرابع: الحركة المشروعة وهي التي يتعلق بها مصلحة الصلاة، كالتقدم للم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "بيان الحركة المشروعة لمصلحة الصلاة أو لفعل مأمور به مع أمثلتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 222,
+    "end_word": 325,
+    "text_snippet": "الحديث الرابع عشر\nعَنْ أنَس بنِ مَالِكٍ رضي الله عنه عَن النبي صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث الاعتدال في السجود والنهي عن بسط الذراعين مع بيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 326,
+    "end_word": 372,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتدال في السجود، على الهيئة المشروعة.\n2- ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث: استحباب الاعتدال، والنهي عن بسط الذراعين، وكراهة مشابهة الحيوانات.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة على الهيئة المشروعة تحيل إلى صفة سبق شرحها في المعنى الإجمالي، ففهم التفصيل الكامل يحتاج إلى ما قبلها."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 373,
+    "end_word": 429,
+    "text_snippet": "فائدة جليلة:\nورد الأمر من الشارع بمخالفة الحيوانات الخسيسة والشريفة في هيئ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "أصل مخالفة الحيوانات في هيئات الصلاة مع أمثلة النواهي الواردة في ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,474 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ التيمّم\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 12,
+    "text_snippet": "التيمم في اللغة: القصد، قال تعالى: {وَلَا آمِّين",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 13,
+    "end_word": 49,
+    "text_snippet": "ثم نقل -في عرف الفقهاء- إلى مسح الوجه واليدين، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 50,
+    "end_word": 81,
+    "text_snippet": "وهو من خصائص هذه الأمة المحمدية التي يسر الله أم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 4,
+    "start_word": 82,
+    "end_word": 107,
+    "text_snippet": "فإن من عدم الماء -الذي هو أحد أصلي الحياة- تعوض",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 108,
+    "end_word": 121,
+    "text_snippet": "فإذا عدمت هذه الأداة الكاملة، رجعنا إلى صورة الط",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 122,
+    "end_word": 134,
+    "text_snippet": "فلا شك في حكمته، ولا ريب في فائدته، لمن رُزق الس",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 7,
+    "start_word": 135,
+    "end_word": 148,
+    "text_snippet": "وهو ثابت في الكتاب العزيز، والسنة المطهرة، وإجما",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 8,
+    "start_word": 149,
+    "end_word": 196,
+    "text_snippet": "عَنْ عِمْرَانَ بْنِ حُصَين رضي الله عنه أنَّ رسول",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 197,
+    "end_word": 198,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 199,
+    "end_word": 216,
+    "text_snippet": "1- \"معتزلا\": منفرداً عن القوم، متنحيا عنهم، وه",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 217,
+    "end_word": 223,
+    "text_snippet": "2- \"الصعيد\": وجه الأرض وما علا منها.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 224,
+    "end_word": 225,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 226,
+    "end_word": 325,
+    "text_snippet": "صلّى النبي صلى الله عليه وسلم بالصحابة صلاة الصب",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 326,
+    "end_word": 329,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 330,
+    "end_word": 338,
+    "text_snippet": "1- التيمم ينوب مناب الغسل في التطهير من الجنابة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 339,
+    "end_word": 364,
+    "text_snippet": "2- أن التيمم لا يكون إلا لعادم الماء أو المتضرر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 365,
+    "end_word": 388,
+    "text_snippet": "3- لا ينبغي لمن رأى مقصرا في عمل، أن يبادره بالت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 389,
+    "end_word": 421,
+    "text_snippet": "4- جواز الاجتهاد في مسائل العلم بحضرة النبي صلى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 422,
+    "end_word": 423,
+    "text_snippet": "كيفية التيمم\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 424,
+    "end_word": 484,
+    "text_snippet": "عَنْ عمار بن يَاسِر رضي الله عنهما قَال: بَعَثنِي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 485,
+    "end_word": 486,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 487,
+    "end_word": 497,
+    "text_snippet": "1- \"فتمرغت في الصعيد\": تقلب في الأرض حتى عمَّ ب",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 498,
+    "end_word": 511,
+    "text_snippet": "2- \"أن تقول بيديك\": يراد بالقول الفعل، وهو كثير",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 512,
+    "end_word": 513,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 514,
+    "end_word": 629,
+    "text_snippet": "بعث النبي صلى الله عليه وسلم \"عمار بن ياسر\" في ",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 26,
+    "start_word": 630,
+    "end_word": 631,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 632,
+    "end_word": 653,
+    "text_snippet": "اختلف العلماء: هل يجزئ في التيمم ضربة واحدة للوج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 654,
+    "end_word": 671,
+    "text_snippet": "فذهب بعضهم ومنهم الشافعي - إلى أنه لابد من ضربتي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 672,
+    "end_word": 686,
+    "text_snippet": "منها ما رواه الدارقطني عن ابن عمر \"التيمم مرتان،",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 687,
+    "end_word": 732,
+    "text_snippet": "وذهب الجمهور، ومنهم الإمام أحمد، والأوزاعى، وإسح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 733,
+    "end_word": 742,
+    "text_snippet": "وأجابوا عن أحاديث الضربتين والمرفقين، بما فيها م",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 743,
+    "end_word": 793,
+    "text_snippet": "ولا نجعل تلك الأحاديث في صف الأحاديث الصحاح الو",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 794,
+    "end_word": 812,
+    "text_snippet": "وقال الخطابي: ذهب جماعة من أهل العلم إلى أن التي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 813,
+    "end_word": 817,
+    "text_snippet": "… ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 818,
+    "end_word": 822,
+    "text_snippet": "1- التيمم للغسل من الجنابة.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 823,
+    "end_word": 830,
+    "text_snippet": "2- أنه لابد من طلب الماء قبل التيمم.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 831,
+    "end_word": 860,
+    "text_snippet": "3- صفة التيمم، وهو ضرب الأرض مرة واحدة، ثم مسح ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 38,
+    "start_word": 861,
+    "end_word": 909,
+    "text_snippet": "4- ذكر الصنعانى أن العطف في روايات هذا الحديث قد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 39,
+    "start_word": 910,
+    "end_word": 920,
+    "text_snippet": "5- أن التيمم للحدث الأكبر، كالتيمم للحدث الأصغر،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 921,
+    "end_word": 925,
+    "text_snippet": "6- الاجتهاد في مسائل العبادات.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 926,
+    "end_word": 947,
+    "text_snippet": "7- أن المجتهد إذا أدَّاه اجتهاده إلى غير الصواب،",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 948,
+    "end_word": 958,
+    "text_snippet": "بيان الأمور الخمسة التي خص بها النبي صلى الله عل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 959,
+    "end_word": 1024,
+    "text_snippet": "عَنْ جَابِرِ بنِ عَبْدِ الله رضي الله عنهما: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1025,
+    "end_word": 1026,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1027,
+    "end_word": 1052,
+    "text_snippet": "1- \"لم تحل\": يجوز ضم التاء وفتح الحاء، على البن",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1053,
+    "end_word": 1054,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1055,
+    "end_word": 1392,
+    "text_snippet": "خص نبينا صلى الله عليه وسلم عن سائر الأنبياء بخ",
+    "scholarly_function": "narration",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1393,
+    "end_word": 1396,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1397,
+    "end_word": 1406,
+    "text_snippet": "هذا حديث عظيم، وفيه فوائد جمة، ونقتصر على البارز",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1407,
+    "end_word": 1421,
+    "text_snippet": "1- تفضيل نبينا صلى الله عليه وسلم على سائر الأنب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1422,
+    "end_word": 1439,
+    "text_snippet": "2- تعديد نِعَم الله على العبد، وإن ذكرها- على وج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1440,
+    "end_word": 1489,
+    "text_snippet": "3- كونه صلى الله عليه وسلم نُصِرَ بالرعب، وأحلت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1490,
+    "end_word": 1498,
+    "text_snippet": "4- أن صحة الصلاة لا تختص ببقعة دون أخرى.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1499,
+    "end_word": 1506,
+    "text_snippet": "5- أن الأصل في الأرض الطهارة للصلاة والتيمم.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1507,
+    "end_word": 1513,
+    "text_snippet": "6- أن كل أرض صالحة ليتيمم منها.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1514,
+    "end_word": 1531,
+    "text_snippet": "7- سعة هذه الشريعة وعظمتها، لذا جعلت لتنظيم العا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1532,
+    "end_word": 1553,
+    "text_snippet": "8- قوله: \" أيما رجل \" لا يراد به جنس الرجال وحده",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1554,
+    "end_word": 1576,
+    "text_snippet": "9- قال الصنعاني: إنما خص مسافة الشهر، دون مسافة ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

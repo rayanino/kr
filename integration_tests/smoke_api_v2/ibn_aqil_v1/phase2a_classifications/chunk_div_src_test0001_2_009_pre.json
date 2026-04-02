@@ -1,0 +1,634 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌كان وأخواتها\nترفع كان المبتدا اسما والخبر … ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 24,
+    "text_snippet": "ككان ظل بات أضحى أصبحا … أمسى وصار ليس زال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 25,
+    "end_word": 35,
+    "text_snippet": "فتىء وانفك وهذي الأربعة … لشبه نفي أو لنفي ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 36,
+    "end_word": 47,
+    "text_snippet": "ومثل كان دام مسبوقا بما … كأعط ما دمت مصيبا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 48,
+    "end_word": 79,
+    "text_snippet": "لما فرغ من الكلام على المبتدأ والخبر شرع في ذكر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 5,
+    "start_word": 80,
+    "end_word": 112,
+    "text_snippet": "فبدأ المصنف بذكر كان وأخواتها وكلها أفعال اتفا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 113,
+    "end_word": 126,
+    "text_snippet": "وهي ترفع المبتدأ وتنصب خبره ويسمى المرفوع بها ",
+    "scholarly_function": "definition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 7,
+    "start_word": 127,
+    "end_word": 145,
+    "text_snippet": "وهذه الأفعال قسمان منها ما يعمل هذا العمل بلا ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 146,
+    "end_word": 155,
+    "text_snippet": "ومنها: ما لا يعمل هذا العمل إلا بشرط وهو قسمان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 9,
+    "start_word": 156,
+    "end_word": 182,
+    "text_snippet": "أحدهما: ما يشترط في عمله أن يسبقه نفي لفظا أو ت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 183,
+    "end_word": 191,
+    "text_snippet": "ومثاله تقديرا قوله تعالى: {قَالُوا تَاللهِ تَفْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 192,
+    "end_word": 251,
+    "text_snippet": "أي لا تفتؤ ولا يحذف النافي معها إلا بعد القسم ك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 252,
+    "end_word": 263,
+    "text_snippet": "ومثال شبه النفي والمراد به النهي كقولك لا تزل قا",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 13,
+    "start_word": 264,
+    "end_word": 276,
+    "text_snippet": "61 - صاح شمر ولا تزل ذاكر المو … ت فنسيانه ضل",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 14,
+    "start_word": 277,
+    "end_word": 285,
+    "text_snippet": "والدعاء كقولك لا يزال الله محسنا إليك وقول الشا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 286,
+    "end_word": 312,
+    "text_snippet": "62 - ألا يا اسلمي يا درامي على البلى … ولا زال ",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 16,
+    "start_word": 313,
+    "end_word": 337,
+    "text_snippet": "القسم الثاني: ما يشترط في عمله أن يسبقه ما المص",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 338,
+    "end_word": 346,
+    "text_snippet": "ومنه قوله تعالى: {وَأَوْصَانِي بِالصَّلاةِ وَالز",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 347,
+    "end_word": 435,
+    "text_snippet": "أي مدة دوامي حيا ومعنى ظل اتصاف المخبر عنه بالخب",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 436,
+    "end_word": 448,
+    "text_snippet": "وغير ماض مثله قد عملا … إن كان غير الماض منه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 449,
+    "end_word": 462,
+    "text_snippet": "هذه الأفعال على قسمين (2) : أحدهما: ما يتصرف، و",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 463,
+    "end_word": 493,
+    "text_snippet": "والثاني: ما لا يتصرف، وهو ليس ودام فنبه المصنف ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 494,
+    "end_word": 500,
+    "text_snippet": "قال الله تعالى: {وَيَكُونَ الرَّسُولُ عَلَيْكُمْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 501,
+    "end_word": 513,
+    "text_snippet": "والأمر نحو كونوا قوامين بالقسط وقال الله تعالى:",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 514,
+    "end_word": 536,
+    "text_snippet": "واسم الفاعل نحو زيد كائن أخاك وقال الشاعر:\n63 -",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 537,
+    "end_word": 567,
+    "text_snippet": "والمصدر كذلك واختلف الناس في كان الناقصة هل لها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 568,
+    "end_word": 591,
+    "text_snippet": "وما لا يتصرف منها وهو دام وليس (1) وما كان النف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 592,
+    "end_word": 602,
+    "text_snippet": "وفي جميعها توسط الخبر … أجز وكل سبقه دام حظر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 603,
+    "end_word": 679,
+    "text_snippet": "مرده أن أخبار هذه الأفعال إن لم يجب تقديمها على",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 680,
+    "end_word": 688,
+    "text_snippet": "قال الله تعالى: {وَكَانَ حَقّاً عَلَيْنَا نَصْرُ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 689,
+    "end_word": 729,
+    "text_snippet": "وكذلك سائر أفعال هذا الباب من المتصرف وغيره يجو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 730,
+    "end_word": 764,
+    "text_snippet": "وذكر ابن معط أن خبر دام لا يتقدم على اسمها فلا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 32,
+    "start_word": 765,
+    "end_word": 852,
+    "text_snippet": "وأشار بقوله وكل سبقه دام حظر إلى أن كل العرب أو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 33,
+    "start_word": 853,
+    "end_word": 864,
+    "text_snippet": "كذاك سبق خبر ما النافية … فجيء بها متلوة لا تا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 865,
+    "end_word": 923,
+    "text_snippet": "يعني أنه لا يجوز أن يتقدم الخبر على ما النافية ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 924,
+    "end_word": 945,
+    "text_snippet": "ومفهوم كلامه أنه إذا كان النفي بغير ما يجوز التق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 946,
+    "end_word": 969,
+    "text_snippet": "ومفهوم كلامه أيضا جواز تقديم الخبر على الفعل وحد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 970,
+    "end_word": 981,
+    "text_snippet": "ومنع سبق خبر ليس اصطفى … وذو تمام ما برفع يكتف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 38,
+    "start_word": 982,
+    "end_word": 993,
+    "text_snippet": "وما سواه ناقص والنقص في … فتىء ليس زال دائما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 994,
+    "end_word": 1090,
+    "text_snippet": "اختلف النحويون في جواز تقديم خبر ليس عليها فذهب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1091,
+    "end_word": 1128,
+    "text_snippet": "وقوله وذو تمام إلى آخره معناه أن هذه الأفعال ان",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1129,
+    "end_word": 1155,
+    "text_snippet": "وكل هذه الأفعال يجوز أن تستعمل تامة إلا فتىء وز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1156,
+    "end_word": 1188,
+    "text_snippet": "ومثال التام قوله تعالى: {وَإِنْ كَانَ ذُو عُسْرَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1189,
+    "end_word": 1202,
+    "text_snippet": "ولا يلي العامل معمول الخبر … إلا إذا ظرفا أتى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1203,
+    "end_word": 1298,
+    "text_snippet": "يعني أنه لا يجوز أن يلي كان وأخواتها معمول خبره",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1299,
+    "end_word": 1320,
+    "text_snippet": "فإن كان المعمول ظرفا أو جارا ومجرورا جاز إيلاؤه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1321,
+    "end_word": 1333,
+    "text_snippet": "ومضمر الشأن اسما انو إن وقع … موهم ما استبان ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1334,
+    "end_word": 1361,
+    "text_snippet": "يعني أنه إذا ورد من لسان العرب ما ظاهره أنه ولي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1362,
+    "end_word": 1374,
+    "text_snippet": "67 - قنافذ هداجون حول بيوتهم … بما كان إياهم ",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1375,
+    "end_word": 1717,
+    "text_snippet": "= ارتعاش، وباب فعله ضرب، ويروى \" قنافذ دراجون \"",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1718,
+    "end_word": 1748,
+    "text_snippet": "= فهذا ظاهره أنه مثل كان طعامك زيد آكلا ويتخرج ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1749,
+    "end_word": 1760,
+    "text_snippet": "68 - فأصبحوا والنوى عالي معرسهم … وليس كل النو",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1761,
+    "end_word": 2407,
+    "text_snippet": "_________\n= أما رواية رفع \" كل \" - سواء أكانت ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2408,
+    "end_word": 2485,
+    "text_snippet": "= إذا قرئ بالتاء المثناة من فوق فيخرج البيتان عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2486,
+    "end_word": 2498,
+    "text_snippet": "وقد تزاد كان في حشو كما كان … أصح علم من تقدما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2499,
+    "end_word": 2584,
+    "text_snippet": "كان على ثلاثة أقسام\nأحدها: الناقصة\nوالثاني: الت",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2585,
+    "end_word": 2615,
+    "text_snippet": "وقد سمعت زيادتها بين الفعل ومرفوعه كقولهم (2) :",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2616,
+    "end_word": 2625,
+    "text_snippet": "فكيف إذا مررت بدار قوم … وجيران لنا كانوا كرام",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2626,
+    "end_word": 2949,
+    "text_snippet": "_________\n= محل نصب حال من فاعل هو ضمير مستتر ف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2950,
+    "end_word": 2969,
+    "text_snippet": "= وشذ زيادتها بين حرف الجر ومجروره كقوله:\n70 - ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2970,
+    "end_word": 2986,
+    "text_snippet": "وأكثر ما تزاد بلفظ الماضي وقد شذت زيادتها بلفظ ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2987,
+    "end_word": 2997,
+    "text_snippet": "71 - أنت تكون ماجد نبيل … إذا تهب شمأل بليل ويح",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2998,
+    "end_word": 3008,
+    "text_snippet": "ذفونها ويبقون الخبر … وبعد إن ولو كثيرا ذا اشته",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 63,
+    "start_word": 3009,
+    "end_word": 3044,
+    "text_snippet": "تحذف كان مع اسمها ويبقى خبرها كثيرا بعد إن كقول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 64,
+    "start_word": 3045,
+    "end_word": 3058,
+    "text_snippet": "وبعد لو (1) كقولك ائتني بدابة ولو حمارا أي ولو ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 65,
+    "start_word": 3059,
+    "end_word": 3075,
+    "text_snippet": "وقد شذ حذفها بعد لدن كقوله:\nمن لد شولا فإلى إتل",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 66,
+    "start_word": 3076,
+    "end_word": 3088,
+    "text_snippet": "وبعد أن تعويض ما عنها ارتكب … كمثل أما أنت برا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 67,
+    "start_word": 3089,
+    "end_word": 3138,
+    "text_snippet": "ذكر في هذا البيت أن كان تحذف بعد أن المصدرية ويع",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 3139,
+    "end_word": 3164,
+    "text_snippet": "ثم أدغمت النون في الميم فصار أما أنت برا ومثله ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 69,
+    "start_word": 3165,
+    "end_word": 3178,
+    "text_snippet": "فأن مصدرية وما زائدة عوضا عن كان وأنت اسم كان ا",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 70,
+    "start_word": 3179,
+    "end_word": 3204,
+    "text_snippet": "ولا يجوز الجمع بين كان وما لكون ما عوضا عنها ول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 71,
+    "start_word": 3205,
+    "end_word": 3272,
+    "text_snippet": "ولم يسمع من لسان العرب حذف كان وتعويض ما عنها و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 72,
+    "start_word": 3273,
+    "end_word": 3284,
+    "text_snippet": "ومن مضارع لكان منجزم … تحذف نون وهو حذف ما الت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 73,
+    "start_word": 3285,
+    "end_word": 3345,
+    "text_snippet": "إذا جزم الفعل المضارع من كان قيل لم يكن والأصل ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 74,
+    "start_word": 3346,
+    "end_word": 3363,
+    "text_snippet": "أن هذه النون لا تحذف عنه ملاقاة ساكن فلا تقول ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 75,
+    "start_word": 3364,
+    "end_word": 3384,
+    "text_snippet": "وقد قرئ شاذا لم يك الذين\nكفروا وأما إذا لاقت مت",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 76,
+    "start_word": 3385,
+    "end_word": 3417,
+    "text_snippet": "فإن كان ضميرا متصلا لم تحذف النون اتفاقا كقوله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 77,
+    "start_word": 3418,
+    "end_word": 3443,
+    "text_snippet": "فلا يجوز حذف النون فلا تقول إن يكه والإيكه وإن ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 78,
+    "start_word": 3444,
+    "end_word": 3468,
+    "text_snippet": "وظاهر كلام المصنف أنه لا فرق في ذلك بين كان الن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  }
+]

@@ -1,0 +1,627 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن التعريض بالقذف ليس قذفا، فلا يوجب الحد، وبه قال ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أن التعريض بالقذف لا يعد قذفاً موجباً للحد، ولا غيبة في مقام الاستفتاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 29,
+    "end_word": 56,
+    "text_snippet": "2- أن الولد يلحق بأبويه، ولو خالف لونه لونهما قال ابن دقيق العيد: فيه دليل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إلحاق الولد بأبويه ولو خالف لونهما، وأن اختلاف اللون لا يبيح نفي النسب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 57,
+    "end_word": 77,
+    "text_snippet": "3- الاحتياط للأنساب، وأن مجرد الاحتمال والظن، لا ينفي الولد من أبيه، فإن الو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الاحتياط للأنساب، وأن الظن والاحتمال لا يكفيان لنفي الولد عن أبيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 78,
+    "end_word": 111,
+    "text_snippet": "4- فيه ضرب الأمثال، وتشبيه المجهول بالمعلوم، ليكون أقرب إلى الفهم\nوهذا الحدي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_qiyas"
+    ],
+    "description_arabic": "مشروعية ضرب الأمثال، والاستدلال بالحديث على القياس وقياس الشبه والاعتبار بالنظير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 112,
+    "end_word": 163,
+    "text_snippet": "5- فيه حسن تعليم النبي صلى الله عليه وسلم، وكيف يخاطب الناس بما يعرفون ويفهم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "حسن تعليم النبي ومخاطبة الناس بما يفهمون، وأن ذلك من الحكمة المأمور بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 164,
+    "end_word": 445,
+    "text_snippet": "‌‌بَابُ لحَاق النَّسب ⌜1⌝\nالحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها قَالت: اخْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "قصة نزاع سعد وعبد بن زمعة وشرحها، وفيها أصل الولد للفراش والاحتياط بالشبه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 446,
+    "end_word": 474,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الولد للفراش، بشرط إمكان الإلحاق بصاحب الفراش. قال ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "قاعدة الولد للفراش مع شرط إمكان الإلحاق بصاحب الفراش ولو وجد وطء محرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 475,
+    "end_word": 549,
+    "text_snippet": "2- أن الزوجة تكون فراشاً بمجرد عقد النكاح، وأن الأمة فراش، لكن لا تعتبر إلا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان متى تصير الزوجة أو الأمة فراشاً، مع ذكر خلاف ابن تيمية وترجيح ابن القيم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 550,
+    "end_word": 562,
+    "text_snippet": "3- أن الاستلحاق لا يختص بالأب، بل يجوز من الأخ وغيره من الأقارب.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الاستلحاق من غير الأب كالأخ وغيره من الأقارب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 563,
+    "end_word": 578,
+    "text_snippet": "4- أن حكم الشبه إنما يعتمد عليه، إذا لم يكن هناك ما هو أقوى منه كالفراش.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "اعتبار الشبه في النسب مقيد بعدم وجود ما هو أقوى منه كالفراش.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 579,
+    "end_word": 610,
+    "text_snippet": "5- قال العلماء، من المالكية، والشافعية، والحنابلة: أمر النبي صلى الله عليه و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن أمر سودة بالاحتجاب كان على جهة الاحتياط والورع لقوة الشبه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      28,
+      29,
+      30
+    ],
+    "start_word": 611,
+    "end_word": 648,
+    "text_snippet": "6- أن حكم الوطء المحرم كالحلال في حرمة المصاهرة.\nووجهه أن سودة أمرت بالاحتجاب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "هل يثبت لوطء الزنا حرمة المصاهرة؟ مع دليل الحنفية والحنابلة وخلاف المالكية والشافعية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 649,
+    "end_word": 711,
+    "text_snippet": "7- أن حكم الحاكم لا يغير الأمر في الباطن.\nفإذا علم المحكوم له أنه مبطل، فهو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن حكم القاضي لا يحل الحرام باطناً إذا علم المحكوم له بطلان دعواه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "start_word": 712,
+    "end_word": 936,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها: أنَّها قَالَتْ: إنَّ رَسولَ اللَه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث القائف مجزز المدلجي وشرحه، وفيه ظهور الشبه بين زيد وأسامة وسرور النبي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      45,
+      46,
+      47
+    ],
+    "start_word": 937,
+    "end_word": 988,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- العمل بقول القافة في إلحاق النسب، مع عدم ما هو أقوى من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "العمل بقول القافة في النسب عند عدم الأقوى، مع ذكر مخالفة أبي حنيفة والجواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 989,
+    "end_word": 1016,
+    "text_snippet": "2- يكفي قائف واحد، ولكن اشترط العلماء فيه أن يكون عَدْلا مجرباً في الإصابة وه",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "الاكتفاء بقائف واحد بشرط العدالة والتجربة والإصابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 1017,
+    "end_word": 1025,
+    "text_snippet": "3- تشوف الشارع الحكيم إلى صحة الأنساب، وإلحاقها بأصولها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حرص الشريعة على تصحيح الأنساب وإلحاقها بأصولها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      50
+    ],
+    "start_word": 1026,
+    "end_word": 1039,
+    "text_snippet": "4- الفرح والتبشير بالأخبار السارة، وإشاعتها. خصوصا ما فيه إزالة ريبة أو قالَة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب الفرح بالخبر السار وبثه، خاصة ما يزيل الريبة وسوء الظن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      51
+    ],
+    "start_word": 1040,
+    "end_word": 1055,
+    "text_snippet": "5- لا تختص بالقيافة قبيلة بعينها، وإنما يعمل بخبر من اجتمعت فيه شروط الإصابة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القيافة لا تختص بقبيلة معينة، بل العبرة بتحقق شروط الإصابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1056,
+    "end_word": 1082,
+    "text_snippet": "6- ظن الفقهاء أن القائف يمكن أن يلحق الولد بأكثر من أب، وأثبت الطب الحديث أن ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "ملاحظة معاصرة في نفي إمكان إلحاق الولد بأكثر من أب بحسب الطب الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 1083,
+    "end_word": 1222,
+    "text_snippet": "الحديث الثالث\nعَنْ أبي سَعِيدٍ الخُدْري رضي الله عنه قَالَ: ذُكِرَ العَزلُ لرس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث العزل وشرح ألفاظه ومعناه، وأن القدر لا يرده العزل إذا أراد الله خلق نفس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      61,
+      62
+    ],
+    "start_word": 1223,
+    "end_word": 1237,
+    "text_snippet": "ما يستفاد من الحديث:\n1- يأتي حكم العزل والخلاف فيه قريبا، إن شاء الله تعالى.",
+    "primary_function": "cross_reference",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إحالة إلى أن تفصيل حكم العزل وخلاف العلماء سيأتي لاحقاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه وحدة إحالية لا تعطي حكماً مكتملًا، وتفهم تماماً مع ما يأتي بعدُ من بحث حكم العزل."
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      63
+    ],
+    "start_word": 1238,
+    "end_word": 1251,
+    "text_snippet": "2- إنكار العزل بقصد التحرز عن خلق الولد، لأن فيه اعتمادا على الأسباب وحدها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إنكار العزل إذا قصد به الفرار من الولد اعتماداً على الأسباب وحدها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      64,
+      65,
+      66
+    ],
+    "start_word": 1252,
+    "end_word": 1332,
+    "text_snippet": "3- أنه ما من نفس مخلوقة إلا وقد قدر الله وجودها، ففيه الإيمان بالقَدَر، وأن م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation",
+      "opinion_statement"
+    ],
+    "description_arabic": "إثبات القدر مع إثبات تأثير الأسباب ورد طرفي الإفراط والتفريط في باب الأسباب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "start_word": 1333,
+    "end_word": 1417,
+    "text_snippet": "الحديث الرابع\nعَن جَابِر رضي الله عنه قالَ: كُنَّا نَعْزِلُ وَالقُرآن يَنْزِلُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث جابر في العزل زمن نزول القرآن، وبيان دلالته على الإقرار والجواز.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      72,
+      73,
+      74
+    ],
+    "start_word": 1418,
+    "end_word": 1495,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الصحابة كانوا يعزلون على عهد رسول الله صلى الله عل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "استدلال بإقرار النبي على وجود العزل في زمن التشريع، مع رواية مسلم المؤيدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      75
+    ],
+    "start_word": 1496,
+    "end_word": 1518,
+    "text_snippet": "2- أن العزل مباح، حيث علمه صلى الله عليه وسلم وأقرهم عليه، فإنه لا يقر على با",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إباحة العزل بدلالة علم النبي به وإقراره عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      76,
+      77
+    ],
+    "start_word": 1519,
+    "end_word": 1603,
+    "text_snippet": "3- قال الصنعاني: قوله: (لو كان شيئا) هذا من أفراد مسلم، وليس هو من قول جابر،",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه تحقيقي على أن بعض لفظ الحديث مدرج من كلام سفيان لا من كلام جابر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 1604,
+    "end_word": 1773,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم العزل.\nفذهب الأئمة الثلاثة، أبو حنيفة، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "evidence_hadith",
+      "editorial_note",
+      "condition_exception"
+    ],
+    "description_arabic": "خلاف الفقهاء في حكم العزل، وأدلة الأقوال، وترجيح الجمع بحمل النهي على قصد الفرار من الولد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ],
+    "start_word": 1774,
+    "end_word": 2012,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي ذرٍّ رضي الله عنه: أنه سَمِعَ رَسُولَ الله صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث الوعيد في الانتساب لغير الأب والدعاوى الباطلة والتكفير بغير حق مع شرحه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      96,
+      97
+    ],
+    "start_word": 2013,
+    "end_word": 2059,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على تحريم الانتفاء من نسبه المعروف، والانتسا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم الانتفاء من النسب المعروف والانتساب إلى غيره لما يفضي إليه من مفاسد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      98
+    ],
+    "start_word": 2060,
+    "end_word": 2082,
+    "text_snippet": "2- اشترط العلم، لأن تباعد القرون، وتسلسل الأجداد، قد يوقع في الخلل والجهل، وا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "اشتراط العلم في الوعيد؛ لأن الجهل والنسيان والخطأ معفو عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      99
+    ],
+    "start_word": 2083,
+    "end_word": 2141,
+    "text_snippet": "3- قوله \" ومن ادَّعى ما ليس له\" يدخل فيه كل دعوى باطلة، من نسب، أو مال، أو ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عموم الوعيد لكل دعوى باطلة في النسب أو المال أو العلم أو غيرها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      100,
+      101
+    ],
+    "start_word": 2142,
+    "end_word": 2199,
+    "text_snippet": "4- الوعيد الثالث فيمن أطلق الكفر، أو الفسق، أو نفى الإيمان، أو غير ذلك على غي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الوعيد في رمي الناس بالكفر ونحوه بغير حق، والتحذير من التكفير بلا موجب شرعي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "start_word": 2200,
+    "end_word": 2324,
+    "text_snippet": "اختلاف العلماء:\nأجمع علماء السنة: على أن المسلم، لا يكفر بالمعاصي كفرا يخرجه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "definition",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف العلماء في إطلاق الكفر على أهل المعاصي، مع الإجماع على عدم الخروج من الملة وترجيح مسلك الجمهور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

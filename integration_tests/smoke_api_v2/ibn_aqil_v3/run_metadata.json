@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-04-01T08:18:29.107050+00:00",
+  "git_commit": "7b361d68a60c08b15db94f737bc738acd306b5ec",
+  "git_dirty": true,
+  "config": {
+    "TINY_DIVISION_WORDS": 50,
+    "OVERSIZED_DIVISION_WORDS": 5000,
+    "CLASSIFY_MODEL": "openai/gpt-5.4",
+    "GROUP_MODEL": "openai/gpt-5.4",
+    "LLM_TEMPERATURE": 0.0,
+    "GROUP_MAX_TOKENS": 16384,
+    "RETRY_COUNT": 2,
+    "CLASSIFY_TIMEOUT": 900,
+    "GROUP_TIMEOUT": 900,
+    "ENRICH_TIMEOUT": 900,
+    "VERIFY_TIMEOUT": 600,
+    "ESCALATION_TIMEOUT": 300,
+    "ENRICH_MODEL": "openai/gpt-5.4",
+    "ENRICH_MAX_TOKENS": 16384,
+    "VERIFY_MODEL": "anthropic/claude-opus-4.6",
+    "VERIFY_MAX_TOKENS": 8192,
+    "ESCALATION_MODEL": "mistralai/mistral-large-2411",
+    "GATE_ON_DEPENDENT": true,
+    "GATE_ON_ATTRIBUTION_DISAGREEMENT": true,
+    "GATE_ON_SCHOOL_CONFLICT": true,
+    "CONCURRENCY": 1,
+    "LOG_LEVEL": "INFO",
+    "TELEMETRY_ENABLED": true
+  },
+  "source_metadata": {
+    "author_name": "ابن عقيل",
+    "work_title": "شرح ابن عقيل على ألفية ابن مالك",
+    "science": "نحو",
+    "source_school": null
+  },
+  "error_count": 6,
+  "errors": [
+    "phase2a_chunk_failures:1",
+    "EX-V-002",
+    "EX-V-002",
+    "EX-V-002",
+    "EX-V-002",
+    "EX-V-002"
+  ],
+  "python_version": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22:25) [MSC v.1944 64 bit (AMD64)]"
+}

@@ -1,0 +1,39 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 49,
+    "text_snippet": "فائدة:\nلم يظهر لي مناسبة واضحة لإيراد المؤلف هذا الحديث في كتاب الزكاة. ولعل ذ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان وجه محتمل لإيراد الحديث في كتاب الزكاة وربطه بسهم المؤلفة قلوبهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5
+    ],
+    "start_word": 50,
+    "end_word": 118,
+    "text_snippet": "فيقاس على الغنيمة أن يعطوا من الزكاة خلافا لمن يرى من العلماء سقوط نصيبهم ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_qiyas",
+      "refutation"
+    ],
+    "description_arabic": "ترجيح جواز إعطاء المؤلفة قلوبهم من الزكاة عند الحاجة مع ذكر الخلاف والرد على المسقطين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يُفهم المقصود إجمالًا، لكن عبارة «يعطوا» وضمير «إعطائهم» تعود على المؤلفة قلوبهم المذكورين في الوحدة السابقة، كما أن الاستدلال بفعل النبي وآية براءة جاء دون نقل نصهما."
+  }
+]

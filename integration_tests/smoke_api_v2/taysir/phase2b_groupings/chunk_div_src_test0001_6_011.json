@@ -1,0 +1,211 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 32,
+    "text_snippet": "‌‌بَاب في شيء مِن مَكرُوهَات الصَّلاة ⌜1⌝\nالمكروه عند الأصوليين، هو ما يثاب تار",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف المكروه عند الأصوليين وبيان معنى مكروهات الصلاة إجمالاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 33,
+    "end_word": 129,
+    "text_snippet": "الحديث الأول\nعن عَائِشَةَ رضي الله عنها عن النَّبيِّ صلى الله عليه وسلم قَالَ: \"",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث البداءة بالعشاء عند إقامة الصلاة مع بيان علته واستثناء ضيق الوقت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 130,
+    "end_word": 150,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الطعام والشراب إذا حضرا وقت الصلاة، قدما عليها مالم ي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقديم الطعام والشراب على الصلاة عند حضورهما ما لم يضق وقت الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 151,
+    "end_word": 174,
+    "text_snippet": "2- ظاهر الحديث: سواء أكان محتاجا للطعام أم غير محتاج.\nلكن قيده كثير من العلماء",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان هل الحكم عام لكل حاضر الطعام أم مقيد بمن يحتاج إليه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "التعليل المذكور يشير إلى مقصد الشارع المستفاد من الحديث السابق، وفهمه يكتمل بمعرفة نص الحديث أو علته."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 175,
+    "end_word": 196,
+    "text_snippet": "3- أن حضور الطعام للمحتاج إليه عذر في ترك الجماعة، على أن لا يجعل وقت الطعام هو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حضور الطعام للمحتاج إليه عذر في ترك الجماعة مع منع اتخاذ ذلك عادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "4- أن الخشوع وترك الشواغل مطلوب في الصلاة ليحضر القلب للمناجاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "طلب الخشوع وترك الشواغل في الصلاة لتحصيل حضور القلب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 208,
+    "end_word": 301,
+    "text_snippet": "الحديث الثاني ولمُسلِمٍ عَنْ عَائِشَة رضي الله عنها قَالتْ: سَمِعتُ رَسول الله ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "evidence_rational",
+      "definition"
+    ],
+    "description_arabic": "حديث النهي عن الصلاة بحضرة الطعام ومدافعة الأخبثين مع بيان علتهما.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة صريحة إلى الحديث السابق بقول: تقدم في الحديث السابق، لكن المعنى الأساسي مفهوم مع النص الحالي."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 302,
+    "end_word": 368,
+    "text_snippet": "اختلاف العلماء:\nأخذ بظاهر الحديث \" الظاهرية \" وشيخ الإسلام \" ابن تيمية \".\nفلم ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "refutation",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف العلماء في صحة الصلاة مع حضور الطعام أو مدافعة الأخبثين وترجيح مذهب الجمهور تعليلاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 369,
+    "end_word": 390,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كراهة الصلاة عند حضور الطعام المحتاج إليه، وفي حال مدافعة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "كراهة الصلاة عند حضور الطعام المحتاج إليه أو مدافعة الأخبثين إلا مع ضيق الوقت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 391,
+    "end_word": 398,
+    "text_snippet": "2- أن حضور القلب والخضوع مطلوبان في الصلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير أن حضور القلب والخضوع مطلوبان في الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 399,
+    "end_word": 407,
+    "text_snippet": "3- ينبغي للمصلى إبعاد كل ما يشغله في صلاته.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب إبعاد كل ما يشغل المصلي عن صلاته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 408,
+    "end_word": 439,
+    "text_snippet": "4- أن الحاجة إلى الطعام أو الشراب أو التبول أو التغوط كل أولئك عذر في ترك الجمع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحاجة إلى الطعام أو قضاء الحاجة عذر في ترك الجمعة والجماعة بشرط عدم التعمد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

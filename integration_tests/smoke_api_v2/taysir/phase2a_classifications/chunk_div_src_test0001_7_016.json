@@ -1,0 +1,442 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 86,
+    "text_snippet": "ما يؤخذ هن الحديث:\n1-كون النبي صلى الله عليه وسل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 87,
+    "end_word": 88,
+    "text_snippet": "‌‌بَاب الاعتِكَاف\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 89,
+    "end_word": 96,
+    "text_snippet": "الاعتكاف: في اللغة، لزوم الشيء وحبس النفس عليه",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 97,
+    "end_word": 107,
+    "text_snippet": "ومنه قوله تعالى: {يَعْكُفُوْنَ عَلَى أصْنَامٍ لَهُ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 108,
+    "end_word": 121,
+    "text_snippet": "وهو في الشرع: \"المقام في المسجد من شخص مخصوص ع",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "أما حكمه: فقد أجمع العلماء على مشروعيته، وأجمعو",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 136,
+    "end_word": 246,
+    "text_snippet": "وأما حكمته وفائدته: - فقد قال \"ابن القيم \" في ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 247,
+    "end_word": 250,
+    "text_snippet": "وذكر عقيب الصيام لمناسبتين:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 8,
+    "start_word": 251,
+    "end_word": 272,
+    "text_snippet": "الأولى: أن جملة الكلام على الصيام سيتناول صيام ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 273,
+    "end_word": 288,
+    "text_snippet": "الثانية: اتفاق العلماء على مشروعية الصيام مع ال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 10,
+    "start_word": 289,
+    "end_word": 295,
+    "text_snippet": "وقد اشترط الحنفية والمالكية لصحة الاعتكاف، الصي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 296,
+    "end_word": 330,
+    "text_snippet": "ورد عليهم الصنعاني بأنه لا دليل لهم إلا أن النب",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 331,
+    "end_word": 332,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 333,
+    "end_word": 360,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها: أنَّ رَسُولَ اللَه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 361,
+    "end_word": 377,
+    "text_snippet": "وفي لفظٍ: \"كَانَ رَسُولُ الله يَعْتَكِفُ في كلِّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 378,
+    "end_word": 379,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 380,
+    "end_word": 434,
+    "text_snippet": "كان النبي صلى الله عليه وسلم يعتكف العشر الأواخ",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 435,
+    "end_word": 438,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 439,
+    "end_word": 522,
+    "text_snippet": "1- مشروعية الاعتكاف، وأنه من سنة النبي صلى الله",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 523,
+    "end_word": 538,
+    "text_snippet": "6- أنه لا بأس من أن يحتجز المعتكف ما يخلو به إذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 539,
+    "end_word": 558,
+    "text_snippet": "لما أخرج الشيخانْ عن عائشة أن النبي صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 559,
+    "end_word": 599,
+    "text_snippet": "7- يؤخذ من معنى الاعتكاف، ومن مقصده أن المعتكف ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 600,
+    "end_word": 610,
+    "text_snippet": "8- أن شرط الاعتكاف أن يكون في مسجد تقام فيه الج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 611,
+    "end_word": 628,
+    "text_snippet": "لقوله تعالى: {وأنتم عاكفون في المساجد} لئلا يفض",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 629,
+    "end_word": 630,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 631,
+    "end_word": 654,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها: أنَّها كَانَتْ ترَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 655,
+    "end_word": 663,
+    "text_snippet": "وفي رواية: \"وَكَانَ لا يَدْخُلُ الْبَيْتَ إلَاّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 664,
+    "end_word": 684,
+    "text_snippet": "وفي رواية: \" أنَ عَائِشَةَ قَالَتْ: إني كُنْت لا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 685,
+    "end_word": 687,
+    "text_snippet": "الترجيل: تسريح الشعر.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 688,
+    "end_word": 689,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 30,
+    "start_word": 690,
+    "end_word": 872,
+    "text_snippet": "اليهود يتشددون في أمر الحائض فيجتنبون منها ما أ",
+    "scholarly_function": "narration",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 31,
+    "start_word": 873,
+    "end_word": 876,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 877,
+    "end_word": 961,
+    "text_snippet": "1- أن الاعتكاف لا يمنع من ترجيل الشعر وغسله وأن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 962,
+    "end_word": 963,
+    "text_snippet": "الحديث الثالث\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 964,
+    "end_word": 1002,
+    "text_snippet": "عَنْ عُمَرَ بْنِ الْخَطًابِ رضي الله عنه قال: قُل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1003,
+    "end_word": 1004,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1005,
+    "end_word": 1047,
+    "text_snippet": "نذر عمر بن الخطاب في الجاهلية أن يعتكف يوماً ول",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1048,
+    "end_word": 1051,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1052,
+    "end_word": 1090,
+    "text_snippet": "1- وجوب الوفاء بالنذر، ولو عقد في حال الكفر.\n2-",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1091,
+    "end_word": 1128,
+    "text_snippet": "4-ورد في الحديث نذر \" ليلة \" وورد \"يوماً\" وورد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1129,
+    "end_word": 1130,
+    "text_snippet": "الحديث الرابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1131,
+    "end_word": 1219,
+    "text_snippet": "عَنْ صَفِيَّةَ بِنْتِ حُييٍّ رضي الله عنها قَالَت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1220,
+    "end_word": 1259,
+    "text_snippet": "وفي رواية: أنَّهَا جَاءَتْ تَزُورُهُ في اعْتِكَاف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1260,
+    "end_word": 1260,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1261,
+    "end_word": 1316,
+    "text_snippet": "حُيي: بضم الحاء. هو ابن أخطب اليهودي زعيم بني ا",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1317,
+    "end_word": 1318,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1319,
+    "end_word": 1454,
+    "text_snippet": "كان النبي صلى الله عليه وسلم معتكفاً في العشر ا",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1455,
+    "end_word": 1458,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1459,
+    "end_word": 1545,
+    "text_snippet": "1- مشروعية الاعتكاف، لاسيما في العشر الأواخر من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1546,
+    "end_word": 1557,
+    "text_snippet": "قال \"ابن دقيق العيد\": وهذا متأكد في حق العلماء،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1558,
+    "end_word": 1591,
+    "text_snippet": "6- وفيه شفقة النبي صلى الله عليه وسلم على أمته:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1592,
+    "end_word": 1610,
+    "text_snippet": "7- قال بعض العلماء: ومنه ينبغي للحاكم أن يبيِّن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1611,
+    "end_word": 1623,
+    "text_snippet": "8- جواز خلوة المعتكف بزوجه ومحادثتها، إذا لم يُث",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1624,
+    "end_word": 1648,
+    "text_snippet": "9- قال ابن دقيق العيد: وفي الحديث دليل على هجوم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1649,
+    "end_word": 1675,
+    "text_snippet": "لقوله تعالى {لا يكلف الله نفساً إلا وسعها} . قا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.67
+  }
+]

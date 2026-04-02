@@ -1,0 +1,810 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌الابتداء\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 12,
+    "text_snippet": "مبتدأ زيد وعاذر خبر … إن قلت زيد عاذر من اعت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 2,
+    "start_word": 13,
+    "end_word": 22,
+    "text_snippet": "وأول مبتدأ والثاني فاعل … اغنى في أسار ذان (2",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 3,
+    "start_word": 23,
+    "end_word": 33,
+    "text_snippet": "وقس وكاستفهام النفي وقد … يجوز نحو فائز أولوا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 4,
+    "start_word": 34,
+    "end_word": 90,
+    "text_snippet": "ذكر المصنف أن المبتدأ على قسمين مبتدأ له خبر ",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 5,
+    "start_word": 91,
+    "end_word": 138,
+    "text_snippet": "ويُقاس على هذا ما كان مثله وهو كل وصف اعتمد ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 139,
+    "end_word": 215,
+    "text_snippet": "فإن لم يتم به الكلام لم يكن مبتدأ نحو أقائم أ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 216,
+    "end_word": 231,
+    "text_snippet": "ولا فرق بين أن يكون الاستفهام\nبالحرف كما مثل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 232,
+    "end_word": 286,
+    "text_snippet": "وكذلك لا فرق بين أن يكون النفي بالحرف كما مثل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 287,
+    "end_word": 312,
+    "text_snippet": "ومنه قوله:\n38 - غير لاه عداك فاطرح … اللهو ولا",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 313,
+    "end_word": 345,
+    "text_snippet": "ومثله قوله:\n39 - غير مأسوف على زمن … ينقضي بال",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 346,
+    "end_word": 359,
+    "text_snippet": "وقد سأل أبو الفتح بن جني ولده عن إعراب هذا ال",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 360,
+    "end_word": 377,
+    "text_snippet": "ومذهب البصريين إلا الأخفش أن هذا الوصف لا يكو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 378,
+    "end_word": 394,
+    "text_snippet": "وذهب الأخفش والكوفيون إلى عدم اشتراط\nذلك فأجا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 395,
+    "end_word": 427,
+    "text_snippet": "وإلى هذا أشار المصنف بقوله وقد يجوز نحو فائز ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 428,
+    "end_word": 457,
+    "text_snippet": "ومما ورد منه قوله:\n40 - فخير نحن عند الناس منك",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 458,
+    "end_word": 483,
+    "text_snippet": "وجعل من هذا قوله:\n41 - خبير بنو لهب فلا تك ملغ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 484,
+    "end_word": 496,
+    "text_snippet": "والثان مبتدأ وذا الوصف خبر … إن في سوى الإفراد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 18,
+    "start_word": 497,
+    "end_word": 514,
+    "text_snippet": "الوصف مع الفاعل إما أن يتطابقا إفرادا أو تثنية",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 19,
+    "start_word": 515,
+    "end_word": 547,
+    "text_snippet": "فإن تطابقا إفرادا نحو أقائم زيد جاز فيه وجهان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 548,
+    "end_word": 577,
+    "text_snippet": "ومنه قوله تعالى (1) : {أَرَاغِبٌ أَنْتَ عَنْ آل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 578,
+    "end_word": 642,
+    "text_snippet": "والأول في هذه الآية أولى لأن قوله عن آلهتي معم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 22,
+    "start_word": 643,
+    "end_word": 701,
+    "text_snippet": "وإن تطابقا تثنية نحو أقائمان الزيدان أو جمعا ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 702,
+    "end_word": 716,
+    "text_snippet": "ويجوز على لغة أكلوني البراغيث أن يكون الوصف م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 24,
+    "start_word": 717,
+    "end_word": 753,
+    "text_snippet": "وإن لم يتطابقا وهو قسمان ممتنع وجائز كما تقدم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 754,
+    "end_word": 763,
+    "text_snippet": "⌜5⌝ ورفعوا مبتدأ بالابتدا … كذاك رفع خبر بالمب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 26,
+    "start_word": 764,
+    "end_word": 775,
+    "text_snippet": "مذهب سيبويه وجمهور البصريين أن المبتدأ مرفوع ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 776,
+    "end_word": 837,
+    "text_snippet": "فالعامل في المبتدأ معنوي وهو كون الاسم مجردا ع",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 28,
+    "start_word": 838,
+    "end_word": 862,
+    "text_snippet": "والعامل في الخبر لفظي وهو المبتدأ وهذا هو مذه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 863,
+    "end_word": 894,
+    "text_snippet": "وقيل المبتدأ مرفوع بالابتداء والخبر مرفوع بالا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 895,
+    "end_word": 904,
+    "text_snippet": "والخبر: الجزء المتم الفائدة … كالله بر والأياد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 31,
+    "start_word": 905,
+    "end_word": 925,
+    "text_snippet": "عرف المصنف الخبر بأنه الجزء المكمل للفائدة وير",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 32,
+    "start_word": 926,
+    "end_word": 954,
+    "text_snippet": "وقيل في تعريفه إنه الجزء المنتظم منه مع المبتد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 33,
+    "start_word": 955,
+    "end_word": 972,
+    "text_snippet": "وخلاصة هذا أنه عرف الخبر بما يوجد فيه وفي غيره",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 34,
+    "start_word": 973,
+    "end_word": 983,
+    "text_snippet": "ومفردا يأتي ويأتي جمله … حاوية معنى الذي سيقت ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 35,
+    "start_word": 984,
+    "end_word": 995,
+    "text_snippet": "وإن تكن إياه معنى اكتفى … بها: كنطقي الله حسب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 36,
+    "start_word": 996,
+    "end_word": 1030,
+    "text_snippet": "ينقسم الخبر إلى مفرد وجملة وسيأتي الكلام على ا",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1031,
+    "end_word": 1064,
+    "text_snippet": "وهذا معنى قوله حاوية معنى الذي سيقت له والراب",
+    "scholarly_function": "definition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1065,
+    "end_word": 1077,
+    "text_snippet": "كقوله تعالى: {َلِبَاسُ التَّقْوَى ذَلِكَ خَيْر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1078,
+    "end_word": 1087,
+    "text_snippet": "أو تكرار المبتدأ بلفظه وأكثر ما يكون في مواضع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1088,
+    "end_word": 1095,
+    "text_snippet": "كقوله تعالى: {الْحَاقَّةُ مَا الْحَاقَّةُ} و {",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1096,
+    "end_word": 1112,
+    "text_snippet": "وقد يستعمل في غيرها كقولك زيد ما زيد أو عموم ي",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1113,
+    "end_word": 1185,
+    "text_snippet": "وإن كانت الجملة الواقعة خبرا هي المبتدأ في الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1186,
+    "end_word": 1196,
+    "text_snippet": "والمفرد الجامد فارغ وإن … يشتق فهو ذو ضمير مست",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1197,
+    "end_word": 1211,
+    "text_snippet": "تقدم الكلام في الخبر إذا كان جملة وأما المفرد ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1212,
+    "end_word": 1267,
+    "text_snippet": "فإن كان جامدا فذكر المصنف أنه يكون فارغا من ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1268,
+    "end_word": 1285,
+    "text_snippet": "وإن كان مشتقا فذكر المصنف أنه يتحمل الضمير نح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1286,
+    "end_word": 1369,
+    "text_snippet": "وهذا الحكم إنما هو للمشتق الجاري مجرى الفعل كا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1370,
+    "end_word": 1396,
+    "text_snippet": "وإنما يتحمل المشتق الجاري مجرى الفعل الضمير إذ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1397,
+    "end_word": 1448,
+    "text_snippet": "وحاصل ما ذكر أن الجامد يتحمل الضمير مطلقا عند ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1449,
+    "end_word": 1458,
+    "text_snippet": "وأبرزنه مطلقا حيث تلا … ما ليس معناه له محصلا ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1459,
+    "end_word": 1514,
+    "text_snippet": "⌜11⌝ إذا جرى الخبر المشتق على من هو له استتر ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1515,
+    "end_word": 1574,
+    "text_snippet": "فإن جرى على غير من هو له وهو المراد بهذا البيت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1575,
+    "end_word": 1638,
+    "text_snippet": "وأما الكوفيون فقالوا: إن أمن اللبس جاز الأمران",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1639,
+    "end_word": 1663,
+    "text_snippet": "واختار المصنف في هذا الكتاب مذهب البصريين ولهذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1664,
+    "end_word": 1691,
+    "text_snippet": "وقد ورد السماع بمذهبهم فمن هذا قول الشاعر:\n42 ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1692,
+    "end_word": 1703,
+    "text_snippet": "وأخبروا بظرف أو بحرف جر … ناوين معنى كائن أو ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1704,
+    "end_word": 1768,
+    "text_snippet": "تقدم أن الخبر يكون مفردا ويكون جملة وذكر المصن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1769,
+    "end_word": 1802,
+    "text_snippet": "واختلف النحويون في هذا فذهب الأخفش إلى أنه من ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1803,
+    "end_word": 1831,
+    "text_snippet": "وقيل إنهما من قبيل الجملة وإن كلا منهما متعلق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1832,
+    "end_word": 1860,
+    "text_snippet": "وقيل يجوز أن يجعلا من قبيل المفرد فيكون المقدر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1861,
+    "end_word": 1891,
+    "text_snippet": "وذهب أبو بكر بن السراج إلى أن كلا من الظرف وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1892,
+    "end_word": 1906,
+    "text_snippet": "والحق خلاف هذا المذهب وأنه متعلق بمحذوف وذلك ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1907,
+    "end_word": 1922,
+    "text_snippet": "كقوله:\n43 - لك العز إن مولاك عز وإن يهن … فأنت",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1923,
+    "end_word": 2264,
+    "text_snippet": "_________\n= للمجهول كما قاله العيني وتبعه عليه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2265,
+    "end_word": 2329,
+    "text_snippet": "وكما يجب حذف عامل الظرف والجار والمجرور إذا وق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2330,
+    "end_word": 2341,
+    "text_snippet": "ولا يكون اسم زمان خبرا … عن جثة وإن يفد فأخبر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2342,
+    "end_word": 2379,
+    "text_snippet": "ظرف المكان يقع خبرا عن الجثة نحو زيد عندك وعن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2380,
+    "end_word": 2407,
+    "text_snippet": "قال المصنف إلا إذا أفاد نحو الليلة الهلال والر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2408,
+    "end_word": 2438,
+    "text_snippet": "وذهب غير هؤلاء إلى المنع مطلقا فإن جاء شيء من",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2439,
+    "end_word": 2461,
+    "text_snippet": "وذهب قوم منهم المصنف إلى جواز ذلك من غير شذوذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2462,
+    "end_word": 2476,
+    "text_snippet": "وإلى هذا أشار بقوله وإن يفد فأخبرا فإن لم يفد ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2477,
+    "end_word": 2488,
+    "text_snippet": "ولا يجوز الابتدا بالنكرة … ما لم تفد: كعند زيد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2489,
+    "end_word": 2500,
+    "text_snippet": "وهل فتى فيكم؟ فما خل لنا … ورجل من الكرام عندن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2501,
+    "end_word": 2513,
+    "text_snippet": "ورغبة في الخير خير وعمل … بر يزين وليقس ما لم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2514,
+    "end_word": 2535,
+    "text_snippet": "الأصل في المبتدأ أن يكون معرفة (2) وقد يكون نك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2536,
+    "end_word": 2567,
+    "text_snippet": "أحدها: أن يتقدم الخبر عليها وهو ظرف أو جار ومج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2568,
+    "end_word": 2578,
+    "text_snippet": "الثاني: أن يتقدم على النكرة استفهام (2) نحو: ه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2579,
+    "end_word": 2588,
+    "text_snippet": "الثالث: أن يتقدم عليها نفي (3) نحو: ما خل لنا.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2589,
+    "end_word": 2597,
+    "text_snippet": "الرابع: أن توصف ⌜13⌝ نحو رجل من الكرام عندنا.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2598,
+    "end_word": 2607,
+    "text_snippet": "الخامس: أن تكون عاملة (2) نحو رغبة في الخير خي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2608,
+    "end_word": 2615,
+    "text_snippet": "السادس: أن تكون مضافة نحو عمل بر يزين.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2616,
+    "end_word": 2638,
+    "text_snippet": "هذا ما ذكره المصنف في هذا الكتاب وقد أنهاها غي",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2639,
+    "end_word": 2648,
+    "text_snippet": "والسابع: أن تكون شرطا نحو من يقم أقم معه. (1)\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2649,
+    "end_word": 2662,
+    "text_snippet": "الثامن: أن تكون جوابا نحو أن يقال من عندك فتقو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2663,
+    "end_word": 2669,
+    "text_snippet": "التاسع: أن تكون عامة نحو كل يموت.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2670,
+    "end_word": 2694,
+    "text_snippet": "العاشر: أن يقصد بها التنويع كقوله:\n44 - فأقبلت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2695,
+    "end_word": 2704,
+    "text_snippet": "الحادي عشر:أن تكون دعاء نحو: {سَلامٌ عَلَى إِل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 88,
+    "start_word": 2705,
+    "end_word": 2716,
+    "text_snippet": "الثاني عشر: أن يكون فيها معنى التعجب (1) نحو م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 89,
+    "start_word": 2717,
+    "end_word": 2812,
+    "text_snippet": "الثالث عشر: أن تكون خلفا من موصوف نحو مؤمن خير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2813,
+    "end_word": 2834,
+    "text_snippet": "السادس عشر: أن يقع قبلها واو الحال كقوله:\n45 -",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2835,
+    "end_word": 2845,
+    "text_snippet": "السابع عشر: أن تكون معطوفة على معرفة نحو زيد و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2846,
+    "end_word": 2857,
+    "text_snippet": "الثامن عشر: أن تكون معطوفة على وصف نحو تميمي و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 93,
+    "start_word": 2858,
+    "end_word": 2869,
+    "text_snippet": "التاسع عشر: أن يعطف عليها موصوف نحو رجل وامرأة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 94,
+    "start_word": 2870,
+    "end_word": 2886,
+    "text_snippet": "العشرون: أن تكون مبهمة كقول امرئ القيس:\n46 - م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 95,
+    "start_word": 2887,
+    "end_word": 3242,
+    "text_snippet": "_________\n= ابن مالك الحميري، لكن الثابت في نس",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 96,
+    "start_word": 3243,
+    "end_word": 3262,
+    "text_snippet": "الحادي والعشرون: أن تقع بعد لولا كقوله:\n47 - ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 97,
+    "start_word": 3263,
+    "end_word": 3278,
+    "text_snippet": "الثاني والعشرون: أن تقع بعد فاء الجزاء كقولهم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 98,
+    "start_word": 3279,
+    "end_word": 3289,
+    "text_snippet": "الثالث والعشرون: أن تدخل على النكرة لام الابت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 99,
+    "start_word": 3290,
+    "end_word": 3312,
+    "text_snippet": "الرابع والعشرون: أن تكون بعد كم الخبرية نحو قو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 100,
+    "start_word": 3313,
+    "end_word": 3334,
+    "text_snippet": "وقد أنهى بعض المتأخرين ذلك إلى نيف وثلاثين موض",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  }
+]

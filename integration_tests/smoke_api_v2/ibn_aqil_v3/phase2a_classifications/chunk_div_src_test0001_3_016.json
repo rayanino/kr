@@ -1,0 +1,258 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 25,
+    "text_snippet": "‌‌النداء\nوللمنادى الناء أو كالناء يا … وأي وآ ك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 1,
+    "start_word": 26,
+    "end_word": 78,
+    "text_snippet": "لا يخلو المنادى من أن يكون مندوبا أو غيره فإن ",
+    "scholarly_function": "definition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 79,
+    "end_word": 99,
+    "text_snippet": "أو المتوجع منه فله وا نحو وازيداه وواظهراه ويا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 100,
+    "end_word": 109,
+    "text_snippet": "وغير مندوب ومضمر وما … جا مستغاثا قد يعرى فاع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 4,
+    "start_word": 110,
+    "end_word": 121,
+    "text_snippet": "وذاك في اسم الجنس والمشار له … قل ومن يمنعه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 5,
+    "start_word": 122,
+    "end_word": 144,
+    "text_snippet": "لا يجوز حذف حرف النداء مع المندوب نحو وازيداه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 145,
+    "end_word": 202,
+    "text_snippet": "وأما غير هذه فيحذف معها الحرف جوازا فتقول في ي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 7,
+    "start_word": 203,
+    "end_word": 218,
+    "text_snippet": "فمما ورد منه مع اسم الإشارة قوله تعالى: {ثُمَّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 219,
+    "end_word": 237,
+    "text_snippet": "وقول الشاعر:\n305 - ذا ارعواء فليس بعد اشتعال ا",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 238,
+    "end_word": 254,
+    "text_snippet": "ومما ورد منه مع اسم الجنس قولهم أصبح ليل أي يا",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 255,
+    "end_word": 265,
+    "text_snippet": "وابن المعرف المنادى المفردا … على الذي في رفعه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 11,
+    "start_word": 266,
+    "end_word": 359,
+    "text_snippet": "لا يخلو المنادى من أن يكون مفردا أو مضافا أو م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 360,
+    "end_word": 371,
+    "text_snippet": "وأنو انضمام ما بنوا قبل الندا … وليجر مجرى ذي ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 13,
+    "start_word": 372,
+    "end_word": 419,
+    "text_snippet": "أي إذا كان الاسم المنادى مبنيا قبل النداء قدر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 420,
+    "end_word": 427,
+    "text_snippet": "والمفرد المنكور والمضافا … وشبهه انصب عادما خ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 15,
+    "start_word": 428,
+    "end_word": 459,
+    "text_snippet": "تقدم أن المنادى إذا كان مفردا معرفة أو نكرة مق",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 460,
+    "end_word": 469,
+    "text_snippet": "فمثال الأول قول الأعمى: يا رجلا خذ بيدي وقول ا",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 470,
+    "end_word": 483,
+    "text_snippet": "306 - أيا راكبا إما عرضت فبلغا … نداماى من نجر",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 484,
+    "end_word": 492,
+    "text_snippet": "ومثال الثاني قولك: يا غلام زيد ويا ضارب عمرو.\n",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 493,
+    "end_word": 507,
+    "text_snippet": "ومثال الثالث قولك: يا طالعا جبلا ويا حسنا وجهه",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 508,
+    "end_word": 519,
+    "text_snippet": "أ ونحو زيد ضم وافتحن من … نحو أزيد بن سعيد لات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 21,
+    "start_word": 520,
+    "end_word": 562,
+    "text_snippet": "أي إذا كان المنادى مفردا علما ووصف بابن مضاف إ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 563,
+    "end_word": 633,
+    "text_snippet": "والضم إن لم يل الابن علما … أو يل الابن علم قد",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 634,
+    "end_word": 645,
+    "text_snippet": "واضمم، أو انصب - ما اضطرارا نونا مما له استحقا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 24,
+    "start_word": 646,
+    "end_word": 685,
+    "text_snippet": "تقدم أنه إذا كان المنادى مفراد معرفة، أو نكرة ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 25,
+    "start_word": 686,
+    "end_word": 697,
+    "text_snippet": "307 - سلام الله يا مطر عليها وليس عليك يا مطر ",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 26,
+    "start_word": 698,
+    "end_word": 712,
+    "text_snippet": "ومن الثاني قوله:\n308 - ضربت صدرها إلى وقالت … ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 713,
+    "end_word": 732,
+    "text_snippet": "وباضطرار خص جمع يا وأل … إلا مع الله ومحكى الج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 28,
+    "start_word": 733,
+    "end_word": 754,
+    "text_snippet": "لا يجوز الجمع بين حرف النداء وأل في غير اسم ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 755,
+    "end_word": 764,
+    "text_snippet": "فيا الغلامان اللذان فرا … إيا كما أن تعقبانا ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 765,
+    "end_word": 807,
+    "text_snippet": "وأما مع اسم الله تعالى ومحكى الجمل فيجوز فتقول",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 808,
+    "end_word": 818,
+    "text_snippet": "إني إذا ما حدث ألما … أقول يا اللهم يا اللهما",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  }
+]

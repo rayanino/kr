@@ -17,15 +17,22 @@ Additional modes served from integration_tests/questionnaire/:
 """
 from __future__ import annotations
 
+import datetime
 import hashlib
 import json
+import logging
 import os
 import sys
+import threading
 import webbrowser
-from functools import partial
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import Any
 from urllib.parse import unquote
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logger = logging.getLogger("review_server")
+WRITE_LOCK = threading.Lock()
 
 
 # ---------------------------------------------------------------------------
@@ -44,29 +51,77 @@ def _content_hash(excerpt: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
+def _comparison_pair_id(division: str, before_excerpt_id: str | None, after_excerpt_id: str | None) -> str:
+    """Stable comparison pair ID derived from both sides of the pair."""
+    payload = "|".join([
+        division or "(root)",
+        before_excerpt_id or "",
+        after_excerpt_id or "",
+    ])
+    return "cmp_" + hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
+
+
+def _comparison_key(excerpt: dict) -> str:
+    """Stable comparison key, preferring div_id over display path."""
+    div_id = excerpt.get("div_id")
+    if isinstance(div_id, str) and div_id.strip():
+        return div_id
+    div_path = excerpt.get("div_path") or []
+    return "/".join(div_path)
+
+
 def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
     """Read path (JSONL), upsert entry keyed by key_field, atomic-write back.
 
     Returns total number of records after upsert.
     """
-    existing: dict[str, str] = {}
-    if path.exists():
-        with open(path, encoding="utf-8") as f:
-            for line in f:
-                stripped = line.strip()
-                if stripped:
-                    try:
-                        old = json.loads(stripped)
-                        existing[old[key_field]] = stripped
-                    except (json.JSONDecodeError, KeyError):
-                        pass
-    existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
-    temp = path.with_suffix(path.suffix + ".tmp")
-    with open(temp, "w", encoding="utf-8") as f:
-        for line in existing.values():
-            f.write(line + "\n")
-    temp.replace(path)
-    return len(existing)
+    with WRITE_LOCK:
+        existing: dict[str, str] = {}
+        dropped: list[dict[str, str | int]] = []
+        if path.exists():
+            with open(path, encoding="utf-8") as f:
+                for line_no, line in enumerate(f, start=1):
+                    stripped = line.strip()
+                    if stripped:
+                        try:
+                            old = json.loads(stripped)
+                            key = str(old[key_field])
+                            existing[key] = stripped
+                        except json.JSONDecodeError:
+                            dropped.append({
+                                "line_number": line_no,
+                                "reason": "json_decode_error",
+                                "raw_line": stripped,
+                            })
+                        except KeyError:
+                            dropped.append({
+                                "line_number": line_no,
+                                "reason": f"missing_key:{key_field}",
+                                "raw_line": stripped,
+                            })
+        existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
+        temp = path.with_suffix(path.suffix + ".tmp")
+        with open(temp, "w", encoding="utf-8") as f:
+            for line in existing.values():
+                f.write(line + "\n")
+        temp.replace(path)
+        if dropped:
+            dropped_path = path.with_name(path.name + ".dropped.jsonl")
+            with open(dropped_path, "a", encoding="utf-8") as f:
+                for item in dropped:
+                    record = {
+                        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                        "source_file": str(path),
+                        **item,
+                    }
+                    f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            logger.warning(
+                "Preserved %d malformed JSONL line(s) from %s in %s",
+                len(dropped),
+                path,
+                dropped_path,
+            )
+        return len(existing)
 
 
 def _read_jsonl_keyed(path: Path, key_field: str) -> dict:
@@ -84,6 +139,37 @@ def _read_jsonl_keyed(path: Path, key_field: str) -> dict:
                 except (json.JSONDecodeError, KeyError):
                     pass
     return result
+
+
+def _read_json_file(path: Path) -> dict[str, Any] | None:
+    """Best-effort JSON object reader."""
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _read_batch_summary(output_dir: Path) -> dict[str, Any]:
+    """Read SUMMARY.json from the selected batch output dir, if present."""
+    summary_path = output_dir / "SUMMARY.json"
+    data = _read_json_file(summary_path)
+    return data if isinstance(data, dict) else {}
+
+
+def _should_open_browser() -> bool:
+    """Return True when the local environment likely supports browser launch."""
+    if os.environ.get("KR_REVIEW_FORCE_BROWSER") in {"1", "true", "yes"}:
+        return True
+    if os.environ.get("KR_REVIEW_NO_BROWSER") in {"1", "true", "yes"}:
+        return False
+    if os.environ.get("WSL_DISTRO_NAME"):
+        return False
+    if os.name == "nt":
+        return True
+    return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
 
 
 # ---------------------------------------------------------------------------
@@ -133,6 +219,12 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 self.send_error(403, "Invalid package path")
                 return
             self._api_get_feedback(pkg)
+        elif path.startswith("/api/package-state/"):
+            pkg = path.split("/api/package-state/")[1].strip("/")
+            if self._safe_pkg_path(pkg) is None:
+                self.send_error(403, "Invalid package path")
+                return
+            self._api_get_package_state(pkg)
         # ── Questionnaire endpoints ──────────────────────────────────────────
         elif path == "/api/questionnaire":
             self._api_get_questionnaire()
@@ -193,9 +285,19 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
     def _api_packages(self) -> None:
         """List packages with excerpt counts."""
+        summary = _read_batch_summary(self.output_dir)
+        summary_packages = summary.get("packages", {}) if isinstance(summary, dict) else {}
         packages = []
         for d in sorted(self.output_dir.iterdir()):
             if not d.is_dir():
+                continue
+            marker_files = (
+                d / "excerpts.jsonl",
+                d / "progress.jsonl",
+                d / "run_metadata.json",
+                d / "processing_log.jsonl",
+            )
+            if d.name not in summary_packages and not any(path.exists() for path in marker_files):
                 continue
             excerpts_file = d / "excerpts.jsonl"
             count = 0
@@ -207,11 +309,18 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             if fb_file.exists():
                 with open(fb_file, encoding="utf-8") as f:
                     fb_count = sum(1 for line in f if line.strip())
+            summary_entry = summary_packages.get(d.name, {}) if isinstance(summary_packages, dict) else {}
+            errors = summary_entry.get("errors")
             packages.append({
                 "name": d.name,
                 "excerpt_count": count,
                 "feedback_count": fb_count,
                 "has_excerpts": excerpts_file.exists(),
+                "status": summary_entry.get("status"),
+                "error_count": int(summary_entry.get("error_count", 0) or 0),
+                "errors": [str(error) for error in errors] if isinstance(errors, list) else [],
+                "time_seconds": summary_entry.get("time_seconds"),
+                "cost_estimate": summary_entry.get("cost_estimate"),
             })
         self._json_response(packages)
 
@@ -240,6 +349,27 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         feedback = _read_jsonl_keyed(fb_file, "excerpt_id")
         self._json_response(feedback)
 
+    def _api_get_package_state(self, pkg: str) -> None:
+        """Return package status, metadata, and any timeout/stall report."""
+        summary = _read_batch_summary(self.output_dir)
+        summary_packages = summary.get("packages", {}) if isinstance(summary, dict) else {}
+        summary_entry = summary_packages.get(pkg, {}) if isinstance(summary_packages, dict) else {}
+        pkg_dir = self.output_dir / pkg
+        state = {
+            "name": pkg,
+            "has_excerpts": (pkg_dir / "excerpts.jsonl").exists(),
+            "summary": summary_entry,
+            "run_metadata": _read_json_file(pkg_dir / "run_metadata.json") or {},
+            "stall_report": None,
+        }
+        report_path = pkg_dir / "STALL_REPORT.md"
+        if report_path.exists():
+            try:
+                state["stall_report"] = report_path.read_text(encoding="utf-8")
+            except OSError:
+                state["stall_report"] = None
+        self._json_response(state)
+
     def _api_post_feedback(self, pkg: str) -> None:
         """Append feedback entry to owner_feedback.jsonl."""
         entry = self._read_body()
@@ -258,15 +388,19 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
     # ------------------------------------------------------------------ questionnaire endpoints
 
+    def _load_questionnaire(self) -> list[dict]:
+        interactions_file = self.questionnaire_dir / "interactions.json"
+        with open(interactions_file, encoding="utf-8") as f:
+            return json.load(f)
+
     def _api_get_questionnaire(self) -> None:
-        """Return the 40 structured interactions from interactions.json."""
+        """Return structured questionnaire interactions from interactions.json."""
         interactions_file = self.questionnaire_dir / "interactions.json"
         if not interactions_file.exists():
             self._json_response({"error": "interactions.json not found"}, 404)
             return
         try:
-            with open(interactions_file, encoding="utf-8") as f:
-                data = json.load(f)
+            data = self._load_questionnaire()
             self._json_response(data)
         except (json.JSONDecodeError, OSError) as exc:
             self._json_response({"error": str(exc)}, 500)
@@ -285,6 +419,25 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         if "interaction_id" not in entry:
             self._json_response({"error": "Missing interaction_id"}, 400)
             return
+        try:
+            interactions = self._load_questionnaire()
+        except (json.JSONDecodeError, OSError) as exc:
+            self._json_response({"error": f"Cannot read interactions.json: {exc}"}, 500)
+            return
+        interaction = next((item for item in interactions if item.get("id") == entry["interaction_id"]), None)
+        if interaction is None:
+            self._json_response({"error": f"Unknown interaction_id: {entry['interaction_id']}"}, 400)
+            return
+        if interaction.get("availability") == "blocked_pending_source":
+            self._json_response(
+                {
+                    "error": "Interaction is blocked pending source material",
+                    "interaction_id": entry["interaction_id"],
+                    "blocked_reason": interaction.get("blocked_reason"),
+                },
+                409,
+            )
+            return
 
         responses_file = self.questionnaire_dir / "questionnaire_responses.jsonl"
         try:
@@ -301,16 +454,13 @@ class ReviewHandler(SimpleHTTPRequestHandler):
     def _api_get_comparisons(self) -> None:
         """Return before/after comparison pairs.
 
-        Pairs are built by matching excerpts from smoke_api/taysir (new hardened prompts)
-        against campaign_20260331/taysir (old prompts) by div_path position.
+        Pairs are built by matching excerpts from campaign_20260331/<package> (old prompts)
+        against the current output_dir <package> run (new hardened prompts) by package + division path.
+        Packages without both campaign and current excerpts are skipped.
         Each pair: { pair_id, division, before: {...}, after: {...} }
         """
-        # Comparison: current output_dir has "after" (v2), campaign has "before"
-        # output_dir is e.g. integration_tests/smoke_api_v2/
-        # campaign is always at integration_tests/campaign_20260331/ (sibling)
-        repo_root = self.output_dir.parent.parent  # integration_tests/../ = repo root
-        after_file = self.output_dir / "taysir" / "excerpts.jsonl"
-        before_file = repo_root / "integration_tests" / "campaign_20260331" / "taysir" / "excerpts.jsonl"
+        repo_root = Path(__file__).parent.parent
+        before_root = repo_root / "integration_tests" / "campaign_20260331"
 
         def _load(path: Path) -> list[dict]:
             items: list[dict] = []
@@ -326,51 +476,99 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                             pass
             return items
 
-        before_all = _load(before_file)
-        after_all = _load(after_file)
-
-        # Index after-excerpts by div_path string for fast lookup
-        after_by_div: dict[str, list[dict]] = {}
-        for ex in after_all:
-            key = "/".join(ex.get("div_path") or [])
-            after_by_div.setdefault(key, []).append(ex)
-
         pairs: list[dict] = []
-        used_after: set[str] = set()
+        candidate_packages = sorted(
+            pkg_dir.name
+            for pkg_dir in self.output_dir.iterdir()
+            if pkg_dir.is_dir() and (before_root / pkg_dir.name / "excerpts.jsonl").exists()
+        )
 
-        for before_ex in before_all:
-            div_key = "/".join(before_ex.get("div_path") or [])
-            candidates = after_by_div.get(div_key, [])
-            # Pick the first unused candidate in the same division
-            matched_after: dict | None = None
-            for cand in candidates:
-                cid = cand.get("excerpt_id", "")
-                if cid not in used_after:
-                    matched_after = cand
-                    used_after.add(cid)
-                    break
+        for pkg in candidate_packages:
+            before_file = before_root / pkg / "excerpts.jsonl"
+            after_file = self.output_dir / pkg / "excerpts.jsonl"
+            if not before_file.exists() or not after_file.exists():
+                continue
 
-            pair_id = f"pair_{len(pairs)+1:03d}"
-            pairs.append({
-                "pair_id": pair_id,
-                "division": div_key or "(root)",
-                "before": {
-                    "excerpt_id": before_ex.get("excerpt_id"),
-                    "primary_text": before_ex.get("primary_text"),
-                    "primary_function": before_ex.get("primary_function"),
-                    "self_containment": before_ex.get("self_containment"),
-                    "div_path": before_ex.get("div_path"),
-                    "source": "smoke_api/taysir (new prompts)",
-                },
-                "after": {
-                    "excerpt_id": matched_after.get("excerpt_id") if matched_after else None,
-                    "primary_text": matched_after.get("primary_text") if matched_after else None,
-                    "primary_function": matched_after.get("primary_function") if matched_after else None,
-                    "self_containment": matched_after.get("self_containment") if matched_after else None,
-                    "div_path": matched_after.get("div_path") if matched_after else None,
-                    "source": "campaign_20260331/taysir (old prompts)" if matched_after else None,
-                } if matched_after else None,
-            })
+            before_all = _load(before_file)
+            after_all = _load(after_file)
+            if not before_all or not after_all:
+                continue
+
+            after_by_div: dict[str, list[dict]] = {}
+            for ex in after_all:
+                key = _comparison_key(ex)
+                after_by_div.setdefault(key, []).append(ex)
+
+            used_after: set[str] = set()
+
+            for before_ex in before_all:
+                div_key = _comparison_key(before_ex)
+                candidates = after_by_div.get(div_key, [])
+                matched_after: dict | None = None
+                for cand in candidates:
+                    cid = cand.get("excerpt_id", "")
+                    if cid not in used_after:
+                        matched_after = cand
+                        used_after.add(cid)
+                        break
+
+                comparison_scope = f"{pkg}::{div_key or '(root)'}"
+                legacy_pair_id = f"legacy_{pkg}_{len(pairs)+1:03d}"
+                pair_id = _comparison_pair_id(
+                    comparison_scope,
+                    before_ex.get("excerpt_id"),
+                    matched_after.get("excerpt_id") if matched_after else None,
+                )
+                pairs.append({
+                    "pair_id": pair_id,
+                    "legacy_pair_id": legacy_pair_id,
+                    "package": pkg,
+                    "division": div_key or "(root)",
+                    "before": {
+                        "excerpt_id": before_ex.get("excerpt_id"),
+                        "primary_text": before_ex.get("primary_text"),
+                        "primary_function": before_ex.get("primary_function"),
+                        "self_containment": before_ex.get("self_containment"),
+                        "div_path": before_ex.get("div_path"),
+                        "source": f"campaign_20260331/{pkg} (old prompts)",
+                    },
+                    "after": ({
+                        "excerpt_id": matched_after.get("excerpt_id"),
+                        "primary_text": matched_after.get("primary_text"),
+                        "primary_function": matched_after.get("primary_function"),
+                        "self_containment": matched_after.get("self_containment"),
+                        "div_path": matched_after.get("div_path"),
+                        "source": f"{self.output_dir.name}/{pkg} (new hardened prompts)",
+                    } if matched_after else None),
+                })
+
+            for after_ex in after_all:
+                after_id = after_ex.get("excerpt_id", "")
+                if after_id in used_after:
+                    continue
+                div_key = _comparison_key(after_ex)
+                comparison_scope = f"{pkg}::{div_key or '(root)'}"
+                legacy_pair_id = f"legacy_{pkg}_{len(pairs)+1:03d}"
+                pair_id = _comparison_pair_id(
+                    comparison_scope,
+                    None,
+                    after_id,
+                )
+                pairs.append({
+                    "pair_id": pair_id,
+                    "legacy_pair_id": legacy_pair_id,
+                    "package": pkg,
+                    "division": div_key or "(root)",
+                    "before": None,
+                    "after": {
+                        "excerpt_id": after_ex.get("excerpt_id"),
+                        "primary_text": after_ex.get("primary_text"),
+                        "primary_function": after_ex.get("primary_function"),
+                        "self_containment": after_ex.get("self_containment"),
+                        "div_path": after_ex.get("div_path"),
+                        "source": f"{self.output_dir.name}/{pkg} (new hardened prompts)",
+                    },
+                })
 
         self._json_response(pairs)
 
@@ -406,18 +604,18 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: python tools/review.py <output-dir>")
-        print("Example: python tools/review.py integration_tests/smoke_api/")
+        logger.error("Usage: python tools/review.py <output-dir>")
+        logger.error("Example: python tools/review.py integration_tests/smoke_api/")
         sys.exit(1)
 
     output_dir = Path(sys.argv[1]).resolve()
     if not output_dir.exists():
-        print(f"Error: {output_dir} does not exist")
+        logger.error("Error: %s does not exist", output_dir)
         sys.exit(1)
 
     viewer_html = Path(__file__).parent / "excerpt_viewer.html"
     if not viewer_html.exists():
-        print(f"Error: {viewer_html} not found")
+        logger.error("Error: %s not found", viewer_html)
         sys.exit(1)
 
     # Questionnaire dir is always integration_tests/questionnaire/ relative to repo root
@@ -425,32 +623,42 @@ def main() -> None:
     repo_root = Path(__file__).parent.parent
     questionnaire_dir = repo_root / "integration_tests" / "questionnaire"
     if not questionnaire_dir.exists():
-        print(f"Warning: questionnaire dir not found at {questionnaire_dir}")
-        print("Questionnaire and Comparison modes will not function.")
+        logger.warning("Warning: questionnaire dir not found at %s", questionnaire_dir)
+        logger.warning("Questionnaire and Comparison modes will not function.")
 
     ReviewHandler.output_dir = output_dir
     ReviewHandler.viewer_html = viewer_html
     ReviewHandler.questionnaire_dir = questionnaire_dir
 
     port = int(os.environ.get("KR_REVIEW_PORT", "8384"))
-    server = HTTPServer(("127.0.0.1", port), ReviewHandler)
+    try:
+        server = ThreadingHTTPServer(("127.0.0.1", port), ReviewHandler)
+    except OSError as exc:
+        if getattr(exc, "errno", None) == 98:
+            logger.error("Error: port %s is already in use.", port)
+            logger.error("A review server is likely already running at http://127.0.0.1:%s/", port)
+            logger.error("Reuse that server, stop it first, or start a new one with:")
+            logger.error("  KR_REVIEW_PORT=%s python tools/review.py %s", port + 1, sys.argv[1])
+            sys.exit(1)
+        raise
 
     url = f"http://127.0.0.1:{port}/"
-    print(f"KR Excerpt Reviewer")
-    print(f"  Output dir:       {output_dir}")
-    print(f"  Questionnaire:    {questionnaire_dir}")
-    print(f"  Viewer:           {url}")
-    print(f"  Feedback:         {{package}}/owner_feedback.jsonl")
-    print(f"  Q responses:      integration_tests/questionnaire/questionnaire_responses.jsonl")
-    print(f"  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
-    print(f"  Press Ctrl+C to stop\n")
+    logger.info("KR Excerpt Reviewer")
+    logger.info("  Output dir:       %s", output_dir)
+    logger.info("  Questionnaire:    %s", questionnaire_dir)
+    logger.info("  Viewer:           %s", url)
+    logger.info("  Feedback:         {package}/owner_feedback.jsonl")
+    logger.info("  Q responses:      integration_tests/questionnaire/questionnaire_responses.jsonl")
+    logger.info("  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
+    logger.info("  Press Ctrl+C to stop\n")
 
-    webbrowser.open(url)
+    if _should_open_browser():
+        webbrowser.open(url)
 
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopped.")
+        logger.info("\nStopped.")
         server.server_close()
 
 

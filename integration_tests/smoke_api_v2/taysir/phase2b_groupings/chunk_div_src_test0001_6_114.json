@@ -1,0 +1,541 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 14,
+    "text_snippet": "‌‌بَابُ النَّذر\nالنذر لغة: الإيجاب.\nوشرعا: إلزام المكلف نفسه عبادة لم تكن لاز",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف النذر لغة وشرعًا في بداية الباب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 15,
+    "end_word": 57,
+    "text_snippet": "والأصل فيه، الكتاب، والسنة، والإجماع.\nأما الكتاب فقوله تعالى: {يُوفُونَ بالنَّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "description_arabic": "بيان أدلة مشروعية النذر من القرآن والسنة والإجماع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 58,
+    "end_word": 100,
+    "text_snippet": "وقرن العلماء بين اليمين والنذر، لأنهما متقاربان في الأحكام، فكل منهما يقصد به ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "مقارنة بين اليمين والنذر في المقصود والحكم وموجب كل واحد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 101,
+    "end_word": 126,
+    "text_snippet": "وأما الفروق التي بينهما، فمجملها ما يأتي:\n1- ما تقدم من أن النذر الشرعي لابد من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفرق الأول: وجوب الوفاء بالنذر بخلاف اليمين التي تحلها الكفارة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 127,
+    "end_word": 152,
+    "text_snippet": "2- أن النذر يقصد به مجرد التقرب وقد يكون الحاملُ حصولَ مطلوبٍ أو زوال مكروه.\nوأ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "الفرق الثاني: اختلاف مقصود النذر عن مقصود اليمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 153,
+    "end_word": 166,
+    "text_snippet": "3- أن عقد النذر مكروه، وأما اليمين فمباح، وقد يشرع إذا دعت إليه الأسباب.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفرق الثالث: كراهة عقد النذر وإباحة اليمين وقد تشرع أحيانًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 167,
+    "end_word": 199,
+    "text_snippet": "4- أن النذر يجب الوفاء به، وأما اليمين ففيه تفصيل يرجع إلى ما يترتب عليه.\nفقد يك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفرق الرابع: وجوب الوفاء بالنذر وتفصيل أحكام التحلل من اليمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 200,
+    "end_word": 232,
+    "text_snippet": "الحديث الأول\nعَنْ عُمَرَ بْنِ الْخَطَّابِ رضي الله عنه قالَ: قُلْتُ يَا رَسُولَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث عمر في نذر الاعتكاف في الجاهلية والأمر بالوفاء به.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث مفهوم بذاته، لكن رواية الليلة واليوم تحتاج معرفة أثر اختلاف الرواية في الاستنباط."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 233,
+    "end_word": 262,
+    "text_snippet": "ما يستفاد من الحديث:\nتّقدم شرح هذا الحديث في (باب الاعتكاف) .\nونجمل- هنا- ما في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "استفادة أن الاعتكاف عبادة، ولذلك ينعقد بالنذر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى باب الاعتكاف، لكن الحكم الأساسي مفهوم من النص الحالي."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 263,
+    "end_word": 283,
+    "text_snippet": "2- أنه لا يشترط في الاعتكاف الصيام، إذ أمره أن يوفي بنذره اعتكاف ليلة، والليل لي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم اشتراط الصيام في الاعتكاف، والجمع بينهما أكمل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 284,
+    "end_word": 301,
+    "text_snippet": "3- وجوب الوفاء بالنذر المطلق، وهو نذر الطاعة الذي لم يعلَّق على شيء. بل قصد به م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الوفاء بنذر الطاعة المطلق غير المعلق على شرط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 302,
+    "end_word": 312,
+    "text_snippet": "4- أن النذر من الكافر صحيح منعقد، يجب عليه الوفاء به.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صحة نذر الكافر وانعقاده ووجوب الوفاء به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 313,
+    "end_word": 471,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ اللَه بْنِ عمر رضي الله عنهما عَنِ النَبي صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث النهي عن النذر مع بيان معناه الإجمالي وعلل الكراهة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 472,
+    "end_word": 489,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن النذر، وأصل النهْى للتحريم، والذي صرفه عن التح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن النذر، وبيان أن صارفه عن التحريم مدح الموفين به.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى دليل خارجي هو مدح الموفين بالنذر دون ذكر نصه هنا."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 490,
+    "end_word": 527,
+    "text_snippet": "2- العلة في النهي (أنه لا يأتي بخير) لأنه لا يَرُد من قضاء الله شيئاً، ولئلا يظن",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل النهي عن النذر بأنه لا يرد القضاء ولا يليق جعله عوضًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 528,
+    "end_word": 562,
+    "text_snippet": "3- والله تبارك وتعالى قدًر الواجبات على العباد، بقدر طاقَتهم، وجعل لزائد نوافل، ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "من حكمة النهي أن الناذر قد يلزم نفسه بما يعجز عنه فيأثم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 563,
+    "end_word": 587,
+    "text_snippet": "4- فائدة النذر، أنه يستخرج به من البخيل، الذي غايته القيام بالواجب ويثقل عليه ما",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الوحيدة المذكورة للنذر أنه يحمل البخيل على فعل ما لم يجب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 588,
+    "end_word": 613,
+    "text_snippet": "5- هذا الباب من غرائب العلم.\nفالأصل أن الوسائل لها أحكام المقاصد إلا النذر، فال",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "خصوصية النذر: الوفاء به واجب مع أن أصل عقده مكروه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      33
+    ],
+    "start_word": 614,
+    "end_word": 654,
+    "text_snippet": "6- يكره النذر إذا كان طاعة لله تعالى.\nفأما النذر الذي يقدم للموتى والقبور، ويوفي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التفريق بين نذر الطاعة المكروه ونذر القبور الذي هو من الشرك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 655,
+    "end_word": 701,
+    "text_snippet": "7- ذكر الصنعاني أن هذا باب واسع، من تتبعه عرف أن العبد إذا أولج نفسه فيما لم يوج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "نقل عن الصنعاني أن من ألزم نفسه ما لم يجب عليه عرّضها لعدم الوفاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يستند إلى قول الصنعاني وإلى الآية كشاهد، لكن فهم مراده الكامل يستفيد من السياق السابق في كراهة النذر."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 702,
+    "end_word": 735,
+    "text_snippet": "الحديث الثالث\nعَنْ عقبة بْنِ عامر قَالَ: \" نَذَرَتْ أخْتِي أنْ تَمْشىَ إلى بَيْتِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث أخت عقبة التي نذرت المشي إلى بيت الله فأمرها بالمشي والركوب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      38,
+      39
+    ],
+    "start_word": 736,
+    "end_word": 774,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن من نذر المَشْيَ إلى المسجد الحرام، أو أحد المسجدين ما",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم نذر المشي إلى المساجد وأنه من نذر المباح لا يلزم الوفاء به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 775,
+    "end_word": 798,
+    "text_snippet": "2- أنه إذا اشتمل النذر في أمر مباح وعبادة، فلكل حكمه، فيؤمر بالعبادة، لأنها التي",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "إذا جمع النذر بين مباح وعبادة أُمر بالعبادة فقط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      41
+    ],
+    "start_word": 799,
+    "end_word": 837,
+    "text_snippet": "3- ومنها: - أنه لا يتعبد بما إلا شرعه الله تعالى من الطاعات.\nفالأصل في العبادات ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأصل في العبادات المنع حتى يرد الشرع بها، والتحذير من الزيادة في الدين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 838,
+    "end_word": 870,
+    "text_snippet": "4- في الحديث بيان لبعض العلل في كراهية الشارع للنذر، وهو العجز عن القيام بالمنذو",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "من علل كراهة النذر أن الناذر قد يعجز عن الوفاء بمنذوره.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "إشارة إلى المرأة المذكورة في الحديث السابق، وفهم التطبيق العملي يتقوى بضم الحديث إليها."
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      43,
+      44
+    ],
+    "start_word": 871,
+    "end_word": 912,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبدِ اللَه بن عباس رضي الله عنهما: أنَّهُ قالَ: \"اسْتَفْتى سَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث سعد بن عبادة في قضاء النذر عن أمه بعد وفاتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      45,
+      46
+    ],
+    "start_word": 913,
+    "end_word": 924,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن النذر عبادة، يجب الوفاء بها، وأداؤها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات أن النذر عبادة يجب الوفاء بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      47,
+      48
+    ],
+    "start_word": 925,
+    "end_word": 1040,
+    "text_snippet": "2- أن من مات وعليه ننر، قضاه عنه وارثه.\n3- لم يذكر في هذا الحديث نوع النذر: هل ه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "قضاء النذر عن الميت، مع بحث نوع النذر وما تدخله النيابة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن ترجيحات وإحالات إلى حديث عائشة وأقوال للعلماء دون بسط جميع نصوص الأدلة."
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 1041,
+    "end_word": 1063,
+    "text_snippet": "4- وفي الحديث بر الوالدين بعد وفاتهما.\nوأعظم برهما وفاء ما عليهما من الديون أو ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "من بر الوالدين بعد الموت قضاء ديونهما وحقوقهما الواجبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 1064,
+    "end_word": 1236,
+    "text_snippet": "الحديث الخامس\nعَنْ كَعْبِ بْن مَالِكٍ قالَ: قُلْتُ يَا رَسُولَ الله، إنَّ مِنْ تَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث كعب بن مالك في التصدق بجميع المال وسياق توبته ومعناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      54,
+      55
+    ],
+    "start_word": 1237,
+    "end_word": 1322,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن من نذر الصدقة بماله كله، أبقى منه ما يكفيه ويكفي من ي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم من نذر الصدقة بجميع ماله وذكر الخلاف في القدر الذي يمسكه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 1323,
+    "end_word": 1348,
+    "text_snippet": "2- أن الأولى والأحسن، أن لا ينهك الإنسان ماله بالصدقات، لأن عليه نفقات واجبة، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب عدم استغراق المال بالصدقات لمراعاة النفقات الواجبة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "استدل بحديث «ابدأ بنفسك ثم بمن تعول» دون تخريج أو تمام سياقه."
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1349,
+    "end_word": 1379,
+    "text_snippet": "3- أن النفقة على النفس والزوجة والقريب، عبادة جليلة، وصدقة عظيمة مع النية الحسنة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "النفقة على النفس والعيال قربة عظيمة إذا صاحبتها النية الحسنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1380,
+    "end_word": 1399,
+    "text_snippet": "4- أن الصدقة سبب في مَحْوِ الذنوب، لما فيها من رضا الرب تبارك وتعالى والإحسان إلى",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الصدقة من أسباب محو الذنوب لما فيها من الإحسان وابتغاء رضا الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

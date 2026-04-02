@@ -1,0 +1,490 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ الصّفُوف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 3,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 4,
+    "end_word": 28,
+    "text_snippet": "عن أنَس بْنِ مَالِكٍ رضي الله عنه قَالَْ: قَالَ رَس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 29,
+    "end_word": 30,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 31,
+    "end_word": 92,
+    "text_snippet": "يرشد النبي صلى الله عليه وسلم أمته إلى ما فيه صلا",
+    "scholarly_function": "narration",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 5,
+    "start_word": 93,
+    "end_word": 96,
+    "text_snippet": "الأحكام المستنبطة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 97,
+    "end_word": 113,
+    "text_snippet": "1- مشروعية تعديل الصفوف في الصلاة. باعتدال القائم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 114,
+    "end_word": 137,
+    "text_snippet": "2- أن تسويته، سبب في تمام الصلاة فيكون ذلك مستحب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 8,
+    "start_word": 138,
+    "end_word": 145,
+    "text_snippet": "3- كراهة اعوجاجها، وأن ذلك نقص في الصلاة.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 146,
+    "end_word": 160,
+    "text_snippet": "4- فضل صلاة الجماعة، وذلك لأن الأجر الحاصل من تع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 161,
+    "end_word": 212,
+    "text_snippet": "5- قيل: إن الحكمة في تسوية الصفوف هي موافقة المل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 11,
+    "start_word": 213,
+    "end_word": 214,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 215,
+    "end_word": 241,
+    "text_snippet": "عَنِ النُعْمَانِ بْنِ بَشِيرٍ رضي الله عنه، قَالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 242,
+    "end_word": 286,
+    "text_snippet": "ولمسلم: \"كَانَ رَسُولُ الله صلى الله عليه وسلم يُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 287,
+    "end_word": 288,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 289,
+    "end_word": 309,
+    "text_snippet": "1- \"عقَلنا\": بفتح القاف، أي فهمنا ما أمرنا به من",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 310,
+    "end_word": 331,
+    "text_snippet": "2- \"لتسون\": بضم التاء المثناة الفوقية وفتح السين",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 332,
+    "end_word": 344,
+    "text_snippet": "3- \"أو\": للتقسيم، أي أن أحد الأمرين لازم، فلا يخ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 18,
+    "start_word": 345,
+    "end_word": 371,
+    "text_snippet": "4- \"حتى كأنما يسوى بها القِداح\": \" القداح \" سهام",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 372,
+    "end_word": 373,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 374,
+    "end_word": 500,
+    "text_snippet": "في هذا وعيد شديد لمن لا يقيمون صفوفهم في الصلاة.",
+    "scholarly_function": "narration",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 21,
+    "start_word": 501,
+    "end_word": 502,
+    "text_snippet": "الأحكام المأخوذة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 503,
+    "end_word": 545,
+    "text_snippet": "1- ظاهر الحديث، وجوب تعديل الصفوف، وتحريم تعويجه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 23,
+    "start_word": 546,
+    "end_word": 569,
+    "text_snippet": "2- شدة اهتمامه صلى الله عليه وسلم بإقامة الصفوف،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 570,
+    "end_word": 582,
+    "text_snippet": "3- أن الجزاء من جنس العمل، فقد توعد بمخالفة وجوه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 25,
+    "start_word": 583,
+    "end_word": 596,
+    "text_snippet": "4- غضب النبي صلى الله عليه وسلم على اختلاف الصف،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 26,
+    "start_word": 597,
+    "end_word": 609,
+    "text_snippet": "5- فيه جوازَ كلامَ الإمام فيما بين الإقامة والصلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 610,
+    "end_word": 611,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 612,
+    "end_word": 674,
+    "text_snippet": "عن أنَس بنِ مَالِكٍ رضي الله عنه أن جَدَّتَهُ ⌜1⌝ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 675,
+    "end_word": 691,
+    "text_snippet": "ولمسلمِ أنَّ رَسُولَ الله صلى الله عليه وسلم صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 692,
+    "end_word": 701,
+    "text_snippet": "اليتيم: هو ضُمَيْرة جَدُّ حسين بن عبد الله بن ضمي",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 31,
+    "start_word": 702,
+    "end_word": 703,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 704,
+    "end_word": 711,
+    "text_snippet": "\"فنضحته بماء\": النضح الرش، وقد يراد به الغسل.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 712,
+    "end_word": 713,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 714,
+    "end_word": 872,
+    "text_snippet": "دعت مليكة رضي الله عنها رسول الله صلى الله عليه و",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 35,
+    "start_word": 873,
+    "end_word": 874,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 36,
+    "start_word": 875,
+    "end_word": 945,
+    "text_snippet": "ذهب الجمهور إلى صحة مُصَافَة الصبيِّ في صلاتَي ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 946,
+    "end_word": 949,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 950,
+    "end_word": 966,
+    "text_snippet": "1- صحة مصافة الذي لم يبلغ في الصلاة، لأن اليتيم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 39,
+    "start_word": 967,
+    "end_word": 976,
+    "text_snippet": "2- أن الأفضل في موقف المأمومين، أن يكونوا خلف ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 977,
+    "end_word": 983,
+    "text_snippet": "3- أن موقف المرأة، يكون خلف الرجال.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 984,
+    "end_word": 1000,
+    "text_snippet": "4- صحة موقف المرأة صفاً واحدا، مادامت واحدة.\nفإن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1001,
+    "end_word": 1016,
+    "text_snippet": "5- جواز الاجتماع في النوافل، وإن لم يشرع لها اجت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1017,
+    "end_word": 1030,
+    "text_snippet": "6- جواز الصلاة، لقصد التعليم بها، أو غير ذلك من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1031,
+    "end_word": 1039,
+    "text_snippet": "7- تواضع النبي صلى الله عليه وسلم، وكرم خلقه.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1040,
+    "end_word": 1082,
+    "text_snippet": "8- استحباب إجابة دعوة الداعي، لاسيما لمن يحصل بإ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1083,
+    "end_word": 1084,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1085,
+    "end_word": 1114,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عبَّاس رضي الله عنهما قال: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1115,
+    "end_word": 1116,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1117,
+    "end_word": 1198,
+    "text_snippet": "كان الصحابي الجليل حبر الأمة، وترجمان القرآن، ذا",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1199,
+    "end_word": 1200,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1201,
+    "end_word": 1271,
+    "text_snippet": "المشهور من مذهب الإمام \" أحمد \" فساد صلاة المأموم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1272,
+    "end_word": 1275,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1276,
+    "end_word": 1286,
+    "text_snippet": "1- الأفضل للمأموم أن يقف عن يمين الإمام إذا كان ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1287,
+    "end_word": 1307,
+    "text_snippet": "2- صحة وقوف المأموم عن يسار الإمام مع خُلُو يمينه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1308,
+    "end_word": 1330,
+    "text_snippet": "3- أن المأموم الواحد إذا وقف عن يسار الإمام فاست",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1331,
+    "end_word": 1341,
+    "text_snippet": "4- أن العمل في الصلاة إذا كان مشروعاً لصحتها، لا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1342,
+    "end_word": 1348,
+    "text_snippet": "5- صحة مصَافَة الصبي وحده، مع البالغ.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1349,
+    "end_word": 1353,
+    "text_snippet": "6- مشروعية صلاة الليل واستحبابها.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1354,
+    "end_word": 1365,
+    "text_snippet": "7- اجتهاد ابن عباس رضي الله عنه، وحرصه على تحصيل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1366,
+    "end_word": 1380,
+    "text_snippet": "8- أنه لا يشترط لصحة الإمامة، أن ينوي الإمام قبل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 0,
+    "end_word": 152,
+    "text_snippet": "‌‌باب وجوب المبيت بمنى ⌜1⌝\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله ع",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث استئذان العباس في ترك المبيت بمنى وشرح السقاية وبيان دلالته على وجوب المبيت والرخصة لأهل الخدمة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 153,
+    "end_word": 163,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب المبيت بـ\"منى\" ليالي أيام التشريق.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان الحكم المستفاد من الحديث وهو وجوب المبيت بمنى ليالي التشريق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 164,
+    "end_word": 170,
+    "text_snippet": "2- المراد بالمبيت، الإقامة بـ\"منى\" أكثر الليل.",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تحديد معنى المبيت الواجب بأنه المكث بمنى أكثر الليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 171,
+    "end_word": 197,
+    "text_snippet": "3- الرخصة في ترك المبيت لسقاة الحاج، وألحقوا بهم الرعاة.\nوبعضهم ألحق أيضاً ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر الرخصة في ترك المبيت للسقاة والرعاة ومن في معناهم من أصحاب الحاجات الضرورية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحكم مفهوم بذاته، لكن تعليل الإلحاق وأصل الرخصة مستفادان من الحديث السابق، فيفيد الرجوع إليه لمزيد اكتمال الاستدلال."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 198,
+    "end_word": 211,
+    "text_snippet": "4- ما كان عليه أهل مكة في جاهليتهم من إكرام الحجاج والقيام بخدمتهم\nوتسهيل",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى عادة أهل مكة في الجاهلية من إكرام الحجاج وخدمتهم.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "العبارة مقطوعة في آخر النص عند كلمة \"وتسهيل\"، فلا يكتمل معناها ولا فائدتها التعليمية دون بقية الكلام."
+  }
+]

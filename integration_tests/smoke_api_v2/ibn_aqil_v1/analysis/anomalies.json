@@ -1,0 +1,50 @@
+[
+  {
+    "anomaly_id": "ANO-UNIT-LOSS",
+    "category": "grouped_unit_loss",
+    "severity": "structural_fail",
+    "evidence_basis": "observed",
+    "summary": "2 grouped unit(s) lost between Phase 2b and final excerpts",
+    "observed_facts": [
+      "2 grouped unit(s) missing from final excerpts",
+      "Missing unit indices: [14, 17]",
+      "validation_drops.jsonl confirms 2 drop(s) with per-unit identity"
+    ],
+    "inferred_interpretation": "All 2 lost unit(s) confirmed in validation_drops.jsonl. Dropped unit indices: [14, 17].",
+    "affected_keys": [
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_2_002",
+        "chunk_index": 0,
+        "unit_index": 17
+      },
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_2_009_pre",
+        "chunk_index": 0,
+        "unit_index": 14
+      }
+    ],
+    "evidence_paths": [
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ibn_aqil_v1/phase2b_groupings/",
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ibn_aqil_v1/excerpts.jsonl",
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ibn_aqil_v1/processing_log.jsonl"
+    ]
+  },
+  {
+    "anomaly_id": "ANO-P2A-FAILURES",
+    "category": "phase2a_chunk_failures",
+    "severity": "structural_fail",
+    "evidence_basis": "observed",
+    "summary": "2 chunk(s) failed Phase 2a classification",
+    "observed_facts": [
+      "Failed chunk_ids: ['div_src_test0001_2_000', 'div_src_test0001_2_001']",
+      "Confirmed by phase2a_failures.jsonl (runner-emitted ledger)"
+    ],
+    "inferred_interpretation": "These chunks were attempted but classification failed after all retries. No segments or units were produced.",
+    "affected_keys": [],
+    "evidence_paths": [
+      "/home/rayane/kr-codex/integration_tests/smoke_api_v2/ibn_aqil_v1/phase2a_failures.jsonl"
+    ]
+  }
+]

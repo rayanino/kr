@@ -14,18 +14,28 @@ crashed at runtime on any multi-volume book. Owner caught it; architect didn't.
 This script exists so the architect never misses a cross-engine boundary break again.
 """
 
+import logging
 import re
 import sys
 from pathlib import Path
 from collections import defaultdict
+
+logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ENGINES_DIR = REPO_ROOT / "engines"
 
 
 def find_contract_files() -> list[Path]:
-    """Find all contracts.py files across engines."""
-    return sorted(ENGINES_DIR.rglob("contracts.py"))
+    """Find all contract files across engines.
+
+    Includes both contracts.py and contracts_core.py. Taxonomy uses
+    contracts_core.py as the authoritative runtime contract; contracts.py
+    is the legacy full-SPEC model with deferred features.
+    """
+    files = set(ENGINES_DIR.rglob("contracts.py"))
+    files |= set(ENGINES_DIR.rglob("contracts_core.py"))
+    return sorted(files)
 
 
 def extract_field_constraints(filepath: Path) -> dict[str, dict]:
@@ -57,7 +67,9 @@ def extract_field_constraints(filepath: Path) -> dict[str, dict]:
             
             constraints = {}
             for constraint in ["ge", "le", "gt", "lt", "min_length", "max_length"]:
-                c_match = re.search(rf"{constraint}\s*=\s*([^,\)]+)", field_args)
+                # Word boundary (\b) prevents matching substrings
+                # (e.g., "lt" inside "default")
+                c_match = re.search(rf"\b{constraint}\s*=\s*([^,\)]+)", field_args)
                 if c_match:
                     constraints[constraint] = c_match.group(1).strip()
             
@@ -194,41 +206,42 @@ def check_field_consistency() -> list[str]:
     return issues
 
 
-def main():
-    print("=" * 70)
-    print("KR Cross-Engine Contract Consistency Check")
-    print("=" * 70)
-    print()
-    
+def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    logger.info("=" * 70)
+    logger.info("KR Cross-Engine Contract Consistency Check")
+    logger.info("=" * 70)
+    logger.info("")
+
     # 1. Find all contract files
     contract_files = find_contract_files()
-    print(f"Contract files found: {len(contract_files)}")
+    logger.info("Contract files found: %d", len(contract_files))
     for f in contract_files:
-        print(f"  {f.relative_to(REPO_ROOT)}")
-    print()
-    
+        logger.info("  %s", f.relative_to(REPO_ROOT))
+    logger.info("")
+
     # 2. Cross-engine imports
     refs = find_cross_references()
     if refs:
-        print("Cross-engine type imports:")
+        logger.info("Cross-engine type imports:")
         for direction, imports in sorted(refs.items()):
-            print(f"  {direction}:")
+            logger.info("  %s:", direction)
             for imp in imports:
-                print(f"    {imp}")
-        print()
-    
+                logger.info("    %s", imp)
+        logger.info("")
+
     # 3. Field constraint consistency
     issues = check_field_consistency()
     if issues:
-        print(f"ISSUES FOUND: {len(issues)}")
-        print("-" * 50)
+        logger.info("ISSUES FOUND: %d", len(issues))
+        logger.info("-" * 50)
         for issue in issues:
-            print(issue)
-            print()
+            logger.info("%s", issue)
+            logger.info("")
         sys.exit(1)
     else:
-        print("All shared field constraints are consistent across engines.")
-        print()
+        logger.info("All shared field constraints are consistent across engines.")
+        logger.info("")
         sys.exit(0)
 
 

@@ -1,0 +1,60 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌بَابُ الإبراد في الظهر من شدّة الحَر",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في حكم الإبراد بصلاة الظهر عند شدة الحر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هو عنوان موضوعي فقط، ويفتقر إلى المتن والشرح ليتحقق به تعليم كامل."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 7,
+    "end_word": 195,
+    "text_snippet": "الحديث الأول\nعَنْ عَبدِ الله بنِ عُمَرَ، وَأبي هُرَيرةَ رضي الله عنهم عَنْ رَس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث الإبراد بالظهر مع شرح ألفاظه وبيان معناه الإجمالي ووجه تخصيصه لفضيلة أول الوقت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 196,
+    "end_word": 214,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب تأخير صلاة الظهر في شدة الحر إلى أن يبرد الوقت.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى: استحباب تأخير صلاة الظهر عند شدة الحر حتى يبرد الوقت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الجملة الأخيرة مقطوعة عند كلمة «قال»، ويظهر أن تمام الاستدلال أو التفصيل خارج المقتطف."
+  }
+]

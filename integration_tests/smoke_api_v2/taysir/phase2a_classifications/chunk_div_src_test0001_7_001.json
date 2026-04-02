@@ -1,0 +1,946 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَاب الغُسْل مِنَ الجنَابة\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 13,
+    "text_snippet": "الغسل -بضم الغين- اسم الاغتسال، الذي هو تعميم ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 14,
+    "end_word": 29,
+    "text_snippet": "وأصل \"الجنابة\" البعد، وإنما قيل لمن جامع أو خر",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 30,
+    "end_word": 41,
+    "text_snippet": "ويراد بهذا الباب، الأحكام التي تتعلق بالغسل وتب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 4,
+    "start_word": 42,
+    "end_word": 51,
+    "text_snippet": "وهو من جملة الطهارة المشروعة للصلاة، ومن النظاف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 5,
+    "start_word": 52,
+    "end_word": 62,
+    "text_snippet": "{وَإنْ كُنْتُم جُنُباً فَاطًهرُوا} عدا ما فيه من ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 63,
+    "end_word": 91,
+    "text_snippet": "فإن المجامع حينما تخرج منه النطفة التي تعتبر سلا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 92,
+    "end_word": 111,
+    "text_snippet": "ومن رحمة الحكيم الخبير، شرع هذا الغسل، الذي يعيد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 112,
+    "end_word": 124,
+    "text_snippet": "وكم في شرع الله من حِكم وأسرار!! وفقنا الله تعال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 125,
+    "end_word": 126,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 127,
+    "end_word": 180,
+    "text_snippet": "عَنْ أبي هُرَيْرَةَ رضي الله عنه: أن النبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 181,
+    "end_word": 182,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 183,
+    "end_word": 198,
+    "text_snippet": "1- \"انخنست\": بالنون ثم بالخاء المعجمة والسين ا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 199,
+    "end_word": 207,
+    "text_snippet": "قال ابن فارس: \"الخنس\" الذهاب بخفية، \"خنس\" ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 14,
+    "start_word": 208,
+    "end_word": 224,
+    "text_snippet": "2- \"منه\": أي من أجله، حيث رأيت نفسي نجساً بالن",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 225,
+    "end_word": 244,
+    "text_snippet": "3- \"كنت جنبا\": أي كنت ذا جنابة، وتقع هذه اللفظ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 245,
+    "end_word": 256,
+    "text_snippet": "قال سبحانه: {إن كنتم جنبا فاطهروا} وقالت إحدى أ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 257,
+    "end_word": 262,
+    "text_snippet": "4- \"لا ينجُس\": بضم الجيم وفتحها.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 263,
+    "end_word": 273,
+    "text_snippet": "5- \"سبحان الله\": تعجب من اعتقاد أبي هريرة التنج",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 19,
+    "start_word": 274,
+    "end_word": 275,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 276,
+    "end_word": 361,
+    "text_snippet": "لقي أبو هريرة النبي صلى الله عليه وسلم في بعض طر",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 362,
+    "end_word": 365,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 366,
+    "end_word": 372,
+    "text_snippet": "1- كون الجنابة ليست نجاسة تحل البدن.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 373,
+    "end_word": 401,
+    "text_snippet": "2- كون الإنسان لا تنجس ذاته، لا حيا، ولا ميتا. و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 402,
+    "end_word": 407,
+    "text_snippet": "3- جواز تأخير الغسل من الجنابة.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 408,
+    "end_word": 417,
+    "text_snippet": "4- تعظيم أهل الفضل، والعلم، والصلاح، ومجالستهم ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 418,
+    "end_word": 444,
+    "text_snippet": "5- مشروعية استئذان التابع للمتبوع في الانصراف، ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 445,
+    "end_word": 446,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 447,
+    "end_word": 505,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالتْ: كان رَسولُ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 506,
+    "end_word": 507,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 508,
+    "end_word": 534,
+    "text_snippet": "1- \"إذا اغتسل من الجنابة\": يعنى أراد ذلك. قال ا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 535,
+    "end_word": 545,
+    "text_snippet": "2- \"ثم يخلل بيديه شعره\": التخليل إدخال الأصابع",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 546,
+    "end_word": 561,
+    "text_snippet": "3- قد أروى بشرته- أوصل الماء إلى أصول الشعر، وال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 562,
+    "end_word": 585,
+    "text_snippet": "4- \"إذا ظن\": الظن يراد به هنا معنى الرجحان، إذ ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 34,
+    "start_word": 586,
+    "end_word": 592,
+    "text_snippet": "5- \"أفاض عليه\": أسال الماء على شعره.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 593,
+    "end_word": 594,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 595,
+    "end_word": 667,
+    "text_snippet": "تصف عائشة غسل النبي صلى الله عليه وسلم بأنه إذا ",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 668,
+    "end_word": 671,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 672,
+    "end_word": 691,
+    "text_snippet": "1- مشروعية الغسل من الجنابة. سواء أكان ذلك لإنزا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 692,
+    "end_word": 715,
+    "text_snippet": "2- أن الغسل الكامل، ما ذكر في هذا الحديث، من تق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 716,
+    "end_word": 732,
+    "text_snippet": "3- قولها: \" كان إذا اغتسل \": يدل على تكرار هذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 733,
+    "end_word": 743,
+    "text_snippet": "4- جواز نظر أحد الزوجين لعورة الآخر، وغسلهما من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 744,
+    "end_word": 769,
+    "text_snippet": "5- تقديم غسل أعضاء الوضوء في ابتداء الغسل على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 43,
+    "start_word": 770,
+    "end_word": 803,
+    "text_snippet": "6- قولها: \" ثم توضأ وضوءه للصلاة … ثم غسل سائر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 804,
+    "end_word": 807,
+    "text_snippet": "7- سائر الجسد: بقيته.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 808,
+    "end_word": 809,
+    "text_snippet": "الحديث الثالث\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 810,
+    "end_word": 877,
+    "text_snippet": "عَنْ مَيْمُونَةَ بنْتِ الْحَارثِ زَوْج النبي صلى",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 878,
+    "end_word": 879,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 880,
+    "end_word": 908,
+    "text_snippet": "1- \"أكفأ الإناء\": قلبه على وجهه. وكفأه: أماله، ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 909,
+    "end_word": 924,
+    "text_snippet": "2- \"ضرب يده في الأرض أو الحائط\": المراد منه مسح",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 925,
+    "end_word": 933,
+    "text_snippet": "3- \"إفاضة الماء\": على الشيء وإفراغه عليه وإسال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 934,
+    "end_word": 950,
+    "text_snippet": "4- \"فلم يُرِدْها\": بضم الياء وكسر الراء وإسكان ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 951,
+    "end_word": 954,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 955,
+    "end_word": 964,
+    "text_snippet": "هذا الحديث نحو الحديث السابق، وفيه فوائد نجملها",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 54,
+    "start_word": 965,
+    "end_word": 981,
+    "text_snippet": "1- الحديث الأول ذكر فيه غسل يديه مجملا، وفي هذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 982,
+    "end_word": 1013,
+    "text_snippet": "2- في هذا الحديث أنه بعد غسل اليدين غسل فرجه ثم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1014,
+    "end_word": 1027,
+    "text_snippet": "3- يتعين أن ينوي بغسل فرجه ابتداء الجنابة لئلا ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1028,
+    "end_word": 1079,
+    "text_snippet": "4- في الحديث الأول ذكر أنه توضأ وضوء الصلاة، ويق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1080,
+    "end_word": 1097,
+    "text_snippet": "5- في هذا الحديث أن ميمونة جاءته بخرقة لينشف به",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1098,
+    "end_word": 1110,
+    "text_snippet": "6- أنه لا يجب دَلكُ الجسد في الغُسل. وهو كالدلك ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1111,
+    "end_word": 1132,
+    "text_snippet": "7- أنه لا يغسل أعضاء الوضوء للجنابة بعد غسلها ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1133,
+    "end_word": 1167,
+    "text_snippet": "8- أن غسل الجسد مرة واحدة وبعضهم يجعله ثلاثا، ق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1168,
+    "end_word": 1171,
+    "text_snippet": "حكم من ينام جنب\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1172,
+    "end_word": 1199,
+    "text_snippet": "عَنْ عَبْدِ الله بن عُمَرَ أن عمر بن الخَطَّابِ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1200,
+    "end_word": 1201,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1202,
+    "end_word": 1261,
+    "text_snippet": "كان الحدث من الجنابة عندهم كبيراً، لذا أشكل عليه",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1262,
+    "end_word": 1265,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1266,
+    "end_word": 1273,
+    "text_snippet": "1- جواز نوم الجنب قبل الغسل إذا توضأ.\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1274,
+    "end_word": 1286,
+    "text_snippet": "2- أن الكمال أن لا ينام الجنب حتى يغتسل، لأن الا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1287,
+    "end_word": 1295,
+    "text_snippet": "3- مشروعيهَ الوضوء قبل النوم للجنب، إذ لم يغتسل.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1296,
+    "end_word": 1303,
+    "text_snippet": "4- كراهة نوم الجنب بلا غسل ولا وضوء.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1304,
+    "end_word": 1306,
+    "text_snippet": "حكم احتلام المرأة\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1307,
+    "end_word": 1360,
+    "text_snippet": "عَنْ أم سَلَمَةَ زَوْج النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1361,
+    "end_word": 1362,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1363,
+    "end_word": 1461,
+    "text_snippet": "جاءت أم سليم الأنصارية إلى النبي صلى الله عليه و",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1462,
+    "end_word": 1465,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1466,
+    "end_word": 1476,
+    "text_snippet": "1- أن المرأة عليها الغسل حين تحتلم، إذا أنزلت و",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1477,
+    "end_word": 1495,
+    "text_snippet": "2- أن المرأة تُنْزِل كما يُنْزِلُ الرجل، ومن ذاك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1496,
+    "end_word": 1551,
+    "text_snippet": "3- إثبات صفة الحياء لله جلّ وعلا، إثباتا يليق بج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1552,
+    "end_word": 1567,
+    "text_snippet": "4- أن الحياء لا ينبغي أن يمنع من تعلُّم العلم، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1568,
+    "end_word": 1592,
+    "text_snippet": "5- أن من الأدب وحسن المخاطبة، أن يقدم أمام الكلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1593,
+    "end_word": 1595,
+    "text_snippet": "بيان حكم المني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1596,
+    "end_word": 1635,
+    "text_snippet": "عن عَائِشَة قَالَتْ: كنتُ أغْسِل الْجَنَابةَ مَنْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1636,
+    "end_word": 1637,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1638,
+    "end_word": 1682,
+    "text_snippet": "تذكر عائشة رضي الله عنها: أنه كان يصيب ثوب رسول ",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1683,
+    "end_word": 1684,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1685,
+    "end_word": 1689,
+    "text_snippet": "اختلف العلماء في نجاسة المني.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1690,
+    "end_word": 1710,
+    "text_snippet": "فذهبت الحنفية، والمالكية إلى نجاسته. مستدلين بأح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1711,
+    "end_word": 1734,
+    "text_snippet": "وذهب الشافعي، وأحمد، وأهل الحديث، وابن حزم، وشي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1735,
+    "end_word": 1761,
+    "text_snippet": "1- صحة أحاديث فرك عائشة المنى من ثوب رسول الله ص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1762,
+    "end_word": 1778,
+    "text_snippet": "2- أن المني هو أصل الإنسان ومعدنه، فلا ينبغي أن ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1779,
+    "end_word": 1790,
+    "text_snippet": "3- لم يأمر النبي صلى الله عليه وسلم بغسله والتحر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1791,
+    "end_word": 1816,
+    "text_snippet": "4- أجابوا عن أحاديث غسله، بأن الغسل لا يدل على ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1817,
+    "end_word": 1824,
+    "text_snippet": "فكيف لا يقر غسله صلى الله عليه وسلم.\n",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1825,
+    "end_word": 1828,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1829,
+    "end_word": 1838,
+    "text_snippet": "1- طهارة المني، وعدم وجوب غسله من البدن والثياب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1839,
+    "end_word": 1848,
+    "text_snippet": "2- استحباب إزالته عن الثوب والبدن فيغسل رطباً، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1849,
+    "end_word": 1860,
+    "text_snippet": "بيان أن الجماع يوجب الغسل سواء حصل معه إنزال أم ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1861,
+    "end_word": 1893,
+    "text_snippet": "عَنْ أبى هُريرة رضي الله عنه أنَّ رَسُولَ الله ص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1894,
+    "end_word": 1895,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1896,
+    "end_word": 1906,
+    "text_snippet": "1- \"شعبها الأربع\": يريد بذلك يديها ورجليها، وهو",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 101,
+    "start_word": 1907,
+    "end_word": 1920,
+    "text_snippet": "2- \"ثم جهدها\": بفتح الجيم والهاء، معناه: بلغ ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 102,
+    "start_word": 1921,
+    "end_word": 1922,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 103,
+    "start_word": 1923,
+    "end_word": 1964,
+    "text_snippet": "يقول النبي صلى الله عليه وسلم ما معناه: إذا جلس ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 104,
+    "start_word": 1965,
+    "end_word": 1968,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 105,
+    "start_word": 1969,
+    "end_word": 1980,
+    "text_snippet": "1- وجوب الغسل من إيلاج الذَّكَرِ في الفرج، وإن ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 106,
+    "start_word": 1981,
+    "end_word": 2002,
+    "text_snippet": "2- يكون هذا الحديث ناسخاً لحديث أبي سعيد (الماء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 107,
+    "start_word": 2003,
+    "end_word": 2010,
+    "text_snippet": "بيان مقدار الماء الذي يكفي للغسل من الجنابة\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 108,
+    "start_word": 2011,
+    "end_word": 2085,
+    "text_snippet": "عَنْ أبي جَعْفَر مُحَمَدِ بْنِ عَلِىِّ بْنِ الْح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 109,
+    "start_word": 2086,
+    "end_word": 2109,
+    "text_snippet": "قال المصنف: الرجل الذي قال: \" مَا يَكفينِي\" هو ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 110,
+    "start_word": 2110,
+    "end_word": 2137,
+    "text_snippet": "المعنى الإجمالي: كان أبو جعفر وأبوه عند الصحابي ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 111,
+    "start_word": 2138,
+    "end_word": 2198,
+    "text_snippet": "وكان الحسن بن محمد بن الحنفية مع القوم عند جابر",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 112,
+    "start_word": 2199,
+    "end_word": 2202,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 113,
+    "start_word": 2203,
+    "end_word": 2219,
+    "text_snippet": "1- وجوب الغسل من الجنابة، وذلك بإفاضة الماء على ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 114,
+    "start_word": 2220,
+    "end_word": 2233,
+    "text_snippet": "2- قال في بداية المجتهد، لا يستدل به على لزوم ال",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 115,
+    "start_word": 2234,
+    "end_word": 2271,
+    "text_snippet": "3- أن الصاع الذي هو أربعة أمداد، يكفى للغسل من ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 116,
+    "start_word": 2272,
+    "end_word": 2277,
+    "text_snippet": "4- استحباب التخفيف في ماء الطهارة.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 117,
+    "start_word": 2278,
+    "end_word": 2288,
+    "text_snippet": "5- الإنكار على من يخالف سنة النبي صلى الله عليه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  }
+]

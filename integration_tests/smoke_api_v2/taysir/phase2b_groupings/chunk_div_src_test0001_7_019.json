@@ -1,0 +1,249 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَاب دُخول مَكةَ والبيت ⌜1⌝",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في أحكام دخول مكة والبيت الحرام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 5,
+    "end_word": 199,
+    "text_snippet": "الحديث الأول\nعَنْ أنسِ بْنِ مَالِكٍ رضي الله عنه: أنَّ رَسُولَ الله صلى الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث دخول النبي مكة بالمغفر وقتل ابن خطل مع شرح الغريب والمعنى الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 200,
+    "end_word": 235,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون النبي صلى الله عليه وسلم دخل مكة غير محرم، إذ دخل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز دخول مكة بلا إحرام في مثل حال الفتح والقتال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 236,
+    "end_word": 245,
+    "text_snippet": "2- تقديم الجهاد على النسك، لأن مصالح الأَوَل أعم وأنفع.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقديم مصلحة الجهاد العامة على مصلحة النسك الخاصة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 246,
+    "end_word": 261,
+    "text_snippet": "3- كون مكة فتحت عنوة، كما هو مذهب الأئمة الثلاثة، لا صلحاً كما هو مذهب الشا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في فتح مكة: هل كان عنوة أو صلحاً؟",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر القولين دون تفصيل أدلتهما أو الترجيح بينهما."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 262,
+    "end_word": 275,
+    "text_snippet": "4- جواز فعل الأسباب المباحة الواقية، وأن ذلك لا ينافي التوكل على الله تعالى.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية اتخاذ الأسباب الوقائية مع بقاء التوكل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 276,
+    "end_word": 299,
+    "text_snippet": "5- فيه جواز إقامة الحدود في الحرم ولو بالقتل، لأن قتل ابن خطل، كان بعد انتها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز إقامة الحدود في الحرم ولو انتهت ساعة القتال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة قصة ابن خطل المذكورة في الحديث السابق لفهم وجه الاستدلال كاملاً."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "start_word": 300,
+    "end_word": 485,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ رَسُولَ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "حديث دخول مكة من الثنية العليا والخروج من السفلى مع تفسير المواضع وحكمته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 486,
+    "end_word": 682,
+    "text_snippet": "الحديث التاسع عشر بعد المائتين\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما:\n",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث دخول النبي الكعبة وصلاته فيها مع بيان هيئتها وموضع صلاته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 683,
+    "end_word": 707,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب دخول الكعبة المشرفة، والصلاة فيها، والدعاء في ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب دخول الكعبة والصلاة فيها والدعاء مع نقل تنبيه ابن تيمية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قول ابن تيمية مذكور بإيجاز دون تحرير مراده أو وجه الفرق بين الحسن والسنة."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      30,
+      31,
+      32
+    ],
+    "start_word": 708,
+    "end_word": 745,
+    "text_snippet": "2- أن دخولها ليس من مناسك الحج، وإنما هي فضيلة في ذاتها.\nولهذا فإن النبي صل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "دخول الكعبة فضيلة مستقلة وليس من أعمال الحج، ولم يقع إلا مرة واحدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 746,
+    "end_word": 845,
+    "text_snippet": "اختلاف العلماء:\nالجمهور على جواز صلاة النافلة في الكعبة المشرفة وفوقها، إلا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_rational",
+      "evidence_hadith",
+      "editorial_note"
+    ],
+    "description_arabic": "مذهب أحمد ومالك في منع الفرض داخل الكعبة وفوقها مع أدلتهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 846,
+    "end_word": 931,
+    "text_snippet": "وذهب الإمامان، أبو حنيفة، والشافعي: إلى صحة الفريضة فيها وفوقها، وكذلك في ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "مذهب أبي حنيفة والشافعي في صحة الفرض داخل الكعبة مع رد أدلة المانعين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

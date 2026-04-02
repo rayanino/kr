@@ -1,0 +1,154 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "خاتمة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 28,
+    "text_snippet": "\n\nقال الشيخ بهاء الدين بن النحاس في التعليقة:\n\" ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 2,
+    "start_word": 29,
+    "end_word": 29,
+    "text_snippet": "\n\nتنبيه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 30,
+    "end_word": 33,
+    "text_snippet": "\nالنقل عند ابن الأنباري",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 34,
+    "end_word": 45,
+    "text_snippet": "\n\nبعد أن حررت هذا الكتاب بفروعه وجدت ابن الأنباري ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 46,
+    "end_word": 68,
+    "text_snippet": "\n\" أدلة النحو ثلاثة: نقل وقياس واصطحاب حال\n",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 69,
+    "end_word": 100,
+    "text_snippet": "وعلى هذا يخرج ما جاء من كلام غير العرب من المول",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 7,
+    "start_word": 101,
+    "end_word": 115,
+    "text_snippet": "\nوهو ينقسم إلى تواتر وآحاد فأما التواتر فلغة ال",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 116,
+    "end_word": 123,
+    "text_snippet": "\nوهذا القسم قطعي من أدلة النحو يفيد العلم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 9,
+    "start_word": 124,
+    "end_word": 145,
+    "text_snippet": "\nوأما الآحاد فما تفرد بنقله بعض أهل اللغة ولم يو",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 146,
+    "end_word": 159,
+    "text_snippet": "\nوشرط التواتر أن يبلغ عدد ناقليه عددا لا يجوز عل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 160,
+    "end_word": 198,
+    "text_snippet": "\nوشرط الآحاد أن يكون ناقله عدلا رجلا كان أو امرأ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 12,
+    "start_word": 199,
+    "end_word": 210,
+    "text_snippet": "\nويقبل نقل العدل الواحد وأهل الأهواء إلا أن يكون",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 13,
+    "start_word": 211,
+    "end_word": 224,
+    "text_snippet": "\nوأما المرسل: وهو الذي انقطع سنده نحو أن يروي اب",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 225,
+    "end_word": 242,
+    "text_snippet": "\nوالمجهول: وهو الذي لم يعرف ناقله نحو أن يقول أب",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 243,
+    "end_word": 270,
+    "text_snippet": "\nفلا يقبلان لأن العدالة شرط في النقل وانقطاع الس",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 271,
+    "end_word": 303,
+    "text_snippet": "\nوقيل يقبلان لأن الإرسال صدر ممن لو أسند لقبل ول",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 17,
+    "start_word": 304,
+    "end_word": 329,
+    "text_snippet": "\nوكذلك النقل عن المجهول صدرا ممن لا يهتم في نقله",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 330,
+    "end_word": 347,
+    "text_snippet": "\nواختلف العلماء في جواز الإجازة والصحيح جوازها ه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  }
+]

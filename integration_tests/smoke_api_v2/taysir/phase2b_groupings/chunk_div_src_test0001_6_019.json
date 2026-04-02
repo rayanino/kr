@@ -1,0 +1,175 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "2- مشروعية تكبيرة الركوع، وأن يكون في حال الانتقال من القيام إلى الركوع.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مشروعية تكبيرة الركوع وكونها مقترنة بالانتقال إلى الركوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 13,
+    "end_word": 22,
+    "text_snippet": "3- التسميع للإمام والمنفرد، ويكون في حال الرفع من الركوع.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم التسميع للإمام والمنفرد وموضعه عند الرفع من الركوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 23,
+    "end_word": 32,
+    "text_snippet": "4- التحميد لكل من الإمام، والمأموم، والمنفرد، في حال القيام.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مشروعية التحميد للإمام والمأموم والمنفرد حال القيام بعد الركوع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح التحميد هنا مفهوم في سياق أذكار الرفع من الركوع، لكن لفظه المجمل يحتاج معرفة الصيغة المقصودة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 33,
+    "end_word": 38,
+    "text_snippet": "5- الطمأنينة بعد الرفع من الركوع.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات مشروعية الطمأنينة بعد الاعتدال من الركوع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 39,
+    "end_word": 47,
+    "text_snippet": "6- التكبير في حال الهوِي من القيام إلى السجود.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان موضع التكبير عند الهوي من القيام إلى السجود.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 48,
+    "end_word": 57,
+    "text_snippet": "7- التكبير حال الرفع من السجود إلى الجلوس بين السجدتين.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم التكبير عند الرفع من السجود إلى الجلوس بين السجدتين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 58,
+    "end_word": 68,
+    "text_snippet": "8- أن يفعل ما تقدم- عدا تكبيرة الإحرام- في جميع الركعات.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تعميم الأذكار والانتقالات السابقة في جميع الركعات سوى تكبيرة الإحرام.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "العبارة تحيل إلى أحكام سابقة بقولها: ما تقدم، فلا تستقل بدون استحضار البنود السابقة المقصودة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 69,
+    "end_word": 81,
+    "text_snippet": "9- التكبير حيال القيام من التشهد الأول إلى القيام في الصلاة ذات التشهدين.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية التكبير عند النهوض من التشهد الأول في الصلاة الثنائية التشهد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: الصلاة ذات التشهدين تعبير اصطلاحي مفهوم إجمالاً، لكن ضبط المراد به يحتاج معرفة فقهية سابقة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 82,
+    "end_word": 111,
+    "text_snippet": "10- المفهوم من لفظ (حين) أن التكبير يقارن الانتقال، فلا يتقدمه، ولا يتأخر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان أن التكبير المشروع يقارن الانتقال، مع نقل تأييد ابن دقيق العيد لذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مبني على لفظ (حين) الوارد في نص سابق غير مذكور هنا، فوجه الاستنباط مفهوم جزئياً لا كاملاً."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 112,
+    "end_word": 127,
+    "text_snippet": "11- ذكر ناصر الدين بن المنير أن تجديد التكبير في كل ركعة وحركة بمثابة تجديد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل فائدة ابن المنير في تشبيه تكرار التكبير بتجديد النية في كل حركة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 128,
+    "end_word": 157,
+    "text_snippet": "فائدة:\nورد في بعض روايات الحديث \"ربنا لَكَ الحمد\"، وورد في البعض الآخر \"ربن",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "بيان اختلاف الروايات في لفظ التحميد وترجيح رواية الواو لزيادة معناها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 158,
+    "end_word": 204,
+    "text_snippet": "الحديث السابع\nعَنْ البَرَاء بن عَازِبٍ رضي الله عنهما قال: رَمَقْتُ الصَّلاةَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث البراء في تقارب أركان الصلاة زمناً سوى القيام والقعود.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث قائم بذاته، لكن بعض الألفاظ مثل رَمَقْتُ ومراد القعود الأخير قد تحتاج شرحاً لغوياً أو فقهياً."
+  }
+]

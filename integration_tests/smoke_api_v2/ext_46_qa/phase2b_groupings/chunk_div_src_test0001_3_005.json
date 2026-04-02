@@ -1,0 +1,58 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 157,
+    "text_snippet": "فصل\nمما يشبه تداخل اللغات السابق تركيبُ المذاهب، وقد عقد له ابن جني بابا ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "example"
+    ],
+    "description_arabic": "تعريف تركيب المذاهب وبيان صورته بمثال مذهب المازني المركب من قولي يونس وسيبويه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 158,
+    "end_word": 431,
+    "text_snippet": "قال أبو البقاء في (التبيين)\n(جاء في الشعر (لولاي) و (لولاك) فقال معظم البص",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "example",
+      "rule_statement",
+      "refutation",
+      "cross_reference"
+    ],
+    "description_arabic": "عرض القولين في إعراب ضمير لولا، ثم اقتراح أبي البقاء قولين آخرين والجواب عن دعوى مخالفتهما للإجماع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

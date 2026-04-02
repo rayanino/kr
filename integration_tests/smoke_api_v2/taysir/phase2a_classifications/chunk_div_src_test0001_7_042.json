@@ -1,0 +1,682 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتابُ اللبَاس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 3,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 4,
+    "end_word": 30,
+    "text_snippet": "عَنْ عُمَرَ بْنِ الخطابِ رضي الله عنه قالَ: قَالَ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 31,
+    "end_word": 32,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 33,
+    "end_word": 70,
+    "text_snippet": "عَنْ حُذَيفَةَ بنِ اليَمَانِ رضي الله عنه قَالَ: سم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 71,
+    "end_word": 72,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 73,
+    "end_word": 94,
+    "text_snippet": "نهى النبي صلى الله عليه وسلم الرجال عن لُبس الحري",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 95,
+    "end_word": 100,
+    "text_snippet": "والرجل يطلب منه الخشونة، والقوة، والفتوة.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 8,
+    "start_word": 101,
+    "end_word": 140,
+    "text_snippet": "كما نهى كُلا من الرجال والنساء عن الأكل والشرب في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 9,
+    "start_word": 141,
+    "end_word": 160,
+    "text_snippet": "وكما قال صلى الله عليه وسلم: إن الأكل فيهما في ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 10,
+    "start_word": 161,
+    "end_word": 176,
+    "text_snippet": "وهي لكم- أيها المسلمون خالصة- يوم القيامة إذا اجتن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 11,
+    "start_word": 177,
+    "end_word": 194,
+    "text_snippet": "كما أن من لبس الحرير من الرجال في الدنيا، فقد تعج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 12,
+    "start_word": 195,
+    "end_word": 204,
+    "text_snippet": "(ومن تعجل شيئاً قبل أوانه عوقب بحرمانه) والله شديد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 13,
+    "start_word": 205,
+    "end_word": 208,
+    "text_snippet": "ما يستفاد من الحديثين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 209,
+    "end_word": 220,
+    "text_snippet": "1- تحريم لبس الحرير والديباج على الذكور، والوعيد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 221,
+    "end_word": 237,
+    "text_snippet": "2- يباح للنساء لبسُه، لكونهن في حاجة إلى الزينة لل",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 16,
+    "start_word": 238,
+    "end_word": 261,
+    "text_snippet": "3- تحريم الأكل والشرب في صحاف الذهب والفضة وآنيتهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 262,
+    "end_word": 294,
+    "text_snippet": "4- الحق العلماء بالأكل والشرب سائر الاستعمالات، و",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 18,
+    "start_word": 295,
+    "end_word": 326,
+    "text_snippet": "5- يجرى في هذا الوعيد ما تقدم من كلام شيخ الإسلام ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 19,
+    "start_word": 327,
+    "end_word": 329,
+    "text_snippet": "الحديث الثالث ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 330,
+    "end_word": 361,
+    "text_snippet": "عَنْ عُمَرَ بن الْخَطاب رضي الله عنه: أنَّ رَسُولَ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 362,
+    "end_word": 381,
+    "text_snippet": "ولـ (مسلم) : نَهَى رَسُولُ الله صلى الله عليه وسلم ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 22,
+    "start_word": 382,
+    "end_word": 385,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 386,
+    "end_word": 394,
+    "text_snippet": "1- فيه تحريم لبس الحرير، على الرجال دون النساء.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 395,
+    "end_word": 407,
+    "text_snippet": "2- فيه استثناء قدر الإصبعين أو الثلاث أو الأربع، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 25,
+    "start_word": 408,
+    "end_word": 422,
+    "text_snippet": "أما المنفرد، فلا يحل منه، قليله ولا كثيره كخيط مسب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 423,
+    "end_word": 424,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 425,
+    "end_word": 461,
+    "text_snippet": "عَن الْبَرَاءِ بْنِ عَازِبٍ رضي الله عنه قَالَ: مَا ",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 28,
+    "start_word": 462,
+    "end_word": 462,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 463,
+    "end_word": 484,
+    "text_snippet": "اللمة: بكسر اللام قال في الصحاح: اللمة- بالكسر- ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 485,
+    "end_word": 488,
+    "text_snippet": "ما يستفاد من الحديثين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 489,
+    "end_word": 535,
+    "text_snippet": "1- فيه جواز لبس الأحمر، وقد ورد النهي عنه، فحمله ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 32,
+    "start_word": 536,
+    "end_word": 570,
+    "text_snippet": "2- وفيه دليل على حسن توفير الرأس حتى يبلغ المنكبين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 33,
+    "start_word": 571,
+    "end_word": 601,
+    "text_snippet": "[التواليت] فهذه بدعة مستقبحة ومثله مستبشعة، وهو الق",
+    "scholarly_function": "refutation",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 34,
+    "start_word": 602,
+    "end_word": 619,
+    "text_snippet": "3- في الحديث بيان خلْقِ النبي صلى الله عليه وسلم ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 35,
+    "start_word": 620,
+    "end_word": 635,
+    "text_snippet": "وحسن الْخَلْقِ عنوان حسن الْخلُق، وقد كمله الله تعا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 36,
+    "start_word": 636,
+    "end_word": 637,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 37,
+    "start_word": 638,
+    "end_word": 705,
+    "text_snippet": "عَن البَرَاءِ بن عَازِبٍ رضي الله عنه قَالَ: أمَرَن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 706,
+    "end_word": 706,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 39,
+    "start_word": 707,
+    "end_word": 789,
+    "text_snippet": "تشميت العاطس: بالشين المعجمة. قال ابن فارس في (مقا",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 790,
+    "end_word": 798,
+    "text_snippet": "وقال ثعلب: [معناه- بالمعجمة- أبعد الله عنك الشماتة",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 799,
+    "end_word": 830,
+    "text_snippet": "المياثر: بفتح الميم بعدها ياء، ثم ثاء مثلثة، جمع (",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 831,
+    "end_word": 845,
+    "text_snippet": "القَسى: بفتح القاف وكسر السين المهملة المشددة، ثيا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 846,
+    "end_word": 867,
+    "text_snippet": "وبعض المحدثين، يكسر القاف، ويخفف السين. قال الخطاب",
+    "scholarly_function": "refutation",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 44,
+    "start_word": 868,
+    "end_word": 879,
+    "text_snippet": "الإستبرق: بكسر الهمزة: ما غلظ من الديباج، كلمة فار",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 880,
+    "end_word": 881,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 882,
+    "end_word": 902,
+    "text_snippet": "بعث النبي صلى الله عليه وسلم ليتم مكارم الأخلاق، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 47,
+    "start_word": 903,
+    "end_word": 941,
+    "text_snippet": "ومنْ ذلك ما في هذا الحديث من الأشياء التي أمر بها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 48,
+    "start_word": 942,
+    "end_word": 950,
+    "text_snippet": "وتشميت العاطس، إذا حمد الله فيقال له: يرحمك الله.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 49,
+    "start_word": 951,
+    "end_word": 974,
+    "text_snippet": "وإبرار قسم المقسم، إذا دعاك لشيء وليس عليك ضرر، فت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 50,
+    "start_word": 975,
+    "end_word": 991,
+    "text_snippet": "ونصر المظلوم من ظالمه، لما فيه من رد الظلم، ودفع ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 51,
+    "start_word": 992,
+    "end_word": 1006,
+    "text_snippet": "وإجابة من دعاك لأن في ذلك تقريبا بين القلوب، وتصفي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1007,
+    "end_word": 1016,
+    "text_snippet": "فإن كانت الدعوة لزواج، فالإجابة واجبة، وإن كانت لغ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1017,
+    "end_word": 1034,
+    "text_snippet": "وإفشاء السلام، وهو إعلانه وإظهاره لكل أحد، وهو أدا",
+    "scholarly_function": "definition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1035,
+    "end_word": 1048,
+    "text_snippet": "فقد جاء في الحديث \"ألا أدلكم على شيء إذا فعلتموه ت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1049,
+    "end_word": 1070,
+    "text_snippet": "أما الأشياء التي نهى عنها في هذا الحديث، فالتختم ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1071,
+    "end_word": 1090,
+    "text_snippet": "وعن الشرب بآنية الفضة، لما فيه من السرف والبطر، وإ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1091,
+    "end_word": 1100,
+    "text_snippet": "وعن المياثر، والقسي، والحرير، والديباج، والإستبرق،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1101,
+    "end_word": 1110,
+    "text_snippet": "فإنها تدعو إلى اللين والترف اللذين هما سبب العطالة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1111,
+    "end_word": 1126,
+    "text_snippet": "والرجل يطلب منه النشاط والصلابة والفتوة، ليكون دائ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1127,
+    "end_word": 1130,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1131,
+    "end_word": 1146,
+    "text_snippet": "1- استحباب عيادة المريض وتجب إذا كان يجب بره. كال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1147,
+    "end_word": 1169,
+    "text_snippet": "2- استحباب اتباع الجنائز للصلاة عليها ودفنها، وهو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1170,
+    "end_word": 1184,
+    "text_snippet": "ومن تبعها حتى يصلى عليها فله قيراط من الأجر، ومن ش",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1185,
+    "end_word": 1202,
+    "text_snippet": "ْتشميت العاطس إذا حمد الله بقوله: (ورحمك الله) وهو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1203,
+    "end_word": 1219,
+    "text_snippet": "4- إبرار قسم المقسم، وهو من مستحب، لما فيه من جبر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1220,
+    "end_word": 1238,
+    "text_snippet": "5- وفيه وجوب نصر المظلوم بقدر استطاعته، لأنه من ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1239,
+    "end_word": 1262,
+    "text_snippet": "6- إجابة الدعوة. فإن كانت لعرس وجبت الإجابة إن لم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1263,
+    "end_word": 1272,
+    "text_snippet": "وتتأكد بما يترتب عليها من إزالة ضغينة، أو دفع شر.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1273,
+    "end_word": 1284,
+    "text_snippet": "7- إفشاء السلام بين المسلمين، لأنه دعاء بالسلامة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1285,
+    "end_word": 1293,
+    "text_snippet": "8- النهي عن تختم الرجال بخواتم الذهب، فهو محرم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1294,
+    "end_word": 1300,
+    "text_snippet": "وقد ابتلى به كثير من الشباب المائع.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1301,
+    "end_word": 1315,
+    "text_snippet": "9- النهي عن الشرب بآنية الفضة، وأعظم منه الذهب، و",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1316,
+    "end_word": 1324,
+    "text_snippet": "10- النهي عن لبس القسي والحرير، والإستبرق، والديب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1325,
+    "end_word": 1354,
+    "text_snippet": "ومثله جعل المياثر للجلوس، وكذلك جعلها ستورا للأبوا",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1355,
+    "end_word": 1356,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1357,
+    "end_word": 1418,
+    "text_snippet": "عَنِ ابْن عُمَرَ رضي الله عنهما: أنَّ رَسُولَ الله ص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1419,
+    "end_word": 1422,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1423,
+    "end_word": 1436,
+    "text_snippet": "1- فيه دليل على استحباب التختم، وأنه من زينة النبي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1437,
+    "end_word": 1454,
+    "text_snippet": "2- أن يجعل فصه من قبل الراحة ليقبض عليه في المحال ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1455,
+    "end_word": 1465,
+    "text_snippet": "3- أن التختم بخاتم الذهب كان مباحاً للرجال أولا، ث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1466,
+    "end_word": 1485,
+    "text_snippet": "4- تحريم التختم بخاتم الذهب للرجال، ونزع النبي صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1486,
+    "end_word": 1505,
+    "text_snippet": "5- فضل الصحابة، وسرعة اقتدائهم بالنبي صلى الله علي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.69
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1506,
+    "end_word": 1521,
+    "text_snippet": "6- أن يكون التختم باليد اليمنى، لأن اليمين لكل طيب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1522,
+    "end_word": 1545,
+    "text_snippet": "7- في هذا وأمثاله من الأحاديث المتقدمة وغيرها، الز",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.79
+  }
+]

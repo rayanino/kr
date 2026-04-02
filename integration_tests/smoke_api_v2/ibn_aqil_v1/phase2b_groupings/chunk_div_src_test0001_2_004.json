@@ -1,0 +1,172 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 110,
+    "text_snippet": "‌‌العلم ⌜1⌝\nاسم يعين المسمى مطلقا … علمه كجعفر وخرنقا (2)\nوقرن وعدن ولاحق ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "تعريف العلم بأنه ما يعين مسماه مطلقا مع أمثلة لأعلام الأشخاص وغيرها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 111,
+    "end_word": 163,
+    "text_snippet": "واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحبا ⌜2⌝\nينقسم العلم إلى ثلاثة أق",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان أقسام العلم الثلاثة: الاسم والكنية واللقب، وتعريف كل واحد منها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 164,
+    "end_word": 335,
+    "text_snippet": "وأشار بقوله وأخرن ذا إلخ إلى أن اللقب إذا صحب الاسم وجب تأخيره كزيد أنف النا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "refutation"
+    ],
+    "description_arabic": "حكم تأخير اللقب مع الاسم، وبيان الاستثناء مع الكنية، ومناقشة عبارة الناظم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 336,
+    "end_word": 405,
+    "text_snippet": "وإن يكونا مفردين فأضف … حتما وإلا أتبع الذي ردف ⌜3⌝\nإذا اجتمع الاسم واللقب ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "structural_transition"
+    ],
+    "description_arabic": "حكم اجتماع الاسم واللقب إذا كانا مفردين، مع خلاف البصريين والكوفيين وترجيح المصنف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 406,
+    "end_word": 493,
+    "text_snippet": "وإن لم يكونا مفردين بأن كانا مركبين نحو عبد الله أنف الناقة أو مركبا ومفردا ن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "حكم الاسم واللقب إذا لم يكونا مفردين، ووجوب الإتباع وجواز القطع مع أمثلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 494,
+    "end_word": 596,
+    "text_snippet": "ومنه منقول كفضل وأسد … وذو ارتجال كسعاد وأدد ⌜5⌝\nوجملة وما بمزج ركبا … ذا ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تقسيم العلم إلى مرتجل ومنقول، وبيان صور المنقول ومنها المنقول من الجملة وحكمه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشتمل أوله على أبيات تمهيدية تذكر المزج والإضافة، لكن المقصود الرئيس هنا تعريف المرتجل والمنقول وحكم المنقول من الجملة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23,
+      24
+    ],
+    "start_word": 597,
+    "end_word": 695,
+    "text_snippet": "ومنها أيضا ما ركب تركيب مزج كبعلبك ومعدي كرب وسيبويه وذكر المصنف أن المركب تر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم العلم المركب تركيب مزج، والفرق بين المختوم بغير ويه والمختوم بويه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 696,
+    "end_word": 743,
+    "text_snippet": "ومنها: ما ركب تركيب إضافة كعبد شمس وأبي قحافة وهو معرب فتقول جاءني عبد شمس وأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم العلم المركب تركيب إضافة، وكيفية إعراب جزأيه مع التمثيل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 744,
+    "end_word": 898,
+    "text_snippet": "ووضعوا لبعض الأجناس علم … كعلم الأشخاص لفظا وهو عم ⌜7⌝\nمن ذاك أم عريط للعق",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example",
+      "rule_statement"
+    ],
+    "description_arabic": "بيان علم الشخص وعلم الجنس، وأحكامهما اللفظية والمعنوية، وأمثلة علم الجنس للشخص والمعنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

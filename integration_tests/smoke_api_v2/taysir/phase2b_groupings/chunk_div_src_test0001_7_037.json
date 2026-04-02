@@ -1,0 +1,1099 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 39,
+    "text_snippet": "‌‌كِتَابُ القِصَاص\nقال (ابن فارس) : (القاف والصاد، أصل صحيح، يدل على تَتَبعِ ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف القصاص لغة وشرعًا وبيان أصل معناه في التتبع والمماثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 40,
+    "end_word": 96,
+    "text_snippet": "والأصل في القصاص، الكتاب، والسنة، والإجماع، والقياس.\nفأما الكتاب فلقوله تعال",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "أدلة مشروعية القصاص من القرآن والسنة والإجماع والقياس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 97,
+    "end_word": 253,
+    "text_snippet": "حكمته التشريعية:\nحكمته متجلية في هذه الآية الكريمة البليغة {ولكم في القِصَاص ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "editorial_note",
+      "refutation"
+    ],
+    "description_arabic": "حكمة تشريع القصاص في حفظ النفوس وردع القتل وفساد القوانين الوضعية المخالفة له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 254,
+    "end_word": 418,
+    "text_snippet": "الحديث الأول\nعَنْ عبدِ الله بْنِ مسعُودٍ رضي الله عنه قال: قالَ رَسولُ الله ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث حصر إباحة دم المسلم في ثلاث خصال مع بيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 419,
+    "end_word": 433,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم قتل المسلم من ذكر وأنثى، وصغير وكبير، بغير حق.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم قتل المسلم مطلقًا بغير حق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 434,
+    "end_word": 466,
+    "text_snippet": "2- أن من أتى بالشهادتين (شهادة أن لا إله إلا الله وأن محمدا رسول الله) وأتى ب",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "بيان من هو المسلم المعصوم الدم والمال والعرض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 467,
+    "end_word": 487,
+    "text_snippet": "3- تحريم فعل هذه الخصال الثلاث أو بعضها، وأن من فعل شيئا منها، استحق عقوبة ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحقاق القتل لمن ارتكب واحدة من الخصال الثلاث المذكورة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الخصال الثلاث المشار إليها مذكورة في الحديث السابق، ولا تُفهم كاملة من هذه الوحدة وحدها."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 488,
+    "end_word": 513,
+    "text_snippet": "4- الثيب، يراد به المحصن، وهو من جامع وهو حُر مكلف، في نكاح صحيح، سواء أكان ر",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الثيب المحصن وبيان عقوبة زناه بالرجم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 514,
+    "end_word": 524,
+    "text_snippet": "5- أن من قتل معصوما عمدا عدواناً، فهو مستحق للقصاص بشروطه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحقاق القصاص في قتل المعصوم عمدًا عدوانًا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: بشروطه يدل على شروط خارجة عن هذه الوحدة لم تُذكر هنا."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 525,
+    "end_word": 555,
+    "text_snippet": "6- أن المرتد عن الإسلام يقتل، لأن ردته دليل على خبث طويته، وأن قلبه خال من ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم المرتد عن الإسلام وتعليل قتله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 556,
+    "end_word": 625,
+    "text_snippet": "7- استدل بهذا الحديث على أن تارك الصلاة لا يقتل بتركها، لكونه ليس من الأمور ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في الاستدلال بحديث ابن مسعود على حكم تارك الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 626,
+    "end_word": 688,
+    "text_snippet": "الحديث الثاني\nعن عبد الله بن مسعود رضي الله عنه قالَ: قَالَ رَسُول الله صلى ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أول ما يقضى بين الناس يوم القيامة في الدماء مع معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 689,
+    "end_word": 759,
+    "text_snippet": "ما يستفاد من الحديث:\n1- عِظَمُ شأن دم الإنسان، فإنه لم يبدأ به يوم القيامة إل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعظيم شأن الدماء وأنها من أعظم مظالم العباد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      33
+    ],
+    "start_word": 760,
+    "end_word": 767,
+    "text_snippet": "2- إثبات يوم القيامة والحساب والقضاء: الجزاء فيه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات يوم القيامة والحساب والجزاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 768,
+    "end_word": 822,
+    "text_snippet": "3- هذا الحديث لا ينافي ما أخرجه أصحاب السنن عن أبي هريرة عن النبي صلى الله عل",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "الجمع بين حديث أول ما يقضى في الدماء وحديث أول ما يحاسب عليه الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 823,
+    "end_word": 840,
+    "text_snippet": "4- أنه على القضاء والمحاكم العناية بأمر قضايا الدماء والقتل، وجعل الأهمية لها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تقديم قضايا الدماء والقتل في اهتمام القضاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 841,
+    "end_word": 1115,
+    "text_snippet": "الحديث الثالث\nعَنْ سَهْل بْنِ أبي حَشمَةَ قَال: انطلق عَبْدُ الله بْن سهل وَمح",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث القسامة في قتيل خيبر مع شرح ألفاظه الغريبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      48,
+      49,
+      50
+    ],
+    "start_word": 1116,
+    "end_word": 1223,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا الحديث أًصل في (مسألة القسامة ⌜1⌝ وصفتها: - أن يو",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "تعريف القسامة وصفتها وشروط الدعوى فيها وأحكام النكول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      51,
+      52,
+      53
+    ],
+    "start_word": 1224,
+    "end_word": 1309,
+    "text_snippet": "2- المشهور من مذهب الإمام أحمد أنه لابد في صحة دعوى المدَّعِي من قرينة العداو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في اشتراط اللوث والعداوة في صحة دعوى القسامة وترجيح عدم الاشتراط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      54,
+      55
+    ],
+    "start_word": 1310,
+    "end_word": 1357,
+    "text_snippet": "3- دعوى القسامة خالفت سائر الدعاوى بأمور:\nالأول: أن اليمين توجهت على المدعي، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "الفروق بين دعوى القسامة وسائر الدعاوى.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة إلى مسألة اللعان في بابها تحتاج معرفة خارجية، لكن أصل الفروق مفهوم."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 1358,
+    "end_word": 1470,
+    "text_snippet": "4- إذا وجد القتيل المجهول القاتل، ووجدت القرائن على قاتله، حلف أولياء المقتول",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم استحقاق الدم أو الدية بالقسامة عند وجود القرائن والخلاف فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1471,
+    "end_word": 1509,
+    "text_snippet": "5- إذا نكل المدعون عن الدعوى، أو كانوا من غير أهل الأيمان [النساء والصبيان] ت",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "حكم انتقال الأيمان إلى المتهمين إذا نكل المدعون أو لم يكونوا من أهل الأيمان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1510,
+    "end_word": 1558,
+    "text_snippet": "6- إذا نكل أولياء المقتول على الأيمان، وحلف المدعى عليهم فحينئذ تكون دية القتي",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "تحمل بيت المال دية القتيل عند تعذر ثبوت القاتل وعدم ضياع الدم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      62
+    ],
+    "start_word": 1559,
+    "end_word": 1609,
+    "text_snippet": "7- أن اليمين تكون في جانب الأقوى من المتخاصمين.\nففي [دعوى القسامة] توجهت الأي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة توجيه اليمين إلى جانب الأقوى في الخصومة مع مثال القسامة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      63
+    ],
+    "start_word": 1610,
+    "end_word": 1627,
+    "text_snippet": "8- استحباب تقديم الأكبر سنا في الأمور، لما له من شرف السن، وكثرة العبادة، ومما",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تقديم الأكبر سنًا في الكلام والتصرفات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      64,
+      65
+    ],
+    "start_word": 1628,
+    "end_word": 1658,
+    "text_snippet": "9- قوله: [فوداه بمائة من إبل الصدقة] دليل على جواز صرف الزكاة في المصالح العام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "جواز صرف الزكاة في المصالح العامة وبيان معنى سبيل الله هنا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مبني على فهم سياق الحديث السابق وعموم قوله تعالى وفي سبيل الله."
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      66
+    ],
+    "start_word": 1659,
+    "end_word": 1664,
+    "text_snippet": "10- جواز الوكالة في المطالبة بالحدود.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التوكيل في المطالبة بالحدود.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      67
+    ],
+    "start_word": 1665,
+    "end_word": 1680,
+    "text_snippet": "11- وفيه دليل على رد اليمين على المدَّعِي من المدَّعَى عليه، أو عند نكول المدع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات رد اليمين على المدعي عند نكول المدعى عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      68
+    ],
+    "start_word": 1681,
+    "end_word": 1695,
+    "text_snippet": "12- وعلى أن الدعوى بين المسلم والذمي، كالدعوى بين المسلمين، وأن الأيمان تُقَب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تساوي الدعوى بين المسلم والذمي وقبول أيمان الكفار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77
+    ],
+    "start_word": 1696,
+    "end_word": 1866,
+    "text_snippet": "الحديث الرابع\nعِنْ أنَس بنِ مَالك رضي الله عنه: أنَ جَارِيَةً وُجدَ رأسها مَرْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث قتل اليهودي بالجارية وشرح ألفاظه وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      78,
+      79
+    ],
+    "start_word": 1867,
+    "end_word": 1886,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الرجل يقتل بالمرأة. قال تعالى: {النفس بالنًفْس} قا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ثبوت قتل الرجل بالمرأة في القصاص.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 1887,
+    "end_word": 1906,
+    "text_snippet": "2- ثبوت القصاص في القتل بالمثل، وأنه لا يختص بالمحدد، وهو مذهب جمهور العلماء و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات القصاص بالمثل في القتل وعدم اختصاصه بالمحدد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تستبين دلالة الحديث على هذا الحكم أكثر بالرجوع إلى الحديث السابق."
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      81
+    ],
+    "start_word": 1907,
+    "end_word": 1932,
+    "text_snippet": "3- قبول قول المجني عليه في مثل هذه الحال لإلقاء التُّهمة على أحد، فيقرر ويحبس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قبول إشارة المجني عليه في توجيه التهمة والتحقيق معها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      82,
+      83,
+      84,
+      85,
+      86
+    ],
+    "start_word": 1933,
+    "end_word": 2068,
+    "text_snippet": "4- أن القاتل يقتل بمثل ما قتل به، فإن قتل بسيف قتل به، وإن قتل ببندقية قتل به",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في استيفاء القصاص بالمثل أو بالسيف فقط وترجيح المماثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98
+    ],
+    "start_word": 2069,
+    "end_word": 2345,
+    "text_snippet": "الحديث السادس\nعَنْ أبي هريرة رضي الله عنه قالَ: لَمَّا فَتَحَ الله عَلَى رَسُول",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث فتح مكة وخطبة تحريمها وتخيير ولي القتيل مع شرح المفردات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      99,
+      100,
+      101,
+      102
+    ],
+    "start_word": 2346,
+    "end_word": 2442,
+    "text_snippet": "ما يؤخذ من الحديث:\nتقدمت أكثر معاني هذا الحديث في [كتاب الحج] ونجملها هنا مفص",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "الخلاف في فتح مكة عنوة وحكم قتال البغاة في الحرم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة إلى كتاب الحج تبين أن بعض معاني الحديث مشروحة سابقًا، لكن أصل المسألة واضح هنا."
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      103,
+      104
+    ],
+    "start_word": 2443,
+    "end_word": 2488,
+    "text_snippet": "2- أن مكة محرمة، لم تحِلَّ لأحد، وأنها لا تزال ولن تزال محرمة، فلا يعضد شجرها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حرمة مكة وتحريم قطع شجرها وخلاها مع بيان مستثنياتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      105,
+      106
+    ],
+    "start_word": 2489,
+    "end_word": 2515,
+    "text_snippet": "4- أن لقطة الحرم لا تحل إلا لمن أراد التعريف عليها حتى يجدها صاحبها.\nفإذا أيس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم لقطة الحرم ووجوب تعريفها ثم التصدق بها عند اليأس من صاحبها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      107
+    ],
+    "start_word": 2516,
+    "end_word": 2549,
+    "text_snippet": "5- كتابة العلم، ففيها حفظه وتقييده عن الضياع.\nوقد حث الله تعالى على الكتابة بق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل كتابة العلم وحفظه بالكتابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      108,
+      109,
+      110,
+      111
+    ],
+    "start_word": 2550,
+    "end_word": 2681,
+    "text_snippet": "6- قوله: \"ومن قتِلَ له قتيل فهو بخير النظرين: إما أن يقتل وإما أن يُودَى\" فيه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "تخيير أولياء المقتول بين القصاص والدية والعفو وبيان أفضلية العفو بضوابطه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "start_word": 2682,
+    "end_word": 2922,
+    "text_snippet": "الحديث السابع\nعَن عُمَرَ بنِ الَخطَّاب رضي الله عنه: أنَّهُ اسْتشارَ النَّاسَ ف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث دية الجنين بالغرة مع شرح الإملاص والغرة وبيان القصة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      120,
+      121
+    ],
+    "start_word": 2923,
+    "end_word": 2948,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن دية الجنين إذا سقط ميتا، بسبب الجناية، عبد أو أمة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم دية الجنين إذا سقط ميتًا أو حيًا ثم مات بسبب الجناية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      122
+    ],
+    "start_word": 2949,
+    "end_word": 2960,
+    "text_snippet": "2- استشارة أهل العلم والعقل فى مهام الأمور ومستجدها، لطلب الحق والصواب.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية استشارة أهل العلم والعقل في النوازل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 43,
+    "segment_indices": [
+      123
+    ],
+    "start_word": 2961,
+    "end_word": 2978,
+    "text_snippet": "3- التثبت في المسائل، وطلب صحة الأخبار فيها، وإلا فخبر الواحد كافٍ متى توفرت ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية التثبت في الأخبار مع حجية خبر الواحد بشروطه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 44,
+    "segment_indices": [
+      124
+    ],
+    "start_word": 2979,
+    "end_word": 3032,
+    "text_snippet": "4- قال (ابن دقيق العيد) : [وفى ذلك دليل على أن العلم الخاص قد يخفى على الأكاب",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "قد يخفى بعض العلم على الأكابر ويعلمه من هو دونهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 45,
+    "segment_indices": [
+      125
+    ],
+    "start_word": 3033,
+    "end_word": 3062,
+    "text_snippet": "5- في الحديث دليل على أنه لا اجتهاد مع النص.\nووجهته أن عمر أراد استثارة الصحا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة عدم الاجتهاد مع وجود النص الصريح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 46,
+    "segment_indices": [
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140
+    ],
+    "start_word": 3063,
+    "end_word": 3408,
+    "text_snippet": "الحديث الثامن\nعَنْ أبي هُرَيرةَ رضي الله عنه قالَ: اقتَتلَتِ امْرأتَانِ مِن هُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "editorial_note",
+      "narration"
+    ],
+    "description_arabic": "حديث اقتتال المرأتين من هذيل وفيه دية الجنين والعاقلة وذم السجع المتكلف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 47,
+    "segment_indices": [
+      141,
+      142,
+      143
+    ],
+    "start_word": 3409,
+    "end_word": 3452,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا الحديث أصل في النوع الثالث من القتل، وهو [شبه الع",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف شبه العمد وبيان حكمه في تغليظ الدية دون القصاص.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 48,
+    "segment_indices": [
+      144,
+      145
+    ],
+    "start_word": 3453,
+    "end_word": 3503,
+    "text_snippet": "2- أن دية [شبه العمد] ومثله [الخطأ] تكون على عاقلة القاتل، وهم [الذكور من عصب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "وجوب دية شبه العمد والخطأ على العاقلة وتعليل ذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلحا شبه العمد والعاقلة معروفان غالبًا، لكن فهمهما الأدق يستفيد من الحديث والشرح السابقين."
+  },
+  {
+    "unit_index": 49,
+    "segment_indices": [
+      146,
+      147,
+      148
+    ],
+    "start_word": 3504,
+    "end_word": 3551,
+    "text_snippet": "3- أن دية الجنين الذي سقط ميتا بسبب الجناية [غرة] عبد أو أمة.\nقدر الفقهاء قيم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "دية الجنين الساقط ميتًا وقدر الغرة وحكم تحملها على القاتل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 50,
+    "segment_indices": [
+      149
+    ],
+    "start_word": 3552,
+    "end_word": 3565,
+    "text_snippet": "4- أن الدية تكون ميراثا بعد المقتول، لأنها بدل نفسه، وليس للعاقلة فيها شيء.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الدية ميراث للورثة بعد المقتول وليست للعاقلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 51,
+    "segment_indices": [
+      150,
+      151,
+      152,
+      153
+    ],
+    "start_word": 3566,
+    "end_word": 3680,
+    "text_snippet": "5- قال العلماء: إنما كره النبي صلى الله عليه وسلم سجع حَمَل بن النابغة لأمرين",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "بيان السجع المذموم والجائز مع أمثلة من كلام النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 52,
+    "segment_indices": [
+      154,
+      155,
+      156,
+      157,
+      158,
+      159
+    ],
+    "start_word": 3681,
+    "end_word": 3803,
+    "text_snippet": "الحديث التاسع\nعَنْ عِمْرَانَ بن حُصَيْن رضي الله عنه: أنَّ رَجُلا عَضَّ يَدَ رَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث سقوط ثنيتي العاض عند انتزاع المعضوض يده مع بيان معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 53,
+    "segment_indices": [
+      160,
+      161
+    ],
+    "start_word": 3804,
+    "end_word": 3824,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن من عض يد إنسان فانتزعها منه، فسقطت أسنانه أو بعضه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "لا دية ولا قود على من انتزع يده من فم العاض فسقطت أسنانه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 54,
+    "segment_indices": [
+      162,
+      163,
+      164
+    ],
+    "start_word": 3825,
+    "end_word": 3908,
+    "text_snippet": "2- هذا الحكم عام في كل من صال عليه إنسان أو حيوان، فدافع عن نفسه، أو عن عرضه،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "حكم دفع الصائل عن النفس والمال والعرض بشرط التدرج في الدفاع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 55,
+    "segment_indices": [
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175
+    ],
+    "start_word": 3909,
+    "end_word": 4164,
+    "text_snippet": "الحديث العاشر\nعَنِ الحَسَنِ بنِ أبي الَحسَنِ البصري قَالَ: حَدَّثَنَا جندب في ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "حديث الرجل الذي قتل نفسه لجزعه من الجرح مع شرح ألفاظه وبيان معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 56,
+    "segment_indices": [
+      176,
+      177
+    ],
+    "start_word": 4165,
+    "end_word": 4199,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه تحريم قتل النفس بغير حق، وحرمتها، وعظم شأنها، وخط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعظيم حرمة النفس وتحريم قتلها بغير حق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 57,
+    "segment_indices": [
+      178
+    ],
+    "start_word": 4200,
+    "end_word": 4219,
+    "text_snippet": "2- وجوب الصبر عند المصائب عما يسخط الله تعالى من قول، كالنياحة. أو فعل، كاللط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الصبر عند المصائب وترك ما يسخط الله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 58,
+    "segment_indices": [
+      179
+    ],
+    "start_word": 4220,
+    "end_word": 4244,
+    "text_snippet": "3- أن الأحسن للمبتلي أن يقول -إذا كان لا بد من القول-: \"اللهم أحيني ما كانت ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الدعاء المشروع للمبتلى عند شدة البلاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 59,
+    "segment_indices": [
+      180,
+      181
+    ],
+    "start_word": 4245,
+    "end_word": 4326,
+    "text_snippet": "4- قوله: \"عبدي بادرني بنفسه\" ليس فيه منافاة لقضاء الله وقدره السابق. فالله مقد",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الجواب عن توهم تعارض قتل النفس مع القضاء والقدر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 60,
+    "segment_indices": [
+      182,
+      183,
+      184,
+      185,
+      186
+    ],
+    "start_word": 4327,
+    "end_word": 4417,
+    "text_snippet": "5- في هذا الحديث دليل على تحريم قتل الإنسان نفسه. لأنها ليست ملكه وإنما هي مل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم الانتحار وبيان علله وآثاره الإيمانية والسلوكية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 61,
+    "segment_indices": [
+      187
+    ],
+    "start_word": 4418,
+    "end_word": 4439,
+    "text_snippet": "6- قوله: \"حرمت عليه الجنة\" تقدم أن الأحسن في مثل هذه النصوص إبقاءها على تهويل",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "منهج التعامل مع نصوص الوعيد بإبقائها على الزجر والتهويل.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "الوحدة تحيل إلى كلام متقدم بلفظ تقدم، فلا تستقل في بيان وجه هذا المنهج وأدلته."
+  }
+]

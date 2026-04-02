@@ -1,0 +1,58 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 102,
+    "text_snippet": "‌‌المنادى المضاف إلى ياء المتكلم\nواجعل منادى صح إن يصف ليا … كعبد عبدي عبد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "يبين أحكام المنادى المضاف إلى ياء المتكلم إذا كان صحيح الآخر، ووجوهه الخمسة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 103,
+    "end_word": 157,
+    "text_snippet": "وفتح أو كسر وحذف اليا استمر … في يا ابن أم يا ابن عم لا مفر\nإذا أضيف المنادى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "يوضح حكم المنادى المضاف إلى مضاف لياء المتكلم، واستثناء ابن أم وابن عم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 158,
+    "end_word": 201,
+    "text_snippet": "وفي الندا أبت أمت عرض … واكسر أو افتتح ومن اليا التا عوض\nيقال في النداء يا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "يبين حكم النداء بقولهم يا أبت ويا أمت، وأن التاء عوض من ياء المتكلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

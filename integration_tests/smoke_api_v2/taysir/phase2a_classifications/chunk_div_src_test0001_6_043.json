@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 66,
+    "text_snippet": "والتصديق بأخباره وغير ذلك مما يتباين الناس فيه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 1,
+    "start_word": 67,
+    "end_word": 92,
+    "text_snippet": "الثاني: زوال العوارض، وهو الاجتهاد في دفع ما يش",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 2,
+    "start_word": 93,
+    "end_word": 112,
+    "text_snippet": "وهذا في كل عبد بحسبه، فإن كثرة الوساوس بحسب كث",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 3,
+    "start_word": 113,
+    "end_word": 126,
+    "text_snippet": "والعبد الكيس يجتهد في كمال الحضور، ولا حول ولا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 127,
+    "end_word": 132,
+    "text_snippet": "‌‌بَابُ الجَمْع بين الصلاتين في السفر\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 133,
+    "end_word": 149,
+    "text_snippet": "لما كان السفر مظنة المشقة، رخص فيه الشارع بعض ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 6,
+    "start_word": 150,
+    "end_word": 164,
+    "text_snippet": "ومن تلك الرخص، إباحة الجمع للمسافر، الذي ربما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 165,
+    "end_word": 183,
+    "text_snippet": "فأبيح له أن يجمع بين صلاتي الظهر والعصر في وقت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 184,
+    "end_word": 202,
+    "text_snippet": "وهذا كله من سماحة الشريعة المحمدية ويسرها وهو ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 9,
+    "start_word": 203,
+    "end_word": 233,
+    "text_snippet": "عَنْ عَبْدِ الله بن عَبَّاس رضي الله عنهما قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 234,
+    "end_word": 290,
+    "text_snippet": "المعنى الإِجمالي:\nكان من عادة النبي صلى الله عل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 11,
+    "start_word": 291,
+    "end_word": 292,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 293,
+    "end_word": 381,
+    "text_snippet": "اختلف العلماء في الجمع. فذهب كثير من الصحابة ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 382,
+    "end_word": 397,
+    "text_snippet": "وقد صحح بعض الأئمة هذا الحديث، وتكلم فيه بعضهم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 14,
+    "start_word": 398,
+    "end_word": 413,
+    "text_snippet": "وذهب أبو حنيفة وصاحباه، والحسن، والنخعي: إلى ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 414,
+    "end_word": 432,
+    "text_snippet": "وصفته- عندهم- أن يؤخر الظهر إلى آخر وقتها فيصل",
+    "scholarly_function": "definition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 16,
+    "start_word": 433,
+    "end_word": 456,
+    "text_snippet": "وهذا تعسُّف وخلاف المفهوم من لفظ الجمع، الذي م",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 457,
+    "end_word": 486,
+    "text_snippet": "في التأويل. ذكر الخطابي وابن عبد البر أن الجمع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 18,
+    "start_word": 487,
+    "end_word": 508,
+    "text_snippet": "وذهب ابن حزم، ورواية عن مالك: أنه يجوز جمع الت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 19,
+    "start_word": 509,
+    "end_word": 513,
+    "text_snippet": "واختلفوا أيضاً في حكم الجمع.\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 20,
+    "start_word": 514,
+    "end_word": 529,
+    "text_snippet": "فذهب الشافعي وأحمد والجمهور، إلى أن السفر سبب ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 530,
+    "end_word": 537,
+    "text_snippet": "وذهب مالك في المشهور عنه إلى اختصاص الجمع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  }
+]

@@ -1,0 +1,557 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 31,
+    "text_snippet": "ما يستفاد هن الحديث:\n1- لعق الأصابع، ومثله الإناء، لما فيه من التماس بركة ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب لعق الأصابع والإناء تعظيماً للنعمة وطلباً لبركة الطعام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 32,
+    "end_word": 46,
+    "text_snippet": "2- وفيه صون نِعَمِ الله وحفظها، لئلا تقع في موضع قذر نجس، أو تهان فيه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب أو استحباب صيانة نعم الله عن الامتهان والوقوع في مواضع القذر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 47,
+    "end_word": 95,
+    "text_snippet": "‌‌بَابُ الصَّيْد\nالصيد: يطلق على المصدر، أي التصيد. ويطلق: على اسم المفعول ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الصيد لغة واشتقاقاً وبيان حده الشرعي عند الفقهاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 96,
+    "end_word": 130,
+    "text_snippet": "والأصل في إباحة الصيد، الكتاب، والسنة، والإجماع.\nأما الكتاب، فقوله تعالى: {و",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "الأدلة على أصل إباحة الصيد من القرآن والسنة والإجماع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذكر دليل السنة إجمالاً دون نصوصه، فاكتمل أصل الاستدلال بالقرآن والإجماع وبقيت السنة محالة على الأحاديث الآتية."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 131,
+    "end_word": 195,
+    "text_snippet": "وهو من الهوايات المحببة، وكان العرب مولعين به، ويعدونه من اللذات التي يتنافس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان أن الصيد مباح في الأصل، لكن يكره جعله لهواً محضاً ويحرم إزهاق الحيوان بلا مسوغ.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 196,
+    "end_word": 450,
+    "text_snippet": "الحديث الأول\nعَنْ أبى ثَعْلَبَةَ الخُشَنيِّ رضي الله عنه قَال: أتَيْتُ رَسُولَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث أبي ثعلبة في أواني أهل الكتاب وحكم الصيد بالقوس والكلب المعلم وغير المعلم مع شرح ألفاظه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 451,
+    "end_word": 467,
+    "text_snippet": "ما يستفاد من الحديث:\n1- إباحة استعمال أواني الكفار، ومثلها ثيابهم، عند عدم غ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم استعمال أواني الكفار وثيابهم عند الحاجة بعد غسلها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في الحديث محال على حديث أبي ثعلبة السابق، لكن الحكم نفسه واضح مستقل."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 468,
+    "end_word": 489,
+    "text_snippet": "2- هنا تعارض الأصل الذي هو [الأصل في الأشياء الطهارة] بغلبة الظن، الذي هو- ه",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "ترجيح غلبة الظن بالنجاسة على أصل الطهارة عند قوة القرائن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 490,
+    "end_word": 532,
+    "text_snippet": "3- إباحة الصيد بالقوس: وبالكلب المعلم بشرط ذكر اسم الله عند إرسالهما.، فإن تر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم التسمية عند إرسال السهم والكلب المعلم، والخلاف في السهو والجهل وترجيح الإباحة فيهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 533,
+    "end_word": 578,
+    "text_snippet": "4- ظاهر الحديث حِل أكل ما صيد، سواء أقتله الجارح بجرحه أم بصدمه وهو مذهب الشا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في حل الصيد إذا قتل الجارح المصيد بصدمه أو خنقه لا بجرحه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال بقوله لعموم الآية يحتاج معرفة الآية المشار إليها من سياق الباب."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 579,
+    "end_word": 594,
+    "text_snippet": "5- أن صيد الكلب الذي لم يعَلم، لا يحل إلا إن أدركه الإنسان فذكاه قبل موته.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم صيد الكلب غير المعلم وأنه لا يحل إلا بإدراك ذكاته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 595,
+    "end_word": 680,
+    "text_snippet": "6- صفة تعليم الجارح على مذهب الحنابلة، إن كان الجارح كلباً، أو فهداً ونحوهما ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "صفة تعليم الجوارح عند الحنابلة والخلاف في رد ضابط التعليم إلى العرف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 681,
+    "end_word": 706,
+    "text_snippet": "7- فضل العلم على الجهل، إذ أبيح صيد الكلب المعلم دون الكلب الذي لم يعلم فقد آ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى فضل العلم حتى في تمييز أحكام البهائم والصيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 707,
+    "end_word": 944,
+    "text_snippet": "الحديث الثاني\nعَنْ هَمَّام بْنِ الحارِثِ عَنْ عَدِي بْنِ حاتِمٍ قَال: قُلْتُ، ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث عدي بن حاتم في حكم الكلب المعلم والمعراض واختلاط الكلاب، مع شرح غريبه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      42,
+      43
+    ],
+    "start_word": 945,
+    "end_word": 980,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على حل ما صاده الكلب ونحوه، كالفهد، أو الصقر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حل صيد الجارح المعلم مع التسمية سواء أدرك المصيد حياً أو ميتاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على دلالة الحديث السابق، لكن الحكم مذكور بوضوح داخل الوحدة."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 981,
+    "end_word": 1007,
+    "text_snippet": "2- تحريم الصيد الذي اشترك فيه الكلب المعلَّم وغير المعلم، لأنه اجتمع فيه مبيح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم ما اشترك في صيده المعلم وغير المعلم لاجتماع المبيح والحاظر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      45,
+      46
+    ],
+    "start_word": 1008,
+    "end_word": 1053,
+    "text_snippet": "3- أنه لابد من التسمية عند إرسال السهم، والمراد بالسهم، السلاح الذي صنع للرمي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "اشتراط التسمية عند إرسال السلاح وامتداد الحكم إلى البنادق ونحوها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بعبارة وتقدم إلى حكم سقوط التسمية سهواً وجهلاً المذكور سابقاً."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      47
+    ],
+    "start_word": 1054,
+    "end_word": 1075,
+    "text_snippet": "5- لكون النية والتعليم مقصودين في الجارح، فإنه لا يحل الصيد الذي أكل منه، خشي",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل منع أكل ما أكل منه الجارح لاحتمال إمساكه لنفسه لا لصاحبه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 1076,
+    "end_word": 1099,
+    "text_snippet": "6- أن ما أدركته من صيد السلاح، أو الجارح حيا، فلا بد من تذكيته، وإن كان ميتاً",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ما أدرك حياً من الصيد يحتاج إلى ذكاة، وما مات بجرح السلاح أو الجارح فذكاته بذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      49,
+      50,
+      51
+    ],
+    "start_word": 1100,
+    "end_word": 1155,
+    "text_snippet": "7- إذا جرحت الصيد فوقع في ماء، واشتبه عليك: هل مات من سهمك أو من الماء؟ فهو ح",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حكم الصيد إذا وقع في الماء مع الاشتباه، واستثناء ما غلب على الظن موته بالسهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1156,
+    "end_word": 1182,
+    "text_snippet": "8- أن المعراض وغيره من السلاح، إن قتل الصيد بحده ونفوذه، فهو مباح، لأنه مما أ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "التفريق في المعراض بين القتل بالحد النافذ والقتل بالثقل والصدم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح الموقوذة يحتاج معرفة فقهية أو رجوعاً لتعريف سابق."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 1183,
+    "end_word": 1333,
+    "text_snippet": "الحديث الرابع\nعَنْ سَالِمِ بْنِ عَبْدِ الله بنِ عُمَرَ عَنْ أبيهِ رضي الله عنه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث النهي عن اقتناء الكلب إلا لحاجة، مع بيان علته ومقدار نقص الأجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      57,
+      58,
+      59
+    ],
+    "start_word": 1334,
+    "end_word": 1405,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم اقتناء الكلب، ونقص أجر صاحبه كل يوم قيرِاطين، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "تحريم اقتناء الكلب لغير حاجة وبيان بعض مفاسده الواردة في السنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1406,
+    "end_word": 1424,
+    "text_snippet": "3- أنه يباح اقتناؤه لمصلحة، وذلك بأن يكون لحراسة غنم، أو حرث، أو لأجل صيد، فه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إباحة اقتناء الكلب لمصلحة معتبرة كالصيد والماشية والحرث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1425,
+    "end_word": 1484,
+    "text_snippet": "4- بهذا تعلم مبلغ ما لدى الغربيين من السفاهة وقلة البصيرة، إذ فتنوا باقتنائها",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تعليق تربوي في ذم اقتناء الكلاب لغير فائدة وتقليد أهل الغرب في ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72
+    ],
+    "start_word": 1485,
+    "end_word": 1728,
+    "text_snippet": "الحديث الخامس\nعَنْ رَافِعِ بن خَدِيج قَالَ: كُنَّا معَ رسول الله صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث رافع بن خديج في إكفاء القدور والبهيمة الشاردة وحكم الذكاة بما أنهر الدم، مع شرح ألفاظه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      73,
+      74,
+      75
+    ],
+    "start_word": 1729,
+    "end_word": 1776,
+    "text_snippet": "ما يستفاد من الحديث:\nنأتي بفوائد هذا الحديث، مرتبة حسب ما جاء ت فيه:\n1- إن م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "استحباب كون القائد في مؤخرة الجيش رفقاً بالضعفاء والمنقطعين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      76
+    ],
+    "start_word": 1777,
+    "end_word": 1800,
+    "text_snippet": "2- تأديب الإمام لرعيته وجنده فقد أدبهم النبي صلى الله عليه وسلم على هذه العجل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية تأديب الإمام للرعية والجند عند المخالفة والتعجل بغير إذن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم أصل الحكم، لكن تفاصيل الواقعة التأديبية مستفادة من الحديث السابق."
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 1801,
+    "end_word": 1872,
+    "text_snippet": "3- اختلف في السبب الذي أمر من أجله صلى الله عليه وسلم بإكفاء القدور وذكر القا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر الخلاف في سبب إكفاء القدور وأنه قد يكون بسبب النهبة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الوحدة تعرض احتمالاً تفسيرياً لواقعة الحديث وتحتاج معرفة الواقعة الأصلية."
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      78,
+      79
+    ],
+    "start_word": 1873,
+    "end_word": 1954,
+    "text_snippet": "4- مشروعية التعزيز بالمال إذا رأى الإمام المصلحة في ذلك وهو رواية عن الإمام أ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في التعزير بالمال مع ترجيح مشروعيته والرد على مانعيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 1955,
+    "end_word": 2005,
+    "text_snippet": "5- العدل، لاسيما في موطن جهاد الأعداء والكفار، لأنه من أسباب النصر والظفر بالأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل العدل في القسمة وبيان أن تقدير البعير بعشر من الغنم من باب القيمة لا الأضحية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      81
+    ],
+    "start_word": 2006,
+    "end_word": 2036,
+    "text_snippet": "6- أن من هرب ولم يمكن إدراكه من الإبل، أو البقر، أو الغنم أو من الحيوانات الم",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "حكم الحيوان الأهلي إذا توحش وند فلم يقدر عليه، وأن رميه يقوم مقام ذكاته.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله فليحبس أو ليقتل برميه قد يستفيد من مثال الحديث السابق في البعير الشارد."
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      82,
+      83
+    ],
+    "start_word": 2037,
+    "end_word": 2060,
+    "text_snippet": "7- جواز التذكية بكل ما أنهر الدم وأساله، من حديد، أو حجر، أو قصب أو غيرها.\n8-",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "جواز التذكية بكل ما أنهر الدم، مع الإشارة إلى اشتراط التسمية وسقوطها سهواً وجهلاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "حكم التسمية هنا محال على ما تقدم، فلم يذكر تفصيله داخل الوحدة."
+  }
+]

@@ -1,0 +1,434 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَابُ صَلَاة الخوف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 21,
+    "text_snippet": "\nليس لها سبب إلا الخوف حضراً أو سفراً، وهي ثابت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 22,
+    "end_word": 42,
+    "text_snippet": "\nوبما أنها شرعت رحمة بالمصلين في هذه الشدة وتخف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 53,
+    "text_snippet": "\nويختلف ذلك باختلاف جهة العدو وقربه، وبعده، وش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 54,
+    "end_word": 55,
+    "text_snippet": "\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 56,
+    "end_word": 104,
+    "text_snippet": "\nعَنْ عَبْدِ الله بن عُمَرَ بن الخَطَّابِ رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 105,
+    "end_word": 106,
+    "text_snippet": "\nالمعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 107,
+    "end_word": 195,
+    "text_snippet": "\nصلى النبي صلى الله عليه وسلم صلاة الخوف بأصحاب",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 196,
+    "end_word": 199,
+    "text_snippet": "\nما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 200,
+    "end_word": 224,
+    "text_snippet": "\n1- مشروعية صلاة الخوف عند وجود سببها، حضرا أو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 225,
+    "end_word": 250,
+    "text_snippet": "\n2- الإتيان بها على هذه الكيفية التي ذكرت في ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 251,
+    "end_word": 261,
+    "text_snippet": "\n3- أن الحركة الكثيرة لمصلحة الصلاة، اً وللضرور",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 262,
+    "end_word": 280,
+    "text_snippet": "\n4- الحرص الشديد على الإتيان بالصلاة في وقتها و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 281,
+    "end_word": 292,
+    "text_snippet": "\n5- أخذ الأهبة، وشدة الحذر من أعداء الدين، الذي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 293,
+    "end_word": 294,
+    "text_snippet": "\nالحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 295,
+    "end_word": 355,
+    "text_snippet": "\nعَنْ يَزيدَ بن رُومَانَ عَنْ صَالِحِ بن خَوَّات",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 356,
+    "end_word": 370,
+    "text_snippet": "\nالرجل الذي صلى مع رسول الله صلى الله عليه وسلم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 17,
+    "start_word": 371,
+    "end_word": 371,
+    "text_snippet": "\nالغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 372,
+    "end_word": 399,
+    "text_snippet": "\nذات الرقاع: هي غزوة غزا النبي صلى الله عليه وس",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 400,
+    "end_word": 408,
+    "text_snippet": "\nقيل: سميت بذلك، لانتقاب أرجلهم من الحفى، فلفوه",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 20,
+    "start_word": 409,
+    "end_word": 410,
+    "text_snippet": "\nالمعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 411,
+    "end_word": 478,
+    "text_snippet": "\nفي هذا الحديث يكون العدو في غير جهة القبلة، لأ",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 22,
+    "start_word": 479,
+    "end_word": 480,
+    "text_snippet": "\nاختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 481,
+    "end_word": 549,
+    "text_snippet": "\nرويت صلاة الخوف عن النبي صلى الله عليه وسلم بأ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 550,
+    "end_word": 563,
+    "text_snippet": "\nأما الإمام مالك فذهب إلى الصفة التي ذكرت في حد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 564,
+    "end_word": 571,
+    "text_snippet": "\nوأما الإمام الشافعي فاختار حديث صالح بن خوات.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 572,
+    "end_word": 594,
+    "text_snippet": "\nوأما الإمام أبو حنيفة وطائفة من الفقهاء فتارة ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 595,
+    "end_word": 629,
+    "text_snippet": "\nأما الإمام أحمد فقد سأله تلميذه الأثرم فقال: ق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 630,
+    "end_word": 645,
+    "text_snippet": "\nقال الصنعاني: وكلام أحمد حسن مع صحة الصفات وتع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 646,
+    "end_word": 669,
+    "text_snippet": "\nأما ابن القيم في الهدى فصح عنده ستة أو سبعة وج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 30,
+    "start_word": 670,
+    "end_word": 714,
+    "text_snippet": "\nوقال السهيلي في كتابه- الروض الأنف- اختلف العل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 31,
+    "start_word": 715,
+    "end_word": 740,
+    "text_snippet": "\nوما اختاره الإمام أحمد ورجحه ابن القيم وذكره ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 741,
+    "end_word": 744,
+    "text_snippet": "\nما يؤخذ فن الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 745,
+    "end_word": 760,
+    "text_snippet": "\n1- فيه ما تقدم من مشروعية صلاة الخوف وتأكد صلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 761,
+    "end_word": 787,
+    "text_snippet": "\n2- الإتيان بالصلاة على هذه الكيفية وهى مناسبة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 788,
+    "end_word": 809,
+    "text_snippet": "\n3- وفيه مخالفة لصلاة الأمن، وهي تطويل الركعة ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 810,
+    "end_word": 817,
+    "text_snippet": "\n4- وفيه مفارقة المأموم لإمامه لمثل هذا العذر.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 818,
+    "end_word": 848,
+    "text_snippet": "\nوقد وردت المفارقة فيما هو أخف من ذلك كالذي صلى",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 38,
+    "start_word": 849,
+    "end_word": 850,
+    "text_snippet": "\nالحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 851,
+    "end_word": 1008,
+    "text_snippet": "\nعن جَابِرِ بن عَبْدِ الله الأنصَارِي رضي الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1009,
+    "end_word": 1031,
+    "text_snippet": "\nوذكر البخاري طرفاَ منه، وأنه صلى صلاة الخوف مع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1032,
+    "end_word": 1033,
+    "text_snippet": "\nالمعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1034,
+    "end_word": 1073,
+    "text_snippet": "\nهذه الكيفية المفصلة في هذا الحديث عن صلاة الخو",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1074,
+    "end_word": 1077,
+    "text_snippet": "\nما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1078,
+    "end_word": 1090,
+    "text_snippet": "\n1- صلاة الخوف على هذه الصفة المذكورة، لوجود ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1091,
+    "end_word": 1104,
+    "text_snippet": "\n2- الحراسة- هنا- وقعت في حال السجود فقط، لأنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1105,
+    "end_word": 1133,
+    "text_snippet": "\n3- قوله: \" والعلو بيننا وبين القبلة \" مفهومه أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1134,
+    "end_word": 1143,
+    "text_snippet": "\nوتقدم أن لتعدد وجوهها فوائد، منها مراعاة حال ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1144,
+    "end_word": 1159,
+    "text_snippet": "\n4- وفيه بيان حسن القيادة، وتدبير الجيوش وإبعاد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1160,
+    "end_word": 1208,
+    "text_snippet": "\n5- وفيه بيان العدل، وأنه مما تحلى به النبي صلى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1209,
+    "end_word": 1225,
+    "text_snippet": "\n6- وفيه أن الحركة المطلوبة ولو كثرت، لا تُخِلّ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1226,
+    "end_word": 1248,
+    "text_snippet": "\nوتقدم حكم الحركة وأقسامها في حديث قصة حمل النب",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1249,
+    "end_word": 1250,
+    "text_snippet": "\nفائدة هامة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1251,
+    "end_word": 1421,
+    "text_snippet": "\nقال الصنعاني عند اختلاف العلماء في صلاة الخوف:",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  }
+]

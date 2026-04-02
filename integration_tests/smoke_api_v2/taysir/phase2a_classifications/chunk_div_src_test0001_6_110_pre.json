@@ -1,0 +1,282 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "فذب الشافعي، وعطاء: إلى أنه لابد من أربع نسوة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 37,
+    "text_snippet": "وذهب مالك، والحكم: إلى أنه لا يقبل إلا شهادة ام",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 38,
+    "end_word": 48,
+    "text_snippet": "وذهب الحنفية: إلى أنه لا يقبل إلا رجلان، أو رجل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 60,
+    "text_snippet": "لقوله تعالى: {وَاستشْهِدُوا شَهِيدَين مِنْ رِجالِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 61,
+    "end_word": 76,
+    "text_snippet": "والجمهور على عدم العمل بهذا الحديث، وحملوه على أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 77,
+    "end_word": 99,
+    "text_snippet": "وذهب الإمام أحمد وهو من مفرداته عن الأئمة الثلاث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 100,
+    "end_word": 107,
+    "text_snippet": "وقال بهذا القول طاوس، والحسن، والزهري، والأوزاعي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 108,
+    "end_word": 121,
+    "text_snippet": "ودليل هذا القول، حديث الباب الذي تقدم شرحه، وهو ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 8,
+    "start_word": 122,
+    "end_word": 122,
+    "text_snippet": "فائدة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 123,
+    "end_word": 129,
+    "text_snippet": "ينبغي حفظ الرضاع وضبطه، في حينه، وكتابته.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 130,
+    "end_word": 165,
+    "text_snippet": "فيحفظ من رضع منه ولده، ومن شاركه في الرضاع، ومن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 11,
+    "start_word": 166,
+    "end_word": 167,
+    "text_snippet": "الحديث السادس\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 168,
+    "end_word": 259,
+    "text_snippet": "عَنِ الْبَراء بْنِ عَازِب رضي الله عنه قَالَ: خَر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 260,
+    "end_word": 260,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 261,
+    "end_word": 273,
+    "text_snippet": "دونكِ: بكسر الكاف، خطاب، لأنثى، وهو اسم فعل منقو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 274,
+    "end_word": 303,
+    "text_snippet": "وقال زيد: بنت أخي: البنت لحمزة بن عبد المطلب، وز",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 304,
+    "end_word": 312,
+    "text_snippet": "خَلقي: بفتح الخاء وإسكان اللام، والمراد به، الصفا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 313,
+    "end_word": 320,
+    "text_snippet": "وخُلُقِي: بضم الخاء واللام، المراد به الصفات البا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 321,
+    "end_word": 338,
+    "text_snippet": "ومولانا: أي عتيقنا، فالمولى يطلق على السيد، فيكو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 339,
+    "end_word": 340,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 341,
+    "end_word": 547,
+    "text_snippet": "لما فرغ النبي صلى الله عليه وسلم، من \"عمرة القضا",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 548,
+    "end_word": 551,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 552,
+    "end_word": 567,
+    "text_snippet": "1- ثبوت الحضانة لحق الصغير والمعتوه، لحفظه، وصيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 568,
+    "end_word": 601,
+    "text_snippet": "2- أن العصبة من الرجال، لهم أصل في الحضانة، ما ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 602,
+    "end_word": 624,
+    "text_snippet": "3- أن الأم مقدمة في الحضانة على كل أحد، فإنه لم ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 625,
+    "end_word": 636,
+    "text_snippet": "4- أن الخالة تَلي الأم في الحضانة، فهي بمنزلتها ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 637,
+    "end_word": 662,
+    "text_snippet": "5- أن الأصل في الحضانة، هو طلب تحقق الشفقة والرح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 663,
+    "end_word": 686,
+    "text_snippet": "6- أنَّ المرأة المزوجة، لا تسقط حضانتها إذا رضي ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 687,
+    "end_word": 732,
+    "text_snippet": "فإذا رضي بقيامها بالحضانة، فهي باقية على حقها من",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 29,
+    "start_word": 733,
+    "end_word": 764,
+    "text_snippet": "7- حُسْنُ خلق النبي صلى الله عليه وسلم ولطفه، إذ ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 765,
+    "end_word": 929,
+    "text_snippet": "قال شيخ الإسلام: فكل من قدمناه من الأبوين إنما ن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 930,
+    "end_word": 959,
+    "text_snippet": "ثم قال رحمه الله: إذا تزوجت الأم فلا حضانة لها، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 32,
+    "start_word": 960,
+    "end_word": 1024,
+    "text_snippet": "وقال الصنعاني: لم يتكلم الشارح (أي ابن دقيق العي",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1025,
+    "end_word": 1061,
+    "text_snippet": "وقال ابن القيم: إنه حديث احتاج الناس فيه إلى عم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1062,
+    "end_word": 1150,
+    "text_snippet": "ووجه المعارضة أنه صلى الله عليه وسلم حكم بابنة ح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  }
+]

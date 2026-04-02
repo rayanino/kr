@@ -1,0 +1,656 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 73,
+    "text_snippet": "‌‌الإضافة\nنونا تلي الإعراب أو تنوينا … مما تضيف أحذف كطور سينا\nوالثاني أجر",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف الإضافة وبيان أثرها في حذف النون أو التنوين وجر المضاف إليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 74,
+    "end_word": 98,
+    "text_snippet": "واختلف في الجار للمضاف إليه فقيل هو مجرور بحرف مقدر وهو اللام أو من أو في و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض الخلاف في عامل جر المضاف إليه وترجيح أنه المضاف نفسه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 99,
+    "end_word": 230,
+    "text_snippet": "ثم الإضافة تكون بمعنى اللام عند جميع النحويين وزعم بعضهم أنها تكون أيضا بمع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان معاني الإضافة وأنها للام غالبا وقد تأتي بمعنى من أو في بضابط ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 231,
+    "end_word": 300,
+    "text_snippet": "وأشار بقوله واخصص أولا إلى آخره إلى إن الإضافة على قسمين محضة وغير محضة فالم",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تقسيم الإضافة إلى محضة وغير محضة وبيان إفادة المحضة للتخصيص أو التعريف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى الوصف المذكور الذي سيأتي تفصيله بعده، ففهم غير المحضة يكتمل بالوحدة التالية."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 301,
+    "end_word": 423,
+    "text_snippet": "وإن يشابه المضاف يفعل … وصفا فعن تنكيره لا يعذل\nكرب راجينا عظيم الأمل … مرو",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "ضابط الإضافة غير المحضة في الوصف المشابه للمضارع مع أمثلتها وما يخرج عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 424,
+    "end_word": 520,
+    "text_snippet": "وأشار بقوله فعن تنكيره لا يعذل إلى أن هذا القسم من الإضافة أعنى غير المحضة ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "أثر الإضافة غير المحضة وأنها لفظية للتخفيف لا للتعريف بخلاف المحضة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج لفظا إلى معرفة سابقة بالقسمين المحضة وغير المحضة، وإن كان المعنى الإجمالي مفهوما."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 521,
+    "end_word": 776,
+    "text_snippet": "ووصل أل بذا الضاف مغتفر … إن وصلت بالثان كالجعد الشعر\nأو بالذي له أضيف الثان",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم دخول أل على المضاف في الإضافة غير المحضة وشروط جوازها واستثناء المثنى والجمع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      20,
+      21,
+      22
+    ],
+    "start_word": 777,
+    "end_word": 934,
+    "text_snippet": "ولا يضاف اسم لما به أتحد … معنى وأول موهما إذا ورد المضاف بتخصص بالمضاف إليه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "منع إضافة الشيء إلى نفسه وتأويل ما يوهم إضافة المترادف أو الموصوف إلى صفته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "start_word": 935,
+    "end_word": 1071,
+    "text_snippet": "وربما أكسب ثان أولا … تأنيثا أن كان لحذف موهلا\nقد يكتسب المضاف المذكر من الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "evidence_quran"
+    ],
+    "description_arabic": "اكتساب المضاف التذكير أو التأنيث من المضاف إليه بشرط صحة الحذف وإقامة الثاني مقامه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      29,
+      30,
+      31
+    ],
+    "start_word": 1072,
+    "end_word": 1151,
+    "text_snippet": "وبعض الأسماء يضاف أبدا … وبعض ذا قد بأت لفظا مفردا\nمن الأسماء ما يلزم الإضاف",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم الأسماء الملازمة للإضافة إلى ما يلزمها لفظا ومعنى وما يلزمها معنى فقط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 1152,
+    "end_word": 1246,
+    "text_snippet": "وبعض ما يضاف حتما امتنع … إيلاؤه اسما ظاهرا حيث وقع\nكوحد لبى ودوالى سعدى … و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "example"
+    ],
+    "description_arabic": "ألفاظ تلزم الإضافة إلى الضمير خاصة وذكر الشاذ من إضافتها إلى الغيبة أو الظاهر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 1247,
+    "end_word": 1343,
+    "text_snippet": "كذا ذكر المصنف ويفهم من كلام سيبويه أن ذلك غير شاذ في لبى وسعدى ومذهب سيبويه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_rational"
+    ],
+    "description_arabic": "مذهب سيبويه في لبيك وأخواتها وأنها مثناة لفظا والمقصود بها التكثير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 1344,
+    "end_word": 1424,
+    "text_snippet": "ومذهب يونس أنه ليس بمثنى وأن أصله لبى وأنه مقصور قلبت ألفه ياء مع المضمر كما",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "مذهب يونس في أصل لبيك والرد عليه بدليل انقلاب الألف مع الظاهر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 1425,
+    "end_word": 1498,
+    "text_snippet": "وألزموا إضافة إلى الجمل … حيث وإذ وإن ينون يحتمل\nإفراد إذ وما كإذ معنى كإذ ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "بيان الظرف حيث وأنه يلازم الإضافة إلى الجملة مع شذوذ إضافته إلى المفرد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      47,
+      48
+    ],
+    "start_word": 1499,
+    "end_word": 1557,
+    "text_snippet": "وأما إذ فتضاف أيضا إلى الجملة الاسمية نحو جئتك إذ زيد قائم وإلى الجملة الفعل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "أحكام إذ في إضافتها إلى الجمل وجواز قطعها لفظا مع تنوين العوض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 1558,
+    "end_word": 1586,
+    "text_snippet": "وأما إذا فلا تضاف إلا إلى جملة فعلية نحو آتيك إذا قام زيد ولا يجوز إضافتها إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم إذا وأنها لا تضاف إلا إلى الجملة الفعلية دون الاسمية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      50,
+      51
+    ],
+    "start_word": 1587,
+    "end_word": 1724,
+    "text_snippet": "وأشار بقوله وما كإذ معنى كإذ إلى أن ما كان مثل إذ في كونه ظرفا ماضيا غير محد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم الظروف المشابهة لإذ في إضافتها إلى الجملة، وما يخرج لكونه مستقبلا أو محدودا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "start_word": 1725,
+    "end_word": 1940,
+    "text_snippet": "وابن أو أعرب ما كإذ قد أجريا … واختر بنا متلو فعل بنيا\nوقبل فعل معرب أو مبتد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "evidence_quran"
+    ],
+    "description_arabic": "الخلاف في بناء أو إعراب ما يضاف إلى الجملة جوازا، مع المختار ومذهب البصريين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      58,
+      59,
+      60
+    ],
+    "start_word": 1941,
+    "end_word": 2055,
+    "text_snippet": "وألزموا إذا إضافة إلى … جمل الأفعال كهن إذا اعتلى أشار في هذا البيت إلى ما تق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "تفصيل مذهب سيبويه والأخفش في وقوع الاسم بعد إذا وخبره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "start_word": 2056,
+    "end_word": 2151,
+    "text_snippet": "لمفهم اثنين معرف بلا … تفرق أضيف كلتا وكلا من الأسماء الملازمة للإضافة لفظا ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "أحكام كلا وكلتا وأنهما تضافان إلى معرفة دالة على اثنين بلا تفرق.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69
+    ],
+    "start_word": 2152,
+    "end_word": 2242,
+    "text_snippet": "ولا تضف لمفرد معرف … أيا وإن كررتها فأضف\nأو تنو الأجزا واخصصن بالمعرفة … موص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "متى تضاف أيّ إلى المفرد المعرفة: عند التكرار أو إرادة الأجزاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      70
+    ],
+    "start_word": 2243,
+    "end_word": 2270,
+    "text_snippet": "فأما الموصولة فذكر المصنف أنها لا تضاف إلا إلى معرفة فتقول يعجبني أيهم قائم ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في أيّ الموصولة: هل تختص بالإضافة إلى المعرفة أو تضاف إلى النكرة قليلا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      71,
+      72
+    ],
+    "start_word": 2271,
+    "end_word": 2310,
+    "text_snippet": "وأما الصفة فالمراد بها ما كان صفة لنكرة أو حالا من معرفة ولا تضاف إلا إلى نك",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "بيان أيّ الوصفية والحالية وأنها لا تضاف إلا إلى النكرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 2311,
+    "end_word": 2423,
+    "text_snippet": "وأما الشرطية والاستفهامية فيضافان إلى المعرفة وإلى النكرة مطلقا أي سواء كانا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "أحكام أيّ الشرطية والاستفهامية وملابسة أيّ للإضافة لفظا أو معنى بحسب استعمالها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "start_word": 2424,
+    "end_word": 2540,
+    "text_snippet": "وألزموا إضافة لدن فجر … ونصب غدوة بها عنهم ندر ومع مع فيها قليل ونقل … فتح و",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "تعريف لدن وبيان لزوم إضافتها واستعمالها للزمان والمكان وبنائها وإعرابها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      80,
+      81,
+      82
+    ],
+    "start_word": 2541,
+    "end_word": 2638,
+    "text_snippet": "ويجز ما ولى لدن بالإضافة إلا غدوة فإنهم نصبوها بعد لدن كقوله:\nوما زال مهري م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "استثناء غدوة بعد لدن وبيان أوجه إعرابها والخلاف في توجيه نصبها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 2639,
+    "end_word": 2749,
+    "text_snippet": "وأما مع قاسم لمكان الاصطحاب أو وقته نحو جلس زيد مع عمرو وجاء زيد مع بكر والمش",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example",
+      "refutation",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام مع من حيث المعنى واللغات فيها والبناء أو الإعراب عند اتصال الساكن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98
+    ],
+    "start_word": 2750,
+    "end_word": 3076,
+    "text_snippet": "واضمم بناء \"غيرا\" أن عدمت ما … له أضيف ناويا ما عدما\nقبل كغير بعد حسب أول …",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "example",
+      "evidence_quran",
+      "opinion_statement",
+      "cross_reference"
+    ],
+    "description_arabic": "أحوال غير وقبل وبعد ونحوها: متى تعرب ومتى تبنى على الضم عند حذف المضاف إليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      99,
+      100,
+      101
+    ],
+    "start_word": 3077,
+    "end_word": 3129,
+    "text_snippet": "وما يلي المضاف يأتي خلفا … عنه في الإعراب إذا ما حذفا يحذف المضاف لقيام قرين",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "إذا حذف المضاف أقيم المضاف إليه مقامه وأعرب بإعرابه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "start_word": 3130,
+    "end_word": 3271,
+    "text_snippet": "وربما جروا الذي أبقوا كما … قد كان قبل حذف ما تقدما\nلكن بشرط أن يكون ما حذف ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "opinion_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "جواز إبقاء المضاف إليه مجرورا بعد حذف المضاف، مع شرط المماثلة والخلاف في بعض الشواهد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "start_word": 3272,
+    "end_word": 3532,
+    "text_snippet": "ويحذف الثاني فيبقى الأول … كحاله إذا به يتصل\nبشرط عطف وإضافة إلى … مثل الذي ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "evidence_quran",
+      "opinion_statement"
+    ],
+    "description_arabic": "حذف المضاف إليه وإبقاء المضاف على حاله، مع شرطه وخلاف المبرد وسيبويه والفراء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127
+    ],
+    "start_word": 3533,
+    "end_word": 3704,
+    "text_snippet": "فصل مضاف شبه فعل مانصب … مفعولا أو ظرفا أجز ولم يعب\nفصل يمين واضطرارا وجدا …",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "example",
+      "evidence_hadith",
+      "narration"
+    ],
+    "description_arabic": "جواز الفصل اختيارا بين المضاف شبه الفعل والمضاف إليه بمعموله أو القسم ونحو ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      128,
+      129,
+      130,
+      131,
+      132
+    ],
+    "start_word": 3705,
+    "end_word": 3837,
+    "text_snippet": "وأشار بقوله واضطرارا وجدا إلى أنه قد جاء الفصل بين المضاف والمضاف إليه في ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "الفصل الاضطراري بين المضاف والمضاف إليه بالأجنبي أو النعت أو النداء مع الشواهد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

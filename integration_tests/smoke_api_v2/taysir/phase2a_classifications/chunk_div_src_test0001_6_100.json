@@ -1,0 +1,210 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 25,
+    "text_snippet": "عَنْ عَلى بْنِ أبي طالب رضي الله عنه: أن النبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 26,
+    "end_word": 27,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 28,
+    "end_word": 110,
+    "text_snippet": "سَن الشارع النكاح لقصد الاجتماع والدوام، والألفة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 4,
+    "start_word": 111,
+    "end_word": 114,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 115,
+    "end_word": 122,
+    "text_snippet": "1- تحريم نكاح المتعة وبطلانه، وعليه أجمع العلماء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 123,
+    "end_word": 140,
+    "text_snippet": "قال ابن دقيق العيد: وفقهاء الأمصار كلهم على المن",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 7,
+    "start_word": 141,
+    "end_word": 156,
+    "text_snippet": "2- كان مباحا في أول الإسلام للضرورة فقط، ثم جاء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 157,
+    "end_word": 174,
+    "text_snippet": "3- نهى الشارع الحكيم عنه، لما يترتب عليه من المف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 175,
+    "end_word": 189,
+    "text_snippet": "4- النهي عن أكل لحوم الحمر الأهلية فهي رجس، بخلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 190,
+    "end_word": 198,
+    "text_snippet": "فائدة:\nسئل شيخ الإسلام ابن تيمية رحمه الله تعالى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 11,
+    "start_word": 199,
+    "end_word": 223,
+    "text_snippet": "عن رجل يسير في البلاد، ويخاف أن يقع في المعصية، ",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 12,
+    "start_word": 224,
+    "end_word": 256,
+    "text_snippet": "فأجاب بأن له أن يتزوج، ولكن على أن ينكح نكاحا مط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 13,
+    "start_word": 257,
+    "end_word": 267,
+    "text_snippet": "ثم ببن رحمه الله رأيه في نكاح المنعة، فقال: إن ق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 14,
+    "start_word": 268,
+    "end_word": 290,
+    "text_snippet": "أن يستمتع بها إلى مدة ثم يفارقها، مثل المسافر إل",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 291,
+    "end_word": 302,
+    "text_snippet": "ولكن النكاح عقده عقداً مطلقا فهذا فيه ثلاثة أقوا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 16,
+    "start_word": 303,
+    "end_word": 312,
+    "text_snippet": "1- قيل: هو نكاح جائز، وهو اختيار الموفق وقول الج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 313,
+    "end_word": 325,
+    "text_snippet": "2- وقيل: إنه نكاح تحليل لا يجوز، وروى عن الأوزاع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 326,
+    "end_word": 330,
+    "text_snippet": "3- وقيل مكروه وليس بمحرم.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 331,
+    "end_word": 417,
+    "text_snippet": "والصحيح أن هذا ليس بنكاح متعة ولا يحرم، وذلك أنه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 20,
+    "start_word": 418,
+    "end_word": 419,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 420,
+    "end_word": 426,
+    "text_snippet": "أجمع العلماء على تحريم هذا النكاح وبطلانه.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 427,
+    "end_word": 438,
+    "text_snippet": "واختلفوا في الوقت الذي حرم فيه، تبعا للآثار التي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 439,
+    "end_word": 456,
+    "text_snippet": "فبعضهم يرى أن التحريم كان يوم (خيبر) مستدلا بحدي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 457,
+    "end_word": 507,
+    "text_snippet": "وبعضهم يرى أنها لم تحرم إلا يوم الفتح، وقبله كان",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 25,
+    "start_word": 508,
+    "end_word": 541,
+    "text_snippet": "قال النووي: الصواب أن تحريمها وإباحتها وقعا مرتي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

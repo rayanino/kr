@@ -1,0 +1,496 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 104,
+    "text_snippet": "‌‌المعرب والمبني ⌜1⌝\nوالاسم منه معرب ومبني … لشبه من الحروف مدني (2)\nيشير إلى ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعريف المعرب والمبني في الأسماء وبيان أن علة البناء عند المصنف شبه الحرف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 105,
+    "end_word": 200,
+    "text_snippet": "⌜2⌝ كالشبه الوضعي في اسمي جئتنا … والمعنوي في متى وفي هنا (1)\nوكنيابة عن الف",
+    "primary_function": "example",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان الشبه الوضعي للاسم بالحرف وتمثيله بالتاء ونا في جئتنا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 201,
+    "end_word": 300,
+    "text_snippet": "والثاني: شبه الاسم له في المعنى وهو قسمان أحدهما ما أشبه حرفا موجودا والثاني ",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "شرح الشبه المعنوي، وفرقُه بين شبه حرف موجود كشبه متى، ومقدر كهنا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 301,
+    "end_word": 432,
+    "text_snippet": "والثالث: شبهه له في النيابة عن الفعل وعدم التأثر بالعامل وذلك كأسماء الأفعال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "condition_exception",
+      "opinion_statement"
+    ],
+    "description_arabic": "سبب بناء أسماء الأفعال لنيابتها عن الفعل مع عدم التأثر بالعامل، وذكر الخلاف فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 433,
+    "end_word": 481,
+    "text_snippet": "والرابع: شبه الحرف في الافتقار اللازم وإليه أشار بقوله وكافتقار أصلا وذلك كا",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "بيان الشبه بالافتقار اللازم وأنه سبب بناء الأسماء الموصولة ونحوها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 482,
+    "end_word": 585,
+    "text_snippet": "ومعرب الأسماء ما قد سلما … من شبه الحرف كأرض وسما ⌜5⌝\nيريد أن المعرب خلاف ال",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف المعرب وتقسيمه إلى صحيح ومعتل، ومنصرف وغير منصرف، وبيان التمكن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 586,
+    "end_word": 974,
+    "text_snippet": "وفعل أمر ومضي بنيا … وأعربوا مضارعا إن عريا (2)\nمن نون توكيد مباشر ومن … نون ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "opinion_statement"
+    ],
+    "description_arabic": "أحكام بناء الأفعال وإعراب المضارع وشروط بنائه مع نون التوكيد أو نون الإناث والخلاف فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 975,
+    "end_word": 1101,
+    "text_snippet": "وكل حرف مستحق للبنا … والأصل في المبني أن يسكنا (2)\nومنه ذو فتح وذو كسر وضم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان أن الحروف كلها مبنية، وأن الأصل في البناء السكون مع ذكر حركات البناء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 1102,
+    "end_word": 1224,
+    "text_snippet": "والرفع والنصب اجعلن إعرابا … لاسم وفعل نحو لن أهابا (2)\nوالاسم قد خصص بالجر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أنواع الإعراب الأربعة، وما يختص به الاسم والفعل، وذكر الأصول والنيابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 1225,
+    "end_word": 1340,
+    "text_snippet": "وارفع بواو وانصبن بالألف … واجرر بياء ما من الأسما أصف (1)\nشرع في بيان ما يعر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان الأسماء الستة وإعرابها المشهور بالحروف مع ترجيح الإعراب بالحركات المقدرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "start_word": 1341,
+    "end_word": 2181,
+    "text_snippet": "⌜10⌝ من ذاك ذو إن صحبة أبانا … والفم حيث الميم منه بانا (1)\nأي من الأسماء الت",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "شروط إعراب ذو وفم، وبيان ذو الطائية، والاستشهاد بالشعر، وشرط حذف ميم فم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتضمن الوحدة حاشية تحريرية طويلة وإعرابًا تفصيليًا للشاهد الشعري يفهم إجماله وحده، لكن بعض التفصيلات الحديثية واللغوية في الحاشية زائدة وتحتاج سياق التحقيق."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "start_word": 2182,
+    "end_word": 2491,
+    "text_snippet": "أب أخ حم كذاك وهن … والنقص في هذا الأخير أحسن (1)\nوفي أب وتالييه يندر … وقصر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "لغات أب وأخ وحم وهن، وبيان أشهرها والنادر منها وحكم الإتمام والنقص.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 2492,
+    "end_word": 2768,
+    "text_snippet": "وشرط ذا الإعراب أن يضفن لا … لليا كجا أخو أبيك ذا اعتلا (2) ذكر النحويون لإعر",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "شروط إعراب الأسماء الستة بالحروف، والتنبيه على خصوصيات إضافة ذو.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "start_word": 2769,
+    "end_word": 3160,
+    "text_snippet": "(1) بالألف ارفع المثنى وكلا … إذا بمضمر مضافا وصلا (1)\nكلتا كذاك اثنان واثنت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "condition_exception",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعريف المثنى والملحق به، وشروط إلحاق كلا وكلتا، وأحكام رفعه ونصبه وجره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69
+    ],
+    "start_word": 3161,
+    "end_word": 3511,
+    "text_snippet": "وارفع بواو وبيا اجرر وانصب … سالم جمع عامر ومذنب (1) ذكر المصنف قسمين يعربان ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "شروط جمع المذكر السالم في العلم والصفة، مع التمثيل بعامر ومذنب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "start_word": 3512,
+    "end_word": 3863,
+    "text_snippet": "وشبه ذين وبه عشرونا … وبابه ألحق والأهلونا ⌜14⌝\nأولو وعالمون عليونا … وأرضون ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "opinion_statement",
+      "evidence_hadith",
+      "example"
+    ],
+    "description_arabic": "الملحق بجمع المذكر السالم كعشرون وأهلون، وباب سنين، والخلاف في إطراده.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل الحديثي مذكور باقتضاب دون تخريج أو تمام سياقه، لكنه معروف بلفظه. تحتاج بعض أمثلة الإلحاق معرفة سابقة بصيغ الجموع."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90
+    ],
+    "start_word": 3864,
+    "end_word": 4026,
+    "text_snippet": "ونون مجموع وما به التحق … فافتح وقل من بكسره نطق (1) ونون ما ثني والملحق به ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "refutation",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "حكم حركة نون جمع المذكر السالم ونون المثنى، وذكر الشاذ واللغة والخلاف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      91,
+      92,
+      93,
+      94
+    ],
+    "start_word": 4027,
+    "end_word": 4226,
+    "text_snippet": "ف قد جمعا … يكسر في الجر وفي النصب معا (1)\nلما فرغ من الكلام على الذي تنوب في",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "refutation"
+    ],
+    "description_arabic": "تعريف جمع المؤنث السالم وضبط حدّه، وبيان أنه ينصب ويجر بالكسرة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      95,
+      96,
+      97,
+      98,
+      99
+    ],
+    "start_word": 4227,
+    "end_word": 4378,
+    "text_snippet": "(2) كذا أولات والذي اسما قد جعل … كأذرعات فيه ذا أيضا قبل ⌜17⌝\nأشار بقوله ك",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "إلحاق أولات بجمع المؤنث السالم، وحكم ما سمي به منه كأذرعات مع المذاهب فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      100,
+      101
+    ],
+    "start_word": 4379,
+    "end_word": 4462,
+    "text_snippet": "وجر بالفتحة ما لا ينصرف … ما لم يضف أو يك بعد أل ردف (1)\nأشار بهذا البيت إلى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم الاسم الذي لا ينصرف، وأنه يجر بالفتحة إلا مع الإضافة أو أل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      102,
+      103,
+      104,
+      105,
+      106
+    ],
+    "start_word": 4463,
+    "end_word": 4623,
+    "text_snippet": "واجعل لنحو يفعلان النونا … رفعا وتدعين وتسألونا (3) وحذفها للجزم والنصب سمه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "إعراب الأفعال الخمسة بثبوت النون رفعًا وحذفها نصبًا وجزمًا مع الاستدلال بالقرآن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116
+    ],
+    "start_word": 4624,
+    "end_word": 4921,
+    "text_snippet": "وسم معتلا من الأسماء ما … كالمصطفى والمرتقي مكارما ⌜19⌝\nفالأول الإعراب فيه قد",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_quran",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعريف المقصور والمنقوص، وبيان علامات إعرابهما وأحكامهما وما يستثنى من ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125
+    ],
+    "start_word": 4922,
+    "end_word": 5133,
+    "text_snippet": "وأي فعل آخر منه ألف … أو واو أو ياء فمعتلا عرف (1) أشار إلى أن المعتل من الأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "تعريف الفعل المعتل الآخر وبيان إعرابه في الرفع والنصب والجزم بحسب آخره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

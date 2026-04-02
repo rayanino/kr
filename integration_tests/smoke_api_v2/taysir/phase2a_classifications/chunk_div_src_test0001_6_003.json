@@ -1,0 +1,442 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ السّوَاك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 24,
+    "text_snippet": "السواك: بكسر السين، اسم للعود الذي يُتَسَوًكُ ب",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 25,
+    "end_word": 35,
+    "text_snippet": "مناسبة ذكره هنا، أنه من سنن الوضوء ومن الطهارة ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 3,
+    "start_word": 36,
+    "end_word": 43,
+    "text_snippet": "فهو أحد أبواب \" كتاب الطهارة \" المتقدم.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 44,
+    "end_word": 65,
+    "text_snippet": "وفيه من الفوائد ما يفوت الحصر من النظافة، والصح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 67,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 68,
+    "end_word": 99,
+    "text_snippet": "عن أبِي هريرة رضي الله عنه، عن النبي صلى الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 100,
+    "end_word": 101,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 102,
+    "end_word": 176,
+    "text_snippet": "من كمال نصح النبي صلى الله عليه وسلم ومحبته الخي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 9,
+    "start_word": 177,
+    "end_word": 180,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 181,
+    "end_word": 191,
+    "text_snippet": "1- استحباب السواك وفضله، الذي بلغ به درجة الواج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 192,
+    "end_word": 268,
+    "text_snippet": "2- تأكد مشروعية السواك عند الوضوء والصلاة قال اب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 12,
+    "start_word": 269,
+    "end_word": 275,
+    "text_snippet": "3- فضل الوضوء والصلاة، المستعمل معهما السواك.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 276,
+    "end_word": 288,
+    "text_snippet": "4- إنه لم يمنع من، فرض السواك إلا مخافة المشقة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 289,
+    "end_word": 299,
+    "text_snippet": "5- كمال شفقة النبي صلى الله عليه وسلم بأمته، وخو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 300,
+    "end_word": 308,
+    "text_snippet": "6- إن الشرع يسر لا عسر فيه، ولا مشقة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 309,
+    "end_word": 316,
+    "text_snippet": "7- أن درء المفاسد، مقدم على جلب المصالح.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 317,
+    "end_word": 350,
+    "text_snippet": "وهذه قاعدة عظيمة نافعة جدا. فإن الشارع الحكيم، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 351,
+    "end_word": 352,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 353,
+    "end_word": 372,
+    "text_snippet": "عن حُذَيْفَةَ بْن الْيَمانِ قَالَ: كَان رَسُول ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 373,
+    "end_word": 387,
+    "text_snippet": "قوله \" يشوص \" بفتح الياء وضم الشين المعجمة المه",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 388,
+    "end_word": 389,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 390,
+    "end_word": 435,
+    "text_snippet": "من محبة النبي صلى الله عليه وسلم للنظافة وكراهت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 23,
+    "start_word": 436,
+    "end_word": 439,
+    "text_snippet": "ما يؤخذ من الحديث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 440,
+    "end_word": 463,
+    "text_snippet": "1- تأكد مشروعية السواك بعد نوم الليل. وعلته أن ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 464,
+    "end_word": 476,
+    "text_snippet": "2- تأكد مشروعية السواك عند كل تغير كريه للفم، أخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 477,
+    "end_word": 493,
+    "text_snippet": "3- مشروعية النظافة على وجه العموم، وأنها من سنة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 494,
+    "end_word": 495,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 496,
+    "end_word": 607,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَتْ: دَخَل عَبْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 608,
+    "end_word": 613,
+    "text_snippet": "هذا لفظ البخاري، ولـ \"مسلم\" نحوه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 614,
+    "end_word": 615,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 616,
+    "end_word": 624,
+    "text_snippet": "1- \"يستن به\" يُمِرُّ السواك على أسنانه، كأنه يحد",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 625,
+    "end_word": 635,
+    "text_snippet": "2- \"فأبده\" بتخفيف الباء الموحدة، وتشديد الدال، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 636,
+    "end_word": 649,
+    "text_snippet": "3 \"بين حاقنتى وذاقنتى\" \"الحاقنة\" ما بين الترقو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 650,
+    "end_word": 665,
+    "text_snippet": "4- \"فقَضِمته\" بفتح القاف وكسر الضاد المعجمة كذا ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 666,
+    "end_word": 671,
+    "text_snippet": "و\"القضم\" بأطراف الأسنان و\"الخصم\" بالفم كله.",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 36,
+    "start_word": 672,
+    "end_word": 673,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 674,
+    "end_word": 818,
+    "text_snippet": "تذكر عائشة رضي الله عنها قصةً تبين لنا مدى محبة ",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 38,
+    "start_word": 819,
+    "end_word": 822,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 823,
+    "end_word": 826,
+    "text_snippet": "1- الاستياك بالسواك الرطب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 827,
+    "end_word": 830,
+    "text_snippet": "2- إصلاح السواك وتهيئته.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 831,
+    "end_word": 837,
+    "text_snippet": "3- الاستياك بسواك الغير بعد تطهيره وتنظيفه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 838,
+    "end_word": 844,
+    "text_snippet": "4- العمل بما يفهم من الإشارة والدلالة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 845,
+    "end_word": 864,
+    "text_snippet": "5- الرفيق الأعلى: هم المشار إليهم في سورة النس",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 44,
+    "start_word": 865,
+    "end_word": 866,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 867,
+    "end_word": 899,
+    "text_snippet": "عَنْ أبِي مُوسَى الأشعري رضِىَ الله عَنْهُ قاَل:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 900,
+    "end_word": 901,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 902,
+    "end_word": 916,
+    "text_snippet": "1- \"أُع أُع\" بضم الهمزة وسكون المهملة. حكاية صو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 917,
+    "end_word": 922,
+    "text_snippet": "2- \"كأنه يتهوع\" التهوع، التقيؤ بصوت.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 923,
+    "end_word": 924,
+    "text_snippet": "المعنى الإجمالي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 925,
+    "end_word": 959,
+    "text_snippet": "يذكر أبو موسى الأشعرى: أنه جاء إلى النبي صلى ال",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 51,
+    "start_word": 960,
+    "end_word": 963,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 964,
+    "end_word": 973,
+    "text_snippet": "1- مشروعية السواك بالعود الرطب. وأن السواك من ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 974,
+    "end_word": 983,
+    "text_snippet": "2- مشروعية المبالغة في التسوك. لأن في المبالغة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 54,
+    "start_word": 984,
+    "end_word": 992,
+    "text_snippet": "3- أن يستعمل السواك في لسانه، في بعض الأحيان.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

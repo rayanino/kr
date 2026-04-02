@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَابُ حضُور النساء المسْجِد ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 62,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما عَنِ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 63,
+    "end_word": 76,
+    "text_snippet": "وفي لفظ لـ \" لمسلم \": \" لا تَمْنَعُوا إمَاءَ الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 77,
+    "end_word": 78,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 79,
+    "end_word": 194,
+    "text_snippet": "روي ابن عمر رضي الله عنهما أن النبي صلى الله علي",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 195,
+    "end_word": 198,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 199,
+    "end_word": 208,
+    "text_snippet": "1- استحباب الإذن للمرأة بالصلاة في المسجد إذا طل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 209,
+    "end_word": 225,
+    "text_snippet": "2- أن جواز الإذن لها، مع عدم الزينة والأمن من الف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 226,
+    "end_word": 232,
+    "text_snippet": "3- ويظهر أن جواز الإذن لمجرد الصلاة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 233,
+    "end_word": 239,
+    "text_snippet": "أما لسماع المواعظ وخطب الأعياد فيجب حضورهن، كما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 240,
+    "end_word": 255,
+    "text_snippet": "كما يأتي في حديث أم عطية: \" أمرنا أن نخرج في الع",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 11,
+    "start_word": 256,
+    "end_word": 268,
+    "text_snippet": "4- شدة الإنكار على من اعترض على سنة النبي صلى ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 269,
+    "end_word": 287,
+    "text_snippet": "5- أنه ينبغي لمن أراد أن يوجه كلام الشارع إلى مع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

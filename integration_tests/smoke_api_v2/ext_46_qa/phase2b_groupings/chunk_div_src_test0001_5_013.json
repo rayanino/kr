@@ -1,0 +1,22 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 108,
+    "text_snippet": "مسألة\nفي التسلسل\n\nقال الأندلسي في شرح المفصل:\n\" من قال بأن العامل في الصفة مقد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "بيان قول من يجيز الوقف على الموصوف دون الصفة، وردّه بلزوم التسلسل، وترجيح المنع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,377 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 163,
+    "text_snippet": "15-‌‌ التعزية.\n109- وتشرع تعزية أهل الميت1 وفيه حديثان:\nالأول: عن قرة المزني ر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "مشروعية تعزية أهل الميت مع الاستدلال بحديث قرة المزني وعموم بشارته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 164,
+    "end_word": 200,
+    "text_snippet": "الثاني: عن أنس بن مالك رضي الله عنه عن النبي صلى الله عليه وسلم قال:\n\"من عزى أ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "فضل تعزية المؤمن لأخيه وأن المعزي يكسى حلة خضراء يوم القيامة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 201,
+    "end_word": 327,
+    "text_snippet": "110 - ويعزيهم بما يظن أنه يسليهم ويكف من حزنهم ويحملهم على الرضا والصبر مما ثبت ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "صفة التعزية المشروعة وأن أحسن ألفاظها: إن لله ما أخذ وله ما أعطى.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال النص في آخره إلى أن بيان الحمل على صوم النذر أو وجه الأولوية مبسوط في الأصل، لكن المقصود العملي في صيغة التعزية واضح."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 328,
+    "end_word": 410,
+    "text_snippet": "الثاني: قوله صلى الله عليه وسلم للمرأة الأنصارية يعزيها بولدها: \"أما إنه بلغني ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "مثال نبوي آخر في تعزية المصاب بالأمر بالتقوى والصبر وذكر فضل احتساب الأولاد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 411,
+    "end_word": 460,
+    "text_snippet": "الثالث:\nقوله صلى الله عليه وسلم حينما دخل على أم سلمة رضي الله عنها عقب موت أبي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "دعاء النبي عند تعزية أم سلمة بعد موت أبي سلمة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحديث مذكور مختصرا ثم أحيل بتمامه إلى مسألة سابقة، فالوحدة مفهومة إجمالا لكن ليس فيها تمام الرواية."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 461,
+    "end_word": 493,
+    "text_snippet": "الرابع: قوله صلى الله عليه وسلم في تعزيته عبد الله بن جعفر في أبيه:\n\"اللهم اخلف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "دعاء التعزية لعبد الله بن جعفر بالبركة والخلف في أهله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "نص الحديث هنا مختصر مع إحالة إلى المسألة التالية لتمامه."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 494,
+    "end_word": 723,
+    "text_snippet": "111 - ولا تحد التعزية بثلاثة أيام لا يتجاوزها بل متى رأى الفائدة في التعزية أتى ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "عدم تقييد التعزية بثلاثة أيام، وجوازها بعد ذلك إذا ظهرت المصلحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 724,
+    "end_word": 912,
+    "text_snippet": "112 - وينبغي اجتناب أمرين وإن تتابع الناس عليهما:\nأ - الاجتماع للتعزية في مكان خ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "كراهة الاجتماع الخاص للتعزية وصنع أهل الميت الطعام للوافدين، واعتبار ذلك من النياحة والبدع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 913,
+    "end_word": 1003,
+    "text_snippet": "113 - وإنما السنة أن يصنع أقرباء الميت وجيرانه لأهل الميت طعاما يشبعهم لحديث عبد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "السنة أن يصنع الجيران والأقارب الطعام لأهل الميت لانشغالهم بالمصيبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 1004,
+    "end_word": 1096,
+    "text_snippet": "114 - ويستحب مسح رأس اليتيم وإكرامه لحديث عبد الله بن جعفر قال:\nلو رأيتني وقثم و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "استحباب مسح رأس اليتيم وإكرامه والشفقة عليه اقتداء بالنبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 1097,
+    "end_word": 1210,
+    "text_snippet": "ما ينتفع به الميت.\n115 - وينتفع الميت من عمل غيره بأمور:\nأولا: دعاء المسلم له إذ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "editorial_note",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "انتفاع الميت بدعاء المسلمين له، مع أدلته من القرآن والسنة وشاهد صلاة الجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "start_word": 1211,
+    "end_word": 1315,
+    "text_snippet": "ثانيا: قضاء ولي الميت صوم النذر عنه وفيه أحاديث:\nالأول: عن عائشة رضي الله عنه أن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "انتفاع الميت بقضاء وليه صوم النذر عنه دون صوم رمضان.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذكر أن حمل الحديث على صوم النذر دون رمضان مبين في الأصل، فوجه التخصيص يحتاج سياقا أوسع."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 1316,
+    "end_word": 1328,
+    "text_snippet": "ثالثا: قضاء الدين عنه من أي شخص وليا كان أو غيره كما تقدم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "انتفاع الميت بقضاء دينه من أي شخص كان.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "العبارة تحيل إلى تفصيل سابق بقولها: كما تقدم، ولا تذكر الدليل هنا."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 1329,
+    "end_word": 1529,
+    "text_snippet": "رابعا: ما يفعله الولد الصالح من الأعمال الصالحة فإن لوالديه مثل أجره دون أن ينقص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "structural_transition"
+    ],
+    "description_arabic": "انتفاع الوالدين بأعمال الولد الصالح من صدقة وصيام وعتق ونحوها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      46,
+      47,
+      48,
+      49
+    ],
+    "start_word": 1530,
+    "end_word": 1925,
+    "text_snippet": "خامسا: ما خلفه من بعده من آثار صالحة وصدقات جارية لقوله تبارك وتعالى:؟ ونكتب ما ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "انتفاع الميت بآثاره الصالحة والصدقات الجارية ومن سن سنة حسنة بعده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      50,
+      51
+    ],
+    "start_word": 1926,
+    "end_word": 1973,
+    "text_snippet": "زيارة القبور:\n116 - وتشرع زيارة القبور للاتعاظ بها وتذكرة الآخرة شريطة أن لا يقو",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية زيارة القبور للعظة وتذكر الآخرة مع النهي عن الشرك والغلو عندها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "start_word": 1974,
+    "end_word": 2510,
+    "text_snippet": "117 - والنساء كالرجال في استحباب زيارة القبور لوجوه:\nالأول: عموم قوله صلى الله ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "استحباب زيارة القبور للنساء كاستحبابها للرجال، وبيان أدلة ذلك من العموم والرخصة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      58,
+      59,
+      60,
+      61,
+      62
+    ],
+    "start_word": 2511,
+    "end_word": 2647,
+    "text_snippet": "118 - لكن لا يجوز لهن الإكثار من زيارة القبور والتردد عليها لأن ذلك قد يفضي بهن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "منع النساء من الإكثار من زيارة القبور، وحمل لعن الزوارات على المكثرات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      63,
+      64
+    ],
+    "start_word": 2648,
+    "end_word": 2697,
+    "text_snippet": "119 - ويجوز زيارة قبر من مات على غير الإسلام للعبرة فقط لحديث أبي هريرة وغيره:\nز",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز زيارة قبر غير المسلم للعبرة وتذكر الموت دون استغفار له.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 2698,
+    "end_word": 2728,
+    "text_snippet": "والمقصود من زيارة القبور شيئان:\n1- انتفاع الزائر بذكر الموت والموتى وأن مآلهم إما",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "بيان المقصود الأول من زيارة القبور وهو اتعاظ الزائر وتذكر المصير.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص يصرح بأن المقصود من الزيارة شيئان، لكنه لا يذكر هنا إلا الأول، فالوحدة جزء من تقسيم أكبر."
+  }
+]

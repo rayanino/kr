@@ -1,0 +1,466 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌باب حدِّ السَّرقة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 9,
+    "text_snippet": "الأصل في القطع، الكتاب، والسنة، والإجماع والق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 2,
+    "start_word": 10,
+    "end_word": 25,
+    "text_snippet": "قال تعالى: {وَالسارق وَالسارقَةُ فَاقْطَعُوا أ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 26,
+    "end_word": 30,
+    "text_snippet": "والسنة، ما يأتي من الأحاديث.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 4,
+    "start_word": 31,
+    "end_word": 37,
+    "text_snippet": "وأجمع عليه العلماء، استناداً إلى هذه النصوص.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 38,
+    "end_word": 51,
+    "text_snippet": "والقياس والحكمة تقتضي إقامة الحدود كلها كما أم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 6,
+    "start_word": 52,
+    "end_word": 97,
+    "text_snippet": "ولذا نرى البلاد التي عملت بحدود الله ونفذت حدو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 98,
+    "end_word": 99,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 100,
+    "end_word": 118,
+    "text_snippet": "عَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 119,
+    "end_word": 123,
+    "text_snippet": "وفي لفظ: ثَمَنُهُ- ثَلاثَةُ درَاهِمَ.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 124,
+    "end_word": 125,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 126,
+    "end_word": 141,
+    "text_snippet": "عَنْ عَاِئشَةَ رضي الله عنها: أنَّهَا سَمِعَتْ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 142,
+    "end_word": 142,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 13,
+    "start_word": 143,
+    "end_word": 147,
+    "text_snippet": "القطع: يراد به الأمر بالقطع.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 148,
+    "end_word": 154,
+    "text_snippet": "قيمته: ما تنتهي إليه الرغبة من الثمن.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 155,
+    "end_word": 159,
+    "text_snippet": "الثمن: ما يقابل به المبيع.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 160,
+    "end_word": 187,
+    "text_snippet": "المجن: بكسر الميم وفتح الجيم، بعدها نون مشددة، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 188,
+    "end_word": 189,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 190,
+    "end_word": 248,
+    "text_snippet": "أمن الله عز وجل دماء الناس وأعراضهم وأموالهم، ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 19,
+    "start_word": 249,
+    "end_word": 277,
+    "text_snippet": "ومن حكمته تعالى، أن جعل النصاب الذي تقطع فيه ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 20,
+    "start_word": 278,
+    "end_word": 281,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 282,
+    "end_word": 300,
+    "text_snippet": "1- قطع يد السارق، والمراد بالسارق [الذي يأخذ ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 301,
+    "end_word": 356,
+    "text_snippet": "قال القاضي عياض رحمه الله: (صان الله الأموال ب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 23,
+    "start_word": 357,
+    "end_word": 364,
+    "text_snippet": "وقد أجع المسلمون على قطع السارق في الجملة.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 365,
+    "end_word": 389,
+    "text_snippet": "2- في الحديثين، أن نصاب القطع ربع دينار من الذه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 390,
+    "end_word": 411,
+    "text_snippet": "3- قال ابن دقيق العيد: القيمة والثمن مختلفان ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 26,
+    "start_word": 412,
+    "end_word": 434,
+    "text_snippet": "4- للعلماء شروط في قطع يد السارق، تقدم بعضها:\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 435,
+    "end_word": 445,
+    "text_snippet": "ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 446,
+    "end_word": 487,
+    "text_snippet": "وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 488,
+    "end_word": 494,
+    "text_snippet": "5- لهذا الحكم السامي، حكمته التشريعية العظمى.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 30,
+    "start_word": 495,
+    "end_word": 551,
+    "text_snippet": "فالحدود كلها- على وجه العموم- رحمة ونعمة. فإن ف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 31,
+    "start_word": 552,
+    "end_word": 556,
+    "text_snippet": "ومن ذلك قطع يد السارق.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 32,
+    "start_word": 557,
+    "end_word": 597,
+    "text_snippet": "فهذا المعتدى الذي ترك ما أباح الله تعالى له، و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 598,
+    "end_word": 679,
+    "text_snippet": "ولكنا- مع الأسف- ابتلينا بهذه الطوائف المتزندقة",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 680,
+    "end_word": 698,
+    "text_snippet": "وبالتجارب وجدنا حكومتنا [السعودية] وفقها الله، ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 35,
+    "start_word": 699,
+    "end_word": 722,
+    "text_snippet": "بينما غيرها من الأمم القوية، تعج بالمنكرات، وعص",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 36,
+    "start_word": 723,
+    "end_word": 724,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 37,
+    "start_word": 725,
+    "end_word": 734,
+    "text_snippet": "اختلف العلماء في قدر النصاب الذي تقطع فيه يد ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 735,
+    "end_word": 755,
+    "text_snippet": "فذهب الظاهرية: إلى أنه في القليل والكثير، مستدل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 756,
+    "end_word": 778,
+    "text_snippet": "وبما أخرجه البخاري من حديث أبي هريرة قال صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 779,
+    "end_word": 795,
+    "text_snippet": "وذهب جمهور العلماء: إلى أنه لابد في القطع من ن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 41,
+    "start_word": 796,
+    "end_word": 809,
+    "text_snippet": "وأجابوا عن أدلة الظاهرية بأن الآية مطلقة في جن",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 810,
+    "end_word": 829,
+    "text_snippet": "وأما حديث البيضة والحبل، فالمراد بذلك بيان سخف",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 830,
+    "end_word": 844,
+    "text_snippet": "فهذا التعبير نوع من أنواع البلاغة، فيه التنفير",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 44,
+    "start_word": 845,
+    "end_word": 860,
+    "text_snippet": "ثم اختلف الجمهور في تحديد قدر النصاب الذي يقطع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 45,
+    "start_word": 861,
+    "end_word": 877,
+    "text_snippet": "فذهب مالك، وأحمد وإسحاق: إلى أن النصاب ربع دين",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 878,
+    "end_word": 909,
+    "text_snippet": "وذهب الشافعي إلى أن النصاب ربع دينار ذهبا، أو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 910,
+    "end_word": 928,
+    "text_snippet": "وذهب أبو حنيفة وأصحابه، وسفيان الثوري: إلى أن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 929,
+    "end_word": 953,
+    "text_snippet": "استدل الإمام أحمد، ومالك، بما رواه أحمد ومسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 954,
+    "end_word": 968,
+    "text_snippet": "وكان ربع الدينار يومئذ، ثلاثة دراهم، والدينار ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 50,
+    "start_word": 969,
+    "end_word": 987,
+    "text_snippet": "وكما في حديث الباب عن ابن عمر: أنه صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 988,
+    "end_word": 1009,
+    "text_snippet": "واستدل الشافعي والجمهور بالحديث السابق \" لا قط",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1010,
+    "end_word": 1029,
+    "text_snippet": "ولا ينافي حديث ابن عمر، فإن قيمة الدراهم الثلا",
+    "scholarly_function": "refutation",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1030,
+    "end_word": 1076,
+    "text_snippet": "واستدل أبو حنيفة واتباعه، بما ثبت في الصحيحين ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1077,
+    "end_word": 1101,
+    "text_snippet": "وهذه الرواية وإن خالفت ما في الصحيحين من أن قي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1102,
+    "end_word": 1126,
+    "text_snippet": "وبما أخرجه عمرو بن شعيب عن أبيه عن جده عن النب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1127,
+    "end_word": 1130,
+    "text_snippet": "وضعف العلماء هذا الحديث.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1131,
+    "end_word": 1144,
+    "text_snippet": "واختلف العلماء في حقيقة اليد التي تقطع على أقو",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  }
+]

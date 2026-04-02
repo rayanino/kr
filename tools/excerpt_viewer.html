@@ -44,12 +44,19 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 #pkg-picker h1{font-size:1.3rem;font-weight:300;letter-spacing:0.08em;color:var(--text)}
 #pkg-picker h1 span{color:var(--gold);font-weight:600}
 #pkg-picker .sub{color:var(--text2);font-size:0.82rem;letter-spacing:0.02em}
-#pkg-list{display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;max-width:720px;margin-top:0.5rem}
-.pkg-card{padding:0.9rem 1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .2s;min-width:150px}
+#pkg-list{display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;max-width:900px;margin-top:0.5rem}
+.pkg-card{padding:0.9rem 1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .2s;min-width:180px;max-width:240px}
 .pkg-card:hover{border-color:var(--gold);background:var(--surface2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
 .pkg-card .n{font-weight:500;font-size:0.9rem}.pkg-card .m{font-size:0.75rem;color:var(--text2);margin-top:0.25rem}
 .pkg-card .m b{color:var(--gold)}
+.pkg-card .s{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.45rem;padding:0.16rem 0.48rem;border-radius:999px;font-size:0.62rem;font-family:var(--font-mono);letter-spacing:0.04em;text-transform:uppercase}
+.pkg-card .e{margin-top:0.35rem;font-size:0.7rem;color:var(--text2);line-height:1.45}
 .pkg-card.empty{opacity:0.25;cursor:default;pointer-events:none}
+.pkg-card.failed{opacity:1;border-color:rgba(191,107,107,0.45);background:linear-gradient(180deg, rgba(191,107,107,0.08) 0%, var(--surface) 100%);cursor:pointer}
+.pkg-card.failed:hover{border-color:rgba(191,107,107,0.55);background:linear-gradient(180deg, rgba(191,107,107,0.12) 0%, var(--surface2) 100%);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.pkg-card .s.success{background:var(--green-soft);color:var(--green)}
+.pkg-card .s.error{background:var(--red-soft);color:var(--red)}
+.pkg-card .s.unknown{background:var(--surface3);color:var(--text2)}
 #load-error{color:var(--red);font-size:0.8rem;padding:0.5rem;display:none}
 
 /* ── Mode Tab Bar ───────────── */
@@ -167,8 +174,26 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .issue-tag:hover{border-color:var(--text2);color:var(--text2)}
 .issue-tag.selected{border-color:var(--amber);color:var(--amber);background:var(--amber-soft)}
 
+/* ChatGPT helper */
+.aux-row{display:flex;justify-content:flex-start;align-items:center;gap:0.5rem;margin-top:0.55rem}
+.aux-btn{padding:0.4rem 0.9rem;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:0.76rem;font-family:var(--font-ui);transition:all .15s}
+.aux-btn:hover{border-color:var(--gold);color:var(--text)}
+.aux-btn.copied{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.chatgpt-helper-note{font-size:0.68rem;color:var(--text3)}
+
+/* ChatGPT modal */
+#chatgpt-helper{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:220;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+#chatgpt-helper.open{display:flex}
+#chatgpt-helper .modal{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.25rem 1.35rem;max-width:760px;width:min(92vw,760px);box-shadow:0 12px 48px rgba(0,0,0,0.5)}
+.cgh-title{font-size:0.95rem;font-weight:500;color:var(--gold);margin-bottom:0.45rem}
+.cgh-desc{font-size:0.78rem;color:var(--text2);line-height:1.55;margin-bottom:0.8rem}
+.cgh-textarea{width:100%;min-height:180px;padding:0.75rem 0.85rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.86rem;line-height:1.55;resize:vertical}
+.cgh-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
+.cgh-actions{display:flex;justify-content:space-between;align-items:center;gap:0.6rem;margin-top:0.8rem}
+.cgh-actions .right{display:flex;gap:0.5rem}
+
 /* Comment textarea */
-#comment{width:100%;min-height:220px;max-height:45vh;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s}
+#comment{width:100%;min-height:320px;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s;overflow-y:hidden}
 #comment:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
 #comment::placeholder{color:var(--text3);font-style:italic}
 
@@ -227,6 +252,8 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-item{padding:0.45rem 0.75rem;cursor:pointer;margin:1px 4px;border-radius:5px;transition:background .1s;display:flex;align-items:center;gap:0.5rem}
 .q-item:hover{background:var(--surface2)}
 .q-item.active{background:var(--gold-dim);border-left:2px solid var(--gold);padding-left:calc(0.75rem - 2px)}
+.q-item.blocked{opacity:0.72}
+.q-item.blocked .q-title{color:var(--text3)}
 .q-item .q-num{font-size:0.62rem;color:var(--text3);font-family:var(--font-mono);min-width:22px;flex-shrink:0}
 .q-item .q-id-badge{font-size:0.62rem;padding:0.07rem 0.3rem;border-radius:3px;background:var(--surface3);color:var(--accent);flex-shrink:0}
 .q-item .q-title{font-size:0.8rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
@@ -234,6 +261,8 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-item .q-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--border2)}
 .q-item .q-dot.done{background:var(--green)}
 .q-item .q-dot.partial{background:var(--amber)}
+.q-item .q-dot.blocked{background:var(--red)}
+.q-item .q-lock{font-size:0.56rem;color:var(--red);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0}
 .q-phase-sep{height:1px;background:var(--border);margin:4px 0}
 
 /* Q Main area */
@@ -250,6 +279,10 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 
 .q-context-note{padding:0.8rem 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);font-size:0.82rem;color:var(--text2);line-height:1.6}
 .q-context-note .cn-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.25rem}
+.q-blocked-note{padding:1rem 1.5rem;background:var(--red-soft);border-bottom:1px solid rgba(186,70,70,0.25)}
+.q-blocked-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--red);font-weight:700;margin-bottom:0.35rem}
+.q-blocked-reason{font-size:0.86rem;color:var(--text);line-height:1.65}
+.q-blocked-help{margin-top:0.55rem;font-size:0.78rem;color:var(--text2);line-height:1.55}
 
 .q-excerpt-block{padding:1rem 1.5rem;border-bottom:1px solid var(--border)}
 .q-excerpt-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600;margin-bottom:0.5rem}
@@ -300,6 +333,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .q-save-btn:hover{opacity:0.85}
 .q-save-btn.ready{background:var(--gold);color:#111;border-color:var(--gold)}
 .q-save-btn.saved{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.q-save-btn.blocked{background:var(--surface2);color:var(--text3);border-style:dashed;cursor:default}
 .q-nav-btns{display:flex;gap:0.5rem}
 .q-nav-btn{padding:0.4rem 0.8rem;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);cursor:pointer;font-size:0.78rem;font-family:var(--font-ui);transition:all .15s}
 .q-nav-btn:hover{border-color:var(--gold);color:var(--text)}
@@ -320,6 +354,9 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 
 .cmp-pair{max-width:1300px;margin:0 auto}
 .cmp-division{font-size:0.72rem;color:var(--text2);margin-bottom:0.8rem;font-family:var(--font-mono)}
+.cmp-filter-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.9rem;flex-wrap:wrap}
+.cmp-filter-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600}
+.cmp-filter-select{padding:0.35rem 0.55rem;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);font-family:var(--font-ui);font-size:0.8rem}
 .cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem}
 .cmp-col{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .cmp-col-header{padding:0.6rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
@@ -426,7 +463,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
     </div>
     <div class="q-prog-bar"><div id="q-prog-fill" class="q-prog-fill" style="width:0%"></div></div>
     <div style="display:flex;align-items:center;gap:0.6rem">
-      <span id="q-prog-label" class="q-prog-label">0 of 40</span>
+      <span id="q-prog-label" class="q-prog-label">0 of 0 active</span>
       <div id="mode-tabs-q" style="display:flex;gap:2px;padding:3px 6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px">
         <button class="mtab" onclick="switchMode('review')">Review</button>
         <button class="mtab active" onclick="switchMode('questionnaire')">Questionnaire</button>
@@ -480,9 +517,9 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
     <div class="krow"><span>First / Last</span><span><kbd>Home</kbd> <kbd>End</kbd></span></div>
     <div class="krow"><span>Go to #</span><span><kbd>g</kbd></span></div>
     <div class="ksep"></div>
-    <div class="krow"><span>Accept</span><span><kbd>a</kbd></span></div>
+    <div class="krow"><span>Works</span><span><kbd>a</kbd></span></div>
     <div class="krow"><span>Needs Work</span><span><kbd>w</kbd></span></div>
-    <div class="krow"><span>Reject</span><span><kbd>r</kbd></span></div>
+    <div class="krow"><span>Doesn't Work</span><span><kbd>r</kbd></span></div>
     <div class="krow"><span>Focus notes</span><span><kbd>n</kbd></span></div>
     <div class="ksep"></div>
     <div class="krow"><span>Save &amp; Next</span><span><kbd>Ctrl+Enter</kbd></span></div>
@@ -493,18 +530,49 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
+     CHATGPT HELPER MODAL
+═══════════════════════════════════════════════════════════ -->
+<div id="chatgpt-helper">
+  <div class="modal">
+    <div class="cgh-title">Copy For ChatGPT</div>
+    <div class="cgh-desc">
+      Optionally paste surrounding original source context before copying the full excerpt-review prompt.
+      This surrounding text is treated as background only, not part of the excerpt itself.
+    </div>
+    <textarea id="chatgpt-context" class="cgh-textarea" spellcheck="false" placeholder="Optional: paste the previous/current/next source context here before copying the prompt..."></textarea>
+    <div class="cgh-actions">
+      <div class="chatgpt-helper-note">The copied prompt uses the current excerpt, visible metadata, your unsaved draft comment, and any optional source context entered here.</div>
+      <div class="right">
+        <button class="aux-btn" onclick="closeChatGPTHelper()">Cancel</button>
+        <button class="aux-btn" id="chatgpt-copy-btn" onclick="copyCurrentExcerptForChatGPT()">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════════════════════ -->
 <script>
 // ─── Global utilities ─────────────────────────────────────────────────────
 let excerpts=[], currentIndex=0, currentPackage="", feedback={}, pollTimer=null;
+let packageMeta={};
+let packagePollTimer=null;
 let selectedIssues=new Set();
 let currentFilter="all";
 let currentMode="home"; // "home" | "review" | "questionnaire" | "comparison"
+let reviewDrafts={};
+const REVIEW_DRAFTS_KEY="kr_review_drafts_v1";
 
 const $=id=>document.getElementById(id);
 const esc=s=>{if(s==null)return"\u2014";const d=document.createElement("div");d.textContent=String(s);return d.innerHTML};
 const v=val=>(val===null||val===undefined||val===""?"\u2014":val);
+
+try{
+  reviewDrafts=JSON.parse(localStorage.getItem(REVIEW_DRAFTS_KEY)||"{}")||{};
+}catch{
+  reviewDrafts={};
+}
 
 const ISSUE_TAGS=[
   {id:"boundary",label:"Boundaries"},
@@ -520,11 +588,15 @@ const ISSUE_TAGS=[
 
 // ─── Mode switching ────────────────────────────────────────────────────────
 function enterMode(mode){
+  stopPackagePolling();
   $("pkg-picker").style.display="none";
   switchMode(mode);
 }
 
 function switchMode(mode){
+  if(currentMode==="questionnaire"&&mode!=="questionnaire"){
+    persistCurrentQDraft();
+  }
   // Hide all containers
   $("viewer").classList.remove("active");
   $("q-wrap").classList.remove("active");
@@ -549,6 +621,7 @@ function switchMode(mode){
 }
 
 function goHome(){
+  stopPackagePolling();
   if(pollTimer)clearInterval(pollTimer);
   $("viewer").classList.remove("active");
   $("q-wrap").classList.remove("active");
@@ -558,25 +631,60 @@ function goHome(){
   loadPackages();
 }
 
+function stopPackagePolling(){
+  if(packagePollTimer){
+    clearTimeout(packagePollTimer);
+    packagePollTimer=null;
+  }
+}
+
+function schedulePackagePoll(delay){
+  stopPackagePolling();
+  packagePollTimer=setTimeout(loadPackages, delay);
+}
+
 // ─── Package Loading ───────────────────────────────────────────────────────
 async function loadPackages(){
   try{
     const r=await fetch("/api/packages");const pkgs=await r.json();
-    if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';setTimeout(loadPackages,5000);return}
+    if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';schedulePackagePoll(5000);return}
+    packageMeta=Object.fromEntries(pkgs.map(p=>[p.name,p]));
     $("pkg-list").innerHTML=pkgs.map(p=>{
       const pct=p.excerpt_count&&p.feedback_count?Math.round(p.feedback_count/p.excerpt_count*100):0;
-      return `<div class="pkg-card${p.excerpt_count?'':' empty'}" onclick="${p.excerpt_count?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` \xb7 ${p.feedback_count} reviewed (${pct}%)`:''}</div></div>`;
+      const state=(p.status||'unknown').toLowerCase();
+      const clickable=p.excerpt_count>0||state==='error';
+      const statusLabel=state==='error'?'failed':state==='success'?'ready':'unknown';
+      const errorText=(p.errors&&p.errors.length)?esc(p.errors[0]):"";
+      const timeLabel=(typeof p.time_seconds==='number'&&p.time_seconds>0)?`${(p.time_seconds/3600).toFixed(1)}h`:'—';
+      const costLabel=(typeof p.cost_estimate==='number')?`$${p.cost_estimate.toFixed(2)}`:'—';
+      const extra = state==='error'
+        ? `<div class="m"><b>${p.excerpt_count}</b> excerpts · ${p.error_count||0} blocker${(p.error_count||0)===1?'':'s'} · ${timeLabel} · ${costLabel}</div><div class="e">${errorText||'Package run failed before excerpts were written.'}</div>`
+        : `<div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` \xb7 ${p.feedback_count} reviewed (${pct}%)`:''}</div>`;
+      const className = state==='error' ? ' failed' : (!clickable ? ' empty' : '');
+      return `<div class="pkg-card${className}" onclick="${clickable?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="s ${state==='error'?'error':state==='success'?'success':'unknown'}">${statusLabel}</div>${extra}</div>`;
     }).join("");
-    setTimeout(loadPackages,10000);
-  }catch{setTimeout(loadPackages,3000)}
+    schedulePackagePoll(10000);
+  }catch{schedulePackagePoll(3000)}
 }
 
 async function selectPkg(pkg){
   currentPackage=pkg;
   try{
-    const[er,fr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`)]);
+    const[er,fr,sr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`),fetch(`/api/package-state/${pkg}`)]);
+    if(!er.ok||!fr.ok||!sr.ok){
+      throw new Error(`Package fetch failed (${er.status}/${fr.status}/${sr.status})`);
+    }
     excerpts=await er.json();feedback=await fr.json();
-    if(!excerpts.length){alert("No excerpts yet.");return}
+    const state=await sr.json();
+    if(!excerpts.length){
+      const meta=packageMeta[pkg]||{};
+      if((meta.status||'').toLowerCase()==='error'){
+        renderFailedPackage(state);
+      }else{
+        alert("No excerpts yet.");
+      }
+      return;
+    }
     currentIndex=0;currentFilter="all";
     $("pkg-picker").style.display="none";
     currentMode="review";
@@ -593,6 +701,57 @@ function backToPackages(){
   $("pkg-picker").style.display="flex";
   currentMode="home";
   excerpts=[];currentIndex=0;loadPackages();
+}
+
+function renderFailedPackage(state){
+  if(pollTimer)clearInterval(pollTimer);
+  $("pkg-picker").style.display="none";
+  currentMode="review";
+  $("viewer").classList.add("active");
+  $("pkg-label").textContent=state.name||currentPackage;
+  $("pos").textContent="failed";
+  $("prev-btn").disabled=true;
+  $("next-btn").disabled=true;
+  $("left").innerHTML=`<div style="padding:1rem;color:var(--red);text-align:center;font-size:0.8rem">Package failed before excerpts were written.</div>`;
+
+  const summary=state.summary||{};
+  const runMeta=state.run_metadata||{};
+  const errors=(summary.errors&&summary.errors.length?summary.errors:runMeta.errors)||[];
+  const firstError=errors.length?errors[0]:"Unknown failure";
+  const timeSeconds=summary.time_seconds||runMeta.batch_elapsed_seconds||0;
+  const cost=summary.cost_estimate;
+  const report=state.stall_report?esc(state.stall_report):"No stall report available.";
+  const timeLabel=timeSeconds?`${(timeSeconds/3600).toFixed(1)}h`:"—";
+  const costLabel=(typeof cost==="number")?`$${cost.toFixed(2)}`:"—";
+
+  $("center").innerHTML=`
+    <div class="doc" style="border-color:rgba(191,107,107,0.35)">
+      <div class="doc-header">
+        <div class="doc-title">Package Failure</div>
+        <div class="doc-meta">${esc(state.name||currentPackage)}</div>
+      </div>
+      <div class="doc-body" style="padding:1.35rem 1.6rem">
+        <div class="warn-band dependent" style="margin-top:0">
+          <span class="wlabel">FAILED</span>
+          ${esc(firstError)}
+          <div class="ctx">No excerpts were written for this package. Review/comparison work is blocked until the run is repaired or replaced.</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem">
+          <span class="chip chip-dependent">status: ${esc(summary.status||"error")}</span>
+          <span class="chip chip-dependent">errors: ${esc(String(summary.error_count ?? runMeta.error_count ?? 0))}</span>
+          <span class="chip chip-dependent">time: ${esc(timeLabel)}</span>
+          <span class="chip chip-dependent">cost: ${esc(costLabel)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("right").innerHTML=`
+    <div class="review-zone">
+      <div class="review-header">Blocker Summary</div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.6;white-space:pre-wrap">${report}</div>
+    </div>
+  `;
 }
 
 function startPolling(){
@@ -638,6 +797,207 @@ function renderList(){
 }
 
 function go(i){currentIndex=i;render();renderList()}
+
+function reviewDraftKey(pkg, excerptId){
+  return `${pkg}::${excerptId}`;
+}
+
+function saveReviewDraftStore(){
+  try{localStorage.setItem(REVIEW_DRAFTS_KEY, JSON.stringify(reviewDrafts));}catch{}
+}
+
+function getReviewDraft(excerptId){
+  if(!currentPackage||!excerptId)return null;
+  return reviewDrafts[reviewDraftKey(currentPackage, excerptId)]||null;
+}
+
+function currentReviewDraft(){
+  const ex=excerpts[currentIndex];
+  if(!ex)return null;
+  const vbtn=document.querySelector(".vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.dataset.v:null;
+  const comment=$("comment")?$("comment").value.trim():"";
+  const issues=Array.from(selectedIssues);
+  return {
+    excerpt_id: ex.excerpt_id,
+    verdict: verdict||null,
+    issues,
+    comment: comment||null,
+  };
+}
+
+function persistCurrentReviewDraft(){
+  const ex=excerpts[currentIndex];
+  if(!ex||!currentPackage)return;
+  const draft=currentReviewDraft();
+  if(!draft)return;
+  const hasContent=Boolean(draft.verdict||draft.comment||(draft.issues&&draft.issues.length));
+  const key=reviewDraftKey(currentPackage, ex.excerpt_id);
+  if(hasContent)reviewDrafts[key]=draft;
+  else delete reviewDrafts[key];
+  saveReviewDraftStore();
+}
+
+function clearReviewDraft(excerptId){
+  if(!currentPackage||!excerptId)return;
+  delete reviewDrafts[reviewDraftKey(currentPackage, excerptId)];
+  saveReviewDraftStore();
+}
+
+function autoGrowComment(el){
+  if(!el)return;
+  el.style.height="auto";
+  el.style.height=Math.max(el.scrollHeight, 320)+"px";
+}
+
+function reviewVerdictLabel(verdict){
+  return verdict==="accept"?"works":verdict==="needs_work"?"needs work":verdict==="reject"?"doesn't work":"none";
+}
+
+function currentReviewIssueLabels(){
+  return ISSUE_TAGS.filter(tag=>selectedIssues.has(tag.id)).map(tag=>tag.label);
+}
+
+function currentReviewPromptText(ex, surroundingContext){
+  const vbtn=document.querySelector(".vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.dataset.v:null;
+  const comment=$("comment")?$("comment").value.trim():"";
+  const issues=currentReviewIssueLabels();
+  const divPath=(ex.div_path||[]).join(" / ");
+  const pp=ex.physical_pages;
+  const pageStr=pp?`Vol ${pp.volume||"?"}, pp ${pp.start_page}${pp.end_page!==pp.start_page?"–"+pp.end_page:""}`:"—";
+  const sc=ex.self_containment||"FULL";
+  const extraContext=[
+    ex.self_containment_notes?`Self-containment notes: ${ex.self_containment_notes}`:"",
+    ex.context_hint?`Context hint: ${ex.context_hint}`:"",
+  ].filter(Boolean).join("\n");
+  const roughComments=comment||"[none entered yet]";
+  const surrounding=surroundingContext&&surroundingContext.trim()?surroundingContext.trim():"[none supplied yet]";
+
+  return [
+    "## Mode",
+    "excerpt review",
+    "",
+    "## Package",
+    currentPackage||"(unknown)",
+    "",
+    "## Excerpt number",
+    String(currentIndex+1),
+    "",
+    "## Excerpt ID",
+    ex.excerpt_id||"(unknown)",
+    "",
+    "## Live excerpt from the app",
+    ex.primary_text||"",
+    "",
+    "## Visible metadata/context from the app",
+    `Function: ${ex.primary_function||"—"}`,
+    `Self-containment: ${sc}`,
+    `Package: ${currentPackage||"—"}`,
+    `Division path: ${divPath||"—"}`,
+    `Pages: ${pageStr}`,
+    extraContext?extraContext:"",
+    "",
+    "## Current draft hints",
+    `Current verdict hint: ${reviewVerdictLabel(verdict)}`,
+    `Current issue tag hints: ${issues.length?issues.join(", "):"none"}`,
+    "",
+    "## Surrounding original source context",
+    "### This is NOT part of the excerpt itself.",
+    "### It is only background for judging missing context.",
+    "",
+    surrounding,
+    "",
+    "## My rough comments",
+    roughComments,
+    "",
+    "## Important",
+    "- Treat the live excerpt as the thing I am reviewing.",
+    "- Treat the surrounding source only as background for judging whether this excerpt is truly self-contained or whether it sends me on a manhunt.",
+    "- My rough comments may contain both excerpt-specific feedback and broader project/architecture insights.",
+    "- First separate those two layers.",
+    "- Then produce only the excerpt-review output for the app.",
+    "- After that, separately list the broader project insights that should NOT go into the app comment.",
+    "- The app comment should stay faithful to my meaning, but should not become a giant architecture note.",
+    "",
+    "## Please now give me",
+    "",
+    "# Output A — App-ready review",
+    "Verdict:",
+    "[works / needs work / doesn't work]",
+    "",
+    "Issue tags:",
+    "[choose only from: Boundaries, Function, Topics, School, Attribution, Containment, Text Quality, Split, Merge]",
+    "",
+    "Comment:",
+    "[paste-ready app comment only]",
+    "",
+    "# Output B — Running excerpt-definition notes",
+    "- What this excerpt teaches about excerpt definition:",
+    "- What this excerpt teaches about self-containment:",
+    "- What this excerpt teaches about context:",
+    "- What this excerpt teaches about boundary / splitting:",
+    "- What this excerpt teaches about theory vs context:",
+    "- What this excerpt teaches about rule vs proof:",
+    "- Any broader principle worth keeping for later F-1 synthesis:",
+    "- Confidence in these broader lessons: [high / medium / low]",
+    "",
+  ].filter(Boolean).join("\n");
+}
+
+function openChatGPTHelper(){
+  const modal=$("chatgpt-helper");
+  if(!modal)return;
+  modal.classList.add("open");
+  const ta=$("chatgpt-context");
+  if(ta)ta.focus();
+}
+
+function closeChatGPTHelper(){
+  const modal=$("chatgpt-helper");
+  if(modal)modal.classList.remove("open");
+}
+
+async function copyTextToClipboard(text){
+  if(navigator.clipboard?.writeText){
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+  const ta=document.createElement("textarea");
+  ta.value=text;
+  ta.style.position="fixed";
+  ta.style.opacity="0";
+  document.body.appendChild(ta);
+  ta.select();
+  try{
+    return document.execCommand("copy");
+  }finally{
+    document.body.removeChild(ta);
+  }
+}
+
+async function copyCurrentExcerptForChatGPT(){
+  const ex=excerpts[currentIndex];
+  if(!ex)return;
+  const btn=$("chatgpt-copy-btn");
+  const surrounding=$("chatgpt-context")?.value||"";
+  const prompt=currentReviewPromptText(ex, surrounding);
+  try{
+    await copyTextToClipboard(prompt);
+    if(btn){
+      btn.classList.add("copied");
+      btn.textContent="Copied ✓";
+      setTimeout(()=>{
+        btn.classList.remove("copied");
+        btn.textContent="Copy Prompt";
+      }, 1800);
+    }
+    closeChatGPTHelper();
+  }catch(e){
+    console.error("Copy failed:",e);
+    if(btn)btn.textContent="Copy failed";
+  }
+}
 
 // ─── Review mode: Center ───────────────────────────────────────────────────
 function render(){
@@ -707,11 +1067,13 @@ function toggleSec(el){el.querySelector(".arrow").classList.toggle("open");el.ne
 
 // ─── Review mode: Right Panel ──────────────────────────────────────────────
 function renderRight(ex){
-  const fb=feedback[ex.excerpt_id]||{};
+  const saved=feedback[ex.excerpt_id]||{};
+  const draft=getReviewDraft(ex.excerpt_id)||{};
+  const fb={...saved, ...draft};
   selectedIssues=new Set(fb.issues||[]);
 
   const verdicts=["accept","needs_work","reject"];
-  const labels={accept:"\u2713 Accept",needs_work:"\u26A0 Needs Work",reject:"\u2717 Reject"};
+  const labels={accept:"\u2713 Works",needs_work:"\u26A0 Needs Work",reject:"\u2717 Doesn't Work"};
   const icons={accept:"\u2713",needs_work:"\u26A0",reject:"\u2717"};
   const keys={accept:"a",needs_work:"w",reject:"r"};
   const btns=verdicts.map(vv=>{
@@ -744,6 +1106,10 @@ function renderRight(ex){
       <div class="issues-label">What needs fixing?</div>
       <div class="issues-row">${tagsHtml}</div>
       <textarea id="comment" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Notes \u2014 what specifically is wrong or could be better?">${esc(fb.comment||"")}</textarea>
+      <div class="aux-row">
+        <button class="aux-btn" id="copy-chatgpt-btn" onclick="openChatGPTHelper()">Copy for ChatGPT</button>
+        <span class="chatgpt-helper-note">Uses the current excerpt plus your unsaved draft comment.</span>
+      </div>
       <div class="save-row">
         <button id="save-btn"${fb.verdict||selectedIssues.size||fb.comment?' class="has-review"':''}>${fb.verdict||selectedIssues.size?"Save & Next \u2192":"Skip \u2192"}</button>
         <div class="progress-wrap">
@@ -780,7 +1146,11 @@ function renderRight(ex){
   document.querySelectorAll(".vbtn").forEach(b=>b.addEventListener("click",()=>selectVerdict(b.dataset.v)));
   document.querySelectorAll(".issue-tag").forEach(b=>b.addEventListener("click",()=>toggleIssue(b.dataset.tag)));
   $("save-btn").addEventListener("click",saveAndNext);
-  const c=$("comment");if(c)c.addEventListener("input",updateSaveBtn);
+  const c=$("comment");
+  if(c){
+    c.addEventListener("input",()=>{autoGrowComment(c);persistCurrentReviewDraft();updateSaveBtn();});
+    autoGrowComment(c);
+  }
 }
 
 function toggleDiag(el){el.querySelector(".arrow").classList.toggle("open");el.nextElementSibling.classList.toggle("open")}
@@ -789,6 +1159,7 @@ function selectVerdict(vv){
   document.querySelectorAll(".vbtn").forEach(bb=>bb.className="vbtn");
   const btn=document.querySelector(`.vbtn[data-v="${vv}"]`);
   if(btn)btn.classList.add(`sel-${vv}`);
+  persistCurrentReviewDraft();
   updateSaveBtn();
 }
 
@@ -797,6 +1168,7 @@ function toggleIssue(tagId){
   else selectedIssues.add(tagId);
   const btn=document.querySelector(`.issue-tag[data-tag="${tagId}"]`);
   if(btn)btn.classList.toggle("selected");
+  persistCurrentReviewDraft();
   updateSaveBtn();
 }
 
@@ -840,8 +1212,12 @@ async function saveAndNext(){
     },
     review_meta:{source_file:currentPackage,excerpt_position:`${currentIndex+1}/${excerpts.length}`,reviewer:"owner"}
   };
-  feedback[ex.excerpt_id]=entry;
-  try{await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)})}catch(e){console.error("Save failed:",e)}
+  try{
+    const resp=await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)});
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    feedback[ex.excerpt_id]=entry;
+    clearReviewDraft(ex.excerpt_id);
+  }catch(e){console.error("Save failed:",e);return}
   if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}else{render();renderList()}
 }
 
@@ -849,6 +1225,7 @@ $("prev-btn").addEventListener("click",()=>{if(currentIndex>0){currentIndex--;re
 $("next-btn").addEventListener("click",()=>{if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}});
 $("pkg-label").addEventListener("click",backToPackages);
 $("shortcuts-btn").addEventListener("click",()=>$("shortcuts").classList.toggle("open"));
+window.addEventListener("beforeunload",()=>{if(currentMode==="review")persistCurrentReviewDraft(); if(currentMode==="questionnaire")persistCurrentQDraft();});
 
 document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   currentFilter=b.dataset.filter;
@@ -862,7 +1239,21 @@ document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
 // ═══════════════════════════════════════════════════════════════════════════
 let qInteractions=[];
 let qResponses={};
+let qDrafts={};
 let qCurrentIndex=0;
+
+function qIsBlocked(item){
+  return item&&item.availability==="blocked_pending_source";
+}
+
+function qFindNextIndex(start,delta){
+  let idx=start+delta;
+  while(idx>=0&&idx<qInteractions.length){
+    if(!qIsBlocked(qInteractions[idx]))return idx;
+    idx+=delta;
+  }
+  return -1;
+}
 
 async function initQuestionnaire(){
   $("q-loading").style.display="flex";
@@ -871,7 +1262,7 @@ async function initQuestionnaire(){
     const[ir,rr]=await Promise.all([fetch("/api/questionnaire"),fetch("/api/questionnaire/responses")]);
     qInteractions=await ir.json();
     qResponses=await rr.json();
-    if(!qInteractions.length){
+    if(!Array.isArray(qInteractions)||!qInteractions.length){
       $("q-loading").innerHTML='<div class="mode-error">Could not load interactions.json</div>';
       return;
     }
@@ -887,15 +1278,17 @@ async function initQuestionnaire(){
 function renderQSidebar(){
   // Group by phase for section labels
   const phases=[];
-  let lastPhase="";
+  let lastPhaseLabel="";
   qInteractions.forEach((item,i)=>{
-    if(item.phase!==lastPhase){
+    if(item.phase_label!==lastPhaseLabel){
       phases.push({type:"header",label:item.phase_label,phase:item.phase});
-      lastPhase=item.phase;
+      lastPhaseLabel=item.phase_label;
     }
-    const resp=qResponses[item.id];
+    const resp=qDrafts[item.id]||qResponses[item.id];
     let dotCls="";
-    if(resp){
+    if(qIsBlocked(item)){
+      dotCls="blocked";
+    }else if(resp){
       dotCls=resp.immediate_reaction&&resp.immediate_reaction.trim()?"done":"partial";
     }
     phases.push({type:"item",item,index:i,dotCls});
@@ -907,33 +1300,41 @@ function renderQSidebar(){
     }
     const item=p.item;
     const active=p.index===qCurrentIndex;
-    return `<div class="q-item${active?" active":""}" onclick="renderQInteraction(${p.index})">
+    const blocked=qIsBlocked(item);
+    return `<div class="q-item${active?" active":""}${blocked?" blocked":""}" onclick="renderQInteraction(${p.index})">
       <span class="q-num">${p.index+1}</span>
       <span class="q-id-badge">${esc(item.id)}</span>
       <span class="q-title">${esc(item.title)}</span>
+      ${blocked?'<span class="q-lock">locked</span>':""}
       <span class="q-dot${p.dotCls?" "+p.dotCls:""}"></span>
     </div>`;
   }).join("");
 
   // Update progress bar
-  const done=Object.values(qResponses).filter(r=>r.immediate_reaction&&r.immediate_reaction.trim()).length;
-  const pct=qInteractions.length?Math.round(done/qInteractions.length*100):0;
+  const activeItems=qInteractions.filter(item=>!qIsBlocked(item));
+  const done=activeItems.filter(item=>{
+    const resp=qDrafts[item.id]||qResponses[item.id];
+    return Boolean(resp&&resp.immediate_reaction&&resp.immediate_reaction.trim());
+  }).length;
+  const pct=activeItems.length?Math.round(done/activeItems.length*100):0;
   $("q-prog-fill").style.width=pct+"%";
-  $("q-prog-label").textContent=`${done} of ${qInteractions.length}`;
+  $("q-prog-label").textContent=`${done} of ${activeItems.length} active`;
   $("q-pos").textContent=`${qCurrentIndex+1}/${qInteractions.length}`;
 }
 
 function renderQInteraction(index){
   if(index<0||index>=qInteractions.length)return;
+  persistCurrentQDraft();
   qCurrentIndex=index;
 
   const item=qInteractions[index];
-  const resp=qResponses[item.id]||{};
+  const resp={...(qResponses[item.id]||{}), ...(qDrafts[item.id]||{})};
+  const blocked=qIsBlocked(item);
   const content=$("q-content");
 
   // Multiple choice options HTML
   let mcHtml="";
-  if(item.multiple_choice&&item.multiple_choice.length){
+  if(!blocked&&item.multiple_choice&&item.multiple_choice.length){
     const opts=item.multiple_choice.map((opt,oi)=>{
       const sel=(resp.mc_choice===opt)?" selected":"";
       return `<label class="q-mc-option${sel}">
@@ -949,7 +1350,7 @@ function renderQInteraction(index){
 
   // Edge case extra fields
   let edgeHtml="";
-  if(item.is_edge_case){
+  if(!blocked&&item.is_edge_case){
     edgeHtml=`<div class="q-edge-block">
       <div class="q-edge-label">Edge Case Fields</div>
       <div class="q-edge-desc">This is an edge case interaction. Two additional fields help capture your reasoning.</div>
@@ -973,6 +1374,8 @@ function renderQInteraction(index){
 
   // Saved indicator
   const hasSaved=resp.immediate_reaction&&resp.immediate_reaction.trim();
+  const prevIndex=qFindNextIndex(index,-1);
+  const nextIndex=qFindNextIndex(index,1);
 
   content.innerHTML=`
     <div class="q-card">
@@ -992,6 +1395,12 @@ function renderQInteraction(index){
         ${esc(item.context_note)}
       </div>`:""}
 
+      ${blocked?`<div class="q-blocked-note">
+        <div class="q-blocked-label">Blocked Pending Source Material</div>
+        <div class="q-blocked-reason">${esc(item.blocked_reason||"This interaction is intentionally locked until the required source material exists.")}</div>
+        <div class="q-blocked-help">This slot is reserved, not answerable yet, and not counted in your active progress.</div>
+      </div>`:""}
+
       ${item.excerpt_text?`<div class="q-excerpt-block">
         <div class="q-excerpt-label">Excerpt to evaluate</div>
         ${item.excerpt_source?`<div class="q-excerpt-source">${esc(item.excerpt_source)}</div>`:""}
@@ -1005,7 +1414,7 @@ function renderQInteraction(index){
 
       ${mcHtml}
 
-      <div class="q-response-block">
+      ${blocked?"":`<div class="q-response-block">
         <div class="q-field-label q-field-required">Immediate reaction</div>
         <textarea class="q-textarea" id="q-reaction" rows="5"
           placeholder="Write your immediate, honest reaction. Don't overthink it — what is your gut response?"
@@ -1019,25 +1428,25 @@ function renderQInteraction(index){
           <textarea class="q-textarea" id="q-detail" rows="4"
             placeholder="Optional: deeper analysis, comparison to other excerpts, specific suggestions...">${esc(resp.detailed_analysis||"")}</textarea>
         </div>
-      </div>
+      </div>`}
 
       ${edgeHtml}
 
-      <div class="q-confidence-block">
+      ${blocked?"":`<div class="q-confidence-block">
         <div class="q-field-label">Confidence in your response</div>
         <div class="q-conf-row">${confBtns}</div>
-      </div>
+      </div>`}
 
       <div class="q-action-row">
         <div style="display:flex;align-items:center;gap:0.7rem">
-          <button class="q-save-btn${hasSaved?" saved":""}" id="q-save-btn" onclick="qSave()">
-            ${hasSaved?"Saved \u2713":"Save Response"}
+          <button class="q-save-btn${blocked?" blocked":hasSaved?" saved":""}" id="q-save-btn" onclick="qSave()">
+            ${blocked?"Locked":hasSaved?"Saved \u2713":"Save Response"}
           </button>
-          <span class="q-status-msg" id="q-status">Saved</span>
+          <span class="q-status-msg" id="q-status">${blocked?"Blocked":"Saved"}</span>
         </div>
         <div class="q-nav-btns">
-          <button class="q-nav-btn" id="q-prev-btn" onclick="qNavigate(-1)" ${index===0?"disabled":""}>&#9664; Prev</button>
-          <button class="q-nav-btn" id="q-next-btn" onclick="qNavigate(1)" ${index===qInteractions.length-1?"disabled":""}>Next &#9654;</button>
+          <button class="q-nav-btn" id="q-prev-btn" onclick="qNavigate(-1)" ${prevIndex===-1?"disabled":""}>&#9664; Prev</button>
+          <button class="q-nav-btn" id="q-next-btn" onclick="qNavigate(1)" ${nextIndex===-1?"disabled":""}>Next &#9654;</button>
         </div>
       </div>
     </div>
@@ -1065,6 +1474,41 @@ function qMCChange(radio){
   qUpdateSaveBtn();
 }
 
+function currentQDraft(){
+  if(!qInteractions.length||qCurrentIndex<0||qCurrentIndex>=qInteractions.length)return null;
+  const item=qInteractions[qCurrentIndex];
+  const reaction=$("q-reaction")?.value.trim()||"";
+  const detail=$("q-detail")?.value.trim()||"";
+  const checkedRadio=document.querySelector(`input[name="q-mc-${item.id}"]:checked`);
+  const changeMind=$("q-change-mind")?.value.trim()||"";
+  const principles=$("q-principles")?.value.trim()||"";
+  const confidence=document.querySelector(".q-conf-btn[class*='sel-']")?.textContent?.toLowerCase()||"";
+  return {
+    interaction_id:item.id,
+    mc_choice:checkedRadio?checkedRadio.value:null,
+    immediate_reaction:reaction,
+    detailed_analysis:detail||null,
+    confidence:confidence||null,
+    what_would_change_mind:changeMind||null,
+    principles_revealed:principles||null,
+  };
+}
+
+function persistCurrentQDraft(){
+  const draft=currentQDraft();
+  if(!draft)return;
+  const hasContent=Boolean(
+    draft.mc_choice||
+    draft.immediate_reaction||
+    draft.detailed_analysis||
+    draft.confidence||
+    draft.what_would_change_mind||
+    draft.principles_revealed
+  );
+  if(hasContent)qDrafts[draft.interaction_id]=draft;
+  else delete qDrafts[draft.interaction_id];
+}
+
 function qConfSelect(level){
   document.querySelectorAll(".q-conf-btn").forEach(b=>{
     b.className="q-conf-btn"+(b.textContent.toLowerCase()===level?` sel-${level}`:"");
@@ -1074,6 +1518,12 @@ function qConfSelect(level){
 
 function qUpdateSaveBtn(){
   const btn=$("q-save-btn");if(!btn)return;
+  const item=qInteractions[qCurrentIndex];
+  if(qIsBlocked(item)){
+    btn.className="q-save-btn blocked";
+    btn.textContent="Locked";
+    return;
+  }
   const reaction=$("q-reaction")?.value.trim();
   if(reaction){
     btn.className="q-save-btn ready";
@@ -1083,6 +1533,7 @@ function qUpdateSaveBtn(){
 
 async function qSave(){
   const item=qInteractions[qCurrentIndex];
+  if(qIsBlocked(item))return;
   const reaction=$("q-reaction")?.value.trim();
   if(!reaction){
     const ta=$("q-reaction");if(ta)ta.classList.add("required-empty");
@@ -1111,14 +1562,15 @@ async function qSave(){
     is_edge_case:item.is_edge_case,
   };
 
-  qResponses[item.id]=entry;
-
   try{
-    await fetch("/api/questionnaire/response",{
+    const resp=await fetch("/api/questionnaire/response",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(entry)
     });
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    qResponses[item.id]=entry;
+    delete qDrafts[item.id];
     const btn=$("q-save-btn");
     const status=$("q-status");
     if(btn){btn.className="q-save-btn saved";btn.textContent="Saved \u2713"}
@@ -1135,26 +1587,40 @@ async function qSave(){
 }
 
 function qNavigate(delta){
-  const next=qCurrentIndex+delta;
-  if(next>=0&&next<qInteractions.length)renderQInteraction(next);
+  persistCurrentQDraft();
+  const next=qFindNextIndex(qCurrentIndex,delta);
+  if(next!==-1)renderQInteraction(next);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // COMPARISON MODE
 // ═══════════════════════════════════════════════════════════════════════════
 let cmpPairs=[];
+let cmpAllPairs=[];
 let cmpResponses={};
 let cmpIndex=0;
+let cmpPackageFilter="all";
 
 async function initComparison(){
   $("cmp-loading").style.display="flex";
   $("cmp-content").style.display="none";
   try{
     const[pr,rr]=await Promise.all([fetch("/api/comparisons"),fetch("/api/comparison/responses")]);
-    cmpPairs=await pr.json();
+    cmpAllPairs=await pr.json();
     cmpResponses=await rr.json();
+    cmpApplyPackageFilter();
     if(!cmpPairs.length){
-      $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. Ensure smoke_api and campaign_20260331 packages exist with excerpts.</div>';
+      try{
+        const prx=await fetch("/api/packages");
+        const packages=await prx.json();
+        const succeeded=(Array.isArray(packages)?packages:[]).filter(p=>p.has_excerpts&&p.excerpt_count>0);
+        const failed=(Array.isArray(packages)?packages:[]).filter(p=>(p.status||'').toLowerCase()==='error');
+        const succeededList=succeeded.length?succeeded.map(p=>esc(p.name)).join(", "):"none";
+        const failedList=failed.length?failed.map(p=>`${esc(p.name)}${p.errors&&p.errors.length?` (${esc(p.errors[0])})`:''}`).join(", "):"none";
+        $("cmp-loading").innerHTML=`<div class="mode-error">No comparison pairs were built. Completed current packages: ${succeededList}. Failed current packages: ${failedList}. This usually means no package has both campaign and current excerpts available for matching yet.</div>`;
+      }catch(e){
+        $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
+      }
       return;
     }
     $("cmp-loading").style.display="none";
@@ -1165,11 +1631,30 @@ async function initComparison(){
   }
 }
 
+function cmpApplyPackageFilter(){
+  if(cmpPackageFilter==="all")cmpPairs=[...cmpAllPairs];
+  else cmpPairs=cmpAllPairs.filter(pair=>pair.package===cmpPackageFilter);
+  if(cmpIndex>=cmpPairs.length)cmpIndex=0;
+}
+
+function cmpSetPackageFilter(value){
+  cmpPackageFilter=value;
+  cmpApplyPackageFilter();
+  if(!cmpPairs.length){
+    $("cmp-content").innerHTML='<div class="mode-error">No comparison pairs match the selected package.</div>';
+    $("cmp-pos-top").textContent='0/0';
+    $("cmp-prev-btn").disabled=true;
+    $("cmp-next-btn").disabled=true;
+    return;
+  }
+  cmpGo(0);
+}
+
 function cmpGo(index){
   if(index<0||index>=cmpPairs.length)return;
   cmpIndex=index;
   const pair=cmpPairs[index];
-  const resp=cmpResponses[pair.pair_id]||{};
+  const resp=cmpResponses[pair.pair_id]||cmpResponses[pair.legacy_pair_id]||{};
 
   $("cmp-prev-btn").disabled=index===0;
   $("cmp-next-btn").disabled=index===cmpPairs.length-1;
@@ -1179,6 +1664,13 @@ function cmpGo(index){
   const after=pair.after||null;
 
   const hasSaved=resp.verdict&&resp.verdict.trim();
+  const packageOptions=["all", ...new Set(cmpAllPairs.map(pair=>pair.package).filter(Boolean))];
+  const packageSelect=`<div class="cmp-filter-row">
+    <span class="cmp-filter-label">Package</span>
+    <select class="cmp-filter-select" onchange="cmpSetPackageFilter(this.value)">
+      ${packageOptions.map(pkg=>`<option value="${esc(pkg)}" ${pkg===cmpPackageFilter?'selected':''}>${esc(pkg==="all"?"All available packages":pkg)}</option>`).join("")}
+    </select>
+  </div>`;
 
   const verdictBtns=[
     {key:"before",label:"Before is better"},
@@ -1186,16 +1678,17 @@ function cmpGo(index){
     {key:"same",label:"Same quality"},
   ].map(vv=>{
     const sel=resp.verdict===vv.key?` sel-${vv.key}`:"";
-    return `<button class="cmp-vbtn${sel}" onclick="cmpSelectVerdict('${vv.key}')">${vv.label}</button>`;
+    return `<button class="cmp-vbtn${sel}" data-v="${vv.key}" onclick="cmpSelectVerdict('${vv.key}')">${vv.label}</button>`;
   }).join("");
 
   $("cmp-content").innerHTML=`
     <div class="cmp-pair">
-      <div class="cmp-division">Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
+      ${packageSelect}
+      <div class="cmp-division">Package: ${esc(pair.package||"(unknown)")} &nbsp;|&nbsp; Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
       <div class="cmp-cols">
-        <div class="cmp-col${after?"":" empty"}">
+        <div class="cmp-col${before&&before.primary_text?"":" empty"}">
           <div class="cmp-col-header">
-            <span class="cmp-col-label before">Before (new hardened prompts)</span>
+            <span class="cmp-col-label before">Before (old prompts — campaign run)</span>
             <div style="display:flex;gap:0.5rem;align-items:center">
               <span class="cmp-col-fn">${esc(before.primary_function||"?")}</span>
               <span class="cmp-col-sc">${esc(before.self_containment||"FULL")}</span>
@@ -1209,7 +1702,7 @@ function cmpGo(index){
         </div>
         <div class="cmp-col${after?"":" empty"}">
           <div class="cmp-col-header">
-            <span class="cmp-col-label after">After (old prompts — campaign run)</span>
+            <span class="cmp-col-label after">After (new hardened prompts)</span>
             ${after?`<div style="display:flex;gap:0.5rem;align-items:center">
               <span class="cmp-col-fn">${esc(after.primary_function||"?")}</span>
               <span class="cmp-col-sc">${esc(after.self_containment||"FULL")}</span>
@@ -1255,27 +1748,36 @@ function cmpSelectVerdict(vv){
 async function cmpSave(){
   const pair=cmpPairs[cmpIndex];
   const vbtn=document.querySelector(".cmp-vbtn[class*='sel-']");
-  const verdict=vbtn?vbtn.textContent.toLowerCase().includes("before")?"before":vbtn.textContent.toLowerCase().includes("after")?"after":"same":null;
+  const verdict=vbtn?vbtn.dataset.v:null;
   const comment=$("cmp-comment")?.value.trim()||"";
+  if(!verdict){
+    const btn=$("cmp-save-btn");
+    if(btn){
+      btn.className="cmp-save-btn";
+      btn.textContent="Select a verdict";
+    }
+    return;
+  }
 
   const entry={
     pair_id:pair.pair_id,
     timestamp:new Date().toISOString(),
+    package:pair.package||null,
     division:pair.division,
-    verdict:verdict||"no_verdict",
+    verdict,
     comment:comment||null,
     before_excerpt_id:pair.before?.excerpt_id||null,
     after_excerpt_id:pair.after?.excerpt_id||null,
   };
 
-  cmpResponses[pair.pair_id]=entry;
-
   try{
-    await fetch("/api/comparison/response",{
+    const resp=await fetch("/api/comparison/response",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(entry)
     });
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    cmpResponses[pair.pair_id]=entry;
     const btn=$("cmp-save-btn");
     if(btn){btn.className="cmp-save-btn saved";btn.textContent="Saved \u2713"}
     // Auto-advance
@@ -1337,7 +1839,7 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="w")selectVerdict("needs_work");
   else if(e.key==="r")selectVerdict("reject");
   else if(e.key==="n"){const c=$("comment");if(c)c.focus()}
-  else if(e.key==="?"&&!e.shiftKey)$("shortcuts").classList.toggle("open");
+  else if(e.key==="?")$("shortcuts").classList.toggle("open");
   else if(e.key==="Escape"){$("shortcuts").classList.remove("open");backToPackages()}
 });
 

@@ -1,0 +1,155 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 47,
+    "text_snippet": "‌‌كِتَابُ الصلاة\nمقدمة\nالصلاة -في اللغة- الدعاء. قال القاضي عياض: هو قول أكث",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الصلاة لغة وشرعًا وبيان صيغتها الشرعية الجامعة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 48,
+    "end_word": 65,
+    "text_snippet": "والصلوات الخمس أحد أركان الإسلام الخمسة، بل أعظمها بعد الشهادتين.\nوثبوتها بال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مكانة الصلوات الخمس وأنها ركن ثابت ومنكرها يكفر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 66,
+    "end_word": 99,
+    "text_snippet": "وفي مشروعيتها من الفوائد ما يفوت الحصر من الوجهة الدينية والدنيوية، والصحية، ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "ذكر الحكم والمصالح العظيمة المترتبة على مشروعية الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 100,
+    "end_word": 123,
+    "text_snippet": "ولها فروض، وشروط، ومكملات، كما أن لها مبطلات ومنقصات.\nتقدم أحد شروطها، وهو ال",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "تمهيد لأقسام أحكام الصلاة والتنبيه إلى أن بقية الشروط ستأتي لاحقًا.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يُفهم المقصود إجمالًا، لكن الإحالة إلى ما تقدم في شرط الطهارة وإلى الأحاديث التالية تحتاج سياقًا من خارج الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 124,
+    "end_word": 151,
+    "text_snippet": "‌‌بَابُ المَواقِيت\nالمواقيت: جمع \" ميقات \" والمراد هنا- المواقيت الزمانية الت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف المواقيت وبيان أن دخول الوقت شرط من شروط الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 152,
+    "end_word": 313,
+    "text_snippet": "الحديث الأول\nعَن أبِى عَمْرو الشَّيْباني -واسمه \" سعد بن إياس \"- قال: حدثني ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أحب الأعمال إلى الله وشرح تقديم الصلاة المفروضة في وقتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 314,
+    "end_word": 389,
+    "text_snippet": "ومن رغبته رضي الله عنه في الخير، لم يقف عند هذا، بل سأله عن الدرجة الثانية، م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان منزلة بر الوالدين بعد حق الله وتعليل وجوب الإحسان إليهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26,
+      27,
+      28
+    ],
+    "start_word": 390,
+    "end_word": 460,
+    "text_snippet": "ثم إنه رضي الله عنه استزاد من لا يبخل، عن الدرجة الثانية من سلسلة هذه الأعمال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان فضل الجهاد وعلو منزلته والتحذير من تركه وترك نية الغزو.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة في نفسها، لكن قوله عن الدرجة الثانية في سلسلة الأعمال يعتمد على سياق الحديث السابق في ترتيب الأعمال."
+  }
+]

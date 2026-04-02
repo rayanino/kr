@@ -1,0 +1,306 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "‌‌بَابُ ما جاء في الاستئمار وَالاستئذان",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 6,
+    "end_word": 38,
+    "text_snippet": "عَنْ أبي هريرة رضي الله عنه أنَ رَسُولَ الله صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 39,
+    "end_word": 39,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 40,
+    "end_word": 62,
+    "text_snippet": "الأيم: بفتح الهمزة وتشديد الياء التحتية المثناة، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 63,
+    "end_word": 78,
+    "text_snippet": "تستأمر: أصل الاستئمار: طلب الأمر. فالمعنى لا يعق",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 79,
+    "end_word": 97,
+    "text_snippet": "لا تنكح: برفع الفعل المضارع بعد لا النافية، وإن ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 98,
+    "end_word": 99,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 100,
+    "end_word": 148,
+    "text_snippet": "عقد النكاح عقد خطير، يستبيح به الزوج أشد ما تحاف",
+    "scholarly_function": "narration",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 8,
+    "start_word": 149,
+    "end_word": 162,
+    "text_snippet": "فلهذا نهى النبي صلى الله عليه وسلم أن تزوج الثيب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 9,
+    "start_word": 163,
+    "end_word": 173,
+    "text_snippet": "كما نهى عن تزويج البكر حتى تستأذن في ذلك أيضا فت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 10,
+    "start_word": 174,
+    "end_word": 194,
+    "text_snippet": "بما أنه يغلب الحياء على البكر، اكتفى منها بما هو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 11,
+    "start_word": 195,
+    "end_word": 198,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 199,
+    "end_word": 218,
+    "text_snippet": "1- النهي عن نكاح الثيب قبل استئمارها وطلبها ذلك ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 219,
+    "end_word": 233,
+    "text_snippet": "2- النهْيُ عن نكاح البكر قبل استئذانها، ومقتضى طل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 234,
+    "end_word": 289,
+    "text_snippet": "3- يفيد طلب إذنها: أن المراد بها البالغة، وإلا لم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 15,
+    "start_word": 290,
+    "end_word": 302,
+    "text_snippet": "4- عبر عن البكر بالاستئذان لغلبة الحياء عليها، ف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 303,
+    "end_word": 328,
+    "text_snippet": "5- يكفى في إذنها السكوت لحيائها -غالبا- عن النطق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 329,
+    "end_word": 363,
+    "text_snippet": "6- لا يكفي في استئمار الثيب واستئذان البكر مجرد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 364,
+    "end_word": 415,
+    "text_snippet": "7- قال شيخ الإسلام: من كان لها ولي من النسب وهو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 19,
+    "start_word": 416,
+    "end_word": 477,
+    "text_snippet": "8- وقال شيخ الإسلام الإشهاد على إذن المرأة ليس ش",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 478,
+    "end_word": 479,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 480,
+    "end_word": 496,
+    "text_snippet": "ليس هناك نزاع بين العلماء، في أن البالغة العاقلة",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 497,
+    "end_word": 525,
+    "text_snippet": "وليس هناك نزاع أيضا في أن البكر التي دون التسع، ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 526,
+    "end_word": 543,
+    "text_snippet": "ودليلهم زواج عائشة رضي الله عنها من النبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 544,
+    "end_word": 556,
+    "text_snippet": "فالمشهور من مذهب الإمام أحمد أن لأبيها إجبارها، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 557,
+    "end_word": 599,
+    "text_snippet": "ودليلهم ما رواه داود عن ابن عباس، أن النبي صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 600,
+    "end_word": 616,
+    "text_snippet": "الرواية الثانية عن الإمام أحمد، ليس له إجبارها و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 617,
+    "end_word": 649,
+    "text_snippet": "واختار هذه الرواية من الأصحاب: أبو بكر، والشيخ ت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 650,
+    "end_word": 674,
+    "text_snippet": "ودليل هذا القول، حديث الباب، إذ نهى النبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 675,
+    "end_word": 711,
+    "text_snippet": "وبما رواه أبو داود، وابن ماجة، عن ابن عباس: أن ج",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 712,
+    "end_word": 728,
+    "text_snippet": "ففي حديث الباب النهيُ، وحديث الجارية فيه الحكم ب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 31,
+    "start_word": 729,
+    "end_word": 737,
+    "text_snippet": "وهذا القول هو الذي تقتضيه قواعد الشرع الحكيمة ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 32,
+    "start_word": 738,
+    "end_word": 760,
+    "text_snippet": "فإذا كان أبوها لا يتصرف بالقليل من مالها بدون إذ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 761,
+    "end_word": 773,
+    "text_snippet": "إن إرغامها على الزواج بمن تكره، هو الحبس المظلم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 774,
+    "end_word": 778,
+    "text_snippet": "والقول به، ينافي العدل والحكمة.",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 779,
+    "end_word": 788,
+    "text_snippet": "وما الفرق بينها وبين الثيب، التي عرفوا لها هذا ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 36,
+    "start_word": 789,
+    "end_word": 798,
+    "text_snippet": "إن التفريق بينهما، من التفريق بين المتماثلين، ال",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 799,
+    "end_word": 819,
+    "text_snippet": "وما استدل به للقول الأول من قوله: \"الأيم أحق بنفس",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  }
+]

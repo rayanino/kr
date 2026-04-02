@@ -1,0 +1,417 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "الفصل الرابع\nفي العلة\n\nفيه مسائل:",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "افتتاح فصل العلة وبيان أنه مشتمل على مسائل متعددة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 6,
+    "end_word": 448,
+    "text_snippet": "الأولى\nقال صاحب المستوفي:\n\"إذا استقريت أصول هذه الصناعة علمت أنها في غاية ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "إثبات أن علل النحو معتبرة غير واهية، وأن للعرب قصدا وحكمة في أوضاعها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 449,
+    "end_word": 919,
+    "text_snippet": "الثانية\nفي أقسام العلل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "تقسيم العلل إلى صنفين وشرح أنواع الصنف الأول بأمثلته النحوية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 920,
+    "end_word": 1060,
+    "text_snippet": "وأما الصنف الثاني\nفلم يتعرض له الجليس ولا بينه وقد بينه ابن السراج في الأصول",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "بيان الصنف الثاني من العلل وهو علة العلة، ومناقشة تسميته عند ابن جني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 1061,
+    "end_word": 1185,
+    "text_snippet": "الثالثة",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفرق بين العلة والسبب، وأن العلة موجبة والسبب مجوز لا موجب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 1186,
+    "end_word": 1357,
+    "text_snippet": "وقال في موضع آخر:\n\" اعلم أن محصول مذهب أصحابنا ومتصرف أقوالهم مبني على جواز",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "تقسيم علل النحويين إلى ما هو واجب طبعا وما يحتمل على كراهة مع أمثلة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 1358,
+    "end_word": 1377,
+    "text_snippet": "وقال في موضع آخر:\n\" اعلم أن أصحابنا انتزعوا العلل من كتب محمد بن الحسن وجمع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الإشارة إلى أن النحويين استخرجوا العلل من كتب محمد بن الحسن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 1378,
+    "end_word": 1577,
+    "text_snippet": "الرابعة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation",
+      "editorial_note"
+    ],
+    "description_arabic": "الخلاف في ثبوت الحكم في محل النص: بالنص أو بالعلة، مع الدليل والجواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 1578,
+    "end_word": 1644,
+    "text_snippet": "\nالخامسة",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف العلة البسيطة والعلة المركبة وبيان إمكان زيادة أوصاف احتياطية فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 1645,
+    "end_word": 1724,
+    "text_snippet": "وقال ابن النحاس في التعليقة:\n\" نعلل ابن عصفور حذف التنوين من العلم الموصوف ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مناقشة تعليل حذف التنوين في العلم الموصوف بابن وبيان صحة العلة المركبة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم المثال إلى معرفة سابقة بمسألة حذف التنوين في باب العلم الموصوف بـ(ابن)."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 1725,
+    "end_word": 1765,
+    "text_snippet": "\nومن العلل المركبة قول الزمخشري في المفصل في الذي:\nولاستطالتهم إياه بصلته ",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "مثال من العلة المركبة في تخفيف الموصول الذي والتي لكثرة الاستعمال والطول.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المثال واضح إجمالا، لكن بعض تفاصيل التخريج الصوتي تحتاج معرفة سابقة بمباحث التصريف."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 1766,
+    "end_word": 1796,
+    "text_snippet": "وقال ابن النحاس:\n\" إنما التزموا الفصل بين (أن) إذا خففت وبين خبرها إذا كان ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مثال آخر للعلة المركبة في الفصل بين أن المخففة وخبرها الفعلي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم أصل الفكرة، لكن مصطلحات أن المخففة وخبرها تحتاج خلفية نحوية خارجية."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 1797,
+    "end_word": 1916,
+    "text_snippet": "\nالسادسة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "evidence_rational"
+    ],
+    "description_arabic": "شرط العلة أن تكون موجبة للحكم، وتطبيق ذلك على تعليل إعراب المضارع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41
+    ],
+    "start_word": 1917,
+    "end_word": 2109,
+    "text_snippet": "السابعة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation",
+      "editorial_note"
+    ],
+    "description_arabic": "الخلاف في التعليل بالعلة القاصرة، وأدلة الجواز والمنع والجواب عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      42,
+      43
+    ],
+    "start_word": 2110,
+    "end_word": 2165,
+    "text_snippet": "وقال ابن مالك في شرح التسهيل:\n\" عللوا سكون آخر الفعل المسند إلى التاء ونحوه",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "اعتراض ابن مالك على العلة القاصرة في تسكين آخر الفعل المسند إلى التاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 2166,
+    "end_word": 2258,
+    "text_snippet": "\nالثامنة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "example"
+    ],
+    "description_arabic": "جواز التعليل بعلتين مع أمثلة صرفية تبين اجتماع علتين مؤثرتين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 2259,
+    "end_word": 2303,
+    "text_snippet": "وقال في موضع آخر:\nقد يكثر الشيء فيسأل عن علته كرفع الفاعل ونصب المفعول فيذ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "إمكان تعليل الحكم الواحد بعلتين إذا تساوتا أو ترجح أحدهما عند النظر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      49,
+      50,
+      51
+    ],
+    "start_word": 2304,
+    "end_word": 2490,
+    "text_snippet": "وقال ابن الأنباري:\n\" اختلفوا في تحليل الحكم بعلتين فصاعدا:\nفذهب قوم إلى أن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف الأصولي في تعليل الحكم بعلتين فأكثر مع الاستدلال والجواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      52,
+      53
+    ],
+    "start_word": 2491,
+    "end_word": 2585,
+    "text_snippet": "التاسعة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز تعليل حكمين بعلة واحدة ولو كانا متضادين في بعض الصور.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ورد في النص (حمين) ويظهر أنه تصحيف لـ(حكمين)، كما أن بعض الأمثلة تحتاج خلفية صرفية ونحوية."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      54,
+      55
+    ],
+    "start_word": 2586,
+    "end_word": 2669,
+    "text_snippet": "وقال في موضع آخر\n\" باب في أن سبب الحكم قد يكون سببا لضده على وجه\n\"هذا باب ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "بيان أن سبب الحكم قد يصير سببا لضده باعتبار آخر مع مثال القود والحوكة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفكرة مكتملة، لكن المثال يعتمد على معرفة قواعد الإعلال والتصحيح في التصريف."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 2670,
+    "end_word": 2758,
+    "text_snippet": "العاشرة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "refutation",
+      "structural_transition"
+    ],
+    "description_arabic": "بيان فساد الدور في التعليل، وموازنة مثال المبرد بمسألة سيبويه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة إلى مسألة سيبويه مذكورة بنص مختصر، لكن فهمها التام يستفيد من الرجوع إلى أصل المثال."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      60,
+      61,
+      62
+    ],
+    "start_word": 2759,
+    "end_word": 2890,
+    "text_snippet": "\nالحادية عشرة\nفي تعارض العلل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "تعريف نوعي تعارض العلل وذكر أمثلة نحوية على كل منهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      63,
+      64
+    ],
+    "start_word": 2891,
+    "end_word": 2908,
+    "text_snippet": "\nالثانية عشر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز التعليل بالأمور العدمية مع مثال بناء الضمير.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "القاعدة مفهومة، لكن المثال مختصر ويحتاج معرفة سابقة بباب بناء الضمائر."
+  }
+]

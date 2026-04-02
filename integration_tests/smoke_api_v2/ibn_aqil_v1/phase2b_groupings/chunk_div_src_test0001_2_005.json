@@ -1,0 +1,77 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 53,
+    "text_snippet": "‌‌اسم الإشارة\nبذا لمفرد مذكر أشر … بذي وذه تي تا على الأنثى اقتصر ⌜1⌝\nي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "ألفاظ الإشارة للمفرد المذكر والمؤنث مع الخلاف في ألف «ذا» وتفصيل صيغ المؤنث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 54,
+    "end_word": 88,
+    "text_snippet": "وذان تان للمثنى المرتفع … وفى سواه ذين تين اذكر تطع (1)\nيشار إلى المثنى ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أسماء الإشارة للمثنى المذكر والمؤنث بحسب الرفع والنصب والجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 89,
+    "end_word": 322,
+    "text_snippet": "وبأولى أشر لجمع مطلقا … والمد أولى ولدى البعد انطقا (2) بالكاف حرفا دون ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "أسماء الإشارة للجمع، ولغتا «أولى»، ومراتب القرب والبعد، وأحكام الكاف واللام والخلاف فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 323,
+    "end_word": 383,
+    "text_snippet": "وبهنا أو ههنا أشر إلى … داني المكان وبه الكاف صلا (1)\nفي البعد أو بثم فه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "أسماء الإشارة للمكان القريب والبعيد مع ذكر صيغها والخلاف في دلالة «هناك».",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,423 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 45,
+    "text_snippet": "وهذا الدم الذي يصيبك، ليس دم حيض، إنما هو دم عرق منفجر.\nوإذا كان الأمر، ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن دم الاستحاضة ليس حيضا، وأنها تترك الصلاة زمن عادتها ثم تغتسل وتصلي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 46,
+    "end_word": 67,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الفرق بين دم الاستحاضة وبين دم الحيض فدم الاستحاضة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفرق بين دم الاستحاضة ودم الحيض من جهة الاستمرار ووقت النزول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 68,
+    "end_word": 77,
+    "text_snippet": "2- أن دم الاستحاضة لا يمنع من الصلاة، وسائر العبادات.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم المستحاضة وأن دمها لا يمنع الصلاة ولا سائر العبادات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 78,
+    "end_word": 101,
+    "text_snippet": "3- أن دم الحيض، يمنع من الصلاة من غير قضاء لها، وذكر ابن دقيق العيد أن ذل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "منع الحائض من الصلاة وعدم وجوب قضائها، مع نقل شبه الإجماع في ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 102,
+    "end_word": 121,
+    "text_snippet": "4- أن المستحاضة التي تعرف قدر عادة حيضها تحسبها، ثم تغتسل بعد انقضائها، ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المستحاضة المعتادة تعتبر أيام عادتها ثم تغتسل وتفعل عبادات الطهر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 122,
+    "end_word": 127,
+    "text_snippet": "5- أن الدم نجس يجب غسله.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم نجاسة الدم ووجوب غسله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 128,
+    "end_word": 139,
+    "text_snippet": "6- أنه لا يجب على المستحاضة تكرار الغسل لكل دخول وقت صلاة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم وجوب تكرار الغسل على المستحاضة عند كل وقت صلاة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قوله «أنه» يعود على حكم المستحاضة، وفهمه أتم مع سياق الحديث السابق."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 140,
+    "end_word": 190,
+    "text_snippet": "7- ذكر ابن دقيق العيد أن قوله \" فاغسلي عنك الدم وصلى \" مشكل في ظاهره، لأ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حل إشكال رواية الأمر بغسل الدم والصلاة دون ذكر الغسل بعد الحيض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 191,
+    "end_word": 251,
+    "text_snippet": "‌‌باب حكم المستحاضة\nعَنْ عَائِشَة رضي الله عنها أنَ أمَّ حَبيبَةَ اسْتُحِيضَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أم حبيبة في الاستحاضة وأمرها بالغسل، مع شرح معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 252,
+    "end_word": 357,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في غسل المستحاضة لكل صلاة، هل يجب أو لا؟.\nف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خلاف العلماء في وجوب غسل المستحاضة لكل صلاة، وذكر قول الجمهور وترجيحه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 358,
+    "end_word": 370,
+    "text_snippet": "ما يؤخذ من الحديث:\nوجوب الغسل على المستحاضة عند انتهاء عدة أيام حيضها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب الغسل على المستحاضة عند انقضاء أيام حيضها المعتادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 371,
+    "end_word": 532,
+    "text_snippet": "حكم مباشرة المرأة الحائض\nالحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها قَالتْ:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث مباشرة الحائض والاغتسال معها وغسل رأس المعتكف، مع بيان مسائله الثلاث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 533,
+    "end_word": 543,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز اغتسال الجنبين من إناء واحد.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز اغتسال الزوجين أو الجنبين من إناء واحد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      33,
+      34,
+      35
+    ],
+    "start_word": 544,
+    "end_word": 572,
+    "text_snippet": "2- جواز مباشرة الحائض فيما دون الفرج. وأن بدنها طاهر لم تحل فيه نجاسة بحي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز مباشرة الحائض دون الفرج، مع استحباب الإزار واتخاذ أسباب اجتناب المحرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 573,
+    "end_word": 577,
+    "text_snippet": "5- منع دخول الحائض المسجد.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم منع الحائض من دخول المسجد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 578,
+    "end_word": 589,
+    "text_snippet": "6- إباحة مباشرتها الأشياء رطبة أو يابسة، ومن ذلك غسل الشعر وترجيله.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "طهارة الحائض وجواز مباشرتها الأشياء الرطبة واليابسة كغسل الشعر وترجيله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 590,
+    "end_word": 611,
+    "text_snippet": "7- أن المعتكف إذا أخرج رأسه من المسجد لا يعد خارجا منه يقاس عليه غيره من ",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [],
+    "description_arabic": "حكم إخراج المعتكف بعض بدنه من المسجد، والقياس على الرأس في غيره من الأعضاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 612,
+    "end_word": 676,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالتْ: كَانَ رَسُولُ الله صلى ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث قراءة النبي القرآن في حجر الحائض، مع شرح ألفاظه وبيان دلالته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      46,
+      47
+    ],
+    "start_word": 677,
+    "end_word": 691,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز قراءة القرآن في حجر الحائض، لأنها طاهرة البدن و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز قراءة القرآن في حجر الحائض لدلالة الحديث على طهارة بدنها وثيابها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 692,
+    "end_word": 709,
+    "text_snippet": "2- تحريم قراءة القرآن على الحائض، أخذاً من توهّم امتناع القراءة في حجر الح",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل استنباط ابن دقيق العيد في تحريم قراءة الحائض للقرآن من مفهوم الحديث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا استنباط مبني على دلالة الحديث السابق، ففهم وجه الاستدلال يكتمل بضم الحديث إليه."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 710,
+    "end_word": 898,
+    "text_snippet": "الحائض لا تقضي الصلاة ولكن تقضي الصوم\nعَنْ مُعَاذَةَ قالت: سَألْتُ عَائِشَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "سؤال معاذة لعائشة عن قضاء الصوم دون الصلاة، وبيان الجواب ومعنى الحرورية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      60,
+      61
+    ],
+    "start_word": 899,
+    "end_word": 926,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الحائض تقضى الصيام ولا تقضي الصلاة، لأن الصلاة تت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الحائض تقضي الصوم دون الصلاة، مع تعليل ذلك بتكرر الصلاة والمشقة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      62
+    ],
+    "start_word": 927,
+    "end_word": 940,
+    "text_snippet": "2- أن تقرير النبي صلى الله عليه وسلم أمته على شيء يعد من السنة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات أن تقرير النبي لأمته على فعل أو ترك من السنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      63,
+      64
+    ],
+    "start_word": 941,
+    "end_word": 956,
+    "text_snippet": "3- الإنكار على كل من سأل سؤال تعنت ومجادلة.\n4- تبيين المعلم لمن طلبه للتعل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أدب التعليم بإنكار سؤال التعنت، وبيان المعلم لطالب التعلم والاسترشاد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 957,
+    "end_word": 977,
+    "text_snippet": "5- كون الحائض لا تقضي الصلاة لأجل المشقة، من الأدلة التي تقرر القاعدة الإس",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بعدم قضاء الحائض للصلاة على قاعدة المشقة تجلب التيسير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

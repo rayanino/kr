@@ -1,0 +1,52 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 46,
+    "text_snippet": "‌‌بَابُ الحَيْض\nالحيض: دم، جعله الله تعالى -من رحمته وحكمته- في رحم المرأة، غ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف الحيض وبيان حكمته الطبيعية وتعلّق الأحكام الشرعية بخروجه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 47,
+    "end_word": 231,
+    "text_snippet": "عَن عَائِشَةَ رضي الله عنها: أنَّ فَاطِمَةَ بِنْتَ أبي حُبَيْش سَألتِ النَّبيَّ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث المستحاضة مع شرح ألفاظه وبيان أن دم الاستحاضة لا يمنع الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

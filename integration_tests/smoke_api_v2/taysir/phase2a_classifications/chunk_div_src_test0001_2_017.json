@@ -1,0 +1,410 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 40,
+    "text_snippet": "وروى أحمد أيضا عن مُحَيصَة بن مسعود: \" أنه كان ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 41,
+    "end_word": 65,
+    "text_snippet": "ذهب بعض العلماء: إلى أنه حلال، لأن أحاديث النهى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 66,
+    "end_word": 89,
+    "text_snippet": "وأحسن ما يجمع به أدلة الفريقين، أن يقال: إن لفظ ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 3,
+    "start_word": 90,
+    "end_word": 96,
+    "text_snippet": "كقوله تعالى: {ولا تَيَمّموا الخَبِيثَ مِنْهُ تُنْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 97,
+    "end_word": 101,
+    "text_snippet": "وسمى الشارع الثوم والبصل خبيثين.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 5,
+    "start_word": 102,
+    "end_word": 114,
+    "text_snippet": "فتسمية كسب الحجام خبيثا من هذا الباب، لأنه مكسب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 115,
+    "end_word": 122,
+    "text_snippet": "والشارع يرغب في معالي الأمور، والمكاسب الطيبة ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 123,
+    "end_word": 133,
+    "text_snippet": "فيكون كسب الحجام خبيثا من جانب الآخذ، مع أنه حلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 134,
+    "end_word": 136,
+    "text_snippet": "‌‌باَب الْعرَايا (2)\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 137,
+    "end_word": 148,
+    "text_snippet": "هذا الباب يذكر فيه ما جاء في جواز بيع العارية- و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 10,
+    "start_word": 149,
+    "end_word": 173,
+    "text_snippet": "وهى مسألة مستثناة من تحريم \"بيع المزابنة \" الذي ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 11,
+    "start_word": 174,
+    "end_word": 175,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 176,
+    "end_word": 195,
+    "text_snippet": "عَنْ زَيْدِ بنِ ثَابِتٍ رضي الله عنه: أن رَسولَ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 196,
+    "end_word": 203,
+    "text_snippet": "ولـ \" مسلم \" بِخَرْصِهَا تمْراً، يَأكُلُونَهَا ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 204,
+    "end_word": 204,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 205,
+    "end_word": 213,
+    "text_snippet": "العرية: فعيلة بمعنى مفعولة. وجمعها عرايا مثل مطي",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 214,
+    "end_word": 229,
+    "text_snippet": "قال في مختار الصحاح: وإنما أدخلت فيها الهاء، لأن",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 230,
+    "end_word": 237,
+    "text_snippet": "وسميت \" عرية \" لانفرادها بالرخصة عن أخواتها.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 238,
+    "end_word": 239,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 240,
+    "end_word": 252,
+    "text_snippet": "تقدم أن بيع التمر على رؤوس النخيل بتمر مثله محرم",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 20,
+    "start_word": 253,
+    "end_word": 261,
+    "text_snippet": "المنهي عنه، لما فيه من الجهل بتساوي النوعين الرب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 262,
+    "end_word": 295,
+    "text_snippet": "وأشد حالاته إذا باعه على رؤوسه وهو رطب، بتمر جاف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 296,
+    "end_word": 310,
+    "text_snippet": "كانت الأثمان قليلة في الزمن الأول، فيأتي الرطب ف",
+    "scholarly_function": "narration",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 23,
+    "start_word": 311,
+    "end_word": 340,
+    "text_snippet": "وليس عند بعضهم ما يشترى به من النقود، فرخص لهم أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 24,
+    "start_word": 341,
+    "end_word": 344,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 345,
+    "end_word": 365,
+    "text_snippet": "1- تحريم بيع التمر على النخل بتمر مثله، لأنه بيع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 366,
+    "end_word": 380,
+    "text_snippet": "2- جواز بيع العرية- وتقدم شرحها لغة وشرعا-: هو م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 381,
+    "end_word": 389,
+    "text_snippet": "3- أن الرخصة لمن احتاج إلى أكل الرطب خاصة.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 390,
+    "end_word": 402,
+    "text_snippet": "4- أن يقدر الرطب على النخلة تمرا بقدر التمر الذي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 403,
+    "end_word": 403,
+    "text_snippet": "فائدتان:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 404,
+    "end_word": 423,
+    "text_snippet": "الأولى: تقدم التحريم في بيع المزابنة الذي هو إحد",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 31,
+    "start_word": 424,
+    "end_word": 443,
+    "text_snippet": "فلما جاءت على خلاف الأصل، اشترط العلماء للرخصة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 32,
+    "start_word": 444,
+    "end_word": 453,
+    "text_snippet": "1- أن تخرص النخلة بما تؤول إليه تمراً لطلب المما",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 454,
+    "end_word": 461,
+    "text_snippet": "2- أن تكون لمحتاج إلى الرطب ليأكله رطبا.\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 462,
+    "end_word": 477,
+    "text_snippet": "والمشهور من مذهبنا المنع في عكس هذه المسألة: وهو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 35,
+    "start_word": 478,
+    "end_word": 495,
+    "text_snippet": "وفى وجه يجوز، لأنه إذا جاز لمن يريد التفكه بالرط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 36,
+    "start_word": 496,
+    "end_word": 503,
+    "text_snippet": "3- أن لا يكون معه نقود يشترى بها.\n",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 37,
+    "start_word": 504,
+    "end_word": 512,
+    "text_snippet": "4- أن يتقابضا قبل التفرق، فالتمر بكيله، والنخلة ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 513,
+    "end_word": 525,
+    "text_snippet": "5- أن لا تزيد عن خمسة أوسق، ويأتي في الحديث الذي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 526,
+    "end_word": 562,
+    "text_snippet": "6- إذا اشترى اثنان فأكثر من الرطب لكل واحد خمسة ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 563,
+    "end_word": 564,
+    "text_snippet": "الفائدة الثانية:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 565,
+    "end_word": 583,
+    "text_snippet": "الجمهور من العلماء يقصرون الجواز على النخل خاصة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 584,
+    "end_word": 597,
+    "text_snippet": "لأن الرطب فاكهة المدينة ولكل بلد فاكهة، والحكمة ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 598,
+    "end_word": 599,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 600,
+    "end_word": 622,
+    "text_snippet": "عَنْ أبي هريرةَ رضي الله عنه: أنَ النبي صلى الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 623,
+    "end_word": 624,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 625,
+    "end_word": 657,
+    "text_snippet": "لما كانت مسألة \"العرايا\" مباحة للحاجة من أصل محر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 47,
+    "start_word": 658,
+    "end_word": 661,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 662,
+    "end_word": 670,
+    "text_snippet": "1- الرخصة في بيع العرايا للحاجة إلى التفكه بالرط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 671,
+    "end_word": 683,
+    "text_snippet": "2- أن تكون الرخصة بقدر الكفاية، لأن الرخصة لا يت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 684,
+    "end_word": 710,
+    "text_snippet": "3- الوسق بسكون السين- ستون صاعا نبويا، فيكون ثلا",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  }
+]

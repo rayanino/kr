@@ -1,0 +1,158 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 66,
+    "text_snippet": "والتصديق بأخباره وغير ذلك مما يتباين الناس فيه ويتفاضلون تفاضلا عظيما. و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تقوية الإيمان بتدبر القرآن ومعرفة الله وافتقار العبد إليه في العبادة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المقطع متعلق بسياق سابق في أسباب حضور القلب أو صلاح العبادة، وفي أوله إحالة ضمنية إلى أمور متقدمة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3
+    ],
+    "start_word": 67,
+    "end_word": 126,
+    "text_snippet": "الثاني: زوال العوارض، وهو الاجتهاد في دفع ما يشغل القلب من تفكر الإنسان ف",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف زوال العوارض المانعة من حضور القلب وسبب كثرة الوساوس والحث على مدافعتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 127,
+    "end_word": 202,
+    "text_snippet": "‌‌بَابُ الجَمْع بين الصلاتين في السفر\nلما كان السفر مظنة المشقة، رخص فيه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "افتتاح باب الجمع في السفر وبيان مشروعيته للمسافر رفعاً للمشقة وتيسيراً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 203,
+    "end_word": 290,
+    "text_snippet": "عَنْ عَبْدِ الله بن عَبَّاس رضي الله عنهما قال: كَان رَسُولُ الله صلى الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حديث ابن عباس في جمع النبي بين الصلاتين في السفر مع بيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 291,
+    "end_word": 397,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في الجمع. فذهب كثير من الصحابة والتابعين إل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "عرض قول الجمهور بجواز جمع التقديم والتأخير للمسافر مع الاستدلال بحديث معاذ والكلام عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 398,
+    "end_word": 486,
+    "text_snippet": "وذهب أبو حنيفة وصاحباه، والحسن، والنخعي: إلى عدم جواز الجمع. فتأولوا أحاد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "definition",
+      "refutation",
+      "evidence_rational"
+    ],
+    "description_arabic": "قول المانعين من الجمع وتأويلهم له بالجمع الصوري مع مناقشة هذا التأويل والرد عليه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 487,
+    "end_word": 508,
+    "text_snippet": "وذهب ابن حزم، ورواية عن مالك: أنه يجوز جمع التأخير دون التقديم. وأجابوا ع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر مذهب ابن حزم ورواية عن مالك في جواز جمع التأخير دون التقديم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة في قوله: \"بما قاله بعض العلماء من المقال فيها\" مختصرة ولا تبين وجه الجواب ولا تفاصيل الاعتراض على الأحاديث."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 509,
+    "end_word": 529,
+    "text_snippet": "واختلفوا أيضاً في حكم الجمع.\nفذهب الشافعي وأحمد والجمهور، إلى أن السفر سب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ابتداء الخلاف في حكم الجمع وذكر مذهب الجمهور أن السفر سبب لجمع التقديم والتأخير.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا المقطع يفتتح مسألة جديدة في حكم الجمع لكنه لا يذكر بقية الأقوال والترجيح، فالفكرة ناقصة من جهة استيفاء الخلاف."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 530,
+    "end_word": 537,
+    "text_snippet": "وذهب مالك في المشهور عنه إلى اختصاص الجمع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بداية نقل مذهب مالك المشهور في اختصاص الجمع.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "النص مقطوع قبل تمام القول، فلا يعرف وجه الاختصاص ولا تمام الحكم، ولذلك لا يستقل بالفهم."
+  }
+]

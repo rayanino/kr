@@ -1,0 +1,114 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌بَاب ما جَاء في الثوم والبصل ونحوهما",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 8,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 9,
+    "end_word": 72,
+    "text_snippet": "عن جَابِرِ بْنِ عَبْدِ الله رَضىَ الله عَنْهُمَا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 73,
+    "end_word": 74,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 75,
+    "end_word": 80,
+    "text_snippet": "قدر: هو الوعاء الذي يطبخ فيه.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 81,
+    "end_word": 87,
+    "text_snippet": "خضرات: واحدته \"خضرة \" وهي البقلة الخضراء.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 88,
+    "end_word": 99,
+    "text_snippet": "البقول: جمع بقل، وهو كل نبات اخضرت به الأرض. ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 100,
+    "end_word": 123,
+    "text_snippet": "أناجى: قال ابن فارس اللغوي: النحوي: السر بين ا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 124,
+    "end_word": 125,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 126,
+    "end_word": 160,
+    "text_snippet": "عَن جَابِر: أن النبي صلى الله عليه وسلم قَالَ:\n",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 161,
+    "end_word": 162,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 11,
+    "start_word": 163,
+    "end_word": 179,
+    "text_snippet": "المطلوب أن يكون المصلى على أحسن رائحة وأطيبها،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 12,
+    "start_word": 180,
+    "end_word": 211,
+    "text_snippet": "ولذا أمر النبي صلى الله عليه وسلم، من أكل ثوياً",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 212,
+    "end_word": 260,
+    "text_snippet": "ولما جيء إلى النبي صلى الله عليه وسلم بقدر من خ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  }
+]

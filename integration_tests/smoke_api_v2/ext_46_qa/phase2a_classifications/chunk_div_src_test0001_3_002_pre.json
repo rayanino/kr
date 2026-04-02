@@ -1,0 +1,114 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "فصل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 11,
+    "text_snippet": "\n\nوأما كلام العرب فيحتج منه بما ثبت عن الفصحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 12,
+    "end_word": 288,
+    "text_snippet": "قال أبو نصر الفارابي في أول كتابه المسمى بـ (",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 3,
+    "start_word": 289,
+    "end_word": 289,
+    "text_snippet": "انتهى\n\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 290,
+    "end_word": 321,
+    "text_snippet": "ونقل ذلك أبو حيان في (شرح التسهيل) معترضا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 5,
+    "start_word": 322,
+    "end_word": 349,
+    "text_snippet": "ثم الاعتماد على ما رواه الثقات عنهم بالأسانيد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 350,
+    "end_word": 362,
+    "text_snippet": "ومما يعتمد عليه في ذلك مصنفات الإمام الشافعي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 363,
+    "end_word": 404,
+    "text_snippet": "فقد قال ابن شاكر في (مناقبه):\n\" حدثنا أحمد ب",
+    "scholarly_function": "narration",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 405,
+    "end_word": 405,
+    "text_snippet": "فروع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 406,
+    "end_word": 406,
+    "text_snippet": "\n\nأحدها:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 407,
+    "end_word": 411,
+    "text_snippet": "\n\nينقسم المسموع إلى مطرد وشاذ.",
+    "scholarly_function": "definition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 11,
+    "start_word": 412,
+    "end_word": 587,
+    "text_snippet": "قال في (الخصائص):\n\" وأصل مواضع (ط ر د) في كل",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 588,
+    "end_word": 589,
+    "text_snippet": "\nانتهى ملخصا.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 590,
+    "end_word": 604,
+    "text_snippet": "\nوقال الشيخ جمال الدين بن هشام:\n\" اعلم أنهم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.73
+  }
+]

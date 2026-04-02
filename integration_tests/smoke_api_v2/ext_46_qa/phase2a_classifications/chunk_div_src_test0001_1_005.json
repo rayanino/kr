@@ -1,0 +1,282 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "الكتاب الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 7,
+    "text_snippet": "\n\nفي‌‌ أدلة شتى قال ابن الأنباري:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 8,
+    "end_word": 68,
+    "text_snippet": "\n\" اعلم أن أنواع الاستدلال كثيرة لا تحصر منها (ا",
+    "scholarly_function": "example",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 3,
+    "start_word": 69,
+    "end_word": 77,
+    "text_snippet": "\nومنها (الاستدلال ببيان العلة)\nقال ابن الأنباري ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 78,
+    "end_word": 102,
+    "text_snippet": "أحدهما: أن يبين علة الحكم ويستدل بوجودها في موض",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 103,
+    "end_word": 134,
+    "text_snippet": "\nفالأول: كأن يستدل من أعمل اسم الفاعل في المضي، ",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 135,
+    "end_word": 157,
+    "text_snippet": "\nوالثاني كأن يستدل من أبطل عمل (إن) المخففة من ا",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 158,
+    "end_word": 167,
+    "text_snippet": "\n(ومنها بعدم الدليل في الشيء على نفيه)\nقال ابن ا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 168,
+    "end_word": 232,
+    "text_snippet": "\n\" وهذا إنما يكون فيما إذا ثبت لم يخف دليله فيست",
+    "scholarly_function": "example",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 9,
+    "start_word": 233,
+    "end_word": 269,
+    "text_snippet": "\nقال: وقد زعم بعضهم ان النافي لا دليل عليه وليس ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 270,
+    "end_word": 275,
+    "text_snippet": "\nومنها (الاستدلال بالأصول)\nقال ابن الأنباري:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 276,
+    "end_word": 359,
+    "text_snippet": "\n\" كأن يستدل على إبطال أن رفع المضارع لتجرده من ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 12,
+    "start_word": 360,
+    "end_word": 378,
+    "text_snippet": "\nفإن قيل:\nفهب أن الرفع في الأسماء قبل الجزم في ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 13,
+    "start_word": 379,
+    "end_word": 399,
+    "text_snippet": "\nقلنا: لأن إعراب الأفعال فرع على إعراب الأسماء و",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 400,
+    "end_word": 406,
+    "text_snippet": "\nومنها (الاستدلال بعدم النظير)\n\nولم يذكره ابن ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 15,
+    "start_word": 407,
+    "end_word": 422,
+    "text_snippet": "أنباري وذكره ابن جني وهو كثير في كلامهم وإنما ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 16,
+    "start_word": 423,
+    "end_word": 453,
+    "text_snippet": "\nوقد استدل المازني ردا على من قال: إن السين وسوف",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 454,
+    "end_word": 486,
+    "text_snippet": "\nقال في الخصائص:\n\" وإنما يستدل بعدم النظير على ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 18,
+    "start_word": 487,
+    "end_word": 588,
+    "text_snippet": "\nمثاله (أندلس) فإن همزته ونونه زائدتان فوزنه (أن",
+    "scholarly_function": "example",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 589,
+    "end_word": 610,
+    "text_snippet": "\nفإن اجتمع النظير والدليل فهو الغاية كنون (عنبر)",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 611,
+    "end_word": 625,
+    "text_snippet": "\nوقال الخضراوي:\n\" إذا ورد شيء حمل على القياس وإن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 21,
+    "start_word": 626,
+    "end_word": 630,
+    "text_snippet": "\n\nومنها (الاستحسان) قال في الخصائص:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 631,
+    "end_word": 642,
+    "text_snippet": "\n\" ودلالته ضعيفة غير مستحكمة إلا أن فيه ضربا من ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 23,
+    "start_word": 643,
+    "end_word": 797,
+    "text_snippet": "\nمن ذلك تركك الأخف إلى الأثقل من غير ضرورة نحو: ",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 798,
+    "end_word": 810,
+    "text_snippet": "\nقال ابن جني: \" وقياس تحقيره على هذه اللغة أن يق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 25,
+    "start_word": 811,
+    "end_word": 840,
+    "text_snippet": "\nومنه ما ذكره صاحب البديع قال: \" إذا اجتمع التعري",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 26,
+    "start_word": 841,
+    "end_word": 854,
+    "text_snippet": "\nوقال ابن الأنباري:\n\" اختلفوا في الاخذ بالاستحسا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 27,
+    "start_word": 855,
+    "end_word": 867,
+    "text_snippet": "\nلما فيه من التحكم وترك القياس.\nوقال آخرون: إنه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 28,
+    "start_word": 868,
+    "end_word": 876,
+    "text_snippet": "\nفقيل: هو ترك الأصول لدليل.\nوقيل: هو تخصيص العلة",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 29,
+    "start_word": 877,
+    "end_word": 945,
+    "text_snippet": "\nفمثال ترك قياس الأصول ما تقدم في الكلام على رفع",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 30,
+    "start_word": 946,
+    "end_word": 951,
+    "text_snippet": "\nومنها (الاستقراء)\nاستدلوا به في مواضع:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 31,
+    "start_word": 952,
+    "end_word": 959,
+    "text_snippet": "\nمنها: انحصار الكلمات الثلاث في الاسم والفعل وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 32,
+    "start_word": 960,
+    "end_word": 965,
+    "text_snippet": "\nومنها (الدليل المسمى بالباقي)\nكقولنا: الدليل يق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 33,
+    "start_word": 966,
+    "end_word": 981,
+    "text_snippet": "تضي أن لا يدخل الفعل شيء من الإعراب لكون الأصل ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 34,
+    "start_word": 982,
+    "end_word": 1003,
+    "text_snippet": "\nوقد خولف هذا الدليل في دخول الرفع والنصب على ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  }
+]

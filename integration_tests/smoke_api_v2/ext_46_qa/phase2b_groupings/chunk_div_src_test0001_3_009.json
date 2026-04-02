@@ -1,0 +1,78 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "الفصل الثالث\nفي الحكم\n\nفيه مسألتان:",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الفصل وبيان أنه يشتمل على مسألتين في الحكم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 6,
+    "end_word": 90,
+    "text_snippet": "\nالأولى\nإنما يقاس على حكم ثبت استعماله عن العرب.\nوهل يجوز أن يقاس على ما ثبت ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "cross_reference",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان جواز القياس على ما ثبت بالقياس والاستنباط مع ذكر مستنده ومثاله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتملة في الحكم والدليل الإجمالي، لكن المثال النحوي يتضمن مصطلحات تخصصية مثل الصفة المشبهة والعلة الرافع للظاهر تحتاج معرفة سابقة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 91,
+    "end_word": 94,
+    "text_snippet": "\n\nالثانية\nقال ابن الأنباري:",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "افتتاح المسألة الثانية ونسبتها إلى ابن الأنباري.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 95,
+    "end_word": 211,
+    "text_snippet": "\n\" اختلف في القياس على الأصل المختلف في حكمه.\nفأجازه قوم لأن المختلف فيه إذا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "example"
+    ],
+    "description_arabic": "عرض الخلاف في القياس على الأصل المختلف فيه، مع الاعتراض والجواب والأمثلة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المسألة مستقلة في عرض الأقوال والجواب والترجيح الضمني، لكن بعض الأمثلة النحوية والخلاف في إعمال (يا) تحتاج معرفة خارجية لفهمها تماما."
+  }
+]

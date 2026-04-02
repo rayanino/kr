@@ -1,0 +1,694 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 134,
+    "text_snippet": "‌‌إن وأخواتها\nلإن أن ليت لكن لعل كأن … عكس مالكان من عمل ⌜1⌝\nكإن زيدا عالم",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف إن وأخواتها وعددها ومعانيها وبيان أنها تعمل عكس كان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 135,
+    "end_word": 213,
+    "text_snippet": "= ذلك قوله صلى الله عليه وسلم: \" إن من أشد الناس عذابا يوم القيامة المصورون",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "الاستشهاد بحديث المصورين على إعراب إن وذكر وجهين في تخريجه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتعلق هذا الحديث بقاعدة سابقة هي عمل إن في الاسم والخبر، وفهم المقصود التعليمي أكمل مع استحضار تلك القاعدة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 214,
+    "end_word": 345,
+    "text_snippet": "و\" المصورون \" خبرها وهو مبني على رأي ضعيف، ولا تدخل هذه الحروف على جملة يكو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "opinion_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "منع دخول إن وأخواتها على الخبر الطلبي أو الإنشائي، واستثناء أن المفتوحة مع أمثلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 346,
+    "end_word": 458,
+    "text_snippet": "الامر الثاني: أن جماعة من العلماء - منهم ابن سيده - قد حكوا أن قوما من\nالعرب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر لغة تنصب الاسم والخبر بإن وأخواتها، وبيان مذهب الكوفيين في الخبر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعرض الوحدة قولين متجاورين في عمل إن، لكن بعض الشواهد الشعرية الواردة مبتورة في النص المصنَّف، فيحتاج القارئ إلى السياق الأوسع للشواهد."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 459,
+    "end_word": 617,
+    "text_snippet": "وراع ذا الترتيب إلا في الذي … كليت فيها أوهنا غير البذي (1)\nأي يلزم تقديم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "opinion_statement"
+    ],
+    "description_arabic": "أحكام ترتيب اسم إن وخبرها، وجواز تقديم الظرف والجار والمجرور ومنع غيرهما.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 618,
+    "end_word": 725,
+    "text_snippet": "وهمز إن افتح لسد مصدر … مسدها وفي سوى ذاك اكسر (1)\nإن لها ثلاثة أحوال: وجوب ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "editorial_note"
+    ],
+    "description_arabic": "موضع وجوب فتح همزة أن إذا سدت مع صلتها مسد المصدر، مع تنبيه مهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 726,
+    "end_word": 834,
+    "text_snippet": "فإن لم يجب تقديرها بمصدر لم يجب فتحها بل تكسر وجوبا أو جوازا على ما سنبين وتح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أول مواضع وجوب كسر إن، وهو وقوعها في ابتداء الكلام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 835,
+    "end_word": 855,
+    "text_snippet": "الثاني: أن تقع إن صدر صلة نحو جاء الذي إنه قائم ومنه قوله تعالى: {وَآتَيْنَاه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "وجوب كسر إن إذا وقعت في صدر الصلة، مع شاهد قرآني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 856,
+    "end_word": 872,
+    "text_snippet": "الثالث: أن تقع جوابا للقسم وفي خبرها اللام نحو والله إن زيدا لقائم وسيأتي الك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب كسر إن إذا وقعت جوابا للقسم وكان في خبرها اللام.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال النص على كلام سيأتي في مسألة اللام، فالوحدة مفهومة في أصل الحكم لكن تحتاج تفصيل اللام من موضع لاحق."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      30,
+      31,
+      32
+    ],
+    "start_word": 873,
+    "end_word": 907,
+    "text_snippet": "الرابع: أن تقع في جملة محكية بالقول نحو قلت إن زيدا قائم قال تعالى: {قَالَ إِ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب كسر إن في الجملة المحكية بالقول، وفتحها إذا أجري القول مجرى الظن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      33,
+      34,
+      35
+    ],
+    "start_word": 908,
+    "end_word": 947,
+    "text_snippet": "الخامس: أن تقع في جملة في موضع الحال كقوله زرته وإني ذو أمل ومنه قوله تعالى: ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "example"
+    ],
+    "description_arabic": "وجوب كسر إن إذا وقعت في جملة حالية، مع شاهد قرآني وشعري.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 948,
+    "end_word": 981,
+    "text_snippet": "السادس: أن تقع بعد فعل من أفعال القلوب وقد علق عنها باللام نحو علمت إن زيدا ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب كسر إن بعد أفعال القلوب إذا عُلِّقت عنها باللام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "start_word": 982,
+    "end_word": 1059,
+    "text_snippet": "هذا ما ذكره المصنف وأورد عليه أنه نقص مواضع يجب كسر إن فيها:\nالأول: إذا وقعت ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "الاعتراض بزيادة مواضع لكسر إن والجواب بأنها داخلة تحت حكم الابتداء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "start_word": 1060,
+    "end_word": 1530,
+    "text_snippet": "بعد إذا فجاءة أو قسم … لا لام بعده بوجهين نمي ⌜4⌝\nمع تلو فا الجزا وذا يطرد … ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "editorial_note",
+      "definition",
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز فتح إن وكسرها بعد إذا الفجائية، مع شاهد شعري وتفصيل أوجه إعرابه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      53,
+      54,
+      55,
+      56,
+      57,
+      58
+    ],
+    "start_word": 1531,
+    "end_word": 1900,
+    "text_snippet": "وكذا يجوز فتح إن وكسرها إذا وقعت جواب قسم وليس في خبرها اللام نحو حلفت أن زيد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "definition",
+      "editorial_note",
+      "evidence_rational"
+    ],
+    "description_arabic": "جواز فتح إن وكسرها في جواب القسم إذا خلا الخبر من اللام، مع شاهد وتحليل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      59,
+      60
+    ],
+    "start_word": 1901,
+    "end_word": 2060,
+    "text_snippet": "= ومقتضى كلام المصنف أنه يجوز فتح إن وكسرها بعد القسم إذا لم يكن في خبرها اللا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "تعميم جواز الفتح والكسر بعد القسم وبعد فاء الجزاء، مع شاهد قرآني.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      61,
+      62
+    ],
+    "start_word": 2061,
+    "end_word": 2192,
+    "text_snippet": "وكذلك يجوز الفتح والكسر إذا وقعت أن بعد مبتدأ هو في المعنى قول وخبر إن قول وال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز الفتح والكسر بعد مبتدأ معناه القول إذا كان الخبر قولا والقائل واحدا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      63,
+      64,
+      65
+    ],
+    "start_word": 2193,
+    "end_word": 2255,
+    "text_snippet": "وبعد ذات الكسر تصحب الخبر … لام ابتداء نحو إني لوزر ⌜7⌝\nيجوز دخول لام الابتد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "دخول لام الابتداء على خبر إن المكسورة، وسبب تأخيرها عن أول الكلام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76
+    ],
+    "start_word": 2256,
+    "end_word": 2612,
+    "text_snippet": "ولا تدخل هذه اللام على خبر باقي أخوات إن فلا تقول لعل زيدا لقائم وأجاز الكوفي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "editorial_note",
+      "definition",
+      "refutation"
+    ],
+    "description_arabic": "منع دخول اللام على خبر سائر أخوات إن، وخلاف الكوفيين في لكن والرد عليهم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      77,
+      78
+    ],
+    "start_word": 2613,
+    "end_word": 2682,
+    "text_snippet": "= وخرج على أن اللام زائدة كما شذ زيادتها في خبر أمسى نحو قوله:\n100 - مروا عجال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تخريج دخول اللام على أنها زائدة، وذكر إجازة المبرد دخولها في خبر أن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الوحدة متفرعة عن الخلاف السابق في لام الابتداء، وفهمها الأكمل يحتاج استحضار مسألة منع دخولها على غير خبر إن المكسورة."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      79,
+      80,
+      81
+    ],
+    "start_word": 2683,
+    "end_word": 2740,
+    "text_snippet": "ولا يلي ذي اللام ما قد نفيا … ولا من الأفعال ما كرضيا (1) وقد يليها مع قد كإن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "لا تدخل لام الابتداء على الخبر المنفي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      82,
+      83,
+      84,
+      85
+    ],
+    "start_word": 2741,
+    "end_word": 2880,
+    "text_snippet": "وأشار بقوله ولا من الأفعال ما كرضيا إلى أنه إذا كان الخبر ماضيا متصرفا غير مقر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام دخول اللام على الخبر الفعلي: الماضي والمضارع وما اقترن بقد أو السين وسوف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      86,
+      87,
+      88
+    ],
+    "start_word": 2881,
+    "end_word": 3021,
+    "text_snippet": "وتصحب الواسط معمول الخبر … والفصل واسما حل قبله الخبر ⌜8⌝\nتدخل لام الابتداء ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "دخول لام الابتداء على معمول الخبر إذا توسط، وأثر ذلك في الخبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      89,
+      90,
+      91,
+      92
+    ],
+    "start_word": 3022,
+    "end_word": 3123,
+    "text_snippet": "وأشار بقوله والفصل ⌜9⌝ إلى أن لام الابتداء تدخل على ضمير الفصل نحو إن زيدا لهو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "definition"
+    ],
+    "description_arabic": "دخول لام الابتداء على ضمير الفصل مع بيان معنى ضمير الفصل وشرطه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      93,
+      94,
+      95,
+      96
+    ],
+    "start_word": 3124,
+    "end_word": 3229,
+    "text_snippet": "وأشار بقوله واسما حل قبله الخبر إلى أن لام الابتداء تدخل على الاسم إذا تأخر عن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "دخول لام الابتداء على الاسم المتأخر عن الخبر، وما يمنع دخولها على بعض المعمولات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      97,
+      98,
+      99,
+      100,
+      101
+    ],
+    "start_word": 3230,
+    "end_word": 3375,
+    "text_snippet": "ووصل ما بذي الحروف مبطل … إعمالها وقد يبقي العمل (1) إذا اتصلت ما غير الموصولة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "اتصال ما بإن وأخواتها وكفها عن العمل، واستثناء ليت، واحتراز ما الموصولة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      102,
+      103,
+      104,
+      105
+    ],
+    "start_word": 3376,
+    "end_word": 3480,
+    "text_snippet": "وجائز رفعك معطوفا على … منصوب إن بعد أن تستكملا (1)\nأي إذا أتي بعد اسم إن وخب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام العطف على اسم إن بعد استكمال الخبر وقبله، ووجه الرفع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      106,
+      107,
+      108,
+      109
+    ],
+    "start_word": 3481,
+    "end_word": 3584,
+    "text_snippet": "وألحقت بإن لكن وأن … من دون ليت ولعل وكأن ⌜11⌝\nحكم أن المفتوحة ولكن في العطف ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "إلحاق أن ولكن بإن في العطف على الاسم، ومخالفة ليت ولعل وكأن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      110,
+      111,
+      112,
+      113,
+      114
+    ],
+    "start_word": 3585,
+    "end_word": 3718,
+    "text_snippet": "وخففت إن فقل العمل … وتلزم اللام إذا ما تهمل (2) وربما استغني عنها إن بدا … م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام إن المخففة: غلبة الإهمال، ولزوم اللام عند الإهمال، وجواز الاستغناء عنها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "start_word": 3719,
+    "end_word": 3839,
+    "text_snippet": "واختلف النحويون في هذه اللام هل هي لام الابتداء أدخلت للفرق بين إن النافية وإن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "evidence_hadith"
+    ],
+    "description_arabic": "الخلاف في لام الفارقة: أهي لام الابتداء أم لام أخرى، وأثره في الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      120,
+      121,
+      122,
+      123,
+      124,
+      125
+    ],
+    "start_word": 3840,
+    "end_word": 3941,
+    "text_snippet": "والفعل إن لم يك ناسخا فلا … تلفيه غالبا بإن ذي موصلا (2) إذا خففت إن فلا يليها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "condition_exception",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "ما يلي إن المخففة من الأفعال: الغالب اختصاصها بالناسخ، مع ذكر القليل المخالف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      126,
+      127,
+      128
+    ],
+    "start_word": 3942,
+    "end_word": 4031,
+    "text_snippet": "وإن تخفف أن فاسمها استكن … والخبر اجعل جملة من بعد أن (1)\nإذا خففت أن المفتو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام أن المخففة: استتار اسمها غالبا وكون خبرها جملة، مع جواز بروز الاسم نادرا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143
+    ],
+    "start_word": 4032,
+    "end_word": 4341,
+    "text_snippet": "وإن يكن فعلا ولم يكن دعا … ولم يكن تصريفه ممتنعا (1)\nفالأحسن الفصل بقد أو نفي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "evidence_quran",
+      "definition",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "الفواصل بين أن المخففة وخبرها إذا كان الخبر فعلا، ومواضع ترك الفصل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      144,
+      145,
+      146,
+      147
+    ],
+    "start_word": 4342,
+    "end_word": 4504,
+    "text_snippet": "وخففت كأن أيضا فنوي … منصوبها وثابتا أيضا روي (2) إذا خففت كأن نوي اسمها وأخب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام كأن المخففة: تقدير اسمها ضمير الشأن، وصور خبرها، وقلة إظهار الاسم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

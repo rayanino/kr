@@ -1,0 +1,326 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 37,
+    "text_snippet": "في الواسع من ذلك للبيع والشراء على وجه لا يضيق على أحد، ولا يضر بالمارة، لاتف",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "evidence_qiyas"
+    ],
+    "description_arabic": "الاستدلال على جواز البيع والشراء في الموضع الواسع إذا انتفى الضرر بالمارة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة في تعليل الجواز، لكن عبارة \"من ذلك\" تشير إلى مسألة سابقة غير مذكورة في المقتطف."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 38,
+    "end_word": 157,
+    "text_snippet": "‌‌بَابُ المساقاة والمزارعة\nالمساقاة: مأخوذة من أهم أعمالها، وهو السقي.\nوهى شرع",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "تعريف المساقاة والمزارعة وبيان أنهما من عقود المشاركات لا من الإجارات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 158,
+    "end_word": 321,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أنَّ النَّبي صلى الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث معاملة أهل خيبر مع شرح ألفاظه وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 322,
+    "end_word": 335,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جواز المزارعة والمساقاة، بجزء مما يخرج من الزرع: الثمر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استفادة جواز المزارعة والمساقاة بجزء من الخارج من الزرع أو الثمر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم بذاته، لكن افتتاحه بـ\"ما يستفاد من الحديث\" يحيل على الحديث السابق كمستند للحكم."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 336,
+    "end_word": 355,
+    "text_snippet": "2- ظاهر الحديث، أنه لا يشترط أن يكون البذر من رب الأرض، وهو الصحيح، خلافا للمش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم اشتراط كون البذر من رب الأرض، مع ترجيح هذا القول على المشهور في المذهب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الحكم واضح، لكن الاستدلال بظاهر الحديث وذكر \"مذهبنا\" يحتاجان إلى السياق السابق لمعرفة الدليل والمذهب المقصود."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 356,
+    "end_word": 371,
+    "text_snippet": "3- أنه إذا علم نصيب العامل، أغنى عن ذكر نصيب صاحب الأرض أو الشجر، لأنه بينهما.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "إذا عُلم نصيب العامل استُغني عن التصريح بنصيب صاحب الأرض أو الشجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 372,
+    "end_word": 390,
+    "text_snippet": "4- جواز الجمع بين المساقاة والمزارعة في بستان واحد، بأن يساقيه على الشجر، بجزء ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الجمع بين المساقاة على الشجر والمزارعة على الأرض في بستان واحد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 391,
+    "end_word": 405,
+    "text_snippet": "5- جواز معاملة الكفار بالفلاحة، والتجارة، والمقاولات على البناء والصنائع، ونحو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز معاملة الكفار في الفلاحة والتجارة وسائر المعاملات المباحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 406,
+    "end_word": 475,
+    "text_snippet": "اختلاف العلماء في المساقاة والمزارعة:\nتقدم أن طائفة من العلماء يرون أن المساقاة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "قول أبي حنيفة في منع المساقاة مطلقاً وتعليله بأنها إجارة مجهولة العوض.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 476,
+    "end_word": 488,
+    "text_snippet": "وذهب الظاهرية، إلى أنها لا تجوز إلا في النخل خاصة، لورود الخبر فيها.\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مذهب الظاهرية في قصر جواز المساقاة على النخل فقط.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 489,
+    "end_word": 542,
+    "text_snippet": "وذهب الشافعي إلى جوازها في النخل والكرم خاصة، لاشتراكهما في كثير من الأحكام، و",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "مذهب الشافعي في جواز المساقاة في النخل والكرم فقط مع تعليل ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 543,
+    "end_word": 567,
+    "text_snippet": "وذهب الإمام \" أحمد \" إلى جوازها في كل ماله ثمر مأكول، بل ألحق كثير من أصحابه، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مذهب الإمام أحمد في تعميم المساقاة لكل ما له ثمر مأكول وما ألحق به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 568,
+    "end_word": 586,
+    "text_snippet": "وذهب \" مالك \" إلى جوازها في كل ما له أصل ثابت، فهي رخصة عنده عامة في كل ذلك.\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مذهب مالك في جواز المساقاة في كل نبات له أصل ثابت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      32,
+      33
+    ],
+    "start_word": 587,
+    "end_word": 674,
+    "text_snippet": "والحق الذي لأشك فيه أن الحكم شامل لكل ما فيه نفع مقصود من الأشجار، لأن الحديث ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "ترجيح عموم جواز المساقاة في كل شجر ذي نفع مقصود والرد على دعوى مخالفة النص للأصول.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "start_word": 675,
+    "end_word": 954,
+    "text_snippet": "واختلفوا في \" المزارعة \" فذهب الأئمة الثلاثة، أبو حنيفة، ومالك، والشافعي، إلى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "قول المانعين من المزارعة وأحاديث رافع وجابر وتعليلهم بأنها من الإجارة المجهولة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 955,
+    "end_word": 1146,
+    "text_snippet": "وذهب الإمام أحمد رحمه الله تعالى إلى جوازها وأنها من العقود الصحيحة الثابتة.\nو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "مذهب الإمام أحمد في جواز المزارعة، مع ذكر من وافقه والاستدلال بمعاملة خيبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58
+    ],
+    "start_word": 1147,
+    "end_word": 1495,
+    "text_snippet": "أما أحاديث رافع بن خَديج، التي استدل بها المانعون، فقد تكلم فيها العلماء، وذلك",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "مناقشة أحاديث رافع والجمع بينها وبين أحاديث خيبر بحمل النهي على المزارعة الفاسدة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1496,
+    "end_word": 1503,
+    "text_snippet": "ثم قال الخطابي أيضاً: فالمزارعة على النصف والثلث\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بداية نقلٍ عن الخطابي في حكم المزارعة على النصف والثلث.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "النص مبتور ولم تكتمل العبارة ولا الحكم المنقول عن الخطابي، فلا يستقل بالفهم."
+  }
+]

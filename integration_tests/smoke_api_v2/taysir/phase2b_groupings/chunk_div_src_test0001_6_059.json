@@ -1,0 +1,212 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 98,
+    "text_snippet": "‌‌بَابُ صدقة الفِطر\nنسبت إلى \"الفطر\" من باب نسبة المسبب إلى سببه، وقد أجمع ا",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "تعريف صدقة الفطر وبيان وجوبها وحكمتها في تطهير الصائم ومواساة الفقراء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 99,
+    "end_word": 152,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما: قال فَرَضَ النبي صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عمر في فرض صدقة الفطر ومقدارها ووقت أدائها قبل الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 153,
+    "end_word": 375,
+    "text_snippet": "\nالحديث الثاني\nعَنْ أبي سَعِد الخدْرِيِّ رضي الله عَنْة قال: كُنا نعطيهَا في زَ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "definition"
+    ],
+    "description_arabic": "حديث أبي سعيد في أصناف صدقة الفطر وشرح الألفاظ وبيان المعنى الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 376,
+    "end_word": 391,
+    "text_snippet": "\nما يؤخذ من الحديث:\n1- وجوب زكاة \" الفطر \" وهو إجماع المسلمين لقوله: (فرض) .",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان وجوب زكاة الفطر وأنه محل إجماع المسلمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 392,
+    "end_word": 406,
+    "text_snippet": "\n2- أن تخرج عن كل مسلم صغير أو كبير، ذكر أو أنثى، حر أو عبد.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان من تجب عنه زكاة الفطر من المسلمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 407,
+    "end_word": 434,
+    "text_snippet": "\n3- أنها لا تجب عن الجنين، واستحب كثير من العلماء إخراجها عنه.\nفقد ورد عن الصح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "حكم زكاة الفطر عن الجنين مع ذكر استحبابها وأثر الصحابة في ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      23,
+      24,
+      25
+    ],
+    "start_word": 435,
+    "end_word": 501,
+    "text_snippet": "\n4- ظاهر الحديث، تحديد الإخراج من الأشياء المذكورة.\nوالمشهور من مذهب الإمام أح",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "الخلاف في تعيين الأصناف المخرجة في زكاة الفطر وهل يجزئ قوت البلد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 502,
+    "end_word": 572,
+    "text_snippet": "\n5- ظاهر حديث أبي سعيد، أن الواجب صاع، سواء أكان من الحنطة أم من غيرها.\nوهو مذ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_qiyas",
+      "editorial_note"
+    ],
+    "description_arabic": "الخلاف في مقدار زكاة الفطر من الحنطة بين الصاع ونصف الصاع مع الترجيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 573,
+    "end_word": 658,
+    "text_snippet": "\n6- والأفضل إخراجها فجر يوم العيد قبل الصلاة، وهو قول فقهاء المذاهب الأربعة.\nفإ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "opinion_statement",
+      "evidence_hadith",
+      "editorial_note"
+    ],
+    "description_arabic": "وقت إخراج زكاة الفطر وحكم تأخيرها بعد الصلاة مع أقوال الفقهاء وترجيح ابن حزم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 659,
+    "end_word": 777,
+    "text_snippet": "\n7- وهل يجوز تقديمها قبل صلاة العيد؟.\nذهب أبو حنيفة: إلى جواز تقديمها لِحَول أ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_qiyas",
+      "evidence_hadith",
+      "editorial_note",
+      "evidence_rational"
+    ],
+    "description_arabic": "الخلاف في تعجيل زكاة الفطر قبل العيد وأدلة الأقوال واختيار استحباب تقديمها بيومين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

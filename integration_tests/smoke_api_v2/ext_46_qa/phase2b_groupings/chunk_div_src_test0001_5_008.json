@@ -1,0 +1,114 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 53,
+    "text_snippet": "المسألة العاشرة\n\nقسم ابن الطراوة الألفاظ إلى: واجب، وممتنع، وجائز.\nقال:\n\" ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان تقسيم ابن الطراوة الألفاظ إلى واجب وممتنع وجائز مع تعريف كل قسم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 54,
+    "end_word": 67,
+    "text_snippet": "قال فكلام مركب من واجبين لا يجوز، نحو: رجل قائم، لأنه لا فائدة فيه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم التركيب من لفظين واجبين، وأنه لا يجوز لعدم الفائدة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد فهم مصطلح الواجب هنا على التعريف السابق في تقسيم الألفاظ."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 68,
+    "end_word": 83,
+    "text_snippet": "وكلام مركب من ممتنعين أيضا لا يجوز، لا رجل لا قائم، لأنه كذب، ولا فائدة في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم التركيب من ممتنعين، وأنه غير جائز لأنه كذب ولا فائدة فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح الممتنع مستند إلى التعريف السابق، وإلا فالمعنى الإجمالي مفهوم."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 84,
+    "end_word": 92,
+    "text_snippet": "وكلام مركب من واجب وجائز صحيح، نحو: زيد قائم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان صحة الكلام المركب من واجب وجائز مع المثال.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفتقر إلى معرفة المقصود بالواجب والجائز من التعريفات السابقة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 93,
+    "end_word": 117,
+    "text_snippet": "وكلام مركب من ممتنع وجائز لا يجوز ولا من واجب وممتنع نحو: زيد لا قائم، ورج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم امتناع التركيب من ممتنع وجائز أو من واجب وممتنع مع تعليله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج إلى السياق السابق لتحديد معنى الواجب والممتنع والجائز بدقة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 118,
+    "end_word": 176,
+    "text_snippet": "وكلام مركب من جائزين لا يجوز، نحو: زيد أخوك، لأنه معلوم، لكن بتأخيره صار و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "عرض قاعدة صيرورة الجائز واجبا بالتأخير وتطبيقها على أمثلة الخبر المقدم والمؤخر.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مكتفية في عرض الرأي وأمثلته، لكنها تفترض معرفة اصطلاح الجائز والواجب من قبل."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 177,
+    "end_word": 200,
+    "text_snippet": "قال أبو حيان: \" وهذا مذهب غريب \".\nقال:\n\" وما قاله أن الجائز يصير بتأخيره واج",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "اعتراض أبي حيان على مذهب ابن الطراوة ورد دعوى أن الجائز يصير واجبا بالتأخير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

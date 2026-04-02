@@ -1,0 +1,53 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 112,
+    "text_snippet": "المسألة الخامسة\n\ndلالات النحوية ثلاث: لفظية، وصناعية، ومعنوية.\nقال في (الخ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "بيان أقسام الدلالات النحوية وترتيب قوتها وتعليل تقديم الصناعية مع مثال الأفعال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 113,
+    "end_word": 129,
+    "text_snippet": "قال الخضراوي في (الإفصاح):\n\"ودلالة الصيغة هي المسماة دلالة التضمن، والدلال",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تسمية دلالة الصيغة بدلالة التضمن والدلالة المعنوية بدلالة اللزوم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المعنى العام مستقلاً، لكن مصطلحا دلالة التضمن ودلالة اللزوم يحتاجان معرفة أصولية سابقة أو تعريفاً أوسع."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 130,
+    "end_word": 210,
+    "text_snippet": "وقال أبو حيان في (تذكره):\n\"في دلالة الفعل ثلاثة مذاهب:\nأحدها: إنما يدل عل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض ثلاثة مذاهب في كيفية دلالة الفعل على الحدث والزمان باللفظ أو الصيغة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

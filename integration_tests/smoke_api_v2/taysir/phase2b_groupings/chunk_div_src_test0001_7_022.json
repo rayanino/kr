@@ -1,0 +1,430 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 51,
+    "text_snippet": "‌‌بَابُ الهَدْي\nالهدي: ما أُهدي إلى البيت الحرام من الإبل، والبقر، والغنم وغي",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف الهدي وبيان مقصوده وفضيلة إهدائه إلى البيت الحرام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 52,
+    "end_word": 256,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها قَالَت: فَتَلْتُ قَلائِدَ هَدْي رَسُول",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث تقليد الهدي وإشعاره، وشرح ألفاظه، وبيان أن باعث الهدي يبقى حلالاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 257,
+    "end_word": 292,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب بعث الهدي إلى البيت الحرام من البلاد البعيدة ولو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب بعث الهدي إلى الحرم من البلاد البعيدة ولو بلا مصاحبة المهدي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 293,
+    "end_word": 308,
+    "text_snippet": "2- استحباب إشعار الهدي وتقليده، بالقرب، والنعال، ولحاء الشجر، مما هو خلاف عاد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب إشعار الهدي وتقليده بعلامات يعرف بها فيُحترم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلحا الإشعار والتقليد مذكوران دون تعريفهما داخل الوحدة، ويحتاجان إلى الرجوع لشرح الغريب السابق."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 309,
+    "end_word": 357,
+    "text_snippet": "3- أن المُهْدِي لا يكون محرماً ببعث الهدي، لأن الإحرام هو نية النسك.\n4- أن المُ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان أن باعث الهدي لا يصير محرماً ولا تلزمه محظورات الإحرام، مع نقل قول الجمهور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 358,
+    "end_word": 366,
+    "text_snippet": "5- جواز التوكيل في سوقها إلى الحرم، وذبحها وتفريقها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التوكيل في سوق الهدي إلى الحرم وذبحه وتفريقه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 367,
+    "end_word": 398,
+    "text_snippet": "6- أن الشرع يكون حيث المصلحة المحضة، أو المصلحة الراجحة. فإن إشعار الإبل والب",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تقرير قاعدة مراعاة المصلحة الراجحة من خلال مشروعية إشعار الهدي.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم المعنى العام، لكن مصطلح إشعارها يحتاج تعريفاً سابقاً لتمام وضوح المثال التطبيقي."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 399,
+    "end_word": 425,
+    "text_snippet": "7- أن الأفضل بعثها مقلدة، من أمكنتها، لا تقليدها عند الإحرام، لتكون محترمة على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل تقليد الهدي من موضعه ليُحترم في الطريق وتظهر شعيرة القربة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظ مقلدة وتقليدها يحتاج معرفة الاصطلاح الوارد في شرح الحديث الأول."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      20,
+      21,
+      22,
+      23
+    ],
+    "start_word": 426,
+    "end_word": 507,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالَت: أهْدَى النَّبِيُّ صلى الله عل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث إهداء النبي صلى الله عليه وسلم الغنم وبيان جواز الإهداء من الأنعام وغيرها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 508,
+    "end_word": 518,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز إهداء الغنم إلى البيت الشريف.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز إهداء الغنم إلى البيت الحرام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 519,
+    "end_word": 534,
+    "text_snippet": "2- أن الأكثر من هديه صلى الله عليه وسلم أفضل الهدايا والأموال عند العرب، وهي ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الإبل هي غالب هديه صلى الله عليه وسلم، وهي أفضل أموال العرب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 535,
+    "end_word": 728,
+    "text_snippet": "الحديث الثالث\nعَنْ أَبِي هُرَيْرَةَ رضي الله عنه: أنَّ النَّبِيِّ صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث ركوب البدنة المهداة عند الحاجة، مع شرح ألفاظه وبيان ضابط الانتفاع بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 729,
+    "end_word": 745,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تعظيم العرب لِلْهَدْيِ، واحترامه في قلوبهم. ثم جاء الإسلا",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان تعظيم العرب للهدي وأن الإسلام زاد هذا التعظيم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      38,
+      39
+    ],
+    "start_word": 746,
+    "end_word": 790,
+    "text_snippet": "2- جواز ركوبه وحَلْبِه مع الحاجة إلى ذلك، بما لا يضره.\nوهذا أعدل المذاهب، وفيه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز ركوب الهدي وحلبه عند الحاجة بشرط عدم الإضرار، مع الاستدلال بحديث جابر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 791,
+    "end_word": 803,
+    "text_snippet": "4- أخذ من هذا الحديث البخاري رحمه الله تعالى، جواز انتفاع الواقف بوقفه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استنباط البخاري جواز انتفاع الواقف بوقفه من حديث ركوب البدنة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستنباط مفهوم إجمالاً، لكنه مبني على قياس حديث البدنة على الوقف، ويحتاج معرفة وجه الاستدلال السابق."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 804,
+    "end_word": 1019,
+    "text_snippet": "الحديث الرابع\nعَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رضي الله عنه قَال: أمَرَنِي النَّب",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث التصدق بلحم الهدي وجلوده وأجلته، ومنع جعل شيء منه أجرة للجزار.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ورد في شرح الغريب قوله: وتقدم تعريفها وضبطها، فيحيل على تعريف سابق للبدنة خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      49,
+      50
+    ],
+    "start_word": 1020,
+    "end_word": 1034,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الهدي، وأنه من فعل النبي صلى الله عليه وسلم.\n2- ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية الهدي وكون الأكمل فيه الكثرة وعظم النفع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اللقطة تشمل بداية الفائدة الثانية، لكن مضمون الوحدة المقصود هو الفائدة الأولى فقط بحسب التقسيم."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      51
+    ],
+    "start_word": 1035,
+    "end_word": 1049,
+    "text_snippet": "2- الأفضل كونه كثيراً، عظيم النفع.\nفقد أهدى النبي صلى الله عليه وسلم مائة بدنة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل في الهدي أن يكون كثيراً عظيماً في نفعه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظ بدنة اصطلاح معروف هنا، لكن قد يحتاج غير المتخصص إلى تعريفه من سياق سابق."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1050,
+    "end_word": 1068,
+    "text_snippet": "3- أن يتصدق بها، وبما يتبعها، من جلود وأجلة.\nوله أن يأكل من هدي التطوع والتمتع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية التصدق بلحم الهدي وجلوده وأجلته، وجواز الأكل من بعض أنواعه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظ أجلة يحتاج تعريفاً سابقاً، وبعض أنواع الهدي المذكورة تفترض معرفة اصطلاحية فقهية."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      53
+    ],
+    "start_word": 1069,
+    "end_word": 1127,
+    "text_snippet": "4- أن لا يعطي جازرها شيئاً منها، على وجه المعاوضة، بل يتصدق عليه ويهدي إليه من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "منع إعطاء الجزار من الهدي على جهة الأجرة، وجواز الصدقة عليه بعد استيفاء أجرته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      54
+    ],
+    "start_word": 1128,
+    "end_word": 1134,
+    "text_snippet": "5- جواز التوكيل في ذبحها والتصدق بها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التوكيل في ذبح الهدي والتصدق به.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      55,
+      56,
+      57,
+      58
+    ],
+    "start_word": 1135,
+    "end_word": 1242,
+    "text_snippet": "الحديث الخامس\nعَنْ زَيَادِ بْنِ جُبَيْرٍ قالَ: رَأَيْتُ ابْنَ عُمَرَ قَدْ أَتَى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث نحر الإبل قائمة معقولة، وبيان السنة في ذبح سائر الأنعام ونحر الإبل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      59,
+      60,
+      61
+    ],
+    "start_word": 1243,
+    "end_word": 1293,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- سنة النبي صلى الله عليه وسلم نَحْرُ الإبل قائمة مقيدة لأن",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "السنة نحر الإبل قائمة مقيدة، مع الاستدلال بالآية وشرح معنى الصواف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير الآية المذكورة أنها سبق ذكرها يربطها بسياق سابق، وإن كان أصل الاستدلال مفهوماً داخل الوحدة."
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      62,
+      63
+    ],
+    "start_word": 1294,
+    "end_word": 1336,
+    "text_snippet": "2- كراهة ذبحها باركة، لأن فيه تطويلاً في إزهاق روحها.\n3- عادة الناس الآن نحرها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "كراهة نحر الإبل باركة، واستثناء حال العجز عن نحرها قائمة مع مراعاة الإحسان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      64
+    ],
+    "start_word": 1337,
+    "end_word": 1377,
+    "text_snippet": "4- رحمة الله تعالى ورأفته بخلقه، حتى في حال إزهاق أرواحه.\nوبمثل هذه الأحكام ال",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "إبراز رحمة الشريعة بالحيوان والرد الوجداني على من يتهمها بالقسوة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

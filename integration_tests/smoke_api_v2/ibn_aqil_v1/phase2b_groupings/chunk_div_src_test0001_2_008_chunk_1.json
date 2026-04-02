@@ -1,0 +1,387 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 224,
+    "text_snippet": "والأصل في الأخبار أن تؤخرا … وجوزوا التقديم إذ لا ضررا (1)\nالأصل تقديم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "الأصل في الخبر التأخير، وجواز تقديمه عند أمن اللبس، مع ذكر خلاف الكوفيين وأمثلته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 225,
+    "end_word": 432,
+    "text_snippet": "فامنعه حين يستوي الجزآن … عرفا ونكرا عادمي بيان (1)\nكذا إذا ما الفعل كان ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب تأخير الخبر إذا استوى الجزآن في التعريف أو التنكير ولم توجد قرينة مبيّنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 433,
+    "end_word": 565,
+    "text_snippet": "والثاني: أن يكون الخبر فعلا رافعا لضمير المبتدأ مستترا نحو زيد قام فقام وفاع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "refutation"
+    ],
+    "description_arabic": "تأخير الخبر الفعلي إن رفع ضمير المبتدأ المستتر، وبيان استثناء رفع الظاهر أو الضمير البارز.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 566,
+    "end_word": 626,
+    "text_snippet": "الثالث: أن يكون الخبر محصورا بإنما نحو إنما زيد قائم أو بإلا نحو ما زيد إلا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "وجوب تأخير الخبر إذا كان محصورًا بإنما أو إلا، مع التنبيه على الشاذ في التقديم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 627,
+    "end_word": 689,
+    "text_snippet": "الرابع: أن يكون خبرا لمبتدأ قد دخلت عليه لام الابتداء نحو لزيد قائم وهو المش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "وجوب تأخير الخبر إذا كان المبتدأ مقترنًا بلام الابتداء، مع مثال الشذوذ في التقديم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 690,
+    "end_word": 719,
+    "text_snippet": "الخامس: أن يكون المبتدأ له صدر الكلام كأسماء الاستفهام نحو من لي منجدا فمن م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تأخير الخبر إذا كان المبتدأ مما له صدر الكلام كأسماء الاستفهام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24
+    ],
+    "start_word": 720,
+    "end_word": 843,
+    "text_snippet": "ونحو عندي درهم ولي وطر … ملتزم فيه تقدم الخبر ⌜17⌝\nكذا إذا عاد عليه مضمر …\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب تقديم الخبر إذا كان المبتدأ نكرة لا مسوغ لها إلا تقدم الخبر، مع ذكر الاستثناء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28
+    ],
+    "start_word": 844,
+    "end_word": 1107,
+    "text_snippet": "الثاني: أن يشتمل المبتدأ على ضمير يعود على شيء في الخبر نحو في الدار صاحبها ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation",
+      "example",
+      "evidence_rational"
+    ],
+    "description_arabic": "وجوب تقديم الخبر إذا عاد من المبتدأ ضمير على شيء متعلق بالخبر، مع تحرير العبارة والفرق.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يُفهم المقصود بذاته، لكن بعض الإحالات كقول الشارح: «هذه عبارة ابن عصفور» وذكر الخلاف في «ضرب غلامه زيدا» تستفيد من معرفة سياق نحوي أوسع."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 1108,
+    "end_word": 1157,
+    "text_snippet": "(2) الثالث: أن يكون الخبر له صدر الكلام وهو المراد بقوله كذا إذا يستوجب ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تقديم الخبر إذا كان هو مما له صدر الكلام، كأسماء الاستفهام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 1158,
+    "end_word": 1178,
+    "text_snippet": "الرابع: أن يكون المبتدأ محصورا نحو إنما في الدار زيد وما في الدار إلا زيد وم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تقديم الخبر إذا كان المبتدأ محصورًا بإنما أو إلا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 1179,
+    "end_word": 1574,
+    "text_snippet": "وحذف ما يعلم جائز كما … تقول زيد بعد من عندكما (1) وفى جواب كيف زيد قل دنف ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "جواز حذف الخبر لدلالة المقام عليه، مع أمثلة وشاهد شعري وشرح إعرابه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة، لكن الشرح الطويل في الحاشية يحمل تفاصيل تحقيقية وعروضية ليست ضرورية لأصل القاعدة، وقد يحتاج بعضه إلى سياق الكتاب."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      35,
+      36,
+      37
+    ],
+    "start_word": 1575,
+    "end_word": 1617,
+    "text_snippet": "ومثال حذف المبتدأ أن يقال كيف زيد فتقول صحيح أي هو صحيح.\nوإن شئت صرحت بكل و",
+    "primary_function": "example",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "جواز حذف المبتدأ لدلالة السؤال أو السياق عليه، مع مثال قرآني على التصريح بالمحذوف معنى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 1618,
+    "end_word": 1694,
+    "text_snippet": "قيل وقد يحذف الجزآن أعني المبتدأ والخبر للدلالة عليهما كقوله تعالى: {وَاللَاّ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [],
+    "description_arabic": "إمكان حذف المبتدأ والخبر معًا إذا دلّ عليهما دليل، وذكر المثال القرآني ومناقشة تقديره.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال واضح، لكن عبارة «والأولى أن يمثل» تشير إلى مناقشة ترجيحية تستفيد من معرفة ما سبق من أمثلة الحذف."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "start_word": 1695,
+    "end_word": 2280,
+    "text_snippet": "وبعد لولا غالبا حذف الخبر … حتم وفي نص يمين ذا استقر (1)\nوبعد واو عينت مفهو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "editorial_note",
+      "opinion_statement"
+    ],
+    "description_arabic": "وجوب حذف الخبر بعد لولا غالبًا، مع الشاذ الوارد وطرق النحاة في تخريج المسألة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أصل الحكم ووجوه الخلاف مذكورة، لكن بعض الترجيحات والإحالات إلى «غير هذا الكتاب» تجعل الاستقلال دون التمام التام."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      45,
+      46
+    ],
+    "start_word": 2281,
+    "end_word": 2374,
+    "text_snippet": "الموضع الثاني: أن يكون المبتدأ نصا في اليمين (1) نحو لعمرك لأفعلن التقدير لعم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب حذف الخبر إذا كان المبتدأ نصًا في اليمين، وبيان ما لا يجب فيه الحذف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      47,
+      48
+    ],
+    "start_word": 2375,
+    "end_word": 2455,
+    "text_snippet": "الموضع الثالث: أن يقع بعد المبتدأ واو هي نص في المعية نحو كل رجل وضيعته فكل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "وجوب حذف الخبر إذا جاءت بعد المبتدأ واو نصّ في المعية، دون الواو غير الصريحة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المعنى العام واضح، لكن مناقشة تقدير الخبر والخلاف في تمام الكلام قد تحتاج خلفية نحوية سابقة."
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      49,
+      50,
+      51
+    ],
+    "start_word": 2456,
+    "end_word": 2663,
+    "text_snippet": "الموضع الرابع: أن يكون المبتدأ مصدرا وبعده حال سدت مسد الخبر وهي لا تصلح أن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example"
+    ],
+    "description_arabic": "وجوب حذف الخبر إذا سدّت الحال مسدّه بعد مصدر، مع تقدير الخبر وبيان نظير المضاف.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم وأمثلته، لكن تقدير الظروف والأزمنة والحال من الضمير المستتر يحتاج دربة نحوية متقدمة."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      52,
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 2664,
+    "end_word": 2812,
+    "text_snippet": "ولم يذكر المصنف المواضع التي يحذف فيها المبتدأ وجوبا وقد عدها في غير هذا الك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "المواضع الأربعة التي يجب فيها حذف المبتدأ: القطع، ومخصوص نعم وبئس، وصريح القسم، والمصدر النائب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة تعدّد المواضع على جهة الجرد المختصر، وبعضها يحتاج معرفة سابقة بمصطلحات مثل القطع ومخصوص نعم وبئس."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      57,
+      58
+    ],
+    "start_word": 2813,
+    "end_word": 2868,
+    "text_snippet": "وأخبروا باثنين أو بأكثرا … عن واحد كهم سراة شعرا (2) اختلف النحويون في جواز ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "جواز تعدد خبر المبتدأ الواحد عند المصنف، سواء اتحد المعنى أو اختلف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      59,
+      60,
+      61,
+      62
+    ],
+    "start_word": 2869,
+    "end_word": 3238,
+    "text_snippet": "وذهب بعضهم إلى أنه لا يتعدد الخبر إلا إذا كان الخبران في معنى خبر واحد فإن ل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "قول من قصر تعدد الخبر على ما كان في معنى خبر واحد، مع شواهده وتخريجه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المذهب وأمثلته مذكورة، لكن الحاشية الطويلة على الشاهد الشعري تتضمن تفاصيل لغوية وتحقيقية خارجة عن صلب المسألة."
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      63,
+      64
+    ],
+    "start_word": 3239,
+    "end_word": 3313,
+    "text_snippet": "وزعم بعضهم أنه لا يتعدد الخبر إلا إذا كان من جنس واحد كأن يكون الخبران مثلا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "قول من اشترط اتحاد جنس الخبرين في التعدد، مع الاستدلال بآية وتسويغ الحال فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

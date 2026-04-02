@@ -1,0 +1,570 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 19,
+    "text_snippet": "وكان يأتي بالخطبتين وهو قائم على المنبر، ليكون ",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 1,
+    "start_word": 20,
+    "end_word": 36,
+    "text_snippet": "فإذا فرغ من الخطبة الأولى، جلس جلسة خفيفة ليست",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 40,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 41,
+    "end_word": 71,
+    "text_snippet": "1- وجوب الخطبتين في الجمعة قبل الصلاة، وأنهما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 72,
+    "end_word": 83,
+    "text_snippet": "2- استحباب قيام الخطيب في الخطبتين- ومذهب الشا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 84,
+    "end_word": 100,
+    "text_snippet": "3- استحباب الجلوس اليسير بين الخطبتين للفصل بي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 101,
+    "end_word": 101,
+    "text_snippet": "فائدة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 102,
+    "end_word": 117,
+    "text_snippet": "قال ابن دقيق العيد: وهذا اللفظ الذي ذكره المصن",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 8,
+    "start_word": 118,
+    "end_word": 145,
+    "text_snippet": "وقال ابن حجر في \" فتحٍ الباري \": وللنسائي والدا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 9,
+    "start_word": 146,
+    "end_word": 183,
+    "text_snippet": "قلت: وبهذا تبين أن الحديث لم يرد في الصحيحين ب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 184,
+    "end_word": 185,
+    "text_snippet": "فائدة ثانية:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 186,
+    "end_word": 247,
+    "text_snippet": "قال ابن القيم ما خلاصته: كان صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 12,
+    "start_word": 248,
+    "end_word": 249,
+    "text_snippet": "الحديث الخامس\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 250,
+    "end_word": 273,
+    "text_snippet": "عَنْ أبي هُرَيرة رضي الله عنه أنَّ النَّبي صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 274,
+    "end_word": 275,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 276,
+    "end_word": 290,
+    "text_snippet": "لغا: كغزا، أتى بقول ساقط، ليس فيه فائدة. وفسره",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 291,
+    "end_word": 292,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 293,
+    "end_word": 340,
+    "text_snippet": "من أعظم شعار الجمعة الخطبتان، ومن آداب المستمع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 18,
+    "start_word": 341,
+    "end_word": 344,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 345,
+    "end_word": 359,
+    "text_snippet": "1- وجوب الإنصات للخطيب يوم الجمعة، وقد نقل ابن",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 20,
+    "start_word": 360,
+    "end_word": 368,
+    "text_snippet": "2- تحريم الكلام حال سماع الخطبة وأنه منافٍ للم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 369,
+    "end_word": 400,
+    "text_snippet": "3- يستثنى من هذا من يخاطب الإمام أو يخاطبه الإ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 22,
+    "start_word": 401,
+    "end_word": 420,
+    "text_snippet": "4- استثنى بعضِ العلماء من كان لايسمع الخطيب لِ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 23,
+    "start_word": 421,
+    "end_word": 438,
+    "text_snippet": "أما من لا يسمعه لصمم، فلا ينبغي أن يشغل من حول",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 24,
+    "start_word": 439,
+    "end_word": 440,
+    "text_snippet": "الحديث السادس\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 441,
+    "end_word": 506,
+    "text_snippet": "عَنْ أبي هُرَيْرَةَ رضي الله عنه أنَّ النَّبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 507,
+    "end_word": 508,
+    "text_snippet": "غريب الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 509,
+    "end_word": 542,
+    "text_snippet": "راح: تأتي بمعنى السير في آخر النهار، كما تأتي ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 543,
+    "end_word": 574,
+    "text_snippet": "دجاجة: بفتح الدال وكسرها، يقع على الذكر والأنث",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 575,
+    "end_word": 589,
+    "text_snippet": "البدنة: تطلق على الناقة والجمل والبقرة، ولكنه",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 590,
+    "end_word": 591,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 592,
+    "end_word": 690,
+    "text_snippet": "يبين النبي صلى الله عليه وسلم فضل الاغتسال وال",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 32,
+    "start_word": 691,
+    "end_word": 694,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 695,
+    "end_word": 706,
+    "text_snippet": "1- فيه فضل الغسل يوم الجمعة، وأن يكون قبل الذه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 707,
+    "end_word": 715,
+    "text_snippet": "2- وفيه فضل التبكير إليها من أول ساعات النهار.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 716,
+    "end_word": 725,
+    "text_snippet": "3- الفضل المذكور في هذا، مترتب على الاغتسال وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 36,
+    "start_word": 726,
+    "end_word": 732,
+    "text_snippet": "4- أن ترتيب الثواب، على المجيء إليها.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 37,
+    "start_word": 733,
+    "end_word": 745,
+    "text_snippet": "5- أن البدنة أفضل من البقرة في الهَدْي، وكذلك ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 746,
+    "end_word": 758,
+    "text_snippet": "6- أن الكبش الأقرن أفضل من غيره من سائر الغنم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 39,
+    "start_word": 759,
+    "end_word": 771,
+    "text_snippet": "7- أن الصدقة مقبولة وإن قلَّتْ، لأنه جعل إهداء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 40,
+    "start_word": 772,
+    "end_word": 786,
+    "text_snippet": "8- أن الملائكة على أبواب المساجد، يكتبون القادم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 41,
+    "start_word": 787,
+    "end_word": 801,
+    "text_snippet": "9- وأنهم ينصرفون بعد دخول الإمام لسماع الذكر، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 42,
+    "start_word": 802,
+    "end_word": 826,
+    "text_snippet": "10- تقسيم هذه الساعات الخمس من طلوع الشمس إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 43,
+    "start_word": 827,
+    "end_word": 843,
+    "text_snippet": "11- القادمون في ساعة من هذه الساعات الخمس، يتف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 44,
+    "start_word": 844,
+    "end_word": 865,
+    "text_snippet": "12- أن فضل الناس عند الصنعاني مرتب على أعمالهم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 45,
+    "start_word": 866,
+    "end_word": 902,
+    "text_snippet": "13- الهدي الذي يراد به النسك فيما يتعلق بالحج ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 46,
+    "start_word": 903,
+    "end_word": 904,
+    "text_snippet": "الحديث السابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 905,
+    "end_word": 959,
+    "text_snippet": "عن: سَلَمَةَ بن الأكوع - وكان من أصحاب الشجرة ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 960,
+    "end_word": 961,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 962,
+    "end_word": 1020,
+    "text_snippet": "يذكر \" سلمة بن الأكوع \" رضىَ الله عنه أنه كان ",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1021,
+    "end_word": 1022,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1023,
+    "end_word": 1039,
+    "text_snippet": "اتفق العلماء على أن آخر وقت صلاة الجمعة هو آخر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1040,
+    "end_word": 1053,
+    "text_snippet": "فذهب الأئمة الثلاثة: إلى أن وقتها يبتدئ بزوال ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1054,
+    "end_word": 1074,
+    "text_snippet": "منها: ما رواه البخاري عن أن أنس قال: \" كان رسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1075,
+    "end_word": 1092,
+    "text_snippet": "وذهب الإمام أحمد في المشهور عنه: إلى دخول وقته",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1093,
+    "end_word": 1098,
+    "text_snippet": "منها: الرواية الأولى في حديث الباب.\n",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1099,
+    "end_word": 1126,
+    "text_snippet": "ومن أدلته ما أخرجه مسلم وأحمد من حديث جابر: \" ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1127,
+    "end_word": 1131,
+    "text_snippet": "وللجمهور تأويلات لهذه الأحاديث بعيدة.\n",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1132,
+    "end_word": 1168,
+    "text_snippet": "والحق ما قاله \" الشوكاني \" في \" نيل الأوطار\": ",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1169,
+    "end_word": 1214,
+    "text_snippet": "قلت: الأولى والأفضل، الصلاة بعد الزوال، لأنه ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1215,
+    "end_word": 1218,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1219,
+    "end_word": 1237,
+    "text_snippet": "1- مشروعية التبكير في الجمعة مطلقاً، سواء أكان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1238,
+    "end_word": 1259,
+    "text_snippet": "2- ظاهر الحديث، جواز صلاة الجمعة قبل الزوال، ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1260,
+    "end_word": 1261,
+    "text_snippet": "الحديث الثامن\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1262,
+    "end_word": 1295,
+    "text_snippet": "عَنْ أبي هُريرة رضي الله عنه قَالَ: كَانَ رَسُو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1296,
+    "end_word": 1297,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1298,
+    "end_word": 1361,
+    "text_snippet": "كان من عادة النبي صلى الله عليه وسلم أن يقرأ ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1362,
+    "end_word": 1362,
+    "text_snippet": "الأحكام:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1363,
+    "end_word": 1372,
+    "text_snippet": "1- استحباب قراءة هاتين السورتين في صلاة فجر يو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1373,
+    "end_word": 1430,
+    "text_snippet": "2- ظاهر الحديث، المداومة عليهما من النبي صلى ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1431,
+    "end_word": 1469,
+    "text_snippet": "ولكن تعقبه الصنعاني فقال: إنه يتعين إشاعة السن",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  }
+]

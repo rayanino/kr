@@ -1,0 +1,268 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 22,
+    "text_snippet": "‌‌بَابُ صَلَاة الكسوف\nالكسوف والخسوف، يطلق الأول على ذهاب ضوء الشمس أو بعض",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الكسوف والخسوف وبيان الفرق بينهما في الاستعمال الفصيح.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 23,
+    "end_word": 195,
+    "text_snippet": "وللكسوف والخسوف أسباب عادية حسية، تدرك بعلم حساب سير الشمس والقمر، كما أن له",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "إثبات الأسباب الحسية والمعنوية للكسوف والخسوف وبيان حكمتهما في تخويف العباد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 196,
+    "end_word": 437,
+    "text_snippet": "قال شيخ الإسلام ابن تيمية رحمه الله تعالى ما خلاصته:\nالخسوف والكسوف لهما أوق",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خلاصة كلام ابن تيمية في إمكان معرفة وقت الكسوف وأنه ليس من علم الغيب ولا يترتب عليه حكم حتى يُشاهد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشتمل على إحالات قرآنية مذكورة بالمعنى والنص، لكنه ينقل خلاصة قول عالم لا نصه الكامل، وبعض الإشارات إلى الحاسب والكهانة تفهم أكثر بسياق أوسع."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 438,
+    "end_word": 562,
+    "text_snippet": "الحديث الأول\nعَنْ عَاِئشَةَ رضي الله عنها: أنَّ الشَّمس خَسَفَتْ عَلَى عَهْدِ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في النداء لصلاة الكسوف مع شرح ألفاظه وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 563,
+    "end_word": 578,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجود خسوف الشمس على عهد رسول الله صلى الله عليه وسلم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات وقوع خسوف الشمس في عهد النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 579,
+    "end_word": 589,
+    "text_snippet": "2- استحباب الصلاة عند الخسوف، ونقل النووي الإجماع على أنها سنة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم صلاة الخسوف وأنها سنة مستحبة مع نقل الإجماع على ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 590,
+    "end_word": 603,
+    "text_snippet": "3- مشروعية الاجتماع لها لأجل التضرع والدعاء، والمبادرة بالتوبة والاستغفار لأن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية الاجتماع لصلاة الكسوف للتضرع والدعاء والتوبة والاستغفار.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 604,
+    "end_word": 613,
+    "text_snippet": "4- أنه ليس لها أذان، وإنما ينادى لها بـ\"الصلاة جامعة\".",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن صلاة الكسوف لا أذان لها وإنما يقال: الصلاة جامعة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 614,
+    "end_word": 629,
+    "text_snippet": "5- أن صلاة الكسوف أربع ركعات، وأريع سجدات، ويأتي تفصيل ذلك وكيفيته إن شاء الل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان عدد ركعات صلاة الكسوف وسجداتها إجمالاً.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العبارة تحيل إلى تفصيل الكيفية لاحقاً، فالوحدة تعطي الحكم الإجمالي دون تمام الصفة."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 630,
+    "end_word": 740,
+    "text_snippet": "الحديث الثاني\nعن أبي مسَعُودٍ، عُقْبَةَ بن عَامِر الأنصَارِيِّ رضي الله عنه قا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث بيان أن الكسوف آية للتخويف لا لموت أحد، مع الأمر بالصلاة والدعاء حتى الانجلاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في متن الحديث عبارة \"حتى ينكشف ما بكم\" تحتاج ضبط الرواية أو مزيد شرح، لكن المعنى العام مفهوم من السياق."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 741,
+    "end_word": 754,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الصلاة والدعاء عند الكسوف والخسوف، رجوعاً إلى ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استحباب الصلاة والدعاء عند الكسوف والخسوف رجوعاً إلى الله تعالى.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      33
+    ],
+    "start_word": 755,
+    "end_word": 775,
+    "text_snippet": "2- أن انتهاء الصلاة يكون بالتجلي فإن انتهت قبل التجلي تضرعوا ودعوا، حتى يزول ذ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "وقت انتهاء صلاة الكسوف، وما يفعل إذا انتهت الصلاة قبل الانجلاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      34,
+      35
+    ],
+    "start_word": 776,
+    "end_word": 806,
+    "text_snippet": "3- ظاهر الحديث أنهم يصلون، ولو صادف وقت نَهْي وهو الصحيح. لأنها من ذوات الأسب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "جواز صلاة الكسوف في وقت النهي لأنها من ذوات الأسباب.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المسألة مفهومة، لكن الإشارة إلى تقدم الخلاف في باب المواقيت تدل على وجود تفصيل سابق للخلاف والأدلة."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 807,
+    "end_word": 863,
+    "text_snippet": "4- أن الحكمة في إيجاد الكسوف أو الخسوف، هو تخويف العباد، وإنذارهم بعقاب الله ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحكمة الشرعية والروحية من الكسوف والخسوف مع عدم منافاة الأسباب المادية.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الجملة الأخيرة \"وقد تقدم شرح ذلك\" تحيل إلى شرح سابق، لكن أصل المعنى مكتمل إجمالاً."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 864,
+    "end_word": 1163,
+    "text_snippet": "الحديث الثالث\nعَنْ عَائِشةَ رضي الله عنها قَالَتْ: خَسَفَتِ الشمسُ عَلَى عَهدِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة المفصل في صفة صلاة الكسوف والخطبة بعدها وسبب نفي نسبتها لموت أحد.",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "المعنى الإجمالي في آخر النص مبتور وينتهي عند قوله: \"من أنها لا تكسف\" دون تمام الفكرة أو الخاتمة، فلا يكتمل شرح الوحدة استقلالاً."
+  }
+]

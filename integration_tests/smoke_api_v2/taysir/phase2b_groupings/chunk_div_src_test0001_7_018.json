@@ -1,0 +1,203 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 25,
+    "text_snippet": "‌‌بَابُ مَا يجُوز قَتْله\nهذه الترجمة فيها بيان ما يجوز قتله، بعد ذكر تحريم ",
+    "primary_function": "structural_transition",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان مقصود الباب وأنه استثناء مما سبق من تحريم القتل وتنفير الصيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 26,
+    "end_word": 157,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ رسُولَ الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "definition",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "حديث الفواسق الخمس ومعناه الإجمالي وبيان علة قتلها وإلحاق ما شابهها بها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 158,
+    "end_word": 200,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء: هل يتعدى القتل من هذه المذكورة إلى غيرها من ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عرض الخلاف في تعدية حكم قتل الفواسق إلى غير المنصوص عليه وذكر قول أبي حنيفة والجمهور.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الخلاف في الجملة، لكن عبارة: «هذه المذكورة» تعود على الحيوانات المذكورة في الحديث السابق."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 201,
+    "end_word": 223,
+    "text_snippet": "واختلفوا في المعنى الذي لأجله يُعدَّى حكمها إلى\nغيرها.\nفالشافعي يرى أنه كون",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تعليل الشافعي لتعدية الحكم بأن الجامع كون هذه الحيوانات غير مأكولة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «حكمها» و«غيرها» يعود على الفواسق المذكورة سابقاً، ويحتاج القارئ لمعرفة محل النزاع."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 224,
+    "end_word": 280,
+    "text_snippet": "وذهب الإمامان، مالك، وأحمد: إلى أن المعنى الجامع لهن ولغيرهن هو طبيعة الإيذا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_qiyas",
+      "evidence_rational"
+    ],
+    "description_arabic": "ترجيح تعليل مالك وأحمد بأن علة القتل هي الإيذاء، مع بيان وجه القياس وفائدة التعداد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمائر مثل «لهن» و«غيرهن» تشير إلى الفواسق المذكورة في الحديث السابق، لكن أصل الحجة واضح."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 281,
+    "end_word": 296,
+    "text_snippet": "تكميل:\nالحيوانات على أربعة أقسام:\n1- الحيوان المستأنس، كبهيمة الأنعام، وال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "القسم الأول من الحيوان: المستأنس، وحكم تذكيته في جميع الأحوال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 297,
+    "end_word": 311,
+    "text_snippet": "2- الحيوان الذي لا يؤكل وليس فيه أذى، فيكره قتله، وإن قتل فليس فيه فداء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القسم الثاني: ما لا يؤكل ولا يؤذي، وحكم قتله وكفارة ذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 312,
+    "end_word": 331,
+    "text_snippet": "3- الحيوان المؤذي، كهذه المذكورة في الحديث وما في معناها، فيشرع قتلها في ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القسم الثالث: الحيوان المؤذي، وحكم قتله في الحل والإحرام والحرم بلا جزاء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "إشارة «كهذه المذكورة في الحديث» تحتاج إلى معرفة الحديث السابق، لكن الحكم العام للحيوان المؤذي مفهوم."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 332,
+    "end_word": 345,
+    "text_snippet": "4- الحيوان الْبَرِّيُ المأكول؛ فهذا هو الصيد. في قتله في الحرم وفي الإحرام، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "القسم الرابع: الصيد البري المأكول، ووجوب الجزاء بقتله في الحرم أو الإحرام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 346,
+    "end_word": 360,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية قتل هذه الحيوانات المعدودة في الحديث، في الحل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى: مشروعية قتل الحيوانات الخمس المذكورة في الحل والحرم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفائدة تشير إلى «هذه الحيوانات المعدودة في الحديث»، فلا يستغني القارئ تماماً عن الحديث السابق لتعيينها."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 361,
+    "end_word": 374,
+    "text_snippet": "2- أن قتلها لما فيها من الفسق والأذى، فيلحق بها ما شابهها من الحيوان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الثانية: علة القتل هي الفسق والأذى، ويلحق بها ما شابهها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «قتلها» و«بها» يعود على الحيوانات المذكورة في الحديث السابق."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 375,
+    "end_word": 413,
+    "text_snippet": "3- أن الأذى ليس نوعاً واحداً، فكل ما فيه مضرة على النفس أو المال أو غير ذلك،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الثالثة: الأذى أنواع متعددة، وكل مضرة على النفس أو المال تدخل فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

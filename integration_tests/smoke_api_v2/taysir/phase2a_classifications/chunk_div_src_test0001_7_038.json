@@ -1,0 +1,1162 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كتابُ الحُدُود\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 18,
+    "text_snippet": "الحدود: جمع (حَد) وأصل الحد، المنع، وهو ما يحجز",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 19,
+    "end_word": 34,
+    "text_snippet": "وأما الحدود -اصطلاحا- فهي عقوبات مقدرة شرعاً",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 35,
+    "end_word": 54,
+    "text_snippet": "والحدود ثابتة بالكتاب والسنة وإجماع العلماء في ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 4,
+    "start_word": 55,
+    "end_word": 56,
+    "text_snippet": "حكمتها التشريعية:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 57,
+    "end_word": 63,
+    "text_snippet": "لها حكم جليلة، ومعان سامية، وأهداف كريمة.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 6,
+    "start_word": 64,
+    "end_word": 85,
+    "text_snippet": "ولذا ينبغي إقامتها، لداعي التأديب والتطهير والمع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 86,
+    "end_word": 95,
+    "text_snippet": "فهي للمحدود طهرة عن إثم المعصية، وكفارة عن عقابه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 96,
+    "end_word": 104,
+    "text_snippet": "وهي له ولغيره رادعة وزاجرة عن الوقوع في المعاصي.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 105,
+    "end_word": 113,
+    "text_snippet": "وهي مانعة وحاجزة من انتشار الشرور والفساد في الأ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 114,
+    "end_word": 121,
+    "text_snippet": "فهي أمان وضمان للجمهور على دمائهم، وأعراضهم، وأم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 11,
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "وبإقامتها يصلح الكون، وتعمر الأرض، ويسود الهدوء ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 136,
+    "end_word": 154,
+    "text_snippet": "وبتركها -والعياذ بالله- ينتشر الشر ويكثر الفساد،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 155,
+    "end_word": 165,
+    "text_snippet": "ولا شك أنها من حكمة الله تعالى ورحمته. والله عزي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 14,
+    "start_word": 166,
+    "end_word": 176,
+    "text_snippet": "على أن الشارع الرحيم حين شرع الحدود، سبقت رحمت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 15,
+    "start_word": 177,
+    "end_word": 185,
+    "text_snippet": "فعفا عن الصغار، وذاهبي العقول. والذين فعلوا لجهل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 16,
+    "start_word": 186,
+    "end_word": 212,
+    "text_snippet": "وصعب أيضا ثبوتها، فاشترط في الزنا أربعة رجال عد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 17,
+    "start_word": 213,
+    "end_word": 232,
+    "text_snippet": "وفي السرقة لا قطع إلا بالثبوت التام، وانتفاء للش",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 233,
+    "end_word": 247,
+    "text_snippet": "وأمر بدرء الحدود بالشبهات، كل هذا لتكون توبة العب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 19,
+    "start_word": 248,
+    "end_word": 249,
+    "text_snippet": "الحديث الأول\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 250,
+    "end_word": 333,
+    "text_snippet": "عَنْ أنس بن مَالِك رضي الله عنه قَالَ: قدِم نَاس ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 334,
+    "end_word": 344,
+    "text_snippet": "اجتويت البِلاد: إذَا كَرِهتَهَا، وَإنْ كانَتْ مُ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 345,
+    "end_word": 345,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 346,
+    "end_word": 355,
+    "text_snippet": "عُكْل: بضم العين المهملة وسكون الكاف [قبيلة عدنا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 356,
+    "end_word": 368,
+    "text_snippet": "عُرَيْنة: بضم العين، وفتح الراء وسكون التحتية وف",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 369,
+    "end_word": 394,
+    "text_snippet": "اجتووا المدينة: بالجيم الساكنة، وفتح التاء الفوق",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 395,
+    "end_word": 407,
+    "text_snippet": "بلقاح: بكسر اللام، بعدها قاف، وبعد الألف حاء. جم",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 408,
+    "end_word": 415,
+    "text_snippet": "النَّعم: بفتح النون والعين، واحد الأنعام، وهي ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 416,
+    "end_word": 419,
+    "text_snippet": "آثارهم: بالمد، جمع أثر\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 420,
+    "end_word": 426,
+    "text_snippet": "من خلاف: فتقطع اليد اليمنى والرجل اليسرى.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 427,
+    "end_word": 440,
+    "text_snippet": "سُمرت أعينهم: بضم السين وكسر الميم مبنى للمجهول،",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 441,
+    "end_word": 455,
+    "text_snippet": "الحَرَّة: بفتح الحاء والراء المشددة، هي الأرض ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 456,
+    "end_word": 462,
+    "text_snippet": "قلابة: بكسر القاف، هو عبد الله الجرمي.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 463,
+    "end_word": 464,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 465,
+    "end_word": 613,
+    "text_snippet": "قدم أناس إلى المدينة من البادية فأسلموا، وحين اخ",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 614,
+    "end_word": 617,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 618,
+    "end_word": 633,
+    "text_snippet": "1- هذا العقاب الذي صبه النبي صلى الله عليه وسلم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 37,
+    "start_word": 634,
+    "end_word": 648,
+    "text_snippet": "وقد نهى النبي صلى الله عليه وسلم عن المثلة، وقد ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 38,
+    "start_word": 649,
+    "end_word": 656,
+    "text_snippet": "فمن أجل هذا اختلف العلماء في حكم هؤلاء.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 39,
+    "start_word": 657,
+    "end_word": 671,
+    "text_snippet": "فبعضهم يرى أنه منسوخ بالنهي عن المثلة. وهؤلاء مح",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 672,
+    "end_word": 679,
+    "text_snippet": "وبعضهم قال: هذا الحكم قبل أن تنزل الحدود.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 680,
+    "end_word": 687,
+    "text_snippet": "وقال ابن سيرين: وفيه نظر، فإن قصتهم متأخرة.\n",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 688,
+    "end_word": 706,
+    "text_snippet": "وبعضهم قال: لم يسمل أعينهم، وإنما هم بها، وفيه ن",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 43,
+    "start_word": 707,
+    "end_word": 714,
+    "text_snippet": "وأجابوا بغيرِ ذلك، وكلها أجوبة، لا تستقيم لأصحاب",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 715,
+    "end_word": 722,
+    "text_snippet": "والذي أرى: أن هذه العقوبة من باب التعزير.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 723,
+    "end_word": 757,
+    "text_snippet": "والتعزير: هو التأديب، ومرجعه إلى اجتهاد الإمام و",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 758,
+    "end_word": 826,
+    "text_snippet": "وهؤلاء الأعراب عملوا أعمالا شنيعة، دلت على فساد ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 47,
+    "start_word": 827,
+    "end_word": 909,
+    "text_snippet": "أما حديث النهى عن المثلة، والأمر بإحسان القتلة و",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 48,
+    "start_word": 910,
+    "end_word": 934,
+    "text_snippet": "2- في الحديث مشروعية التداوي وفعل الأسباب، وأن م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 935,
+    "end_word": 945,
+    "text_snippet": "3- طهارة أبوال الإبل، ووجهته أن التداوي بالنجس و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 946,
+    "end_word": 979,
+    "text_snippet": "ولو فرض أن النبي صلى الله عليه وسلم أذن لهم في ض",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 51,
+    "start_word": 980,
+    "end_word": 981,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 52,
+    "start_word": 982,
+    "end_word": 1134,
+    "text_snippet": "عن عُبَيْد الله بن عُتْبَةَ بن مَسْعُود عَنْ أبي ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1135,
+    "end_word": 1136,
+    "text_snippet": "العَسِيفُ: الأجِيرُ.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1137,
+    "end_word": 1137,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1138,
+    "end_word": 1149,
+    "text_snippet": "أنشدك الله: بفتح الهمزة وسكون النون، وضم الشين و",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1150,
+    "end_word": 1162,
+    "text_snippet": "عسيفا: بفتح العين وكسر السين المهملة، وهو الأجر.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1163,
+    "end_word": 1175,
+    "text_snippet": "أنيس: بضم الهمزة وفتح النون، آخره سين مهملة، مصغ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1176,
+    "end_word": 1179,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1180,
+    "end_word": 1201,
+    "text_snippet": "1- جفاء الأعراب، لبعدهم عن العلم والأحكام والآدا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1202,
+    "end_word": 1216,
+    "text_snippet": "2- حسن خلق النبي صلى الله عليه وسلم، حيث لم يعنف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1217,
+    "end_word": 1225,
+    "text_snippet": "3- أن حدَّ الزاني المحصن، الرجم بالحجارة حتى يمو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1226,
+    "end_word": 1235,
+    "text_snippet": "والمحصن: هو من جامع في نكاح صحيح، وهو حر مكلف.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1236,
+    "end_word": 1246,
+    "text_snippet": "4- أن حد الزاني الذي لم يحصن، مائة جلدة، وتغريب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1247,
+    "end_word": 1261,
+    "text_snippet": "5- أنه لا يجوز أخذ العِوَض لتعطيل الحدود، وإن أخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1262,
+    "end_word": 1301,
+    "text_snippet": "6- أن من أقدم على محرم، جهلا أو نسيانا، لا يؤدب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1302,
+    "end_word": 1334,
+    "text_snippet": "7- وفى الحديث، قاعدة فرعية عامهَ وهى: \" أن من فع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1335,
+    "end_word": 1358,
+    "text_snippet": "8- قال الحافظ ابن حجر: والحق أن الإذن بالتصرف مق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1359,
+    "end_word": 1366,
+    "text_snippet": "9- أنه يجوز التوكيل في إثبات الحدود واستيفائها.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1367,
+    "end_word": 1379,
+    "text_snippet": "10- أن الحدود مرجعها الإمام الأعظم أو نائبه، ولا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1380,
+    "end_word": 1400,
+    "text_snippet": "11- استدل بالحديث أنه يكفى لثبوت الحد وإقامته، ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1401,
+    "end_word": 1420,
+    "text_snippet": "12- قال (ابن القيم) في حكمة جلد الزاني: (وأما ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1421,
+    "end_word": 1473,
+    "text_snippet": "13- والحكمة في رجم المحصن وجلد غير المحصن، أن ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1474,
+    "end_word": 1494,
+    "text_snippet": "14- القسم لتأييد صحة المسائل المهمة.\nوقد أمر الل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1495,
+    "end_word": 1521,
+    "text_snippet": "15- فيه دليل على صحة استفتاء أهل العلم في زمن ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1522,
+    "end_word": 1535,
+    "text_snippet": "16- في الحدث، حُسْنُ الأدب مع أهل الفضل والعلم و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1536,
+    "end_word": 1537,
+    "text_snippet": "الحديث الثالث\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1538,
+    "end_word": 1593,
+    "text_snippet": "عَنْ عبيد الله بن عَبْد الله بنِ عتبة بْنِ مسْعُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1594,
+    "end_word": 1595,
+    "text_snippet": "المعنى الإجمالي\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1596,
+    "end_word": 1689,
+    "text_snippet": "سئل النبي صلى الله عليه وسلم عن حد الأمة إذا زنت",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1690,
+    "end_word": 1693,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1694,
+    "end_word": 1727,
+    "text_snippet": "1- حد الأمة إذا زنت ولم تحصن، الجلد، وهو نصف ما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1728,
+    "end_word": 1750,
+    "text_snippet": "2- أنه إذا تكرر منها الزنى وحدتْ ولم يردعها الجل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1751,
+    "end_word": 1765,
+    "text_snippet": "3- أن الزنا عيب في الرقيق، فإذا لم يعلم به المشتر",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1766,
+    "end_word": 1807,
+    "text_snippet": "4- أن للسيد إقامة الحد في الجلد خاصة على رقيقه.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1808,
+    "end_word": 1809,
+    "text_snippet": "الحديث الرابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1810,
+    "end_word": 1890,
+    "text_snippet": "عَنْ أبي هُرَيرةَ رضي الله عنه: أنَّهُ قَالَ: أتَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1891,
+    "end_word": 1892,
+    "text_snippet": "الحديث الخامس\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1893,
+    "end_word": 1924,
+    "text_snippet": "قال ابن شهاب: فأخبرني أبو سلمة بن عبد الرحمن: أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1925,
+    "end_word": 1947,
+    "text_snippet": "الرَّجل هو، ماعز بن مالك. وروى قصته، جابر ابن سم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1948,
+    "end_word": 1949,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1950,
+    "end_word": 2122,
+    "text_snippet": "أتى ماعز بن مالك الأسلمي رضي الله عنه إلى النبي ",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2123,
+    "end_word": 2126,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 93,
+    "start_word": 2127,
+    "end_word": 2149,
+    "text_snippet": "1- أن الزنا يثبت بالإقرار كما يثبت بالشهادة، ويأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 94,
+    "start_word": 2150,
+    "end_word": 2163,
+    "text_snippet": "2- أن المجنون لا يعتبر إقراره، ولا يثبت عليه الح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 95,
+    "start_word": 2164,
+    "end_word": 2242,
+    "text_snippet": "3- أنه يجب على القاضي والمفتي، فالتثبت في الأحكا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 96,
+    "start_word": 2243,
+    "end_word": 2256,
+    "text_snippet": "4- أن حد المحصن الزاني رجمه بالحجارة حتى يموت، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 97,
+    "start_word": 2257,
+    "end_word": 2276,
+    "text_snippet": "5- أنه لا يشرط في إقامة الحد، حضور الإمام أو نائ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 98,
+    "start_word": 2277,
+    "end_word": 2283,
+    "text_snippet": "6- جواز إقامة الحدود في مصلى الجنائز.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 99,
+    "start_word": 2284,
+    "end_word": 2292,
+    "text_snippet": "وكانوا في الأول، يجعلون للصلاة على الجنائز مصلّ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 100,
+    "start_word": 2293,
+    "end_word": 2303,
+    "text_snippet": "7- أن الحد كفارة للمعصية التي أقيم الحد لها، وهم",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 101,
+    "start_word": 2304,
+    "end_word": 2321,
+    "text_snippet": "وقد جاء صريحا في قوله عليه الصلاة والسلام: \"من ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 102,
+    "start_word": 2322,
+    "end_word": 2332,
+    "text_snippet": "8- وأن إثم المعاصي يسقط بالتوبة النصوح، وهو إجما",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 103,
+    "start_word": 2333,
+    "end_word": 2352,
+    "text_snippet": "9- إعراض الإمام والحاكم عن المقر على نفسه بالزنا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 104,
+    "start_word": 2353,
+    "end_word": 2377,
+    "text_snippet": "10- هذه المنقبة العظيمة لماعز، رضي الله عنه، إذ ج",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 105,
+    "start_word": 2378,
+    "end_word": 2379,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 106,
+    "start_word": 2380,
+    "end_word": 2389,
+    "text_snippet": "اختلف العلماء: هل يشترط تكرار الإقرار بالزنا أرب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 107,
+    "start_word": 2390,
+    "end_word": 2441,
+    "text_snippet": "ذهب الإمام أحمد، وجمهور العلماء، ومنهم الحكم، وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 108,
+    "start_word": 2442,
+    "end_word": 2450,
+    "text_snippet": "ولا يشترط أن تكون الإقرارات في مجالس، خلافا للح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 109,
+    "start_word": 2451,
+    "end_word": 2478,
+    "text_snippet": "وذهب مالك، والشافعي، وأبو ثور، وابن المنذر: إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 110,
+    "start_word": 2479,
+    "end_word": 2488,
+    "text_snippet": "ورجم صلى الله عليه وسلم الجهنية، وإنما اعترفت مر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 111,
+    "start_word": 2489,
+    "end_word": 2505,
+    "text_snippet": "وأجابوا عن حديث ماعز، بأن الروايات في عدد الإقرا",
+    "scholarly_function": "refutation",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 112,
+    "start_word": 2506,
+    "end_word": 2527,
+    "text_snippet": "وأما القياس فلا يستقيم، لأن الإقرار في المال لاب",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 113,
+    "start_word": 2528,
+    "end_word": 2529,
+    "text_snippet": "الحديث السادس\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 114,
+    "start_word": 2530,
+    "end_word": 2633,
+    "text_snippet": "عن عبد الله بن عمر رضي الله عنهما: أنه قال: إن ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 115,
+    "start_word": 2634,
+    "end_word": 2648,
+    "text_snippet": "قال رضي الله عنه: الذي وضع يده على آية الرجم هو ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 116,
+    "start_word": 2649,
+    "end_word": 2649,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 117,
+    "start_word": 2650,
+    "end_word": 2677,
+    "text_snippet": "عبد الله بن سلام: بتخفيف اللام، ابن الحارث الإس",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 118,
+    "start_word": 2678,
+    "end_word": 2694,
+    "text_snippet": "يجنأ على المرأة: بفتح الياء التحتية وسكون الجيم،",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 119,
+    "start_word": 2695,
+    "end_word": 2704,
+    "text_snippet": "قال ابن فارس: [هو العطف على الشيء والحنو عليه] ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 120,
+    "start_word": 2705,
+    "end_word": 2716,
+    "text_snippet": "صوريا: بضم الصاد، بعدها واو مخففة، ثم راء مكسورة",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 121,
+    "start_word": 2717,
+    "end_word": 2718,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 122,
+    "start_word": 2719,
+    "end_word": 2915,
+    "text_snippet": "زنا يهودي بيهودية في زمن النبي صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 123,
+    "start_word": 2916,
+    "end_word": 2919,
+    "text_snippet": "ما يستفاد من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 124,
+    "start_word": 2920,
+    "end_word": 2931,
+    "text_snippet": "1- وجوب حد الذمي إذا زنى، وإقامة الحدود عليهم في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 125,
+    "start_word": 2932,
+    "end_word": 2960,
+    "text_snippet": "2- أن الإحصان ليس من شرطه الإسلام. وهو مذهب الشا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 126,
+    "start_word": 2961,
+    "end_word": 3008,
+    "text_snippet": "3- أن شريعتنا حاكمة على غيرها من الشرائع، وناسخة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 127,
+    "start_word": 3009,
+    "end_word": 3018,
+    "text_snippet": "4- أن حدَّ المحصن، إذا زنا، الرجم بالحجارة حتى ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 128,
+    "start_word": 3019,
+    "end_word": 3033,
+    "text_snippet": "5- أن اليهود أهل تغيير وتبديل لكتاب الله الذي أن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 129,
+    "start_word": 3034,
+    "end_word": 3041,
+    "text_snippet": "6- أن الكفار مخاطبون بالأحكام الفرعية، ومعاقبون ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 130,
+    "start_word": 3042,
+    "end_word": 3043,
+    "text_snippet": "الحديث السابع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 131,
+    "start_word": 3044,
+    "end_word": 3075,
+    "text_snippet": "عن أبي هريرة رضي الله عنه: أن رسول الله صلى الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 132,
+    "start_word": 3076,
+    "end_word": 3076,
+    "text_snippet": "الغريب:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 133,
+    "start_word": 3077,
+    "end_word": 3090,
+    "text_snippet": "حذفته: بالحاء والخاء وخطأ القرطبي رواية الحاء وج",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 134,
+    "start_word": 3091,
+    "end_word": 3093,
+    "text_snippet": "فقأت عينه: أفسدتها.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 135,
+    "start_word": 3094,
+    "end_word": 3095,
+    "text_snippet": "جناح: إثم.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 136,
+    "start_word": 3096,
+    "end_word": 3097,
+    "text_snippet": "المعنى الإجمالي:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 137,
+    "start_word": 3098,
+    "end_word": 3123,
+    "text_snippet": "للإنسان حرمة عظيمة ومقام كبير، وقد حظر الله تعال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 138,
+    "start_word": 3124,
+    "end_word": 3159,
+    "text_snippet": "فإذا اطلع على أحد بغير إذنه من وراء بابه أو من ف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 139,
+    "start_word": 3160,
+    "end_word": 3170,
+    "text_snippet": "فهذا من باب القصاص، لا من باب المدافعة، فتكون با",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 140,
+    "start_word": 3171,
+    "end_word": 3174,
+    "text_snippet": "ما يؤخذ من الحديث:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 141,
+    "start_word": 3175,
+    "end_word": 3187,
+    "text_snippet": "1- تحريم الاطلاع على أحوال الناس في منازلهم، وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 142,
+    "start_word": 3188,
+    "end_word": 3200,
+    "text_snippet": "2- سقوط حرمة من فعل ذلك، وإهدار العضو الذي يطلع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 143,
+    "start_word": 3201,
+    "end_word": 3212,
+    "text_snippet": "3- أن لصاحب البيت أن يفقأ عينه وليس عليه إثم ولا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 144,
+    "start_word": 3213,
+    "end_word": 3269,
+    "text_snippet": "4- ظاهر الحديث أن صاحب الدار لا يحتاج إلى إنذار",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  }
+]

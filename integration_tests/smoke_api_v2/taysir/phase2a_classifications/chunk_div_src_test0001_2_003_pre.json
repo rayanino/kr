@@ -1,0 +1,234 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتَابُ الصلاة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 2,
+    "text_snippet": "مقدمة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 3,
+    "end_word": 36,
+    "text_snippet": "الصلاة -في اللغة- الدعاء. قال القاضي عياض: هو ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 37,
+    "end_word": 47,
+    "text_snippet": "وفي الشرع: \" أقوال وأفعال مفتتحة بالتكبير ومخ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 48,
+    "end_word": 57,
+    "text_snippet": "والصلوات الخمس أحد أركان الإسلام الخمسة، بل أع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 58,
+    "end_word": 65,
+    "text_snippet": "وثبوتها بالكتاب والسنة والإجماع، فمن جحدها فقد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 6,
+    "start_word": 66,
+    "end_word": 80,
+    "text_snippet": "وفي مشروعيتها من الفوائد ما يفوت الحصر من الوج",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 7,
+    "start_word": 81,
+    "end_word": 88,
+    "text_snippet": "ولو ذهب الكاتب يَعُدُّها عدًا، لطال عليه الكلا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 89,
+    "end_word": 99,
+    "text_snippet": "والله سبحانه وتعالى أحكم الحاكمين، حين فرضها، ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 9,
+    "start_word": 100,
+    "end_word": 108,
+    "text_snippet": "ولها فروض، وشروط، ومكملات، كما أن لها مبطلات و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 10,
+    "start_word": 109,
+    "end_word": 123,
+    "text_snippet": "تقدم أحد شروطها، وهو الطهارة، وتأتي بقية أحكام",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 124,
+    "end_word": 125,
+    "text_snippet": "‌‌بَابُ المَواقِيت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 126,
+    "end_word": 142,
+    "text_snippet": "المواقيت: جمع \" ميقات \" والمراد هنا- المواقيت ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 143,
+    "end_word": 151,
+    "text_snippet": "ودخول وقت المفروضة، هو الشرط الثاني، من شروط ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 152,
+    "end_word": 153,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 154,
+    "end_word": 226,
+    "text_snippet": "عَن أبِى عَمْرو الشَّيْباني -واسمه \" سعد بن إيا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 227,
+    "end_word": 228,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 229,
+    "end_word": 240,
+    "text_snippet": "\"الصلاة على وقتها\": يريد بها الصلاة المفروضة،",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 241,
+    "end_word": 252,
+    "text_snippet": "\"أيّ\": استفهامية معربة. وقيل: إنها غير منونة م",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 253,
+    "end_word": 254,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 255,
+    "end_word": 282,
+    "text_snippet": "سأل ابن مسعود رضي الله عنه النبي صلى الله عليه",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 21,
+    "start_word": 283,
+    "end_word": 313,
+    "text_snippet": "فقال صلى الله عليه وسلم مبيناً-: إن أحبها إلى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 22,
+    "start_word": 314,
+    "end_word": 336,
+    "text_snippet": "ومن رغبته رضي الله عنه في الخير، لم يقف عند هذ",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 23,
+    "start_word": 337,
+    "end_word": 345,
+    "text_snippet": "فإن الأول محْض حق الله، وهذا محض حق الوالدين.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 24,
+    "start_word": 346,
+    "end_word": 384,
+    "text_snippet": "وحق الوالدين يأتي بعد حق الله، بل إنه سبحانه م",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 25,
+    "start_word": 385,
+    "end_word": 389,
+    "text_snippet": "فالبر بهما، وفاء لبعض حقهما.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 26,
+    "start_word": 390,
+    "end_word": 427,
+    "text_snippet": "ثم إنه رضي الله عنه استزاد من لا يبخل، عن الدر",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 27,
+    "start_word": 428,
+    "end_word": 441,
+    "text_snippet": "وبتركه -والعياذ بالله- هدم الإسلام، وانحطاط أه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 28,
+    "start_word": 442,
+    "end_word": 460,
+    "text_snippet": "وهو الفرض الأكيد على كل مسلم، فإن من لم يغْزُ،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.68
+  }
+]

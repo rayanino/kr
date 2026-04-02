@@ -1,0 +1,226 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌باَبُ الشفعَة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 29,
+    "text_snippet": "\nالشفعة: بضم الشين وسكون الفاء.\nوالشفع: لغة، ال",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 30,
+    "end_word": 51,
+    "text_snippet": "\nوالشفعة: تطلق على التملك وعلى الحصة المملوكة ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 52,
+    "end_word": 63,
+    "text_snippet": "\nوهى ثابتة بالسنة، بحديث الباب، وبإجماع العلماء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 4,
+    "start_word": 64,
+    "end_word": 125,
+    "text_snippet": "\n- وبطبيعة الشراكة والخلطة يحصل أضرار عظيمة ومش",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 126,
+    "end_word": 158,
+    "text_snippet": "\nوبهذا تعلم أنها جاءت على الأصل وفق القياس والح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 6,
+    "start_word": 159,
+    "end_word": 175,
+    "text_snippet": "\nولم يستحق الشفيع ⌜1⌝ نزع الشقص (2) من يد المشتر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 176,
+    "end_word": 189,
+    "text_snippet": "\nفحينئذ تكون ثابتة بالسنة، والإجماع، والقياس، خ",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 190,
+    "end_word": 191,
+    "text_snippet": "\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 192,
+    "end_word": 224,
+    "text_snippet": "\nعَنْ جَابِرِ بن عَبْدِ الله رضي الله عنهما قَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 225,
+    "end_word": 225,
+    "text_snippet": "\nالغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 226,
+    "end_word": 245,
+    "text_snippet": "\nوقعت الحدود: عينت. و\" الحدود \" جمع \" حد \" وهو ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 246,
+    "end_word": 257,
+    "text_snippet": "\nصرفت الطرق: بضم الصاد وكسر الراء المثقلة، يتخف",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 258,
+    "end_word": 259,
+    "text_snippet": "\nالمعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 260,
+    "end_word": 284,
+    "text_snippet": "\nهذه الشريعة الحكيمة جاءت لإحقاق الحق والعدل ود",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 285,
+    "end_word": 303,
+    "text_snippet": "\nولهذا فإنه لما كانت الشركة في العقارات يكثر ضر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 304,
+    "end_word": 329,
+    "text_snippet": "\nبمعنى أنه إذا باع ⌜2⌝ أحد الشريكين (2) نصيبه من",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 330,
+    "end_word": 344,
+    "text_snippet": "\nهذا الحق، ثابت للشريك ما لم يكن العقار المشترك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 345,
+    "end_word": 370,
+    "text_snippet": "\nأما بعد معرفة الحدود وتميزها بين النصيبين، وبع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 371,
+    "end_word": 374,
+    "text_snippet": "\nما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 375,
+    "end_word": 385,
+    "text_snippet": "\n1- هذا الحديث أصل في ثبوت الشفعة وهو مستند الإج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 21,
+    "start_word": 386,
+    "end_word": 404,
+    "text_snippet": "\n2- صدر الحديث يشعر بثبوت الشفعة في المنقولات و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 22,
+    "start_word": 405,
+    "end_word": 423,
+    "text_snippet": "\n3- تكون الشفعة في العقار المشترك، الذي لم تميز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 424,
+    "end_word": 436,
+    "text_snippet": "\n4- إذا ميزت حدوده، وصرفت طرقه، فلا شفعة لزوال ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 437,
+    "end_word": 446,
+    "text_snippet": "\n5- بهذا يعلم أنها لا تثبت للجار، لقيام الحدود ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 25,
+    "start_word": 447,
+    "end_word": 460,
+    "text_snippet": "\nويأتي الكلام على الشفعة فيما فيه منفعة مشتركة ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 26,
+    "start_word": 461,
+    "end_word": 505,
+    "text_snippet": "\n6- استدل بعضهم بالحديث: على أن الشفعة لا تكون ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 27,
+    "start_word": 506,
+    "end_word": 518,
+    "text_snippet": "\n7- تثبت الشفعة إزالةً لضرر الشريك، ولذا اختصت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]
