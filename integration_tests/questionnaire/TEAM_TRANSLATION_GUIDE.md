@@ -16,6 +16,32 @@ Never translate an owner answer directly into implementation. See
 `OWNER_FEEDBACK_GUARDRAIL.md`. Every row below is a possible translation target
 only after critical evaluation, contradiction checks, and feasibility review.
 
+## Layer Triage
+
+Before translating any answer, classify the problem it is actually reacting to.
+
+Use these layers:
+
+- **Boundary**: the excerpt cut-point or grouping is genuinely wrong
+- **Display**: the excerpt may be structurally fine, but the presentation is making it harder to use
+- **Workflow**: the excerpt may be structurally fine, but the study mode / navigation / reading sequence is wrong for the owner's need
+
+Rule:
+
+- do **not** jump to boundary edits just because the owner says something feels too long, dense, or awkward
+- try the cheapest sufficient layer first
+- boundary changes require the strongest justification because they are the least reversible and most likely to affect downstream engines
+
+Counter-rule:
+
+- do **not** hide a genuinely bad excerpt boundary behind display or workflow fixes
+- if the content itself mixes unrelated topics, severs a condition from its ruling, or otherwise becomes structurally unsafe, it remains a boundary problem
+
+Workflow context note:
+
+- consult `F-2` first for broad study habits
+- consult `SUP-WF-1` when available for workflow-specific interpretation
+
 ## Translation Table
 
 | Interaction | Dimension | Owner Answer Maps To | SPEC Section | Prompt Parameter | Current Default | DR Decision |

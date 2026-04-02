@@ -49,6 +49,25 @@ That means every translated rule should have:
 - verification method
 - reversibility / rollback path
 
+Excerpt-boundary changes are the most expensive and least reversible kind of
+translation.
+
+So when an owner complaint sounds like "too long", "too dense", "too hard to
+review", or "too confusing to navigate", the team must first ask whether the
+real fix belongs to:
+
+- display / presentation
+- workflow / study mode
+- or the excerpt boundary itself
+
+A boundary change is warranted only when the excerpt data itself is genuinely
+wrong for the need, not when correct data is merely being shown badly.
+
+The counter-rule is equally important:
+
+display and workflow changes do **not** excuse leaving genuinely incoherent,
+misclassified, or unsafe excerpt boundaries in place.
+
 ## Scholarly Invariants Outrank Preference
 
 If a literal owner preference conflicts with scholarly integrity, attribution

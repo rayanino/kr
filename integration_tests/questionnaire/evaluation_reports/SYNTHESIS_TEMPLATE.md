@@ -110,7 +110,9 @@ For each translated item:
 
 - Interaction ID:
 - Final interpreted rule:
+- Resolution layer: boundary / display / workflow
 - SPEC / prompt / UI target:
+- If boundary: why display/workflow was insufficient:
 - What was intentionally NOT translated:
 - Residual risk:
 

@@ -22,6 +22,7 @@ Reviewer stance:
 - scholarly invariants outrank user preference
 - owner confidence is metadata, not evidence
 - no single evaluator gets to translate owner signal into implementation without independent challenge
+- distinguish boundary problems from display problems and workflow problems before proposing any fix
 
 If the owner also answers `SUPPLEMENTAL_OWNER_QUESTIONS.md`, evaluate those
 responses in the same pass. Treat the supplement as additional calibration
