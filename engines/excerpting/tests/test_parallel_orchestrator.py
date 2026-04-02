@@ -1111,6 +1111,143 @@ class TestProcessChunk:
         assert result.error == "phase2a_failed"
         assert result.final_excerpts is None
 
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_phase2a_normalize_failure_marks_ex_c_003(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+
+        cr_result = MagicMock()
+        cr_result.segments = [_make_mock_segment()]
+        mock_classify.return_value = cr_result
+        mock_normalize.side_effect = ValueError("normalize failed")
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata=None,
+        )
+
+        assert result.completed is False
+        assert result.error == "phase2a_failed"
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase2a",
+            "EX-C-003",
+        )
+
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_phase2a_verify_failure_marks_ex_c_004(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+
+        canonical = [_make_mock_segment()]
+        cr_result = MagicMock()
+        cr_result.segments = [_make_mock_segment()]
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = canonical
+        mock_verify_seg.side_effect = ValueError("coverage failed")
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata=None,
+        )
+
+        assert result.completed is False
+        assert result.error == "phase2a_failed"
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase2a",
+            "EX-C-004",
+        )
+
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_phase2b_verify_failure_marks_ex_c_005(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+
+        cr_result = MagicMock()
+        cr_result.segments = [_make_mock_segment()]
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = [_make_mock_segment()]
+
+        er_result = MagicMock()
+        er_result.teaching_units = [_make_mock_unit()]
+        mock_group.return_value = er_result
+        mock_verify_units.side_effect = ValueError("unit coverage failed")
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata=None,
+        )
+
+        assert result.completed is False
+        assert result.error == "phase2b_failed"
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase2b",
+            "EX-C-005",
+        )
+
 
 # ═══════════════════════════════════════════════════════════════════
 # run_parallel_pipeline tests

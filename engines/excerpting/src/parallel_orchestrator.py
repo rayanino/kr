@@ -369,6 +369,8 @@ def _process_chunk(
         if ctx.segments is None:
             current_timeout = config.CLASSIFY_TIMEOUT
             error_feedback: Optional[str] = None
+            last_error_code: Optional[str] = None
+            phase = "classify"
             for attempt in range(max_attempts):
                 try:
                     if breaker is not None:
@@ -395,15 +397,18 @@ def _process_chunk(
                                 chunk_id, "phase2a"
                             )
 
+                    phase = "normalize"
                     canonical = normalize_offsets(
                         cr.segments, chunk.assembled_text, chunk.total_tokens
                     )
+                    phase = "verify"
                     verify_segments(canonical, chunk.total_tokens)
                     ctx.segments = canonical
                     if progress is not None:
                         progress.mark_done(chunk_id, "phase2a")
                     break
                 except ValidationError:
+                    last_error_code = "EX-C-001"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = None
@@ -414,6 +419,10 @@ def _process_chunk(
                         max_attempts,
                     )
                 except ValueError as exc:
+                    if phase == "normalize":
+                        last_error_code = "EX-C-003"
+                    else:
+                        last_error_code = "EX-C-004"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = f"\n\nPrevious output error: {exc}"
@@ -425,6 +434,7 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    last_error_code = "EX-C-001"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = None
@@ -444,7 +454,7 @@ def _process_chunk(
             if ctx.segments is None:
                 ctx.error = "phase2a_failed"
                 if progress is not None:
-                    progress.mark_failed(chunk_id, "phase2a", "EX-C-001")
+                    progress.mark_failed(chunk_id, "phase2a", last_error_code or "unknown")
                 return ctx
 
         # Phase 2b: Group
@@ -462,6 +472,7 @@ def _process_chunk(
         if ctx.units is None:
             current_timeout = config.GROUP_TIMEOUT
             error_feedback = None
+            last_error_code: Optional[str] = None
             for attempt in range(max_attempts):
                 try:
                     if breaker is not None:
@@ -497,6 +508,7 @@ def _process_chunk(
                         progress.mark_done(chunk_id, "phase2b")
                     break
                 except ValidationError:
+                    last_error_code = "EX-C-002"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = None
@@ -507,6 +519,7 @@ def _process_chunk(
                         max_attempts,
                     )
                 except ValueError as exc:
+                    last_error_code = "EX-C-005"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = f"\n\nPrevious output error: {exc}"
@@ -518,6 +531,7 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    last_error_code = "EX-C-002"
                     if breaker is not None:
                         breaker.record_failure()
                     error_feedback = None
@@ -537,7 +551,7 @@ def _process_chunk(
             if ctx.units is None:
                 ctx.error = "phase2b_failed"
                 if progress is not None:
-                    progress.mark_failed(chunk_id, "phase2b", "EX-C-002")
+                    progress.mark_failed(chunk_id, "phase2b", last_error_code or "unknown")
                 return ctx
 
         # Phase 3 Deterministic
