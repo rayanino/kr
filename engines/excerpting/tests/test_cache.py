@@ -366,6 +366,44 @@ class TestValidateBeforeCaching:
         raw = enr.model_dump_json()
         assert validate_before_caching("enrich", raw, EnrichmentResult) is False
 
+    def test_enrich_mismatched_total_units_rejected(self) -> None:
+        """Partial enrichment batches must not be admitted to cache."""
+        enr = _make_enrichment_result(1).model_copy(update={"total_units": 2})
+        raw = enr.model_dump_json()
+        assert validate_before_caching("enrich", raw, EnrichmentResult) is False
+
+    def test_enrich_sparse_unit_index_coverage_rejected(self) -> None:
+        """Enrichment batches must cover a contiguous 0..total_units-1 range."""
+        enr = EnrichmentResult(
+            enrichments=[
+                UnitEnrichment(
+                    unit_index=0,
+                    excerpt_topic=["اختبار"],
+                    school=None,
+                    school_confidence=None,
+                    resolved_scholars=[],
+                    takhrij_data=[],
+                    terminology_variants=[],
+                    cross_references=[],
+                    context_hint=None,
+                ),
+                UnitEnrichment(
+                    unit_index=2,
+                    excerpt_topic=["اختبار"],
+                    school=None,
+                    school_confidence=None,
+                    resolved_scholars=[],
+                    takhrij_data=[],
+                    terminology_variants=[],
+                    cross_references=[],
+                    context_hint=None,
+                ),
+            ],
+            total_units=2,
+        )
+        raw = enr.model_dump_json()
+        assert validate_before_caching("enrich", raw, EnrichmentResult) is False
+
     def test_refusal_invalid_json_rejected(self) -> None:
         """Invalid JSON (LLM refusal text) rejected."""
         refusal = "I cannot process this content."

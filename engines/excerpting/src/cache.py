@@ -72,7 +72,16 @@ def validate_before_caching(
             return units is not None and len(units) > 0
         if phase == "enrich":
             enrichments = getattr(obj, "enrichments", None)
-            return enrichments is not None and len(enrichments) > 0
+            total_units = getattr(obj, "total_units", None)
+            if enrichments is None or total_units is None or len(enrichments) == 0:
+                return False
+            if len(enrichments) != total_units:
+                return False
+            raw_unit_indices = [getattr(ue, "unit_index", None) for ue in enrichments]
+            if any(index is None for index in raw_unit_indices):
+                return False
+            unit_indices = sorted(int(index) for index in raw_unit_indices if index is not None)
+            return unit_indices == list(range(total_units))
         if phase == "verify":
             items = getattr(obj, "items", None)
             return items is not None and len(items) > 0
