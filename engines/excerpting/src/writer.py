@@ -13,7 +13,7 @@ from __future__ import annotations
 import json
 import logging
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 from engines.excerpting.contracts import (
@@ -26,6 +26,55 @@ logger = logging.getLogger(__name__)
 
 class ResumeMergeError(RuntimeError):
     """Raised when an existing JSONL file is corrupt during resume merge."""
+
+
+def _validate_gate_entry(
+    entry: object,
+    *,
+    source_desc: str,
+) -> dict[str, object]:
+    """Validate the gate_queue.jsonl schema required by SPEC §7.3.4."""
+    if not isinstance(entry, Mapping):
+        raise ResumeMergeError(f"{source_desc}: entry must be a JSON object.")
+
+    try:
+        excerpt_id = str(entry["excerpt_id"])
+        gate_code = str(entry["gate_code"])
+        timestamp = str(entry["timestamp"])
+        context = entry["context"]
+        status = entry["status"]
+    except KeyError as exc:
+        raise ResumeMergeError(
+            f"{source_desc}: missing required field {exc.args[0]!r}."
+        ) from exc
+
+    if not excerpt_id or not gate_code:
+        raise ResumeMergeError(
+            f"{source_desc}: excerpt_id and gate_code must be non-empty."
+        )
+    if not timestamp:
+        raise ResumeMergeError(f"{source_desc}: timestamp must be non-empty.")
+    if not isinstance(context, Mapping) or not context:
+        raise ResumeMergeError(
+            f"{source_desc}: context must be a non-empty object."
+        )
+    if status != "pending":
+        raise ResumeMergeError(
+            f"{source_desc}: status must be 'pending'."
+        )
+
+    normalized = dict(entry)
+    normalized["excerpt_id"] = excerpt_id
+    normalized["gate_code"] = gate_code
+    normalized["timestamp"] = timestamp
+    normalized["context"] = dict(context)
+    normalized["status"] = "pending"
+    return normalized
+
+
+def _gate_entry_key(entry: Mapping[str, object]) -> str:
+    """Deduplicate gate entries by excerpt_id + gate_code."""
+    return f"{entry['excerpt_id']}:{entry['gate_code']}"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -141,14 +190,12 @@ def write_gate_queue(
                 if not stripped:
                     continue
                 try:
-                    obj = json.loads(stripped)
-                    excerpt_id = obj["excerpt_id"]
-                    gate_code = obj["gate_code"]
-                    if not excerpt_id or not gate_code:
-                        raise KeyError("excerpt_id/gate_code must be non-empty")
-                    key = f"{excerpt_id}:{gate_code}"
-                    merged[key] = stripped
-                except (json.JSONDecodeError, KeyError) as exc:
+                    obj = _validate_gate_entry(
+                        json.loads(stripped),
+                        source_desc=f"Corrupt existing gate_queue.jsonl at line {line_num}",
+                    )
+                    merged[_gate_entry_key(obj)] = json.dumps(obj, ensure_ascii=False)
+                except (json.JSONDecodeError, ResumeMergeError) as exc:
                     raise ResumeMergeError(
                         f"Corrupt existing gate_queue.jsonl at line {line_num}: {exc}"
                     ) from exc
@@ -161,15 +208,11 @@ def write_gate_queue(
 
     # New entries overwrite existing with same key
     for entry in gate_entries:
-        try:
-            excerpt_id = str(entry["excerpt_id"])
-            gate_code = str(entry["gate_code"])
-        except KeyError as exc:
-            raise ResumeMergeError("Gate entry missing required excerpt_id/gate_code.") from exc
-        if not excerpt_id or not gate_code:
-            raise ResumeMergeError("Gate entry missing required excerpt_id/gate_code.")
-        key = f"{excerpt_id}:{gate_code}"
-        merged[key] = json.dumps(entry, ensure_ascii=False)
+        normalized = _validate_gate_entry(
+            entry,
+            source_desc="Gate entry",
+        )
+        merged[_gate_entry_key(normalized)] = json.dumps(normalized, ensure_ascii=False)
 
     # Atomic write
     temp_path = output_path.with_suffix(".jsonl.tmp")
@@ -242,13 +285,16 @@ def verify_gate_queue(
                 if not raw_line:
                     continue
                 try:
-                    written_entries.append(json.loads(raw_line))
-                except json.JSONDecodeError as e:
-                    logger.error(
-                        "Corrupt gate queue entry at line %d: %s",
-                        line_num,
-                        e,
+                    written_entries.append(
+                        _validate_gate_entry(
+                            json.loads(raw_line),
+                            source_desc=f"Corrupt gate_queue.jsonl at line {line_num}",
+                        )
                     )
+                except (json.JSONDecodeError, ResumeMergeError) as exc:
+                    raise ResumeMergeError(
+                        f"Corrupt gate_queue.jsonl at line {line_num}: {exc}"
+                    ) from exc
 
         written_keys: set[tuple[str, str]] = set()
         for entry in written_entries:
@@ -265,16 +311,27 @@ def verify_gate_queue(
                 result.append((eid, code))
         return result
 
-    missing = _find_missing(gate_path)
-
-    if missing:
-        # SPEC §8.1 EX-M-008 recovery: "Retry write. If retry fails, halt."
-        logger.warning(
-            "V-P3-7: %d missing entries — retrying write + verify.",
-            len(missing),
-        )
-        write_gate_queue(gate_entries, gate_path.parent)
+    try:
         missing = _find_missing(gate_path)
+
+        if missing:
+            # SPEC §8.1 EX-M-008 recovery: "Retry write. If retry fails, halt."
+            logger.warning(
+                "V-P3-7: %d missing entries — retrying write + verify.",
+                len(missing),
+            )
+            write_gate_queue(gate_entries, gate_path.parent)
+            missing = _find_missing(gate_path)
+    except ResumeMergeError as exc:
+        logger.critical(
+            "%s: Gate queue verification encountered corruption: %s",
+            ExcerptingErrorCodes.EX_M_008,
+            exc,
+        )
+        raise GateQueueVerificationError(
+            f"{ExcerptingErrorCodes.EX_M_008}: {exc}. "
+            "Invisible uncertainty — halting processing."
+        ) from exc
 
     if missing:
         errors.append(ExcerptingErrorCodes.EX_M_008)

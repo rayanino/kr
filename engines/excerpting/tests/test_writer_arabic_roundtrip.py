@@ -15,8 +15,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from engines.excerpting.contracts import (
     EvidenceRef,
     SelfContainmentLevel,
@@ -44,6 +42,19 @@ def _roundtrip_primary_text(text: str, tmp_path: Path) -> str:
 def _bytes_match(original: str, roundtripped: str) -> bool:
     """Compare UTF-8 byte representation — catches normalization changes."""
     return original.encode("utf-8") == roundtripped.encode("utf-8")
+
+
+def _make_gate_entry(**overrides: object) -> dict[str, object]:
+    """Factory for SPEC-complete gate_queue.jsonl rows."""
+    entry: dict[str, object] = {
+        "excerpt_id": "exc_gq_0_0_0",
+        "gate_code": "EX-G-001",
+        "timestamp": "2026-03-24T00:00:00+00:00",
+        "context": {"primary_text_snippet": "نص عربي"},
+        "status": "pending",
+    }
+    entry.update(overrides)
+    return entry
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -209,7 +220,6 @@ class TestTatweelRoundtrip:
 
     def test_tatweel_inside_word_preserved(self, tmp_path: Path) -> None:
         """Tatweel inside a word survives roundtrip byte-for-byte."""
-        tatweel = self.TATWEEL
         text = f"الله\u0640\u0640\u0640\u0640ُ أكبر"
         rt = _roundtrip_primary_text(text, tmp_path)
         assert _bytes_match(text, rt), (
@@ -270,7 +280,6 @@ class TestSuperscriptAlefRoundtrip:
     def test_superscript_alef_distinct_from_alef(self, tmp_path: Path) -> None:
         """Superscript alef (U+0670) is NOT normalized to regular alef (U+0627)."""
         sa = self.SUPERSCRIPT_ALEF
-        regular_alef = "\u0627"
         text = f"مَ{sa}ء"  # superscript alef on meem
         rt = _roundtrip_primary_text(text, tmp_path)
         # Must not normalize U+0670 → U+0627
@@ -463,11 +472,7 @@ class TestGateQueueArabicRoundtrip:
         """Gate queue Arabic context with tashkeel survives byte-for-byte."""
         arabic_text = "الرَّحْمَنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ"
         entries = [
-            {
-                "excerpt_id": "exc_gq_0_0_0",
-                "gate_code": "EX-G-001",
-                "context": {"primary_text_snippet": arabic_text},
-            }
+            _make_gate_entry(context={"primary_text_snippet": arabic_text})
         ]
         path = write_gate_queue(entries, tmp_path)
         with open(path, "r", encoding="utf-8") as f:
@@ -484,11 +489,10 @@ class TestGateQueueArabicRoundtrip:
         zwnj = "\u200c"
         arabic_text = f"نص{zwnj}عربي فيه حرف خاص"
         entries = [
-            {
-                "excerpt_id": "exc_gq_0_0_0",
-                "gate_code": "EX-G-002",
-                "context": {"text": arabic_text},
-            }
+            _make_gate_entry(
+                gate_code="EX-G-002",
+                context={"text": arabic_text},
+            )
         ]
         path = write_gate_queue(entries, tmp_path)
         with open(path, "r", encoding="utf-8") as f:
@@ -503,14 +507,13 @@ class TestGateQueueArabicRoundtrip:
         """Gate queue Arabic context with presentation forms survives byte-for-byte."""
         saws = "\ufdfa"  # ﷺ
         entries = [
-            {
-                "excerpt_id": "exc_gq_0_0_0",
-                "gate_code": "EX-G-003",
-                "context": {
+            _make_gate_entry(
+                gate_code="EX-G-003",
+                context={
                     "scholar": f"قال النبي {saws} في هذا الحديث",
                     "school": "حَنْبَلِيٌّ",
                 },
-            }
+            )
         ]
         path = write_gate_queue(entries, tmp_path)
         with open(path, "r", encoding="utf-8") as f:
@@ -526,11 +529,7 @@ class TestGateQueueArabicRoundtrip:
         sa = "\u0670"
         arabic_text = f"الرَّحْمَ{sa}نِ الرَّحِيمِ"
         entries = [
-            {
-                "excerpt_id": "exc_gq_0_0_0",
-                "gate_code": "EX-G-001",
-                "context": {"quran_snippet": arabic_text},
-            }
+            _make_gate_entry(context={"quran_snippet": arabic_text})
         ]
         path = write_gate_queue(entries, tmp_path)
         with open(path, "r", encoding="utf-8") as f:
@@ -545,11 +544,7 @@ class TestGateQueueArabicRoundtrip:
         tatweel = "\u0640"
         arabic_text = f"كتـاب النـور المبـين"
         entries = [
-            {
-                "excerpt_id": "exc_gq_0_0_0",
-                "gate_code": "EX-G-001",
-                "context": {"title": arabic_text},
-            }
+            _make_gate_entry(context={"title": arabic_text})
         ]
         path = write_gate_queue(entries, tmp_path)
         with open(path, "r", encoding="utf-8") as f:

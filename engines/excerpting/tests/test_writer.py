@@ -25,6 +25,19 @@ from engines.excerpting.src.writer import (
 from .conftest import _make_excerpt_record
 
 
+def _make_gate_entry(**overrides: object) -> dict[str, object]:
+    """Factory for SPEC-complete gate_queue.jsonl rows."""
+    entry: dict[str, object] = {
+        "excerpt_id": "exc_gate_0_0_0",
+        "gate_code": "EX-G-001",
+        "timestamp": "2026-03-24T00:00:00+00:00",
+        "context": {"primary_text_snippet": "نص عربي"},
+        "status": "pending",
+    }
+    entry.update(overrides)
+    return entry
+
+
 # ═══════════════════════════════════════════════════════════════════
 # write_excerpts
 # ═══════════════════════════════════════════════════════════════════
@@ -145,14 +158,7 @@ class TestWriteGateQueue:
 
     def test_gate_queue_format(self, tmp_path: Path) -> None:
         """Gate entries written as valid JSONL."""
-        entries = [
-            {
-                "excerpt_id": "exc_gate_0_0_0",
-                "gate_code": "EX-G-001",
-                "status": "pending",
-                "context": {"text": "نص عربي"},
-            }
-        ]
+        entries = [_make_gate_entry(context={"text": "نص عربي"})]
         path = write_gate_queue(entries, tmp_path)
         assert path.exists()
         data = json.loads(path.read_text(encoding="utf-8").strip())
@@ -161,11 +167,10 @@ class TestWriteGateQueue:
     def test_gate_queue_arabic_preserved(self, tmp_path: Path) -> None:
         """Arabic in gate entries preserved without escaping."""
         entries = [
-            {
-                "excerpt_id": "exc_gate_0_0_0",
-                "gate_code": "EX-G-002",
-                "context": {"text": "هذا نص يحتاج مراجعة بشرية"},
-            }
+            _make_gate_entry(
+                gate_code="EX-G-002",
+                context={"text": "هذا نص يحتاج مراجعة بشرية"},
+            )
         ]
         path = write_gate_queue(entries, tmp_path)
         content = path.read_text(encoding="utf-8")
@@ -180,11 +185,15 @@ class TestWriteGateQueue:
     def test_corrupt_existing_gate_queue_raises(self, tmp_path: Path) -> None:
         """Resume merge fails loudly on corrupt existing gate_queue.jsonl."""
         path = tmp_path / "gate_queue.jsonl"
-        path.write_text('{"excerpt_id": "ok", "gate_code": "EX-G-001"}\nNOT JSON\n', encoding="utf-8")
+        path.write_text(
+            json.dumps(_make_gate_entry(excerpt_id="ok"), ensure_ascii=False)
+            + "\nNOT JSON\n",
+            encoding="utf-8",
+        )
 
         with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
             write_gate_queue(
-                [{"excerpt_id": "exc_gate_0_0_0", "gate_code": "EX-G-002"}],
+                [_make_gate_entry(gate_code="EX-G-002")],
                 tmp_path,
             )
 
@@ -195,15 +204,23 @@ class TestWriteGateQueue:
 
         with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
             write_gate_queue(
-                [{"excerpt_id": "exc_gate_0_0_0", "gate_code": "EX-G-002"}],
+                [_make_gate_entry(gate_code="EX-G-002")],
                 tmp_path,
             )
 
     def test_new_gate_entry_missing_required_keys_raises(self, tmp_path: Path) -> None:
         """New malformed gate entries are rejected before writing."""
-        with pytest.raises(ResumeMergeError, match="Gate entry missing required excerpt_id/gate_code"):
+        with pytest.raises(ResumeMergeError, match="missing required field 'timestamp'"):
             write_gate_queue(
-                [{"excerpt_id": "exc_gate_0_0_0"}],
+                [{"excerpt_id": "exc_gate_0_0_0", "gate_code": "EX-G-001"}],
+                tmp_path,
+            )
+
+    def test_new_gate_entry_invalid_status_raises(self, tmp_path: Path) -> None:
+        """Gate entries must retain the SPEC-defined pending status."""
+        with pytest.raises(ResumeMergeError, match="status must be 'pending'"):
+            write_gate_queue(
+                [_make_gate_entry(status="resolved")],
                 tmp_path,
             )
 
@@ -219,8 +236,8 @@ class TestVerifyGateQueue:
     def test_verification_passes(self, tmp_path: Path) -> None:
         """Write + verify → no errors."""
         entries: list[dict[str, object]] = [
-            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
-            {"excerpt_id": "exc_v_0_0_1", "gate_code": "EX-G-002"},
+            _make_gate_entry(excerpt_id="exc_v_0_0_0", gate_code="EX-G-001"),
+            _make_gate_entry(excerpt_id="exc_v_0_0_1", gate_code="EX-G-002"),
         ]
         path = write_gate_queue(entries, tmp_path)
         errors = verify_gate_queue(entries, path)
@@ -229,11 +246,11 @@ class TestVerifyGateQueue:
     def test_retry_succeeds_after_initial_failure(self, tmp_path: Path) -> None:
         """Missing entry on first pass → retry re-writes → success (Fix 7)."""
         entries_written: list[dict[str, object]] = [
-            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
+            _make_gate_entry(excerpt_id="exc_v_0_0_0", gate_code="EX-G-001"),
         ]
         entries_expected: list[dict[str, object]] = [
-            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
-            {"excerpt_id": "exc_v_0_0_1", "gate_code": "EX-G-002"},
+            _make_gate_entry(excerpt_id="exc_v_0_0_0", gate_code="EX-G-001"),
+            _make_gate_entry(excerpt_id="exc_v_0_0_1", gate_code="EX-G-002"),
         ]
         path = write_gate_queue(entries_written, tmp_path)
         # Retry re-writes with entries_expected → second pass finds all entries
@@ -243,11 +260,11 @@ class TestVerifyGateQueue:
     def test_retry_fails_then_halts(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Missing entry after retry → GateQueueVerificationError (Fix 7)."""
         entries_written: list[dict[str, object]] = [
-            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
+            _make_gate_entry(excerpt_id="exc_v_0_0_0", gate_code="EX-G-001"),
         ]
         entries_expected: list[dict[str, object]] = [
-            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
-            {"excerpt_id": "exc_v_0_0_1", "gate_code": "EX-G-002"},
+            _make_gate_entry(excerpt_id="exc_v_0_0_0", gate_code="EX-G-001"),
+            _make_gate_entry(excerpt_id="exc_v_0_0_1", gate_code="EX-G-002"),
         ]
         path = write_gate_queue(entries_written, tmp_path)
         # Make retry write a no-op so the file stays wrong
@@ -261,7 +278,9 @@ class TestVerifyGateQueue:
 
     def test_file_missing_raises_halt(self, tmp_path: Path) -> None:
         """Gate file doesn't exist → GateQueueVerificationError."""
-        entries: list[dict[str, object]] = [{"excerpt_id": "exc_x", "gate_code": "EX-G-001"}]
+        entries: list[dict[str, object]] = [
+            _make_gate_entry(excerpt_id="exc_x", gate_code="EX-G-001")
+        ]
         missing_path = tmp_path / "nonexistent.jsonl"
         with pytest.raises(GateQueueVerificationError) as exc_info:
             verify_gate_queue(entries, missing_path)
@@ -277,14 +296,20 @@ class TestVerifyGateQueue:
         path = tmp_path / "gate_queue.jsonl"
         # Write one valid + one corrupt line
         with open(path, "w", encoding="utf-8") as f:
-            f.write('{"excerpt_id": "exc_a", "gate_code": "EX-G-001"}\n')
+            f.write(
+                json.dumps(
+                    _make_gate_entry(excerpt_id="exc_a", gate_code="EX-G-001"),
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
             f.write("THIS IS NOT JSON\n")
 
         entries: list[dict[str, object]] = [
-            {"excerpt_id": "exc_a", "gate_code": "EX-G-001"},
-            {"excerpt_id": "exc_b", "gate_code": "EX-G-002"},
+            _make_gate_entry(excerpt_id="exc_a", gate_code="EX-G-001"),
+            _make_gate_entry(excerpt_id="exc_b", gate_code="EX-G-002"),
         ]
-        with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
+        with pytest.raises(GateQueueVerificationError, match="EX-M-008"):
             verify_gate_queue(entries, path)
 
     def test_round_trip_gate_queue(self, tmp_path: Path) -> None:

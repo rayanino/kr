@@ -32,7 +32,6 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase3_orchestrator import Phase3Result, run_phase3
 from engines.excerpting.src.pipeline import ExcerptingResult, run_excerpting
-from engines.excerpting.src.writer import GateQueueVerificationError
 
 from .conftest import (
     _make_assembled_chunk,
@@ -259,7 +258,10 @@ class TestPhase3Orchestrator:
         config = ExcerptingConfig()
         mock_client = MagicMock()
 
-        fake_gate = {"excerpt_id": "exc_test_0_0_0", "gate_code": "EX-G-001"}
+        fake_gate: dict[str, object] = {
+            "excerpt_id": "exc_test_0_0_0",
+            "gate_code": "EX-G-001",
+        }
 
         def mock_enrichment(**kwargs: Any) -> list[ExcerptRecord]:
             return kwargs["excerpts"]
@@ -480,6 +482,8 @@ class TestFullPipeline:
         fake_gate = {
             "excerpt_id": "exc_gate_test",
             "gate_code": "EX-G-001",
+            "timestamp": "2026-03-24T00:00:00+00:00",
+            "context": {"primary_text_snippet": "بسم الله الرحمن الرحيم"},
             "status": "pending",
         }
 
@@ -492,7 +496,7 @@ class TestFullPipeline:
         ) as mock_p3:
             from engines.excerpting.src.phase1_assembly import run_phase1
 
-            chunks, _ = run_phase1(package, config)
+            run_phase1(package, config)
 
             mock_2a.return_value = {}
             mock_2b.return_value = {}
