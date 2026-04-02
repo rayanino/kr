@@ -13,6 +13,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from engines.excerpting.contracts import (
+    EnrichmentResult,
+    VerificationItem,
+    VerificationResult,
+)
 from engines.excerpting.src.parallel_orchestrator import (
     ChunkPipelineContext,
     CircuitBreaker,
@@ -92,6 +97,17 @@ def _make_mock_excerpt() -> MagicMock:
     exc.review_flags = []
     exc.model_copy = MagicMock(return_value=exc)
     return exc
+
+
+def _mock_consensus_item() -> dict[str, str]:
+    """Minimal consensus item matching the real prompt builder shape."""
+    return {
+        "verification_type": "SCHOOL_ATTRIBUTION",
+        "decision_text": 'School attributed as "حنبلي". Is this correct given the text content?',
+        "unit_text": "بسم الله الرحمن الرحيم الحمد لله رب العالمين",
+        "scholarly_function": "definition",
+        "school_confidence": "0.9",
+    }
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -306,7 +322,7 @@ class TestProcessChunk:
         er_result.teaching_units = units
         mock_group.return_value = er_result
         mock_verify_units.return_value = units
-        mock_needs_consensus.return_value = [{"verification_type": "school"}]
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
         mock_verify_chunk.side_effect = RuntimeError("verify boom")
 
         mock_build_det.return_value = [excerpt]
@@ -386,7 +402,7 @@ class TestProcessChunk:
         er_result.teaching_units = units
         mock_group.return_value = er_result
         mock_verify_units.return_value = units
-        mock_needs_consensus.return_value = [{"verification_type": "school"}]
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
         mock_verify_chunk.side_effect = RuntimeError("verify boom")
 
         mock_build_det.return_value = [excerpt]
@@ -464,13 +480,13 @@ class TestProcessChunk:
         er_result.teaching_units = units
         mock_group.return_value = er_result
         mock_verify_units.return_value = units
-        mock_needs_consensus.return_value = [{"verification_type": "school"}]
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
 
         vi = MagicMock()
         vi.item_index = 0
         mock_verify_chunk.return_value = (
             MagicMock(items=[vi]),
-            [(excerpt, [{"verification_type": "SCHOOL_ATTRIBUTION"}])],
+            [(excerpt, [_mock_consensus_item()])],
         )
         mock_resolve_consensus.return_value = (excerpt, None, ["EX-G-001"])
         mock_check_gates.return_value = ["EX-G-003"]
@@ -505,6 +521,290 @@ class TestProcessChunk:
             assert "timestamp" in entry
             assert "context" in entry
             assert "primary_text_snippet" in entry["context"]
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_reconstructs_enrichment_from_cache_on_resume(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_enrich"
+        cache = MagicMock()
+        cache.load.return_value = EnrichmentResult(enrichments=[], total_units=0)
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(excerpt_id="exc_resume_enrich", div_id=chunk.div_id)
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = []
+        mock_build_det.return_value = [excerpt]
+        mock_apply_enrich.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        cache.load.assert_called_once()
+        mock_enrich.assert_not_called()
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus.resolve_consensus")
+    @patch("engines.excerpting.src.phase3_consensus.verify_chunk")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_reconstructs_consensus_from_cache_on_resume(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_verify_chunk: MagicMock,
+        mock_resolve_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_consensus"
+        cache = MagicMock()
+        cache.load.side_effect = [
+            None,
+            VerificationResult(
+                items=[
+                    VerificationItem(
+                        item_index=0,
+                        agrees=True,
+                        alternative_value=None,
+                        confidence=0.9,
+                        reasoning="ok",
+                    )
+                ]
+            ),
+        ]
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_resume_consensus",
+            div_id=chunk.div_id,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
+        mock_build_det.return_value = [excerpt]
+        mock_enrich.return_value = MagicMock()
+        mock_apply_enrich.return_value = [excerpt]
+        mock_resolve_consensus.return_value = (excerpt, None, [])
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=MagicMock(),
+            escalation_client=MagicMock(),
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        mock_verify_chunk.assert_not_called()
+        assert cache.load.call_count == 2
+
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_fails_closed_on_enrichment_resume_cache_miss(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_build_det: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_enrich"
+        cache = MagicMock()
+        cache.load.return_value = None
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(excerpt_id="exc_resume_miss", div_id=chunk.div_id)
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_build_det.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is False
+        assert result.error == "phase3_enrich_resume_cache_miss"
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_fails_closed_on_consensus_resume_cache_miss(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_consensus"
+        cache = MagicMock()
+        cache.load.side_effect = [None, None]
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_consensus_resume_miss",
+            div_id=chunk.div_id,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
+        mock_build_det.return_value = [excerpt]
+        mock_enrich.return_value = MagicMock()
+        mock_apply_enrich.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=MagicMock(),
+            escalation_client=MagicMock(),
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is False
+        assert result.error == "phase3_consensus_resume_cache_miss"
 
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
     def test_process_chunk_classify_failure(

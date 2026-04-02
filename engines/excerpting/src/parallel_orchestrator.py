@@ -324,9 +324,18 @@ def _process_chunk(
         build_deterministic_excerpts,
     )
     from engines.excerpting.src.phase3_enrichment import (
+        ENRICH_SYSTEM_PROMPT,
+        _build_enrichment_user_message,
+        _compute_enrich_max_tokens,
         apply_enrichment,
         enrich_chunk,
     )
+    from engines.excerpting.src.phase3_consensus import (
+        VERIFY_SYSTEM_PROMPT,
+        _build_verification_user_message,
+    )
+    from engines.excerpting.src.cache import compute_cache_key
+    from engines.excerpting.contracts import EnrichmentResult, VerificationResult
 
     chunk = ctx.chunk
     chunk_id = ctx.chunk_id
@@ -528,13 +537,50 @@ def _process_chunk(
 
         # Phase 3 Enrichment
         if enrich_client is not None:
-            if progress is not None and progress.is_done(
-                chunk_id, "phase3_enrich"
-            ):
-                logger.info(
-                    "[%s] Phase 3 enrich: skipping (already done)", chunk_id
+            is_enrich_resume = (
+                progress is not None and progress.is_done(chunk_id, "phase3_enrich")
+            )
+            enrich_cache_key = ""
+            cached_enrichment: Optional[EnrichmentResult] = None
+            if cache is not None:
+                enrich_user_message = _build_enrichment_user_message(
+                    chunk,
+                    ctx.excerpts,
+                    source_metadata or {},
                 )
-                ctx.enriched_excerpts = ctx.excerpts
+                enrich_cache_key = compute_cache_key(
+                    "enrich",
+                    ENRICH_SYSTEM_PROMPT,
+                    enrich_user_message,
+                    config.ENRICH_MODEL,
+                    config.LLM_TEMPERATURE,
+                    _compute_enrich_max_tokens(chunk.word_count),
+                )
+                cached_enrichment = cache.load(
+                    "enrich",
+                    enrich_cache_key,
+                    EnrichmentResult,
+                )
+
+            if cached_enrichment is not None:
+                logger.info(
+                    "[%s] Phase 3 enrich: cache hit%s",
+                    chunk_id,
+                    " (resume)" if is_enrich_resume else "",
+                )
+                ctx.enriched_excerpts = apply_enrichment(
+                    ctx.excerpts,
+                    cached_enrichment,
+                )
+                if progress is not None:
+                    progress.mark_done(chunk_id, "phase3_enrich")
+            elif is_enrich_resume:
+                logger.error(
+                    "[%s] Phase 3 enrich: done but cache miss — refusing silent downgrade",
+                    chunk_id,
+                )
+                ctx.error = "phase3_enrich_resume_cache_miss"
+                return ctx
             else:
                 current_timeout = config.ENRICH_TIMEOUT
                 for attempt in range(max_attempts):
@@ -566,6 +612,14 @@ def _process_chunk(
                         ctx.enriched_excerpts = apply_enrichment(
                             ctx.excerpts, enrichment
                         )
+                        if cache is not None and enrich_cache_key:
+                            cache.save(
+                                "enrich",
+                                enrich_cache_key,
+                                chunk_id,
+                                config.ENRICH_MODEL,
+                                enrichment,
+                            )
                         if progress is not None:
                             progress.mark_done(chunk_id, "phase3_enrich")
                         break
@@ -610,25 +664,66 @@ def _process_chunk(
 
         # Phase 3 Consensus
         if verify_client is not None and enrich_client is not None:
-            if progress is not None and progress.is_done(
-                chunk_id, "phase3_consensus"
-            ):
-                logger.info(
-                    "[%s] Phase 3 consensus: skipping (already done)",
-                    chunk_id,
-                )
+            is_consensus_resume = (
+                progress is not None and progress.is_done(chunk_id, "phase3_consensus")
+            )
+            any_needs = any(
+                _needs_consensus(e) for e in ctx.enriched_excerpts
+            )
+            if not any_needs:
                 ctx.final_excerpts = ctx.enriched_excerpts
+                if progress is not None:
+                    progress.mark_done(chunk_id, "phase3_consensus")
             else:
-                any_needs = any(
-                    _needs_consensus(e) for e in ctx.enriched_excerpts
-                )
-                if not any_needs:
-                    ctx.final_excerpts = ctx.enriched_excerpts
-                    if progress is not None:
-                        progress.mark_done(chunk_id, "phase3_consensus")
+                excerpts_with_items_for_cache: list[tuple[Any, list[dict[str, str]]]] = []
+                for exc in ctx.enriched_excerpts:
+                    items = _needs_consensus(exc)
+                    if items:
+                        excerpts_with_items_for_cache.append((exc, items))
+
+                verify_cache_key = ""
+                cached_vr: Optional[VerificationResult] = None
+                if cache is not None and excerpts_with_items_for_cache:
+                    verify_user_message = _build_verification_user_message(
+                        excerpts_with_items_for_cache,
+                        source_metadata or {},
+                    )
+                    verify_cache_key = compute_cache_key(
+                        "verify",
+                        VERIFY_SYSTEM_PROMPT,
+                        verify_user_message,
+                        config.VERIFY_MODEL,
+                        config.LLM_TEMPERATURE,
+                        config.VERIFY_MAX_TOKENS,
+                    )
+                    cached_vr = cache.load(
+                        "verify",
+                        verify_cache_key,
+                        VerificationResult,
+                    )
+
+                verification_result = None
+                verification_done = False
+                if cached_vr is not None:
+                    logger.info(
+                        "[%s] Phase 3 consensus: cache hit%s",
+                        chunk_id,
+                        " (resume)" if is_consensus_resume else "",
+                    )
+                    verification_result = (
+                        cached_vr,
+                        excerpts_with_items_for_cache,
+                    )
+                    verification_done = True
+                elif is_consensus_resume:
+                    logger.error(
+                        "[%s] Phase 3 consensus: done but cache miss — refusing silent downgrade",
+                        chunk_id,
+                    )
+                    ctx.error = "phase3_consensus_resume_cache_miss"
+                    return ctx
                 else:
                     current_timeout = config.VERIFY_TIMEOUT
-                    verification_done = False
                     for attempt in range(max_attempts):
                         try:
                             if breaker is not None:
@@ -661,98 +756,22 @@ def _process_chunk(
                                 verification_done = True
                                 break
 
-                            vr_obj, excerpts_with_items = vr_result
-
-                            # Index verification items by item_index
-                            vi_by_index: dict[int, Any] = {
-                                vi.item_index: vi
-                                for vi in vr_obj.items
-                            }
-
-                            # Map each excerpt to its verification items
-                            excerpt_to_vi: dict[int, list[tuple[Any, str]]] = {}
-                            item_index = 0
-                            for ewi_exc, ewi_items in excerpts_with_items:
-                                vis_list: list[tuple[Any, str]] = []
-                                for item in ewi_items:
-                                    vi = vi_by_index.get(item_index)
-                                    if vi is not None:
-                                        vis_list.append(
-                                            (vi, item["verification_type"])
-                                        )
-                                    item_index += 1
-                                excerpt_to_vi[ewi_exc.unit_index] = vis_list
-
-                            resolved: list[Any] = []
-                            for exc in ctx.enriched_excerpts:
-                                vis_for_exc = excerpt_to_vi.get(
-                                    exc.unit_index, []
-                                )
-                                if not vis_for_exc:
-                                    resolved.append(exc)
-                                    continue
-
-                                vi_list_items = [v[0] for v in vis_for_exc]
-                                type_list = [v[1] for v in vis_for_exc]
-
-                                updated, _cr, gate_codes = resolve_consensus(
-                                    exc,
-                                    vi_list_items,
-                                    type_list,
-                                    escalation_client,
-                                    config,
-                                    source_metadata,
+                            if cache is not None and verify_cache_key:
+                                cache.save(
+                                    "verify",
+                                    verify_cache_key,
+                                    chunk_id,
+                                    config.VERIFY_MODEL,
+                                    vr_result[0],
                                 )
 
-                                if gate_codes:
-                                    gate_flags = (
-                                        list(updated.gate_flags)
-                                        + gate_codes
-                                    )
-                                    updated = updated.model_copy(
-                                        update={"gate_flags": gate_flags}
-                                    )
-                                    for gc in gate_codes:
-                                        ctx.gate_entries.append(
-                                            _build_gate_entry(
-                                                updated,
-                                                gc,
-                                                source_metadata or {},
-                                            )
-                                        )
-
-                                additional_gates = check_gate_triggers(
-                                    updated,
-                                    source_metadata or {},
-                                    config,
-                                )
-                                for gc in additional_gates:
-                                    if gc not in (updated.gate_flags or []):
-                                        updated = updated.model_copy(
-                                            update={
-                                                "gate_flags": list(
-                                                    updated.gate_flags
-                                                )
-                                                + [gc]
-                                            }
-                                        )
-                                    ctx.gate_entries.append(
-                                        _build_gate_entry(
-                                            updated,
-                                            gc,
-                                            source_metadata or {},
-                                        )
-                                    )
-
-                                resolved.append(updated)
-
-                            ctx.final_excerpts = resolved
-                            if progress is not None:
-                                progress.mark_done(
-                                    chunk_id, "phase3_consensus"
-                                )
+                            verification_result = (
+                                vr_result[0],
+                                vr_result[1],
+                            )
                             verification_done = True
                             break
+
                         except Exception as exc_err:
                             if breaker is not None:
                                 breaker.record_failure()
@@ -769,26 +788,117 @@ def _process_chunk(
                             )
                             time.sleep(2**attempt)
 
-                    if not verification_done:
-                        ctx.final_excerpts = [
-                            exc.model_copy(
-                                update={
-                                    "review_flags": [
-                                        *list(exc.review_flags or []),
-                                        *(
-                                            []
-                                            if "verification_skipped" in (exc.review_flags or [])
-                                            else ["verification_skipped"]
-                                        ),
-                                    ]
-                                }
+                if verification_result is not None:
+                    vr_obj, excerpts_with_items = verification_result
+
+                    # Index verification items by item_index
+                    vi_by_index: dict[int, Any] = {
+                        vi.item_index: vi
+                        for vi in vr_obj.items
+                    }
+
+                    # Map each excerpt to its verification items
+                    excerpt_to_vi: dict[int, list[tuple[Any, str]]] = {}
+                    item_index = 0
+                    for ewi_exc, ewi_items in excerpts_with_items:
+                        vis_list: list[tuple[Any, str]] = []
+                        for item in ewi_items:
+                            vi = vi_by_index.get(item_index)
+                            if vi is not None:
+                                vis_list.append(
+                                    (vi, item["verification_type"])
+                                )
+                            item_index += 1
+                        excerpt_to_vi[ewi_exc.unit_index] = vis_list
+
+                    resolved: list[Any] = []
+                    for exc in ctx.enriched_excerpts:
+                        vis_for_exc = excerpt_to_vi.get(
+                            exc.unit_index, []
+                        )
+                        if not vis_for_exc:
+                            resolved.append(exc)
+                            continue
+
+                        vi_list_items = [v[0] for v in vis_for_exc]
+                        type_list = [v[1] for v in vis_for_exc]
+
+                        updated, _cr, gate_codes = resolve_consensus(
+                            exc,
+                            vi_list_items,
+                            type_list,
+                            escalation_client,
+                            config,
+                            source_metadata,
+                        )
+
+                        if gate_codes:
+                            gate_flags = (
+                                list(updated.gate_flags)
+                                + gate_codes
                             )
-                            for exc in ctx.enriched_excerpts
-                        ]
-                        if progress is not None:
-                            progress.mark_failed(
-                                chunk_id, "phase3_consensus", "EX-M-011"
+                            updated = updated.model_copy(
+                                update={"gate_flags": gate_flags}
                             )
+                            for gc in gate_codes:
+                                ctx.gate_entries.append(
+                                    _build_gate_entry(
+                                        updated,
+                                            gc,
+                                        source_metadata or {},
+                                    )
+                                )
+
+                        additional_gates = check_gate_triggers(
+                            updated,
+                            source_metadata or {},
+                            config,
+                        )
+                        for gc in additional_gates:
+                            if gc not in (updated.gate_flags or []):
+                                updated = updated.model_copy(
+                                    update={
+                                        "gate_flags": list(
+                                            updated.gate_flags
+                                        )
+                                        + [gc]
+                                    }
+                                )
+                            ctx.gate_entries.append(
+                                _build_gate_entry(
+                                    updated,
+                                    gc,
+                                    source_metadata or {},
+                                )
+                            )
+
+                        resolved.append(updated)
+
+                    ctx.final_excerpts = resolved
+                    if progress is not None:
+                        progress.mark_done(
+                            chunk_id, "phase3_consensus"
+                        )
+                if not verification_done:
+                    ctx.final_excerpts = [
+                        exc.model_copy(
+                            update={
+                                "review_flags": [
+                                    *list(exc.review_flags or []),
+                                    *(
+                                        []
+                                        if "verification_skipped" in (exc.review_flags or [])
+                                        else ["verification_skipped"]
+                                    ),
+                                ]
+                            }
+                        )
+                        for exc in ctx.enriched_excerpts
+                    ]
+                    if progress is not None:
+                        progress.mark_failed(
+                            chunk_id, "phase3_consensus", "EX-M-011"
+                        )
         else:
             ctx.final_excerpts = ctx.enriched_excerpts
 
