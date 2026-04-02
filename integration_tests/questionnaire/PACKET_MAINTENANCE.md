@@ -56,6 +56,27 @@ This generates:
 - `evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
 - `evaluation_reports/OWNER_RESPONSE_SUMMARY.json`
 
+### 4. Audit response readiness before multi-coworker review
+
+```bash
+python scripts/audit_questionnaire_responses.py
+```
+
+This generates:
+
+- `evaluation_reports/QUESTIONNAIRE_AUDIT.md`
+- `evaluation_reports/QUESTIONNAIRE_AUDIT.json`
+
+### 5. Generate reviewer dispatch packets after responses exist
+
+```bash
+python scripts/generate_questionnaire_review_packets.py
+```
+
+This generates:
+
+- `evaluation_reports/dispatch_packets/`
+
 ## External Reports
 
 Browser research outputs are not local truth automatically.
