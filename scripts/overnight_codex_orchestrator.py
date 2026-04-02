@@ -290,6 +290,8 @@ def _snapshot_tree(root: Path) -> dict[str, tuple[int, int]]:
     for path in root.rglob("*"):
         if not path.is_file():
             continue
+        if "__pycache__" in path.parts or path.suffix in {".pyc", ".pyo"}:
+            continue
         stat = path.stat()
         snapshot[repo_rel(path)] = (stat.st_size, stat.st_mtime_ns)
     return snapshot
@@ -322,12 +324,14 @@ def _snapshot_readonly_guard() -> dict[str, Any]:
 
 
 def _readonly_guard_failures(before: dict[str, Any]) -> list[str]:
-    """Detect main-repo mutations performed by a readonly task."""
+    """Detect protected main-checkout drift observed during a readonly task."""
     failures: list[str] = []
     current_status = set(git_status_porcelain())
     added_status = sorted(current_status - set(before.get("git_status", set())))
     if added_status:
-        failures.append(f"Readonly task mutated tracked repo state: {added_status}")
+        failures.append(
+            f"Readonly task observed main-repo tracked-state drift: {added_status}"
+        )
     protected_roots = before.get("protected_roots", {})
     if isinstance(protected_roots, dict):
         for root_label, snapshot in protected_roots.items():
@@ -335,7 +339,10 @@ def _readonly_guard_failures(before: dict[str, Any]) -> list[str]:
             after_snapshot = _snapshot_tree(root_path)
             changed = _diff_tree_snapshot(snapshot, after_snapshot)
             if changed:
-                failures.append(f"Readonly task wrote protected root `{root_label}`: {changed}")
+                failures.append(
+                    f"Readonly task observed protected-root drift in main checkout "
+                    f"`{root_label}`: {changed}"
+                )
     return failures
 
 

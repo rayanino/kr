@@ -60,6 +60,59 @@ def test_update_creative_run_log_writes_generator_key(
     assert payload["runs"]["innovation/local_cost_efficiency:excerpting"]
 
 
+def test_snapshot_tree_ignores_python_cache_artifacts(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    monkeypatch.setattr(orchestrator, "PROJECT_DIR", tmp_path)
+    monkeypatch.setattr(common, "PROJECT_DIR", tmp_path)
+    root = tmp_path / "engines"
+    root.mkdir()
+    tracked = root / "tracked.py"
+    tracked.write_text("print('ok')\n", encoding="utf-8")
+    pycache = root / "__pycache__"
+    pycache.mkdir()
+    (pycache / "tracked.cpython-312.pyc").write_bytes(b"pyc")
+
+    snapshot = orchestrator._snapshot_tree(root)
+
+    assert "engines/tracked.py" in snapshot
+    assert all("__pycache__" not in path for path in snapshot)
+    assert all(not path.endswith(".pyc") for path in snapshot)
+
+
+def test_readonly_guard_reports_main_checkout_drift(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    monkeypatch.setattr(orchestrator, "PROJECT_DIR", tmp_path)
+    monkeypatch.setattr(common, "PROJECT_DIR", tmp_path)
+    root = tmp_path / "engines"
+    root.mkdir()
+    tracked = root / "tracked.py"
+    tracked.write_text("before\n", encoding="utf-8")
+    monkeypatch.setattr(orchestrator, "READONLY_GUARD_ROOTS", (root,))
+    monkeypatch.setattr(
+        orchestrator,
+        "git_status_porcelain",
+        lambda: [" M engines/tracked.py"],
+    )
+
+    before = {
+        "git_status": set(),
+        "protected_roots": {"engines": orchestrator._snapshot_tree(root)},
+    }
+    tracked.write_text("after\n", encoding="utf-8")
+    pycache = root / "__pycache__"
+    pycache.mkdir()
+    (pycache / "tracked.cpython-312.pyc").write_bytes(b"ignored")
+
+    failures = orchestrator._readonly_guard_failures(before)
+
+    assert failures == [
+        "Readonly task observed main-repo tracked-state drift: [' M engines/tracked.py']",
+        "Readonly task observed protected-root drift in main checkout `engines`: ['engines/tracked.py']",
+    ]
+
+
 def test_execute_task_readonly_uses_disposable_workspace(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:
