@@ -38,6 +38,13 @@ class FixtureFinding:
     message: str
 
 
+@dataclass(frozen=True)
+class WaiverRule:
+    """One rule that suppresses a known finding."""
+    path_contains: str
+    code: str
+
+
 def _add_finding(
     findings: list[FixtureFinding],
     *,
@@ -53,6 +60,37 @@ def _add_finding(
             code=code,
             message=message,
         )
+    )
+
+
+def load_waiver_rules(path: Path | None) -> list[WaiverRule]:
+    """Load optional waiver rules from JSON."""
+    if path is None or not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    rules = data.get("rules", [])
+    loaded: list[WaiverRule] = []
+    if isinstance(rules, list):
+        for item in rules:
+            if not isinstance(item, dict):
+                continue
+            path_contains = item.get("path_contains")
+            code = item.get("code")
+            if isinstance(path_contains, str) and isinstance(code, str):
+                loaded.append(WaiverRule(path_contains=path_contains, code=code))
+    return loaded
+
+
+def is_waived(finding: FixtureFinding, rules: list[WaiverRule]) -> bool:
+    """Return True if a finding matches an active waiver rule."""
+    return any(
+        rule.code == finding.code and rule.path_contains in finding.path
+        for rule in rules
     )
 
 
@@ -348,14 +386,25 @@ def validate_fixture(path: Path) -> list[FixtureFinding]:
     return findings
 
 
-def build_summary(findings: list[FixtureFinding], target_count: int, targets: list[Path]) -> dict:
+def build_summary(
+    findings: list[FixtureFinding],
+    target_count: int,
+    targets: list[Path],
+    waiver_rules: list[WaiverRule],
+) -> dict:
     """Build a machine-readable validation summary."""
     by_severity: dict[str, int] = {"error": 0, "warning": 0}
     by_code: dict[str, int] = {}
     files: dict[str, int] = {}
     by_provenance: dict[str, int] = {}
     by_category: dict[str, int] = {}
+    active_findings: list[FixtureFinding] = []
+    waived_findings: list[FixtureFinding] = []
     for finding in findings:
+        if is_waived(finding, waiver_rules):
+            waived_findings.append(finding)
+            continue
+        active_findings.append(finding)
         by_severity[finding.severity] = by_severity.get(finding.severity, 0) + 1
         by_code[finding.code] = by_code.get(finding.code, 0) + 1
         files[finding.path] = files.get(finding.path, 0) + 1
@@ -369,14 +418,16 @@ def build_summary(findings: list[FixtureFinding], target_count: int, targets: li
     score = max(0, 100 - by_severity.get("error", 0) * 25 - by_severity.get("warning", 0) * 5)
     return {
         "targets_checked": target_count,
-        "finding_count": len(findings),
+        "finding_count": len(active_findings),
+        "waived_finding_count": len(waived_findings),
         "by_severity": by_severity,
         "by_code": by_code,
         "by_provenance": by_provenance,
         "by_category": by_category,
         "affected_files": files,
         "quality_score": score,
-        "findings": [asdict(f) for f in findings],
+        "findings": [asdict(f) for f in active_findings],
+        "waived_findings": [asdict(f) for f in waived_findings],
     }
 
 
@@ -388,7 +439,9 @@ def main() -> int:
     parser.add_argument("fixture_path", nargs="?", help="Optional fixture file or directory to validate")
     parser.add_argument("--json-out", type=Path, default=None, help="Optional path to write a machine-readable JSON report")
     parser.add_argument("--fail-on-warning", action="store_true", help="Return non-zero when warnings are present")
+    parser.add_argument("--waiver-file", type=Path, default=None, help="Optional JSON file declaring known waived findings")
     args = parser.parse_args()
+    waiver_rules = load_waiver_rules(args.waiver_file)
 
     if args.fixture_path:
         targets = [Path(args.fixture_path)]
@@ -406,13 +459,14 @@ def main() -> int:
         if findings:
             print(f"\n{target.name}:")
             for finding in findings:
-                print(f"  - [{finding.severity.upper()}:{finding.code}] {finding.message}")
+                label = "WAIVED" if is_waived(finding, waiver_rules) else f"{finding.severity.upper()}:{finding.code}"
+                print(f"  - [{label}] {finding.message}")
     all_findings.extend(collect_corpus_drift_findings())
 
     if not all_findings:
         print(f"All {len(targets)} fixtures valid.")
     else:
-        summary = build_summary(all_findings, len(targets), targets)
+        summary = build_summary(all_findings, len(targets), targets, waiver_rules)
         print(
             f"\n{summary['finding_count']} finding(s) across {len(targets)} targets. "
             f"Score={summary['quality_score']}/100"
@@ -421,6 +475,8 @@ def main() -> int:
             f"Errors={summary['by_severity'].get('error', 0)} "
             f"Warnings={summary['by_severity'].get('warning', 0)}"
         )
+        if summary["waived_finding_count"]:
+            print(f"Waived={summary['waived_finding_count']}")
         print(f"Provenance={summary['by_provenance']}")
         if args.json_out is not None:
             args.json_out.write_text(
