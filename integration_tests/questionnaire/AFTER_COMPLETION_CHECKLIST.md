@@ -55,6 +55,16 @@ This writes:
 - `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.md`
 - `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.json`
 
+Then generate reviewer dispatch packets:
+
+```bash
+python scripts/generate_questionnaire_review_packets.py
+```
+
+This writes packet files under:
+
+- `integration_tests/questionnaire/evaluation_reports/dispatch_packets/`
+
 Important access rule:
 
 - ChatGPT DR = remote-only

@@ -63,6 +63,16 @@ Generate them with:
 python scripts/audit_questionnaire_responses.py
 ```
 
+Preferred generated dispatch artifacts:
+
+- `integration_tests/questionnaire/evaluation_reports/dispatch_packets/`
+
+Generate them with:
+
+```bash
+python scripts/generate_questionnaire_review_packets.py
+```
+
 If the owner answered outside the review UI, reviewers may instead receive:
 
 - pasted markdown answers
