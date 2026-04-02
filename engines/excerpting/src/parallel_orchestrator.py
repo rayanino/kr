@@ -25,6 +25,16 @@ from typing import Any, Callable, Optional
 
 logger = logging.getLogger(__name__)
 
+PROGRAMMING_BUG_EXCEPTIONS = (
+    TypeError,
+    AttributeError,
+    NameError,
+    KeyError,
+    IndexError,
+    ZeroDivisionError,
+    StopIteration,
+)
+
 
 class CircuitBreaker:
     """Prevents retry storms when CLI backends are down.
@@ -340,6 +350,7 @@ def _process_chunk(
     chunk = ctx.chunk
     chunk_id = ctx.chunk_id
     max_attempts = 1 + config.RETRY_COUNT
+    active_phase = "phase2"
 
     try:
         # Phase 2a: Classify
@@ -529,6 +540,7 @@ def _process_chunk(
                 return ctx
 
         # Phase 3 Deterministic
+        active_phase = "phase3_deterministic"
         ctx.excerpts = build_deterministic_excerpts(
             chunk=chunk,
             units=ctx.units,
@@ -537,6 +549,7 @@ def _process_chunk(
 
         # Phase 3 Enrichment
         if enrich_client is not None:
+            active_phase = "phase3_enrich"
             is_enrich_resume = (
                 progress is not None and progress.is_done(chunk_id, "phase3_enrich")
             )
@@ -642,6 +655,8 @@ def _process_chunk(
                             progress.mark_done(chunk_id, "phase3_enrich")
                         break
                     except Exception as exc:
+                        if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS):
+                            raise
                         if breaker is not None:
                             breaker.record_failure()
                         current_timeout = min(
@@ -759,6 +774,7 @@ def _process_chunk(
                         progress.mark_failed(chunk_id, "phase3_consensus", "EX-M-011")
                     verification_done = True
                 else:
+                    active_phase = "phase3_consensus"
                     current_timeout = config.VERIFY_TIMEOUT
                     for attempt in range(max_attempts):
                         try:
@@ -809,6 +825,8 @@ def _process_chunk(
                             break
 
                         except Exception as exc_err:
+                            if isinstance(exc_err, PROGRAMMING_BUG_EXCEPTIONS):
+                                raise
                             if breaker is not None:
                                 breaker.record_failure()
                             current_timeout = min(
@@ -967,6 +985,10 @@ def _process_chunk(
         ctx.completed = True
 
     except Exception as exc:
+        if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS) or (
+            active_phase == "phase3_deterministic" and isinstance(exc, ValueError)
+        ):
+            raise
         logger.error(
             "[%s] Unexpected error in pipeline: %s",
             chunk_id,
@@ -1093,6 +1115,8 @@ def run_parallel_pipeline(
                             result_ctx.error or "unknown",
                         )
                 except Exception as exc:
+                    if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS + (ValueError,)):
+                        raise
                     failed += 1
                     if status_writer is not None:
                         status_writer.record_chunk_failed()

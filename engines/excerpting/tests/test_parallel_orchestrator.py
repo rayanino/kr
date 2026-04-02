@@ -1206,6 +1206,57 @@ class TestRunParallelPipeline:
         # Only the successful chunk's excerpts are included
         assert len(excerpts) == 1
 
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_run_parallel_pipeline_reraises_phase3_programming_bug(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_build_det: MagicMock,
+        mock_enrich: MagicMock,
+        mock_sleep: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk("chunk_bug")
+        config = _make_mock_config(CONCURRENCY=1, RETRY_COUNT=0)
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_parallel_bug",
+            div_id=chunk.div_id,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_build_det.return_value = [excerpt]
+        mock_enrich.side_effect = TypeError("Bug in parallel enrich")
+
+        factory = MagicMock(return_value=MagicMock())
+        with pytest.raises(TypeError, match="Bug in parallel enrich"):
+            run_parallel_pipeline(
+                chunks=[chunk],
+                config=config,
+                enrich_client_factory=factory,
+                verify_client_factory=None,
+                escalation_client_factory=None,
+            )
+
     @patch("engines.excerpting.src.parallel_orchestrator._process_chunk")
     def test_keyboard_interrupt_cleanup(
         self, mock_process: MagicMock
