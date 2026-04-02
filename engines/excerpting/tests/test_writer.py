@@ -16,6 +16,7 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.writer import (
     GateQueueVerificationError,
+    ResumeMergeError,
     verify_gate_queue,
     write_excerpts,
     write_gate_queue,
@@ -125,6 +126,14 @@ class TestWriteExcerpts:
         # Should have \n but not \r\n
         assert b"\n" in raw
 
+    def test_corrupt_existing_excerpts_file_raises(self, tmp_path: Path) -> None:
+        """Resume merge fails loudly on corrupt existing excerpts.jsonl."""
+        path = tmp_path / "excerpts.jsonl"
+        path.write_text('{"excerpt_id": "ok"}\nNOT JSON\n', encoding="utf-8")
+
+        with pytest.raises(ResumeMergeError, match="Corrupt existing excerpts.jsonl"):
+            write_excerpts([_make_excerpt_record()], tmp_path)
+
 
 # ═══════════════════════════════════════════════════════════════════
 # write_gate_queue
@@ -167,6 +176,17 @@ class TestWriteGateQueue:
         path = write_gate_queue([], tmp_path)
         assert path == tmp_path / "gate_queue.jsonl"
         assert not path.exists()
+
+    def test_corrupt_existing_gate_queue_raises(self, tmp_path: Path) -> None:
+        """Resume merge fails loudly on corrupt existing gate_queue.jsonl."""
+        path = tmp_path / "gate_queue.jsonl"
+        path.write_text('{"excerpt_id": "ok", "gate_code": "EX-G-001"}\nNOT JSON\n', encoding="utf-8")
+
+        with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
+            write_gate_queue(
+                [{"excerpt_id": "exc_gate_0_0_0", "gate_code": "EX-G-002"}],
+                tmp_path,
+            )
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -233,8 +253,8 @@ class TestVerifyGateQueue:
         errors = verify_gate_queue([], tmp_path / "irrelevant.jsonl")
         assert errors == []
 
-    def test_corrupt_file_recovered_by_retry(self, tmp_path: Path) -> None:
-        """Corrupt JSON lines → retry re-writes clean data → success (Fix 7)."""
+    def test_corrupt_file_raises_instead_of_rewriting(self, tmp_path: Path) -> None:
+        """Corrupt existing gate queue now fails loudly instead of being rewritten."""
         path = tmp_path / "gate_queue.jsonl"
         # Write one valid + one corrupt line
         with open(path, "w", encoding="utf-8") as f:
@@ -245,9 +265,8 @@ class TestVerifyGateQueue:
             {"excerpt_id": "exc_a", "gate_code": "EX-G-001"},
             {"excerpt_id": "exc_b", "gate_code": "EX-G-002"},
         ]
-        # Retry re-writes with both entries cleanly → success
-        errors = verify_gate_queue(entries, path)
-        assert errors == []
+        with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
+            verify_gate_queue(entries, path)
 
     def test_round_trip_gate_queue(self, tmp_path: Path) -> None:
         """Full round-trip: write → verify → success."""

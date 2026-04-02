@@ -24,6 +24,10 @@ from engines.excerpting.contracts import (
 logger = logging.getLogger(__name__)
 
 
+class ResumeMergeError(RuntimeError):
+    """Raised when an existing JSONL file is corrupt during resume merge."""
+
+
 # ═══════════════════════════════════════════════════════════════════
 # Function 1: write_excerpts
 # ═══════════════════════════════════════════════════════════════════
@@ -52,15 +56,17 @@ def write_excerpts(
     merged: dict[str, str] = {}
     if output_path.exists():
         with open(output_path, encoding="utf-8") as f:
-            for line in f:
+            for line_num, line in enumerate(f, 1):
                 stripped = line.rstrip("\n")
                 if not stripped:
                     continue
                 try:
                     eid = json.loads(stripped)["excerpt_id"]
                     merged[eid] = stripped
-                except (json.JSONDecodeError, KeyError):
-                    pass
+                except (json.JSONDecodeError, KeyError) as exc:
+                    raise ResumeMergeError(
+                        f"Corrupt existing excerpts.jsonl at line {line_num}: {exc}"
+                    ) from exc
 
     existing_count = len(merged)
 
@@ -130,7 +136,7 @@ def write_gate_queue(
     merged: dict[str, str] = {}
     if output_path.exists():
         with open(output_path, encoding="utf-8") as f:
-            for line in f:
+            for line_num, line in enumerate(f, 1):
                 stripped = line.rstrip("\n")
                 if not stripped:
                     continue
@@ -138,8 +144,10 @@ def write_gate_queue(
                     obj = json.loads(stripped)
                     key = f"{obj.get('excerpt_id', '')}:{obj.get('gate_code', '')}"
                     merged[key] = stripped
-                except (json.JSONDecodeError, KeyError):
-                    pass
+                except (json.JSONDecodeError, KeyError) as exc:
+                    raise ResumeMergeError(
+                        f"Corrupt existing gate_queue.jsonl at line {line_num}: {exc}"
+                    ) from exc
 
     if not gate_entries and not merged:
         logger.info("No gate entries — skipping gate_queue.jsonl creation.")
