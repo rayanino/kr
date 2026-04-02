@@ -523,6 +523,88 @@ class TestProcessChunk:
             assert "context" in entry
             assert "primary_text_snippet" in entry["context"]
 
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_passes_timeout_override_on_enrich_retry(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+        mock_sleep: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=1, ENRICH_TIMEOUT=30)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.return_value = False
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_enrich_retry",
+            div_id=chunk.div_id,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = []
+        mock_build_det.return_value = [excerpt]
+
+        observed_timeouts: list[int] = []
+
+        def enrich_side_effect(*args: object, **kwargs: object) -> MagicMock:
+            timeout_override = kwargs["timeout_override"]
+            assert isinstance(timeout_override, int)
+            observed_timeouts.append(timeout_override)
+            if len(observed_timeouts) == 1:
+                raise Exception("timeout")
+            return MagicMock()
+
+        mock_enrich.side_effect = enrich_side_effect
+        mock_apply_enrich.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert observed_timeouts == [30, 45]
+        mock_sleep.assert_called_once_with(1)
+
     @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
     @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
     @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")

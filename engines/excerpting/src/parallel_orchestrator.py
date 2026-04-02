@@ -616,6 +616,7 @@ def _process_chunk(
                                 enrich_client,
                                 config,
                                 source_metadata,
+                                timeout_override=current_timeout,
                             )
                             if breaker is not None:
                                 breaker.record_success()

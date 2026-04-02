@@ -151,7 +151,7 @@ def write_excerpts(
 
     # Atomic write: temp file + rename
     temp_path = output_path.with_suffix(".jsonl.tmp")
-    with open(temp_path, "w", encoding="utf-8") as f:
+    with open(temp_path, "w", encoding="utf-8", newline="\n") as f:
         for line in sorted_lines:
             f.write(line + "\n")
     temp_path.replace(output_path)
@@ -224,7 +224,7 @@ def write_gate_queue(
 
     # Atomic write
     temp_path = output_path.with_suffix(".jsonl.tmp")
-    with open(temp_path, "w", encoding="utf-8") as f:
+    with open(temp_path, "w", encoding="utf-8", newline="\n") as f:
         for line in merged.values():
             f.write(line + "\n")
     temp_path.replace(output_path)
@@ -395,7 +395,7 @@ def write_processing_log(
         "timings": timings,
     }
 
-    with open(output_path, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
     logger.info("Wrote processing log to %s", output_path)

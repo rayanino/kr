@@ -138,6 +138,7 @@ class TestWriteExcerpts:
         raw = path.read_bytes()
         # Should have \n but not \r\n
         assert b"\n" in raw
+        assert b"\r\n" not in raw
 
     def test_corrupt_existing_excerpts_file_raises(self, tmp_path: Path) -> None:
         """Resume merge fails loudly on corrupt existing excerpts.jsonl."""
