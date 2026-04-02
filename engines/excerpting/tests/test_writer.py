@@ -165,6 +165,30 @@ class TestWriteExcerpts:
         with pytest.raises(ResumeMergeError, match="duplicate excerpt_id"):
             write_excerpts([_make_excerpt_record()], tmp_path)
 
+    def test_resume_overwrites_existing_excerpt_with_same_id(self, tmp_path: Path) -> None:
+        """A single valid existing row is replaced by the newly produced row on resume."""
+        path = tmp_path / "excerpts.jsonl"
+        existing = _make_excerpt_record(
+            excerpt_id="exc_resume_0_0_0",
+            excerpt_topic=["قديم"],
+        )
+        path.write_text(
+            json.dumps(existing.model_dump(mode="json"), ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
+        updated = _make_excerpt_record(
+            excerpt_id="exc_resume_0_0_0",
+            excerpt_topic=["جديد"],
+        )
+        write_excerpts([updated], tmp_path)
+
+        lines = path.read_text(encoding="utf-8").strip().splitlines()
+        assert len(lines) == 1
+        merged = json.loads(lines[0])
+        assert merged["excerpt_id"] == "exc_resume_0_0_0"
+        assert merged["excerpt_topic"] == ["جديد"]
+
 
 # ═══════════════════════════════════════════════════════════════════
 # write_gate_queue
