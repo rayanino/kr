@@ -636,6 +636,97 @@ def test_determine_apply_mode_starts_queue_only_in_autonomous_codex(
     assert "Conservative queue-only start remains in force until promotion gates are implemented." in notes
 
 
+def test_pick_next_ready_skips_readonly_task_already_succeeded_on_same_head(
+    monkeypatch: MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    snapshots = tmp_path / "run_snapshots"
+    snapshots.mkdir()
+    (snapshots / "prev.json").write_text(
+        json.dumps(
+            {
+                "launch_head": "abc123",
+                "tasks": {
+                    "review-recent-excerpting": {
+                        "status": "success",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(orchestrator, "RUN_SNAPSHOTS_DIR", snapshots)
+
+    state = OvernightCodexState(
+        run_id="2026-04-02",
+        started_at="2026-04-02T00:00:00+00:00",
+        deadline="2026-04-02T08:00:00+00:00",
+        launch_head="abc123",
+        apply_mode="queue_only",
+        baseline_clean=True,
+        baseline_tests_passed=True,
+    )
+    task = CodexTaskDef(
+        task_id="review-recent-excerpting",
+        name="Review recent excerpting changes",
+        category="review",
+        prompt="Review only.",
+        sandbox_mode="read-only",
+        write_policy="readonly",
+    )
+
+    picked = orchestrator.pick_next_ready([task], state)
+
+    assert picked is None
+    assert state.results["review-recent-excerpting"]["status"] == "skipped"
+    assert state.results["review-recent-excerpting"]["error"] == "already validated on this HEAD"
+
+
+def test_pick_next_ready_does_not_skip_guarded_write_task_on_same_head(
+    monkeypatch: MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    snapshots = tmp_path / "run_snapshots"
+    snapshots.mkdir()
+    (snapshots / "prev.json").write_text(
+        json.dumps(
+            {
+                "launch_head": "abc123",
+                "tasks": {
+                    "harden-recent-excerpting": {
+                        "status": "success",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(orchestrator, "RUN_SNAPSHOTS_DIR", snapshots)
+
+    state = OvernightCodexState(
+        run_id="2026-04-02",
+        started_at="2026-04-02T00:00:00+00:00",
+        deadline="2026-04-02T08:00:00+00:00",
+        launch_head="abc123",
+        apply_mode="queue_only",
+        baseline_clean=True,
+        baseline_tests_passed=True,
+    )
+    task = CodexTaskDef(
+        task_id="harden-recent-excerpting",
+        name="Harden recent excerpting changes",
+        category="hardening",
+        prompt="Patch code.",
+        sandbox_mode="workspace-write",
+        write_policy="guarded_write",
+    )
+
+    picked = orchestrator.pick_next_ready([task], state)
+
+    assert picked is task
+    assert state.results == {}
+
+
 def test_execute_task_write_path_fails_when_no_durable_commit(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:

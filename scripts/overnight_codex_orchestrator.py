@@ -425,6 +425,27 @@ def _load_previous_snapshot(current_started_at: str) -> dict[str, Any] | None:
     return None
 
 
+def _task_already_succeeded_on_head(task_id: str, launch_head: str) -> bool:
+    """Return True when a prior run already completed this task on the same HEAD.
+
+    This is a budget guard for repeat read-only work: once a task has succeeded
+    on the current launch head, the unattended runtime should not spend more
+    Codex budget rerunning the same check unless the head changes.
+    """
+    candidates = sorted(RUN_SNAPSHOTS_DIR.glob("*.json"), key=lambda path: path.stat().st_mtime)
+    for path in reversed(candidates):
+        try:
+            snapshot = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if snapshot.get("launch_head") != launch_head:
+            continue
+        task_state = (snapshot.get("tasks") or {}).get(task_id) or {}
+        if task_state.get("status") == "success":
+            return True
+    return False
+
+
 def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]) -> dict[str, Any]:
     """Build a machine-readable snapshot of the current run."""
     tasks: dict[str, Any] = {}
@@ -869,6 +890,17 @@ def pick_next_ready(manifest: list[CodexTaskDef], state: OvernightCodexState) ->
         bookend_ids = {task.task_id for task in manifest if task.bookend}
         for task in manifest:
             if task.task_id in state.results or task.task_id in bookend_ids:
+                continue
+            if (
+                task.write_policy == "readonly"
+                and _task_already_succeeded_on_head(task.task_id, state.launch_head)
+            ):
+                state.results[task.task_id] = {
+                    "status": "skipped",
+                    "error": "already validated on this HEAD",
+                }
+                state.tasks_skipped += 1
+                changed = True
                 continue
             if any(dep in blocked_ids for dep in task.depends_on):
                 state.results[task.task_id] = {"status": "skipped", "error": "dependency failed"}
