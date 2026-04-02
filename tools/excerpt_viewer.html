@@ -174,6 +174,24 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .issue-tag:hover{border-color:var(--text2);color:var(--text2)}
 .issue-tag.selected{border-color:var(--amber);color:var(--amber);background:var(--amber-soft)}
 
+/* ChatGPT helper */
+.aux-row{display:flex;justify-content:flex-start;align-items:center;gap:0.5rem;margin-top:0.55rem}
+.aux-btn{padding:0.4rem 0.9rem;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:0.76rem;font-family:var(--font-ui);transition:all .15s}
+.aux-btn:hover{border-color:var(--gold);color:var(--text)}
+.aux-btn.copied{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.chatgpt-helper-note{font-size:0.68rem;color:var(--text3)}
+
+/* ChatGPT modal */
+#chatgpt-helper{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:220;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+#chatgpt-helper.open{display:flex}
+#chatgpt-helper .modal{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.25rem 1.35rem;max-width:760px;width:min(92vw,760px);box-shadow:0 12px 48px rgba(0,0,0,0.5)}
+.cgh-title{font-size:0.95rem;font-weight:500;color:var(--gold);margin-bottom:0.45rem}
+.cgh-desc{font-size:0.78rem;color:var(--text2);line-height:1.55;margin-bottom:0.8rem}
+.cgh-textarea{width:100%;min-height:180px;padding:0.75rem 0.85rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.86rem;line-height:1.55;resize:vertical}
+.cgh-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
+.cgh-actions{display:flex;justify-content:space-between;align-items:center;gap:0.6rem;margin-top:0.8rem}
+.cgh-actions .right{display:flex;gap:0.5rem}
+
 /* Comment textarea */
 #comment{width:100%;min-height:320px;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s;overflow-y:hidden}
 #comment:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
@@ -512,6 +530,27 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
+     CHATGPT HELPER MODAL
+═══════════════════════════════════════════════════════════ -->
+<div id="chatgpt-helper">
+  <div class="modal">
+    <div class="cgh-title">Copy For ChatGPT</div>
+    <div class="cgh-desc">
+      Optionally paste surrounding original source context before copying the full excerpt-review prompt.
+      This surrounding text is treated as background only, not part of the excerpt itself.
+    </div>
+    <textarea id="chatgpt-context" class="cgh-textarea" spellcheck="false" placeholder="Optional: paste the previous/current/next source context here before copying the prompt..."></textarea>
+    <div class="cgh-actions">
+      <div class="chatgpt-helper-note">The copied prompt uses the current excerpt, visible metadata, your unsaved draft comment, and any optional source context entered here.</div>
+      <div class="right">
+        <button class="aux-btn" onclick="closeChatGPTHelper()">Cancel</button>
+        <button class="aux-btn" id="chatgpt-copy-btn" onclick="copyCurrentExcerptForChatGPT()">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════════════════════ -->
 <script>
@@ -811,6 +850,155 @@ function autoGrowComment(el){
   el.style.height=Math.max(el.scrollHeight, 320)+"px";
 }
 
+function reviewVerdictLabel(verdict){
+  return verdict==="accept"?"works":verdict==="needs_work"?"needs work":verdict==="reject"?"doesn't work":"none";
+}
+
+function currentReviewIssueLabels(){
+  return ISSUE_TAGS.filter(tag=>selectedIssues.has(tag.id)).map(tag=>tag.label);
+}
+
+function currentReviewPromptText(ex, surroundingContext){
+  const vbtn=document.querySelector(".vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.dataset.v:null;
+  const comment=$("comment")?$("comment").value.trim():"";
+  const issues=currentReviewIssueLabels();
+  const divPath=(ex.div_path||[]).join(" / ");
+  const pp=ex.physical_pages;
+  const pageStr=pp?`Vol ${pp.volume||"?"}, pp ${pp.start_page}${pp.end_page!==pp.start_page?"–"+pp.end_page:""}`:"—";
+  const sc=ex.self_containment||"FULL";
+  const extraContext=[
+    ex.self_containment_notes?`Self-containment notes: ${ex.self_containment_notes}`:"",
+    ex.context_hint?`Context hint: ${ex.context_hint}`:"",
+  ].filter(Boolean).join("\n");
+  const roughComments=comment||"[none entered yet]";
+  const surrounding=surroundingContext&&surroundingContext.trim()?surroundingContext.trim():"[none supplied yet]";
+
+  return [
+    "## Mode",
+    "excerpt review",
+    "",
+    "## Package",
+    currentPackage||"(unknown)",
+    "",
+    "## Excerpt number",
+    String(currentIndex+1),
+    "",
+    "## Excerpt ID",
+    ex.excerpt_id||"(unknown)",
+    "",
+    "## Live excerpt from the app",
+    ex.primary_text||"",
+    "",
+    "## Visible metadata/context from the app",
+    `Function: ${ex.primary_function||"—"}`,
+    `Self-containment: ${sc}`,
+    `Package: ${currentPackage||"—"}`,
+    `Division path: ${divPath||"—"}`,
+    `Pages: ${pageStr}`,
+    extraContext?extraContext:"",
+    "",
+    "## Current draft hints",
+    `Current verdict hint: ${reviewVerdictLabel(verdict)}`,
+    `Current issue tag hints: ${issues.length?issues.join(", "):"none"}`,
+    "",
+    "## Surrounding original source context",
+    "### This is NOT part of the excerpt itself.",
+    "### It is only background for judging missing context.",
+    "",
+    surrounding,
+    "",
+    "## My rough comments",
+    roughComments,
+    "",
+    "## Important",
+    "- Treat the live excerpt as the thing I am reviewing.",
+    "- Treat the surrounding source only as background for judging whether this excerpt is truly self-contained or whether it sends me on a manhunt.",
+    "- My rough comments may contain both excerpt-specific feedback and broader project/architecture insights.",
+    "- First separate those two layers.",
+    "- Then produce only the excerpt-review output for the app.",
+    "- After that, separately list the broader project insights that should NOT go into the app comment.",
+    "- The app comment should stay faithful to my meaning, but should not become a giant architecture note.",
+    "",
+    "## Please now give me",
+    "",
+    "# Output A — App-ready review",
+    "Verdict:",
+    "[works / needs work / doesn't work]",
+    "",
+    "Issue tags:",
+    "[choose only from: Boundaries, Function, Topics, School, Attribution, Containment, Text Quality, Split, Merge]",
+    "",
+    "Comment:",
+    "[paste-ready app comment only]",
+    "",
+    "# Output B — Running excerpt-definition notes",
+    "- What this excerpt teaches about excerpt definition:",
+    "- What this excerpt teaches about self-containment:",
+    "- What this excerpt teaches about context:",
+    "- What this excerpt teaches about boundary / splitting:",
+    "- What this excerpt teaches about theory vs context:",
+    "- What this excerpt teaches about rule vs proof:",
+    "- Any broader principle worth keeping for later F-1 synthesis:",
+    "- Confidence in these broader lessons: [high / medium / low]",
+    "",
+  ].filter(Boolean).join("\n");
+}
+
+function openChatGPTHelper(){
+  const modal=$("chatgpt-helper");
+  if(!modal)return;
+  modal.classList.add("open");
+  const ta=$("chatgpt-context");
+  if(ta)ta.focus();
+}
+
+function closeChatGPTHelper(){
+  const modal=$("chatgpt-helper");
+  if(modal)modal.classList.remove("open");
+}
+
+async function copyTextToClipboard(text){
+  if(navigator.clipboard?.writeText){
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+  const ta=document.createElement("textarea");
+  ta.value=text;
+  ta.style.position="fixed";
+  ta.style.opacity="0";
+  document.body.appendChild(ta);
+  ta.select();
+  try{
+    return document.execCommand("copy");
+  }finally{
+    document.body.removeChild(ta);
+  }
+}
+
+async function copyCurrentExcerptForChatGPT(){
+  const ex=excerpts[currentIndex];
+  if(!ex)return;
+  const btn=$("chatgpt-copy-btn");
+  const surrounding=$("chatgpt-context")?.value||"";
+  const prompt=currentReviewPromptText(ex, surrounding);
+  try{
+    await copyTextToClipboard(prompt);
+    if(btn){
+      btn.classList.add("copied");
+      btn.textContent="Copied ✓";
+      setTimeout(()=>{
+        btn.classList.remove("copied");
+        btn.textContent="Copy Prompt";
+      }, 1800);
+    }
+    closeChatGPTHelper();
+  }catch(e){
+    console.error("Copy failed:",e);
+    if(btn)btn.textContent="Copy failed";
+  }
+}
+
 // ─── Review mode: Center ───────────────────────────────────────────────────
 function render(){
   const ex=excerpts[currentIndex];if(!ex)return;
@@ -918,6 +1106,10 @@ function renderRight(ex){
       <div class="issues-label">What needs fixing?</div>
       <div class="issues-row">${tagsHtml}</div>
       <textarea id="comment" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Notes \u2014 what specifically is wrong or could be better?">${esc(fb.comment||"")}</textarea>
+      <div class="aux-row">
+        <button class="aux-btn" id="copy-chatgpt-btn" onclick="openChatGPTHelper()">Copy for ChatGPT</button>
+        <span class="chatgpt-helper-note">Uses the current excerpt plus your unsaved draft comment.</span>
+      </div>
       <div class="save-row">
         <button id="save-btn"${fb.verdict||selectedIssues.size||fb.comment?' class="has-review"':''}>${fb.verdict||selectedIssues.size?"Save & Next \u2192":"Skip \u2192"}</button>
         <div class="progress-wrap">
