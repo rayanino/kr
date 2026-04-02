@@ -27,6 +27,7 @@ This checks the current hardened invariants, including:
 - 40 total interactions
 - 38 active / 2 blocked (`CJ-2`, `CJ-3`)
 - heading/title sync between `interactions.json` and `OWNER_QUESTIONNAIRE.md`
+- audit-trail coverage in `QUESTIONNAIRE_EXAMPLES.md`
 - hardened owner-facing wording
 - blocked-state handling in runtime surfaces
 - doctrine/synthesis guardrails that should not drift

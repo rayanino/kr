@@ -58,6 +58,12 @@ def parse_owner_questionnaire_headings(path: Path) -> list[tuple[str, str]]:
     return [(match.group(1), normalize_questionnaire_title(match.group(2))) for match in pattern.finditer(text)]
 
 
+def parse_examples_headings(path: Path) -> list[str]:
+    text = read_text(path)
+    pattern = re.compile(r"^###\s+([A-Za-z0-9_-]+):\s+.+$", re.MULTILINE)
+    return [match.group(1) for match in pattern.finditer(text)]
+
+
 def parse_translation_row_ids(path: Path) -> list[str]:
     text = read_text(path)
     row_re = re.compile(r"^\|\s*([A-Z]+(?:-[0-9A-Za-z]+)?)\s*\|", re.MULTILINE)
@@ -212,6 +218,37 @@ def check_team_docs() -> list[CheckFailure]:
     return failures
 
 
+def check_examples_doc() -> list[CheckFailure]:
+    failures: list[CheckFailure] = []
+    examples = QUESTIONNAIRE_DIR / "QUESTIONNAIRE_EXAMPLES.md"
+    examples_text = read_text(examples)
+    example_ids = parse_examples_headings(examples)
+
+    interactions = json.loads(read_text(QUESTIONNAIRE_DIR / "interactions.json"))
+    excerpt_ids = [item["id"] for item in interactions if item.get("excerpt_text")]
+    missing_excerpt_ids = [iid for iid in excerpt_ids if iid not in example_ids]
+    if missing_excerpt_ids:
+        failures.append(
+            CheckFailure(
+                f"{examples}: missing audit-trail headings for excerpt-bearing interaction ids {missing_excerpt_ids}"
+            )
+        )
+
+    required_special_ids = ["GN-1-fiqh", "GN-1-nahw", "GN-1-usul", "GN-2", "M-1", "CJ-1", "CJ-2", "CJ-3"]
+    missing_special_ids = [iid for iid in required_special_ids if iid not in example_ids]
+    if missing_special_ids:
+        failures.append(
+            CheckFailure(
+                f"{examples}: missing expected special audit entries {missing_special_ids}"
+            )
+        )
+
+    assert_contains(examples_text, examples, "Current status:", failures)
+    assert_contains(examples_text, examples, "CJ-2: BLOCKED", failures)
+    assert_contains(examples_text, examples, "CJ-3: BLOCKED", failures)
+    return failures
+
+
 def check_runtime_surfaces() -> list[CheckFailure]:
     failures: list[CheckFailure] = []
     review_py = TOOLS_DIR / "review.py"
@@ -242,6 +279,7 @@ def main() -> int:
     active_count = len([item for item in interactions if item.get("availability") != "blocked_pending_source"])
     failures.extend(check_owner_facing_docs(active_count))
     failures.extend(check_team_docs())
+    failures.extend(check_examples_doc())
     failures.extend(check_runtime_surfaces())
 
     if failures:
