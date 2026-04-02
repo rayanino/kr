@@ -1,14 +1,19 @@
 {
-  "timestamp": "2026-03-31T05:18:20.536395+00:00",
+  "timestamp": "2026-04-02T07:45:11.647257+00:00",
   "branch": "master",
-  "active_engine": "excerpting",
+  "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": ".claude/settings.json",
+  "last_committed_file": "integration_tests/questionnaire/evaluation_reports/OWNER_RELAYED_BROWSER_REPORTS_DIGEST_2026_04_02.md",
   "active_plan": null,
-  "modified_files": [],
-  "uncommitted_summary": "",
-  "next_md_head": "# NEXT — No CC Task Pending\n\nThe taxonomy engine has two completed work items and one pending:\n\n1. **Code fixes (F-1 through F-8):** ✅ Implemented (commit `635cae0b`), reviewed and ACCEPTED by architect. 145 tests passing.\n\n2. **Corpus-based tree research:** ✅ Complete (commit `3447a24c`). Results in `reference/research/`.\n\n3. **Tree validation synthesis:** ⏳ Pending. This is architect work (not CC). Waiting for knowledge-based researcher outputs (ChatGPT Pro, Fresh Claude), then ChatGPT synthesis, then architect review in a new chat.\n\n**Read `engines/taxonomy/STATE.md` for full context.**\n\nNo CC task is queued. The next CC task will be prepared after the validated nahw tree (v2.0) is committed — likely an updated Session 2 directive for LLM placement.\n",
-  "recent_commits": "ab4460c3 chore: settings and script updates from hooks\n74adeab6 chore: remaining hook-triggered changes (agents, excerpting minor fixes)\nb4c9e338 chore(harness): final agent and skill updates\n4c03fd1c chore(harness): update remaining agent definitions\n60218af0 chore(harness): update hook wiring and agent model fields",
+  "modified_files": [
+    ".claude/session_state.json",
+    ".kr/runtime/dispatch_log.jsonl",
+    "ACTIVE_AUTHORITY.md",
+    "scripts/overnight_codex_wsl_resume.ps1"
+  ],
+  "uncommitted_summary": ".claude/session_state.json             | 19 ++++++++-----\n .kr/runtime/dispatch_log.jsonl         |  2 ++\n ACTIVE_AUTHORITY.md                    | 22 +++++++--------\n scripts/overnight_codex_wsl_resume.ps1 | 49 +++++++++++++++++++++++++++++++---\n 4 files changed, 70 insertions(+), 22 deletions(-)",
+  "next_md_head": "# NEXT -- Excerpting Engine: Deep Q&A + Exhaustive Hardening\n\n---\n\n## IMMEDIATE STATE (updated 2026-04-01)\n\n### Phase 0 Status: QUESTIONNAIRE DELIVERED\n\nThe owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` (~40 interactions, 15-25 hours across multiple sessions). CC does NOT wait idly. Concurrent work continues below.\n\n**Questionnaire artifacts (all at `integration_tests/questionnaire/`):**\n\n| File | Purpose | Owner sees? |\n|------|---------|-------------|\n| `OWNER_QUESTIONNAIRE.md` | The actual questionnaire (owner fills this) | YES |",
+  "recent_commits": "7f545ff8 docs(questionnaire): preserve browser report digest\n6c8b578c docs(questionnaire): add external report adjudication ledger\n58c77daa fix(questionnaire): remove residual authority drift\nea8967cf docs(questionnaire): add layer triage discipline\n033d512c docs(questionnaire): strengthen evaluation doctrine",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

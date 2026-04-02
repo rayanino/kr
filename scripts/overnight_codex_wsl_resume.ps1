@@ -2,6 +2,9 @@ param(
     [string]$Distro = "Ubuntu-24.04",
     [string]$RuntimeDir = "~/kr-codex",
     [switch]$RunShadowRehearsal,
+    [switch]$RunCycle,
+    [double]$Hours = 1.5,
+    [string]$SingleTask = "",
     [switch]$DryRun
 )
 
@@ -56,7 +59,8 @@ function Invoke-WslBash {
         [string]$Command
     )
 
-    & wsl.exe -d $ResolvedDistro --cd / -e bash -lc $Command
+    $sanitizedCommand = ($Command -replace "`r", "").Trim()
+    & wsl.exe -d $ResolvedDistro --cd / -e bash -lc $sanitizedCommand
     $exitCodeVar = Get-Variable -Name LASTEXITCODE -ErrorAction SilentlyContinue
     if ($exitCodeVar -and $exitCodeVar.Value -ne 0) {
         throw "WSL command failed with exit code $($exitCodeVar.Value)."
@@ -148,8 +152,12 @@ Write-Host "Resolved WSL distro: $resolvedDistro"
 Write-Host "Resolved runtime dir: $resolvedRuntimeDir"
 Write-Host
 
+if ($RunShadowRehearsal -and $RunCycle) {
+    throw "Use either -RunShadowRehearsal or -RunCycle, not both."
+}
+
 Invoke-Step "Bootstrapping WSL runtime clone" {
-    $bootstrapCommand = "KR_WINDOWS_REPO={0} KR_WINDOWS_HOME={1} KR_WSL_RUNTIME_DIR={2} {3}" -f `
+    $bootstrapCommand = "export KR_WINDOWS_REPO={0}; export KR_WINDOWS_HOME={1}; export KR_WSL_RUNTIME_DIR={2}; tr -d '\r' < {3} | bash" -f `
         (Convert-ToBashSingleQuoted -Value $repoRootWsl), `
         (Convert-ToBashSingleQuoted -Value $homeWsl), `
         (Convert-ToBashSingleQuoted -Value $resolvedRuntimeDir), `
@@ -164,20 +172,53 @@ if ($RunShadowRehearsal) {
 set -euo pipefail
 __KR_RUNTIME_BLOCK__
 export KR_WINDOWS_HOME=__KR_WINDOWS_HOME__
+PYTHON_BIN="python"
+if [ -x "$RUNTIME_DIR/.venv/bin/python" ]; then
+  PYTHON_BIN="$RUNTIME_DIR/.venv/bin/python"
+fi
 cd "$RUNTIME_DIR" &&
-python scripts/overnight_codex_task_generator.py --output overnight_codex/manifest.json &&
-python scripts/overnight_codex_orchestrator.py --manifest overnight_codex/manifest.json --task val-contracts --hours 0.35
+"$PYTHON_BIN" scripts/overnight_codex_task_generator.py --output overnight_codex/manifest.json &&
+"$PYTHON_BIN" scripts/overnight_codex_orchestrator.py --manifest overnight_codex/manifest.json --task val-contracts --hours 0.35
 '@
         $shadowCommand = $shadowTemplate.Replace("__KR_RUNTIME_BLOCK__", (New-RuntimeDirScript -RuntimeDirValue $resolvedRuntimeDir))
         $shadowCommand = $shadowCommand.Replace("__KR_WINDOWS_HOME__", (Convert-ToBashSingleQuoted -Value $homeWsl))
 
         Invoke-WslBash -ResolvedDistro $resolvedDistro -Command $shadowCommand
     }
+} elseif ($RunCycle) {
+    Invoke-Step "Running one bounded overnight_codex cycle" {
+        $singleTaskArgs = if ($SingleTask) {
+            "--task " + (Convert-ToBashSingleQuoted -Value $SingleTask)
+        } else {
+            ""
+        }
+        $cycleTemplate = @'
+set -euo pipefail
+__KR_RUNTIME_BLOCK__
+export KR_WINDOWS_HOME=__KR_WINDOWS_HOME__
+PYTHON_BIN="python"
+if [ -x "$RUNTIME_DIR/.venv/bin/python" ]; then
+  PYTHON_BIN="$RUNTIME_DIR/.venv/bin/python"
+fi
+cd "$RUNTIME_DIR"
+"$PYTHON_BIN" scripts/overnight_codex_task_generator.py --output overnight_codex/manifest.json &&
+"$PYTHON_BIN" scripts/overnight_codex_orchestrator.py --manifest overnight_codex/manifest.json __KR_SINGLE_TASK_ARGS__ --hours __KR_HOURS__
+'@
+        $cycleCommand = $cycleTemplate.Replace("__KR_RUNTIME_BLOCK__", (New-RuntimeDirScript -RuntimeDirValue $resolvedRuntimeDir))
+        $cycleCommand = $cycleCommand.Replace("__KR_WINDOWS_HOME__", (Convert-ToBashSingleQuoted -Value $homeWsl))
+        $cycleCommand = $cycleCommand.Replace("__KR_SINGLE_TASK_ARGS__", $singleTaskArgs)
+        $cycleCommand = $cycleCommand.Replace("__KR_HOURS__", $Hours.ToString([System.Globalization.CultureInfo]::InvariantCulture))
+
+        Invoke-WslBash -ResolvedDistro $resolvedDistro -Command $cycleCommand
+    }
 } else {
     Write-Host
     Write-Host "Shadow rehearsal not requested."
     Write-Host "Run this command when you want the first bounded rehearsal:"
     Write-Host "  powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1 -RunShadowRehearsal"
+    Write-Host
+    Write-Host "Run this command for one scheduler-safe shadow cycle:"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1 -RunCycle -Hours 1.5"
 }
 
 Write-Host
