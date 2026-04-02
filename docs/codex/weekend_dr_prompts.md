@@ -4,6 +4,7 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 
 ## Before You Paste
 
+- Current questionnaire state: 40 core slots, 38 answerable right now, 2 comparison slots intentionally blocked (`CJ-2`, `CJ-3`), plus 6 optional supplemental owner questions.
 - ChatGPT DR: open ChatGPT, start a new chat, switch the tool/chat mode to `Deep Research`, then paste Prompt 1 exactly as written.
 - Claude DR: open Claude, start a new chat, switch the chat mode to `Research` or `Deep Research` if that option is shown, then paste Prompt 2 exactly as written.
 - Gemini DR: open Gemini, start a new chat, switch to `Deep Research` or the closest research mode shown in the UI, upload the listed files first, then paste Prompt 3.
@@ -78,3 +79,76 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 > 5. What is the single most important thing the owner should get right for the library to be useful?
 >
 > **Output:** Per-dimension pedagogical evaluation rubric + predicted mistakes + evaluation criteria + priority assessment.
+
+---
+
+## After The Owner Finishes The Questionnaire
+
+Use these after the owner has completed the active core questionnaire, and again
+after the supplementals if his thinking materially changed.
+
+## 4. ChatGPT DR (Post-Completion Review)
+
+> **Task: Critically review the owner's completed KR excerpting questionnaire responses.**
+>
+> Read these files from the `rayanino/kr` GitHub repository:
+> - `integration_tests/questionnaire/questionnaire_responses.jsonl` — the owner's saved responses
+> - `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` — the exact questions he answered
+> - `integration_tests/questionnaire/SUPPLEMENTAL_OWNER_QUESTIONS.md` — optional follow-up questions, if any were answered
+> - `integration_tests/questionnaire/TEAM_TRANSLATION_GUIDE.md` — how answers map to SPEC/prompt decisions
+> - `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md` — the 6-coworker evaluation protocol
+>
+> **Evaluate:**
+> 1. Which answers are highest-signal and immediately translatable into SPEC rules?
+> 2. Which answers are too vague, contradictory, or under-specified to implement safely?
+> 3. Which follow-up questions are still missing?
+> 4. Which answers imply UI/display policy only, versus excerpt-boundary/pipeline policy?
+> 5. Where did the owner reveal a stable governing principle that should become a real constraint?
+>
+> **Output:** High-signal answer list + contradiction list + missing follow-ups + recommended SPEC-facing interpretations.
+
+---
+
+## 5. Claude DR (Post-Completion Scholarly Review)
+
+> **Task: Evaluate the scholarly soundness of the owner's completed questionnaire responses.**
+>
+> Read these files from the `rayanino/kr` GitHub repository:
+> - `integration_tests/questionnaire/questionnaire_responses.jsonl`
+> - `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md`
+> - `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md`
+> - `engines/excerpting/SPEC.md` — focus on the domain rules relevant to the answered dimensions
+> - `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl`
+>
+> **Evaluate:**
+> 1. Which owner answers are scholarly sound and should be CONFIRMED?
+> 2. Which answers would create dangerous or misleading excerpts if implemented literally?
+> 3. Where is the owner correctly perceiving a real scholarly boundary, even if he uses non-technical language?
+> 4. Where do the answers fail to account for multi-layer texts, comparative fiqh, hadith apparatus, or referential structure?
+> 5. What are the sharpest follow-up challenges the team should bring back to the owner?
+>
+> **Output:** CONFIRMED / CHALLENGED / CONTRADICTION candidate table with reasoning and concrete follow-up challenges.
+
+---
+
+## 6. Gemini DR (Post-Completion Pedagogical Review)
+
+**Upload these files to the Gemini session:**
+- `integration_tests/questionnaire/questionnaire_responses.jsonl`
+- `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md`
+- `integration_tests/questionnaire/SUPPLEMENTAL_OWNER_QUESTIONS.md`
+- `integration_tests/questionnaire/TEAM_TRANSLATION_GUIDE.md`
+- `integration_tests/questionnaire/CRITICAL_EVALUATION_GUIDE.md`
+
+> **Task: Evaluate the owner's completed questionnaire responses for pedagogical usefulness.**
+>
+> Context: KR is a personal Islamic scholarly library for a student with minimum Islamic knowledge. The owner has now answered the questionnaire about how excerpts should look and behave.
+>
+> **Evaluate:**
+> 1. Will these answers produce excerpts that are actually teachable and learnable across fiqh, nahw, and usul-style texts?
+> 2. Which answers support quick lookup but harm serious study, or vice versa?
+> 3. Which answers ignore real study workflows like lesson preparation, memorization, muraja'a, or comparison?
+> 4. Which answers should be treated as local preference, and which as true pedagogical constraints?
+> 5. What are the highest-value remaining questions if the team gets one more chance to ask the owner something?
+>
+> **Output:** Pedagogical verdicts per major dimension + workflow risks + remaining highest-value owner questions.
