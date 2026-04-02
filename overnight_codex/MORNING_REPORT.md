@@ -14,6 +14,7 @@
 - Future timed-out package runs now have a much better chance of preserving partial artifacts and diagnostic breadcrumbs.
 - The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
 - A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
+- A single opening brief for the next engine-fix session now exists at `docs/codex/next_engine_opening_brief_2026_04_02.md`.
 - The top three structural priorities now each have their own evidence packet on disk.
 - The top two repair-map docs now exist for the first engine-opening lane:
 - The repair-map docs now exist for all three top-priority lanes:
