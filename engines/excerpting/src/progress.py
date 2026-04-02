@@ -84,12 +84,9 @@ class ProgressTracker:
         if error is not None:
             entry["error"] = error
         line = json.dumps(entry, ensure_ascii=False) + "\n"
-        try:
-            self._path.parent.mkdir(parents=True, exist_ok=True)
-            with open(self._path, "a", encoding="utf-8") as f:
-                f.write(line)
-        except OSError as exc:
-            logger.warning("Could not append to progress file: %s", exc)
+        self._path.parent.mkdir(parents=True, exist_ok=True)
+        with open(self._path, "a", encoding="utf-8") as f:
+            f.write(line)
 
     def is_done(self, chunk_id: str, phase: str) -> bool:
         """Check if a chunk has completed a phase successfully."""
@@ -101,16 +98,16 @@ class ProgressTracker:
         if phase not in TRACKED_PHASES:
             raise ValueError(f"Unknown phase: {phase!r}")
         with self._lock:
-            self._state[(chunk_id, phase)] = "done"
             self._append(chunk_id, phase, "done")
+            self._state[(chunk_id, phase)] = "done"
 
     def mark_failed(self, chunk_id: str, phase: str, error: str) -> None:
         """Record failure of a phase for a chunk."""
         if phase not in TRACKED_PHASES:
             raise ValueError(f"Unknown phase: {phase!r}")
         with self._lock:
-            self._state[(chunk_id, phase)] = "failed"
             self._append(chunk_id, phase, "failed", error=error)
+            self._state[(chunk_id, phase)] = "failed"
 
     def summary(self) -> dict[str, int]:
         """Return counts of done/failed entries."""

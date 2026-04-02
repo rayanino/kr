@@ -90,6 +90,40 @@ class TestProgressTrackerMarkFailed:
         assert entry["error"] == "EX-C-001"
 
 
+class TestProgressTrackerAppendFailure:
+    """mark_done/mark_failed must not diverge from the WAL on append failure."""
+
+    def test_mark_done_raises_and_does_not_mutate_state(self, progress_file: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        tracker = ProgressTracker(progress_file)
+
+        def fail_append(*args: object, **kwargs: object) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr(tracker, "_append", fail_append)
+
+        with pytest.raises(OSError, match="disk full"):
+            tracker.mark_done("chunk_1", "phase2a")
+
+        assert tracker.is_done("chunk_1", "phase2a") is False
+        assert tracker.summary() == {"done": 0, "failed": 0, "total": 0}
+        assert not progress_file.exists()
+
+    def test_mark_failed_raises_and_does_not_mutate_state(self, progress_file: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        tracker = ProgressTracker(progress_file)
+
+        def fail_append(*args: object, **kwargs: object) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr(tracker, "_append", fail_append)
+
+        with pytest.raises(OSError, match="disk full"):
+            tracker.mark_failed("chunk_1", "phase2a", "EX-C-001")
+
+        assert tracker.is_done("chunk_1", "phase2a") is False
+        assert tracker.summary() == {"done": 0, "failed": 0, "total": 0}
+        assert not progress_file.exists()
+
+
 class TestProgressTrackerReplay:
     """test_progress_tracker_replay — write entries, create new tracker from same file."""
 
