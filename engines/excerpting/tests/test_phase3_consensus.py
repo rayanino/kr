@@ -903,7 +903,7 @@ class TestVerificationItemMapping:
     def test_missing_verification_item_logged(
         self, caplog: pytest.LogCaptureFixture
     ) -> None:
-        """Partial response → warning logged."""
+        """Partial response degrades with verification_skipped + EX-M-011."""
         chunk = _make_assembled_chunk()
         exc = _make_excerpt_record(
             div_id=chunk.div_id,
@@ -921,13 +921,30 @@ class TestVerificationItemMapping:
         ])
         verify_client = _make_mock_instructor_client(return_value=vr)
         config = ExcerptingConfig()
+        progress = MagicMock()
+        progress.is_done.return_value = False
+        errors: list[str] = []
 
         with caplog.at_level("WARNING"):
-            _, _ = run_consensus(
-                [exc], [chunk], verify_client, None, config, _SOURCE_META
+            result, _ = run_consensus(
+                [exc],
+                [chunk],
+                verify_client,
+                None,
+                config,
+                _SOURCE_META,
+                progress=progress,
+                error_sink=errors,
             )
 
         assert "Missing verification item" in caplog.text
+        assert "verification_skipped" in result[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_consensus",
+            ExcerptingErrorCodes.EX_M_011,
+        )
+        assert errors == [ExcerptingErrorCodes.EX_M_011]
 
 
 # ═══════════════════════════════════════════════════════════════════

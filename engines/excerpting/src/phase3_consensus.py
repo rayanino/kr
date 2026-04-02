@@ -1048,6 +1048,7 @@ def run_consensus(
         }
 
         excerpt_to_vi: dict[int, list[tuple[VerificationItem, str]]] = {}
+        excerpt_expected_counts: dict[int, int] = {}
         item_index = 0
         for exc, items in excerpts_with_items:
             vis: list[tuple[VerificationItem, str]] = []
@@ -1062,17 +1063,29 @@ def run_consensus(
                     )
                 item_index += 1
             excerpt_to_vi[exc.unit_index] = vis
+            excerpt_expected_counts[exc.unit_index] = len(items)
 
         units_needing_verification = {exc.unit_index for exc, _ in excerpts_with_items}
 
+        chunk_had_verification_failure = False
         for exc in chunk_excerpts:
             vis_for_exc = excerpt_to_vi.get(exc.unit_index, [])
-            if not vis_for_exc:
+            expected_count = excerpt_expected_counts.get(exc.unit_index, 0)
+            if not vis_for_exc or (expected_count and len(vis_for_exc) != expected_count):
                 if exc.unit_index in units_needing_verification:
-                    # Needed consensus but got no verification items — flag it
+                    # Needed consensus but got no verification items — degrade visibly.
+                    chunk_had_verification_failure = True
                     flags = list(exc.review_flags)
-                    if "verification_incomplete" not in flags:
-                        flags.append("verification_incomplete")
+                    if "verification_skipped" not in flags:
+                        flags.append("verification_skipped")
+                    if progress is not None:
+                        progress.mark_failed(
+                            chunk_id,
+                            "phase3_consensus",
+                            ExcerptingErrorCodes.EX_M_011,
+                        )
+                    if error_sink is not None and ExcerptingErrorCodes.EX_M_011 not in error_sink:
+                        error_sink.append(ExcerptingErrorCodes.EX_M_011)
                     all_results.append(exc.model_copy(update={"review_flags": flags}))
                 else:
                     # Didn't need consensus — pass through normally
@@ -1113,7 +1126,7 @@ def run_consensus(
             all_results.append(updated)
 
         # All excerpts in this chunk resolved successfully
-        if progress is not None:
+        if progress is not None and not chunk_had_verification_failure:
             progress.mark_done(chunk_id, "phase3_consensus")
 
     return all_results, all_gates
