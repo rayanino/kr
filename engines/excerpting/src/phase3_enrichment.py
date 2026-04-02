@@ -477,6 +477,7 @@ def run_phase3_enrichment(
     source_metadata: Optional[dict[str, str]] = None,
     progress: Optional["ProgressTracker"] = None,
     cache: Optional["CacheManager"] = None,
+    error_sink: Optional[list[str]] = None,
 ) -> list[ExcerptRecord]:
     """Execute LLM enrichment for all chunks (§7.2).
 
@@ -569,6 +570,8 @@ def run_phase3_enrichment(
                     "phase3_enrich",
                     ExcerptingErrorCodes.EX_M_002,
                 )
+            if error_sink is not None and ExcerptingErrorCodes.EX_M_002 not in error_sink:
+                error_sink.append(ExcerptingErrorCodes.EX_M_002)
             logger.error(
                 "%s: Chunk %s phase3_enrich was marked done but cache is missing. "
                 "Keeping deterministic-only fields with explicit degradation flag.",
@@ -643,6 +646,8 @@ def run_phase3_enrichment(
                     "phase3_enrich",
                     ExcerptingErrorCodes.EX_M_002,
                 )
+            if error_sink is not None and ExcerptingErrorCodes.EX_M_002 not in error_sink:
+                error_sink.append(ExcerptingErrorCodes.EX_M_002)
             logger.error(
                 "%s: LLM enrichment failed after %d attempts for chunk %s. "
                 "Keeping deterministic-only fields.",

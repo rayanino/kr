@@ -125,6 +125,7 @@ def run_phase3(
                 source_metadata=source_metadata,
                 progress=progress,
                 cache=cache,
+                error_sink=result.errors,
             )
         except Exception as exc:
             if isinstance(exc, (TypeError, AttributeError, NameError, KeyError, IndexError, ZeroDivisionError, StopIteration)):

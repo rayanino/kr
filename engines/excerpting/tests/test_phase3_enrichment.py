@@ -341,7 +341,23 @@ class TestGracefulDegradation:
 
         assert len(result) == 1
         assert "llm_enrichment_failed" in result[0].review_flags
-        assert ExcerptingErrorCodes.EX_M_002 in caplog.text
+
+    def test_enrichment_failure_appends_ex_m_002_to_error_sink(self) -> None:
+        chunk = _make_assembled_chunk()
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        client = _make_mock_instructor_client(
+            side_effect=Exception("API timeout")
+        )
+        config = ExcerptingConfig()
+        errors: list[str] = []
+
+        result = run_phase3_enrichment(
+            [exc], [chunk], client, config, error_sink=errors
+        )
+
+        assert len(result) == 1
+        assert "llm_enrichment_failed" in result[0].review_flags
+        assert errors == [ExcerptingErrorCodes.EX_M_002]
 
     def test_deterministic_fields_survive_failure(self) -> None:
         chunk = _make_assembled_chunk()
