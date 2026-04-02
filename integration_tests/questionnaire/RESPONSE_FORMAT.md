@@ -41,7 +41,7 @@ These interactions test the boundaries of your principles. They use the standard
 - **It's okay to be unsure** — mark your confidence as LOW and explain why. Uncertainty is useful data.
 - **It's okay to contradict yourself** — if your answer on one interaction conflicts with another, note it. We'll help resolve contradictions.
 - **You don't need to finish in one sitting** — this is designed for multiple sessions over several days.
-- **Your answers are not final decisions** — the engineering team will critically evaluate every response. Your input is the starting point, not the endpoint. If your stated preference conflicts with a technical constraint, we'll discuss it.
+- **Your answers are not final decisions** — the engineering team will critically evaluate every response. Your input is the starting point, not the endpoint. If your stated preference conflicts with a technical constraint, scholarly integrity, or long-run system quality, it will be challenged rather than obeyed literally. See `OWNER_FEEDBACK_GUARDRAIL.md`.
 
 ## What Happens After You Fill This In
 

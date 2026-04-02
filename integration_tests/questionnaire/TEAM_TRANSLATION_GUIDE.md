@@ -12,6 +12,10 @@ After the owner completes the questionnaire and after the 6-coworker critical ev
 If the owner also answers `SUPPLEMENTAL_OWNER_QUESTIONS.md`, use
 `SUPPLEMENTAL_TRANSLATION_GUIDE.md` alongside this file.
 
+Never translate an owner answer directly into implementation. See
+`OWNER_FEEDBACK_GUARDRAIL.md`. Every row below is a possible translation target
+only after critical evaluation, contradiction checks, and feasibility review.
+
 ## Translation Table
 
 | Interaction | Dimension | Owner Answer Maps To | SPEC Section | Prompt Parameter | Current Default | DR Decision |

@@ -18,6 +18,7 @@ have been corrected:
 2. `L-3` now uses a real substantive footnote example and explicitly asks about takhrij/grading-style notes
 3. `CJ-2` / `CJ-3` are explicitly treated as blocked pending source material instead of pretending to be live questions
 4. the translation guide and excerpt audit trail are being kept in sync with the live packet
+5. the owner-feedback non-authority rule is now explicit via `OWNER_FEEDBACK_GUARDRAIL.md`
 
 The survey is still **not exhaustive**, but the remaining gaps are now the
 right kind of gaps to leave in a supplemental packet rather than the core:

@@ -5,6 +5,7 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 ## Before You Paste
 
 - Current questionnaire state: 40 core slots, 38 answerable right now, 2 comparison slots intentionally blocked (`CJ-2`, `CJ-3`), plus 6 optional supplemental owner questions.
+- Owner-answer guardrail: the owner's responses are high-value signal, but never final authority. Treat them as feedback to be challenged, not as commands to obey literally.
 - ChatGPT DR: open ChatGPT, start a new chat, switch the tool/chat mode to `Deep Research`, then paste Prompt 1 exactly as written.
 - Claude DR: open Claude, start a new chat, switch the chat mode to `Research` or `Deep Research` if that option is shown, then paste Prompt 2 exactly as written.
 - Gemini DR: open Gemini, start a new chat, switch to `Deep Research` or the closest research mode shown in the UI, upload the listed files first, then paste Prompt 3.
@@ -86,6 +87,10 @@ Dispatch these from your phone/browser. Each is self-contained — just paste in
 
 Use these after the owner has completed the active core questionnaire, and again
 after the supplementals if his thinking materially changed.
+
+In all three post-completion prompts, assume this rule:
+the owner's answers are valuable but non-authoritative, and must be stress-tested
+for contradictions, scholarly risk, feasibility, and long-run product damage.
 
 ## 4. ChatGPT DR (Post-Completion Review)
 

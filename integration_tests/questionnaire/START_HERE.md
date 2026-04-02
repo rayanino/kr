@@ -6,6 +6,11 @@ This is your personal evaluation session for the KR library. You will read excer
 
 There are **40 core questionnaire slots** split into 4 phases. Right now, **38 are answerable** and **2 comparison slots are intentionally locked** because the weekend `taysir` v2 run failed before valid comparison material existed. After the core packet, there is also a small optional supplemental packet in markdown.
 
+**Critical guardrail:** your answers are valuable input, but they are **not**
+final verdicts or binding system instructions. The team will challenge,
+cross-check, and translate them carefully before any SPEC or code decision is
+made. See `OWNER_FEEDBACK_GUARDRAIL.md`.
+
 ---
 
 ## How to start

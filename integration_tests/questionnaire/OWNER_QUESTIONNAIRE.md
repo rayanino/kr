@@ -16,6 +16,9 @@ There are no wrong answers. Every answer you give --- even uncertainty, contradi
 
 **Important:** Your answers are the starting point, not the final word. The full engineering team (6 independent reviewers) will critically evaluate every response, looking for contradictions, feasibility issues, and blind spots. If a preference you state conflicts with a real constraint, we will bring it back to you for discussion. Your input is respected and taken seriously --- which is exactly why it goes through rigorous review.
 
+If you want the strongest explicit version of that rule, read:
+`OWNER_FEEDBACK_GUARDRAIL.md`
+
 ---
 
 # Phase 1: Foundations

@@ -13,6 +13,9 @@ The owner explicitly requested that his feedback be treated as non-authoritative
 
 The 6-coworker evaluation catches these issues BEFORE translating answers into SPEC rules.
 
+The strongest statement of this rule lives in:
+`OWNER_FEEDBACK_GUARDRAIL.md`
+
 If the owner also answers `SUPPLEMENTAL_OWNER_QUESTIONS.md`, evaluate those
 responses in the same pass. Treat the supplement as additional calibration
 input, not as a separate workflow.
