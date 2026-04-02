@@ -159,10 +159,11 @@ When you have answered the active core questions (38 answerable right now, plus 
 3. **If you want to commit your review work yourself, do it narrowly**:
    ```
    cd Desktop\kr
-   git add integration_tests/questionnaire/questionnaire_responses.jsonl integration_tests/questionnaire/comparison_responses.jsonl
+   git add integration_tests/questionnaire
    git commit -m "owner feedback: questionnaire responses"
    git push
    ```
+   This keeps the commit inside the questionnaire lane without relying on files that may not exist yet.
    If you also rated excerpts in Review Mode, add only the specific `owner_feedback.jsonl` files you created.
    Do **not** use `git add -A` here.
    If any of this feels confusing, skip it — your answers are already saved locally and we can commit them later.
