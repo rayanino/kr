@@ -8,6 +8,7 @@ from engines.excerpting.contracts import (
     AssemblyMetadata,
     ExcerptingConfig,
 )
+from engines.normalization.contracts import LayerType, TextLayerSegment
 from engines.excerpting.src.phase1_assembly import run_phase1, validate_phase1
 from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
@@ -86,6 +87,75 @@ class TestValidatePhase1:
         v4 = next(r for r in results if r["check"] == "V-P1-4")
         assert v4["status"] == "warning"
 
+    def test_v_p1_2_uncovered_unit_indices(self) -> None:
+        """Missing constituent unit coverage is fatal."""
+        manifest = self._simple_manifest(2)
+        config = ExcerptingConfig()
+
+        chunk = _make_assembled_chunk(
+            chunk_id="div_src_test_0_0",
+            div_id="div_src_test_0_0",
+            assembly_metadata=AssemblyMetadata(
+                constituent_unit_indices=[0],
+                join_points=[],
+                footnote_renumber_map=None,
+            ),
+        )
+
+        with pytest.raises(ValueError, match="EX-V-001"):
+            validate_phase1([chunk], manifest, {}, config)
+
+    def test_v_p1_5_layer_coverage_failure(self) -> None:
+        """Invalid layer coverage is fatal."""
+        manifest = self._simple_manifest(2)
+        config = ExcerptingConfig()
+
+        chunk = _make_assembled_chunk(
+            chunk_id="div_src_test_0_0",
+            div_id="div_src_test_0_0",
+            text_layers=[],
+            assembly_metadata=AssemblyMetadata(
+                constituent_unit_indices=[0, 1],
+                join_points=[],
+                footnote_renumber_map=None,
+            ),
+        )
+
+        with pytest.raises(ValueError, match="EX-V-001"):
+            validate_phase1([chunk], manifest, {}, config)
+
+    def test_v_p1_5_layer_coverage_pass(self) -> None:
+        """Exact layer coverage passes V-P1-5."""
+        manifest = self._simple_manifest(2)
+        config = ExcerptingConfig()
+        text = "بسم الله الرحمن الرحيم"
+
+        chunk = _make_assembled_chunk(
+            chunk_id="div_src_test_0_0",
+            div_id="div_src_test_0_0",
+            assembled_text=text,
+            word_count=4,
+            total_tokens=4,
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id=None,
+                    start=0,
+                    end=len(text),
+                    confidence=0.9,
+                )
+            ],
+            assembly_metadata=AssemblyMetadata(
+                constituent_unit_indices=[0, 1],
+                join_points=[],
+                footnote_renumber_map=None,
+            ),
+        )
+
+        results = validate_phase1([chunk], manifest, {}, config)
+        v5 = next(r for r in results if r["check"] == "V-P1-5")
+        assert v5["status"] == "pass"
+
     def test_v_p1_6_word_count(self) -> None:
         """I-AC-1: word_count mismatch = fatal."""
         manifest = self._simple_manifest(2)
@@ -125,5 +195,5 @@ class TestRunPhase1EndToEnd:
         """Empty division tree → EX-A-010, empty chunks."""
         pkg = _make_normalized_package(division_tree=[])
         config = ExcerptingConfig()
-        chunks, results = run_phase1(pkg, config)
+        chunks, _results = run_phase1(pkg, config)
         assert len(chunks) == 0
