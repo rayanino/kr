@@ -8,6 +8,7 @@ enrichment application, failure graceful degradation, scholar merge.
 from __future__ import annotations
 
 from typing import Any
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -541,6 +542,39 @@ class TestRunPhase3Enrichment:
         assert len(result) == 2
         # One call per chunk
         assert client.chat.completions.create.call_count == 2
+
+    def test_resume_cache_miss_marks_enrichment_failed(self) -> None:
+        chunk = _make_assembled_chunk()
+        exc = _make_excerpt_record(
+            div_id=chunk.div_id,
+            excerpt_topic=[],
+            school=None,
+        )
+        client = _make_mock_instructor_client(return_value=_make_enrichment_result(1))
+        config = ExcerptingConfig()
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_enrich"
+        cache = MagicMock()
+        cache.load.return_value = None
+
+        result = run_phase3_enrichment(
+            [exc],
+            [chunk],
+            client,
+            config,
+            _SOURCE_META,
+            progress=progress,
+            cache=cache,
+        )
+
+        assert len(result) == 1
+        assert "llm_enrichment_failed" in result[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_enrich",
+            ExcerptingErrorCodes.EX_M_002,
+        )
+        assert client.chat.completions.create.call_count == 0
 
 
 # ═══════════════════════════════════════════════════════════════════

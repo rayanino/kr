@@ -563,12 +563,25 @@ def run_phase3_enrichment(
         # Resume with cache miss: chunk was done but cache is gone.
         # Pass through deterministic-only excerpts rather than re-calling LLM.
         if is_resume:
-            logger.warning(
-                "Chunk %s phase3_enrich: done but cache miss — "
-                "using deterministic-only excerpts",
+            if progress is not None:
+                progress.mark_failed(
+                    chunk_id,
+                    "phase3_enrich",
+                    ExcerptingErrorCodes.EX_M_002,
+                )
+            logger.error(
+                "%s: Chunk %s phase3_enrich was marked done but cache is missing. "
+                "Keeping deterministic-only fields with explicit degradation flag.",
+                ExcerptingErrorCodes.EX_M_002,
                 chunk_id,
             )
-            all_results.extend(chunk_excerpts)
+            degraded = []
+            for exc in chunk_excerpts:
+                flags = list(exc.review_flags)
+                if "llm_enrichment_failed" not in flags:
+                    flags.append("llm_enrichment_failed")
+                degraded.append(exc.model_copy(update={"review_flags": flags}))
+            all_results.extend(degraded)
             continue
 
         success = False
