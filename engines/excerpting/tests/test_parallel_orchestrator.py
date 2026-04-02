@@ -16,6 +16,7 @@ import pytest
 from engines.excerpting.contracts import (
     EnrichmentResult,
     SelfContainmentLevel,
+    UnitEnrichment,
     VerificationItem,
     VerificationResult,
 )
@@ -862,6 +863,117 @@ class TestProcessChunk:
             not in progress.mark_done.call_args_list
         )
         mock_enrich.assert_not_called()
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_retries_live_after_invalid_cached_enrichment_non_resume(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.return_value = False
+        cache = MagicMock()
+        cache.load.return_value = EnrichmentResult(
+            enrichments=[],
+            total_units=0,
+        )
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        exc0 = _make_excerpt_record(
+            excerpt_id="exc_live_retry_0",
+            div_id=chunk.div_id,
+            unit_index=0,
+        )
+        exc1 = _make_excerpt_record(
+            excerpt_id="exc_live_retry_1",
+            div_id=chunk.div_id,
+            unit_index=1,
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = []
+        mock_build_det.return_value = [exc0, exc1]
+        mock_enrich.return_value = EnrichmentResult(
+            enrichments=[
+                UnitEnrichment(
+                    unit_index=0,
+                    excerpt_topic=["اختبار"],
+                    school=None,
+                    school_confidence=None,
+                    resolved_scholars=[],
+                    takhrij_data=[],
+                    terminology_variants=[],
+                    cross_references=[],
+                    context_hint=None,
+                ),
+                UnitEnrichment(
+                    unit_index=1,
+                    excerpt_topic=["اختبار"],
+                    school=None,
+                    school_confidence=None,
+                    resolved_scholars=[],
+                    takhrij_data=[],
+                    terminology_variants=[],
+                    cross_references=[],
+                    context_hint=None,
+                ),
+            ],
+            total_units=2,
+        )
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=None,
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=cache,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert all(
+            "llm_enrichment_failed" not in exc.review_flags
+            for exc in result.final_excerpts
+        )
+        mock_enrich.assert_called_once()
+        assert (
+            call(chunk.chunk_id, "phase3_enrich")
+            in progress.mark_done.call_args_list
+        )
+        progress.mark_failed.assert_not_called()
 
     @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
     @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")

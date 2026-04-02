@@ -612,134 +612,116 @@ def _process_chunk(
                         chunk_id,
                         exc,
                     )
-                    if is_enrich_resume:
-                        ctx.enriched_excerpts = [
-                            ex.model_copy(
-                                update={
-                                    "review_flags": [
-                                        *list(ex.review_flags or []),
-                                        *(
-                                            []
-                                            if "llm_enrichment_failed" in (ex.review_flags or [])
-                                            else ["llm_enrichment_failed"]
-                                        ),
-                                    ]
-                                }
-                            )
-                            for ex in ctx.excerpts
-                        ]
-                        if progress is not None:
-                            progress.mark_failed(chunk_id, "phase3_enrich", "EX-M-002")
-                    else:
-                        cached_enrichment = None
+                    cached_enrichment = None
                 else:
                     if progress is not None:
                         progress.mark_done(chunk_id, "phase3_enrich")
-            elif is_enrich_resume:
-                logger.error(
-                    "%s: [%s] Phase 3 enrich was marked done but cache is missing. "
-                    "Keeping deterministic-only fields with llm_enrichment_failed.",
-                    "EX-M-002",
-                    chunk_id,
-                )
-                ctx.enriched_excerpts = [
-                    exc.model_copy(
-                        update={
-                            "review_flags": [
-                                *list(exc.review_flags or []),
-                                *(
-                                    []
-                                    if "llm_enrichment_failed" in (exc.review_flags or [])
-                                    else ["llm_enrichment_failed"]
-                                ),
-                            ]
-                        }
-                    )
-                    for exc in ctx.excerpts
-                ]
-                if progress is not None:
-                    progress.mark_failed(chunk_id, "phase3_enrich", "EX-M-002")
-            else:
-                current_timeout = config.ENRICH_TIMEOUT
-                for attempt in range(max_attempts):
-                    try:
-                        if breaker is not None:
-                            breaker.check()
-                        if status_writer is not None:
-                            status_writer.record_phase_start(
-                                chunk_id, "phase3_enrich"
-                            )
-                        controller.acquire()
-                        try:
-                            enrichment = enrich_chunk(
-                                chunk,
-                                ctx.excerpts,
-                                enrich_client,
-                                config,
-                                source_metadata,
-                                timeout_override=current_timeout,
-                            )
-                            if breaker is not None:
-                                breaker.record_success()
-                        finally:
-                            controller.release()
-                            if status_writer is not None:
-                                status_writer.record_phase_end(
-                                    chunk_id, "phase3_enrich"
-                                )
-
-                        ctx.enriched_excerpts = apply_enrichment(
-                            ctx.excerpts, enrichment
-                        )
-                        if cache is not None and enrich_cache_key:
-                            cache.save(
-                                "enrich",
-                                enrich_cache_key,
-                                chunk_id,
-                                config.ENRICH_MODEL,
-                                enrichment,
-                            )
-                        if progress is not None:
-                            progress.mark_done(chunk_id, "phase3_enrich")
-                        break
-                    except Exception as exc:
-                        if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS):
-                            raise
-                        if breaker is not None:
-                            breaker.record_failure()
-                        current_timeout = min(
-                            int(current_timeout * 1.5),
-                            config.ENRICH_TIMEOUT * 2,
-                        )
-                        logger.warning(
-                            "[%s] Phase 3 enrich attempt %d/%d: %s",
-                            chunk_id,
-                            attempt + 1,
-                            max_attempts,
-                            exc,
-                        )
-                        time.sleep(2**attempt)
-
-                if ctx.enriched_excerpts is None:
-                    logger.warning(
-                        "[%s] Enrichment failed, using deterministic-only",
+            if ctx.enriched_excerpts is None:
+                if is_enrich_resume:
+                    logger.error(
+                        "%s: [%s] Phase 3 enrich was marked done but cache is missing. "
+                        "Keeping deterministic-only fields with llm_enrichment_failed.",
+                        "EX-M-002",
                         chunk_id,
                     )
                     ctx.enriched_excerpts = [
                         exc.model_copy(
                             update={
                                 "review_flags": [
-                                    *exc.review_flags,
-                                    "llm_enrichment_failed",
+                                    *list(exc.review_flags or []),
+                                    *(
+                                        []
+                                        if "llm_enrichment_failed" in (exc.review_flags or [])
+                                        else ["llm_enrichment_failed"]
+                                    ),
                                 ]
                             }
                         )
                         for exc in ctx.excerpts
                     ]
                     if progress is not None:
-                        progress.mark_failed(
-                            chunk_id, "phase3_enrich", "EX-M-002"
+                        progress.mark_failed(chunk_id, "phase3_enrich", "EX-M-002")
+                else:
+                    current_timeout = config.ENRICH_TIMEOUT
+                    for attempt in range(max_attempts):
+                        try:
+                            if breaker is not None:
+                                breaker.check()
+                            if status_writer is not None:
+                                status_writer.record_phase_start(
+                                    chunk_id, "phase3_enrich"
+                                )
+                            controller.acquire()
+                            try:
+                                enrichment = enrich_chunk(
+                                    chunk,
+                                    ctx.excerpts,
+                                    enrich_client,
+                                    config,
+                                    source_metadata,
+                                    timeout_override=current_timeout,
+                                )
+                                if breaker is not None:
+                                    breaker.record_success()
+                            finally:
+                                controller.release()
+                                if status_writer is not None:
+                                    status_writer.record_phase_end(
+                                        chunk_id, "phase3_enrich"
+                                    )
+
+                            ctx.enriched_excerpts = apply_enrichment(
+                                ctx.excerpts, enrichment
+                            )
+                            if cache is not None and enrich_cache_key:
+                                cache.save(
+                                    "enrich",
+                                    enrich_cache_key,
+                                    chunk_id,
+                                    config.ENRICH_MODEL,
+                                    enrichment,
+                                )
+                            if progress is not None:
+                                progress.mark_done(chunk_id, "phase3_enrich")
+                            break
+                        except Exception as exc:
+                            if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS):
+                                raise
+                            if breaker is not None:
+                                breaker.record_failure()
+                            current_timeout = min(
+                                int(current_timeout * 1.5),
+                                config.ENRICH_TIMEOUT * 2,
+                            )
+                            logger.warning(
+                                "[%s] Phase 3 enrich attempt %d/%d: %s",
+                                chunk_id,
+                                attempt + 1,
+                                max_attempts,
+                                exc,
+                            )
+                            time.sleep(2**attempt)
+
+                    if ctx.enriched_excerpts is None:
+                        logger.warning(
+                            "[%s] Enrichment failed, using deterministic-only",
+                            chunk_id,
                         )
+                        ctx.enriched_excerpts = [
+                            exc.model_copy(
+                                update={
+                                    "review_flags": [
+                                        *exc.review_flags,
+                                        "llm_enrichment_failed",
+                                    ]
+                                }
+                            )
+                            for exc in ctx.excerpts
+                        ]
+                        if progress is not None:
+                            progress.mark_failed(
+                                chunk_id, "phase3_enrich", "EX-M-002"
+                            )
         else:
             ctx.enriched_excerpts = ctx.excerpts
 
