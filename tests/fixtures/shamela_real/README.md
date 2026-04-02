@@ -1,7 +1,7 @@
 # Real Shamela Desktop Export Test Fixtures
 
 **Source:** Owner's Shamela desktop app v4 export (2,519 books surveyed)
-**Selected:** 12 fixtures covering key variation axes
+**Selected:** 13 fixtures covering key variation axes
 **Survey:** See `reference/SHAMELA_FORMAT_ANALYSIS.md` for complete structural analysis
 
 ## Fixtures

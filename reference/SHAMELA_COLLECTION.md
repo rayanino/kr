@@ -9,7 +9,7 @@ The owner exported 2,519 books from the Shamela desktop app (v4) in March 2026. 
 
 ## What's in the repo vs. what's in the exports
 
-**In the repo** (`tests/fixtures/shamela_real/`): 12 selected fixtures covering key variation axes.
+**In the repo** (`tests/fixtures/shamela_real/`): 13 selected fixtures covering key variation axes.
 **In the exports** (Google Drive): All 2,519 exported books for broader testing when needed.
 
 ## How to re-download
