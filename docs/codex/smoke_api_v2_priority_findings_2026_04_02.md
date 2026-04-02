@@ -19,6 +19,7 @@ Evidence:
 - `integration_tests/smoke_api_v2/analysis/campaign_summary.md`
   - recurring anomaly pattern: `grouped_unit_loss` in all books
 - packet: `docs/codex/ex_v002_drop_packet_2026_04_02.md`
+- repair map: `docs/codex/ex_v002_repair_map_2026_04_02.md`
 - `integration_tests/smoke_api_v2/ext_39_masala/validation_drops.jsonl`
 - `integration_tests/smoke_api_v2/ext_46_qa/validation_drops.jsonl`
 - `integration_tests/smoke_api_v2/ibn_aqil_v1/validation_drops.jsonl`
@@ -46,6 +47,7 @@ Evidence:
 - `integration_tests/smoke_api_v2/analysis/campaign_summary.md`
   - recurring anomaly pattern: `phase2a_chunk_failures`
 - packet: `docs/codex/ex_c003_phase2a_failure_packet_2026_04_02.md`
+- repair map: `docs/codex/ex_c003_repair_map_2026_04_02.md`
 - `integration_tests/smoke_api_v2/ext_46_qa/phase2a_failures.jsonl`
 - `integration_tests/smoke_api_v2/taysir/analysis/book_summary.md`
   - `ANO-P2A-FAILURES`: `4` chunks failed Phase 2a
