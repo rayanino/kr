@@ -93,6 +93,23 @@ Every report in this folder should begin with:
 - Known limitations:
 ```
 
+## External Report Adjudication Rule
+
+Browser research outputs do not become local truth automatically.
+
+Treat them like this:
+
+- remote-only repo review: useful pressure-test, not current-local file review
+- uploaded-file review: stronger, but still must be adjudicated against the local packet before changes are applied
+- methodology/doctrine review: useful for principles, but still must be grounded in local files before patching
+
+For every external report, record:
+
+1. source mode
+2. accepted grounded findings
+3. rejected / already-fixed / generic claims
+4. the local commit(s) that implemented any accepted changes
+
 ## Required Synthesis Artifacts
 
 After all available reviews are collected, create:
