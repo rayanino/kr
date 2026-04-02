@@ -27,7 +27,7 @@ only after critical evaluation, contradiction checks, and feasibility review.
 | F-5 | Self-containment + note visibility | Whether a summary note is necessary, and whether it should show by default | excerpting/SPEC.md §4.A (Self-Containment) + reader/display policy | context_hint_gate + note_display_default | PARTIAL allowed with context_hint; note display default not yet defined | — |
 | F-6 | Original text fidelity | Reference tool vs learning tool | All engines (design philosophy) | Verbatim-copy rule strictness | Verbatim copy required | — |
 | F-7 | Failure modes | Absolute constraints | excerpting/SPEC.md §4 (Error Handling) | — | — | — |
-| F-8 | Taxonomy independence | Whether excerpting sees taxonomy tree | excerpting/SPEC.md §2 (Input) | Taxonomy input toggle | No taxonomy input | — |
+| F-8 | Structure-risk preference | Which failure feels more dangerous: premature structure or structurelessness | excerpting/SPEC.md §2 (Input) + Phase 0 risk notes | taxonomy_risk_preference_notes | No formal risk preference recorded | — |
 | G-1 | Min excerpt size | Minimum viable excerpt length | excerpting/SPEC.md §4.B (Granularity) | min_excerpt_threshold | No minimum defined | — |
 | G-2 | Max excerpt size | When to split long excerpts | excerpting/SPEC.md §4.B (Granularity) | max_excerpt_threshold | No maximum defined | — |
 | G-3 | List handling | Numbered items: together or split | excerpting/SPEC.md §4.B (List Handling) | Phase 2b grouping criteria | Together (one excerpt) | — |
@@ -45,7 +45,7 @@ only after critical evaluation, contradiction checks, and feasibility review.
 | K-2 | Long khilaf | Long debate: split threshold | excerpting/SPEC.md §4.F (DR-3) | dr3_long_threshold | Split (>800 words) | DR-3 |
 | K-3 | Position linking | Separate positions with links | excerpting/SPEC.md §4.F (DR-3) | dr3_link_policy | Preserve + link | DR-3 |
 | GN-1 | Genre uniformity | One approach vs per-genre | excerpting/SPEC.md §4.G (Genre) | genre_specific_prompts | One-size-fits-all | — |
-| GN-2 | Shaahid handling | Grammar examples in/out | excerpting/SPEC.md §4.G (Nahw) | nahw_shaahid_policy | Not yet defined | — |
+| GN-2 | Example coupling | Whether rule examples can detach from explanations without harming comprehension | excerpting/SPEC.md §4.G (Nahw) | nahw_shaahid_policy | Not yet defined | — |
 | L-1 | Layer attribution | Editor note ownership | excerpting/SPEC.md §4.H (Layers) | layer_attribution_rule | Attribute to editor | — |
 | L-2 | Commentary structure + layer clarity | Whether matn + sharh stay together, and whether explicit layer labels are mandatory | excerpting/SPEC.md §4.H (Layers) + output metadata policy | sharh_matn_split + mandatory_layer_labels | Together; mandatory layer labels not yet defined | — |
 | L-3 | Editorial footnote and takhrij handling | Whether substantive editor footnotes and source/grading notes stay inline, link out, or stay hidden by default | excerpting/SPEC.md §4.H (Layers) + output display policy | editorial_footnote_policy + takhrij_display_policy | Not yet defined | — |

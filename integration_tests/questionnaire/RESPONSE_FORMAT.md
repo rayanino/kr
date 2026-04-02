@@ -49,4 +49,4 @@ These interactions test the boundaries of your principles. They use the standard
 2. They look for: internal contradictions, technical feasibility issues, missing considerations
 3. Any challenges are brought back to you for discussion
 4. Only after this review process do your answers become SPEC rules and prompt calibrations
-5. Every technical change traces back to a specific answer you gave here
+5. When your answers materially influence a technical change, that influence is recorded alongside feasibility and scholarly review — your answer is evidence in the chain, not the whole chain

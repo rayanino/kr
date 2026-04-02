@@ -2,7 +2,7 @@
 
 ## What This Is
 
-This document asks you to read real excerpts from your library and tell us what you think. Your reactions, preferences, and judgments will directly shape how the library breaks books into individual pieces of knowledge.
+This document asks you to read real excerpts from your library and tell us what you think. Your reactions, preferences, and judgments are a major source of calibration input for the team, but they will always be critically evaluated before becoming any rule or system behavior.
 
 There are no wrong answers. Every answer you give --- even uncertainty, contradiction, or a change of mind --- is valuable information for the team.
 
@@ -119,13 +119,17 @@ What failure would make you stop using the library? What is the worst thing it c
 
 ---
 
-## F-8 --- A Design Question
+## F-8 --- A Risk Preference Question
 
 _No excerpt to read._
 
-You once raised a question: should the system that breaks books into excerpts know in advance what topics the library covers (like a table of contents of Islamic knowledge), or should it work without that knowledge to avoid being biased?
+This is not asking you to design the system. It is asking which failure worries you more.
 
-Let us explore both sides. If the system knows the topic structure in advance, what worries you? And if it works blind without any topic structure, what worries you? What could go wrong in each case?
+If the system knows the topic structure in advance, what worries you most? For example: becoming rigid too early, forcing texts into the wrong boxes, or importing bias.
+
+If the system works blind without any topic structure, what worries you most? For example: becoming chaotic, missing distinctions, or producing inconsistent excerpt boundaries.
+
+Which kind of failure feels more dangerous to you, and why?
 
 ---
 
@@ -488,6 +492,8 @@ Look at these three excerpts from three different Islamic sciences. Do they feel
 ### GN-2 --- The Grammar Example (الشاهد)
 
 Look at the grammar excerpt (Excerpt B) from GN-1 again. In grammar texts, the example sentence (الشاهد --- the sentence that illustrates the rule, like "يا زيد" or "زيد قائم") is central to understanding the rule.
+
+If grammar is not a science you actively study, answer from a simple reader's perspective: would separating the example make the explanation easier or harder to understand?
 
 Should the example sentence be inside the rule excerpt, or should it be its own separate entry? If the example is separated from the rule, can you still understand the rule?
 

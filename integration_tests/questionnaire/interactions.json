@@ -99,15 +99,15 @@
     "id": "F-8",
     "phase": "foundations",
     "phase_label": "Phase 1: Foundations",
-    "title": "A Design Question",
+    "title": "A Risk Preference Question",
     "excerpt_text": null,
     "excerpt_source": null,
     "context_note": null,
-    "question": "Should the system that breaks books into excerpts know in advance what topics the library covers (like a table of contents of Islamic knowledge), or should it work without that knowledge to avoid being biased? If the system knows the topic structure in advance, what worries you? And if it works blind without any topic structure, what worries you? What could go wrong in each case?",
+    "question": "This is not asking you to design the system. It is asking which failure worries you more. If the system knows the topic structure in advance, what worries you most — becoming rigid too early, forcing texts into the wrong boxes, or importing bias? If it works blind without any topic structure, what worries you most — becoming chaotic, missing distinctions, or producing inconsistent excerpt boundaries? Which kind of failure feels more dangerous to you, and why?",
     "multiple_choice": [
-      "A: The system should know the topic structure in advance",
-      "B: The system should work without prior topic knowledge",
-      "C: Some combination — I would need to think about which parts should be guided"
+      "A: Premature structure worries me more",
+      "B: Structurelessness worries me more",
+      "C: Neither extreme — the real issue is where guidance should and should not be used"
     ],
     "is_edge_case": false
   },
@@ -390,8 +390,8 @@
     "title": "The Grammar Example (الشاهد)",
     "excerpt_text": null,
     "excerpt_source": null,
-    "context_note": "Referring to the grammar excerpt from GN-1: \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم.\" In grammar texts, the example sentence (الشاهد) — like \"يا زيد\" or \"زيد قائم\" — is central to understanding the rule.",
-    "question": "Should the example sentence (الشاهد) be inside the rule excerpt, or should it be its own separate entry? If the example is separated from the rule, can you still understand the rule?",
+    "context_note": "Referring to the grammar excerpt from GN-1: \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم.\" In grammar texts, the example sentence (الشاهد) — like \"يا زيد\" or \"زيد قائم\" — is central to understanding the rule. If grammar is not a science you actively study, answer from a simple reader's perspective: would separating the example make the explanation easier or harder to understand?",
+    "question": "Should the example sentence (الشاهد) stay inside the rule excerpt, or could it be its own separate entry? If the example is separated from the rule, can you still understand the rule well enough as a reader?",
     "multiple_choice": [
       "A: The example should always be inside the rule excerpt — they cannot be separated",
       "B: The example can be its own entry if it is also used in other rules",

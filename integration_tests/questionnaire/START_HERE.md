@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is your personal evaluation session for the KR library. You will read excerpts from your books and tell us what you think about them. Your answers shape how the pipeline works — this is the most important feedback you can give.
+This is your personal evaluation session for the KR library. You will read excerpts from your books and tell us what you think about them. Your answers are one of the highest-value feedback sources the team has, but they are still feedback to be challenged and interpreted — not direct instructions.
 
 There are **40 core questionnaire slots** split into 4 phases. Right now, **38 are answerable** and **2 comparison slots are intentionally locked** because the weekend `taysir` v2 run failed before valid comparison material existed. After the core packet, there is also a small optional supplemental packet in markdown.
 
@@ -127,6 +127,26 @@ still not fully covered by the main questionnaire.
 - The questions in Phase 1 have no excerpts — they ask about your study habits and expectations. Answer in your own words.
 - Questions marked **Edge Case** are specifically tricky situations. Take a little more time with those.
 - Write in Arabic or English — whichever feels more natural for each answer.
+
+## Short Path If You Are Time-Limited
+
+If you cannot do the full packet, prioritize these first:
+
+- `F-1`
+- `F-3`
+- `F-4`
+- `G-2`
+- `G-4`
+- `SC-2`
+- `SC-4`
+- `E-2`
+- `L-2`
+- `S-1`
+- `S-1c`
+- `S-2`
+
+That is the minimum high-signal subset. The full packet is still better, but
+this list captures the most important tradeoffs if time is tight.
 
 ---
 
