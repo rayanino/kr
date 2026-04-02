@@ -898,7 +898,7 @@ On schema validation failure (missing fields, wrong types, values outside enum),
 
 | Parameter | Value | Rationale |
 |-----------|-------|-----------|
-| Model | `anthropic/claude-opus-4.6` via OpenRouter | Highest classification accuracy. Validated in experiment. |
+| Model | `openai/gpt-5.4` via OpenRouter | Current primary runtime model for classification. Matches `ExcerptingConfig.CLASSIFY_MODEL` and the executable control-plane defaults. |
 | Temperature | `0` | Deterministic classification. |
 | MAX_TOKENS | Dynamic — see §5.5.1 | Classification output scales with input length. |
 
@@ -1049,7 +1049,7 @@ On schema validation failure, same retry policy as §5.2.4.
 
 | Parameter | Value | Rationale |
 |-----------|-------|-----------|
-| Model | `anthropic/claude-opus-4.6` via OpenRouter | Consistent with classification. Grouping requires understanding scholarly argument structure. |
+| Model | `openai/gpt-5.4` via OpenRouter | Current primary runtime model for grouping. Matches `ExcerptingConfig.GROUP_MODEL` and the executable control-plane defaults. |
 | Temperature | `0` | Deterministic grouping. |
 | MAX_TOKENS | `16384` | Grouping output is smaller than classification (fewer objects, each with more fields). 16384 is sufficient for the largest validated case (41 units at 3111 words). |
 
@@ -1208,9 +1208,9 @@ Flagged chunks are logged with full diagnostic information (the raw LLM response
 |-----------|-------|
 | Provider | OpenRouter |
 | API key | From environment variable (`OPENROUTER_API_KEY`) |
-| Model string | `anthropic/claude-opus-4.6` |
+| Model string | `openai/gpt-5.4` for Phase 2 classification/grouping |
 | Temperature | `0` (both calls) |
-| Timeout | `120` seconds per call |
+| Timeouts | `CLASSIFY_TIMEOUT=900`, `GROUP_TIMEOUT=900` seconds |
 | Rate limiting | Respect OpenRouter rate limits; back off on 429 responses |
 
 #### §5.5.4 — Telemetry
@@ -1748,7 +1748,7 @@ On schema validation failure (missing fields, wrong types, invalid enum values),
 
 | Parameter | Value | Rationale |
 |-----------|-------|-----------|
-| Model | `anthropic/claude-opus-4.6` via OpenRouter | Highest enrichment quality. School attribution and scholar resolution require deep domain knowledge. |
+| Model | `openai/gpt-5.4` via OpenRouter | Current primary runtime model for enrichment. Matches `ExcerptingConfig.ENRICH_MODEL` and the executable control-plane defaults. |
 | Temperature | `0` | Deterministic enrichment. |
 | MAX_TOKENS | `16384` | Enrichment output is structured metadata, not full text. 16384 is sufficient for the largest validated case (41 units, each with ~7 enrichment fields). |
 
@@ -1783,7 +1783,7 @@ Not every Phase 3 decision requires cross-provider verification. Consensus is re
 
 When a chunk contains units requiring consensus, Phase 3 issues a **single verification call per chunk** to a different model provider. The call includes only the units needing verification, not all units.
 
-**Verification model:** Configurable. Default: `openai/gpt-5.4` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
+**Verification model:** Configurable. Default: `anthropic/claude-opus-4.6` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is currently OpenAI GPT-5.4, the verifier must be from Anthropic, Cohere, Mistral, or another non-OpenAI provider.
 
 **Verification prompt:**
 
@@ -2053,22 +2053,26 @@ All configuration parameters are collected here with their defaults, valid range
 
 | Parameter | Type | Default | Range | Description | SPEC Reference |
 |-----------|------|---------|-------|-------------|----------------|
-| `CLASSIFY_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for segment classification. Via OpenRouter. | §5.2.5 |
-| `GROUP_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for teaching unit grouping. Via OpenRouter. | §5.3.5 |
+| `CLASSIFY_MODEL` | str | `openai/gpt-5.4` | — | LLM model for segment classification. Via OpenRouter. | §5.2.5 |
+| `GROUP_MODEL` | str | `openai/gpt-5.4` | — | LLM model for teaching unit grouping. Via OpenRouter. | §5.3.5 |
 | `LLM_TEMPERATURE` | float | 0 | 0.0–0.3 | Temperature for all LLM calls (classification, grouping, enrichment). | §5.2.5, §5.3.5, §7.2.5 |
 | `CLASSIFY_MAX_TOKENS` | dynamic | See §5.5.1 | — | MAX_TOKENS for classify call. Scales with input word count. | §5.5.1 |
 | `GROUP_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for group call. | §5.3.5 |
 | `RETRY_COUNT` | int | 2 | 1–5 | Maximum retries for LLM calls (excluding schema validation retries). | §5.5.2 |
-| `TIMEOUT_SECONDS` | int | 300 | 30–600 | Per-call timeout for LLM API requests. | §5.5.3 |
+| `CLASSIFY_TIMEOUT` | int | 900 | 30–1800 | Timeout for classification calls. | §5.5.3 |
+| `GROUP_TIMEOUT` | int | 900 | 30–1800 | Timeout for grouping calls. | §5.5.3 |
 
 **Phase 3 parameters:**
 
 | Parameter | Type | Default | Range | Description | SPEC Reference |
 |-----------|------|---------|-------|-------------|----------------|
-| `ENRICH_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for metadata enrichment. Via OpenRouter. | §7.2.5 |
+| `ENRICH_MODEL` | str | `openai/gpt-5.4` | — | LLM model for metadata enrichment. Via OpenRouter. | §7.2.5 |
 | `ENRICH_MAX_TOKENS` | int | dynamic | 16384–32768 | ≤1500 words → 16384, >1500 words → 32768. Mirrors §5.5.1 classify scaling. Empirically calibrated from ibn_aqil_v3 (1987 words, 28 TUs, 14863 completion tokens). | §7.2.5 |
-| `VERIFY_MODEL` | str | `openai/gpt-5.4` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
+| `VERIFY_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
 | `VERIFY_MAX_TOKENS` | int | 8192 | 4096–16384 | MAX_TOKENS for verification call. | §7.3.2 |
+| `ENRICH_TIMEOUT` | int | 900 | 30–1800 | Timeout for enrichment calls. | §7.2.5 |
+| `VERIFY_TIMEOUT` | int | 600 | 30–1800 | Timeout for consensus verification calls. | §7.3.2 |
+| `ESCALATION_TIMEOUT` | int | 300 | 30–1800 | Timeout for third-model escalation calls. | §7.3.3 |
 | `ESCALATION_MODEL` | str | `mistralai/mistral-large-2411` | — | Third model for 3-way escalation when enrichment and verification disagree on attribution. Via OpenRouter. | §7.3.3 |
 
 **Human gate parameters:**
