@@ -1214,6 +1214,71 @@ class TestProcessChunk:
         assert result.error == "phase2a_failed"
         assert result.final_excerpts is None
 
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_phase2a_programming_bug_propagates(
+        self,
+        mock_classify: MagicMock,
+    ) -> None:
+        """Phase 2a programming bugs must not be downgraded to chunk failure."""
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        mock_classify.side_effect = TypeError("Bug in classify")
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        with pytest.raises(TypeError, match="Bug in classify"):
+            _process_chunk(
+                ctx=ctx,
+                enrich_client=MagicMock(),
+                verify_client=None,
+                escalation_client=None,
+                config=config,
+                controller=controller,
+                progress=None,
+                cache=None,
+                classified_data=None,
+                grouped_data=None,
+                source_metadata=None,
+            )
+
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_phase2b_programming_bug_propagates(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+    ) -> None:
+        """Phase 2b programming bugs must not be downgraded to chunk failure."""
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+
+        cr_result = MagicMock()
+        cr_result.segments = [_make_mock_segment()]
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = [_make_mock_segment()]
+        mock_group.side_effect = TypeError("Bug in group")
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        with pytest.raises(TypeError, match="Bug in group"):
+            _process_chunk(
+                ctx=ctx,
+                enrich_client=MagicMock(),
+                verify_client=None,
+                escalation_client=None,
+                config=config,
+                controller=controller,
+                progress=None,
+                cache=None,
+                classified_data=None,
+                grouped_data=None,
+                source_metadata=None,
+            )
+
     @patch("engines.excerpting.src.phase2_classify.verify_segments")
     @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")

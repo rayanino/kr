@@ -434,6 +434,8 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS):
+                        raise
                     last_error_code = "EX-C-001"
                     if breaker is not None:
                         breaker.record_failure()
@@ -531,6 +533,8 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    if isinstance(exc, PROGRAMMING_BUG_EXCEPTIONS):
+                        raise
                     last_error_code = "EX-C-002"
                     if breaker is not None:
                         breaker.record_failure()
