@@ -664,7 +664,10 @@ class TestFullConsensusFlow:
 
         assert len(result) == 2
         assert "verification_skipped" in result[0].review_flags
+        assert result[0].school == "حنبلي"
+        assert result[0].school_confidence == 0.9
         assert "verification_skipped" not in result[1].review_flags
+        assert result[1].school is None
         assert not _gates
         assert errors == [ExcerptingErrorCodes.EX_M_011]
         progress.mark_failed.assert_called_once_with(

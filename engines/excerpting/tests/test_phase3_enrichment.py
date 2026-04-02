@@ -417,6 +417,7 @@ class TestGracefulDegradation:
 
         assert len(result) == 1
         assert result[0].primary_text == "بسم الله الرحمن الرحيم"
+        assert result[0].excerpt_topic == []
         assert "llm_enrichment_failed" in result[0].review_flags
         assert errors == [ExcerptingErrorCodes.EX_M_002]
         progress.mark_failed.assert_called_once_with(
