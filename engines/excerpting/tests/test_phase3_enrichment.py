@@ -28,6 +28,7 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase3_enrichment import (
     ENRICH_SYSTEM_PROMPT,
+    EnrichmentBatchCoverageError,
     _build_enrichment_user_message,
     _merge_scholars,
     apply_enrichment,
@@ -264,21 +265,21 @@ class TestApplyEnrichment:
         assert result[0].takhrij_data[0].collections == ["صحيح مسلم"]
 
     def test_apply_empty_enrichment_keeps_deterministic(self) -> None:
-        """No enrichment for a unit_index → keep original."""
+        """Empty enrichment batches must fail loudly instead of looking successful."""
         exc = _make_excerpt_record(unit_index=0)
         enrichment = EnrichmentResult(enrichments=[], total_units=0)
 
-        result = apply_enrichment([exc], enrichment)
-        assert len(result) == 1
-        assert result[0] is exc  # same object returned
+        with pytest.raises(EnrichmentBatchCoverageError, match="expected total_units=1"):
+            apply_enrichment([exc], enrichment)
 
     def test_apply_mismatched_unit_index_keeps_original(self) -> None:
+        """Mismatched unit coverage must fail loudly instead of passing through."""
         exc = _make_excerpt_record(unit_index=0)
         ue = _make_unit_enrichment(unit_index=99)
         enrichment = EnrichmentResult(enrichments=[ue], total_units=1)
 
-        result = apply_enrichment([exc], enrichment)
-        assert result[0] is exc
+        with pytest.raises(EnrichmentBatchCoverageError, match="missing=\\[0\\], extra=\\[99\\]"):
+            apply_enrichment([exc], enrichment)
 
     def test_apply_context_hint_only_for_partial(self) -> None:
         """I-ER-4: context_hint only for PARTIAL, not FULL or DEPENDENT."""
@@ -625,6 +626,53 @@ class TestRunPhase3Enrichment:
             ExcerptingErrorCodes.EX_M_002,
         )
         assert client.chat.completions.create.call_count == 0
+
+    def test_incomplete_batch_degrades_and_skips_cache_save(self) -> None:
+        chunk = _make_assembled_chunk()
+        exc1 = _make_excerpt_record(
+            div_id=chunk.div_id,
+            unit_index=0,
+            excerpt_id="exc_enrich_0",
+        )
+        exc2 = _make_excerpt_record(
+            div_id=chunk.div_id,
+            unit_index=1,
+            excerpt_id="exc_enrich_1",
+        )
+        client = _make_mock_instructor_client(
+            return_value=EnrichmentResult(
+                enrichments=[_make_unit_enrichment(unit_index=0)],
+                total_units=1,
+            )
+        )
+        config = ExcerptingConfig(RETRY_COUNT=0)
+        progress = MagicMock()
+        progress.is_done.return_value = False
+        cache = MagicMock()
+        cache.load.return_value = None
+        errors: list[str] = []
+
+        result = run_phase3_enrichment(
+            [exc1, exc2],
+            [chunk],
+            client,
+            config,
+            _SOURCE_META,
+            progress=progress,
+            cache=cache,
+            error_sink=errors,
+        )
+
+        assert len(result) == 2
+        assert all("llm_enrichment_failed" in exc.review_flags for exc in result)
+        assert errors == [ExcerptingErrorCodes.EX_M_002]
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_enrich",
+            ExcerptingErrorCodes.EX_M_002,
+        )
+        progress.mark_done.assert_not_called()
+        cache.save.assert_not_called()
 
 
 # ═══════════════════════════════════════════════════════════════════

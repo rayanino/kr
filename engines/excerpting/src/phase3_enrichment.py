@@ -37,6 +37,10 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+class EnrichmentBatchCoverageError(ValueError):
+    """Raised when an enrichment batch does not cover the input teaching units."""
+
+
 def _compute_enrich_max_tokens(word_count: int) -> int:
     """Compute MAX_TOKENS for enrichment call based on input size.
 
@@ -353,6 +357,30 @@ def apply_enrichment(
     terminology_variants, cross_references, context_hint.
     Merges resolved_scholars into quoted_scholars (DD-S4-4).
     """
+    expected_indices = [exc.unit_index for exc in excerpts]
+    actual_indices = [ue.unit_index for ue in enrichment.enrichments]
+    if enrichment.total_units != len(excerpts):
+        raise EnrichmentBatchCoverageError(
+            "Incomplete enrichment batch: "
+            f"expected total_units={len(excerpts)}, got {enrichment.total_units}."
+        )
+    if len(actual_indices) != len(expected_indices):
+        raise EnrichmentBatchCoverageError(
+            "Incomplete enrichment batch: "
+            f"expected {len(expected_indices)} enrichments, got {len(actual_indices)}."
+        )
+    if len(set(actual_indices)) != len(actual_indices):
+        raise EnrichmentBatchCoverageError(
+            f"Invalid enrichment batch: duplicate unit_index values {actual_indices}."
+        )
+    missing = sorted(set(expected_indices) - set(actual_indices))
+    extra = sorted(set(actual_indices) - set(expected_indices))
+    if missing or extra:
+        raise EnrichmentBatchCoverageError(
+            "Invalid enrichment batch unit coverage: "
+            f"missing={missing or []}, extra={extra or []}."
+        )
+
     # Build lookup by unit_index
     enrichment_map: dict[int, UnitEnrichment] = {
         ue.unit_index: ue for ue in enrichment.enrichments
@@ -567,15 +595,24 @@ def run_phase3_enrichment(
             )
             cached = cache.load("enrich", cache_key, EnrichmentResult)
             if cached is not None:
-                logger.info(
-                    "Chunk %s phase3_enrich: cache hit, skipping LLM call",
-                    chunk_id,
-                )
-                enriched = apply_enrichment(chunk_excerpts, cached)
-                all_results.extend(enriched)
-                if progress is not None:
-                    progress.mark_done(chunk_id, "phase3_enrich")
-                continue
+                try:
+                    logger.info(
+                        "Chunk %s phase3_enrich: cache hit, skipping LLM call",
+                        chunk_id,
+                    )
+                    enriched = apply_enrichment(chunk_excerpts, cached)
+                except EnrichmentBatchCoverageError as exc:
+                    logger.error(
+                        "%s: Cached enrichment batch for chunk %s failed coverage validation: %s",
+                        ExcerptingErrorCodes.EX_M_002,
+                        chunk_id,
+                        exc,
+                    )
+                else:
+                    all_results.extend(enriched)
+                    if progress is not None:
+                        progress.mark_done(chunk_id, "phase3_enrich")
+                    continue
 
         # Resume with cache miss: chunk was done but cache is gone.
         # Pass through deterministic-only excerpts rather than re-calling LLM.

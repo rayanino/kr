@@ -55,7 +55,10 @@ from engines.excerpting.src.phase3_consensus import (
     _needs_consensus,
     resolve_consensus,
 )
-from engines.excerpting.src.phase3_enrichment import apply_enrichment
+from engines.excerpting.src.phase3_enrichment import (
+    EnrichmentBatchCoverageError,
+    apply_enrichment,
+)
 from engines.excerpting.src.phase3_validation import validate_batch, validate_excerpt
 from engines.excerpting.src.writer import (
     GateQueueVerificationError,
@@ -357,9 +360,8 @@ class TestImpossibleStates:
             total_units=3,
         )
 
-        result = apply_enrichment([exc], enrichment)
-        assert len(result) == 1, "Should still output exactly 1 excerpt"
-        assert result[0].excerpt_topic == ["موضوع"], "Matched enrichment applied"
+        with pytest.raises(EnrichmentBatchCoverageError, match="expected total_units=1, got 3"):
+            apply_enrichment([exc], enrichment)
 
     # ── 5. Consensus where all models disagree on every field ────────
     def test_05_all_models_disagree_triggers_gate(self) -> None:
@@ -613,10 +615,8 @@ class TestErrorRecovery:
             total_units=1,
         )
 
-        result = apply_enrichment([exc0, exc1], enrichment)
-        assert len(result) == 2, "Both excerpts should be returned"
-        assert result[0].school == "حنبلي", "Unit 0 should be enriched"
-        assert result[1].school is None, "Unit 1 keeps deterministic-only fields"
+        with pytest.raises(EnrichmentBatchCoverageError, match="expected total_units=2, got 1"):
+            apply_enrichment([exc0, exc1], enrichment)
 
     # ── 13. Consensus model returns invalid JSON ─────────────────────
     def test_13_consensus_invalid_json_recovery(self) -> None:
@@ -982,9 +982,8 @@ class TestAdditionalImpossibleStates:
         exc0 = _make_excerpt(unit_index=0)
         enrichment = EnrichmentResult(enrichments=[], total_units=0)
 
-        result = apply_enrichment([exc0], enrichment)
-        assert len(result) == 1, "Excerpt should survive when no enrichment matches"
-        assert result[0].excerpt_topic == ["اختبار"], "Original topic preserved"
+        with pytest.raises(EnrichmentBatchCoverageError, match="expected total_units=1"):
+            apply_enrichment([exc0], enrichment)
 
     def test_validation_quran_ref_invalid_surah(self) -> None:
         """V-P3-6: Invalid surah number (> 114) emits EX-M-007."""
