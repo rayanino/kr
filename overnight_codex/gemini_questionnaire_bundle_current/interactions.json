@@ -1,0 +1,614 @@
+[
+  {
+    "id": "F-1",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "What Is an Excerpt?",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "In your own words: what is an excerpt? Not a dictionary definition — what does it mean to YOU when you open your library and read one piece of knowledge? What makes something feel like a complete, useful piece of knowledge versus a random fragment?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "F-2",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "Your Study Session",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Describe your ideal study session. You sit down to study a fiqh topic — say, the rulings of prayer or fasting. What do you open first? What are you looking for? Walk me through 30 minutes of studying. Where do you start, what do you read, when do you stop on one thing and move to another?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "F-3",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "Excerpt A",
+    "excerpt_text": "بَاب المسْح عَلى الخفّين\nهذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين، لأن المسح عليهما بدل غسلهما، فهو الطهارة الشرعية المجمع عليها بين المعتبرين من علماء المسلمين، لما تواتر فيها من النصوص الشرعية الصحيحة الواضحة، ولله الحمد.\nولا يعتبر شذوذ بعض الطوائف في عدم شرعيتها والأخذ بأحاديثها لردهم النصوص الصحيحة الصريحة المتواترة، والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt introduces the section on wiping over leather socks (المسح على الخفين) and establishes its legal basis.",
+    "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything. Take your time.",
+    "multiple_choice": [
+      "A: Accept as-is — this works well as a standalone piece of knowledge",
+      "B: Needs improvement — something is missing or unclear",
+      "C: Reject — this should not be its own entry in the library"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "F-4",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "Excerpt B",
+    "excerpt_text": "واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور،",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt discusses the scholarly disagreement about the hand that is cut in the ruling on theft.",
+    "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything.",
+    "multiple_choice": [
+      "A: Accept as-is — this works as a standalone entry",
+      "B: Needs improvement — it feels incomplete",
+      "C: Reject — this is too short/fragmented to be useful on its own"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "F-5",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "An Excerpt With a Summary Note",
+    "excerpt_text": "المعنى الإجمالي:\nطلق عبد الله بن عمر رضي الله عنهما امرأته وهي حائض، فذكر ذلك أبوه للنبي صلى الله عليه وسلم، فتغيظ غضبا، حيث طلقها طلاقا محرما، لم يوافق السنة.\nثم أمره بمراجعْتها وإمساكها حتى تطهر من تلك الحيضة ثم تحيض أخرى ثم تطهر منها.\nوبعد ذلك- إن بدا له طلاقها ولم ير في نفسه رغبة في بقائها- فليطلقها قبل أن يطأها.\nفتلك العدة، التي أمر الله بالطلاق فيها لمن شاء.\nومع أن الطلاق في الحيض محرم ليس على السنة، فقد حسبت عليه تلك الطلقة من طلاقها، فامتثل رضي الله عنه أمر نبيه، فراجعها.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "هذا شرح لحديث عبد الله بن عمر أنه طلق امرأته وهي حائض فأمره النبي صلى الله عليه وسلم بمراجعتها.",
+    "question": "Read both the note and the excerpt. Answer two things clearly: (1) does the excerpt still work if the note is removed, or is the note necessary for understanding it? (2) if the note is useful, should it be shown by default, or only opened when you want extra context?",
+    "multiple_choice": [
+      "A: The note is essential and should be shown by default",
+      "B: The note helps, but it should stay secondary or collapsible",
+      "C: The excerpt should stand on its own without needing the note"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "F-6",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "Full Scholarly Prose",
+    "excerpt_text": "الحديث الثاني\nعَنْ فَاطِمَةَ بِنْتِ قيْس: أنً أبَا عَمْرِو بْن حَفْص طَلقهَا ألبته وَهُو غَائِب.\nوفي رواية: طلَقَهَا ثلاثا فأرسل إلَيْهَا وَكِيلَة بِشَعِير، فَسَخِطَته فَقَالَ: والله مَالَكِ عَلَينا منْ شيء.\nفَجَاءت رَسُول الله صلى الله عليه وسلم فَذَكرَتْ ذلِكَ لَهُ، فقالَ: \" ليْسَ لكَ عَلَيْهِ نَفَقَة\" وفي لفظ \"وَلا سكْنَى\".\nفَأمَرَهَا أن تَعتَدً في بَيْتِ أم شَريكٍ، ثم قالَ: \" تِلكَ امرَأة يَغشَاهَا أصحابي، اعتدي عنْدَ ابنِ أم مكتوم، فَإنَهُ رَجُل أعمَى، تَضَعِينَ ثِيابَكِ عِنْدَهُ، فَإذا حللتِ فآذنيني \".\nقَالتْ: فَلَمَا حلَلتُ ذكرت لَهُ أن مُعَاوِيَةَ بنَ أبي سُفْيَانَ وأبَا جَهْم خَطَبَاني.\nفقال رسول الله صلى الله عليه وسلم: \" أما أبو جَهْم فلا يَضَعَُ عَصَاهُ عَنْ عَاتِقِهِ، وأما مُعَاوِيَة فصعلوك لا مَالَ له، انكحِي أسامة بنَ زَيد \" فَكَرِهَتْهُ.\nثم قَالَ: \" انكحِي أسامة بنَ زيد \" فنكحته، فَجَعَلَ الله فِيهِ خيْرا وَاغْتَبَطْتُ بهِ.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": null,
+    "question": "When you study this text, which parts do you focus on? Are there parts that slow you down or that you skip? Would you want any kind of help understanding the text — or do you always want the author's original words without any changes?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "F-7",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "The Worst Failure",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "What failure would make you stop using the library? What is the worst thing it could do to your study? Think about specific scenarios — what kind of mistake would damage your trust completely?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "F-8",
+    "phase": "foundations",
+    "phase_label": "Phase 1: Foundations",
+    "title": "A Risk Preference Question",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "This is not asking you to design the system. It is asking which failure worries you more. If the system knows the topic structure in advance, what worries you most — becoming rigid too early, forcing texts into the wrong boxes, or importing bias? If it works blind without any topic structure, what worries you most — becoming chaotic, missing distinctions, or producing inconsistent excerpt boundaries? Which kind of failure feels more dangerous to you, and why?",
+    "multiple_choice": [
+      "A: Premature structure worries me more",
+      "B: Structurelessness worries me more",
+      "C: Neither extreme — the real issue is where guidance should and should not be used"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "G-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Granularity",
+    "title": "A Very Short Structural Transition",
+    "excerpt_text": "في الحديث ثلاثة مباحث:\nالمبحث الأول: في خلاف العلماء.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt is a brief structural transition that announces the discussion plan for a hadith — only 53 characters long.",
+    "question": "Would you want something this short as its own entry in your library? How does its length affect its usefulness to you?",
+    "multiple_choice": [
+      "A: Yes — even this short entry has value as a standalone piece",
+      "B: No — it is too short to be useful on its own, merge it with what follows",
+      "C: It depends — I would need to see what comes before and after"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "G-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Granularity",
+    "title": "A Long Excerpt",
+    "excerpt_text": "كيفية الوضوء وفضيلته كما رواه عثمان بن عفان رضي الله عنه\nعن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ، أنه رَأى عُثْمَانَ دَعَا بِوَضوء فَأفرَغ عَلَى يَدَيْهِ مِنْ إنَائِهِ فَغَسَلهُمَا ثَلاثَ مَرات، ثُمَّ أدْخَلَ يَميِنَهُ في الوَضُوءِ، ثم تمضْمَضَ وَاستَنْشَق واسثتَنْثَرَ، ثُم غَسَلَ وَجهَهُ ثَلاثَاً، وَيَدَيْهِ إلَىِ الْمِرْفَقَيْنِ ثَلاثاً، ثُّمَ مَسَحَ برأسه ثُم غَسَل كِلْتَا رجْلَيْهِ ثَلاثاً، ثُمَ قَالَ: رَأيتُ النبي صلى الله عليه وسلم توَضًأ نحْوَ وضوئي هذَا وَقَالَ: \"من تَوَضًأ نَحْوَ وُضُوئي هذَا ثُمَّ صَلَى رَكْعَتَين لا يُحَدِّثُ فِيهِمَا نَفْسَهُ غَفَرَ الله لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ \".\nغريب الحديث:\n1- \"وَضوء\": بفتح الواو. الماء الذي يتوضأ به. قال النووي: يقال: \"الوضوء والطهور -بضم أولهما- إذا أريد الفعل الذي هو المصدر وبفتح أولهما، إذا أريد الماء الذي يتطهر به\". وأصل الوضوء من الوضاءة، وهى الحسن والنظافة فسمي وضوء الصلاة وضوءاً لأنه ينظف صاحبه.\n2- \"فأفرغ\": قلب من ماء الإناء كل يديه.\n3- \"لا يحدِّث فيهما نفسه\": حديث النفس، هو الوساوس والخطرات. والمراد به هنا ما كان في شؤون الدنيا.\nيعنى، فلا يسترسل في ذلك، وإلا فالأفكار يتعذر السلامة منها.\n4- \"إلى المرفقين\": (إلى) بمعنى (مع) يعنى مع المرفقين.\n5- \"ثم\": لم يقصد بها هنا التراخي كما هو الأصل في معناها، وإنما قصد بها مجرد الترتيب. وقد أشار ابن هشام في المغنى والرضي في شرح الكافية إلى أنها قد تأتي لمجرد الترتيب.\n6- \"نحو وضوئي\": جاء في بعض ألفاظ هذا الحديث \"مثل وضوئي هذا\" ومعنى \"نحو\" و\"مثل\" متفاوت: فإن لفظة \"مثل\" تقتضي ظاهر المساواة من كل وجه، أما \"نحو\" فما تعطى معنى المثلية إلا مجازا. والمجاز هنا متعين، لارتباط الثواب بالمماثلة.\nالمعنى الإجمالي:\nاشتمل هذا الحديث العظيم على الصفة الكاملة لوضوء النبي صلى الله عليه وسلم.\nفإن عثمان -رضى الله عنه- من حسن تعليمه وتفهيمه علمهم صفة وضوء النبي صلى الله عليه وسلم بطريق عملية، ليكون أبلغ تفهُّماً، وأتَمَّ تصوُّراً في أذهانهم. فإنه دعا بإناء فيه ماء، ولئلا يلوثه، لم يغمس يده فيه. وإنما صب على يديه ثلاث مرات حتى نظفتا، بعد ذلك أدخل يده اليمنى في الإناء، وأخذ بها ماء تمضمض منه واستنشق، ثم غسل وجهه ثلاث مرات، ثم غسل يديه مع المرفقين ثلاثا، ثم مسح جميع رأسه مرة واحدة، ثم غسل رجليه مع الكعبين ثلاثا.\nفلما فرع رضى الله عنه من هذا التطبيق، أخبرهم أنه رأى النبي صلى الله عليه وسلم توضأ مثل هذا الوضوء.\nولما فرغ صلى الله عليه وسلم من هذا الوضوء الكامل، أخبرهم أنه من توضأ مثل وضوئه، وصلى ركعتين، مُحْضراً قلبه بين يدي ربه عز وجل فيهما، فإنه- بفضله تعالى يجازيه على هذا الوضوء الكامل، وهذه الصلاة الخالصة بغفران ما تقدم من ذنبه.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt contains the hadith of Uthman on the method of wudu, followed by vocabulary explanations (غريب الحديث), then the overall meaning (المعنى الإجمالي).",
+    "question": "This excerpt is very long. Does it feel like one topic, or should it be split? If you think it should be split, where exactly would you draw the line? Point to the place in the text where one topic ends and another begins.",
+    "multiple_choice": [
+      "A: Keep as one excerpt — it is one complete unit of knowledge",
+      "B: Split into two — the hadith text and the explanation/commentary",
+      "C: Split into three — the hadith, the vocabulary (غريب), and the summary (المعنى الإجمالي)"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "G-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Granularity",
+    "title": "Numbered Points",
+    "excerpt_text": "2- أمره صلى الله عليه وسلم ابن عمر برجعتها، دليل على وقوعه.\nووجهته أن الرجعة لا تكون إلا بعد طلاق، ويأتي الخلاف في ذلك إن شاء الله. والأمر برجعتها يقتضي الوجوب، وإليه ذهب أبو حنيفة وأحمد والأوزاعي، وحمله بعضهم على الاستحباب وذهب إليه الشافعي ورواية عن أحمد واحتجوا بأن ابتداء النكاح ليس بواجب فاستدامته كذلك.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This text is numbered \"2-\" — it is one point from a longer list of benefits extracted from a hadith.",
+    "question": "Should each numbered point be its own excerpt in the library, or do all the points belong together as one entry? What would you prefer when studying? Follow-up: If the numbered list has 8 points, and each point is about a different ruling, should they still all be in one entry?",
+    "multiple_choice": [
+      "A: Each numbered point should be its own separate entry",
+      "B: All numbered points from the same hadith should stay together in one entry",
+      "C: It depends on the content — some points deserve their own entry, others do not"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "G-4",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Granularity",
+    "title": "An Exception to a Ruling",
+    "excerpt_text": "4- للعلماء شروط في قطع يد السارق، تقدم بعضها:\nوأهم الباقي أن يكون المسروق من حرز مثله، والحرز يختلف باختلاف الأموال والبلدان والحكام.\nومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.\nوأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة، وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "من الشروط المتقدمة لقطع يد السارق: بلوغ النصاب، وكون السارق مكلفاً بالغاً عاقلاً، وأن يكون المسروق مالاً محترماً",
+    "question": "This is a set of additional conditions for a ruling — it explicitly says some conditions were already mentioned earlier. Should it be its own excerpt, or should it be combined with the earlier conditions into one complete entry? Follow-up: If the exception only makes sense after you have read the earlier conditions, should they always be kept together in one entry?",
+    "multiple_choice": [
+      "A: Keep as its own entry — a note about earlier conditions is enough",
+      "B: Combine with the earlier conditions into one complete entry",
+      "C: Keep separate but add a clear link to the earlier entry"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "SC-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Self-Containment",
+    "title": "A Summary of Earlier Discussion",
+    "excerpt_text": "ما يستفاد من الحديث:\nتقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارة- أيضاً- إلى هذا الأثر عن عمر رضي الله عنه.\nوأن الصحيح: أن الخمر كل ما خامر العقل من أي شراب، وأن ما أسكر كثيره، فقليله حرام، وفيه فوائد زائدة نجملها فيما يأتي:\n1- أن الخمر التي أنزل تحريمها وفهمها الصحابة عند النزول، هي كل ما خامر العقل، وأنه يوجد منها في ذلك الوقت أنواع من العنب، والتمر،\nوالعسل، والحنطة، والشعير. وكلها من مسمى الخمر، وما حدث بعدها فهو خمر، وإن تعددت أسماؤه.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "سبق في الكتاب بيان أن الخمر كل مسكر من أي مادة كان، وأن العلماء اختلفوا في حده بين من قصره على عصير العنب ومن عمّمه",
+    "question": "This excerpt summarizes what came before in a short note. Is that summary enough to understand what follows, or do you still feel lost? Follow-up: What would change your mind? When is a summary note enough, and when is it not?",
+    "multiple_choice": [
+      "A: The summary note is enough — I can follow without reading what came before",
+      "B: I need to see the original discussion to fully benefit from this",
+      "C: I can partially follow it, but I feel I am missing something important"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "SC-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Self-Containment",
+    "title": "A Backward Reference",
+    "excerpt_text": "1- صرح هنا بأن المضمضة والاستنشاق كانتا ثلاثا ثلاثا من ثلاث غرفات.\n2- في الحديث السابق ذكر أن غسل اليدين كان ثلاثا، وفى هذا الحديث ذكره مرتين فقط\n3- قوله: \" ثم أدخل يده فغسل وجهه ثلاثا \" إفراد اليد رواية مسلم وأكثر روايات البخاري. قال النووي بعد ذكره أحاديث الروايتين. هي دالة على أن ذلك سنة، ولكن المشهور الذي قطع به الجمهور أن المستحب أخذ الماء للوجه باليدين جميعا لكونه أسهل وأقرب إلى الإسباغ.\n4- قال في الحديث السابق: \" ثم مسح برأسه \" وهذا التعبير يمكن تأويله ببعض الرأس كما أولت الآية {وامْسَحُوا برؤوسِكُم} .\nوفى هذا الحديث صرح بمسحه كله، وفَصل كيفية المسح، والشرع يبين بعضه بعضاً، فدل على وجوب مسحه كله كما تقدم.\n5- في الحديثين يذكر عند المضمضة والاستنشاق أنه يدخل يداً واحدة.\nوفى هذا الحديث، ذكر أنه أدخل يديه عند غسلهما ومسح الرأس بيديه، أقبل بهما وأدبر مرة واحدة. قال أبو داود: أحاديث الصحاح كلها تدل على أن مسح الرأس مرة واحدة. قال ابن المنذر: \"إن الثابت عن النبي صلى الله عليه وسلم في المسح مرة واحدة.\n6- الحديث صرح بغسل الرجلين وهنا لم يذكره، وغسلهما من الفروض المتفق عليها، فلا يكون في ترك ذكرهما هنا، ما يدل على عدم وجوب غسلهما.\n7- يؤخذ من هذا، جواز مخالفة أعضاء الوضوء بتفضيل بعضها على بعض، وأن التثليث هو الصفة الكاملة وما دونها يجزئ كما صحت بذلك الأحاديث.\n8- اختلف العلماء في البداءة بالمسح فهي من المقدم إلى المؤخر عند ابن دقيق العيد والصنعاني. وفهم بعضهم من قوله: \" فأقبل بهما وأدبر \" أن المسح من مؤخر الرأس إلى مقدمه. ثم يعاد باليدين إلى قفا الرأس.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "هذه فوائد إضافية من حديث عبد الله بن زيد في صفة الوضوء مقارنة بحديث عثمان بن عفان المتقدم",
+    "question": "This excerpt repeatedly refers to \"the previous hadith\" without repeating it. How do you feel reading it without the previous hadith in front of you? Can you still benefit from this excerpt without seeing the previous hadith right in front of you? Follow-up: Should the library try to find and link what was mentioned earlier? Or is it enough to simply note that a reference to earlier material exists?",
+    "multiple_choice": [
+      "A: I can follow it — the references to the previous hadith are clear enough",
+      "B: I need the previous hadith alongside this — without it I am lost",
+      "C: I can partially follow it, but the library should automatically show the linked hadith"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "SC-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Self-Containment",
+    "title": "Assumed Chapter Context",
+    "excerpt_text": "وتطمئن في اعتدالك ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.\nوافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt assumes you know which hadith is being discussed and what came before — it begins mid-instruction.",
+    "question": "This excerpt assumes you know which hadith is being discussed and what came before — it begins mid-instruction. Can you understand it on its own, or does it need more context?",
+    "multiple_choice": [
+      "A: Yes, I can understand it on its own — it describes prayer postures clearly",
+      "B: No, it needs context — I need to know which hadith this is from",
+      "C: Partially — the content is clear but I feel something is missing"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "D-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Definition Handling",
+    "title": "A Short Definition",
+    "excerpt_text": "كتاب الطلاق\nالطلاق: في اللغة: حل الوثاق. مشتق من الإطلاق، وهو الترك والإرسال.\nوفي الشرع: حَل عقدة التزويج، والتعريف الشرعي فَرْد من معناه اللغوي العام. قال إمام الحرمين: هو لفظ جاهلي ورد الشرع بتقريره.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt defines \"divorce\" (الطلاق) — both its linguistic meaning and its legal meaning.",
+    "question": "If a definition like this has both a linguistic meaning (لغة) and a legal or technical meaning (اصطلاحا/شرعا), should they be one excerpt or two separate ones? Follow-up: What if the technical definition is only 4 words long? Still separate?",
+    "multiple_choice": [
+      "A: One excerpt — the linguistic and legal meanings belong together",
+      "B: Two separate excerpts — each meaning is its own unit of knowledge",
+      "C: Together but clearly labeled — one excerpt with distinct sections for each meaning"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "D-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Definition Handling",
+    "title": "A Definition With a Connecting Explanation",
+    "excerpt_text": "الغريب:\nألبتة: البت: القطع. قال في (المصباح) (بت الرجل طلاق امرأته، فهي مبتوتة، والأصل مبتوت طلاقها) والمراد- هنا- أنه طلقها طلاقا بائنا لا رجعة فيه.\nفسخطته: السخط: ضد الرضا، قال في (مختار الصحاح) : أسخطه: أغضبه، وتسخط عطاءه، استقله. فالمراد -هنا- أنها استقلت النفقة.\n\"أم شريك: بفتح الشين وكسر الراء، بعدها ياء، ثم كاف: إحدى فضليات نساء الصحابة رضي الله عنهم.\nيغشاها أصحابي: يراد بغشيانهم، كثرة ترددهم إلا، لصلاحها وفضلها.\nفآذنيني: بمد الهمزة، أي أعلميني.\nفلا يضع عصاه عن عاتقه: العاتق ما بين العنق والمنكب، وهو مكان وضع العصا.\nوهذا التعبير، كناية عن شدته على النساء، وكثرة ضربه لهن ويفسر هذا المعنى روايتا (مسلم) .\nالأولى: \"وأما أبو جهم فرجل ضَراب للنساء\".\nوالثانية: \"وأبو جهم فيه شدة على النساء\".\nو\"جهم\" مفتوح الجيم، ساكن الهاء.\nفصعلوك: بضم الماد، التصعلك، هو الفقر، والصعلوك هو الفقير.\nانكحي أسامة: بكسر الهمزة، ضبطه المطرزي.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This text explains the meanings of unusual words (غريب) from the hadith of Fatimah bint Qays about her divorce.",
+    "question": "This text defines multiple words, each with its linguistic root and the specific meaning in context. Each word definition connects back to the hadith it explains. Should each word be its own excerpt, or do they belong together because they all explain the same hadith? Follow-up: What principle does this reveal about when definitions should stay together versus when they should be separated?",
+    "multiple_choice": [
+      "A: All words together in one excerpt — they all explain the same hadith",
+      "B: Each word definition should be its own separate entry",
+      "C: Group related word definitions together, but separate groups that explain different hadiths"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "D-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Definition Handling",
+    "title": "A Multi-Layered Definition",
+    "excerpt_text": "4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.\nويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .\nوهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt defines \"kalalah\" (inheritance when there are no parents or children).",
+    "question": "If a term has THREE definitions — a linguistic meaning (لغة), a technical meaning (اصطلاحا), and a school-specific meaning (like \"according to the Hanbalis\" عند الحنابلة) — should these be one excerpt, two, or three?",
+    "multiple_choice": [
+      "A: One excerpt — all three meanings of the same term belong together",
+      "B: Two excerpts — linguistic meaning alone, then technical/school meanings together",
+      "C: Three separate excerpts — each type of meaning is its own entry"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "E-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Evidence Handling",
+    "title": "Proof Plus Explanatory Wisdom",
+    "excerpt_text": "وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .\nومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.\nوهى من محاسن الإسلام، إذ جعل لصاحب المال جزءاً من ماله، يعود عليه ثوابه وأجره بعد موته.\nوهي من لطف الله بعباده ورحمته بهم، حينما أباح لهم من أموالهم عند خروجهم من الدنيا أن يتزودوا لآخرتهم بنصيب منها.\nلهذا جاء في بعض الأحاديث القُدسيةِ قول الله تعالى: \" يا ابن آدم جعلت لك نصيباً من مالك حين أخذت بكظمك لأطهِّرَكَ به وأزكِّيَكَ \".",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt establishes the legality of the bequest (wasiyyah), then explains the mercy, wisdom, and benefit behind that ruling.",
+    "question": "This passage does more than cite proof: it also explains why the ruling is a mercy and benefit. Should the proofs and this explanatory reflection stay together as one teaching unit, or should the bare proofs be separated from the author's explanatory wisdom? Follow-up: when does explanatory wisdom belong with the proof, and when does it become a second topic?",
+    "multiple_choice": [
+      "A: Keep the proofs and explanatory reflection together — they form one teaching unit",
+      "B: Keep the proofs together, but separate the explanatory reflection",
+      "C: Separate the proof material from the explanatory wisdom entirely"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "E-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Evidence Handling",
+    "title": "A Hadith as Evidence",
+    "excerpt_text": "الحديث الأول\nعنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أنَهُ طَلق امْرَأتهُ وَهي حَاِئض، فَذَكرَ ذلِكَ عُمَرُ لِرَسُولِ الله صلى الله عليه وسلم، فتَغَيظ مِنْهُ رسُول الله صلى الله عليه وسلم، ثم قالَ: \"ليراجعها ثم يمسكها حَتى تَطْهرَ، ثم تَحِيض فَتَطْهُر، فَإن بَدَا له أن يُطلقَهَا فَليُطلقهَا قَبْل أن يمسها، فَتِلك العدة كمَا أمر الله عز وجل\".\nوفي لفظ \" حَتى تحِيضَ حَيْضَةَ مستقبلة، سوى حيضتها الَّتي طَلقَهَا فِيهَا \".\nوفي لفظ: فَحُسِبَتْ مِنْ طَلاقِهَا، وَرَجَعَهَا عَبْد الله كَمَا أمَرَهُ رسول الله صلى الله عليه وسلم.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This hadith is used as evidence for rulings about divorce.",
+    "question": "This hadith is used as evidence for rulings about divorce. Should the hadith text and the ruling it supports be in the same excerpt, or separate? When you study, do you want to see the proof right next to the ruling, or do you want to study the hadith on its own first? Follow-up: What would change your mind? Under what circumstances would you answer differently?",
+    "multiple_choice": [
+      "A: Keep hadith and ruling together in one entry",
+      "B: Separate — the hadith stands on its own and the ruling should be its own entry",
+      "C: It depends on the hadith — some hadiths are so important they deserve their own entry"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "E-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Evidence Handling",
+    "title": "Evidence From Multiple Source Types",
+    "excerpt_text": "وحكمه ثابت في الكتاب، والسنة، والإجماع، والقياس الصحيح.\nفأما الكتاب فنحو {الطلاقُ مَرتَانِ} وعيرها من الآيات.\nوأما السنة، فقوله صلى الله عليه وسلم: {أبغض الحلال إلى الله الطلاق} وغيره من فعله وتقريره صلى الله عليه وسلم.\nوالأمة مجمعة عليه، والقياس يقتضيه.\nفإذا كان يتم النكاح بالعقد لمصالحه وأغراضه فإنه يفسخ ذلك العقد بالطلاق، للمقاصد الصحيحة.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This passage cites four types of evidence (Quran, hadith, consensus, analogy) all to establish one ruling — that divorce is legally established.",
+    "question": "This passage cites four types of evidence (Quran, hadith, consensus, analogy) all to establish one ruling. Should each type of evidence be its own excerpt, or do they belong together because they all serve the same purpose? Follow-up: What principle does this reveal about how evidence and examples should be organized in the library?",
+    "multiple_choice": [
+      "A: Keep all four types of evidence together in one entry",
+      "B: Separate each type of evidence into its own entry",
+      "C: Keep the ruling and evidence together, but separate analogy from textual proofs"
+    ],
+    "is_edge_case": true
+  },
+  {
+    "id": "K-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Scholarly Disagreement",
+    "title": "A Multi-Position Debate",
+    "excerpt_text": "2- أمره صلى الله عليه وسلم ابن عمر برجعتها، دليل على وقوعه.\nووجهته أن الرجعة لا تكون إلا بعد طلاق، ويأتي الخلاف في ذلك إن شاء الله. والأمر برجعتها يقتضي الوجوب، وإليه ذهب أبو حنيفة وأحمد والأوزاعي، وحمله بعضهم على الاستحباب وذهب إليه الشافعي ورواية عن أحمد واحتجوا بأن ابتداء النكاح ليس بواجب فاستدامته كذلك.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt presents a scholarly disagreement about whether the Prophet's command to take back a divorced wife was obligatory or recommended.",
+    "question": "When scholars disagree on a ruling, do you want all their positions in one place, or each position as its own separate entry that you navigate between? Which approach helps you learn better?",
+    "multiple_choice": [
+      "A: All positions in one entry — I want to see the whole debate at once",
+      "B: Each position as its own entry — I want to study each view separately",
+      "C: One summary entry with links to detailed individual position entries"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "K-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Scholarly Disagreement",
+    "title": "A Shorter Disagreement",
+    "excerpt_text": "وذهبت طائفة ثالثة إلى أنه لا يثبت بأقَل من خمس رضعات.\nوهذا قول عبد الله بن مسعود، وعبد الله بن الزبير، وعطاء، وطاوس. وهو مذهب الأئمة الشافعي. وأحمد، وابن حزم.\nودليل هؤلاء، ما ثبت في صحيح (مسلم) عن عائشة رضي الله عنها قالت:",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This is labeled \"a third group\" — meaning there are at least two other positions before it that you do not see here.",
+    "question": "This is labeled \"a third group\" — meaning there are at least two other positions before it. Does the same rule you stated in K-1 apply here? Should all positions be together? Follow-up: At what point does a scholarly debate become too long for one excerpt? Is there a limit where you would prefer it split even if it means navigating between entries?",
+    "multiple_choice": [
+      "A: Yes — same rule as K-1, all positions together in one entry",
+      "B: No — this case is different and justifies splitting",
+      "C: I would need to see the full debate to decide"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "K-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Scholarly Disagreement",
+    "title": "Linked Positions",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Imagine the library separates each scholar's position into its own individual entry, but connects them with links: \"See also: Hanafi position on this issue,\" \"See also: Shafi'i position on this issue.\" Is that useful, or confusing? Would you rather see the whole debate laid out in one view?",
+    "multiple_choice": [
+      "A: Linked individual entries is better — I can focus on one position at a time",
+      "B: One combined view is better — I want to see all positions together",
+      "C: Both options would be good — give me the choice"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "GN-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Genre Differences",
+    "title": "Three Sciences Side by Side",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": "This interaction shows three excerpts from different Islamic sciences side by side. Excerpt A (Fiqh): \"وحكمه ثابت في الكتاب، والسنة، والإجماع، والقياس الصحيح...\" — from Taysir al-Allam. Excerpt B (Nahw/Grammar): \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل...\" — from Sharh Ibn Aqil. Excerpt C (Usul al-Nahw): \"الكتاب الأول — في السماع وأعني به ما ثبت في كلام من يوثق بفصاحته...\" — from al-Iqtirah fi Usul al-Nahw.",
+    "question": "Look at these three excerpts from three different Islamic sciences. Do they feel like the same kind of \"excerpt\" to you, or fundamentally different? Does the way knowledge is structured in fiqh feel different from how it works in grammar or in the foundations of grammar? Follow-up: Should the library handle excerpts from different sciences differently, or should it treat them all the same way?",
+    "multiple_choice": [
+      "A: They feel like the same kind of thing — the library should treat them uniformly",
+      "B: They feel fundamentally different — the library should handle each science differently",
+      "C: Somewhat different — some distinctions should be made but the core structure is the same"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "GN-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Genre Differences",
+    "title": "The Grammar Example (الشاهد)",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": "Referring to the grammar excerpt from GN-1: \"ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم.\" In grammar texts, the example sentence (الشاهد) — like \"يا زيد\" or \"زيد قائم\" — is central to understanding the rule. If grammar is not a science you actively study, answer from a simple reader's perspective: would separating the example make the explanation easier or harder to understand?",
+    "question": "Should the example sentence (الشاهد) stay inside the rule excerpt, or could it be its own separate entry? If the example is separated from the rule, can you still understand the rule well enough as a reader?",
+    "multiple_choice": [
+      "A: The example should always be inside the rule excerpt — they cannot be separated",
+      "B: The example can be its own entry if it is also used in other rules",
+      "C: It depends on the example — short examples stay with the rule, important examples get their own entry"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "L-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
+    "title": "An Editor's Commentary",
+    "excerpt_text": "وبهذا تعرف جلال هذا الدين، وسُمُو تشريعاته، وأنها الموافقة للعقل الصحيح، والمتمشية مع مصالح الناس وبشرع الطلاق على الكيفية الآتية في وسط الأحكام وقوام للأمور، خلافا لليهود والمشركين، الذين يطلقون ويراجعون بلا عد، ولا حد.\nوخلافا للنصارى، الذين لا يبيحون الطلاق، فتكون الزوجة غلا في عنق زوجها وإن لم توافقه، أو لم تحقق مصالح النكاح، ولذا أخذت به أوربا وأمريكا لما رأوا مصالحه، ومنافعه. والله حكيم عليم.\nولو قدم هذا الدين وتشريعاته السمحة إلى الناس كما هي، بعيدة عن أكاذيب المفترين، وخرافات المتنطعين، لأخذ به كل منصف، ولأصبح الدين هو النظام العام، وتحققت رسالته العامة",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This is a note added by the book's author (al-Bassam) as his own commentary and reflection — it is not a hadith, not a ruling, and not a quote from another scholar.",
+    "question": "This is a note added by the book's author (al-Bassam) as his own commentary and reflection. Should it be part of the same excerpt as the rulings it accompanies, or should it be its own separate entry? And who should it be attributed to — the author of the book, or the original scholars he is commenting on?",
+    "multiple_choice": [
+      "A: Part of the same excerpt as the ruling it accompanies",
+      "B: Its own separate entry, attributed to al-Bassam as author commentary",
+      "C: Its own entry but linked to the ruling, clearly marked as author's personal reflection"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "L-2",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
+    "title": "Commentary Quoting Original Text",
+    "excerpt_text": "واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحبا ⌜2⌝\nينقسم العلم إلى ثلاثة أقسام: إلى اسم وكنية ولقب والمراد بالاسم هنا ما ليس بكنية ولا لقب كزيد وعمرو وبالكنية ما كان في أوله أب أو أم كأبي عبد الله وأم الخير وباللقب ما أشعر بمدح كزين العابدين أو ذم كأنف الناقة.",
+    "excerpt_source": "شرح ابن عقيل / Campaign run / Claude Opus classification",
+    "context_note": "The first line is the original matn line from Ibn Malik's Alfiyyah. The lines after it are Ibn Aqil's explanation. The library needs to decide whether to keep them together, how to attribute them, and whether it must label which words belong to which layer.",
+    "question": "In this example, the matn line and the sharh are shown together. Should the library keep them in one entry, or split them into two linked entries? And regardless of structure, does the library need to explicitly label which words belong to Ibn Malik and which belong to Ibn Aqil? If that distinction is blurred, how damaging is that to your trust?",
+    "multiple_choice": [
+      "A: Keep them together, but clearly distinguish matn from sharh",
+      "B: Split them into two linked entries, each with its own author",
+      "C: Structure matters less than making authorship and layer boundaries unmistakable"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "L-3",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Layer Handling",
+    "title": "Footnotes in Scholarly Texts",
+    "excerpt_text": "وهى مشروعة بالكتاب، لقوله تعالى: {كُتِبَ عَلَيكم إذَا حَضَرَ أحَدَكُم المَوتُ إن تَرَكَ خَيْراً الوَصِيّة} .\nومشروعة بالسنة لهذه الأحاديث الآتية وإجماع المسلمين في جميع الأعصار والأمصار.\nوهى من محاسن الإسلام، إذ جعل لصاحب المال جزءاً من ماله، يعود عليه ثوابه وأجره بعد موته.\nوهي من لطف الله بعباده ورحمته بهم، حينما أباح لهم من أموالهم عند خروجهم من الدنيا أن يتزودوا لآخرتهم بنصيب منها.\nلهذا جاء في بعض الأحاديث القُدسيةِ قول الله تعالى: \" يا ابن آدم جعلت لك نصيباً من مالك حين أخذت بكظمك ⌜1⌝ لأطهِّرَكَ به وأزكِّيَكَ \".",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "This excerpt includes an editor footnote marker: ⌜1⌝. Footnote 1 explains the word \"بكظمك\" as: \"الكظم: مخرج النفس من الحلق ويريد: عند خروج نفسه وانقطاع نفسه.\" Treat this as a real example of a substantive explanatory footnote. Also consider whether your answer changes when the note is not a word explanation but hadith source-tracing, grading, or takhrij information.",
+    "question": "When a footnote like this adds real scholarly value, how should the library handle it? Should it stay inline with the main excerpt, become a linked side note, or stay hidden unless you ask for it? And does your answer change if the note is source-tracing, grading, or takhrij information rather than just a word explanation?",
+    "multiple_choice": [
+      "A: Keep substantive footnotes inline with the main excerpt",
+      "B: Make them linked side notes separate from the main excerpt",
+      "C: Keep them hidden by default, but clearly accessible when needed"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "QA-1",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Question/Answer Structure",
+    "title": "A Scholarly Objection and Response",
+    "excerpt_text": "الإشكال الثاني: أن من شرط التواتر استواء الطرفين والواسطة.\nفهب أنا علمنا حصول شرائط التواتر في حفاظ اللغة والنحو والتصريف في زماننا فكيف نعلم حصولها في سائر الأزمنة؟\nوإذا جهلنا شرط التواتر جهلنا التواتر ضرورة لأن الجهل بالشرط يوجب الجهل بالمشروط.\nفإن قيل: الطريق إليه أمران:\nأحدهما: أن الذين شاهدناهم أخبرونا أن الذين أخبروهم بهذه اللغات كانوا موصوفين بالصفات المعتبرة في التواتر وأن الذين أخبروا من أخبرهم كانوا كذلك إلى أن يتصل النقل بزمان الرسول صلى الله عليه وسلم.",
+    "excerpt_source": "الاقتراح في أصول النحو / Campaign run / Claude Opus classification",
+    "context_note": "This text has a question-and-answer structure: a scholarly objection (\"the problem is...\"), followed by a formal response (\"if one says: the solution is...\").",
+    "question": "This text has a question-and-answer structure: a scholarly objection followed by a formal response. Should the objection and the response always stay together in one entry? Or could the objection be one entry and the response another, linked together?",
+    "multiple_choice": [
+      "A: Always together — an objection without its response is incomplete",
+      "B: Can be split with links — each is its own unit of thought",
+      "C: Together if short, split if long — use length as the guide"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "SC-4",
+    "phase": "deep_dives",
+    "phase_label": "Phase 2: Dimension Deep Dives — Self-Containment",
+    "title": "When the System Is Not Sure",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Sometimes the system produces an excerpt but is not confident it is correct — maybe the boundaries are uncertain, or it cannot determine if the excerpt stands on its own. When this happens, should the library: show the excerpt anyway with a small warning note, hide it completely until a human has reviewed and approved it, or show it but mark it clearly so you know it needs checking? What level of imperfection are you willing to accept?",
+    "multiple_choice": [
+      "A: Show it with a small warning note — I prefer more content even if uncertain",
+      "B: Hide it completely until reviewed — I do not want uncertain content in my library",
+      "C: Show it but mark it clearly — I want to know which entries need checking"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "CJ-1",
+    "phase": "comparative",
+    "phase_label": "Phase 3: Comparative Judgment",
+    "title": "Three Ways to Organize Evidence",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": "Referring to the excerpt from E-3: the passage establishing the evidence for divorce from Quran, hadith, scholarly consensus, and analogy. Three versions are proposed: (A) All together as one entry. (B) Split by evidence type — one entry per type. (C) Split into even smaller pieces — the ruling statement, then each citation separately.",
+    "question": "Which version would you most want to study from? Which would be most useful when you are learning? Which would be most frustrating?",
+    "multiple_choice": [
+      "A: Version A — all evidence together in one entry",
+      "B: Version B — split by evidence type (Quran, hadith, consensus, analogy)",
+      "C: Version C — maximum granularity, each citation its own entry"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "CJ-2",
+    "phase": "comparative",
+    "phase_label": "Phase 3: Comparative Judgment",
+    "title": "Before and After Comparison",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "availability": "blocked_pending_source",
+    "blocked_reason": "The weekend taysir v2 run failed before valid before/after comparison pairs were produced.",
+    "context_note": "This interaction will show the same passage processed by two different versions of the system. Use the Comparison mode (tab at the top) to see Before vs. After pairs for any available book.",
+    "question": "After comparing the before and after excerpts in Comparison mode: which version is generally better? What specific differences do you notice? What did the new system improve, and what did it make worse?",
+    "multiple_choice": [
+      "A: Before (old version) is generally better",
+      "B: After (new version) is generally better",
+      "C: About the same — no clear winner"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "CJ-3",
+    "phase": "comparative",
+    "phase_label": "Phase 3: Comparative Judgment",
+    "title": "Cross-Book Comparison",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "availability": "blocked_pending_source",
+    "blocked_reason": "The weekend taysir v2 run failed before valid cross-book comparison material could be assembled.",
+    "context_note": "This interaction will be filled in when cross-book topic matches are available. It will show you the same topic discussed in two or three different books.",
+    "question": "When you see the same topic covered in two different books, what do you look for? Do you want the library to highlight where they agree, where they differ, or just show them side by side without commentary?",
+    "multiple_choice": [
+      "A: Show them side by side with no commentary — let me draw my own conclusions",
+      "B: Highlight agreements — show me where both books say the same thing",
+      "C: Highlight differences — show me where the books diverge"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "CJ-4",
+    "phase": "comparative",
+    "phase_label": "Phase 3: Comparative Judgment",
+    "title": "Metadata Alongside the Text",
+    "excerpt_text": "فائدتان:\nالأولى: ثبت عن النبي صلى الله عليه وسلم استفتاحات كثيرة للصلاة.\nمنها هذا الدعاء الذي معنا \" اللهم باعد بيني وبين خطاياى.. الخ \".\nومنها: \"وَجّهْت وَجْهِيَ لِلَّذِي فَطَر السموَاتِ والأرض … الخ \".\nومنها: \" سبحانك اللهم وبحمدك وتبارك اسمك.. الخ \".\nوكلها جائزة، لأنها واردة.\nولكن الإمام أحمد اختار الأخير منها. \" سبحانك اللهم..الخ \" لكونه محتوياً على تمجيد الله، وتعظيمه، ووحدانيته. وكان \" عمر \" يجهر به ليعلمه للناس.\nوينبغي للمصلي أن لا يقتصر دائماً على واحد منها، بل يقولها كلها، ليحصل له كمال الاقتداء، وإحياء جميع السنة فيها، ويجعل القصار لصلاة الجماعة، والطوال لصلاة الليل.",
+    "excerpt_source": "تيسير العلام / Campaign run / Claude Opus classification",
+    "context_note": "Book: Taysir al-Allam Sharh Umdat al-Ahkam | Author: Abdullah al-Bassam | School: Hanbali | Topic: Prayer — Opening supplication",
+    "question": "When you read this excerpt, what information do you need alongside it? Is the book title, author name, school, and topic area enough? Is anything missing? Is anything shown that you do not care about?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "S-1",
+    "phase": "synthesis",
+    "phase_label": "Phase 4: Synthesis",
+    "title": "Ranking What Matters",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Looking back at everything you have reviewed, rank these qualities from most important to least important:\n1. The excerpt stands on its own — you do not need to read anything else to understand it\n2. The excerpt covers exactly one topic — it is precisely focused\n3. The excerpt uses the author's original words\n4. Related excerpts are connected — you can easily navigate from one to another\n5. Evidence (Quran, hadith, scholarly arguments) is organized by type so you can find it\n\nWhen two of these qualities conflict — for example, making an excerpt stand on its own requires adding text that makes it cover more than one topic — which quality wins?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "S-1b",
+    "phase": "synthesis",
+    "phase_label": "Phase 4: Synthesis",
+    "title": "The Cost of Granularity",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Following your preferences throughout this questionnaire may mean the library has 3 to 5 times as many entries, each shorter and more precisely focused. Is that better or worse than fewer, longer entries? At what point do you have \"too many\" entries on a single topic — or is there no such thing as too many if each one is useful?",
+    "multiple_choice": [
+      "A: More shorter entries — I prefer precision even if it means more navigation",
+      "B: Fewer longer entries — I prefer less navigation even if entries cover multiple points",
+      "C: It depends on the topic — some topics need granularity, others need consolidation"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "S-1c",
+    "phase": "synthesis",
+    "phase_label": "Phase 4: Synthesis",
+    "title": "A Real Conflict",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Imagine this situation: an excerpt covers a ruling and an exception to that ruling. Keeping them together means the excerpt covers two topics (the ruling and the exception). Splitting them means neither part stands completely on its own — the exception only makes sense if you know the ruling. Which do you prefer: one longer entry that mixes topics, or two shorter entries where one depends on the other?",
+    "multiple_choice": [
+      "A: One longer entry — I prefer completeness even if it covers two topics",
+      "B: Two shorter entries — I prefer precision even if one depends on the other",
+      "C: Two entries but with the ruling repeated in the exception entry for context"
+    ],
+    "is_edge_case": false
+  },
+  {
+    "id": "S-2",
+    "phase": "synthesis",
+    "phase_label": "Phase 4: Synthesis",
+    "title": "The Ideal and the Worst",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "In your own words, describe the IDEAL excerpt. What does it look like? How long is it? What context surrounds it? What information is displayed alongside it? Be as detailed as possible.\n\nThen describe the WORST excerpt — what makes an excerpt useless or harmful to your study? What specific qualities would make you distrust the library?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  },
+  {
+    "id": "S-3",
+    "phase": "synthesis",
+    "phase_label": "Phase 4: Synthesis",
+    "title": "Your Contradictions",
+    "excerpt_text": null,
+    "excerpt_source": null,
+    "context_note": null,
+    "question": "Looking back at your answers throughout this questionnaire: did you notice yourself being inconsistent anywhere? Were there moments where you gave one answer but then later said something that contradicts it? Where are you least sure?\n\nIs there anything about how you imagine using your library that we have not covered in these questions?",
+    "multiple_choice": null,
+    "is_edge_case": false
+  }
+]
