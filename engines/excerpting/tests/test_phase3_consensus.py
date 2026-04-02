@@ -16,6 +16,7 @@ from engines.excerpting.contracts import (
     AuthorAttribution,
     ConsensusDecision,
     ConsensusRecord,
+    ExcerptRecord,
     ExcerptingConfig,
     ExcerptingErrorCodes,
     SelfContainmentLevel,
@@ -1129,6 +1130,34 @@ class TestConsensusMetadataOrdering:
         # Should use the verifier reasoning text directly, not a canned fallback.
         assert "context_hint" in result
         assert result["context_hint"] == "يفتقر إلى القيد المذكور في السطر السابق"
+
+    def test_resolve_consensus_downgrade_repopulates_self_containment_notes(self) -> None:
+        """Final downgraded excerpts must carry dependency notes, not just context_hint."""
+        reasoning = "يفتقر إلى القيد المذكور في السطر السابق"
+        exc = _make_excerpt_record(
+            self_containment=SelfContainmentLevel.FULL,
+            self_containment_notes=None,
+            context_hint=None,
+        )
+        vi = _make_vi(
+            agrees=False,
+            alternative_value="PARTIAL",
+            reasoning=reasoning,
+        )
+
+        result, _cr, _gates = resolve_consensus(
+            exc,
+            [vi],
+            ["SELF_CONTAINMENT"],
+            None,
+            ExcerptingConfig(),
+            _SOURCE_META,
+        )
+
+        assert result.self_containment == SelfContainmentLevel.PARTIAL
+        assert result.self_containment_notes == reasoning
+        assert result.context_hint == reasoning
+        ExcerptRecord.model_validate(result.model_dump())
 
 
 # ═══════════════════════════════════════════════════════════════════

@@ -682,6 +682,8 @@ def _resolve_self_containment(
 
         if final_level != SelfContainmentLevel.FULL and not dependency_notes:
             dependency_notes = vi.reasoning
+        if final_level != SelfContainmentLevel.FULL and dependency_notes:
+            updates["self_containment_notes"] = dependency_notes
 
         decision = ConsensusDecision(
             decision_type="self_containment",
