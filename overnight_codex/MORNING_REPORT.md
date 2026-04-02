@@ -60,6 +60,9 @@
   - validates provider/model ids more strictly and derives CLI backend preflight from actual config defaults
   - preserves malformed JSONL lines into `.dropped.jsonl` sidecars
   - skips browser auto-open by default in WSL review-server runs
+- Fixture-quality tooling now:
+  - emits scored Shamela fixture validation reports with severity/code counts
+  - supports machine-readable JSON output for future automation
 
 ## Current Blockers
 
