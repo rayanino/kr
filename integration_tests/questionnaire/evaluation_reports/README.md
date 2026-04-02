@@ -119,6 +119,11 @@ After all available reviews are collected, create:
 
 Use the templates in this folder.
 
+If owner-relayed browser research was part of the input set, also consult:
+
+- `OWNER_RELAYED_BROWSER_REPORTS_DIGEST_2026_04_02.md`
+- `docs/codex/questionnaire_external_report_adjudication_2026_04_02.md`
+
 ## Non-Negotiable Rule
 
 No SPEC change, prompt change, code change, or default policy should be justified
