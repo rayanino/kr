@@ -33,6 +33,17 @@ After the questionnaire is done, use the **post-completion** prompts in:
 
 - `docs/codex/weekend_dr_prompts.md`
 
+Before dispatching reviewers, generate a quick completion snapshot:
+
+```bash
+python scripts/summarize_questionnaire_responses.py
+```
+
+This writes:
+
+- `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
+- `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.json`
+
 Important access rule:
 
 - ChatGPT DR = remote-only

@@ -40,6 +40,17 @@ Preferred answer artifact:
 
 - `integration_tests/questionnaire/questionnaire_responses.jsonl`
 
+Preferred generated summary artifacts:
+
+- `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
+- `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.json`
+
+Generate them with:
+
+```bash
+python scripts/summarize_questionnaire_responses.py
+```
+
 If the owner answered outside the review UI, reviewers may instead receive:
 
 - pasted markdown answers
