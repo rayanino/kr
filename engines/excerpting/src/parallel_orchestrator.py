@@ -834,6 +834,7 @@ def _process_chunk(
 
                     # Map each excerpt to its verification items
                     excerpt_to_vi: dict[int, list[tuple[Any, str]]] = {}
+                    excerpt_expected_counts: dict[int, int] = {}
                     item_index = 0
                     for ewi_exc, ewi_items in excerpts_with_items:
                         vis_list: list[tuple[Any, str]] = []
@@ -845,12 +846,37 @@ def _process_chunk(
                                 )
                             item_index += 1
                         excerpt_to_vi[ewi_exc.unit_index] = vis_list
+                        excerpt_expected_counts[ewi_exc.unit_index] = len(ewi_items)
 
                     resolved: list[Any] = []
+                    chunk_had_verification_failure = False
+                    units_needing_verification = set(excerpt_expected_counts)
                     for exc in ctx.enriched_excerpts:
                         vis_for_exc = excerpt_to_vi.get(
                             exc.unit_index, []
                         )
+                        expected_count = excerpt_expected_counts.get(exc.unit_index, 0)
+                        if exc.unit_index in units_needing_verification and (
+                            not vis_for_exc or len(vis_for_exc) != expected_count
+                        ):
+                            chunk_had_verification_failure = True
+                            if progress is not None:
+                                progress.mark_failed(chunk_id, "phase3_consensus", "EX-M-011")
+                            degraded = exc.model_copy(
+                                update={
+                                    "review_flags": [
+                                        *list(exc.review_flags or []),
+                                        *(
+                                            []
+                                            if "verification_skipped" in (exc.review_flags or [])
+                                            else ["verification_skipped"]
+                                        ),
+                                    ]
+                                }
+                            )
+                            resolved.append(degraded)
+                            continue
+
                         if not vis_for_exc:
                             resolved.append(exc)
                             continue
@@ -910,7 +936,7 @@ def _process_chunk(
                         resolved.append(updated)
 
                     ctx.final_excerpts = resolved
-                    if progress is not None:
+                    if progress is not None and not chunk_had_verification_failure:
                         progress.mark_done(
                             chunk_id, "phase3_consensus"
                         )

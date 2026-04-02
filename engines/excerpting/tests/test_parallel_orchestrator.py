@@ -15,6 +15,7 @@ import pytest
 
 from engines.excerpting.contracts import (
     EnrichmentResult,
+    SelfContainmentLevel,
     VerificationItem,
     VerificationResult,
 )
@@ -679,6 +680,100 @@ class TestProcessChunk:
         assert result.final_excerpts is not None
         mock_verify_chunk.assert_not_called()
         assert cache.load.call_count == 2
+
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus.resolve_consensus")
+    @patch("engines.excerpting.src.phase3_consensus.verify_chunk")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_degrades_partial_verification_batches(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_verify_chunk: MagicMock,
+        mock_resolve_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.return_value = False
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_partial_verify",
+            div_id=chunk.div_id,
+            school="حنبلي",
+            school_confidence=0.9,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يحتاج سياقاً",
+            context_hint="باب الطهارة",
+        )
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = [
+            _mock_consensus_item(),
+            {
+                "verification_type": "SELF_CONTAINMENT",
+                "decision_text": "Unit assessed as PARTIAL. Is this correct?",
+                "unit_text": "بسم الله الرحمن الرحيم الحمد لله رب العالمين",
+            },
+        ]
+        vi = MagicMock()
+        vi.item_index = 0
+        mock_verify_chunk.return_value = (
+            MagicMock(items=[vi]),
+            [(excerpt, mock_needs_consensus.return_value)],
+        )
+        mock_build_det.return_value = [excerpt]
+        mock_enrich.return_value = MagicMock()
+        mock_apply_enrich.return_value = [excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=MagicMock(),
+            escalation_client=MagicMock(),
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={"source_school": "حنبلي"},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert "verification_skipped" in result.final_excerpts[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id, "phase3_consensus", "EX-M-011"
+        )
+        mock_resolve_consensus.assert_not_called()
 
     @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
     @patch("engines.excerpting.src.phase2_group.verify_units")
