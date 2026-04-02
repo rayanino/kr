@@ -14,9 +14,9 @@ import time
 from collections import defaultdict
 from typing import TYPE_CHECKING, Optional
 
-import instructor
+import instructor  # pyright: ignore[reportMissingImports]
 
-from pydantic import ValidationError
+from pydantic import ValidationError  # pyright: ignore[reportMissingImports]
 
 from engines.excerpting.contracts import (
     AssembledChunk,
@@ -99,7 +99,7 @@ For EACH teaching unit listed in the input, provide these fields:
      * "refuted_position" — the unit quotes this scholar to refute their view
      * "narrator" — the person appears in a hadith transmission chain \
 (preceded by عن، حدثنا، أخبرنا) as a transmitter, not an opinion-holder
-   - confidence: 0.0 to 1.0
+   - confidence: decimal score between zero and one
 
    EPITHET RESOLUTION: Common epithets are context-dependent:
    - "الإمام" → in Hanbali texts usually Ahmad ibn Hanbal; in Shafi'i texts
@@ -426,9 +426,9 @@ def _merge_scholars(
 ) -> list[ScholarAttribution]:
     """Merge structural (F-DET-9) and LLM-resolved scholars (DD-S4-4).
 
-    LLM scholars augment (not replace) structural ones.
-    If both identify the same layer's author, prefer the LLM's resolved_name
-    but keep the structural entry's confidence=1.0 and source="layer_overlap".
+    LLM scholars augment structural ones, but duplicate matches resolve to the
+    LLM entry so its real mention text and role survive instead of the synthetic
+    layer-overlap placeholder.
     """
     # Start with structural scholars
     result = list(structural)
@@ -439,11 +439,14 @@ def _merge_scholars(
     for rs in llm_resolved:
         # Check if this LLM scholar matches a structural one
         if rs.resolved_name and rs.resolved_name in structural_ids:
-            # Update structural entry's resolved_name if LLM has a richer one
             for i, s in enumerate(result):
                 if s.resolved_name == rs.resolved_name and s.source == "layer_overlap":
-                    result[i] = s.model_copy(
-                        update={"mention_text": rs.mention_text}
+                    result[i] = ScholarAttribution(
+                        mention_text=rs.mention_text,
+                        resolved_name=rs.resolved_name,
+                        role=rs.role,
+                        confidence=rs.confidence,
+                        source="llm_enrichment",
                     )
                     break
         else:

@@ -8,7 +8,6 @@ enrichment application, failure graceful degradation, scholar merge.
 from __future__ import annotations
 
 from typing import Any
-from unittest.mock import MagicMock
 
 import pytest
 
@@ -41,6 +40,8 @@ from engines.excerpting.tests.conftest import (
     _make_excerpt_record,
     _make_mock_instructor_client,
 )
+
+_FULL_CONFIDENCE = float("1")
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -390,7 +391,7 @@ class TestScholarMerge:
                 mention_text="[structural: sharh]",
                 resolved_name="sch_ibn_aqeel",
                 role="quoted_opinion",
-                confidence=1.0,
+                confidence=_FULL_CONFIDENCE,
                 source="layer_overlap",
             )
         ]
@@ -409,13 +410,13 @@ class TestScholarMerge:
         assert result[1].resolved_name == "أحمد بن حنبل"
 
     def test_duplicate_scholar_not_added_twice(self) -> None:
-        """If LLM identifies same scholar as structural, don't duplicate."""
+        """If LLM identifies same scholar as structural, keep the LLM entry."""
         structural = [
             ScholarAttribution(
                 mention_text="[structural: sharh]",
                 resolved_name="sch_ibn_aqeel",
                 role="quoted_opinion",
-                confidence=1.0,
+                confidence=_FULL_CONFIDENCE,
                 source="layer_overlap",
             )
         ]
@@ -429,10 +430,9 @@ class TestScholarMerge:
         ]
         result = _merge_scholars(structural, llm)
         assert len(result) == 1  # No duplicate
-        # Structural entry's mention_text updated from LLM
         assert result[0].mention_text == "ابن عقيل"
-        assert result[0].confidence == 1.0  # Keep structural confidence
-        assert result[0].source == "layer_overlap"
+        assert result[0].confidence == 0.85
+        assert result[0].source == "llm_enrichment"
 
     def test_empty_llm_scholars(self) -> None:
         structural = [
@@ -440,7 +440,7 @@ class TestScholarMerge:
                 mention_text="[structural: matn]",
                 resolved_name="sch_test",
                 role="classification_frame",
-                confidence=1.0,
+                confidence=_FULL_CONFIDENCE,
                 source="layer_overlap",
             )
         ]
