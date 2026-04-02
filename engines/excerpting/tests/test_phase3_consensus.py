@@ -598,6 +598,42 @@ class TestFullConsensusFlow:
             ExcerptingErrorCodes.EX_M_011,
         )
 
+    def test_resume_cache_miss_uses_verification_skipped_and_ex_m_011(self) -> None:
+        chunk = _make_assembled_chunk()
+        exc = _make_excerpt_record(
+            div_id=chunk.div_id,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+        verify_client = _make_mock_instructor_client(return_value=VerificationResult(items=[]))
+        progress = MagicMock()
+        progress.is_done.side_effect = lambda _cid, phase: phase == "phase3_consensus"
+        cache = MagicMock()
+        cache.load.return_value = None
+        config = ExcerptingConfig()
+        errors: list[str] = []
+
+        result, _gates = run_consensus(
+            [exc],
+            [chunk],
+            verify_client,
+            None,
+            config,
+            progress=progress,
+            cache=cache,
+            error_sink=errors,
+        )
+
+        assert len(result) == 1
+        assert "verification_skipped" in result[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id,
+            "phase3_consensus",
+            ExcerptingErrorCodes.EX_M_011,
+        )
+        assert errors == [ExcerptingErrorCodes.EX_M_011]
+        assert verify_client.chat.completions.create.call_count == 0
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Fix 1 Tests: Attribution majority winner applied to excerpt

@@ -947,16 +947,25 @@ def run_consensus(
             verification_result = (cached_vr, excerpts_with_items_for_cache)
             loop_handled = True
         elif is_consensus_resume:
-            # Done but cache miss — pass through without consensus
-            logger.warning(
-                "Chunk %s phase3_consensus: done but cache miss — "
-                "passing through without consensus",
+            # Done but cache miss — degrade visibly using the canonical failure code.
+            if progress is not None:
+                progress.mark_failed(
+                    chunk_id,
+                    "phase3_consensus",
+                    ExcerptingErrorCodes.EX_M_011,
+                )
+            if error_sink is not None and ExcerptingErrorCodes.EX_M_011 not in error_sink:
+                error_sink.append(ExcerptingErrorCodes.EX_M_011)
+            logger.error(
+                "%s: Chunk %s phase3_consensus was marked done but cache is missing. "
+                "Passing through with verification_skipped.",
+                ExcerptingErrorCodes.EX_M_011,
                 chunk_id,
             )
             for exc in chunk_excerpts:
                 flags = list(exc.review_flags)
-                if "consensus_skipped_resume" not in flags:
-                    flags.append("consensus_skipped_resume")
+                if "verification_skipped" not in flags:
+                    flags.append("verification_skipped")
                 all_results.append(
                     exc.model_copy(update={"review_flags": flags})
                 )

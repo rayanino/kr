@@ -576,11 +576,28 @@ def _process_chunk(
                     progress.mark_done(chunk_id, "phase3_enrich")
             elif is_enrich_resume:
                 logger.error(
-                    "[%s] Phase 3 enrich: done but cache miss — refusing silent downgrade",
+                    "%s: [%s] Phase 3 enrich was marked done but cache is missing. "
+                    "Keeping deterministic-only fields with llm_enrichment_failed.",
+                    "EX-M-002",
                     chunk_id,
                 )
-                ctx.error = "phase3_enrich_resume_cache_miss"
-                return ctx
+                ctx.enriched_excerpts = [
+                    exc.model_copy(
+                        update={
+                            "review_flags": [
+                                *list(exc.review_flags or []),
+                                *(
+                                    []
+                                    if "llm_enrichment_failed" in (exc.review_flags or [])
+                                    else ["llm_enrichment_failed"]
+                                ),
+                            ]
+                        }
+                    )
+                    for exc in ctx.excerpts
+                ]
+                if progress is not None:
+                    progress.mark_failed(chunk_id, "phase3_enrich", "EX-M-002")
             else:
                 current_timeout = config.ENRICH_TIMEOUT
                 for attempt in range(max_attempts):
@@ -717,11 +734,29 @@ def _process_chunk(
                     verification_done = True
                 elif is_consensus_resume:
                     logger.error(
-                        "[%s] Phase 3 consensus: done but cache miss — refusing silent downgrade",
+                        "%s: [%s] Phase 3 consensus was marked done but cache is missing. "
+                        "Passing through with verification_skipped.",
+                        "EX-M-011",
                         chunk_id,
                     )
-                    ctx.error = "phase3_consensus_resume_cache_miss"
-                    return ctx
+                    ctx.final_excerpts = [
+                        exc.model_copy(
+                            update={
+                                "review_flags": [
+                                    *list(exc.review_flags or []),
+                                    *(
+                                        []
+                                        if "verification_skipped" in (exc.review_flags or [])
+                                        else ["verification_skipped"]
+                                    ),
+                                ]
+                            }
+                        )
+                        for exc in ctx.enriched_excerpts
+                    ]
+                    if progress is not None:
+                        progress.mark_failed(chunk_id, "phase3_consensus", "EX-M-011")
+                    verification_done = True
                 else:
                     current_timeout = config.VERIFY_TIMEOUT
                     for attempt in range(max_attempts):

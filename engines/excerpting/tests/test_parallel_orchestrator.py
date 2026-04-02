@@ -686,7 +686,7 @@ class TestProcessChunk:
     @patch("engines.excerpting.src.phase2_classify.verify_segments")
     @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
-    def test_process_chunk_fails_closed_on_enrichment_resume_cache_miss(
+    def test_process_chunk_marks_enrichment_failed_on_resume_cache_miss(
         self,
         mock_classify: MagicMock,
         mock_normalize: MagicMock,
@@ -733,8 +733,13 @@ class TestProcessChunk:
             source_metadata={},
         )
 
-        assert result.completed is False
-        assert result.error == "phase3_enrich_resume_cache_miss"
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert "llm_enrichment_failed" in result.final_excerpts[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id, "phase3_enrich", "EX-M-002"
+        )
 
     @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
     @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
@@ -745,7 +750,7 @@ class TestProcessChunk:
     @patch("engines.excerpting.src.phase2_classify.verify_segments")
     @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
-    def test_process_chunk_fails_closed_on_consensus_resume_cache_miss(
+    def test_process_chunk_marks_verification_skipped_on_consensus_resume_cache_miss(
         self,
         mock_classify: MagicMock,
         mock_normalize: MagicMock,
@@ -803,8 +808,13 @@ class TestProcessChunk:
             source_metadata={},
         )
 
-        assert result.completed is False
-        assert result.error == "phase3_consensus_resume_cache_miss"
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        assert "verification_skipped" in result.final_excerpts[0].review_flags
+        progress.mark_failed.assert_called_once_with(
+            chunk.chunk_id, "phase3_consensus", "EX-M-011"
+        )
 
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
     def test_process_chunk_classify_failure(
