@@ -393,6 +393,39 @@ class TestGracefulDegradation:
         # 1 + 2 = 3 attempts
         assert client.chat.completions.create.call_count == 3
 
+    def test_chunk_remap_miss_emits_ex_m_002_without_llm_call(self) -> None:
+        missing_chunk_id = "missing_div"
+        exc = _make_excerpt_record(
+            div_id=missing_chunk_id,
+            primary_text="بسم الله الرحمن الرحيم",
+            excerpt_topic=[],
+        )
+        client = _make_mock_instructor_client(return_value=_make_enrichment_result(1))
+        progress = MagicMock()
+        config = ExcerptingConfig()
+        errors: list[str] = []
+
+        result = run_phase3_enrichment(
+            [exc],
+            [_make_assembled_chunk()],
+            client,
+            config,
+            _SOURCE_META,
+            progress=progress,
+            error_sink=errors,
+        )
+
+        assert len(result) == 1
+        assert result[0].primary_text == "بسم الله الرحمن الرحيم"
+        assert "llm_enrichment_failed" in result[0].review_flags
+        assert errors == [ExcerptingErrorCodes.EX_M_002]
+        progress.mark_failed.assert_called_once_with(
+            missing_chunk_id,
+            "phase3_enrich",
+            ExcerptingErrorCodes.EX_M_002,
+        )
+        assert client.chat.completions.create.call_count == 0
+
 
 # ═══════════════════════════════════════════════════════════════════
 # 5. Scholar Merge (DD-S4-4)

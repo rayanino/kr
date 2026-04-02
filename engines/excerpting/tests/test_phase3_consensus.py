@@ -634,6 +634,46 @@ class TestFullConsensusFlow:
         assert errors == [ExcerptingErrorCodes.EX_M_011]
         assert verify_client.chat.completions.create.call_count == 0
 
+    def test_chunk_remap_miss_marks_only_consensus_needed_excerpts(self) -> None:
+        missing_chunk_id = "missing_div"
+        exc_needs_consensus = _make_excerpt_record(
+            div_id=missing_chunk_id,
+            school="حنبلي",
+            school_confidence=0.9,
+        )
+        exc_no_consensus = _make_excerpt_record(
+            div_id=missing_chunk_id,
+            school=None,
+            self_containment=SelfContainmentLevel.FULL,
+            unit_index=1,
+        )
+        verify_client = _make_mock_instructor_client(return_value=VerificationResult(items=[]))
+        progress = MagicMock()
+        config = ExcerptingConfig()
+        errors: list[str] = []
+
+        result, _gates = run_consensus(
+            [exc_needs_consensus, exc_no_consensus],
+            [_make_assembled_chunk()],
+            verify_client,
+            None,
+            config,
+            progress=progress,
+            error_sink=errors,
+        )
+
+        assert len(result) == 2
+        assert "verification_skipped" in result[0].review_flags
+        assert "verification_skipped" not in result[1].review_flags
+        assert not _gates
+        assert errors == [ExcerptingErrorCodes.EX_M_011]
+        progress.mark_failed.assert_called_once_with(
+            missing_chunk_id,
+            "phase3_consensus",
+            ExcerptingErrorCodes.EX_M_011,
+        )
+        assert verify_client.chat.completions.create.call_count == 0
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Fix 1 Tests: Attribution majority winner applied to excerpt

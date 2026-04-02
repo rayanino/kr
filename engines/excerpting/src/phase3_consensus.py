@@ -888,7 +888,33 @@ def run_consensus(
     for chunk_id, chunk_excerpts in excerpts_by_chunk.items():
         chunk = chunk_map.get(chunk_id)
         if chunk is None:
-            all_results.extend(chunk_excerpts)
+            degraded: list[ExcerptRecord] = []
+            needs_consensus = False
+            for exc in chunk_excerpts:
+                if _needs_consensus(exc):
+                    needs_consensus = True
+                    flags = list(exc.review_flags)
+                    if "verification_skipped" not in flags:
+                        flags.append("verification_skipped")
+                    degraded.append(exc.model_copy(update={"review_flags": flags}))
+                else:
+                    degraded.append(exc)
+            if needs_consensus:
+                if progress is not None:
+                    progress.mark_failed(
+                        chunk_id,
+                        "phase3_consensus",
+                        ExcerptingErrorCodes.EX_M_011,
+                    )
+                if error_sink is not None and ExcerptingErrorCodes.EX_M_011 not in error_sink:
+                    error_sink.append(ExcerptingErrorCodes.EX_M_011)
+                logger.error(
+                    "%s: No chunk found for chunk_id=%s. "
+                    "Passing through with verification_skipped for affected excerpts.",
+                    ExcerptingErrorCodes.EX_M_011,
+                    chunk_id,
+                )
+            all_results.extend(degraded)
             continue
 
         # Resume: if chunk is done, fall through to cache-based reconstruction.

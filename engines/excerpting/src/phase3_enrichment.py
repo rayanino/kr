@@ -519,11 +519,27 @@ def run_phase3_enrichment(
     for chunk_id, chunk_excerpts in excerpts_by_chunk.items():
         chunk = chunk_map.get(chunk_id)
         if chunk is None:
+            if progress is not None:
+                progress.mark_failed(
+                    chunk_id,
+                    "phase3_enrich",
+                    ExcerptingErrorCodes.EX_M_002,
+                )
+            if error_sink is not None and ExcerptingErrorCodes.EX_M_002 not in error_sink:
+                error_sink.append(ExcerptingErrorCodes.EX_M_002)
             logger.error(
-                "No chunk found for chunk_id=%s. Keeping deterministic-only.",
+                "%s: No chunk found for chunk_id=%s. "
+                "Keeping deterministic-only fields with explicit degradation flag.",
+                ExcerptingErrorCodes.EX_M_002,
                 chunk_id,
             )
-            all_results.extend(chunk_excerpts)
+            degraded = []
+            for exc in chunk_excerpts:
+                flags = list(exc.review_flags)
+                if "llm_enrichment_failed" not in flags:
+                    flags.append("llm_enrichment_failed")
+                degraded.append(exc.model_copy(update={"review_flags": flags}))
+            all_results.extend(degraded)
             continue
 
         # Resume: if chunk is done, fall through to cache check below.
