@@ -606,7 +606,7 @@ Which version would you most want to study from? Which would be most useful when
 
 ---
 
-## CJ-2 --- Before and After (Blocked For Now)
+## CJ-2 --- Before and After Comparison (Blocked For Now)
 
 _This interaction is still pending. The current weekend `taysir` v2 run failed before it produced valid before/after comparison pairs, so this slot is intentionally blocked for now. Keep moving through the questionnaire; the team will fill this once a valid comparison source exists._
 
