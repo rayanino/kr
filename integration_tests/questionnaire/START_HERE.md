@@ -151,15 +151,17 @@ When you have answered the active core questions (38 answerable right now, plus 
 
 1. **Your answers are already saved** in `questionnaire_responses.jsonl` — no need to do anything special
 2. **Close the browser tab** and close the terminal (Ctrl+C or just close the window)
-3. **Save your work to the repository** by opening a terminal and typing:
+3. **If you want to commit your review work yourself, do it narrowly**:
    ```
    cd Desktop\kr
-   git add -A
-   git commit -m "owner feedback: questionnaire responses + excerpt reviews"
+   git add integration_tests/questionnaire/questionnaire_responses.jsonl integration_tests/questionnaire/comparison_responses.jsonl
+   git commit -m "owner feedback: questionnaire responses"
    git push
    ```
-   If this doesn't work, don't worry — your answers are saved locally and we'll commit them Monday.
-4. **Any DR responses** you received: save them somewhere on your Desktop. We'll integrate them Monday.
+   If you also rated excerpts in Review Mode, add only the specific `owner_feedback.jsonl` files you created.
+   Do **not** use `git add -A` here.
+   If any of this feels confusing, skip it — your answers are already saved locally and we can commit them later.
+4. **Any DR responses** you received: save them somewhere on your Desktop or in `docs/coworker_reports/2026-04-01_phase0_hardening/`. We'll integrate them later.
 
 ---
 
