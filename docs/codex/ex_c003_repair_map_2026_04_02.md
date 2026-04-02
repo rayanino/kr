@@ -40,6 +40,8 @@ What to inspect first:
 - coverage invariant strictness in `verify_segments(...)`
 - whether some real chunks with heavy headings / repeated formulas / OCR noise
   produce ambiguous snippet anchors
+- whether dropped zero-width markers / leading invisible bytes are creating
+  anchor failures that whitespace/diacritic fallback does not recover from
 
 ### 3. Prompt/Schema seam in `classify_chunk(...)`
 
@@ -49,6 +51,31 @@ Why this remains plausible:
 - if the model violates exact-copy requirements, the later normalize phase will
   fail even though the JSON schema itself validates
 - that would explain large failed chunks without requiring transport failure
+
+### 4. Runner / resume inconsistency around Phase 2a artifact loading
+
+Primary symbols:
+
+- `scripts/run_integration_test.py::_load_done_artifacts(...)`
+- `scripts/run_integration_test.py` Phase 2a resume path
+- `engines/excerpting/src/progress.py`
+
+Why this is plausible:
+
+- at least one real smoke artifact set (`ibn_aqil_v1`) appears internally
+  inconsistent:
+  - `progress.jsonl` marks chunks as `phase2a done`
+  - corresponding classification files are absent
+  - `phase2a_failures.jsonl` later records them as failed
+- that means some apparent `EX-C-003` failures may be true classify failures,
+  while others may be runner/resume bookkeeping failures
+
+What to inspect first:
+
+- whether a chunk marked done in progress can still be skipped even when its
+  cached artifact is missing
+- whether `_load_done_artifacts(...)` and `run_phase2a(...)` are using the same
+  truth source for “done and resumable”
 
 ## First Tests To Open
 
@@ -63,6 +90,10 @@ Why this remains plausible:
 
 3. [test_error_recovery.py](/home/rayane/kr-codex/engines/excerpting/tests/test_error_recovery.py)
    - reuse existing retry-path scaffolding for concrete `EX-C-003` chunk cases
+
+4. [tests/test_excerpting_integration_runners.py](/home/rayane/kr-codex/tests/test_excerpting_integration_runners.py)
+   - this is the first place to pin the “progress says done, artifact missing”
+     runner inconsistency
 
 ## Exact Evidence Packet
 
@@ -79,3 +110,14 @@ Notable failed chunks to start with:
 
 These are large enough that they are more likely to expose real prompt/anchor
 fragility than tiny edge fragments.
+
+## Additional Concrete Artifact Check
+
+Use the `ibn_aqil_v1` smoke artifacts to test the runner-consistency branch:
+
+- `integration_tests/smoke_api_v2/ibn_aqil_v1/progress.jsonl`
+- `integration_tests/smoke_api_v2/ibn_aqil_v1/phase2a_failures.jsonl`
+- `integration_tests/smoke_api_v2/ibn_aqil_v1/phase2a_classifications/`
+
+If those disagree, fix the runner accounting before treating every `EX-C-003`
+as a pure model/classification failure.
