@@ -44,6 +44,17 @@ This writes:
 - `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
 - `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.json`
 
+Then run a response audit:
+
+```bash
+python scripts/audit_questionnaire_responses.py
+```
+
+This writes:
+
+- `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.md`
+- `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.json`
+
 Important access rule:
 
 - ChatGPT DR = remote-only

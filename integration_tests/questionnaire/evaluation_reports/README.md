@@ -52,6 +52,17 @@ Generate them with:
 python scripts/summarize_questionnaire_responses.py
 ```
 
+Preferred generated audit artifacts:
+
+- `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.md`
+- `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.json`
+
+Generate them with:
+
+```bash
+python scripts/audit_questionnaire_responses.py
+```
+
 If the owner answered outside the review UI, reviewers may instead receive:
 
 - pasted markdown answers
