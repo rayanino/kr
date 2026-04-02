@@ -174,6 +174,9 @@ When you have answered the active core questions (38 answerable right now, plus 
    If any of this feels confusing, skip it — your answers are already saved locally and we can commit them later.
 4. **Any DR responses** you received: save them somewhere on your Desktop or in `docs/coworker_reports/2026-04-01_phase0_hardening/`. We'll integrate them later.
 
+Then read:
+`AFTER_COMPLETION_CHECKLIST.md`
+
 ---
 
 ## If something goes wrong
