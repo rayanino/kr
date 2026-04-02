@@ -56,6 +56,73 @@ def _add_finding(
     )
 
 
+def discover_default_targets() -> list[Path]:
+    """Discover the default fixture corpus used for evaluation."""
+    targets: list[Path] = []
+    real_dir = Path("tests/fixtures/shamela_real")
+    if real_dir.exists():
+        targets.extend(d for d in sorted(real_dir.iterdir()) if d.is_dir())
+
+    extended_dir = Path("tests/fixtures/shamela_extended")
+    if extended_dir.exists():
+        targets.extend(d for d in sorted(extended_dir.iterdir()) if d.is_dir())
+
+    edge_dir = Path("tests/fixtures/shamela_edge_cases")
+    if edge_dir.exists():
+        targets.extend(sorted(edge_dir.glob("*.htm")))
+
+    engine_fixtures = Path("engines/normalization/tests/fixtures")
+    if engine_fixtures.exists():
+        targets.extend(sorted(engine_fixtures.glob("*.htm")))
+
+    return targets
+
+
+def classify_provenance(path: Path) -> str:
+    """Classify fixture provenance for reporting."""
+    path_str = str(path).replace("\\", "/")
+    if "tests/fixtures/shamela_edge_cases/" in path_str:
+        return "edge_extract"
+    if "engines/normalization/tests/fixtures/" in path_str:
+        return "hand_crafted"
+    if "tests/fixtures/shamela_extended/" in path_str:
+        return "real_extended"
+    if "tests/fixtures/shamela_real/" in path_str:
+        if path.name == "13_format_b" or path_str.endswith("/13_format_b"):
+            return "synthetic"
+        return "real"
+    return "unknown"
+
+
+def collect_corpus_drift_findings() -> list[FixtureFinding]:
+    """Check a few critical fixture corpus docs for obvious count drift."""
+    findings: list[FixtureFinding] = []
+    readme = Path("tests/fixtures/shamela_real/README.md")
+    manifest_path = Path("tests/fixtures/shamela_real/MANIFEST.json")
+    if readme.exists() and manifest_path.exists():
+        try:
+            readme_text = readme.read_text(encoding="utf-8")
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            selected_match = re.search(r"Selected:\s*(\d+)\s+fixtures", readme_text)
+            if selected_match and isinstance(manifest, dict):
+                readme_count = int(selected_match.group(1))
+                manifest_count = len(manifest)
+                if readme_count != manifest_count:
+                    _add_finding(
+                        findings,
+                        path=readme,
+                        severity="warning",
+                        code="fixture_count_drift",
+                        message=(
+                            f"{readme.name}: README says {readme_count} fixtures, "
+                            f"but MANIFEST.json contains {manifest_count}"
+                        ),
+                    )
+        except (OSError, json.JSONDecodeError, ValueError):
+            pass
+    return findings
+
+
 def validate_fixture(path: Path) -> list[FixtureFinding]:
     """Validate a single Shamela HTML fixture. Returns structured findings."""
     findings: list[FixtureFinding] = []
@@ -224,15 +291,19 @@ def validate_fixture(path: Path) -> list[FixtureFinding]:
     return findings
 
 
-def build_summary(findings: list[FixtureFinding], target_count: int) -> dict:
+def build_summary(findings: list[FixtureFinding], target_count: int, targets: list[Path]) -> dict:
     """Build a machine-readable validation summary."""
     by_severity: dict[str, int] = {"error": 0, "warning": 0}
     by_code: dict[str, int] = {}
     files: dict[str, int] = {}
+    by_provenance: dict[str, int] = {}
     for finding in findings:
         by_severity[finding.severity] = by_severity.get(finding.severity, 0) + 1
         by_code[finding.code] = by_code.get(finding.code, 0) + 1
         files[finding.path] = files.get(finding.path, 0) + 1
+    for target in targets:
+        provenance = classify_provenance(target)
+        by_provenance[provenance] = by_provenance.get(provenance, 0) + 1
 
     score = max(0, 100 - by_severity.get("error", 0) * 25 - by_severity.get("warning", 0) * 5)
     return {
@@ -240,6 +311,7 @@ def build_summary(findings: list[FixtureFinding], target_count: int) -> dict:
         "finding_count": len(findings),
         "by_severity": by_severity,
         "by_code": by_code,
+        "by_provenance": by_provenance,
         "affected_files": files,
         "quality_score": score,
         "findings": [asdict(f) for f in findings],
@@ -259,19 +331,7 @@ def main() -> int:
     if args.fixture_path:
         targets = [Path(args.fixture_path)]
     else:
-        # Validate all fixture directories
-        targets = []
-        real_dir = Path("tests/fixtures/shamela_real")
-        if real_dir.exists():
-            targets.extend(
-                d for d in sorted(real_dir.iterdir()) if d.is_dir()
-            )
-        engine_fixtures = Path("engines/normalization/tests/fixtures")
-        if engine_fixtures.exists():
-            targets.extend(
-                f
-                for f in sorted(engine_fixtures.glob("*.htm"))
-            )
+        targets = discover_default_targets()
 
     if not targets:
         print("No fixtures found to validate.")
@@ -285,11 +345,12 @@ def main() -> int:
             print(f"\n{target.name}:")
             for finding in findings:
                 print(f"  - [{finding.severity.upper()}:{finding.code}] {finding.message}")
+    all_findings.extend(collect_corpus_drift_findings())
 
     if not all_findings:
         print(f"All {len(targets)} fixtures valid.")
     else:
-        summary = build_summary(all_findings, len(targets))
+        summary = build_summary(all_findings, len(targets), targets)
         print(
             f"\n{summary['finding_count']} finding(s) across {len(targets)} targets. "
             f"Score={summary['quality_score']}/100"
@@ -298,6 +359,7 @@ def main() -> int:
             f"Errors={summary['by_severity'].get('error', 0)} "
             f"Warnings={summary['by_severity'].get('warning', 0)}"
         )
+        print(f"Provenance={summary['by_provenance']}")
         if args.json_out is not None:
             args.json_out.write_text(
                 json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
