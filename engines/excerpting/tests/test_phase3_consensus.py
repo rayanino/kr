@@ -1029,8 +1029,10 @@ class TestGateEntryAssessments:
                     decision_type="author_attribution",
                     enrichment_value="sch_a",
                     verifier_value="sch_b",
+                    verifier_reasoning="verifier says sch_b",
                     verifier_agrees=False,
                     escalation_value="sch_c",
+                    escalation_reasoning="third model says sch_c",
                     final_value="sch_a",
                     resolution_method="all_3_disagree_gate",
                 ),
@@ -1049,8 +1051,10 @@ class TestGateEntryAssessments:
                     decision_type="author_attribution",
                     enrichment_value="sch_a",
                     verifier_value="sch_b",
+                    verifier_reasoning="verifier says sch_b",
                     verifier_agrees=False,
                     escalation_value="sch_c",
+                    escalation_reasoning="third model says sch_c",
                     final_value="sch_a",
                     resolution_method="all_3_disagree_gate",
                 ),
@@ -1060,8 +1064,35 @@ class TestGateEntryAssessments:
         a = entry["context"]["assessments"][0]  # type: ignore[index]
         assert a["enrichment_value"] == "sch_a"
         assert a["verifier_value"] == "sch_b"
+        assert a["verifier_reasoning"] == "verifier says sch_b"
         assert a["escalation_value"] == "sch_c"
+        assert a["escalation_reasoning"] == "third model says sch_c"
         assert a["resolution_method"] == "all_3_disagree_gate"
+
+    def test_gate_entry_ex_g_002_contains_dependency_notes(self) -> None:
+        """Owner-facing EX-G-002 gate entries must carry dependency notes."""
+        notes = "يتوقف فهم هذا الموضع على الفقرة السابقة"
+        exc = _make_excerpt_record(
+            self_containment=SelfContainmentLevel.DEPENDENT,
+            self_containment_notes=notes,
+            context_hint=None,
+            consensus_metadata=ConsensusRecord(decisions=[
+                ConsensusDecision(
+                    decision_type="self_containment",
+                    enrichment_value="PARTIAL",
+                    verifier_value="DEPENDENT",
+                    verifier_reasoning=notes,
+                    verifier_agrees=False,
+                    dependency_notes=notes,
+                    final_value="DEPENDENT",
+                    resolution_method="conservative_lower",
+                ),
+            ]),
+        )
+        entry = _build_gate_entry(exc, ExcerptingErrorCodes.EX_G_002, _SOURCE_META)
+        assert entry["context"]["self_containment_notes"] == notes  # type: ignore[index]
+        assessment = entry["context"]["assessments"][0]  # type: ignore[index]
+        assert assessment["dependency_notes"] == notes
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -1087,6 +1118,7 @@ class TestConsensusMetadataOrdering:
                     decision_type="self_containment",
                     enrichment_value="FULL",
                     verifier_value="PARTIAL",
+                    verifier_reasoning="يفتقر إلى القيد المذكور في السطر السابق",
                     verifier_agrees=False,
                     final_value="PARTIAL",
                     resolution_method="conservative_lower",
@@ -1094,11 +1126,9 @@ class TestConsensusMetadataOrdering:
             ]),
         }
         result = _repair_context_hint(exc, updates)
-        # Should produce a context_hint (not just the generic fallback)
+        # Should use the verifier reasoning text directly, not a canned fallback.
         assert "context_hint" in result
-        assert result["context_hint"] is not None
-        # With consensus_metadata present, it should use the verifier reasoning
-        assert "تم تعديل التقييم" in str(result["context_hint"])
+        assert result["context_hint"] == "يفتقر إلى القيد المذكور في السطر السابق"
 
 
 # ═══════════════════════════════════════════════════════════════════

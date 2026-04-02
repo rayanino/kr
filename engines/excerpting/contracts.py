@@ -19,7 +19,7 @@ import logging
 from enum import Enum
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator  # pyright: ignore[reportMissingImports]
 
 from engines.normalization.contracts import (
     BoundaryContinuityType,
@@ -193,8 +193,11 @@ class ConsensusDecision(BaseModel):
     decision_type: str
     enrichment_value: str
     verifier_value: Optional[str] = None
+    verifier_reasoning: Optional[str] = None
     verifier_agrees: Optional[bool] = None
     escalation_value: Optional[str] = None
+    escalation_reasoning: Optional[str] = None
+    dependency_notes: Optional[str] = None
     final_value: str
     resolution_method: str
 

@@ -482,7 +482,7 @@ Conditional rules: `self_containment_notes` is required (non-null, non-empty) wh
 | `gate_flags` | `list[str]` | yes | Consensus/gates | §7.3.4 |
 | `review_flags` | `list[str]` | yes | Various | §7.2, §7.3, §7.4 |
 
-`ConsensusRecord` structure: `{decisions: list[ConsensusDecision]}`. Each `ConsensusDecision`: `{decision_type: str, enrichment_value: str, verifier_value: str | null, verifier_agrees: bool | null, escalation_value: str | null, final_value: str, resolution_method: str}`.
+`ConsensusRecord` structure: `{decisions: list[ConsensusDecision]}`. Each `ConsensusDecision`: `{decision_type: str, enrichment_value: str, verifier_value: str | null, verifier_reasoning: str | null, verifier_agrees: bool | null, escalation_value: str | null, escalation_reasoning: str | null, dependency_notes: str | null, final_value: str, resolution_method: str}`. The optional reasoning/notes fields preserve owner-facing verification evidence from §7.3.4.
 
 `gate_flags` is a list of EX-G-* codes that triggered. Empty list if no gates triggered.
 

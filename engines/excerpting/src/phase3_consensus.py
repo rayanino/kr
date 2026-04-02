@@ -360,6 +360,7 @@ def _resolve_school(
             decision_type="school_attribution",
             enrichment_value=excerpt.school or "",
             verifier_value=excerpt.school or "",
+            verifier_reasoning=vi.reasoning,
             verifier_agrees=True,
             final_value=excerpt.school or "",
             resolution_method="consensus_agree",
@@ -385,6 +386,7 @@ def _resolve_school(
             decision_type="school_attribution",
             enrichment_value=excerpt.school or "",
             verifier_value=vi.alternative_value,
+            verifier_reasoning=vi.reasoning,
             verifier_agrees=False,
             final_value=excerpt.school or "",
             resolution_method="enrichment_kept_flagged",
@@ -436,14 +438,17 @@ def _resolve_attribution(
         # Escalate to 3rd model
         flags.append("attribution_consensus_escalated")
         escalation_value: Optional[str] = None
+        escalation_reasoning: Optional[str] = None
 
         # Prefer batch result if available; fall back to per-item call
         if batch_escalation_result is not None and vi.item_index in batch_escalation_result:
             escalation_value = batch_escalation_result[vi.item_index]
         elif escalation_client is not None:
-            escalation_value = _call_escalation(
+            escalation = _call_escalation(
                 excerpt, vi, escalation_client, config, source_metadata
             )
+            if escalation is not None:
+                escalation_value, escalation_reasoning = escalation
 
         enrichment_val = excerpt.primary_author_layer.author_id
         # H-1: use alternative_value directly (structured by schema)
@@ -470,8 +475,10 @@ def _resolve_attribution(
                     decision_type="author_attribution",
                     enrichment_value=enrichment_val,
                     verifier_value=verifier_val or "abstained",
+                    verifier_reasoning=vi.reasoning,
                     verifier_agrees=False,
                     escalation_value=escalation_value,
+                    escalation_reasoning=escalation_reasoning,
                     final_value=majority,
                     resolution_method="majority_2_of_3",
                 )
@@ -483,8 +490,10 @@ def _resolve_attribution(
                     decision_type="author_attribution",
                     enrichment_value=enrichment_val,
                     verifier_value=verifier_val or "abstained",
+                    verifier_reasoning=vi.reasoning,
                     verifier_agrees=False,
                     escalation_value=escalation_value,
+                    escalation_reasoning=escalation_reasoning,
                     final_value=enrichment_val,
                     resolution_method="no_majority_gate",
                 )
@@ -495,6 +504,7 @@ def _resolve_attribution(
                 decision_type="author_attribution",
                 enrichment_value=enrichment_val,
                 verifier_value=verifier_val or "abstained",
+                verifier_reasoning=vi.reasoning,
                 verifier_agrees=False,
                 final_value=enrichment_val,
                 resolution_method="no_escalation_enrichment_kept",
@@ -509,7 +519,7 @@ def _call_escalation(
     escalation_client: instructor.Instructor,
     config: ExcerptingConfig,
     source_metadata: dict[str, str],
-) -> Optional[str]:
+) -> Optional[tuple[str, str]]:
     """Call 3rd model for author attribution escalation (§7.3.3)."""
     prompt = (
         f"Two models disagree on the author attribution of this Arabic text.\n\n"
@@ -542,7 +552,7 @@ def _call_escalation(
                 {"role": "user", "content": prompt},
             ],
         )
-        return result.author_id
+        return result.author_id, result.reasoning
     except Exception as e:
         logger.warning(
             "Escalation call failed for %s: %s", excerpt.excerpt_id, str(e)
@@ -638,13 +648,16 @@ def _resolve_self_containment(
     gates: list[str] = []
 
     enrichment_level = excerpt.self_containment
+    dependency_notes = excerpt.self_containment_notes
 
     if vi.agrees:
         decision = ConsensusDecision(
             decision_type="self_containment",
             enrichment_value=enrichment_level.value,
             verifier_value=enrichment_level.value,
+            verifier_reasoning=vi.reasoning,
             verifier_agrees=True,
+            dependency_notes=dependency_notes,
             final_value=enrichment_level.value,
             resolution_method="consensus_agree",
         )
@@ -667,11 +680,16 @@ def _resolve_self_containment(
         if final_level == SelfContainmentLevel.DEPENDENT:
             gates.append(ExcerptingErrorCodes.EX_G_002)
 
+        if final_level != SelfContainmentLevel.FULL and not dependency_notes:
+            dependency_notes = vi.reasoning
+
         decision = ConsensusDecision(
             decision_type="self_containment",
             enrichment_value=enrichment_level.value,
             verifier_value=verifier_level.value,
+            verifier_reasoning=vi.reasoning,
             verifier_agrees=False,
+            dependency_notes=dependency_notes,
             final_value=final_level.value,
             resolution_method="conservative_lower",
         )
@@ -716,14 +734,15 @@ def _repair_context_hint(
         if excerpt.self_containment_notes:
             updates["context_hint"] = excerpt.self_containment_notes
         else:
-            # Get verifier reasoning from consensus decisions if available
+            # Get preserved dependency evidence from consensus decisions if available.
             consensus = updates.get("consensus_metadata")
             if isinstance(consensus, ConsensusRecord):
                 for d in consensus.decisions:
-                    if d.decision_type == "self_containment" and d.verifier_value:
-                        updates["context_hint"] = (
-                            f"تم تعديل التقييم من مكتفٍ ذاتياً إلى جزئي"
-                        )
+                    if d.decision_type == "self_containment":
+                        if d.dependency_notes:
+                            updates["context_hint"] = d.dependency_notes
+                        elif d.verifier_reasoning:
+                            updates["context_hint"] = d.verifier_reasoning
                         break
             if "context_hint" not in updates:
                 updates["context_hint"] = "يحتاج سياقاً إضافياً"
@@ -806,16 +825,22 @@ def _build_gate_entry(
     import datetime
 
     assessments: list[dict[str, str]] = []
+    dependency_notes: Optional[str] = excerpt.self_containment_notes
     if excerpt.consensus_metadata:
         for d in excerpt.consensus_metadata.decisions:
             assessments.append({
                 "decision_type": d.decision_type,
                 "enrichment_value": d.enrichment_value,
                 "verifier_value": d.verifier_value or "",
+                "verifier_reasoning": d.verifier_reasoning or "",
                 "escalation_value": d.escalation_value or "",
+                "escalation_reasoning": d.escalation_reasoning or "",
+                "dependency_notes": d.dependency_notes or "",
                 "final_value": d.final_value,
                 "resolution_method": d.resolution_method,
             })
+            if d.decision_type == "self_containment" and d.dependency_notes:
+                dependency_notes = d.dependency_notes
 
     return {
         "excerpt_id": excerpt.excerpt_id,
@@ -826,6 +851,7 @@ def _build_gate_entry(
             "assessments": assessments,
             "source_metadata": source_metadata,
             "self_containment": excerpt.self_containment.value,
+            "self_containment_notes": dependency_notes,
             "school": excerpt.school,
             "attribution": {
                 "layer_id": excerpt.primary_author_layer.layer_id,
