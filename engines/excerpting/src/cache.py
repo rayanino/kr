@@ -14,7 +14,7 @@ import logging
 from pathlib import Path
 from typing import Optional, TypeVar
 
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError  # pyright: ignore[reportMissingImports]
 
 logger = logging.getLogger(__name__)
 
@@ -120,11 +120,16 @@ class CacheManager:
             if raw_result is None:
                 logger.warning("Cache entry missing 'result' field: %s", path)
                 return None
+            raw_json = (
+                raw_result
+                if isinstance(raw_result, str)
+                else json.dumps(raw_result, ensure_ascii=False)
+            )
+            if not validate_before_caching(phase, raw_json, response_model):
+                logger.warning("Cache load rejected poisoned entry for %s/%s", phase, cache_key)
+                return None
             # Re-validate on load (cache could be from an older version)
-            if isinstance(raw_result, str):
-                parsed = json.loads(raw_result)
-            else:
-                parsed = raw_result
+            parsed = json.loads(raw_json)
             obj = response_model.model_validate(parsed)
             logger.debug("Cache hit: %s/%s", phase, cache_key)
             return obj
@@ -145,12 +150,16 @@ class CacheManager:
 
         phase_dir = self._phase_dir(phase)
         phase_dir.mkdir(parents=True, exist_ok=True)
+        raw_result_json = result.model_dump_json()
+        if not validate_before_caching(phase, raw_result_json, type(result)):
+            logger.warning("Cache save rejected poisoned entry for %s/%s", phase, cache_key)
+            return
         entry = {
             "cache_key": cache_key,
             "chunk_id": chunk_id,
             "model": model,
             "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-            "result": result.model_dump(mode="json"),
+            "result": json.loads(raw_result_json),
         }
         path = self._entry_path(phase, cache_key)
         try:

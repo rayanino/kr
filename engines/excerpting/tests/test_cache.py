@@ -20,6 +20,7 @@ from engines.excerpting.contracts import (
     ScholarlyFunction,
     SelfContainmentLevel,
     TeachingUnit,
+    VerificationResult,
     UnitEnrichment,
 )
 from engines.excerpting.src.cache import (
@@ -232,6 +233,58 @@ class TestCacheManager:
         loaded = cache.load("enrich", "ghi789", EnrichmentResult)
         assert loaded is not None
         assert len(loaded.enrichments) == 2
+
+    def test_save_rejects_empty_enrichment_result(self, cache: CacheManager, cache_dir: Path) -> None:
+        """Poisoned empty enrichment results are not written to cache."""
+        enr = EnrichmentResult(enrichments=[], total_units=0)
+        cache.save("enrich", "empty_enrich", "chunk_3", "model_c", enr)
+        assert not (cache_dir / "enrich" / "empty_enrich.json").exists()
+
+    def test_load_rejects_empty_enrichment_result(self, cache: CacheManager, cache_dir: Path) -> None:
+        """Poisoned empty enrichment entries are rejected on load."""
+        phase_dir = cache_dir / "enrich"
+        phase_dir.mkdir(parents=True, exist_ok=True)
+        entry_path = phase_dir / "empty_enrich.json"
+        entry_path.write_text(
+            json.dumps(
+                {
+                    "cache_key": "empty_enrich",
+                    "chunk_id": "chunk_3",
+                    "model": "model_c",
+                    "timestamp": "2026-04-02T00:00:00+00:00",
+                    "result": {"enrichments": [], "total_units": 0},
+                }
+            ),
+            encoding="utf-8",
+        )
+        loaded = cache.load("enrich", "empty_enrich", EnrichmentResult)
+        assert loaded is None
+
+    def test_save_rejects_empty_verification_result(self, cache: CacheManager, cache_dir: Path) -> None:
+        """Poisoned empty verification results are not written to cache."""
+        vr = VerificationResult(items=[])
+        cache.save("verify", "empty_verify", "chunk_4", "model_d", vr)
+        assert not (cache_dir / "verify" / "empty_verify.json").exists()
+
+    def test_load_rejects_empty_verification_result(self, cache: CacheManager, cache_dir: Path) -> None:
+        """Poisoned empty verification entries are rejected on load."""
+        phase_dir = cache_dir / "verify"
+        phase_dir.mkdir(parents=True, exist_ok=True)
+        entry_path = phase_dir / "empty_verify.json"
+        entry_path.write_text(
+            json.dumps(
+                {
+                    "cache_key": "empty_verify",
+                    "chunk_id": "chunk_4",
+                    "model": "model_d",
+                    "timestamp": "2026-04-02T00:00:00+00:00",
+                    "result": {"items": []},
+                }
+            ),
+            encoding="utf-8",
+        )
+        loaded = cache.load("verify", "empty_verify", VerificationResult)
+        assert loaded is None
 
     def test_corrupt_file_returns_none(
         self, cache: CacheManager, cache_dir: Path
