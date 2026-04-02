@@ -65,6 +65,7 @@
   - supports machine-readable JSON output for future automation
   - now covers the wider evaluation corpus by default (`shamela_real`, `shamela_extended`, `shamela_edge_cases`, engine normalization fixtures)
   - now reports provenance/category coverage and fixture/doc count drift
+  - now supports explicit waiver files so intentional exceptions can be separated from active drift
 
 ## Current Blockers
 
