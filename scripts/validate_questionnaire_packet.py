@@ -58,6 +58,17 @@ def parse_owner_questionnaire_headings(path: Path) -> list[tuple[str, str]]:
     return [(match.group(1), normalize_questionnaire_title(match.group(2))) for match in pattern.finditer(text)]
 
 
+def parse_translation_row_ids(path: Path) -> list[str]:
+    text = read_text(path)
+    row_re = re.compile(r"^\|\s*([A-Z]+(?:-[0-9A-Za-z]+)?)\s*\|", re.MULTILINE)
+    ids: list[str] = []
+    for match in row_re.finditer(text):
+        interaction_id = match.group(1)
+        if interaction_id != "Interaction":
+            ids.append(interaction_id)
+    return ids
+
+
 def assert_contains(text: str, path: Path, needle: str, failures: list[CheckFailure]) -> None:
     if needle not in text:
         failures.append(CheckFailure(f"{path}: missing required text: {needle!r}"))
@@ -180,6 +191,23 @@ def check_team_docs() -> list[CheckFailure]:
         "the local commit(s) that implemented any accepted changes",
     ]:
         assert_contains(eval_readme_text, eval_readme, needle, failures)
+
+    interaction_ids = [item["id"] for item in json.loads(read_text(QUESTIONNAIRE_DIR / "interactions.json"))]
+    translation_ids = parse_translation_row_ids(translation)
+    missing_translation_ids = [iid for iid in interaction_ids if iid not in translation_ids]
+    extra_translation_ids = [iid for iid in translation_ids if iid not in interaction_ids]
+    if missing_translation_ids:
+        failures.append(
+            CheckFailure(
+                f"{translation}: missing translation rows for interaction ids {missing_translation_ids}"
+            )
+        )
+    if extra_translation_ids:
+        failures.append(
+            CheckFailure(
+                f"{translation}: extra translation rows not present in interactions.json: {extra_translation_ids}"
+            )
+        )
 
     return failures
 
