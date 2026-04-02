@@ -33,9 +33,9 @@
     "context_note": "This excerpt introduces the section on wiping over leather socks (المسح على الخفين) and establishes its legal basis.",
     "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything. Take your time.",
     "multiple_choice": [
-      "A: Accept as-is — this works well as a standalone piece of knowledge",
-      "B: Needs improvement — something is missing or unclear",
-      "C: Reject — this should not be its own entry in the library"
+      "A: Works well as-is — this stands on its own",
+      "B: Partly works — something is missing or unclear",
+      "C: Doesn't work as its own entry"
     ],
     "is_edge_case": false
   },
@@ -49,9 +49,9 @@
     "context_note": "This excerpt discusses the scholarly disagreement about the hand that is cut in the ruling on theft.",
     "question": "Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything.",
     "multiple_choice": [
-      "A: Accept as-is — this works as a standalone entry",
-      "B: Needs improvement — it feels incomplete",
-      "C: Reject — this is too short/fragmented to be useful on its own"
+      "A: Works as a standalone entry",
+      "B: Partly works — it feels incomplete",
+      "C: Doesn't work as its own entry"
     ],
     "is_edge_case": false
   },

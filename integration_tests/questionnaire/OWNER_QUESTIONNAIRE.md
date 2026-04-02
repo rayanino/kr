@@ -705,7 +705,7 @@ Your responses go through a structured review process:
 1. The full engineering team (6 independent reviewers, using different analysis tools) evaluates every answer you give
 2. They look for: internal contradictions in your answers, feasibility constraints you may not be aware of, dimensions you may have missed
 3. If they find a tension between two of your answers, or between your preference and a real constraint, they bring it back to you for discussion
-4. Only after this review process do your answers become rules that govern how the library works
-5. Every rule traces back to a specific answer you gave here --- nothing is invented without your input
+4. Only after this review process can parts of your feedback influence later rules, settings, or calibration decisions about how the library behaves
+5. Some changes will be influenced by your answers, while others come from scholarly constraints, safety rules, and feasibility limits that do not depend on your input alone
 
-Take your time. Your answers are the foundation that everything else is built on.
+Take your time. Your answers are important starting input for what comes next.

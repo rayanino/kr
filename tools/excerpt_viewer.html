@@ -496,9 +496,9 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
     <div class="krow"><span>First / Last</span><span><kbd>Home</kbd> <kbd>End</kbd></span></div>
     <div class="krow"><span>Go to #</span><span><kbd>g</kbd></span></div>
     <div class="ksep"></div>
-    <div class="krow"><span>Accept</span><span><kbd>a</kbd></span></div>
+    <div class="krow"><span>Works</span><span><kbd>a</kbd></span></div>
     <div class="krow"><span>Needs Work</span><span><kbd>w</kbd></span></div>
-    <div class="krow"><span>Reject</span><span><kbd>r</kbd></span></div>
+    <div class="krow"><span>Doesn't Work</span><span><kbd>r</kbd></span></div>
     <div class="krow"><span>Focus notes</span><span><kbd>n</kbd></span></div>
     <div class="ksep"></div>
     <div class="krow"><span>Save &amp; Next</span><span><kbd>Ctrl+Enter</kbd></span></div>
@@ -820,7 +820,7 @@ function renderRight(ex){
   selectedIssues=new Set(fb.issues||[]);
 
   const verdicts=["accept","needs_work","reject"];
-  const labels={accept:"\u2713 Accept",needs_work:"\u26A0 Needs Work",reject:"\u2717 Reject"};
+  const labels={accept:"\u2713 Works",needs_work:"\u26A0 Needs Work",reject:"\u2717 Doesn't Work"};
   const icons={accept:"\u2713",needs_work:"\u26A0",reject:"\u2717"};
   const keys={accept:"a",needs_work:"w",reject:"r"};
   const btns=verdicts.map(vv=>{

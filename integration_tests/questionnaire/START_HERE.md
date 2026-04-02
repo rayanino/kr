@@ -93,7 +93,7 @@ Each answer is one line of JSON. You can always go back and change an answer —
 
 ## Review Mode
 
-You can also browse and rate individual excerpts. Click a package name (like "ibn_aqil_v1" or "taysir") on the home screen. Use Accept / Needs Work / Reject to rate each excerpt.
+You can also browse and rate individual excerpts. Click a package name (like "ibn_aqil_v1" or "taysir") on the home screen. Use Works / Needs Work / Doesn't Work to rate each excerpt.
 
 ---
 

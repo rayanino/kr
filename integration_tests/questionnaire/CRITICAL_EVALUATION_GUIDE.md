@@ -159,23 +159,30 @@ Also record which owner-answer artifact they reviewed:
 
 | Category | Meaning | Action |
 |----------|---------|--------|
-| **CONFIRMED** | 2+ coworkers agree with the owner | Translate to SPEC rule |
+| **CONFIRMED** | The interpretation is supported by multiple reviewers and survives integrity/feasibility challenge | Translate to a bounded rule or policy |
 | **CHALLENGED** | 1+ coworker disagrees, with reasoning | Present challenge to owner |
 | **CONTRADICTION** | Owner's own answers conflict | Present conflict to owner with concrete example |
 | **INFEASIBLE** | Technically cannot be built as stated | Propose alternative that preserves the owner's intent |
 | **LOCAL_PREFERENCE** | Useful as a personal preference or UI setting, but not strong enough for a global default or canonical rule | Keep as optional behavior, not system truth |
 | **DEEPER_NEED** | The literal answer is not the real requirement; it points to a deeper pain or missing need | Rewrite the need before translating anything |
 | **MISSING** | Coworker identifies a gap the owner didn't address | Add to follow-up questions |
+| **OVERRIDDEN** | The owner preference conflicts with scholarly or system-safety invariants and cannot govern default behavior | Do not translate as a default rule; at most preserve intent via a bounded alternative or optional setting |
 | **PENDING_SOURCE** | The questionnaire slot was intentionally blocked because the source material did not exist yet | Carry it forward as deferred; do not synthesize it as owner input |
 
 ### Step 3: Present challenges to owner
-For each CHALLENGED, CONTRADICTION, or INFEASIBLE item:
+For each CHALLENGED, CONTRADICTION, INFEASIBLE, or DEEPER_NEED item:
 - Show the owner his original answer
 - Show the coworker's challenge with evidence
-- Ask the owner to confirm, modify, or defer
+- Ask the owner to clarify intent, refine tradeoffs, or defer
+
+For OVERRIDDEN items:
+- explain why the preference cannot control default behavior
+- preserve the underlying need only through a bounded alternative if one exists
+- do not ask the owner to overrule the invariant by preference
 
 ### Step 4: Produce final calibration
-Only CONFIRMED + owner-resolved items become SPEC amendments.
+Only items that survive review and are not blocked by scholarly, integrity, or feasibility invariants become SPEC amendments.
+Owner clarification can refine interpretation, but it does not override invariants.
 Every amendment records: owner answer ID, coworker confirmations, challenge resolution (if any).
 
 ## Timing
