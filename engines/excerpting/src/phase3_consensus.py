@@ -384,7 +384,7 @@ def _resolve_school(
         decision = ConsensusDecision(
             decision_type="school_attribution",
             enrichment_value=excerpt.school or "",
-            verifier_value=vi.alternative_value or "",
+            verifier_value=vi.alternative_value,
             verifier_agrees=False,
             final_value=excerpt.school or "",
             resolution_method="enrichment_kept_flagged",
@@ -779,8 +779,11 @@ def check_gate_triggers(
         verifier_also_conflicts = True  # Conservative default
         if excerpt.consensus_metadata:
             for d in excerpt.consensus_metadata.decisions:
-                if d.decision_type == "school_attribution" and d.verifier_value is not None:
-                    verifier_also_conflicts = (d.verifier_value != source_school)
+                if d.decision_type == "school_attribution":
+                    if d.verifier_value:
+                        verifier_also_conflicts = (d.verifier_value != source_school)
+                    else:
+                        verifier_also_conflicts = False
                     break
         if verifier_also_conflicts:
             if ExcerptingErrorCodes.EX_G_003 not in excerpt.gate_flags:

@@ -768,6 +768,28 @@ class TestEXG003VerifierCheck:
         gates = check_gate_triggers(exc, meta, config)
         assert ExcerptingErrorCodes.EX_G_003 in gates
 
+    def test_check_gate_triggers_ex_g_003_ignores_verifier_abstention(self) -> None:
+        """Missing verifier alternative_value is abstention, not conflict."""
+        exc = _make_excerpt_record(
+            school="شافعي",
+            school_confidence=0.5,
+            review_flags=["school_consensus_disagreement"],
+            consensus_metadata=ConsensusRecord(decisions=[
+                ConsensusDecision(
+                    decision_type="school_attribution",
+                    enrichment_value="شافعي",
+                    verifier_value=None,
+                    verifier_agrees=False,
+                    final_value="شافعي",
+                    resolution_method="enrichment_kept_flagged",
+                ),
+            ]),
+        )
+        meta = {"source_school": "حنبلي"}
+        config = ExcerptingConfig()
+        gates = check_gate_triggers(exc, meta, config)
+        assert ExcerptingErrorCodes.EX_G_003 not in gates
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Fix 4 Tests: Chunk matching (consensus side)
