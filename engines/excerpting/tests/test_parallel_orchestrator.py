@@ -523,6 +523,109 @@ class TestProcessChunk:
             assert "context" in entry
             assert "primary_text_snippet" in entry["context"]
 
+    @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
+    @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus.resolve_consensus")
+    @patch("engines.excerpting.src.phase3_consensus.verify_chunk")
+    @patch("engines.excerpting.src.phase3_consensus.check_gate_triggers")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_ex_g_002_includes_adjacent_context(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_check_gates: MagicMock,
+        mock_verify_chunk: MagicMock,
+        mock_resolve_consensus: MagicMock,
+        mock_build_det: MagicMock,
+        mock_apply_enrich: MagicMock,
+        mock_enrich: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk()
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+
+        prev_excerpt = _make_excerpt_record(
+            excerpt_id="exc_prev",
+            div_id=chunk.div_id,
+            unit_index=0,
+            primary_text="هذا هو السياق السابق",
+        )
+        dependent_excerpt = _make_excerpt_record(
+            excerpt_id="exc_dep",
+            div_id=chunk.div_id,
+            unit_index=1,
+            self_containment=SelfContainmentLevel.DEPENDENT,
+            self_containment_notes="يعتمد على ما قبله",
+            context_hint=None,
+            primary_text="هذا نص لا يستقل وحده",
+        )
+        next_excerpt = _make_excerpt_record(
+            excerpt_id="exc_next",
+            div_id=chunk.div_id,
+            unit_index=2,
+            primary_text="وهذا هو السياق اللاحق",
+        )
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_needs_consensus.return_value = [_mock_consensus_item()]
+
+        vi = MagicMock()
+        vi.item_index = 0
+        mock_verify_chunk.return_value = (
+            MagicMock(items=[vi]),
+            [(dependent_excerpt, [_mock_consensus_item()])],
+        )
+        mock_resolve_consensus.return_value = (dependent_excerpt, None, ["EX-G-002"])
+        mock_check_gates.return_value = []
+
+        mock_build_det.return_value = [prev_excerpt, dependent_excerpt, next_excerpt]
+        mock_enrich.return_value = MagicMock()
+        mock_apply_enrich.return_value = [prev_excerpt, dependent_excerpt, next_excerpt]
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=MagicMock(),
+            verify_client=MagicMock(),
+            escalation_client=MagicMock(),
+            config=config,
+            controller=controller,
+            progress=None,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={"source_school": "حنبلي"},
+        )
+
+        assert result.completed is True
+        assert [entry["gate_code"] for entry in result.gate_entries] == ["EX-G-002"]
+        context = result.gate_entries[0]["context"]
+        assert [item["excerpt_id"] for item in context["adjacent_teaching_units"]] == [
+            "exc_prev",
+            "exc_next",
+        ]
+
     @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
     @patch("engines.excerpting.src.phase3_enrichment.enrich_chunk")
     @patch("engines.excerpting.src.phase3_enrichment.apply_enrichment")

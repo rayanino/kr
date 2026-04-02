@@ -970,8 +970,9 @@ def _process_chunk(
                                 ctx.gate_entries.append(
                                     _build_gate_entry(
                                         updated,
-                                            gc,
+                                        gc,
                                         source_metadata or {},
+                                        ctx.enriched_excerpts,
                                     )
                                 )
 
@@ -995,6 +996,7 @@ def _process_chunk(
                                     updated,
                                     gc,
                                     source_metadata or {},
+                                    ctx.enriched_excerpts,
                                 )
                             )
 
