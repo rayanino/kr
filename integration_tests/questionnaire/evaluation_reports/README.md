@@ -1,0 +1,100 @@
+# Questionnaire Evaluation Reports
+
+This folder is the single collection point for all post-questionnaire evaluation
+artifacts.
+
+Use it only after the owner has answered the active questionnaire.
+
+## Purpose
+
+The owner-feedback guardrail is only real if every evaluator output is captured,
+compared, and synthesized in one place.
+
+This folder prevents:
+
+- vague oral summaries
+- losing one coworker's challenge
+- turning "the owner said X" into "we implemented X"
+- mixing pushed/remote reviews with current local-file reviews without saying so
+
+## Required Inputs
+
+At minimum, collect:
+
+- Codex internal consistency review
+- Claude Code / local scholarly-spec alignment review
+- Gemini CLI review when available
+- ChatGPT DR report
+- Claude DR report
+- Gemini DR report
+
+If a coworker is unavailable:
+
+- record the failure explicitly
+- record whether it was auth, quota, missing files, stale remote state, or tool failure
+- continue under degraded mode, but do not silently omit that coworker
+
+## Owner Answer Source Of Truth
+
+Preferred answer artifact:
+
+- `integration_tests/questionnaire/questionnaire_responses.jsonl`
+
+If the owner answered outside the review UI, reviewers may instead receive:
+
+- pasted markdown answers
+- uploaded text files
+- screenshots
+- a pushed remote copy of the responses
+
+In that case:
+
+1. say so explicitly in the report header
+2. do not pretend the JSONL existed if it did not
+3. normalize the answers into a stable artifact before final synthesis if possible
+
+## Naming Convention
+
+Use filenames like:
+
+- `codex_consistency_YYYY_MM_DD.md`
+- `claude_code_spec_alignment_YYYY_MM_DD.md`
+- `gemini_cli_accuracy_YYYY_MM_DD.md`
+- `chatgpt_dr_feasibility_YYYY_MM_DD.md`
+- `claude_dr_scholarly_YYYY_MM_DD.md`
+- `gemini_dr_pedagogical_YYYY_MM_DD.md`
+
+If a report reviewed only remote/pushed state, put that in the file header.
+If a report reviewed pasted/uploaded local files, put that in the file header.
+
+## Required Header For Every Report
+
+Every report in this folder should begin with:
+
+```md
+# <title>
+
+- Reviewer:
+- Date:
+- Access mode: local checkout / remote-only / pasted files / uploaded files
+- Review target:
+- Known limitations:
+```
+
+## Required Synthesis Artifacts
+
+After all available reviews are collected, create:
+
+- `SYNTHESIS_<date>.md`
+- `OWNER_FOLLOWUP_<date>.md` if any challenges must go back to the owner
+
+Use the templates in this folder.
+
+## Non-Negotiable Rule
+
+No SPEC change, prompt change, code change, or default policy should be justified
+from `questionnaire_responses.jsonl` alone.
+
+The minimum chain is:
+
+`owner answer -> evaluator challenge/confirmation -> synthesis decision -> bounded translation`
