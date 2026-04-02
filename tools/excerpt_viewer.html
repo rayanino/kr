@@ -175,7 +175,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .issue-tag.selected{border-color:var(--amber);color:var(--amber);background:var(--amber-soft)}
 
 /* Comment textarea */
-#comment{width:100%;min-height:220px;max-height:45vh;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s}
+#comment{width:100%;min-height:320px;padding:0.85rem 0.95rem;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.9rem;resize:vertical;line-height:1.6;transition:border-color .15s;overflow-y:hidden}
 #comment:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
 #comment::placeholder{color:var(--text3);font-style:italic}
 
@@ -522,10 +522,18 @@ let packagePollTimer=null;
 let selectedIssues=new Set();
 let currentFilter="all";
 let currentMode="home"; // "home" | "review" | "questionnaire" | "comparison"
+let reviewDrafts={};
+const REVIEW_DRAFTS_KEY="kr_review_drafts_v1";
 
 const $=id=>document.getElementById(id);
 const esc=s=>{if(s==null)return"\u2014";const d=document.createElement("div");d.textContent=String(s);return d.innerHTML};
 const v=val=>(val===null||val===undefined||val===""?"\u2014":val);
+
+try{
+  reviewDrafts=JSON.parse(localStorage.getItem(REVIEW_DRAFTS_KEY)||"{}")||{};
+}catch{
+  reviewDrafts={};
+}
 
 const ISSUE_TAGS=[
   {id:"boundary",label:"Boundaries"},
@@ -751,6 +759,58 @@ function renderList(){
 
 function go(i){currentIndex=i;render();renderList()}
 
+function reviewDraftKey(pkg, excerptId){
+  return `${pkg}::${excerptId}`;
+}
+
+function saveReviewDraftStore(){
+  try{localStorage.setItem(REVIEW_DRAFTS_KEY, JSON.stringify(reviewDrafts));}catch{}
+}
+
+function getReviewDraft(excerptId){
+  if(!currentPackage||!excerptId)return null;
+  return reviewDrafts[reviewDraftKey(currentPackage, excerptId)]||null;
+}
+
+function currentReviewDraft(){
+  const ex=excerpts[currentIndex];
+  if(!ex)return null;
+  const vbtn=document.querySelector(".vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.dataset.v:null;
+  const comment=$("comment")?$("comment").value.trim():"";
+  const issues=Array.from(selectedIssues);
+  return {
+    excerpt_id: ex.excerpt_id,
+    verdict: verdict||null,
+    issues,
+    comment: comment||null,
+  };
+}
+
+function persistCurrentReviewDraft(){
+  const ex=excerpts[currentIndex];
+  if(!ex||!currentPackage)return;
+  const draft=currentReviewDraft();
+  if(!draft)return;
+  const hasContent=Boolean(draft.verdict||draft.comment||(draft.issues&&draft.issues.length));
+  const key=reviewDraftKey(currentPackage, ex.excerpt_id);
+  if(hasContent)reviewDrafts[key]=draft;
+  else delete reviewDrafts[key];
+  saveReviewDraftStore();
+}
+
+function clearReviewDraft(excerptId){
+  if(!currentPackage||!excerptId)return;
+  delete reviewDrafts[reviewDraftKey(currentPackage, excerptId)];
+  saveReviewDraftStore();
+}
+
+function autoGrowComment(el){
+  if(!el)return;
+  el.style.height="auto";
+  el.style.height=Math.max(el.scrollHeight, 320)+"px";
+}
+
 // ─── Review mode: Center ───────────────────────────────────────────────────
 function render(){
   const ex=excerpts[currentIndex];if(!ex)return;
@@ -819,7 +879,9 @@ function toggleSec(el){el.querySelector(".arrow").classList.toggle("open");el.ne
 
 // ─── Review mode: Right Panel ──────────────────────────────────────────────
 function renderRight(ex){
-  const fb=feedback[ex.excerpt_id]||{};
+  const saved=feedback[ex.excerpt_id]||{};
+  const draft=getReviewDraft(ex.excerpt_id)||{};
+  const fb={...saved, ...draft};
   selectedIssues=new Set(fb.issues||[]);
 
   const verdicts=["accept","needs_work","reject"];
@@ -892,7 +954,11 @@ function renderRight(ex){
   document.querySelectorAll(".vbtn").forEach(b=>b.addEventListener("click",()=>selectVerdict(b.dataset.v)));
   document.querySelectorAll(".issue-tag").forEach(b=>b.addEventListener("click",()=>toggleIssue(b.dataset.tag)));
   $("save-btn").addEventListener("click",saveAndNext);
-  const c=$("comment");if(c)c.addEventListener("input",updateSaveBtn);
+  const c=$("comment");
+  if(c){
+    c.addEventListener("input",()=>{autoGrowComment(c);persistCurrentReviewDraft();updateSaveBtn();});
+    autoGrowComment(c);
+  }
 }
 
 function toggleDiag(el){el.querySelector(".arrow").classList.toggle("open");el.nextElementSibling.classList.toggle("open")}
@@ -901,6 +967,7 @@ function selectVerdict(vv){
   document.querySelectorAll(".vbtn").forEach(bb=>bb.className="vbtn");
   const btn=document.querySelector(`.vbtn[data-v="${vv}"]`);
   if(btn)btn.classList.add(`sel-${vv}`);
+  persistCurrentReviewDraft();
   updateSaveBtn();
 }
 
@@ -909,6 +976,7 @@ function toggleIssue(tagId){
   else selectedIssues.add(tagId);
   const btn=document.querySelector(`.issue-tag[data-tag="${tagId}"]`);
   if(btn)btn.classList.toggle("selected");
+  persistCurrentReviewDraft();
   updateSaveBtn();
 }
 
@@ -956,6 +1024,7 @@ async function saveAndNext(){
     const resp=await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)});
     if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
     feedback[ex.excerpt_id]=entry;
+    clearReviewDraft(ex.excerpt_id);
   }catch(e){console.error("Save failed:",e);return}
   if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}else{render();renderList()}
 }
@@ -964,6 +1033,7 @@ $("prev-btn").addEventListener("click",()=>{if(currentIndex>0){currentIndex--;re
 $("next-btn").addEventListener("click",()=>{if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}});
 $("pkg-label").addEventListener("click",backToPackages);
 $("shortcuts-btn").addEventListener("click",()=>$("shortcuts").classList.toggle("open"));
+window.addEventListener("beforeunload",()=>{if(currentMode==="review")persistCurrentReviewDraft(); if(currentMode==="questionnaire")persistCurrentQDraft();});
 
 document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   currentFilter=b.dataset.filter;
