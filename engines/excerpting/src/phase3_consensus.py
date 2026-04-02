@@ -423,7 +423,7 @@ def _resolve_attribution(
     gates: list[str] = []
 
     if vi.agrees:
-        updates["attribution_confidence"] = 1.0
+        updates["attribution_confidence"] = 0.67
         decision = ConsensusDecision(
             decision_type="author_attribution",
             enrichment_value=excerpt.primary_author_layer.author_id,

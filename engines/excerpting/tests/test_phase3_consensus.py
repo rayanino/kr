@@ -245,7 +245,7 @@ class TestAttributionEscalation:
             exc, [vi], ["AUTHOR_ATTRIBUTION"], None, ExcerptingConfig()
         )
 
-        assert result.attribution_confidence == 1.0
+        assert result.attribution_confidence == 0.67
         assert not gates
 
     def test_2_of_3_majority_wins(self) -> None:
