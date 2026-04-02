@@ -188,6 +188,25 @@ class TestWriteGateQueue:
                 tmp_path,
             )
 
+    def test_existing_gate_queue_missing_required_keys_raises(self, tmp_path: Path) -> None:
+        """Resume merge fails loudly on schema-incomplete existing gate entries."""
+        path = tmp_path / "gate_queue.jsonl"
+        path.write_text('{"excerpt_id": "ok"}\n', encoding="utf-8")
+
+        with pytest.raises(ResumeMergeError, match="Corrupt existing gate_queue.jsonl"):
+            write_gate_queue(
+                [{"excerpt_id": "exc_gate_0_0_0", "gate_code": "EX-G-002"}],
+                tmp_path,
+            )
+
+    def test_new_gate_entry_missing_required_keys_raises(self, tmp_path: Path) -> None:
+        """New malformed gate entries are rejected before writing."""
+        with pytest.raises(ResumeMergeError, match="Gate entry missing required excerpt_id/gate_code"):
+            write_gate_queue(
+                [{"excerpt_id": "exc_gate_0_0_0"}],
+                tmp_path,
+            )
+
 
 # ═══════════════════════════════════════════════════════════════════
 # verify_gate_queue (V-P3-7)

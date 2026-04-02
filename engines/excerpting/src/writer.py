@@ -142,7 +142,11 @@ def write_gate_queue(
                     continue
                 try:
                     obj = json.loads(stripped)
-                    key = f"{obj.get('excerpt_id', '')}:{obj.get('gate_code', '')}"
+                    excerpt_id = obj["excerpt_id"]
+                    gate_code = obj["gate_code"]
+                    if not excerpt_id or not gate_code:
+                        raise KeyError("excerpt_id/gate_code must be non-empty")
+                    key = f"{excerpt_id}:{gate_code}"
                     merged[key] = stripped
                 except (json.JSONDecodeError, KeyError) as exc:
                     raise ResumeMergeError(
@@ -157,7 +161,14 @@ def write_gate_queue(
 
     # New entries overwrite existing with same key
     for entry in gate_entries:
-        key = f"{entry.get('excerpt_id', '')}:{entry.get('gate_code', '')}"
+        try:
+            excerpt_id = str(entry["excerpt_id"])
+            gate_code = str(entry["gate_code"])
+        except KeyError as exc:
+            raise ResumeMergeError("Gate entry missing required excerpt_id/gate_code.") from exc
+        if not excerpt_id or not gate_code:
+            raise ResumeMergeError("Gate entry missing required excerpt_id/gate_code.")
+        key = f"{excerpt_id}:{gate_code}"
         merged[key] = json.dumps(entry, ensure_ascii=False)
 
     # Atomic write
