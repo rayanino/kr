@@ -12,7 +12,7 @@ import time
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Optional
 
-import instructor
+import instructor  # pyright: ignore[reportMissingImports]
 
 from engines.excerpting.contracts import (
     AssembledChunk,
@@ -157,6 +157,7 @@ def run_phase3(
                 source_metadata=source_metadata,
                 progress=progress,
                 cache=cache,
+                error_sink=result.errors,
             )
             result.gate_entries.extend(gate_entries)
         except Exception as exc:

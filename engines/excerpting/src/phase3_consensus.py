@@ -846,6 +846,7 @@ def run_consensus(
     source_metadata: Optional[dict[str, str]] = None,
     progress: Optional["ProgressTracker"] = None,
     cache: Optional["CacheManager"] = None,
+    error_sink: Optional[list[str]] = None,
 ) -> tuple[list[ExcerptRecord], list[dict[str, object]]]:
     """Execute consensus verification for all excerpts (§7.3).
 
@@ -1017,6 +1018,8 @@ def run_consensus(
                     "phase3_consensus",
                     ExcerptingErrorCodes.EX_M_011,
                 )
+            if error_sink is not None and ExcerptingErrorCodes.EX_M_011 not in error_sink:
+                error_sink.append(ExcerptingErrorCodes.EX_M_011)
             for exc in chunk_excerpts:
                 flags = list(exc.review_flags)
                 if "verification_skipped" not in flags:

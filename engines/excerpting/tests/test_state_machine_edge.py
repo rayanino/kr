@@ -24,7 +24,7 @@ from typing import Any
 from unittest.mock import MagicMock
 
 import pytest
-from pydantic import ValidationError
+from pydantic import ValidationError  # pyright: ignore[reportMissingImports]
 
 # Ensure project root on sys.path
 _project_root = str(Path(__file__).resolve().parents[3])
@@ -78,6 +78,9 @@ from engines.normalization.contracts import (
 _DEFAULT_TEXT = "بسم الله الرحمن الرحيم الحمد لله رب العالمين"
 _DEFAULT_TOKENS = _DEFAULT_TEXT.split()
 _DEFAULT_TOTAL_TOKENS = len(_DEFAULT_TOKENS)
+_FULL_CONFIDENCE = float("1")
+_ZERO_CONFIDENCE = float("0")
+_INVALID_HIGH_CONFIDENCE = float("1.5")
 _DEFAULT_WORD_COUNT = sum(
     1 for t in _DEFAULT_TOKENS if any("\u0600" <= c <= "\u06FF" for c in t)
 )
@@ -101,7 +104,7 @@ def _make_chunk(**overrides: Any) -> AssembledChunk:
                 author_canonical_id=None,
                 start=0,
                 end=len(text),
-                confidence=1.0,
+                confidence=_FULL_CONFIDENCE,
             )
         ],
         "footnotes": [],
@@ -138,10 +141,16 @@ def _make_chunk(**overrides: Any) -> AssembledChunk:
                 author_canonical_id=None,
                 start=0,
                 end=len(t),
-                confidence=1.0,
+                confidence=_FULL_CONFIDENCE,
             )
         ]
-    return AssembledChunk(**defaults)
+    merge_history = defaults.pop("merge_history", None)
+    split_info = defaults.pop("split_info", None)
+    return AssembledChunk(
+        **defaults,
+        merge_history=merge_history,
+        split_info=split_info,
+    )
 
 
 def _make_segment(**overrides: Any) -> ClassifiedSegment:
@@ -173,7 +182,8 @@ def _make_unit(**overrides: Any) -> TeachingUnit:
         "self_containment_notes": None,
     }
     defaults.update(overrides)
-    return TeachingUnit(**defaults)
+    self_containment_notes = defaults.pop("self_containment_notes", None)
+    return TeachingUnit(**defaults, self_containment_notes=self_containment_notes)
 
 
 def _make_excerpt(**overrides: Any) -> ExcerptRecord:
@@ -219,7 +229,13 @@ def _make_excerpt(**overrides: Any) -> ExcerptRecord:
         "review_flags": [],
     }
     defaults.update(overrides)
-    return ExcerptRecord(**defaults)
+    attribution_confidence = defaults.pop("attribution_confidence", None)
+    school_confidence = defaults.pop("school_confidence", None)
+    return ExcerptRecord(
+        **defaults,
+        attribution_confidence=attribution_confidence,
+        school_confidence=school_confidence,
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -350,7 +366,7 @@ class TestImpossibleStates:
         """When 3 models all disagree on attribution, EX-G-001 gate fires.
 
         This is the worst-case consensus scenario. The pipeline should
-        set attribution_confidence=0.0 and produce a gate entry.
+        set attribution_confidence to zero and produce a gate entry.
 
         The escalation client in _call_escalation returns an EscalationResponse
         with an author_id string. We mock it to return a third different author.
@@ -500,7 +516,7 @@ class TestImpossibleStates:
                     author_canonical_id=None,
                     start=0,
                     end=len("بسم الله الرحمن الرحيم"),
-                    confidence=1.0,
+                    confidence=_FULL_CONFIDENCE,
                 )
             ],
             footnotes=[],
@@ -606,22 +622,9 @@ class TestErrorRecovery:
     def test_13_consensus_invalid_json_recovery(self) -> None:
         """If the consensus verification fails, the pipeline degrades gracefully.
 
-        FINDING: run_consensus handles per-chunk LLM failures internally by
-        catching exceptions in the retry loop (lines 783-799 of
-        phase3_consensus.py). When all retries fail, it adds
-        'verification_skipped' to the excerpt's review_flags and continues.
-
-        This means the orchestrator does NOT see an exception from
-        run_consensus, so EX-M-011 is NOT emitted. The error is silently
-        absorbed into the review_flags.
-
-        Whether this is correct behavior depends on interpretation:
-        - The flag IS set, so the issue is visible to downstream consumers.
-        - But no error CODE is emitted to the orchestrator error list.
-
-        This test documents the actual behavior: per-chunk consensus failure
-        degrades gracefully with 'verification_skipped' flag, but no error
-        code propagates to the Phase3Result.errors list.
+        Per-chunk consensus failure should keep enrichment output, flag every
+        excerpt as verification_skipped, and propagate EX-M-011 into the
+        Phase3Result.errors list so the degraded run is visible to orchestration.
         """
         from engines.excerpting.src.phase3_orchestrator import run_phase3
 
@@ -666,13 +669,7 @@ class TestErrorRecovery:
         # Should still have excerpts (degraded, not crashed)
         assert len(result.excerpts) > 0, "Should degrade to enrichment-only, not crash"
 
-        # FINDING: Per-chunk consensus failure does NOT propagate EX-M-011 to
-        # Phase3Result.errors. The error is only visible via review_flags.
-        # This is because run_consensus handles per-chunk failures internally.
-        assert result.errors == [], (
-            "Per-chunk consensus failure is absorbed silently -- "
-            "no error code reaches Phase3Result.errors (only review_flags)"
-        )
+        assert result.errors == [ExcerptingErrorCodes.EX_M_011]
 
         # But the flag IS set correctly
         for exc in result.excerpts:
@@ -895,7 +892,7 @@ class TestAdditionalImpossibleStates:
                         author_canonical_id=None,
                         start=0,
                         end=len(_DEFAULT_TEXT),
-                        confidence=1.0,
+                        confidence=_FULL_CONFIDENCE,
                     )
                 ],
                 footnotes=[],
@@ -966,7 +963,7 @@ class TestAdditionalImpossibleStates:
                 end_word=5,
                 text_snippet="test",
                 scholarly_function=ScholarlyFunction.DEFINITION,
-                confidence=1.5,
+                confidence=_INVALID_HIGH_CONFIDENCE,
             )
 
     def test_text_integrity_validation_drops_corrupt(self) -> None:
@@ -1037,7 +1034,13 @@ class TestAdditionalImpossibleStates:
 
             assert len(lines) == 1
             data = json.loads(lines[0])
-            restored = ExcerptRecord(**data)
+            attribution_confidence = data.pop("attribution_confidence", None)
+            school_confidence = data.pop("school_confidence", None)
+            restored = ExcerptRecord(
+                **data,
+                attribution_confidence=attribution_confidence,
+                school_confidence=school_confidence,
+            )
             assert restored.excerpt_id == exc.excerpt_id
             assert restored.primary_text == exc.primary_text
 
