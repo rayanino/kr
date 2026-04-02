@@ -63,6 +63,8 @@
 - Fixture-quality tooling now:
   - emits scored Shamela fixture validation reports with severity/code counts
   - supports machine-readable JSON output for future automation
+  - now covers the wider evaluation corpus by default (`shamela_real`, `shamela_extended`, `shamela_edge_cases`, engine normalization fixtures)
+  - now reports provenance counts and simple fixture/doc count drift
 
 ## Current Blockers
 
