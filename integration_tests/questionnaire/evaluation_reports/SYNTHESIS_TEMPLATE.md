@@ -62,6 +62,28 @@ For each item:
 - Closest safe alternative:
 - Owner follow-up needed: yes/no
 
+### LOCAL_PREFERENCE
+
+For each item:
+
+- Interaction ID:
+- Owner preference summary:
+- Why it should not become a global default:
+- Safest scope (setting / display option / local workflow only):
+- What was explicitly kept out of canonical translation:
+
+### DEEPER_NEED
+
+For each item:
+
+- Interaction ID:
+- Literal owner answer:
+- Why the literal wording is not the real requirement:
+- Suspected deeper pain / need:
+- Candidate bounded interpretations:
+- Did the rewritten need survive independent challenge: yes/no
+- Follow-up needed: yes/no
+
 ### MISSING
 
 For each item:
@@ -112,3 +134,5 @@ State explicitly:
 
 - No owner answer was translated directly into implementation without critical review.
 - No remote-only DR report was treated as current-local review unless the files were actually pushed or provided.
+- Scholarly invariants were not traded away merely because a preference was strongly stated.
+- Owner confidence was treated as metadata, not proof.

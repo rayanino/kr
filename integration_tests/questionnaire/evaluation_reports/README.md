@@ -16,6 +16,7 @@ This folder prevents:
 - losing one coworker's challenge
 - turning "the owner said X" into "we implemented X"
 - mixing pushed/remote reviews with current local-file reviews without saying so
+- self-confirming loops where one person both interprets and approves the same owner signal
 
 ## Required Inputs
 
@@ -109,3 +110,7 @@ from `questionnaire_responses.jsonl` alone.
 The minimum chain is:
 
 `owner answer -> evaluator challenge/confirmation -> synthesis decision -> bounded translation`
+
+And the minimum governance expectation is:
+
+- at least one independent challenge between owner answer and implementation

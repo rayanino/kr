@@ -16,6 +16,13 @@ The 6-coworker evaluation catches these issues BEFORE translating answers into S
 The strongest statement of this rule lives in:
 `OWNER_FEEDBACK_GUARDRAIL.md`
 
+Reviewer stance:
+
+- stakeholder expectations are not validated requirements
+- scholarly invariants outrank user preference
+- owner confidence is metadata, not evidence
+- no single evaluator gets to translate owner signal into implementation without independent challenge
+
 If the owner also answers `SUPPLEMENTAL_OWNER_QUESTIONS.md`, evaluate those
 responses in the same pass. Treat the supplement as additional calibration
 input, not as a separate workflow.
@@ -155,6 +162,8 @@ Also record which owner-answer artifact they reviewed:
 | **CHALLENGED** | 1+ coworker disagrees, with reasoning | Present challenge to owner |
 | **CONTRADICTION** | Owner's own answers conflict | Present conflict to owner with concrete example |
 | **INFEASIBLE** | Technically cannot be built as stated | Propose alternative that preserves the owner's intent |
+| **LOCAL_PREFERENCE** | Useful as a personal preference or UI setting, but not strong enough for a global default or canonical rule | Keep as optional behavior, not system truth |
+| **DEEPER_NEED** | The literal answer is not the real requirement; it points to a deeper pain or missing need | Rewrite the need before translating anything |
 | **MISSING** | Coworker identifies a gap the owner didn't address | Add to follow-up questions |
 | **PENDING_SOURCE** | The questionnaire slot was intentionally blocked because the source material did not exist yet | Carry it forward as deferred; do not synthesize it as owner input |
 

@@ -9,6 +9,7 @@ That means:
 - They are feedback, not verdicts.
 - They are preferences, not final rules.
 - They are suggestions, not binding conclusions.
+- They are stakeholder expectations, not validated requirements.
 - They may reveal real needs, but they may also be mistaken, contradictory, locally appealing but globally harmful, technically infeasible, or scholastically unsafe.
 
 ## Why This Rule Exists
@@ -38,6 +39,25 @@ of the following:
 - a calibration threshold
 - a permanent product decision
 
+Accepted owner signal must become a **bounded rule**, not an absolute law.
+
+That means every translated rule should have:
+
+- scope
+- non-goals
+- fallback behavior
+- verification method
+- reversibility / rollback path
+
+## Scholarly Invariants Outrank Preference
+
+If a literal owner preference conflicts with scholarly integrity, attribution
+integrity, disagreement preservation, or other knowledge-safety invariants, the
+invariant wins.
+
+The team must preserve the owner's underlying intent where possible, but never
+by violating the scholarly constraints that keep the system honest.
+
 ## Failure Modes We Must Assume
 
 Any owner answer may be:
@@ -55,6 +75,20 @@ If any of those are true, the team must challenge, reinterpret, narrow, defer,
 or reject the literal answer while still trying to preserve the owner's actual
 intent.
 
+## Evidence Beats Confidence
+
+The owner's confidence is useful metadata, not proof.
+
+High confidence does not make an answer correct.
+Low confidence does not make an answer useless.
+
+Confidence helps us judge where interpretation is fragile, but it never replaces:
+
+- reviewer evidence
+- feasibility analysis
+- scholarly-risk analysis
+- corpus-wide validation
+
 ## Correct Team Posture
 
 The team's job is **not** to obey the owner's literal wording.
@@ -66,6 +100,20 @@ The team's job is to:
 3. test that need against scholarship, feasibility, scale, and system integrity
 4. convert only the defensible part into product/spec behavior
 5. bring unresolved conflicts back as concrete follow-up questions
+
+## Separation Of Duties
+
+No single person should:
+
+1. collect the owner's feedback
+2. decide what it "really means"
+3. approve the translation
+4. ship the resulting rule
+
+without independent challenge.
+
+Owner feedback translation must pass through a multi-reviewer loop so it cannot
+quietly become a self-confirming interpretation.
 
 ## Hard Rule
 
