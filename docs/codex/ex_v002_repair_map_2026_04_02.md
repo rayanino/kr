@@ -19,6 +19,11 @@ Why this is first:
   prefix of `primary_text`.
 - The validation-drop ledgers from completed books are therefore almost
   certainly manifestations of this path, not writer corruption.
+- The strongest current evidence is that the gate is plausibly over-strict in
+  two distinct ways:
+  - short structural units fail only because `compare_len < 20`
+  - other units fail on small character drift that whitespace normalization
+    does not forgive
 
 What to inspect first:
 
@@ -27,6 +32,8 @@ What to inspect first:
   are being dropped correctly or incorrectly
 - whether the compare-length / normalization rules are miscalibrated for
   headings, newline-heavy snippets, or short-unit excerpts
+- whether diacritic-form or tiny prefix drift (`َّ` vs `َّ`, dropped leading
+  conjunctions, etc.) is creating false negatives that should be tolerated
 
 ### 2. `engines/excerpting/src/phase3_deterministic.py`
 
@@ -43,12 +50,17 @@ Why this is second:
   extracted `primary_text`
 - if these are constructed from slightly different assumptions, validation
   will drop the excerpt even when the unit itself is legitimate
+- the smoke artifacts suggest the grouped snippet is preserved verbatim while
+  the reconstructed `primary_text` is source-correct, so the mismatch can be
+  produced upstream of validation even when writer behavior is fine
 
 What to inspect first:
 
 - whether `unit.text_snippet` from Phase 2b is always guaranteed to be the
   prefix of the final `primary_text`
 - whether short structural/heading units violate that assumption
+- whether the final `primary_text` extraction path and the Phase 2b snippet
+  path are normalized differently for short or heading-like units
 
 ### 3. `engines/excerpting/src/phase3_orchestrator.py`
 
@@ -68,19 +80,28 @@ What to inspect first:
 - whether `validation_drops` should also record emitted validation error codes
 - whether the orchestrator can distinguish “expected trivial drop” from
   “structural bug” without changing the engine behavior yet
+- whether adding compared-prefix evidence here would remove the need to
+  reconstruct failures manually from `validation_drops.jsonl`
 
 ## First Tests To Open
 
 1. [test_state_machine_edge.py](/home/rayane/kr-codex/engines/excerpting/tests/test_state_machine_edge.py)
    - `test_text_integrity_validation_drops_corrupt`
-   - expand this from a single obviously bad mismatch to real short structural cases
+   - expand this from a single obviously bad mismatch to real short structural
+     cases and tiny-prefix drift cases from the smoke artifacts
 
 2. [test_phase3_validation.py](/home/rayane/kr-codex/engines/excerpting/tests/test_phase3_validation.py)
-   - add regression fixtures from the `EX-V-002` packet and `validation_drops.jsonl`
+   - add regression fixtures from the `EX-V-002` packet and
+     `validation_drops.jsonl`
 
 3. [test_phase3_deterministic.py](/home/rayane/kr-codex/engines/excerpting/tests/test_phase3_deterministic.py)
    - add assertions that `unit.text_snippet` and final `primary_text` stay aligned
    - especially for tiny headings / structural transitions / newline-heavy prefixes
+
+4. [test_integration.py](/home/rayane/kr-codex/engines/excerpting/tests/test_integration.py)
+   - current helpers appear too idealized to expose the real smoke-run failure
+     shapes; open these once the direct validation and deterministic tests are
+     in view
 
 ## Working Hypothesis
 

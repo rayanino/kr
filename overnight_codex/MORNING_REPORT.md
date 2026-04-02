@@ -15,6 +15,9 @@
 - The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
 - A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
 - The top three structural priorities now each have their own evidence packet on disk.
+- The top two repair-map docs now exist for the first engine-opening lane:
+  - `docs/codex/ex_v002_repair_map_2026_04_02.md`
+  - `docs/codex/ex_c003_repair_map_2026_04_02.md`
 - The chunk-limit investigation currently points to launch/wrapper omission, not a proven child-runner `--max-chunks` bug.
 - A protected-state divergence note now exists for the stale `L-001` status in `.kr/HANDOFF.md`.
 
