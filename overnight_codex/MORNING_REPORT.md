@@ -66,6 +66,7 @@
   - now covers the wider evaluation corpus by default (`shamela_real`, `shamela_extended`, `shamela_edge_cases`, engine normalization fixtures)
   - now reports provenance/category coverage and fixture/doc count drift
   - now supports explicit waiver files so intentional exceptions can be separated from active drift
+  - now has a compact summary note at `docs/codex/fixture_quality_summary_2026_04_02.md`
 
 ## Current Blockers
 
