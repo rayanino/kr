@@ -23,14 +23,16 @@ import json
 import logging
 import os
 import sys
+import threading
 import webbrowser
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger("review_server")
+WRITE_LOCK = threading.Lock()
 
 
 # ---------------------------------------------------------------------------
@@ -73,52 +75,53 @@ def _upsert_jsonl(path: Path, key_field: str, entry: dict) -> int:
 
     Returns total number of records after upsert.
     """
-    existing: dict[str, str] = {}
-    dropped: list[dict[str, str | int]] = []
-    if path.exists():
-        with open(path, encoding="utf-8") as f:
-            for line_no, line in enumerate(f, start=1):
-                stripped = line.strip()
-                if stripped:
-                    try:
-                        old = json.loads(stripped)
-                        key = str(old[key_field])
-                        existing[key] = stripped
-                    except json.JSONDecodeError:
-                        dropped.append({
-                            "line_number": line_no,
-                            "reason": "json_decode_error",
-                            "raw_line": stripped,
-                        })
-                    except KeyError:
-                        dropped.append({
-                            "line_number": line_no,
-                            "reason": f"missing_key:{key_field}",
-                            "raw_line": stripped,
-                        })
-    existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
-    temp = path.with_suffix(path.suffix + ".tmp")
-    with open(temp, "w", encoding="utf-8") as f:
-        for line in existing.values():
-            f.write(line + "\n")
-    temp.replace(path)
-    if dropped:
-        dropped_path = path.with_name(path.name + ".dropped.jsonl")
-        with open(dropped_path, "a", encoding="utf-8") as f:
-            for item in dropped:
-                record = {
-                    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-                    "source_file": str(path),
-                    **item,
-                }
-                f.write(json.dumps(record, ensure_ascii=False) + "\n")
-        logger.warning(
-            "Preserved %d malformed JSONL line(s) from %s in %s",
-            len(dropped),
-            path,
-            dropped_path,
-        )
-    return len(existing)
+    with WRITE_LOCK:
+        existing: dict[str, str] = {}
+        dropped: list[dict[str, str | int]] = []
+        if path.exists():
+            with open(path, encoding="utf-8") as f:
+                for line_no, line in enumerate(f, start=1):
+                    stripped = line.strip()
+                    if stripped:
+                        try:
+                            old = json.loads(stripped)
+                            key = str(old[key_field])
+                            existing[key] = stripped
+                        except json.JSONDecodeError:
+                            dropped.append({
+                                "line_number": line_no,
+                                "reason": "json_decode_error",
+                                "raw_line": stripped,
+                            })
+                        except KeyError:
+                            dropped.append({
+                                "line_number": line_no,
+                                "reason": f"missing_key:{key_field}",
+                                "raw_line": stripped,
+                            })
+        existing[entry[key_field]] = json.dumps(entry, ensure_ascii=False)
+        temp = path.with_suffix(path.suffix + ".tmp")
+        with open(temp, "w", encoding="utf-8") as f:
+            for line in existing.values():
+                f.write(line + "\n")
+        temp.replace(path)
+        if dropped:
+            dropped_path = path.with_name(path.name + ".dropped.jsonl")
+            with open(dropped_path, "a", encoding="utf-8") as f:
+                for item in dropped:
+                    record = {
+                        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                        "source_file": str(path),
+                        **item,
+                    }
+                    f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            logger.warning(
+                "Preserved %d malformed JSONL line(s) from %s in %s",
+                len(dropped),
+                path,
+                dropped_path,
+            )
+        return len(existing)
 
 
 def _read_jsonl_keyed(path: Path, key_field: str) -> dict:
@@ -629,7 +632,7 @@ def main() -> None:
 
     port = int(os.environ.get("KR_REVIEW_PORT", "8384"))
     try:
-        server = HTTPServer(("127.0.0.1", port), ReviewHandler)
+        server = ThreadingHTTPServer(("127.0.0.1", port), ReviewHandler)
     except OSError as exc:
         if getattr(exc, "errno", None) == 98:
             logger.error("Error: port %s is already in use.", port)
