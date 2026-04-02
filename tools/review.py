@@ -451,14 +451,13 @@ class ReviewHandler(SimpleHTTPRequestHandler):
     def _api_get_comparisons(self) -> None:
         """Return before/after comparison pairs.
 
-        Pairs are built by matching excerpts from campaign_20260331/taysir (old prompts)
-        against the current output_dir taysir run (new hardened prompts) by division path.
-        If the current taysir run failed or has no excerpts yet, return an empty list.
+        Pairs are built by matching excerpts from campaign_20260331/<package> (old prompts)
+        against the current output_dir <package> run (new hardened prompts) by package + division path.
+        Packages without both campaign and current excerpts are skipped.
         Each pair: { pair_id, division, before: {...}, after: {...} }
         """
         repo_root = Path(__file__).parent.parent
-        after_file = self.output_dir / "taysir" / "excerpts.jsonl"
-        before_file = repo_root / "integration_tests" / "campaign_20260331" / "taysir" / "excerpts.jsonl"
+        before_root = repo_root / "integration_tests" / "campaign_20260331"
 
         def _load(path: Path) -> list[dict]:
             items: list[dict] = []
@@ -474,90 +473,99 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                             pass
             return items
 
-        if not before_file.exists() or not after_file.exists():
-            self._json_response([])
-            return
-
-        before_all = _load(before_file)
-        after_all = _load(after_file)
-        if not before_all or not after_all:
-            self._json_response([])
-            return
-
-        # Index after-excerpts by stable comparison key for fast lookup
-        after_by_div: dict[str, list[dict]] = {}
-        for ex in after_all:
-            key = _comparison_key(ex)
-            after_by_div.setdefault(key, []).append(ex)
-
         pairs: list[dict] = []
-        used_after: set[str] = set()
+        candidate_packages = sorted(
+            pkg_dir.name
+            for pkg_dir in self.output_dir.iterdir()
+            if pkg_dir.is_dir() and (before_root / pkg_dir.name / "excerpts.jsonl").exists()
+        )
 
-        for before_ex in before_all:
-            div_key = _comparison_key(before_ex)
-            candidates = after_by_div.get(div_key, [])
-            # Pick the first unused candidate in the same division
-            matched_after: dict | None = None
-            for cand in candidates:
-                cid = cand.get("excerpt_id", "")
-                if cid not in used_after:
-                    matched_after = cand
-                    used_after.add(cid)
-                    break
-
-            legacy_pair_id = f"pair_{len(pairs)+1:03d}"
-            pair_id = _comparison_pair_id(
-                div_key,
-                before_ex.get("excerpt_id"),
-                matched_after.get("excerpt_id") if matched_after else None,
-            )
-            pairs.append({
-                "pair_id": pair_id,
-                "legacy_pair_id": legacy_pair_id,
-                "division": div_key or "(root)",
-                "before": {
-                    "excerpt_id": before_ex.get("excerpt_id"),
-                    "primary_text": before_ex.get("primary_text"),
-                    "primary_function": before_ex.get("primary_function"),
-                    "self_containment": before_ex.get("self_containment"),
-                    "div_path": before_ex.get("div_path"),
-                    "source": "campaign_20260331/taysir (old prompts)",
-                },
-                "after": ({
-                    "excerpt_id": matched_after.get("excerpt_id"),
-                    "primary_text": matched_after.get("primary_text"),
-                    "primary_function": matched_after.get("primary_function"),
-                    "self_containment": matched_after.get("self_containment"),
-                    "div_path": matched_after.get("div_path"),
-                    "source": f"{self.output_dir.name}/taysir (new hardened prompts)",
-                } if matched_after else None),
-            })
-
-        for after_ex in after_all:
-            after_id = after_ex.get("excerpt_id", "")
-            if after_id in used_after:
+        for pkg in candidate_packages:
+            before_file = before_root / pkg / "excerpts.jsonl"
+            after_file = self.output_dir / pkg / "excerpts.jsonl"
+            if not before_file.exists() or not after_file.exists():
                 continue
-            div_key = _comparison_key(after_ex)
-            legacy_pair_id = f"pair_{len(pairs)+1:03d}"
-            pair_id = _comparison_pair_id(
-                div_key,
-                None,
-                after_id,
-            )
-            pairs.append({
-                "pair_id": pair_id,
-                "legacy_pair_id": legacy_pair_id,
-                "division": div_key or "(root)",
-                "before": None,
-                "after": {
-                    "excerpt_id": after_ex.get("excerpt_id"),
-                    "primary_text": after_ex.get("primary_text"),
-                    "primary_function": after_ex.get("primary_function"),
-                    "self_containment": after_ex.get("self_containment"),
-                    "div_path": after_ex.get("div_path"),
-                    "source": f"{self.output_dir.name}/taysir (new hardened prompts)",
-                },
-            })
+
+            before_all = _load(before_file)
+            after_all = _load(after_file)
+            if not before_all or not after_all:
+                continue
+
+            after_by_div: dict[str, list[dict]] = {}
+            for ex in after_all:
+                key = _comparison_key(ex)
+                after_by_div.setdefault(key, []).append(ex)
+
+            used_after: set[str] = set()
+
+            for before_ex in before_all:
+                div_key = _comparison_key(before_ex)
+                candidates = after_by_div.get(div_key, [])
+                matched_after: dict | None = None
+                for cand in candidates:
+                    cid = cand.get("excerpt_id", "")
+                    if cid not in used_after:
+                        matched_after = cand
+                        used_after.add(cid)
+                        break
+
+                comparison_scope = f"{pkg}::{div_key or '(root)'}"
+                legacy_pair_id = f"legacy_{pkg}_{len(pairs)+1:03d}"
+                pair_id = _comparison_pair_id(
+                    comparison_scope,
+                    before_ex.get("excerpt_id"),
+                    matched_after.get("excerpt_id") if matched_after else None,
+                )
+                pairs.append({
+                    "pair_id": pair_id,
+                    "legacy_pair_id": legacy_pair_id,
+                    "package": pkg,
+                    "division": div_key or "(root)",
+                    "before": {
+                        "excerpt_id": before_ex.get("excerpt_id"),
+                        "primary_text": before_ex.get("primary_text"),
+                        "primary_function": before_ex.get("primary_function"),
+                        "self_containment": before_ex.get("self_containment"),
+                        "div_path": before_ex.get("div_path"),
+                        "source": f"campaign_20260331/{pkg} (old prompts)",
+                    },
+                    "after": ({
+                        "excerpt_id": matched_after.get("excerpt_id"),
+                        "primary_text": matched_after.get("primary_text"),
+                        "primary_function": matched_after.get("primary_function"),
+                        "self_containment": matched_after.get("self_containment"),
+                        "div_path": matched_after.get("div_path"),
+                        "source": f"{self.output_dir.name}/{pkg} (new hardened prompts)",
+                    } if matched_after else None),
+                })
+
+            for after_ex in after_all:
+                after_id = after_ex.get("excerpt_id", "")
+                if after_id in used_after:
+                    continue
+                div_key = _comparison_key(after_ex)
+                comparison_scope = f"{pkg}::{div_key or '(root)'}"
+                legacy_pair_id = f"legacy_{pkg}_{len(pairs)+1:03d}"
+                pair_id = _comparison_pair_id(
+                    comparison_scope,
+                    None,
+                    after_id,
+                )
+                pairs.append({
+                    "pair_id": pair_id,
+                    "legacy_pair_id": legacy_pair_id,
+                    "package": pkg,
+                    "division": div_key or "(root)",
+                    "before": None,
+                    "after": {
+                        "excerpt_id": after_ex.get("excerpt_id"),
+                        "primary_text": after_ex.get("primary_text"),
+                        "primary_function": after_ex.get("primary_function"),
+                        "self_containment": after_ex.get("self_containment"),
+                        "div_path": after_ex.get("div_path"),
+                        "source": f"{self.output_dir.name}/{pkg} (new hardened prompts)",
+                    },
+                })
 
         self._json_response(pairs)
 

@@ -336,6 +336,9 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 
 .cmp-pair{max-width:1300px;margin:0 auto}
 .cmp-division{font-size:0.72rem;color:var(--text2);margin-bottom:0.8rem;font-family:var(--font-mono)}
+.cmp-filter-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.9rem;flex-wrap:wrap}
+.cmp-filter-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);font-weight:600}
+.cmp-filter-select{padding:0.35rem 0.55rem;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);font-family:var(--font-ui);font-size:0.8rem}
 .cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem}
 .cmp-col{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .cmp-col-header{padding:0.6rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
@@ -1331,27 +1334,28 @@ function qNavigate(delta){
 // COMPARISON MODE
 // ═══════════════════════════════════════════════════════════════════════════
 let cmpPairs=[];
+let cmpAllPairs=[];
 let cmpResponses={};
 let cmpIndex=0;
+let cmpPackageFilter="all";
 
 async function initComparison(){
   $("cmp-loading").style.display="flex";
   $("cmp-content").style.display="none";
   try{
     const[pr,rr]=await Promise.all([fetch("/api/comparisons"),fetch("/api/comparison/responses")]);
-    cmpPairs=await pr.json();
+    cmpAllPairs=await pr.json();
     cmpResponses=await rr.json();
+    cmpApplyPackageFilter();
     if(!cmpPairs.length){
       try{
-        const sr=await fetch("/api/package-state/taysir");
-        const state=await sr.json();
-        const summary=state.summary||{};
-        const err=(summary.errors&&summary.errors.length)?esc(summary.errors[0]):"No matched campaign/v2 pairs yet.";
-        if((summary.status||'').toLowerCase()==='error'){
-          $("cmp-loading").innerHTML=`<div class="mode-error">Comparison unavailable because the weekend taysir v2 run failed: ${err}</div>`;
-        }else{
-          $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
-        }
+        const prx=await fetch("/api/packages");
+        const packages=await prx.json();
+        const succeeded=(Array.isArray(packages)?packages:[]).filter(p=>p.has_excerpts&&p.excerpt_count>0);
+        const failed=(Array.isArray(packages)?packages:[]).filter(p=>(p.status||'').toLowerCase()==='error');
+        const succeededList=succeeded.length?succeeded.map(p=>esc(p.name)).join(", "):"none";
+        const failedList=failed.length?failed.map(p=>`${esc(p.name)}${p.errors&&p.errors.length?` (${esc(p.errors[0])})`:''}`).join(", "):"none";
+        $("cmp-loading").innerHTML=`<div class="mode-error">No comparison pairs were built. Completed current packages: ${succeededList}. Failed current packages: ${failedList}. This usually means no package has both campaign and current excerpts available for matching yet.</div>`;
       }catch(e){
         $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
       }
@@ -1363,6 +1367,25 @@ async function initComparison(){
   }catch(e){
     $("cmp-loading").innerHTML=`<div class="mode-error">Error loading comparisons: ${esc(e.message)}</div>`;
   }
+}
+
+function cmpApplyPackageFilter(){
+  if(cmpPackageFilter==="all")cmpPairs=[...cmpAllPairs];
+  else cmpPairs=cmpAllPairs.filter(pair=>pair.package===cmpPackageFilter);
+  if(cmpIndex>=cmpPairs.length)cmpIndex=0;
+}
+
+function cmpSetPackageFilter(value){
+  cmpPackageFilter=value;
+  cmpApplyPackageFilter();
+  if(!cmpPairs.length){
+    $("cmp-content").innerHTML='<div class="mode-error">No comparison pairs match the selected package.</div>';
+    $("cmp-pos-top").textContent='0/0';
+    $("cmp-prev-btn").disabled=true;
+    $("cmp-next-btn").disabled=true;
+    return;
+  }
+  cmpGo(0);
 }
 
 function cmpGo(index){
@@ -1379,6 +1402,13 @@ function cmpGo(index){
   const after=pair.after||null;
 
   const hasSaved=resp.verdict&&resp.verdict.trim();
+  const packageOptions=["all", ...new Set(cmpAllPairs.map(pair=>pair.package).filter(Boolean))];
+  const packageSelect=`<div class="cmp-filter-row">
+    <span class="cmp-filter-label">Package</span>
+    <select class="cmp-filter-select" onchange="cmpSetPackageFilter(this.value)">
+      ${packageOptions.map(pkg=>`<option value="${esc(pkg)}" ${pkg===cmpPackageFilter?'selected':''}>${esc(pkg==="all"?"All available packages":pkg)}</option>`).join("")}
+    </select>
+  </div>`;
 
   const verdictBtns=[
     {key:"before",label:"Before is better"},
@@ -1391,7 +1421,8 @@ function cmpGo(index){
 
   $("cmp-content").innerHTML=`
     <div class="cmp-pair">
-      <div class="cmp-division">Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
+      ${packageSelect}
+      <div class="cmp-division">Package: ${esc(pair.package||"(unknown)")} &nbsp;|&nbsp; Division: ${esc(pair.division)} &nbsp;|&nbsp; Pair ${index+1} of ${cmpPairs.length}</div>
       <div class="cmp-cols">
         <div class="cmp-col${before&&before.primary_text?"":" empty"}">
           <div class="cmp-col-header">
@@ -1469,6 +1500,7 @@ async function cmpSave(){
   const entry={
     pair_id:pair.pair_id,
     timestamp:new Date().toISOString(),
+    package:pair.package||null,
     division:pair.division,
     verdict,
     comment:comment||null,
