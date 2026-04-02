@@ -146,7 +146,7 @@ def run_phase3(
         result.timings["enrichment"] = 0.0
 
     # ── Stage 3: Consensus verification (graceful degradation) ────
-    if enrich_client is not None and verify_client is not None:
+    if verify_client is not None:
         t2 = time.monotonic()
         try:
             all_excerpts, gate_entries = run_consensus(
@@ -166,7 +166,7 @@ def run_phase3(
                                 IndexError, ZeroDivisionError, StopIteration)):
                 raise  # Programming bugs must crash
             logger.error(
-                "Consensus verification failed — degrading to enrichment-only: %s", exc,
+                "Consensus verification failed — degrading to current excerpt output: %s", exc,
             )
             result.errors.append(ExcerptingErrorCodes.EX_M_011)
             flagged = []
@@ -184,8 +184,7 @@ def run_phase3(
         )
     else:
         logger.info(
-            "Phase 3 consensus: SKIPPED (enrich_client=%s, verify_client=%s).",
-            enrich_client is not None,
+            "Phase 3 consensus: SKIPPED (verify_client=%s).",
             verify_client is not None,
         )
         result.timings["consensus"] = 0.0

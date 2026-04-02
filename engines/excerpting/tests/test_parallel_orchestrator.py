@@ -1219,6 +1219,81 @@ class TestRunParallelPipeline:
         # progress is the 7th positional arg (index 6)
         assert call_args[0][6] is progress
 
+    @patch("engines.excerpting.src.phase3_deterministic.build_deterministic_excerpts")
+    @patch("engines.excerpting.src.phase3_consensus.resolve_consensus")
+    @patch("engines.excerpting.src.phase3_consensus.verify_chunk")
+    @patch("engines.excerpting.src.phase3_consensus._needs_consensus")
+    @patch("engines.excerpting.src.phase2_group.verify_units")
+    @patch("engines.excerpting.src.phase2_group.group_chunk")
+    @patch("engines.excerpting.src.phase2_classify.verify_segments")
+    @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
+    @patch("engines.excerpting.src.phase2_classify.classify_chunk")
+    def test_process_chunk_runs_consensus_without_enrichment(
+        self,
+        mock_classify: MagicMock,
+        mock_normalize: MagicMock,
+        mock_verify_seg: MagicMock,
+        mock_group: MagicMock,
+        mock_verify_units: MagicMock,
+        mock_needs_consensus: MagicMock,
+        mock_verify_chunk: MagicMock,
+        mock_resolve_consensus: MagicMock,
+        mock_build_det: MagicMock,
+    ) -> None:
+        chunk = _make_mock_chunk("chunk_verify_only")
+        config = _make_mock_config(RETRY_COUNT=0)
+        controller = ConcurrencyController(2)
+        progress = MagicMock()
+        progress.is_done.return_value = False
+
+        segments = [_make_mock_segment()]
+        units = [_make_mock_unit()]
+        excerpt = _make_excerpt_record(
+            excerpt_id="exc_verify_only",
+            div_id=chunk.div_id,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يحتاج سياقاً",
+            context_hint="باب الطهارة",
+        )
+        item = _mock_consensus_item()
+        vi = MagicMock()
+        vi.item_index = 0
+
+        cr_result = MagicMock()
+        cr_result.segments = segments
+        mock_classify.return_value = cr_result
+        mock_normalize.return_value = segments
+
+        er_result = MagicMock()
+        er_result.teaching_units = units
+        mock_group.return_value = er_result
+        mock_verify_units.return_value = units
+        mock_build_det.return_value = [excerpt]
+        mock_needs_consensus.return_value = [item]
+        mock_verify_chunk.return_value = (MagicMock(items=[vi]), [(excerpt, [item])])
+        mock_resolve_consensus.return_value = (excerpt, None, [])
+
+        ctx = ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
+        result = _process_chunk(
+            ctx=ctx,
+            enrich_client=None,
+            verify_client=MagicMock(),
+            escalation_client=None,
+            config=config,
+            controller=controller,
+            progress=progress,
+            cache=None,
+            classified_data=None,
+            grouped_data=None,
+            source_metadata={},
+        )
+
+        assert result.completed is True
+        assert result.error is None
+        assert result.final_excerpts is not None
+        mock_verify_chunk.assert_called_once()
+        assert call(chunk.chunk_id, "phase3_consensus") in progress.mark_done.call_args_list
+
     def test_per_thread_client_isolation(self) -> None:
         """Each thread gets its own client (factory called N times)."""
         chunks = [_make_mock_chunk(f"chunk_{i}") for i in range(3)]

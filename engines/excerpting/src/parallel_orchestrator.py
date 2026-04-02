@@ -728,7 +728,7 @@ def _process_chunk(
         assert ctx.enriched_excerpts is not None
 
         # Phase 3 Consensus
-        if verify_client is not None and enrich_client is not None:
+        if verify_client is not None:
             is_consensus_resume = (
                 progress is not None and progress.is_done(chunk_id, "phase3_consensus")
             )

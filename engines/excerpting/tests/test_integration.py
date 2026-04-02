@@ -288,23 +288,36 @@ class TestPhase3Orchestrator:
         assert len(result.gate_entries) == 1
         assert result.gate_entries[0]["gate_code"] == "EX-G-001"
 
-    def test_enrichment_skipped_but_consensus_skipped_too(self) -> None:
-        """enrich_client=None → both enrichment AND consensus skipped."""
+    def test_enrichment_skipped_but_consensus_still_runs(self) -> None:
+        """verify_client present should still run consensus on deterministic excerpts."""
         chunk, units, segments = _make_chunk_and_units()
         config = ExcerptingConfig()
         mock_verify = MagicMock()
-
-        result = run_phase3(
-            chunks=[chunk],
-            teaching_units={chunk.chunk_id: units},
-            classified={chunk.chunk_id: segments},
-            config=config,
-            enrich_client=None,
-            verify_client=mock_verify,  # verify present but enrich missing
+        deterministic_excerpt = _make_excerpt_record(
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يحتاج سياقاً",
+            context_hint="باب الطهارة",
         )
 
-        # Consensus skipped because enrich_client is None
-        assert result.timings["consensus"] == 0.0
+        with patch(
+            "engines.excerpting.src.phase3_orchestrator.build_deterministic_excerpts",
+            return_value=[deterministic_excerpt],
+        ), patch(
+            "engines.excerpting.src.phase3_orchestrator.run_consensus",
+            return_value=([deterministic_excerpt], []),
+        ) as mock_consensus:
+            result = run_phase3(
+                chunks=[chunk],
+                teaching_units={chunk.chunk_id: units},
+                classified={chunk.chunk_id: segments},
+                config=config,
+                enrich_client=None,
+                verify_client=mock_verify,
+            )
+
+        mock_consensus.assert_called_once()
+        assert mock_consensus.call_args.kwargs["excerpts"] == [deterministic_excerpt]
+        assert result.timings["consensus"] >= 0.0
         assert len(result.excerpts) > 0
 
     def test_deterministic_crash_propagates(self) -> None:
