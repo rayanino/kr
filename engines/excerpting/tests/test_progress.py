@@ -72,6 +72,19 @@ class TestProgressTrackerMarkDone:
         assert entry["status"] == "done"
         assert "timestamp" in entry
 
+    def test_mark_done_fsyncs_wal(self, progress_file: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        tracker = ProgressTracker(progress_file)
+        fsynced_fds: list[int] = []
+
+        def fake_fsync(fd: int) -> None:
+            fsynced_fds.append(fd)
+
+        monkeypatch.setattr("engines.excerpting.src.progress.os.fsync", fake_fsync)
+
+        tracker.mark_done("chunk_1", "phase2a")
+
+        assert len(fsynced_fds) == 1
+
 
 class TestProgressTrackerMarkFailed:
     """test_progress_tracker_mark_failed — mark failed, verify is_done returns False."""

@@ -9,6 +9,7 @@ from __future__ import annotations
 import datetime
 import json
 import logging
+import os
 import threading
 from pathlib import Path
 from typing import Optional
@@ -87,6 +88,8 @@ class ProgressTracker:
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with open(self._path, "a", encoding="utf-8") as f:
             f.write(line)
+            f.flush()
+            os.fsync(f.fileno())
 
     def is_done(self, chunk_id: str, phase: str) -> bool:
         """Check if a chunk has completed a phase successfully."""
