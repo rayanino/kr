@@ -628,7 +628,16 @@ def main() -> None:
     ReviewHandler.questionnaire_dir = questionnaire_dir
 
     port = int(os.environ.get("KR_REVIEW_PORT", "8384"))
-    server = HTTPServer(("127.0.0.1", port), ReviewHandler)
+    try:
+        server = HTTPServer(("127.0.0.1", port), ReviewHandler)
+    except OSError as exc:
+        if getattr(exc, "errno", None) == 98:
+            logger.error("Error: port %s is already in use.", port)
+            logger.error("A review server is likely already running at http://127.0.0.1:%s/", port)
+            logger.error("Reuse that server, stop it first, or start a new one with:")
+            logger.error("  KR_REVIEW_PORT=%s python tools/review.py %s", port + 1, sys.argv[1])
+            sys.exit(1)
+        raise
 
     url = f"http://127.0.0.1:{port}/"
     logger.info("KR Excerpt Reviewer")
