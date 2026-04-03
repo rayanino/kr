@@ -22,12 +22,15 @@ It is a collection/preservation lane, not a doctrine canon.
 
 - `source_artifacts/chatgpt_f2_collection_2026_04_03.zip`
   The original downloaded ZIP bundle preserved verbatim for auditability.
+- `source_artifacts/f2_owner_raw_draft_and_followups_2026_04_03.txt`
+  The raw owner draft plus the six follow-up answers and the exact revision steering sent back to ChatGPT.
 
 ## Usage rule
 
 When later implementation or hardening work consults `F-2`, read in this order:
 
-1. `01_owner_answer.md`
-2. `02_workflow_notes.yaml`
-3. `03_retained_implications.md`
-4. `04_model_inference_non_authoritative.md` only as a clearly separated inference layer
+1. `source_artifacts/f2_owner_raw_draft_and_followups_2026_04_03.txt`
+2. `01_owner_answer.md`
+3. `02_workflow_notes.yaml`
+4. `03_retained_implications.md`
+5. `04_model_inference_non_authoritative.md` only as a clearly separated inference layer
