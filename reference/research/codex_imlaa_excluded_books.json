@@ -1,0 +1,12 @@
+[
+  {
+    "book_title": "قاموس الإملاء",
+    "category": "كتب اللغة",
+    "exclusion_reason": "insufficient_retained_headings",
+    "brief_evidence_summary": "Dropped after boundary audit: retained 1/12 non-noise headings; dominant reason=non_imlaa",
+    "raw_heading_count": 42,
+    "non_noise_heading_count": 12,
+    "retained_heading_count": 1,
+    "boundary_excluded_heading_count": 11
+  }
+]

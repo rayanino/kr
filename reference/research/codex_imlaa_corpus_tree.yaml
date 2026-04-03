@@ -1,0 +1,40 @@
+taxonomy:
+  id: imlaa_corpus
+  title: الإملاء (corpus-derived)
+  nodes:
+  - id: alalf_allynh
+    title: الألف اللينة
+    leaf: true
+    book_count: 2
+  - id: alta_almrbwth_walta_almftwhh
+    title: التاء المربوطة والتاء المفتوحة
+    leaf: true
+    book_count: 2
+  - id: alhdhf_mn_alktabh
+    title: الحذف من الكتابة
+    leaf: true
+    book_count: 2
+  - id: alzyadh_fy_alktabh
+    title: الزيادة في الكتابة
+    leaf: true
+    book_count: 2
+  - id: alhmzh
+    title: الهمزة
+    leaf: true
+    book_count: 2
+  - id: alhmzh_fy_akhr_alklmh
+    title: الهمزة في آخر الكلمة
+    leaf: true
+    book_count: 2
+  - id: alhmzh_fy_awl_alklmh
+    title: الهمزة في أول الكلمة
+    leaf: true
+    book_count: 2
+  - id: alhmzh_fy_wst_alklmh
+    title: الهمزة في وسط الكلمة
+    leaf: true
+    book_count: 2
+  - id: alamat_altrqym
+    title: علامات الترقيم
+    leaf: true
+    book_count: 2

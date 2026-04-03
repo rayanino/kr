@@ -1,0 +1,63 @@
+{
+  "total_scanned": 8417,
+  "imlaa_count": 4,
+  "tier_counts": {
+    "A": 0,
+    "B": 4,
+    "C": 0
+  },
+  "books": [
+    {
+      "name": "الإملاء والترقيم في الكتابة العربية",
+      "title": "الإملاء والترقيم في الكتابة العربية",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإملاء والترقيم'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإملاء والترقيم في الكتابة العربية.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm"
+    },
+    {
+      "name": "الطريق المستقيم في نظم علامات الترقيم",
+      "title": "الطريق المستقيم في نظم علامات الترقيم",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الترقيم'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الطريق المستقيم في نظم علامات الترقيم.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm"
+    },
+    {
+      "name": "قاموس الإملاء",
+      "title": "قاموس الإملاء",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains weak cue 'الإملاء' and requires preview; preview confirms cues ['التاء المربوطة']",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "قاموس الإملاء.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm"
+    },
+    {
+      "name": "قواعد الإملاء",
+      "title": "قواعد الإملاء",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains weak cue 'الإملاء' and requires preview; preview confirms cues ['الهمزة', 'الألف اللينة']",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "قواعد الإملاء.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm"
+    }
+  ]
+}

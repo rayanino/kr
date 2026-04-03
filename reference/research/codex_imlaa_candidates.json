@@ -1,0 +1,95 @@
+{
+  "total_scanned": 8417,
+  "imlaa_candidate_count": 5,
+  "tier_counts": {
+    "A": 0,
+    "B": 2,
+    "C": 3
+  },
+  "books": [
+    {
+      "name": "الإملاء والترقيم في الكتابة العربية",
+      "title": "الإملاء والترقيم في الكتابة العربية",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإملاء والترقيم'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإملاء والترقيم في الكتابة العربية.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الطريق المستقيم في نظم علامات الترقيم",
+      "title": "الطريق المستقيم في نظم علامات الترقيم",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الترقيم'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الطريق المستقيم في نظم علامات الترقيم.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة",
+      "title": "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة",
+      "category": "التخريج والأطراف",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'الإملاء' and requires preview",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/001.htm",
+        "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/002.htm",
+        "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/003.htm",
+        "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/004.htm",
+        "عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/005.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/عجالة الإملاء على الترغيب والترهيب - ط المعارف - ناقصة/001.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "قاموس الإملاء",
+      "title": "قاموس الإملاء",
+      "category": "كتب اللغة",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'الإملاء' and requires preview",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "قاموس الإملاء.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "قواعد الإملاء",
+      "title": "قواعد الإملاء",
+      "category": "كتب اللغة",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'الإملاء' and requires preview",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "قواعد الإملاء.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    }
+  ]
+}

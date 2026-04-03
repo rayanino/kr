@@ -1,0 +1,228 @@
+taxonomy:
+  id: balagha_corpus
+  title: البلاغة (corpus-derived)
+  nodes:
+  - id: alqsr
+    title: القصر
+    leaf: true
+    book_count: 13
+  - id: almaany
+    title: المعاني
+    leaf: true
+    book_count: 13
+  - id: ahwal_alasnad_alkhbry
+    title: أحوال الإسناد الخبري
+    leaf: true
+    book_count: 12
+  - id: alatnab
+    title: الإطناب
+    leaf: true
+    book_count: 12
+  - id: albdya
+    title: البديع
+    leaf: true
+    book_count: 12
+  - id: alansha
+    title: الإنشاء
+    leaf: true
+    book_count: 11
+  - id: albyan
+    title: البيان
+    leaf: true
+    book_count: 11
+  - id: altshbyh
+    title: التشبيه
+    leaf: true
+    book_count: 10
+  - id: tqdym_almsnd_alyh
+    title: تقديم المسند إليه
+    leaf: true
+    book_count: 10
+  - id: ahwal_mtalqat_alfal
+    title: أحوال متعلقات الفعل
+    leaf: true
+    book_count: 9
+  - id: alhqyqh_walmjaz
+    title: الحقيقة والمجاز
+    leaf: true
+    book_count: 9
+  - id: alknayh
+    title: الكناية
+    leaf: true
+    book_count: 9
+  - id: almsawah
+    title: المساواة
+    leaf: true
+    book_count: 9
+  - id: takyd_almdh_bma_yshbh_aldhm
+    title: تأكيد المدح بما يشبه الذم
+    leaf: true
+    book_count: 9
+  - id: dhkr_almsnd_alyh
+    title: ذكر المسند إليه
+    leaf: true
+    book_count: 9
+  - id: alayjaz
+    title: الإيجاز
+    leaf: true
+    book_count: 8
+  - id: alastaarh
+    title: الاستعارة
+    leaf: true
+    book_count: 8
+  - id: almqablh
+    title: المقابلة
+    leaf: true
+    book_count: 8
+  - id: trq_alqsr
+    title: طرق القصر
+    leaf: true
+    book_count: 8
+  - id: takyd_aldhm_bma_yshbh_almdh
+    title: تأكيد الذم بما يشبه المدح
+    leaf: true
+    book_count: 7
+  - id: taryf_almsnd_alyh
+    title: تعريف المسند إليه
+    leaf: true
+    book_count: 7
+  - id: tnkyr_almsnd_alyh
+    title: تنكير المسند إليه
+    leaf: true
+    book_count: 7
+  - id: hdhf_almsnd_alyh
+    title: حذف المسند إليه
+    leaf: true
+    book_count: 7
+  - id: lzwm_ma_la_ylzm
+    title: لزوم ما لا يلزم
+    leaf: true
+    book_count: 7
+  - id: arkan_altshbyh
+    title: أركان التشبيه
+    leaf: true
+    book_count: 6
+  - id: alayjaz_walatnab_walmsawah
+    title: الإيجاز والإطناب والمساواة
+    leaf: true
+    book_count: 6
+  - id: altwryh
+    title: التورية
+    leaf: true
+    book_count: 6
+  - id: aljnas
+    title: الجناس
+    leaf: true
+    book_count: 6
+  - id: alfsahh
+    title: الفصاحة
+    leaf: true
+    book_count: 6
+  - id: alqlb
+    title: القلب
+    leaf: true
+    book_count: 6
+  - id: almjaz_alaqly
+    title: المجاز العقلي
+    leaf: true
+    book_count: 6
+  - id: tjahl_alaarf
+    title: تجاهل العارف
+    leaf: true
+    book_count: 6
+  - id: taryf_almsnd
+    title: تعريف المسند
+    leaf: true
+    book_count: 6
+  - id: hsn_altalyl
+    title: حسن التعليل
+    leaf: true
+    book_count: 6
+  - id: dhkr_almsnd
+    title: ذكر المسند
+    leaf: true
+    book_count: 6
+  - id: adrb_alkhbr
+    title: أضرب الخبر
+    leaf: true
+    book_count: 5
+  - id: aqsam_alknayh
+    title: أقسام الكناية
+    leaf: true
+    book_count: 5
+  - id: altjryd
+    title: التجريد
+    leaf: true
+    book_count: 5
+  - id: aljma
+    title: الجمع
+    leaf: true
+    book_count: 5
+  - id: aljma_ma_altfryq
+    title: الجمع مع التفريق
+    leaf: true
+    book_count: 5
+  - id: aljma_ma_altfryq_waltqsym
+    title: الجمع مع التفريق والتقسيم
+    leaf: true
+    book_count: 5
+  - id: aljma_ma_altqsym
+    title: الجمع مع التقسيم
+    leaf: true
+    book_count: 5
+  - id: alrjwa
+    title: الرجوع
+    leaf: true
+    book_count: 5
+  - id: alsja
+    title: السجع
+    leaf: true
+    book_count: 5
+  - id: allf_walnshr
+    title: اللف والنشر
+    leaf: true
+    book_count: 5
+  - id: almjaz_almrsl
+    title: المجاز المرسل
+    leaf: true
+    book_count: 5
+  - id: almjaz_almrkb
+    title: المجاز المركب
+    leaf: true
+    book_count: 5
+  - id: almdhhb_alklamy
+    title: المذهب الكلامي
+    leaf: true
+    book_count: 5
+  - id: almwaznh
+    title: الموازنة
+    leaf: true
+    book_count: 5
+  - id: taryf_almsnd_alyh_baladafh
+    title: تعريف المسند إليه بالإضافة
+    leaf: true
+    book_count: 5
+  - id: taryf_almsnd_alyh_balalmyh
+    title: تعريف المسند إليه بالعلمية
+    leaf: true
+    book_count: 5
+  - id: tqdym_almsnd
+    title: تقديم المسند
+    leaf: true
+    book_count: 5
+  - id: tnkyr_almsnd
+    title: تنكير المسند
+    leaf: true
+    book_count: 5
+  - id: hdhf_almsnd
+    title: حذف المسند
+    leaf: true
+    book_count: 5
+  - id: rd_alajz_aly_alsdr
+    title: رد العجز على الصدر
+    leaf: true
+    book_count: 5
+  - id: mraaah_alnzyr
+    title: مراعاة النظير
+    leaf: true
+    book_count: 5

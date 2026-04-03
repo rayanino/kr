@@ -1,0 +1,960 @@
+[
+  {
+    "heading_text": "‌مقدمة",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الباب الأول: الإملاء في المجال التربوي",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌تمهيد:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أهداف درس الإملاء:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌منزلة الإملاء بين فروع اللغة:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌عوامل التهجي الصحيح:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌مادة الإملاء:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌أنواع الإملاء",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌أساليب التدريب الفردي",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌تصحيح الإملاء",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌تمهيد:",
+    "source_book": "الإملاء والترقيم في الكتابة العربية",
+    "file": "الإملاء والترقيم في الكتابة العربية.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإملاء والترقيم في الكتابة العربية.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الفصلة ",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_orthography_surface"
+    ]
+  },
+  {
+    "heading_text": "‌تنبيهٌ",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الفصلة المنقوطة ",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_orthography_surface"
+    ]
+  },
+  {
+    "heading_text": "‌تنبيه",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الاستفهام التعجبي ",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌علامة الحذف ",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "mixed",
+    "noise": false,
+    "matched_rules": [
+      "exclude:mixed_multi_topic"
+    ]
+  },
+  {
+    "heading_text": "‌الخاتمة",
+    "source_book": "الطريق المستقيم في نظم علامات الترقيم",
+    "file": "الطريق المستقيم في نظم علامات الترقيم.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطريق المستقيم في نظم علامات الترقيم.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌قاموس الإملاء",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الأولى المهارات الإملائية",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ أهمية درس الإملاء: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌ العلاقة بين الإملاء وبقية فروع اللغة العربية: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ الأهداف العامة من الإملاء: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ بعض المشكلات التي تعترض الإملاء: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ أسباب الأخطاء الإملائية: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ الأسس التي تعتمد عليها عملية تدريس الإملاء: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ الشروط التي يجب توفرها في موضوع الإملاء:",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ أنواع الإملاء وطرق تدريسه:",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌ تصحيح الإملاء: ",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": false,
+    "matched_rules": [
+      "exclude:non_imlaa_surface"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الثانية",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الأول (المد - التاء المفتوحة والتاء المربوطة)",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "mixed",
+    "noise": false,
+    "matched_rules": [
+      "exclude:mixed_safe_and_language"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الثاني (التنوين - اللام الشمسية واللام القمرية)",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "qramatic_or_language",
+    "noise": false,
+    "matched_rules": [
+      "exclude:grammar_or_language"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الثالثة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الأول",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الثاني",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الرابعة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الأول",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الثاني",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الخامسة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الأول",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الثاني",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة السادسة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الأول",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الجزء الثاني",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة السابعة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌قواعد عامة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الثامنة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 1",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 2",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة التاسعة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 3",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم4",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 5",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة العاشرة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 6",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 7",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 8",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌أنموذج رقم 9",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الوحدة الحادية عشرة",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌علامات الترقيم",
+    "source_book": "قاموس الإملاء",
+    "file": "قاموس الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قاموس الإملاء.htm",
+    "exclusion_reason": "mixed",
+    "noise": false,
+    "matched_rules": [
+      "retain:orthography_signal",
+      "book_threshold:moved_to_excluded"
+    ]
+  },
+  {
+    "heading_text": "‌بسم الله الرحمن الرحيم",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الْبَابُ الْأَوَّلُ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الْبَابُ الثَّانِي",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌مَعْرِفَةُ الْوَاوَيّ وَالْيَائَيّ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الْأَلِفُ الْمُبَدْلَةُ مِنْ يَاءِ الْمُتَكَلِّمِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الْأَلِفُ الْمُبَدْلَةُ مِنْ نُونِ التَّوْكِيدِ الْخَفِيفَةِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "qramatic_or_language",
+    "noise": false,
+    "matched_rules": [
+      "exclude:grammar_or_language"
+    ]
+  },
+  {
+    "heading_text": "‌الْأَلِفُ الْمُبَدْلَةُ مِنْ نُونِ إِذَنْ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الْبَابُ الثَّالِثُ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌زِيادَةُ الْأَلِفِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌زِيَادَةُ الْوَاوِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الْبَابُ الرَّابِعُ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ الْأَلِفِ أَوَلًا",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ الْأَلِفِ وَسَطًا",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ الْأَلِفِ آخِرً",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ أَلْ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ الْوَاوِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ الْيَاءِ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌نَقْصُ النُّونِ:",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌النَّقْصُ لِلْرَمْزِ:",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الْبَابُ الْخَامِسُ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "non_imlaa",
+    "noise": true,
+    "matched_rules": [
+      "exclude:noise_heading"
+    ]
+  },
+  {
+    "heading_text": "‌الْفَصْلُ وَ‌‌الْوَصْلُ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌ وَصْلُ (مَنْ) بِمَا قَبْلَهَا ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌ وَصْلُ (مَا) بِمَا قَبْلَهَا ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌ وَصْلُ (لَا) بِمَا قَبْلَهَا ",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌فَصْل",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الألف المتوسطة",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  },
+  {
+    "heading_text": "‌الألف المتطرفة",
+    "source_book": "قواعد الإملاء",
+    "file": "قواعد الإملاء.htm",
+    "file_path": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/قواعد الإملاء.htm",
+    "exclusion_reason": "ambiguous",
+    "noise": false,
+    "matched_rules": [
+      "exclude:ambiguous_fallback"
+    ]
+  }
+]

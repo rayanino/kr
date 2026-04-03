@@ -1,68 +1,46 @@
-# Claude Return Review TODO — Sarf
+# Sarf Claude Return Review TODO
 
-## Status
+Claude return review is mandatory before any finalization, merge claim, or installation into `library/sciences/sarf/`.
 
-Claude chat was unavailable during the sarf external review phase.
+## Required Inputs
 
-Because of that outage, the normal protocol flow was temporarily adjusted:
+Claude must read all of the following:
 
-- Phase 2 external comparison was run through ChatGPT Pro / Deep Research.
-- A Gemini adversarial review may be used as an interim external reviewer.
-- **This does not replace the required Fresh Claude adversarial review.**
-
-## Non-Negotiable Rule
-
-Before the sarf tree is treated as fully finalized and ready for installation
-into `library/sciences/sarf/tree.yaml`, a **fresh Claude adversarial review**
-must still be run against the latest merged sarf tree.
-
-This review must be treated as a real authority lane, not as an optional polish
-pass.
-
-## What Claude Must Review
-
-Claude must receive:
-
-- `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`
-- `.kr/CHARTER.md`
-- `.kr/DECISIONS.md`
-- `engines/taxonomy/SPEC_FULL_ORIGINAL.md`
-- the latest merged sarf tree under review
-- `reference/research/sarf_v2_0_draft.yaml` if still relevant as comparison
+- `reference/research/sarf_v2_0_draft.yaml`
 - `reference/research/codex_sarf_chatgpt_phase2_output.md`
+- `reference/research/codex_sarf_gemini_phase3_clean_output.md`
+- `reference/research/codex_sarf_external_review_triage.md`
 - `reference/research/codex_sarf_architect_post_phase2_revision.md`
-- `reference/research/codex_sarf_books_identified.json`
-- `reference/research/codex_sarf_headings_by_book.json`
-- `reference/research/codex_sarf_topic_frequency.json`
-- `reference/research/codex_sarf_corpus_tree.yaml`
-- `reference/research/codex_sarf_corpus_gaps.md`
 - `reference/research/codex_sarf_content_analysis.md`
 - `reference/research/codex_sarf_granularity_audit.md`
 - `reference/research/codex_sarf_taxonomy_boundary.md`
-- `reference/research/codex_sarf_k1_knowledge_tree.md`
-- `reference/research/codex_sarf_k2_knowledge_tree.md`
+- `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`
 - `library/sciences/nahw/tree.yaml`
 
-## What Claude Must Explicitly Answer
+## Claude Must Judge Explicitly
 
-Claude must explicitly review and answer:
+Claude must explicitly judge:
 
-1. Is the merged sarf tree structurally sound?
-2. Are there any fake, unstable, or under-defined leaves?
-3. Is any remaining nahw bleed present?
-4. Is any remaining imlaa bleed present?
-5. Are any branches still under-granulated or over-granulated?
-6. Does the tree contain any genuine overlay / variant-path need?
-7. Is the tree ready for finalization, or does it require another revision cycle?
+- whether `الاسم المزيد` is still too broad inside `أبنية الأسماء`
+- whether it should split into finer noun-pattern subfamilies
+- whether leaving it unsplit in the current architect draft was correct
 
-## Decision Rule
+Claude must answer this directly rather than only commenting on branch balance in general.
 
-If Claude finds blocking defects, the sarf tree is **not final**.
+## Additional Review Priorities
 
-If Claude finds only non-blocking issues, the sarf tree may proceed to the
-final protocol lane after those issues are judged.
+Claude should also re-check:
 
-## Why This File Exists
+- whether the current hamza-family consolidation is sufficient
+- whether `التقاء الساكنين في البنية الصرفية` is correctly left unsplit
+- whether `القياسي والسماعي في الصرف` is correctly modeled as a compact apparatus-side family
+- whether `الإلحاق` is now explicit enough
+- whether the narrowed noun-transformation topics remain cleanly formation-only
 
-This TODO exists so the Claude return review cannot be silently forgotten after
-the temporary tool outage.
+## Status Reminder
+
+- ChatGPT Phase 2 is complete and already integrated
+- Gemini clean Phase 3 is complete and has been triaged
+- the architect current position is: no additional patch is required **before** Claude return review
+- Claude return review remains mandatory and unresolved
+

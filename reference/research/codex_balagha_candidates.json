@@ -1,0 +1,966 @@
+{
+  "total_scanned": 8417,
+  "balagha_candidate_count": 57,
+  "tier_counts": {
+    "A": 44,
+    "B": 10,
+    "C": 3
+  },
+  "books": [
+    {
+      "name": "أساليب بلاغية",
+      "title": "أساليب بلاغية",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أساليب بلاغية.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أساليب بلاغية.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أسرار البلاغة - ت محمود شاكر",
+      "title": "أسرار البلاغة - ت محمود شاكر",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسرار البلاغة - ت محمود شاكر.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أسرار البلاغة - ت محمود شاكر.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أسرار البلاغة - ت هنداوي",
+      "title": "أسرار البلاغة - ت هنداوي",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسرار البلاغة - ت هنداوي.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أسرار البلاغة - ت هنداوي.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الأسلوب",
+      "title": "الأسلوب",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الأسلوب.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الأسلوب.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الأطول شرح تلخيص مفتاح العلوم",
+      "title": "الأطول شرح تلخيص مفتاح العلوم",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الأطول شرح تلخيص مفتاح العلوم/001.htm",
+        "الأطول شرح تلخيص مفتاح العلوم/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الأطول شرح تلخيص مفتاح العلوم/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الإيضاح في علوم البلاغة",
+      "title": "الإيضاح في علوم البلاغة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "الإيضاح في علوم البلاغة/001.htm",
+        "الإيضاح في علوم البلاغة/002.htm",
+        "الإيضاح في علوم البلاغة/003.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإيضاح في علوم البلاغة/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البديع عند الحريري",
+      "title": "البديع عند الحريري",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البديع عند الحريري.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البديع عند الحريري.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البديع في البديع لابن المعتز",
+      "title": "البديع في البديع لابن المعتز",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البديع في البديع لابن المعتز.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البديع في البديع لابن المعتز.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البلاغة الصافية في المعاني والبيان والبديع",
+      "title": "البلاغة الصافية في المعاني والبيان والبديع",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البلاغة الصافية في المعاني والبيان والبديع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البلاغة الصافية في المعاني والبيان والبديع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البلاغة العربية",
+      "title": "البلاغة العربية",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "البلاغة العربية/001.htm",
+        "البلاغة العربية/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البلاغة العربية/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البلاغة ١ - البيان والبديع - جامعة المدينة",
+      "title": "البلاغة ١ - البيان والبديع - جامعة المدينة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البلاغة ١ - البيان والبديع - جامعة المدينة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البلاغة ١ - البيان والبديع - جامعة المدينة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البلاغة ٢ - المعاني - جامعة المدينة",
+      "title": "البلاغة ٢ - المعاني - جامعة المدينة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البلاغة ٢ - المعاني - جامعة المدينة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البلاغة ٢ - المعاني - جامعة المدينة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الجامع الكبير في صناعة المنظوم من الكلام والمنثور",
+      "title": "الجامع الكبير في صناعة المنظوم من الكلام والمنثور",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الجامع الكبير في صناعة المنظوم من الكلام والمنثور.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الجامع الكبير في صناعة المنظوم من الكلام والمنثور.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الطراز لأسرار البلاغة وعلوم حقائق الإعجاز",
+      "title": "الطراز لأسرار البلاغة وعلوم حقائق الإعجاز",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "الطراز لأسرار البلاغة وعلوم حقائق الإعجاز/001.htm",
+        "الطراز لأسرار البلاغة وعلوم حقائق الإعجاز/002.htm",
+        "الطراز لأسرار البلاغة وعلوم حقائق الإعجاز/003.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الطراز لأسرار البلاغة وعلوم حقائق الإعجاز/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الفلك الدائر على المثل السائر",
+      "title": "الفلك الدائر على المثل السائر",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الفلك الدائر على المثل السائر.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الفلك الدائر على المثل السائر.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "المثل السائر في أدب الكاتب والشاعر ت الحوفي",
+      "title": "المثل السائر في أدب الكاتب والشاعر ت الحوفي",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "المثل السائر في أدب الكاتب والشاعر ت الحوفي/001.htm",
+        "المثل السائر في أدب الكاتب والشاعر ت الحوفي/002.htm",
+        "المثل السائر في أدب الكاتب والشاعر ت الحوفي/003.htm",
+        "المثل السائر في أدب الكاتب والشاعر ت الحوفي/004.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/المثل السائر في أدب الكاتب والشاعر ت الحوفي/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد",
+      "title": "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد/001.htm",
+        "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "المنهاج الواضح للبلاغة",
+      "title": "المنهاج الواضح للبلاغة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "المنهاج الواضح للبلاغة/001.htm",
+        "المنهاج الواضح للبلاغة/002.htm",
+        "المنهاج الواضح للبلاغة/003.htm",
+        "المنهاج الواضح للبلاغة/004.htm",
+        "المنهاج الواضح للبلاغة/005.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/المنهاج الواضح للبلاغة/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "النظم البلاغي بين النظرية والتطبيق",
+      "title": "النظم البلاغي بين النظرية والتطبيق",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "النظم البلاغي بين النظرية والتطبيق.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/النظم البلاغي بين النظرية والتطبيق.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة",
+      "title": "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة/001.htm",
+        "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة/002.htm",
+        "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة/003.htm",
+        "بغية الإيضاح لتلخيص المفتاح في علوم البلاغة/004.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/بغية الإيضاح لتلخيص المفتاح في علوم البلاغة/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "تحرير التحبير في صناعة الشعر والنثر",
+      "title": "تحرير التحبير في صناعة الشعر والنثر",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تحرير التحبير في صناعة الشعر والنثر.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/تحرير التحبير في صناعة الشعر والنثر.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "تلوين الخطاب لابن كمال باشا دراسة وتحقيق",
+      "title": "تلوين الخطاب لابن كمال باشا دراسة وتحقيق",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تلوين الخطاب لابن كمال باشا دراسة وتحقيق.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/تلوين الخطاب لابن كمال باشا دراسة وتحقيق.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "جواهر البلاغة في المعاني والبيان والبديع",
+      "title": "جواهر البلاغة في المعاني والبيان والبديع",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "جواهر البلاغة في المعاني والبيان والبديع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/جواهر البلاغة في المعاني والبيان والبديع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "حاشية الدسوقي على مختصر المعاني",
+      "title": "حاشية الدسوقي على مختصر المعاني",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "حاشية الدسوقي على مختصر المعاني/001.htm",
+        "حاشية الدسوقي على مختصر المعاني/002.htm",
+        "حاشية الدسوقي على مختصر المعاني/003.htm",
+        "حاشية الدسوقي على مختصر المعاني/004.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/حاشية الدسوقي على مختصر المعاني/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "خصائص التراكيب دارسة تحليلية لمسائل علم المعاني",
+      "title": "خصائص التراكيب دارسة تحليلية لمسائل علم المعاني",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "خصائص التراكيب دارسة تحليلية لمسائل علم المعاني.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/خصائص التراكيب دارسة تحليلية لمسائل علم المعاني.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "درر الفرائد المستحسنة في شرح منظومة ابن الشحنة",
+      "title": "درر الفرائد المستحسنة في شرح منظومة ابن الشحنة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "درر الفرائد المستحسنة في شرح منظومة ابن الشحنة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/درر الفرائد المستحسنة في شرح منظومة ابن الشحنة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "دلائل الإعجاز بين أبي سعيد السيرافي والجرجاني",
+      "title": "دلائل الإعجاز بين أبي سعيد السيرافي والجرجاني",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "دلائل الإعجاز بين أبي سعيد السيرافي والجرجاني.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/دلائل الإعجاز بين أبي سعيد السيرافي والجرجاني.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "دلائل الإعجاز ت الأيوبي",
+      "title": "دلائل الإعجاز ت الأيوبي",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "دلائل الإعجاز ت الأيوبي.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/دلائل الإعجاز ت الأيوبي.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "دلائل الإعجاز ت شاكر",
+      "title": "دلائل الإعجاز ت شاكر",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "دلائل الإعجاز ت شاكر/001.htm",
+        "دلائل الإعجاز ت شاكر/مقدمة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/دلائل الإعجاز ت شاكر/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "دلائل الإعجاز ت هنداوي",
+      "title": "دلائل الإعجاز ت هنداوي",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "دلائل الإعجاز ت هنداوي.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/دلائل الإعجاز ت هنداوي.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "رسالة في تحقيق معنى النظم والصياغة",
+      "title": "رسالة في تحقيق معنى النظم والصياغة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة في تحقيق معنى النظم والصياغة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/رسالة في تحقيق معنى النظم والصياغة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "سحر البلاغة وسر البراعة",
+      "title": "سحر البلاغة وسر البراعة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "سحر البلاغة وسر البراعة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/سحر البلاغة وسر البراعة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "شرح مائة المعاني والبيان",
+      "title": "شرح مائة المعاني والبيان",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 15,
+      "files": [
+        "شرح مائة المعاني والبيان/001.htm",
+        "شرح مائة المعاني والبيان/002.htm",
+        "شرح مائة المعاني والبيان/003.htm",
+        "شرح مائة المعاني والبيان/004.htm",
+        "شرح مائة المعاني والبيان/005.htm",
+        "شرح مائة المعاني والبيان/006.htm",
+        "شرح مائة المعاني والبيان/007.htm",
+        "شرح مائة المعاني والبيان/008.htm",
+        "شرح مائة المعاني والبيان/009.htm",
+        "شرح مائة المعاني والبيان/010.htm",
+        "شرح مائة المعاني والبيان/011.htm",
+        "شرح مائة المعاني والبيان/012.htm",
+        "شرح مائة المعاني والبيان/013.htm",
+        "شرح مائة المعاني والبيان/014.htm",
+        "شرح مائة المعاني والبيان/015.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/شرح مائة المعاني والبيان/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "عروس الأفراح في شرح تلخيص المفتاح",
+      "title": "عروس الأفراح في شرح تلخيص المفتاح",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "عروس الأفراح في شرح تلخيص المفتاح/001.htm",
+        "عروس الأفراح في شرح تلخيص المفتاح/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/عروس الأفراح في شرح تلخيص المفتاح/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "عقود الجمان في علم المعاني والبيان",
+      "title": "عقود الجمان في علم المعاني والبيان",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "عقود الجمان في علم المعاني والبيان.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/عقود الجمان في علم المعاني والبيان.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "علم البديع",
+      "title": "علم البديع",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علم البديع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/علم البديع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "علم البيان",
+      "title": "علم البيان",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علم البيان.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/علم البيان.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "علم المعاني",
+      "title": "علم المعاني",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علم المعاني.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/علم المعاني.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "علوم البلاغة",
+      "title": "علوم البلاغة",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علوم البلاغة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/علوم البلاغة.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "علوم البلاغة «البديع والبيان والمعاني»",
+      "title": "علوم البلاغة «البديع والبيان والمعاني»",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علوم البلاغة «البديع والبيان والمعاني».htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/علوم البلاغة «البديع والبيان والمعاني».htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "معاهد التنصيص على شواهد التلخيص",
+      "title": "معاهد التنصيص على شواهد التلخيص",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "معاهد التنصيص على شواهد التلخيص/001.htm",
+        "معاهد التنصيص على شواهد التلخيص/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/معاهد التنصيص على شواهد التلخيص/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "مفتاح العلوم",
+      "title": "مفتاح العلوم",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مفتاح العلوم.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/مفتاح العلوم.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "من قضايا البلاغة والنقد عند عبد القادر الجرجاني",
+      "title": "من قضايا البلاغة والنقد عند عبد القادر الجرجاني",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "من قضايا البلاغة والنقد عند عبد القادر الجرجاني/001.htm",
+        "من قضايا البلاغة والنقد عند عبد القادر الجرجاني/مقدمة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/من قضايا البلاغة والنقد عند عبد القادر الجرجاني/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "نصرة الثائر على المثل السائر",
+      "title": "نصرة الثائر على المثل السائر",
+      "category": "البلاغة",
+      "match_tier": "A",
+      "match_reason": "category='البلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نصرة الثائر على المثل السائر.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/نصرة الثائر على المثل السائر.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أساس البلاغة",
+      "title": "أساس البلاغة",
+      "category": "الغريب والمعاجم",
+      "match_tier": "B",
+      "match_reason": "title contains 'أساس البلاغة'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "أساس البلاغة/001.htm",
+        "أساس البلاغة/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أساس البلاغة/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أنوار الربيع في أنواع البديع",
+      "title": "أنوار الربيع في أنواع البديع",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'أنواع البديع'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أنوار الربيع في أنواع البديع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أنوار الربيع في أنواع البديع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "الإمام البقاعي ومنهاجه في تأويل بلاغة القرآن",
+      "title": "الإمام البقاعي ومنهاجه في تأويل بلاغة القرآن",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'بلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإمام البقاعي ومنهاجه في تأويل بلاغة القرآن.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الإمام البقاعي ومنهاجه في تأويل بلاغة القرآن.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البديع في علم العربية",
+      "title": "البديع في علم العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "match_reason": "title contains 'البديع'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "البديع في علم العربية/001.htm",
+        "البديع في علم العربية/002.htm",
+        "البديع في علم العربية/الفهارس.htm",
+        "البديع في علم العربية/مقدمة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البديع في علم العربية/001.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البديع في نقد الشعر",
+      "title": "البديع في نقد الشعر",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'البديع'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البديع في نقد الشعر.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البديع في نقد الشعر.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البديع في وصف الربيع",
+      "title": "البديع في وصف الربيع",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'البديع'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البديع في وصف الربيع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البديع في وصف الربيع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات",
+      "title": "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات",
+      "category": "السيرة النبوية",
+      "match_tier": "B",
+      "match_reason": "title contains 'بلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "القول البديع في الصلاة على الحبيب الشفيع",
+      "title": "القول البديع في الصلاة على الحبيب الشفيع",
+      "category": "الفقه العام",
+      "match_tier": "B",
+      "match_reason": "title contains 'البديع'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "القول البديع في الصلاة على الحبيب الشفيع.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/القول البديع في الصلاة على الحبيب الشفيع.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "من بلاغة القرآن",
+      "title": "من بلاغة القرآن",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'بلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "من بلاغة القرآن.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/من بلاغة القرآن.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "من بلاغة القرآن فى التعبير بالغدو والأصال",
+      "title": "من بلاغة القرآن فى التعبير بالغدو والأصال",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'بلاغة'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "من بلاغة القرآن فى التعبير بالغدو والأصال.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/من بلاغة القرآن فى التعبير بالغدو والأصال.htm",
+      "requires_preview": false,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أسرار البيان في التعبير القرآني - كتاب",
+      "title": "أسرار البيان في التعبير القرآني - كتاب",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'أسرار البيان' and requires preview",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسرار البيان في التعبير القرآني - كتاب.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أسرار البيان في التعبير القرآني - كتاب.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "أسرار البيان في التعبير القرآني - محاضرة",
+      "title": "أسرار البيان في التعبير القرآني - محاضرة",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'أسرار البيان' and requires preview",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسرار البيان في التعبير القرآني - محاضرة.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/أسرار البيان في التعبير القرآني - محاضرة.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    },
+    {
+      "name": "خصائص التعبير القرآني وسماته البلاغية",
+      "title": "خصائص التعبير القرآني وسماته البلاغية",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "C",
+      "match_reason": "title contains weak cue 'التعبير القرآني' and requires preview",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "خصائص التعبير القرآني وسماته البلاغية/001.htm",
+        "خصائص التعبير القرآني وسماته البلاغية/002.htm"
+      ],
+      "first_file": "/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/خصائص التعبير القرآني وسماته البلاغية/001.htm",
+      "requires_preview": true,
+      "positive_hits": [],
+      "negative_hits": []
+    }
+  ]
+}

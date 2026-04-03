@@ -1,0 +1,64 @@
+taxonomy:
+  id: 'aqidah_corpus'
+  title: 'العقيدة (corpus-derived)'
+  nodes:
+    - id: 'twhyd_alalwhyh'
+      title: 'توحيد الألوهية'
+      leaf: true
+      book_count: 10
+    - id: 'twhyd_alrbwbyh'
+      title: 'توحيد الربوبية'
+      leaf: true
+      book_count: 10
+    - id: 'alayman_balywm_alakhr'
+      title: 'الإيمان باليوم الآخر'
+      leaf: true
+      book_count: 8
+    - id: 'alshfaah'
+      title: 'الشفاعة'
+      leaf: true
+      book_count: 8
+    - id: 'twhyd_alasma_walsfat'
+      title: 'توحيد الأسماء والصفات'
+      leaf: true
+      book_count: 8
+    - id: 'alayman_balmlakh'
+      title: 'الإيمان بالملائكة'
+      leaf: true
+      book_count: 7
+    - id: 'alayman_balrsl'
+      title: 'الإيمان بالرسل'
+      leaf: true
+      book_count: 6
+    - id: 'alayman_balqdr'
+      title: 'الإيمان بالقدر'
+      leaf: true
+      book_count: 6
+    - id: 'alshrk_alasghr'
+      title: 'الشرك الأصغر'
+      leaf: true
+      book_count: 6
+    - id: 'anwaa_altwhyd'
+      title: 'أنواع التوحيد'
+      leaf: true
+      book_count: 5
+    - id: 'anwaa_alkfr'
+      title: 'أنواع الكفر'
+      leaf: true
+      book_count: 5
+    - id: 'alayman'
+      title: 'الإيمان'
+      leaf: true
+      book_count: 5
+    - id: 'alastthna_fy_alayman'
+      title: 'الاستثناء في الإيمان'
+      leaf: true
+      book_count: 5
+    - id: 'alshrk_alakbr'
+      title: 'الشرك الأكبر'
+      leaf: true
+      book_count: 5
+    - id: 'zyadh_alayman_wnqsanh'
+      title: 'زيادة الإيمان ونقصانه'
+      leaf: true
+      book_count: 5
