@@ -1,0 +1,32 @@
+{
+  "template_id": "benchmark/latent_value_recovery",
+  "name": "Latent Value Recovery for {target}",
+  "description": "Search for valuable structure or meaning the current pipeline preserves temporarily and then throws away.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 24,
+  "cooldown_days": 2,
+  "priority": 2,
+  "estimated_complexity": "high",
+  "provider_preference": "codex",
+  "report_class": "strategic_idea",
+  "requires_coworker_review": true,
+  "allow_repeat_on_head": true,
+  "capability_flags": [],
+  "surface_scope": [
+    "excerpting",
+    "taxonomy"
+  ],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    },
+    "benchmark_title": {
+      "source": "benchmark_title"
+    },
+    "benchmark_reference": {
+      "source": "benchmark_reference"
+    }
+  },
+  "prompt_template": "KR strategic ideation task.\n\nAnchor benchmark:\n- {benchmark_title}\n- Reference: {benchmark_reference}\n\nFocus on this question only: what does the current pipeline preserve for a while, then throw away before the owner can benefit from it?\n\nInspect the live path from normalization and division structure through excerpting output into taxonomy placement.\nLook especially for:\n- hierarchy that becomes flat\n- context that becomes metadata only\n- coarse units that are discarded once fine units are emitted\n- signals that could serve study navigation but are never promoted into product-level content\n\nReturn one strongest repo-grounded idea that recovers discarded value for the owner.\nKeep the output strategic, not patch-level.\n\nRequired output fields:\n- current_system_limit\n- proposed_reframe\n- primary_insertion_boundary\n- secondary_required_changes\n- owner_value_statement\n- benefits (3+)\n- risks (3+)\n- benchmark_scores\n- coworker_verdicts"
+}

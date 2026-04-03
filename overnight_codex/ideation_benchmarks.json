@@ -1,0 +1,20 @@
+{
+  "benchmarks": [
+    {
+      "benchmark_id": "golden_multiresolution_digester",
+      "title": "Multiresolution Book Digester",
+      "reference_doc": "docs/codex/2026-04-03-golden-example-multiresolution-digester.md",
+      "summary": "Benchmark autonomous ideas against the owner's April 3 gold example: instead of only terminal leaves containing content, every resolution level could retain content, with progressively finer granularity as the user descends.",
+      "pilot_surfaces": [
+        "excerpting",
+        "taxonomy"
+      ],
+      "adjacent_surfaces": [
+        "normalization",
+        "source",
+        "synthesis"
+      ],
+      "owner_value_statement": "A successful idea should feel like a genuinely smart upgrade to KR's study environment, not just a local cleanup."
+    }
+  ]
+}

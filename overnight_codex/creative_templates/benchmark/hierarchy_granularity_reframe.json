@@ -1,0 +1,33 @@
+{
+  "template_id": "benchmark/hierarchy_granularity_reframe",
+  "name": "Hierarchy and Granularity Reframe for {target}",
+  "description": "Challenge the current leaf-only, finest-grain assumptions and search for a stronger multiresolution knowledge model.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 26,
+  "cooldown_days": 3,
+  "priority": 3,
+  "estimated_complexity": "high",
+  "provider_preference": "codex",
+  "report_class": "strategic_idea",
+  "requires_coworker_review": true,
+  "allow_repeat_on_head": true,
+  "capability_flags": [],
+  "surface_scope": [
+    "excerpting",
+    "taxonomy",
+    "synthesis"
+  ],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    },
+    "benchmark_title": {
+      "source": "benchmark_title"
+    },
+    "benchmark_summary": {
+      "source": "benchmark_summary"
+    }
+  },
+  "prompt_template": "Benchmark-focused KR ideation task.\n\nAnchor benchmark:\n- {benchmark_title}\n- {benchmark_summary}\n\nChallenge the current assumptions around:\n- leaf-only placement\n- one final granularity level treated as the true product artifact\n- branch nodes as routing-only structure\n- flattening from semantic unit choice into one downstream record shape\n\nYour job is to determine whether a stronger hierarchy/granularity model exists.\nIf it does, state the single strongest reframe, the first contract boundary that must change, and why the current model underserves the owner's study environment.\n\nDo not produce a list of local cleanup ideas.\nRequired output fields:\n- current_system_limit\n- proposed_reframe\n- primary_insertion_boundary\n- secondary_required_changes\n- owner_value_statement\n- benefits\n- risks\n- benchmark_scores\n- coworker_verdicts"
+}

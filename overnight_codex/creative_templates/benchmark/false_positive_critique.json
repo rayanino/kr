@@ -1,0 +1,29 @@
+{
+  "template_id": "benchmark/false_positive_critique",
+  "name": "False-Positive Critique for {target}",
+  "description": "Generate and eliminate shallow ideas that only look creative so the runtime learns the boundary between real reframes and local cleanup.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 18,
+  "cooldown_days": 2,
+  "priority": 4,
+  "estimated_complexity": "medium",
+  "provider_preference": "codex",
+  "report_class": "standard",
+  "requires_coworker_review": false,
+  "allow_repeat_on_head": true,
+  "capability_flags": [],
+  "surface_scope": [
+    "creative_runtime",
+    "benchmark_rubric"
+  ],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    },
+    "benchmark_reference": {
+      "source": "benchmark_reference"
+    }
+  },
+  "prompt_template": "KR false-positive critique task.\n\nRead the benchmark reference {benchmark_reference} and the current creative runtime surfaces.\n\nProduce a short report identifying shallow idea patterns that the autonomous system is likely to mistake for real strategic creativity.\nExamples: local cleanup inflation, wrong-boundary cleverness, relabeling existing capabilities, or polished but owner-irrelevant suggestions.\n\nThis is not a strategic-idea report. It is a safeguard report that should help the runtime reject shallow ideas more aggressively.\nPopulate action_items only for bounded runtime-evaluator improvements."
+}

@@ -31,6 +31,7 @@ FINDINGS_TRACKER = OVERNIGHT_CODEX_DIR / "FINDINGS_TRACKER.md"
 FINDINGS_REGISTRY_FILE = OVERNIGHT_CODEX_DIR / "findings_registry.json"
 CUMULATIVE_FINDINGS = OVERNIGHT_CODEX_DIR / "CUMULATIVE_FINDINGS.md"
 CREATIVE_RUN_LOG = OVERNIGHT_CODEX_DIR / "creative_run_log.json"
+IDEATION_BENCHMARKS_FILE = OVERNIGHT_CODEX_DIR / "ideation_benchmarks.json"
 RUN_SNAPSHOTS_DIR = OVERNIGHT_CODEX_DIR / "run_snapshots"
 
 ALLOWED_CATEGORIES = {
@@ -51,11 +52,8 @@ ALLOWED_PRIORITIES = {"HIGH", "MEDIUM", "LOW"}
 ALLOWED_EFFORTS = {"S", "M", "L"}
 ALLOWED_LANES = {"analysis_lane", "synthesis_lane", "write_lane"}
 ALLOWED_GATE_MODES = {"all", "python", "contracts", "arabic", "spec", "integration"}
-FORBIDDEN_CAPABILITY_FLAGS = {
-    "requires_web",
-    "requires_arabic_judgment",
-    "generates_arabic_content",
-}
+ALLOWED_PROVIDER_PREFERENCES = {"codex", "claude", "gemini"}
+ALLOWED_REPORT_CLASSES = {"standard", "strategic_idea"}
 FORBIDDEN_EDIT_PREFIXES = (
     ".claude/",
     ".kr/",
@@ -151,6 +149,42 @@ FINAL_RESPONSE_SCHEMA: dict[str, Any] = {
             "type": "array",
             "items": {"type": "string"},
         },
+        "current_system_limit": {"type": "string"},
+        "proposed_reframe": {"type": "string"},
+        "primary_insertion_boundary": {"type": "string"},
+        "secondary_required_changes": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+        "owner_value_statement": {"type": "string"},
+        "benefits": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+        "risks": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+        "benchmark_scores": {
+            "type": "object",
+            "additionalProperties": {"type": "integer"},
+        },
+        "benchmark_total": {"type": "integer"},
+        "idea_class": {"type": "string"},
+        "agreement_status": {"type": "string"},
+        "coworker_verdicts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["coworker", "verdict", "rationale"],
+                "properties": {
+                    "coworker": {"type": "string", "minLength": 1},
+                    "verdict": {"type": "string", "minLength": 1},
+                    "rationale": {"type": "string"},
+                },
+            },
+        },
     },
 }
 
@@ -183,6 +217,12 @@ class CodexTaskDef:
     frontier_tag: str = ""
     backlog_item_id: str = ""
     gate_mode: str = "all"
+    provider_preference: str = "codex"
+    report_class: str = "standard"
+    benchmark_target: str = ""
+    surface_scope: list[str] = field(default_factory=list)
+    requires_coworker_review: bool = False
+    allow_repeat_on_head: bool = False
 
     def validate(self) -> None:
         if self.category not in ALLOWED_CATEGORIES:
@@ -204,14 +244,18 @@ class CodexTaskDef:
             raise ValueError(f"Unsupported lane for {self.task_id}: {self.lane}")
         if self.gate_mode not in ALLOWED_GATE_MODES:
             raise ValueError(f"Unsupported gate_mode for {self.task_id}: {self.gate_mode}")
+        if self.provider_preference not in ALLOWED_PROVIDER_PREFERENCES:
+            raise ValueError(
+                f"Unsupported provider_preference for {self.task_id}: {self.provider_preference}"
+            )
+        if self.report_class not in ALLOWED_REPORT_CLASSES:
+            raise ValueError(
+                f"Unsupported report_class for {self.task_id}: {self.report_class}"
+            )
         if self.timeout_minutes <= 0:
             raise ValueError(f"timeout_minutes must be > 0 for {self.task_id}")
         if self.learning_value <= 0:
             raise ValueError(f"learning_value must be > 0 for {self.task_id}")
-        forbidden = set(self.capability_flags) & FORBIDDEN_CAPABILITY_FLAGS
-        if forbidden:
-            joined = ", ".join(sorted(forbidden))
-            raise ValueError(f"Forbidden capability flags for {self.task_id}: {joined}")
         if self.write_policy == "readonly" and self.sandbox_mode != "read-only":
             raise ValueError(
                 f"Readonly task {self.task_id} must use sandbox_mode='read-only'"
@@ -254,6 +298,11 @@ class TaskResult:
     novelty_score: float | None = None
     recommended_next_actions: list[str] = field(default_factory=list)
     environment_notes: list[str] = field(default_factory=list)
+    report_class: str = "standard"
+    idea_class: str | None = None
+    agreement_status: str | None = None
+    benchmark_total: int | None = None
+    benchmark_target: str | None = None
 
 
 @dataclass

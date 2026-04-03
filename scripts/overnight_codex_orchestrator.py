@@ -67,6 +67,7 @@ try:
         write_json,
         write_progress_file,
     )
+    from scripts.overnight_codex_ideation import IDEATION_DIMENSIONS, validate_strategic_payload
 except ImportError:
     from overnight_codex_backlog import (
         summarize_backlog,
@@ -115,6 +116,7 @@ except ImportError:
         write_json,
         write_progress_file,
     )
+    from overnight_codex_ideation import IDEATION_DIMENSIONS, validate_strategic_payload
 
 
 MAX_CONSECUTIVE_FAILURES = 3
@@ -468,6 +470,8 @@ def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]
             "category": task.category,
             "lane": task.lane,
             "priority": task.priority,
+            "report_class": task.report_class,
+            "benchmark_target": task.benchmark_target or None,
             "status": status,
             "failure_class": result.get("failure_class"),
             "queued_only": result.get("queued_only", False),
@@ -475,6 +479,9 @@ def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]
             "partial_artifacts": list(result.get("partial_artifacts", [])),
             "environment_notes": list(result.get("environment_notes", [])),
             "recommended_next_actions": list(result.get("recommended_next_actions", [])),
+            "idea_class": result.get("idea_class"),
+            "agreement_status": result.get("agreement_status"),
+            "benchmark_total": result.get("benchmark_total"),
         }
     return {
         "run_id": state.run_id,
@@ -519,6 +526,8 @@ def _write_task_packet(
         "category": task.category,
         "lane": task.lane,
         "learning_value": task.learning_value,
+        "report_class": task.report_class,
+        "benchmark_target": task.benchmark_target or None,
         "status": result.status,
         "failure_class": result.failure_class,
         "summary": result.summary,
@@ -526,6 +535,9 @@ def _write_task_packet(
         "partial_artifacts": list(result.partial_artifacts),
         "environment_notes": list(result.environment_notes),
         "recommended_next_actions": list(result.recommended_next_actions),
+        "idea_class": result.idea_class,
+        "agreement_status": result.agreement_status,
+        "benchmark_total": result.benchmark_total,
         "payload": payload or {},
     }
     write_json(result_dir / "packet.json", packet)
@@ -540,7 +552,13 @@ def _finalize_task_result(
 ) -> TaskResult:
     """Persist final packet state and update creative cooldown memory."""
     _write_task_packet(result_dir, task, result, payload)
-    if task.category == "creative" and result.status in {"success", "partial_success"}:
+    if task.category == "creative" and result.status in {
+        "success",
+        "partial_success",
+        "failed",
+        "timeout",
+        "usage_limited",
+    }:
         _update_creative_run_log(task.task_id)
     return result
 
@@ -900,6 +918,7 @@ def pick_next_ready(manifest: list[CodexTaskDef], state: OvernightCodexState) ->
                 continue
             if (
                 task.write_policy == "readonly"
+                and not task.allow_repeat_on_head
                 and _task_already_succeeded_on_head(task.task_id, state.launch_head)
             ):
                 state.results[task.task_id] = {
@@ -947,6 +966,32 @@ def pick_next_ready(manifest: list[CodexTaskDef], state: OvernightCodexState) ->
 
 def build_prompt(task: CodexTaskDef) -> str:
     """Compose the final prompt passed to Codex."""
+    if task.report_class == "strategic_idea":
+        return (
+            f"TASK ID: {task.task_id}\n"
+            f"TASK NAME: {task.name}\n"
+            f"TASK CATEGORY: {task.category}\n"
+            f"BENCHMARK TARGET: {task.benchmark_target or 'none'}\n\n"
+            "Do the repository work below now.\n\n"
+            f"{task.prompt}\n\n"
+            "Boundaries:\n"
+            "- Read-only inspection only.\n"
+            "- You are a low-authority employee, not the architect or roadmap owner.\n"
+            "- You may propose product-model or knowledge-model reframes when they are strongly grounded in local repo evidence.\n"
+            "- Prefer one strongest strategic idea over many local cleanups.\n"
+            "- Ignore NEXT.md, AGENT_TEAM_HANDOFF.md, docs/superpowers/, overnight/, overnight_codex/, and .claude unless the task explicitly names them.\n"
+            "- Never use this prompt or the orchestrator itself as evidence unless the task explicitly targets it.\n"
+            "- Never run git commit/push/rebase/reset/checkout.\n"
+            "- If you cannot honestly reach a major idea, return a non-major strategic report instead of faking one.\n\n"
+            "Final response rules:\n"
+            "- Return only the final JSON response that matches the provided schema.\n"
+            "- `summary` must contain repo-specific substance, not a generic acknowledgement.\n"
+            "- `commands_run` and/or `evidence` must show what you actually inspected.\n"
+            "- Populate these strategic fields: `current_system_limit`, `proposed_reframe`, "
+            "`primary_insertion_boundary`, `secondary_required_changes`, `owner_value_statement`, "
+            "`benefits`, `risks`, `benchmark_scores`, `coworker_verdicts`.\n"
+            f"- Score these benchmark dimensions exactly as named: {', '.join(IDEATION_DIMENSIONS)}."
+        )
     return (
         f"TASK ID: {task.task_id}\n"
         f"TASK NAME: {task.name}\n"
@@ -1003,6 +1048,8 @@ def _validate_task_payload(
         )
     if task.write_policy == "readonly" and payload.get("files_changed"):
         raise ValueError("Readonly tasks must return an empty `files_changed` list.")
+    if task.report_class == "strategic_idea":
+        payload = validate_strategic_payload(payload)
     return payload
 
 
@@ -1107,6 +1154,36 @@ def _write_result_artifacts(task: CodexTaskDef, result_dir: Path, payload: dict[
         lines.append("## Tests Run")
         lines.extend(f"- {item}" for item in payload["tests_run"])
         lines.append("")
+    if task.report_class == "strategic_idea":
+        lines.append("## Strategic Idea")
+        lines.append(f"- Idea class: {payload.get('idea_class', 'unknown')}")
+        lines.append(f"- Agreement status: {payload.get('agreement_status', 'unknown')}")
+        lines.append(f"- Benchmark total: {payload.get('benchmark_total', 'unknown')}")
+        lines.append(f"- Current system limit: {payload.get('current_system_limit', '')}")
+        lines.append(f"- Proposed reframe: {payload.get('proposed_reframe', '')}")
+        lines.append(f"- Primary insertion boundary: {payload.get('primary_insertion_boundary', '')}")
+        lines.append(f"- Owner value: {payload.get('owner_value_statement', '')}")
+        lines.append("")
+        if payload.get("secondary_required_changes"):
+            lines.append("## Secondary Required Changes")
+            lines.extend(f"- {item}" for item in payload["secondary_required_changes"])
+            lines.append("")
+        if payload.get("benefits"):
+            lines.append("## Benefits")
+            lines.extend(f"- {item}" for item in payload["benefits"])
+            lines.append("")
+        if payload.get("risks"):
+            lines.append("## Risks")
+            lines.extend(f"- {item}" for item in payload["risks"])
+            lines.append("")
+        if payload.get("coworker_verdicts"):
+            lines.append("## Coworker Verdicts")
+            for verdict in payload["coworker_verdicts"]:
+                lines.append(
+                    f"- {verdict.get('coworker', 'unknown')}: "
+                    f"{verdict.get('verdict', 'unknown')} — {verdict.get('rationale', '')}"
+                )
+            lines.append("")
     if action_items:
         lines.append("## Action Items")
         for item in action_items:
@@ -1870,10 +1947,13 @@ def execute_task(
     )
     novelty_score = None
     if task.category == "creative":
-        novelty_score = round(
-            min(1.0, (len(payload.get("findings", [])) + len(payload.get("action_items", []))) / 6.0),
-            2,
-        )
+        if task.report_class == "strategic_idea":
+            novelty_score = round(min(1.0, float(payload.get("benchmark_total", 0)) / 32.0), 2)
+        else:
+            novelty_score = round(
+                min(1.0, (len(payload.get("findings", [])) + len(payload.get("action_items", []))) / 6.0),
+                2,
+            )
 
     if not uses_worktree:
         return finalize_result(
@@ -1891,6 +1971,11 @@ def execute_task(
                 recommended_next_actions=recommended_next_actions,
                 confidence="medium" if task.category == "creative" else None,
                 novelty_score=novelty_score,
+                report_class=task.report_class,
+                idea_class=payload.get("idea_class"),
+                agreement_status=payload.get("agreement_status"),
+                benchmark_total=payload.get("benchmark_total"),
+                benchmark_target=task.benchmark_target or None,
             ),
             payload=payload,
         )
@@ -1913,6 +1998,11 @@ def execute_task(
                 commands_run=list(payload.get("commands_run", [])),
                 environment_notes=environment_notes,
                 recommended_next_actions=recommended_next_actions,
+                report_class=task.report_class,
+                idea_class=payload.get("idea_class"),
+                agreement_status=payload.get("agreement_status"),
+                benchmark_total=payload.get("benchmark_total"),
+                benchmark_target=task.benchmark_target or None,
             ),
             payload=payload,
         )
@@ -2069,7 +2159,11 @@ def _current_signal_records(
         if not task:
             continue
         status = str(result.get("status", "pending"))
-        if status not in SIGNAL_STATUSES and status != "skipped":
+        if (
+            status not in SIGNAL_STATUSES
+            and status != "skipped"
+            and not (status == "success" and task.report_class == "strategic_idea")
+        ):
             continue
         signals.append(
             {
@@ -2079,6 +2173,8 @@ def _current_signal_records(
                 "lane": task.lane,
                 "priority": task.priority,
                 "learning_value": task.learning_value,
+                "report_class": task.report_class,
+                "benchmark_target": task.benchmark_target or None,
                 "status": status,
                 "failure_class": result.get("failure_class"),
                 "error": result.get("error"),
@@ -2087,6 +2183,9 @@ def _current_signal_records(
                 "queue_reason": result.get("queue_reason"),
                 "environment_notes": list(result.get("environment_notes", [])),
                 "recommended_next_actions": list(result.get("recommended_next_actions", [])),
+                "idea_class": result.get("idea_class"),
+                "agreement_status": result.get("agreement_status"),
+                "benchmark_total": result.get("benchmark_total"),
             }
         )
     return signals
@@ -2222,6 +2321,38 @@ def generate_morning_report(
             detail = signal.get("error") or signal.get("summary") or "No detail recorded."
             lines.append(
                 f"- `{signal['task_id']}` [{signal['status']}/{signal.get('failure_class') or 'none'}]: {detail}"
+            )
+
+    strategic_ideas = [
+        signal
+        for signal in current_signals
+        if signal.get("report_class") == "strategic_idea"
+        and signal["status"] in {"success", "partial_success"}
+    ]
+    if strategic_ideas:
+        lines.append("")
+        lines.append("## Strategic Ideas")
+        ordering = {
+            "confirmed_benchmark_grade": 0,
+            "confirmed_major": 1,
+            "candidate_degraded": 2,
+            "candidate_pending_coworker": 3,
+            "disputed": 4,
+        }
+        for signal in sorted(
+            strategic_ideas,
+            key=lambda item: (
+                ordering.get(str(item.get("agreement_status")), 9),
+                -(int(item.get("benchmark_total") or 0)),
+                item["priority"],
+            ),
+        ):
+            lines.append(
+                f"- `{signal['task_id']}` "
+                f"[{signal.get('idea_class') or 'unknown'} / "
+                f"{signal.get('agreement_status') or 'unknown'} / "
+                f"score {signal.get('benchmark_total') or 'n/a'}]: "
+                f"{signal.get('summary', 'No summary recorded.')}"
             )
 
     lines.append("")

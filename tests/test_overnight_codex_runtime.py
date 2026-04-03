@@ -60,6 +60,46 @@ def test_update_creative_run_log_writes_generator_key(
     assert payload["runs"]["innovation/local_cost_efficiency:excerpting"]
 
 
+def test_finalize_task_result_updates_creative_run_log_on_failure(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    log_path = tmp_path / "creative_run_log.json"
+    monkeypatch.setattr(orchestrator, "CREATIVE_RUN_LOG", log_path)
+
+    task = CodexTaskDef(
+        task_id="creative-benchmark-idea-excerpting",
+        name="Creative benchmark idea",
+        category="creative",
+        prompt="Think.",
+        sandbox_mode="read-only",
+        write_policy="readonly",
+    )
+    result = common.TaskResult(
+        task_id=task.task_id,
+        status="failed",
+        summary="Provider quota exhausted.",
+    )
+
+    orchestrator._finalize_task_result(
+        task=task,
+        result_dir=tmp_path / "result",
+        result=result,
+        payload={
+            "task_status": "failed",
+            "summary": "Provider quota exhausted.",
+            "commands_run": [],
+            "evidence": [{"path": "runtime", "detail": "quota"}],
+            "findings": [],
+            "action_items": [],
+            "files_changed": [],
+            "tests_run": [],
+        },
+    )
+
+    payload = json.loads(log_path.read_text(encoding="utf-8"))
+    assert "benchmark/idea:excerpting" in payload["runs"]
+
+
 def test_snapshot_tree_ignores_python_cache_artifacts(
     tmp_path: Path, monkeypatch: MonkeyPatch
 ) -> None:
@@ -264,6 +304,53 @@ def test_validate_task_payload_rejects_legacy_overnight_root() -> None:
 
     with pytest.raises(ValueError, match="legacy overnight root"):
         orchestrator._validate_task_payload(task, payload)
+
+
+def test_validate_task_payload_enriches_strategic_idea_fields() -> None:
+    task = CodexTaskDef(
+        task_id="strategic-idea",
+        name="Strategic idea",
+        category="creative",
+        prompt="Think strategically.",
+        sandbox_mode="read-only",
+        write_policy="readonly",
+        report_class="strategic_idea",
+        benchmark_target="golden_multiresolution_digester",
+    )
+    payload = {
+        "task_status": "success",
+        "summary": "A strong strategic idea.",
+        "commands_run": ["rg -n leaf engines/taxonomy/SPEC.md"],
+        "evidence": [{"path": "engines/taxonomy/SPEC.md", "detail": "Leaf-only placement is explicit."}],
+        "findings": [],
+        "action_items": [],
+        "files_changed": [],
+        "tests_run": [],
+        "current_system_limit": "The live system flattens semantic units too early.",
+        "proposed_reframe": "Make hierarchy-preserving digests first-class knowledge objects.",
+        "primary_insertion_boundary": "Excerpting Phase 2b -> Phase 3 output",
+        "secondary_required_changes": ["Widen taxonomy placement contract."],
+        "owner_value_statement": "This would make KR materially better for study and navigation.",
+        "benefits": ["B1", "B2", "B3"],
+        "risks": ["R1", "R2", "R3"],
+        "benchmark_scores": {
+            "product_reframing": 4,
+            "live_system_contrast": 4,
+            "primary_boundary_accuracy": 4,
+            "latent_ingredient_leverage": 4,
+            "invariant_coverage": 3,
+            "owner_value": 4,
+            "autonomous_originality": 3,
+            "evaluability": 3,
+        },
+        "coworker_verdicts": [],
+    }
+
+    validated = orchestrator._validate_task_payload(task, payload)
+
+    assert validated["idea_class"] == "benchmark_grade"
+    assert validated["agreement_status"] == "candidate_pending_coworker"
+    assert validated["benchmark_total"] == 29
 
 
 def test_payload_from_markdown_marks_truncated(tmp_path: Path) -> None:
@@ -733,6 +820,120 @@ def test_pick_next_ready_skips_readonly_task_already_succeeded_on_same_head(
     assert picked is None
     assert state.results["review-recent-excerpting"]["status"] == "skipped"
     assert state.results["review-recent-excerpting"]["error"] == "already validated on this HEAD"
+
+
+def test_pick_next_ready_allows_repeatable_readonly_task_on_same_head(
+    monkeypatch: MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    snapshots = tmp_path / "run_snapshots"
+    snapshots.mkdir()
+    (snapshots / "prev.json").write_text(
+        json.dumps(
+            {
+                "launch_head": "abc123",
+                "tasks": {
+                    "creative-benchmark": {
+                        "status": "success",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(orchestrator, "RUN_SNAPSHOTS_DIR", snapshots)
+
+    state = OvernightCodexState(
+        run_id="2026-04-03",
+        started_at="2026-04-03T00:00:00+00:00",
+        deadline="2026-04-03T08:00:00+00:00",
+        launch_head="abc123",
+        apply_mode="queue_only",
+        baseline_clean=True,
+        baseline_tests_passed=True,
+    )
+    task = CodexTaskDef(
+        task_id="creative-benchmark",
+        name="Creative benchmark",
+        category="creative",
+        prompt="Generate a strategic idea.",
+        sandbox_mode="read-only",
+        write_policy="readonly",
+        allow_repeat_on_head=True,
+        report_class="strategic_idea",
+    )
+
+    picked = orchestrator.pick_next_ready([task], state)
+
+    assert picked is task
+    assert state.results == {}
+
+
+def test_scan_creative_emits_strategic_idea_tasks(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setattr(task_generator, "detect_focus_engine", lambda: "excerpting")
+    monkeypatch.setattr(task_generator, "_load_creative_run_log", lambda: {})
+
+    tasks = task_generator.scan_creative()
+
+    strategic = [task for task in tasks if task.report_class == "strategic_idea"]
+    assert strategic
+    assert any(task.benchmark_target == "golden_multiresolution_digester" for task in strategic)
+    assert all(task.allow_repeat_on_head for task in strategic)
+    assert any("benchmark_scores" in task.prompt for task in strategic)
+
+
+def test_generate_morning_report_includes_strategic_ideas_section(
+    monkeypatch: MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    report_path = tmp_path / "MORNING_REPORT.md"
+    monkeypatch.setattr(orchestrator, "MORNING_REPORT", report_path)
+    monkeypatch.setattr(orchestrator, "FINDINGS_REGISTRY_FILE", tmp_path / "findings_registry.json")
+
+    state = OvernightCodexState(
+        run_id="2026-04-03",
+        started_at="2026-04-03T00:00:00+00:00",
+        deadline="2026-04-03T08:00:00+00:00",
+        launch_head="abc123",
+        apply_mode="queue_only",
+        baseline_clean=True,
+        baseline_tests_passed=True,
+        active_authority="codex",
+        runtime_mode="autonomous_codex",
+        status="completed",
+    )
+    state.results = {
+        "creative-benchmark": {
+            "status": "success",
+            "summary": "Recover lost hierarchical value across excerpting and taxonomy.",
+            "failure_class": None,
+            "environment_notes": [],
+            "recommended_next_actions": [],
+            "idea_class": "benchmark_grade",
+            "agreement_status": "candidate_pending_coworker",
+            "benchmark_total": 29,
+        }
+    }
+    manifest = [
+        CodexTaskDef(
+            task_id="creative-benchmark",
+            name="Creative benchmark",
+            category="creative",
+            prompt="Generate a strategic idea.",
+            sandbox_mode="read-only",
+            write_policy="readonly",
+            lane="synthesis_lane",
+            report_class="strategic_idea",
+            benchmark_target="golden_multiresolution_digester",
+        )
+    ]
+
+    orchestrator.generate_morning_report(state, manifest)
+
+    report = report_path.read_text(encoding="utf-8")
+    assert "## Strategic Ideas" in report
+    assert "creative-benchmark" in report
+    assert "benchmark_grade / candidate_pending_coworker / score 29" in report
 
 
 def test_pick_next_ready_does_not_skip_guarded_write_task_on_same_head(

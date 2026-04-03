@@ -1,0 +1,31 @@
+{
+  "template_id": "benchmark/owner_study_environment",
+  "name": "Owner Study Environment Reframe for {target}",
+  "description": "Search for product-model upgrades that would make KR materially better for study, review, and navigation.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 22,
+  "cooldown_days": 2,
+  "priority": 3,
+  "estimated_complexity": "medium",
+  "provider_preference": "codex",
+  "report_class": "strategic_idea",
+  "requires_coworker_review": true,
+  "allow_repeat_on_head": true,
+  "capability_flags": [],
+  "surface_scope": [
+    "excerpting",
+    "taxonomy",
+    "synthesis",
+    "owner_workflow"
+  ],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    },
+    "benchmark_reference": {
+      "source": "benchmark_reference"
+    }
+  },
+  "prompt_template": "KR study-environment ideation task.\n\nUse the benchmark reference {benchmark_reference} as the quality bar.\n\nStart from the owner's perspective, not the implementer's perspective.\nAsk:\n- what would make studying in KR dramatically more productive or more faithful to scholarly structure?\n- what does the current engine-centric design make possible for engineers but not for the owner?\n- where is the system optimizing for processing convenience instead of study utility?\n\nReturn one strongest repo-grounded strategic idea and explain why it would plausibly trigger the owner's 'wow, genuinely smart' reaction.\n\nRequired output fields:\n- current_system_limit\n- proposed_reframe\n- primary_insertion_boundary\n- secondary_required_changes\n- owner_value_statement\n- benefits\n- risks\n- benchmark_scores\n- coworker_verdicts"
+}

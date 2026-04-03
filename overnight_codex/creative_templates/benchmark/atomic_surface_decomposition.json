@@ -1,0 +1,43 @@
+{
+  "template_id": "benchmark/atomic_surface_decomposition",
+  "name": "Atomic Surface Decomposition for {target}",
+  "description": "Break the benchmark pilot surfaces into atomic parts and look for high-leverage reframes, not local cleanups.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 28,
+  "cooldown_days": 3,
+  "priority": 2,
+  "estimated_complexity": "high",
+  "provider_preference": "codex",
+  "report_class": "strategic_idea",
+  "requires_coworker_review": true,
+  "allow_repeat_on_head": true,
+  "capability_flags": [],
+  "surface_scope": [
+    "excerpting",
+    "taxonomy",
+    "normalization",
+    "source"
+  ],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    },
+    "benchmark_title": {
+      "source": "benchmark_title"
+    },
+    "benchmark_summary": {
+      "source": "benchmark_summary"
+    },
+    "benchmark_reference": {
+      "source": "benchmark_reference"
+    },
+    "benchmark_pilot_surfaces": {
+      "source": "benchmark_pilot_surfaces"
+    },
+    "benchmark_adjacent_surfaces": {
+      "source": "benchmark_adjacent_surfaces"
+    }
+  },
+  "prompt_template": "You are running a benchmark-grade ideation task for KR.\n\nBenchmark anchor:\n- {benchmark_title}\n- {benchmark_summary}\n- Reference: {benchmark_reference}\n\nPilot surfaces: {benchmark_pilot_surfaces}\nAdjacent surfaces: {benchmark_adjacent_surfaces}\nCurrent focus engine: {target}\n\nRead the active contracts/specs/docs for the pilot surfaces and adjacent surfaces. Break the system into atomic parts and deeply evaluate each part.\n\nFor each atomic part, ask:\n1. what value is preserved upstream but discarded downstream?\n2. what is wrongly flattened or forced into a narrower model?\n3. how could this become more productive for the owner's study environment?\n4. what non-obvious reframe becomes possible if this part is treated differently?\n\nOutput exactly one strongest strategic idea, not a list of small cleanups.\nDo not propose trivial substitutions like changing one library for another unless they are only secondary support for a larger reframe.\nDo not produce implementation patches.\n\nRequired output fields for this strategic idea:\n- current_system_limit\n- proposed_reframe\n- primary_insertion_boundary\n- secondary_required_changes\n- owner_value_statement\n- benefits (3+)\n- risks (3+)\n- benchmark_scores with all 8 rubric dimensions scored 0-4\n- coworker_verdicts (empty array if none available)\n\nIf you cannot honestly reach a major idea, return a non-major strategic report instead of faking one."
+}

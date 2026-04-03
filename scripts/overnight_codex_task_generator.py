@@ -16,6 +16,7 @@ from typing import Any
 try:
     from scripts.overnight_codex_backlog import approved_backlog_items
     from scripts.overnight_codex_common import (
+        IDEATION_BENCHMARKS_FILE,
         PIPELINE_ORDER,
         PROJECT_DIR,
         OVERNIGHT_CODEX_DIR,
@@ -27,9 +28,11 @@ try:
         safe_slug,
         write_json,
     )
+    from scripts.overnight_codex_ideation import load_ideation_benchmarks, pick_benchmark_for_surface
 except ImportError:
     from overnight_codex_backlog import approved_backlog_items
     from overnight_codex_common import (
+        IDEATION_BENCHMARKS_FILE,
         PIPELINE_ORDER,
         PROJECT_DIR,
         OVERNIGHT_CODEX_DIR,
@@ -41,6 +44,7 @@ except ImportError:
         safe_slug,
         write_json,
     )
+    from overnight_codex_ideation import load_ideation_benchmarks, pick_benchmark_for_surface
 
 
 CREATIVE_TEMPLATES_DIR = OVERNIGHT_CODEX_DIR / "creative_templates"
@@ -485,7 +489,11 @@ def _days_since(date_str: str) -> int:
     return (date_type.today() - date_type.fromisoformat(date_str)).days
 
 
-def _resolve_variable(var_def: dict[str, Any], focus_engine: str) -> str:
+def _resolve_variable(
+    var_def: dict[str, Any],
+    focus_engine: str,
+    benchmark: dict[str, Any] | None,
+) -> str:
     """Resolve a creative template variable."""
     source = var_def.get("source", "literal")
     if source == "focus_engine":
@@ -504,6 +512,18 @@ def _resolve_variable(var_def: dict[str, Any], focus_engine: str) -> str:
         return PIPELINE_ORDER[min(len(PIPELINE_ORDER) - 1, idx + 1)]
     if source == "literal":
         return str(var_def.get("value", ""))
+    if source == "benchmark_title" and benchmark is not None:
+        return str(benchmark.get("title", ""))
+    if source == "benchmark_summary" and benchmark is not None:
+        return str(benchmark.get("summary", ""))
+    if source == "benchmark_reference" and benchmark is not None:
+        return str(benchmark.get("reference_doc", ""))
+    if source == "benchmark_pilot_surfaces" and benchmark is not None:
+        pilot = benchmark.get("pilot_surfaces", [])
+        return ", ".join(str(item) for item in pilot) if isinstance(pilot, list) else ""
+    if source == "benchmark_adjacent_surfaces" and benchmark is not None:
+        adjacent = benchmark.get("adjacent_surfaces", [])
+        return ", ".join(str(item) for item in adjacent) if isinstance(adjacent, list) else ""
     return str(var_def.get("fallback", ""))
 
 
@@ -522,15 +542,22 @@ def _validate_template(raw: dict[str, Any], path: Path) -> dict[str, Any] | None
     if not isinstance(capability_flags, list) or any(not isinstance(v, str) for v in capability_flags):
         print(f"  REJECTED template {repo_rel(path)}: capability_flags must be a list[str]")
         return None
-    forbidden = {"requires_web", "requires_arabic_judgment", "generates_arabic_content"} & set(capability_flags)
-    if forbidden:
-        joined = ", ".join(sorted(forbidden))
-        print(f"  REJECTED template {repo_rel(path)}: forbidden capability_flags {joined}")
-        return None
     for numeric in ("cooldown_days", "timeout_minutes", "priority"):
         if numeric in raw and not isinstance(raw[numeric], int):
             print(f"  REJECTED template {repo_rel(path)}: {numeric} must be int")
             return None
+    for boolean_field in ("requires_coworker_review", "allow_repeat_on_head"):
+        if boolean_field in raw and not isinstance(raw[boolean_field], bool):
+            print(f"  REJECTED template {repo_rel(path)}: {boolean_field} must be bool")
+            return None
+    provider_preference = raw.get("provider_preference", "codex")
+    if provider_preference not in {"codex", "claude", "gemini"}:
+        print(f"  REJECTED template {repo_rel(path)}: invalid provider_preference")
+        return None
+    report_class = raw.get("report_class", "standard")
+    if report_class not in {"standard", "strategic_idea"}:
+        print(f"  REJECTED template {repo_rel(path)}: invalid report_class")
+        return None
     if raw.get("write_policy", "readonly") != "readonly":
         print(f"  REJECTED template {repo_rel(path)}: creative templates must stay readonly")
         return None
@@ -573,6 +600,8 @@ def scan_creative() -> list[CodexTaskDef]:
     if not templates:
         return []
     focus_engine = detect_focus_engine()
+    benchmarks = load_ideation_benchmarks(IDEATION_BENCHMARKS_FILE)
+    benchmark = pick_benchmark_for_surface(benchmarks, focus_engine)
     today = date_type.today().isoformat()
     run_log = _load_creative_run_log()
     tasks: list[CodexTaskDef] = []
@@ -585,7 +614,7 @@ def scan_creative() -> list[CodexTaskDef]:
             continue
 
         variables = {
-            key: _resolve_variable(value, focus_engine)
+            key: _resolve_variable(value, focus_engine, benchmark)
             for key, value in template.get("variables", {}).items()
         }
         variables["run_date"] = today
@@ -612,6 +641,12 @@ def scan_creative() -> list[CodexTaskDef]:
                 capability_flags=list(template.get("capability_flags", [])),
                 authority_level="low",
                 frontier_tag=focus_engine,
+                provider_preference=template.get("provider_preference", "codex"),
+                report_class=template.get("report_class", "standard"),
+                benchmark_target=str(benchmark.get("benchmark_id", "")) if benchmark else "",
+                surface_scope=list(template.get("surface_scope", [])),
+                requires_coworker_review=template.get("requires_coworker_review", False),
+                allow_repeat_on_head=template.get("allow_repeat_on_head", False),
             )
         )
     return tasks
