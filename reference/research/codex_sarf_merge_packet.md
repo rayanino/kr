@@ -33,12 +33,18 @@ Upload these files for both external review phases:
 1. Run Phase 2 comparison in ChatGPT Pro / Deep Research.
 2. Bring back the full raw ChatGPT output here.
 3. If ChatGPT proposes a merged tree or a merged correction list, preserve it exactly.
-4. Run Phase 3 adversarial review with a fresh Claude instance using:
+4. If Claude is unavailable, run an interim Gemini adversarial review using the same packet discipline.
+5. Bring back the full raw Gemini output here.
+6. When Claude becomes available again, run the deferred Fresh Claude adversarial review documented in `reference/research/codex_sarf_claude_return_review_todo.md`.
+7. Bring back the full raw Fresh Claude output here before treating sarf as fully finalized.
+8. Do not manually resolve disagreements yourself before relaying them back here.
+
+### Normal Phase 3 path when Claude is available
+
+Run Phase 3 adversarial review with a fresh Claude instance using:
    - the architect draft
    - the full ChatGPT output
    - the merged tree or merged correction proposal
-5. Bring back the full raw Fresh Claude output here.
-6. Do not manually resolve disagreements yourself before relaying them back here.
 
 ## What To Paste Into ChatGPT Pro
 
@@ -65,8 +71,10 @@ Bring back all of the following **verbatim**:
 - full raw ChatGPT comparison output
 - any merged tree produced by ChatGPT
 - any merged correction list produced by ChatGPT
+- full raw Gemini adversarial review output if Gemini is used
 - full raw Fresh Claude review output
 - explicit overlay / variant-path verdict from ChatGPT
+- explicit overlay / variant-path verdict from Gemini if Gemini is used
 - explicit overlay / variant-path verdict from Fresh Claude
 
 ## Warnings
@@ -76,6 +84,7 @@ Bring back all of the following **verbatim**:
 - Do **not** collapse disagreements into a personal summary.
 - Do **not** omit tables, caveats, or dissenting judgments.
 - If ChatGPT or Claude refuse, fail, or partially answer, bring back the failure surface exactly.
+- If Gemini is used as an interim reviewer, that does **not** cancel the later Fresh Claude review.
 
 ## Overlay / Variant-Path Reminder
 
@@ -92,3 +101,4 @@ If neither reviewer finds a real overlay case, that conclusion must still be sta
 - Fresh Claude review prompt: [codex_sarf_fresh_claude_review_prompt.md](/home/rayane/kr-codex/reference/research/codex_sarf_fresh_claude_review_prompt.md)
 - K-1 knowledge tree: [codex_sarf_k1_knowledge_tree.md](/home/rayane/kr-codex/reference/research/codex_sarf_k1_knowledge_tree.md)
 - K-2 knowledge tree: [codex_sarf_k2_knowledge_tree.md](/home/rayane/kr-codex/reference/research/codex_sarf_k2_knowledge_tree.md)
+- Claude return review TODO: [codex_sarf_claude_return_review_todo.md](/home/rayane/kr-codex/reference/research/codex_sarf_claude_return_review_todo.md)
