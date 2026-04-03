@@ -188,3 +188,59 @@ Promotion of a newer excerpt-definition doctrine lane that clearly supersedes th
 - `engines/excerpting/reference/excerpt_definition_canon/01_dossier.md`
 - `engines/excerpting/reference/excerpt_definition_canon/11_hard_judgment.md`
 - `engines/excerpting/reference/ABD_EXCERPT_DEFINITION.md`
+
+### OPS-DEC-008 — Use a single canonical base tree with optional variant-path overlays for durable structural disagreement
+Status: active
+Date: 2026-04-03
+
+#### Decision
+KR taxonomy trees will use one **canonical base tree** per science as the
+single source of truth for placement and storage. When there is a valid,
+stable, structurally meaningful alternative scholarly route through the same
+conceptual terrain, KR should preserve it as a **variant path / overlay**
+rather than silently omitting it or forking the whole science into competing
+active trees.
+
+#### Why
+Some disagreements do not change the existence of a topic; they change where
+the topic sits in the route through the science. A single canonical tree is
+still required for pipeline determinism, placement, coverage, and auditability.
+But completely erasing valid alternative organizations would lose real
+scholarly structure and make the library flatter than the tradition actually
+is.
+
+The improved rule is:
+- base tree = strongest/primary route
+- valid alternative route = overlay candidate
+- overlays point to the same canonical node when possible
+- disagreement inside a topic stays inside the topic; only route-level
+  structural disagreement qualifies for overlay treatment
+
+#### Evidence basis
+Owner design direction during taxonomy-formation orchestration on 2026-04-03,
+using fiqh examples such as whether a topic like الوضوء is routed under
+conditions or pillars, plus review of taxonomy protocol and future taxonomy
+engine design surfaces.
+
+#### Consequences
+1. Future tree-validation sessions must explicitly evaluate whether a science
+   has route-level structural disagreements worth recording as overlay
+   candidates.
+2. The active tree remains canonical for placement, coverage analytics, and
+   stored path truth.
+3. Alternative valid routes must not be silently erased; they should be
+   recorded as overlay candidates or explicitly rejected with reasons.
+4. Overlays are not free-form branch duplication. They must be narrowly scoped,
+   school/tradition justified, and tied to canonical nodes.
+5. This decision is future-engine-facing. The current taxonomy engine core does
+   not implement overlays yet.
+
+#### What would reverse this
+Evidence that overlays create more confusion than value, or a better design
+that preserves both canonical placement truth and legitimate alternative
+scholarly organizations with lower complexity and higher auditability.
+
+#### Related artifacts
+- `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`
+- `engines/taxonomy/SPEC_FULL_ORIGINAL.md`
+- `engines/taxonomy/REWRITE_ANALYSIS.md`

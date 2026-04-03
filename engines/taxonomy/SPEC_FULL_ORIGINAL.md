@@ -564,6 +564,85 @@ Classification: **Category 2 (active khilaf)** — 3 distinct positions:
 
 Aggregation: this leaf contributes to the Shafi'i-Hanafi disagreement axis. If this axis appears in >40% of fiqh worship leaves, a `dominant_disagreement_axis` pattern is detected.
 
+#### §4.B.4A — Variant Path Overlays (مسارات بنيوية بديلة)
+
+Some scholarly disagreements do not create a new topic. They create a
+different **route** to the same topic.
+
+Example shape:
+- the canonical base tree places a topic under one parent because that route is
+  judged strongest
+- a valid alternative school/tradition places the same topic under a different
+  parent
+
+KR should preserve this kind of disagreement as a **variant path overlay**
+rather than by:
+- silently omitting the alternative route, or
+- creating two competing active base trees, or
+- duplicating the same leaf content in two places
+
+**Base rule.**
+The active tree remains the single source of truth for:
+- placement
+- storage
+- coverage analytics
+- canonical node identity
+
+**Overlay rule.**
+An overlay adds an alternative route to the same canonical node when all of the
+following hold:
+1. the disagreement is structurally meaningful
+2. it is stable across a real school / tradition / authorial family
+3. it changes the route, not merely the evidence or wording
+4. the underlying concept is the same enough that duplicating the content would
+   be worse than re-routing it
+
+**What overlays are for:**
+- school-specific parentage differences
+- stable route-level organizational alternatives
+- UI-level alternate navigational views
+
+**What overlays are NOT for:**
+- every minor disagreement
+- weak or isolated opinions
+- evidence differences inside the same topic
+- cases better modeled as disagreement topology at the leaf level
+- duplicate leaf content
+
+**Data model concept.**
+A variant path overlay records:
+- `overlay_id`
+- `science_id`
+- `canonical_leaf_path`
+- `alternate_parent_path`
+- `scope` (e.g. school, tradition, author family)
+- `rationale`
+- `confidence`
+- `status` (candidate, approved, rejected)
+
+The overlay does not change the canonical `confirmed_leaf`. It changes the
+optional route by which the interface may present that node.
+
+**Why this matters.**
+Without overlays, KR is forced into a false binary:
+- either flatten valid structural disagreement into one route
+- or duplicate the tree in incompatible ways
+
+Variant paths preserve the deterministic base tree while still honoring
+legitimate alternative scholarly organization.
+
+**Interaction with disagreement topology.**
+Disagreement topology answers:
+- what positions exist inside a topic?
+
+Variant path overlays answer:
+- where does a tradition route the topic in the tree?
+
+These are complementary, not redundant.
+
+[NOT YET IMPLEMENTED] — Deferred design capability. Must be evaluated during
+future tree-validation work even if the implementation is postponed.
+
 #### §4.B.5 — Proactive Tree Evolution Prediction (استشراف التطور)
 
 The taxonomy engine predicts where the science tree will need to evolve BEFORE draft excerpts are processed, using the structural organization of newly registered sources. This is architecturally distinct from §4.A.5 (reactive signal detection after placement failures) — proactive prediction uses source metadata available BEFORE excerpting begins.

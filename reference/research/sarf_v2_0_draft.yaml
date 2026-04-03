@@ -1,0 +1,752 @@
+taxonomy:
+  id: sarf_v2_0
+  title: علم الصرف
+  methodology: "4-researcher synthesis (2 knowledge + 2 corpus), sparse-corpus Step 5 review bands (>=5, >=3, >=2), architect draft through Step 8, no independent ChatGPT comparison yet"
+  validated: false
+  date: '2026-04-03'
+  researchers:
+    - "K-1 knowledge synthesis: 197 leaves, 7 level-1 branches"
+    - "K-2 knowledge synthesis: 180 leaves, 6 level-1 branches"
+    - "C-1 corpus extraction: 8 retained books, 139 clustered topics"
+    - "C-2 content analysis: 3 core books, granularity calibration"
+  leaf_count: 151
+  nodes:
+  - id: madkhal_ilm_al_sarf_wa_hududuh
+    title: مدخل علم الصرف وحدوده
+    children:
+    - id: tarif_ilm_al_sarf_wa_mawduuh
+      title: تعريف علم الصرف وموضوعه
+      children:
+      - id: maana_al_tasrif
+        title: معنى التصريف
+        leaf: true
+        confidence: HIGH
+      - id: hadd_ilm_al_sarf
+        title: حد علم الصرف
+        leaf: true
+        confidence: HIGH
+      - id: mawdu_ilm_al_sarf
+        title: موضوع علم الصرف
+        leaf: true
+        confidence: HIGH
+    - id: ma_yadkhuluhu_al_sarf_wa_ma_yakhruju_anhu
+      title: ما يدخله الصرف وما يخرج عنه
+      children:
+      - id: al_asma_al_mutamakkinah
+        title: الأسماء المتمكنة
+        leaf: true
+        confidence: HIGH
+      - id: al_afal_al_mutasarifah
+        title: الأفعال المتصرفة
+        leaf: true
+        confidence: HIGH
+      - id: ma_yakhruju_an_ilm_al_sarf
+        title: ما يخرج عن علم الصرف
+        leaf: true
+        confidence: HIGH
+    - id: al_hudud_maa_al_ulum_al_mujawirah
+      title: الحدود مع العلوم المجاورة
+      children:
+      - id: al_farqu_bayna_al_sarf_wa_al_nahw
+        title: الفرق بين الصرف والنحو
+        leaf: true
+        confidence: HIGH
+      - id: al_farqu_bayna_al_sarf_wa_al_ishtiqaq
+        title: الفرق بين الصرف والاشتقاق
+        leaf: true
+        confidence: HIGH
+  - id: al_abniyah_wa_al_usul_wa_al_mizan
+    title: الأبنية والأصول والميزان
+    children:
+    - id: al_mizan_al_sarfi
+      title: الميزان الصرفي
+      children:
+      - id: huruf_al_mizan
+        title: حروف الميزان
+        leaf: true
+        confidence: HIGH
+      - id: wazn_al_mujarrad
+        title: وزن المجرد
+        leaf: true
+        confidence: HIGH
+      - id: wazn_al_mazeed
+        title: وزن المزيد
+        leaf: true
+        confidence: HIGH
+      - id: wazn_al_mutall
+        title: وزن المعتل
+        leaf: true
+        confidence: HIGH
+      - id: taqdir_al_mahzuf
+        title: تقدير المحذوف
+        leaf: true
+        confidence: HIGH
+      - id: taqdir_al_maqlub_wa_al_mulhaq
+        title: تقدير المقلوب والملحق
+        leaf: true
+        confidence: MEDIUM
+    - id: al_asl_wa_al_zaid
+      title: الأصل والزائد
+      children:
+      - id: al_asl_wa_al_zaid_fi_al_kalimah
+        title: الأصل والزائد في الكلمة
+        leaf: true
+        confidence: HIGH
+      - id: dalail_marifat_al_zaid
+        title: دلائل معرفة الزائد
+        leaf: true
+        confidence: HIGH
+      - id: huruf_al_ziyadah
+        title: حروف الزيادة
+        leaf: true
+        confidence: HIGH
+      - id: al_ziyadah_lil_ilhaq
+        title: الزيادة للإلحاق
+        leaf: true
+        confidence: HIGH
+      - id: al_ziyadah_lil_maana
+        title: الزيادة للمعنى
+        leaf: true
+        confidence: HIGH
+    - id: al_tajarrud_wa_al_ziyadah_fi_al_abniyah
+      title: التجرد والزيادة في الأبنية
+      children:
+      - id: al_mujarrad
+        title: الأبنية المجردة
+        leaf: true
+        confidence: HIGH
+      - id: al_mazeed_bi_harf
+        title: تقسيم المزيد بزيادة حرف واحد
+        leaf: true
+        confidence: HIGH
+      - id: al_mazeed_bi_harfayn
+        title: تقسيم المزيد بزيادة حرفين
+        leaf: true
+        confidence: HIGH
+      - id: al_mazeed_bi_thalathat_ahruf
+        title: تقسيم المزيد بزيادة ثلاثة أحرف
+        leaf: true
+        confidence: HIGH
+      - id: mazeed_al_rubai
+        title: مزيد الرباعي في التقسيم العام
+        leaf: true
+        confidence: HIGH
+    - id: adad_al_usul_fi_al_kalimah
+      title: عدد الأصول في الكلمة
+      children:
+      - id: al_thulathi
+        title: الكلمة الثلاثية
+        leaf: true
+        confidence: HIGH
+      - id: al_rubai
+        title: الكلمة الرباعية
+        leaf: true
+        confidence: HIGH
+      - id: al_khumasi
+        title: الكلمة الخماسية
+        leaf: true
+        confidence: HIGH
+  - id: tasrif_al_afal_wa_abniyatiha
+    title: تصريف الأفعال وأبنيتها
+    children:
+    - id: siyagh_al_fil_al_asasiyyah
+      title: صيغ الفعل الأساسية
+      children:
+      - id: al_madi
+        title: الماضي
+        leaf: true
+        confidence: HIGH
+      - id: al_mudari
+        title: المضارع
+        leaf: true
+        confidence: HIGH
+      - id: al_amr
+        title: الأمر
+        leaf: true
+        confidence: HIGH
+      - id: al_bina_lil_fail
+        title: البناء للفاعل
+        leaf: true
+        confidence: HIGH
+      - id: al_bina_lil_maful
+        title: البناء للمفعول
+        leaf: true
+        confidence: HIGH
+    - id: al_sahih_wa_al_mutall_min_al_afal
+      title: الصحيح والمعتل من الأفعال
+      children:
+      - id: al_salim
+        title: الفعل السالم
+        leaf: true
+        confidence: HIGH
+      - id: al_mahmuz
+        title: الفعل المهموز
+        leaf: true
+        confidence: HIGH
+      - id: al_mudaaf
+        title: الفعل المضعف
+        leaf: true
+        confidence: HIGH
+      - id: al_mithal
+        title: الفعل المثال
+        leaf: true
+        confidence: HIGH
+      - id: al_ajwaf
+        title: الفعل الأجوف
+        leaf: true
+        confidence: HIGH
+      - id: al_naqis
+        title: الفعل الناقص
+        leaf: true
+        confidence: HIGH
+      - id: al_lafif_al_mafruq
+        title: الفعل اللفيف المفروق
+        leaf: true
+        confidence: HIGH
+      - id: al_lafif_al_maqrun
+        title: الفعل اللفيف المقرون
+        leaf: true
+        confidence: HIGH
+    - id: abwab_al_thulathi_al_mujarrad
+      title: أبواب الثلاثي المجرد
+      children:
+      - id: bab_nasara_yansuru
+        title: باب نصر ينصر
+        leaf: true
+        confidence: HIGH
+      - id: bab_daraba_yadribu
+        title: باب ضرب يضرب
+        leaf: true
+        confidence: HIGH
+      - id: bab_fataha_yaftahu
+        title: باب فتح يفتح
+        leaf: true
+        confidence: HIGH
+      - id: bab_samia_yasmau
+        title: باب سمع يسمع
+        leaf: true
+        confidence: HIGH
+      - id: bab_karuma_yakrimu
+        title: باب كرم يكرم
+        leaf: true
+        confidence: HIGH
+      - id: bab_hasiba_yahsibu
+        title: باب حسب يحسب
+        leaf: true
+        confidence: HIGH
+    - id: awzan_al_mazeed_min_al_thulathi
+      title: أوزان المزيد من الثلاثي
+      children:
+      - id: al_mazeed_min_al_thulathi_bi_harf
+        title: المزيد بحرف
+        children:
+        - id: afala
+          title: أفعل
+          leaf: true
+          confidence: HIGH
+        - id: faala
+          title: فعّل
+          leaf: true
+          confidence: HIGH
+        - id: faala_al_musharakah
+          title: فاعل
+          leaf: true
+          confidence: HIGH
+      - id: al_mazeed_min_al_thulathi_bi_harfayn
+        title: المزيد بحرفين
+        children:
+        - id: infaala
+          title: انفعل
+          leaf: true
+          confidence: HIGH
+        - id: iftaala
+          title: افتعل
+          leaf: true
+          confidence: HIGH
+        - id: ifalla
+          title: افعلّ
+          leaf: true
+          confidence: HIGH
+        - id: tafaala
+          title: تفاعل
+          leaf: true
+          confidence: HIGH
+        - id: tafaala_reflexive
+          title: تفعّل
+          leaf: true
+          confidence: HIGH
+      - id: al_mazeed_min_al_thulathi_bi_thalathat_ahruf
+        title: المزيد بثلاثة أحرف
+        children:
+        - id: istafala
+          title: استفعل
+          leaf: true
+          confidence: HIGH
+    - id: tasrif_al_fil_al_rubai
+      title: تصريف الفعل الرباعي
+      children:
+      - id: al_fil_al_rubai_al_mujarrad
+        title: الرباعي المجرد
+        leaf: true
+        confidence: HIGH
+      - id: al_mazeed_fi_al_rubai_bi_harf
+        title: المزيد في الرباعي بحرف
+        leaf: true
+        confidence: HIGH
+      - id: al_mazeed_fi_al_rubai_bi_harfayn
+        title: المزيد في الرباعي بحرفين
+        leaf: true
+        confidence: HIGH
+      - id: al_mulhaq_bi_al_rubai
+        title: الملحق بالرباعي
+        leaf: true
+        confidence: MEDIUM
+    - id: maani_siyagh_al_ziyadah
+      title: معاني صيغ الزيادة
+      children:
+      - id: al_tadiyah
+        title: التعدية
+        leaf: true
+        confidence: MEDIUM
+      - id: al_musharakah
+        title: المشاركة
+        leaf: true
+        confidence: MEDIUM
+      - id: al_mutawaah
+        title: المطاوعة
+        leaf: true
+        confidence: MEDIUM
+      - id: al_talab
+        title: الطلب
+        leaf: true
+        confidence: MEDIUM
+      - id: al_takthir
+        title: التكثير
+        leaf: true
+        confidence: MEDIUM
+      - id: al_sayrurah
+        title: الصيرورة
+        leaf: true
+        confidence: MEDIUM
+      - id: al_ittikhadh
+        title: الاتخاذ
+        leaf: true
+        confidence: MEDIUM
+    - id: al_isnad_al_sarfi
+      title: الإسناد الصرفي
+      children:
+      - id: isnad_al_madi_ila_al_damair
+        title: إسناد الماضي إلى الضمائر
+        leaf: true
+        confidence: MEDIUM
+      - id: isnad_al_mudari_ila_al_damair
+        title: إسناد المضارع إلى الضمائر
+        leaf: true
+        confidence: MEDIUM
+      - id: isnad_al_amr_ila_al_damair
+        title: إسناد الأمر إلى الضمائر
+        leaf: true
+        confidence: MEDIUM
+    - id: al_luzum_wa_al_tadiyah_min_jihat_al_sighah
+      title: اللزوم والتعدية من جهة الصيغة
+      children:
+      - id: al_fil_al_lazim
+        title: الفعل اللازم
+        leaf: true
+        confidence: MEDIUM
+      - id: al_fil_al_mutaaddi
+        title: الفعل المتعدي
+        leaf: true
+        confidence: MEDIUM
+      - id: al_tadiyah_bi_al_sighah
+        title: التعدية بالصيغة
+        leaf: true
+        confidence: MEDIUM
+  - id: al_masadir_wa_al_mushtaqat_wa_al_asma_al_makhudha_min_al_afal
+    title: المصادر والمشتقات والأسماء المأخوذة من الأفعال
+    children:
+    - id: al_masadir
+      title: المصادر
+      children:
+      - id: masdar_al_thulathi
+        title: مصدر الثلاثي
+        children:
+        - id: masdar_al_thulathi_al_samai
+          title: مصدر الثلاثي السماعي
+          leaf: true
+          confidence: HIGH
+        - id: masdar_al_thulathi_al_qiyasi
+          title: مصدر الثلاثي القياسي
+          leaf: true
+          confidence: HIGH
+      - id: masdar_ghayr_al_thulathi
+        title: مصدر غير الثلاثي
+        leaf: true
+        confidence: HIGH
+      - id: ism_al_masdar
+        title: اسم المصدر
+        leaf: true
+        confidence: MEDIUM
+      - id: al_masdar_al_mimi
+        title: المصدر الميمي
+        leaf: true
+        confidence: HIGH
+      - id: masdar_al_marra
+        title: مصدر المرة
+        leaf: true
+        confidence: HIGH
+      - id: masdar_al_hayah
+        title: مصدر الهيئة
+        leaf: true
+        confidence: HIGH
+    - id: ism_al_fail
+      title: اسم الفاعل
+      children:
+      - id: siyaghatuhu_min_al_thulathi_al_sahih
+        title: صياغة اسم الفاعل من الثلاثي الصحيح
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghatuhu_min_al_thulathi_al_mutall
+        title: صياغة اسم الفاعل من الثلاثي المعتل
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghatuhu_min_ghayr_al_thulathi
+        title: صياغة اسم الفاعل من غير الثلاثي
+        leaf: true
+        confidence: MEDIUM
+    - id: siyagh_al_mubalaghah
+      title: صيغ المبالغة
+      children:
+      - id: sighat_faal
+        title: فعّال
+        leaf: true
+        confidence: MEDIUM
+      - id: sighat_mifaal
+        title: مفعال
+        leaf: true
+        confidence: MEDIUM
+      - id: sighat_faul
+        title: فعول
+        leaf: true
+        confidence: MEDIUM
+      - id: sighat_fail
+        title: فعيل
+        leaf: true
+        confidence: MEDIUM
+      - id: sighat_fail_short
+        title: فَعِل
+        leaf: true
+        confidence: MEDIUM
+    - id: ism_al_maful
+      title: اسم المفعول
+      children:
+      - id: siyaghatuhu_min_al_thulathi_al_sahih_lil_maful
+        title: صياغة اسم المفعول من الثلاثي الصحيح
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghatuhu_min_al_thulathi_al_mutall_lil_maful
+        title: صياغة اسم المفعول من الثلاثي المعتل
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghatuhu_min_ghayr_al_thulathi_lil_maful
+        title: صياغة اسم المفعول من غير الثلاثي
+        leaf: true
+        confidence: MEDIUM
+    - id: al_sifah_al_mushabbahah
+      title: الصفة المشبهة
+      children:
+      - id: sawghuha_min_al_fil_al_lazim
+        title: صوغ الصفة المشبهة من الفعل اللازم
+        leaf: true
+        confidence: MEDIUM
+      - id: awzanuha_al_qiyasiyyah
+        title: أوزان الصفة المشبهة القياسية
+        leaf: true
+        confidence: MEDIUM
+      - id: sifat_al_alwan_wa_al_uyub_wa_al_hilyah
+        title: الصفة المشبهة في الألوان والعيوب والحلية
+        leaf: true
+        confidence: MEDIUM
+    - id: ism_al_tafdil_min_jihat_al_siyaghah
+      title: اسم التفضيل من جهة الصياغة
+      children:
+      - id: siyaghatuhu_ala_afal
+        title: صياغة اسم التفضيل على أفعل
+        leaf: true
+        confidence: MEDIUM
+      - id: shurut_siyaghatihi
+        title: شروط صياغة اسم التفضيل
+        leaf: true
+        confidence: MEDIUM
+      - id: ma_la_yusaghu_minhu_mubasharatan
+        title: ما لا يصاغ منه اسم التفضيل مباشرة
+        leaf: true
+        confidence: MEDIUM
+    - id: isma_al_zaman_wa_al_makan
+      title: اسما الزمان والمكان
+      children:
+      - id: ism_al_zaman_min_al_thulathi
+        title: اسم الزمان من الثلاثي
+        leaf: true
+        confidence: MEDIUM
+      - id: ism_al_zaman_min_ghayr_al_thulathi
+        title: اسم الزمان من غير الثلاثي
+        leaf: true
+        confidence: MEDIUM
+      - id: ism_al_makan_min_al_thulathi
+        title: اسم المكان من الثلاثي
+        leaf: true
+        confidence: MEDIUM
+      - id: ism_al_makan_min_ghayr_al_thulathi
+        title: اسم المكان من غير الثلاثي
+        leaf: true
+        confidence: MEDIUM
+    - id: ism_al_alah
+      title: اسم الآلة
+      children:
+      - id: mifal
+        title: مِفْعَل
+        leaf: true
+        confidence: HIGH
+      - id: mifaal
+        title: مِفْعال
+        leaf: true
+        confidence: HIGH
+      - id: mifalah
+        title: مِفْعَلَة
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_ali_al_samai
+        title: الاسم الآلي السماعي
+        leaf: true
+        confidence: HIGH
+  - id: al_tahwilat_wa_al_asnaf_al_ismiyyah_al_sarfiyyah
+    title: التحويلات والأصناف الاسمية الصرفية
+    children:
+    - id: abniyat_al_asma
+      title: أبنية الأسماء
+      children:
+      - id: al_ism_al_thulathi_al_mujarrad
+        title: الاسم الثلاثي المجرد
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_rubai_al_mujarrad
+        title: الاسم الرباعي المجرد
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_khumasi_al_mujarrad
+        title: الاسم الخماسي المجرد
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_mazeed
+        title: الاسم المزيد
+        leaf: true
+        confidence: MEDIUM
+    - id: al_maqsur_wa_al_manqus_wa_al_mamdud
+      title: المقصور والمنقوص والممدود
+      children:
+      - id: al_ism_al_maqsur
+        title: الاسم المقصور
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_manqus
+        title: الاسم المنقوص
+        leaf: true
+        confidence: HIGH
+      - id: al_ism_al_mamdud
+        title: الاسم الممدود
+        leaf: true
+        confidence: HIGH
+    - id: al_muthanna
+      title: المثنى
+      children:
+      - id: shurut_al_tathniyah
+        title: شروط التثنية
+        leaf: true
+        confidence: MEDIUM
+      - id: tathniyat_al_sahih
+        title: تثنية الصحيح
+        leaf: true
+        confidence: MEDIUM
+      - id: tathniyat_al_maqsur
+        title: تثنية المقصور
+        leaf: true
+        confidence: MEDIUM
+      - id: tathniyat_al_manqus
+        title: تثنية المنقوص
+        leaf: true
+        confidence: MEDIUM
+      - id: tathniyat_al_mamdud
+        title: تثنية الممدود
+        leaf: true
+        confidence: MEDIUM
+    - id: jam_al_mudhakkar_al_salim
+      title: جمع المذكر السالم
+      children:
+      - id: shurut_jam_al_mudhakkar_al_salim
+        title: شروط جمع المذكر السالم
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghat_jam_al_mudhakkar_al_salim
+        title: صياغة جمع المذكر السالم
+        leaf: true
+        confidence: MEDIUM
+      - id: mulhaqat_jam_al_mudhakkar_al_salim
+        title: ملحقات جمع المذكر السالم الصرفية
+        leaf: true
+        confidence: MEDIUM
+    - id: jam_al_muannath_al_salim
+      title: جمع المؤنث السالم
+      children:
+      - id: shurut_jam_al_muannath_al_salim
+        title: شروط جمع المؤنث السالم
+        leaf: true
+        confidence: MEDIUM
+      - id: siyaghat_jam_al_muannath_al_salim
+        title: صياغة جمع المؤنث السالم
+        leaf: true
+        confidence: MEDIUM
+      - id: mulhaqat_jam_al_muannath_al_salim
+        title: ملحقات جمع المؤنث السالم الصرفية
+        leaf: true
+        confidence: MEDIUM
+    - id: jam_al_taksir
+      title: جمع التكسير
+      children:
+      - id: jumu_al_qillah
+        title: جموع القلة
+        leaf: true
+        confidence: HIGH
+      - id: jumu_al_kathrah
+        title: جموع الكثرة
+        leaf: true
+        confidence: HIGH
+      - id: sighat_muntaha_al_jumu
+        title: صيغة منتهى الجموع
+        leaf: true
+        confidence: MEDIUM
+      - id: jam_al_jam
+        title: جمع الجمع
+        leaf: true
+        confidence: HIGH
+    - id: al_tasghir
+      title: التصغير
+      children:
+      - id: aghrad_al_tasghir
+        title: أغراض التصغير
+        leaf: true
+        confidence: HIGH
+      - id: tasghir_al_thulathi
+        title: تصغير الثلاثي
+        leaf: true
+        confidence: HIGH
+      - id: tasghir_ghayr_al_thulathi
+        title: تصغير غير الثلاثي
+        leaf: true
+        confidence: HIGH
+      - id: tasghir_al_maqsur_wa_al_manqus_wa_al_mamdud
+        title: تصغير المقصور والمنقوص والممدود
+        leaf: true
+        confidence: HIGH
+      - id: tasghir_jam_al_taksir
+        title: تصغير جمع التكسير
+        leaf: true
+        confidence: HIGH
+    - id: al_nisbah
+      title: النسب
+      children:
+      - id: asl_bab_al_nisbah
+        title: أصل باب النسب
+        leaf: true
+        confidence: HIGH
+      - id: al_nisbah_ila_al_sahih
+        title: النسب إلى الصحيح
+        leaf: true
+        confidence: HIGH
+      - id: al_nisbah_ila_al_maqsur_wa_al_manqus
+        title: النسب إلى المقصور والمنقوص
+        leaf: true
+        confidence: HIGH
+      - id: al_nisbah_ila_al_mamdud
+        title: النسب إلى الممدود
+        leaf: true
+        confidence: HIGH
+      - id: al_nisbah_ila_al_murakkab_wa_al_jam
+        title: النسب إلى المركب والجمع
+        leaf: true
+        confidence: MEDIUM
+  - id: al_taghayyurat_al_sarfiyyah_al_dakhiliyyah
+    title: التغيرات الصرفية الداخلية
+    children:
+    - id: al_ialal
+      title: الإعلال
+      children:
+      - id: al_ialal_bi_al_naql
+        title: الإعلال بالنقل
+        leaf: true
+        confidence: HIGH
+      - id: al_ialal_bi_al_qalb
+        title: الإعلال بالقلب
+        children:
+        - id: al_qalb_ila_alif
+          title: الإعلال بالقلب إلى ألف
+          leaf: true
+          confidence: HIGH
+        - id: al_qalb_ila_waw
+          title: الإعلال بالقلب إلى واو
+          leaf: true
+          confidence: HIGH
+        - id: al_qalb_ila_ya
+          title: الإعلال بالقلب إلى ياء
+          leaf: true
+          confidence: HIGH
+      - id: al_ialal_bi_al_hadhf
+        title: الإعلال بالحذف
+        leaf: true
+        confidence: HIGH
+    - id: al_ibdal
+      title: الإبدال
+      children:
+      - id: ibdal_al_hamzah
+        title: إبدال الهمزة
+        leaf: true
+        confidence: HIGH
+      - id: ibdal_huruf_al_illah
+        title: إبدال حروف العلة
+        leaf: true
+        confidence: HIGH
+      - id: ibdal_ta_al_iftial
+        title: إبدال تاء الافتعال
+        leaf: true
+        confidence: HIGH
+      - id: al_ibdal_fi_al_huruf_al_mutaqaribah
+        title: الإبدال في الحروف المتقاربة
+        leaf: true
+        confidence: MEDIUM
+    - id: al_idgham
+      title: الإدغام
+      children:
+      - id: idgham_al_mithlayn
+        title: إدغام المثلين
+        leaf: true
+        confidence: HIGH
+      - id: idgham_al_mutajanisayn_wa_al_mutaqaribayn
+        title: إدغام المتجانسين والمتقاربين
+        leaf: true
+        confidence: HIGH
+      - id: fakk_al_idgham
+        title: فك الإدغام
+        leaf: true
+        confidence: HIGH
+    - id: al_qalb_al_makani
+      title: القلب المكاني
+      leaf: true
+      confidence: HIGH
+    - id: al_hamzah_fi_al_binyah_al_sarfiyyah
+      title: الهمزة في البنية الصرفية
+      leaf: true
+      confidence: MEDIUM
+    - id: iltiqa_al_sakinayn_fi_al_binyah_al_sarfiyyah
+      title: التقاء الساكنين في البنية الصرفية
+      leaf: true
+      confidence: MEDIUM

@@ -33,6 +33,7 @@ A validated `library/sciences/{science}/tree.yaml` with:
 - Documented methodology and researcher provenance
 - Per-leaf confidence ratings backed by cross-stream evidence
 - Complete audit trail (researcher outputs, synthesis artifacts, review verdicts)
+- Explicit overlay-review outcome (`reference/research/{science}_overlay_review.md`) recording either candidate variant paths or a reasoned rejection that no overlay is warranted
 - Updated registry entry in `library/sciences/taxonomy_registry.yaml`
 - Compatibility-tested against the taxonomy engine loader
 
@@ -70,6 +71,64 @@ Identify which OTHER sciences share boundary topics with this science. For every
 - Document the ruling source (canonical textbook organization, scholarly consensus, pragmatic decision with reasoning)
 
 See §6 for the nahw/sarf boundary as a worked example.
+
+### 2.3.1 Base Tree vs. Variant Paths
+
+Every science-validation session must make an explicit decision about
+**structural disagreements that change the route through the tree**, not just
+the wording of a leaf.
+
+The default rule is:
+
+- The active tree is the **single canonical base tree**.
+- It follows the strongest/primary organizational route the architect judges
+  best supported.
+- It is the only tree used for placement, coverage analytics, and pipeline
+  truth.
+
+However, valid alternative scholarly organizations must not be silently erased.
+When a disagreement is:
+
+1. structurally meaningful,
+2. stable across a real school/tradition/authorial family,
+3. about **where a topic lives in the route**, not about whether the topic
+   exists at all,
+
+the architect must evaluate whether it should be recorded as a
+**variant path / overlay candidate**.
+
+Examples:
+
+- A fiqh topic whose parentage differs by school (e.g. a condition vs. a pillar)
+- A science where one tradition consistently groups a topic under one branch
+  while another tradition consistently routes it elsewhere
+
+Overlays are governed by these rules:
+
+- An overlay is **not** a second active tree.
+- An overlay does **not** create duplicate leaf content.
+- An overlay re-routes the user-facing path to the **same canonical node**
+  where possible.
+- The base tree remains the source of truth for placement and storage.
+
+Not every disagreement deserves an overlay. Do **not** create overlays for:
+
+- weak or isolated opinions
+- disagreements that only affect evidences inside the same topic
+- disputes that are better represented as within-leaf disagreement topology
+- minor phrasing differences that do not change the route
+
+This question must be addressed during tree validation. If the architect
+decides that no overlay is warranted for a science, that rejection must be
+stated explicitly with reasons rather than left unexamined.
+
+The result must be written to:
+
+- `reference/research/{science}_overlay_review.md`
+
+That file may conclude either:
+- `no overlay warranted`, with reasons
+- or a list of overlay candidates with scope, rationale, and confidence
 
 ### 2.4 Architect readiness
 
@@ -258,6 +317,7 @@ Verify with tool calls — not memory:
 8. Sibling distinctness? (for each L2 with 4+ leaves, can you state what distinguishes each?)
 9. Scholarly reality check? (pick 10 random leaves, web-verify each)
 10. NOW read the existing unvalidated tree. Any concerning topic losses?
+11. Overlay candidacy check. Does this science contain any legitimate route-level structural disagreement that should be recorded as a future variant-path overlay rather than forced into or erased from the base tree? Record the result in `reference/research/{science}_overlay_review.md`.
 
 ### Step 10: Prepare merge process prompts
 

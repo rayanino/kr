@@ -18,6 +18,7 @@ KR is currently in the pipeline-building stage. The working pipeline is source -
 4. One live frontier. The project may have many valid future threads, but only one may be authoritative as the current frontier at a time.
 5. Auditability matters. Any important strategic or methodological commitment should be recoverable from the repo-local control plane, not trapped in chat memory.
 6. Partial progress is acceptable; silent drift is not. If a session cannot complete its main deliverable, it should still leave the project in a cleaner and better-directed state.
+7. Canonical structures must not silently erase legitimate scholarly alternatives. When the pipeline needs one canonical tree for execution, major alternative route-level organizations should be recorded explicitly as overlay candidates or explicitly rejected with reasons, rather than being forgotten.
 
 ## Worker roles
 - The owner is the final authority on acceptance, priorities, and irreversible project choices.

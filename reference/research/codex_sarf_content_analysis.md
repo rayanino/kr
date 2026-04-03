@@ -1,0 +1,441 @@
+# Deep Sarf Content Analysis
+
+## Scope Note
+- Source corpus only: current retained sarf books from `codex_sarf_headings_by_book.json`
+- Stage 1 candidate set remains authoritative and unchanged
+- The hierarchy below is analysis-only and does not rewrite the existing Stage 2 outputs
+
+## الممتع الكبير في التصريف
+- Source file paths: `/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الممتع الكبير في التصريف.htm`
+- Total headings: 105
+- Retained Stage 2 headings: 50
+- Excluded heading counts: `ambiguous`=10, `non_sarf`=45
+- Chapter outline:
+  - تعريف التصريف وحدوده (headings=3, distinct_subtopics=2, recommended_stable_leaves=2)
+    - opening heading: ذكر شرف علم التصريف وبيان مرتبته في علم العربية
+  - [exclude: non_sarf] مدخل التصريف
+    - observed detail: ذكر شرف علم التصريف وبيان مرتبته في علم العربية
+    - note: non_sarf
+  - [retain] تقسيم التصريف
+    - recommended leaf: تقسيم التصريف (keep)
+  - [retain] ما يدخله التصريف وما لا يدخله
+    - recommended leaf: ما يدخله التصريف وما لا يدخله (keep)
+    - observed detail: باب تمييز ما يدخله التصريف مما لا يدخله
+  - معاني الصيغ (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: ذكر معاني أبنية الأفعال
+  - [retain] معاني الصيغ
+    - recommended leaf: معاني الصيغ (keep)
+    - observed detail: ذكر معاني أبنية الأفعال
+  - الزيادة وحروفها (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: حروف الزيادة
+  - [retain] حروف الزيادة
+    - recommended leaf: حروف الزيادة (keep)
+  - أحكام الهمزة (headings=1, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: باب الهمزة
+  - [exclude: non_sarf] أحكام الهمزة
+    - observed detail: باب الهمزة
+    - note: non_sarf
+  - الإبدال (headings=2, distinct_subtopics=2, recommended_stable_leaves=1)
+    - opening heading: ذكر القسم الثاني من التصريف الإبدال
+  - [retain] الإبدال
+    - recommended leaf: الإبدال (keep)
+    - observed detail: ذكر القسم الثاني من التصريف الإبدال
+  - [retain] حروف الإبدال
+    - recommended leaf: الإبدال (merge)
+    - observed detail: حُرُوفُ الإبْدَال
+  - أحكام الهمزة (headings=6, distinct_subtopics=6, recommended_stable_leaves=1)
+    - opening heading: إبدال الهمزة
+  - [retain] إبدال الهمزة
+    - recommended leaf: أحكام الهمزة (merge)
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - [retain] إبدال الهمزة من الألف
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: باب إبدال الهمزة من الألف
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - [retain] إبدال الهمزة من الواو
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: باب إبدال الهمزة من الواو
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - [retain] إبدال الهمزة من الياء
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: باب إبدال الهمزة من الياء
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - [retain] إبدال الهمزة من الهاء
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: باب إبدال الهمزة من الهاء
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - [retain] إبدال الهمزة من العين
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: باب إبدال الهمزة من العين
+    - note: letter-slot hamza cases are too fine for stable production leaves
+  - الإبدال (headings=1, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: ما لم يذكره سيبويه من حروف الإبدال
+  - [exclude: non_sarf] حروف الإبدال
+    - observed detail: ما لم يذكره سيبويه من حروف الإبدال
+    - note: non_sarf
+  - الحذف (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: القلب والحذف والنقل
+  - [retain] الحذف
+    - observed detail: القلب والحذف والنقل
+    - note: الحذف here is too unstable as a standalone production leaf
+  - الصحيح والمعتل (headings=7, distinct_subtopics=4, recommended_stable_leaves=1)
+    - opening heading: المعتلّ الفاء
+  - [retain] المعتل الفاء
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: المعتلّ الفاء
+    - observed detail: المعتلُّ الفاء واللام
+    - observed detail: المعتلُّ الفاء والعين
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - [retain] المعتل العين
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: المعتلُّ العين واللام
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - [retain] المعتل اللام
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: المعتلُّ اللام
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - [retain] الرباعي المعتل
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: الرباعيُّ المعتلُّ
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - الحذف (headings=2, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: القلب والحذف على غير قياس القلب على غير قياس
+  - [exclude: non_sarf] الحذف
+    - observed detail: القلب والحذف على غير قياس القلب على غير قياس
+    - observed detail: الحذف على غير قياس
+    - note: non_sarf; ambiguous
+  - الإدغام (headings=2, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الإدغام
+  - [retain] الإدغام
+    - recommended leaf: الإدغام (keep)
+    - observed detail: ذكر أحكام حروف الحلق في الإدغام
+    - note: non_sarf
+  - الصحيح والمعتل (headings=7, distinct_subtopics=4, recommended_stable_leaves=1)
+    - opening heading: مسائل التمرين ما قيس من الصحيح على صحيح مثله وما قيس من المعتل على نظيره من الصحيح
+  - [retain] الصحيح والمعتل
+    - recommended leaf: الصحيح والمعتل (keep)
+    - observed detail: مسائل التمرين ما قيس من الصحيح على صحيح مثله وما قيس من المعتل على نظيره من الصحيح
+  - [retain] المعتل اللام
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: مسائل من المعتلِّ اللام
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - [retain] المعتل العين
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: مسائل من المعتلِّ العين
+    - observed detail: مسائل من المعتلِّ العين مع اللام
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+  - [retain] المعتل الفاء
+    - recommended leaf: الصحيح والمعتل (merge)
+    - observed detail: مسائل من المعتلِّ الفاء
+    - observed detail: مسائل من المعتلِّ الفاء بالواو واللام بالياء
+    - observed detail: مسائل من المعتلِّ الفاء بالياء والعين بالواو
+    - note: specific subtypes observed, but only one analyzed book carries the fine split clearly
+- Ordering observations:
+  - Pedagogical order: تعريف التصريف وحدوده -> معاني الصيغ -> الزيادة وحروفها -> أحكام الهمزة -> الإبدال -> أحكام الهمزة -> الإبدال -> الحذف -> الصحيح والمعتل -> الحذف -> الإدغام -> الصحيح والمعتل
+- Summary statistics:
+  - total headings: 105
+  - average sub-topics per chapter: 1.83
+  - maximum possible leaves at finest reading: 19
+  - recommended stable leaves after anti-overgranulation filtering: 8
+
+## الشافية في علم التصريف - معها الوافية نظم الشافية
+- Source file paths: `/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الشافية في علم التصريف - معها الوافية نظم الشافية/001.htm`, `/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الشافية في علم التصريف - معها الوافية نظم الشافية/002.htm`
+- Total headings: 72
+- Retained Stage 2 headings: 48
+- Excluded heading counts: `ambiguous`=22, `mixed`=1, `non_sarf`=1
+- Chapter outline:
+  - تعريف التصريف وحدوده (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: تَعْرِيف التصريف
+  - [retain] تعريف التصريف
+    - recommended leaf: تعريف التصريف (keep)
+    - observed detail: تَعْرِيف التصريف
+  - الميزان الصرفي (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْمِيزَان الصرفي
+  - [retain] الميزان الصرفي
+    - recommended leaf: الميزان الصرفي (keep)
+    - observed detail: الْمِيزَان الصرفي
+  - القلب المكاني (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْقلب المكاني
+  - [retain] القلب المكاني
+    - recommended leaf: القلب المكاني (keep)
+    - observed detail: الْقلب المكاني
+  - الصحيح والمعتل (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الصَّحِيح والمعتل
+  - [retain] الصحيح والمعتل
+    - recommended leaf: الصحيح والمعتل (keep)
+    - observed detail: الصَّحِيح والمعتل
+  - أبنية الأفعال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بِنَاء الْفِعْل الرباعي
+  - [retain] بناء الفعل الرباعي
+    - recommended leaf: بناء الفعل الرباعي (keep)
+    - observed detail: بِنَاء الْفِعْل الرباعي
+  - المشتقات الصرفية (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الصّفة المشبهة
+  - [retain:risk] الصفة المشبهة
+    - recommended leaf: الصفة المشبهة (keep)
+    - observed detail: الصّفة المشبهة
+    - note: shared with nahw usage traditions; keep only with explicit morphology-first framing
+  - المصدر وتفريعاته (headings=2, distinct_subtopics=2, recommended_stable_leaves=2)
+    - opening heading: الْمصدر
+  - [retain:risk] المصدر
+    - recommended leaf: المصدر (keep)
+    - observed detail: الْمصدر
+    - note: shared with nahw discussion traditions; keep only as morphology-first in pure sarf ordering
+  - [retain] المصدر الميمي
+    - recommended leaf: المصدر الميمي (keep)
+    - observed detail: الْمصدر الميمي
+  - التصغير (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: التصغير
+  - [retain] التصغير
+    - recommended leaf: التصغير (keep)
+  - النسب (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: النّسَب
+  - [retain] النسب
+    - recommended leaf: النسب (keep)
+    - observed detail: النّسَب
+  - الجمع وبناء العدد (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الْجمع
+  - [exclude: ambiguous] الجمع
+    - observed detail: الْجمع
+    - note: ambiguous
+  - الوقف والإمالة (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الْوَقْف
+  - [exclude: ambiguous] الوقف والإمالة
+    - observed detail: الْوَقْف
+    - note: ambiguous
+  - المقصور والممدود (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْمَقْصُور والممدود
+  - [retain] المقصور والممدود
+    - recommended leaf: المقصور والممدود (keep)
+    - observed detail: الْمَقْصُور والممدود
+  - الزيادة وحروفها (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: ذُو الزِّيَادَة
+  - [retain] ذو الزيادة
+    - recommended leaf: حروف الزيادة (merge)
+    - observed detail: ذُو الزِّيَادَة
+    - note: micro-case or wrapper should stay under the broader increase/augmentation leaf
+  - أحكام الهمزة (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: تَخْفيف الْهمزَة
+  - [retain] تخفيف الهمزة
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: تَخْفيف الْهمزَة
+    - note: keep hamza microcases under one stable production leaf
+  - الإعلال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الإعلال
+  - [retain] الإعلال
+    - recommended leaf: الإعلال (keep)
+  - الإبدال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْإِبْدَال
+  - [retain] الإبدال
+    - recommended leaf: الإبدال (keep)
+    - observed detail: الْإِبْدَال
+  - الإدغام (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْإِدْغَام
+  - [retain] الإدغام
+    - recommended leaf: الإدغام (keep)
+    - observed detail: الْإِدْغَام
+  - الحذف (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الْحَذف
+  - [exclude: ambiguous] الحذف
+    - observed detail: الْحَذف
+    - note: ambiguous
+  - الخط (headings=1, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: الْخط
+  - [exclude: non_sarf] الخط
+    - observed detail: الْخط
+    - note: non_sarf
+  - تعريف التصريف وحدوده (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: تَعْرِيف التصريف
+  - [retain] تعريف التصريف
+    - recommended leaf: تعريف التصريف (keep)
+    - observed detail: تَعْرِيف التصريف
+  - الميزان الصرفي (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْمِيزَان الصرفي
+  - [retain] الميزان الصرفي
+    - recommended leaf: الميزان الصرفي (keep)
+    - observed detail: الْمِيزَان الصرفي
+  - معاني الصيغ (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: مَعَاني الصِّيَغ
+  - [retain] معاني الصيغ
+    - recommended leaf: معاني الصيغ (keep)
+    - observed detail: مَعَاني الصِّيَغ
+  - المشتقات الصرفية (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الصّفة المشبهة
+  - [retain:risk] الصفة المشبهة
+    - recommended leaf: الصفة المشبهة (keep)
+    - observed detail: الصّفة المشبهة
+    - note: shared with nahw usage traditions; keep only with explicit morphology-first framing
+  - المصدر وتفريعاته (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الْمصدر
+  - [retain:risk] المصدر
+    - recommended leaf: المصدر (keep)
+    - observed detail: الْمصدر
+    - note: shared with nahw discussion traditions; keep only as morphology-first in pure sarf ordering
+  - التصغير (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: المصغر
+  - [retain] التصغير
+    - recommended leaf: التصغير (keep)
+    - observed detail: المصغر
+  - النسب (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: النّسَب
+  - [retain] النسب
+    - recommended leaf: النسب (keep)
+    - observed detail: النّسَب
+  - الجمع وبناء العدد (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: جمع التكسير
+  - [retain] جمع التكسير
+    - recommended leaf: جمع التكسير (keep)
+  - الوقف والإمالة (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: بَاب الْوَقْف
+  - [exclude: ambiguous] الوقف والإمالة
+    - observed detail: بَاب الْوَقْف
+    - note: ambiguous
+  - المقصور والممدود (headings=1, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: بَاب الْمَقْصُور والممدود
+  - [exclude: mixed] المقصور والممدود
+    - observed detail: بَاب الْمَقْصُور والممدود
+    - note: mixed
+  - الزيادة وحروفها (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بَاب ذِي الزِّيَادَة
+  - [retain] حروف الزيادة
+    - recommended leaf: حروف الزيادة (keep)
+    - observed detail: بَاب ذِي الزِّيَادَة
+    - note: analysis-stage morphology-safe despite stricter Stage 2 gating
+  - أحكام الهمزة (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بَاب تَخْفيف الْهمزَة
+  - [retain] تخفيف الهمزة
+    - recommended leaf: أحكام الهمزة (merge)
+    - observed detail: بَاب تَخْفيف الْهمزَة
+    - note: keep hamza microcases under one stable production leaf
+  - الإعلال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بَاب الإعلال
+  - [retain] الإعلال
+    - recommended leaf: الإعلال (keep)
+    - observed detail: بَاب الإعلال
+  - الإبدال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بَاب الْإِبْدَال
+  - [retain] الإبدال
+    - recommended leaf: الإبدال (keep)
+    - observed detail: بَاب الْإِبْدَال
+  - الإدغام (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بَاب الْإِدْغَام
+  - [retain] الإدغام
+    - recommended leaf: الإدغام (keep)
+    - observed detail: بَاب الْإِدْغَام
+  - الحذف (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: بَاب الْحَذف
+  - [exclude: ambiguous] الحذف
+    - observed detail: بَاب الْحَذف
+    - note: ambiguous
+- Ordering observations:
+  - Pedagogical order: تعريف التصريف وحدوده -> الميزان الصرفي -> القلب المكاني -> الصحيح والمعتل -> أبنية الأفعال -> المشتقات الصرفية -> المصدر وتفريعاته -> التصغير -> النسب -> الجمع وبناء العدد -> الوقف والإمالة -> المقصور والممدود -> الزيادة وحروفها -> أحكام الهمزة -> الإعلال -> الإبدال -> الإدغام -> الحذف -> الخط -> تعريف التصريف وحدوده -> الميزان الصرفي -> معاني الصيغ -> المشتقات الصرفية -> المصدر وتفريعاته -> التصغير -> النسب -> الجمع وبناء العدد -> الوقف والإمالة -> المقصور والممدود -> الزيادة وحروفها -> أحكام الهمزة -> الإعلال -> الإبدال -> الإدغام -> الحذف
+  - Sound-change chapters cluster late around hamza, i'lal, ibdal, and idgham.
+- Summary statistics:
+  - total headings: 72
+  - average sub-topics per chapter: 0.97
+  - maximum possible leaves at finest reading: 22
+  - recommended stable leaves after anti-overgranulation filtering: 18
+
+## الشافية في علمي التصريف والخط
+- Source file paths: `/mnt/c/Users/Rayane/Desktop/kr/shamela-export-samples/الشافية في علمي التصريف والخط.htm`
+- Total headings: 43
+- Retained Stage 2 headings: 30
+- Excluded heading counts: `ambiguous`=13
+- Chapter outline:
+  - تعريف التصريف وحدوده (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: تعريف التّصريف
+  - [retain] تعريف التصريف
+    - recommended leaf: تعريف التصريف (keep)
+    - observed detail: تعريف التّصريف
+  - الميزان الصرفي (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الميزان الصّرفيّ
+  - [retain] الميزان الصرفي
+    - recommended leaf: الميزان الصرفي (keep)
+    - observed detail: الميزان الصّرفيّ
+  - القلب المكاني (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: القلب المكاني
+  - [retain] القلب المكاني
+    - recommended leaf: القلب المكاني (keep)
+  - الصحيح والمعتل (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الصحيح والمعتل
+  - [retain] الصحيح والمعتل
+    - recommended leaf: الصحيح والمعتل (keep)
+  - أبنية الأفعال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: بناء الفعل الرّباعيّ
+  - [retain] بناء الفعل الرباعي
+    - recommended leaf: بناء الفعل الرباعي (keep)
+    - observed detail: بناء الفعل الرّباعيّ
+  - المشتقات الصرفية (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الصّفة المشبّهة
+  - [retain:risk] الصفة المشبهة
+    - recommended leaf: الصفة المشبهة (keep)
+    - observed detail: الصّفة المشبّهة
+    - note: shared with nahw usage traditions; keep only with explicit morphology-first framing
+  - المصدر وتفريعاته (headings=3, distinct_subtopics=2, recommended_stable_leaves=2)
+    - opening heading: المصدر المصدر من الثلاثي المجرّد
+  - [retain] المصدر
+    - recommended leaf: المصدر (keep)
+    - observed detail: المصدر المصدر من الثلاثي المجرّد
+    - observed detail: المصدر من الثّلاثيّ المزيد والرّباعيّ
+  - [retain] المصدر الميمي
+    - recommended leaf: المصدر الميمي (keep)
+  - التصغير (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: التّصغير
+  - [retain] التصغير
+    - recommended leaf: التصغير (keep)
+    - observed detail: التّصغير
+  - النسب (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: النّسب
+  - [retain] النسب
+    - recommended leaf: النسب (keep)
+    - observed detail: النّسب
+  - الجمع وبناء العدد (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الجمع
+  - [exclude: ambiguous] الجمع
+    - note: ambiguous
+  - الوقف والإمالة (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الوقف
+  - [exclude: ambiguous] الوقف
+    - note: ambiguous
+  - المقصور والممدود (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: المقصور والممدود
+  - [retain] المقصور والممدود
+    - recommended leaf: المقصور والممدود (keep)
+  - الزيادة وحروفها (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: ذو الزيادة
+  - [retain] ذو الزيادة
+    - recommended leaf: حروف الزيادة (merge)
+    - note: micro-case or wrapper should stay under the broader increase/augmentation leaf
+  - أحكام الهمزة (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: تخفيف الهمزة
+  - [retain] تخفيف الهمزة
+    - recommended leaf: أحكام الهمزة (merge)
+    - note: keep hamza microcases under one stable production leaf
+  - الإعلال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الإعلال
+  - [retain] الإعلال
+    - recommended leaf: الإعلال (keep)
+  - الإبدال (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الإبدال
+  - [retain] الإبدال
+    - recommended leaf: الإبدال (keep)
+  - الإدغام (headings=1, distinct_subtopics=1, recommended_stable_leaves=1)
+    - opening heading: الإدغام
+  - [retain] الإدغام
+    - recommended leaf: الإدغام (keep)
+  - الحذف (headings=1, distinct_subtopics=1, recommended_stable_leaves=0)
+    - opening heading: الحذف
+  - [exclude: ambiguous] الحذف
+    - note: ambiguous
+  - الخط (headings=1, distinct_subtopics=0, recommended_stable_leaves=0)
+    - opening heading: الخط
+  - [exclude: non_sarf] الخط
+    - note: non_sarf
+- Ordering observations:
+  - Pedagogical order: تعريف التصريف وحدوده -> الميزان الصرفي -> القلب المكاني -> الصحيح والمعتل -> أبنية الأفعال -> المشتقات الصرفية -> المصدر وتفريعاته -> التصغير -> النسب -> الجمع وبناء العدد -> الوقف والإمالة -> المقصور والممدود -> الزيادة وحروفها -> أحكام الهمزة -> الإعلال -> الإبدال -> الإدغام -> الحذف -> الخط
+  - Sound-change chapters cluster late around hamza, i'lal, ibdal, and idgham.
+- Summary statistics:
+  - total headings: 43
+  - average sub-topics per chapter: 1.00
+  - maximum possible leaves at finest reading: 19
+  - recommended stable leaves after anti-overgranulation filtering: 16

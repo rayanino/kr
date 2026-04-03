@@ -1,0 +1,3660 @@
+{
+  "total_excluded_books": 206,
+  "books": [
+    {
+      "title": "أخبار أبي القاسم الزجاجي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: شرح المسألة, مسألة في القرآن, مسألة من الصلات",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 8,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيم",
+        "شرح المسألة",
+        "مسألة في القرآن"
+      ]
+    },
+    {
+      "title": "أدوات الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: الهمزة أ- همزة الاستفهام, ب- همزة النداء, إمّا (المكسورة الهمزة",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 246,
+      "non_topical_excluded_count": 38,
+      "representative_retained_headings": [
+        "الهمزة أ- همزة الاستفهام",
+        "ب- همزة النداء",
+        "إمّا (المكسورة الهمزة"
+      ],
+      "representative_excluded_headings": [
+        "الإهداء",
+        "مقدمة",
+        "الألف الفارقة"
+      ]
+    },
+    {
+      "title": "أصول النحو ١ - جامعة المدينة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: حكم معرفة اللغة والنحو والتصريف, التواترِ والآحاد والرُّواةِ",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 101,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "حكم معرفة اللغة والنحو والتصريف",
+        "التواترِ والآحاد والرُّواةِ"
+      ],
+      "representative_excluded_headings": [
+        "الدرس: 1 حد أصول النحو، وحد النحو، وحد اللغة",
+        "معنى أصول النحو",
+        "حدود النحو"
+      ]
+    },
+    {
+      "title": "أصول النحو ٢ - جامعة المدينة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الدرس: 1 نشأة العلة النحوية وذكر بعض الأمثلة لها, مفهوم العلة النحوية, نشأة العلة النحوية في القرنين الأول والثاني",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 94,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الدرس: 1 نشأة العلة النحوية وذكر بعض الأمثلة لها",
+        "مفهوم العلة النحوية",
+        "نشأة العلة النحوية في القرنين الأول والثاني"
+      ]
+    },
+    {
+      "title": "ألفية ابن مالك - ت القاسم",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "ألفية ابن مالك - ط التعاون",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "14 retained vs 62 topical exclusions; sample exclusions: مقدمة, الكلام وما يتألف منه, المعرب والمبني",
+      "retained_sarf_heading_count": 14,
+      "topical_excluded_count": 62,
+      "non_topical_excluded_count": 7,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "أبنية الفاعلين والمفعولين (والصفات المشبهات بها"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "مقدمة المؤلف",
+        "الكلام وما يتألف منه"
+      ]
+    },
+    {
+      "title": "أمالي ابن الحاجب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "35 retained vs 721 topical exclusions; sample exclusions: المقدمة, الفصل الأول: ابن الحاجب 570 هـ - 646 ه, عصره",
+      "retained_sarf_heading_count": 35,
+      "topical_excluded_count": 721,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "إملاء 58][ما يجري مجرى الصحيح في الوقف من الأسماء المعتلة",
+        "إملاء 59][حكم أفعل التفضيل إذا أضيف",
+        "إملاء 73][مسائل في الاستثناء"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "الفصل الأول: ابن الحاجب 570 هـ - 646 ه",
+        "عصره"
+      ]
+    },
+    {
+      "title": "أوضح المسالك إلى ألفية ابن مالك - ت هبود",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 61 topical exclusions; sample exclusions: المجلد الأول مقدمات, باب شرح الكلام, باب المعرب والمبني",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 61,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "الباب السابع: إعراب الفعل المضارع المعتل الآخر",
+        "باب إعمال المصدر واسم المصدر",
+        "باب أبنية مصادر الثلاثي"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول مقدمات",
+        "باب شرح الكلام",
+        "باب المعرب والمبني"
+      ]
+    },
+    {
+      "title": "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المصنِّف, مولده ونشأته, آثاره الإملائيَّة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 79,
+      "non_topical_excluded_count": 41,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِاسْمِكَ اللَّهُمَّ",
+        "المصنِّف",
+        "مولده ونشأته"
+      ]
+    },
+    {
+      "title": "إرشاد السالك إلى حل ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 88 topical exclusions; sample exclusions: المبحث الأول: نسبه، وكنيته ولقبه, المبحث الثاني: أسرته, المبحث الثالث: مولده",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 88,
+      "non_topical_excluded_count": 7,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "أبنية أسماء الفاعلين والصفات المشبهة بها"
+      ],
+      "representative_excluded_headings": [
+        "المبحث الأول: نسبه، وكنيته ولقبه",
+        "المبحث الثاني: أسرته",
+        "المبحث الثالث: مولده"
+      ]
+    },
+    {
+      "title": "إشكال صرفي وجوابه - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "إعراب لا إله إلا الله",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, إعراب لا إله إلا الله, نسخة الرسالة الخطية",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 4,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "إعراب لا إله إلا الله",
+        "دراسة للاسم الواقع بعد إلاّ في الشواهد اللغوية"
+      ]
+    },
+    {
+      "title": "إعراب لامية الشنفرى",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: قَالَ الشنفرى الْأَزْدِيّ, تمت القصيدة بشرحها",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "قَالَ الشنفرى الْأَزْدِيّ",
+        "تمت القصيدة بشرحها"
+      ]
+    },
+    {
+      "title": "إعراب ما يشكل من ألفاظ الحديث",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "39 retained vs 436 topical exclusions; sample exclusions: الْقسم الأول مسانيد الرِّجَال مرتبَة على الْحُرُوف الأبجدية, مُسْند أُسَامَة بن عُمَيْر الْهُذلِيّ مُسْند أبي رَافع مولى رَسُول الله \" واسْمه \" \" أسلم, مُسْند أسيد بن حضير مُسْند الْأَشْعَث بن قيس الْكِنْدِيّ",
+      "retained_sarf_heading_count": 39,
+      "topical_excluded_count": 436,
+      "non_topical_excluded_count": 72,
+      "representative_retained_headings": [
+        "وُقُوع الْمصدر المؤول بدل اشْتِمَال",
+        "تعدد الْخَبَر",
+        "حذف الظّرْف وَإِقَامَة الْمصدر مقَامه"
+      ],
+      "representative_excluded_headings": [
+        "الْقسم الأول مسانيد الرِّجَال مرتبَة على الْحُرُوف الأبجدية",
+        "بَاب الْألف مُسْند أبي بن كَعْب الْأنْصَارِيّ",
+        "مُسْند أُسَامَة بن زيد بن حَارِثَة مُسْند أُسَامَة بن شريك العامري"
+      ]
+    },
+    {
+      "title": "إيجاز التعريف في علم التصريف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "17 retained vs 37 topical exclusions; sample exclusions: مقدمة, الفصل الثاني: دراسة الكتاب, فصل: مقدمة الكتاب",
+      "retained_sarf_heading_count": 17,
+      "topical_excluded_count": 37,
+      "non_topical_excluded_count": 11,
+      "representative_retained_headings": [
+        "فصل: [أوزان الثلاثي المجرَّد من الأفعال",
+        "فصل [صوغ الفعل للمفعول",
+        "فصل[الميزان الصرفي"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "القسم الأول: الدراسة",
+        "الفصل الأول: دراسة المؤلف"
+      ]
+    },
+    {
+      "title": "إيناس الناس بتفاحة أبي جعفر النحاس",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المُقَدّمَة, بَابُ أَقْسَامِ العَرَبيَّةِ, بَابُ الإِعْرَابِ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 32,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المُقَدّمَة",
+        "بَابُ أَقْسَامِ العَرَبيَّةِ",
+        "بَابُ الإِعْرَابِ"
+      ]
+    },
+    {
+      "title": "اتحاف الفاضل بالفعل المبني لغير الفاعل",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: حرف الْهمزَة",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 28,
+      "representative_retained_headings": [
+        "حرف الْهمزَة"
+      ],
+      "representative_excluded_headings": [
+        "خطْبَة الْكتاب",
+        "مُقَدّمَة",
+        "حرف الْبَاء"
+      ]
+    },
+    {
+      "title": "اعتراض الشرط على الشرط",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: أَحدهَا, الثَّانِيَة, الثَّالِثَة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 9,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "أَحدهَا",
+        "الثَّانِيَة"
+      ]
+    },
+    {
+      "title": "اقتطاف الأزاهر والتقاط الجواهر",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: باب الهمزة, فصل الصحيح المتفق المعنى, فَصْلٌ فِي المُعْتَلِّ المُتَّفَقِ المَعْنَى",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 153,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "باب الهمزة",
+        "فصل الصحيح المتفق المعنى",
+        "فَصْلٌ فِي المُعْتَلِّ المُتَّفَقِ المَعْنَى"
+      ]
+    },
+    {
+      "title": "الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: باب الإعراب, باب معرفة علامات الإعراب, باب الأفعال",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 24,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مدخل",
+        "باب الإعراب",
+        "باب معرفة علامات الإعراب"
+      ]
+    },
+    {
+      "title": "الأصول في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "103 retained vs 254 topical exclusions; sample exclusions: المجلد الأول, مقدمة, ابن السراج",
+      "retained_sarf_heading_count": 103,
+      "topical_excluded_count": 254,
+      "non_topical_excluded_count": 54,
+      "representative_retained_headings": [
+        "مسائل من هذا الباب",
+        "مسائل من هذا الباب",
+        "شرح الثالث: وهو المصدر"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "ابن السراج"
+      ]
+    },
+    {
+      "title": "الأفعال - سعيد المعافري",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "64 retained vs 589 topical exclusions; sample exclusions: مقدمة بقلم الدكتور مهدى علام, ا, ب) السرقسطى، ومكانته العلمية، ومؤلفاته 1 - نسب أبى عثمان",
+      "retained_sarf_heading_count": 64,
+      "topical_excluded_count": 589,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "المعتل بالياء فى لامه أوى",
+        "المعتل بالواو فى لامه أخا",
+        "وبالياء أزى"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة بقلم الدكتور مهدى علام",
+        "ا",
+        "مقدمة التحقيق"
+      ]
+    },
+    {
+      "title": "الأفعال الناسخة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "11 retained vs 192 topical exclusions; sample exclusions: مصطلح الأفعال الناسخة, أولاً - معنى الفعل, ثانياً - النواسخ",
+      "retained_sarf_heading_count": 11,
+      "topical_excluded_count": 192,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "ثالثاً - معنى الناقص",
+        "ثانياً - كان وأخواتها من حيث التصريف أ - مالا يَتَصَرَّفُ",
+        "ب - ما يتصرف تصرفاً ناقصاً ج - ما يتصرف تصرفا تامَّا"
+      ],
+      "representative_excluded_headings": [
+        "مصطلح الأفعال الناسخة",
+        "أولاً - معنى الفعل",
+        "ثانياً - النواسخ"
+      ]
+    },
+    {
+      "title": "الألغاز النحوية = الطراز في الألغاز",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة الإمام السيوطى, اللغز النحوي قسمان قسم يطلب به تفسير المعنى وقسم يطلب به تفسير الإعراب, بعض ألغاز الحريري",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 20,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة الإمام السيوطى",
+        "اللغز النحوي قسمان قسم يطلب به تفسير المعنى وقسم يطلب به تفسير الإعراب",
+        "بعض ألغاز الحريري"
+      ]
+    },
+    {
+      "title": "الألفاظ المهموزة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: حرف الْألف حرف الْبَاء, حرف التَّاء حرف الثَّاء, حرف الْجِيم",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 24,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "حرف الْألف حرف الْبَاء",
+        "حرف التَّاء حرف الثَّاء",
+        "حرف الْجِيم"
+      ]
+    },
+    {
+      "title": "الأنشوطة في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: تَقْدِيم, تَمْهِيد, أَنْوَاعُ الكَلِمَةِ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 31,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "تَقْدِيم",
+        "تَمْهِيد",
+        "أَنْوَاعُ الكَلِمَةِ"
+      ]
+    },
+    {
+      "title": "الإعراب المفصل لكتاب الله المرتل",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: إعراب سورة الهمزة",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 117,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "إعراب سورة الهمزة"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "إعراب البسملة",
+        "إعراب سورة الفاتحة"
+      ]
+    },
+    {
+      "title": "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "11 retained vs 106 topical exclusions; sample exclusions: المجلد الأول, مقدمة, مسألة: [الاختلاف في أصل اشتقاق الاسم",
+      "retained_sarf_heading_count": 11,
+      "topical_excluded_count": 106,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "مسألة: [القول في تقديم معمول الفعل المقصور عليه",
+        "مسألة: [هل يجوز ترخيم الاسم الثلاثي",
+        "مسألة: [ترخيم الرباعي الذي ثالثه ساكن"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "مسألة: [الاختلاف في أصل اشتقاق الاسم"
+      ]
+    },
+    {
+      "title": "الإيضاح العضدي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: باب الصفة المشبهة باسم الفاعل, باب المصادر التي أعملت عمل الفعل, باب ما كان على وزن الفعل",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 72,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "باب الصفة المشبهة باسم الفاعل",
+        "باب المصادر التي أعملت عمل الفعل",
+        "باب ما كان على وزن الفعل"
+      ],
+      "representative_excluded_headings": [
+        "باب ما إذا إيتلف من هذه الكلم الثلاث كان كلاما مستقلا",
+        "باب (حد) الإعراب",
+        "باب البناء"
+      ]
+    },
+    {
+      "title": "الإيضاح في علل النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: باب القول في الفعل والمصدر. أيهما مأخوذ من صاحبه",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 24,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب القول في الفعل والمصدر. أيهما مأخوذ من صاحبه"
+      ],
+      "representative_excluded_headings": [
+        "باب أقسام الكلام",
+        "باب القول في اختلاف النحويين في تحديد الاسم والفعل والحرف",
+        "باب معرفة حد الاسم والفعل والحرف"
+      ]
+    },
+    {
+      "title": "الاقتراح في أصول النحو ط البيروتي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: المسألة الأولىفي أول من وضع النحو والتصريف",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 99,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "المسألة الأولىفي أول من وضع النحو والتصريف"
+      ],
+      "representative_excluded_headings": [
+        "الكلام في المقدمات",
+        "المسألة الأولى(في حد أصول النحو",
+        "المسألة الثانية(حدود النحو"
+      ]
+    },
+    {
+      "title": "الاقتراح في أصول النحو ط القلم",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المقدمات, السماع, الإجماع",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 7,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المقدمات",
+        "السماع",
+        "الإجماع"
+      ]
+    },
+    {
+      "title": "الانتخاب لكشف الأبيات المشكلة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: حرف الألف, حرف الباء, حرف التاء",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 28,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "حرف الألف",
+        "حرف الباء",
+        "حرف التاء"
+      ]
+    },
+    {
+      "title": "الانتصار لسيبويه على المبرد",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مسألة [1, مسألة [3, مسألة [4",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 48,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مسألة [1",
+        "مسألة [3",
+        "مسألة [4"
+      ]
+    },
+    {
+      "title": "البديع في علم العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "129 retained vs 647 topical exclusions; sample exclusions: القطب الأوّل: فيما الغالب على أبوابه معرفة الحركات والسّكون وهى عوارض الكلم, الباب الأول: من القطب الأوّل فى معرفة الألفاظ العامّة الأوائل, الفصل الأول: فى ماهيّة النحو",
+      "retained_sarf_heading_count": 129,
+      "topical_excluded_count": 647,
+      "non_topical_excluded_count": 36,
+      "representative_retained_headings": [
+        "المتعلّق الرّابع: اسم الفاعل",
+        "المتعلّق الخامس: حذف المبتدأ",
+        "الحكم التاسع: إذا اتبعت الضمائر المصدر وأضفته إليها"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة المؤلف",
+        "القطب الأوّل: فيما الغالب على أبوابه معرفة الحركات والسّكون وهى عوارض الكلم",
+        "الباب الأول: من القطب الأوّل فى معرفة الألفاظ العامّة الأوائل"
+      ]
+    },
+    {
+      "title": "البرعومة في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: تَمْهِيد, أَنْوَاعُ الكَلِمَةِ, الإِعْرَابُ وَالبِنَاءُ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 27,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "تَمْهِيد",
+        "أَنْوَاعُ الكَلِمَةِ",
+        "الإِعْرَابُ وَالبِنَاءُ"
+      ]
+    },
+    {
+      "title": "البلغة في الفرق بين المذكر والمؤنث",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بِسم الله الرَّحْمَن الرَّحِيم, اللهمَّ اجْعَلْهَا",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "اللهمَّ اجْعَلْهَا"
+      ]
+    },
+    {
+      "title": "البهجة الوفية بحجة الخلاصة الألفية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "20 retained vs 114 topical exclusions; sample exclusions: الإهداء, شكر وعرفان وتقدير, تصدير",
+      "retained_sarf_heading_count": 20,
+      "topical_excluded_count": 114,
+      "non_topical_excluded_count": 11,
+      "representative_retained_headings": [
+        "بَابٌ يُذْكَرُ فِيهِ إِعْمَالُ المَصْدَر",
+        "بَابٌ يُذْكَرُ فِيهِ إِعْمَالُ اسْمِ الفَاعِل",
+        "بَابٌ يُبَيَّنُ فِيهِ أَبْنِيَةُ المَصَادِر"
+      ],
+      "representative_excluded_headings": [
+        "الإهداء",
+        "شكر وعرفان وتقدير",
+        "تصدير"
+      ]
+    },
+    {
+      "title": "التبيان في قواعد النحو وتقويم اللسان",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "التحفة الوسيمة شرح على الدرة اليتيمة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: باب إعراب الاسم المفرد وجمع التكسير",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 16,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب إعراب الاسم المفرد وجمع التكسير"
+      ],
+      "representative_excluded_headings": [
+        "باب حد الكلام والكلمة وأقسامها",
+        "باب أقسام الإعراب",
+        "باب الأسماء الخمسة"
+      ]
+    },
+    {
+      "title": "التخمير شرح المفصل في صنعة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "التذييل والتكميل في شرح كتاب التسهيل",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: باب إعراب الصحيح الآخر, باب إعراب المعتل الآخر, باب الصفة المشبهة باسم الفاعل",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 37,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب إعراب الصحيح الآخر",
+        "باب إعراب المعتل الآخر",
+        "باب الصفة المشبهة باسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الشارح",
+        "باب شرح الكلمة والكلام وما يتعلق به",
+        "باب إعراب المثنى والمجموع على حده"
+      ]
+    },
+    {
+      "title": "التطبيق النحوي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المقدمات بين يدي هذا الكتاب, مقدمة الطبعة الأولى, الباب الأول: الكلمة تحديد نوع الكلمة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 40,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المقدمات بين يدي هذا الكتاب",
+        "مقدمة الطبعة الأولى",
+        "الباب الأول: الكلمة تحديد نوع الكلمة"
+      ]
+    },
+    {
+      "title": "التعجب من فعل المفعول بين المانعين والمجيزين",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: التعجب من فعل المفعول بين المانعين والمجيزين, مصادر ومراجع",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "التعجب من فعل المفعول بين المانعين والمجيزين",
+        "مصادر ومراجع"
+      ]
+    },
+    {
+      "title": "التكملة للفارسي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "الجمل في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: وَالنّصب من المصادر الَّتِي جعلوها بَدَلا من اللَّفْظ الدَّاخِل على الْخَبَر والاستفهام, وُجُوه الرّفْع, وَأما ألف الْإِلْحَاق",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 225,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "وَالنّصب من المصادر الَّتِي جعلوها بَدَلا من اللَّفْظ الدَّاخِل على الْخَبَر والاستفهام",
+        "وُجُوه الرّفْع",
+        "وَأما ألف الْإِلْحَاق"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "وُجُوه النصب",
+        "فالنصب من مفعول بِهِ"
+      ]
+    },
+    {
+      "title": "الجنى الداني في حروف المعاني",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "21 retained vs 95 topical exclusions; sample exclusions: مقدمة, الفصل الأولفي حد الحرف, الفصل الثانيفي تسميته حرفاً",
+      "retained_sarf_heading_count": 21,
+      "topical_excluded_count": 95,
+      "non_topical_excluded_count": 25,
+      "representative_retained_headings": [
+        "الباب الأولفي الأحادي الهمزة",
+        "التاء",
+        "إن المكسورة الهمزة"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "الفصل الأولفي حد الحرف",
+        "الفصل الثانيفي تسميته حرفاً"
+      ]
+    },
+    {
+      "title": "الحدود في علم النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, ترجمة الأبذي, صفاته",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 10,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "ترجمة الأبذي",
+        "تلاميذه"
+      ]
+    },
+    {
+      "title": "الحلل في شرح أبيات الجمل",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: قال أبو محمد عبد الله بن محمد بن السيد البطليوسي رحمه الله, أنشد أبو القاسم رحمه الله, وهذا ما وجد من شرح أبيات الجمل",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيم",
+        "قال أبو محمد عبد الله بن محمد بن السيد البطليوسي رحمه الله",
+        "أنشد أبو القاسم رحمه الله"
+      ]
+    },
+    {
+      "title": "الخصائص",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: باب في الاشتقاق الأكبر, باب في الإدغام الأصغر",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 117,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "باب في الاشتقاق الأكبر",
+        "باب في الإدغام الأصغر"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الاول المقدمة",
+        "هذا باب القول على الفصل بين الكلام والقول",
+        "باب القول على اللغة وما هي"
+      ]
+    },
+    {
+      "title": "الدرة البهية نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: بَابُ المَصْدَرِ*****",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 32,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "بَابُ المَصْدَرِ*****"
+      ],
+      "representative_excluded_headings": [
+        "نظم الأجرّومية",
+        "باب الكلام*****",
+        "بَابُ الإعْرَابِ*****"
+      ]
+    },
+    {
+      "title": "الرابط وأثره في التراكيب في العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: معمول الصفة المشبهة, ثانيا: الربط بالاسم الظاهر الجملة الخبرية",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 27,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "معمول الصفة المشبهة",
+        "ثانيا: الربط بالاسم الظاهر الجملة الخبرية"
+      ],
+      "representative_excluded_headings": [
+        "مدخل",
+        "أولا: الرابط بالضمير الجملة الخبرية",
+        "جملة الصلة"
+      ]
+    },
+    {
+      "title": "الرد على النحاة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "الشرح المختصر على نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: عناصر الدرس, عناصر الدرس, عناصر الدرس",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 12,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "عناصر الدرس",
+        "عناصر الدرس",
+        "عناصر الدرس"
+      ]
+    },
+    {
+      "title": "الشرح المختصر على نظم المقصود",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: عناصر الدرس, 1, عناصر الدرس",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 11,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "عناصر الدرس",
+        "1",
+        "عناصر الدرس"
+      ]
+    },
+    {
+      "title": "الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 40 topical exclusions; sample exclusions: مقدمة, تمهيد طبيعة الشعر وعلاقته بالضرورة, التأليف في الضرائر",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 40,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "تقديم معمول المصدر على المصدر",
+        "الإخبار عن المصدر قبل تمام عمله",
+        "تقديم \"مِنْ\" ومجرورها على أفعل التفضيل"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "تمهيد طبيعة الشعر وعلاقته بالضرورة",
+        "التأليف في الضرائر"
+      ]
+    },
+    {
+      "title": "العدة في إعراب العمدة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: ترجمة ابن فرحون اسمه ونسبه, ولادته, نشأته وتعلّمه",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 398,
+      "non_topical_excluded_count": 33,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة التحقيق",
+        "ترجمة ابن فرحون اسمه ونسبه",
+        "ولادته"
+      ]
+    },
+    {
+      "title": "العدد في اللغة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: يرفلن فِي ملاحف جِيَاد, ذكر العشير وَمَا جَاءَ على وَزنه من أَسمَاء الكسور, وَمن الْأَسْمَاء الْوَاقِعَة على الْأَعْدَاد",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 4,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "يرفلن فِي ملاحف جِيَاد",
+        "ذكر العشير وَمَا جَاءَ على وَزنه من أَسمَاء الكسور",
+        "وَمن الْأَسْمَاء الْوَاقِعَة على الْأَعْدَاد"
+      ]
+    },
+    {
+      "title": "العمدة في إعراب البردة قصيدة البوصيري",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: تقديم, المقدمة, المخطوط",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 18,
+      "non_topical_excluded_count": 10,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "تقديم",
+        "المقدمة",
+        "المخطوط"
+      ]
+    },
+    {
+      "title": "الفصول المفيدة في الواو المزيدة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: فصل أَقسَام الْوَاو, فصل الْوَاو المزيدة فِي بِنَاء الْكَلِمَة لَا تزاد أَولا, فصل مَتى تكون الْوَاو أَصْلِيَّة وَمَتى تكون زَائِدَة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 56,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم صلى الله عليه وسلم وَآله وَصَحبه وَسلم تَسْلِيمًا",
+        "فصل أَقسَام الْوَاو",
+        "فصل الْوَاو المزيدة فِي بِنَاء الْكَلِمَة لَا تزاد أَولا"
+      ]
+    },
+    {
+      "title": "الفعلان - المطبوع خطأ باسم «نقعة الصديان»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بِسم الله الرَّحْمَن الرَّحِيم",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم"
+      ]
+    },
+    {
+      "title": "الفوائد العجيبة في إعراب الكلمات الغربية - ط إسطنبول",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: منها قولهم: هَلُمَّ جَرّا, ومنها قولهم: ومِنْ ثَمَّ, ومنها قولهم: أَيْضاً",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 23,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسْمِ اللهِ الرَّحمن الرَّحِيم",
+        "منها قولهم: هَلُمَّ جَرّا",
+        "ومنها قولهم: ومِنْ ثَمَّ"
+      ]
+    },
+    {
+      "title": "القطارة النحوية على المقدمة الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: بَابُ المَصْدَرِ",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 27,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "بَابُ المَصْدَرِ"
+      ],
+      "representative_excluded_headings": [
+        "تَوْطِئَة",
+        "أَنْوَاعُ الكَلَامِ",
+        "بَابُ الإِعْرَابِ"
+      ]
+    },
+    {
+      "title": "القواعد التطبيقية في اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "54 retained vs 363 topical exclusions; sample exclusions: مقدّمة, الضّمائر القسم الأول: الضمائر المنفصلة وهي نوعان, أ- ضمائر واقعة في محل رفع ب- ضمائر واقعة في محل نصب",
+      "retained_sarf_heading_count": 54,
+      "topical_excluded_count": 363,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الاسم المقصور",
+        "الاسم المنقوص",
+        "الفعل الماضي المعتل الآخر"
+      ],
+      "representative_excluded_headings": [
+        "مقدّمة",
+        "الضّمائر القسم الأول: الضمائر المنفصلة وهي نوعان",
+        "أ- ضمائر واقعة في محل رفع ب- ضمائر واقعة في محل نصب"
+      ]
+    },
+    {
+      "title": "الكافية في علم النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "10 retained vs 90 topical exclusions; sample exclusions: مقدّمة المحقّق ابن الحاجب, مؤلّفاته, الكافية",
+      "retained_sarf_heading_count": 10,
+      "topical_excluded_count": 90,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "جمع التكسير",
+        "المصدر",
+        "اسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "مقدّمة المحقّق ابن الحاجب",
+        "شيوخه تلاميذه",
+        "مؤلّفاته"
+      ]
+    },
+    {
+      "title": "الكتاب لسيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "51 retained vs 469 topical exclusions; sample exclusions: هذا باب علم الكَلِمُ من العربية, هذا باب مجارى أواخر الكلم من العربية, هذا باب المسند والمسند إليه",
+      "retained_sarf_heading_count": 51,
+      "topical_excluded_count": 469,
+      "non_topical_excluded_count": 12,
+      "representative_retained_headings": [
+        "هذا باب من اسم الفاعل \" الذى \" جَرَى مَجرى الفِعل المضارعِ",
+        "بابٌ من المصادر جَرَى مَجرى الفعل المضارِع فى عمله ومعناه",
+        "باب الصفة المشبَّهة بالفاعل فيما عَمِلتْ فيه"
+      ],
+      "representative_excluded_headings": [
+        "الجزء الأول بسم الله الرحمن الرحيم",
+        "وبه نستعين وصلى الله على محمد وعلى آله وسلم",
+        "هذا باب علم الكَلِمُ من العربية"
+      ]
+    },
+    {
+      "title": "الكشف عن صاحب البسيط في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الكتب المصنفة في النحو بعنوان \"البسيط, أوهام المحققين المعاصرين في نسبة \"البسيط \" إلى ركن الدين الاستراباذي, صاحب \"البسيط\" في النحو",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 9,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مدخل",
+        "الكتب المصنفة في النحو بعنوان \"البسيط",
+        "أوهام المحققين المعاصرين في نسبة \"البسيط \" إلى ركن الدين الاستراباذي"
+      ]
+    },
+    {
+      "title": "الكلام على تصريف «ذو» - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "الكناش في فني النحو والصرف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "84 retained vs 446 topical exclusions; sample exclusions: القسم الأول, الفصل الأول اسمه وأسرته وإمارته على مدينة حماة, الفصل الثاني حياته العلمية وتكوينه الثقافي",
+      "retained_sarf_heading_count": 84,
+      "topical_excluded_count": 446,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "ذكر إعراب جمع المؤنّث الصحيح",
+        "ذكر وزن الفعل",
+        "ذكر إضافة الاسم الصحيح والملحق به"
+      ],
+      "representative_excluded_headings": [
+        "الدراسة",
+        "القسم الأول",
+        "الفصل الأول اسمه وأسرته وإمارته على مدينة حماة"
+      ]
+    },
+    {
+      "title": "الكوكب المنير في شرح الألفية بالتشطير",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "15 retained vs 78 topical exclusions; sample exclusions: ترجمة المصنف اسمه ومولده, أخلاقه, علمه وعبارات العلماء فيه",
+      "retained_sarf_heading_count": 15,
+      "topical_excluded_count": 78,
+      "non_topical_excluded_count": 4,
+      "representative_retained_headings": [
+        "إِعْمَالُ اسْمِ الفَاعِلِ",
+        "أَبْنِيَةُ المَصَادِرِ",
+        "أَبْنِيَةُ أَسْمَاءِ الفَاعِلِينَ وَالصِّفَاتِ المُشَبَّهَةِ بِهَا"
+      ],
+      "representative_excluded_headings": [
+        "ترجمة المصنف اسمه ومولده",
+        "أخلاقه",
+        "علمه وعبارات العلماء فيه"
+      ]
+    },
+    {
+      "title": "اللؤلؤ المنظوم في نظم منثور ابن آجروم",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "اللامات",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: باب أحكام اللامات في الإدغام",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 26,
+      "non_topical_excluded_count": 12,
+      "representative_retained_headings": [
+        "باب أحكام اللامات في الإدغام"
+      ],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيم",
+        "باب ذكر اللام الأصلية",
+        "لام التعريف"
+      ]
+    },
+    {
+      "title": "اللباب في علل البناء والإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: فِي إِبْدَال الهمزةِ, إبدالُها من الْألف",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 150,
+      "non_topical_excluded_count": 577,
+      "representative_retained_headings": [
+        "فِي إِبْدَال الهمزةِ",
+        "إبدالُها من الْألف"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "فصل",
+        "فصل"
+      ]
+    },
+    {
+      "title": "اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "31 retained vs 233 topical exclusions; sample exclusions: المقدمة, القسم الأولالنحو والصرف تعريف وتمهيد, الكلام على الفِعْلِ",
+      "retained_sarf_heading_count": 31,
+      "topical_excluded_count": 233,
+      "non_topical_excluded_count": 23,
+      "representative_retained_headings": [
+        "الباب الثانيفي المجَرَّدِ والمزيدِ",
+        "الُمجردُ",
+        "أمثلة"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "القسم الأولالنحو والصرف تعريف وتمهيد",
+        "الكلام على الفِعْلِ"
+      ]
+    },
+    {
+      "title": "اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: المصدر وعمله, اسم الفاعل, التنازع في العمل",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 38,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "المصدر وعمله",
+        "اسم الفاعل",
+        "التنازع في العمل"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة تعريف النحو",
+        "تعريف الإعراب",
+        "تعريف البناء"
+      ]
+    },
+    {
+      "title": "اللمحة في شرح الملحة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 70 topical exclusions; sample exclusions: المجلد الأول, مقدمة, الفصل الأول: الصايغ",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 70,
+      "non_topical_excluded_count": 4,
+      "representative_retained_headings": [
+        "بَابُ الاِسْمِ الْمَنْقُوصِ",
+        "بَابُ الاِسْمِ الْمَقْصُورِ",
+        "بَابُ جَمْعِ التَّكْسِيْرِ"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "القسم الأول: قسم الدراسة التمهيد"
+      ]
+    },
+    {
+      "title": "اللمع في العربية لابن جني",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "46 retained vs 198 topical exclusions; sample exclusions: أضْرب الْكَلَام, المعرب, الْإِعْرَاب الْبناء",
+      "retained_sarf_heading_count": 46,
+      "topical_excluded_count": 198,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "الْوَقْف على الصَّحِيح",
+        "إِعْرَاب الِاسْم المعتل الْأَسْمَاء المعتلة",
+        "المنقوص"
+      ],
+      "representative_excluded_headings": [
+        "أضْرب الْكَلَام",
+        "المعرب",
+        "الْإِعْرَاب الْبناء"
+      ]
+    },
+    {
+      "title": "المدارس النحوية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: إقامته صرح النحو والتصريف, العوامل والمعمولات",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 44,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "إقامته صرح النحو والتصريف",
+        "العوامل والمعمولات"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "القسم الأول: المدرسة البصرية",
+        "الفصل الأول: البصرة واضعة النحو أسباب وضع النحو"
+      ]
+    },
+    {
+      "title": "المرتجل في شرح الجمل لابن الخشاب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: الصفات المشبهة بأسماء الفاعلين, المصادر المعملة عمل الأفعال, ألفاظ سميت بها الأفعال",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 39,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "الصفات المشبهة بأسماء الفاعلين",
+        "المصادر المعملة عمل الأفعال",
+        "ألفاظ سميت بها الأفعال"
+      ],
+      "representative_excluded_headings": [
+        "اعلم أن الكلمات ثلاث",
+        "فصل في حد الفعل",
+        "فصل في تعريف الحرف"
+      ]
+    },
+    {
+      "title": "المسائل البصريات",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مسألة 1, مسألة 2, مسألة 3",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 179,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مسألة 1",
+        "مسألة 2",
+        "مسألة 3"
+      ]
+    },
+    {
+      "title": "المسائل الحلبيات",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 71 topical exclusions; sample exclusions: مسألة القول في حروف \"يدٍ\" وما تصرّف منها, القول على قوله تعالى (في سبيل الله, مسألة القول في \"الدّاء\" و \"الدّواء",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 71,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "اسم الفاعل من \"أرى",
+        "بابذكر أبنية الأفعال",
+        "باب أبنية الأفعال الثلاثية الصحيحة التي لا زيادة فيها"
+      ],
+      "representative_excluded_headings": [
+        "مسألة القول في حروف \"يدٍ\" وما تصرّف منها",
+        "القول على قوله تعالى (في سبيل الله",
+        "مسألة القول في \"الدّاء\" و \"الدّواء"
+      ]
+    },
+    {
+      "title": "المسائل السفرية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: سَأَلَني بعض الإخوان وَأَنا على جنَاح السّفر",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "سَأَلَني بعض الإخوان وَأَنا على جنَاح السّفر"
+      ]
+    },
+    {
+      "title": "المسائل العسكريات في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: هذا باب علم (ما) الكلم من العربية, هذا باب ما ائتلف من هذه الألفاظ الثلاثة, هذا باب معرفة ما كان شاذًا من كلامهم",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 4,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "هذا باب علم (ما) الكلم من العربية",
+        "هذا باب ما ائتلف من هذه الألفاظ الثلاثة",
+        "هذا باب معرفة ما كان شاذًا من كلامهم"
+      ]
+    },
+    {
+      "title": "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 113 topical exclusions; sample exclusions: مقدمة, أولًا- التعريفُ بالموضوع, ثانيًا- أهميةُ الموضوع وأسبابُ اختياره",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 113,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "ثانيًا: كتابُ (التوضيح لشرح الجامع الصحيح)المحتوى والقيمة",
+        "ثالثًا: الحديثُ النبوي وأثرُه في التقعيد النحوي",
+        "مسألةما جاء على وزن (فَعَالِ) بين الإعراب والبناء"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "أولًا- التعريفُ بالموضوع",
+        "ثانيًا- أهميةُ الموضوع وأسبابُ اختياره"
+      ]
+    },
+    {
+      "title": "المساعد على تسهيل الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "18 retained vs 62 topical exclusions; sample exclusions: 1 - باب شرح الكلمة والكلام وما يتعلق به, 5 - باب كيفية التثنية وجمعي التصحيح, 6 - باب المعرفة والنكرة",
+      "retained_sarf_heading_count": 18,
+      "topical_excluded_count": 62,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "2 - باب إعراب الصحيح الآخر",
+        "3 - باب إعراب المعتل الآخر",
+        "4 - باب إعراب المثنى والمجموع على حده"
+      ],
+      "representative_excluded_headings": [
+        "1 - باب شرح الكلمة والكلام وما يتعلق به",
+        "5 - باب كيفية التثنية وجمعي التصحيح",
+        "6 - باب المعرفة والنكرة"
+      ]
+    },
+    {
+      "title": "المصباح لما أعتم من شواهد الإيضاح",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "المغني في تصريف الأفعال",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المقدمات, مقدمة الطبعة الثالثة, مقدمة الطبعة الأولى",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 9,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المقدمات",
+        "مقدمة الطبعة الثالثة",
+        "مقدمة الطبعة الأولى"
+      ]
+    },
+    {
+      "title": "المفتاح في الصرف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 13 topical exclusions; sample exclusions: أولًا: المؤلف, ثانياً: الكتاب, ثالثاً: معالم التحقيق",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 13,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "التصريف",
+        "أبْنِيَةُ الأسْمَاء",
+        "أبْنِيَةُ الأفْعَال"
+      ],
+      "representative_excluded_headings": [
+        "القسم الأول الدراسة",
+        "أولًا: المؤلف",
+        "ثانياً: الكتاب"
+      ]
+    },
+    {
+      "title": "المفصل في صنعة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "84 retained vs 476 topical exclusions; sample exclusions: القسم الأول:الأسماء, اسم الجنس واسم العلم معنى الكلمة والكلام, أنواع العلم",
+      "retained_sarf_heading_count": 84,
+      "topical_excluded_count": 476,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "أوزان بعض الأعلام",
+        "العلم اسم شائع",
+        "الوصف بالمصدر"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة المؤلف",
+        "القسم الأول:الأسماء",
+        "اسم الجنس واسم العلم معنى الكلمة والكلام"
+      ]
+    },
+    {
+      "title": "المقتضب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "38 retained vs 291 topical exclusions; sample exclusions: هَذَا تَفْسِير وُجُوه الْعَرَبيَّة \\ وإعراب الْأَسْمَاء وَالْأَفْعَال, هَذَا بَاب الْفَاعِل, هَذَا بَاب حُرُوف الْعَطف بمعانيها",
+      "retained_sarf_heading_count": 38,
+      "topical_excluded_count": 291,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "وَهَذِه حُدُود التصريف وَمَعْرِفَة أَقسامه",
+        "هَذَا بَاب مَا كَانَ من الْجمع على وزن فُعَّل وفُعّال مِمَّا اعتلت عينه",
+        "هَذَا بَاب بِنَاء الْأَسْمَاء على هَذِه الْأَفْعَال الْمَزِيد فِيهَا وَغير الْمَزِيد فِيهَا وَذكر مصادرها وأَزمنتها ومواضعها"
+      ],
+      "representative_excluded_headings": [
+        "هَذَا تَفْسِير وُجُوه الْعَرَبيَّة \\ وإعراب الْأَسْمَاء وَالْأَفْعَال",
+        "هَذَا بَاب الْفَاعِل",
+        "هَذَا بَاب حُرُوف الْعَطف بمعانيها"
+      ]
+    },
+    {
+      "title": "المقدمة الجزولية في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "11 retained vs 72 topical exclusions; sample exclusions: الجزولية, الكلام, باب الإعراب",
+      "retained_sarf_heading_count": 11,
+      "topical_excluded_count": 72,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "باب (اسم الفاعل المصوغ من العدد",
+        "باب (التصغير",
+        "باب (النسب"
+      ],
+      "representative_excluded_headings": [
+        "الجزولية",
+        "الكلام",
+        "باب الإعراب"
+      ]
+    },
+    {
+      "title": "المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: باب ما تجعله زائدا من حروف الزيادة, باب ما قِيسَ من الصحيح على ما جاء من الصحيح من كلام العرب",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 8,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "باب ما تجعله زائدا من حروف الزيادة",
+        "باب ما قِيسَ من الصحيح على ما جاء من الصحيح من كلام العرب"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "المقدمة"
+      ]
+    },
+    {
+      "title": "المنصوب على التقريب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, الفصل الأول: التقريب عند الكوفيين, المبحث الأول: تعريفه",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 23,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "الفصل الأول: التقريب عند الكوفيين",
+        "المبحث الأول: تعريفه"
+      ]
+    },
+    {
+      "title": "المنصوب على نزع الخافض في القرآن",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, مدخل تعدي الفعل ولزومه, علامات تعدّي الفعل ولزومه",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 19,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "مدخل تعدي الفعل ولزومه",
+        "علامات تعدّي الفعل ولزومه"
+      ]
+    },
+    {
+      "title": "المنهاج المختصر في علمي النحو والصرف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "39 retained vs 168 topical exclusions; sample exclusions: مبدأ وضع علم العربية, هذا المختصر, علم النحو والصرف تعريف علم النحو",
+      "retained_sarf_heading_count": 39,
+      "topical_excluded_count": 168,
+      "non_topical_excluded_count": 15,
+      "representative_retained_headings": [
+        "7 - الفعل المضارع المعتل الآخر تعريفه",
+        "نائب المصدر",
+        "حذف العامل"
+      ],
+      "representative_excluded_headings": [
+        "مبدأ وضع علم العربية",
+        "هذا المختصر",
+        "علم النحو والصرف تعريف علم النحو"
+      ]
+    },
+    {
+      "title": "المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مُقَدِّمَةُ, الفصل الأول: المُصَنِّف, المبحث الأول: اسمه ونسبه ومولده ووفاته",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 8,
+      "non_topical_excluded_count": 35,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مُقَدِّمَةُ",
+        "القسم الأول: الدراسة",
+        "الفصل الأول: المُصَنِّف"
+      ]
+    },
+    {
+      "title": "النحو المصفى - الكتاب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 71 topical exclusions; sample exclusions: تمهيد لدراسة الجملتين الأسمية والفعلية الكلمة والكلام, الإعراب, جمع المذكر السالم",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 71,
+      "non_topical_excluded_count": 8,
+      "representative_retained_headings": [
+        "المضارع المعتل الآخر",
+        "الإعراب الظاهر والمقدر",
+        "اسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "تمهيد لدراسة الجملتين الأسمية والفعلية الكلمة والكلام",
+        "الإعراب",
+        "مدخل"
+      ]
+    },
+    {
+      "title": "النحو الواضح في قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "38 retained vs 163 topical exclusions; sample exclusions: المجلد الأول فهارس, المقدمات, مقدمة الناشر",
+      "retained_sarf_heading_count": 38,
+      "topical_excluded_count": 163,
+      "non_topical_excluded_count": 11,
+      "representative_retained_headings": [
+        "الفصل المضارعُ المعتل الآخر وأحوال إعرابه",
+        "الاسمُ المعتلُ الآخرِ المقصور وأَحوال إِعرابه",
+        "نصبُ المضارع بأَن المضمرة بعد لام التَّعْلِيل"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول فهارس",
+        "فهرس: الجزء الأول",
+        "فهرس: الجزء الثاني"
+      ]
+    },
+    {
+      "title": "النحو الوافي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "17 retained vs 150 topical exclusions; sample exclusions: المجلد الأول, مقدمة, الكلام وما يتألف منه",
+      "retained_sarf_heading_count": 17,
+      "topical_excluded_count": 150,
+      "non_topical_excluded_count": 19,
+      "representative_retained_headings": [
+        "المسألة الخامسة عشرة: المضارع المعتل الآخر",
+        "المسألة السادسة عشرة: الاسم المعرب المعتل الآخر",
+        "النكرة والمعرفة"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "الكلام وما يتألف منه"
+      ]
+    },
+    {
+      "title": "الورقة النحوية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "الوفية باختصار الألفية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "14 retained vs 73 topical exclusions; sample exclusions: مقدمة الناشر, ترجمة الإمام ابن مالك, مكانته",
+      "retained_sarf_heading_count": 14,
+      "topical_excluded_count": 73,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "إِعْمَالُ اسْمِ الفَاعِلِ",
+        "أَبْنِيَةُ المَصَادِرِ",
+        "أَبْنِيَةُ أَسْمَاءِ الفَاعِلِينَ وَالصِّفَاتِ المُشَبَّهَةِ بِهَا"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الناشر",
+        "ترجمة الإمام ابن مالك",
+        "مكانته"
+      ]
+    },
+    {
+      "title": "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: أفعال ينطقها العامة بالهمزة والفصيح بدونه",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 17,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "أفعال ينطقها العامة بالهمزة والفصيح بدونه"
+      ],
+      "representative_excluded_headings": [
+        "آراء العلماء في فعل وأفعل بمعنى واحد",
+        "رأي ابن قتيبة",
+        "مقدمة"
+      ]
+    },
+    {
+      "title": "تثقيف اللسان وتلقيح الجنان",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: باب غلطهم في التصغير, باب غلطهم في النسب",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 48,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب غلطهم في التصغير",
+        "باب غلطهم في النسب"
+      ],
+      "representative_excluded_headings": [
+        "باب التصحيف",
+        "باب التبديل",
+        "باب ما غيروه من الأسماء بالزيادة"
+      ]
+    },
+    {
+      "title": "تخليص الشواهد وتلخيص الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 150 topical exclusions; sample exclusions: شواهد باب الكلام وما يتألف منه, مسألة [1]قد يقصد بالكلمة الكلام, مسألة [2]/6/ تسميتهم الكلام كلمة مجاز من باب تسمية الشيء باسم بعضه كتسمية القصيدة قافية",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 150,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "مسألة [27]دخول حرف التنبية على المجرد من الكاف كثير",
+        "مسألة [29]يقال: هُنا بوزن هُدى: للقريب، فإذا زدت الكاف صار للبعيد",
+        "شواهد باب الموصول"
+      ],
+      "representative_excluded_headings": [
+        "شواهد باب الكلام وما يتألف منه",
+        "مسألة [1]قد يقصد بالكلمة الكلام",
+        "مسألة [2]/6/ تسميتهم الكلام كلمة مجاز من باب تسمية الشيء باسم بعضه كتسمية القصيدة قافية"
+      ]
+    },
+    {
+      "title": "تداخل الأصول اللغوية وأثره في بناء المعجم",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 47 topical exclusions; sample exclusions: المجلد الأول, مقدمة, التمهيد",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 47,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "المَبْحَثُ الثَّانِي: الإِلْحَاقُ",
+        "الباب الثاني: التداخل في البناء الواحد (الثلاثي، الرباعي، الخماسي",
+        "الفصل الأول: التداخل في الثلاثي"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "التمهيد"
+      ]
+    },
+    {
+      "title": "تسهيل الفوائد وتكميل المقاصد",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "10 retained vs 67 topical exclusions; sample exclusions: بابشرح الكلمة والكلام وما يتعلق به, باباعراب المثنى والمجموع على حده, بابكيفية التثنية وجمعي التصحيح",
+      "retained_sarf_heading_count": 10,
+      "topical_excluded_count": 67,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باباعراب الصحيح الاخر",
+        "باباعراب المعتل الاخر",
+        "بابالصفة المشبهة باسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "بابشرح الكلمة والكلام وما يتعلق به",
+        "باباعراب المثنى والمجموع على حده",
+        "بابكيفية التثنية وجمعي التصحيح"
+      ]
+    },
+    {
+      "title": "تعجيل الندى بشرح قطر الندى",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 34 topical exclusions; sample exclusions: مقدمة الطبعة الثانية, الكلمة وأقسامها, أنواع الإعراب وعلاماته",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 34,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "2- المصدر",
+        "3- اسم الفاعل",
+        "4- أمثلة المبالغة"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الطبعة الثانية",
+        "الكلمة وأقسامها",
+        "أنواع الإعراب وعلاماته"
+      ]
+    },
+    {
+      "title": "تمهيد القواعد بشرح تسهيل الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "166 retained vs 730 topical exclusions; sample exclusions: مقدمة, وأما القسم الثاني وهو \"التحقيق\" فقد سرنا فيه وفق الخطوات التالية, تمهيد العصر الثقافي أو الحياة العلمية في عصر ناظر الجيش",
+      "retained_sarf_heading_count": 166,
+      "topical_excluded_count": 730,
+      "non_topical_excluded_count": 6,
+      "representative_retained_headings": [
+        "الباب الثاني باب إعراب الصّحيح الآخر تعريف الإعراب",
+        "الإعراب أصل في الأسماء فرع في الأفعال",
+        "إعراب الأمثلة الخمسة عند الرفع"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "أما قسم الدراسة فقد جعلناه في: تمهيد وعشرة فصول",
+        "وأما القسم الثاني وهو \"التحقيق\" فقد سرنا فيه وفق الخطوات التالية"
+      ]
+    },
+    {
+      "title": "توجيه اللمع",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: باب: (إعراب الاسم المعتل, باب: (جمع التكسير, باب: (النسب",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 68,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب: (إعراب الاسم المعتل",
+        "باب: (جمع التكسير",
+        "باب: (النسب"
+      ],
+      "representative_excluded_headings": [
+        "الفصل الأول: ابن جني وكتابه \"اللمع",
+        "الفصل الثاني: ابن الخباز عصره ونشأته",
+        "الفصل الثالث: كتاب \"توجيه اللمع\" ومنهج ابن الخباز فيه"
+      ]
+    },
+    {
+      "title": "توضيح المقاصد والمسالك بشرح ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "22 retained vs 70 topical exclusions; sample exclusions: مقدمة, الباب الأول: التعريف بالمرادي المعروف بابن أم قاسم, القسم الثاني: تحقيق شرح ألفية ابن مالك للمرادي",
+      "retained_sarf_heading_count": 22,
+      "topical_excluded_count": 70,
+      "non_topical_excluded_count": 15,
+      "representative_retained_headings": [
+        "الجزء الثالث إعمال المصدر",
+        "إعمال اسم الفاعل",
+        "أبنية المصادر"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "القسم الأول: الدراسة",
+        "الباب الأول: التعريف بالمرادي المعروف بابن أم قاسم"
+      ]
+    },
+    {
+      "title": "حاشية الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: ترجمة مؤلف المتن, بَابُ: الإِعرَابِ, بابُ: مَعْرِفَةِ عَلَامَاتِ الإِِعْرَابِ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 4,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "ترجمة مؤلف المتن",
+        "بَابُ: الإِعرَابِ",
+        "بابُ: مَعْرِفَةِ عَلَامَاتِ الإِِعْرَابِ"
+      ]
+    },
+    {
+      "title": "حاشية الصبان على شرح الأشمونى لألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 55 topical exclusions; sample exclusions: المجلد الأول المقدمات, ترجمة الصبان, ترجمة الأشموني",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 55,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "الفهرس"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول المقدمات",
+        "ترجمة الصبان",
+        "ترجمة الأشموني"
+      ]
+    },
+    {
+      "title": "حاشيتان لابن هشام على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "14 retained vs 82 topical exclusions; sample exclusions: مستخلص الرسالة, أقسام البحث, المقدمة",
+      "retained_sarf_heading_count": 14,
+      "topical_excluded_count": 82,
+      "non_topical_excluded_count": 8,
+      "representative_retained_headings": [
+        "إِعْمَالُ اسمِ الفاعِلِ",
+        "أبنية المصادر",
+        "أبنيةُ أسْماء الفاعلين والمفعولين(1) والصِّفات المشبهة بها"
+      ],
+      "representative_excluded_headings": [
+        "مستخلص الرسالة",
+        "أقسام البحث",
+        "المقدمة"
+      ]
+    },
+    {
+      "title": "حركة حروف المضارعة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: الأجوف, النَّاقص, المبدوء بهمزة وصل",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 9,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الأجوف",
+        "النَّاقص",
+        "المبدوء بهمزة وصل"
+      ],
+      "representative_excluded_headings": [
+        "مقدَّمة",
+        "حروف المضارعة",
+        "ما يكسر من حروف المضارعة وما يمتنع كسره"
+      ]
+    },
+    {
+      "title": "حروف المعاني والصفات",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: تمّ كتاب حُرُوف الْمعَانِي وَالصِّفَات",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم قَالَ أَبُو الْقَاسِم عبد الرَّحْمَن بن إِسْحَق الزجاجي",
+        "تمّ كتاب حُرُوف الْمعَانِي وَالصِّفَات"
+      ]
+    },
+    {
+      "title": "حقائق في النحو مستقربة - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المجرورات, الفعل المضارع",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المجرورات",
+        "الفعل المضارع"
+      ]
+    },
+    {
+      "title": "خطاب الماردي ومنهجه في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: خطَّاب المارديّ, منهجه في النحو, مصادر ومراجع",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "خطَّاب المارديّ",
+        "منهجه في النحو",
+        "مصادر ومراجع"
+      ]
+    },
+    {
+      "title": "دراسات في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 14 topical exclusions; sample exclusions: النحاة والقياس, النحاة والمفعُولات, ما جاء على مَفعلة",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 14,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "جمع المصادر",
+        "المفاعلة عِند النّحاة",
+        "الأدوات النحويّة"
+      ],
+      "representative_excluded_headings": [
+        "النحاة والقياس",
+        "النحاة والمفعُولات",
+        "ما جاء على مَفعلة"
+      ]
+    },
+    {
+      "title": "دليل الطالبين لكلام النحويين",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المقدمة, بابُ الكَلِمَةِ والكَلَامِ, باب الاسم والفعل والحرف",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 30,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "بابُ الكَلِمَةِ والكَلَامِ",
+        "باب الاسم والفعل والحرف"
+      ]
+    },
+    {
+      "title": "رسالة أي المشددة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الْفَصْل الأول فِي أقسامها, الْفَصْل الثَّانِي فِيمَا يلْزمهَا من الْإِضَافَة, الْفَصْل الثَّالِث فِي الموصولة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "رِسَالَة أَي الْمُشَدّدَة بِسم الله الرَّحْمَن الرَّحِيم",
+        "الْفَصْل الأول فِي أقسامها",
+        "الْفَصْل الثَّانِي فِيمَا يلْزمهَا من الْإِضَافَة"
+      ]
+    },
+    {
+      "title": "رسالة الحدود",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بَاب الْحُدُود, بَاب حُدُود الموصولات",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "بَاب الْحُدُود",
+        "بَاب حُدُود الموصولات"
+      ]
+    },
+    {
+      "title": "رسالة المباحث المرضية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الْمَسْأَلَة الأولى, الْمَسْأَلَة الثَّانِيَة, الْمَسْأَلَة الثَّالِثَة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الْمَسْأَلَة الأولى",
+        "الْمَسْأَلَة الثَّانِيَة",
+        "الْمَسْأَلَة الثَّالِثَة"
+      ]
+    },
+    {
+      "title": "رسالة الملائكة - ت الجندي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: القول في آية وغاية وثاية, القول في اسم وحقيقة الحذف منه, القول في اثنين واثنتين",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 18,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "القول في آية وغاية وثاية",
+        "القول في اسم وحقيقة الحذف منه",
+        "القول في اثنين واثنتين"
+      ]
+    },
+    {
+      "title": "رسالة الملائكة - ت الميمني - ط العلمية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بسم الله الرحمن الرحيموما توفيقي إلا بالله, القول في إياك, القول في آية وغاية وثاية",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 14,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيموما توفيقي إلا بالله",
+        "القول في إياك",
+        "القول في آية وغاية وثاية"
+      ]
+    },
+    {
+      "title": "رسالة في اسم الفاعل",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: اسْم الْفَاعِل المُرَاد بِهِ الِاسْتِمْرَار فِي جَمِيع الْأَزْمِنَة",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "اسْم الْفَاعِل المُرَاد بِهِ الِاسْتِمْرَار فِي جَمِيع الْأَزْمِنَة"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "وَكتبه الْفَقِير أَحْمد بن قَاسم الْعَبَّادِيّ"
+      ]
+    },
+    {
+      "title": "سبب وضع علم العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: جُزْء جمعت فِيهِ الْأَخْبَار المروية فِي سَبَب وضع علم الْعَرَبيَّة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "جُزْء جمعت فِيهِ الْأَخْبَار المروية فِي سَبَب وضع علم الْعَرَبيَّة",
+        "فصل"
+      ]
+    },
+    {
+      "title": "سفر السعادة وسفير الإفادة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: التجزئة التي يقسمها القدار, من أبيات المعاني الأبيات المشكلة الإعراب, المسألة الأولى",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 12,
+      "non_topical_excluded_count": 32,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "باب الهمزة",
+        "باب الباء",
+        "باب التاء"
+      ]
+    },
+    {
+      "title": "شذا العرف في فن الصرف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "22 retained vs 40 topical exclusions; sample exclusions: المجلد الاول, مقدمة, تعريف بمؤلف الكتاب",
+      "retained_sarf_heading_count": 22,
+      "topical_excluded_count": 40,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "الميزان الصرفي",
+        "التقسيمُ الرابعُ للفعل بِحَسْبِ الجمودِ والتَّصريفِ",
+        "التقسيم الثانى للاسم: مِنْ حَيْثُ الجُمُوْدُ والاشْتِقَاقُ"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الاول",
+        "مقدمة",
+        "تعريف بمؤلف الكتاب"
+      ]
+    },
+    {
+      "title": "شرح أبيات سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "126 retained vs 501 topical exclusions; sample exclusions: الفصل بالظرف بين اسم الفاعل ومعموله, إعمال صيغة: فعول, حذف عامل المنصوب لدلالة بعض الكلام عليه",
+      "retained_sarf_heading_count": 126,
+      "topical_excluded_count": 501,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الصفة المشبهة - تنوين معمولها",
+        "الصفة المشبهة - إضافة معمولها إلى ضميرصاحبها",
+        "حَذْفُ الضمير العائد إلى المبتدأ"
+      ],
+      "representative_excluded_headings": [
+        "الفصل بالظرف بين اسم الفاعل ومعموله",
+        "إعمال صيغة: فعول",
+        "حذف عامل المنصوب لدلالة بعض الكلام عليه"
+      ]
+    },
+    {
+      "title": "شرح أبيات مغني اللبيب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: أنشد بعده في \"ألا\" بفتح الهمزة وتخفيف اللام، وهو الإنشاد الثامن والتسعون, وأنشد بعده وهو الإنشاد التاسع والتسعون",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 930,
+      "non_topical_excluded_count": 36,
+      "representative_retained_headings": [
+        "أنشد بعده في \"ألا\" بفتح الهمزة وتخفيف اللام، وهو الإنشاد الثامن والتسعون",
+        "وأنشد بعده وهو الإنشاد التاسع والتسعون"
+      ],
+      "representative_excluded_headings": [
+        "أنشد في الخطبة",
+        "وأنشد فيها بعده، وهو الانشاد الثاني",
+        "وأورد بعده وهو الانشاد الثالث"
+      ]
+    },
+    {
+      "title": "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "12 retained vs 89 topical exclusions; sample exclusions: الفصل الأول ابن الوردي: حياته وآثاره نسبه, أسرته, مولده ووفاته",
+      "retained_sarf_heading_count": 12,
+      "topical_excluded_count": 89,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "أبنية المصادر",
+        "أبنية أسماء الفاعلين [والمفعولين] والصفات المشبهات بها",
+        "الصفة المشبهة باسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "الفصل الأول ابن الوردي: حياته وآثاره نسبه",
+        "أسرته",
+        "مولده ووفاته"
+      ]
+    },
+    {
+      "title": "شرح ألفية ابن مالك للحازمي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: عناصر الدرس, 1, عناصر الدرس",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 140,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "عناصر الدرس",
+        "1",
+        "عناصر الدرس"
+      ]
+    },
+    {
+      "title": "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "12 retained vs 61 topical exclusions; sample exclusions: الكلام وما يتألف منه, المعرب والمبني, النكرة والمعرفة",
+      "retained_sarf_heading_count": 12,
+      "topical_excluded_count": 61,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "أبنية المصادر",
+        "أَبْنِيَةُ أسماء الفاعلين والمفعولين والصِّفاتِ المُشَبَّهةِ بها *",
+        "الصفة المشبهة باسم الفاعل"
+      ],
+      "representative_excluded_headings": [
+        "الكلام وما يتألف منه",
+        "المعرب والمبني",
+        "النكرة والمعرفة"
+      ]
+    },
+    {
+      "title": "شرح ألفية ابن مالك للعثيمين",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "112 retained vs 647 topical exclusions; sample exclusions: شرح ألفية ابن مالك [1, مقدمة في فوائد علم النحو ونشأته, أهمية علم النحو",
+      "retained_sarf_heading_count": 112,
+      "topical_excluded_count": 647,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "إعراب المنقوص والمقصور",
+        "تعدية (علم ورأى) بالهمزة إلى ثلاثة مفاعيل",
+        "ما ثبت لمفعولي (علم) يثبت للثاني والثالث من مفاعيل أعلم وأرى"
+      ],
+      "representative_excluded_headings": [
+        "شرح ألفية ابن مالك [1",
+        "مقدمة في فوائد علم النحو ونشأته",
+        "أهمية علم النحو"
+      ]
+    },
+    {
+      "title": "شرح ابن الناظم على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "12 retained vs 61 topical exclusions; sample exclusions: خطبة الكتاب, الكلام وما يتألف منه, المعرب والمبني",
+      "retained_sarf_heading_count": 12,
+      "topical_excluded_count": 61,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "أبنية أسماء الفاعلين والمفعولينوالصفات المشبهة لها"
+      ],
+      "representative_excluded_headings": [
+        "خطبة الكتاب",
+        "الكلام وما يتألف منه",
+        "المعرب والمبني"
+      ]
+    },
+    {
+      "title": "شرح ابن عقيل على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "14 retained vs 63 topical exclusions; sample exclusions: مقدمة الطبعة الثانية, الكلام وما يتألف منه, المعرب والمبني",
+      "retained_sarf_heading_count": 14,
+      "topical_excluded_count": 63,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "أبنية أسماء الفاعلين والمفعولين (والصفات المشبهات بها"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الطبعة الثانية",
+        "الكلام وما يتألف منه",
+        "المعرب والمبني"
+      ]
+    },
+    {
+      "title": "شرح الآجرومية - حسن حفظي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الدرس الأول المقدمة, الدرس الثاني, الدرس الثالث",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 41,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الدرس الأول المقدمة",
+        "الدرس الثاني",
+        "بسم الله الرحمن الرحيم"
+      ]
+    },
+    {
+      "title": "شرح الآجرومية - عبد الكريم الخضير",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: شرح متن الآجرومية (1, شرح متن الآجرومية (2, شرح متن الآجرومية (3",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 8,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "شرح متن الآجرومية (1",
+        "شرح متن الآجرومية (2",
+        "شرح متن الآجرومية (3"
+      ]
+    },
+    {
+      "title": "شرح الآجرومية - محمد حسن عبد الغفار",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: جمع التكسير, جمع المؤنث السالم, جمع التكسير",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 116,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "جمع التكسير",
+        "جمع المؤنث السالم",
+        "جمع التكسير"
+      ],
+      "representative_excluded_headings": [
+        "فضل تعلم اللغة العربية",
+        "فضل تعلم اللغة العربية",
+        "أهمية التمسك بالقرآن وفهم معانيه"
+      ]
+    },
+    {
+      "title": "شرح الأجرومية للأسمري",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الكلام هو: اللفظ المركب المفيد بالوضع, فصل: المعربات قسمان, باب مرفوعات الأسماء",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 23,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الكلام هو: اللفظ المركب المفيد بالوضع",
+        "فصل: المعربات قسمان",
+        "باب مرفوعات الأسماء"
+      ]
+    },
+    {
+      "title": "شرح الأزهرية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "شرح الأشمونى لألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "11 retained vs 58 topical exclusions; sample exclusions: المجلد الأول القسم الأول: ترجمة ابن مالك وترجمة الأشموني, القسم الثاني: شرح الأشموني على ألفية بن مالك المسمى\" منهج المسالك إلى ألفية بن مالك, الْكَلَامُ وَمَا يَتَأَلَّفُ مِنْهُ",
+      "retained_sarf_heading_count": 11,
+      "topical_excluded_count": 58,
+      "non_topical_excluded_count": 6,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "إعمال اسم المفعول",
+        "أبنية المصادر"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول القسم الأول: ترجمة ابن مالك وترجمة الأشموني",
+        "القسم الثاني: شرح الأشموني على ألفية بن مالك المسمى\" منهج المسالك إلى ألفية بن مالك",
+        "مدخل"
+      ]
+    },
+    {
+      "title": "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: الباب الثاني \"باب إعراب الصحيح [الآخر, الباب الثالث (باب إعراب المعتل الآخر",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 47,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الباب الثاني \"باب إعراب الصحيح [الآخر",
+        "الباب الثالث (باب إعراب المعتل الآخر"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الشارح",
+        "مقدمة التسهيل وشرحها",
+        "الباب الأول[هذا] \"باب شرح الكلمة والكلام وما يتعلق به"
+      ]
+    },
+    {
+      "title": "شرح التسهيل لابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 59 topical exclusions; sample exclusions: باب شرح الكلمة والكلام وما يتعلق به, والجمع بالألف والتاء, باب إعراب المثنى والمجموع على حده",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 59,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "باب إعراب الصحيح الآخر",
+        "ما لا ينصرف",
+        "باب إعراب المعتل الآخر"
+      ],
+      "representative_excluded_headings": [
+        "باب شرح الكلمة والكلام وما يتعلق به",
+        "والجمع بالألف والتاء",
+        "باب إعراب المثنى والمجموع على حده"
+      ]
+    },
+    {
+      "title": "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "26 retained vs 77 topical exclusions; sample exclusions: المجلد الأول المقدمات, مقدمة المحقق, خطبة المؤلف",
+      "retained_sarf_heading_count": 26,
+      "topical_excluded_count": 77,
+      "non_topical_excluded_count": 47,
+      "representative_retained_headings": [
+        "باب إعمال المصدر وإعمال اسمه",
+        "باب أبنية مصادر الفعل \"الثلاثي\" المجرد",
+        "باب مصادر غير الثلاثي"
+      ],
+      "representative_excluded_headings": [
+        "المجلد الأول المقدمات",
+        "مقدمة المحقق",
+        "خطبة المؤلف"
+      ]
+    },
+    {
+      "title": "شرح التصريف للثمانيني",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "25 retained vs 35 topical exclusions; sample exclusions: الغرض بالوزن, والذي يدخل في الوزن, والأفعال على ضربين: أصليٌّ وذو زيادةٍ",
+      "retained_sarf_heading_count": 25,
+      "topical_excluded_count": 35,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الرباعيَّ يختصّ به الأصليّ دون الزّائد",
+        "فأمّا ذو الزّيادة من الأربعة",
+        "وأمّا الخماسيّ"
+      ],
+      "representative_excluded_headings": [
+        "الغرض بالوزن",
+        "والذي يدخل في الوزن",
+        "والأفعال على ضربين: أصليٌّ وذو زيادةٍ"
+      ]
+    },
+    {
+      "title": "شرح الفارضي على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "29 retained vs 143 topical exclusions; sample exclusions: اسِتهْلَال, بَيْنَ يَدَيّ الكِتَاب, الألْفِيَّة في النَّحو",
+      "retained_sarf_heading_count": 29,
+      "topical_excluded_count": 143,
+      "non_topical_excluded_count": 94,
+      "representative_retained_headings": [
+        "كيفية جمع المنقوص جمعَ مذكر سالم",
+        "كيفية جمع المقصور جمعَ مذكر سالم",
+        "الفِعْلُ المُعْتَل بالألِف"
+      ],
+      "representative_excluded_headings": [
+        "اسِتهْلَال",
+        "بَيْنَ يَدَيّ الكِتَاب",
+        "الألْفِيَّة في النَّحو"
+      ]
+    },
+    {
+      "title": "شرح الكافية الشافية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 86 topical exclusions; sample exclusions: تقديم, تعريف بالمؤلف, تعريف\" بـ \"الكافية الشافية",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 86,
+      "non_topical_excluded_count": 29,
+      "representative_retained_headings": [
+        "إعراب المعتل من الأسماء والأفعال",
+        "باب: الصفة المشبهة باسم الفاعل",
+        "باب: المقصور والممدود"
+      ],
+      "representative_excluded_headings": [
+        "تقديم",
+        "تعريف بالمؤلف",
+        "تعريف\" بـ \"الكافية الشافية"
+      ]
+    },
+    {
+      "title": "شرح المفصل لابن يعيش",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "120 retained vs 800 topical exclusions; sample exclusions: القسم الأولترجمة الزمخشري (صاحب \"المفصّل\")وترجمة ابن يعيش (صاحب الشرح, الفصل الأولترجمة الزمخشري 1 - مصادر ترجمته ومراجعها, 2 - اسمه، وكنيته، ولقبه، وحياته",
+      "retained_sarf_heading_count": 120,
+      "topical_excluded_count": 800,
+      "non_topical_excluded_count": 34,
+      "representative_retained_headings": [
+        "فصل [المصادر المنصوبة بأفعال مُضمرة",
+        "فصل [إضمار المصدر",
+        "فصل [وقوع المصدر حالًا"
+      ],
+      "representative_excluded_headings": [
+        "القسم الأولترجمة الزمخشري (صاحب \"المفصّل\")وترجمة ابن يعيش (صاحب الشرح",
+        "الفصل الأولترجمة الزمخشري 1 - مصادر ترجمته ومراجعها",
+        "2 - اسمه، وكنيته، ولقبه، وحياته"
+      ]
+    },
+    {
+      "title": "شرح المقدمة المحسبة",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 39 topical exclusions; sample exclusions: فصل الاسم, فصل الأسماء المضمرة, فصل الأسماء التي لا ظاهرة ولا مضمرة",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 39,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "المصدر المقدر بأن والفعل",
+        "الممدود",
+        "المقصور"
+      ],
+      "representative_excluded_headings": [
+        "فصل الاسم",
+        "فصل الأسماء المضمرة",
+        "فصل الأسماء التي لا ظاهرة ولا مضمرة"
+      ]
+    },
+    {
+      "title": "شرح المكودي على الألفية في علمي الصرف والنحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 64 topical exclusions; sample exclusions: مقدمة المحقق, مقدمة الشارح, الكلام وما يتألف منه",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 64,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "إعمال اسم الفاعل",
+        "أبنية المصادر",
+        "أبنية أسماء الفاعلين والمفعولين والصفات المشبهات بها"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة المحقق",
+        "مقدمة الشارح",
+        "الكلام وما يتألف منه"
+      ]
+    },
+    {
+      "title": "شرح شافية ابن الحاجب - ركن الدين الاستراباذي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "59 retained vs 96 topical exclusions; sample exclusions: المقدمة, الحالة السياسية في عصره, الحالة الاقتصادية والاجتماعية في عصره",
+      "retained_sarf_heading_count": 59,
+      "topical_excluded_count": 96,
+      "non_topical_excluded_count": 18,
+      "representative_retained_headings": [
+        "حد التصريف",
+        "أنواع الأبنية",
+        "الميزان الصرفي"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "الدراسة: ركن الدين الأستراباذي: حياته وآثاره التمهيد: عصر ركن الدين الأستراباذي",
+        "الحالة السياسية في عصره"
+      ]
+    },
+    {
+      "title": "شرح شذور الذهب لابن هشام",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الْكَلِمَة وأقسامها تَعْرِيف الْكَلِمَة, الْإِعْرَاب, النكرَة والمعرفة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 4,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "مُقَدّمَة الْمُؤلف",
+        "الْكَلِمَة وأقسامها تَعْرِيف الْكَلِمَة"
+      ]
+    },
+    {
+      "title": "شرح شذور الذهب للجوجري",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المجلد الأول, مقدمة, الفصل الأول: ابن هشام الأنصاري وكتابه شذورات الذهب",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 42,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المجلد الأول",
+        "مقدمة",
+        "الباب الأول: قسم الدراسة"
+      ]
+    },
+    {
+      "title": "شرح قطر الندى وبل الصدى",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "8 retained vs 81 topical exclusions; sample exclusions: مُقَدّمَة, تَعْرِيف الْكَلِمَة وأقسامها, عَلَامَات الِاسْم",
+      "retained_sarf_heading_count": 8,
+      "topical_excluded_count": 81,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الثَّانِي الْمصدر",
+        "الثَّالِث اسْم الْفَاعِل",
+        "الرَّابِع أَمْثِلَة الْمُبَالغَة"
+      ],
+      "representative_excluded_headings": [
+        "مُقَدّمَة",
+        "تَعْرِيف الْكَلِمَة وأقسامها",
+        "عَلَامَات الِاسْم"
+      ]
+    },
+    {
+      "title": "شرح قواعد الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: معرفة الجملة وأحكامها, معنى الجملة, الجمل التي لها محل من الإعراب",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 56,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "معرفة الجملة وأحكامها",
+        "معنى الجملة",
+        "الجمل التي لها محل من الإعراب"
+      ]
+    },
+    {
+      "title": "شرح كتاب الحدود في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 163 topical exclusions; sample exclusions: مقدمة الشرح, شرح مقدمة المتن, شرح لبيان المؤلف سبب تأليف المتن",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 163,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "تعريف جمع التكسير",
+        "تعريف المقصور",
+        "تعريف الممدود"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة الشرح",
+        "شرح مقدمة المتن",
+        "شرح لبيان المؤلف سبب تأليف المتن"
+      ]
+    },
+    {
+      "title": "شرح كتاب سيبويه للرماني - جزء منه",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: باب الندبة, باب ألف الندبة التي تتبع ما قبلها, باب ما يمتنع فيه ألف الندبة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 107,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "باب الندبة",
+        "باب ألف الندبة التي تتبع ما قبلها",
+        "باب ما يمتنع فيه ألف الندبة"
+      ]
+    },
+    {
+      "title": "شرح كتاب سيبويه للسيرافي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "55 retained vs 484 topical exclusions; sample exclusions: السيرافي, السيرافي العالم, مؤلفاته",
+      "retained_sarf_heading_count": 55,
+      "topical_excluded_count": 484,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "هذا باب من اسم الفاعل",
+        "هذا باب من المصادر جرى مجرى الفعل المضارع في عمله ومعناه",
+        "قول سيبويه في \"الحسن الوجه\":"
+      ],
+      "representative_excluded_headings": [
+        "السيرافي",
+        "السيرافي العالم",
+        "شيوخه"
+      ]
+    },
+    {
+      "title": "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: 7) العنصر السابع من عناصر المنهج: الحرص على ذكر بحر ووزن القصيدة ولقب القافية, 8) العنصر الثامن من عناصر المنهج: دعم الشرح بالآيات القرآنية والأحاديث النبوية، وبالأبيات الشعرية، والأمثال",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 87,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "7) العنصر السابع من عناصر المنهج: الحرص على ذكر بحر ووزن القصيدة ولقب القافية",
+        "8) العنصر الثامن من عناصر المنهج: دعم الشرح بالآيات القرآنية والأحاديث النبوية، وبالأبيات الشعرية، والأمثال"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "التمهيد",
+        "المبحث الأول: نبذة عن شعر أبي تمام وديوانه وشراحه"
+      ]
+    },
+    {
+      "title": "صيغة فعلان واستعمالاتها في اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: صيغة فعلان ومعانيها فعلان المصدر, فَعْلان العلم, فعلان في باب التصغير",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 9,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "صيغة فعلان ومعانيها فعلان المصدر",
+        "فَعْلان العلم",
+        "فعلان في باب التصغير"
+      ],
+      "representative_excluded_headings": [
+        "مدخل",
+        "فعلان الصفة",
+        "جمع فعلان"
+      ]
+    },
+    {
+      "title": "ضياء السالك إلى أوضح المسالك",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "ظاهرة التقارض في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الأول: التقارض بين اللفظين في الهيئة والشكل, النوع الثالث: التقارض بين اللفظين في المعاني, إلى- اللام",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 21,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مدخل",
+        "الأول: التقارض بين اللفظين في الهيئة والشكل",
+        "النوع الثالث: التقارض بين اللفظين في المعاني"
+      ]
+    },
+    {
+      "title": "ظاهرة التقاص في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "4 retained sarf headings only; below minimum usable threshold; sample retained: ثَانِيًا: فِي إِبْدَال بعض الْحُرُوف من بعض إِبْدَال الْهمزَة من الْهَاء, إِبْدَال الْهَاء من الْهمزَة, قلب الْهمزَة واواً",
+      "retained_sarf_heading_count": 4,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "ثَانِيًا: فِي إِبْدَال بعض الْحُرُوف من بعض إِبْدَال الْهمزَة من الْهَاء",
+        "إِبْدَال الْهَاء من الْهمزَة",
+        "قلب الْهمزَة واواً"
+      ],
+      "representative_excluded_headings": [
+        "مدْخل",
+        "أَولا: تحقيقها بَين ألقاب الإِعراب"
+      ]
+    },
+    {
+      "title": "عقود الهمز",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: تمّ الْكتاب بِحَمْد الله وعونه",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "تمّ الْكتاب بِحَمْد الله وعونه"
+      ]
+    },
+    {
+      "title": "علل التثنية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: ألف التَّثْنِيَة, الرَّأْي الرَّاجِح وَدَلِيله, الاعتراضات الَّتِي ترد على القَوْل بِأَن الْألف حرف إِعْرَاب",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 18,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "ألف التَّثْنِيَة",
+        "الرَّأْي الرَّاجِح وَدَلِيله"
+      ]
+    },
+    {
+      "title": "علل النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 50 topical exclusions; sample exclusions: فبذلك فلتفرحوا \"، فحذفت اللَّام وَالتَّاء، وَبَقِي الْفِعْل مَجْزُومًا كَمَا كَانَ؟قيل لَهُ: هَذَا يُفَسر من وُجُوه:أَحدهَا: أَن حُرُوف الْجَزْم أَضْعَف من حُرُوف الْجَرّ، لِأَن الْفِعْل أَضْعَف من الِاسْم، والجر على هَذَا يجوز أَن يكون أقوى من الْجَزْم، وعوامل الْجَرّ يجوز حذفهَا, بَاب ارْتِفَاع الْفِعْل الْمُضَارع, بَاب حُرُوف النصب",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 50,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "بَاب اسْم الْفَاعِل",
+        "بَاب مَا يعْمل من المصادر",
+        "دلّ ذَلِك على أَن الْفَاعِل هُوَ الْمُخَاطب، وَالتَّقْدِير: أَو إطْعَام أَنْت يَتِيما"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "فبذلك فلتفرحوا \"، فحذفت اللَّام وَالتَّاء، وَبَقِي الْفِعْل مَجْزُومًا كَمَا كَانَ؟قيل لَهُ: هَذَا يُفَسر من وُجُوه:أَحدهَا: أَن حُرُوف الْجَزْم أَضْعَف من حُرُوف الْجَرّ، لِأَن الْفِعْل أَضْعَف من الِاسْم، والجر على هَذَا يجوز أَن يكون أقوى من الْجَزْم، وعوامل الْجَرّ يجوز حذفهَا",
+        "بَاب"
+      ]
+    },
+    {
+      "title": "فتح الكبير المتعال إعراب المعلقات العشر الطوال",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 883 topical exclusions; sample exclusions: 1) معلقة امرئ القيس, معلقة امرئ القيس نسبه, حال أمرئ القيس في ريعان شبابه",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 883,
+      "non_topical_excluded_count": 4,
+      "representative_retained_headings": [
+        "أمرؤ القيس بن حجر بن الحارث الملك، بن عمرو المقصور -الذي اقتصر على ملك أبيه- بن حجر بن آكل المرار بن عمرو بن معاوية بن الحارث بن معاوية بن مرتع، وقال قوم: ابن معاوية بن ثور بن مرتع، وإنما سمي مرتعًا لأنه كان من أتاه من قوه رتعه، أي جعل له مرتعًا لماش",
+        "طبقته في الشعراء",
+        "فائدة"
+      ],
+      "representative_excluded_headings": [
+        "1) معلقة امرئ القيس",
+        "معلقة امرئ القيس نسبه",
+        "حال أمرئ القيس في ريعان شبابه"
+      ]
+    },
+    {
+      "title": "فتح المتعال على القصيدة المسماة بلامية الأفعال",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "فتح رب البرية في شرح نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بَابُ الكَلَامِ, بَابُ الإِعْرَابِ, بَابُ عَلَامَاتِ الرَّفْعِ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 36,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بَابُ الكَلَامِ",
+        "بَابُ الإِعْرَابِ",
+        "بَابُ عَلَامَاتِ الرَّفْعِ"
+      ]
+    },
+    {
+      "title": "قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 76 topical exclusions; sample exclusions: المقدمة, الدراسات السابقة, خطة البحث",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 76,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "نواصب الفعل المضارع",
+        "المبحث الأول: سياق الحال ودلالة الفعل الزَّمَنِيَّة والمصادر والمشتقات أ - سياق الحال والدِّلَالَة الزَّمَنِيَّة للفعل",
+        "ج - سياق الحال ودلالة أوزان المصدر"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "الدراسات السابقة",
+        "منهج البحث في أثناء الدراسة"
+      ]
+    },
+    {
+      "title": "لامية الأفعال - ت القاسم",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "ليس في كلام العرب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "20 retained vs 167 topical exclusions; sample exclusions: 1)بابليس في كلام العرب: فعل يفعل مما ليس فيه حرف الحلق عينًا ولا لامًا إلا عشرة أحرف, 2)بابليس في كلام العرب: واوٌ وياءٌ يجتمعان، والأول ساكن في غير التصغير والمُلين من الهمزة إلا مدغمًا, 4)بابليس في كلام العرب: اسمٌ على فعال ليس بمصدر إلا كلمة واحدة",
+      "retained_sarf_heading_count": 20,
+      "topical_excluded_count": 167,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "3)بابليس في كلام العرب: فعل يفعل فِعلاً إلا سحر يسحر سحرًا",
+        "6)بابليس في كلام العرب: المصدر للمرة إلا على فعلة",
+        "7)بابليس في كلام العرب: كلمة تامة حروفها كلها من جنس واحد فأدغم استقلالا، إلا حرفين"
+      ],
+      "representative_excluded_headings": [
+        "1)بابليس في كلام العرب: فعل يفعل مما ليس فيه حرف الحلق عينًا ولا لامًا إلا عشرة أحرف",
+        "2)بابليس في كلام العرب: واوٌ وياءٌ يجتمعان، والأول ساكن في غير التصغير والمُلين من الهمزة إلا مدغمًا",
+        "4)بابليس في كلام العرب: اسمٌ على فعال ليس بمصدر إلا كلمة واحدة"
+      ]
+    },
+    {
+      "title": "متممة الأجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: فصل في المقصور والمنقوص",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 44,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "فصل في المقصور والمنقوص"
+      ],
+      "representative_excluded_headings": [
+        "متممة الأجرومية********* نبده عن الكتاب",
+        "نبدة عن صاحب الكتاب",
+        "الكلام وما يتألف منه"
+      ]
+    },
+    {
+      "title": "متن شذور الذهب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: بَابٌ فِي عَمَلِ الفِعْلِ, بَابُ الْعَدَدِ",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 13,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بَابٌ",
+        "فَصْلٌ",
+        "بَابٌ"
+      ]
+    },
+    {
+      "title": "متن قطر الندى وبل الصدى",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الكلمة وأقسامها, بابٌ المبتدأُ والخبرُ مرفوعانِ, باب النواسخ لِحكم المبتدإ والخبر ثلاثة أنواع",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 16,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الكلمة وأقسامها",
+        "بابٌ المبتدأُ والخبرُ مرفوعانِ",
+        "باب النواسخ لِحكم المبتدإ والخبر ثلاثة أنواع"
+      ]
+    },
+    {
+      "title": "مجيء (أبو) في موضع نصب أو جر على الحكاية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المسمَّون بكُناهم, لكنيته كنية, مناظرة لطيفة",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 6,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "المسمَّون بكُناهم",
+        "لكنيته كنية",
+        "مناظرة لطيفة"
+      ]
+    },
+    {
+      "title": "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: الجمل التي لها محلٌّ من الإعراب, الباب الثانيفي الظرف والجار والمجروروفيه أربع مسائل, الباب الثالثفيما يقال عند ذِكْر أدواتٍ يكثر دورها في الكلام",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 3,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الجمل التي لها محلٌّ من الإعراب",
+        "الباب الثانيفي الظرف والجار والمجروروفيه أربع مسائل",
+        "الباب الثالثفيما يقال عند ذِكْر أدواتٍ يكثر دورها في الكلام"
+      ]
+    },
+    {
+      "title": "مختصر مغني اللبيب عن كتاب الأعاريب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, الباب الأول: في تفسير المفردات وذكر أحكامها حرف الألف, الباب الثاني من الكتاب في تفسير الجملة وأحكامها",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 27,
+      "non_topical_excluded_count": 22,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "الباب الأول: في تفسير المفردات وذكر أحكامها حرف الألف",
+        "حرف الباء"
+      ]
+    },
+    {
+      "title": "مسائل (إذن)",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 0,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": []
+    },
+    {
+      "title": "مسائل خلافية في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "1 retained sarf headings only; below minimum usable threshold; sample retained: مَسْأَلَة (الِاخْتِلَاف فِي اصل الِاشْتِقَاق",
+      "retained_sarf_heading_count": 1,
+      "topical_excluded_count": 14,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "مَسْأَلَة (الِاخْتِلَاف فِي اصل الِاشْتِقَاق"
+      ],
+      "representative_excluded_headings": [
+        "مَسْأَلَة (الْكَلَام وَالْجُمْلَة",
+        "مَسْأَلَة (حد الِاسْم",
+        "مَسْأَلَة (ادلة اسمية كَيفَ"
+      ]
+    },
+    {
+      "title": "معاني الحروف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: اللامات, الألفات, الهاءات",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 17,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيم",
+        "اللامات",
+        "الألفات"
+      ]
+    },
+    {
+      "title": "معاني النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "31 retained vs 532 topical exclusions; sample exclusions: المقدمة, الجملة العربية عناصر الجملة العربية, تأليف الجملة العربية",
+      "retained_sarf_heading_count": 31,
+      "topical_excluded_count": 532,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "الإخبار بالمصدر عن اسم الذات",
+        "الخبر النائب مناب الفعل",
+        "المصدر النائب عن الفعل 1 - النائب عن فعل الأمر والدعاء"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة",
+        "الجملة العربية عناصر الجملة العربية",
+        "تأليف الجملة العربية"
+      ]
+    },
+    {
+      "title": "معجم القواعد العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "7 retained vs 21 topical exclusions; sample exclusions: معجم القواعد, 1 - كتابةُ أسماءِ الحروف, 2 - ما يُكْتَبُ بالتاءِ أوِ الهَاءِ المتصلة وما يَصِحُّ فيه الوجْهان",
+      "retained_sarf_heading_count": 7,
+      "topical_excluded_count": 21,
+      "non_topical_excluded_count": 26,
+      "representative_retained_headings": [
+        "صُورَة الهَمْزة",
+        "1 - صورة الهمزة في أول الكلمة",
+        "2 - صورة الهمزة في وسط الكلمة"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة المؤلف",
+        "معجم القواعد",
+        "باب الهَمْزَة"
+      ]
+    },
+    {
+      "title": "مغني اللبيب عن كتب الأعاريب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: أَن الْمَفْتُوحَة الْهمزَة الساكنة النُّون, أَلا بِفَتْح الْهمزَة وَالتَّخْفِيف, إِلَّا بِالْكَسْرِ وَالتَّشْدِيد",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 7,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "أَن الْمَفْتُوحَة الْهمزَة الساكنة النُّون",
+        "أَلا بِفَتْح الْهمزَة وَالتَّخْفِيف",
+        "إِلَّا بِالْكَسْرِ وَالتَّشْدِيد"
+      ],
+      "representative_excluded_headings": [
+        "فِي تَفْسِير الْمُفْردَات وَذكر آحكامها",
+        "فَصْلِ",
+        "إِن الْمَكْسُورَة الْخَفِيفَة"
+      ]
+    },
+    {
+      "title": "ملحة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "6 retained vs 53 topical exclusions; sample exclusions: مُقَدّمَة النَّاظِم, بَاب تَعْرِيف الْكَلَام, بَاب معرفَة الِاسْم",
+      "retained_sarf_heading_count": 6,
+      "topical_excluded_count": 53,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "فصل فِي الْأَسْمَاء الْمَقْصُور",
+        "بَاب جمع التكسير",
+        "بَاب اسْم الْفَاعِل الْمنون"
+      ],
+      "representative_excluded_headings": [
+        "مُقَدّمَة النَّاظِم",
+        "بَاب تَعْرِيف الْكَلَام",
+        "بَاب معرفَة الِاسْم"
+      ]
+    },
+    {
+      "title": "من تاريخ النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: مقدمة, توطئة تاريخية, بوادر اللحن",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 29,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "توطئة تاريخية",
+        "مدخل"
+      ]
+    },
+    {
+      "title": "منازل الحروف",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: حُرُوف الزِّيَادَة, الْفرق بَين أما وَإِمَّا",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 25,
+      "non_topical_excluded_count": 2,
+      "representative_retained_headings": [
+        "حُرُوف الزِّيَادَة",
+        "الْفرق بَين أما وَإِمَّا"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "اللامات",
+        "الألفات"
+      ]
+    },
+    {
+      "title": "موصل الطلاب إلى قواعد الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: شرح الْجُمْلَة وَذكر أسمائها وأحكامها وَفِيه أَربع مسَائِل, الْمَسْأَلَة الأولى فِي شرح الْجُمْلَة, الْمَسْأَلَة الثَّانِيَة فِي بَيَان الْجمل الَّتِي لَهَا مَحل من الْإِعْرَاب",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 20,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "شرح الْجُمْلَة وَذكر أسمائها وأحكامها وَفِيه أَربع مسَائِل",
+        "الْمَسْأَلَة الأولى فِي شرح الْجُمْلَة",
+        "الْمَسْأَلَة الثَّانِيَة فِي بَيَان الْجمل الَّتِي لَهَا مَحل من الْإِعْرَاب"
+      ]
+    },
+    {
+      "title": "نتائج الفكر في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "9 retained vs 97 topical exclusions; sample exclusions: مقدمة المصنف, مسألةفي إضافة الاسم إلى الله عز وجل, فصل[في الإضافة في بسم الله",
+      "retained_sarf_heading_count": 9,
+      "topical_excluded_count": 97,
+      "non_topical_excluded_count": 21,
+      "representative_retained_headings": [
+        "فصلفي اشتقاق الفعل من المصدر",
+        "مسألة(في المصدر",
+        "مسألة(في التصغير"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة المصنف",
+        "مسألةفي إضافة الاسم إلى الله عز وجل",
+        "فصل[في الإضافة في بسم الله"
+      ]
+    },
+    {
+      "title": "نحو مير = مبادئ قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "18 retained vs 140 topical exclusions; sample exclusions: نحو مير, مقدمة, تقريظ",
+      "retained_sarf_heading_count": 18,
+      "topical_excluded_count": 140,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "1 - جمع التكسير",
+        "1 - جمع المذكر",
+        "الأول: المفرد المصرف الصحيح الثاني: المفرد المنصرف الجاري مجري الصحيح"
+      ],
+      "representative_excluded_headings": [
+        "نحو مير",
+        "مقدمة",
+        "تقريظ"
+      ]
+    },
+    {
+      "title": "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: المسألة الأولى",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "الباب الأول",
+        "المسألة الأولى"
+      ]
+    },
+    {
+      "title": "نكت الإعراب = قواعد الإعراب ونزهة الطلاب",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "no_sarf_safe_headings",
+      "brief_evidence_summary": "0 retained sarf headings; sample exclusions: ترجمة المصنف اسمه ولقبه وكنيته ونسبه, مولده ونشأته وطلبه للعلم, تلاميذه، ومن أخذ عليه العلم",
+      "retained_sarf_heading_count": 0,
+      "topical_excluded_count": 16,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [],
+      "representative_excluded_headings": [
+        "ترجمة المصنف اسمه ولقبه وكنيته ونسبه",
+        "مولده ونشأته وطلبه للعلم",
+        "تلاميذه، ومن أخذ عليه العلم"
+      ]
+    },
+    {
+      "title": "همع الهوامع في شرح جمع الجوامع",
+      "category": "النحو والصرف",
+      "match_tier": "B",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "78 retained vs 437 topical exclusions; sample exclusions: مُقَدّمَة همع الهوامع للمؤلف, مُقَدّمَة جمع الْجَوَامِع, الْكَلِمَة حَدهَا وأقسامها الْكَلَام فِي الْمُقدمَات",
+      "retained_sarf_heading_count": 78,
+      "topical_excluded_count": 437,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "الْبَاب السَّابِع: الْفِعْل الْمُضَارع المعتل الآخر ص السَّابِع الْمُضَارع المعتل وَهُوَ مَا أَخّرهُ ألف أَو وَاو أَو يَاء فيحذف آخِره جزما والحذف بالجازم وَقَالَ أَبُو حَيَّان التَّحْقِيق عِنْده وتسكين مَا قبله ضَرُورَة وَكَذَا بَقَاؤُهُ وَقيل سَائِغ كحذفه دونه وَإِذا بَقِي فالمحذوف الحركات الظَّاهِرَة",
+        "خَاتِمَة فِي الْإِعْرَاب الْمُقدر",
+        "خَاتِمَة"
+      ],
+      "representative_excluded_headings": [
+        "بِسم الله الرَّحْمَن الرَّحِيم",
+        "مُقَدّمَة همع الهوامع للمؤلف",
+        "مُقَدّمَة جمع الْجَوَامِع"
+      ]
+    },
+    {
+      "title": "ارتشاف الضرب من لسان العرب",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "15 retained vs 90 topical exclusions; sample exclusions: الجزء الأول, فصل الأسماء الأعجمية, باب فعل",
+      "retained_sarf_heading_count": 15,
+      "topical_excluded_count": 90,
+      "non_topical_excluded_count": 86,
+      "representative_retained_headings": [
+        "باب ذكر معاني أبنية من أبنية الأسماء",
+        "باب أبنية الأفعال، وما جاءت له من المعاني",
+        "فصل في المضارع: تقدم القول في حركة ما قبل الآخر من مضارع الثلاثي، وأما المزيد فيكسر ما قبل الآخر، إلا إن كان أول ماضيه تاء زائدة نحو: تكبر، وتبختر، فيفتح نحو: يتكبر ويتبختر، ويفتح حرف المضارعة وشذ ما روى \"الثمانيني\"، من ضم الياء في قولك: يستخرج، وهو مبني للفاعل انتهى"
+      ],
+      "representative_excluded_headings": [
+        "الجزء الأول",
+        "فصل الأسماء الأعجمية",
+        "باب فعل"
+      ]
+    },
+    {
+      "title": "التبيين عن مذاهب النحويين البصريين والكوفيين",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "13 retained vs 71 topical exclusions; sample exclusions: 1 - مسألة: [الكلام والكلمة, 2 - مسألة: [حد الاسم, 3 - مسألة: [اسميّة كيف",
+      "retained_sarf_heading_count": 13,
+      "topical_excluded_count": 71,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "6 - مسألة [أصلُ الاشتقاق",
+        "7 - [مسألة المضاف إلى ياء المتكلّم",
+        "16 - مسألة [حدّ الاسم الصحيح"
+      ],
+      "representative_excluded_headings": [
+        "1 - مسألة: [الكلام والكلمة",
+        "2 - مسألة: [حد الاسم",
+        "3 - مسألة: [اسميّة كيف"
+      ]
+    },
+    {
+      "title": "التعليقة على كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "22 retained vs 306 topical exclusions; sample exclusions: هذا بابُ عِلْمٍ ما الكَلِمُ, هذا بابُ المُسْنَد والمُسْند إليه, هذا باب ما يحْتَمِلُ الشعر",
+      "retained_sarf_heading_count": 22,
+      "topical_excluded_count": 306,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "هذا باب الفعل الذي يتعدى اسم الفاعل إلى اسم المفعول",
+        "هذا باب ما يكون فيه المصدر توكيدًا لنفسه",
+        "هذا بابُ جمع المنقوص بالواو والنّون"
+      ],
+      "representative_excluded_headings": [
+        "هذا بابُ عِلْمٍ ما الكَلِمُ",
+        "هذا بابُ المُسْنَد والمُسْند إليه",
+        "هذا باب ما يحْتَمِلُ الشعر"
+      ]
+    },
+    {
+      "title": "السماع والقياس",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "41 retained vs 127 topical exclusions; sample exclusions: السماع والقياس, الشاذ، والنادر، والضعيف, جمع فاعل العاقل على فواعل",
+      "retained_sarf_heading_count": 41,
+      "topical_excluded_count": 127,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الاشتقاق من الجامد سماعي",
+        "جمع فعل على أفعال إذا كان صحيح العين",
+        "النّسب"
+      ],
+      "representative_excluded_headings": [
+        "السماع والقياس",
+        "الشاذ، والنادر، والضعيف",
+        "جمع فاعل العاقل على فواعل"
+      ]
+    },
+    {
+      "title": "الموجز في قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "15 retained vs 55 topical exclusions; sample exclusions: مقدمة, مباحث الافعال الجامد والمتصرف, فعلا التعجب",
+      "retained_sarf_heading_count": 15,
+      "topical_excluded_count": 55,
+      "non_topical_excluded_count": 45,
+      "representative_retained_headings": [
+        "الصحيح والمعتل",
+        "المجرد والمزيد من الأفعال",
+        "التام والناقص"
+      ],
+      "representative_excluded_headings": [
+        "مقدمة",
+        "مباحث الافعال الجامد والمتصرف",
+        "فعلا التعجب"
+      ]
+    },
+    {
+      "title": "جامع الدروس العربية",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "23 retained vs 93 topical exclusions; sample exclusions: المقدمة 1- اللغة العربية وعلومها, 2- الكلمة وأقسامها, 3- المركبات وأنواعها وإعرابها",
+      "retained_sarf_heading_count": 23,
+      "topical_excluded_count": 93,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "الصحيح والمعتل",
+        "المجرد والمزيد فيه",
+        "الجامد والمتصرف"
+      ],
+      "representative_excluded_headings": [
+        "المقدمة 1- اللغة العربية وعلومها",
+        "2- الكلمة وأقسامها",
+        "3- المركبات وأنواعها وإعرابها"
+      ]
+    },
+    {
+      "title": "ذكر معاني أبنية الأسماء الموجودة في المفصل",
+      "category": "الغريب والمعاجم",
+      "match_tier": "C",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "3 retained sarf headings only; below minimum usable threshold; sample retained: الرباعي, الخماسي, ومن الأسماء الموجودة في المفصل، ولم يتكلم عليها",
+      "retained_sarf_heading_count": 3,
+      "topical_excluded_count": 1,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "الرباعي",
+        "الخماسي",
+        "ومن الأسماء الموجودة في المفصل، ولم يتكلم عليها"
+      ],
+      "representative_excluded_headings": [
+        "من كلام الشيخ الإمام العلامة جمال الدين أبي عبد الله محمد بن عبد الله بن مالك، رحمه الله",
+        "المصادر والمراجع"
+      ]
+    },
+    {
+      "title": "عمدة الكتاب لأبي جعفر النحاس",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "10 retained vs 144 topical exclusions; sample exclusions: ومن النحويين من سارع إلى السلاطين والكتاب ثم لم يحمد معهم العاقبة, ومن النحويين من قرب من السلاطين فحظي عندهم، وأحمد أمره معهم, المرتبة الأولى",
+      "retained_sarf_heading_count": 10,
+      "topical_excluded_count": 144,
+      "non_topical_excluded_count": 5,
+      "representative_retained_headings": [
+        "باب الحذف في أبي جادٍ والإعلال له، وذكر ما فيه من الاختلاف",
+        "باب الاشتقاق",
+        "باب ذكر السكين والمقط والقلم وما فيهن من الاشتقاق واللغات"
+      ],
+      "representative_excluded_headings": [
+        "بسم الله الرحمن الرحيم",
+        "ومن النحويين من سارع إلى السلاطين والكتاب ثم لم يحمد معهم العاقبة",
+        "ومن النحويين من قرب من السلاطين فحظي عندهم، وأحمد أمره معهم"
+      ]
+    },
+    {
+      "title": "فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "48 retained vs 81 topical exclusions; sample exclusions: أمثلة فعل المكسور متعدياً, تنبيهان الأول: قال في التسهيل: ولزوم فعل المكسور أكثر من تعديه, فَعَل المفتوح",
+      "retained_sarf_heading_count": 48,
+      "topical_excluded_count": 81,
+      "non_topical_excluded_count": 3,
+      "representative_retained_headings": [
+        "باب أبنية الفعل المجرد وتصاريفه",
+        "مبحث الفعل الرباعي اللازم",
+        "مبحث الفعل الرباعي المعدّى"
+      ],
+      "representative_excluded_headings": [
+        "أمثلة فعل المكسور متعدياً",
+        "تنبيهان الأول: قال في التسهيل: ولزوم فعل المكسور أكثر من تعديه",
+        "فَعَل المفتوح"
+      ]
+    },
+    {
+      "title": "فوائت كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "not_taxonomy_usable",
+      "brief_evidence_summary": "2 retained sarf headings only; below minimum usable threshold; sample retained: هذا باب ذكر فيه ما فات سيبويهمن أبنية كلام العرب, وذكر أبو إسحاق إبراهيم بن السري الزجاج",
+      "retained_sarf_heading_count": 2,
+      "topical_excluded_count": 2,
+      "non_topical_excluded_count": 0,
+      "representative_retained_headings": [
+        "هذا باب ذكر فيه ما فات سيبويهمن أبنية كلام العرب",
+        "وذكر أبو إسحاق إبراهيم بن السري الزجاج"
+      ],
+      "representative_excluded_headings": [
+        "ثم ذكر أبو بكر محمد بن السري",
+        "أكثر ما ذكره أبو بكر غير داخل على سبيويه"
+      ]
+    },
+    {
+      "title": "من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق",
+      "category": "النحو والصرف",
+      "match_tier": "C",
+      "exclusion_reason": "mostly_nahw_topical_headings",
+      "brief_evidence_summary": "5 retained vs 6 topical exclusions; sample exclusions: مُقَدّمَة, تمهيد, الْمطلب السَّادِس: فِي المرجحات الَّتِي تُؤْخَذ بهَا عِنْد تردد الْكَلِمَة بَين أصلين",
+      "retained_sarf_heading_count": 5,
+      "topical_excluded_count": 6,
+      "non_topical_excluded_count": 1,
+      "representative_retained_headings": [
+        "الْمطلب الأول فِي بَيَان فَائِدَة الِاشْتِقَاق وَقُوَّة الْحَاجة إِلَيْهِ",
+        "الْمطلب الثَّانِي جهود الْعلمَاء فِي الِاشْتِقَاق",
+        "الْمطلب الثَّالِث: تَعْرِيف الِاشْتِقَاق وَبَيَان أَنْوَاعه"
+      ],
+      "representative_excluded_headings": [
+        "مُقَدّمَة",
+        "تمهيد",
+        "الْمطلب السَّادِس: فِي المرجحات الَّتِي تُؤْخَذ بهَا عِنْد تردد الْكَلِمَة بَين أصلين"
+      ]
+    }
+  ]
+}
