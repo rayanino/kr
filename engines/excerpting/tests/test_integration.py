@@ -326,6 +326,49 @@ class TestPhase3Orchestrator:
         assert result.timings["consensus"] >= 0.0
         assert len(result.excerpts) > 0
 
+    def test_verify_only_clears_placeholder_enrichment_failure_flag(self) -> None:
+        """Real deterministic verify-only path must not label success as enrichment failure."""
+        chunk = _make_assembled_chunk(chunk_id="div_verify_only_0", div_id="div_verify_only_0")
+        segments = [
+            _make_classified_segment(
+                start_word=0,
+                end_word=4,
+                text_snippet=chunk.assembled_text[:50],
+            )
+        ]
+        units = [
+            _make_teaching_unit(
+                start_word=0,
+                end_word=4,
+                text_snippet=chunk.assembled_text[:80],
+                self_containment=SelfContainmentLevel.PARTIAL,
+                self_containment_notes="يحتاج سياقاً",
+            )
+        ]
+        config = ExcerptingConfig()
+
+        def echo_consensus(**kwargs: Any) -> tuple[list[ExcerptRecord], list[dict[str, object]]]:
+            return kwargs["excerpts"], []
+
+        with patch(
+            "engines.excerpting.src.phase3_orchestrator.run_consensus",
+            side_effect=echo_consensus,
+        ) as mock_consensus:
+            result = run_phase3(
+                chunks=[chunk],
+                teaching_units={chunk.chunk_id: units},
+                classified={chunk.chunk_id: segments},
+                config=config,
+                enrich_client=None,
+                verify_client=MagicMock(),
+            )
+
+        seeded_excerpt = mock_consensus.call_args.kwargs["excerpts"][0]
+        assert "llm_enrichment_failed" in seeded_excerpt.review_flags
+        assert len(result.excerpts) == 1
+        assert "llm_enrichment_failed" not in result.excerpts[0].review_flags
+        assert result.excerpts[0].context_hint == "يحتاج سياقاً"
+
     def test_deterministic_crash_propagates(self) -> None:
         """Exception in deterministic assembly propagates (Fix 3 — bugs crash)."""
         chunk, units, segments = _make_chunk_and_units()

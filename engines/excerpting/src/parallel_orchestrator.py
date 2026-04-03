@@ -326,6 +326,7 @@ def _process_chunk(
     from engines.excerpting.src.phase3_consensus import (
         _build_gate_entry,
         _needs_consensus,
+        clear_verify_only_enrichment_placeholder,
         check_gate_triggers,
         resolve_consensus,
         verify_chunk,
@@ -1015,6 +1016,11 @@ def _process_chunk(
                         )
         else:
             ctx.final_excerpts = ctx.enriched_excerpts
+
+        if verify_client is not None and enrich_client is None and ctx.final_excerpts is not None:
+            ctx.final_excerpts = clear_verify_only_enrichment_placeholder(
+                ctx.final_excerpts
+            )
 
         ctx.completed = True
 
