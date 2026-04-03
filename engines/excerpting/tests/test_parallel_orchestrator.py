@@ -1724,7 +1724,7 @@ class TestRunParallelPipeline:
     @patch("engines.excerpting.src.phase2_classify.verify_segments")
     @patch("engines.excerpting.src.phase2_classify.normalize_offsets")
     @patch("engines.excerpting.src.phase2_classify.classify_chunk")
-    def test_process_chunk_verify_only_clears_placeholder_enrichment_failure_flag(
+    def test_process_chunk_verify_only_retains_degradation_flag_without_enrichment_fields(
         self,
         mock_classify: MagicMock,
         mock_normalize: MagicMock,
@@ -1806,8 +1806,9 @@ class TestRunParallelPipeline:
         assert result.completed is True
         assert result.error is None
         assert result.final_excerpts is not None
-        assert "llm_enrichment_failed" not in result.final_excerpts[0].review_flags
-        assert result.final_excerpts[0].context_hint == "يحتاج سياقاً"
+        assert "llm_enrichment_failed" in result.final_excerpts[0].review_flags
+        assert result.final_excerpts[0].context_hint is None
+        assert result.final_excerpts[0].excerpt_topic == []
         assert call(chunk.chunk_id, "phase3_consensus") in progress.mark_done.call_args_list
 
     def test_per_thread_client_isolation(self) -> None:

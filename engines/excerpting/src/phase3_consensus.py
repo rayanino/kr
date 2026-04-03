@@ -222,35 +222,6 @@ def _build_verification_user_message(
     return "\n".join(parts)
 
 
-def clear_verify_only_enrichment_placeholder(
-    excerpts: list[ExcerptRecord],
-) -> list[ExcerptRecord]:
-    """Remove placeholder enrichment-failure flags from successful verify-only output."""
-    sanitized: list[ExcerptRecord] = []
-
-    for exc in excerpts:
-        if (
-            "llm_enrichment_failed" not in exc.review_flags
-            or "verification_skipped" in exc.review_flags
-        ):
-            sanitized.append(exc)
-            continue
-
-        review_flags = [
-            flag for flag in exc.review_flags if flag != "llm_enrichment_failed"
-        ]
-        updates: dict[str, object] = {"review_flags": review_flags}
-
-        if exc.self_containment == SelfContainmentLevel.PARTIAL and exc.context_hint is None:
-            updates["context_hint"] = (
-                exc.self_containment_notes or "يحتاج سياقاً إضافياً لفهم المحتوى"
-            )
-
-        sanitized.append(exc.model_copy(update=updates))
-
-    return sanitized
-
-
 # ═══════════════════════════════════════════════════════════════════
 # Function 1: verify_chunk
 # ═══════════════════════════════════════════════════════════════════

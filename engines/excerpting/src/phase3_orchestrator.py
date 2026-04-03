@@ -24,10 +24,7 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase3_deterministic import build_deterministic_excerpts
 from engines.excerpting.src.phase3_enrichment import run_phase3_enrichment
-from engines.excerpting.src.phase3_consensus import (
-    clear_verify_only_enrichment_placeholder,
-    run_consensus,
-)
+from engines.excerpting.src.phase3_consensus import run_consensus
 from engines.excerpting.src.phase3_validation import validate_batch
 
 if TYPE_CHECKING:
@@ -191,9 +188,6 @@ def run_phase3(
             verify_client is not None,
         )
         result.timings["consensus"] = 0.0
-
-    if verify_client is not None and enrich_client is None:
-        all_excerpts = clear_verify_only_enrichment_placeholder(all_excerpts)
 
     # ── Stage 4: Validation (V-P3-1 through V-P3-9) ──────────────
     t3 = time.monotonic()

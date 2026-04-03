@@ -326,8 +326,8 @@ class TestPhase3Orchestrator:
         assert result.timings["consensus"] >= 0.0
         assert len(result.excerpts) > 0
 
-    def test_verify_only_clears_placeholder_enrichment_failure_flag(self) -> None:
-        """Real deterministic verify-only path must not label success as enrichment failure."""
+    def test_verify_only_retains_degradation_flag_without_enrichment_fields(self) -> None:
+        """Real deterministic verify-only path must stay explicitly degraded."""
         chunk = _make_assembled_chunk(chunk_id="div_verify_only_0", div_id="div_verify_only_0")
         segments = [
             _make_classified_segment(
@@ -366,8 +366,10 @@ class TestPhase3Orchestrator:
         seeded_excerpt = mock_consensus.call_args.kwargs["excerpts"][0]
         assert "llm_enrichment_failed" in seeded_excerpt.review_flags
         assert len(result.excerpts) == 1
-        assert "llm_enrichment_failed" not in result.excerpts[0].review_flags
-        assert result.excerpts[0].context_hint == "يحتاج سياقاً"
+        assert "llm_enrichment_failed" in result.excerpts[0].review_flags
+        assert result.excerpts[0].context_hint is None
+        assert result.excerpts[0].excerpt_topic == []
+        assert result.errors == []
 
     def test_deterministic_crash_propagates(self) -> None:
         """Exception in deterministic assembly propagates (Fix 3 — bugs crash)."""
