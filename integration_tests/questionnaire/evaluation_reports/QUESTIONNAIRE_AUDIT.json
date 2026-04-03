@@ -1,16 +1,14 @@
 {
   "audit_summary": {
-    "timestamp": "2026-04-02T07:58:39.473592+00:00",
+    "timestamp": "2026-04-03T17:29:08.914224+00:00",
     "total_interactions": 40,
     "active_interactions": 38,
     "blocked_interactions": 2,
-    "answered_active_interactions": 0,
-    "readiness_score": 0.0
+    "answered_active_interactions": 2,
+    "readiness_score": 0.053
   },
   "structural_alerts": {
     "missing": [
-      "F-1",
-      "F-2",
       "F-3",
       "F-4",
       "F-5",
@@ -82,7 +80,6 @@
       "List handling",
       "Long khilaf",
       "Max excerpt size",
-      "Mental model",
       "Meta-contradictions and missing needs",
       "Metadata sufficiency",
       "Min excerpt size",
@@ -97,17 +94,16 @@
       "Short khilaf",
       "Structure-risk preference",
       "Triple definitions",
-      "Uncertainty tolerance",
-      "User model"
+      "Uncertainty tolerance"
     ],
     "low_confidence_dimensions": {},
     "dimension_counts": {
       "Mental model": {
-        "answered": 0,
+        "answered": 1,
         "total": 1
       },
       "User model": {
-        "answered": 0,
+        "answered": 1,
         "total": 1
       },
       "Quality baseline": {
@@ -259,5 +255,9 @@
   "translation_readiness": {
     "unmapped_response_ids": [],
     "unmapped_interaction_ids": []
-  }
+  },
+  "external_response_ids": [
+    "F-1",
+    "F-2"
+  ]
 }

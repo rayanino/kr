@@ -14,6 +14,7 @@
 ## Use These Inputs
 
 - `integration_tests/questionnaire/questionnaire_responses.jsonl`
+- `integration_tests/questionnaire/external_questionnaire_responses.json`
 - `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
 - `integration_tests/questionnaire/evaluation_reports/QUESTIONNAIRE_AUDIT.md`
 - `integration_tests/questionnaire/OWNER_FEEDBACK_GUARDRAIL.md`

@@ -58,6 +58,24 @@ def load_responses(path: Path) -> tuple[dict[str, dict[str, Any]], list[str]]:
     return responses, sorted(set(duplicates))
 
 
+def load_external_responses(path: Path) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    items = raw.get("responses", raw) if isinstance(raw, dict) else raw
+    if not isinstance(items, list):
+        raise ValueError(f"{path}: expected a list or dict with 'responses'")
+    responses: dict[str, dict[str, Any]] = {}
+    for index, entry in enumerate(items, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"{path}: entry {index} is not an object")
+        interaction_id = entry.get("interaction_id")
+        if not interaction_id:
+            raise ValueError(f"{path}: entry {index} missing interaction_id")
+        responses[str(interaction_id)] = entry
+    return responses
+
+
 def parse_translation_dimensions(path: Path) -> dict[str, dict[str, str]]:
     text = path.read_text(encoding="utf-8")
     mappings: dict[str, dict[str, str]] = {}
@@ -83,6 +101,8 @@ def parse_translation_dimensions(path: Path) -> dict[str, dict[str, str]]:
 def is_answered(entry: dict[str, Any] | None) -> bool:
     if not entry:
         return False
+    if entry.get("source_mode") == "external_bundle" and entry.get("answered_external") is True:
+        return True
     value = entry.get("immediate_reaction")
     return bool(isinstance(value, str) and value.strip())
 
@@ -127,6 +147,7 @@ def build_audit(
     low_confidence_ids: list[str] = []
     dimension_counts: dict[str, dict[str, int]] = defaultdict(lambda: {"answered": 0, "total": 0})
     low_confidence_dimensions: dict[str, list[str]] = defaultdict(list)
+    external_response_ids: list[str] = []
 
     for iid in active_ids:
         item = interactions[iid]
@@ -138,15 +159,17 @@ def build_audit(
         if not is_answered(response):
             continue
         assert response is not None
+        if response.get("source_mode") == "external_bundle":
+            external_response_ids.append(iid)
 
         if mapping:
             dimension_counts[mapping["dimension"]]["answered"] += 1
 
-        if item.multiple_choice and not response.get("mc_choice"):
+        if item.multiple_choice and not response.get("mc_choice") and response.get("source_mode") != "external_bundle":
             missing_choices.append(iid)
 
         reaction = str(response.get("immediate_reaction", "")).strip()
-        if len(reaction) < 10:
+        if len(reaction) < 10 and response.get("source_mode") != "external_bundle":
             short_reactions.append({"interaction_id": iid, "length": len(reaction)})
 
         if item.is_edge_case:
@@ -154,7 +177,9 @@ def build_audit(
                 missing_edge_fields.append(iid)
 
         confidence = (response.get("confidence") or "").lower()
-        if confidence in {"", "low"}:
+        if confidence in {"", "low"} and not (
+            response.get("source_mode") == "external_bundle" and confidence == ""
+        ):
             low_confidence_ids.append(iid)
             if mapping:
                 low_confidence_dimensions[mapping["dimension"]].append(iid)
@@ -200,6 +225,7 @@ def build_audit(
             "unmapped_response_ids": translation_unmapped_response_ids,
             "unmapped_interaction_ids": translation_missing_interaction_ids,
         },
+        "external_response_ids": sorted(external_response_ids),
     }
 
 
@@ -255,6 +281,15 @@ def render_markdown(audit: dict[str, Any]) -> str:
         lines.append("_None_")
     lines.append("")
 
+    lines.append("## External Responses")
+    lines.append("")
+    if audit["external_response_ids"]:
+        for iid in audit["external_response_ids"]:
+            lines.append(f"- `{iid}`")
+    else:
+        lines.append("_None_")
+    lines.append("")
+
     lines.append("## Translation Readiness")
     lines.append("")
     for key, items in audit["translation_readiness"].items():
@@ -292,7 +327,11 @@ def main() -> int:
     args = parser.parse_args()
 
     interactions = load_interactions(args.questionnaire_dir / "interactions.json")
-    responses, duplicates = load_responses(args.questionnaire_dir / "questionnaire_responses.jsonl")
+    responses_jsonl, duplicates = load_responses(args.questionnaire_dir / "questionnaire_responses.jsonl")
+    external_responses = load_external_responses(
+        args.questionnaire_dir / "external_questionnaire_responses.json"
+    )
+    responses = {**external_responses, **responses_jsonl}
     translation_map = parse_translation_dimensions(args.questionnaire_dir / "TEAM_TRANSLATION_GUIDE.md")
     audit = build_audit(interactions, responses, duplicates, translation_map)
 

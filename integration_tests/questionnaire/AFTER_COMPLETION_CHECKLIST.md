@@ -22,6 +22,7 @@ You are "finished enough" when you have:
 If you used the review UI, your main response artifacts are:
 
 - `integration_tests/questionnaire/questionnaire_responses.jsonl`
+- `integration_tests/questionnaire/external_questionnaire_responses.json` (if the owner answered outside the UI)
 - `integration_tests/questionnaire/comparison_responses.jsonl` (only if comparison becomes available later)
 
 If you also answered supplementals outside the UI, keep those markdown/text files

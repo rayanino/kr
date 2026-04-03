@@ -58,9 +58,29 @@ def load_responses(path: Path) -> tuple[dict[str, dict[str, Any]], list[str]]:
     return responses, sorted(set(duplicate_ids))
 
 
+def load_external_responses(path: Path) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    items = raw.get("responses", raw) if isinstance(raw, dict) else raw
+    if not isinstance(items, list):
+        raise ValueError(f"{path}: expected a list or dict with 'responses'")
+    responses: dict[str, dict[str, Any]] = {}
+    for index, entry in enumerate(items, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"{path}: entry {index} is not an object")
+        interaction_id = entry.get("interaction_id")
+        if not interaction_id:
+            raise ValueError(f"{path}: entry {index} missing interaction_id")
+        responses[str(interaction_id)] = entry
+    return responses
+
+
 def answered(entry: dict[str, Any] | None) -> bool:
     if not entry:
         return False
+    if entry.get("source_mode") == "external_bundle" and entry.get("answered_external") is True:
+        return True
     reaction = entry.get("immediate_reaction")
     return bool(isinstance(reaction, str) and reaction.strip())
 
@@ -69,6 +89,8 @@ def build_summary(
     interactions: list[Interaction],
     responses: dict[str, dict[str, Any]],
     duplicate_response_ids: list[str],
+    external_response_ids: list[str],
+    shadowed_external_ids: list[str],
 ) -> dict[str, Any]:
     active = [item for item in interactions if item.availability != "blocked_pending_source"]
     blocked = [item for item in interactions if item.availability == "blocked_pending_source"]
@@ -103,6 +125,8 @@ def build_summary(
         "unanswered_ids": [item.id for item in unanswered_active],
         "orphan_response_ids": orphan_responses,
         "duplicate_response_ids": duplicate_response_ids,
+        "external_response_ids": external_response_ids,
+        "shadowed_external_ids": shadowed_external_ids,
         "confidence_counts": dict(sorted(confidence_counts.items())),
         "phase_counts": dict(phase_counts),
         "supplemental_answers_included": False,
@@ -165,6 +189,19 @@ def render_markdown(summary: dict[str, Any], interactions: list[Interaction]) ->
     lines.extend(
         [
             "",
+            "## External Response IDs",
+            "",
+        ]
+    )
+    if summary["external_response_ids"]:
+        for item_id in summary["external_response_ids"]:
+            lines.append(f"- `{item_id}`")
+    else:
+        lines.append("_None_")
+
+    lines.extend(
+        [
+            "",
             "## Orphan Response IDs",
             "",
         ]
@@ -215,10 +252,21 @@ def main() -> int:
 
     questionnaire_dir = args.questionnaire_dir
     interactions = load_interactions(questionnaire_dir / "interactions.json")
-    responses, duplicate_response_ids = load_responses(
+    responses_jsonl, duplicate_response_ids = load_responses(
         questionnaire_dir / "questionnaire_responses.jsonl"
     )
-    summary = build_summary(interactions, responses, duplicate_response_ids)
+    external_responses = load_external_responses(
+        questionnaire_dir / "external_questionnaire_responses.json"
+    )
+    shadowed_external_ids = sorted(iid for iid in external_responses if iid in responses_jsonl)
+    responses = {**external_responses, **responses_jsonl}
+    summary = build_summary(
+        interactions,
+        responses,
+        duplicate_response_ids,
+        sorted(external_responses),
+        shadowed_external_ids,
+    )
 
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.parent.mkdir(parents=True, exist_ok=True)

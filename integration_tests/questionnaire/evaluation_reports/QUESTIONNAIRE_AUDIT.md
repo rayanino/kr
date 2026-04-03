@@ -1,16 +1,14 @@
 # Questionnaire Response Audit
 
-- Generated: `2026-04-02T07:58:39.473592+00:00`
+- Generated: `2026-04-03T17:29:08.914224+00:00`
 - Total interactions: `40`
 - Active interactions: `38`
-- Answered active interactions: `0`
-- Readiness score: `0.0`
+- Answered active interactions: `2`
+- Readiness score: `0.053`
 
 ## Structural Alerts
 
 ### missing
-- `F-1`
-- `F-2`
 - `F-3`
 - `F-4`
 - `F-5`
@@ -76,10 +74,15 @@ _None_
 
 ## Dimension Audit
 
-- Missing coverage: `Commentary structure + layer clarity`, `Conflict resolution case`, `Connecting sentence`, `Context hint quality`, `Cost of granularity`, `Cross-reference handling`, `Definition threshold`, `Editorial footnote and takhrij handling`, `Evidence + explanation bundling`, `Evidence coupling`, `Evidence type splitting`, `Example coupling`, `Excerpting approach`, `Failure modes`, `Genre uniformity`, `Ideal/worst excerpt`, `Implicit context`, `Layer attribution`, `List handling`, `Long khilaf`, `Max excerpt size`, `Mental model`, `Meta-contradictions and missing needs`, `Metadata sufficiency`, `Min excerpt size`, `Objection/response coupling`, `Original text fidelity`, `Position linking`, `Priority ranking`, `Quality baseline`, `Quality floor`, `Self-containment + note visibility`, `Semantic coupling`, `Short khilaf`, `Structure-risk preference`, `Triple definitions`, `Uncertainty tolerance`, `User model`
+- Missing coverage: `Commentary structure + layer clarity`, `Conflict resolution case`, `Connecting sentence`, `Context hint quality`, `Cost of granularity`, `Cross-reference handling`, `Definition threshold`, `Editorial footnote and takhrij handling`, `Evidence + explanation bundling`, `Evidence coupling`, `Evidence type splitting`, `Example coupling`, `Excerpting approach`, `Failure modes`, `Genre uniformity`, `Ideal/worst excerpt`, `Implicit context`, `Layer attribution`, `List handling`, `Long khilaf`, `Max excerpt size`, `Meta-contradictions and missing needs`, `Metadata sufficiency`, `Min excerpt size`, `Objection/response coupling`, `Original text fidelity`, `Position linking`, `Priority ranking`, `Quality baseline`, `Quality floor`, `Self-containment + note visibility`, `Semantic coupling`, `Short khilaf`, `Structure-risk preference`, `Triple definitions`, `Uncertainty tolerance`
 
 ### Low Confidence Dimensions
 _None_
+
+## External Responses
+
+- `F-1`
+- `F-2`
 
 ## Translation Readiness
 

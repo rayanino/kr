@@ -187,7 +187,10 @@ When you get a response: **save it as a file** in `docs/coworker_reports/2026-04
 
 When you have answered the active core questions (38 answerable right now, plus any supplementals you choose to do):
 
-1. **Your answers are already saved** in `questionnaire_responses.jsonl` — no need to do anything special
+1. **If you answered in the UI**, your answers are already saved in `questionnaire_responses.jsonl`
+   — no need to do anything special.
+   **If you answered outside the UI**, keep a stable normalized mirror in:
+   `integration_tests/questionnaire/external_questionnaire_responses.json`
 2. **Close the browser tab** and close the terminal (Ctrl+C or just close the window)
 3. **If you want to commit your review work yourself, do it narrowly**:
    ```

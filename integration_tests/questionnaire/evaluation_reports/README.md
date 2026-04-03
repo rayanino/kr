@@ -41,6 +41,10 @@ Preferred answer artifact:
 
 - `integration_tests/questionnaire/questionnaire_responses.jsonl`
 
+Supported normalized external mirror:
+
+- `integration_tests/questionnaire/external_questionnaire_responses.json`
+
 Preferred generated summary artifacts:
 
 - `integration_tests/questionnaire/evaluation_reports/OWNER_RESPONSE_SUMMARY.md`
@@ -85,6 +89,7 @@ In that case:
 1. say so explicitly in the report header
 2. do not pretend the JSONL existed if it did not
 3. normalize the answers into a stable artifact before final synthesis if possible
+4. if `external_questionnaire_responses.json` exists, use it and follow its referenced source layers
 
 ## Naming Convention
 

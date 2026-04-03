@@ -1,0 +1,25 @@
+{
+  "responses": [
+    {
+      "interaction_id": "F-1",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f1_collection/source_artifacts/f1_owner_original_notes_2026_04_03.txt",
+      "collection_manifest": "engines/excerpting/chatgpt_f1_collection/manifest.yaml",
+      "processed_doctrine_layer": "engines/excerpting/reference/excerpt_definition_canon/01_dossier.md",
+      "summary_note": "Owner answered F-1 outside the review UI. The raw owner notes are the authoritative owner-source layer. The promoted canon is processed doctrine, not direct owner truth.",
+      "confidence": null
+    },
+    {
+      "interaction_id": "F-2",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f2_collection/source_artifacts/f2_owner_raw_draft_and_followups_2026_04_03.txt",
+      "authoritative_owner_layer": "engines/excerpting/chatgpt_f2_collection/01_owner_answer.md",
+      "machine_friendly_layer": "engines/excerpting/chatgpt_f2_collection/02_workflow_notes.yaml",
+      "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f2_collection/04_model_inference_non_authoritative.md",
+      "summary_note": "Owner answered F-2 outside the review UI. Consult the raw source layer first, then the cleaned owner-answer layer.",
+      "confidence": "high"
+    }
+  ]
+}
