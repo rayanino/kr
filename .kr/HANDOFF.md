@@ -5,6 +5,23 @@
 
 # KR Handoff
 
+## Pinned strategic reminder — do not lose this
+
+A benchmark-quality owner example was recorded on 2026-04-03 and must be revisited during the next serious planning/frontier-selection cycle, even if the owner forgets to bring it up explicitly.
+
+Reference brief:
+- `docs/codex/2026-04-03-golden-example-multiresolution-digester.md`
+
+What it is:
+- not a default implementation request
+- a gold-standard benchmark for the kind of autonomous, high-leverage idea generation the KR system should eventually produce on its own
+
+Current benchmark conclusion:
+- the live system does **not** yet reach this level of reasoning
+- coworker-backed architectural conclusion: if this ever becomes an implementation target, the primary insertion boundary is excerpting Phase 2b → Phase 3/output, with taxonomy as the secondary required contract change
+
+This note does not replace `ACTIVE.md`. It is a pinned strategic memory item for the next Claude-led planning conversation.
+
 ## Session purpose
 Build the excerpting evaluation layer v1 and patch all observability gaps in the runner.
 
