@@ -1,7 +1,7 @@
 taxonomy:
   id: sarf_v2_0
   title: علم الصرف
-  methodology: "4-researcher synthesis (2 knowledge + 2 corpus), sparse-corpus Step 5 review bands (>=5, >=3, >=2), architect draft through Step 8, no independent ChatGPT comparison yet"
+  methodology: "4-researcher synthesis (2 knowledge + 2 corpus), sparse-corpus Step 5 review bands (>=5, >=3, >=2), architect draft revised after ChatGPT Phase 2 comparison, no fresh Claude Phase 3 review yet"
   validated: false
   date: '2026-04-03'
   researchers:
@@ -9,7 +9,7 @@ taxonomy:
     - "K-2 knowledge synthesis: 180 leaves, 6 level-1 branches"
     - "C-1 corpus extraction: 8 retained books, 139 clustered topics"
     - "C-2 content analysis: 3 core books, granularity calibration"
-  leaf_count: 151
+  leaf_count: 152
   nodes:
   - id: madkhal_ilm_al_sarf_wa_hududuh
     title: مدخل علم الصرف وحدوده
@@ -100,10 +100,10 @@ taxonomy:
         title: حروف الزيادة
         leaf: true
         confidence: HIGH
-      - id: al_ziyadah_lil_ilhaq
-        title: الزيادة للإلحاق
+      - id: al_ziyadah_bi_al_tadif
+        title: الزيادة بالتضعيف
         leaf: true
-        confidence: HIGH
+        confidence: MEDIUM
       - id: al_ziyadah_lil_maana
         title: الزيادة للمعنى
         leaf: true
@@ -134,6 +134,10 @@ taxonomy:
     - id: adad_al_usul_fi_al_kalimah
       title: عدد الأصول في الكلمة
       children:
+      - id: al_thunai
+        title: الكلمة الثنائية
+        leaf: true
+        confidence: MEDIUM
       - id: al_thulathi
         title: الكلمة الثلاثية
         leaf: true
@@ -146,6 +150,36 @@ taxonomy:
         title: الكلمة الخماسية
         leaf: true
         confidence: HIGH
+    - id: al_ilhaq
+      title: الإلحاق
+      children:
+      - id: tarif_al_ilhaq
+        title: تعريف الإلحاق
+        leaf: true
+        confidence: HIGH
+      - id: al_ilhaq_fi_al_abniyah
+        title: الإلحاق في الأبنية
+        leaf: true
+        confidence: MEDIUM
+      - id: al_farqu_bayna_al_ilhaq_wa_al_ziyadah
+        title: الفرق بين الإلحاق والزيادة
+        leaf: true
+        confidence: MEDIUM
+    - id: al_qiyasi_wa_al_samai_fi_al_sarf
+      title: القياسي والسماعي في الصرف
+      children:
+      - id: al_qiyasi_fi_al_sarf
+        title: القياسي في الصرف
+        leaf: true
+        confidence: MEDIUM
+      - id: al_samai_fi_al_sarf
+        title: السماعي في الصرف
+        leaf: true
+        confidence: MEDIUM
+      - id: al_shadh_fi_al_sarf
+        title: الشاذ في الصرف
+        leaf: true
+        confidence: MEDIUM
   - id: tasrif_al_afal_wa_abniyatiha
     title: تصريف الأفعال وأبنيتها
     children:
@@ -303,35 +337,8 @@ taxonomy:
         confidence: MEDIUM
     - id: maani_siyagh_al_ziyadah
       title: معاني صيغ الزيادة
-      children:
-      - id: al_tadiyah
-        title: التعدية
-        leaf: true
-        confidence: MEDIUM
-      - id: al_musharakah
-        title: المشاركة
-        leaf: true
-        confidence: MEDIUM
-      - id: al_mutawaah
-        title: المطاوعة
-        leaf: true
-        confidence: MEDIUM
-      - id: al_talab
-        title: الطلب
-        leaf: true
-        confidence: MEDIUM
-      - id: al_takthir
-        title: التكثير
-        leaf: true
-        confidence: MEDIUM
-      - id: al_sayrurah
-        title: الصيرورة
-        leaf: true
-        confidence: MEDIUM
-      - id: al_ittikhadh
-        title: الاتخاذ
-        leaf: true
-        confidence: MEDIUM
+      leaf: true
+      confidence: MEDIUM
     - id: al_isnad_al_sarfi
       title: الإسناد الصرفي
       children:
@@ -345,6 +352,10 @@ taxonomy:
         confidence: MEDIUM
       - id: isnad_al_amr_ila_al_damair
         title: إسناد الأمر إلى الضمائر
+        leaf: true
+        confidence: MEDIUM
+      - id: ahkam_al_isnad_fi_al_mutall_wa_al_mudaaf
+        title: أحكام الإسناد في المعتل والمضعف
         leaf: true
         confidence: MEDIUM
     - id: al_luzum_wa_al_tadiyah_min_jihat_al_sighah
@@ -558,10 +569,10 @@ taxonomy:
         leaf: true
         confidence: HIGH
     - id: al_muthanna
-      title: المثنى
+      title: المثنى من جهة الصياغة
       children:
       - id: shurut_al_tathniyah
-        title: شروط التثنية
+        title: شروط صياغة المثنى
         leaf: true
         confidence: MEDIUM
       - id: tathniyat_al_sahih
@@ -581,7 +592,7 @@ taxonomy:
         leaf: true
         confidence: MEDIUM
     - id: jam_al_mudhakkar_al_salim
-      title: جمع المذكر السالم
+      title: جمع المذكر السالم من جهة الصياغة
       children:
       - id: shurut_jam_al_mudhakkar_al_salim
         title: شروط جمع المذكر السالم
@@ -596,7 +607,7 @@ taxonomy:
         leaf: true
         confidence: MEDIUM
     - id: jam_al_muannath_al_salim
-      title: جمع المؤنث السالم
+      title: جمع المؤنث السالم من جهة الصياغة
       children:
       - id: shurut_jam_al_muannath_al_salim
         title: شروط جمع المؤنث السالم
@@ -707,10 +718,6 @@ taxonomy:
     - id: al_ibdal
       title: الإبدال
       children:
-      - id: ibdal_al_hamzah
-        title: إبدال الهمزة
-        leaf: true
-        confidence: HIGH
       - id: ibdal_huruf_al_illah
         title: إبدال حروف العلة
         leaf: true
@@ -743,7 +750,7 @@ taxonomy:
       leaf: true
       confidence: HIGH
     - id: al_hamzah_fi_al_binyah_al_sarfiyyah
-      title: الهمزة في البنية الصرفية
+      title: أحكام الهمزة في البنية الصرفية
       leaf: true
       confidence: MEDIUM
     - id: iltiqa_al_sakinayn_fi_al_binyah_al_sarfiyyah
