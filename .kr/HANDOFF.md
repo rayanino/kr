@@ -6,45 +6,42 @@
 # KR Handoff
 
 ## Session purpose
-Build the excerpting evaluation layer v1 and patch all observability gaps in the runner.
+Promote the preserved F1 excerpt-definition canon from collection material into the authoritative excerpting doctrine lane.
 
 ## What this session completed
 
-### Evaluation layer (8 new files)
-- `scripts/excerpting_eval/{__init__, models, ingest, analysis, packet}.py` — shared module
-- `scripts/analyze_excerpting_run.py` — per-book analyzer
-- `scripts/analyze_excerpting_campaign.py` — campaign aggregator
-- `scripts/export_excerpting_review_packet.py` — review packet exporter
+### Canon promotion
+- Preserved the validated 12-file F1 canon bundle under `engines/excerpting/chatgpt_f1_collection/canon/excerpt_definition/`
+- Promoted a byte-identical authoritative copy to `engines/excerpting/reference/excerpt_definition_canon/`
+- Added `engines/excerpting/reference/excerpt_definition_canon/README.md` to define authority, provenance, read order, and closure boundaries
 
-### Runner observability patches (2 files modified)
-- `scripts/run_integration_test.py` — failure ledgers, validation drops, gate verification, trace metadata, call-level error propagation
-- `engines/excerpting/src/phase3_orchestrator.py` — `Phase3Result.validation_drops` field + set-diff computation
+### Authority cleanup
+- Demoted `engines/excerpting/reference/ABD_EXCERPT_DEFINITION.md` from its stale "single source of truth" claim to historical-reference status
+- Added an explicit authority note to `engines/excerpting/reference/ABD_EXCERPTING_SPEC.md` pointing to the promoted canon
+- Updated `engines/excerpting/CLAUDE.md` so future excerpting work reads the canon dossier when touching boundaries, self-containment, function, or study-readiness
 
-### Analyzer bug fix
-- `scripts/excerpting_eval/packet.py` — book-level key collision fixed (B1)
+### Control-plane update
+- Added `OPS-DEC-007` in `.kr/DECISIONS.md` making `engines/excerpting/reference/excerpt_definition_canon/` the authoritative current excerpt-definition doctrine lane
 
-### Analyzer upgrades for new artifacts
-- Consumes `validation_drops.jsonl` → upgrades evidence to OBSERVED
-- Consumes `phase2a/2b_failures.jsonl` → new `detect_phase_failures` detector
-- Reads `semantic_phase` from trace requests when present → skips content inference
+## What this means
 
-## All 6 regression checks pass
-1. taysir grouped-unit loss (indices [2, 9]) — detected
-2. ibn_aqil_v3 zero-output — detected
-3. truncation finish_reason=length — detected
-4. client-label ambiguity — no false anomaly
-5. semantic phase inference — 4/4 correct
-6. clean books — 3/3 STRUCTURALLY_CLEAN
+- The raw collection/backfill phase of F1 is now preserved and promoted.
+- The current excerpt-definition doctrine is authoritative in its promoted location.
+- This does **not** mean every excerpt-definition question is fully resolved.
 
-808 excerpting engine tests pass, 0 failures.
-
-## Deferred flaw: L-001
-
-**chunk_id not in raw LLM traces.** The runner sets `semantic_phase` but cannot set `chunk_id` because phase functions iterate internally. Requires threading `trace_context` through `run_phase2a` → `classify_chunk` and `run_phase2b` → `group_chunk`.
-
-**Documented in:** `scripts/excerpting_eval/KNOWN_LIMITATIONS.md`
-**When to fix:** Before the first campaign that processes >1 chunk per book. The current test data uses 1 chunk per book, so this is dormant.
-**Impact if unfixed:** Analyzer infers chunk association from call sequence — works but fragile for multi-chunk runs.
+The live unresolved doctrine remains explicitly recorded in:
+- `engines/excerpting/reference/excerpt_definition_canon/04_unresolved.jsonl`
+- `engines/excerpting/reference/excerpt_definition_canon/10_coverage.yaml`
+- `engines/excerpting/reference/excerpt_definition_canon/11_hard_judgment.md`
 
 ## Current resume point
-Resume from `ACTIVE.md`. The frontier is completed. Owner decision needed on next frontier.
+
+Resume from `ACTIVE.md`.
+
+For any further excerpting hardening, owner-review synthesis, or prompt/spec work that depends on "what an excerpt is", use:
+
+1. `engines/excerpting/reference/excerpt_definition_canon/01_dossier.md`
+2. `engines/excerpting/reference/excerpt_definition_canon/11_hard_judgment.md`
+3. `engines/excerpting/reference/excerpt_definition_canon/02_terms.yaml`
+
+Do not start from `ABD_EXCERPT_DEFINITION.md` except for historical comparison.

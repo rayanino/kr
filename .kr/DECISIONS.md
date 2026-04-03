@@ -157,3 +157,34 @@ Evidence that fewer evaluators catch the same issues at lower cost, or that the 
 - `.kr/ACTIVE.md`
 - `.claude/rules/coworker-dispatch.md`
 - `.claude/rules/no-single-model-conclusion.md`
+
+### OPS-DEC-007 — Promote the excerpt-definition canon into the authoritative excerpting doctrine lane
+Status: active
+Date: 2026-04-03
+
+#### Decision
+KR will treat `engines/excerpting/reference/excerpt_definition_canon/` as the current authoritative excerpt-definition doctrine lane. The old ABD-era file `engines/excerpting/reference/ABD_EXCERPT_DEFINITION.md` remains historical reference only and no longer carries a single-source-of-truth claim.
+
+#### Why
+The owner-reviewed case cycle and canon backfill produced a materially stronger doctrine surface than the old ABD excerpt definition. The old file contains valuable historical reasoning, but it predates the owner hardening loop and does not encode the accepted/provisional/unresolved status model now needed for safe excerpting work.
+
+#### Evidence basis
+- Reviewed-case canon bundle preserved at `engines/excerpting/chatgpt_f1_collection/canon/excerpt_definition/`
+- Promoted authoritative copy at `engines/excerpting/reference/excerpt_definition_canon/`
+- Five reviewed cases: `ext_39_masala:3`, `ext_39_masala:6`, `ext_46_qa:9`, `ibn_aqil_v1:11`, `ibn_aqil_v3:13`
+- Owner-driven pressure documented in the promoted canon dossier and hard judgment
+
+#### Consequences
+1. Future excerpt-definition work must start from `reference/excerpt_definition_canon/`, not from the ABD file.
+2. The canon is authoritative even where it marks doctrine as provisional or unresolved; those bounds are part of the authority.
+3. The `chatgpt_f1_collection` copy is preserved as provenance, not as the live doctrine lane.
+4. F1 raw collection/backfill is preserved, but unresolved doctrine remains live work rather than silently treated as closed.
+
+#### What would reverse this
+Promotion of a newer excerpt-definition doctrine lane that clearly supersedes this canon with stronger evidence and explicit migration notes, or a deliberate decision to fully integrate the canon into `SPEC.md` with the same status discipline and traceability.
+
+#### Related artifacts
+- `engines/excerpting/reference/excerpt_definition_canon/README.md`
+- `engines/excerpting/reference/excerpt_definition_canon/01_dossier.md`
+- `engines/excerpting/reference/excerpt_definition_canon/11_hard_judgment.md`
+- `engines/excerpting/reference/ABD_EXCERPT_DEFINITION.md`

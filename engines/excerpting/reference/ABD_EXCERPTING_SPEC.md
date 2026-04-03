@@ -20,6 +20,10 @@
 > **For actual tool behavior:** `tools/extract_passages.py` (~1389 lines) and `3_extraction/RUNBOOK.md`
 > **For relation types:** `project_glossary.md` §7
 > **For ID formats:** `project_glossary.md` §12
+>
+> **For the current authoritative excerpt-definition doctrine:** `engines/excerpting/reference/excerpt_definition_canon/`
+>
+> This file remains a historical ABD-stage spec artifact. It must not override the promoted excerpt-definition canon.
 
 **Status:** Draft — rules are the most mature of all stages (extensive manual workflow precision), automation layer underspecified
 **Precision level:** High for rules, Low for LLM automation

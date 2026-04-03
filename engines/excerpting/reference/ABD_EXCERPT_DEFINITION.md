@@ -1,21 +1,23 @@
 # Definition and Rules of Excerpting
 
-> ## STATUS: Single Source of Truth (needs comprehensive update)
-> This file is the **single source of truth** for what an excerpt IS. However, it was written before the current vision was fully developed and needs updating to reflect:
-> - **Self-containment**: every excerpt must be independently understandable by the synthesis LLM
-> - **Folder-based data model**: excerpts are placed as files in taxonomy folder trees (one tree per science). "Placing an excerpt" = writing the file into that node's folder. Multiple books converge at the same leaf. This physical model is not described anywhere in this file.
-> - **Taxonomy evolution**: excerpts drive tree growth, not the other way around
-> - **Multi-model consensus**: planned for extraction validation
-> - **Human gates**: feedback loops and self-improving system
-> - **Blueprint schema (§2)**: ~60 aspirational fields, most not implemented in any tool or gold data
+> ## STATUS: Historical pre-Q&A reference (non-authoritative)
+> This file is **no longer the live authority** for what an excerpt is.
 >
-> Until this file is fully rewritten, conflicts are resolved by:
-> `00_BINDING_DECISIONS_v0.3.16.md` → schema v0.3.3 → glossary → checklists → protocol → baselines.
+> The current authoritative excerpt-definition canon lives at:
+> - `engines/excerpting/reference/excerpt_definition_canon/README.md`
+> - `engines/excerpting/reference/excerpt_definition_canon/01_dossier.md`
 >
-> **Binding corrections already in effect:**
-> - Heading atoms are **metadata-only** and are never included in excerpts as core or context atoms.
-> - Parent/general content uses the `__overview` leaf convention exclusively.
-> - Each excerpt file must be **self-contained** — the synthesis LLM must understand it without needing other files.
+> Why this file was demoted:
+> - it predates the owner Q&A / reviewed-case hardening cycle
+> - it carries the old "single source of truth" claim, which is no longer correct
+> - the current doctrine now distinguishes accepted, provisional, emerging, and unresolved items explicitly
+>
+> Keep using this file only as:
+> - historical context
+> - a source of older rule formulations worth comparing against the new canon
+> - a reference artifact when auditing how doctrine changed
+>
+> Do **not** treat this file as the single authoritative excerpt-definition source.
 
 This section defines with precision what an "excerpt" is within this project, how excerpt boundaries are determined, how edge cases are handled, and what metadata accompanies each excerpt. These rules govern the most critical operation in the entire pipeline: the intelligent decomposition of a book into atomic, accurately-placed fragments within the taxonomy tree.
 

@@ -36,6 +36,7 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 | `tests/conftest.py` | 184 | 4 factories: AssembledChunk, ClassifiedSegment, TeachingUnit, ExcerptRecord |
 | `docs/architecture.md` | — | Module structure, data flow, build session plan |
 | `docs/testing.md` | — | Test categories per file, fixture requirements |
+| `reference/excerpt_definition_canon/01_dossier.md` | — | Current authoritative excerpt-definition doctrine (accepted/provisional/unresolved by status) |
 | `docs/llm_trustworthiness_defenses.md` | — | **Sessions 4–6 MANDATORY.** Failure-mode matrix, Tier 1 deterministic defenses, empirical scan requirements |
 | `docs/technology_survey.md` | — | Verified tool/library capabilities |
 | `session-1-plan.md` | — | CC Session 1 directive (Phase 1 build) |
@@ -111,3 +112,4 @@ Follow normalization conventions:
 4. `engines/normalization/contracts.py` — upstream types consumed
 5. `experiments/architecture_test/extract_divisions.py` — validated reference implementations
 6. `docs/llm_trustworthiness_defenses.md` — **MANDATORY for Sessions 4–6.** Deterministic defenses against LLM judgment errors. Contains failure-mode matrix, Tier 1 defenses to build, and empirical scans to run before each session.
+7. `reference/excerpt_definition_canon/01_dossier.md` when the task touches excerpt boundaries, self-containment, function, study-readiness, or owner-facing excerpt quality.
