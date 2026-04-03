@@ -42,7 +42,13 @@ Companion provenance/evidence artifacts live at:
 - `engines/excerpting/chatgpt_f1_collection/README.md`
 - `engines/excerpting/chatgpt_f1_collection/manifest.yaml`
 
-Important: as of this promotion, the processed canon is preserved and promoted, but the owner's first raw wording has **not yet been anchored in a repo-visible artifact**. Do not confuse the promoted canon with the full raw owner evidence stack.
+Important: the promoted canon is **not** the whole F1 evidence stack. The collection lane now preserves:
+
+- the raw owner notes
+- the raw ChatGPT bundle
+- the collected canon snapshot
+
+Do not confuse the promoted canon with the full evidence stack it was derived from.
 
 ## Closure Boundary
 

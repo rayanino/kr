@@ -17,20 +17,22 @@ This is the preserved collection-stage copy of the 12-file canon bundle that was
 ### 2. Source artifacts
 
 - `source_artifacts/chatgpt_bundle_raw_2026_04_03.txt`
+- `source_artifacts/f1_owner_original_notes_2026_04_03.txt`
 
-This is the raw ChatGPT multi-file bundle text as saved from the Windows-side collection folder and used for provenance comparison.
+These are the preserved raw source artifacts behind the collection work:
+
+- the raw ChatGPT multi-file bundle text as saved from the Windows-side collection folder and used for provenance comparison
+- the owner’s first-person raw F1 notes and original excerpt-review feedback bundle, copied verbatim from the Windows-side desktop file
 
 ## Important evidence status
 
-As of `2026-04-03`, the **raw owner-original-notes artifact is still NOT present in a repo-visible path**.
-
-That means:
+As of `2026-04-03`, the F1 evidence stack is now preserved in repo-visible form at the collection layer:
 
 - the processed canon is preserved
 - the raw ChatGPT bundle is preserved
-- but the owner's first raw wording is **not yet anchored here**
+- the owner's first raw wording is preserved
 
-Do **not** assume the raw owner wording has already been captured just because the canon exists.
+Do **not** collapse these into one source. They are different evidence layers and must stay distinguishable.
 
 ## Why this matters
 
@@ -43,5 +45,4 @@ The intended full evidence stack for F1 is:
 3. promoted authoritative canon
 
 This directory currently preserves items 2 and the source artifact behind 2.
-
-Item 1 still needs to be added explicitly.
+It now also preserves item 1 explicitly.
