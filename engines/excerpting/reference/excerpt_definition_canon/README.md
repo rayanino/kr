@@ -37,6 +37,13 @@ This canon was promoted from the validated ChatGPT F1 bundle after:
 
 The files in this directory are currently byte-identical to the validated 12-file bundle content.
 
+Companion provenance/evidence artifacts live at:
+
+- `engines/excerpting/chatgpt_f1_collection/README.md`
+- `engines/excerpting/chatgpt_f1_collection/manifest.yaml`
+
+Important: as of this promotion, the processed canon is preserved and promoted, but the owner's first raw wording has **not yet been anchored in a repo-visible artifact**. Do not confuse the promoted canon with the full raw owner evidence stack.
+
 ## Closure Boundary
 
 This promotion closes the **raw collection / backfill preservation phase** of F1.
