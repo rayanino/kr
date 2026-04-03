@@ -1,0 +1,26 @@
+canon_id: excerpt_definition_backfill_chat_pass_001
+version: 0.1.0
+status: provisional
+reviewed_case_refs_used:
+  - ext_39_masala:3
+  - ext_39_masala:6
+  - ext_46_qa:9
+  - ibn_aqil_v1:11
+  - ibn_aqil_v3:13
+generated_from_chat_only: true
+total_principles: 16
+total_unresolved: 10
+total_revisions: 5
+total_examples_counterexamples_borderlines: 10
+total_tests: 10
+major_active_tensions:
+  - independently_understandable_vs_directly_study_ready
+  - self_containment_vs_context_richness
+  - separation_vs_strategic_overlap
+  - rule_proof_distinction_vs_preserving_scholar_specific_linkage
+  - quote_splitting_vs_quote_frame_preservation
+  - theory_facing_examples_vs_practice_facing_examples
+  - explained_plus_explanation_staying_together
+  - omission_honesty
+  - mention_vs_true_topic
+  - footnote_attachment_vs_footnote_re_excerpting
