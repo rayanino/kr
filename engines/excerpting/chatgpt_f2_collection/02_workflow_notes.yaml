@@ -1,0 +1,106 @@
+study_entry_point:
+  default_view: rooted_tree_view
+  not_default:
+  - raw_text
+  - random_search
+  entry_sequence:
+  - science
+  - major_topic
+  - branch_topology
+  objective: identify the exact question before opening excerpts
+first_phase_goal:
+  window: first_5_minutes
+  goal: orientation_not_detail
+  tasks:
+  - identify_branch_map_under_topic
+  - confirm_scope
+  - identify_major_subdomains
+  - see_what_belongs_elsewhere
+  - detect_if_issue_is_single_position_multi_position_school_split_proof_rich_or_example_rich
+preferred_navigation_order:
+- root_science
+- major_topic
+- sub_branch_map
+- exact_leaf
+- excerpt_title_scan
+- theory_excerpts
+- example_excerpts
+- proof_excerpts
+- return_upward_to_reanchor
+tree_vs_excerpt_usage:
+  tree_view:
+  - map
+  - boundaries
+  - relationships
+  - opinion_structure
+  excerpt_view:
+  - after_leaf_is_exact_enough
+  return_to_tree_when:
+  - local_detail_risks_detaching_from_the_whole
+theory_example_proof_usage:
+  theory:
+  - establish_exact_point
+  - conditions
+  - exceptions
+  - scope
+  examples:
+  - turn_abstraction_into_something_mentally_concrete
+  - test_whether_understanding_is_real
+  proofs:
+  - answer_why
+  - compare_positions
+  - prepare_for_explanation_teaching_defense
+  ordering:
+  - theory_first
+  - examples_second
+  - proofs_third
+  note: proofs_are_not_the_entry_point
+pre_solved_by_system:
+- topic_placement
+- branch_relationships
+- scope_boundaries
+- cross_science_filtering
+- school_opinion_organization
+- proof_grouping
+- example_attachment
+- excerpt_self_containment
+- no_manhunt_for_missing_context
+- no_pollution_from_neighboring_but_irrelevant_material
+study_actions:
+- scan_tree_before_detail
+- identify_exact_question
+- scan_excerpt_titles_and_counts
+- read_theory
+- read_examples
+- read_proofs
+- return_upward_to_reanchor
+transition_rules:
+- move_down_when_branch_is_too_broad
+- move_up_when_local_detail_is_outrunning_the_map
+- move_sideways_only_when_a_sibling_clarifies_a_boundary
+- move_from_theory_to_examples_when_rule_is_understood_verbally_but_not_yet_mentally_embodied
+- move_from_examples_to_proofs_when_causation_comparison_or_justification_is_needed
+stopping_rules:
+- stop_descending_when_question_is_exact
+- stop_reading_theory_when_rule_and_limits_can_be_stated_cleanly
+- stop_examples_when_rule_has_become_concrete
+- stop_proofs_when_explanation_for_why_the_ruling_or_position_stands_is_available
+- stop_subtopic_when_leaf_feels_structurally_stable_not_merely_familiar
+memorization_role:
+  core_claim: memorization_is_the_remaining_human_bottleneck_after_structure_and_gathering_are_solved
+  during_study: fix_the_mapped_knowledge_into_the_self
+  not_for: building_the_map_from_scratch
+  relationship_to_clarity: downstream_of_clarity_not_a_substitute_for_it
+successful_session_definition:
+- know_exactly_where_the_studied_leaf_lives
+- know_what_question_it_answers
+- state_the_ruling_or_positions
+- distinguish_it_from_neighboring_branches
+- have_seen_enough_examples_to_make_it_concrete
+- know_where_the_proofs_sit_and_open_them_intentionally
+- leave_with_one_branch_mapped_and_memorization_ready
+open_questions:
+- exact_memorization_behavior_inside_the_30_minutes_is_still_owner_specific
+- the_balance_between_staying_in_one_leaf_deeply_vs_covering_multiple_leaves_in_one_session_is_not_fully_fixed
+- the_role_of_lectures_audio_in_the_same_session_versus_separate_sessions_remains_unstated
+- the_exact_role_of_search_as_a_secondary_navigation_tool_remains_open

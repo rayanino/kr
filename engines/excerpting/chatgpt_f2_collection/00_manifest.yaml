@@ -1,0 +1,27 @@
+interaction_id: F-2
+title: My Study Session
+status: preserved_lightweight_package
+source_kind: chat_derived_user_model_answer
+authoritative_owner_layer: 01_owner_answer.md
+machine_friendly_layer: 02_workflow_notes.yaml
+non_authoritative_inference_layer: 04_model_inference_non_authoritative.md
+warnings:
+- 01_owner_answer.md is the owner-answer layer.
+- 03_retained_implications.md is not the owner answer; it is a retained interpretation
+  layer for later engineering use.
+- 04_model_inference_non_authoritative.md is explicitly non-authoritative and must
+  not be treated as direct owner truth without confirmation.
+- This package preserves F-2 only; it is not an excerpt-definition canon bundle.
+key_dimensions:
+- study_entry_point
+- first_phase_goal
+- preferred_navigation_order
+- tree_vs_excerpt_usage
+- theory_example_proof_usage
+- pre_solved_by_system
+- study_actions
+- transition_rules
+- stopping_rules
+- memorization_role
+- successful_session_definition
+- open_questions
