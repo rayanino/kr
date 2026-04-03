@@ -59,7 +59,10 @@ def _make_gate_entry(**overrides: object) -> dict[str, object]:
         if isinstance(context_override, dict):
             context.update(context_override)
     else:
-        context = {"primary_text_snippet": "نص عربي"}
+        context = {
+            "primary_text": "نص عربي كامل",
+            "primary_text_snippet": "نص عربي",
+        }
         if isinstance(context_override, dict):
             context.update(context_override)
 

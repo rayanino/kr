@@ -261,6 +261,12 @@ class TestPhase3Orchestrator:
         fake_gate: dict[str, object] = {
             "excerpt_id": "exc_test_0_0_0",
             "gate_code": "EX-G-001",
+            "timestamp": "2026-03-24T00:00:00+00:00",
+            "context": {
+                "primary_text": "النص الكامل للاقتطاف",
+                "primary_text_snippet": "النص الكامل",
+            },
+            "status": "pending",
         }
 
         def mock_enrichment(**kwargs: Any) -> list[ExcerptRecord]:
@@ -496,7 +502,10 @@ class TestFullPipeline:
             "excerpt_id": "exc_gate_test",
             "gate_code": "EX-G-001",
             "timestamp": "2026-03-24T00:00:00+00:00",
-            "context": {"primary_text_snippet": "بسم الله الرحمن الرحيم"},
+            "context": {
+                "primary_text": "بسم الله الرحمن الرحيم كاملة",
+                "primary_text_snippet": "بسم الله الرحمن الرحيم",
+            },
             "status": "pending",
         }
 

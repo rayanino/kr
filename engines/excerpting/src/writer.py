@@ -58,6 +58,11 @@ def _validate_gate_entry(
         raise ResumeMergeError(
             f"{source_desc}: context must be a non-empty object."
         )
+    primary_text = context.get("primary_text")
+    if not isinstance(primary_text, str) or not primary_text:
+        raise ResumeMergeError(
+            f"{source_desc}: gate context must include non-empty primary_text."
+        )
     if gate_code == "EX-G-002":
         primary_text_snippet = context.get("primary_text_snippet")
         self_containment_notes = context.get("self_containment_notes")

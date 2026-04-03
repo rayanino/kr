@@ -40,7 +40,10 @@ def _make_gate_entry(**overrides: object) -> dict[str, object]:
         if isinstance(context_override, dict):
             context.update(context_override)
     else:
-        context = {"primary_text_snippet": "نص عربي"}
+        context = {
+            "primary_text": "نص عربي كامل",
+            "primary_text_snippet": "نص عربي",
+        }
         if isinstance(context_override, dict):
             context.update(context_override)
 
@@ -302,6 +305,38 @@ class TestWriteGateQueue:
                 tmp_path,
             )
 
+    def test_ex_g_002_missing_primary_text_raises(self, tmp_path: Path) -> None:
+        """EX-G-002 gate rows must retain the full excerpt text for owner review."""
+        malformed_entry = {
+            "excerpt_id": "exc_gate_0_0_0",
+            "gate_code": "EX-G-002",
+            "timestamp": "2026-03-24T00:00:00+00:00",
+            "context": {
+                "primary_text_snippet": "نص عربي",
+                "self_containment_notes": "يحتاج إلى السياق السابق",
+                "adjacent_teaching_units": [],
+                "failed_criteria_context": "سبب الاعتماد",
+            },
+            "status": "pending",
+        }
+        with pytest.raises(ResumeMergeError, match="primary_text"):
+            write_gate_queue(
+                [malformed_entry],
+                tmp_path,
+            )
+
+    def test_gate_entry_missing_primary_text_raises(self, tmp_path: Path) -> None:
+        """All human gate rows must retain full excerpt text for owner review."""
+        malformed_entry = {
+            "excerpt_id": "exc_gate_0_0_0",
+            "gate_code": "EX-G-001",
+            "timestamp": "2026-03-24T00:00:00+00:00",
+            "context": {"primary_text_snippet": "نص عربي"},
+            "status": "pending",
+        }
+        with pytest.raises(ResumeMergeError, match="primary_text"):
+            write_gate_queue([malformed_entry], tmp_path)
+
 
 # ═══════════════════════════════════════════════════════════════════
 # verify_gate_queue (V-P3-7)
@@ -390,6 +425,30 @@ class TestVerifyGateQueue:
         with pytest.raises(GateQueueVerificationError, match="EX-M-008"):
             verify_gate_queue(entries, path)
 
+    def test_verification_fails_when_ex_g_002_primary_text_missing(
+        self, tmp_path: Path
+    ) -> None:
+        """Verification must fail if a resumed EX-G-002 row lost full excerpt text."""
+        path = tmp_path / "gate_queue.jsonl"
+        invalid_entry = {
+            "excerpt_id": "exc_b",
+            "gate_code": "EX-G-002",
+            "timestamp": "2026-03-24T00:00:00+00:00",
+            "context": {
+                "primary_text_snippet": "نص عربي",
+                "self_containment_notes": "يحتاج إلى السياق السابق",
+                "adjacent_teaching_units": [],
+                "failed_criteria_context": "سبب الاعتماد",
+            },
+            "status": "pending",
+        }
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(json.dumps(invalid_entry, ensure_ascii=False) + "\n")
+
+        entries: list[dict[str, object]] = [invalid_entry]
+        with pytest.raises(GateQueueVerificationError, match="EX-M-008"):
+            verify_gate_queue(entries, path)
+
     def test_round_trip_gate_queue(self, tmp_path: Path) -> None:
         """Full round-trip: write → verify → success."""
         entries = [
@@ -398,6 +457,7 @@ class TestVerifyGateQueue:
                 "gate_code": "EX-G-001",
                 "timestamp": "2026-03-24T00:00:00+00:00",
                 "context": {
+                    "primary_text": "بسم الله الرحمن الرحيم كاملة",
                     "primary_text_snippet": "بسم الله الرحمن الرحيم",
                     "school": "حنبلي",
                 },
@@ -407,7 +467,10 @@ class TestVerifyGateQueue:
                 "excerpt_id": "exc_rt_0_0_1",
                 "gate_code": "EX-G-003",
                 "timestamp": "2026-03-24T00:00:00+00:00",
-                "context": {"school": "شافعي"},
+                "context": {
+                    "primary_text": "النص الكامل للاختلاف المذهبي",
+                    "school": "شافعي",
+                },
                 "status": "pending",
             },
         ]
