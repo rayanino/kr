@@ -24,6 +24,7 @@ from engines.excerpting.contracts import (
     VerificationResult,
 )
 from engines.excerpting.src.phase3_consensus import (
+    VERIFY_UNIT_TEXT_LIMIT,
     _build_gate_entry,
     _needs_consensus,
     _parse_self_containment,
@@ -176,6 +177,31 @@ class TestConsensusTriggers:
         assert "SCHOOL_ATTRIBUTION" in types
         assert "AUTHOR_ATTRIBUTION" in types
         assert "SELF_CONTAINMENT" in types
+
+    def test_verification_unit_text_truncated_to_spec_bound(self) -> None:
+        """All consensus prompt items use the SPEC's 500-char primary_text bound."""
+        long_text = "ب" * (VERIFY_UNIT_TEXT_LIMIT + 250)
+        exc = _make_excerpt_record(
+            primary_text=long_text,
+            school="شافعي",
+            school_confidence=0.7,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="مرتبط بباب سابق",
+            context_hint="باب الطهارة",
+            primary_author_layer=AuthorAttribution(
+                layer_id="sharh",
+                author_id="sch_test",
+                coverage_pct=0.55,
+                rule_applied="LA-3",
+            ),
+        )
+
+        items = _needs_consensus(exc)
+
+        assert len(items) == 3
+        for item in items:
+            assert item["unit_text"] == long_text[:VERIFY_UNIT_TEXT_LIMIT]
+            assert len(item["unit_text"]) == VERIFY_UNIT_TEXT_LIMIT
 
 
 # ═══════════════════════════════════════════════════════════════════
