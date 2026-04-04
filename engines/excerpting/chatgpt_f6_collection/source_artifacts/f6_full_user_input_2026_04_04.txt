@@ -1,0 +1,780 @@
+We are now switching to **questionnaire mode** for **F6**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F7/F8 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple reading-preference question, but the deeper issue is structural.
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**F6**
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification  
+الحديث الثاني  
+عَنْ فَاطِمَةَ بِنْتِ قيْس: أنً أبَا عَمْرِو بْن حَفْص طَلقهَا ألبته وَهُو غَائِب.  
+وفي رواية: طلَقَهَا ثلاثا فأرسل إلَيْهَا وَكِيلَة بِشَعِير، فَسَخِطَته فَقَالَ: والله مَالَكِ عَلَينا منْ شيء.  
+فَجَاءت رَسُول الله صلى الله عليه وسلم فَذَكرَتْ ذلِكَ لَهُ، فقالَ: " ليْسَ لكَ عَلَيْهِ نَفَقَة" وفي لفظ "وَلا سكْنَى".  
+فَأمَرَهَا أن تَعتَدً في بَيْتِ أم شَريكٍ، ثم قالَ: " تِلكَ امرَأة يَغشَاهَا أصحابي، اعتدي عنْدَ ابنِ أم مكتوم، فَإنَهُ رَجُل أعمَى، تَضَعِينَ ثِيابَكِ عِنْدَهُ، فَإذا حللتِ فآذنيني ".  
+قَالتْ: فَلَمَا حلَلتُ ذكرت لَهُ أن مُعَاوِيَةَ بنَ أبي سُفْيَانَ وأبَا جَهْم خَطَبَاني.  
+فقال رسول الله صلى الله عليه وسلم: " أما أبو جَهْم فلا يَضَعَُ عَصَاهُ عَنْ عَاتِقِهِ، وأما مُعَاوِيَة فصعلوك لا مَالَ له، انكحِي أسامة بنَ زَيد " فَكَرِهَتْهُ.  
+ثم قَالَ: " انكحِي أسامة بنَ زيد " فنكحته، فَجَعَلَ الله فِيهِ خيْرا وَاغْتَبَطْتُ بهِ.
+
+**Question**  
+When you study this text, which parts do you focus on? Are there parts that slow you down or that you skip? Would you want any kind of help understanding the text — or do you always want the author's original words without any changes?
+
+## Critical separation rule for this question
+
+I want **two layers at the same time**:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+Rules:
+
+- `01_questionnaire_answer.md` must contain **only** what I could honestly stand behind as my questionnaire answer.
+- It may be strengthened for **clarity, structure, force, precision, and sequencing**, but it must remain **owner-faithful**.
+- It must **NOT** silently import broad model-generated protocol doctrine unless it is a **direct consequence** of my raw reaction and prior established standards in this chat.
+- All broader analysis, proof-layer logic, source-integrity logic, memorization policy, variant-comparison logic, data-analysis insights, methodology-risk logic, and engineering implications must live in the **other files**.
+- Every nontrivial item outside the questionnaire answer must carry both:
+  - `source_basis`: `explicit_draft` | `inferred_from_prior_chat` | `model_expansion`
+  - `owner_relation`: `owner_explicit` | `owner_consistent_inference` | `model_only`
+- Do **NOT** treat `model_expansion` as owner truth.
+- When in doubt, be conservative in the questionnaire answer and expansive in the engineering layer.
+
+## Special instruction for this question
+
+My raw reaction is **not** mainly about superficial reading difficulty.
+
+My deeper hierarchy is roughly:
+
+1. The first thing I notice is that this is a **proof as found in a science book**, not a definitive proof-source text.
+2. Therefore I would **not directly memorize this hadith from this source**.
+3. I would instead compare it against the **authoritative fetched proof sources** that should also exist in the library.
+4. My focus while studying this text would therefore be:
+   - understanding how this scholar/book presents the proof
+   - comparing that presentation to authoritative proof versions
+   - noticing wording differences
+   - understanding whether those differences change rulings / meanings / explanations
+5. So the deeper issue is not only “do I want help reading the text?”
+6. It is also:
+   - what counts as a trustworthy memorization source
+   - what role this kind of excerpt should play in the library
+   - whether help should be a secondary layer instead of mutating the author’s words
+   - where study-friendly structuring is allowed and where it is not
+7. The answer is therefore likely **not** “I always want the author's original words without any changes” in a flat way.
+8. It is more nuanced:
+   - preserve the original author’s text as-is for source integrity
+   - but allow parallel / secondary study-help layers where appropriate
+   - and apply study-friendly structuring primarily to the **fetched definitive proofs**, not to the original scholar-book wording
+9. This case also opens deeper issues:
+   - proof-layer architecture
+   - scholar dependency on wording variants
+   - authoritative confirmation of proofs
+   - unseen methodologies / unseen edge cases
+   - uncertainty gates instead of blind overconfidence
+
+You must preserve that hierarchy if it survives your reasoning.
+
+  - Do NOT misread my desire to preserve original wording as a rejection of all secondary help layers. 
+
+## My raw comments
+
+First of all, I would realize this is a proof coming directly from a science book (not a source book like al-bukhari), which is automatically a read flag concerning directly memorizing this hadith like this. I would not memorize it from this source.
+
+But what I would do, though, is I would take a deep look at it and compare it with the hadiths from the authoritative proof-sources (which should also be present in the library; these are the proofs I actually memorize directly). My goal would be to get a deep understanding and overview of the different versions of the hadith that scholars based their explanations on. And also: I would try to analyze and find any links between “the scholars who chose version x of the proof made conclusion y, because version x contained this and that and …”. ANALYSIS. DEEP ANALYSIS AND UNDERSTANDING.
+
+Actually, I just realized that I would be doing one of the main things the library should be facilitating for me: easing the process of gathering, analyzing, searching, … So this actually brings up an important principle concerning the proofs present in the library:
+
+we’ve already established that for every proof present in the library, there should also be a copy that will actually directly be memorized: a certified proof fetched directly from the libraries proof-sources. But there should still be a relationship between these two categories of sources. The relationship I just came to; showing the differences present in the versions of the proofs scholars have based their explanation / evidence on, and if this is substantial or not.
+
+For example;
+
+The fetched trustworthy proof present in the library is hadith: “Aa”, “Ab”, “Ac” (three versions of one hadith as is common with hadiths). This is a hadith we fetched directly from sunnah.com. We fetched this because one of the excerpts contains this hadith, but since the owner does not memorize hadiths directly from books (since, as aforementioned, books usually do not spend much time at diacritics, source, chain, wording, … of hadiths), this hadith was also fetched.
+
+The version found in the book is “Ab”.
+
+If “Ab” vs “Aa” and “Ac” differ only in non-significant wording that doesn’t change the meaning / derived ruling, then this should be indicated.
+
+But if it changed rulings, definitions, meanings, … then this should be indicated + clearly highlighted. THIS GIVES AN UNPRECEDENTED ADVANTAGE: the owner can clearly understand how DIFFERENT WORDINGS OF THE SAME PROOF CHANGED THE PERSPECTIVE OF SCHOLARS. This is extremely important and something that is VERY HARD TO DO MANUALLY, especially with longer proofs.
+
+In general, I think DATA ANALYSIS AND PROCESSING LARGE DATA AND GIVING INSIGHTS FROM THAT (especially significant things like the percentage of scholars who chose a specific opinion, …) is A CORE ASPECT THAT WILL MAKE THE OWNER AN UNPRECEDENTED SCHOLAR. NOBODY HAD THIS BEFORE. It’s always been “most scholars”, “many scholars”, … never data. INDICATE THIS CLEARLY. MAKE SURE THIS IS NOT LOST, AND NOTE A “LOST IDEA”.
+
+To answer the f question: the way I’ve always wanted to memorize and read hadiths is that they are separated in memorizable chunks:
+
+عَنْ فَاطِمَةَ بِنْتِ قيْس: 
+
+أنً أبَا عَمْرِو بْن حَفْص طَلقهَا ألبته وَهُو غَائِب.
+
+وفي رواية: طلَقَهَا ثلاثا فأرسل إلَيْهَا وَكِيلَة بِشَعِير، فَسَخِطَته فَقَالَ: والله مَالَكِ عَلَينا منْ شيء.
+
+فَجَاءت رَسُول الله صلى الله عليه وسلم فَذَكرَتْ ذلِكَ لَهُ، 
+
+فقالَ: " ليْسَ لكَ عَلَيْهِ نَفَقَة" وفي لفظ "وَلا سكْنَى".
+
+فَأمَرَهَا أن تَعتَدً في بَيْتِ أم شَريكٍ، 
+
+ثم قالَ: " تِلكَ امرَأة يَغشَاهَا أصحابي، اعتدي عنْدَ ابنِ أم مكتوم، فَإنَهُ رَجُل أعمَى، تَضَعِينَ ثِيابَكِ عِنْدَهُ، فَإذا حللتِ فآذنيني ".
+
+BUT IMPORTANTLY: this “structuring” should not happen to the original author’s text. The original text should not be altered, only excerpted.
+
+Instead, how I want proofs to be structured should be applied to the fetched definitive to-memorize proofs. And it makes sense too; since these are the proofs I will be studying, so they need to be structured in a study-friendly way. But I think instead of putting effort into layout - which is closely related to the ui of the library which is not the stage we are at right now - we should focus more on getting the pipeline to work, which IS our current focus.
+
+## Critical rule about the text as given
+
+The questionnaire answer must evaluate **this text as currently given**.
+
+Do **NOT** let the engineering layer silently replace the current text with a better proof architecture when answering the owner question.
+
+Use the text as given to answer:
+
+- which parts I focus on
+- which parts slow me down
+- which parts I skip, if any
+- what help I would want
+
+But also preserve the deeper owner-faithful hierarchy:
+
+- I do **not** treat this as my definitive memorization source
+- I want this preserved as a scholar-book proof witness
+- I want authoritative fetched proofs alongside it
+- I want help, but not by mutating the author’s original wording
+- I want secondary analysis / comparison / chunking where appropriate
+- the better study structuring belongs mainly to the fetched definitive proofs
+
+Do **NOT** let the question’s surface wording cap the deeper diagnosis.
+
+## Your job
+
+Take that raw reaction and turn it into the strongest possible answer to this question.
+
+But before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- what the actual questionnaire answer is, given that there is **no MC choice**
+- which parts of this text I would focus on first
+- which parts I would read mainly for comparative-analysis value
+- which parts I would not directly memorize from this source
+- whether I skip anything entirely or simply treat it differently
+- what exactly slows me down
+- whether I want help understanding the text as given
+- whether that help should be:
+  - generated summary help
+  - source-preserving comparison help
+  - chunking help
+  - variant-difference help
+  - authoritative proof linkage
+- whether I want the original author’s words unchanged
+- whether that means “no help at all” or “help in a separate layer”
+- what belongs to the scholar-book proof layer
+- what belongs to the authoritative fetched proof layer
+- whether variant differences can change meaning / ruling / explanation
+- whether those differences should be highlighted
+- whether large-scale data analysis is a core unprecedented advantage here
+- whether layout / structuring belongs to current pipeline stage or a later stage
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.
+Use it to sharpen the final output.
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_f6_collection/`
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_f6_collection/README.md`
+- `engines/excerpting/chatgpt_f6_collection/source_artifacts/f6_full_user_input_2026_04_04.txt`
+- `engines/excerpting/chatgpt_f6_collection/source_artifacts/f6_owner_raw_reaction_2026_04_04.txt`
+
+Requirements:
+
+- `f6_full_user_input_2026_04_04.txt` must contain the full question block, excerpt block, and my raw reaction **verbatim**
+- `f6_owner_raw_reaction_2026_04_04.txt` must contain my raw reaction **verbatim**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+`File creation is not available in this chat; I can only emit raw text.`
+
+and stop.
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.
+Do **NOT** restart from the beginning.
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_f6_collection/README.md`
+2. `engines/excerpting/chatgpt_f6_collection/source_artifacts/f6_full_user_input_2026_04_04.txt`
+3. `engines/excerpting/chatgpt_f6_collection/source_artifacts/f6_owner_raw_reaction_2026_04_04.txt`
+4. `engines/excerpting/chatgpt_f6_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_f6_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_f6_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_f6_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_f6_collection/04_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_f6_collection/05_focus_segments.jsonl`
+10. `engines/excerpting/chatgpt_f6_collection/06_slowdown_skip_analysis.jsonl`
+11. `engines/excerpting/chatgpt_f6_collection/07_proof_layer_relationships.jsonl`
+12. `engines/excerpting/chatgpt_f6_collection/08_variant_difference_policy.jsonl`
+13. `engines/excerpting/chatgpt_f6_collection/09_memorization_policy.jsonl`
+14. `engines/excerpting/chatgpt_f6_collection/10_text_preservation_vs_study_structuring.jsonl`
+15. `engines/excerpting/chatgpt_f6_collection/11_data_analysis_opportunities.jsonl`
+16. `engines/excerpting/chatgpt_f6_collection/12_nonnegotiables.jsonl`
+17. `engines/excerpting/chatgpt_f6_collection/13_red_team_tests.jsonl`
+18. `engines/excerpting/chatgpt_f6_collection/14_priority_matrix.yaml`
+19. `engines/excerpting/chatgpt_f6_collection/15_traceability.jsonl`
+20. `engines/excerpting/chatgpt_f6_collection/16_open_questions.jsonl`
+21. `engines/excerpting/chatgpt_f6_collection/17_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_f6_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_f6_collection/` folder.
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what F6 is
+- why this is a collection bundle, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `questionnaire_mc_choice_value`
+- `total_decision_steps`
+- `total_focus_segment_records`
+- `total_slowdown_skip_records`
+- `total_proof_layer_relationships`
+- `total_variant_difference_records`
+- `total_memorization_policy_records`
+- `total_text_preservation_records`
+- `total_data_analysis_opportunities`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+`questionnaire_mc_choice_value` must be `none` because this question has no multiple-choice assessment.
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+It must contain only what I could honestly stand behind as my questionnaire answer.
+
+Use this exact format:
+
+MC choice:
+none
+
+Immediate reaction:
+[short paste-ready text]
+
+Detailed analysis:
+[longer paste-ready text in first person, concrete and precise, explaining how I actually study this text]
+
+Confidence:
+[high / medium / low]
+
+What would change my mind:
+[text, or "n/a"]
+
+Principles this reveals:
+[text, or "n/a"]
+
+Requirements for this file:
+
+- first person
+- owner-faithful
+- no generic reading-preference fluff
+- no shallow “I like original words” prose
+- preserve the hierarchy of my answer
+- make clear that I do **not** treat this as my definitive memorization source
+- make clear which parts I focus on and why
+- make clear whether I skip parts or simply treat them differently
+- make clear what kind of help I want, if any
+- make clear that I want the author’s original words preserved
+- make clear that this does **not** mean “no help at all”
+- if relevant, distinguish:
+  - preserved original text
+  - secondary study-help layer
+  - authoritative fetched proof layer
+- do **NOT** silently import broad model-only architecture doctrine into this file
+
+### `02_case_dossier.md`
+
+This is the **human canonical artifact** for engineering / protocol use.
+
+Populate it with actual content, not placeholder language.
+
+At minimum include:
+
+- Purpose and scope
+- Explicit separation between:
+  - owner-faithful questionnaire layer
+  - expanded engineering / protocol layer
+- Core assessment thesis
+- Why this text is a scholar-book proof witness, not a final memorization source
+- Focus analysis
+- Slowdown / skip analysis
+- Help-needed analysis
+- Original-text-preservation doctrine pressure
+- Secondary-help-layer doctrine pressure
+- Proof-layer architecture
+- Variant-difference significance doctrine
+- Data-analysis advantage doctrine
+- Pipeline-first vs UI-later distinction
+- Methodology / unseen-edge-case pressure
+- What would be reckless to flatten
+- What would be reckless to automate blindly
+
+### `03_terms.yaml`
+
+Create a controlled vocabulary for this case.
+
+At minimum include:
+
+- `science_book_proof`
+- `scholar_book_proof_witness`
+- `authoritative_fetched_proof`
+- `direct_memorization_source`
+- `proof_variant`
+- `significant_variant_difference`
+- `non_significant_variant_difference`
+- `secondary_study_help`
+- `original_author_words`
+- `study_friendly_structuring`
+- `source_integrity`
+- `proof_layer`
+- `explanation_layer`
+- `memorization_target`
+- `comparative_analysis`
+- `scholar_dependency_on_wording`
+- `authoritative_confirmation`
+- `unaltered_source_text`
+
+Each term must include:
+
+- `term`
+- `current_controlled_meaning`
+- `dangerous_competing_meanings`
+- `status`
+- `source_basis`
+
+### `04_decision_ladder.jsonl`
+
+This file must capture the layered reasoning instead of flattening it.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `decision_scope` (`surface_read`, `study_behavior`, `help_decision`, `proof_source_decision`, `memorization_decision`, `analysis_opportunity`, `methodology_risk`)
+- `question_being_answered`
+- `judgment`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+### `05_focus_segments.jsonl`
+
+This file must capture which parts of the text I focus on.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `segment_label`
+- `segment_text_or_range`
+- `why_i_focus_on_it`
+- `study_role`
+- `is_direct_memorization_target` (`yes`, `no`, `not_from_this_layer`)
+- `source_basis`
+- `owner_relation`
+
+### `06_slowdown_skip_analysis.jsonl`
+
+This file must capture what slows me down or what I skip / deprioritize.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `segment_or_issue`
+- `slowdown_type` (`trust_slowdown`, `comparison_slowdown`, `memorization_slowdown`, `source_integrity_slowdown`, `not_skipped_but_reclassified`)
+- `do_i_skip_it` (`yes`, `no`, `not_exactly`)
+- `why`
+- `better_handling_if_any`
+- `source_basis`
+- `owner_relation`
+
+This file must preserve the nuance that I may not “skip” something entirely but may refuse to memorize it from this layer.
+
+### `07_proof_layer_relationships.jsonl`
+
+This file must capture the proof-source architecture implied by the case.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `proof_source_type`
+- `role_in_library`
+- `what_must_be_preserved`
+- `what_must_be_confirmed`
+- `relationship_to_other_proof_layers`
+- `main_risk_if_used_alone`
+- `source_basis`
+- `owner_relation`
+
+At minimum include:
+
+- scholar-book proof witness
+- authoritative fetched proof
+- the relationship between those two layers
+
+### `08_variant_difference_policy.jsonl`
+
+This file must capture the variant-comparison logic.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `variant_relationship_type`
+- `comparison_goal`
+- `when_difference_is_non_significant`
+- `when_difference_is_significant`
+- `what_should_be_indicated_to_the_owner`
+- `why_this_matters_for_scholar_analysis`
+- `source_basis`
+- `owner_relation`
+
+### `09_memorization_policy.jsonl`
+
+This file must capture what is and is not directly memorized.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `content_type`
+- `memorization_status` (`direct`, `indirect_understanding_only`, `not_from_this_source`)
+- `why`
+- `preferred_source_if_not_this_one`
+- `source_basis`
+- `owner_relation`
+
+### `10_text_preservation_vs_study_structuring.jsonl`
+
+This file must capture what can be transformed and what must remain unchanged.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `text_layer`
+- `preserve_original_wording` (`yes`, `no`, `yes_but_with_parallel_help`)
+- `allowed_study_structuring`
+- `not_allowed_transformation`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+This file must clearly preserve:
+
+- original scholar-book text should remain unaltered
+- study-friendly chunking belongs mainly to definitive fetched proofs
+
+### `11_data_analysis_opportunities.jsonl`
+
+This file must capture the unprecedented-analysis angle.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `analysis_opportunity`
+- `what_data_is_being_compared`
+- `why_this_creates_unprecedented_advantage`
+- `what_insight_the_owner_gets`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve:
+
+- linking scholar conclusions to proof wording variants
+- indicating when wording differences are significant vs non-significant
+- large-scale proof/opinion analytics as a core advantage
+
+### `12_nonnegotiables.jsonl`
+
+Translate this case into machine-readable constraints.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `statement`
+- `derived_from_ids`
+- `what_it_prevents`
+- `severity_if_violated`
+
+At minimum capture constraints like:
+
+- do not treat scholar-book proof renderings as the final authoritative memorization source
+- do not mutate the original author’s wording just to make it more study-friendly
+- do not withhold authoritative fetched proofs where direct memorization depends on certainty
+- do not lose the relationship between a scholar’s wording and the authoritative proof variants
+- do not reduce this case to mere note-taking or layout preference
+- do not assume all future methodologies are already covered by hard rules
+
+### `13_red_team_tests.jsonl`
+
+Create adversarial tests for this case.
+
+Each line must be a valid standalone JSON object.
+
+Each test must include:
+
+- `id`
+- `target_ids`
+- `test_type` (`mutation`, `contrast`, `stress`, `audit`, `simulation`)
+- `test_description`
+- `what_it_is_trying_to_expose`
+- `why_this_test_matters`
+
+At minimum include tests such as:
+
+- compare memorizing directly from the scholar-book proof vs from authoritative fetched proof
+- compare a case where wording differences are insignificant vs one where they materially change the conclusion
+- test whether analysis links scholars’ conclusions to the proof versions they relied on
+- test whether study-friendly chunking is applied to the wrong layer
+- test a new scholar methodology that mixes rule, proof, and explanation differently
+- test whether the system escalates uncertainty when it encounters unseen patterns
+
+### `14_priority_matrix.yaml`
+
+This file must rank the issue landscape.
+
+At minimum include:
+
+- strongest local reason in the owner answer
+- highest-risk trust issue
+- highest-risk proof-layer issue
+- highest-risk memorization issue
+- highest-risk wording-variant issue
+- most important preservation requirements
+- most important analysis opportunities
+- most important uncertainty-gate requirements
+
+### `15_traceability.jsonl`
+
+This file must prove that my raw answer was not flattened.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `source_point_summary`
+- `source_basis`
+- `target_layer` (`owner_answer`, `engineering_collection`, `both`)
+- `routed_to_file`
+- `routed_to_ids`
+- `routing_rationale`
+
+### `16_open_questions.jsonl`
+
+Only include genuine unresolved owner-threshold questions or protocol gaps that still matter after reasoning.
+
+If none remain, emit an empty file.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+### `17_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what my actual study behavior is for this text
+- what I would and would not memorize directly from it
+- what kind of help I actually want
+- why the weaker reading of the question would flatten the real issue
+- what the most important proof-layer insight is
+- what the most important original-text-preservation insight is
+- what the most important variant-analysis insight is
+- what the most important methodology-risk insight is
+- what would be reckless to ignore
+- what would be reckless to automate blindly
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_f6_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - questionnaire MC choice value
+   - total decision steps
+   - total focus-segment records
+   - total slowdown/skip records
+   - total proof-layer relationship records
+   - total variant-difference records
+   - total memorization-policy records
+   - total text-preservation records
+   - total data-analysis opportunities
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+
+## Final requirements
+
+- no generic filler
+- no shallow answer
+- no fake completeness
+- no reopening excerpt review
+- no reopening F1/F2/F3/F4/F5/F7/F8 canon work
+- no “we should later...” except inside explicitly marked open questions
+- no capping the answer at my explicit raw comments
+- no flattening the hierarchy of my answer
+- no silently upgrading `model_expansion` into owner truth
+- no mistaking the current reading question for the whole structural issue
+
+Most important:
+
+I do **NOT** want a shallow local answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this case reveals scholar-book proof witness status, authoritative fetched proof layering, variant-sensitive analysis, direct-vs-indirect memorization policy, original-text preservation, and uncertainty-gate requirements** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.
+Otherwise proceed directly to generating the files and ZIP.

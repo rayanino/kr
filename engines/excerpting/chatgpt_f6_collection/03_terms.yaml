@@ -1,0 +1,143 @@
+- term: science_book_proof
+  current_controlled_meaning: A proof text appearing inside a science book rather
+    than in its primary proof-source collection.
+  dangerous_competing_meanings:
+  - The definitive proof text to memorize directly.
+  - A paraphrase that can replace the source layer.
+  status: active
+  source_basis: explicit_draft
+- term: scholar_book_proof_witness
+  current_controlled_meaning: A preserved witness of how a scholar or science book
+    presented a proof.
+  dangerous_competing_meanings:
+  - The final authoritative proof layer.
+  - A disposable intermediate artifact.
+  status: active
+  source_basis: explicit_draft
+- term: authoritative_fetched_proof
+  current_controlled_meaning: A proof fetched from the actual authoritative proof-source
+    tradition for direct confirmation and study.
+  dangerous_competing_meanings:
+  - Any online copy of a proof.
+  - A secondary convenience layer only.
+  status: active
+  source_basis: explicit_draft
+- term: direct_memorization_source
+  current_controlled_meaning: The layer from which the owner directly memorizes the
+    proof wording itself.
+  dangerous_competing_meanings:
+  - Any readable version of the proof.
+  - The first version encountered in a scholar-book excerpt.
+  status: active
+  source_basis: explicit_draft
+- term: proof_variant
+  current_controlled_meaning: A distinct wording/version relationship inside what
+    is treated as the same proof tradition.
+  dangerous_competing_meanings:
+  - A trivial typo only.
+  - A completely different proof with no relation.
+  status: active
+  source_basis: explicit_draft
+- term: significant_variant_difference
+  current_controlled_meaning: A wording difference that can change meaning, ruling,
+    explanation, or scholarly conclusion.
+  dangerous_competing_meanings:
+  - Any small wording difference.
+  - Only a difference that changes the legal ruling in every case.
+  status: active
+  source_basis: explicit_draft
+- term: non_significant_variant_difference
+  current_controlled_meaning: A wording difference that does not materially change
+    meaning or derived ruling.
+  dangerous_competing_meanings:
+  - A difference that can be ignored without recording it.
+  - A difference that is insignificant for all analytical purposes.
+  status: active
+  source_basis: explicit_draft
+- term: secondary_study_help
+  current_controlled_meaning: Parallel help layers such as comparison, chunking, or
+    summaries that assist study without replacing the preserved source text.
+  dangerous_competing_meanings:
+  - Any mutation of the source layer.
+  - UI decoration only.
+  status: active
+  source_basis: explicit_draft
+- term: original_author_words
+  current_controlled_meaning: The wording as found in the scholar-book source layer.
+  dangerous_competing_meanings:
+  - The final definitive proof wording.
+  - Text that may be silently restructured for convenience.
+  status: active
+  source_basis: explicit_draft
+- term: study_friendly_structuring
+  current_controlled_meaning: Chunking or presentation changes intended to aid memorization
+    or reading.
+  dangerous_competing_meanings:
+  - Blind rewriting of source text.
+  - A universally appropriate operation on every layer.
+  status: active
+  source_basis: explicit_draft
+- term: source_integrity
+  current_controlled_meaning: Keeping each textual layer faithful to what it actually
+    is and where it came from.
+  dangerous_competing_meanings:
+  - Readability only.
+  - A guarantee that all layers are authoritative in the same way.
+  status: active
+  source_basis: inferred_from_prior_chat
+- term: proof_layer
+  current_controlled_meaning: A structured layer in the library dedicated to proof
+    material and its integrity relationships.
+  dangerous_competing_meanings:
+  - A single flat list of proof snippets.
+  - Only the scholar-book rendering.
+  status: active
+  source_basis: explicit_draft
+- term: explanation_layer
+  current_controlled_meaning: The layer containing scholarly explanation and analysis
+    of proofs or rulings.
+  dangerous_competing_meanings:
+  - The same thing as the proof layer.
+  - A layer that can ignore the exact proof wording used by the scholar.
+  status: active
+  source_basis: inferred_from_prior_chat
+- term: memorization_target
+  current_controlled_meaning: The exact layer or content type the owner is willing
+    to memorize directly.
+  dangerous_competing_meanings:
+  - Anything the owner studies.
+  - Any readable hadith rendering.
+  status: active
+  source_basis: explicit_draft
+- term: comparative_analysis
+  current_controlled_meaning: Studying how different proof versions and scholar renderings
+    relate and what consequences follow from those differences.
+  dangerous_competing_meanings:
+  - Casual side-by-side reading only.
+  - An optional bonus unrelated to scholarship.
+  status: active
+  source_basis: explicit_draft
+- term: scholar_dependency_on_wording
+  current_controlled_meaning: The possibility that a scholar’s explanation or conclusion
+    depends on a particular proof wording or variant.
+  dangerous_competing_meanings:
+  - A rare exception that can be ignored safely.
+  - A purely theoretical concern with no study impact.
+  status: active
+  source_basis: explicit_draft
+- term: authoritative_confirmation
+  current_controlled_meaning: Verification of proof wording and source against authoritative
+    proof-source layers before direct memorization.
+  dangerous_competing_meanings:
+  - General confidence in the library.
+  - Any citation attached to the scholar-book text.
+  status: active
+  source_basis: explicit_draft
+- term: unaltered_source_text
+  current_controlled_meaning: Source wording preserved without being rewritten for
+    study convenience.
+  dangerous_competing_meanings:
+  - Text that cannot ever have parallel help beside it.
+  - Text that must also be the memorization layer.
+  status: active
+  source_basis: explicit_draft
