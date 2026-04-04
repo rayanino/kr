@@ -1,0 +1,145 @@
+- term: premature_structure
+  current_controlled_meaning: Using prior topic structure too early, especially where
+    it can pressure excerpt truth rather than merely organize already-correct outputs.
+  dangerous_competing_meanings:
+  - Any structure at all
+  - Any taxonomy use anywhere in the pipeline
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: structurelessness
+  current_controlled_meaning: Blind processing without topic structure strong enough
+    to stabilize distinctions, placement, or boundary consistency.
+  dangerous_competing_meanings:
+  - Purity or neutrality by default
+  - Automatically safer than structured processing
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: guidance_boundary
+  current_controlled_meaning: The stage-specific line between guidance that is beneficial
+    and guidance that contaminates excerpt integrity.
+  dangerous_competing_meanings:
+  - A generic preference for more or less structure
+  - A UI-only concern
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+- term: excerpt_integrity
+  current_controlled_meaning: Rightful excerpt boundaries and grouping determined
+    by the source and what atoms make sense together, not by taxonomy pressure.
+  dangerous_competing_meanings:
+  - Any excerpt that looks plausible
+  - Any excerpt that fits the tree neatly
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: placement_integrity
+  current_controlled_meaning: The correctness of where an already-correct excerpt
+    sits in the taxonomy.
+  dangerous_competing_meanings:
+  - Equivalent to excerpt integrity
+  - A trivial display issue
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: excerpting_bias
+  current_controlled_meaning: Excerpting being influenced by something other than
+    the source itself and rightful atom grouping, especially the current taxonomy
+    tree.
+  dangerous_competing_meanings:
+  - Any use of metadata
+  - Any post-excerpt organization
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: taxonomy_dependence
+  current_controlled_meaning: A condition where excerpt outputs or grouping change
+    because the taxonomy state changed.
+  dangerous_competing_meanings:
+  - Normal placement use
+  - Any relation to a tree at all
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: taxonomy_independence
+  current_controlled_meaning: The requirement that rightful excerpt outputs remain
+    invariant under changes in tree granulation or placement structure.
+  dangerous_competing_meanings:
+  - No taxonomy anywhere in the system
+  - No relation between excerpting and placement stages
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: silent_corruption
+  current_controlled_meaning: A corruption that is not obvious during study and can
+    be built upon for long periods before discovery.
+  dangerous_competing_meanings:
+  - A minor hidden bug with no knowledge impact
+  - Any non-visible issue regardless of consequence
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: visible_misplacement
+  current_controlled_meaning: A wrong taxonomy location that can be seen and reasoned
+    about even if it is still severe.
+  dangerous_competing_meanings:
+  - A harmless UI annoyance
+  - Equivalent in danger to silent corruption
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: overgranulation
+  current_controlled_meaning: A tree that cuts one natural topic into too many leaves
+    and makes the user reconstruct the common denominator across fragments.
+  dangerous_competing_meanings:
+  - Any detailed tree
+  - Always better than undergranulation because it is more precise
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: undergranulation
+  current_controlled_meaning: A tree that groups distinct subtopics too coarsely under
+    one leaf.
+  dangerous_competing_meanings:
+  - Harmless broadness
+  - Always worse than overgranulation
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: common_denominator_confusion
+  current_controlled_meaning: The harder puzzle created by overgranulation, where
+    the user must infer how overly separated pieces belong together.
+  dangerous_competing_meanings:
+  - A simple missing split
+  - Ordinary study effort
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: wrong_box_forcing
+  current_controlled_meaning: Forcing source material into pre-existing taxonomy boxes
+    instead of letting the source determine the rightful unit first.
+  dangerous_competing_meanings:
+  - Any placement decision
+  - Any categorization at all
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+- term: boundary_inconsistency
+  current_controlled_meaning: Different excerpt boundaries being produced for similar
+    material because the system lacks stable source-governed discipline.
+  dangerous_competing_meanings:
+  - Any variation across texts
+  - A mere formatting inconsistency
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+- term: recoverability
+  current_controlled_meaning: How feasible it is to notice, diagnose, and repair a
+    failure without undermining the whole studied structure.
+  dangerous_competing_meanings:
+  - Whether a bug can be patched technically
+  - Whether the user can keep studying despite mistrust
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+- term: detectability
+  current_controlled_meaning: How easily a failure becomes visible to the user or
+    to audit before years of study are built on it.
+  dangerous_competing_meanings:
+  - Whether logs exist
+  - Whether the error is loud in the UI only
+  status: working_collection_term
+  source_basis: explicit_draft
+- term: study_confusion
+  current_controlled_meaning: Cognitive damage during use caused by fragmented, blurred,
+    or wrongly structured placement even when excerpt truth is intact.
+  dangerous_competing_meanings:
+  - Any difficulty while studying
+  - Any need to think actively
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
