@@ -21,6 +21,7 @@ Critical instructions:
 - assume the owner is often answering from a narrow example-window, not from full-system awareness
 - correct for that narrowness through broader reasoning, research, and coworker challenge
 - use coworkers aggressively for deep research, contradiction pressure, fresh eyes, and protocol challenge at every major atom
+- explicitly investigate whether Claude's own **agent teams** feature can materially improve this lane; if yes, use it deliberately, if no, reject it explicitly with reasons
 - only implement after the theory for the chosen aspect has been pressure-tested
 - after implementation, review, harden, and test before saying anything is final
 - do not settle for elegant wording; settle only for decision-complete, challenge-tested closure
@@ -32,6 +33,7 @@ For each atom, run this full loop:
 4. ask targeted non-technical owner questions if needed
 5. run the research minimum
 6. dispatch coworkers deliberately
+   - including agent teams if and only if they materially strengthen this atom
 7. synthesize the atom doctrine
 8. check cross-atom regression risk
 9. classify impact:
@@ -70,6 +72,7 @@ Hard redlines:
 - if you finalize an atom without external challenge or an explicit blocker log, you failed
 - if you build before theory pressure-testing, you failed
 - if you defer difficult consequences without logging residual risk, you failed
+- if you have agent teams available and never explicitly decide whether they help this lane, you failed
 
 Do not run this hardening program on the taxonomy review branch.
 Use or create a clean excerpting-focused hardening branch before implementation begins.

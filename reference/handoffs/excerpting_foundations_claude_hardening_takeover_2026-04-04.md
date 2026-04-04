@@ -210,6 +210,35 @@ That means:
 
 No major aspect should move from theory to implementation without fresh challenge from outside Claude’s own immediate reasoning.
 
+Claude must also explicitly investigate whether its own **agent teams** feature can materially improve this lane.
+
+That investigation is mandatory, not optional.
+Claude must decide early:
+- whether agent teams genuinely increase quality here
+- which roles they should serve
+- which roles they must **not** replace
+
+Agent teams may be used to strengthen the lane only if they improve:
+- research breadth
+- adversarial pressure
+- implementation review depth
+- regression/risk surfacing
+
+Agent teams must **not** become a lazy substitute for:
+- owner interrogation
+- Codex shadow challenge
+- Gemini deep research
+- explicit closure discipline
+
+If Claude decides not to use agent teams, it must record:
+- why they are not beneficial here
+- what risk is not reduced by them
+
+If Claude decides to use them, it must record:
+- exact role split
+- how they map onto the per-atom workflow
+- how their outputs are reviewed before closure
+
 ## Unit Of Work
 
 Do **not** process one whole questionnaire answer per prompt.
@@ -275,6 +304,7 @@ At every major atom, Claude must deliberately involve coworkers.
 Default expectation:
 - **Codex**: read-only shadow challenge on repo consequences, contracts, validation surface, and regression risk
 - **Gemini**: deep-research or external-blind-spot challenge on missing patterns, unseen methodologies, or alternative framings
+- **Claude agent teams**: optional internal force multiplier only after explicit evaluation and only when they materially improve per-atom rigor
 
 At minimum, before finalizing any major atom, Claude must have:
 - one non-Claude challenge on the theory shape
@@ -286,6 +316,10 @@ If a coworker cannot be used, Claude must log:
 - what risk remains because that challenge did not occur
 
 No silent skipping.
+
+If Claude agent teams are available, Claude must evaluate them near the beginning of the lane and either:
+- integrate them deliberately into the per-atom workflow
+- or explicitly reject them with reasons
 
 ## Required Loop Per Aspect
 
@@ -311,6 +345,7 @@ For each aspect, Claude must execute this full loop:
    - contradiction finding
    - scholarly-risk checking
    - implementation-risk checking
+   - agent teams if and only if they materially strengthen this specific atom
 8. **Pressure-test the theory**
    - strongest case for
    - strongest case against
