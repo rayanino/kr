@@ -10,7 +10,9 @@ Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
 Plan: `.claude/plans/tender-moseying-crayon.md`
 
-**Foundations Q&A: 8 / 8 answered (F1-F8).** Owner is now in the hardening loop full-time (~15h/day).
+**Foundations Q&A: 8 / 8 answered (F1-F8).** Owner is available 24/7 with all coworker tools open.
+
+**Session 2 active.** Merged atom queue built. Batch processing underway.
 
 **Atom progress:**
 | # | Atom | Status |
@@ -20,20 +22,25 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 | 3 | Linking-word preservation | FINALIZED (C-SC-2 expanded) |
 | 4-5 | Khilaf/tarjih separation | DOCUMENTED, deferred to K-1/K-2/K-3 |
 | 6-12 | Remaining doctrinal atoms | FINALIZED (FP-1 through FP-10 in SPEC §1.1b) |
+| **B1** | **Safety & Integrity batch (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers). FP-5/FP-2 strengthened, FP-19/20/21/22 added.** |
 
-**What was accomplished (2026-04-04):**
-- All F1-F8 evidence copied + verified (8/8 foundations)
-- 12 atoms processed: 8 finalized, 2 documented+deferred, 2 implicit in FPs
-- EE-1 empirically validated: taysir 2/2 hadith cores PASS, ibn_aqil 32/32 verse+explanation PASS
-- 10 foundational principles (FP-1 through FP-10) added to SPEC §1.1b
-- Codex challenge: 3 findings found and fixed. Gemini: confirmed universal across 5 sciences.
-- Source surroundings vision captured (every excerpt → hoverable source page access)
-- 907/907 deterministic tests pass, 0 regressions
+**Session 2 deliverables so far:**
+- MERGED_ATOM_QUEUE.md built (556 lines, 250 ideas, 88 actionable atoms, 0 silent drops)
+- Batch 1 (Safety & Integrity): 6 FP changes implemented — FP-2 strengthened (anti-rescue), FP-5 strengthened (cascade), FP-19 (omission honesty), FP-20 (validation rigor), FP-21 (severity class), FP-22 (anti-covert-excerpter)
+- Codex + Gemini challenged and synthesized. Key finding: Gemini's al-Ghazali adversarial scenario proves FP-19 is existentially necessary.
+- 907/907 tests pass, 0 regressions
+- SPEC now has 22 FPs (FP-1 through FP-22, excluding FP-18 numbering)
+
+**What's needed next:**
+1. **DR coworker confirmation for Batch 1** — relay prompt prepared, awaiting owner dispatch. Batch 1 stays PRELIMINARY until DR reviews.
+2. **Red-team test automation** — 2 highest-priority pytest cases (diacritic injection, split/merge mutation) need creation before Batch 2.
+3. **Batch 2: Self-Containment (10 MAQ atoms)** — highest prompt-impact batch. Prompt is at ~1072 words (cap 1500). Atoms: surface-function misread, title-retention asymmetry, forgiving-retention, two-layer model, anti-heuristic principle.
+4. **Remaining batches:** Boundary & Grouping (B3), Granularity (B4), Tarjih/Khilaf/Proof (B5), Other (B6).
 
 **Next steps (executing now):**
-1. Run the second empirical validation pass on remaining fixtures (ext_39, ext_46) to check FP-4, FP-5
-2. Dispatch Codex + Gemini challenge on the full FP-1 through FP-10 set
-3. Prepare for Phase 1 (smoke run with fully hardened prompts)
+1. Create red-team pytest cases for diacritic injection (F7-RT-001) and split/merge mutation (F7-RT-002)
+2. Begin Batch 2: Self-Containment — read source files, dispatch all 3 coworkers
+3. Continue batch processing through B3-B6
 
 **Pre-existing test failure:** `test_phase2_integration.py::test_classify_and_normalize` fails with 401 (expired OpenRouter API key). Not related to hardening changes. Confirmed pre-existing on clean master.
 

@@ -42,6 +42,13 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | 16 | principle conflict precedence | **FINALIZED** | FP-13 in SPEC §1.1b. 5-level stack: attribution > dialogue > grammar > self-containment > granularity. |
 | 17 | speaker-role inversion protection | **FINALIZED** | FP-14 in SPEC §1.1b. فإن قيل / قلنا must stay together. #1 blind spot per ChatGPT DR adversarial review. |
 | 18-24 | (remaining F1-F8 atoms: sub-excerpting, source-scope, completeness, variants, quantitative, quote-methodology, separation-aspiration) | QUEUED | To be processed in next session batch |
+| B1 | **BATCH 1: Safety & Integrity (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers)** | Session 2, Batch 1 processed. Codex + Gemini confirmed. DR pending owner relay. |
+| B1-FP5 | FP-5 strengthen: cascading trust collapse | **IMPLEMENTED** | Added cascade chain + blast-radius assessment language. No numeric threshold (Codex: breaks salvage). |
+| B1-FP2 | FP-2 strengthen: anti-rescue prohibition | **IMPLEMENTED** | Added: context must not silently fix verdicts. Help layers beside source, never overwrite. |
+| B1-FP19 | **NEW FP-19: Omission honesty** | **IMPLEMENTED** | Deceptive cleanliness = named failure. Al-Ghazali adversarial example (Gemini). Contract field deferred (Codex). |
+| B1-FP20 | **NEW FP-20: Validation rigor** | **IMPLEMENTED** | 5 hardest patterns from Gemini. Hard cases over polished paths. |
+| B1-FP21 | **NEW FP-21: Severity class distinction** | **IMPLEMENTED** | Silent corruption (existential) vs visible flagged failure (recoverable). 4 per-science examples. Rephrased per Codex (no taxonomy-external language). |
+| B1-FP22 | **NEW FP-22: Anti-covert-excerpter** | **IMPLEMENTED** | Validator must not reshape text/span/boundaries. V-P3-8 exempt (Codex). |
 
 ---
 
@@ -168,3 +175,68 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 
 ### Final disposition
 **IMPLEMENTED + TESTED — AWAITING COWORKER CHALLENGE.**
+
+---
+
+## BATCH 1: Safety & Integrity (Session 2, 2026-04-04)
+
+### Scope
+17 atoms from MERGED_ATOM_QUEUE.md Section D (MAQ-001 through MAQ-017). Covers trust poisoning, silent failures, deceptive cleanliness, corruption prevention, severity classification, validation rigor.
+
+### Raw owner artifacts used
+- `engines/excerpting/f1-owner-original-notes.txt` (F1 raw, 430 lines — foundational vision, threat detection, NO DECEPTION principle)
+- `engines/excerpting/chatgpt_f2_collection/source_artifacts/f2_owner_raw_draft_and_followups_2026_04_03.txt` (F2 raw — study methodology, personal stakes)
+- F3-F8 raw reactions and structured collections (nonnegotiables, red-team tests)
+- Queue audit: 124 gaps cross-referenced
+
+### Coworker reports
+
+**Codex CLI (Contract Guardian):**
+- FP-5 strengthen: MODIFY — no numeric stop threshold (breaks salvage behavior in phase3_validation.py:246). Cascade language acceptable.
+- FP-19 (omission honesty): MODIFY — SPEC already says study-ready = "no deceptive omission" (FP-18 line 69), but contracts.py has no visible-cut field. Add principle now, defer contract field.
+- FP-20 (validation rigor): ACCEPT — closes real validation-policy gap. Regression: LOW.
+- FP-21 (severity class): MODIFY — rephrase as "silent corruption vs visible flagged failure" (not "misplacement" which is excerpting-external per FP-4). contracts.py already has gate_flags/review_flags for visible failures.
+- FP-22 (anti-covert-excerpter): MODIFY — narrow to text/span/boundary reshaping. Absolute ban breaks V-P3-8 (orphan-footnote removal).
+- Red-team automation: YES — parametrized pytest mutation cases (diacritic inject/swap + split-point mutation).
+
+**Gemini CLI (Scholarly Auditor):**
+- All 5 FPs: ACCEPT STRONGLY. "Without FP-19 and FP-21, the engine is not a scholarly tool; it is a high-speed heresy generator."
+- FP-19 adversarial: cutting al-Ghazali's condemnation of philosophers' views ("وهذا كفر صريح") leaves a sentence attributing kufr to al-Ghazali himself. Syntactically flawless, semantically catastrophic.
+- FP-21 per-science examples: fiqh (dropped condition), hadith (mudraj insertion), tafsir (dropped invalidation), nahw (dropped grammatical judgment).
+- FP-20: 5 hardest patterns — dialectical trap, pronoun disconnects, extended digressions, deferred exceptions, nested quotations.
+- System impact: mapped blast radius across all 6 components (contracts, P1, P2, P3, taxonomy, synthesis).
+
+**DR (Adversarial):** PENDING — owner relay prompt prepared, awaiting dispatch.
+
+### Synthesis and CC decisions
+| FP | Codex | Gemini | CC Decision |
+|----|-------|--------|-------------|
+| FP-5 strengthen | MODIFY (no numeric threshold) | Accept | **MODIFY**: cascade language added, no threshold |
+| FP-19 (omission) | MODIFY (need contract field) | Accept strongly | **MODIFY**: principle now, field deferred |
+| FP-20 (rigor) | ACCEPT | Accept | **ACCEPT** |
+| FP-21 (severity) | MODIFY (rephrase) | Accept | **MODIFY**: rephrased per Codex |
+| FP-22 (validator) | MODIFY (narrow scope) | Accept | **MODIFY**: narrowed, V-P3-8 exempt |
+
+### Implementation
+- **SPEC §1.1b FP-5**: Strengthened with cascading trust collapse language + blast-radius assessment requirement (+3 sentences)
+- **SPEC §1.1b FP-2**: Strengthened with anti-rescue prohibition + help-layer-beside-source rule (+4 sentences)
+- **SPEC §1.1b FP-19**: New principle — omission honesty, deceptive cleanliness named failure, al-Ghazali example, contract field deferred
+- **SPEC §1.1b FP-20**: New principle — validation rigor, 5 hardest patterns, adversarial test requirement
+- **SPEC §1.1b FP-21**: New principle — severity class distinction, 4 per-science examples, rephrased per Codex
+- **SPEC §1.1b FP-22**: New principle — anti-covert-excerpter, narrowed scope, V-P3-8 exempt
+- **No prompt changes** (these are meta-principles, not Phase 2 instructions)
+- **No contract changes** (contract field for FP-19 deferred)
+
+### Tests
+- 907 passed, 0 failures, 0 regressions
+- Prompt-SPEC sync: PASSED
+- Red-team test automation: PENDING (2 pytest cases to create: diacritic injection + split/merge mutation)
+
+### Unresolved risks
+1. **DR coworker has not reviewed.** Batch status is PRELIMINARY until DR confirms. DR prompt prepared and presented to owner.
+2. **FP-19 contract field deferred.** Omission honesty is a principle without runtime enforcement until a visible-cut field is added to ExcerptRecord.
+3. **Red-team tests not yet automated.** F7-RT-001 (diacritic injection) and F7-RT-002 (split/merge mutation) need to become actual pytest cases.
+4. **FP-20 test gap.** The 5 hardest patterns from Gemini need corresponding test fixtures with real Arabic text.
+
+### Final disposition
+**PRELIMINARY — 2/3 coworkers confirmed. Awaiting DR review.**
