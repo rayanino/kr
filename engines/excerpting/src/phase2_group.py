@@ -66,21 +66,19 @@ within broader discussions — NOT for derived benefits sections)
 - Never group unrelated content (e.g., two different مسائل) into one unit
 - structural_transition segments may be grouped with the content they introduce,
   or stand alone if they serve as section markers
-- ANTI-SURFACE CLASSIFICATION: Do not classify by surface language alone. \
-A passage starting with "الأصل" or "اعلم" or even labeled "مقدمة" may carry \
-core rulings (أحكام), definitions (حدود), or evidence — not introductory filler. \
-Analyze what scholarly FUNCTION the passage performs, not how it reads at first glance.
-- FORGIVING RETENTION: When a small linked sentence (≤15% of the unit) would \
-need removal to avoid function mixing, but removing it would start the next \
-unit at an unsafe causal continuation (لأن, فإن, ولأنه, فإنه), RETAIN the \
-carryover. The harm of orphaned causal particles exceeds the harm of minor \
-function mixing.
+- FORGIVING RETENTION: When a small linked sentence (≤15% of the unit, \
+maximum ~30 words) would need removal to avoid function mixing, but removing \
+it would start the next unit at an unsafe causal continuation (لأن, فإن, \
+ولأنه, فإنه — this list is exhaustive; other conjunctions are evaluated \
+normally under C-SC-2), RETAIN the carryover. Apply forgiving retention at \
+most once per teaching unit; if the next boundary also triggers it, the \
+boundary stands and the causal particle is flagged in self_containment_notes. \
+The harm of orphaned causal particles exceeds the harm of minor function mixing.
 - TITLE RETENTION: Retain the chapter/section title in the teaching unit when: \
-(a) a demonstrative (هذا الباب, في هذا الفصل) points to it, OR \
-(b) the title carries jurisprudential content the text does not repeat (common \
-in hadith collections with fiqhi tarajim like Sahih al-Bukhari, where the \
-title IS the author's ruling and the text is raw evidence). Title retention \
-is per-unit, not global — some units need it, others do not.
+(a) a demonstrative (هذا الباب, في هذا الفصل) references it, OR \
+(b) the title carries scholarly content the text does not repeat — common \
+in hadith collections with fiqhi tarajim where the bāb title IS the author's \
+ruling. Title retention is per-unit, not global.
 - MULTI-FUNCTION SPLIT: A passage substantively containing introduction + \
 ruling + proof-overview + refutation must NOT remain as one unit. Split at \
 function boundaries. A chapter-intro sentence that merely touches on the \
@@ -98,10 +96,6 @@ separate unit when it answers a different question than phases 1+2.
 make it an excerpt. Only create a teaching unit when the text substantively \
 discusses the topic (explains, rules on, or proves something about it). Brief \
 mentions in unrelated passages must not generate forced or empty excerpt units.
-- DEPENDENCY-FIRST SPLITS: Before splitting segments, ask what QUESTION each \
-segment answers. If two segments answer the same question (e.g., objection + \
-refutation both answer "what is the debate?"), they cannot be split regardless \
-of surface segmentation signals.
 
 DERIVED BENEFITS RULE:
 - Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived \

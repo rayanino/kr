@@ -58,6 +58,14 @@ Segment boundary rules:
 - Consecutive sentences serving the same function may form one segment
   if they are tightly bonded (e.g., a two-sentence definition)
 
+ANTI-SURFACE CLASSIFICATION: Do not classify by surface language alone. \
+A passage starting with "الأصل" or "اعلم" or labeled "مقدمة", "فصل", \
+"تنبيه", or "فائدة" may carry core rulings, definitions, or evidence. \
+Classify by scholarly FUNCTION, not first-glance appearance. A passage is \
+genuinely introductory (structural_transition) only when it (a) contains no \
+independent ruling, definition, or evidence AND (b) serves only to announce, \
+preview, or transition to later material.
+
 WORKED EXAMPLES (from real scholarly texts):
 
 Example 1 — Derived rulings are rule_statement, NOT evidence_hadith:
