@@ -1,0 +1,37 @@
+Chatgpt: from now on, the focus is purely on producing exhaustive extensive encyclopedic machine readable output capturing the ideas. Much like your output files for f1 and f2. No limits. Make it as much and long as possible, produce as many files as needed. No cap at all.
+
+Chatgpt … this is the question where your thorough thinking and abundant creativity should take over. I need you to find any possible bad scenario, suboptimal use, … that would cause any minor or major problem. Anything the library SHOULD NOT be / have, no matter if it’s a big thing or a small one. You need to really be extensive and exhaustive in this, because only this way will these be prevented.
+
+YOU MUST THINK THOROUGHLY AND DEEPLY ABOUT ANY NIGHTMARE SCENARIO THAT CAN POSSIBLY HAPPEN, THINK ON MY BEHALF. LITERALLY ANYTHING THAT CAN GO WRONG NEEDS TO BE LISTED. NO LENGTH LIMIT.
+
+I have many nightmare scenarios.
+
+One of the worst nightmare scenarios I can think of: that I trust the library, then later find out one or more parts of its knowledge was corrupted. This can be any minor or major corruption: knowledge being excerpted wrongfully, cut up wrong, …
+
+Also: silent (and loud) errors. Using the library with full confidence thinking I’m on the right track and trusting it fully, then in the future realize there was a grave mistake somewhere that puts all my knowledge coming from this library in question … studying out of the library for years and months, then opening an actual book and realizing there are mistakes in the library. One mistake in the library is enough to put ALL my knowledge coming from that library in question.
+
+So corruptions, mistakes, dangerous handling of the knowledge, anything below 100% confidence at all stages, uncaught bugs, … are extremely dangerous. Any other app would run fine if the architecture was suboptimal, but not kr … it is a representation of my islamic knowledge … it is what my life and religion practise will be built on … it is what I will teach to thousands of other people … it is what my children will inherit … it is the project of a lifetime. Absolutely no room for error.
+
+Also: working on this library, then realizing something was not done optimally, could have done better, we built on loose grounds, … which is why throughout this entire build, we should always do deep research, not build on loose grounds, design the architecture in the best possible way, … I don’t want to build the pipeline, then realize something could have been done better. Especially since these engines are interlinked and have contracts, so a change to one engine most likely means multiple changes elsewhere.
+
+Also: losing progress, or losing the app.
+
+Also: studying for months and years, then realizing if an aspect of the library was done better, my study would have gone even better, and I would have reached even higher levels of scholarship.
+
+Also: the price becoming absurd. The last v2 run cost more than 50 euros on 5 books. The goal is to literally digest every source of knowledge on the internet & offline (through scans of books etc, future feature of the source engine), so the budget should not go up to the hundreds of thousand … that would put a budget cap. Luckily, we’ve already realized it’s better to work with cli instead of api (even though testing is done with api for speed purposes) … but then again; it’s pretty slow, it should not take days per book; that also puts an impossible cap.
+
+So the danger is: building the library, then realizing it’s unusable.
+
+Also: extreme granulation or excerpting, to the point where an excerpt is just not readable … to the point an excerpt pretty much just became one sentence / atom.
+
+Also: I plan on later training a local model based on the data we are currently collecting. Therefore, this data must be carefully and structurally saved at all times. I also have 5TB of google drive space incase that can be used.
+
+Also: not bringing in tools that can genuinely be useful and make things that are very hard / impossible to build from scratch possible. I’m talking about specific apis / clis (for example, specific pdf to text api instead of building our own, for when we incorporate pdf input in the source engine later on), not using the best possible models, things like RAG, the programming language of choice, … specific python libraries for working with arabic, html, … apis to access sources … ANYTHING THAT CAN BE BENEFICIALLY USED TO EXPAND POSSIBILITIES MUST BE IDENTIFIED AND INCORPORATED.
+
+Also: the agents building this application working in a suboptimal environment. I’m talking: skills, agents, tools, mcp, hooks, … I feel like I never get any initiation from the agents themselves realizing / demanding a specific environment improvement … but that is very important. The agent should have absolutely no limiting factor. No configuration that is suboptimal, … nothing that limits their potential.
+
+Also: not doing enough research. I have the best research models available: gemini, chatgpt and claude. They are the best at reasoning and deeply analyzing and reporting and researching anything we could possibly need, and all but gemini have direct access to the repo. They can elevate this project and take it to the next level, as long as utilize it to the max.
+
+Also: the blind spots of the agents working on this project. This is why I emphasize so much on claude code, codex and gemini constantly collaborating … but this collaboration has not yet been formalized, and I feel like no clear roles have been defined … it’s always have been me saying “use your coworkers” …
+
+Also: not thinking about EVERY SINGLE THING WE CAN DO TO MAKE THIS LIBRARY better. I feel like the library is currently lacking in creative ideas, research … which is exactly what is needed when the owner is asking for an unprecedented library and learning environment.

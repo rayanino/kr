@@ -1,0 +1,154 @@
+- term: trust_collapse
+  current_controlled_meaning: The point where the library no longer feels safe as
+    a foundation for Islamic study, practice, teaching, and inheritance.
+  dangerous_competing_meanings:
+  - general dissatisfaction
+  - temporary annoyance after a bug
+  - loss of trust only in one screen or feature
+  status: working
+  source_basis: explicit_draft
+- term: stop_using_failure
+  current_controlled_meaning: A failure severe enough that continued normal study
+    from the library becomes irrational or unsafe.
+  dangerous_competing_meanings:
+  - any defect at all
+  - a mild UX inconvenience
+  - a recoverable issue with bounded blast radius
+  status: working
+  source_basis: explicit_draft
+- term: silent_error
+  current_controlled_meaning: An error that appears trustworthy during use and is
+    discovered only later or only through external checking.
+  dangerous_competing_meanings:
+  - an error with no log line
+  - a minor hidden formatting issue
+  - a harmless omission
+  status: working
+  source_basis: explicit_draft
+- term: loud_error
+  current_controlled_meaning: An obvious or flagged failure that visibly interrupts
+    trust before the user studies deeply from the affected output.
+  dangerous_competing_meanings:
+  - safe by definition
+  - always acceptable because it is visible
+  status: working
+  source_basis: explicit_draft
+- term: corruption
+  current_controlled_meaning: Any distortion, mutation, misclassification, truncation,
+    misattribution, or mishandling that changes what the source knowledge actually
+    is.
+  dangerous_competing_meanings:
+  - only byte-level text corruption
+  - only malicious tampering
+  status: working
+  source_basis: explicit_draft
+- term: knowledge_integrity
+  current_controlled_meaning: The condition in which the library's stored and presented
+    knowledge remains faithful in content, attribution, placement, and relations.
+  dangerous_competing_meanings:
+  - truthiness of the UI
+  - high average accuracy
+  - good enough for casual use
+  status: working
+  source_basis: explicit_draft
+- term: study_damage
+  current_controlled_meaning: Any harm to understanding, memorization, teaching, practice,
+    or long-term scholarly growth caused by the library's failures.
+  dangerous_competing_meanings:
+  - mere frustration
+  - only direct textual corruption
+  status: working
+  source_basis: explicit_draft
+- term: global_trust_poisoning
+  current_controlled_meaning: A condition where one discovered error makes the user
+    doubt the whole knowledge base because blast radius cannot be bounded cleanly.
+  dangerous_competing_meanings:
+  - panic after any small bug
+  - a purely emotional overreaction
+  status: working
+  source_basis: explicit_draft
+- term: local_error
+  current_controlled_meaning: A defect that originates in one place, one source, one
+    branch, or one record, regardless of whether it later spreads.
+  dangerous_competing_meanings:
+  - a defect that stays safely local
+  - something automatically low-risk
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: delayed_discovery
+  current_controlled_meaning: A failure found only after the user has already studied,
+    memorized, taught, or relied on the affected output.
+  dangerous_competing_meanings:
+  - just late logging
+  - a bug discovered hours later but before any study impact
+  status: working
+  source_basis: explicit_draft
+- term: suboptimality
+  current_controlled_meaning: A design, tooling, research, or workflow choice that
+    may not directly corrupt knowledge but still permanently lowers the ceiling of
+    scholarship.
+  dangerous_competing_meanings:
+  - minor polish gap
+  - nice-to-have optimization only
+  status: working
+  source_basis: explicit_draft
+- term: loose_foundation
+  current_controlled_meaning: Architecture, contracts, or assumptions that were not
+    researched and hardened enough before being used as the basis for downstream engines.
+  dangerous_competing_meanings:
+  - normal iteration
+  - any change at all
+  - small implementation details
+  status: working
+  source_basis: explicit_draft
+- term: unusable
+  current_controlled_meaning: Unable to serve the lifetime mission at scale because
+    of cost, latency, fragility, loss, lock-in, or inability to process the intended
+    corpus.
+  dangerous_competing_meanings:
+  - slower than ideal
+  - missing a convenience feature
+  status: working
+  source_basis: explicit_draft
+- term: irreversible_damage
+  current_controlled_meaning: Damage that cannot be cleanly undone because learned
+    knowledge, lost data, lost lineage, or past study impact cannot be reconstructed
+    with confidence.
+  dangerous_competing_meanings:
+  - hard to fix code
+  - any expensive rerun
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: provenance_loss
+  current_controlled_meaning: Loss or weakening of the chain that shows exactly which
+    source, version, page, layer, and processing history produced a piece of knowledge.
+  dangerous_competing_meanings:
+  - missing cosmetic metadata
+  - lack of bibliographic elegance only
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: data_loss
+  current_controlled_meaning: Loss, corruption, or unusable preservation of source
+    products, library state, training data, or backups needed for the lifetime project.
+  dangerous_competing_meanings:
+  - having to rerun a cheap experiment
+  - temporary cache loss only
+  status: working
+  source_basis: explicit_draft
+- term: blind_spot
+  current_controlled_meaning: An unrecognized area of risk, design weakness, or missed
+    possibility caused by insufficient research, testing, creativity, collaboration,
+    or tooling.
+  dangerous_competing_meanings:
+  - a known tradeoff
+  - an issue already modeled and bounded
+  status: working
+  source_basis: explicit_draft
+- term: unacceptable_risk
+  current_controlled_meaning: A risk whose potential damage is too large for the project’s
+    stakes, even if probability is uncertain or frequency is low.
+  dangerous_competing_meanings:
+  - only highly likely bugs
+  - only risks that are immediately catastrophic
+  status: working
+  source_basis: inferred_from_prior_chat

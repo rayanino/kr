@@ -1,0 +1,58 @@
+highest_urgency_failures:
+- SC-001
+- SC-003
+- SC-020
+- SC-030
+- SC-032
+- SC-039
+highest_trust_destruction_failures:
+- SC-001
+- SC-003
+- SC-020
+- SC-027
+- SC-043
+- SC-044
+hardest_to_detect_failures:
+- SC-001
+- SC-025
+- SC-027
+- SC-030
+- SC-034
+- SC-035
+- SC-042
+- SC-046
+most_irreversible_failures:
+- SC-007
+- SC-008
+- SC-012
+- SC-038
+- SC-039
+- SC-041
+most_likely_to_be_dismissed_but_dangerous_failures:
+- SC-024
+- SC-026
+- SC-028
+- SC-034
+- SC-035
+- SC-046
+most_important_prevention_areas:
+- knowledge lineage and provenance
+- silent-failure detection and blast-radius containment
+- high-risk excerpting and attribution validation
+- corpus-scale cost and performance design
+- durable storage, exportability, and backup recovery
+- research/tooling discipline and agent-environment hardening
+most_important_research_areas:
+- Arabic-safe OCR and normalization validation
+- quote-layer and attribution disambiguation
+- excerpt boundary validation under ambiguity
+- taxonomy placement and relation integrity
+- scale economics for full-corpus ingestion
+- training-data structure for future local models
+most_dangerous_build_on_loose_grounds_areas:
+- engine contracts and downstream assumptions
+- source identity/version handling
+- metadata propagation rules
+- excerpting and self-containment logic
+- schema design for preserved outputs
+- choice of models, tools, and fallback policies

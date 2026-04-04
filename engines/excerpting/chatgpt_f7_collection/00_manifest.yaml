@@ -1,0 +1,44 @@
+question_id: F-7
+bundle_id: chatgpt_f7_collection
+version: 0.1.0
+status: owner_answer_plus_engineering_failure_canon
+raw_owner_source_layer: source_artifacts/f7_owner_raw_draft_2026_04_04.txt
+source_basis:
+- explicit owner draft in this chat
+- inferred_from_prior_chat goals and thresholds
+- explicitly labeled model_expansion for broader failure frontier
+files_emitted:
+- engines/excerpting/chatgpt_f7_collection/00_manifest.yaml
+- engines/excerpting/chatgpt_f7_collection/01_questionnaire_answer.md
+- engines/excerpting/chatgpt_f7_collection/02_failure_dossier.md
+- engines/excerpting/chatgpt_f7_collection/03_terms.yaml
+- engines/excerpting/chatgpt_f7_collection/04_failure_taxonomy.jsonl
+- engines/excerpting/chatgpt_f7_collection/05_scenarios.jsonl
+- engines/excerpting/chatgpt_f7_collection/06_stop_using_thresholds.jsonl
+- engines/excerpting/chatgpt_f7_collection/07_damage_paths.jsonl
+- engines/excerpting/chatgpt_f7_collection/08_nonnegotiables.jsonl
+- engines/excerpting/chatgpt_f7_collection/09_red_team_tests.jsonl
+- engines/excerpting/chatgpt_f7_collection/10_priority_matrix.yaml
+- engines/excerpting/chatgpt_f7_collection/11_traceability.jsonl
+- engines/excerpting/chatgpt_f7_collection/12_open_questions.jsonl
+- engines/excerpting/chatgpt_f7_collection/13_hard_judgment.md
+- engines/excerpting/chatgpt_f7_collection/README.md
+- engines/excerpting/chatgpt_f7_collection/source_artifacts/chatgpt_f7_collection_2026_04_04.zip
+- engines/excerpting/chatgpt_f7_collection/source_artifacts/f7_owner_raw_draft_2026_04_04.txt
+total_failure_categories: 18
+total_scenarios: 46
+total_stop_using_thresholds: 7
+total_damage_paths: 12
+total_nonnegotiables: 14
+total_red_team_tests: 16
+total_explicit_draft_items: 17
+total_inferred_items: 12
+total_model_expansion_items: 17
+major_highest_risk_families:
+- knowledge_corruption_and_silent_errors
+- provenance_lineage_and_audit_failure
+- wrong_excerpting_taxonomy_and_relation_integrity
+- loose_foundation_and_irreversible_architecture
+- cost_speed_scale_unusability
+- data_loss_backup_failure_and_training_data_contamination
+- prestige_illusion_false_confidence
