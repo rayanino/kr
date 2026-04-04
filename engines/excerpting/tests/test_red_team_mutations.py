@@ -196,15 +196,6 @@ class TestSplitMergeMutation:
         )
 
     @pytest.mark.red_team
-    @pytest.mark.xfail(
-        reason="Known gap: V-P3-2 compares at min(len), so a truncated "
-        "snippet that is a prefix of primary_text passes. This is the most "
-        "dangerous gap (FP-21): dropping a condition from a ruling turns a "
-        "restricted concession into an absolute ruling, and V-P3-2 does not "
-        "catch it. Fix: V-P3-2 should require snippet length >= threshold "
-        "AND flag significant length differences between snippet and primary.",
-        strict=True,
-    )
     def test_excerpt_with_condition_removed_is_detectable(self) -> None:
         """FP-21 concrete case: dropping a condition from a ruling.
 

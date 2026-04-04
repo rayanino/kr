@@ -83,10 +83,22 @@ def validate_excerpt(
     # Arabic (diacritics are separate codepoints), so text_snippet length
     # varies (typically 51-74 chars instead of the requested 80). Compare
     # at the shorter of the two lengths, with a 20-char minimum threshold.
+    # FP-19/FP-21 hardening: also catch truncation attacks where snippet
+    # is a prefix of primary but significantly shorter (condition stripping).
     snippet_normalized = _normalize_whitespace(excerpt.text_snippet)
     primary_normalized = _normalize_whitespace(excerpt.primary_text[:80])
     compare_len = min(len(snippet_normalized), len(primary_normalized))
-    if compare_len < 20 or snippet_normalized[:compare_len] != primary_normalized[:compare_len]:
+    # Length ratio check: if snippet is <50% of primary[:80], it is
+    # suspiciously truncated (FP-21: condition-stripped ruling detection).
+    length_ratio_ok = (
+        len(primary_normalized) == 0
+        or len(snippet_normalized) / len(primary_normalized) >= 0.5
+    )
+    if (
+        compare_len < 20
+        or snippet_normalized[:compare_len] != primary_normalized[:compare_len]
+        or not length_ratio_ok
+    ):
         drop = True
         errors.append(ExcerptingErrorCodes.EX_V_002)
         logger.error(
