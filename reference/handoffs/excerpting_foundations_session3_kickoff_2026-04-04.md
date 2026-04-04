@@ -10,6 +10,7 @@ The owner is available 24/7 with Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, a
 
 ## STOP — Read these files in this exact order before doing ANYTHING
 
+0. Run `/catchup` to reload context from git + NEXT.md (per context-management.md)
 1. `NEXT.md` — current task and next steps (updated end of session 2)
 2. `engines/excerpting/SPEC.md` §1.1b lines 30-90 — the 22 FPs (each refined by up to 5 adversarial reviews)
 3. `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` — full ledger: all batch dispositions, coworker synthesis, DR findings
@@ -45,11 +46,12 @@ The owner is available 24/7 with Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, a
 
 ### Hard rules
 
-- **No SPEC §6 entry is finalized without Gemini scholarly review.**
-- **No prompt change without Codex contract check.**
-- **No phase transition without at least 1 DR adversarial review.**
+- **No SPEC §6 entry is finalized without Gemini CLI scholarly review.**
+- **No prompt change without Codex CLI contract check.**
+- **No phase transition without all 6 sources** (Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, Gemini DR, CC subagents). For phase gates, the minimum is ALL 6, not just 1 DR. (mandatory-coworker-dispatch.md: "For phase gates: all 6 sources.")
 - **CC solo analysis is NEVER sufficient for content quality conclusions.** (mandatory-coworker-dispatch.md)
-- **Log every dispatch** to `.kr/runtime/dispatch_log.jsonl`: timestamp, coworker, phase, task, result summary. (coworker-dispatch.md)
+- **Log every dispatch** to `.kr/runtime/dispatch_log.jsonl`: timestamp, coworker, phase, task, result summary. Each coworker returns a **structured report** (not freeform chat). (coworker-dispatch.md)
+- **N-1 fallback:** If a coworker is unavailable after 48h, proceed with N-1 IF at least 3 coworkers completed AND the unavailable coworker's specialty is covered by another. Document the gap. If 2+ unavailable, STOP. (coworker-dispatch.md)
 
 ---
 
@@ -67,7 +69,7 @@ DR-5 (the self-hardened Claude review) provided 3 pre-written coworker relay pro
 | §9.2 Gemini | Scholarly validation | Causal particles, Arabic markers, title retention, intro criterion | DR-5 §9.2 |
 | §9.3 DR | Word budget strategy | Research prompt length vs accuracy, few-shot vs rules, compression | DR-5 §9.3 |
 
-**Before word budget strategy:** Dispatch ChatGPT DR or Claude DR with the §9.3 prompt from `engines/excerpting/reference/dr_reviews/DR5_claude_batch1_batch2_HARDENED.md` §9.3 — research question: "what is the empirical relationship between system prompt length and instruction-following accuracy?"
+**Before word budget strategy:** Dispatch Claude DR (relay prompt to owner) with the §9.3 prompt from `engines/excerpting/reference/dr_reviews/DR5_claude_batch1_batch2_HARDENED.md` §9.3 — research question: "what is the empirical relationship between system prompt length and instruction-following accuracy?"
 **Before SPEC §6 formalization:** Dispatch Gemini CLI (`gemini -p "..."`) to validate scholarly accuracy of each §6 subsection with concrete Arabic examples. Ask: "Is this rule correct across all Islamic sciences? Give a counterexample if one exists."
 **Before smoke run:** Dispatch Codex CLI (`codex exec "..."`) to verify: (a) `--max-chunks` flag works, (b) integration test config is correct, (c) output directory won't overwrite existing v2 data.
 
@@ -142,7 +144,7 @@ The owner said: "you are the strict 250 IQ boss with his business on the line." 
 | Phase 2 smoke (2 pkg re-run) | — | ~$6 per re-run | Budget for 3 iterations = ~$18 |
 | Phase 3 full 5-book | — | ~$15-25 | One run. No re-runs budgeted. |
 
-**Check budget BEFORE launching any API-calling script.** The `cost-guard.sh` hook provides automatic enforcement.
+**Check budget BEFORE launching any API-calling script.** The `.claude/hooks/cost-guard.sh` hook provides automatic enforcement.
 
 ---
 
@@ -152,7 +154,7 @@ The owner said: "you are the strict 250 IQ boss with his business on the line." 
 - **6 batches processed:** Safety, Self-Containment, Boundary, Granularity, Tarjih/Proof, Other
 - **22 FPs** in SPEC §1.1b: 4 new (FP-19/20/21/22), 3 strengthened (FP-2/3/5), all refined by 5 DRs
 - **10 prompt rules** added, then refactored by DR-5: Rule A moved to CLASSIFY, Rule D removed (redundant), Rule B tightened, Rule C compressed. GROUP prompt: 1440/1500 words.
-- **10 red-team tests** in `test_red_team_mutations.py` (5 pass, 4 xfail = real gaps, 1 gap FIXED)
+- **10 red-team tests** in `engines/excerpting/tests/test_red_team_mutations.py` (5 pass, 4 xfail = real gaps, 1 gap FIXED)
 - **V-P3-2 truncation fix** — condition-stripping detection (FP-21 gap closed)
 - **EE-1 gharib exception** — numbered gharib items stay with hadith core
 - **5 DR reviews synthesized** — each found genuinely new issues (see DR table below)
@@ -183,11 +185,11 @@ These files are at the repo root (to be archived in `engines/excerpting/referenc
 
 | DR | File | Unique Contribution | Use When |
 |----|------|-------------------|----------|
-| DR-1 | `chatgpt-Adversarial Review of Proposed Foundational Principles...md` | FP-19 text mutation trap (NEVER insert markers into primary_text). Tamper-evident provenance gap. | Implementing FP-19 display-layer |
-| DR-2 | `claude-Adversarial review.md` | FP-5/FP-21 governance CONFLICT (blocking). 3-class error provenance (A/B/C). Genre-sensitive severity. Tashkeel phantom cascade. | Severity classification, error handling |
-| DR-3 | `chatgpt-Adversarial Review of Excerpting Foundations Hardening Batches 1 and 2.md` | Flag laundering / alarm fatigue. Rule A over-aggression. Rule B exploitation. Priority ranking (D>C>A>B). | Operational safety, prompt tuning |
-| DR-4 | `claude-Excerpting foundations hardening, Batches 1 & 2.md` | Decoy confession. Severity-deflation incentive. Closed-loop self-validation. FP-22 unverifiable without decision log. | LLM behavioral gaming defense |
-| DR-5 | `claude-adversarial_review_batch1_batch2_HARDENED.md` | Inter-phase contradiction (Rule A). Rule B 3 exploits. Rule D 80% redundant. SPEC-prompt drift. Word budget crisis. **3 ready-to-use coworker prompts (§9).** | Prompt architecture, word budget, next dispatches |
+| DR-1 | `engines/excerpting/reference/dr_reviews/DR1_chatgpt_batch1_safety.md` | FP-19 text mutation trap (NEVER insert markers into primary_text). Tamper-evident provenance gap. | Implementing FP-19 display-layer |
+| DR-2 | `engines/excerpting/reference/dr_reviews/DR2_claude_batch1_safety.md` | FP-5/FP-21 governance CONFLICT (blocking). 3-class error provenance (A/B/C). Genre-sensitive severity. Tashkeel phantom cascade. | Severity classification, error handling |
+| DR-3 | `engines/excerpting/reference/dr_reviews/DR3_chatgpt_batch1_batch2.md` | Flag laundering / alarm fatigue. Rule A over-aggression. Rule B exploitation. Priority ranking (D>C>A>B). | Operational safety, prompt tuning |
+| DR-4 | `engines/excerpting/reference/dr_reviews/DR4_claude_batch1_batch2.md` | Decoy confession. Severity-deflation incentive. Closed-loop self-validation. FP-22 unverifiable without decision log. | LLM behavioral gaming defense |
+| DR-5 | `engines/excerpting/reference/dr_reviews/DR5_claude_batch1_batch2_HARDENED.md` | Inter-phase contradiction (Rule A). Rule B 3 exploits. Rule D 80% redundant. SPEC-prompt drift. Word budget crisis. **3 ready-to-use coworker prompts (§9).** | Prompt architecture, word budget, next dispatches |
 
 ---
 
@@ -285,13 +287,13 @@ The owner's F1-F8 collections at `engines/excerpting/chatgpt_f1_collection/ thro
 ### Phase B: SPEC §6 Formalization (2-3 hours)
 
 5. **Formalize SPEC §6 entries** for ~30 SPEC-only atoms from Batches 4-6.
-   - **BEFORE WRITING:** Dispatch Gemini for scholarly validation of each subsection
-   - **BEFORE WRITING:** Dispatch Codex for contract consistency check
-   - After writing: run check_prompt_spec_sync.py + full pytest
+   - **BEFORE WRITING:** Dispatch Gemini CLI (`gemini -p`): "For each proposed §6 rule, is it correct across all Islamic sciences? Give a concrete Arabic counterexample if one exists. Check: [paste the rule text]."
+   - **BEFORE WRITING:** Dispatch Codex CLI (`codex exec`): "Read engines/excerpting/contracts.py. Does this new §6 rule require any contract changes? Does it conflict with any existing invariant (I-CS-*, I-TU-*, I-ER-*)?"
+   - After writing: run `python scripts/check_prompt_spec_sync.py` + `python -m pytest engines/excerpting/tests/ -q`
 6. **Word budget strategy session.**
-   - Dispatch DR with §9.3 prompt (research-based, evidence-backed)
-   - Dispatch Codex CLI: "Does the chosen strategy (compress/few-shot/overlay/raise cap) break any existing contract invariants or test expectations?"
-   - Dispatch Gemini CLI: "For the chosen strategy, provide 2-3 Arabic scholarly text examples that the strategy must handle correctly."
+   - Dispatch Claude DR (relay to owner): use the §9.3 prompt from `engines/excerpting/reference/dr_reviews/DR5_claude_batch1_batch2_HARDENED.md` §9.3 verbatim — research question about prompt length vs accuracy, few-shot vs rules, compression
+   - Dispatch Codex CLI (`codex exec`): "Does the chosen strategy (compress/few-shot/overlay/raise cap) break any existing contract invariants or test expectations?"
+   - Dispatch Gemini CLI (`gemini -p`): "For the chosen strategy, provide 2-3 Arabic scholarly text examples that the strategy must handle correctly."
    - ONLY THEN decide: compress, few-shot, multi-prompt, or raise cap
 
 ### Phase C: Smoke Run Preparation (2-3 hours)
@@ -299,7 +301,7 @@ The owner's F1-F8 collections at `engines/excerpting/chatgpt_f1_collection/ thro
 7. **Prepare Phase 1 smoke run** with hardened prompts.
    - Verify --max-chunks flag actually limits processing (known bug from NEXT.md)
    - Run on 2 packages (taysir + ibn_aqil_v1)
-   - Dispatch Codex to verify integration test configuration
+   - Dispatch Codex CLI (`codex exec`): "Read `scripts/run_full_integration.py`. Does --max-chunks actually limit processing? What is the chunk count for taysir and ibn_aqil_v1? Will the output directory `integration_tests/v2_final/` avoid overwriting `integration_tests/smoke_api_v2/`?"
 8. **Set up 5-team analysis.** Per NEXT.md Phase 1 plan: Boundary Quality, Classification, Arabic Fidelity, Consensus/Metadata, Coverage.
 
 ### Phase D: Owner Review (when smoke run completes)
