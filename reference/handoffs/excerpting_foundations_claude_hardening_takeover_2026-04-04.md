@@ -30,6 +30,28 @@ The owner took a week of concentrated work to sit in the loop full-time instead 
 
 This is the highest-value owner-input window in the excerpting project.
 
+This is not a normal feedback pass.
+This is not a convenience refinement pass.
+This is not a "make it a bit better" pass.
+
+This is one of the few moments in the entire project where the team has direct, repeated, high-bandwidth access to the owner while the excerpting engine is still plastic enough to be hardened correctly.
+
+Claude must therefore optimize for:
+- maximum correctness
+- maximum pressure-testing
+- maximum rigor
+- maximum blind-spot discovery
+- maximum quality of doctrine before implementation
+- maximum implementation quality after doctrine stabilizes
+
+Claude must explicitly **not** optimize for:
+- speed
+- short chats
+- quick closure
+- lightweight synthesis
+- "good enough for now"
+- moving on before the atom is truly closed
+
 Claude must treat this as:
 - not “questionnaire cleanup”
 - not “summarize what the owner said”
@@ -39,6 +61,17 @@ Claude must treat this as:
 
 The owner’s answers are **high-value signal** and **zero-authority directives**.
 Claude must take over, widen the frame, identify blind spots, deploy coworkers, challenge owner-local reasoning where needed, and drive every aspect to a real engineering conclusion.
+
+Claude must assume the owner is often answering correctly **inside the local frame of the shown examples** while still lacking visibility into:
+- the rest of the repo
+- adjacent engines
+- contract consequences
+- hidden edge cases
+- future corpus diversity
+- long-horizon architecture costs
+
+That is not a flaw in the owner. It is the expected division of labor.
+The burden is on Claude to correct for that narrowness through research, cross-checking, counterexample search, and explicit challenge.
 
 ## Read Order For Claude
 
@@ -86,6 +119,18 @@ This lane must not yet digest:
 - `S-*`
 
 The owner wants the foundations lane to be handled **aspect by aspect**, not item by item and not all at once.
+
+The correct granularity is **one atom at a time**.
+
+An atom is:
+- one doctrine knot
+- one edge-case family
+- one structural rule
+- one failure family
+- one hidden dependency rule
+- one tension that can be challenged and either closed or explicitly carried forward
+
+If Claude is solving more than one real atom at once, the granularity is too coarse.
 
 ## Mandatory Evidence Corpus
 
@@ -156,12 +201,21 @@ Instead Claude must:
   - evaluation blind spot
   - or something deeper behind the literal complaint
 
+Claude must act as the **main orchestrator**.
+That means:
+- the owner provides signal and pressure
+- Codex provides shadow audits, repo-state challenge, and contract/boundary pressure
+- Gemini provides deep research, adversarial reframing, and external-style blind-spot challenge
+- Claude owns the synthesis, the decisions, the pacing, the implementation calls, and the closure standard
+
+No major aspect should move from theory to implementation without fresh challenge from outside Claude’s own immediate reasoning.
+
 ## Unit Of Work
 
 Do **not** process one whole questionnaire answer per prompt.
 
 The unit of work is:
-- one aspect
+- one aspect atom
 - one doctrine knot
 - one failure family
 - one structural rule
@@ -181,11 +235,63 @@ Examples:
 - authoritative fetched proof vs book-preserved proof
 - global trust poisoning from one local error
 
+Claude must literally open each atom with wording of this shape:
+
+- `The next atom we are handling is: ...`
+- `This atom is not finished until theory, challenge, implementation, review, hardening, and tests are all closed.`
+
+This must become the rhythm of the session, not an occasional pattern.
+
+## Hard Redlines
+
+The following count as **failed execution**, not merely weak execution:
+
+1. Claude skips the raw owner-source artifacts and reasons only from cleaned summaries.
+2. Claude treats one local owner answer as global truth without counterexample search.
+3. Claude closes an atom without explicit coworker challenge or an explicit blocker log explaining why that challenge could not happen.
+4. Claude builds before the theory for that atom has been pressure-tested.
+5. Claude says an atom is finalized while implementation, validation, or residual-risk accounting is still vague.
+6. Claude processes multiple atoms together because they feel “related.”
+7. Claude leaves the owner believing an issue is settled when the repo, tests, or edge-case surface have not actually proven that.
+
+If any of those happen, the lane is drifting into mediocre execution and must be corrected immediately.
+
+## Mandatory Research Minimum Per Atom
+
+For every atom, Claude must complete a real research floor before theory closure:
+
+1. Search the repo for all directly relevant prior artifacts, specs, tests, prompts, and collection files.
+2. Search for counterexamples that pressure the owner’s local formulation.
+3. Search for adjacent engine or contract consequences.
+4. Identify at least one corpus-diversity or methodology-diversity risk.
+5. Produce an explicit list of what the current evidence still does **not** prove.
+
+If that floor is not met, the atom is not ready for doctrine synthesis.
+
+## Mandatory Coworker Minimum Per Atom
+
+At every major atom, Claude must deliberately involve coworkers.
+
+Default expectation:
+- **Codex**: read-only shadow challenge on repo consequences, contracts, validation surface, and regression risk
+- **Gemini**: deep-research or external-blind-spot challenge on missing patterns, unseen methodologies, or alternative framings
+
+At minimum, before finalizing any major atom, Claude must have:
+- one non-Claude challenge on the theory shape
+- one non-Claude challenge on the implementation/risk shape
+
+If a coworker cannot be used, Claude must log:
+- who was unavailable
+- why
+- what risk remains because that challenge did not occur
+
+No silent skipping.
+
 ## Required Loop Per Aspect
 
 For each aspect, Claude must execute this full loop:
 
-1. **Select exactly one aspect**
+1. **Select exactly one atom**
 2. **Gather the owner evidence**
    - raw artifact first
    - cleaned owner-answer layer second
@@ -198,19 +304,23 @@ For each aspect, Claude must execute this full loop:
    - ask many narrow, concrete, non-technical questions if needed
    - use examples
    - do not ask him to solve architecture
-6. **Deploy coworkers deliberately**
+6. **Run the research minimum**
+7. **Deploy coworkers deliberately**
    - deep research where needed
    - fresh pair of eyes where needed
    - contradiction finding
    - scholarly-risk checking
    - implementation-risk checking
-7. **Pressure-test the theory**
+8. **Pressure-test the theory**
    - strongest case for
    - strongest case against
    - hidden tradeoffs
    - edge cases
    - failure modes
-8. **Classify the impact**
+9. **Check cross-atom regression risk**
+   - does this atom collide with anything previously finalized?
+   - if yes, reopen the earlier atom explicitly rather than hand-waving the conflict away
+10. **Classify the impact**
    - owner-model only
    - workflow/display only
    - prompt behavior
@@ -218,29 +328,37 @@ For each aspect, Claude must execute this full loop:
    - validation rules
    - tests
    - cross-engine contract
-9. **Implement bounded changes where warranted**
-10. **Review the build**
-11. **Harden the build**
-12. **Run the mapped tests**
-13. **Record the result**
-14. **Only then mark the aspect finalized**
+11. **Implement bounded changes where warranted**
+12. **Review the build**
+13. **Harden the build**
+14. **Run the mapped tests**
+15. **Record the result**
+16. **Only then mark the atom finalized**
 
 ## Aspect Finalization Standard
 
-Claude must not say “this aspect is finalized” unless all of the following are true:
+Claude must not say “this atom is finalized” unless all of the following are true:
 
 - the owner signal was reconstructed from raw evidence
 - counterarguments were surfaced
 - owner-local blind spots were corrected for
-- coworkers were used where useful
+- the research minimum was completed
+- coworkers were used or their absence was explicitly logged
 - implementation consequences were decided
-- the relevant patch/spec/prompt/test changes were made or explicitly deferred
+- the relevant patch/spec/prompt/test changes were made, or the atom was explicitly classified as non-implementation and that classification was defended
 - review was performed
 - hardening was performed
 - tests passed or a blocker was explicitly logged
 - remaining uncertainty is either closed or explicitly carried forward
+- cross-atom regression risk was checked
+- residual risks were written down explicitly
+- the closure statement is strong enough that another engineer could not reasonably ask “what decision is still missing?”
 
 Anything less than that is not “finalized.”
+
+There is no “soft finalized.”
+There is no “good enough finalized.”
+There is no “we’ll remember to come back later” finalized.
 
 ## Explicit Anti-Failure Rules
 
@@ -255,6 +373,9 @@ Claude must not:
 - assume known edge cases are exhaustive
 - assume excerpting is safe once it looks clean
 - mark a tension closed just because it has a nice wording
+- reduce the owner’s week of live input into lightweight synthesis sludge
+- let a coworker be consulted only occasionally when the atom is high-stakes
+- quietly defer difficult engineering consequences without tagging them as real unresolved risk
 
 ## Branch / Workspace Rule
 
@@ -264,6 +385,18 @@ Before any implementation work begins, Claude should move the actual hardening l
 - `excerpting-foundations-hardening-20260404`
 
 The current questionnaire preservation artifacts are evidence inputs, not the build lane itself.
+
+## Immediate Start Rule
+
+Claude must not start with a broad overview speech.
+Claude must not start with “here is my synthesis of everything.”
+
+Claude must start with:
+1. confirming `F6` preservation state
+2. confirming foundations are `8 / 8`
+3. opening the first atom explicitly
+4. saying why that atom is first
+5. beginning the questioning / research cycle immediately
 
 ## Current Preconditions
 
@@ -280,7 +413,7 @@ The first operational step for Claude is therefore:
 ## Deliverable Claude Must Produce
 
 Claude should create and maintain a living foundations-hardening ledger that tracks, for each aspect:
-- aspect name
+- atom name
 - evidence files used
 - owner tensions
 - coworker findings
@@ -293,6 +426,9 @@ Claude should create and maintain a living foundations-hardening ledger that tra
 This ledger should become the backbone of the multi-day session.
 
 The main objective is not speed.
-The main objective is to be able to say, aspect by aspect:
+The main objective is not elegance of summary.
+The main objective is not lightness of process.
+
+The main objective is to be able to say, atom by atom:
 
 **This has been challenged, researched, built, reviewed, hardened, tested, and finalized.**
