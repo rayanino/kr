@@ -43,10 +43,14 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 4. **Empirical validation** — run atom_test.py against taysir fixture with the hardened prompt to verify new rules don't cause regressions.
 5. **Prompt optimization** — 1474/1500 words. If empirical validation shows LLM ignoring late rules (primacy bias), consider REPLACING lower-priority rules with higher-priority ones.
 
-**Next steps (executing now):**
-1. Commit and push Batches 4-6 to remote
-2. Formalize SPEC §6 entries for the ~30 SPEC-only atoms
-3. Run empirical validation (atom_test.py) on the hardened prompt
+**Session 2 complete (15 commits). Next session should:**
+1. Run `/catchup` then read this file + ledger
+2. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3) — taysir chunk 0 validated: 5 TUs (correct), hadith core unified
+3. Investigate EE-1 FAIL flag in atom_test.py — may be a stale check (the grouping is actually correct now)
+4. Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
+5. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom), ~19 prompt-affecting atoms remaining. DR-5 recommends Options 2+4 (compress existing rules + few-shot examples)
+6. Prepare Phase 1 smoke run with fully hardened prompt
+7. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
 
 **Pre-existing test failure:** `test_phase2_integration.py::test_classify_and_normalize` fails with 401 (expired OpenRouter API key). Not related to hardening changes. Confirmed pre-existing on clean master.
 
