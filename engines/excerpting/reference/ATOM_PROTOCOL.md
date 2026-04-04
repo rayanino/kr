@@ -231,7 +231,16 @@ If reading the full collection data reveals that an existing FP (FP-1 through FP
   - Tests added
   - Unresolved risks
   - Final disposition: FINALIZED / DEFERRED (with reason) / REJECTED (with reason)
-- Commit if a natural batch point (every 3-5 atoms, or after any high-impact atom)
+- Commit after EVERY batch with this format:
+  ```
+  feat(excerpting): harden [BATCH_NAME] — [N] atoms, [M] FPs added/revised
+
+  Atoms: [ATOM-IDs]
+  Coworkers: Codex [PASS/findings], Gemini [PASS/findings], DR [PASS/findings]
+  Tests: [count] pass, [count] added
+  Prompt: [word count] words (cap: 1500)
+  Residual risks: [list or "none"]
+  ```
 
 ---
 
@@ -271,7 +280,7 @@ The F1-F8 collections contain ideas spanning MULTIPLE scopes: excerpting rules, 
 
 1. **Never finalize an atom with fewer than 3 coworker reports.** Period.
 2. **Never read only the extraction summary.** Always go back to the original collection files.
-3. **Never batch multiple atoms together.** One at a time.
+3. **Process atoms in THEMATIC BATCHES** (per Pre-Loop: Thematic Grouping above). Within a batch, atoms are processed sequentially but their prompt/SPEC changes are designed together for coherence. Never process atoms from DIFFERENT batches simultaneously.
 4. **Never skip the raw owner source layer.** Read `source_artifacts/*.txt` before anything else.
 5. **Never modify the prompt without updating the SPEC code block.** Use `check_prompt_spec_sync.py`.
 6. **Never skip empirical validation for prompt-affecting atoms.** Use `atom_test.py`.

@@ -12,9 +12,10 @@ Process batches in this order (highest-impact subsystems first):
 2. **Self-Containment** (6 atoms) — affects C-SC criteria, the core quality metric
 3. **Boundary & Grouping** (6 atoms) — affects how teaching units are formed
 4. **Granularity** (16 atoms) — affects split/merge decisions
-5. **Tarjih & Khilaf** (7 atoms) — affects disagreement handling (deferred from session 1)
-6. **Proof & Evidence** (18 atoms) — largest batch; affects evidence handling + fetched proofs
-7. **Other** (15 atoms) — miscellaneous; classify into sub-batches after reading
+5. **Tarjih + Khilaf + Proof & Evidence** (25 atoms, MERGED) — tarjih/khilaf rules are inseparable from evidence handling. Process together for coherence.
+6. **Other** (15 atoms) — classify into sub-batches after reading. Some may merge into batches 1-5.
+
+NOTE: F1 canon atoms (PR-001 through PR-016) and F2 workflow atoms must be extracted from the queue audit and merged into appropriate batches BEFORE processing begins. See ATOM_PROTOCOL Step -1.
 
 ## Batch 1: Safety & Integrity (13 atoms)
 

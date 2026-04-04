@@ -39,4 +39,4 @@ F1-F8 collections contain 139 files of deep analysis. Session 1 only processed ~
 4. Process atoms one at a time. Every atom gets Codex CLI + Gemini CLI + DR coworker.
 5. Use `scripts/atom_test.py` for empirical validation of prompt changes.
 
-Do not skip files. Do not batch atoms. Do not finalize without three coworker reports.
+Do not skip files. Process atoms in THEMATIC BATCHES (per ATOM_PROTOCOL.md) — not isolated one-at-a-time, not all-at-once. Do not finalize without three coworker reports.
