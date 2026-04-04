@@ -14,8 +14,8 @@ The owner is available 24/7 with Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, a
 2. `engines/excerpting/SPEC.md` §1.1b lines 30-90 — the 22 FPs (each refined by up to 5 adversarial reviews)
 3. `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` — full ledger: all batch dispositions, coworker synthesis, DR findings
 4. `engines/excerpting/reference/MERGED_ATOM_QUEUE.md` — the 556-line single source of truth (250 ideas, 88 MAQ atoms, 62 red-team tests, 0 silent drops)
-5. `engines/excerpting/src/phase2_group.py` lines 43-120 — GROUP_SYSTEM_PROMPT (1440/1500 words)
-6. `engines/excerpting/src/phase2_classify.py` lines 41-75 — CLASSIFY_SYSTEM_PROMPT (551 words, Rule A moved here by DR-5)
+5. `engines/excerpting/src/phase2_group.py` lines 43-209 — GROUP_SYSTEM_PROMPT (1440/1500 words)
+6. `engines/excerpting/src/phase2_classify.py` lines 41-116 — CLASSIFY_SYSTEM_PROMPT (551 words, Rule A moved here by DR-5)
 7. Run: `python -m pytest engines/excerpting/tests/ -q --ignore=engines/excerpting/tests/test_phase2_integration.py --ignore=engines/excerpting/tests/test_phase3_integration.py` — must be 912+ pass, 4 xfail
 8. Run: `python scripts/check_prompt_spec_sync.py` — must PASS
 
@@ -49,6 +49,7 @@ The owner is available 24/7 with Codex CLI, Gemini CLI, ChatGPT DR, Claude DR, a
 - **No prompt change without Codex contract check.**
 - **No phase transition without at least 1 DR adversarial review.**
 - **CC solo analysis is NEVER sufficient for content quality conclusions.** (mandatory-coworker-dispatch.md)
+- **Log every dispatch** to `.kr/runtime/dispatch_log.jsonl`: timestamp, coworker, phase, task, result summary. (coworker-dispatch.md)
 
 ---
 
@@ -66,9 +67,9 @@ DR-5 (the self-hardened Claude review) provided 3 pre-written coworker relay pro
 | §9.2 Gemini | Scholarly validation | Causal particles, Arabic markers, title retention, intro criterion | DR-5 §9.2 |
 | §9.3 DR | Word budget strategy | Research prompt length vs accuracy, few-shot vs rules, compression | DR-5 §9.3 |
 
-**Before word budget strategy:** Dispatch DR with the §9.3 prompt — this is research, not implementation.
-**Before SPEC §6 formalization:** Dispatch Gemini to validate scholarly accuracy of each subsection.
-**Before smoke run:** Dispatch Codex to verify integration test configuration.
+**Before word budget strategy:** Dispatch ChatGPT DR or Claude DR with the §9.3 prompt from `engines/excerpting/reference/dr_reviews/DR5_claude_batch1_batch2_HARDENED.md` §9.3 — research question: "what is the empirical relationship between system prompt length and instruction-following accuracy?"
+**Before SPEC §6 formalization:** Dispatch Gemini CLI (`gemini -p "..."`) to validate scholarly accuracy of each §6 subsection with concrete Arabic examples. Ask: "Is this rule correct across all Islamic sciences? Give a counterexample if one exists."
+**Before smoke run:** Dispatch Codex CLI (`codex exec "..."`) to verify: (a) `--max-chunks` flag works, (b) integration test config is correct, (c) output directory won't overwrite existing v2 data.
 
 ---
 
@@ -76,15 +77,24 @@ DR-5 (the self-hardened Claude review) provided 3 pre-written coworker relay pro
 
 **Session 2 ran to near-exhaustion of context. Don't repeat this.**
 
+### Post-milestone protocol (MANDATORY after completing ANY phase)
+
+After completing Phase A, B, C, or D, you MUST immediately output:
+1. What was accomplished (1-2 sentences)
+2. What this reveals about what's needed next
+3. What's blocking progress (including non-obvious blockers)
+4. PROPOSED next 2-3 steps with reasoning
+5. Start executing the next step — do NOT say "standing by" or "waiting"
+
 ### Natural handoff points (stop after completing one of these)
 
-1. **After Phase A (validation) completes** — if validation reveals major regressions, STOP, document, hand off
+1. **After Phase A (validation) completes** — if validation reveals major regression, STOP, document, hand off
 2. **After Phase B (SPEC §6) completes** — natural milestone. Write session 4 kickoff and exit.
 3. **After Phase C smoke run launches** — waiting for API results is dead context. Hand off immediately after launch.
 
 ### Context management triggers
 
-- **At ~60% context:** Use `/smart-compact` proactively. After compaction, re-read: (1) SPEC §1.1b, (2) active phase checkpoint, (3) MERGED_ATOM_QUEUE active section, (4) ledger recent entries, (5) current GROUP_SYSTEM_PROMPT
+- **At ~60% context:** Use `/smart-compact` proactively. After compaction, re-read: (1) NEXT.md, (2) `engines/excerpting/CLAUDE.md`, (3) SPEC §1.1b, (4) active phase checkpoint, (5) MERGED_ATOM_QUEUE active section, (6) ledger recent entries, (7) current GROUP_SYSTEM_PROMPT
 - **At ~80% context:** STOP current work immediately. Write session 4 handoff (same structure as this document: reading order, coworker mandate, what went right/wrong, session-end triggers). Commit. Push. EXIT.
 - **One engine per session** — no cross-engine work.
 
@@ -257,7 +267,7 @@ These files are at the repo root (to be archived in `engines/excerpting/referenc
 
 ### The 139 golden files
 
-The owner's F1-F8 collections at `engines/excerpting/chatgpt_f{1-8}_collection/` contain 139 files of deep analysis. Session 2 processed these into 88 MAQ atoms. If session 3 discovers gaps during SPEC §6 formalization, GO BACK TO THE ORIGINAL FILES. The extraction is a starting point, not a cap.
+The owner's F1-F8 collections at `engines/excerpting/chatgpt_f1_collection/ through chatgpt_f8_collection/` contain 139 files of deep analysis. Session 2 processed these into 88 MAQ atoms. If session 3 discovers gaps during SPEC §6 formalization, GO BACK TO THE ORIGINAL FILES. The extraction is a starting point, not a cap. Quick search across all collections: `grep -r "KEYWORD" engines/excerpting/chatgpt_f*_collection/`
 
 ---
 
@@ -266,8 +276,8 @@ The owner's F1-F8 collections at `engines/excerpting/chatgpt_f{1-8}_collection/`
 ### Phase A: Validation & Cleanup (1-2 hours)
 
 1. **Empirical validation on more chunks.** Run atom_test.py on ibn_aqil_v1 chunk 0 and taysir chunks 1-3. Verify refactored prompt produces correct TU counts.
-   - Dispatch Codex: verify test results structurally
-   - Dispatch Gemini: validate Arabic quality of produced TUs
+   - Dispatch Codex CLI (`codex exec`): "Read atom_test output JSON. Verify TU segment_indices are contiguous, word counts positive, self_containment values are valid enum members."
+   - Dispatch Gemini CLI (`gemini -p`): "Read the Arabic text_preview of each TU. Are boundaries at natural scholarly break points? Does any TU orphan an explanation from its explained? Check tashkeel preservation and classical terminology accuracy."
 2. **Investigate EE-1 FAIL flag.** The flag may be stale — grouping is correct but test tool reports FAIL.
 3. **Fix remaining 4 xfail red-team tests.** Real V-P3-2 and contract gaps.
 4. **Archive DR reports.** Move 5 DR files from repo root to `engines/excerpting/reference/dr_reviews/`.
@@ -280,7 +290,8 @@ The owner's F1-F8 collections at `engines/excerpting/chatgpt_f{1-8}_collection/`
    - After writing: run check_prompt_spec_sync.py + full pytest
 6. **Word budget strategy session.**
    - Dispatch DR with §9.3 prompt (research-based, evidence-backed)
-   - Dispatch Codex + Gemini for technical and scholarly input
+   - Dispatch Codex CLI: "Does the chosen strategy (compress/few-shot/overlay/raise cap) break any existing contract invariants or test expectations?"
+   - Dispatch Gemini CLI: "For the chosen strategy, provide 2-3 Arabic scholarly text examples that the strategy must handle correctly."
    - ONLY THEN decide: compress, few-shot, multi-prompt, or raise cap
 
 ### Phase C: Smoke Run Preparation (2-3 hours)
@@ -295,7 +306,7 @@ The owner's F1-F8 collections at `engines/excerpting/chatgpt_f{1-8}_collection/`
 
 9. **Render 20 excerpts for owner.** 10 best + 10 worst. Readable Arabic text, NOT JSON.
 10. **Owner reacts:** "good / bad / confusing?" — CC translates reactions into technical actions.
-11. **Dispatch all 6 sources** for the Phase 1 analysis.
+11. **Dispatch all 6 sources** per NEXT.md Phase 1 plan: Codex CLI (boundary + metadata checks), Gemini CLI (Arabic fidelity + classification accuracy), ChatGPT DR (error patterns + architecture), Claude DR (scholarly reasoning + boundary quality), Gemini DR (Islamic study methodology + genre-specific natural units). See NEXT.md §Phase 1 Step 1/2 for exact team assignments.
 
 ---
 
@@ -323,6 +334,7 @@ An atom/task is NOT finalized unless:
 - Empirical validation passed (if prompt-affecting)
 - The ledger was updated with full disposition and residual risks
 - Cross-atom regression was checked
+- Arabic text integrity verified (tashkeel preservation, classical terminology, no modern-standard drift)
 
 There is no "soft finalized." There is no "good enough." There is no "we'll come back later."
 
