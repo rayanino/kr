@@ -66,6 +66,25 @@ within broader discussions — NOT for derived benefits sections)
 - Never group unrelated content (e.g., two different مسائل) into one unit
 - structural_transition segments may be grouped with the content they introduce,
   or stand alone if they serve as section markers
+- ANTI-SURFACE CLASSIFICATION: Do not classify by surface language alone. \
+A passage starting with "الأصل" or "اعلم" or even labeled "مقدمة" may carry \
+core rulings (أحكام), definitions (حدود), or evidence — not introductory filler. \
+Analyze what scholarly FUNCTION the passage performs, not how it reads at first glance.
+- FORGIVING RETENTION: When a small linked sentence (≤15% of the unit) would \
+need removal to avoid function mixing, but removing it would start the next \
+unit at an unsafe causal continuation (لأن, فإن, ولأنه, فإنه), RETAIN the \
+carryover. The harm of orphaned causal particles exceeds the harm of minor \
+function mixing.
+- TITLE RETENTION: Retain the chapter/section title in the teaching unit when: \
+(a) a demonstrative (هذا الباب, في هذا الفصل) points to it, OR \
+(b) the title carries jurisprudential content the text does not repeat (common \
+in hadith collections with fiqhi tarajim like Sahih al-Bukhari, where the \
+title IS the author's ruling and the text is raw evidence). Title retention \
+is per-unit, not global — some units need it, others do not.
+- DEPENDENCY-FIRST SPLITS: Before splitting segments, ask what QUESTION each \
+segment answers. If two segments answer the same question (e.g., objection + \
+refutation both answer "what is the debate?"), they cannot be split regardless \
+of surface segmentation signals.
 
 DERIVED BENEFITS RULE:
 - Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived \

@@ -49,6 +49,12 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B1-FP20 | **NEW FP-20: Validation rigor** | **IMPLEMENTED** | 5 hardest patterns from Gemini. Hard cases over polished paths. |
 | B1-FP21 | **NEW FP-21: Severity class distinction** | **IMPLEMENTED** | Silent corruption (existential) vs visible flagged failure (recoverable). 4 per-science examples. Rephrased per Codex (no taxonomy-external language). |
 | B1-FP22 | **NEW FP-22: Anti-covert-excerpter** | **IMPLEMENTED** | Validator must not reshape text/span/boundaries. V-P3-8 exempt (Codex). |
+| B2 | **BATCH 2: Self-Containment (5 actionable MAQ atoms)** | **PRELIMINARY (1/3 coworkers, Gemini)** | Session 2, Batch 2. Codex pending. DR pending owner relay. |
+| B2-P1 | Anti-surface-classification | **IMPLEMENTED IN PROMPT** | +210 words to GROUP_SYSTEM_PROMPT. الأصل/اعلم/مقدمة examples from Gemini. |
+| B2-P2 | Forgiving retention (≤15%, لأن/فإن) | **IMPLEMENTED IN PROMPT + SPEC** | FP-3 strengthened with forgiving-retention clause. |
+| B2-P3 | Title-retention asymmetry (MODIFIED) | **IMPLEMENTED IN PROMPT + SPEC** | Gemini found fatal flaw: Bukhari tarajim have no grammatical link but title IS ruling. Added semantic anchor clause. |
+| B2-P4 | Dependency-first splits | **IMPLEMENTED IN PROMPT** | Question-cluster methodology: "what question does each segment answer?" |
+| B2-SP | Two-layer model (theory + context) | **DOCUMENTED** | MAQ-023. Formalized in SPEC as extension of FP-18. No prompt change. |
 
 ---
 
