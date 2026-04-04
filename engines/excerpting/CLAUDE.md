@@ -106,7 +106,7 @@ Follow normalization conventions:
 ## Required Reading
 
 **If working on foundations hardening (the current active lane):**
-1. `reference/handoffs/excerpting_foundations_session2_kickoff_2026-04-04.md` — **START HERE**
+1. `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md` — **START HERE**
 2. `engines/excerpting/reference/ATOM_PROTOCOL.md` — the governing protocol
 3. `SPEC.md` §1.1b — the 18 foundational principles (FP-1 through FP-18)
 4. `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` — the atom queue
