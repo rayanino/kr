@@ -42,7 +42,7 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | 16 | principle conflict precedence | **FINALIZED** | FP-13 in SPEC §1.1b. 5-level stack: attribution > dialogue > grammar > self-containment > granularity. |
 | 17 | speaker-role inversion protection | **FINALIZED** | FP-14 in SPEC §1.1b. فإن قيل / قلنا must stay together. #1 blind spot per ChatGPT DR adversarial review. |
 | 18-24 | (remaining F1-F8 atoms: sub-excerpting, source-scope, completeness, variants, quantitative, quote-methodology, separation-aspiration) | QUEUED | To be processed in next session batch |
-| B1 | **BATCH 1: Safety & Integrity (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers)** | Session 2, Batch 1 processed. Codex + Gemini confirmed. DR pending owner relay. |
+| B1 | **BATCH 1: Safety & Integrity (17 MAQ atoms)** | **CONFIRMED (3/3 coworkers)** | Session 2. Codex + Gemini + ChatGPT DR. DR found 4 refinements → applied. |
 | B1-FP5 | FP-5 strengthen: cascading trust collapse | **IMPLEMENTED** | Added cascade chain + blast-radius assessment language. No numeric threshold (Codex: breaks salvage). |
 | B1-FP2 | FP-2 strengthen: anti-rescue prohibition | **IMPLEMENTED** | Added: context must not silently fix verdicts. Help layers beside source, never overwrite. |
 | B1-FP19 | **NEW FP-19: Omission honesty** | **IMPLEMENTED** | Deceptive cleanliness = named failure. Al-Ghazali adversarial example (Gemini). Contract field deferred (Codex). |
