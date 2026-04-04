@@ -45,20 +45,90 @@ The owner filled in 8 foundation questions (F1-F8) about excerpting quality. For
 
 ---
 
+## Coworker Roles — Specific, Non-Overlapping
+
+| Coworker | Primary Role | Unique Strength | Prompt Focus |
+|----------|-------------|-----------------|--------------|
+| **Codex CLI** | Contract Guardian | Reads full codebase structurally. Traces contracts, tests, regressions. | "What breaks? What contracts change? What tests fail? Implementation cost?" |
+| **Gemini CLI** | Scholarly Auditor + System Architect | Arabic language depth, Islamic methodology, cross-engine impact mapping. | "Is this correct across all sciences? Give Arabic examples. Map cross-engine blast radius." |
+| **DR (ChatGPT/Claude/Gemini)** | Adversarial Reasoner | Extended thinking, web research, failure scenario construction. | "What did the CLI coworkers miss? What catastrophic scenario looks correct but is wrong?" |
+| **CC (Claude Code)** | Orchestrator | Owns context, makes decisions, writes code, synthesizes findings. | Does NOT self-review. Always dispatches at least 2 coworkers. |
+
+---
+
+## Pre-Loop: Step -1 — Queue Audit (Gemini critique finding #6)
+
+Before starting the atom loop, deploy an agent to:
+1. Read ALL `source_artifacts/*.txt` files from F1-F8
+2. Compare against the 81-atom extraction
+3. List any owner directives, pain points, or rules that the extraction MISSED
+4. Append discovered atoms to the queue
+
+This prevents the extraction agent's blind spots from becoming the session's blind spots.
+
+---
+
+## Pre-Loop: Thematic Grouping (Gemini critique finding #7 — CRITICAL)
+
+**Do NOT process 81 atoms as 81 isolated edits.** This causes prompt thrashing — the Phase 2b prompt becomes a patched-together list of contradictory instructions by atom 30.
+
+Instead, group atoms into THEMATIC BATCHES by the subsystem they affect:
+- **Batch: Self-containment** — all atoms about C-SC-1 through C-SC-5, linking words, taqdir, backward hunting
+- **Batch: Boundary/grouping** — all atoms about split/merge, EE-1, sibling topics, function mixing
+- **Batch: Tarjih/khilaf** — all atoms about disagreement handling, tarjih separation, dialectical coupling
+- **Batch: Proof/evidence** — all atoms about fetched proofs, variant analysis, isnad handling
+- **Batch: Granularity** — all atoms about overgranulation, forgiving rule, mention vs topic, minimum viability
+- **Batch: Safety/integrity** — all atoms about trust poisoning, deceptive cleanliness, omission honesty
+
+Within each batch, process atoms together so the prompt/SPEC changes are COHERENT. The batch is the unit of coworker dispatch — one dispatch per batch, not per atom.
+
+---
+
+## Conflict Resolution Rule (Gemini critique finding #3 — CRITICAL)
+
+**If a structured collection file (YAML/JSONL/MD) contradicts or omits nuance from the `source_artifacts/*.txt` raw owner text, the raw .txt ABSOLUTELY WINS.**
+
+The structured files were produced by ChatGPT interpreting the owner's words. ChatGPT may have:
+- Softened strong owner statements
+- Added qualifications the owner didn't express
+- Missed sarcasm, emphasis, or conditional reasoning
+- Expanded into areas the owner didn't authorize (`model_only` authority)
+
+When a conflict is detected: document it in the ledger as "ChatGPT drift from owner intent at [file:line]" and proceed using ONLY the owner's raw text.
+
+---
+
+## Constraint Feasibility Check (Gemini critique finding #4 — HIGH)
+
+Even nonnegotiables MUST be checked for:
+1. **Self-contradiction:** Do two nonnegotiables from different collections conflict?
+2. **Technical impossibility:** Is this nonnegotiable implementable within the current architecture?
+3. **Regression risk:** Does implementing this nonnegotiable break a previously finalized atom?
+
+If a contradiction or impossibility is found: do NOT implement. Escalate to owner Q&A with the specific conflict. The owner resolves the deadlock, not the engineer.
+
+---
+
 ## Per-Atom Loop — THE EXACT STEPS
 
-### Step 0: Select the Next Atom
-- Use the extraction document (`F1_F8_COMPLETE_ATOM_EXTRACTION.md`) as the queue
-- Prioritize: nonnegotiable atoms > red-team test atoms > prompt-affecting atoms > SPEC-only atoms > deferred atoms
-- Process ONE atom at a time. Never batch.
+### Step 0: Select the Next Thematic Batch
+- Group related atoms from the extraction into thematic batches (see above)
+- Within each batch, prioritize: nonnegotiable > red-team test > prompt-affecting > SPEC-only > deferred
+- The batch is the unit of work. Individual atoms within a batch are processed sequentially but their SPEC/prompt changes are designed together for coherence.
 
-### Step 1: Read the Original Source (10 min)
+### Step 1: Read the Original Source (10 min per atom)
 - Go to the COLLECTION DIRECTORY (e.g., `chatgpt_f3_collection/`)
-- Read the RAW OWNER SOURCE first (`source_artifacts/*.txt`)
+- Read the RAW OWNER SOURCE first (`source_artifacts/*.txt`) — this is GROUND TRUTH
 - Read the cleaned answer (`01_questionnaire_answer.md`)
-- Read the SPECIFIC FILE the atom came from (e.g., `09_nonnegotiables.jsonl` entry NN-003)
-- Read the traceability entry for this atom (`*_traceability.jsonl`)
-- Note the authority level: `owner_explicit` (do not weaken) / `owner_consistent_inference` (may refine) / `model_only` (must verify with owner)
+- Read the SPECIFIC FILE the atom came from
+- Read the traceability entry (`*_traceability.jsonl`)
+- **Conflict check:** Does the structured file match the raw source? If not, raw wins (see Conflict Resolution Rule above)
+- Note authority level: `owner_explicit` > `owner_consistent_inference` > `model_only`
+
+### Step 1b: Blast Radius Check (Gemini critique finding #1)
+- Read the FOUNDATIONS_HARDENING_LEDGER.md
+- For each previously finalized atom: would this new atom CHANGE, WEAKEN, or CONTRADICT it?
+- If yes: the atom cannot be implemented in isolation — it must reopen the conflicting atom
 
 ### Step 2: Check Current State (5 min)
 - Is it already captured in SPEC §1.1b (FP-1 through FP-18)?
@@ -69,7 +139,7 @@ The owner filled in 8 foundation questions (F1-F8) about excerpting quality. For
 - If partially captured: identify the specific gap
 
 ### Step 3: Research (20 min)
-Prepare THREE research prompts. The same three prompts go to ALL THREE coworkers (x3 research):
+Prepare THREE research prompts — each coworker gets their SPECIALIZED prompt plus the adversarial prompt (per Gemini critique finding #2):
 
 **Prompt A — Repo/Implementation Challenge:**
 "Read [specific files]. Does the current implementation correctly handle [atom]? What would break if [atom] is wrong? What contracts/tests/prompts need to change?"
@@ -80,28 +150,29 @@ Prepare THREE research prompts. The same three prompts go to ALL THREE coworkers
 **Prompt C — Adversarial/Failure Mode Challenge:**
 "What is the WORST thing that happens if [atom] is implemented incorrectly? Give a concrete scenario where the engine produces a confidently wrong excerpt because of [atom]. What silent corruption path does [atom] open or close?"
 
-### Step 4: Dispatch ALL THREE Coworkers — EACH GETS ALL THREE PROMPTS (mandatory)
+### Step 4: Dispatch Coworkers — SPECIALIZED ROLES + ADVERSARIAL CROSS-CHECK (mandatory)
 
-**Codex CLI** — gets prompts A + B + C:
+**Codex CLI** — Primary: Prompt A (repo/implementation) + Prompt C (adversarial):
 ```
-codex exec "PROMPT A: [repo challenge]
-PROMPT B: [scholarly challenge]
-PROMPT C: [adversarial challenge]
-OUTPUT: Structured findings per prompt with file:line references."
-```
-
-**Gemini CLI** — gets prompts A + B + C:
-```
-gemini -p "PROMPT A: [repo challenge]
-PROMPT B: [scholarly challenge]
-PROMPT C: [adversarial challenge]
-OUTPUT: Structured findings per prompt with Arabic examples."
+codex exec "PRIMARY (repo challenge): [what breaks, what contracts change, what tests fail]
+ADVERSARIAL: [worst failure scenario from implementation perspective]
+OUTPUT: file:line references, contract impact, regression risk rated HIGH/MEDIUM/LOW."
 ```
 
-**DR (relay to owner)** — gets prompts A + B + C:
-Write the relay prompt with all three sub-prompts. Specify file paths for ChatGPT/Claude DR, or prepare a file bundle for Gemini DR.
+**Gemini CLI** — Primary: Prompt B (scholarly/domain) + Prompt C (adversarial):
+```
+gemini -p "PRIMARY (scholarly challenge): [is this correct across all Islamic sciences, give Arabic examples]
+SYSTEM IMPACT: [map blast radius across engines/contracts/taxonomy]
+ADVERSARIAL: [worst failure scenario from scholarly perspective]
+OUTPUT: per-science assessment, Arabic examples, cross-engine impact map."
+```
 
-**WAIT for ALL THREE to return before proceeding.** Do not implement with partial coworker coverage.
+**DR (relay to owner)** — Primary: Prompt C (adversarial) + synthesis of Codex/Gemini gaps:
+"Here are the Codex and Gemini findings for [atom/batch]. What did they MISS? What catastrophic scenario looks correct but is wrong? Research external sources if needed."
+
+**WAIT for ALL THREE to return before proceeding.** If one coworker is unavailable: log the gap, proceed with 2/3, but mark the atom as PRELIMINARY until the third coworker reviews.
+
+**Dispatch is per THEMATIC BATCH, not per individual atom.** One dispatch covers all atoms in the batch.
 
 ### Step 5: Synthesize Findings (15 min)
 - Create a 3-column comparison: Codex | Gemini | DR
