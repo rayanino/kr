@@ -142,6 +142,30 @@ The owner said: "you are the strict 250 IQ boss with his business on the line." 
 
 ---
 
+## CRITICAL FINDING: Red-Team Tests Are Not Automated
+
+The F1-F8 collections contain **62 red-team tests** (`*_red_team_tests.jsonl`). These are adversarial test cases designed to BREAK the engine. Currently they exist ONLY as documentation — NOT as pytest cases that actually run and fail.
+
+**Session 2 must convert red-team tests into actual pytest fixtures.** Each test becomes a case in `test_red_team_mutations.py` with real Arabic input, an LLM grouping call, and assertions. Mark with `@pytest.mark.red_team`. Require all batch-relevant red-team tests to PASS before finalizing that batch.
+
+## CRITICAL FINDING: Owner Scholarly Uncertainty
+
+The owner explicitly said in F5 raw: "I could totally be wrong about [hadith handling / tarjih structure / explanation unity]. My confidence is 70-80% on these scholarly assumptions."
+
+**The FPs based on F5 treat these as ground truth, not hypotheses.** If the owner is wrong, the engine embeds incorrect scholarly rules into thousands of excerpts.
+
+**Session 2 must add a Scholarly Confidence field to the ledger for every F5-derived atom.** Gemini CLI's scholarly review MUST specifically attack F5 assumptions with counterexamples. If Gemini finds the assumption is wrong, the atom is DEFERRED, not finalized.
+
+## CRITICAL FINDING: 124 Queue Audit Gaps Include Owner's Foundational Vision
+
+The queue audit found F1 and F2 are ENTIRELY absent from the extraction. The owner's meta-directives are missing:
+- "AI must think OUTSIDE THE BOX, as if it were a team of 200 IQ scientists"
+- "MY ONLY WORRY SHOULD BE: MEMORIZING"
+- "it is what my children will inherit"
+- "BOOK DIGESTER, NOT JUST A BOOK EXCERPTER"
+
+**Session 2 must read the FULL queue audit (844 lines) and extract atoms from F1-F2 gaps before processing any F3-F8 batch.** The meta-directives shape HOW atoms are implemented, not just WHAT is implemented.
+
 ## The ultimate standard
 
 An atom is NOT finalized unless:
