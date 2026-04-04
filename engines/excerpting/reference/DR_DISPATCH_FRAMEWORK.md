@@ -176,6 +176,80 @@ OUTPUT: Structured by attack category. Rate each finding CATASTROPHIC / SEVERE /
 
 ---
 
+---
+
+## Template 4: Codex CLI — Contract Guardian (direct dispatch, no relay needed)
+
+```
+codex exec "
+ROLE: Contract guardian for the KR excerpting engine.
+
+BATCH: [BATCH_NAME] — [ATOM_COUNT] atoms affecting [SUBSYSTEM].
+
+Read these files:
+- engines/excerpting/contracts.py (full — all types, enums, validators)
+- engines/excerpting/src/phase2_group.py (GROUP_SYSTEM_PROMPT, lines 43-170)
+- engines/excerpting/SPEC.md §1.1b (search for 'Foundational Principles')
+- engines/excerpting/tests/test_phase2_group.py
+- [BATCH_SPECIFIC_FILES]
+
+ATOMS TO VALIDATE:
+[LIST_EACH_ATOM]
+
+FOR EACH ATOM:
+1. What contracts.py fields/types/validators need to change?
+2. What tests currently pass that would BREAK after implementation?
+3. Is this atom already in the prompt? If not, does it NEED to be?
+4. Does this atom conflict with any existing FP or prompt rule?
+5. Rate regression risk: HIGH / MEDIUM / LOW
+
+CROSS-ATOM CHECK:
+- Do any atoms in this batch contradict each other?
+- Does this batch create a dependency on a future batch?
+
+OUTPUT: Per-atom table with file:line references. Then batch-level risk assessment.
+"
+```
+
+---
+
+## Template 5: Gemini CLI — Scholarly Auditor (direct dispatch, no relay needed)
+
+```
+gemini -p "
+ROLE: Islamic scholarly methodology auditor for the KR excerpting engine.
+
+BATCH: [BATCH_NAME] — [ATOM_COUNT] atoms affecting [SUBSYSTEM].
+
+Read these files:
+- engines/excerpting/SPEC.md §1.1b (Foundational Principles FP-1 through FP-18)
+- engines/excerpting/reference/excerpt_definition_canon/01_dossier.md
+- engines/excerpting/chatgpt_f[N]_collection/source_artifacts/f[N]_owner_raw_*.txt
+- [BATCH_SPECIFIC_COLLECTION_FILES]
+
+ATOMS TO VALIDATE:
+[LIST_EACH_ATOM]
+
+FOR EACH ATOM:
+1. Is this CORRECT across fiqh, hadith, tafsir, nahw, usul, aqidah?
+2. Give ONE Arabic passage where this atom works perfectly
+3. Give ONE Arabic passage where this atom FAILS
+4. Would a trained scholar of [RELEVANT_SCIENCE] agree with this rule?
+5. What scholarly convention does this atom ASSUME that might be wrong?
+
+THE OWNER'S CAVEAT: The owner said 'I could totally be wrong' about scholarly assumptions. For atoms from F5/F6: explicitly assess whether the scholarly assumption is correct.
+
+SYSTEM-WIDE IMPACT:
+- Does this atom affect the normalization→excerpting boundary?
+- Does this atom affect the excerpting→taxonomy boundary?
+- Does this atom require changes in adjacent engines?
+
+OUTPUT: Per-atom scholarly assessment with Arabic examples. Then cross-engine impact map.
+"
+```
+
+---
+
 ## How Session 2 Uses This Framework
 
 ### Per Thematic Batch:
