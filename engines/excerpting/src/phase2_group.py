@@ -81,6 +81,19 @@ function mixing.
 in hadith collections with fiqhi tarajim like Sahih al-Bukhari, where the \
 title IS the author's ruling and the text is raw evidence). Title retention \
 is per-unit, not global — some units need it, others do not.
+- MULTI-FUNCTION SPLIT: A passage substantively containing introduction + \
+ruling + proof-overview + refutation must NOT remain as one unit. Split at \
+function boundaries. A chapter-intro sentence that merely touches on the \
+ruling (1% of text) may stay via FORGIVING RETENTION; but when each function \
+is substantive (>20% of text), they are separate teaching units.
+- INTRODUCTION SCOPE: Distinguish chapter-specific introductions ("هذا الباب \
+يذكر فيه...") from full-topic introductions that define the science or \
+subject. A chapter-specific intro applies only to this source's chapter; \
+treating it as a universal topic introduction creates scope mismatch.
+- PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof, \
+(2) explain it, (3) defend/refute objections. Phases 1+2 belong together per \
+EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
+separate unit when it answers a different question than phases 1+2.
 - DEPENDENCY-FIRST SPLITS: Before splitting segments, ask what QUESTION each \
 segment answers. If two segments answer the same question (e.g., objection + \
 refutation both answer "what is the debate?"), they cannot be split regardless \

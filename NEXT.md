@@ -24,6 +24,7 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 | 6-12 | Remaining doctrinal atoms | FINALIZED (FP-1 through FP-10 in SPEC §1.1b) |
 | **B1** | **Safety & Integrity batch (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers). FP-5/FP-2 strengthened, FP-19/20/21/22 added.** |
 | **B2** | **Self-Containment batch (5 MAQ atoms)** | **PRELIMINARY (1/3 coworkers). 4 prompt rules added (+210 words). Gemini found Bukhari title flaw → fixed.** |
+| **B3** | **Boundary & Grouping batch (10 MAQ atoms)** | **PRELIMINARY (1/3 Gemini). 3 prompt rules (+141w), 4 SPEC-only. Prompt: 1423/1500.** |
 
 **Session 2 deliverables so far:**
 - MERGED_ATOM_QUEUE.md built (556 lines, 250 ideas, 88 actionable atoms, 0 silent drops)

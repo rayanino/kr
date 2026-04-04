@@ -55,6 +55,14 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B2-P3 | Title-retention asymmetry (MODIFIED) | **IMPLEMENTED IN PROMPT + SPEC** | Gemini found fatal flaw: Bukhari tarajim have no grammatical link but title IS ruling. Added semantic anchor clause. |
 | B2-P4 | Dependency-first splits | **IMPLEMENTED IN PROMPT** | Question-cluster methodology: "what question does each segment answer?" |
 | B2-SP | Two-layer model (theory + context) | **DOCUMENTED** | MAQ-023. Formalized in SPEC as extension of FP-18. No prompt change. |
+| B3 | **BATCH 3: Boundary & Grouping (10 MAQ atoms)** | **PRELIMINARY (1/3 Gemini)** | Session 2. 3 prompt rules added (+141 words). 4 SPEC-only. 1 merged. 2 deferred. |
+| B3-P1 | Multi-function split (>20% per function) | **IMPLEMENTED IN PROMPT** | Gemini: Usul counterexample (العام ruling). Splitting definition from ruling orphans both. |
+| B3-P2 | Introduction scope classification | **IMPLEMENTED IN PROMPT** | Gemini: full-topic (كتاب الطهارة) vs chapter-specific (باب التيمم). Confusion elevates exceptions. |
+| B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **IMPLEMENTED IN PROMPT** | Gemini counterexample: explanation=refutation in dialectical texts. "MAY be separate" handles this. |
+| B3-SP1 | Scholar-quoting-scholar protocol | **SPEC-ONLY** | MAQ-032. Too complex for prompt cap. Ibn Hajar 4-layer nesting example. Links to FP-14/15. |
+| B3-SP2 | Boundary consistency audit | **SPEC-ONLY** | MAQ-030. Cross-passage comparison tests needed. Design deferred to evaluation phase. |
+| B3-SP3 | Malformation-first diagnosis | **SPEC-ONLY** | MAQ-028. Phase 3 note-handling: fix structure before optimizing notes. |
+| B3-SP4 | Boundary mustn't distort meaning | **VERIFIED** | MAQ-029. FP-1+3+9 collectively cover this. No additional FP needed. |
 
 ---
 
