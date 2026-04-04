@@ -1,19 +1,19 @@
 # Owner Response Summary
 
-- Generated: `2026-04-04T11:32:36.767567+00:00`
+- Generated: `2026-04-04T13:03:29.758472+00:00`
 - Total slots: `40`
 - Active slots: `38`
 - Blocked slots: `2`
-- Answered active slots: `7`
-- Unanswered active slots: `31`
-- Completion: `18.4%`
+- Answered active slots: `8`
+- Unanswered active slots: `30`
+- Completion: `21.1%`
 - Supplemental answers included: `no` (track optional supplementals separately if the owner answered them outside the UI)
 
 ## Phase Progress
 
 | Phase | Answered | Total |
 |---|---:|---:|
-| Phase 1: Foundations | 7 | 8 |
+| Phase 1: Foundations | 8 | 8 |
 | Phase 2: Dimension Deep Dives — Granularity | 0 | 4 |
 | Phase 2: Dimension Deep Dives — Self-Containment | 0 | 4 |
 | Phase 2: Dimension Deep Dives — Definition Handling | 0 | 3 |
@@ -31,7 +31,6 @@
 
 ## Unanswered Active Slots
 
-- `F-6` — Full Scholarly Prose
 - `G-1` — A Very Short Structural Transition
 - `G-2` — A Long Excerpt
 - `G-3` — Numbered Points
@@ -65,7 +64,7 @@
 
 ## Confidence Counts
 
-- `high`: 6
+- `high`: 7
 - `unset`: 1
 
 ## External Response IDs
@@ -75,6 +74,7 @@
 - `F-3`
 - `F-4`
 - `F-5`
+- `F-6`
 - `F-7`
 - `F-8`
 

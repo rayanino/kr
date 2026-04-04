@@ -1,15 +1,14 @@
 {
   "audit_summary": {
-    "timestamp": "2026-04-04T11:32:36.889390+00:00",
+    "timestamp": "2026-04-04T13:03:29.814993+00:00",
     "total_interactions": 40,
     "active_interactions": 38,
     "blocked_interactions": 2,
-    "answered_active_interactions": 7,
-    "readiness_score": 0.184
+    "answered_active_interactions": 8,
+    "readiness_score": 0.211
   },
   "structural_alerts": {
     "missing": [
-      "F-6",
       "G-1",
       "G-2",
       "G-3",
@@ -78,7 +77,6 @@
       "Metadata sufficiency",
       "Min excerpt size",
       "Objection/response coupling",
-      "Original text fidelity",
       "Position linking",
       "Priority ranking",
       "Semantic coupling",
@@ -109,7 +107,7 @@
         "total": 1
       },
       "Original text fidelity": {
-        "answered": 0,
+        "answered": 1,
         "total": 1
       },
       "Failure modes": {
@@ -252,6 +250,7 @@
     "F-3",
     "F-4",
     "F-5",
+    "F-6",
     "F-7",
     "F-8"
   ]
