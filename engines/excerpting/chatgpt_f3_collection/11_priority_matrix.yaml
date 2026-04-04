@@ -1,0 +1,61 @@
+strongest_local_reason_for_final_questionnaire_verdict:
+  statement: The passage is not one function; it is a compressed cluster of introduction, ruling, proof-overview, and refutation.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_function_confusions:
+- issue: treating chapter-intro language as decisive evidence that the whole passage is only an introduction
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: absorbing proof-overview into ruling so completely that the evidentiary-summary function disappears
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: flattening refutation into hukm and losing the argumentative move
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_linking_cuts:
+- issue: cutting at `لأن`
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: dropping the title while keeping `هذا الباب`
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: exposing `عليهما` / `غسلهما` without retained anchor text
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_title_removal_mistakes:
+- issue: removing the title from the intro excerpt and breaking the chapter reference
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: removing the title from the ruling excerpt and losing the chapter-start placement signal
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_source_scope_illusions:
+- issue: mistaking a proof-specific chapter introduction for a full-topic introduction to المسح على الخفين
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+most_important_preservation_requirements:
+- requirement: preserve function distinctions
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: preserve linking dependencies
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: preserve title where chapter-reference depends on it
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: preserve hukm visibility even when hukm language reappears inside refutation
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+most_important_sub_excerpting_requirements:
+- requirement: extract a chapter-specific introduction entry
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: give the hukm its own home
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: separate proof-overview from refutation once segments become substantial
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- requirement: do not use copying of the whole merged block as a substitute for careful split logic
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

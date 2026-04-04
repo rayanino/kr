@@ -1,0 +1,98 @@
+THIS IS NOT A GOOD EXCERPT. IT IS TOO BROAD. NEEDS GRANUALITY.
+
+The first thing that comes to mind: looking at this excerpt and the placement of the text under a heading that starts a new topic, I would expect this text to be an introduction …
+
+But then looking at this “introduction” itself, I see it actually contains the ruling of the topic.
+
+So the question is: is this “introduction” actually the location the author mentions the ruling of this topic (so there is no real introduction, just directly explaining the ruling), or is this still an introduction into the subject, not the dedicated place the author mentions the ruling in (i.e. the introduction just touches on the ruling briefly alongside other things / a general overview of the subject, as an intro)?
+
+Looking at the original text, we see this:
+
+بَاب المسْح عَلى الخفّين  
+هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين، لأن المسح عليهما بدل غسلهما، فهو الطهارة الشرعية المجمع عليها بين المعتبرين من علماء المسلمين، لما تواتر فيها من النصوص الشرعية الصحيحة الواضحة، ولله الحمد.  
+ولا يعتبر شذوذ بعض الطوائف في عدم شرعيتها والأخذ بأحاديثها لردهم النصوص الصحيحة الصريحة المتواترة، والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة.  
+الحديث الأول  
+عَنْ المغيرة بن شعبة قال: كُنْتُ مَع النبي صلى الله عليه وسلم في سَفَر فَأهوَيْتُ لأنْزِعَ خُفَيْهِ، فَقَالَ: "دَعْهُمَا، فَإنَّي أدْخَلتُهُمَا طاهِرَتَيْنِ" فَمَسَحَ عَلَيْهِمَا.  
+غريب الحديث:  
+١- "فأهويت لأنزع" مددت يدي لإخراجهما من رجليه لغسلهما.  
+المعنى الإجمالي:  
+كان المغيرة مع النبي صلى الله عليه وسلم في أحد أسفاره. فلما شرع النبي صلى الله عليه وسلم في الوضوء، وغسل وجهه ويديه، ومسح رأسه، أهوى المغيرة إلى خفي النبي صلى الله عليه وسلم لينزعهما لغسل الرجلين.  
+فقال النبي صلى الله عليه وسلم دعهما ولا تنزعهما، فإني أدخلت رجلي وأنا على طهارة، فمسح النبي صلى الله عليه وسلم على خفيه بدل غسل رجليه.  
+اختلاف العلماء  
+…
+
+So it looks like the structure is like this:
+
+<title: بَاب المسْح عَلى الخفّين>  
+<ruling (الحكم)>  
+<proofing starts …>
+
+So the answer is: even though you may expect it to be an introduction, it is actually the place the ruling is mentioned.
+
+So the verdict is: this “introduction” should not be categorized in the taxonomy tree under “introductions”, but under “rulings”.
+
+The first sentence - “هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين،” is especially deceiving, because this reads like a general introduction. But the remaining 99% of the excerpt is about the hukm.
+
+Nevertheless, “هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين،” is not directly about the hukm: its topic / question it answers is: “what is this subject about”? while the rest of the excerpt answers “what is the ruling of this subject”?. Which means: that first sentence should be an excerpt of its own.
+
+So we have two excerpts now:
+
+“هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين"  
+→ introduction
+
+“لأن المسح عليهما بدل غسلهما، فهو الطهارة الشرعية المجمع عليها بين المعتبرين من علماء المسلمين، لما تواتر فيها من النصوص الشرعية الصحيحة الواضحة، ولله الحمد.  
+ولا يعتبر شذوذ بعض الطوائف في عدم شرعيتها والأخذ بأحاديثها لردهم النصوص الصحيحة الصريحة المتواترة، والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة.  
+“  
+→ the ruling
+
+But note: this is a 99% to 1% ratio, and the character count of that 1% is not much. Which means this falls under the “forgiving” rule / the percentage rule I mentioned at f1. And what makes the enforcement of this rule even more practical: not enforcing this rule and instead cutting up the continuous / linked sentence (comma, then لأن), would instead require some form of extra context explanation (which we are still yet to determine how we will incorporate this), which though that would solve it, it would probably not be as good as literally keeping / showing that missing “context”.
+
+YOU SEE HOW WE SOLVE A PROBLEM WITH A BETTER ALTERNATIVE? Just literally keeping the context in is much easier than having to summarize it in a separate section, to ensure that when reading the hukm encountering “لأن” as the very first word without knowing what it refers to - which can raise major misunderstandings - is still self contained.
+
+So: for the second excerpt - the one containing the hukm - the first part of the sentence must be preserved.
+
+So the excerpt would be:
+
+—-excerpt2 about the hukm—-  
+بَاب المسْح عَلى الخفّين  
+هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين، لأن المسح عليهما بدل غسلهما، فهو الطهارة الشرعية المجمع عليها بين المعتبرين من علماء المسلمين، لما تواتر فيها من النصوص الشرعية الصحيحة الواضحة، ولله الحمد.  
+ولا يعتبر شذوذ بعض الطوائف في عدم شرعيتها والأخذ بأحاديثها لردهم النصوص الصحيحة الصريحة المتواترة، والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة.
+
+NOTE how the title is left too. Though this excerpt would be 100% understandable without the title being left, IT GIVES EXTRA CONTEXT. It explains that this excerpt was not taken 10 pages deep into the subject, but was found right at the start. THIS GIVES OPPORTUNITY TO AN IMPORTANT UNDERSTANDING: UNDERSTANDING WHERE EXACTLY SCHOLARS PUT THE RULING IN REFERENCE TO THE CHAPTER-START.
+
+AVOIDED PROBLEM WITH THE SECOND EXCERPT: this is actually the same category of problems we will continue facing; “linking” words. The excerpt contains “عليهما”, which refers to something external. Imagine we did not include “هذا الباب يذكر فيه شيء من "أدلة مشروعية المسح على الخفين” within this excerpt, and “عليهما” would have referred to something not present within the excerpt. THE EXCERPT WOULD THEN NOT HAVE BEEN SELF-CONTAINED. This would raise problems and questions: “I know “عليهما” most likely refers to الخفين since we are under that leaf … but what if it does refer to something else / something more specific, so after learning from it I later realize I understood it wrong”? … WE SHOULD TAKE ABSOLUTELY NO RISKS WHEN IT COMES TO CORRUPTION POTENTIAL, MISUNDERSTANDINGS, … The same applied for “غسلهما”, …
+
+Very important: this excerpt - excerpt 2 - actually contains three sub-excerpts:
+
+“هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين، لأن المسح عليهما بدل غسلهما،  <left out text about proof and refutation> … والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة."  
+→ the hukm
+
+“فهو الطهارة الشرعية المجمع عليها بين المعتبرين من علماء المسلمين، لما تواتر فيها من النصوص الشرعية الصحيحة الواضحة، ولله الحمد."  
+→ the proof (overview)
+
+“ولا يعتبر شذوذ بعض الطوائف في عدم شرعيتها والأخذ بأحاديثها لردهم النصوص الصحيحة الصريحة المتواترة، والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة."  
+→ refutation
+
+These should be three different excerpts. So excerpt 2 should still be further subexcerpted. Even though we could keep it as one big excerpt and copy it three times (once at each of the leaf: hukm, proof, refutation), this is a bad pattern, especially since it’s now quite some text (and not just 1%; more like 33% each).
+
+Further inspection: WAIT!!! … lets look at the “refutation”-excerpt … at the end, it jumps back to talking about the hukm: “والمسح على الخفين من الرخص التي يحب الله أن تؤتى، ومن تسهيلات هذه الشريعة السمحة."”
+
+Looking from the angle of the “refutation” excerpt; it’s ok to keep this as part of the excerpt … because it’s not significantly long as to obstruct the main topic of the excerpt “refutation”.
+
+But: not putting it in the “hukm”-excerpt is a SCATTERING OF KNOWLEDGE, AND LOST KNOWLEDGE / POTENTIAL. Which is why it should neatly be placed in the “hukm” excerpt too (the way I did it is an example, not binding).
+
+YOU SEE HOW BIG OF A PROCESS IT IS? EXCERPTING IS WAY MORE THAN IDENTIFYING EXCERPTS. IT’S ANALYSIS, PROTOCOLS, SUB-EXCERPTING, …
+
+With these sub-excerpts being identified, there would also be another excerpt produced from the excerpt we are handling, and that would be an introduction (the 1%). This introduction does not contain the 99% (since 99% is not a negligible size that talks about another subject to be kept).
+
+–excerpt 1:  
+بَاب المسْح عَلى الخفّين  
+هذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخفين
+
+Important realization: this “introduction” is not really an introduction to the subject المسْح عَلى الخفّين itself, but more an introduction to the specific chapter from the book, which specifically focusses on the proofs. A proper full “بَاب المسْح عَلى الخفّين” does not only revolve around “شيء من أدلة مشروعية المسح على الخفين”, but about much more. We need to identify this and find out a protocol / what-to-do in this case. For this specific subject it is not that confusing, but it may be for another leaf; reading an introduction that comes from a source that covers the topic only partially can seriously harm the understanding; it may give the illusion that that partial covering actually is what the entire subject contains …
+
+One possible solution: a notebox saying “this excerpt comes from a source that is proof-specific, hence the mention of “شيء من أدلة مشروعية المسح على الخفين”). I’m not sure this is optimal, but my point is just to show how THERE IS ABSOLUTELY NO ROOM FOR BLIND EXCERPTING: “THIS SHOULD BE AN EXCERPT, DONE”. There is need for much further analysis.
+
+NOTE: in excerpt 1, notice the importance of keeping “بَاب المسْح عَلى الخفّين” as opposed to a “nice to have” as was with excerpt 2. The introduction starts with “هذا الباب”, and now knowing that this references “بَاب المسْح عَلى الخفّين” will raise some questions: “what is this actually refer to some sub-بَاب”? … EXTREMELY IMPORTANT!
+
+This brings me to the idea: the system should always identify “linking” words, like “هذا”, “لأن”, … parts of sentences that refer to something else. That relationship needs to be recognized and preserved. Whether that preservation is by keeping both texts (like in the negligible case of 99% x 1%), or by adding some explanation, metadata, context, reference, .. ourselves, is something that needs to be thoroughly researched and examined.

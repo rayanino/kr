@@ -1,0 +1,136 @@
+- term: introduction
+  current_controlled_meaning: A passage whose primary job is to orient the reader to what the section is about, not to carry the main ruling/proof/refutation load itself.
+  dangerous_competing_meanings:
+  - Any text immediately after a chapter title.
+  - Any sentence that sounds introductory on the surface.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: chapter_intro
+  current_controlled_meaning: An introduction to the specific chapter as framed by that source, which may be narrower than the full topic in the tree.
+  dangerous_competing_meanings:
+  - A full-topic introduction.
+  - A neutral label with no scope implications.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: topic_intro
+  current_controlled_meaning: An introduction to the topic itself as a topic, not merely to one source's chapter-specific treatment of it.
+  dangerous_competing_meanings:
+  - Any chapter-start sentence.
+  - Any source-specific framing line.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: ruling
+  current_controlled_meaning: The segment where the hukm is actually being stated or affirmed, even if surface wording first looks introductory.
+  dangerous_competing_meanings:
+  - Only a later fully explicit legal sentence.
+  - Anything with praise or refutation language.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: proof_overview
+  current_controlled_meaning: A condensed claim about the legal basis or evidentiary standing of the ruling, before detailed proofs are unfolded.
+  dangerous_competing_meanings:
+  - The ruling itself.
+  - Any mention of evidence whatsoever.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: refutation
+  current_controlled_meaning: A segment that rejects or discounts opposing views or outlier groups rather than merely stating the ruling.
+  dangerous_competing_meanings:
+  - Any defense of the ruling.
+  - Any sentence with strong language.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: linking_word
+  current_controlled_meaning: A word or phrase whose meaning or safety depends on prior or external text being preserved or made explicit.
+  dangerous_competing_meanings:
+  - Any conjunction or pronoun regardless of risk.
+  - A stylistic nicety only.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: linked_context
+  current_controlled_meaning: The upstream text that must remain available so a dependent word or clause does not become unsafe or misleading when detached.
+  dangerous_competing_meanings:
+  - All previous text indiscriminately.
+  - Optional background.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: title_retention
+  current_controlled_meaning: Keeping the chapter title with a resulting excerpt when it is required or beneficial for self-containment or contextual understanding.
+  dangerous_competing_meanings:
+  - Always cosmetic.
+  - Always mandatory.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: forgiving_rule
+  current_controlled_meaning: A rule allowing small, strongly linked carryover material to remain attached when cutting it would create a worse outcome.
+  dangerous_competing_meanings:
+  - A license to keep large mixed blocks merged.
+  - A rule triggered by percentage alone.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: negligible_carryover
+  current_controlled_meaning: A small amount of material whose retention does not meaningfully obstruct the primary function of the resulting excerpt and may preserve self-containment.
+  dangerous_competing_meanings:
+  - Any minority share of text.
+  - Any text shorter than the rest.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: sub_excerpting
+  current_controlled_meaning: Further splitting a passage after an initial split when the retained material still contains multiple substantively large functions.
+  dangerous_competing_meanings:
+  - Blind atomization.
+  - Any later review tweak.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: source_scope_mismatch
+  current_controlled_meaning: A risk where a source-specific chapter frame is mistaken for the full scope of the topic in the taxonomy.
+  dangerous_competing_meanings:
+  - Any mismatch between source and tree.
+  - A mere naming issue.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: chapter_start_context
+  current_controlled_meaning: Context gained from knowing a passage was found right at the chapter opening rather than deeper into the discussion.
+  dangerous_competing_meanings:
+  - Only decorative metadata.
+  - Equivalent to topic meaning.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: self_containment
+  current_controlled_meaning: Here, enough retained context and anchoring that the detached excerpt does not expose unsafe references or causal continuations.
+  dangerous_competing_meanings:
+  - Sentence-level readability only.
+  - Perfect isolation from all context.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: function_purity
+  current_controlled_meaning: How strongly a resulting excerpt performs one dominant job rather than carrying several large functions at once.
+  dangerous_competing_meanings:
+  - Absolute zero overlap.
+  - Aesthetic neatness only.
+  status: inferred
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: knowledge_scattering
+  current_controlled_meaning: Losing or dispersing material so that a functionally relevant piece no longer appears where the user reasonably expects it to live.
+  dangerous_competing_meanings:
+  - Any duplication.
+  - Any cross-reference.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

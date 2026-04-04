@@ -1,0 +1,46 @@
+question_id: F-3
+bundle_id: chatgpt_f3_collection_2026_04_04
+version: 0.1.0
+status: collection_preservation_bundle
+source_basis:
+- explicit_draft
+- inferred_from_prior_chat
+- model_expansion
+raw_owner_source_layer: engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_owner_raw_reaction_2026_04_04.txt
+raw_full_input_layer: engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_full_user_input_2026_04_04.txt
+files_emitted:
+- engines/excerpting/chatgpt_f3_collection/README.md
+- engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_full_user_input_2026_04_04.txt
+- engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_owner_raw_reaction_2026_04_04.txt
+- engines/excerpting/chatgpt_f3_collection/00_manifest.yaml
+- engines/excerpting/chatgpt_f3_collection/01_questionnaire_answer.md
+- engines/excerpting/chatgpt_f3_collection/02_case_dossier.md
+- engines/excerpting/chatgpt_f3_collection/03_terms.yaml
+- engines/excerpting/chatgpt_f3_collection/04_decision_ladder.jsonl
+- engines/excerpting/chatgpt_f3_collection/05_candidate_excerpts.jsonl
+- engines/excerpting/chatgpt_f3_collection/06_linking_dependencies.jsonl
+- engines/excerpting/chatgpt_f3_collection/07_function_placement.jsonl
+- engines/excerpting/chatgpt_f3_collection/08_granularity_analysis.jsonl
+- engines/excerpting/chatgpt_f3_collection/09_nonnegotiables.jsonl
+- engines/excerpting/chatgpt_f3_collection/10_red_team_tests.jsonl
+- engines/excerpting/chatgpt_f3_collection/11_priority_matrix.yaml
+- engines/excerpting/chatgpt_f3_collection/12_traceability.jsonl
+- engines/excerpting/chatgpt_f3_collection/13_open_questions.jsonl
+- engines/excerpting/chatgpt_f3_collection/14_hard_judgment.md
+final_questionnaire_choice: C
+total_decision_steps: 8
+total_candidate_excerpts: 4
+total_linking_dependencies: 5
+total_function_placement_records: 5
+total_granularity_records: 5
+total_nonnegotiables: 10
+total_red_team_tests: 9
+total_explicit_draft_items: 90
+total_inferred_items: 4
+total_model_expansion_items: 5
+highest_risk_issue_families:
+- surface_introduction_misread
+- blind_linking_cuts
+- multi_function_overmerge
+- source_scope_mismatch
+- knowledge_scattering_from_bad_split
