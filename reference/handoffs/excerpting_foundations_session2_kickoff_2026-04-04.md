@@ -28,6 +28,31 @@ Session 1 set up the infrastructure. Your job is the actual work: processing eve
 - 5 DR reports archived with findings
 - Tools: atom_test.py, check_prompt_spec_sync.py, promptfoo, pytest-xdist, hypothesis
 
+## CRITICAL FINDING: SPEC vs Prompt Enforcement Gap
+
+**Only 7 of 18 foundational principles are actually in the Phase 2b prompt.** The other 11 are in SPEC §1.1b only — the LLM never sees them. Adding principles to the SPEC without adding them to the prompt is documentation, not enforcement.
+
+| Status | FPs |
+|--------|-----|
+| **IN PROMPT (enforced)** | FP-1 (EE-1), FP-3 (linking), FP-6 (intelligence), FP-8 (tarjih), FP-9 (overgranulation), FP-12 (taqdir), FP-14 (speaker inversion) |
+| **SPEC ONLY (not enforced)** | FP-2, FP-4, FP-5, FP-7, FP-10, FP-11, FP-13, FP-15, FP-16, FP-17, FP-18 |
+
+Some SHOULD be SPEC-only (FP-7 fetched proofs = cross-engine, FP-10 source surroundings = UI, FP-17 hub-and-spoke = deferred). But FP-13 (precedence stack) and FP-15 (rhetorical posture) MUST be in the prompt for session 2.
+
+**Session 2 rule: for every atom that produces a new principle, decide whether it goes in the PROMPT (LLM-enforced) or SPEC (human-documented). If it affects Phase 2 behavior, it MUST be in the prompt. Use `check_prompt_spec_sync.py` to verify.**
+
+## CRITICAL FINDING: Prompt Overload Risk
+
+The Phase 2b GROUP_SYSTEM_PROMPT is currently **1006 words / 6813 chars / 38 directive lines.** This is already substantial. If session 2 adds rules from all 200 atoms, the prompt could balloon to 2000+ words. At that point, the LLM starts IGNORING rules — later rules get less attention than earlier ones (primacy bias), and conflicting rules cause unpredictable behavior.
+
+**Session 2 rule: the prompt has a HARD CAP of ~1500 words.** Beyond that, new rules must either:
+1. REPLACE a less-important existing rule (justify the replacement)
+2. Be expressed as EXAMPLES within existing rules (more efficient than new rules)
+3. Go into SPEC only (with acknowledgment that they're not LLM-enforced)
+4. Be enforced through POST-GROUPING validation (Phase 2.5 deterministic checks) rather than prompt instructions
+
+Monitor prompt size with: `python3 -c "from engines.excerpting.src.phase2_group import GROUP_SYSTEM_PROMPT; print(f'{len(GROUP_SYSTEM_PROMPT.split())} words')"`
+
 ## What session 1 got WRONG (DON'T repeat)
 
 1. **Only read 15 of 139 files.** The F1-F8 collections have 12-17 files each. Session 1 read only the raw source + cleaned answer, missing decision ladders, nonnegotiables, red-team tests, linking dependencies, and more. READ EVERY FILE.
