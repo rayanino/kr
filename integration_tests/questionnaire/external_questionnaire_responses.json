@@ -13,6 +13,18 @@
       "confidence": "high"
     },
     {
+      "interaction_id": "F-4",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_owner_raw_reaction_2026_04_04.txt",
+      "raw_full_input_layer": "engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_full_user_input_2026_04_04.txt",
+      "authoritative_owner_layer": "engines/excerpting/chatgpt_f4_collection/01_questionnaire_answer.md",
+      "machine_friendly_layer": "engines/excerpting/chatgpt_f4_collection/02_case_dossier.md",
+      "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f4_collection/14_hard_judgment.md",
+      "summary_note": "Owner answered F-4 outside the review UI. Consult the raw comments and full input first, then the cleaned owner-answer layer, then the broader disagreement/tarjih analysis collection.",
+      "confidence": "high"
+    },
+    {
       "interaction_id": "F-1",
       "source_mode": "external_bundle",
       "answered_external": true,
