@@ -112,6 +112,15 @@ Each coworker gets their SPECIALIZED primary prompt plus the adversarial cross-c
 
 ---
 
+## FIRST TASK: Build the Merged Atom Queue
+
+The atom queue is currently fragmented across 3 documents:
+- `F1_F8_COMPLETE_ATOM_EXTRACTION.md` — 81 atoms (F3-F8 structured files only)
+- `QUEUE_AUDIT_RAW_VS_EXTRACTION.md` — 124 gaps (F1-F2 entirely absent + F3-F8 raw gaps)
+- `CRITICAL_ATOMS_NONNEGOTIABLES_AND_REDTEAM.md` — 125 high-priority atoms (nonneg + red-team)
+
+**Session 2's first task is to merge these into ONE authoritative queue file** (`engines/excerpting/reference/MERGED_ATOM_QUEUE.md`). This merged queue is the single source of truth for scope and completeness. Every atom in the queue must be accounted for — processed, deferred with reason, or rejected with reason. No silent drops.
+
 ## Processing sequence
 
 1. Run the session start checklist from ATOM_PROTOCOL.md (7 checks)
