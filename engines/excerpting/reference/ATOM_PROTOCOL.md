@@ -1,105 +1,191 @@
 # Atom-by-Atom Hardening Protocol
 
-> Authority: Governs all future sessions working on excerpting foundations hardening.
-> Created: 2026-04-04, session 1.
-> Purpose: Ensures every feedback atom from the owner's F1-F8 weekend work is processed to completion, not skipped or summarized.
+> **Authority:** ABSOLUTE. Governs ALL future sessions working on excerpting foundations hardening. No session may deviate from this protocol.
+> **Created:** 2026-04-04, session 1.
+> **Why this exists:** The owner spent an ENTIRE WEEKEND (15+ hours) working with ChatGPT to produce 139 files of structured, machine-readable feedback across 8 collections (F1-F8). This is the highest-value owner input the project has EVER received. A previous Codex handoff session caused the first CC session to drift and nearly waste this data. THIS PROTOCOL PREVENTS THAT FROM HAPPENING AGAIN.
 
-## Mandate
+---
 
-**No atom is finalized without dedicated reports from ALL THREE coworker tiers:**
-1. Codex CLI (`codex exec "..."`) — repo-state challenge, contract pressure, regression risk
-2. Gemini CLI (`gemini -p "..."`) — scholarly accuracy, methodology diversity, blind spots
-3. At least one DR (ChatGPT DR, Claude DR, or Gemini DR) — deep reasoning, failure modes, architectural implications
+## STOP — READ THIS FIRST
 
-**No atom is finalized without empirical validation** where the atom affects prompt behavior. Use `python scripts/atom_test.py --package <pkg> --chunk <n>` for repeatable LLM validation.
+**Before doing ANYTHING in a hardening session:**
 
-## Source Material
+1. Read this entire protocol
+2. Read `.kr/HANDOFF.md`
+3. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
+4. Read `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md`
+5. Verify you are on branch `excerpting-foundations-hardening-20260404`
+6. Run `python -m pytest engines/excerpting/tests/ -q --ignore=engines/excerpting/tests/test_phase2_integration.py --ignore=engines/excerpting/tests/test_phase3_integration.py` — must be 907+ pass
+7. Run `python scripts/check_prompt_spec_sync.py` — must PASS
 
-The owner's F1-F8 feedback exists in 139 files across 8 collection directories:
-- `engines/excerpting/chatgpt_f1_collection/` (16 files + canon)
-- `engines/excerpting/chatgpt_f2_collection/` (8 files)
-- `engines/excerpting/chatgpt_f3_collection/` (19 files)
-- `engines/excerpting/chatgpt_f4_collection/` (19 files)
-- `engines/excerpting/chatgpt_f5_collection/` (20 files)
-- `engines/excerpting/chatgpt_f6_collection/` (22 files)
-- `engines/excerpting/chatgpt_f7_collection/` (17 files)
-- `engines/excerpting/chatgpt_f8_collection/` (18 files)
+**Do NOT start implementing until all 7 checks pass.**
 
-**EVERY FILE must be read.** The collections contain:
-- `source_artifacts/` — raw owner text (highest authority)
-- `01_questionnaire_answer.md` — cleaned owner answer
-- `02_case_dossier.md` / `02_workflow_notes.yaml` — structured analysis
-- `03_terms.yaml` — controlled vocabulary
-- `04_decision_ladder.jsonl` — step-by-step decision sequences
-- `05-08_*` — domain-specific analysis (linking deps, function placement, granularity, etc.)
-- `*_nonnegotiables.jsonl` — absolute constraints (HIGHEST IMPLEMENTATION PRIORITY)
-- `*_red_team_tests.jsonl` — adversarial test cases (MUST become actual tests)
-- `*_priority_matrix.yaml` — priority rankings
-- `*_traceability.jsonl` — traces each claim back to owner signal
-- `*_open_questions.jsonl` — unresolved questions (must be addressed or explicitly deferred)
-- `*_hard_judgment.md` — judgment calls that need human/coworker validation
+---
 
-## Extraction Documents
+## The 139 Files — What They Are and Why They Matter
 
-- `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` — full extraction (from agent)
-- `engines/excerpting/reference/CRITICAL_ATOMS_NONNEGOTIABLES_AND_REDTEAM.md` — highest-priority atoms
+The owner filled in 8 foundation questions (F1-F8) about excerpting quality. For each question, the owner worked IN-DEPTH with ChatGPT to produce a structured collection:
 
-## Per-Atom Loop
+| File Type | What It Contains | How to Use It |
+|-----------|-----------------|---------------|
+| `source_artifacts/*.txt` | **Raw owner text** — first-person reactions, notes, realizations. HIGHEST authority. | Read FIRST for every atom. This is the ground truth. |
+| `01_questionnaire_answer.md` | Cleaned owner answer with confidence level | Read second. The owner's distilled position. |
+| `02_*.md` / `02_*.yaml` | Case dossier / workflow notes — structured analysis | The analytical backbone. Contains layered assessment. |
+| `03_terms.yaml` | Controlled vocabulary with dangerous competing meanings | Use to avoid term confusion in SPEC/prompt wording. |
+| `04_decision_ladder.jsonl` | Step-by-step decision sequences | Shows HOW the owner reasoned about boundary decisions. |
+| `05-08_*` | Domain-specific analysis (linking deps, function placement, granularity, proofs, variants, memorization) | Deep domain data. EVERY file has atoms. |
+| `*_nonnegotiables.jsonl` | **ABSOLUTE CONSTRAINTS** — things that MUST NEVER happen | HIGHEST IMPLEMENTATION PRIORITY. These become hard SPEC rules. |
+| `*_red_team_tests.jsonl` | **Adversarial test cases** — designed to break the engine | MUST become actual pytest cases. If a red-team test passes, the engine has a hole. |
+| `*_priority_matrix.yaml` | Priority rankings for dimensions | Use to order implementation work. |
+| `*_traceability.jsonl` | Links each claim back to owner signal | Use to verify that SPEC rules trace to real owner feedback. |
+| `*_open_questions.jsonl` | Unresolved questions | Must be addressed or explicitly deferred with reasoning. |
+| `*_hard_judgment.md` | Judgment calls that need validation | Dispatch to coworkers for independent assessment. |
 
-For each atom from the extraction:
+**The 81 atoms extracted in `F1_F8_COMPLETE_ATOM_EXTRACTION.md` are a STARTING POINT, not a cap.** The next session may find additional atoms by reading files the extraction agent missed or summarized. Always go back to the original files.
 
-### 1. Identify
-- Read the source file and specific entry
-- Note the authority level: `owner_explicit` > `owner_consistent_inference` > `model_only`
-- `model_only` atoms need owner confirmation before hardening
+---
 
-### 2. Check
+## Per-Atom Loop — THE EXACT STEPS
+
+### Step 0: Select the Next Atom
+- Use the extraction document (`F1_F8_COMPLETE_ATOM_EXTRACTION.md`) as the queue
+- Prioritize: nonnegotiable atoms > red-team test atoms > prompt-affecting atoms > SPEC-only atoms > deferred atoms
+- Process ONE atom at a time. Never batch.
+
+### Step 1: Read the Original Source (10 min)
+- Go to the COLLECTION DIRECTORY (e.g., `chatgpt_f3_collection/`)
+- Read the RAW OWNER SOURCE first (`source_artifacts/*.txt`)
+- Read the cleaned answer (`01_questionnaire_answer.md`)
+- Read the SPECIFIC FILE the atom came from (e.g., `09_nonnegotiables.jsonl` entry NN-003)
+- Read the traceability entry for this atom (`*_traceability.jsonl`)
+- Note the authority level: `owner_explicit` (do not weaken) / `owner_consistent_inference` (may refine) / `model_only` (must verify with owner)
+
+### Step 2: Check Current State (5 min)
 - Is it already captured in SPEC §1.1b (FP-1 through FP-18)?
-- Is it already in the Phase 2b prompt?
+- Is it already in the Phase 2b prompt (`phase2_group.py`)?
 - Is it already tested?
-- If fully captured: verify and mark DONE
-- If partially captured: identify the gap
+- Run `python scripts/check_prompt_spec_sync.py`
+- If fully captured AND correctly captured: verify, mark DONE, move to next atom
+- If partially captured: identify the specific gap
 
-### 3. Research
-- Search repo for all related prior art (SPEC rules, prompts, contracts, tests)
-- Search for counterexamples that pressure the atom
-- Search for adjacent engine / contract consequences
-- Use `scripts/check_prompt_spec_sync.py` to verify prompt-SPEC alignment
+### Step 3: Research (20 min)
+Prepare THREE research prompts. The same three prompts go to ALL THREE coworkers (x3 research):
 
-### 4. Dispatch Coworkers (MANDATORY for every atom that affects prompt/SPEC/contracts)
-- Codex CLI: structural challenge
-- Gemini CLI: scholarly validation
-- DR (relay): deep reasoning + failure modes
-- Wait for ALL THREE before finalizing
+**Prompt A — Repo/Implementation Challenge:**
+"Read [specific files]. Does the current implementation correctly handle [atom]? What would break if [atom] is wrong? What contracts/tests/prompts need to change?"
 
-### 5. Implement
-- SPEC changes (if doctrinal)
-- Prompt changes (if behavioral)
-- Contract changes (if structural)
-- Test additions (red-team tests from collections become actual pytest cases)
+**Prompt B — Scholarly/Domain Challenge:**
+"In Islamic scholarly texts, is [atom] correct? Give concrete Arabic examples where [atom] holds and where it fails. What Islamic science is most at risk if [atom] is wrong?"
 
-### 6. Validate
-- `python -m pytest engines/excerpting/tests/ -q` — zero regressions
+**Prompt C — Adversarial/Failure Mode Challenge:**
+"What is the WORST thing that happens if [atom] is implemented incorrectly? Give a concrete scenario where the engine produces a confidently wrong excerpt because of [atom]. What silent corruption path does [atom] open or close?"
+
+### Step 4: Dispatch ALL THREE Coworkers — EACH GETS ALL THREE PROMPTS (mandatory)
+
+**Codex CLI** — gets prompts A + B + C:
+```
+codex exec "PROMPT A: [repo challenge]
+PROMPT B: [scholarly challenge]
+PROMPT C: [adversarial challenge]
+OUTPUT: Structured findings per prompt with file:line references."
+```
+
+**Gemini CLI** — gets prompts A + B + C:
+```
+gemini -p "PROMPT A: [repo challenge]
+PROMPT B: [scholarly challenge]
+PROMPT C: [adversarial challenge]
+OUTPUT: Structured findings per prompt with Arabic examples."
+```
+
+**DR (relay to owner)** — gets prompts A + B + C:
+Write the relay prompt with all three sub-prompts. Specify file paths for ChatGPT/Claude DR, or prepare a file bundle for Gemini DR.
+
+**WAIT for ALL THREE to return before proceeding.** Do not implement with partial coworker coverage.
+
+### Step 5: Synthesize Findings (15 min)
+- Create a 3-column comparison: Codex | Gemini | DR
+- Where do they AGREE? → high confidence
+- Where do they DISAGREE? → needs resolution (owner Q&A or additional research)
+- Where did they find things the atom MISSED? → expand the atom
+- Record the synthesis in the ledger
+
+### Step 6: Ask Owner (if needed)
+- Only for: `model_only` atoms needing confirmation, coworker disagreements needing tiebreak, or concrete study-experience questions
+- Questions must be non-technical, with examples
+- Never ask "should we do X?" — decide and propose
+
+### Step 7: Implement (varies)
+- SPEC changes: add to §1.1b or relevant §6 subsection
+- Prompt changes: update `phase2_group.py` GROUP_SYSTEM_PROMPT AND the SPEC §5.3.2 code block (BOTH — check sync)
+- Contract changes: update `contracts.py` with backward-compatible additions
+- Test additions: red-team test atoms → actual pytest cases in `test_phase2_group.py` or new test files
+- Run `python scripts/check_prompt_spec_sync.py` after EVERY prompt change
+
+### Step 8: Validate (5 min)
+- `python -m pytest engines/excerpting/tests/ -q` (excluding LLM integration) — zero regressions
 - `python -m pyright <modified_files>` — zero errors
 - `python scripts/check_prompt_spec_sync.py` — PASSED
-- `python scripts/atom_test.py` — empirical validation if prompt-affecting
+- If prompt-affecting: `python scripts/atom_test.py --package taysir --chunk 5` — empirical validation
 
-### 7. Record
-- Update `FOUNDATIONS_HARDENING_LEDGER.md` with atom disposition
-- Note coworker reports used
-- Note unresolved risks
+### Step 9: Record and Close (5 min)
+- Update `FOUNDATIONS_HARDENING_LEDGER.md`:
+  - Atom name and source
+  - Coworker reports (3 of 3 required)
+  - Doctrine adopted
+  - Implementation changes (files + lines)
+  - Tests added
+  - Unresolved risks
+  - Final disposition: FINALIZED / DEFERRED (with reason) / REJECTED (with reason)
+- Commit if a natural batch point (every 3-5 atoms, or after any high-impact atom)
 
-## Session Learnings (from session 1, 2026-04-04)
+---
 
-### Mistakes to avoid:
-1. **Never read only the raw source + cleaned answer.** The collections have 12-17 files each. Read ALL of them.
-2. **Never skip DR coworkers.** CLI coworkers find structural issues; DR models find reasoning/scholarly issues. Both are needed.
-3. **Never batch atoms for shallow processing.** One atom at a time, hours if needed.
-4. **Never let Codex or any previous session cap the atom inventory.** The atoms come from the owner's raw feedback, not from prior session definitions.
-5. **Check prompt-SPEC sync after every prompt change.** Use `scripts/check_prompt_spec_sync.py`.
+## Hard Rules — Violations Are Session Failures
 
-### What worked well:
-1. Empirical validation (`atom_test.py`) proved more than theoretical analysis
-2. Coworker challenges found real issues (Codex: 3 findings, Gemini: 2 gaps, DR: micro-fragment failure)
-3. The DR reports (ChatGPT + Claude + Gemini) were the highest-value artifacts of the session
-4. The source-surroundings vision came from a live owner Q&A — always ask targeted questions
+1. **Never finalize an atom with fewer than 3 coworker reports.** Period.
+2. **Never read only the extraction summary.** Always go back to the original collection files.
+3. **Never batch multiple atoms together.** One at a time.
+4. **Never skip the raw owner source layer.** Read `source_artifacts/*.txt` before anything else.
+5. **Never modify the prompt without updating the SPEC code block.** Use `check_prompt_spec_sync.py`.
+6. **Never skip empirical validation for prompt-affecting atoms.** Use `atom_test.py`.
+7. **Never let a prior session's atom inventory cap your scope.** The 81 atoms are a floor, not a ceiling.
+8. **Never treat `model_only` atoms as confirmed without owner verification.**
+9. **Never say "done" before the ledger is updated.**
+10. **Never end a session without updating `.kr/HANDOFF.md`.**
+
+---
+
+## What Session 1 Accomplished (preserve and build on)
+
+- FP-1 through FP-18 in SPEC §1.1b
+- EE-1 empirically validated (taysir 2/2, ibn_aqil 32/32)
+- MV-1 (25-word minimum viability) from DR consensus
+- NC-1 (context resolution hierarchy)
+- 5 DR reports archived
+- atom_test.py + check_prompt_spec_sync.py tools
+- 907/907 deterministic tests pass
+- Source surroundings vision saved to memory
+
+**Session 1's work is NOT wasted.** It established the foundation. Session 2+ builds on it by processing the 34 genuinely new atoms, strengthening the 16 partially captured atoms, and converting the 9 red-team tests into actual pytest cases.
+
+---
+
+## Priority Order for Session 2
+
+From the extraction, sorted by impact:
+
+**Tier 1 — Nonnegotiables (become hard SPEC rules):**
+All entries from `*_nonnegotiables.jsonl` across F3-F8
+
+**Tier 2 — Red-team tests (become actual pytest cases):**
+All entries from `*_red_team_tests.jsonl` across F3-F8
+
+**Tier 3 — Prompt-affecting atoms (need empirical validation):**
+Surface-function misread, title-retention asymmetry, forgiving-rule limit, clipped tarjih, question-cluster methodology
+
+**Tier 4 — SPEC-only atoms (doctrinal, no code change):**
+Remaining atoms that add principles without changing prompt or contracts
+
+**Tier 5 — Deferred atoms (future capability):**
+Atoms that describe features not yet in the pipeline (fetched proofs, data analysis, variant comparison)
