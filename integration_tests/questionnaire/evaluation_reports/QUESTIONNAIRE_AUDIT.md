@@ -1,15 +1,14 @@
 # Questionnaire Response Audit
 
-- Generated: `2026-04-04T08:47:34.364943+00:00`
+- Generated: `2026-04-04T11:32:36.889390+00:00`
 - Total interactions: `40`
 - Active interactions: `38`
-- Answered active interactions: `6`
-- Readiness score: `0.158`
+- Answered active interactions: `7`
+- Readiness score: `0.184`
 
 ## Structural Alerts
 
 ### missing
-- `F-5`
 - `F-6`
 - `G-1`
 - `G-2`
@@ -70,7 +69,7 @@ _None_
 
 ## Dimension Audit
 
-- Missing coverage: `Commentary structure + layer clarity`, `Conflict resolution case`, `Connecting sentence`, `Context hint quality`, `Cost of granularity`, `Cross-reference handling`, `Definition threshold`, `Editorial footnote and takhrij handling`, `Evidence + explanation bundling`, `Evidence coupling`, `Evidence type splitting`, `Example coupling`, `Excerpting approach`, `Genre uniformity`, `Ideal/worst excerpt`, `Implicit context`, `Layer attribution`, `List handling`, `Long khilaf`, `Max excerpt size`, `Meta-contradictions and missing needs`, `Metadata sufficiency`, `Min excerpt size`, `Objection/response coupling`, `Original text fidelity`, `Position linking`, `Priority ranking`, `Self-containment + note visibility`, `Semantic coupling`, `Short khilaf`, `Triple definitions`, `Uncertainty tolerance`
+- Missing coverage: `Commentary structure + layer clarity`, `Conflict resolution case`, `Connecting sentence`, `Context hint quality`, `Cost of granularity`, `Cross-reference handling`, `Definition threshold`, `Editorial footnote and takhrij handling`, `Evidence + explanation bundling`, `Evidence coupling`, `Evidence type splitting`, `Example coupling`, `Excerpting approach`, `Genre uniformity`, `Ideal/worst excerpt`, `Implicit context`, `Layer attribution`, `List handling`, `Long khilaf`, `Max excerpt size`, `Meta-contradictions and missing needs`, `Metadata sufficiency`, `Min excerpt size`, `Objection/response coupling`, `Original text fidelity`, `Position linking`, `Priority ranking`, `Semantic coupling`, `Short khilaf`, `Triple definitions`, `Uncertainty tolerance`
 
 ### Low Confidence Dimensions
 _None_
@@ -81,6 +80,7 @@ _None_
 - `F-2`
 - `F-3`
 - `F-4`
+- `F-5`
 - `F-7`
 - `F-8`
 

@@ -1,15 +1,14 @@
 {
   "audit_summary": {
-    "timestamp": "2026-04-04T08:47:34.364943+00:00",
+    "timestamp": "2026-04-04T11:32:36.889390+00:00",
     "total_interactions": 40,
     "active_interactions": 38,
     "blocked_interactions": 2,
-    "answered_active_interactions": 6,
-    "readiness_score": 0.158
+    "answered_active_interactions": 7,
+    "readiness_score": 0.184
   },
   "structural_alerts": {
     "missing": [
-      "F-5",
       "F-6",
       "G-1",
       "G-2",
@@ -82,7 +81,6 @@
       "Original text fidelity",
       "Position linking",
       "Priority ranking",
-      "Self-containment + note visibility",
       "Semantic coupling",
       "Short khilaf",
       "Triple definitions",
@@ -107,7 +105,7 @@
         "total": 1
       },
       "Self-containment + note visibility": {
-        "answered": 0,
+        "answered": 1,
         "total": 1
       },
       "Original text fidelity": {
@@ -253,6 +251,7 @@
     "F-2",
     "F-3",
     "F-4",
+    "F-5",
     "F-7",
     "F-8"
   ]
