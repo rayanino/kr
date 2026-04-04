@@ -89,6 +89,15 @@ boundary signals. Default: each numbered item is a separate unit.
 - Exception: consecutive sub-20-word items in the same ruling cluster \
 may be grouped. If uncertain, split.
 
+CONFLICT RESOLUTION (when grouping rules conflict):
+If keeping a unit together (EE-1 unity) conflicts with granularity goals, \
+apply this precedence:
+1. Speaker-role correctness — who endorses what — highest priority
+2. Dialogue completeness — objection + response must stay together
+3. Textual/grammatical integrity — no mid-sentence Arabic fragments
+4. Self-containment — the unit teaches a complete thought
+5. Granularity — lowest priority; optimize post-grouping, not here
+
 DECONTEXTUALIZATION PREVENTION (critical):
 - A reported position ("قال أبو حنيفة...") and its refutation
   ("ورد عليه بأن...") MUST be in the same unit
