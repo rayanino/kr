@@ -120,6 +120,8 @@ of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
 NUMBERED ITEM BOUNDARIES:
 - Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) are unit \
 boundary signals. Default: each numbered item is a separate unit.
+- Exception: numbered غريب الحديث items within the hadith inseparable core \
+(hadith + gharib + المعنى الإجمالي) do NOT split — they stay with the core.
 - Two numbered items covering different topics MUST NOT be merged \
 (e.g., items about void bequests and burial are separate units).
 - Exception: consecutive sub-20-word items in the same ruling cluster \
