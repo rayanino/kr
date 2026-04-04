@@ -64,7 +64,7 @@ Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-pr
 
 ## Current State
 
-- **SPEC:** COMPLETE (2387 lines)
+- **SPEC:** COMPLETE + HARDENING (2530+ lines, FP-1 through FP-18 in §1.1b)
 - **Contracts:** COMPLETE (1111 lines, independently reviewed)
 - **Phase 1:** COMPLETE (117 tests, 1,531 lines) — deterministic assembly + hardening
 - **Phase 2:** COMPLETE (141 tests, 854 lines) — LLM classification + grouping + hardening
@@ -74,7 +74,7 @@ Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-pr
 - **Phase 3.4:** COMPLETE (50 tests, ~350 impl lines) — validation (V-P3-1–9) + output writer (excerpts.jsonl, gate_queue.jsonl, V-P3-7 paranoid verification)
 - **Phase 3 Orchestrator:** COMPLETE (25 integration tests, ~300 impl lines) — phase3_orchestrator.py + pipeline.py + end-to-end tests
 - **Overnight Hardening:** 40+ additional edge case tests across all phases
-- **Total:** 593 tests, ~4,860 impl lines, 0 failures
+- **Total:** 907+ tests, ~4,860 impl lines, 0 failures (907 deterministic, ~10 LLM integration)
 
 ### Recent Sessions (post-overnight hardening)
 - **Preamble gap fix:** `_complete_division_tree()` inserts synthetic leaf nodes for parent content gaps (2-29% content was silently lost). ACCEPTED.
@@ -105,9 +105,18 @@ Follow normalization conventions:
 
 ## Required Reading
 
-1. `NEXT.md` or `session-1-plan.md` — current task
-2. `SPEC.md` — relevant section only (do NOT read all 2387 lines)
+**If working on foundations hardening (the current active lane):**
+1. `reference/handoffs/excerpting_foundations_session2_kickoff_2026-04-04.md` — **START HERE**
+2. `engines/excerpting/reference/ATOM_PROTOCOL.md` — the governing protocol
+3. `SPEC.md` §1.1b — the 18 foundational principles (FP-1 through FP-18)
+4. `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` — the atom queue
+5. `engines/excerpting/reference/QUEUE_AUDIT_RAW_VS_EXTRACTION.md` — 124 gaps to address
+
+**For general excerpting work:**
+1. `NEXT.md` — current task
+2. `SPEC.md` — relevant section only (do NOT read all 2530 lines)
 3. `contracts.py` — type signatures
 4. `engines/normalization/contracts.py` — upstream types consumed
 5. `experiments/architecture_test/extract_divisions.py` — validated reference implementations
-6. `docs/llm_trustworthiness_defenses.md` — **MANDATORY for Sessions 4–6.** Deterministic defenses against LLM judgment errors. Contains failure-mode matrix, Tier 1 defenses to build, and empirical scans to run before each session.
+6. `docs/llm_trustworthiness_defenses.md` — **MANDATORY for Sessions 4–6.**
+7. `reference/excerpt_definition_canon/01_dossier.md` when the task touches excerpt boundaries, self-containment, function, study-readiness, or owner-facing excerpt quality.

@@ -174,17 +174,40 @@ OUTPUT: per-science assessment, Arabic examples, cross-engine impact map."
 
 **Dispatch is per THEMATIC BATCH, not per individual atom.** One dispatch covers all atoms in the batch.
 
-### Step 5: Synthesize Findings (15 min)
+### Step 5: Synthesize + Decide AUTONOMOUSLY (15 min)
 - Create a 3-column comparison: Codex | Gemini | DR
-- Where do they AGREE? → high confidence
-- Where do they DISAGREE? → needs resolution (owner Q&A or additional research)
+- Where do they AGREE? → high confidence, proceed
+- Where do they DISAGREE? → **CC decides based on which argument is stronger.** Write the reasoning in the ledger. Do NOT escalate to owner for technical tiebreaks.
 - Where did they find things the atom MISSED? → expand the atom
-- Record the synthesis in the ledger
+- **Decision mechanism when ambiguous:**
+  1. If 2/3 coworkers agree → go with the majority
+  2. If all 3 disagree → CC decides based on FP-13 precedence stack (attribution > dialogue > grammar > self-containment > granularity)
+  3. If the decision affects the owner's STUDY EXPERIENCE (not technical architecture) → ask the owner a concrete, non-technical question
+  4. If the decision is purely technical/architectural → CC decides, period
+- **The owner is NOT a tiebreaker for technical decisions.** The owner provides study-experience signal. CC + coworkers own every technical/scholarly/architectural decision.
+- Record the synthesis AND the decision reasoning in the ledger
 
-### Step 6: Ask Owner (if needed)
-- Only for: `model_only` atoms needing confirmation, coworker disagreements needing tiebreak, or concrete study-experience questions
-- Questions must be non-technical, with examples
-- Never ask "should we do X?" — decide and propose
+### Step 5b: Proactive Discovery (after each batch)
+After processing all atoms in a batch, ask: "What did the owner NOT think of that would improve this subsystem?" Dispatch Codex + Gemini with an open-ended research prompt. The engine should be BETTER than what the owner asked for, not just compliant with it. Remember: **the library is the MIND OF A SCHOLAR put on a screen** — a scholar's mind has insights beyond any individual student's questions.
+
+### Step 5c: FP Revision Check
+If reading the full collection data reveals that an existing FP (FP-1 through FP-18) is WRONG or needs refinement:
+- REVISE IT. FPs are living doctrine, not frozen law.
+- Document the revision in the ledger: what changed, why, which evidence forced the revision.
+- Update both the SPEC §1.1b AND the prompt (if the FP is prompt-enforced).
+
+### Step 6: Ask Owner (LAST RESORT — study-experience questions ONLY)
+- The owner is asked ONLY when:
+  - The question is about personal study habits that only the owner can answer (e.g., "when you study fiqh, do you read proofs before or after the ruling?")
+  - A `model_only` atom needs owner confirmation of intent
+  - The owner's raw text is genuinely ambiguous and no amount of coworker research can resolve it
+- The owner is NEVER asked:
+  - "Should we implement this?" — CC decides
+  - "Which approach do you prefer?" — CC + coworkers decide
+  - "Is this good enough?" — coworker consensus decides
+  - "What should we do next?" — the protocol defines the sequence
+- Questions must be concrete with examples, never abstract
+- The owner's answer is SIGNAL, not a directive (per OWNER_FEEDBACK_GUARDRAIL.md)
 
 ### Step 7: Implement (varies)
 - SPEC changes: add to §1.1b or relevant §6 subsection
@@ -211,6 +234,38 @@ OUTPUT: per-science assessment, Arabic examples, cross-engine impact map."
 - Commit if a natural batch point (every 3-5 atoms, or after any high-impact atom)
 
 ---
+
+## Context Compaction Survival Guide
+
+When the session fills up and compaction happens, IMMEDIATELY re-read:
+1. The active batch's atoms (from the extraction doc)
+2. SPEC §1.1b (all FPs)
+3. The current GROUP_SYSTEM_PROMPT (from phase2_group.py lines 43-170)
+4. Any unprocessed coworker findings for the current batch
+5. The ledger's most recent entries
+
+Everything else can be re-derived from files. These 5 things cannot.
+
+## The North Star
+
+**THE LIBRARY IS THE MIND OF A SCHOLAR PUT ON A SCREEN.**
+
+A scholar's mind doesn't:
+- Leave knowledge disconnected
+- Misattribute positions to the wrong scholar
+- Lose the reasoning behind a ruling
+- Require "hunting" for context
+- Present fragments without connections
+
+Every excerpt must be as clear as if a scholar is explaining it to you. Every boundary must reflect how a scholar mentally organizes knowledge. If the library requires the reader to "figure things out," it has failed.
+
+The owner's only remaining job after the library is complete: **memorize.** Everything else — gathering, analyzing, organizing, cross-referencing, attributing — is the library's job.
+
+## NOTHING CAN BE LOST
+
+The F1-F8 collections contain ideas spanning MULTIPLE scopes: excerpting rules, LLM directives, architectural visions, study workflows, tool suggestions, failure fears, quality standards, and more. Some belong in the SPEC. Some belong in the prompt. Some belong in contracts. Some belong in future-capability docs. Some belong in the owner-model.
+
+**Every single idea must receive dedicated attention.** Even if an idea doesn't fit the excerpting engine directly, it must be DOCUMENTED in the appropriate location — never silently dropped. Use `engines/excerpting/reference/DEFERRED_IDEAS.md` (create if needed) for ideas that belong to future capabilities.
 
 ## Hard Rules — Violations Are Session Failures
 
