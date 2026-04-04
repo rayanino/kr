@@ -1,0 +1,24 @@
+strongest_local_reason_for_final_questionnaire_verdict: The excerpt as given fuses
+  a disagreement marker with a clipped tarjih lead-in, so it is neither function-pure
+  nor complete.
+highest_risk_function_confusions:
+- treating disagreement marking as if it were already tarjih
+- treating an attribution-critical tarjih lead-in as if it were only neutral disagreement
+  structure
+- treating the fused surface fragment as one clean function
+highest_risk_attribution_losses:
+- losing the scholar-bound nature of `وأصحها، ما ذهب إليه الجمهور،`
+- accepting a clipped tarjih without its completed preferred view
+highest_risk_overmerge:
+- keeping disagreement mention and tarjih in one entry
+- letting the corrected engineering completion silently justify the owner-facing merged
+  excerpt
+highest_risk_oversplit:
+- splitting a real disagreement marker away from a full unbiased opinion listing if
+  one exists
+- splitting the tarjih lead-in away from the explicit statement of the preferred view
+most_important_methodology_insight: Ask what question each segment is answering before
+  deciding whether it stays together or splits.
+most_important_context_handling_requirement: Treat surrounding context as diagnostic
+  and reconstructive only; do not let it rescue the questionnaire verdict on the excerpt
+  as given.

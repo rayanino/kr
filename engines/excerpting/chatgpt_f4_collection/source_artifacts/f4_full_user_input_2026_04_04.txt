@@ -1,0 +1,673 @@
+We are now switching to **questionnaire mode** for **F4**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F7/F8 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item is a **single-excerpt judgment question**, but it has deeper protocol implications. Treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded excerpt-analysis collection for engineering / protocol use**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**“This excerpt discusses the scholarly disagreement about the hand that is cut in the ruling on theft.**
+
+**The excerpt:**
+
+**واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور،**
+
+**Tell me everything you are thinking. Your reaction, what is good about this, what is missing, what you would change if anything.**
+
+**Your assessment**  
+**A: Works as a standalone entry**  
+**B: Partly works — it feels incomplete**  
+**C: Doesn't work as its own entry**
+
+”**
+
+## Surrounding context
+
+استدل الإمام أحمد، ومالك، بما رواه أحمد ومسلم: أن النبي صلى الله عليه وسلم قال: "لا تقطع يد السارق إلا في ربع دينار فصاعدا ".
+
+وكان ربع الدينار يومئذ، ثلاثة دراهم، والدينار اثني عشر درهما. رواه أحمد عن ابن عمر.
+
+وكما في حديث الباب عن ابن عمر: أنه صلى الله عليه وسلم "قطع في مجن قيمته ثلاثة در اهم".
+
+واستدل الشافعي والجمهور بالحديث السابق " لا قطع إلا في ربع دينار فصاعدا " فإنه جعل الذهب أصلاً يرجع إليه في النصاب.
+
+ولا ينافي حديث ابن عمر، فإن قيمة الدراهم الثلاثة في ذلك الوقت ربع دينار، لأن صرف الدينار اثنا عشر درهماً.
+
+واستدل أبو حنيفة واتباعه، بما ثبت في الصحيحين من أنه صلى الله عليه وسلم قطع في مجن، وقد اختلف في قيمة هذه المجن، حتى جاء بما أخرجه البيهقى والطحاوي من حديث ابن عباس. أنه كان ثمن المجن على عهد رسول الله صلى الله عليه وسلم عشرة دراهم.
+
+وهذه الرواية وإن خالفت ما في الصحيحين من أن قيمته ثلاثة دراهم، فالواجب الاحتياط فيما يستباح به قطع العضو المحرم، فيجب الأخذ به وهو الأكثر.
+
+وبما أخرجه عمرو بن شعيب عن أبيه عن جده عن النبي صلى الله عليه وسلم أنه قال: " لاَ قطع إلا في عشرة دراهم " وضعف العلماء هذا الحديث.
+
+واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور، بل نقل فيه الإجماع، من أنها الكف التي تبتدئ من الكوع، فالآية الكريمة ذكرت قطع اليد، واليد عند الإطلاق هي الكف فقط، ومع هذا فقد بينتها السنة، فإن الله تعالى قال: {فامسحوا بوجوهكم وأيديكم} والنبي صلى الله عليه وسلم مسح على كفيه فقط. ثم إن الجمهور ذهبوا إلى أن أول ما يقطع اليد اليمنى وبه قرأ ابن مسعود {فاقطعوا أيمانهما} فإن سرق ثانيا قطعت الرجل اليسرى، ثم إن سرق قطعت اليد اليسرى، ثم إن سرق فالرجل اليمنى، هذا عند الجمهور. وذكروا أدلتهم في المطولات.
+
+باب في إنكار الشفاعة في الحدود (١) والنهي عنها
+
+الحديث الثاني والخمسون بعد الثلاثمائة
+
+عَنْ عَاِئشَةَ رَضي الله عَنْهَا: إنَّ قُرَيْشاً أهَمَّهُمْ شَأنُ الْمَخْزُومِيَّة التي سَرَقَتْ، فَقَالُوا: مَنْ يُكَلِّمَ فِيهَا رَسُولَ الله صلى الله عليه وسلم؟.
+
+فَقَالوا: وَمَنْ يَجْتَرِئ عَلَيْهِ إلا أسَامَةُ بْنُ زَيد حِبُّ رَسُولِ الله صلى الله عليه وسلم؟.
+
+فَكَلَّمَهُ أسَامَةُ، فَقَالَ " أَتَشفَعُ في حَدٍّ مِنْ حُدُودِ الله "؟.
+
+ثَُم قَامَ فاختَطَبَ، فَقَالَ: " إنَّمَا أهلَكَ الَّذِينَ مِنْ قَبْلِكُمْ أنَّهم كَانُوا إذَا سَرقَ فِيهِمُ الشَّريفُ تَرَكَوهُ، وَإذَا سَرَقَ فِيهِمُ الضَّعِيفُ أقَامُوا عَلَيْهِ الْحَدَّ. وَأيْمُ الله، لَوْ أنَّ فَاطِمَةَ بِنْت مُحَمَّدٍ سرَقتْ لَقَطَعْتُ يَدَهَا".
+
+وفي لفظ: كَانَت امْرأةٌ تَسْتَعِيرُ الْمَتَاعَ وَتجْحَدُهُ، فَأمَرَ النبيُ صلى الله عليه وسلم بِقَطْعِ يَدِهَا.
+
+الغريب:
+
+أهمهم: جلب لهم هما، أو صيرهم ذوي هم.
+
+المخزومية: هي فاطمة بنت الأسود بن عبد الأسد، بنت أخي أبي سلمة. وبنو مخزوم أحد أفخاذ قريش، وهم من أشراف تلك القبيلة الشريفة فيسمونهم ريحانة قريش.
+
+من يكلم؟:. أي من يشفع فيها بترك قطع يدها.
+
+حِِبُ رسول الله: بكسر الحاء، أي محبوبة.
+
+وأيم الله: بفتح الهمزة وكسرها وضم الميم، وهو اسم مفرد، ولذا فإن همزته همزة قطع وإعرابه هنا: إنه مرفوع بالابتداء، وخبره محذوف تقديره: قسمي، أو يميني.
+
+## My raw comments
+
+IMPORTANT IDEA: A POSSIBLE “DEFINITION” FOR AN EXCERPT IS LIKE A “quote” … So excerpts are kinda like ‘quotes’. Just like when a scholar quotes another scholar he may start by saying “this scholar said this after talking about x: …” to preserve context, … I realized this by looking at “واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور،” … this literally looks like something from an islamic lecture: “the islamic scholars have disagreed on what hand to cut, and allah albasaam said in his book تيسير العلام: “واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور”.”
+
+ANOTHER POINT: during my raw comment, you see me ask questions to identify excerpts, then reason around what questions should be “answered together” (= kept together as one excerpt) … this could be another methodology to identify excerpts. There should not be one safety net to identifying excerpts; this is the most important and sensitive part of the entire library, so there should be absolutely no room for looseness.
+
+—
+
+This excerpt is a “mentioning of the خلاف”. It is part of the “ruling”-section, but more specifically it consists of “mentioning of the خلاف”, followed by a “ترجيح”. This is a very important part of the library: THE ترجيح OF A SCHOLAR IS EXTREMELY IMPORTANT, BECAUSE IT’S WHAT IS ATTRIBUTED TO HIM.
+
+So “واختلف العلماء في حقيقة اليد التي تقطع على أقوال:” should definitely be an excerpt on its own (!!! WITHOUT THE “وأصحها، ما ذهب إليه الجمهور” … part !!!!!!!). Why? Because it is an “unbiased” fact, mentioning that there is indeed a dispute. A good leaf is for example “تحرير الخلاف”. When I open this leaf and browse it, I get a 100% certainty that ‘this is definitely a subject of dispute’. THIS IS IMPORTANT, BECAUSE AN IMPORTANT PART OF FIQH IS KNOWING HOW THE OPINIONS ARE DIVIDED.
+
+Now imagine if the text wasn’t “واختلف العلماء في حقيقة اليد التي تقطع على أقوال:”, but was this + followed by a listing of all the different opinions (unbiased still, just mentioning them all). That would still fall under this same leaf (“تحرير الخلاف”), because while “there is a dispute” and “the different opinions are” are technically two different levels of granularity, but THIS IS TOO GRANUAL, and they are too related. So in this case, mentioning “yeah, the scholars disputed around this” and “this is the collection of their differing opinions” should not be separated; it is too tightly linked. I think we should identify the protocol to identify “too tightly linked” excerpts.
+
+THIS BRINGS ME ON AN IDEA: a possible methodology for excerpting could be if we identify exactly what questions should be asked to identify an excerpt (a list of questions, for example, that if a piece of text answers all it is an excerpt candidate, like: “is this one subject to speak about”, “can it be further granulated”, …), but importantly: there should be heavy emphasis on “logical” reasoning and answering, so not only answering questions like “does this fall under the definition of an excerpt”, but also: “in the broader picture, looking at the previous parent-excerpt, does it make sense to excerpt this?”, “what are the benefits and harms of excerpting like this, and how do they weigh against each other”? …
+
+This excerpt is then followed by “وأصحها، ما ذهب إليه الجمهور، بل نقل فيه الإجماع، من أنها الكف التي تبتدئ من الكوع،”. This is a biased “ترجيح” of a specific scholar, answering the question: “what is the opinion of this particular scholar”, which is different than “what are the different opinions within this subject”. So, these should definitely be kept apart.
+
+ADDITIONAL NOTES:
+
+- i’ve always complained about the beginning of excerpts instantly raising questions, for example with “و”. But now, looking at this particular excerpt (that also starts with “و”) and its surroundings, I can realize that “و” - or any of those “vague” beginnings in general - may or may not be referencing any previous context. For example, “و” could be used to add on to something, or also to “continue” within the subject: the author just finished explaining something (about the bigger subject), then uses “و” to say “that, and further talking about the subject, also: …”. So, once again, the library should not be blind: encountering such a word should not blindly mean “ENCOUNTERED → ENFORCING PROTOCOL X” … no … instead, it should be an intelligent and deeply reasoned process to determine exactly what scenario we are found in and what should happen.
+
+## Critical rule about the surrounding context
+
+The questionnaire answer must evaluate the **excerpt as currently given**.
+
+The surrounding context is **diagnostic only**.
+
+Use surrounding context to:
+
+- understand the actual function of the excerpt
+- detect whether the excerpt is clipped
+- propose better excerpt boundaries
+- propose corrected excerpt candidates in the engineering layer
+
+But do **NOT** let the surrounding context silently rescue the questionnaire verdict.
+
+If the excerpt as given is incomplete, mixed, clipped, or mispackaged, the questionnaire answer must say so honestly even if the surrounding context lets you reconstruct a better unit.
+
+## Your job
+
+Take that raw reaction and turn it into the strongest possible answer to this question.
+
+But before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- what the actual questionnaire verdict is: A, B, or C
+- whether the excerpt as given works as one entry or not
+- whether the excerpt as given is clipped mid-function
+- whether the text is actually two different functions fused together:
+  - mentioning the disagreement
+  - giving a scholar’s tarjih
+- whether the disagreement mention should stand alone
+- whether a pure disagreement leaf like `تحرير الخلاف` is the right placement for the unbiased segment
+- whether listing the different opinions, if present, should stay with the disagreement mention
+- whether disagreement mention and opinion listing are too tightly linked to split
+- whether disagreement mention and tarjih are too different to keep together
+- whether the tarjih segment is attribution-critical and therefore must be kept separate
+- whether the surrounding context provides the completion of the tarjih for engineering purposes only
+- whether the opening `و` is truly context-dependent here or just a local continuation within the subject
+- whether vague openings should be handled by rigid rules or intelligent diagnosis
+- whether the “excerpt as quote” idea is a useful controlled concept here
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.
+Use it to sharpen the final output.
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_f4_collection/`
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_f4_collection/README.md`
+- `engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_full_user_input_2026_04_04.txt`
+- `engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_owner_raw_reaction_2026_04_04.txt`
+
+Requirements:
+
+- `f4_full_user_input_2026_04_04.txt` must contain the full question block, excerpt block, option block, surrounding-context block, and my raw comments **verbatim**
+- `f4_owner_raw_reaction_2026_04_04.txt` must contain my raw comments **verbatim**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+`File creation is not available in this chat; I can only emit raw text.`
+
+and stop.
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.
+Do **NOT** restart from the beginning.
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_f4_collection/README.md`
+2. `engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_full_user_input_2026_04_04.txt`
+3. `engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_owner_raw_reaction_2026_04_04.txt`
+4. `engines/excerpting/chatgpt_f4_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_f4_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_f4_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_f4_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_f4_collection/04_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_f4_collection/05_candidate_excerpts.jsonl`
+10. `engines/excerpting/chatgpt_f4_collection/06_function_placement.jsonl`
+11. `engines/excerpting/chatgpt_f4_collection/07_question_cluster_analysis.jsonl`
+12. `engines/excerpting/chatgpt_f4_collection/08_context_dependency_analysis.jsonl`
+13. `engines/excerpting/chatgpt_f4_collection/09_nonnegotiables.jsonl`
+14. `engines/excerpting/chatgpt_f4_collection/10_red_team_tests.jsonl`
+15. `engines/excerpting/chatgpt_f4_collection/11_priority_matrix.yaml`
+16. `engines/excerpting/chatgpt_f4_collection/12_traceability.jsonl`
+17. `engines/excerpting/chatgpt_f4_collection/13_open_questions.jsonl`
+18. `engines/excerpting/chatgpt_f4_collection/14_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_f4_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_f4_collection/` folder.
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what F4 is
+- why this is a collection bundle, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `final_questionnaire_choice`
+- `total_decision_steps`
+- `total_candidate_excerpts`
+- `total_function_placement_records`
+- `total_question_cluster_records`
+- `total_context_dependency_records`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+It must contain only what I could honestly stand behind as my questionnaire answer.
+
+Use this exact format:
+
+MC choice:
+[A / B / C]
+
+Immediate reaction:
+[short paste-ready text]
+
+Detailed analysis:
+[longer paste-ready text in first person, concrete and precise, explaining my real reaction to this excerpt]
+
+Confidence:
+[high / medium / low]
+
+What would change my mind:
+[text, or "n/a"]
+
+Principles this reveals:
+[text, or "n/a"]
+
+Requirements for this file:
+
+- first person
+- owner-faithful
+- no generic excerpt-review language
+- no shallow “it feels incomplete” prose
+- preserve the layered logic of my answer
+- make clear that the excerpt as given fuses “mentioning the disagreement” with “tarjih”
+- make clear why those should not remain one entry if that survives reasoning
+- if relevant, distinguish:
+  - disagreement mention
+  - opinion listing
+  - scholar’s tarjih
+- do **NOT** silently import broad model-only protocol doctrine into this file
+- do **NOT** let surrounding context rescue the excerpt as given
+
+### `02_case_dossier.md`
+
+This is the **human canonical artifact** for engineering / protocol use.
+
+Populate it with actual content, not placeholder language.
+
+At minimum include:
+
+- Purpose and scope
+- Explicit separation between:
+  - owner-faithful questionnaire layer
+  - expanded engineering / protocol layer
+- Core assessment thesis
+- Why the excerpt as given fails or underperforms
+- Surface segment vs functional segment
+- Why “mentioning the disagreement” and “tarjih” are not the same job
+- Why the tarjih is attribution-critical
+- Candidate corrected excerpt map
+- Question-cluster analysis
+- Context / `و` analysis
+- What should split
+- What should remain together
+- What surrounding context may be used for
+- What would be reckless to flatten
+- What would be reckless to automate blindly
+
+### `03_terms.yaml`
+
+Create a controlled vocabulary for this case.
+
+At minimum include:
+
+- `mention_of_disagreement`
+- `tahrir_al_khilaf`
+- `opinion_listing`
+- `tarjih`
+- `attribution_critical_segment`
+- `question_cluster`
+- `too_tightly_linked`
+- `surface_excerpt`
+- `functional_excerpt`
+- `local_continuation_waw`
+- `external_context_dependence`
+- `excerpt_as_quote`
+- `unbiased_segment`
+- `biased_segment`
+- `self_containment`
+- `function_purity`
+- `granularity`
+
+Each term must include:
+
+- `term`
+- `current_controlled_meaning`
+- `dangerous_competing_meanings`
+- `status`
+- `source_basis`
+
+### `04_decision_ladder.jsonl`
+
+This file must capture the layered reasoning instead of flattening it.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `decision_scope` (`surface_read`, `local_verdict`, `function_split`, `placement_decision`, `context_read`, `methodology_insight`)
+- `question_being_answered`
+- `judgment`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+### `05_candidate_excerpts.jsonl`
+
+This file must capture the resulting excerpt candidates.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `candidate_label`
+- `proposed_function`
+- `proposed_taxonomy_placement`
+- `why_it_deserves_its_own_excerpt`
+- `context_that_must_be_retained`
+- `completion_source_if_any`
+- `proposed_excerpt_text`
+- `source_basis`
+- `owner_relation`
+
+At minimum, this file must represent candidates for:
+
+- a pure disagreement-mention excerpt
+- a disagreement-plus-opinion-listing cluster if such a cluster is justified
+- a tarjih excerpt
+
+### `06_function_placement.jsonl`
+
+This file must classify each major segment.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `segment_label`
+- `surface_appearance`
+- `actual_function`
+- `proposed_placement`
+- `risk_if_misplaced`
+- `source_basis`
+- `owner_relation`
+
+At minimum include records for:
+
+- `واختلف العلماء في حقيقة اليد التي تقطع على أقوال:`
+- `وأصحها، ما ذهب إليه الجمهور،`
+- the surrounding-context continuation if used to complete the tarjih in the engineering layer
+
+### `07_question_cluster_analysis.jsonl`
+
+This file must capture the “what questions are answered together?” logic.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `cluster_label`
+- `texts_or_segments_in_cluster`
+- `shared_question_answered`
+- `why_keep_together_or_split`
+- `tight_link_status` (`too_tightly_linked`, `should_split`, `conditional`)
+- `risk_if_mishandled`
+- `source_basis`
+- `owner_relation`
+
+At minimum consider clusters such as:
+
+- disagreement mention + opinion listing
+- disagreement mention + tarjih
+- tarjih + explicit statement of the preferred view
+
+### `08_context_dependency_analysis.jsonl`
+
+This file must capture context / dependency analysis.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `trigger_text`
+- `possible_dependency_type`
+- `is_external_dependency_here` (`yes`, `no`, `unclear`)
+- `why`
+- `risk_if_handled_blindly`
+- `preferred_handling_in_this_case`
+- `source_basis`
+- `owner_relation`
+
+At minimum consider:
+
+- the opening `و`
+- whether the excerpt is clipped mid-function
+- whether the tarjih segment needs completion from surrounding context for engineering purposes
+
+### `09_nonnegotiables.jsonl`
+
+Translate this case into machine-readable constraints.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `statement`
+- `derived_from_ids`
+- `what_it_prevents`
+- `severity_if_violated`
+
+At minimum capture constraints like:
+
+- do not merge an unbiased disagreement marker with a scholar’s tarjih when they answer different questions
+- do not split disagreement mention from opinion listing if they are too tightly linked
+- do not let surrounding context rescue the owner verdict on the excerpt as given
+- do not treat every opening `و` as the same type of dependency
+- do not lose the attribution-critical nature of tarjih
+
+### `10_red_team_tests.jsonl`
+
+Create adversarial tests for this case.
+
+Each line must be a valid standalone JSON object.
+
+Each test must include:
+
+- `id`
+- `target_ids`
+- `test_type` (`mutation`, `contrast`, `stress`, `audit`, `simulation`)
+- `test_description`
+- `what_it_is_trying_to_expose`
+- `why_this_test_matters`
+
+At minimum include tests such as:
+
+- keep the excerpt merged and test loss of function purity
+- split disagreement mention from tarjih and test whether clarity improves
+- join disagreement mention with a full opinion listing and test whether that cluster is still coherent
+- treat the opening `و` as always externally dependent and compare against local-continuation reading
+- use surrounding context to complete the tarjih in the engineering layer only and confirm that the owner verdict on the excerpt as given stays unchanged
+
+### `11_priority_matrix.yaml`
+
+This file must rank the issue landscape.
+
+At minimum include:
+
+- strongest local reason for final questionnaire verdict
+- highest-risk function confusions
+- highest-risk attribution losses
+- highest-risk overmerge
+- highest-risk oversplit
+- most important methodology insight
+- most important context-handling requirement
+
+### `12_traceability.jsonl`
+
+This file must prove that my raw answer was not flattened.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `source_point_summary`
+- `source_basis`
+- `target_layer` (`owner_answer`, `engineering_collection`, `both`)
+- `routed_to_file`
+- `routed_to_ids`
+- `routing_rationale`
+
+### `13_open_questions.jsonl`
+
+Only include genuine unresolved owner-threshold questions or protocol gaps that still matter after reasoning.
+
+If none remain, emit an empty file.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+### `14_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what the final questionnaire verdict is and why
+- why the weaker verdict would flatten the real issue
+- what the deepest local failure is
+- what the most important function-splitting insight is
+- what the most important attribution insight is
+- what the most important methodology insight is
+- what would be reckless to ignore
+- what would be reckless to automate blindly
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_f4_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - final questionnaire verdict
+   - total decision steps
+   - total candidate excerpts
+   - total function placement records
+   - total question-cluster records
+   - total context-dependency records
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+
+## Final requirements
+
+- no generic filler
+- no shallow A/B/C answer
+- no fake completeness
+- no reopening excerpt review
+- no reopening F1/F2/F3/F7/F8 canon work
+- no “we should later...” except inside explicitly marked open questions
+- no capping the answer at my explicit raw comments
+- no flattening the hierarchy of my answer
+- no silently upgrading `model_expansion` into owner truth
+- no mistaking the excerpt as given for the corrected excerpt candidates built later from the surrounding context
+
+Most important:
+
+I do **NOT** want a shallow local answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this single excerpt reveals disagreement-marking, opinion-clustering, tarjih separation, attribution sensitivity, and intelligent context diagnosis** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.
+Otherwise proceed directly to generating the files and ZIP.

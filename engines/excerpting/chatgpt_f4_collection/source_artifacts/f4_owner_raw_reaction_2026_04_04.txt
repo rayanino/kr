@@ -1,0 +1,36 @@
+IMPORTANT IDEA: A POSSIBLE “DEFINITION” FOR AN EXCERPT IS LIKE A “quote” … So excerpts are kinda like ‘quotes’. Just like when a scholar quotes another scholar he may start by saying “this scholar said this after talking about x: …” to preserve context, … I realized this by looking at “واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور،” … this literally looks like something from an islamic lecture: “the islamic scholars have disagreed on what hand to cut, and allah albasaam said in his book تيسير العلام: “واختلف العلماء في حقيقة اليد التي تقطع على أقوال: وأصحها، ما ذهب إليه الجمهور”.”
+
+ANOTHER POINT: during my raw comment, you see me ask questions to identify excerpts, then reason around what questions should be “answered together” (= kept together as one excerpt) … this could be another methodology to identify excerpts. There should not be one safety net to identifying excerpts; this is the most important and sensitive part of the entire library, so there should be absolutely no room for looseness.
+
+—
+
+This excerpt is a “mentioning of the خلاف”. It is part of the “ruling”-section, but more specifically it consists of “mentioning of the خلاف”, followed by a “ترجيح”. This is a very important part of the library: THE ترجيح OF A SCHOLAR IS EXTREMELY IMPORTANT, BECAUSE IT’S WHAT IS ATTRIBUTED TO HIM.
+
+So “واختلف العلماء في حقيقة اليد التي تقطع على أقوال:” should definitely be an excerpt on its own (!!! WITHOUT THE “وأصحها، ما ذهب إليه الجمهور” … part !!!!!!!). Why? Because it is an “unbiased” fact, mentioning that there is indeed a dispute. A good leaf is for example “تحرير الخلاف”. When I open this leaf and browse it, I get a 100% certainty that ‘this is definitely a subject of dispute’. THIS IS IMPORTANT, BECAUSE AN IMPORTANT PART OF FIQH IS KNOWING HOW THE OPINIONS ARE DIVIDED.
+
+Now imagine if the text wasn’t “واختلف العلماء في حقيقة اليد التي تقطع على أقوال:”, but was this + followed by a listing of all the different opinions (unbiased still, just mentioning them all). That would still fall under this same leaf (“تحرير الخلاف”), because while “there is a dispute” and “the different opinions are” are technically two different levels of granularity, but THIS IS TOO GRANUAL, and they are too related. So in this case, mentioning “yeah, the scholars disputed around this” and “this is the collection of their differing opinions” should not be separated; it is too tightly linked. I think we should identify the protocol to identify “too tightly linked” excerpts.
+
+THIS BRINGS ME ON AN IDEA: a possible methodology for excerpting could be if we identify exactly what questions should be asked to identify an excerpt (a list of questions, for example, that if a piece of text answers all it is an excerpt candidate, like: “is this one subject to speak about”, “can it be further granulated”, …), but importantly: there should be heavy emphasis on “logical” reasoning and answering, so not only answering questions like “does this fall under the definition of an excerpt”, but also: “in the broader picture, looking at the previous parent-excerpt, does it make sense to excerpt this?”, “what are the benefits and harms of excerpting like this, and how do they weigh against each other”? …
+
+This excerpt is then followed by “وأصحها، ما ذهب إليه الجمهور، بل نقل فيه الإجماع، من أنها الكف التي تبتدئ من الكوع،”. This is a biased “ترجيح” of a specific scholar, answering the question: “what is the opinion of this particular scholar”, which is different than “what are the different opinions within this subject”. So, these should definitely be kept apart.
+
+ADDITIONAL NOTES:
+
+- i’ve always complained about the beginning of excerpts instantly raising questions, for example with “و”. But now, looking at this particular excerpt (that also starts with “و”) and its surroundings, I can realize that “و” - or any of those “vague” beginnings in general - may or may not be referencing any previous context. For example, “و” could be used to add on to something, or also to “continue” within the subject: the author just finished explaining something (about the bigger subject), then uses “و” to say “that, and further talking about the subject, also: …”. So, once again, the library should not be blind: encountering such a word should not blindly mean “ENCOUNTERED → ENFORCING PROTOCOL X” … no … instead, it should be an intelligent and deeply reasoned process to determine exactly what scenario we are found in and what should happen.
+
+## Critical rule about the surrounding context
+
+The questionnaire answer must evaluate the **excerpt as currently given**.
+
+The surrounding context is **diagnostic only**.
+
+Use surrounding context to:
+
+- understand the actual function of the excerpt
+- detect whether the excerpt is clipped
+- propose better excerpt boundaries
+- propose corrected excerpt candidates in the engineering layer
+
+But do **NOT** let the surrounding context silently rescue the questionnaire verdict.
+
+If the excerpt as given is incomplete, mixed, clipped, or mispackaged, the questionnaire answer must say so honestly even if the surrounding context lets you reconstruct a better unit.

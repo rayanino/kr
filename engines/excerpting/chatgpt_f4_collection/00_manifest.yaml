@@ -1,0 +1,46 @@
+question_id: F4
+bundle_id: chatgpt_f4_collection_bundle_2026_04_04
+version: 0.1.0
+status: completed_collection_bundle
+source_basis:
+- explicit_draft
+- inferred_from_prior_chat
+- model_expansion
+raw_owner_source_layer: engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_owner_raw_reaction_2026_04_04.txt
+raw_full_input_layer: engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_full_user_input_2026_04_04.txt
+files_emitted:
+- engines/excerpting/chatgpt_f4_collection/README.md
+- engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_full_user_input_2026_04_04.txt
+- engines/excerpting/chatgpt_f4_collection/source_artifacts/f4_owner_raw_reaction_2026_04_04.txt
+- engines/excerpting/chatgpt_f4_collection/00_manifest.yaml
+- engines/excerpting/chatgpt_f4_collection/01_questionnaire_answer.md
+- engines/excerpting/chatgpt_f4_collection/02_case_dossier.md
+- engines/excerpting/chatgpt_f4_collection/03_terms.yaml
+- engines/excerpting/chatgpt_f4_collection/04_decision_ladder.jsonl
+- engines/excerpting/chatgpt_f4_collection/05_candidate_excerpts.jsonl
+- engines/excerpting/chatgpt_f4_collection/06_function_placement.jsonl
+- engines/excerpting/chatgpt_f4_collection/07_question_cluster_analysis.jsonl
+- engines/excerpting/chatgpt_f4_collection/08_context_dependency_analysis.jsonl
+- engines/excerpting/chatgpt_f4_collection/09_nonnegotiables.jsonl
+- engines/excerpting/chatgpt_f4_collection/10_red_team_tests.jsonl
+- engines/excerpting/chatgpt_f4_collection/11_priority_matrix.yaml
+- engines/excerpting/chatgpt_f4_collection/12_traceability.jsonl
+- engines/excerpting/chatgpt_f4_collection/13_open_questions.jsonl
+- engines/excerpting/chatgpt_f4_collection/14_hard_judgment.md
+final_questionnaire_choice: C
+total_decision_steps: 8
+total_candidate_excerpts: 3
+total_function_placement_records: 4
+total_question_cluster_records: 4
+total_context_dependency_records: 4
+total_nonnegotiables: 9
+total_red_team_tests: 9
+total_explicit_draft_items: 53
+total_inferred_items: 5
+total_model_expansion_items: 3
+highest_risk_issue_families:
+- function_fusion
+- clipped_tarjih
+- attribution_loss
+- blind_context_handling
+- surface_function_misread
