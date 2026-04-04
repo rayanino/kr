@@ -20,6 +20,17 @@
       "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f2_collection/04_model_inference_non_authoritative.md",
       "summary_note": "Owner answered F-2 outside the review UI. Consult the raw source layer first, then the cleaned owner-answer layer.",
       "confidence": "high"
+    },
+    {
+      "interaction_id": "F-7",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f7_collection/source_artifacts/f7_owner_raw_draft_2026_04_04.txt",
+      "authoritative_owner_layer": "engines/excerpting/chatgpt_f7_collection/01_questionnaire_answer.md",
+      "machine_friendly_layer": "engines/excerpting/chatgpt_f7_collection/02_failure_dossier.md",
+      "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f7_collection/13_hard_judgment.md",
+      "summary_note": "Owner answered F-7 outside the review UI. Consult the raw owner draft first, then the cleaned owner-answer layer, then the broader engineering failure canon.",
+      "confidence": "high"
     }
   ]
 }

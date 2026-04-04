@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-03T17:28:38.458086+00:00",
+  "generated_at": "2026-04-04T05:06:07.479612+00:00",
   "total_slots": 40,
   "active_slots": 38,
   "blocked_slots": 2,
-  "answered_active_slots": 2,
-  "unanswered_active_slots": 36,
-  "completion_pct": 5.3,
+  "answered_active_slots": 3,
+  "unanswered_active_slots": 35,
+  "completion_pct": 7.9,
   "blocked_ids": [
     "CJ-2",
     "CJ-3"
@@ -15,7 +15,6 @@
     "F-4",
     "F-5",
     "F-6",
-    "F-7",
     "F-8",
     "G-1",
     "G-2",
@@ -52,16 +51,17 @@
   "duplicate_response_ids": [],
   "external_response_ids": [
     "F-1",
-    "F-2"
+    "F-2",
+    "F-7"
   ],
   "shadowed_external_ids": [],
   "confidence_counts": {
-    "high": 1,
+    "high": 2,
     "unset": 1
   },
   "phase_counts": {
     "Phase 1: Foundations": {
-      "answered": 2,
+      "answered": 3,
       "total": 8
     },
     "Phase 2: Dimension Deep Dives — Granularity": {

@@ -1,11 +1,11 @@
 {
   "audit_summary": {
-    "timestamp": "2026-04-03T17:29:08.914224+00:00",
+    "timestamp": "2026-04-04T05:06:07.527492+00:00",
     "total_interactions": 40,
     "active_interactions": 38,
     "blocked_interactions": 2,
-    "answered_active_interactions": 2,
-    "readiness_score": 0.053
+    "answered_active_interactions": 3,
+    "readiness_score": 0.079
   },
   "structural_alerts": {
     "missing": [
@@ -13,7 +13,6 @@
       "F-4",
       "F-5",
       "F-6",
-      "F-7",
       "F-8",
       "G-1",
       "G-2",
@@ -72,7 +71,6 @@
       "Evidence type splitting",
       "Example coupling",
       "Excerpting approach",
-      "Failure modes",
       "Genre uniformity",
       "Ideal/worst excerpt",
       "Implicit context",
@@ -123,7 +121,7 @@
         "total": 1
       },
       "Failure modes": {
-        "answered": 0,
+        "answered": 1,
         "total": 1
       },
       "Structure-risk preference": {
@@ -258,6 +256,7 @@
   },
   "external_response_ids": [
     "F-1",
-    "F-2"
+    "F-2",
+    "F-7"
   ]
 }
