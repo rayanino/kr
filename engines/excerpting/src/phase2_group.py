@@ -94,6 +94,10 @@ treating it as a universal topic introduction creates scope mismatch.
 (2) explain it, (3) defend/refute objections. Phases 1+2 belong together per \
 EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
 separate unit when it answers a different question than phases 1+2.
+- MENTION IS NOT EXCERPT: A topic being briefly mentioned in passing does NOT \
+make it an excerpt. Only create a teaching unit when the text substantively \
+discusses the topic (explains, rules on, or proves something about it). Brief \
+mentions in unrelated passages must not generate forced or empty excerpt units.
 - DEPENDENCY-FIRST SPLITS: Before splitting segments, ask what QUESTION each \
 segment answers. If two segments answer the same question (e.g., objection + \
 refutation both answer "what is the debate?"), they cannot be split regardless \

@@ -63,6 +63,38 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B3-SP2 | Boundary consistency audit | **SPEC-ONLY** | MAQ-030. Cross-passage comparison tests needed. Design deferred to evaluation phase. |
 | B3-SP3 | Malformation-first diagnosis | **SPEC-ONLY** | MAQ-028. Phase 3 note-handling: fix structure before optimizing notes. |
 | B3-SP4 | Boundary mustn't distort meaning | **VERIFIED** | MAQ-029. FP-1+3+9 collectively cover this. No additional FP needed. |
+| B4 | **BATCH 4: Granularity (17 MAQ atoms)** | **IMPLEMENTED** | 1 prompt rule (mention≠excerpt, +51w). 16 SPEC-only. Prompt: 1474/1500 (FULL). |
+| B4-P1 | Mention is NOT excerpt | **IN PROMPT** | MAQ-047. Owner ALL-CAPS: "a mention IS NOT A REASON TO EXCERPT." Anti-false-positive. |
+| B4-SP1 | Forgiving rule ~33% quantitative limit | **SPEC-ONLY** | MAQ-036. Dual-gate: percentage + character count. 10000/500 worked example. Calibration deferred to 30-book probe. |
+| B4-SP2 | Anti-duplication via sub-excerpting | **SPEC-ONLY** | MAQ-037. Don't copy whole passage to multiple leaves; sub-excerpt instead. |
+| B4-SP3 | Hukm-return visibility | **SPEC-ONLY** | MAQ-038. Short hukm-return in refutation OK, but hukm must also appear at hukm home. |
+| B4-SP4 | Intra-khilaf clustering | **SPEC-ONLY** | MAQ-039. Disagreement marker + opinion listing = one excerpt when answering same question. |
+| B4-SP5 | Question-cluster methodology | **SPEC-ONLY** | MAQ-040. Already partially captured in DEPENDENCY-FIRST SPLITS prompt rule. Full methodology in SPEC. |
+| B4-SP6 | Frozen excerpt immutability | **SPEC-ONLY** | MAQ-041. Tree revision must not rewrite frozen excerpts. Explicit in FP-4. |
+| B4-SP7 | Config-sensitivity audit trigger | **SPEC-ONLY** | MAQ-042. If excerpting changes with config, trigger audit. |
+| B4-SP8 | False contradiction mechanism | **SPEC-ONLY** | MAQ-043. Overgranulation creates false contradictions in sibling leaves. Added to FP-9 explanation. |
+| B4-SP9 | Granulation cascade example | **REFERENCE** | MAQ-044. Owner's al-sarf progressive example preserved as canonical reference. |
+| B4-SP10 | No hard character caps + no layout mutation | **SPEC-ONLY** | MAQ-045. Two principles: no caps, no mutation. |
+| B4-SP11 | Wrong location = nonexistent | **SPEC-ONLY** | MAQ-046. Example in wrong place = not existing. |
+| B4-SP12 | Theory-example vs practice-example | **SPEC-ONLY** | MAQ-048. Distinction + one-example-per-excerpt + archive concept. |
+| B4-SP13 | Solved-solver unity (EE-1 extension) | **SPEC-ONLY** | MAQ-049. Solutions NEVER separate from what they solve. |
+| B4-SP14 | A×B intertwined protocol | **SPEC-ONLY** | MAQ-050. If both short: duplicate. If A long B short: B stays in A. |
+| B4-SP15 | Readability ≠ correctness | **SPEC-ONLY** | MAQ-052. Readable output is not proven correct. |
+| B5 | **BATCH 5: Tarjih/Khilaf/Proof (21 MAQ atoms)** | **SPEC-ONLY** | Prompt FULL (1474/1500). All atoms go to SPEC or deferred. |
+| B5-SP1 | Attribution-critical tarjih | **SPEC-ONLY** | MAQ-053. Strengthen FP-8 with attribution-loss framing. |
+| B5-SP2 | Clipped tarjih prohibition | **SPEC-ONLY** | MAQ-054. Tarjih must include completion of preferred view. |
+| B5-SP3 | Hadith variant-mismatch risk | **SPEC-ONLY** | MAQ-056. Scholars may explain different wordings of same proof. |
+| B5-SP4 | Proof-as-witness not-memorization-source | **VERIFIED** | MAQ-058. FP-7 covers this. |
+| B5-SP5 | Parallel-layer principle (help beside source) | **SPEC-ONLY** | MAQ-059. Help never overwrites source. Extends FP-2. |
+| B5-SP6 | Provenance-auditability | **SPEC-ONLY** | MAQ-063. Every unit traceable to source+version+lineage. Extends D-023. |
+| B5-SP7 | Proof-stack cross-reference | **DEFERRED** | MAQ-067. Which proofs a scholar used together. Cross-engine. |
+| B5-SP8 | Interleaved methodology awareness | **SPEC-ONLY** | MAQ-069. topic→proof→explanation-with-rules→proof pattern. |
+| B5-SP9 | Footnote handling protocol | **SPEC-ONLY** | MAQ-071. Directly related footnotes never separated. Default: keep glued. |
+| B5-DEF | 7 atoms deferred (cross-engine) | **DEFERRED** | MAQ-057/060/061/062 (proof alignment, variant classification, analytics, layer chunking). |
+| B6 | **BATCH 6: Other (9 MAQ atoms)** | **SPEC-ONLY** | Mixed: 3 SPEC, 2 deferred, 1 prompt (FP-15 enforcement), 3 documented. |
+| B6-P1 | FP-15 rhetorical posture → prompt | **DEFERRED** | MAQ-I09. FP-15 is SPEC-only. Prompt enforcement deferred to corpus expansion per FP-15 text. |
+| B6-SP1 | No-layout-mutation principle | **SPEC-ONLY** | MAQ-I06. Don't change determined excerpt layout. |
+| B6-SP2 | Source completeness | **VERIFIED** | MAQ-I07. Covered by frozen source rules. |
 
 ---
 

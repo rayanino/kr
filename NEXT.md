@@ -25,6 +25,9 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 | **B1** | **Safety & Integrity batch (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers). FP-5/FP-2 strengthened, FP-19/20/21/22 added.** |
 | **B2** | **Self-Containment batch (5 MAQ atoms)** | **PRELIMINARY (1/3 coworkers). 4 prompt rules added (+210 words). Gemini found Bukhari title flaw → fixed.** |
 | **B3** | **Boundary & Grouping batch (10 MAQ atoms)** | **PRELIMINARY (1/3 Gemini). 3 prompt rules (+141w), 4 SPEC-only. Prompt: 1423/1500.** |
+| **B4** | **Granularity (17 MAQ atoms)** | **IMPLEMENTED. 1 prompt rule (+51w), 16 SPEC-only. Prompt: 1474/1500 (FULL).** |
+| **B5** | **Tarjih/Khilaf/Proof (21 MAQ atoms)** | **SPEC-ONLY. Prompt FULL. 9 SPEC rules, 7 deferred cross-engine.** |
+| **B6** | **Other (9 MAQ atoms)** | **SPEC-ONLY. 3 SPEC, 2 deferred, rest documented/verified.** |
 
 **Session 2 deliverables so far:**
 - MERGED_ATOM_QUEUE.md built (556 lines, 250 ideas, 88 actionable atoms, 0 silent drops)
@@ -34,15 +37,16 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 - SPEC now has 22 FPs (FP-1 through FP-22, excluding FP-18 numbering)
 
 **What's needed next:**
-1. **DR coworker confirmation for Batch 1** — relay prompt prepared, awaiting owner dispatch. Batch 1 stays PRELIMINARY until DR reviews.
-2. **Red-team test automation** — 2 highest-priority pytest cases (diacritic injection, split/merge mutation) need creation before Batch 2.
-3. **Batch 2: Self-Containment (10 MAQ atoms)** — highest prompt-impact batch. Prompt is at ~1072 words (cap 1500). Atoms: surface-function misread, title-retention asymmetry, forgiving-retention, two-layer model, anti-heuristic principle.
-4. **Remaining batches:** Boundary & Grouping (B3), Granularity (B4), Tarjih/Khilaf/Proof (B5), Other (B6).
+1. **DR coworker confirmation** — combined relay prompt prepared for Batches 1-3. All files pushed to remote branch. Batches stay PRELIMINARY until DR reviews.
+2. **SPEC §6 formalization** — Batch 4/5/6 SPEC-only atoms need formal §6 subsection entries (not just ledger documentation). ~30 rules to add.
+3. **Red-team test expansion** — 62 tests documented, only 9 automated. Create additional pytest cases for highest-priority tests.
+4. **Empirical validation** — run atom_test.py against taysir fixture with the hardened prompt to verify new rules don't cause regressions.
+5. **Prompt optimization** — 1474/1500 words. If empirical validation shows LLM ignoring late rules (primacy bias), consider REPLACING lower-priority rules with higher-priority ones.
 
 **Next steps (executing now):**
-1. Create red-team pytest cases for diacritic injection (F7-RT-001) and split/merge mutation (F7-RT-002)
-2. Begin Batch 2: Self-Containment — read source files, dispatch all 3 coworkers
-3. Continue batch processing through B3-B6
+1. Commit and push Batches 4-6 to remote
+2. Formalize SPEC §6 entries for the ~30 SPEC-only atoms
+3. Run empirical validation (atom_test.py) on the hardened prompt
 
 **Pre-existing test failure:** `test_phase2_integration.py::test_classify_and_normalize` fails with 401 (expired OpenRouter API key). Not related to hardening changes. Confirmed pre-existing on clean master.
 
