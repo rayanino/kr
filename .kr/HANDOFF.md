@@ -32,7 +32,8 @@ F1-F8 collections contain 139 files of deep analysis. Session 1 only processed ~
 
 ## Current resume point
 
-1. Read `engines/excerpting/reference/ATOM_PROTOCOL.md`
+1. **START HERE:** Read `reference/handoffs/excerpting_foundations_session2_kickoff_2026-04-04.md` — the detailed kickoff prompt
+2. Read `engines/excerpting/reference/ATOM_PROTOCOL.md`
 2. Read the extraction docs (if they exist) at `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` and `CRITICAL_ATOMS_NONNEGOTIABLES_AND_REDTEAM.md`
 3. If extraction docs don't exist: start reading `*_nonnegotiables.jsonl` and `*_red_team_tests.jsonl` from each F-collection
 4. Process atoms one at a time. Every atom gets Codex CLI + Gemini CLI + DR coworker.
