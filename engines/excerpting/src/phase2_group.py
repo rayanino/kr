@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ═══════════════════════════════════════════════════════════════════
 
-# System prompt copied VERBATIM from SPEC §5.3.2 (lines 921–993).
+# System prompt copied VERBATIM from SPEC §5.3.2.
 # Only {structural_format} is substituted at call time (DD-S2-1).
 GROUP_SYSTEM_PROMPT = """\
 You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
@@ -50,6 +50,12 @@ A teaching unit is the smallest segment a student could study and learn
 something complete from.
 
 GROUPING RULES:
+- GENERAL PRINCIPLE (EE-1): An explained object and its immediately \
+following explanation form one teaching unit by default. The explained \
+text is context for the explanation — separating them orphans the \
+explanation. This applies to: hadith + sharh, verse (matn) + commentary, \
+definition + examples, principle + reasoning, ruling + evidence. Split \
+only when a different scholarly function boundary begins.
 - A position (opinion_statement) + its evidence + any counter-evidence
   + conclusion = one unit
 - A definition + its examples = one unit
@@ -68,6 +74,10 @@ benefits from the preceding hadith.
 - Exception: consecutive items that are fragments of one immediate ruling \
 cluster AND are individually under 20 words may be grouped into one excerpt.
 - If uncertain whether items are same-topic or different-topic, SPLIT.
+  (This split-on-uncertainty rule is specific to derived benefits and \
+numbered items. For general grouping, prefer keeping related content \
+together per EE-1 rather than splitting aggressively — overgranulation \
+is more harmful than undergranulation, FP-9.)
 - The hadith text + gharib + المعنى الإجمالي form the inseparable core \
 of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
 
@@ -87,9 +97,12 @@ DECONTEXTUALIZATION PREVENTION (critical):
 - Evidence cited for a ruling MUST stay with the ruling
 - A condition and its exception (rule + إلا clause) belong together
 - A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
-  selects among competing positions MUST remain with the alternatives it
-  judges. Without the alternatives, the verdict reads as a standalone
-  ruling and the reader cannot evaluate the reasoning.
+  selects among competing positions should remain with the alternatives it
+  judges when the alternatives are only briefly mentioned. However, when a
+  long dispute section extensively lists multiple opinions with evidence,
+  the tarjīḥ conclusion MAY be a separate teaching unit (see FP-8).
+  Default: keep together unless the dispute section is substantial enough
+  to stand alone as a distinct teaching unit.
 - Qualifications and disclaimers (لكن، غير أن، إلا أن، على خلاف) MUST
   remain with the statement they qualify. A rule without its qualification
   is actively misleading.
@@ -104,9 +117,16 @@ C-SC-1 (Term Resolution): Every technical term is either defined within the
   unit, is standard terminology any student of the science would know, or is
   flagged as requiring external knowledge.
 
-C-SC-2 (Reference Resolution): Every pronoun, demonstrative, or anaphoric
-  reference (هذا، المذكور، ما تقدم) resolves within the unit. No dangling
-  references to text outside the unit.
+C-SC-2 (Reference Resolution): Every pronoun, demonstrative, anaphoric
+  reference, or IMPLIED dependency resolves within the unit. No dangling
+  references to text outside the unit. Watch for:
+  - Visible: هذا/هذه/هؤلاء, المذكور/ما تقدم/ما سبق, pronoun suffixes
+    (ـه/ـها/ـهم/ـهما), opening conjunctions (لأن/فإن)
+  - Invisible (taqdir): implied subjects in قال/ذهب/رأى where the speaker
+    is determined from prior context, not stated in this unit
+  Note: opening و does NOT always indicate a dangling reference — it may
+  simply continue within the same topic. Reason about whether each referent
+  (visible or implied) resolves inside the unit. Do not flag blindly.
 
 C-SC-3 (Evidence Completeness): Every evidence citation either includes its
   text, is a universally known citation identifiable by its opening words

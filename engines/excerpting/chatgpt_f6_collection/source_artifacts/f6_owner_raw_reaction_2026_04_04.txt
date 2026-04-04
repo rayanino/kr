@@ -1,0 +1,39 @@
+First of all, I would realize this is a proof coming directly from a science book (not a source book like al-bukhari), which is automatically a read flag concerning directly memorizing this hadith like this. I would not memorize it from this source.
+
+But what I would do, though, is I would take a deep look at it and compare it with the hadiths from the authoritative proof-sources (which should also be present in the library; these are the proofs I actually memorize directly). My goal would be to get a deep understanding and overview of the different versions of the hadith that scholars based their explanations on. And also: I would try to analyze and find any links between “the scholars who chose version x of the proof made conclusion y, because version x contained this and that and …”. ANALYSIS. DEEP ANALYSIS AND UNDERSTANDING.
+
+Actually, I just realized that I would be doing one of the main things the library should be facilitating for me: easing the process of gathering, analyzing, searching, … So this actually brings up an important principle concerning the proofs present in the library:
+
+we’ve already established that for every proof present in the library, there should also be a copy that will actually directly be memorized: a certified proof fetched directly from the libraries proof-sources. But there should still be a relationship between these two categories of sources. The relationship I just came to; showing the differences present in the versions of the proofs scholars have based their explanation / evidence on, and if this is substantial or not.
+
+For example;
+
+The fetched trustworthy proof present in the library is hadith: “Aa”, “Ab”, “Ac” (three versions of one hadith as is common with hadiths). This is a hadith we fetched directly from sunnah.com. We fetched this because one of the excerpts contains this hadith, but since the owner does not memorize hadiths directly from books (since, as aforementioned, books usually do not spend much time at diacritics, source, chain, wording, … of hadiths), this hadith was also fetched.
+
+The version found in the book is “Ab”.
+
+If “Ab” vs “Aa” and “Ac” differ only in non-significant wording that doesn’t change the meaning / derived ruling, then this should be indicated.
+
+But if it changed rulings, definitions, meanings, … then this should be indicated + clearly highlighted. THIS GIVES AN UNPRECEDENTED ADVANTAGE: the owner can clearly understand how DIFFERENT WORDINGS OF THE SAME PROOF CHANGED THE PERSPECTIVE OF SCHOLARS. This is extremely important and something that is VERY HARD TO DO MANUALLY, especially with longer proofs.
+
+In general, I think DATA ANALYSIS AND PROCESSING LARGE DATA AND GIVING INSIGHTS FROM THAT (especially significant things like the percentage of scholars who chose a specific opinion, …) is A CORE ASPECT THAT WILL MAKE THE OWNER AN UNPRECEDENTED SCHOLAR. NOBODY HAD THIS BEFORE. It’s always been “most scholars”, “many scholars”, … never data. INDICATE THIS CLEARLY. MAKE SURE THIS IS NOT LOST, AND NOTE A “LOST IDEA”.
+
+To answer the f question: the way I’ve always wanted to memorize and read hadiths is that they are separated in memorizable chunks:
+
+عَنْ فَاطِمَةَ بِنْتِ قيْس: 
+
+أنً أبَا عَمْرِو بْن حَفْص طَلقهَا ألبته وَهُو غَائِب.
+
+وفي رواية: طلَقَهَا ثلاثا فأرسل إلَيْهَا وَكِيلَة بِشَعِير، فَسَخِطَته فَقَالَ: والله مَالَكِ عَلَينا منْ شيء.
+
+فَجَاءت رَسُول الله صلى الله عليه وسلم فَذَكرَتْ ذلِكَ لَهُ، 
+
+فقالَ: " ليْسَ لكَ عَلَيْهِ نَفَقَة" وفي لفظ "وَلا سكْنَى".
+
+فَأمَرَهَا أن تَعتَدً في بَيْتِ أم شَريكٍ، 
+
+ثم قالَ: " تِلكَ امرَأة يَغشَاهَا أصحابي، اعتدي عنْدَ ابنِ أم مكتوم، فَإنَهُ رَجُل أعمَى، تَضَعِينَ ثِيابَكِ عِنْدَهُ، فَإذا حللتِ فآذنيني ".
+
+BUT IMPORTANTLY: this “structuring” should not happen to the original author’s text. The original text should not be altered, only excerpted.
+
+Instead, how I want proofs to be structured should be applied to the fetched definitive to-memorize proofs. And it makes sense too; since these are the proofs I will be studying, so they need to be structured in a study-friendly way. But I think instead of putting effort into layout - which is closely related to the ui of the library which is not the stage we are at right now - we should focus more on getting the pipeline to work, which IS our current focus.

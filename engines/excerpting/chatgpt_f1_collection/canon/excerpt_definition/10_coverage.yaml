@@ -1,0 +1,176 @@
+dimensions:
+  - name: self_containment
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no positive passing case
+      - acceptable-vs-directly-study-ready threshold not fixed
+    reckless_to_freeze:
+      - full self-containment doctrine
+
+  - name: context
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no settled doctrine for permitted context add-ons
+      - no stable context taxonomy beyond current provisional split
+    reckless_to_freeze:
+      - final context doctrine
+
+  - name: boundary
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no hard protocol for mixed rule/proof units
+      - no operational threshold for strategic overlap
+    reckless_to_freeze:
+      - universal split/merge rules
+
+  - name: granularity
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - mention-vs-topic threshold unresolved
+      - burden metric unresolved
+    reckless_to_freeze:
+      - final granularity doctrine
+
+  - name: function
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - limited evidence outside the reviewed structural families
+      - no full taxonomy of functions yet
+    reckless_to_freeze:
+      - universal function taxonomy
+
+  - name: attribution_quote_layer
+    current_support_level: low
+    supporting_case_refs: [ext_46_qa:9, ibn_aqil_v1:11]
+    major_gaps:
+      - only one strong quote-layer proof case
+      - no long or nested quote cases
+    reckless_to_freeze:
+      - quote-splitting doctrine
+      - full attribution doctrine
+
+  - name: rule_vs_proof
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11]
+    major_gaps:
+      - no long multi-proof stack
+      - no settled split protocol
+    reckless_to_freeze:
+      - full rule/proof decision tree
+
+  - name: theory_vs_example
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - dual placement not validated across multiple clean implementations
+      - no non-grammar positive case
+    reckless_to_freeze:
+      - universal example-placement doctrine
+
+  - name: relation_integrity
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v3:13]
+    major_gaps:
+      - no explicit tested representation of proof stacks
+      - no quote-link preservation across splits
+    reckless_to_freeze:
+      - full relation-integrity doctrine
+
+  - name: study_readiness
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - still no positive passing case
+      - no settled distinction between minimal pass and high quality
+    reckless_to_freeze:
+      - final study-readiness definition
+
+  - name: omission_honesty
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v3:13]
+    major_gaps:
+      - one main pressure case only
+      - no settled signaling method
+    reckless_to_freeze:
+      - omission-signaling doctrine
+
+  - name: footnotes
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - only one footnote-heavy case
+      - no taxonomy by footnote type
+    reckless_to_freeze:
+      - footnote doctrine
+
+hard_case_families:
+  - family: backward_dependent_entries
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no positive resolved counterpart
+    reckless_to_freeze:
+      - broader acceptability threshold
+
+  - family: mixed_rule_proof_units
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9]
+    major_gaps:
+      - no long multi-proof stack
+      - no settled split protocol
+    reckless_to_freeze:
+      - universal rule/proof split rule
+
+  - family: quote_layered_material
+    current_support_level: low
+    supporting_case_refs: [ext_46_qa:9]
+    major_gaps:
+      - no long quote
+      - no nested quote
+    reckless_to_freeze:
+      - quote-layer canon
+
+  - family: matn_sharh_example_overload
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - no contrasting positive matn/sharh case
+    reckless_to_freeze:
+      - matn/sharh packaging doctrine
+
+  - family: sibling_topic_merge
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v3:13, ibn_aqil_v1:11]
+    major_gaps:
+      - no positive strategic-overlap pass
+    reckless_to_freeze:
+      - final sibling-topic split doctrine
+
+  - family: omission_honesty
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v3:13]
+    major_gaps:
+      - no implemented omission marker comparison
+    reckless_to_freeze:
+      - final omission-honesty mechanism
+
+  - family: footnote_heavy_units
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - single source family only
+    reckless_to_freeze:
+      - any general footnote policy
+
+  - family: theory_facing_vs_practice_facing_examples
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no validated positive implementation
+    reckless_to_freeze:
+      - dual-placement rule

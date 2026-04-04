@@ -6,45 +6,36 @@
 # KR Handoff
 
 ## Session purpose
-Build the excerpting evaluation layer v1 and patch all observability gaps in the runner.
+Foundations hardening session 1: initial SPEC hardening from F1-F8 owner feedback, empirical validation, 5 DR coworker reports, environment preparation for session 2.
 
 ## What this session completed
 
-### Evaluation layer (8 new files)
-- `scripts/excerpting_eval/{__init__, models, ingest, analysis, packet}.py` — shared module
-- `scripts/analyze_excerpting_run.py` — per-book analyzer
-- `scripts/analyze_excerpting_campaign.py` — campaign aggregator
-- `scripts/export_excerpting_review_packet.py` — review packet exporter
+### SPEC Hardening (SPEC grew from 2387 to 2530 lines)
+- FP-1 through FP-18 in §1.1b (18 foundational principles)
+- EE-1 (explained+explanation unity) as §6.4b
+- NC-1 (context resolution hierarchy) in §3
+- MV-1 (minimum viability, 25-word floor) in §5.3
+- Hadith sequence fix in §6.3, tarjih softened, C-SC-2 expanded with taqdir
 
-### Runner observability patches (2 files modified)
-- `scripts/run_integration_test.py` — failure ledgers, validation drops, gate verification, trace metadata, call-level error propagation
-- `engines/excerpting/src/phase3_orchestrator.py` — `Phase3Result.validation_drops` field + set-diff computation
+### Prompt Changes (phase2_group.py)
+- EE-1 general unity rule, expanded C-SC-2, tarjih MAY, FP-9 scope
 
-### Analyzer bug fix
-- `scripts/excerpting_eval/packet.py` — book-level key collision fixed (B1)
+### Empirical Validation
+- Taysir: EE-1 2/2 PASS. Ibn Aqil: 32/32 PASS.
 
-### Analyzer upgrades for new artifacts
-- Consumes `validation_drops.jsonl` → upgrades evidence to OBSERVED
-- Consumes `phase2a/2b_failures.jsonl` → new `detect_phase_failures` detector
-- Reads `semantic_phase` from trace requests when present → skips content inference
+### Tools: `scripts/atom_test.py`, `scripts/check_prompt_spec_sync.py`
 
-## All 6 regression checks pass
-1. taysir grouped-unit loss (indices [2, 9]) — detected
-2. ibn_aqil_v3 zero-output — detected
-3. truncation finish_reason=length — detected
-4. client-label ambiguity — no false anomaly
-5. semantic phase inference — 4/4 correct
-6. clean books — 3/3 STRUCTURALLY_CLEAN
+### 5 DR Reports archived at `evaluation_reports/dispatch_packets/foundations_hardening_2026_04_04/`
 
-808 excerpting engine tests pass, 0 failures.
-
-## Deferred flaw: L-001
-
-**chunk_id not in raw LLM traces.** The runner sets `semantic_phase` but cannot set `chunk_id` because phase functions iterate internally. Requires threading `trace_context` through `run_phase2a` → `classify_chunk` and `run_phase2b` → `group_chunk`.
-
-**Documented in:** `scripts/excerpting_eval/KNOWN_LIMITATIONS.md`
-**When to fix:** Before the first campaign that processes >1 chunk per book. The current test data uses 1 chunk per book, so this is dormant.
-**Impact if unfixed:** Analyzer infers chunk association from call sequence — works but fragile for multi-chunk runs.
+### Critical Discovery
+F1-F8 collections contain 139 files of deep analysis. Session 1 only processed ~15. Remaining 124 files contain nonnegotiables, red-team tests, decision ladders, linking dependencies, and open questions that must be processed atom-by-atom.
 
 ## Current resume point
-Resume from `ACTIVE.md`. The frontier is completed. Owner decision needed on next frontier.
+
+1. Read `engines/excerpting/reference/ATOM_PROTOCOL.md`
+2. Read the extraction docs (if they exist) at `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` and `CRITICAL_ATOMS_NONNEGOTIABLES_AND_REDTEAM.md`
+3. If extraction docs don't exist: start reading `*_nonnegotiables.jsonl` and `*_red_team_tests.jsonl` from each F-collection
+4. Process atoms one at a time. Every atom gets Codex CLI + Gemini CLI + DR coworker.
+5. Use `scripts/atom_test.py` for empirical validation of prompt changes.
+
+Do not skip files. Do not batch atoms. Do not finalize without three coworker reports.

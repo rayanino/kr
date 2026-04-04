@@ -1,0 +1,23 @@
+strongest_local_reason_in_owner_answer: This text is a scholar-book proof witness,
+  not the definitive proof wording I directly memorize.
+highest_risk_trust_issue: Treating a science-book rendering as the final authoritative
+  proof layer.
+highest_risk_proof_layer_issue: Collapsing scholar-book witness and authoritative
+  fetched proof into one undifferentiated layer.
+highest_risk_memorization_issue: Direct memorization from the wrong layer because
+  it happens to be readable and present.
+highest_risk_wording_variant_issue: Failing to indicate when wording differences materially
+  affect meaning, ruling, or explanation.
+most_important_preservation_requirements:
+- preserve original scholar-book wording unaltered
+- preserve the link between scholar-book witness and authoritative fetched proof
+- preserve explicit variant significance signaling
+most_important_analysis_opportunities:
+- map scholar conclusions to the proof variants they relied on
+- distinguish significant from non-significant wording differences
+- produce large-scale proof/opinion analytics without collapsing layers
+most_important_uncertainty_gate_requirements:
+- escalate when the system cannot confidently classify a wording difference as significant
+  or non-significant
+- escalate when a new scholar methodology does not fit existing patterns
+- never assume hard rules have already covered all future proof/explanation structures

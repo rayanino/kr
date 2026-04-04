@@ -1,0 +1,163 @@
+- term: summary_note
+  current_controlled_meaning: A generated or added note meant to orient the reader
+    before or alongside an excerpt.
+  dangerous_competing_meanings:
+  - A substitute for the original source context.
+  - Proof that the underlying excerpt structure is sound.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: note_compensation
+  current_controlled_meaning: A note that is helpful only because a deeper structural
+    failure already happened.
+  dangerous_competing_meanings:
+  - A normal optional enhancement.
+  - The ideal form of context preservation.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: explained_text
+  current_controlled_meaning: The source text, proof text, or quoted material that
+    an explanation is actually explaining.
+  dangerous_competing_meanings:
+  - Any broad topic label.
+  - Any text loosely related to the same subject.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: explanation_text
+  current_controlled_meaning: The scholar’s or author’s explanation built on a particular
+    explained text and its assumptions.
+  dangerous_competing_meanings:
+  - A self-sufficient replacement for the explained text.
+  - A generic summary detached from its source anchor.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: explained_explanation_unity
+  current_controlled_meaning: The pressure to keep an explanation attached to what
+    it explains when separation would create hunting or integrity risk.
+  dangerous_competing_meanings:
+  - A ban on any separation whatsoever.
+  - A mere stylistic preference.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: orphaned_explanation
+  current_controlled_meaning: An explanation displayed without enough of the explained
+    material or source context to stand safely on its own.
+  dangerous_competing_meanings:
+  - Any explanation excerpt.
+  - Any concise explanation.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: book_preserved_proof
+  current_controlled_meaning: The proof material preserved exactly as found in a scholar’s
+    book.
+  dangerous_competing_meanings:
+  - The final authoritative source layer for memorization.
+  - A dispensable duplicate once canonical fetching exists.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: authoritative_fetched_proof
+  current_controlled_meaning: A proof record fetched from its own authoritative source
+    collection and confirmed for study use.
+  dangerous_competing_meanings:
+  - Automatically identical to the wording a scholar explained.
+  - A replacement for all book-preserved proof excerpts.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: hadith_variant_risk
+  current_controlled_meaning: The risk that different hadith wordings, routes, or
+    versions are treated as interchangeable when they are not.
+  dangerous_competing_meanings:
+  - Minor cosmetic wording variation only.
+  - A concern that can be ignored once a broad hadith title is known.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: grading_sensitivity
+  current_controlled_meaning: The possibility that an explanation depends on a particular
+    authenticity or grading assumption.
+  dangerous_competing_meanings:
+  - Purely metadata with no effect on explanation.
+  - Always already resolved by fetched proof layers.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: source_integrity
+  current_controlled_meaning: Keeping the library as close as possible to original
+    wording, structure, and source-specific relations where it matters.
+  dangerous_competing_meanings:
+  - Never summarizing anything under any condition.
+  - Readability at the expense of preserving what was actually in the source.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: proof_layer
+  current_controlled_meaning: The layer of the library concerned with the sources,
+    evidences, or proofs themselves.
+  dangerous_competing_meanings:
+  - A single flat repository of proofs with no distinction between preserved and authoritative
+    forms.
+  - Whatever text happens to mention a proof.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: explanation_layer
+  current_controlled_meaning: The layer containing scholars’ explanations, analyses,
+    or reasoning about proofs and rulings.
+  dangerous_competing_meanings:
+  - Always safely separable from the proof layer.
+  - The same thing as the proof layer.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: methodology_variability
+  current_controlled_meaning: The fact that scholars can structure rule, proof, and
+    explanation differently, including in ways not yet anticipated.
+  dangerous_competing_meanings:
+  - Noise that rules can safely ignore.
+  - A rare edge case with no architectural consequence.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: uncertainty_gate
+  current_controlled_meaning: A safeguard that prevents confident automated action
+    when the system is not sufficiently certain about structure or linkage.
+  dangerous_competing_meanings:
+  - An optional nice-to-have.
+  - Equivalent to generic low-confidence wording without concrete effect.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: knowledge_integrity
+  current_controlled_meaning: The priority of preserving correct source meaning, relations,
+    and confidence over neatness or convenience.
+  dangerous_competing_meanings:
+  - General quality only.
+  - Aesthetic tidiness.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: context_block
+  current_controlled_meaning: A deliberately separated block carrying contextual material
+    needed for safe understanding of the main excerpt.
+  dangerous_competing_meanings:
+  - Any note.
+  - A hidden metadata field that the reader never sees.
+  status: working
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: source_preserving_context
+  current_controlled_meaning: Context carried from the original source itself rather
+    than rephrased into a generated summary note.
+  dangerous_competing_meanings:
+  - A perfect solution in every case.
+  - Just a longer note.
+  status: working
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

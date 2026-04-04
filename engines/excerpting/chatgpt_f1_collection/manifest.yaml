@@ -1,0 +1,31 @@
+collection_id: chatgpt_f1_collection
+status: partial_evidence_preserved
+date: 2026-04-03
+
+authoritative_canon_dir: engines/excerpting/reference/excerpt_definition_canon
+collection_canon_dir: engines/excerpting/chatgpt_f1_collection/canon/excerpt_definition
+
+source_artifacts:
+  - path: engines/excerpting/chatgpt_f1_collection/source_artifacts/chatgpt_bundle_raw_2026_04_03.txt
+    kind: raw_chatgpt_bundle
+    status: preserved
+    note: Windows-side saved multi-file bundle copied into repo-local provenance lane.
+  - path: engines/excerpting/chatgpt_f1_collection/source_artifacts/f1_owner_original_notes_2026_04_03.txt
+    kind: raw_owner_source_notes
+    status: preserved
+    note: >
+      Owner's first-person raw F1 notes and original excerpt-review feedback bundle, copied
+      verbatim from the Windows-side desktop file.
+
+owner_raw_notes:
+  status: preserved
+  expected_kind: raw_owner_source_notes
+  note: >
+    The raw owner-notes layer is now anchored at
+    `engines/excerpting/chatgpt_f1_collection/source_artifacts/f1_owner_original_notes_2026_04_03.txt`.
+    Treat it as a first-class evidence artifact distinct from both the ChatGPT bundle and the
+    promoted authoritative canon.
+
+usage_rule:
+  - Treat this folder as provenance/evidence, not as the authoritative doctrine lane.
+  - When handling F1 later, consult the raw owner notes, the raw ChatGPT bundle, the collected canon, and the authoritative canon.

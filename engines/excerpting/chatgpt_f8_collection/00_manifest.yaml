@@ -1,0 +1,44 @@
+question_id: F8
+bundle_id: chatgpt_f8_collection_bundle
+version: 0.1.0
+status: collection_preservation_bundle
+source_basis:
+- explicit_draft
+- inferred_from_prior_chat
+- model_expansion
+raw_owner_source_layer: engines/excerpting/chatgpt_f8_collection/source_artifacts/f8_owner_raw_draft_2026_04_04.txt
+files_emitted:
+- engines/excerpting/chatgpt_f8_collection/README.md
+- engines/excerpting/chatgpt_f8_collection/source_artifacts/f8_owner_raw_draft_2026_04_04.txt
+- engines/excerpting/chatgpt_f8_collection/00_manifest.yaml
+- engines/excerpting/chatgpt_f8_collection/01_questionnaire_answer.md
+- engines/excerpting/chatgpt_f8_collection/02_assessment_dossier.md
+- engines/excerpting/chatgpt_f8_collection/03_terms.yaml
+- engines/excerpting/chatgpt_f8_collection/04_decision_ladder.jsonl
+- engines/excerpting/chatgpt_f8_collection/05_guidance_boundaries.jsonl
+- engines/excerpting/chatgpt_f8_collection/06_failure_taxonomy.jsonl
+- engines/excerpting/chatgpt_f8_collection/07_scenarios.jsonl
+- engines/excerpting/chatgpt_f8_collection/08_thresholds.jsonl
+- engines/excerpting/chatgpt_f8_collection/09_nonnegotiables.jsonl
+- engines/excerpting/chatgpt_f8_collection/10_red_team_tests.jsonl
+- engines/excerpting/chatgpt_f8_collection/11_priority_matrix.yaml
+- engines/excerpting/chatgpt_f8_collection/12_traceability.jsonl
+- engines/excerpting/chatgpt_f8_collection/13_open_questions.jsonl
+- engines/excerpting/chatgpt_f8_collection/14_hard_judgment.md
+selected_questionnaire_choice: C
+total_decision_steps: 8
+total_guidance_boundaries: 8
+total_failure_categories: 10
+total_scenarios: 18
+total_thresholds: 6
+total_nonnegotiables: 10
+total_red_team_tests: 10
+total_explicit_draft_items: 51
+total_inferred_items: 20
+total_model_expansion_items: 8
+highest_risk_families:
+- excerpt_corruption
+- taxonomy_bias
+- stage_contamination
+- silent_misclassification
+- overgranulation_confusion

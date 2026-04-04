@@ -1,0 +1,15 @@
+## My current rough answer
+
+The failure that worries me the most is the excerpting and getting rightful excerpts. An excerpt being placed at the wrong taxonomy leaf does not worry me nearly as much as excerpts being wrong. A wrong excerpt means a corruption in knowledge, and even worse: it means pretty much the entire book this excerpt came from needs to be re-ran since one wrong excerpt means the entire structure probably got corrupted in some way; the other excerpts from this book cannot be trusted → the excerpting engine cannot be trusted → my entire knowledge base becomes invalid.
+
+An excerpt being placed at the wrong leaf is still catastrophic, and would also put my knowledge in question. But the big difference is: an excerpt at a wrong taxonomy leaf is a failure that can be spotted. But a knowledge corruption is silent and dangerous, and decades worth of study can be built upon it.
+
+What also worries me: excerpting-bias. Which means: excerpting being based on something else than the source itself and what atoms make sense together, like for example: excerpting being done to fit the current taxonomy tree.
+
+In either case, whether the taxonomy trees are correctly granulated, too granulated, or not granulated enough, the output of the excerpting engine if ran in each of the three scenarios should be exactly the same.
+
+But assuming the excerpting output is correctly received, what failure in the taxonomy placement worries me the most? I would say: I think an overgranulated tree is the most dangerous. Because when I open the excerpts in not enough granulated tree (undergranulated), I would easily recognize ‘this group of excerpts and that group of excerpts talk about different topics, both needs their own leaf’, which would be disappointing and problematic to encounter but easier to solve … I would just realize the science goes a little deeper than what the tree shows, and can probably solve the puzzle of how the missing granulation should look like myself.
+
+But in an overgranulated tree, the puzzle to solve is much harder. It is asking about the “common denominator” of excerpts … and it would cause genuine confusion.
+
+... much like how it's easier to cut-up a cake rather than re-assembling a cut up cake ...

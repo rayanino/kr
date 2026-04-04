@@ -1,0 +1,36 @@
+highest_danger_overall:
+- excerpt_corruption caused by taxonomy bias
+- stage contamination where structure enters excerpt truth
+- silent corruption discovered after long-term study
+highest_danger_within_question_scope:
+- guidance used at excerpting rather than placement
+- excerpt output changing across tree granularities
+- validation or revision stages covertly rewriting excerpt truth
+most_silent_failures:
+- taxonomy-guided excerpt cuts
+- placement-fit validation silently suppressing rightful excerpts
+- silent excerpt corruption discovered only years later
+most_visible_but_recoverable_failures:
+- wrong leaf placement with excerpt truth intact
+- undergranulated leaf where the missing split is obvious
+hardest_to_repair_failures:
+- systemic invariance failure
+- retroactive excerpt rewriting after tree revision
+- years-later discovery that excerpting was biased
+most_dangerous_guidance_violations:
+- using current tree shape to decide excerpt boundaries
+- using placement fit as a proxy for excerpt correctness
+- letting revised taxonomy rewrite already-frozen excerpt truth
+most_dangerous_overgranulation_effects:
+- common-denominator confusion
+- false fragmentation of one natural topic
+- apparent contradictions created by overcut siblings
+most_dangerous_undergranulation_effects:
+- blurred distinctions within one leaf
+- reduced precision during study
+- extra mental splitting work for the user
+most_important_boundaries_to_defend:
+- excerpting vs taxonomy placement
+- placement vs validation
+- placement vs presentation
+- tree revision vs excerpt invariance

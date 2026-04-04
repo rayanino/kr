@@ -1,0 +1,151 @@
+- term: excerpt_candidate
+  current_controlled_meaning: "A bounded unit proposed as one primary study object or one tightly bound explanatory cluster."
+  dangerous_competing_meanings:
+    - "Any highlighted fragment from a source."
+    - "Any text chunk about the right broad area."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-004, CS-005]
+
+- term: acceptable_excerpt
+  current_controlled_meaning: "An excerpt candidate that preserves enough frame, function, and referential clarity to avoid essential backward hunting or guesswork."
+  dangerous_competing_meanings:
+    - "Anything whose theory can be reconstructed eventually."
+    - "Anything that is not obviously wrong."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: directly_study_ready_excerpt
+  current_controlled_meaning: "An acceptable excerpt that can be entered and studied directly without unresolved entry-frame ambiguity, deceptive omission, or avoidable overload."
+  dangerous_competing_meanings:
+    - "Merely independently understandable."
+    - "Pleasantly worded."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: self_containment
+  current_controlled_meaning: "Sufficient local completeness for the excerpt’s intended level of use; currently pressured to include frame, referent, and function, not just topic recoverability."
+  dangerous_competing_meanings:
+    - "Contains the core theory somewhere."
+    - "Can be guessed correctly by an informed reader."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: context
+  current_controlled_meaning: "For current evidence: topic context, source-flow context, and attribution/quote-layer context."
+  dangerous_competing_meanings:
+    - "Only the leaf/topic label."
+    - "Anything extra beyond the raw text."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: entry_frame
+  current_controlled_meaning: "What lets the reader know at the very start what kind of unit is being entered and how it is functioning."
+  dangerous_competing_meanings:
+    - "Formatting only."
+    - "Optional metadata polish."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-004, CS-005]
+
+- term: boundary
+  current_controlled_meaning: "The justified edge of the unit in relation to its primary study object or tightly bound cluster."
+  dangerous_competing_meanings:
+    - "A purely textual cut point."
+    - "Whatever fits under one broad heading."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: granularity
+  current_controlled_meaning: "How fine or coarse the unit is relative to real study use; currently pressured by mention-vs-topic and burden concerns."
+  dangerous_competing_meanings:
+    - "Character count only."
+    - "Heading depth only."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: function
+  current_controlled_meaning: "The job the unit is doing in the current source layer (e.g. rule, proof, explanation, example), not merely its surface form."
+  dangerous_competing_meanings:
+    - "The literary form of the text."
+    - "The function of the text inside the quoted source rather than the current one."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: attribution_quote_layer
+  current_controlled_meaning: "Who is speaking, who is quoting, and what role the quoted material plays in the current source."
+  dangerous_competing_meanings:
+    - "Authorship of the quoted words alone."
+    - "Simple source citation."
+  status: candidate
+  evidence_cases: [CS-003, CS-004]
+
+- term: rule
+  current_controlled_meaning: "The primary claim or doctrinal/grammatical point being taught in the current unit."
+  dangerous_competing_meanings:
+    - "Any line of source text near a proof."
+    - "Any heading-level phrase."
+  status: candidate
+  evidence_cases: [CS-001, CS-002, CS-003, CS-005]
+
+- term: proof
+  current_controlled_meaning: "Material functioning as support for a rule in the current source layer."
+  dangerous_competing_meanings:
+    - "Any quotation."
+    - "Any poetic line."
+  status: candidate
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004]
+
+- term: theory
+  current_controlled_meaning: "Content being taught as the substantive point itself; reviewed cases pressure that didactic verse can belong here."
+  dangerous_competing_meanings:
+    - "Only prose exposition."
+    - "Everything that is not proof."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: example
+  current_controlled_meaning: "Material used to show how a point applies; current evidence pressures a split between theory-facing examples and practice-facing examples."
+  dangerous_competing_meanings:
+    - "Always separate from theory."
+    - "Always only archival practice material."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: relation_integrity
+  current_controlled_meaning: "Preservation of meaningful scholarly relations such as rule-to-proof, quoter-to-quote, and topic-to-example."
+  dangerous_competing_meanings:
+    - "Aesthetic neatness."
+    - "Only topical grouping."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-005]
+
+- term: omission_honesty
+  current_controlled_meaning: "Cuts made by excerpting should not silently masquerade as uninterrupted source flow."
+  dangerous_competing_meanings:
+    - "Any omission is forbidden."
+    - "Omission only matters if theory is lost."
+  status: candidate
+  evidence_cases: [CS-005]
+
+- term: footnote
+  current_controlled_meaning: "A subordinate textual layer whose relation to the anchor text may range from directly attached to quasi-independent; current doctrine is thin."
+  dangerous_competing_meanings:
+    - "Always ancillary."
+    - "Always extractable in the same way as main text."
+  status: candidate
+  evidence_cases: [CS-004]
+
+- term: mention
+  current_controlled_meaning: "A reference to a topic that does not by itself justify a separate excerpt."
+  dangerous_competing_meanings:
+    - "Any named subtopic is automatically an excerpt candidate."
+    - "Any secondary topic presence is irrelevant."
+  status: observation
+  evidence_cases: [CS-004]
+
+- term: true_topic
+  current_controlled_meaning: "A topic that carries enough substantive work in the unit to justify its own excerptal treatment."
+  dangerous_competing_meanings:
+    - "Whatever is named."
+    - "Whatever could in theory have its own heading."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]

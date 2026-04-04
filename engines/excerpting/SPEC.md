@@ -27,6 +27,53 @@ Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis
 
 The excerpting engine receives a `NormalizedPackage` (frozen source text with structure, metadata, and text layers) and produces a stream of `ExcerptRecord` objects (self-contained excerpts with full attribution, topic keywords, evidence references, and self-containment evaluation). The taxonomy engine consumes these records to place excerpts in the knowledge tree. The synthesis engine consumes placed excerpts to produce encyclopedic entries.
 
+### §1.1b — Foundational Principles (Owner Hardening, 2026-04-04)
+
+These principles were extracted, challenged, and hardened from owner Q&A responses F1–F8 during the foundations hardening session. Each principle has been pressure-tested against the codebase, challenged by Codex and Gemini coworkers, and empirically validated where possible. They constrain all implementation decisions across all three phases.
+
+**FP-1 (Explained-explanation unity, EE-1):** An explained object and its immediately following explanation form one teaching unit by default. See §6.4b for the full rule, scope, and exceptions.
+
+**FP-2 (Context resolution hierarchy, NC-1):** When an excerpt needs context, the hierarchy is: (1) keep original context via structural unity (EE-1), (2) source surroundings — the reader accesses the actual frozen source pages, (3) generated context_hint — supplementary guidance pointing into the surroundings. See §3 PARTIAL definition for the full hierarchy.
+
+**FP-3 (Linking-word intelligence):** Linking words (pronouns, demonstratives, opening conjunctions) must be evaluated intelligently, not flagged blindly. See the expanded C-SC-2 for specific patterns. Opening و does not automatically indicate a dangling reference.
+
+**FP-4 (Taxonomy independence):** The excerpting engine's output must be identical regardless of the taxonomy tree's state. Excerpting is source-driven, not tree-driven. An overgranulated, undergranulated, or perfectly granulated taxonomy tree must all receive the same excerpts. Excerpting-bias — where boundary decisions are influenced by downstream placement — is a top failure mode (owner F8, 2026-04-04).
+
+**FP-5 (Knowledge corruption is the worst failure):** One corrupted excerpt poisons the reader's trust in the entire library. Silent corruption is worse than visible failure. Always assume an excerpt is wrongfully excerpted until proven otherwise. The engine must fail loud — never silently produce an excerpt that looks correct but misrepresents the source (owner F7, F8, 2026-04-04).
+
+**FP-6 (Rules + intelligence):** The more rules, examples, and edge cases we define, the more accurate the engine gets. But rules alone are not enough — the LLM must also apply intelligent reasoning for cases not covered by explicit rules. New scholar methodologies will appear that no predefined rule anticipates. The engine must have uncertainty gates for cases where the system is not confident (owner F5, 2026-04-04).
+
+**FP-7 (Fetched proof vs book-preserved proof):** Book-preserved proofs (as scholars cite them) and authoritatively fetched proofs (from primary sources like Sahih al-Bukhari) are two distinct layers that both belong in the library. The book-preserved proof is for analyzing how the scholar handled it. The fetched proof is for memorization and direct study. Neither replaces the other (owner F5, F6, 2026-04-04). Implementation of the fetched-proof layer is deferred to a cross-engine design phase.
+
+**FP-8 (Khilaf-tarjih distinction):** The unbiased mapping of scholarly disagreement (تحرير الخلاف) and the scholar's biased conclusion (ترجيح) are distinct scholarly functions. Full resolution is deferred to questionnaire items K-1 through K-3. See §6.1 design note.
+
+**FP-9 (Overgranulation is worse than undergranulation):** An overgranulated taxonomy tree is more dangerous than an undergranulated one because reassembling fragments is harder than splitting a coarse unit. This constrains both excerpting granularity and taxonomy placement (owner F8, 2026-04-04).
+
+**FP-10 (Source surroundings vision):** Every excerpt should be accompanied by access to its surrounding pages from the original source — a "window into the source" rather than a detached fragment. The excerpting engine produces location metadata (source_id, div_id, physical_pages) for this purpose. When `physical_pages` is null (some sources lack page metadata), the surrounding-text display falls back to division-based navigation (same div_id, adjacent chunk_index values). The display mechanism is a synthesis/UI responsibility (owner live Q&A, 2026-04-04).
+
+**FP-11 (Sanad-matn awareness):** In hadith-containing texts, the chain of narration (isnad/sanad) and the narrated text (matn) have different scholarly functions. In fiqh and sharh texts, the sanad is contextual metadata for the matn — it establishes the hadith's route but is not the primary study object. In hadith sciences (mustalah al-hadith / 'ilm al-rijal), the sanad IS the study object. The engine must not treat sanad chains as noise to be stripped — they are preserved in the excerpt and classified appropriately. Long sanad chains in fiqh texts do not disqualify an excerpt; they are part of the source's scholarly apparatus (Gemini review, 2026-04-04).
+
+**FP-12 (Implied dependency detection — taqdir):** Arabic text frequently operates on taqdir (implied/omitted words). An excerpt may appear syntactically complete while depending on an implied subject, object, or referent from a previous paragraph. C-SC-2 (Reference Resolution) must account for INVISIBLE syntactic anchors, not only visible linking words. Example: "قال: يجوز" — the subject of "قال" is implied from prior context; if the reader cannot determine who "said" it, the excerpt is not self-contained even though there is no visible pronoun or demonstrative. The LLM must reason about implied dependencies during self-containment evaluation (Gemini review, 2026-04-04).
+
+**FP-13 (Principle conflict precedence, from DR adversarial review 2026-04-04):** When foundational principles conflict in a real text (e.g., EE-1 unity vs FP-9 anti-overgranulation), apply this precedence stack:
+1. **Speaker-role correctness** — who is endorsing what. Misattribution is the most dangerous silent failure.
+2. **Dialogue completeness** — objection + response, position + refutation. Omission flips meaning.
+3. **Textual/grammatical integrity** — avoid "bleeding" Arabic fragments that break mid-sentence.
+4. **Self-containment for the target reader** — the unit teaches a complete thought.
+5. **Granularity for leaf-level comparison** — lowest priority; optimize via post-grouping merge, not boundary splitting.
+
+This precedence stack resolves the FP-1 (unity) vs FP-9 (anti-overgranulation) tension: unity wins when splitting would break attribution or dialogue, but granularity can be optimized post-grouping through MV-1 (minimum viability merge).
+
+**FP-14 (Speaker-role inversion is the #1 blind spot, from DR adversarial review 2026-04-04):** Excerpts containing objection/response patterns (فإن قيل / قلنا, سؤال / الجواب, اعترض / وأجيب) MUST include both the objection AND the answer. An excerpt that teaches the opponent's view as the author's view is the most dangerous silent failure because it is confident, self-contained, and exactly wrong. The existing DP-1 (position + refutation) covers named-scholar reports but does NOT fully cover anonymous dialectical structures (فإن قيل without a named scholar). The Phase 2b prompt already includes Q&A coupling (DP-2), but the adversarial risk of anonymous objection structures warrants this explicit principle.
+
+**FP-18 (Three-level excerpt quality distinction, from F1 canon PR-001):** Independent understandability and direct study-readiness are distinct levels. A teaching unit can carry usable theory while still failing direct study-readiness. The canon defines three quality levels for excerpts: (1) *excerpt candidate* — bounded unit with one primary study object or tightly bound cluster; (2) *acceptable excerpt* — no essential backward hunting for frame, function, or referent; (3) *directly study-ready excerpt* — acceptable + clean entry frame + no deceptive omission + no avoidable overload. The current self-containment system (FULL/PARTIAL/DEPENDENT) maps approximately: FULL ≈ acceptable or study-ready (conflated), PARTIAL ≈ below acceptable but still coherent, DEPENDENT ≈ not an excerpt. Splitting FULL into ACCEPTABLE and STUDY_READY is a **deferred contract enhancement** — the distinction is real (confirmed by Gemini CLI with concrete Arabic examples: unresolved «وهو» and ordinal «الشرط الثالث» both produce FULL units that are NOT study-ready) but the operational threshold is not yet calibrated. When implemented, this should be a separate `study_readiness_grade` field on UnitEnrichment/ExcerptRecord, not a change to the SelfContainmentLevel enum, to preserve backward compatibility. The 30-book probe should calibrate the acceptable/study-ready boundary empirically.
+
+**FP-15 (Rhetorical posture detection, from Gemini DR stress test 2026-04-04):** Classical scholars frequently quote opponents' views to refute them (ilzam method), construct hypothetical interlocutors (فإن قيل), or employ sarcasm. The engine must not attribute quoted-to-refute content to the quoting author. This extends FP-14 (speaker-role inversion) to cover non-dialogue rhetorical structures. Critical for: Al-Muhalla (Ibn Hazm), kalam texts, advanced usul. Implementation: Phase 2a classification should tag segments with rhetorical posture (endorsed / quoted-to-refute / hypothetical / ilzam). Deferred to corpus expansion.
+
+**FP-16 (Chunk-split nesting prohibition, from Gemini DR stress test 2026-04-04):** When the dialectical nesting depth is ≥3 levels (e.g., author quoting opponent quoting evidence within a refutation), the Phase 1 chunk-split algorithm MUST NOT cut inside the nested structure. The algorithm must wait until the rhetorical stack unwinds to level 1 (author's own voice) before executing a split. If this requires slightly exceeding the chunk token limit, the forgiving rule applies. Cutting mid-nesting risks the catastrophic failure described in FP-5: a quote from an opponent is attributed to the author. Critical for: Al-Muhalla, dense kalam/usul texts. Implementation: Phase 1 split logic enhancement, deferred to corpus expansion.
+
+**FP-17 (Hub-and-spoke for serial narrations, from Gemini DR stress test 2026-04-04):** When a single explained object (e.g., a Quranic verse) has many independent explanations (e.g., 20 tafsir narrations with full isnads), the engine must NOT force all narrations into one teaching unit. Instead, treat the verse as a hub node. Each chunk of narrations gets the verse text duplicated at its start via NC-1 Tier 3 (context_hint). This satisfies EE-1 (no orphaned explanation) without creating a monstrous over-merged unit. Critical for: Tafsir al-Tabari, hadith collections with multiple asanid per hadith. Implementation: Phase 1 + Phase 2b enhancement, deferred to corpus expansion.
+
 ### §1.2 — Three-Phase Architecture
 
 The engine operates in three sequential phases:
@@ -545,7 +592,10 @@ Five criteria must all hold for an excerpt to be `FULL` self-contained. These ar
   - (b) a standard term of the science that any student of that science would know (e.g., واجب in fiqh, مبتدأ in nahw), or
   - (c) flagged in `self_containment_notes` as requiring external knowledge.
 
-**C-SC-2 (Reference Resolution):** Every pronoun, demonstrative, or anaphoric reference resolves within the excerpt. No dangling هذا, المذكور, ما تقدم, or similar references pointing to text outside the excerpt. If the LLM detects an unresolvable reference, the excerpt cannot be `FULL`.
+**C-SC-2 (Reference Resolution):** Every pronoun, demonstrative, anaphoric reference, or implied dependency (taqdir) resolves within the excerpt. No dangling references pointing to text outside the excerpt. The LLM must watch for both visible and invisible dependencies:
+- **Visible:** هذا/هذه/هؤلاء (demonstratives), المذكور/ما تقدم/ما سبق (backward references), pronoun suffixes like ـه/ـها/ـهم/ـهما (e.g., عليهما referring to الخفين), opening conjunctions like لأن/فإن that depend on a preceding clause.
+- **Invisible (taqdir):** Implied subjects in قال/ذهب/رأى where the speaker is determined from prior context, not stated in the excerpt. Example: "قال: يجوز" — if the reader cannot determine who "said" it from within the excerpt, the reference is unresolved (FP-12, Gemini review 2026-04-04).
+Note: opening و does NOT always indicate a dangling reference — it may simply continue within the same topic. The LLM must reason about whether each referent (visible or implied) resolves inside or outside the unit rather than flagging blindly (owner F4, 2026-04-04). If the LLM detects an unresolvable reference, the excerpt cannot be `FULL`.
 
 **C-SC-3 (Evidence Completeness):** Every evidence citation (Quran, hadith, athar, scholarly precedent) either:
   - (a) includes its text within the excerpt, or
@@ -564,7 +614,19 @@ Each `TeachingUnit` (§2.3.4) receives one of three self-containment levels:
 
 **PARTIAL** — Most criteria are met, but the excerpt would benefit from additional context. Specifically: the excerpt teaches something coherent, but a reference, term, or piece of evidence is not fully resolved. This corresponds to the experiment's `self_contained=true` with `self_containment_notes` populated — the excerpt is usable but not perfect.
 
-Phase 3 action: Add `context_hint` — a brief note explaining what context is missing and where to find it (e.g., "References a position stated in the باب preceding this one"). The taxonomy engine receives the excerpt with the hint attached; the synthesis engine can incorporate the hint when building entries.
+**Context resolution hierarchy (NC-1, from owner Q&A F5, 2026-04-04):**
+
+The context resolution hierarchy for PARTIAL excerpts, in order of preference:
+
+1. **Structural unity (EE-1):** Prevent the context gap by keeping explained+explanation together. This is the best outcome — no repair needed because the content was never split.
+
+2. **Source surroundings:** Every excerpt carries `source_id`, `div_id`, and `physical_pages`, which point back to the frozen source bytes. The reader can access the actual surrounding pages from the original book to verify context. This mechanism applies to ALL excerpts (FULL, PARTIAL, and DEPENDENT) and requires no AI generation — it uses the immutable source text preserved by the normalization engine. Implementation of the source-surroundings display is a synthesis/UI responsibility; the excerpting engine's responsibility is ensuring the location metadata is always present and correct.
+
+3. **Generated context_hint:** A brief LLM-generated note explaining what context is missing and where to find it in the surrounding text (e.g., "References a position stated in the باب preceding this one"). This is supplementary guidance that helps the reader navigate the source surroundings — it is NOT a replacement for the source text itself. The hint points into the surroundings; it does not substitute for them.
+
+**Rationale:** The owner's principle is: "ALWAYS TRY TO KEEP THINGS AS CLOSE TO THE ORIGINAL AUTHORS WORDINGS / WORK / SOURCE AS POSSIBLE." Generated notes are lossy summaries — they introduce interpretation risk and can never match the specificity of the actual source text. The source surroundings mechanism provides the original text with zero interpretation, while the context_hint provides navigation guidance.
+
+Phase 3 action: Add `context_hint` — a brief note explaining what context is missing and where to find it in the source surroundings. The taxonomy engine receives the excerpt with the hint attached; the synthesis engine can incorporate the hint and source-surroundings reference when building entries.
 
 Phase 3 also attempts to resolve the gap:
 - If C-SC-2 fails (dangling reference) and the reference points to a known division, add a `cross_reference` linking to that division.
@@ -929,6 +991,13 @@ A teaching unit is the smallest segment a student could study and learn
 something complete from.
 
 GROUPING RULES:
+- **EE-1 (Explained-explanation unity):** An explained object and its
+  immediately following explanation form one teaching unit by default.
+  The explained text is context for the explanation — separating them
+  orphans the explanation. This applies to: hadith + sharh, verse (matn)
+  + commentary, definition + examples, principle + reasoning, ruling +
+  evidence. Split only when a different scholarly function boundary begins
+  (e.g., transition from explanation to scholarly_disagreement).
 - A position (opinion_statement) + its evidence + any counter-evidence
   + conclusion = one unit
 - A definition + its examples = one unit
@@ -936,10 +1005,21 @@ GROUPING RULES:
   within broader discussions — NOT for derived benefits sections).
 - **Derived Benefits Rule:** Sections opening with "ما يؤخذ من الحديث:"
   or "فوائد:" split per numbered item. Each numbered benefit is a
-  separate teaching unit.
+  separate teaching unit. Exception: consecutive items that are fragments
+  of one immediate ruling cluster AND are individually under 20 words may
+  be grouped. If uncertain whether items are same-topic or different-topic,
+  SPLIT. (This split-on-uncertainty rule is specific to derived benefits
+  and numbered items. For general grouping, prefer keeping related content
+  together per EE-1 — overgranulation is more harmful than
+  undergranulation, FP-9.)
+- The hadith text + gharib + المعنى الإجمالي form the inseparable core
+  of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
 - **Numbered Item Boundaries:** Numbered items (1-, 2-, 3-... or
   فائدة/مسألة + numbering) are strong unit boundary markers. Each is a
-  separate unit unless explicitly continuing the same argument.
+  separate unit unless explicitly continuing the same argument. Two items
+  covering different topics MUST NOT be merged (e.g., items about void
+  bequests and burial are separate units). Exception: consecutive sub-20-word
+  items in the same ruling cluster may be grouped. If uncertain, split.
 - A question and its answer belong in the same unit
 - A rule_statement + its condition_exception(s) = one unit
 - Never group unrelated content (e.g., two different مسائل) into one unit
@@ -953,6 +1033,16 @@ DECONTEXTUALIZATION PREVENTION (critical):
   understood on its own
 - Evidence cited for a ruling MUST stay with the ruling
 - A condition and its exception (rule + إلا clause) belong together
+- A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
+  selects among competing positions MUST remain with the alternatives it
+  judges. Without the alternatives, the verdict reads as a standalone
+  ruling and the reader cannot evaluate the reasoning.
+- Qualifications and disclaimers (لكن، غير أن، إلا أن، على خلاف) MUST
+  remain with the statement they qualify. A rule without its qualification
+  is actively misleading.
+- A question (فإن قيل، سؤال، اعترض) and its answer (قلنا، الجواب، وأجيب)
+  MUST be in the same unit — even when multiple question-answer cycles
+  appear in sequence
 
 SELF-CONTAINMENT EVALUATION:
 For each teaching unit, evaluate self-containment against these criteria:
@@ -961,9 +1051,16 @@ C-SC-1 (Term Resolution): Every technical term is either defined within the
   unit, is standard terminology any student of the science would know, or is
   flagged as requiring external knowledge.
 
-C-SC-2 (Reference Resolution): Every pronoun, demonstrative, or anaphoric
-  reference (هذا، المذكور، ما تقدم) resolves within the unit. No dangling
-  references to text outside the unit.
+C-SC-2 (Reference Resolution): Every pronoun, demonstrative, anaphoric
+  reference, or IMPLIED dependency resolves within the unit. No dangling
+  references to text outside the unit. Watch for:
+  - Visible: هذا/هذه/هؤلاء, المذكور/ما تقدم/ما سبق, pronoun suffixes
+    (ـه/ـها/ـهم/ـهما), opening conjunctions (لأن/فإن)
+  - Invisible (taqdir): implied subjects in قال/ذهب/رأى where the speaker
+    is determined from prior context, not stated in this unit
+  Note: opening و does NOT always indicate a dangling reference — it may
+  simply continue within the same topic. Reason about whether each referent
+  (visible or implied) resolves inside the unit. Do not flag blindly.
 
 C-SC-3 (Evidence Completeness): Every evidence citation either includes its
   text, is a universally known citation identifiable by its opening words
@@ -1231,9 +1328,19 @@ The experiment revealed that Approach B's two-step design can over-segment compa
 
 The average teaching unit size across all 13 validated divisions ranged from 45 words (Q&A format, 451w input) to 126 words (fiqh prose, 2513w input). The median was approximately 80–90 words per unit.
 
-**The SPEC does not commit a minimum teaching unit size.** The appropriate threshold depends on the downstream taxonomy and synthesis engines' needs, which are not yet specified. The concern is documented here; the threshold is calibrated during build evaluation (the 30-book probe, source engine roadmap Step 3). During build, the implementation should log unit size distribution statistics per chunk to enable calibration.
+**Minimum teaching unit viability (MV-1, from DR review 2026-04-04):** Teaching units below **25 Arabic words** are flagged as sub-viable. Sub-viable units are merged with their nearest adjacent unit in reading order as a **post-grouping merge** step. This threshold is based on empirical evidence: DR coworkers independently graded a 5-word unit (TU-5: "استحباب خدمة العلماء والفضلاء") as 1/5 and 2/5 for study-readiness — it functions as a heading, not a teaching unit (ChatGPT DR, Claude DR, 2026-04-04). The ~25 word floor aligns with the minimum context needed for a standalone scholarly note in the mukhtasar tradition.
 
-**What the SPEC does commit:** If a future minimum threshold is established, it will be enforced as a **post-grouping merge** step (merging adjacent small units) rather than as a constraint in the LLM prompt. Modifying the grouping prompt to enforce minimum sizes risks degrading self-containment assessment quality — the LLM should group by scholarly structure, and size optimization is a separate concern.
+**Additionally:** Units with `primary_function = cross_reference` that are below 30 words should be considered for demotion to metadata (attached as a cross-reference note to the preceding unit) rather than standalone teaching units. TU-6 (14-word cross-reference about غزوة تبوك) was graded 1/5 by ChatGPT DR and 2/5 by Claude DR — it functions as a pointer, not a study object.
+
+**Implementation:** The viability check runs AFTER Phase 2b grouping and BEFORE Phase 3 enrichment. It does NOT modify the Phase 2b prompt — the LLM groups by scholarly structure, and viability optimization is a separate concern. The merge strategy is:
+1. Scan teaching units in reading order for units below 25 words.
+2. For each sub-viable unit, merge with the immediately preceding unit (prefer backward merge to maintain reading flow).
+3. If the preceding unit is also sub-viable, merge both with the next viable unit forward.
+4. If a sub-viable unit is the first unit in the chunk, merge forward.
+5. Log every merge with: original unit indices, word counts, merge reason, resulting unit size.
+6. Re-evaluate self-containment for the merged unit.
+
+**What the SPEC does NOT commit:** A hard numeric cap as a rejection threshold. The 25-word floor is a merge trigger, not a hard contract invariant. Edge cases (e.g., a 20-word unit that is genuinely a complete ruling) are handled by the LLM's scholarly judgment during the merge re-evaluation — if the merged result is worse than the original, the merge is reverted.
 
 ---
 
@@ -1266,6 +1373,8 @@ Phase 2b (grouping) is the primary defense. The following patterns MUST be group
 **DP-6 (Condition + Result):** A conditional statement ("إذا نوى المتوضئ رفع الحدث واستباحة الصلاة أجزأه") is one unit. The condition and its result are semantically bonded — splitting them produces two meaningless fragments.
 
 **Phase 3 responsibility:** When Phase 2b assigns `self_containment: PARTIAL` or `DEPENDENT` due to a decontextualization concern, Phase 3 adds a `context_hint` explaining the dependency (e.g., "This excerpt responds to a position stated in the preceding teaching unit").
+
+**Design note — Khilaf mention vs tarjih (owner F4, 2026-04-04):** The owner identifies a distinction between the unbiased *mapping* of scholarly disagreement (تحرير الخلاف — "scholars disagreed into these opinions") and the scholar's biased *weighting* (ترجيح — "the strongest is X"). These serve different scholarly functions: the خلاف mapping is a neutral fact; the ترجيح is the author's personal attribution. The owner prefers these as separate teaching units when the text structure supports it. The current tarjih decontextualization rule in the prompt ("verdict MUST remain with alternatives") applies when alternatives are only briefly mentioned within the tarjih itself. Full resolution of this tension depends on questionnaire items K-1 through K-3 (scholarly disagreement deep dive) and is DEFERRED to that phase. For now: when a long dispute section (listing multiple opinions with evidence) is followed by a tarjih conclusion, the LLM should consider whether the tarjih is a distinct scholarly function worthy of its own teaching unit.
 
 **Verification:** The DP rules are not independently verifiable by deterministic checks — they depend on Arabic semantic understanding. However, the unit coverage checks (§5.4.3) ensure structural consistency. The 30-book probe (source engine roadmap Step 3) will include adversarial spot-checks where the owner reads excerpts containing reported positions and verifies that the context is preserved.
 
@@ -1307,7 +1416,7 @@ Fiqh, hadith, and usul al-fiqh texts have specific evidence citation patterns th
 
 **Phase 2b responsibility:** Evidence segments are grouped with their associated rulings (DP-4). The experiment validated this grouping across all fiqh divisions — the LLM correctly keeps evidence with its ruling without special prompting.
 
-**Phase 2b — Hadith commentary pattern:** In hadith sharh texts (e.g., Taysir al-Allam), hadith discussion often follows a stereotyped sequence: الحديث (the hadith text) → الغريب (unusual vocabulary) → المعنى الإجمالي (overall meaning) → ما يُستفاد (lessons derived). All segments in this sequence concerning the same hadith should be grouped as one teaching unit. The experiment confirmed both Approach A and Approach B correctly handle this pattern.
+**Phase 2b — Hadith commentary pattern:** In hadith sharh texts (e.g., Taysir al-Allam), hadith discussion often follows a stereotyped sequence: الحديث (the hadith text) → الغريب (unusual vocabulary) → المعنى الإجمالي (overall meaning) → ما يُستفاد (lessons derived). The inseparable core is الحديث + الغريب + المعنى الإجمالي — these form one teaching unit per EE-1 (the hadith is the explained object; gharib and ma'na are its explanation). The ما يُستفاد (derived benefits / فوائد) section splits per numbered item: each numbered benefit is a separate teaching unit, unless consecutive items are fragments of one immediate ruling cluster AND individually under 20 words (see the Derived Benefits Rule in §5.3.2).
 
 **Phase 3 responsibility — Evidence extraction:**
 
@@ -1353,6 +1462,23 @@ Phase 3 resolves these using source metadata (school affiliation from the source
 **IR-3 (Unresolvable references):** When a reference cannot be resolved (e.g., "كما ذكره بعض أصحابنا" — "as some of our companions mentioned" — with no specific source identifiable), Phase 3 records the reference in the excerpt's metadata as an unresolved implicit reference. The self-containment level stays at `PARTIAL`.
 
 **Design extension note:** A scholar authority registry mapping epithets to canonical IDs per school/context is described in the old excerpting SPEC (§4.A.5). This registry is a build-time artifact — populated during the source engine's scholar disambiguation phase and loaded by the excerpting engine. The SPEC defines the lookup behavior; the registry data is populated incrementally as the library grows. For the initial build, the registry contains only the well-known epithet mappings (الإمام per school, المصنف/صاحب الكتاب per work relationship). Must be validated during build evaluation.
+
+### §6.4b — Explained-Explanation Unity
+
+**EE-1 (Default unity):** An explained object and its immediately following explanation form one teaching unit by default. This is the general principle underlying VC-1 (verse + commentary), DP-2 (question + answer), and the grouping rules for hadith + commentary, definition + examples, and rule_statement + condition_exception.
+
+The explained object provides the reference frame; the explanation provides the scholarly analysis. Separating them produces an orphaned explanation (the reader cannot identify what is being explained) and an unexplained object (the reader receives the text without the scholar's analysis).
+
+**Scope:** "Immediately following" means the explanation is structurally adjacent to the explained text within the same division. If the explanation is in a different chapter, section, or structural unit, it is a separate source and does not trigger EE-1.
+
+**EE-1 does not apply when:**
+1. The explained text and explanation are in different sources (different books in the library).
+2. Phase 2 classification identifies a different scholarly function boundary between them (e.g., the text transitions from EXPLANATION to SCHOLARLY_DISAGREEMENT — the disagreement section is a new teaching unit, not part of the explanation).
+3. The combined unit exceeds the chunk size limit and Phase 1 must split them into separate chunks. D-011 prevents cross-chunk grouping by construction — if explained and explanation end up in different chunks, they cannot be reunited in Phase 2. This is a **known limitation**: Phase 1's split logic does not currently carry the explained text forward as context into subsequent chunks. The resulting excerpt in the later chunk will be evaluated as PARTIAL or DEPENDENT by Phase 2b's self-containment assessment, and Phase 3 will add a `context_hint` pointing to the preceding chunk. The source-surroundings mechanism (NC-1) provides the reader access to the full surrounding text. Future improvement: Phase 1 split logic should prefer boundaries AFTER explanation blocks, not between explained/explanation pairs.
+
+**Rationale (owner Q&A F5, 2026-04-04):** In Islamic scholarly texts, an explanation is tightly bound to the specific version, wording, route, and grading of the explained text. A scholar may explain one wording of a hadith, one grading assumption, or one route. Separating the explanation from the explained text forces the reader to hunt for which version the scholar was explaining. The owner opens excerpts to see "how the specific scholar handled it" — the explained text is context, not the primary study object. For hadith memorization, the owner uses authoritative fetched sources, not book-preserved versions.
+
+**Relation to existing rules:** EE-1 generalizes what VC-1 (verse + commentary unity), DP-2 (question + answer), and the hadith + chain + commentary grouping rule already express for specific cases. EE-1 ensures that any new explained/explanation pattern not covered by a specific rule still defaults to unity.
 
 ### §6.5 — Verse-Commentary (نظم) Handling
 

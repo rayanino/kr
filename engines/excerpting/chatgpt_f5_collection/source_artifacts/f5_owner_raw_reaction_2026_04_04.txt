@@ -1,0 +1,51 @@
+The very first thing I notice: the hadith is separated from the sarh. The explained is separated from the explanation. This does not make sense.
+
+I think what the LLM was trying to achieve is: separate the “proof” from the “proving”. And though this makes sense theoretically, it is still problematic in practice, especially in Islamic sciences.
+
+The problem: imagine we have 5 explanation-excerpts, each explaining the hadith of عبد الله ابن عمر. This sounds like a good logical separation of concerns: excerpt the hadith and put it under proofs → hadiths → عبد الله ابن عمر, excerpt the explanations and put them under explanations → hadiths → عبد الله ابن عمر. Something like that.
+
+And I agree that this sounds very good and is exactly the separation I would want. But this is an ideal scenario that will rarely work.
+That is because many times, hadith have many versions. A scholar explains one of those versions. Also: hadiths have many different ratings. A scholar explains his hadith keeping that rating in mind. There are just too many factors which make the explanations themselves differ. It’s not like they are explaining only one single source of truth. Though there are enough cases where there is only one version of hadith every scholar explains, there are just too many to take this risk.
+
+Secondly, I don’t want to be hunting: “this explanation from this scholar was based on version x of the hadith”. “this scholar only had access to this wording of the hadith, but I need to look up first which excerpt under proofs → hadiths → عبد الله ابن عمر belongs to him”.
+
+Lastly, it just makes sense in general not to separate an explanation and what it explains. They are just too tightly bonded together.
+
+Keep in mind: this is just what I can think of. I could totally be wrong; there may be a way in which separating explanation and the explained is totally feasible, in which case I would LOVE to have that. I still think the ideal scenario would be to separate the explained from the to-explain … but I’m just afraid of the tradeoffs.
+
+Which is why we have a major to-do waiting: doing research and deep reasoning about if there is a feasibility of putting the main concept the entire library should revolve around (separation of concerns) in practice in cases like explained-explanation, evidence-proof, …
+
+Keep in mind: for the “proofs” part of the library, I would like it not to only have direct one-on-one copies from the books. Books are often loose in the chain, wording, source etc of hadiths. Instead, we should definitely preserve excerpts of proofs as they are found in books, but additionally we need authoritative sources from which hadiths can be fetched to include. This way I can reliably study the structured fetched hadiths, while also having access to how these are mentioned in the books of scholars.
+
+For example, in this excerpt and its environment:
+
+—excerptA to be placed at proofs—  
+عنْ عَبْدِ الله بنِ عُمَرَ رَضيَ الله عنْهُمَا: أنَهُ طَلق امْرَأتهُ وَهي حَاِئض، فَذَكرَ ذلِكَ عُمَرُ لِرَسُولِ الله صلى الله عليه وسلم، فتَغَيظ مِنْهُ رسُول الله صلى الله عليه وسلم، ثم قالَ: "ليراجعها ثم يمسكها حَتى تَطْهرَ، ثم تَحِيض فَتَطْهُر، فَإن بَدَا له أن يُطلقَهَا فَليُطلقهَا قَبْل أن يمسها، فَتِلك العدة كمَا أمر الله عَزَ وَجَل".  
+وفي لفظ " حَتى تحِيضَ حَيْضَةَ مستقبلة، سوى حيضتها الَّتي طَلقَهَا فِيهَا ".  
+وفي لفظ: فَحُسِبَتْ مِنْ طَلاقِهَا، وَرَجَعَهَا عَبْد الله كَمَا أمَرَهُ رسول الله صلى الله عليه وسلم.  
+—-
+
+This is half the work; it is as to not lose any of the contents of the original source: A SOURCE INTAKEN BY THE LIBRARY SHOULD NOT BE LOST - NOT IN FULL NOR PARTS OF IT, unless explicitly agreed on and regulated in case that should not happen silently.
+
+This excerptA comes from a book directly, and THE IMPORTANT NEW RULE WE DEVISE IS THAT THE KNOWLEDGE SOURCES SHOULD NOT BE OUR FINAL AND MAIN AUTHORITATIVE SOURCE FOR PROOFS. Proofs need dedicated fetching (which means going back to their actual sources like sahih-al-bukhari, which, for example, can be fetched from sunnah.com or directly from a local copy of the hadith books) and confirmation before studying. A NIGHTMARE: I DO NOT WANT TO STUDY SOURCES (which is the main thing I will be one-on-one memorizing, the explanation of scholars found in excerpts will mostly not be directly memorized but instead understood deeply and used to get a deeper understanding of the topic) THAT ARE NOT 100% CONFIRMED.
+
+Everything above does not only count for hadiths. Instead, it counts for all sources: quran, .. but also: arabic poetry (used as sources in Arabic language), … WE NEED A RIGOROUS STABLE SYSTEM THAT MAKES SURE THE PROOFS PRESENT IN THE LIBRARY
+
+I JUST REALIZED AN IMPORTANT AND POSSIBLY DEADLY THING. It is: a lot of times, “rulings” and “explanations of proofs” are deeply interconnected. Many scholars follow the methodology: topic → proof1 → explanation that at the same time contains the rules → proof2 → more explanations and new rules → …
+
+So … where do we draw the line between “this is an explanation” and this is a “ruling”? Sometimes, scholars bluntly say: ruling (x is haram) → proof1 → explanation that proves the ruling → …
+
+I think I should stop here because I don’t have enough domain knowledge in Islamic sciences to be talking about methodologies of scholars. What I said above could very well be wrong. But I do realize that scholars have many methodologies. WHICH MEANS THE LIBRARY WILL PROBABLY NEVER 100% COVER ALL AND EVERY EDGE CASES, BECAUSE IN THE WORST SCENARIO A NEW SCHOLAR COULD BE BORN, AND I WILL INTAKE A BOOK OF HIS, AND INTRODUCE A NOT BEFORE KNOWN METHODOLOGY!!! WHICH MEANS: FOCUS ON INTELLIGENCE, WISDOM AND REASONING OF THE LLM ITSELF IN EXCERPTING AND TAXONOMY PLACEMENT, ANALYSIS OF THE INDIVIDUAL EXCERPTS INSTEAD OF ONLY RELYING ON THE RULES AND PROTOCOLS WE ARE DEFINING.
+
+So the point is to realize that the more rules and protocols we define, and the more examples, counter examples, edge cases, etc. we define the more accurate the engines get, AND WE SHOULD DO DEEP RESEARCH AND EXTENSIVE DATA ANALYSIS TO RECOGNIZE ALL PATTERNS, but there is still a slim possibility that something new is encountered. Which is why - alongside the many many other security gates the library should have - there should still be security gates related to recognizing cases where the system is not 100% certain of what to do, then making sure to bring that to a good ending.
+
+So a major part of our research and development is being afraid of the unseen: being afraid of the edge cases we do not know exist. AND MORE IMPORTANTLY: NEVER ASSUME EXCERPTING CANNOT GO WRONG. NEVER ASSUME WE HAVE COVERED ALL EDGE CASES. NEVER ASSUME WE SHOULD NOT WORRY ABOUT AN EXCERPT BEING CORRUPTED. ALWAYS ASSUME AN EXCERPT IS WRONGFULLY EXCERPTED UNTILL PROVEN OTHERWISE WITH CUTTING CERTAINT. NEVER <keep filling in the lists of NEVER and ALWAYS, make sure these are clearly listed and always taken into account> …
+
+TO ANSWER THE QUESTION ABOUT THE NOTE: assuming the note is “هذا شرح لحديث عبد الله بن عمر أنه طلق امرأته وهي حائض فأمره النبي صلى الله عليه وسلم بمراجعتها.”: the note definitely helps, because if the excerpt would just start with “المعنى الإجمالي:” without ANY OTHER CONTEXT / NOTES, then it’s a lost case and a failure of the engine. But then again: why invest in a note and add risks and difficulties, instead of just leaving in the context? Obviously, that left in context should clearly be separated from the main excerpt-text (so this note box could contain “الحديث الأول
+
+عنْ عَبْدِ الله بنِ عُمَرَ رَضيَ الله عنْهُمَا: أنَهُ طَلق امْرَأتهُ وَهي حَاِئض، فَذَكرَ ذلِكَ عُمَرُ لِرَسُولِ الله صلى الله عليه وسلم، فتَغَيظ مِنْهُ رسُول الله صلى الله عليه وسلم، ثم قالَ: "ليراجعها ثم يمسكها حَتى تَطْهرَ، ثم تَحِيض فَتَطْهُر، فَإن بَدَا له أن يُطلقَهَا فَليُطلقهَا قَبْل أن يمسها، فَتِلك العدة كمَا أمر الله عَزَ وَجَل".  
+وفي لفظ " حَتى تحِيضَ حَيْضَةَ مستقبلة، سوى حيضتها الَّتي طَلقَهَا فِيهَا ".  
+وفي لفظ: فَحُسِبَتْ مِنْ طَلاقِهَا، وَرَجَعَهَا عَبْد الله كَمَا أمَرَهُ رسول الله صلى الله عليه وسلم.  
+”) … but this is KNOWLEDGE INTEGRITY instead of CONTEXT PRESERVATION, the first one (knowledge integrity) prevails. ALWAYS TRY TO KEEP THINGS AS CLOSE TO THE ORIGINAL AUTHORS WORDINGS / WORK / SOURCE AS POSSIBLE. Which is also why I said excerpting should not be affected by any outside player (including the taxonomy tree).
+
+But if I were to evaluate the note purely, without looking at anything else, I would still say this note is not extensive enough for the extreme detail the library aims to provide. I need to solve the puzzle of which hadith exactly is meant. I need to solve the puzzle of the other context aspects missing. THE NOTE IS NOT GOOD ENOUGH. THE EXCERPTING ENGINE IS NOT GOOD ENOUGH.

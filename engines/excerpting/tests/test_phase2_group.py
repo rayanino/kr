@@ -132,6 +132,16 @@ class TestGroupSystemPrompt:
         assert "قال أبو حنيفة" in GROUP_SYSTEM_PROMPT
         assert "ورد عليه بأن" in GROUP_SYSTEM_PROMPT
 
+    def test_ee1_explained_explanation_unity(self) -> None:
+        """EE-1: General explained+explanation unity rule is present."""
+        assert "EE-1" in GROUP_SYSTEM_PROMPT
+        assert "explained object" in GROUP_SYSTEM_PROMPT
+        assert "explanation form one teaching unit" in GROUP_SYSTEM_PROMPT
+        # Verify specific instances are still listed
+        assert "hadith + sharh" in GROUP_SYSTEM_PROMPT
+        assert "verse (matn) + commentary" in GROUP_SYSTEM_PROMPT
+        assert "definition + examples" in GROUP_SYSTEM_PROMPT
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Tests — _build_segment_summary

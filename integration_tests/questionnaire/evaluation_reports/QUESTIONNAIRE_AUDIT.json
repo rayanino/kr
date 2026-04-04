@@ -1,0 +1,257 @@
+{
+  "audit_summary": {
+    "timestamp": "2026-04-04T13:03:29.814993+00:00",
+    "total_interactions": 40,
+    "active_interactions": 38,
+    "blocked_interactions": 2,
+    "answered_active_interactions": 8,
+    "readiness_score": 0.211
+  },
+  "structural_alerts": {
+    "missing": [
+      "G-1",
+      "G-2",
+      "G-3",
+      "G-4",
+      "SC-1",
+      "SC-2",
+      "SC-3",
+      "D-1",
+      "D-2",
+      "D-3",
+      "E-1",
+      "E-2",
+      "E-3",
+      "K-1",
+      "K-2",
+      "K-3",
+      "GN-1",
+      "GN-2",
+      "L-1",
+      "L-2",
+      "L-3",
+      "QA-1",
+      "SC-4",
+      "CJ-1",
+      "CJ-4",
+      "S-1",
+      "S-1b",
+      "S-1c",
+      "S-2",
+      "S-3"
+    ],
+    "orphans": [],
+    "duplicates": [],
+    "blocked_answer_ids": []
+  },
+  "content_alerts": {
+    "missing_choices": [],
+    "short_reactions": [],
+    "missing_edge_fields": [],
+    "low_confidence_ids": [],
+    "keyword_sentiment_mismatches": []
+  },
+  "dimension_audit": {
+    "missing_coverage": [
+      "Commentary structure + layer clarity",
+      "Conflict resolution case",
+      "Connecting sentence",
+      "Context hint quality",
+      "Cost of granularity",
+      "Cross-reference handling",
+      "Definition threshold",
+      "Editorial footnote and takhrij handling",
+      "Evidence + explanation bundling",
+      "Evidence coupling",
+      "Evidence type splitting",
+      "Example coupling",
+      "Excerpting approach",
+      "Genre uniformity",
+      "Ideal/worst excerpt",
+      "Implicit context",
+      "Layer attribution",
+      "List handling",
+      "Long khilaf",
+      "Max excerpt size",
+      "Meta-contradictions and missing needs",
+      "Metadata sufficiency",
+      "Min excerpt size",
+      "Objection/response coupling",
+      "Position linking",
+      "Priority ranking",
+      "Semantic coupling",
+      "Short khilaf",
+      "Triple definitions",
+      "Uncertainty tolerance"
+    ],
+    "low_confidence_dimensions": {},
+    "dimension_counts": {
+      "Mental model": {
+        "answered": 1,
+        "total": 1
+      },
+      "User model": {
+        "answered": 1,
+        "total": 1
+      },
+      "Quality baseline": {
+        "answered": 1,
+        "total": 1
+      },
+      "Quality floor": {
+        "answered": 1,
+        "total": 1
+      },
+      "Self-containment + note visibility": {
+        "answered": 1,
+        "total": 1
+      },
+      "Original text fidelity": {
+        "answered": 1,
+        "total": 1
+      },
+      "Failure modes": {
+        "answered": 1,
+        "total": 1
+      },
+      "Structure-risk preference": {
+        "answered": 1,
+        "total": 1
+      },
+      "Min excerpt size": {
+        "answered": 0,
+        "total": 1
+      },
+      "Max excerpt size": {
+        "answered": 0,
+        "total": 1
+      },
+      "List handling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Semantic coupling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Context hint quality": {
+        "answered": 0,
+        "total": 1
+      },
+      "Cross-reference handling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Implicit context": {
+        "answered": 0,
+        "total": 1
+      },
+      "Definition threshold": {
+        "answered": 0,
+        "total": 1
+      },
+      "Connecting sentence": {
+        "answered": 0,
+        "total": 1
+      },
+      "Triple definitions": {
+        "answered": 0,
+        "total": 1
+      },
+      "Evidence + explanation bundling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Evidence coupling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Evidence type splitting": {
+        "answered": 0,
+        "total": 1
+      },
+      "Short khilaf": {
+        "answered": 0,
+        "total": 1
+      },
+      "Long khilaf": {
+        "answered": 0,
+        "total": 1
+      },
+      "Position linking": {
+        "answered": 0,
+        "total": 1
+      },
+      "Genre uniformity": {
+        "answered": 0,
+        "total": 1
+      },
+      "Example coupling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Layer attribution": {
+        "answered": 0,
+        "total": 1
+      },
+      "Commentary structure + layer clarity": {
+        "answered": 0,
+        "total": 1
+      },
+      "Editorial footnote and takhrij handling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Objection/response coupling": {
+        "answered": 0,
+        "total": 1
+      },
+      "Uncertainty tolerance": {
+        "answered": 0,
+        "total": 1
+      },
+      "Excerpting approach": {
+        "answered": 0,
+        "total": 1
+      },
+      "Metadata sufficiency": {
+        "answered": 0,
+        "total": 1
+      },
+      "Priority ranking": {
+        "answered": 0,
+        "total": 1
+      },
+      "Cost of granularity": {
+        "answered": 0,
+        "total": 1
+      },
+      "Conflict resolution case": {
+        "answered": 0,
+        "total": 1
+      },
+      "Ideal/worst excerpt": {
+        "answered": 0,
+        "total": 1
+      },
+      "Meta-contradictions and missing needs": {
+        "answered": 0,
+        "total": 1
+      }
+    }
+  },
+  "translation_readiness": {
+    "unmapped_response_ids": [],
+    "unmapped_interaction_ids": []
+  },
+  "external_response_ids": [
+    "F-1",
+    "F-2",
+    "F-3",
+    "F-4",
+    "F-5",
+    "F-6",
+    "F-7",
+    "F-8"
+  ]
+}

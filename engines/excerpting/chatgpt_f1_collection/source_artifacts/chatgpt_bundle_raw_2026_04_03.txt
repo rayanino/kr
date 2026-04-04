@@ -1,0 +1,912 @@
+=== FILE: canon/excerpt_definition/00_manifest.yaml ===
+
+canon_id: excerpt_definition_backfill_chat_pass_001
+version: 0.1.0
+status: provisional
+reviewed_case_refs_used:
+  - ext_39_masala:3
+  - ext_39_masala:6
+  - ext_46_qa:9
+  - ibn_aqil_v1:11
+  - ibn_aqil_v3:13
+generated_from_chat_only: true
+total_principles: 16
+total_unresolved: 10
+total_revisions: 5
+total_examples_counterexamples_borderlines: 10
+total_tests: 10
+major_active_tensions:
+  - independently_understandable_vs_directly_study_ready
+  - self_containment_vs_context_richness
+  - separation_vs_strategic_overlap
+  - rule_proof_distinction_vs_preserving_scholar_specific_linkage
+  - quote_splitting_vs_quote_frame_preservation
+  - theory_facing_examples_vs_practice_facing_examples
+  - explained_plus_explanation_staying_together
+  - omission_honesty
+  - mention_vs_true_topic
+  - footnote_attachment_vs_footnote_re_excerpting
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/01_dossier.md ===
+
+# Purpose and scope
+
+This dossier instantiates the current excerpt-definition canon from five reviewed cases only:
+
+- `ext_39_masala:3`
+- `ext_39_masala:6`
+- `ext_46_qa:9`
+- `ibn_aqil_v1:11`
+- `ibn_aqil_v3:13`
+
+It is a constrained backfill pass. Anything not supported by those cases remains provisional, unresolved, or absent.
+
+# Current core definition candidate
+
+Current three-level candidate:
+
+1. **Excerpt candidate**
+   - A bounded textual unit proposed as one primary study object, or one tightly bound explanatory cluster, rather than a broad area or casual aggregation.  
+   - Current support: `PR-016` (provisional).
+
+2. **Acceptable excerpt**
+   - An excerpt candidate that preserves enough frame, function, and referential clarity that the reader does not need essential backward hunting or guesswork just to understand what sort of unit it is and what job it is doing.  
+   - Current support: `PR-001` (provisional), `PR-003` (provisional).
+
+3. **High-quality directly study-ready excerpt**
+   - An acceptable excerpt that is cleanly enterable, not deceptively cut, not avoidably overloaded, and preserves the relations needed for direct study.  
+   - Current support: `PR-002` (accepted, narrow scope), plus provisional pressure from `PR-004`, `PR-007`, `PR-009`, `PR-012`, `PR-015`.
+
+# Identity vs acceptability vs quality
+
+| Level | Current meaning | Current status |
+|---|---|---|
+| Excerpt candidate | One primary study object or one tightly bound explanatory cluster | provisional |
+| Acceptable excerpt | No essential backward hunting for frame/function/referent | provisional |
+| High-quality directly study-ready excerpt | Acceptable + clean entry + no deceptive omission + no avoidable overload | provisional with one narrow accepted sub-rule |
+
+Important current split:
+
+- A unit may carry real theory and still fail **direct study-readiness**.
+- Reviewed cases repeatedly pressure the distinction between:
+  - **independently understandable enough to recover theory**
+  - **safe/directly study-ready enough to study from without local hunting**
+
+This distinction is present in the canon now, but its threshold is not fully settled.
+
+# Necessary properties already supported
+
+Supported means: pressured by reviewed cases strongly enough to belong in the dossier now.
+
+1. **Entry-frame clarity matters**  
+   Bare list numbers, unexplained conjunctions, unresolved pronouns, ambiguous opening labels, or unexplained entry markers can break direct study-readiness.  
+   Support: `PR-002`.
+
+2. **Essential backward hunting is disqualifying at least at the quality level**  
+   If the reader must go backward to recover who is being referred to, what list item this is, or what kind of unit they are reading, the unit underperforms.  
+   Support: `PR-003`.
+
+3. **Functionally mixed units trigger boundary pressure**  
+   Reviewed cases repeatedly show pressure when one unit does more than one primary job without a justified binding relation.  
+   Support: `PR-004`, `PR-016`.
+
+4. **Role/layer preservation matters**  
+   Quoted material and proof material cannot be classified only by surface content; current-source role can matter.  
+   Support: `PR-005`, `PR-015`.
+
+5. **The explained object and its explanation often need default unity**  
+   Splitting them can misbind explanation to the wrong object or force hunting.  
+   Support: `PR-007`.
+
+6. **Omission honesty matters when cuts are made**  
+   A detached unit should not silently look like uninterrupted source flow if meaningful material was omitted.  
+   Support: `PR-012`.
+
+# Non-properties / what is not yet required
+
+Not enough evidence exists to require the following as universal doctrine:
+
+- absolute topic purity with zero justified overlap
+- hard numeric length caps
+- always splitting every sibling mention into a separate excerpt
+- always keeping all examples only inside theory units
+- always splitting quoted material internally
+- always gluing all footnotes
+- always re-excerpting all footnotes
+- any universal add-on/context-note scheme
+
+# Disqualifying failure conditions already supported
+
+These are supported as real failure patterns in the reviewed cases, but not all are equally frozen in scope.
+
+1. **Opaque entry markers**
+   - `2`, `7 - صحيح`, `⌜10⌝`, opening `و`
+   - Cases: `CS-001`, `CS-002`, `CS-004`, `CS-005`
+
+2. **Unresolved referential dependence**
+   - e.g. pronoun `عليه` with missing antecedent
+   - Case: `CS-001`
+
+3. **Quote-layer ambiguity that changes the role of the unit**
+   - Case: `CS-003`
+
+4. **Mixed-function rule/proof packaging**
+   - Cases: `CS-001`, `CS-002`, `CS-003`
+
+5. **Sibling-topic overmerge**
+   - Case: `CS-005`, with pressure from `CS-004`
+
+6. **Overloaded packaging**
+   - matn + sharh + example + long editorial footnote in one unit
+   - Case: `CS-004`
+
+7. **Silent cutting that hides omission**
+   - Case pressure: `CS-005`
+
+# Doctrine by canonical dimension
+
+## self_containment
+- Current doctrine:
+  - direct study-readiness fails when essential entry markers are unresolved (`PR-002`, accepted narrow scope)
+  - self-containment is stricter than mere topical recoverability (`PR-001`, `PR-003`)
+- Status:
+  - usable, but the exact threshold between acceptable and directly study-ready remains unresolved (`UQ-001`)
+
+## context
+- Current doctrine:
+  - context includes entry-frame, source-flow, and quote-layer, not just topic label
+  - missing context can make a unit recoverable in theory yet weak in actual study use
+- Status:
+  - provisional; context doctrine is materially pressured but not fully operationalized (`UQ-001`, `UQ-002`)
+
+## boundary
+- Current doctrine:
+  - mixed rule/proof units create real boundary pressure (`PR-004`)
+  - sibling topics normally should not live in one topic-level excerpt (`PR-009`)
+  - explained object + explanation often need to remain together (`PR-007`)
+- Status:
+  - mixed: some strong pressure, but split rules are not frozen (`UQ-003`, `UQ-004`)
+
+## granularity
+- Current doctrine:
+  - no hard numeric cap is supported
+  - burden matters more than raw size
+  - mention alone is not enough to justify an excerpt
+- Status:
+  - weakly grounded and still underdefined (`PR-008`, `PR-014`, `UQ-009`, `UQ-010`)
+
+## function
+- Current doctrine:
+  - function cannot be read from surface form alone
+  - rule/proof distinction is real and operationally important
+- Status:
+  - emerging, not frozen (`PR-004`, `PR-006`)
+
+## attribution_quote_layer
+- Current doctrine:
+  - current-source role can override the internal appearance of the quoted block
+  - preserving quote-frame is part of relation integrity
+- Status:
+  - thin but real (`PR-005`, `PR-015`, `UQ-005`)
+
+## rule_vs_proof
+- Current doctrine:
+  - rule and proof are distinct jobs
+  - collapsing them into one unit is often boundary-suspicious
+  - quote-based proof handling remains unresolved in harder cases
+- Status:
+  - emerging (`PR-004`, `PR-015`, `UQ-004`, `UQ-005`)
+
+## theory_vs_example
+- Current doctrine:
+  - examples can be part of theory exposition
+  - examples may also need separate practice-facing placement
+  - the frame introducing an example may belong with the example
+- Status:
+  - promising but still thin (`PR-007`, `PR-011`, `UQ-006`)
+
+## relation_integrity
+- Current doctrine:
+  - preserving who proves what and who quotes whom matters
+  - strategic overlap may sometimes preserve useful relation information
+- Status:
+  - emerging (`PR-010`, `PR-015`, `UQ-003`, `UQ-005`)
+
+## study_readiness
+- Current doctrine:
+  - this is stricter than independent understandability
+  - accepted narrow rule: unresolved backward-dependent markers break direct study-readiness
+- Status:
+  - partly stable (`PR-002`), broader threshold unresolved (`UQ-001`)
+
+## omission_honesty
+- Current doctrine:
+  - excerpt cuts should not silently impersonate uninterrupted source flow
+- Status:
+  - real but still thin (`PR-012`, `UQ-007`)
+
+## footnotes
+- Current doctrine:
+  - directly related footnotes should normally stay attached to their anchor text
+  - broader footnote doctrine is not settled
+- Status:
+  - very underdefined (`PR-013`, `UQ-008`)
+
+# Major active tensions
+
+1. independently understandable vs directly study-ready
+2. self-containment vs context richness
+3. separation vs strategic overlap
+4. rule/proof distinction vs preserving scholar-specific linkage
+5. quote splitting vs quote-frame preservation
+6. theory-facing examples vs practice-facing examples
+7. explained + explanation staying together
+8. omission honesty
+9. mention vs true topic
+10. footnote attachment vs footnote re-excerpting
+
+# Doctrine already strong enough to rely on
+
+## Accepted
+- `PR-002`  
+  Narrow scope only: unresolved backward-dependent entry markers break **high-quality directly study-ready** status.
+
+## Operationally usable but not frozen
+- `PR-003`
+- `PR-004`
+- `PR-007`
+- `PR-015`
+
+These are usable as pressure, not as final doctrine.
+
+# Doctrine still provisional
+
+- `PR-001`
+- `PR-003`
+- `PR-004`
+- `PR-005`
+- `PR-006`
+- `PR-007`
+- `PR-009`
+- `PR-010`
+- `PR-011`
+- `PR-012`
+- `PR-015`
+- `PR-016`
+
+# Doctrine still dangerously underdefined
+
+- quote-layer handling beyond one reviewed case
+- footnote taxonomy and split/glue policy
+- operational threshold for strategic overlap
+- exact split protocol for mixed rule/proof units
+- omission-signaling method
+- absolute burden doctrine
+- mention vs true topic threshold
+- example dual-placement rule
+- positive profile of a fully passing directly study-ready excerpt
+
+# Current decision procedure candidate
+
+Current candidate sequence, evidence-limited:
+
+1. **Identify the unit type at entry**
+   - If not possible without backward hunting, direct study-readiness fails (`PR-002`).
+
+2. **Ask whether the unit has one primary study object or one tightly bound explanatory cluster**
+   - If not, candidate identity is weak (`PR-016`).
+
+3. **Check for essential backward hunting**
+   - referent?
+   - list position?
+   - quote layer?
+   - what job the unit is doing?
+   - If yes, acceptability is pressured (`PR-003`).
+
+4. **Check for mixed-function packaging**
+   - rule/proof
+   - theory/example
+   - quote/proof/frame
+   - footnote/editorial overflow
+   - If mixed, boundary doctrine is engaged (`PR-004`, `PR-009`).
+
+5. **Check whether anything that should stay together was split, or anything that should split was glued**
+   - explained/explanation
+   - example/frame
+   - quote/frame
+   - footnote/anchor
+   - (`PR-007`, `PR-013`, `PR-015`)
+
+6. **Check omission honesty**
+   - if the unit depends on omitted material, is that hidden or explicit?
+   - (`PR-012`)
+
+7. **Classify the result by level**
+   - candidate only
+   - acceptable excerpt
+   - directly study-ready excerpt
+
+# What would be reckless to freeze right now
+
+It would be reckless to freeze any of the following into final doctrine:
+
+- a universal strategic-overlap rule
+- a universal quote-splitting rule
+- a universal footnote rule
+- a hard rule for when examples require dual placement
+- a hard burden metric
+- a universal mention-vs-topic threshold
+- a universal omission-signaling format
+- a fully confident final definition of direct study-readiness
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/02_terms.yaml ===
+
+- term: excerpt_candidate
+  current_controlled_meaning: "A bounded unit proposed as one primary study object or one tightly bound explanatory cluster."
+  dangerous_competing_meanings:
+    - "Any highlighted fragment from a source."
+    - "Any text chunk about the right broad area."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-004, CS-005]
+
+- term: acceptable_excerpt
+  current_controlled_meaning: "An excerpt candidate that preserves enough frame, function, and referential clarity to avoid essential backward hunting or guesswork."
+  dangerous_competing_meanings:
+    - "Anything whose theory can be reconstructed eventually."
+    - "Anything that is not obviously wrong."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: directly_study_ready_excerpt
+  current_controlled_meaning: "An acceptable excerpt that can be entered and studied directly without unresolved entry-frame ambiguity, deceptive omission, or avoidable overload."
+  dangerous_competing_meanings:
+    - "Merely independently understandable."
+    - "Pleasantly worded."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: self_containment
+  current_controlled_meaning: "Sufficient local completeness for the excerpt’s intended level of use; currently pressured to include frame, referent, and function, not just topic recoverability."
+  dangerous_competing_meanings:
+    - "Contains the core theory somewhere."
+    - "Can be guessed correctly by an informed reader."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: context
+  current_controlled_meaning: "For current evidence: topic context, source-flow context, and attribution/quote-layer context."
+  dangerous_competing_meanings:
+    - "Only the leaf/topic label."
+    - "Anything extra beyond the raw text."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: entry_frame
+  current_controlled_meaning: "What lets the reader know at the very start what kind of unit is being entered and how it is functioning."
+  dangerous_competing_meanings:
+    - "Formatting only."
+    - "Optional metadata polish."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-004, CS-005]
+
+- term: boundary
+  current_controlled_meaning: "The justified edge of the unit in relation to its primary study object or tightly bound cluster."
+  dangerous_competing_meanings:
+    - "A purely textual cut point."
+    - "Whatever fits under one broad heading."
+  status: provisional
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: granularity
+  current_controlled_meaning: "How fine or coarse the unit is relative to real study use; currently pressured by mention-vs-topic and burden concerns."
+  dangerous_competing_meanings:
+    - "Character count only."
+    - "Heading depth only."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: function
+  current_controlled_meaning: "The job the unit is doing in the current source layer (e.g. rule, proof, explanation, example), not merely its surface form."
+  dangerous_competing_meanings:
+    - "The literary form of the text."
+    - "The function of the text inside the quoted source rather than the current one."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004, CS-005]
+
+- term: attribution_quote_layer
+  current_controlled_meaning: "Who is speaking, who is quoting, and what role the quoted material plays in the current source."
+  dangerous_competing_meanings:
+    - "Authorship of the quoted words alone."
+    - "Simple source citation."
+  status: candidate
+  evidence_cases: [CS-003, CS-004]
+
+- term: rule
+  current_controlled_meaning: "The primary claim or doctrinal/grammatical point being taught in the current unit."
+  dangerous_competing_meanings:
+    - "Any line of source text near a proof."
+    - "Any heading-level phrase."
+  status: candidate
+  evidence_cases: [CS-001, CS-002, CS-003, CS-005]
+
+- term: proof
+  current_controlled_meaning: "Material functioning as support for a rule in the current source layer."
+  dangerous_competing_meanings:
+    - "Any quotation."
+    - "Any poetic line."
+  status: candidate
+  evidence_cases: [CS-001, CS-002, CS-003, CS-004]
+
+- term: theory
+  current_controlled_meaning: "Content being taught as the substantive point itself; reviewed cases pressure that didactic verse can belong here."
+  dangerous_competing_meanings:
+    - "Only prose exposition."
+    - "Everything that is not proof."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: example
+  current_controlled_meaning: "Material used to show how a point applies; current evidence pressures a split between theory-facing examples and practice-facing examples."
+  dangerous_competing_meanings:
+    - "Always separate from theory."
+    - "Always only archival practice material."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+- term: relation_integrity
+  current_controlled_meaning: "Preservation of meaningful scholarly relations such as rule-to-proof, quoter-to-quote, and topic-to-example."
+  dangerous_competing_meanings:
+    - "Aesthetic neatness."
+    - "Only topical grouping."
+  status: emerging
+  evidence_cases: [CS-001, CS-002, CS-003, CS-005]
+
+- term: omission_honesty
+  current_controlled_meaning: "Cuts made by excerpting should not silently masquerade as uninterrupted source flow."
+  dangerous_competing_meanings:
+    - "Any omission is forbidden."
+    - "Omission only matters if theory is lost."
+  status: candidate
+  evidence_cases: [CS-005]
+
+- term: footnote
+  current_controlled_meaning: "A subordinate textual layer whose relation to the anchor text may range from directly attached to quasi-independent; current doctrine is thin."
+  dangerous_competing_meanings:
+    - "Always ancillary."
+    - "Always extractable in the same way as main text."
+  status: candidate
+  evidence_cases: [CS-004]
+
+- term: mention
+  current_controlled_meaning: "A reference to a topic that does not by itself justify a separate excerpt."
+  dangerous_competing_meanings:
+    - "Any named subtopic is automatically an excerpt candidate."
+    - "Any secondary topic presence is irrelevant."
+  status: observation
+  evidence_cases: [CS-004]
+
+- term: true_topic
+  current_controlled_meaning: "A topic that carries enough substantive work in the unit to justify its own excerptal treatment."
+  dangerous_competing_meanings:
+    - "Whatever is named."
+    - "Whatever could in theory have its own heading."
+  status: candidate
+  evidence_cases: [CS-004, CS-005]
+
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/03_principles.jsonl ===
+
+{"id":"PR-001","statement":"Independent understandability and direct study-readiness are distinct levels; a unit can carry usable theory while still failing direct study-readiness.","status":"provisional","dimensions":["self_containment","study_readiness","context"],"evidence_cases":["CS-001","CS-002","CS-003","CS-004","CS-005"],"scope_note":"Applies to current five-case evidence only; exact threshold between acceptable and directly study-ready remains open.","counterpressure_or_limitation":"No positive passing case has yet been reviewed, so the boundary between acceptable and directly study-ready is still underdefined.","linked_unresolved_ids":["UQ-001","UQ-002"]}
+{"id":"PR-002","statement":"If a detached unit opens with unresolved backward-dependent markers or referential dependencies that change how the unit is entered or understood, it is not a high-quality directly study-ready excerpt.","status":"accepted","dimensions":["self_containment","study_readiness","context"],"evidence_cases":["CS-001","CS-002","CS-004","CS-005"],"scope_note":"Accepted only at the direct-study-readiness level, not as a full theory of acceptability.","counterpressure_or_limitation":"Some markers may be harmless in other cases; the accepted rule is limited to reviewed markers that materially change entry safety.","linked_unresolved_ids":["UQ-001"]}
+{"id":"PR-003","statement":"An acceptable excerpt must preserve enough frame, function, and referential clarity that the reader does not need essential backward hunting or guesswork.","status":"provisional","dimensions":["self_containment","context","function"],"evidence_cases":["CS-001","CS-002","CS-003","CS-004","CS-005"],"scope_note":"Current evidence supports the principle broadly but not its exact operational threshold.","counterpressure_or_limitation":"What counts as 'essential' hunting or guesswork is not yet sharply operationalized.","linked_unresolved_ids":["UQ-001","UQ-002"]}
+{"id":"PR-004","statement":"Rule and proof are distinct functions; when one unit tries to do both without a clearly justified binding relation, boundary pressure is real.","status":"emerging","dimensions":["boundary","function","rule_vs_proof","study_readiness"],"evidence_cases":["CS-001","CS-002","CS-003"],"scope_note":"Current evidence is strongest for mixed rule/proof packaging in compact units.","counterpressure_or_limitation":"The reviewed cases do not yet settle when mixed rule/proof units should remain intact because of tighter internal binding.","linked_unresolved_ids":["UQ-004"]}
+{"id":"PR-005","statement":"For quoted material, the global function of the unit is determined at the current-source layer; a quoted block may function as proof even if it contains its own internal claims.","status":"candidate","dimensions":["function","attribution_quote_layer","rule_vs_proof","relation_integrity"],"evidence_cases":["CS-003"],"scope_note":"Grounded primarily in the Ibn Malik quotation case.","counterpressure_or_limitation":"Not every quotation is proof; reviewed evidence does not yet establish a general quote taxonomy.","linked_unresolved_ids":["UQ-005"]}
+{"id":"PR-006","statement":"Surface form alone does not determine function; didactic verse can function as theory rather than proof.","status":"candidate","dimensions":["function","rule_vs_proof","theory_vs_example"],"evidence_cases":["CS-004"],"scope_note":"Grounded in the matn/sharh case where the opening verse was treated as the thing being explained, not as evidence.","counterpressure_or_limitation":"Evidence is currently limited to one reviewed grammar case.","linked_unresolved_ids":[]}
+{"id":"PR-007","statement":"When separating an explained object from its explanation or an example from the frame that anchors it would risk misbinding or manhunt, default unity is favored.","status":"emerging","dimensions":["boundary","theory_vs_example","study_readiness","relation_integrity"],"evidence_cases":["CS-004","CS-005"],"scope_note":"Current evidence supports this for matn/sharh and example-framing relations.","counterpressure_or_limitation":"The rule is not yet universal across all proof, quote, and commentary structures.","linked_unresolved_ids":["UQ-003","UQ-006"]}
+{"id":"PR-008","statement":"A mere mention of a topic is not, by itself, enough to justify creating a separate excerpt for that topic.","status":"observation","dimensions":["granularity","boundary"],"evidence_cases":["CS-004"],"scope_note":"Currently grounded in the ذو/فم case only.","counterpressure_or_limitation":"The threshold between mention and true topic has not yet been operationalized.","linked_unresolved_ids":["UQ-010"]}
+{"id":"PR-009","statement":"Sibling topics normally should split into separate topic-level excerpts rather than remain merged in one unit.","status":"emerging","dimensions":["boundary","granularity","study_readiness"],"evidence_cases":["CS-004","CS-005"],"scope_note":"Current evidence is strongest where sibling topics each carry their own examples or local substructure.","counterpressure_or_limitation":"Strategic overlap may still justify retaining shared framing or minor carry-over.","linked_unresolved_ids":["UQ-003"]}
+{"id":"PR-010","statement":"Strategic overlap can sometimes be justified; purity of separation is not an absolute if a small retained overlap preserves understanding better than a risky cut.","status":"candidate","dimensions":["boundary","granularity","context","relation_integrity"],"evidence_cases":["CS-004","CS-005"],"scope_note":"Grounded in reviewed proposals involving 95/5 spillover and retained shared framing.","counterpressure_or_limitation":"No stable operational threshold exists yet for how much overlap is justified.","linked_unresolved_ids":["UQ-003","UQ-009"]}
+{"id":"PR-011","statement":"Examples may need dual placement: retained inside theory-facing excerpts for immediate understanding and also preserved as separate practice-facing example units.","status":"candidate","dimensions":["theory_vs_example","boundary","study_readiness"],"evidence_cases":["CS-004","CS-005"],"scope_note":"Grounded in the reconstructed example handling proposals, not in a passing reviewed implementation.","counterpressure_or_limitation":"The canon does not yet know when dual placement is required versus merely helpful.","linked_unresolved_ids":["UQ-006"]}
+{"id":"PR-012","statement":"When excerpting omits material, the result should not silently present itself as if it were uninterrupted source flow.","status":"candidate","dimensions":["omission_honesty","study_readiness","context"],"evidence_cases":["CS-005"],"scope_note":"Grounded in the explicit 'no deception' demand in the split-topic example case.","counterpressure_or_limitation":"The correct method of signaling omission without damaging source fidelity is unresolved.","linked_unresolved_ids":["UQ-007"]}
+{"id":"PR-013","statement":"A directly related footnote should normally remain attached to the anchor text it footnotes.","status":"observation","dimensions":["footnotes","boundary","relation_integrity"],"evidence_cases":["CS-004"],"scope_note":"Grounded in the footnote analysis from Ibn Aqil v1 only.","counterpressure_or_limitation":"The reviewed case itself also raised the possibility of quasi-independent footnotes, so broader footnote doctrine remains open.","linked_unresolved_ids":["UQ-008"]}
+{"id":"PR-014","statement":"No hard numeric cap on excerpt size is currently justified; burden matters more than raw length alone.","status":"observation","dimensions":["granularity","study_readiness"],"evidence_cases":["CS-004"],"scope_note":"Grounded in the reviewed 95/5 versus 9500/500 reasoning within the Ibn Aqil v1 discussion.","counterpressure_or_limitation":"No operational burden metric exists yet.","linked_unresolved_ids":["UQ-009"]}
+{"id":"PR-015","statement":"Relation integrity matters: excerpting should preserve who is proving what and who is quoting whom when those relations affect scholarly understanding.","status":"emerging","dimensions":["relation_integrity","rule_vs_proof","attribution_quote_layer","context"],"evidence_cases":["CS-001","CS-002","CS-003","CS-005"],"scope_note":"Current evidence is strongest for proof stacks, quote attribution, and example anchoring.","counterpressure_or_limitation":"The canon does not yet fully specify how these links should survive splitting in harder multi-part cases.","linked_unresolved_ids":["UQ-004","UQ-005","UQ-006"]}
+{"id":"PR-016","statement":"Excerpt-candidate identity should be anchored by one primary study object or one tightly bound explanatory cluster; broad topical adjacency is not enough.","status":"provisional","dimensions":["boundary","granularity","function"],"evidence_cases":["CS-001","CS-002","CS-004","CS-005"],"scope_note":"Current evidence supports the identity pressure but not a final operational test for 'tightly bound cluster'.","counterpressure_or_limitation":"Strategic overlap and mixed pedagogical structures complicate candidate identity in borderline cases.","linked_unresolved_ids":["UQ-003","UQ-010"]}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/04_unresolved.jsonl ===
+
+{"id":"UQ-001","question":"Where is the operational boundary between an acceptable excerpt and a high-quality directly study-ready excerpt?","why_unresolved":"All reviewed cases are failure or pressure cases; none is a clean positive pass.","blocking_ambiguity":"The canon can identify recurring failure modes but cannot yet state the minimum passing threshold with confidence.","evidence_cases":["CS-001","CS-002","CS-003","CS-004","CS-005"],"highest_value_future_case_type":"A genuinely strong positive excerpt that is both independently understandable and clearly directly study-ready."}
+{"id":"UQ-002","question":"What kinds of contextual framing, if any, may legitimately be added to make a detached excerpt safely enterable?","why_unresolved":"Reviewed cases pressure the need for reassurance/context, but no reviewed implementation establishes a stable add-on doctrine.","blocking_ambiguity":"It is unclear how to preserve safety without mutating source fidelity or smuggling in too much interpretation.","evidence_cases":["CS-001","CS-002","CS-004","CS-005"],"highest_value_future_case_type":"A case where raw text is unsafe at entry but becomes clean with a minimal, clearly bounded contextual frame."}
+{"id":"UQ-003","question":"When should clean separation yield to strategic overlap?","why_unresolved":"Two reviewed cases argue for overlap, but no stable threshold has been established.","blocking_ambiguity":"The canon lacks an operational test for when overlap improves comprehension more than it harms precision.","evidence_cases":["CS-004","CS-005"],"highest_value_future_case_type":"Paired cases with the same structure where one overlap is clearly beneficial and another clearly excessive."}
+{"id":"UQ-004","question":"When should mixed rule/proof units be split, and how should scholar-specific proof linkage survive the split?","why_unresolved":"The cases establish the pressure but not the correct split protocol.","blocking_ambiguity":"Separating rule from proof can clarify function, but it can also destroy grouped proof relations or force manhunt.","evidence_cases":["CS-001","CS-002","CS-003"],"highest_value_future_case_type":"A case with one rule and multiple linked proofs where both split and non-split treatments are plausible."}
+{"id":"UQ-005","question":"How should long or multi-part quotations be split, if at all, while preserving quote-frame and current-source function?","why_unresolved":"Only one reviewed quote-layer case exists, and it does not settle long-quote behavior.","blocking_ambiguity":"The canon knows the quote frame matters, but not how it survives further internal excerpting.","evidence_cases":["CS-003"],"highest_value_future_case_type":"A long quoted block containing multiple internal proof moves inside a parent source that uses it as evidence."}
+{"id":"UQ-006","question":"When do examples need dual placement as both theory-facing and practice-facing units?","why_unresolved":"The idea is strongly argued in reconstructed proposals but not yet validated against multiple reviewed implementations.","blocking_ambiguity":"The canon lacks a criterion for when dual placement is required, helpful, or unnecessary.","evidence_cases":["CS-004","CS-005"],"highest_value_future_case_type":"A source where examples are clearly embedded in theory exposition and later also grouped as practice material."}
+{"id":"UQ-007","question":"How should omission be signaled honestly without damaging source fidelity or cluttering the excerpt?","why_unresolved":"The no-deception principle is clear, but the signaling method is not.","blocking_ambiguity":"The canon has not chosen between textual markers, metadata, notes, or other bounded signaling forms.","evidence_cases":["CS-005"],"highest_value_future_case_type":"A split excerpt where omission-signaling choices can be compared directly against the same source passage."}
+{"id":"UQ-008","question":"What is the taxonomy of footnote types, and which types should stay attached, split, or be freshly excerpted?","why_unresolved":"Only one reviewed footnote-heavy case exists, and it already contains mixed pressures.","blocking_ambiguity":"The canon cannot yet distinguish direct-anchor footnotes, editorial footnotes, quasi-independent footnotes, and mixed footnotes operationally.","evidence_cases":["CS-004"],"highest_value_future_case_type":"Multiple footnote cases spanning direct explanatory notes, takhrij notes, long editorial notes, and quasi-independent footnotes."}
+{"id":"UQ-009","question":"How should the canon operationalize burden without collapsing into arbitrary numeric thresholds?","why_unresolved":"Current evidence rejects hard caps but does not yet define the alternative.","blocking_ambiguity":"The canon lacks a usable metric for when retained spillover becomes too costly to tolerate.","evidence_cases":["CS-004"],"highest_value_future_case_type":"Cases with clearly small harmless spillover versus clearly costly spillover, across different total excerpt sizes."}
+{"id":"UQ-010","question":"How should the canon distinguish a mere mention from a true topic that deserves separate excerptal treatment?","why_unresolved":"The pressure is real, but the threshold is not.","blocking_ambiguity":"A mention can range from negligible carry-over to substantial secondary treatment, and the current canon lacks a boundary test.","evidence_cases":["CS-004","CS-005"],"highest_value_future_case_type":"A family of cases where a secondary topic is mentioned briefly in one excerpt and substantively developed in another."}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/05_revisions.jsonl ===
+
+{"id":"RV-001","old_view":"Self-containment could be treated roughly as independent understandability.","new_view":"Independent understandability, acceptable excerpthood, and direct study-readiness must be distinguished explicitly.","forcing_cases":["CS-001","CS-002","CS-003","CS-004","CS-005"],"revision_type":"split"}
+{"id":"RV-002","old_view":"Split by topic is the main rule.","new_view":"Topic-level splitting remains strong pressure, but strategic overlap may be justified when it preserves understanding better than a risky or deceptive cut.","forcing_cases":["CS-004","CS-005"],"revision_type":"narrowed"}
+{"id":"RV-003","old_view":"Quoted material can be classified mainly by its own internal content.","new_view":"Current-source quote-layer can determine the quoted block's global function, and that layer must be preserved.","forcing_cases":["CS-003"],"revision_type":"clarified"}
+{"id":"RV-004","old_view":"Poetic or quoted verse in a grammar discussion tends to be treated as proof/example material.","new_view":"Didactic matn verse can function as theory and must be distinguished from evidentiary witness verse.","forcing_cases":["CS-004"],"revision_type":"split"}
+{"id":"RV-005","old_view":"A cleaner excerpt can be produced by cutting away surrounding material as long as the main topic remains.","new_view":"Cuts require omission honesty, and some framing material may need to remain to keep examples or sibling relations intelligible.","forcing_cases":["CS-005"],"revision_type":"replaced"}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/06_cases.jsonl ===
+
+{"id":"CS-001","case_ref":"ext_39_masala:3","package":"ext_39_masala","excerpt_number":3,"short_label":"numbered rule-proof unit with unresolved pronoun","core_local_failure":"`2` and `عليه` force backward hunting before safe study can begin; the unit also mixes rule and proof.","major_doctrinal_contributions":["entry-frame dependence matters","rule/proof distinction is real","direct study-readiness is stricter than theory recoverability"],"major_dimensions_touched":["self_containment","context","boundary","rule_vs_proof","study_readiness","relation_integrity"]}
+{"id":"CS-002","case_ref":"ext_39_masala:6","package":"ext_39_masala","excerpt_number":6,"short_label":"ambiguous opening `7 - صحيح` plus interwoven rule and proof","core_local_failure":"The opening is genuinely ambiguous once detached, and the unit does not read like a clean rule statement because ruling and proof are interwoven.","major_doctrinal_contributions":["entry-marker ambiguity can fail direct study-readiness","rule/proof interweaving needs boundary doctrine"],"major_dimensions_touched":["self_containment","context","boundary","function","rule_vs_proof","study_readiness"]}
+{"id":"CS-003","case_ref":"ext_46_qa:9","package":"ext_46_qa","excerpt_number":9,"short_label":"quoted Ibn Malik block with unclear quote-layer role","core_local_failure":"The detached unit does not clearly preserve why Ibn Malik is being quoted or what level the quotation is operating at in the current source.","major_doctrinal_contributions":["current-source quote-layer matters","quoted proof is not automatically rule","relation integrity includes who quotes whom"],"major_dimensions_touched":["self_containment","context","function","attribution_quote_layer","rule_vs_proof","relation_integrity","study_readiness"]}
+{"id":"CS-004","case_ref":"ibn_aqil_v1:11","package":"ibn_aqil_v1","excerpt_number":11,"short_label":"opaque matn/sharh/example/footnote bundle","core_local_failure":"The entry is opaque (`⌜10⌝`, unclear unit type), and the excerpt is overloaded by matn, explanation, example, and long editorial footnote.","major_doctrinal_contributions":["didactic verse can be theory not proof","explained plus explanation pressure default unity","mention is not enough to force a new topic excerpt","footnotes need their own doctrine","burden matters more than hard size caps"],"major_dimensions_touched":["self_containment","context","boundary","granularity","function","rule_vs_proof","theory_vs_example","footnotes","study_readiness"]}
+{"id":"CS-005","case_ref":"ibn_aqil_v3:13","package":"ibn_aqil_v3","excerpt_number":13,"short_label":"sibling-topic merge with omission-honesty pressure","core_local_failure":"The unit begins mid-stream with `و` and merges `من بمعنى بدل` with `الباء بمعنى بدل` plus their examples, so it is too merged to be a clean study unit.","major_doctrinal_contributions":["sibling topics should usually split","omission honesty matters","strategic overlap may sometimes be beneficial","examples may need both theory-facing and practice-facing treatment"],"major_dimensions_touched":["self_containment","context","boundary","granularity","theory_vs_example","relation_integrity","study_readiness","omission_honesty"]}
+
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/07_traceability.jsonl ===
+
+
+{"case_id":"CS-001","source_claim_summary":"`2` and `عليه` force backward hunting and guesswork.","target_type":"principle","target_id":"PR-002","routing_rationale":"This case is one of the clearest supports for the accepted narrow rule on unresolved backward-dependent markers."}
+{"case_id":"CS-001","source_claim_summary":"The unit carries theory but still is not directly study-ready.","target_type":"principle","target_id":"PR-001","routing_rationale":"Supports the split between independent understandability and direct study-readiness."}
+{"case_id":"CS-001","source_claim_summary":"The excerpt mixes rule and hadith proof in one unit.","target_type":"principle","target_id":"PR-004","routing_rationale":"Provides primary evidence that mixed rule/proof packaging creates boundary pressure."}
+{"case_id":"CS-001","source_claim_summary":"The user wants rule/proof distinction without losing proof-stack linkage.","target_type":"principle","target_id":"PR-015","routing_rationale":"Routes the linkage concern into relation-integrity doctrine rather than leaving it as a local note."}
+{"case_id":"CS-001","source_claim_summary":"Current excerpt is a concrete failure of entry safety and function mixing.","target_type":"counterexample","target_id":"CE-001","routing_rationale":"Used as a non-hollow counterexample for self-containment and rule/proof doctrine."}
+{"case_id":"CS-002","source_claim_summary":"`7 - صحيح` is ambiguous at entry and forces context-hunting.","target_type":"principle","target_id":"PR-002","routing_rationale":"Strengthens the accepted narrow entry-marker doctrine with a different kind of ambiguity."}
+{"case_id":"CS-002","source_claim_summary":"The excerpt does not read like a clean rule unit because ruling and proof are interwoven.","target_type":"principle","target_id":"PR-004","routing_rationale":"Adds a second independent pressure point for mixed rule/proof boundary doctrine."}
+{"case_id":"CS-002","source_claim_summary":"The excerpt is another local failure where theory is present but direct study-readiness fails.","target_type":"counterexample","target_id":"CE-002","routing_rationale":"Used to test the distinction between recoverable content and clean study unit."}
+{"case_id":"CS-002","source_claim_summary":"The case pressures the exact split rule for intertwined rule/proof packaging.","target_type":"unresolved","target_id":"UQ-004","routing_rationale":"Evidence is strong enough to open the question, but not to settle the split protocol."}
+{"case_id":"CS-003","source_claim_summary":"The quote from Ibn Malik does not preserve enough frame to show why it is present here.","target_type":"principle","target_id":"PR-005","routing_rationale":"Core support for current-source quote-layer doctrine."}
+{"case_id":"CS-003","source_claim_summary":"The quoted block globally functions as proof for the current author, not as the rule itself.","target_type":"example","target_id":"EX-001","routing_rationale":"The user's reconstructed classification is a positive evidence artifact for quote-layer function."}
+{"case_id":"CS-003","source_claim_summary":"Not every quotation should automatically be treated as proof.","target_type":"unresolved","target_id":"UQ-005","routing_rationale":"The case opens the question of quote taxonomy rather than settling it."}
+{"case_id":"CS-003","source_claim_summary":"Quote-layer loss is a concrete failure of relation integrity.","target_type":"counterexample","target_id":"CE-003","routing_rationale":"Used as the main counterexample for attribution/quote-layer doctrine."}
+{"case_id":"CS-004","source_claim_summary":"`⌜10⌝` and the opening verse make the unit type unclear at entry.","target_type":"principle","target_id":"PR-002","routing_rationale":"Extends entry-opacity pressure beyond numbering and pronouns to opaque unit-type entry."}
+{"case_id":"CS-004","source_claim_summary":"The opening verse is matn/theory being explained, not proof.","target_type":"principle","target_id":"PR-006","routing_rationale":"Core grounding for the surface-form-does-not-fix-function principle."}
+{"case_id":"CS-004","source_claim_summary":"The explained text and its explanation should stay together.","target_type":"principle","target_id":"PR-007","routing_rationale":"Primary support for default unity of explained object plus explanation."}
+{"case_id":"CS-004","source_claim_summary":"`فم` is mentioned but not substantially treated.","target_type":"principle","target_id":"PR-008","routing_rationale":"Direct grounding for mention-versus-topic pressure."}
+{"case_id":"CS-004","source_claim_summary":"A directly related footnote should remain attached, but footnotes may also become excerpt-like.","target_type":"unresolved","target_id":"UQ-008","routing_rationale":"The case supplies both the tentative anchor rule and the reason broader footnote doctrine remains open."}
+{"case_id":"CS-004","source_claim_summary":"The 95/5 versus 9500/500 reasoning rejects hard caps and pressures burden-based granularity.","target_type":"borderline","target_id":"BR-001","routing_rationale":"A thought experiment inside the reviewed case that stress-tests strategic overlap and burden doctrine."}
+{"case_id":"CS-004","source_claim_summary":"The user reconstructed a cleaner `ذو`-focused unit retaining matn plus explanation.","target_type":"example","target_id":"EX-002","routing_rationale":"Positive evidence artifact for explained/explanation unity and mention-not-topic logic."}
+{"case_id":"CS-005","source_claim_summary":"Opening with `و` creates immediate carry-over dependence.","target_type":"principle","target_id":"PR-002","routing_rationale":"Fourth distinct pressure point for the accepted entry-marker doctrine."}
+{"case_id":"CS-005","source_claim_summary":"The current unit merges two sibling topics with their own examples.","target_type":"principle","target_id":"PR-009","routing_rationale":"Primary evidence for sibling-topic separation pressure."}
+{"case_id":"CS-005","source_claim_summary":"The user explicitly requires omission honesty when text is cut.","target_type":"principle","target_id":"PR-012","routing_rationale":"Direct grounding for omission-honesty doctrine."}
+{"case_id":"CS-005","source_claim_summary":"Examples should remain available in theory-facing excerpts and also separately as focused example units.","target_type":"principle","target_id":"PR-011","routing_rationale":"Routes the dual-placement proposal into the canon as a thin but serious candidate principle."}
+{"case_id":"CS-005","source_claim_summary":"A small shared phrase may be worth retaining across split sibling-topic excerpts.","target_type":"borderline","target_id":"BR-002","routing_rationale":"Captures the strongest current evidence for strategic overlap without freezing it into settled doctrine."}
+{"case_id":"CS-005","source_claim_summary":"The current merged excerpt is a direct failure case for sibling-topic overmerge and entry opacity.","target_type":"counterexample","target_id":"CE-005","routing_rationale":"Concrete counterexample for topic-level splitting and omission-honesty pressure."}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/08_examples.jsonl ===
+
+{"id":"EX-001","type":"example","principle_ids_tested":["PR-005","PR-015"],"source_case_ids":["CS-003"],"why_this_is_a_real_test":"The user explicitly reconstructed the Ibn Malik quotation as proof material at the current-source level rather than as the rule itself, making the quote-layer issue operational rather than abstract.","why_it_would_be_hollow_if_doctrine_were_wrong":"If quote-layer doctrine were wrong and any quotation could be classified only by its internal wording, this reconstruction would still look superficially plausible; the case only counts because the local source function materially changes the correct classification."}
+{"id":"EX-002","type":"example","principle_ids_tested":["PR-006","PR-007","PR-008"],"source_case_ids":["CS-004"],"why_this_is_a_real_test":"The reconstructed `ذو`-focused unit keeps didactic matn with its explanation, refuses to treat `فم` as a coequal excerpt solely because it is mentioned, and thereby tests function and granularity together.","why_it_would_be_hollow_if_doctrine_were_wrong":"If surface form alone determined function, or if every mention automatically triggered a new excerpt, the reconstruction would not survive; it is a real test because wrong doctrine would force a materially different unit."}
+{"id":"EX-003","type":"example","principle_ids_tested":["PR-009","PR-011","PR-012"],"source_case_ids":["CS-005"],"why_this_is_a_real_test":"The reconstructed split into separate `من` and `الباء` topic-level excerpts plus anchored individual example units tests sibling-topic separation, dual example placement, and omission honesty all at once.","why_it_would_be_hollow_if_doctrine_were_wrong":"If the combined unit were actually the right form, or if omission honesty did not matter, the reconstruction would be unnecessary decoration; it counts because wrong doctrine would either keep the merge or allow silent cuts."}
+{"id":"CE-001","type":"counterexample","principle_ids_tested":["PR-001","PR-002","PR-003","PR-004"],"source_case_ids":["CS-001"],"why_this_is_a_real_test":"The excerpt retains theory but fails because list-number and pronoun dependence make safe entry impossible, while rule and proof are mixed.","why_it_would_be_hollow_if_doctrine_were_wrong":"If theory recoverability alone were enough, this case would falsely pass; it is non-hollow because it directly breaks the stronger study-readiness standard."}
+{"id":"CE-002","type":"counterexample","principle_ids_tested":["PR-002","PR-003","PR-004"],"source_case_ids":["CS-002"],"why_this_is_a_real_test":"`7 - صحيح` creates immediate ambiguity at entry, and the rule/proof interweaving shows that metadata alone cannot rescue the unit.","why_it_would_be_hollow_if_doctrine_were_wrong":"If the canon ignored entry ambiguity or treated any rule-plus-proof flow as clean enough, the case would pass despite the user's concrete failure signal."}
+{"id":"CE-003","type":"counterexample","principle_ids_tested":["PR-005","PR-015"],"source_case_ids":["CS-003"],"why_this_is_a_real_test":"The detached quote loses who is doing what in the current source, so relation integrity and quote-layer function both visibly matter.","why_it_would_be_hollow_if_doctrine_were_wrong":"If current-source quote role did not matter, the excerpt would look adequate simply because Ibn Malik's internal reasoning is coherent; the case only bites because the missing layer changes the study object."}
+{"id":"CE-004","type":"counterexample","principle_ids_tested":["PR-002","PR-006","PR-007","PR-013","PR-016"],"source_case_ids":["CS-004"],"why_this_is_a_real_test":"The unit fails on multiple fronts at once: opaque entry, overloaded packaging, function confusion, and footnote sprawl.","why_it_would_be_hollow_if_doctrine_were_wrong":"If excerpt identity were allowed to collapse into broad topical adjacency, this bundle could still pass; the case is non-hollow because wrong doctrine would normalize exactly the overload the user rejects."}
+{"id":"CE-005","type":"counterexample","principle_ids_tested":["PR-002","PR-009","PR-012"],"source_case_ids":["CS-005"],"why_this_is_a_real_test":"The opening `و` plus sibling-topic merge and silent-cut pressure jointly show that being 'about the right area' is not enough.","why_it_would_be_hollow_if_doctrine_were_wrong":"If merged sibling topics were acceptable and omission honesty irrelevant, the current excerpt would pass; the case counts because wrong doctrine would miss both defects."}
+{"id":"BR-001","type":"borderline","principle_ids_tested":["PR-010","PR-014"],"source_case_ids":["CS-004"],"why_this_is_a_real_test":"The user's 95/5 versus 9500/500 reasoning is a live stress point for overlap tolerance: some spillover may be harmless, but percentage alone can be dangerously misleading.","why_it_would_be_hollow_if_doctrine_were_wrong":"If strategic overlap were always forbidden or always allowed, the thought experiment would not matter; it is non-hollow because wrong doctrine fails on one side or the other."}
+{"id":"BR-002","type":"borderline","principle_ids_tested":["PR-009","PR-010","PR-012"],"source_case_ids":["CS-005"],"why_this_is_a_real_test":"Retaining the shared phrase `ويستعمل من والباء بمعنى بدل` in split sibling-topic excerpts tests whether overlap can preserve useful relation information without collapsing back into overmerge.","why_it_would_be_hollow_if_doctrine_were_wrong":"If pure isolation were always best, or if unrestricted overlap were harmless, this boundary problem would disappear; it is non-hollow because both extremes can fail."}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/09_tests.jsonl ===
+
+{"id":"RT-001","target_principle_ids":["PR-002","PR-003"],"source_case_ids":["CS-001","CS-002","CS-005"],"test_type":"mutation","test_description":"Remove or resolve the backward-dependent entry markers (`2`, `عليه`, `7 - صحيح`, opening `و`) while keeping the rest of the unit unchanged.","what_failure_it_is_trying_to_expose":"Whether the local failure is truly entry-frame driven or whether deeper structural problems remain even after entry repair."}
+{"id":"RT-002","target_principle_ids":["PR-001","PR-003"],"source_case_ids":["CS-001","CS-002","CS-003","CS-004","CS-005"],"test_type":"contrast","test_description":"For each reviewed failure case, ask whether the core theory is still largely recoverable even though direct study-readiness fails.","what_failure_it_is_trying_to_expose":"Confusion between independent understandability and directly study-ready status."}
+{"id":"RT-003","target_principle_ids":["PR-005","PR-015"],"source_case_ids":["CS-003"],"test_type":"mutation","test_description":"Treat the Ibn Malik quotation as a standalone rule unit and strip the current-source quote frame.","what_failure_it_is_trying_to_expose":"Loss of quote-layer function and false flattening of who is proving what."}
+{"id":"RT-004","target_principle_ids":["PR-005"],"source_case_ids":["CS-003"],"test_type":"counterexample","test_description":"Use the user's own warning that not every quotation is proof to attack any overgeneral version of quote-layer doctrine.","what_failure_it_is_trying_to_expose":"A too-broad rule that collapses every quotation into proof."}
+{"id":"RT-005","target_principle_ids":["PR-006","PR-007"],"source_case_ids":["CS-004"],"test_type":"mutation","test_description":"Split the matn line from its explanation and evaluate whether the explanation can still be safely anchored without manhunt or misbinding.","what_failure_it_is_trying_to_expose":"Over-splitting that destroys the explained/explanation relation."}
+{"id":"RT-006","target_principle_ids":["PR-010","PR-014"],"source_case_ids":["CS-004"],"test_type":"stress","test_description":"Apply a percentage-only overlap rule to the reviewed 95/5 versus 9500/500 reasoning from the case material.","what_failure_it_is_trying_to_expose":"A crude overlap doctrine that ignores absolute study burden."}
+{"id":"RT-007","target_principle_ids":["PR-013"],"source_case_ids":["CS-004"],"test_type":"stress","test_description":"Compare two crude policies against the reviewed footnote case: always glue every footnote vs always re-excerpt every footnote.","what_failure_it_is_trying_to_expose":"Whether footnote doctrine collapses into an unusable extreme."}
+{"id":"RT-008","target_principle_ids":["PR-009","PR-010"],"source_case_ids":["CS-005"],"test_type":"contrast","test_description":"Compare a perfectly isolated split of `من` and `الباء` against a split that retains the shared framing phrase.","what_failure_it_is_trying_to_expose":"Whether separation doctrine wrongly ignores beneficial relational overlap."}
+{"id":"RT-009","target_principle_ids":["PR-007","PR-011"],"source_case_ids":["CS-005"],"test_type":"mutation","test_description":"Create individual example excerpts but strip `فمن استعمال من` / `ومن استعمال الباء` from them.","what_failure_it_is_trying_to_expose":"Whether example units become blunter or less safely anchored when their framing phrase is removed."}
+{"id":"RT-010","target_principle_ids":["PR-011","PR-012"],"source_case_ids":["CS-004","CS-005"],"test_type":"contrast","test_description":"Compare a system where examples exist only inside theory excerpts against one where they also exist as separate practice-facing units.","what_failure_it_is_trying_to_expose":"Whether dual-placement doctrine is actually needed for study flow rather than merely aesthetically attractive."}
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/10_coverage.yaml ===
+
+dimensions:
+  - name: self_containment
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no positive passing case
+      - acceptable-vs-directly-study-ready threshold not fixed
+    reckless_to_freeze:
+      - full self-containment doctrine
+
+  - name: context
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no settled doctrine for permitted context add-ons
+      - no stable context taxonomy beyond current provisional split
+    reckless_to_freeze:
+      - final context doctrine
+
+  - name: boundary
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no hard protocol for mixed rule/proof units
+      - no operational threshold for strategic overlap
+    reckless_to_freeze:
+      - universal split/merge rules
+
+  - name: granularity
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - mention-vs-topic threshold unresolved
+      - burden metric unresolved
+    reckless_to_freeze:
+      - final granularity doctrine
+
+  - name: function
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - limited evidence outside the reviewed structural families
+      - no full taxonomy of functions yet
+    reckless_to_freeze:
+      - universal function taxonomy
+
+  - name: attribution_quote_layer
+    current_support_level: low
+    supporting_case_refs: [ext_46_qa:9, ibn_aqil_v1:11]
+    major_gaps:
+      - only one strong quote-layer proof case
+      - no long or nested quote cases
+    reckless_to_freeze:
+      - quote-splitting doctrine
+      - full attribution doctrine
+
+  - name: rule_vs_proof
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11]
+    major_gaps:
+      - no long multi-proof stack
+      - no settled split protocol
+    reckless_to_freeze:
+      - full rule/proof decision tree
+
+  - name: theory_vs_example
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - dual placement not validated across multiple clean implementations
+      - no non-grammar positive case
+    reckless_to_freeze:
+      - universal example-placement doctrine
+
+  - name: relation_integrity
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v3:13]
+    major_gaps:
+      - no explicit tested representation of proof stacks
+      - no quote-link preservation across splits
+    reckless_to_freeze:
+      - full relation-integrity doctrine
+
+  - name: study_readiness
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - still no positive passing case
+      - no settled distinction between minimal pass and high quality
+    reckless_to_freeze:
+      - final study-readiness definition
+
+  - name: omission_honesty
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v3:13]
+    major_gaps:
+      - one main pressure case only
+      - no settled signaling method
+    reckless_to_freeze:
+      - omission-signaling doctrine
+
+  - name: footnotes
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - only one footnote-heavy case
+      - no taxonomy by footnote type
+    reckless_to_freeze:
+      - footnote doctrine
+
+hard_case_families:
+  - family: backward_dependent_entries
+    current_support_level: high
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no positive resolved counterpart
+    reckless_to_freeze:
+      - broader acceptability threshold
+
+  - family: mixed_rule_proof_units
+    current_support_level: medium
+    supporting_case_refs: [ext_39_masala:3, ext_39_masala:6, ext_46_qa:9]
+    major_gaps:
+      - no long multi-proof stack
+      - no settled split protocol
+    reckless_to_freeze:
+      - universal rule/proof split rule
+
+  - family: quote_layered_material
+    current_support_level: low
+    supporting_case_refs: [ext_46_qa:9]
+    major_gaps:
+      - no long quote
+      - no nested quote
+    reckless_to_freeze:
+      - quote-layer canon
+
+  - family: matn_sharh_example_overload
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - no contrasting positive matn/sharh case
+    reckless_to_freeze:
+      - matn/sharh packaging doctrine
+
+  - family: sibling_topic_merge
+    current_support_level: medium
+    supporting_case_refs: [ibn_aqil_v3:13, ibn_aqil_v1:11]
+    major_gaps:
+      - no positive strategic-overlap pass
+    reckless_to_freeze:
+      - final sibling-topic split doctrine
+
+  - family: omission_honesty
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v3:13]
+    major_gaps:
+      - no implemented omission marker comparison
+    reckless_to_freeze:
+      - final omission-honesty mechanism
+
+  - family: footnote_heavy_units
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11]
+    major_gaps:
+      - single source family only
+    reckless_to_freeze:
+      - any general footnote policy
+
+  - family: theory_facing_vs_practice_facing_examples
+    current_support_level: low
+    supporting_case_refs: [ibn_aqil_v1:11, ibn_aqil_v3:13]
+    major_gaps:
+      - no validated positive implementation
+    reckless_to_freeze:
+      - dual-placement rule
+
+=== END FILE ===
+
+=== FILE: canon/excerpt_definition/11_hard_judgment.md ===
+
+
+# Hard Judgment
+
+## What is already strong
+
+1. **Entry-frame failure is real and now well-grounded**
+   - Four different reviewed cases support the narrow accepted rule that unresolved backward-dependent entry markers break direct study-readiness.
+
+2. **The canon can now distinguish levels**
+   - candidate
+   - acceptable excerpt
+   - directly study-ready excerpt  
+   This distinction is no longer optional.
+
+3. **Mixed rule/proof pressure is real**
+   - Three reviewed cases independently force it.
+
+4. **Quote-layer function is now on the board**
+   - Only thinly, but decisively: the canon can no longer treat quoted material as flat.
+
+5. **The canon has real non-hollow evidence artifacts**
+   - especially the user-reconstructed alternatives for `ext_46_qa:9`, `ibn_aqil_v1:11`, and `ibn_aqil_v3:13`.
+
+## What is still weak
+
+1. **Positive doctrine is thin**
+   - Most evidence is failure evidence.
+   - The canon knows more about what breaks than what cleanly passes.
+
+2. **Granularity doctrine is still weak**
+   - mention vs true topic
+   - burden
+   - strategic overlap
+   These are present, but not hardened.
+
+3. **Example doctrine is still weak**
+   - dual placement
+   - example anchoring
+   - theory-facing vs practice-facing distinction  
+   The ideas are strong, but the evidence is still narrow.
+
+4. **Quote-layer doctrine is fragile**
+   - one serious case is not enough for a stable canon.
+
+5. **Footnote doctrine is very weak**
+   - one case only
+   - mixed pressures inside that one case
+
+## What is still dangerously underdefined
+
+1. **The threshold between acceptable and directly study-ready**
+2. **The operational rule for strategic overlap**
+3. **The split protocol for mixed rule/proof units**
+4. **How quote-frame survives splitting**
+5. **How omission should be signaled honestly**
+6. **When examples require dual placement**
+7. **How to distinguish mention from true topic**
+8. **How to handle footnotes beyond directly attached notes**
+
+## Highest-value future excerpt types for hardening
+
+1. **A genuinely strong positive passing excerpt**
+   - needed to stop the canon from being failure-only
+
+2. **A long rule with multiple linked proofs**
+   - needed for rule/proof doctrine and relation integrity
+
+3. **A long quotation used as proof inside another source**
+   - needed for quote splitting and quote-frame preservation
+
+4. **A clean matn/sharh case that clearly works**
+   - needed to test whether current matn/sharh pressures are overfitted to one overloaded case
+
+5. **A footnote-heavy case with clearly separable footnote types**
+   - needed for any serious footnote doctrine
+
+6. **A case where strategic overlap clearly helps**
+   - paired with one where it clearly harms
+
+7. **A case with examples embedded in theory and also grouped later for practice**
+   - needed to harden dual-placement doctrine
+
+## What would be reckless to freeze into final doctrine right now
+
+It would be reckless to freeze:
+
+- a final universal definition of self-containment
+- a final split/merge doctrine
+- a final quote-layer doctrine
+- a final example-placement doctrine
+- a final footnote doctrine
+- a final omission-honesty mechanism
+- a hard burden rule
+- a universal mention-vs-topic threshold
+
+## Bottom line
+
+The canon is now real, not just commentary. But it is still a **pressure-tested early canon**, not a final one.
+
+What is strongest right now:
+- entry-frame doctrine
+- level distinction
+- boundary pressure around mixed rule/proof packaging
+
+What is most dangerous right now:
+- mistaking repeated pressure for completed doctrine
+- pretending that thin positive evidence is enough
+- freezing strategic overlap, quote-layer handling, example placement, or footnote handling too early

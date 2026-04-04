@@ -1,0 +1,137 @@
+- term: mention_of_disagreement
+  current_controlled_meaning: A segment whose job is to state that the issue is one
+    of scholarly disagreement.
+  dangerous_competing_meanings:
+  - A full listing of all views.
+  - A scholar's own preferred view.
+  status: working
+  source_basis: explicit_draft
+- term: tahrir_al_khilaf
+  current_controlled_meaning: A disagreement-focused placement where the existence
+    and structure of scholarly division are surfaced without collapsing into a specific
+    tarjih.
+  dangerous_competing_meanings:
+  - Any place where opinions are mentioned at all.
+  - A placement for the scholar's own preferred view.
+  status: working
+  source_basis: explicit_draft
+- term: opinion_listing
+  current_controlled_meaning: An unbiased presentation of the distinct positions inside
+    a disputed issue.
+  dangerous_competing_meanings:
+  - A tarjih segment.
+  - Any reference to the majority.
+  status: working
+  source_basis: explicit_draft
+- term: tarjih
+  current_controlled_meaning: A scholar-bound preference or judgment about which opinion
+    is strongest.
+  dangerous_competing_meanings:
+  - Neutral disagreement marking.
+  - A bare statement that several views exist.
+  status: working
+  source_basis: explicit_draft
+- term: attribution_critical_segment
+  current_controlled_meaning: A segment whose value depends on preserving what this
+    particular scholar is being recorded as saying or preferring.
+  dangerous_competing_meanings:
+  - Any segment near a ruling.
+  - Any segment containing a majority reference.
+  status: working
+  source_basis: explicit_draft
+- term: question_cluster
+  current_controlled_meaning: A group of adjacent segments that answer the same broader
+    question strongly enough to remain together.
+  dangerous_competing_meanings:
+  - Anything located in one sentence.
+  - Anything under one heading.
+  status: working
+  source_basis: explicit_draft
+- term: too_tightly_linked
+  current_controlled_meaning: So closely bound by function and answered question that
+    splitting would damage clarity more than it would help.
+  dangerous_competing_meanings:
+  - Simply adjacent text.
+  - Any pair of related topics.
+  status: working
+  source_basis: explicit_draft
+- term: surface_excerpt
+  current_controlled_meaning: The excerpt as it visibly appears before function analysis.
+  dangerous_competing_meanings:
+  - The correct excerpt boundary.
+  - The final engineering candidate.
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: functional_excerpt
+  current_controlled_meaning: The excerpt unit that emerges after analyzing what job
+    the segment is actually doing.
+  dangerous_competing_meanings:
+  - Any reconstructed text from surrounding context.
+  - Any shorter fragment.
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: local_continuation_waw
+  current_controlled_meaning: An opening `و` that continues the ongoing subject locally
+    without necessarily depending on omitted external meaning.
+  dangerous_competing_meanings:
+  - Proof that external context must always be imported.
+  - A meaningless decorative letter.
+  status: working
+  source_basis: explicit_draft
+- term: external_context_dependence
+  current_controlled_meaning: A case where meaning or safe interpretation truly depends
+    on material outside the excerpt itself.
+  dangerous_competing_meanings:
+  - Every vague opening.
+  - Any reference to a larger chapter.
+  status: working
+  source_basis: explicit_draft
+- term: excerpt_as_quote
+  current_controlled_meaning: A controlled lens in which the excerpt is treated as
+    something that could be quoted while preserving the right amount of context for
+    intelligibility.
+  dangerous_competing_meanings:
+  - A final universal definition of excerpt.
+  - A license to keep any surrounding context.
+  status: working
+  source_basis: explicit_draft
+- term: unbiased_segment
+  current_controlled_meaning: A segment that marks or lists disagreement without yet
+    preferring a side.
+  dangerous_competing_meanings:
+  - Any segment that mentions multiple scholars.
+  - A majority-based tarjih.
+  status: working
+  source_basis: explicit_draft
+- term: biased_segment
+  current_controlled_meaning: A segment that records preference, weighting, or selection
+    rather than neutral disagreement structure.
+  dangerous_competing_meanings:
+  - Any ruling statement.
+  - Any mention of the جمهور even if purely descriptive.
+  status: working
+  source_basis: explicit_draft
+- term: self_containment
+  current_controlled_meaning: Enough local completeness that the excerpt can be read
+    without silent misunderstanding of what job it is doing.
+  dangerous_competing_meanings:
+  - Any fragment that sounds familiar.
+  - Anything repairable from surrounding context.
+  status: working
+  source_basis: inferred_from_prior_chat
+- term: function_purity
+  current_controlled_meaning: The degree to which one excerpt performs one primary
+    job rather than fusing distinct jobs without justification.
+  dangerous_competing_meanings:
+  - Absolute ban on any contextual carryover.
+  - Stylistic neatness.
+  status: working
+  source_basis: model_expansion
+- term: granularity
+  current_controlled_meaning: How fine or coarse an excerpt boundary is relative to
+    the questions the segment is answering.
+  dangerous_competing_meanings:
+  - Character count only.
+  - Sentence count only.
+  status: working
+  source_basis: explicit_draft

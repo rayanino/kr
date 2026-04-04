@@ -2,11 +2,46 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-01)
+## IMMEDIATE STATE (updated 2026-04-04)
 
-### Phase 0 Status: QUESTIONNAIRE DELIVERED
+### ACTIVE LANE: Foundations Hardening (atom-by-atom)
 
-The owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` (~40 interactions, 15-25 hours across multiple sessions). CC does NOT wait idly. Concurrent work continues below.
+Branch: `excerpting-foundations-hardening-20260404`
+Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
+Plan: `.claude/plans/tender-moseying-crayon.md`
+
+**Foundations Q&A: 8 / 8 answered (F1-F8).** Owner is now in the hardening loop full-time (~15h/day).
+
+**Atom progress:**
+| # | Atom | Status |
+|---|------|--------|
+| 1 | EE-1 (explained + explanation unity) | FINALIZED + EMPIRICALLY VALIDATED (taysir + ibn_aqil) |
+| 2 | NC-1 (context hierarchy) | FINALIZED |
+| 3 | Linking-word preservation | FINALIZED (C-SC-2 expanded) |
+| 4-5 | Khilaf/tarjih separation | DOCUMENTED, deferred to K-1/K-2/K-3 |
+| 6-12 | Remaining doctrinal atoms | FINALIZED (FP-1 through FP-10 in SPEC §1.1b) |
+
+**What was accomplished (2026-04-04):**
+- All F1-F8 evidence copied + verified (8/8 foundations)
+- 12 atoms processed: 8 finalized, 2 documented+deferred, 2 implicit in FPs
+- EE-1 empirically validated: taysir 2/2 hadith cores PASS, ibn_aqil 32/32 verse+explanation PASS
+- 10 foundational principles (FP-1 through FP-10) added to SPEC §1.1b
+- Codex challenge: 3 findings found and fixed. Gemini: confirmed universal across 5 sciences.
+- Source surroundings vision captured (every excerpt → hoverable source page access)
+- 907/907 deterministic tests pass, 0 regressions
+
+**Next steps (executing now):**
+1. Run the second empirical validation pass on remaining fixtures (ext_39, ext_46) to check FP-4, FP-5
+2. Dispatch Codex + Gemini challenge on the full FP-1 through FP-10 set
+3. Prepare for Phase 1 (smoke run with fully hardened prompts)
+
+**Pre-existing test failure:** `test_phase2_integration.py::test_classify_and_normalize` fails with 401 (expired OpenRouter API key). Not related to hardening changes. Confirmed pre-existing on clean master.
+
+---
+
+### Phase 0 Status: QUESTIONNAIRE FOUNDATIONS COMPLETE, DEEP DIVES PENDING
+
+The owner completed F1-F8 (Foundations phase). Phases 2-4 (30 remaining interactions) are deferred until foundations hardening is complete. CC does NOT wait idly. Concurrent work continues below.
 
 **Questionnaire artifacts (all at `integration_tests/questionnaire/`):**
 

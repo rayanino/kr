@@ -1,0 +1,59 @@
+strongest_local_reason_for_final_questionnaire_verdict:
+  issue: Without the note, the current pair becomes an orphaned explanation rather
+    than a safe standalone excerpt.
+  why: This forces A for the current pair even though the note is only a compensatory
+    patch.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_structural_failure:
+  issue: Blind separation of explanation from the explained text.
+  why: It creates hunting, version mismatch, grading mismatch, and false confidence
+    from notes.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_note_misuse:
+  issue: Treating a generated summary note as though it restores source integrity
+    by itself.
+  why: Readability can improve while the underlying explanation-to-source relation
+    remains unsafe.
+  source_basis: model_expansion
+  owner_relation: model_only
+highest_risk_proof_integrity_failure:
+  issue: Using either the book-preserved proof alone or the authoritative fetched
+    proof alone and losing the necessary linkage between them.
+  why: One loses confirmation, the other loses scholar-specific local context.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+highest_risk_separation_of_concerns_failure:
+  issue: Assuming the elegance of separation is enough to justify it in hadith-heavy
+    materials.
+  why: Theoretical neatness can produce unsafe scholarly pairings in practice.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+most_important_preservation_requirements:
+- issue: Preserve the explained source material or a source-preserving context block
+    when the explanation does not stand alone.
+  why: Keeps the library close to the original and reduces compensatory note dependence.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: Preserve proofs as found in books.
+  why: Prevents silent loss of how scholars actually cited and reasoned from sources.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: Preserve authoritative fetched proof records alongside preserved book proofs.
+  why: Prevents memorizing or teaching unconfirmed proof text as the final source
+    layer.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+most_important_uncertainty_gate_requirements:
+- issue: Escalate when the system cannot prove which wording/version/grading the explanation
+    depends on.
+  why: Blind confidence here creates silent corruption.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- issue: Escalate when scholar methodology interweaves proof, explanation, and ruling
+    in a way that rules do not cover.
+  why: Unseen methodologies are explicitly feared by the owner and cannot be assumed
+    away.
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
