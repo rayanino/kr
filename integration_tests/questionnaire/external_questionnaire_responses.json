@@ -1,6 +1,18 @@
 {
   "responses": [
     {
+      "interaction_id": "F-3",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_owner_raw_reaction_2026_04_04.txt",
+      "raw_full_input_layer": "engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_full_user_input_2026_04_04.txt",
+      "authoritative_owner_layer": "engines/excerpting/chatgpt_f3_collection/01_questionnaire_answer.md",
+      "machine_friendly_layer": "engines/excerpting/chatgpt_f3_collection/02_case_dossier.md",
+      "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f3_collection/14_hard_judgment.md",
+      "summary_note": "Owner answered F-3 outside the review UI. Consult the raw reaction and full input first, then the cleaned owner-answer layer, then the broader single-excerpt analysis collection.",
+      "confidence": "high"
+    },
+    {
       "interaction_id": "F-1",
       "source_mode": "external_bundle",
       "answered_external": true,
@@ -30,6 +42,17 @@
       "machine_friendly_layer": "engines/excerpting/chatgpt_f7_collection/02_failure_dossier.md",
       "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f7_collection/13_hard_judgment.md",
       "summary_note": "Owner answered F-7 outside the review UI. Consult the raw owner draft first, then the cleaned owner-answer layer, then the broader engineering failure canon.",
+      "confidence": "high"
+    },
+    {
+      "interaction_id": "F-8",
+      "source_mode": "external_bundle",
+      "answered_external": true,
+      "raw_owner_source_layer": "engines/excerpting/chatgpt_f8_collection/source_artifacts/f8_owner_raw_draft_2026_04_04.txt",
+      "authoritative_owner_layer": "engines/excerpting/chatgpt_f8_collection/01_questionnaire_answer.md",
+      "machine_friendly_layer": "engines/excerpting/chatgpt_f8_collection/02_assessment_dossier.md",
+      "non_authoritative_inference_layer": "engines/excerpting/chatgpt_f8_collection/14_hard_judgment.md",
+      "summary_note": "Owner answered F-8 outside the review UI. Consult the raw owner draft first, then the cleaned owner-answer layer, then the broader structure-failure assessment bundle.",
       "confidence": "high"
     }
   ]
