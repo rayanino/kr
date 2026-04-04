@@ -30,13 +30,21 @@ Foundations hardening session 1: initial SPEC hardening from F1-F8 owner feedbac
 ### Critical Discovery
 F1-F8 collections contain 139 files of deep analysis. Session 1 only processed ~15. Remaining 124 files contain nonnegotiables, red-team tests, decision ladders, linking dependencies, and open questions that must be processed atom-by-atom.
 
+## Session 2 completed (2026-04-04, 17 commits)
+
+- Merged all F1-F8 owner feedback into MERGED_ATOM_QUEUE.md (250 ideas, 88 MAQ atoms, 0 silent drops)
+- Processed 6 thematic batches: Safety (17 atoms), Self-Containment (5), Boundary (10), Granularity (17), Tarjih/Proof (21), Other (9)
+- 22 FPs (FP-1 through FP-22) in SPEC §1.1b, hardened by 5 adversarial DR reviews
+- 10 prompt rules in GROUP_SYSTEM_PROMPT (1440/1500 words) + 1 in CLASSIFY_SYSTEM_PROMPT
+- 10 red-team tests (5 pass, 4 xfail documenting real gaps, 1 gap fixed)
+- V-P3-2 truncation fix + EE-1 gharib exception
+- Empirical validation: taysir chunk 0 = 5 correct TUs (was 12 fragmented)
+
 ## Current resume point
 
-1. **START HERE:** Read `reference/handoffs/excerpting_foundations_session2_kickoff_2026-04-04.md` — the detailed kickoff prompt
-2. Read `engines/excerpting/reference/ATOM_PROTOCOL.md`
-2. Read the extraction docs (if they exist) at `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` and `CRITICAL_ATOMS_NONNEGOTIABLES_AND_REDTEAM.md`
-3. If extraction docs don't exist: start reading `*_nonnegotiables.jsonl` and `*_red_team_tests.jsonl` from each F-collection
-4. Process atoms one at a time. Every atom gets Codex CLI + Gemini CLI + DR coworker.
-5. Use `scripts/atom_test.py` for empirical validation of prompt changes.
+1. **START HERE:** Read `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md`
+2. Read SPEC §1.1b (22 FPs), MERGED_ATOM_QUEUE.md, FOUNDATIONS_HARDENING_LEDGER.md
+3. Run tests (expect 912+ pass, 4 xfail) + check_prompt_spec_sync.py (expect PASS)
+4. Follow the session 3 task sequence (Phase A-D)
 
-Do not skip files. Process atoms in THEMATIC BATCHES (per ATOM_PROTOCOL.md) — not isolated one-at-a-time, not all-at-once. Do not finalize without three coworker reports.
+Branch: `excerpting-foundations-hardening-20260404`. Do not finalize without coworker reports.
