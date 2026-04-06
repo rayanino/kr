@@ -1,0 +1,127 @@
+{
+  "batch_id": "f7",
+  "created_at": "2026-04-06T21:41:10.474792+00:00",
+  "batch_dir": "C:\\Users\\Rayane\\Desktop\\kr\\engines\\excerpting\\chatgpt_f7_collection",
+  "file_count": 17,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "efdf922baf5e2b68745d26f16e9074440830ecfd2cde97601b2f9ce8510a8e69",
+      "size_bytes": 2110,
+      "line_count": 44,
+      "layer": "B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "a39427b0d8e2b70abf23ec31e23ce50f38ed84529cc40de3ece072dd6488a4a9",
+      "size_bytes": 5607,
+      "line_count": 31,
+      "layer": "B"
+    },
+    {
+      "path": "02_failure_dossier.md",
+      "sha256": "6f2b68e918bab5bb3da644e4cd7be589c2502c133424498804c667c7434cbda3",
+      "size_bytes": 13329,
+      "line_count": 325,
+      "layer": "B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "b88ad1bf6b7c143db95470e58b5a95a19b3be4eab312b9700e0a356e76499819",
+      "size_bytes": 6189,
+      "line_count": 154,
+      "layer": "B"
+    },
+    {
+      "path": "04_failure_taxonomy.jsonl",
+      "sha256": "dc2230edadc5ef7d2a535fd9ff2f4089c5a39afb2683e1a7469c5101b1adbb97",
+      "size_bytes": 6686,
+      "line_count": 18,
+      "layer": "B"
+    },
+    {
+      "path": "05_scenarios.jsonl",
+      "sha256": "bc0479c411040d1995dda33773c720bb634d653ada2581e17120a2ea2c3aa165",
+      "size_bytes": 51337,
+      "line_count": 46,
+      "layer": "B"
+    },
+    {
+      "path": "06_stop_using_thresholds.jsonl",
+      "sha256": "57b158faa490e9019944ca3c7b10e187c3fe268eb9afdbbcdbc2d0a063c8fbe1",
+      "size_bytes": 3835,
+      "line_count": 7,
+      "layer": "B"
+    },
+    {
+      "path": "07_damage_paths.jsonl",
+      "sha256": "510d3263462014ed85b152f82cf328315a21a3ea50adf3ef06a35fab0537b5a3",
+      "size_bytes": 9642,
+      "line_count": 12,
+      "layer": "B"
+    },
+    {
+      "path": "08_nonnegotiables.jsonl",
+      "sha256": "f36612243fdc8c5b8e620dfe50f8f0b67fa8b4eabb85470a8abb101e1a2a9a0e",
+      "size_bytes": 4448,
+      "line_count": 14,
+      "layer": "B"
+    },
+    {
+      "path": "09_red_team_tests.jsonl",
+      "sha256": "d9213876a1ebb0865521c65f5da29809799ed87e68b83df9436784a5f3c99a30",
+      "size_bytes": 7339,
+      "line_count": 16,
+      "layer": "B"
+    },
+    {
+      "path": "10_priority_matrix.yaml",
+      "sha256": "6c4c8c302637a09159818abadfe0419c17e5d2393e1c2e1be70de3b873e56f14",
+      "size_bytes": 1380,
+      "line_count": 58,
+      "layer": "B"
+    },
+    {
+      "path": "11_traceability.jsonl",
+      "sha256": "c76ae2ff38703c857cd5ffa5ba9bfbae9b01ef84e93c9f50ff536571b49c1846",
+      "size_bytes": 7871,
+      "line_count": 18,
+      "layer": "B"
+    },
+    {
+      "path": "12_open_questions.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "line_count": 0,
+      "layer": "B"
+    },
+    {
+      "path": "13_hard_judgment.md",
+      "sha256": "b6ba05270e3946afdf772084d43da1852a3f7a08b3f51c9e6f6530505bd62edd",
+      "size_bytes": 3178,
+      "line_count": 64,
+      "layer": "B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "1e21f7abbf1cb5b48a8ff046065ff488eb07a527be58f711a842704cb432e6c4",
+      "size_bytes": 1071,
+      "line_count": 35,
+      "layer": "UNKNOWN"
+    },
+    {
+      "path": "source_artifacts\\chatgpt_f7_collection_2026_04_04.zip",
+      "sha256": "f4bf44c577bdf0a31cbdbf2b168c54939ede4a6f9573ff27b00109316dfa34bb",
+      "size_bytes": 40187,
+      "line_count": 296,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\f7_owner_raw_draft_2026_04_04.txt",
+      "sha256": "74b9a48e58e3c8bedcdf5f879853865e877404eb8dc5e0b34b6a4116d5a7dcad",
+      "size_bytes": 5935,
+      "line_count": 37,
+      "layer": "A"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "batch_verification_run_id": "0195e8d1-df2a-4efd-a785-cdebc52b4681",
+  "batch_id": "f2",
+  "created_at": "2026-04-06T21:45:27.338127+00:00",
+  "total_files": 8,
+  "verified_count": 8,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "224a00cd0e53b42106ab6a86a131b95d310f25929c922be331309d85e3318774",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "01_owner_answer.md",
+      "sha256": "d3df6d4d2b2b60ee1c8faef1c117af0dd65b06f149c1a9ab5938218cdc87300d",
+      "state": "VERIFIED",
+      "mcu_count": 1,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "02_workflow_notes.yaml",
+      "sha256": "c647160ad741351388b0b225de4ad76f7e1439cc183cd2e35ad2501f67b98e41",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "03_retained_implications.md",
+      "sha256": "8dcfdc232134ec171616b23ea07896c67f9ad01c7d5c00ce7e976786c7f320e6",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "04_model_inference_non_authoritative.md",
+      "sha256": "3563f9487fe20244921bfebaf91cdf64b50bb1a954df1fb4a84146180aebb068",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "README.md",
+      "sha256": "5aaa2e41a80b6d37f051d523f6cc6d0e5fdc110678bc7af4eb6cdfd1486c891e",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "source_artifacts\\chatgpt_f2_collection_2026_04_03.zip",
+      "sha256": "46557fb78fcb3c58bd8e2837b31aaa193caff5f04c76aa9a296fe4d487c6d711",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "source_artifacts\\f2_owner_raw_draft_and_followups_2026_04_03.txt",
+      "sha256": "3e498759929efed31df3d67d1119af81389c20f9b8fcf2fc52a0629b89d2f1fe",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    }
+  ]
+}

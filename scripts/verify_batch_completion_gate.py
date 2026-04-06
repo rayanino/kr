@@ -132,16 +132,22 @@ def check_inventory_hash_drift(
 
 
 def check_queue_terminality(traces: list[dict[str, Any]]) -> tuple[bool, list[str]]:
-    """Condition 7: all MCUs resolved — each has a maq_id or explicit reject."""
+    """Condition 7: all MCUs resolved — each has a maq_id, META mapping, or explicit REJECT.
+
+    Per §3B.1 G-B-4: every MCU maps to a MAQ entry, META entry, or explicit
+    REJECT with justification.  META-mapped MCUs (project-level observations
+    captured outside the atom queue) are valid terminal states even without a
+    maq_id.
+    """
     failures: list[str] = []
     for t in traces:
         mcu_id = t.get("mcu_id", "unknown")
         has_maq = bool(t.get("maq_id"))
         mapping = t.get("mapping", "")
-        if not has_maq and mapping != "REJECT":
+        if not has_maq and mapping not in ("REJECT", "META"):
             failures.append(
                 f"  {mcu_id}: no maq_id and mapping={mapping or 'NONE'} "
-                f"(expected maq_id or REJECT)"
+                f"(expected maq_id, META, or REJECT)"
             )
     passed = len(failures) == 0
     return passed, failures

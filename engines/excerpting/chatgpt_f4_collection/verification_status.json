@@ -1,0 +1,180 @@
+{
+  "batch_verification_run_id": "f45dc1cf-ba01-471e-97ad-49115e2699f2",
+  "batch_id": "f4",
+  "created_at": "2026-04-06T21:45:27.760643+00:00",
+  "total_files": 19,
+  "verified_count": 19,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "eaf1125a7d28912c92f0a62538667c5123706848e6ffb3f75db16913afdc933d",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:51:48.405416+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Structural file, no owner content MCUs"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "8e9a26f82252d8050ad8e7d49ca6111d25833f94d407eca0aab508541e716edf",
+      "state": "VERIFIED",
+      "mcu_count": 1,
+      "timestamp": "2026-04-06T21:51:48.405416+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "050109c73000f52f7498b156625e5292bec0094616e6e1219d3427cc13b5c6c5",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "8c6f0770209544369ebe1f7766a61b626ec30ee62d9c99f9db82d2d74d7f73ff",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "84755740b2e8869193c103ddcf44a4c5c63ed7dbedf36ef9c29531a5d0a8d468",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "05_candidate_excerpts.jsonl",
+      "sha256": "0fbb4561c6558c7640fa0f0ce7e3c79dc48289026158a995d3bcefb92680b769",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "06_function_placement.jsonl",
+      "sha256": "c6ed0363124b9be834e8af7947cc086dda637c1758d34e417943ca7be828aa5b",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "07_question_cluster_analysis.jsonl",
+      "sha256": "bb28566d0a46b7ef8e2daddc3e21909824a380ac76ea4239e9d638373d73d5f7",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "08_context_dependency_analysis.jsonl",
+      "sha256": "53ac6242665a5ecd0c494c3431ad99774b92dcb24ba5efc41f9568555dc218a0",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "09_nonnegotiables.jsonl",
+      "sha256": "1a2931b7ec843eebd2b91a435a8e3140e7ee28e253fb694f2d1e4cf40935a397",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "10_red_team_tests.jsonl",
+      "sha256": "7c687364801c559c971752df7eb1d272751d901b03e86155e530c50fd1858812",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "11_priority_matrix.yaml",
+      "sha256": "fc5c6cc55a893f826b5d6767dd9cc859f68095e7bd8e4ee2aa846cbf9fd59bce",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "12_traceability.jsonl",
+      "sha256": "60d67415cd971bbf8ac5190d6f26e37a65636f0c7c28ce0bd1a3a4616a5d809d",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "13_open_questions.jsonl",
+      "sha256": "ecfb05692cd01785445bfb1f52e20f01cd186630c5db457f71eb49f6b13567d9",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "14_hard_judgment.md",
+      "sha256": "aea9a1cafb845e976956db0216e14270e3da45f10044660569da4fa783e002eb",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "README.md",
+      "sha256": "136648d8c17c3e0838c2f859d65fb800366a073e14f78f5be82aabde27bfa3d4",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:51:48.405416+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Structural file, no owner content MCUs"
+    },
+    {
+      "path": "source_artifacts\\chatgpt_f4_collection_bundle_2026_04_04.zip",
+      "sha256": "e8f07e7990fb4673c13cbb5c9d3be4dc6df6078a1f64cf65269b00934fa5dde9",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "source_artifacts\\f4_full_user_input_2026_04_04.txt",
+      "sha256": "dfb285a99850ad8eee5120251f79e4ef26918cfe7f8aefa54e3077474d83bcd4",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    },
+    {
+      "path": "source_artifacts\\f4_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "96af4f76f196a665172f0d936295ccfd0cf7f2dc84b3ca4c5055ee966ec3b5ec",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T21:53:23.651387+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": "Faqih standard: verified by 15% sample extrapolation. Raw source MCUs all MAPPED at Hafiz standard."
+    }
+  ]
+}

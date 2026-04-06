@@ -1,0 +1,141 @@
+{
+  "batch_id": "f3",
+  "created_at": "2026-04-06T21:41:03.310403+00:00",
+  "batch_dir": "C:\\Users\\Rayane\\Desktop\\kr\\engines\\excerpting\\chatgpt_f3_collection",
+  "file_count": 19,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "187d9a926dbc41b96e4dd1312daa1904811fc450399cde49ac80cfa5834638bc",
+      "size_bytes": 2166,
+      "line_count": 46,
+      "layer": "B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "4e77c3224d82e1cd29effa4c58a4acb6833e009dc464014d157719ee4a0cae98",
+      "size_bytes": 3591,
+      "line_count": 27,
+      "layer": "B"
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "63437dbc656f71a6ad0559f7480dc56e1569e3e5908caa026eb85d6e8651adab",
+      "size_bytes": 8058,
+      "line_count": 193,
+      "layer": "B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "4d3e9b8e4b4197efbe5af814a926d1e70638db47137850d8b1ab642247836391",
+      "size_bytes": 6153,
+      "line_count": 136,
+      "layer": "B"
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "b25a579b476cf7b27d16d6ef5925f65b508075e5ea6523b65148b0692d133303",
+      "size_bytes": 3376,
+      "line_count": 8,
+      "layer": "B"
+    },
+    {
+      "path": "05_candidate_excerpts.jsonl",
+      "sha256": "ad935fda8c7771b11e83f93473988873da246bf36011c3e5e646d664ac1f052a",
+      "size_bytes": 3720,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "06_linking_dependencies.jsonl",
+      "sha256": "d2934ce1d54aca727e32894d8bc871b410eb2bace4fe6067123b508576bb0f51",
+      "size_bytes": 2962,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "07_function_placement.jsonl",
+      "sha256": "8705b4ed4cab4248d51663f296fbead8936b9c2e2c3e5d65b98fa2a3d11437e5",
+      "size_bytes": 2827,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "08_granularity_analysis.jsonl",
+      "sha256": "b8ef63eef97fa4f49c10a96d1575b7360a09885cd07887161ecb403a3beafebc",
+      "size_bytes": 4137,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "09_nonnegotiables.jsonl",
+      "sha256": "fa945da3d51b4192bf870d1a02242524d3609b80af49e0ecb08feebff50741e6",
+      "size_bytes": 3897,
+      "line_count": 10,
+      "layer": "B"
+    },
+    {
+      "path": "10_red_team_tests.jsonl",
+      "sha256": "2ffbf2d5e16ce2dcfc04de926bfb4a0e8756b4108ed4996435d98ea1db8c6a76",
+      "size_bytes": 4481,
+      "line_count": 9,
+      "layer": "B"
+    },
+    {
+      "path": "11_priority_matrix.yaml",
+      "sha256": "85c91ff6ed5eb3f66da8a99217da0093967c74b90d186187bb8f269ebcbf6524",
+      "size_bytes": 2869,
+      "line_count": 61,
+      "layer": "B"
+    },
+    {
+      "path": "12_traceability.jsonl",
+      "sha256": "f7c69ef74b7d3036a312e3129146370a98778322d941dd784dd076211e634a02",
+      "size_bytes": 7170,
+      "line_count": 16,
+      "layer": "B"
+    },
+    {
+      "path": "13_open_questions.jsonl",
+      "sha256": "ea8bc098ae0dce2489f4ca688811aef871d88e916e4ad3f18069fa7942cb1162",
+      "size_bytes": 1276,
+      "line_count": 2,
+      "layer": "B"
+    },
+    {
+      "path": "14_hard_judgment.md",
+      "sha256": "688f0d982335671c41cde7fa96ab00c1afb2fb567aafa64b81fbc60598e15ea2",
+      "size_bytes": 3710,
+      "line_count": 68,
+      "layer": "B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "502b082c836822e2e59c9fc56df5cb5e0910e0f14a92468f07b8d14fd09775f6",
+      "size_bytes": 2895,
+      "line_count": 71,
+      "layer": "UNKNOWN"
+    },
+    {
+      "path": "source_artifacts\\chatgpt_f3_collection_bundle_2026_04_04.zip",
+      "sha256": "47beddfc4bcfd15029a9a9f76635fec971d6052d5f0e0e43578bd7b65e409fcb",
+      "size_bytes": 34676,
+      "line_count": 247,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\f3_full_user_input_2026_04_04.txt",
+      "sha256": "cbffbdee8db4365ba3b209767b9a51c7ef0ac9d1a23d7ac01270f204db2bab37",
+      "size_bytes": 13885,
+      "line_count": 115,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\f3_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "7f484c119f7ffbe02db4c281eb1972e11e9a2184f427d8c0bc6d720861c12861",
+      "size_bytes": 12619,
+      "line_count": 98,
+      "layer": "A"
+    }
+  ]
+}

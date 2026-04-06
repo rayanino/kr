@@ -1,0 +1,162 @@
+{
+  "batch_id": "f6",
+  "created_at": "2026-04-06T21:41:08.848437+00:00",
+  "batch_dir": "C:\\Users\\Rayane\\Desktop\\kr\\engines\\excerpting\\chatgpt_f6_collection",
+  "file_count": 22,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "aa9eacdbfb57d192d076442c6e1b29975cf4a84adcbea6504a70d44b4e32616a",
+      "size_bytes": 2587,
+      "line_count": 52,
+      "layer": "B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "ef8451fa09f2e06e2dc278097a2a30f8c0f867f0804a7abafb42e1ebbd6d2552",
+      "size_bytes": 3321,
+      "line_count": 25,
+      "layer": "B"
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "af538d6c0ee8fd4e03beacc3878e8014cbceaf221c5c9721c68fdb536d55df38",
+      "size_bytes": 6219,
+      "line_count": 155,
+      "layer": "B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "a3b7155aaf5c7e0483b172437fe857e2708a277c86278e7755a71eb4a443f257",
+      "size_bytes": 5895,
+      "line_count": 143,
+      "layer": "B"
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "a0fafa4e9dcc357182f76d34cd09b49905a25d9f552440a9ab51b17eaf380550",
+      "size_bytes": 3535,
+      "line_count": 8,
+      "layer": "B"
+    },
+    {
+      "path": "05_focus_segments.jsonl",
+      "sha256": "d157ce41cd30897f902b35006262afb95b0d0e38ea3a23baacfa3ee4e0d28515",
+      "size_bytes": 2359,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "06_slowdown_skip_analysis.jsonl",
+      "sha256": "7cab28afd1d0f280af2c040a185714d399de7db9aed1526f4d708b14992466b8",
+      "size_bytes": 2728,
+      "line_count": 6,
+      "layer": "B"
+    },
+    {
+      "path": "07_proof_layer_relationships.jsonl",
+      "sha256": "bb94c3aaf8ccd3bb90021a660b541a57a3e5f4ba597e71602e4c2975eff7c335",
+      "size_bytes": 2973,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "08_variant_difference_policy.jsonl",
+      "sha256": "37d2d7825847612915c854945fcbb05758326847563eb71ea613971251a0c11b",
+      "size_bytes": 3070,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "09_memorization_policy.jsonl",
+      "sha256": "ea69021ebee961e2fe55cf402cb375eb7c9daada5d5af5c67e79ceab9df1a1fd",
+      "size_bytes": 1746,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "10_text_preservation_vs_study_structuring.jsonl",
+      "sha256": "3dc1db00c4e18d2f1b4f3da0d15172556495624fe8c54e5e46de37e61c99ed14",
+      "size_bytes": 1910,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "11_data_analysis_opportunities.jsonl",
+      "sha256": "f3c93c52fd46b2abe94fa70f42fcd1810fc07f880c6266b0c6fde25263ac39f6",
+      "size_bytes": 2150,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "12_nonnegotiables.jsonl",
+      "sha256": "5f52d39dc3a17a08b28d37561c790a0bf04892dcb66604cc13f5978b8241e316",
+      "size_bytes": 3113,
+      "line_count": 10,
+      "layer": "B"
+    },
+    {
+      "path": "13_red_team_tests.jsonl",
+      "sha256": "485e4bb00bac8090e7420c76c08d085f9db12d9cc57833a7f189469ed0a95146",
+      "size_bytes": 3987,
+      "line_count": 9,
+      "layer": "B"
+    },
+    {
+      "path": "14_priority_matrix.yaml",
+      "sha256": "f9a9d31b6025c6241a94c37a6d0da011a1fbbde58448c9110be76a16eb9eecfe",
+      "size_bytes": 1413,
+      "line_count": 23,
+      "layer": "B"
+    },
+    {
+      "path": "15_traceability.jsonl",
+      "sha256": "881a0fafe605cc5644b51cf206ca5a9a5b845ae97fedae40dd72da73a05fb7af",
+      "size_bytes": 6207,
+      "line_count": 14,
+      "layer": "B"
+    },
+    {
+      "path": "16_open_questions.jsonl",
+      "sha256": "ed605f7312b9f9fd90db31fea6929462fd126dbb47e0e0c69247f4419576dce0",
+      "size_bytes": 854,
+      "line_count": 2,
+      "layer": "B"
+    },
+    {
+      "path": "17_hard_judgment.md",
+      "sha256": "a18f33c2bf5b458d5584dad6df28db5bb83b005efb33c4610e93b234c4262a29",
+      "size_bytes": 2968,
+      "line_count": 37,
+      "layer": "B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "adc18cb2880dc848de10151e86b2a6fe2e2c35799a71baf450ca19986f24bd58",
+      "size_bytes": 2808,
+      "line_count": 61,
+      "layer": "UNKNOWN"
+    },
+    {
+      "path": "source_artifacts\\chatgpt_f6_collection_bundle_2026_04_04.zip",
+      "sha256": "cb5f903c848ddcd97c6c0f960f9d58ea36a719a9431d912fc48d79702dffc47e",
+      "size_bytes": 37941,
+      "line_count": 257,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\f6_full_user_input_2026_04_04.txt",
+      "sha256": "3acc250ce981e8e383669ba3c226949803920057bf399c0e41349993af8f1a9e",
+      "size_bytes": 31212,
+      "line_count": 780,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\f6_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "7cee0e1843828de608d288479390e83b7ffcab4f533cff702864bd55db9c1232",
+      "size_bytes": 4768,
+      "line_count": 39,
+      "layer": "A"
+    }
+  ]
+}

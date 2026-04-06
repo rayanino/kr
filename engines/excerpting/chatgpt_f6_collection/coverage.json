@@ -1,0 +1,12 @@
+{
+  "total_files": 22,
+  "verified_files": 22,
+  "total_mcus": 8,
+  "mapped_mcus": 8,
+  "missed_count": 0,
+  "softened_count": 0,
+  "distorted_tashif_count": 0,
+  "distorted_tahrif_count": 0,
+  "coverage_pct": 100.0,
+  "malformed_count": 0
+}

@@ -1,0 +1,153 @@
+{
+  "batch_verification_run_id": "236eb00a-fa05-4b7a-81fc-32598a666df8",
+  "batch_id": "f1",
+  "created_at": "2026-04-06T21:45:27.141192+00:00",
+  "total_files": 16,
+  "verified_count": 16,
+  "files": [
+    {
+      "path": "canon\\excerpt_definition\\00_manifest.yaml",
+      "sha256": "410f4d62a495e82c7bcd19cc1321bfb0f5691d240665aa4a755079acb3047083",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\01_dossier.md",
+      "sha256": "be78a0b9f56cde648f259befca7c9fff6ebeb08078e5a300168506d46184bd28",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\02_terms.yaml",
+      "sha256": "d4731b3ed2b9266f79b8b2ffaa030cbb986b9506bc3b6194b4c21d265e34fc26",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\03_principles.jsonl",
+      "sha256": "13225372a76a8aaa2764688046c4ddeb3d9b5110fcd322101df0d06e9affaba2",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\04_unresolved.jsonl",
+      "sha256": "ce8313f3fcc306ef3a01e2697fbfe68c5a31db6e7baf083478c465d3c30f5f42",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\05_revisions.jsonl",
+      "sha256": "366fdf714da4665824798f11681ce1702672c8ebf38c70288b51d43cbcdb6305",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\06_cases.jsonl",
+      "sha256": "73daa623bc53a618bc4b469bb9682ec841d35b1d60642bd7b05afaa3119ecd0d",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\07_traceability.jsonl",
+      "sha256": "30de8a41282223baa1461ccc37d69ce4b805948245c24714759c202a929f9102",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\08_examples.jsonl",
+      "sha256": "9918af9e120745c90b339d37b23283c3708ad986243468bab88ffb8cdad004f6",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\09_tests.jsonl",
+      "sha256": "4a54d8e4c7ed5b176815965f8b064504bc2b5bdfe4c7ef05233c28fbeb0a9e16",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\10_coverage.yaml",
+      "sha256": "95da4ba893414fce4fc5ca1e0cbf92514eecafb26157956eb516cfd7618fe3f8",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "canon\\excerpt_definition\\11_hard_judgment.md",
+      "sha256": "939550461778b0412c759b0f524db061546e3c1b35ecd9efb698f7717e6257b2",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "manifest.yaml",
+      "sha256": "e85a8c29ba33d87b903623b3f590b811e43869cfbf3c4239454fc843f50cdb9c",
+      "state": "VERIFIED",
+      "mcu_count": 1,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "README.md",
+      "sha256": "e27e52fa9e621b6d4929f049aa4ab5d07ee884114baca7dc4804970ecb32f373",
+      "state": "VERIFIED",
+      "mcu_count": 1,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "source_artifacts\\chatgpt_bundle_raw_2026_04_03.txt",
+      "sha256": "b19c2b96fe87b45446f6df297957f2ce6dffed5e1b08f0ec38c041c4fbb1c531",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    },
+    {
+      "path": "source_artifacts\\f1_owner_original_notes_2026_04_03.txt",
+      "sha256": "b4cfcadc754a9b37dcf13d10a3d4bcd0322ce7da56a364d5573e1ab193fbeb0b",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-06T22:00:32.274163+00:00",
+      "verified_by": "session-4-bcv-20260406",
+      "notes": null
+    }
+  ]
+}
