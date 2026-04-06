@@ -11,6 +11,7 @@
 > - v3.0 (2026-04-06): ChatGPT DR adversarial review (38 findings, 10 pre-mortems) → 10 accepted via Codex+Gemini consensus: terminal state split, MODIFY→DISPUTED escalation, preliminary debt ceiling, prompt refactor gate, verbatim span extraction, scholarly integrity arbitration, scoped NEEDS RESEARCH blocking, prompt coherence reviews, owner objection mechanism, closure verification script (to build).
 > - v3.1 (2026-04-06): Gemini DR pedagogical review (8 findings, 4/10 + 3/10 scores) → 5 accepted via Codex+Gemini consensus: Natural Teaching Unit field, Graduated Learning Level field, atom complexity triage (Full/Light lane), owner briefing optimization (exception-based after 50 atoms), DR budget per session (max 5/session). 3 redirected to engine SPEC/downstream engines.
 > - v3.2 (2026-04-06): Claude DR scholarly review (19 findings, 5/10 score) → 8 accepted via Codex consensus: science list expanded 8→12 with structural families, indivisible units expanded 5→17 in 3 tiers (always/usually/conditionally), mandatory pre-expansion genre classification (3 decisions), scholarly uncertainty flags, sharḥ-matn pair as critical indivisible unit, multi-layer text awareness, honorific+transmission formula preservation, suʾāl-jawāb+radd+qiyās+taqsīm structures. FP-13 genre-sensitivity (SCH-009/010) redirected to SPEC.
+> - v3.3 (2026-04-06): Owner concern — guarantee every note is captured. Layer B upgraded from "reference" to "critically important source." Extraction changed from single bulk pass to per-file extraction with mandatory coverage verification table, red-flag re-reads, and density checks. Prevents Session 1 failure (15/139 files read).
 
 ---
 
@@ -146,10 +147,11 @@ All bundles follow a two-layer separation model:
 - `01_questionnaire_answer.md` — cleaned owner answer with confidence level
 - Authority: `owner_explicit`
 
-**Layer B — Engineering Expansion (REFERENCE, NOT DOCTRINE):**
+**Layer B — Structured Analysis (CRITICALLY IMPORTANT SOURCE — equal attention to Layer A):**
 - `02_*` through `14_*` — structured analysis files (case dossiers, decision ladders, nonnegotiables, red-team tests, priority matrices, traceability, open questions, hard judgments)
 - Authority: varies (`owner_explicit`, `owner_consistent_inference`, `model_only`)
-- **CRITICAL:** Layer B files were produced by ChatGPT interpreting the owner's words. They may have softened, qualified, or expanded beyond the owner's actual intent. ALWAYS cross-check against Layer A.
+- **BOTH Layer A AND Layer B are critically important sources.** Layer B contains extensive ChatGPT research and expansion that the owner considers valuable structured analysis — NOT disposable metadata. Every note in every file must be extracted and processed.
+- **CONFLICT RULE (unchanged):** When Layer B contradicts Layer A on the same point, Layer A (raw owner text) wins. But Layer B notes that ADD new insights, research, or analysis beyond what Layer A covers are INDEPENDENTLY VALUABLE and must not be discarded.
 
 **Bundle variants:**
 - **Standard full-expansion** (F3-F6, F8, G-series, SC-series): 14-16 numbered files + README + source_artifacts/
@@ -180,14 +182,26 @@ Dispatch a subagent:
 > (c) **Structural unit splitting:** muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد) separated, colophon elements fragmented, isnad chains broken.
 > Return: list of conflicts with file:line references, or 'no conflicts detected'."
 
-**Step 4: Extract atoms from the bundle.**
-Dispatch a subagent:
-> "Read ALL files in `engines/excerpting/chatgpt_{series}_collection/`. Extract every discrete owner directive, pain point, nonnegotiable, red-team test, and preference. For each atom, provide: (a) a 1-2 sentence summary, (b) source file and line, (c) authority level (owner_explicit / owner_consistent_inference / model_only), (d) category (nonnegotiable / red-team / directive / preference / meta). Return as a structured list."
+**Step 4: Extract atoms — PER FILE, not per bundle.**
+Do NOT dispatch a single subagent for the entire bundle. Extract FILE BY FILE to ensure nothing is missed:
 
-**Step 5: Assign MAQ-IDs and integrate into the queue.**
-CC reviews the subagent's extraction, assigns MAQ-IDs following the existing numbering scheme in MERGED_ATOM_QUEUE.md, and appends the new atoms to the appropriate section.
+For EACH file in the bundle (source_artifacts/*.txt, 01_*.md, 02_* through 14_*):
+> Dispatch a subagent: "Read ONLY `engines/excerpting/chatgpt_{series}_collection/{FILENAME}`. Extract EVERY discrete note, directive, pain point, nonnegotiable, red-team test, preference, research finding, and analytical insight. Include BOTH owner statements AND ChatGPT's analysis/expansion — both are critically important. For each note, provide: (a) verbatim quote or close paraphrase, (b) file name and line number, (c) authority level (owner_explicit / owner_consistent_inference / model_only), (d) category (nonnegotiable / red-team / directive / preference / research / meta). Return as a numbered list. At the end, state the TOTAL note count for this file."
 
-**Step 6: Move the zip to the collection directory.**
+This produces one extraction per file. CC collects all per-file extractions.
+
+**Step 5: Coverage verification (MANDATORY — the Session 1 failure prevention step).**
+After all per-file extractions complete:
+1. CC (or a subagent) produces a **coverage table**: one row per file, showing: filename, file size, notes extracted, categories found.
+2. **Red flag check:** Any file with 0 notes extracted → re-read that file manually or with a second subagent using a different extraction prompt. A non-empty structured file with 0 notes is almost certainly a missed extraction.
+3. **Density check:** Compare note counts to file sizes. A 30KB file with only 2 notes is suspicious — dispatch a second extraction pass with: "The first pass found only 2 notes in this 30KB file. Read it again carefully and extract ANY note that was missed."
+4. **Cross-file deduplication:** Some notes appear in multiple files (e.g., a nonnegotiable in the raw text AND in the nonnegotiables JSONL). Deduplicate, but keep both source references for traceability.
+5. CC records the coverage table in the ledger with totals: "Bundle {series}: {N} files read, {M} total notes extracted, {K} unique atoms after deduplication."
+
+**Step 6: Assign MAQ-IDs and integrate into the queue.**
+CC reviews the deduplicated extraction, assigns MAQ-IDs following the existing numbering scheme in MERGED_ATOM_QUEUE.md, and appends the new atoms to the appropriate section.
+
+**Step 7: Move the zip to the collection directory.**
 ```bash
 mv chatgpt_{series}_collection_bundle.zip engines/excerpting/chatgpt_{series}_collection/source_artifacts/
 ```
@@ -198,8 +212,11 @@ Before processing any atoms from a new bundle:
 - [ ] Bundle unzipped and structure verified
 - [ ] Subagent inventory completed
 - [ ] Conflict scan completed (conflicts documented or "none" confirmed)
-- [ ] Atoms extracted and assigned MAQ-IDs
-- [ ] MERGED_ATOM_QUEUE.md updated with new atoms
+- [ ] **Per-file extraction completed (EVERY file, not a single bulk pass)**
+- [ ] **Coverage table produced (file count, note counts, red flags addressed)**
+- [ ] **No file has 0 notes unless it is genuinely empty (verified)**
+- [ ] Atoms deduplicated, assigned MAQ-IDs
+- [ ] MERGED_ATOM_QUEUE.md updated with new atoms + coverage totals
 - [ ] Zip archived in source_artifacts/
 
 ---
