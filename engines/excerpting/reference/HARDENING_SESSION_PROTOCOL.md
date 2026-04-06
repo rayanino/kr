@@ -9,6 +9,7 @@
 > - v2.1 (2026-04-06): Gemini CLI review — arabic-scholarly-conventions.md in bootstrap, cross-science variation in expansion, distinct DR templates, expanded science list, attribution safety clarification, Arabic text degradation in bundle intake.
 > - v2.2 (2026-04-06): Codex CLI review — reopen protocol for finalized atoms, CC voting role clarification, G-RAW made checkable, word budget running tracker.
 > - v3.0 (2026-04-06): ChatGPT DR adversarial review (38 findings, 10 pre-mortems) → 10 accepted via Codex+Gemini consensus: terminal state split, MODIFY→DISPUTED escalation, preliminary debt ceiling, prompt refactor gate, verbatim span extraction, scholarly integrity arbitration, scoped NEEDS RESEARCH blocking, prompt coherence reviews, owner objection mechanism, closure verification script (to build).
+> - v3.1 (2026-04-06): Gemini DR pedagogical review (8 findings, 4/10 + 3/10 scores) → 5 accepted via Codex+Gemini consensus: Natural Teaching Unit field, Graduated Learning Level field, atom complexity triage (Full/Light lane), owner briefing optimization (exception-based after 50 atoms), DR budget per session (max 5/session). 3 redirected to engine SPEC/downstream engines.
 
 ---
 
@@ -309,6 +310,12 @@ OUT OF SCOPE: [precise list]
 ### Implementation Hypothesis
 Target: [new FP / strengthen FP-X / prompt addition (+N words) / contract change / test case / SPEC-only / deferred]
 Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K/1500]
+
+### Natural Teaching Unit (الوحدة التعليمية الطبيعية)
+[What is the organic knowledge unit for THIS specific text's genre? (mas'alah in fiqh, tarjamah+hadith+commentary in hadith encyclopedias, bayt+qa'idah+shawahid in nahw, thematic verse group + athar in tafsir, attribute + evidence cascade in aqidah). Would the proposed rule PRESERVE or FRAGMENT this natural unit?]
+
+### Graduated Learning Level (مستوى التدرج)
+[Is the source text beginner (مختصر/مبتدئ — memorize rulings only), intermediate (متن مع شرح/متوسط — understand evidences), or advanced (مبسوط/منتهي — master comparative analysis)? The proposed rule MUST respect the text's intended depth: do not inject complexity into beginner texts or truncate analysis in advanced texts.]
 
 ### Blast-Radius Assessment
 [No conflicts with finalized atoms | Conflicts with ATOM-X: resolution plan]
@@ -644,6 +651,59 @@ When owner intent conflicts with scholarly correctness (e.g., owner requests a h
 4. Owner chooses. If owner insists on the intent-faithful option despite documented risk, CC implements with an explicit `SCHOLARLY_RISK_ACCEPTED` tag in the ledger.
 
 This does NOT apply to preference-level decisions (granularity, formatting). It applies ONLY when implementation would damage: isnad chains, attribution integrity, indivisible textual units, or Quranic citation boundaries.
+
+### 4.14 Atom Complexity Triage (PROC-004)
+
+Not all atoms require the full 7-stage lifecycle. After Stage 1 (RAW), CC classifies each atom into one of two lanes:
+
+**FULL LANE (default):** All 7 stages, all coworker minimums. Required for:
+- Prompt-affecting atoms
+- Contract-affecting atoms
+- SPEC-structural atoms (new/modified FPs)
+- Cross-science or cross-engine atoms
+- Any atom where the owner's raw text contains ALL-CAPS, conditional reasoning, or expressed uncertainty
+
+**LIGHT LANE:** Stages 2-3-6-7 only (skip CHALLENGED + SYNTHESIZED). Requires 1 external coworker spot-check (Codex or Gemini). Eligible ONLY for:
+- Editorial/typographical corrections to existing SPEC text
+- Verification-only atoms (confirming existing FPs already cover the atom)
+- SPEC-doctrinal atoms that add no behavioral change (no prompt/contract/test)
+- Zero semantic change to any MUST/NEVER/ALWAYS rule
+
+**Safeguards:** Light Lane atoms must still read raw source (Stage 2), produce an expansion (Stage 3, abbreviated), and be briefed to the owner (Stage 7). Any doubt about eligibility → Full Lane. Misclassification into Light Lane is a session failure if discovered later.
+
+### 4.15 Owner Briefing Optimization (PROC-001)
+
+At 600 atoms, per-atom owner briefing causes checkbox fatigue. After the first 50 CLOSED atoms establish trust:
+
+**Phase A (atoms 1-50): Full per-atom briefing.** Every atom gets an individual brief as described in Stage 7.
+
+**Phase B (atoms 51+): Exception-based briefing.** CC provides:
+- A **batch summary** after every 5 atoms (1-2 sentences per atom, highlighting only what changed)
+- **Full individual briefs** only for: atoms where coworkers disagreed, atoms touching the owner's core concerns (self-containment, loose knowledge, attribution), atoms where the expansion revealed tensions in the owner's own raw text, and any atom where CC exercised the Scholarly Integrity override (§4.13)
+
+The owner can request full per-atom briefing for any batch at any time. This optimization reduces owner cognitive load by ~80% while preserving visibility on high-stakes atoms.
+
+### 4.16 DR Budget Per Session (PROC-003)
+
+At ~600 atoms requiring ~200 DR relays, owner relay fatigue is unsustainable.
+
+**Rule:** Maximum 5 DR relay dispatches per 25-atom session. Reserve DR for:
+- Prompt-affecting atoms in the Full Lane
+- Atoms where Codex and Gemini DISAGREE
+- Atoms touching khilaf/tarjih, attribution, or excerpt definition
+- Phase gates
+
+**Exempt from DR:** Light Lane atoms, verification-only atoms, SPEC-only doctrinal additions with Codex+Gemini agreement.
+
+### 4.17 Redirected Findings (Valid but Not Protocol Scope)
+
+The following Gemini DR findings are valid scholarly insights but belong in engine SPEC or downstream engines, not in the hardening protocol:
+
+| Finding | Redirect Target | Action |
+|---|---|---|
+| PED-001 (Organic Knowledge Unit) | SPEC §5/§6 — Phase 2 grouping doctrine | Create a SPEC amendment ticket: genre-aware teaching unit boundaries (mas'alah, tarjamah, bayt, etc.) |
+| PED-003 (Knowledge dependency mapping) | Taxonomy + Synthesis engines | Document as a cross-engine design requirement for the knowledge graph layer |
+| PED-004 (Study Path Reconstruction Test) | Evaluation layer / campaign review tools | Integrate into `tools/evaluate_excerpts.py` as a multi-text coherence check |
 
 ---
 
