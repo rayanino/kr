@@ -41,8 +41,8 @@
 
 ### What's Needed Next
 1. **Session 5 (IN PROGRESS):** Intake G1-G4 + SC1-SC3 (7 bundles). Handoff at `reference/handoffs/excerpting_foundations_session5_kickoff_2026-04-07.md`
-2. **DR20 PROCESSED:** 40-book production batch selected. Manifest at `engines/excerpting/reference/BOOK_SELECTION_MANIFEST.md`. DR21 (prompt compression) and DR22 (multi-layer detection) still incoming.
-3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → prompt refactor (§4.11, informed by DR21) → full-atom processing
+2. **DR20+DR21 PROCESSED:** 40-book manifest at `engines/excerpting/reference/BOOK_SELECTION_MANIFEST.md`. Prompt compression recipe at `engines/excerpting/reference/dr_reviews/DR21_claude_prompt_compression_recipe.md` (7-step recipe, 1474→800-1000 words, compression IMPROVES compliance: 0.95^25=28% → 0.95^12=54%). DR22 (multi-layer detection, Gemini) still incoming.
+3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → **prompt refactor (§4.11, DR21 7-step recipe)** → full-atom processing
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
 5. **PARALLEL: Feedback Collection Strategy brainstorm** — see section below
 
