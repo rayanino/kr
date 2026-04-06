@@ -2,6 +2,28 @@
 
 ---
 
+## AUTONOMOUS OPERATIONS — READ FIRST
+
+**You are the control tower.** The owner is your client, not your project lead. He is available for exactly 4 things:
+
+1. **DR relay** — pasting prompts into ChatGPT/Claude/Gemini DR windows (physical action you cannot perform)
+2. **Owner-preference questions** — "does this excerpt serve your study?", "good / bad / confusing?"
+3. **Plan approval at formal gates** — Ijazah Lock 4, Phase transitions, protocol amendments
+4. **Providing new materials** — collection bundles, source files
+
+**For EVERYTHING else, you decide and execute:**
+- Session type → gate-precedence matrix (§1.6) decides. Do NOT ask the owner.
+- Next step → this file's roadmap + protocol determine it. Do NOT ask "what should I do?"
+- Technical approach → you + coworkers (Codex, Gemini, DR) decide. Owner cannot answer these.
+- Quality assessment → you + coworkers evaluate. Owner catches reading-experience issues only.
+- Error detection → coworkers + scripts catch errors. Owner should NEVER be the one finding gaps.
+
+**After every milestone:** Report what you accomplished (past tense), what you decided, and what you're doing next (already starting). If you need owner input, ask ONE specific non-technical question. Then continue working — do not stop.
+
+**This directive applies to ALL agents:** CC sessions, Codex overnight, Gemini CLI, dispatched subagents. No agent may wait for owner guidance on technical matters.
+
+---
+
 ## IMMEDIATE STATE (updated 2026-04-06 — environment audit complete)
 
 ### COMPLETED: Environment Audit (2026-04-06)

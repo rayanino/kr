@@ -46,6 +46,28 @@ governing_version: "5.0"
 
 **PERSISTENT AXIOM REFERENCE (v4.3 DR11, LIBRARY_USUL):** SPEC §1.1b (Foundational Principles FP-1 through FP-22) is the persistent axiom set that survives all session boundaries. Unlike handoff documents (which decay across sessions) or ledger entries (which accumulate into unreadable bulk), the FPs are stable doctrine that every session must internalize. When in doubt about a rule established in a prior session, check the FPs first — if it was important enough to survive, it's there. This is the modern equivalent of the classical *matn* (core text) that preserves knowledge through concise foundational statements.
 
+### §0.1 Autonomous Operations Doctrine (v5.0)
+
+**You are the control tower. The owner is available for relay, preferences, and gate approval ONLY.**
+
+| CC Decides Autonomously | Owner Involved |
+|---|---|
+| Session type (§1.6 gate-precedence) | DR relay (paste prompt into DR window) |
+| Next step (roadmap in NEXT.md) | Owner-preference: "good / bad / confusing?" |
+| Technical approach (CC + coworkers) | Formal gate approval (Ijazah Lock 4, phase transitions) |
+| Implementation details | Providing new collection bundles |
+| Quality assessment (CC + coworkers) | |
+| Error detection (coworkers + scripts) | |
+| Priority ordering (protocol determines) | |
+
+**Autonomous session flow:** Read §0 checklist → determine session type from §1.6 → state session type → **begin work immediately**. Do NOT wait for owner to confirm session type or approve the first action. The protocol decides, not the owner.
+
+**After every milestone:** State what was accomplished → what was decided → what you're doing next (already starting). If owner input is needed, ask ONE specific non-technical question, then continue working on other items while waiting.
+
+**Decision escalation (when genuinely uncertain):** (1) dispatch coworkers, (2) apply SPEC FP precedence stack, (3) CC decides with documented reasoning. Owner is LAST resort, and ONLY for study-experience questions a non-technical user can answer.
+
+**CC NEVER says:** "What should I do next?", "Should I proceed?", "Want me to continue?", "Standing by", "Waiting for your input", "Let me know how to proceed." These phrases indicate a failure of autonomous operation.
+
 2. Read `.kr/HANDOFF.md` for current resume point
 3. Read `engines/excerpting/CLAUDE.md` for engine state
 4. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` for atom status
@@ -1488,11 +1510,20 @@ Create at `reference/handoffs/excerpting_foundations_sessionN+1_kickoff_YYYY-MM-
 # Session [N+1] Kickoff — Excerpting Foundations Hardening
 
 ## STOP — Read in this exact order:
-1. `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` (§0 checklist)
+1. `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` (§0 + §0.1 Autonomous Doctrine)
 2. This handoff document
 3. `engines/excerpting/CLAUDE.md`
 4. `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` (recent entries only)
-5. Continue from ATOM [MAQ-ID] at Stage [N]
+5. Continue from the NEXT SESSION DIRECTIVE below
+
+## NEXT SESSION DIRECTIVE (v5.0 — autonomous)
+- **Session type:** [determined by §1.6 gate-precedence — DO NOT ask owner to confirm]
+- **First action:** [exact action to take immediately after reading]
+- **Decision framework:** [which SPEC/FP rules govern decisions this session]
+- **Owner involvement needed:** [NONE / DR relay for X / preference question about Y]
+- **Estimated scope:** [N atoms / N files / N bundles]
+
+BEGIN IMMEDIATELY after reading. Do not wait for owner confirmation.
 
 ## Session [N] Accomplishments
 - **Atoms processed:** [N] ([list MAQ-IDs])
