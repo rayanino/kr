@@ -1,7 +1,8 @@
 # Environment Optimization — Prior Session Research Findings
 
-> **Source:** Session 2 (2026-04-04), 3 research agents + plan synthesis.
+> **Source:** Session 2 (2026-04-04), 3 research agents + plan synthesis + web registry audit.
 > **Purpose:** This file is consumed by a SEPARATE environment-improvement session during Phase 2 (after independent reasoning). Do NOT read this file during Phase 1 — it introduces bias.
+> **Phase 2 prompt:** After you have your own independent plan, the owner will tell you to read this file AND incorporate the registry findings below.
 
 ---
 
@@ -135,3 +136,71 @@ Research was cut short by API usage limits. Key findings before cutoff:
 > 6. How do multi-model consensus systems automate the dispatch-collect-synthesize workflow?
 >
 > OUTPUT: Ranked list of tools/techniques by impact, with installation/integration instructions.
+
+---
+
+## Web Registry Audit (2026-04-06)
+
+Full audit of Claude Code plugin registries for KR-relevant tools.
+
+### INSTALL IMMEDIATELY
+
+**context-mode** (`https://github.com/mksglu/context-mode`)
+- Sandboxes large tool outputs in isolated subprocesses. Raw data compressed from 315KB to 5.4KB (98% reduction). 
+- FTS5 database with BM25 ranking for searching previous outputs without re-loading.
+- Session continuity: tracks file edits, git ops, tasks, errors in SQLite. After compaction, indexes events and retrieves only what's relevant.
+- Extends usable session time from ~30 min to ~3 hours.
+- **KR impact: CRITICAL.** Sessions consistently hit context limits (80%+ exhaustion documented in sessions 1, 2). This is the single highest-impact infrastructure improvement.
+- Install: via Claude Code plugin marketplace (requires v1.0.33+)
+
+### INVESTIGATE AND CHERRY-PICK
+
+**awesome-claude-code-toolkit** (`https://github.com/rohitg00/awesome-claude-code-toolkit`)
+- 135 agents, 35 skills, 42 commands, 176 plugins, 20 hooks, 15 rules, 7 templates, 13 MCP configs
+- Cherry-pick: evaluation agents, testing hooks, documentation generators
+- #1 trending GitHub Feb 2026
+
+**awesome-arabic-nlp** (`https://github.com/Curated-Awesome-Lists/awesome-arabic-nlp`)
+- Curated Arabic NLP resources, datasets, tools, best practices
+- Direct reference for Arabic tooling dimension
+- Includes AraBERT, CAMeL Tools references, word embedding models for Islamic domain
+
+**claude-code-plugins-plus-skills** (`https://github.com/jeremylongshore/claude-code-plugins-plus-skills`)
+- 340 plugins + 1367 agent skills. CCPI package manager.
+- Largest registry — search for evaluation/testing/scholarly specializations
+
+**awesome-claude-plugins** (`https://github.com/ComposioHQ/awesome-claude-plugins`)
+- Curated list of production-ready plugins
+- Includes connect-apps for external service integration
+
+### NOT RELEVANT TO KR (skip)
+- connect-apps (SaaS integrations — KR is a local pipeline)
+- nano-banana (image generation — KR is text-only)
+- developer-growth-analysis (personal analytics — not pipeline quality)
+
+### KEY FINDING: No Arabic/Islamic Plugin Exists
+No Claude Code plugin specifically for Arabic NLP or Islamic scholarly text processing exists in any registry. The environment session should BUILD one as a KR-internal skill/agent.
+
+---
+
+## Phase 2 Prompt (owner gives this AFTER the session has its own independent plan)
+
+```
+Good work on your independent analysis. Now here's the second phase.
+
+A previous session already did this same analysis from a different angle. Their findings are saved at:
+- reference/handoffs/environment_prior_session_research.md (detailed research + registry audit)
+- .claude/plans/tender-pondering-swing.md (the plan — 8 dimensions of improvement)
+
+Read both files. Then:
+
+1. What did YOUR analysis find that the prior session MISSED?
+2. What did the prior session find that YOU missed?
+3. Where do you DISAGREE with the prior session's priorities?
+4. The prior session found context-mode (https://github.com/mksglu/context-mode) — a plugin that extends session life from 30 min to 3 hours via 98% context compression. Evaluate whether to install it.
+5. The prior session audited 4 plugin registries (awesome-claude-code-toolkit, awesome-arabic-nlp, claude-code-plugins-plus-skills, awesome-claude-plugins). Cherry-pick anything relevant they listed.
+6. Produce a MERGED plan that takes the best of both analyses, ordered by impact.
+7. Then implement the merged plan.
+
+Use /prompt-architect for any prompts you need to write. Use /ce:plan for the implementation plan. Use your coworkers to validate before implementing.
+```
