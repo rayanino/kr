@@ -2,25 +2,43 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-06)
+## IMMEDIATE STATE (updated 2026-04-06 — environment audit complete)
+
+### COMPLETED: Environment Audit (2026-04-06)
+
+Debiased two-session environment audit. Merged plan at `reference/handoffs/environment_merged_plan_2026-04-06.md`.
+
+**Key deliverables:**
+- **Coverage baseline established: 82%** (914 tests, branch coverage). Gap: `tracer.py` 0%, `parallel_orchestrator.py` 56%.
+- **7 tools activated:** pytest-cov, DeepEval (3 GEval metrics), DuckDB (SQL over results), promptfoo (config), mutmut (config), IAA metrics (Cohen's kappa), camel-tools (verified working)
+- **context-mode plugin evaluated: DO NOT INSTALL** (WebFetch conflict, hook collision, CVE surface)
+- **MCP cleanup identified:** 5 dead/failed servers to remove (owner action needed)
+- **Run:** `pytest engines/excerpting/tests/ --cov=engines/excerpting/src --cov-branch --cov-report=term-missing`
+
+**Environment next steps (not blocking hardening):**
+1. Owner: `claude mcp remove exa && claude mcp remove fetch` — remove dead MCP servers
+2. Investigate `tracer.py` (0% coverage) — dead code or untested entry point?
+3. Run `npx promptfoo eval --config engines/excerpting/promptfooconfig.yaml` after next prompt change
+4. Tier 2 items (hypothesis, pytest-xdist, OpenITI, Usul.ai) in a follow-up session
 
 ### ACTIVE LANE: Foundations Hardening (atom-by-atom)
 
 Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
-**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v2.2 (GOVERNING LAW)**
+**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v3.2 (GOVERNING LAW)**
 Plan: `.claude/plans/tender-moseying-crayon.md`
 
 **Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1 bundles received at repo root. Owner continuing methodology for all 40 questions.
 
-**Session 2 complete. Session 3 protocol redesigned.** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md v2.2, which fixes 8 critical workflow failures from sessions 1-2. Key changes: per-atom lifecycle (not batched), formal coworker voting, dispatch-first context management, reopen protocol for finalized atoms.
+**Session 2 complete. Protocol v3.2 FULLY REVIEWED by 5 sources.** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md v3.2, reviewed by all 5 coworker sources. 34 improvements across 5 review cycles. Key features: 7-stage per-atom lifecycle, formal voting (ACCEPT/MODIFY/ITERATE/REJECT), dispatch-first context management, 12-science cross-science variation, 17 indivisible units in 3 tiers, scholarly uncertainty flags, prompt refactor gate, preliminary debt ceiling, owner objection mechanism.
 
-**Protocol review status:**
-- Codex CLI: REVIEWED (1 CRITICAL + 1 HIGH + 2 MEDIUM → all fixed in v2.2)
-- Gemini CLI: REVIEWED (2 CRITICAL + 2 HIGH + 2 MEDIUM + 1 LOW → all fixed in v2.1)
-- ChatGPT DR: PENDING (adversarial relay prompt prepared)
-- Claude DR: PENDING (scholarly reasoning relay prompt prepared)
-- Gemini DR: PENDING (process optimization relay prompt prepared)
+**Protocol review COMPLETE:**
+- Codex CLI: 4/4 accepted → v2.2
+- Gemini CLI: 7/7 accepted → v2.1
+- ChatGPT DR: 10/38 accepted (38 findings + 10 pre-mortems, 4/10 score) → v3.0 (DR6)
+- Gemini DR: 5/8 accepted, 3 redirected (8 findings, 4/10 + 3/10 scores) → v3.1 (DR7)
+- Claude DR: 8/19 accepted (19 findings, 5/10 score) → v3.2 (DR8)
+- All DR reports archived: `engines/excerpting/reference/dr_reviews/DR6-DR8`
 
 **Atom progress:**
 | # | Atom | Status |
@@ -52,15 +70,16 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 5. **Prompt optimization** — 1474/1500 words. If empirical validation shows LLM ignoring late rules (primacy bias), consider REPLACING lower-priority rules with higher-priority ones.
 
 **Session 3 should (IN THIS ORDER):**
-1. Read `HARDENING_SESSION_PROTOCOL.md` §0 checklist (10 items) — this is now the governing law
-2. Check if DR coworker responses have arrived for the protocol review (owner may have relayed)
-3. If DR findings exist: incorporate into v2.3, then proceed
-4. **G1-G4 + SC1 Bundle Intake** — follow §3 of the protocol: unzip 5 bundles at repo root, inventory, extract atoms, integrate into MERGED_ATOM_QUEUE.md
-5. Begin per-atom processing of remaining F1-F8 atoms using the 7-stage lifecycle (§4)
+1. Read `HARDENING_SESSION_PROTOCOL.md` §0 checklist (10 items) — v3.2 is the governing law
+2. **PROMPT REFACTOR PASS (§4.11 TRIGGERED)** — GROUP prompt at 1474/1500 (>80% = gate triggered). CC + Codex review entire prompt for: redundant rules to merge, low-priority rules to move to deterministic validators, verbose rules to compress. Gemini validates refactored prompt preserves scholarly meaning. This MUST complete before any new prompt-affecting atoms.
+3. **G1-G4 + SC1 Bundle Intake** — follow §3: unzip 5 bundles at repo root, inventory via subagents, extract atoms, integrate into MERGED_ATOM_QUEUE.md
+4. **Preliminary Debt Clearing (§4.9)** — Batches B1-B3 are PRELIMINARY. Check if DR responses arrived; upgrade or re-dispatch.
+5. Begin per-atom processing using the 7-stage lifecycle with Full/Light lane triage (§4.14)
 6. Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
-7. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3)
-8. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom). DR-5 recommends Options 2+4 (compress + few-shot)
-9. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
+7. Route to SPEC: FP-13 genre-sensitivity (SCH-009/010), Organic Knowledge Unit (PED-001)
+8. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3)
+9. Build `verify_atom_closure.py` (DA-001) — machine-checkable Q-CLOSED evidence
+10. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
 5. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom), ~19 prompt-affecting atoms remaining. DR-5 recommends Options 2+4 (compress existing rules + few-shot examples)
 6. Prepare Phase 1 smoke run with fully hardened prompt
 7. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
