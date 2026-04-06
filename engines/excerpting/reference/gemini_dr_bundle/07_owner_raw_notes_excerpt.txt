@@ -1,0 +1,60 @@
+=========================== F1 ORIGINAL ANSWER ===========================
+
+So ... to me it's like capturing one scholar's whole explanation on one topic in particular ... in a book of islamic knowledge, there are many topics spoken about. There is a clear relationship between all topics, which is the purpose of the taxonomy tree (engine 4) ... but those topics 
+
+And by topic, I do not mean "heading" ... I just mean "one exact granulated thing the conversation is about" ... I have a little difficulty exactly explaning what I mean by "granulated thing" ... buta good way to put it; anything that can accept a heading, no matter how granulated. For example: "the definition of al-sarf in the arabic language", but this is actually too broad (not yet granulated to my liking) ... why? because within this topic, you can even go deeper 
+
+I'm not sure "anything that could have a heading" is an optimal way of putting it ... i'm not sure if this will cause some potential being lost, or if this definition will put a cap or limit to granulating topics .... but this is the best thing I can think of ... can even go as deep as a level 12 heading .. but literally just anything that can accept a logical heading ... this means:
+
+"definition of als-sarf" NOT GRANULATED ENOUGH
+"definition of als-sarf" --> "definition of al-sarf in the arabic language" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" --> "opinion1 <insert opinion title>"
+                                                                                                                                                      --> "opinion2 <insert opinion title>"
+
+That last one looks more like what I want, though I this is a mere example and in reality it could even be more granulated.
+
+This granulation should be at the highest encyclopedic level ... it's like we're making an encylopedia of the science, but in a different structure; with a taxonomy tree, with excerpts, instead of flowing text ... you could (probably) convert this tree with its excerpts into a mundane encyclopedia, but again: the goal is to make the perfect environment for me to study in ... an enecylopedia cannot be indexed as easily as a tree with clear branches, and it doesn't provide for the overview this tree would; it's text after text, not clear tree structure where you can get the overview of the entire science in one look.
+
+
+After thinking about it, what I'm trying to do really is digitilizing the whole process of picking a book to read --> using highlighters, sticky notes, ... to highlight chapters, topics, ... 
+
+The whole point is that it's not that simple. We can't just literally seperate every single topic, because by that definition every single sentence would become an excerpt. I'm trying to explain my idea, but it's a little challenging for me to give the right idea ...
+
+I just want to open a topic within the science tree, and see what a particular source of knowledge said / explained about it. The goal is: I think true mastery of an islamic science comes by mastering every single topic in it, but also: understanding the relationships, structure, reason the science is like this, the scope. This is the goal of the taxonomy tree; understanding. But the mastery of the individual topics only comes by reading many books from scholars about this topic and how they explain it, and their different insights, opinions, ... the problem is that when you read that book, 99% is unrelated (other topics), while only 1% is the actual topic in question. So if I want true mastery of this topic, I would have to read 1000 books (for example), recognize where in each book this topic is spoken about, highlight it / mark it, remember it, .... this is chaos. The goal is to create structure.
+
+I just want to open the leaf "the definition of al-sarf in the arabic language". Traditionally, I would be reading a book, then encounter this topic, read it, go on to the other topics. But then I've not mastered this topic; I only have one explanation from one particular scholar. I would have to read 1000 books, and constantly at each book refresh my memory: "what have the previous books said about this topic"? You see the chaos and un-productiveness? The solution in reliaty would be to have all those 1000 books next to each other. Start at the first book, read his explanation about "the definition of al-sarf in the arabic language", go to the next book , look up where this is spoken about ... x1000. That is what I want to ease on myself. 
+
+The goal of me is to become the most knowledgeable scholar. The man with the most unmatched understanding and knowledge. And that would mean that for every topic within tevery single islamic science, I have read and attended many lectures. The problem is structure;a lecture talks about 100 topics, a book aswell. I go topic A --> topic B --> ... then go to the next book / lecture and once again ... I would much rather master topic A --> master topic B --> ....
+
+This will give me the edge. The goal is to give me the edge over any student of knowledge. No previous student of knowledge in history had the technology and Ai available that could do this. The goal is to make things that in practise are hard / impossible but would genuinly give an edge and ease in the process of aqcuiring knowledge possible for me. That is the only way I can become that unprecedented scholar. I won't make it by following the traditional way ...
+
+I will only make it by genuinly inventing unprecedented ways of aqcuiring knowledge. THIS IS THE DRIVING MOTIVATION BEHIND THIS PROJECT, AND I JUST REALIZE THIS HAS NOT BEEN CLEARLY COMMUNICATED WITHIN THE PROJECT. The project is not a mere copy of any existing system. It's a whole new system. It should never be limited by "the owner said this, so it should be like this", or "the usual way is like this, so let's do it like this" ... this is why during the engineering (claude code, codex, gemini, ... working on the project), I constantly end my prompts with "think thoroughly, think outside the box, ...".
+
+I have an idea, but I deeply understand and recognize that I may very well be MISSING OPPERTUNITIES TO MAKE THIS EVEN BETTER. That is my nightmare. I'm a one man army, supported by AI. AI can be stupid and follow exactly what I say ... but that's not what will make my goal of becoming the most unprecedented scholar ever real ... it is if AI can think outside the box, as if it were a team of 200 iq scientists, about constantly making this project better and finding ways to give me the edge.
+
+Of course, I understand that the true becoming-a-scholar-process is by actually utilizing what this app will produce and studying ... this is the tool that will make that, and set the environment to let me study at the highes capacity.
+
+Catch this: ONCE I START MY ISLAMIC STUDY JOURNEY, I SHOULD NOT BE WORRIED ABOUT  MAKING CONNECTION BETWEEN TOPICS, COLLECTING KNOWLEDGE, ... MY ONLY WORRY SHOULD BE: MEMORIZING. PLEASE CATCH THIS CLEARLY.
+
+This text contains some core principles on which the whole project and its motivation leans ... cannot be just written somewhere ... it must be understood by any agent working on this project.
+
+I also realized: I feel like the current project is hard-capping what en excerpt is at: it can only contain text from the source, nothing else. But I think we can gain an edge by expanding this ... what I mean: when the LLM call is made to excerpt, we can additionally let the LLM add comments ... I'm not talking explanation, I'm talking comments that would make the excerpt even more 'self contained' ... kinda of like the green boxes I find in my high school textbooks (usually with a lightbulb image next to them); "note: the author had just finished topci x when he started mentioning this topic", or "note: beware, ..." ... not pure 'theory / lectural explanation'; that explanation is too much to add and needs its dedicated system (synthesis engine), but just those little things that genuinly fill any gaps I could encounter while reading the excerpt ...
+
+... maybe we should add a checklist that gets sent to the LLM with the instructions: "after you have produced an excerpt, go down this checklist and make sure everything is checked", for example "this excerpt is self contained" though this is too broad of a checklis item ... but you get it, this is just an example, the idea is what counts.
+
+And oh yes, I forgot to explain that 'self contained' thing ... there are many dangers when doing what we're doing; excerpting parts from a text that was originally meant to be read as one continous whole ... and to add even more dangers: we are forcing many books with distint outlines / structures (tables of contents / order of topics) into ONE order (taxonomy tree) ... this creates even more dangers and knowledge corruption threats ...
+
+I think we need very dedicated anger-detection sessions because these are serious threats to the knowledge ... this is something we should use my strongest llms available for (chatgpt, claude, gemini, all three with and without deep research available) to identify every single threat ... we genuinly cannot let anything slip ... then have a clear threat checklist that MUST be crossed before any excerpt is accepted ...
+
+I just realized this threat thing is way more serious than we thought ... this should be a top priority ... it seems like the LLM call should do way more than merely "excerpt, done ..." there should be a clear protocol and checklist to be followed to avoid mistakes at any costs ...
+
+I think I skipped too quick over the "ground unbreakable rules" of the project (like knowledge integrity at any cost, surgical accuracy, avoid corruptions, ...) ... i kinda just said "oh, this should be a core principle of the project that never gets broken" scatter through the project any time I thought something was important to capture ... but never really had clear sessions about this ...
+
+In general I just realized: the core architecture of the project is missing ... there is still room for ambigiouty ... there are no clear well though out protocols ... I think this identifies our next new top priority ...
+
+
+Please, chatgpt, ... I'm stuck with this idea in my mind but can't communicate it properly ... this is the most important part of the project ... 
+
+
