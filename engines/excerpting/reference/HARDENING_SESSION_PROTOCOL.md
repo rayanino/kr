@@ -484,7 +484,9 @@ HR-23: **Never dispatch a prompt to ANY target (Codex CLI, Gemini CLI, DR relay,
 HR-24: **Never end a session without running `scripts/lint_session_norms.py` on the handoff — must PASS.** Checks: permission-seeking language (C1), next-step presence (C2), dispatch completeness (C3), prompt-architect compliance (C4). DR18 Mechanism 2 (norm-linter gate). A failing lint report means the handoff has governance violations that the next session would inherit.
 HR-25: **The PreToolUse hooks for autonomy enforcement and prompt-architect enforcement MUST NEVER be disabled, bypassed, or removed.** These hooks are the HARD enforcement layer (DR19). `.claude/hooks/enforce-autonomy.sh` blocks technical guidance-seeking questions. `.claude/hooks/enforce-prompt-architect.sh` blocks Agent dispatches without prior `/prompt-architect` invocation. Disabling these hooks is equivalent to removing the fire alarm from a building. DR19 evidence: without hard enforcement, 23 rules at 95% each = 31% full-session compliance.
 HR-26: **Cross-model auditing: when auditing a session's outputs, use a DIFFERENT model family than the session being audited.** Claude audits Codex. Gemini audits Claude. Codex audits Gemini. Same-model auditing amplifies errors — DeepMind (Dec 2025) showed unstructured multi-agent networks amplify errors up to 17.2x. DR19 Layer 3.
-HR-27: **Deploy Deep Research for every major decision, not just critical questions.** Every CC session should deploy at minimum 1 DR per major milestone. DR has access to academic papers, primary sources, and cross-domain knowledge that CLI coworkers lack — at zero cost. If a session ends without deploying any DR, that is a missed opportunity. Always use `/prompt-architect` (HR-23) before drafting the relay prompt. Owner ALL-CAPS directive 2026-04-07.
+HR-27: **Deploy Deep Research for every major decision, not just critical questions.** Every CC session should deploy at minimum 1 DR per major milestone. DR has access to academic papers, primary sources, and cross-domain knowledge that CLI coworkers lack — at zero cost. If a session ends without deploying any DR, that is a missed opportunity. Always use `/prompt-architect` (HR-23) before drafting the relay prompt. Owner ALL-CAPS directive 2026-04-07. **Enforced by Stop hook** (`stop-dr-check.sh`) which warns if engine/script files modified with zero DR deployments.
+HR-28: **Every DR relay prompt must be saved as a PromptCard** (`scripts/generate_promptcard.py --target <dr-source>`) before presenting to the owner. DR prompts without PromptCards are unauditable. The workflow: (1) draft prompt, (2) `/prompt-architect`, (3) `generate_promptcard.py --target chatgpt-dr|claude-dr|gemini-dr`, (4) present PromptCard content to owner. This makes DR dispatches visible in dispatch_log.jsonl and auditable by `lint_session_norms.py` and `audit_prior_session.py`.
+HR-29: **Codex CLI (`codex exec`) and Gemini CLI (`gemini -p`) dispatches are hook-enforced.** The Bash PreToolUse hook (`enforce-prompt-architect-bash.sh`) blocks these commands unless `/prompt-architect` was invoked within 30 minutes. These dispatches are auto-logged to `dispatch_log.jsonl`. This closes the enforcement gap where Bash-based coworker calls bypassed the Agent-only hook.
 
 ### 3B.3 Artifact Suite
 
@@ -1746,6 +1748,8 @@ NEVER self-audit: extractor ≠ verifier (v5.0 §5.8, HR-17/HR-22)
 NEVER merge prompt changes without regression suite passing (v5.0 §4.18, HR-21)
 NEVER expand without fidelity indicator: exact / paraphrased / interpreted (v5.0 §4.3)
 NEVER dispatch a prompt without /prompt-architect optimization first (v5.0 §3B.2, HR-23)
+NEVER dispatch codex/gemini CLI without prompt-architect — hook-enforced (v5.0 HR-29)
+NEVER end a session with zero DR deployments if engine files were modified — hook warns (v5.0 HR-27)
 ```
 
 ---
