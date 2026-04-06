@@ -41,8 +41,9 @@
 
 ### What's Needed Next
 1. **Session 5 (IN PROGRESS):** Intake G1-G4 + SC1-SC3 (7 bundles). Handoff at `reference/handoffs/excerpting_foundations_session5_kickoff_2026-04-07.md`
-2. **DR20-DR22 deployed:** Book prioritization (ChatGPT), prompt compression (Claude), multi-layer text detection (Gemini). Reports incoming.
-3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → prompt refactor (§4.11) → full-atom processing
+2. **DR20 PROCESSED:** 40-book production batch selected. Manifest at `engines/excerpting/reference/BOOK_SELECTION_MANIFEST.md`. DR21 (prompt compression) and DR22 (multi-layer detection) still incoming.
+3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → prompt refactor (§4.11, informed by DR21) → full-atom processing
+4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
 
 ### COMPLETED: Environment Audit (2026-04-06)
 
@@ -70,7 +71,40 @@ Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
 **Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v5.0 (GOVERNING LAW) — ALL 6 BATCH LIFECYCLE DRs PROCESSED (DR12-DR17)**
 Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 52 requirements from 6 DRs, Gemini-corrected)
 
-**Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1-SC3 bundles received at repo root. Owner continuing methodology for all 40 questions.
+**Foundations Q&A: 8 / 8 answered (F1-F8). G1-G4 + SC1-SC3 intake IN PROGRESS (Session 5).** Owner continuing methodology for all 40 questions.
+
+### Session 5 — Intake-Only (2026-04-07, IN PROGRESS)
+
+**Completed:**
+- 7 bundles flattened from `_bundle/engines/excerpting/` nesting to `chatgpt_{series}_collection/`
+- `batch_inventory.py` run on all 7 (inventory.json created per bundle)
+- `batch_verification_init.py` run on all 7 (verification_status.json initialized)
+- All 7 raw owner reactions (Layer A ground truth) read by CC
+- 60 ground truth atoms pre-extracted to `engines/excerpting/reference/G_SC_GROUND_TRUTH_PREEXTRACTION.md`
+- Tests: 915 pass (1 flaky LLM eval: `test_dialectical_preserved` 0.788 vs 0.8 — pre-existing)
+- Prompt-SPEC sync: PASSED
+
+**Completed (extraction):**
+- 7 parallel extraction agents: **157 atoms** from 143 files (7,500 lines read)
+- Ground truth validation: **PASS** (60/60 pre-extracted atoms confirmed)
+- Arabic degradation: **0 pipeline-introduced** (4 source OCR artifacts noted)
+- MERGED_ATOM_QUEUE.md Section L integrated (157 atoms, 10 FP candidates, 36 prompt-affecting)
+- Session 6 handoff: `reference/handoffs/excerpting_foundations_session6_kickoff_2026-04-07.md`
+- Disposition: 36 PROMPT (blocked §4.11), 62 SPEC, 10 FP, 24 META, 14 DEFERRED, 11 overlap
+
+**Key findings:**
+- **SC1 TRANSFORMATIVE**: Owner realized excerpts are "teaching units" (would rename engine)
+- **SC3 CRITICAL**: 5x "PIPELINE CATASTROPHICALLY LACKING SECURITY GATES" — post-excerpting reassembly gate needed
+- **G1 FP candidate**: "Excerpting is OBJECTIVE — NO OUTSIDE FACTORS" (generalizes FP-4)
+- **Prompt FULL**: GROUP_SYSTEM_PROMPT 1484/1500 — §4.11 refactor gate TRIPPED
+- **PRELIMINARY debt**: B2 (1/3) + B3 (1/3) + all G/SC (0/3)
+
+**Roadmap (updated):**
+1. **Session 6**: BCV on G/SC batches (Hafiz/Faqih verification per §3A-§3B)
+2. **Session 7**: Deduplication pass (157 G/SC atoms vs each other and vs F-series MAQ-001—088)
+3. **Session 8**: Debt clearance (B2/B3 DR relay + G/SC coworker confirmation)
+4. **Session 9**: Prompt refactor (§4.11 — 36 new prompt-affecting atoms need space in 1484/1500)
+5. **Session 10+**: Full-atom processing (G/SC atoms through 7-stage lifecycle)
 
 **Session 2 complete. Protocol v4.0 → v4.1 patch in progress.** ChatGPT DR adversarial review (DR9, archived at `engines/excerpting/reference/dr_reviews/DR9_chatgpt_protocol_v40_adversarial.md`) found 18 issues (8 CRITICAL, 9 HIGH, 1 MEDIUM). Cross-referenced by explore agent: 12 confirmed gaps, 4 partially addressed, 2 already fixed. Plan approved, implementation in progress: 14 protocol amendments + 1 closure verifier script + version bump.
 
@@ -105,7 +139,7 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 | 3 | Linking-word preservation | FINALIZED (C-SC-2 expanded) |
 | 4-5 | Khilaf/tarjih separation | DOCUMENTED, deferred to K-1/K-2/K-3 |
 | 6-12 | Remaining doctrinal atoms | FINALIZED (FP-1 through FP-10 in SPEC §1.1b) |
-| **B1** | **Safety & Integrity batch (17 MAQ atoms)** | **PRELIMINARY (2/3 coworkers). FP-5/FP-2 strengthened, FP-19/20/21/22 added.** |
+| **B1** | **Safety & Integrity batch (17 MAQ atoms)** | **CONFIRMED (4/4 coworkers). FP-5/FP-2 strengthened, FP-19/20/21/22 added.** |
 | **B2** | **Self-Containment batch (5 MAQ atoms)** | **PRELIMINARY (1/3 coworkers). 4 prompt rules added (+210 words). Gemini found Bukhari title flaw → fixed.** |
 | **B3** | **Boundary & Grouping batch (10 MAQ atoms)** | **PRELIMINARY (1/3 Gemini). 3 prompt rules (+141w), 4 SPEC-only. Prompt: 1423/1500.** |
 | **B4** | **Granularity (17 MAQ atoms)** | **IMPLEMENTED. 1 prompt rule (+51w), 16 SPEC-only. Prompt: 1474/1500 (FULL).** |
