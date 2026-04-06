@@ -1,0 +1,53 @@
+question_id: SC3
+bundle_id: chatgpt_sc3_collection_bundle
+version: 1.0.0
+status: completed
+source_basis:
+  explicit_draft: directly grounded in the user raw comments for this case
+  inferred_from_prior_chat: conservative inference from earlier established standards
+    in this chat
+  model_expansion: engineering-side expansion not to be treated as owner truth
+raw_owner_source_layer: engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_owner_raw_reaction_2026_04_04.txt
+raw_full_input_layer: engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_full_user_input_2026_04_04.txt
+files_emitted:
+- engines/excerpting/chatgpt_sc3_collection/README.md
+- engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_full_user_input_2026_04_04.txt
+- engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_owner_raw_reaction_2026_04_04.txt
+- engines/excerpting/chatgpt_sc3_collection/00_manifest.yaml
+- engines/excerpting/chatgpt_sc3_collection/01_questionnaire_answer.md
+- engines/excerpting/chatgpt_sc3_collection/02_case_dossier.md
+- engines/excerpting/chatgpt_sc3_collection/03_terms.yaml
+- engines/excerpting/chatgpt_sc3_collection/04_decision_ladder.jsonl
+- engines/excerpting/chatgpt_sc3_collection/05_mid_instruction_dependencies.jsonl
+- engines/excerpting/chatgpt_sc3_collection/06_explanation_identity_loss.jsonl
+- engines/excerpting/chatgpt_sc3_collection/07_scope_reference_failures.jsonl
+- engines/excerpting/chatgpt_sc3_collection/08_context_recovery_mechanisms.jsonl
+- engines/excerpting/chatgpt_sc3_collection/09_copy_forward_requirements.jsonl
+- engines/excerpting/chatgpt_sc3_collection/10_passage_analysis_gates.jsonl
+- engines/excerpting/chatgpt_sc3_collection/11_zero_precontext_assumption.jsonl
+- engines/excerpting/chatgpt_sc3_collection/12_nonnegotiables.jsonl
+- engines/excerpting/chatgpt_sc3_collection/13_red_team_tests.jsonl
+- engines/excerpting/chatgpt_sc3_collection/14_priority_matrix.yaml
+- engines/excerpting/chatgpt_sc3_collection/15_traceability.jsonl
+- engines/excerpting/chatgpt_sc3_collection/16_open_questions.jsonl
+- engines/excerpting/chatgpt_sc3_collection/17_hard_judgment.md
+final_questionnaire_choice: B
+total_decision_steps: 8
+total_mid_instruction_dependency_records: 4
+total_explanation_identity_loss_records: 4
+total_scope_reference_failure_records: 4
+total_context_recovery_mechanism_records: 5
+total_copy_forward_requirement_records: 4
+total_passage_analysis_gate_records: 4
+total_zero_precontext_assumption_records: 4
+total_nonnegotiables: 10
+total_red_team_tests: 9
+total_explicit_draft_items: 70
+total_inferred_items: 9
+total_model_expansion_items: 2
+highest_risk_issue_families:
+- mid_instruction_dependency
+- explanation_identity_loss
+- scope_reference_failure
+- copy_forward_omission
+- missing_passage_analysis_gates

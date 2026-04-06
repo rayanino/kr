@@ -1,0 +1,842 @@
+We are now switching to **questionnaire mode** for **G2**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F6/F7/F8/G1 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple long-excerpt split question, but the deeper issue is much bigger.
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**G2**
+
+**A Long Excerpt**
+
+**Context**  
+This excerpt contains the hadith of Uthman on the method of wudu, followed by vocabulary explanations (غريب الحديث), then the overall meaning (المعنى الإجمالي).
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification
+
+—excerpt start  
+كيفية الوضوء وفضيلته كما رواه عثمان بن عفان رضي الله عنه  
+عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ، أنه رَأى عُثْمَانَ دَعَا بِوَضوء فَأفرَغ عَلَى يَدَيْهِ مِنْ إنَائِهِ فَغَسَلهُمَا ثَلاثَ مَرات، ثُمَّ أدْخَلَ يَميِنَهُ في الوَضُوءِ، ثم تمضْمَضَ وَاستَنْشَق واسثتَنْثَرَ، ثُم غَسَلَ وَجهَهُ ثَلاثَاً، وَيَدَيْهِ إلَىِ الْمِرْفَقَيْنِ ثَلاثاً، ثُّمَ مَسَحَ برأسه ثُم غَسَل كِلْتَا رجْلَيْهِ ثَلاثاً، ثُمَ قَالَ: رَأيتُ النبي صلى الله عليه وسلم توَضًأ نحْوَ وضوئي هذَا وَقَالَ: "من تَوَضًأ نَحْوَ وُضُوئي هذَا ثُمَّ صَلَى رَكْعَتَين لا يُحَدِّثُ فِيهِمَا نَفْسَهُ غَفَرَ الله لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ ".  
+غريب الحديث:  
+1- "وَضوء": بفتح الواو. الماء الذي يتوضأ به. قال النووي: يقال: "الوضوء والطهور -بضم أولهما- إذا أريد الفعل الذي هو المصدر وبفتح أولهما، إذا أريد الماء الذي يتطهر به". وأصل الوضوء من الوضاءة، وهى الحسن والنظافة فسمي وضوء الصلاة وضوءاً لأنه ينظف صاحبه.  
+2- "فأفرغ": قلب من ماء الإناء كل يديه.  
+3- "لا يحدِّث فيهما نفسه": حديث النفس، هو الوساوس والخطرات. والمراد به هنا ما كان في شؤون الدنيا.  
+يعنى، فلا يسترسل في ذلك، وإلا فالأفكار يتعذر السلامة منها.  
+4- "إلى المرفقين": (إلى) بمعنى (مع) يعنى مع المرفقين.  
+5- "ثم": لم يقصد بها هنا التراخي كما هو الأصل في معناها، وإنما قصد بها مجرد الترتيب. وقد أشار ابن هشام في المغنى والرضي في شرح الكافية إلى أنها قد تأتي لمجرد الترتيب.  
+6- "نحو وضوئي": جاء في بعض ألفاظ هذا الحديث "مثل وضوئي هذا" ومعنى "نحو" و"مثل" متفاوت: فإن لفظة "مثل" تقتضي ظاهر المساواة من كل وجه، أما "نحو" فما تعطى معنى المثلية إلا مجازا. والمجاز هنا متعين، لارتباط الثواب بالمماثلة.  
+المعنى الإجمالي:  
+اشتمل هذا الحديث العظيم على الصفة الكاملة لوضوء النبي صلى الله عليه وسلم.  
+فإن عثمان -رضى الله عنه- من حسن تعليمه وتفهيمه علمهم صفة وضوء النبي صلى الله عليه وسلم بطريق عملية، ليكون أبلغ تفهُّماً، وأتَمَّ تصوُّراً في أذهانهم. فإنه دعا بإناء فيه ماء، ولئلا يلوثه، لم يغمس يده فيه. وإنما صب على يديه ثلاث مرات حتى نظفتا، بعد ذلك أدخل يده اليمنى في الإناء، وأخذ بها ماء تمضمض منه واستنشق، ثم غسل وجهه ثلاث مرات، ثم غسل يديه مع المرفقين ثلاثا، ثم مسح جميع رأسه مرة واحدة، ثم غسل رجليه مع الكعبين ثلاثا.  
+فلما فرع رضى الله عنه من هذا التطبيق، أخبرهم أنه رأى النبي صلى الله عليه وسلم توضأ مثل هذا الوضوء.  
+ولما فرغ صلى الله عليه وسلم من هذا الوضوء الكامل، أخبرهم أنه من توضأ مثل وضوئه، وصلى ركعتين، مُحْضراً قلبه بين يدي ربه عز وجل فيهما، فإنه- بفضله تعالى يجازيه على هذا الوضوء الكامل، وهذه الصلاة الخالصة بغفران ما تقدم من ذنبه.  
+—excerpt end—
+
+**Question**  
+This excerpt is very long. Does it feel like one topic, or should it be split? If you think it should be split, where exactly would you draw the line? Point to the place in the text where one topic ends and another begins.
+
+**Your assessment**  
+A: Keep as one excerpt — it is one complete unit of knowledge  
+B: Split into two — the hadith text and the explanation/commentary  
+C: Split into three — the hadith, the vocabulary (غريب), and the summary (المعنى الإجمالي)
+
+**Immediate reaction**
+
+## Full context
+
+ولما كان القول الحق، هو ما يستفاد من هذا الحديث الصحيح الواضح، ضربنا
+عن الإطالة بذكرها صفَحاً، لأنها لا تعتمد على أدلة صحيحة واضحة.
+ما يؤخذ من الحديث:
+١- التغليظ في نجاسة الكلب، لشدة قذارته. ولذا فإنه ينجس: إن لم تظهر فيه آثار النجاسة وتفسيره يأتي قريبا إن شاء الله.
+٢- إن ولوغ الكلب في إناء، ومثله الأكل، ينجس الإناء. وينجس ما فضل منه.
+٣- وجوب غسل ما ولغ فيه سبع مرات.
+٤- وجوب استعمال التراب مرة، والأَولى أن يكون مع الأُولى ليأتي الماء بعدها. وتكون هي الثامنة المشار إليها في الرواية الأخرى. ولا فرق بين أن يطرح الماء على التراب أو التراب على الماء أو أن يؤخذ التراب المختلط بالماء، فيغسل به أما مسح موضع النجاسة بالتراب فلا يجزئ.
+٥- إن ما قام مقام التراب من المنقيات يعطى حكمه في ذلك لأنه ليس القصد للتراب وإنما القصد النظافة. وهو مذهب أحمد وقول للشافعي والمشهور في مذهبه تعيين التراب. وقواه ابن دقيق العيد بأن التراب جاء به النص، وهو أحد المطهرين، ولأن المعنى المستنبط إذا عاد على النص بالإبطال فهو مردود. قال النووي: لا يقوم الأشنان ولا الصابون أو غيرهما مقام التراب على الأصح. قلت: وقد ظهر في البحوث العلمية الحديثة أنه يحصل من التراب إنقاء لهذه النجاسة مالا يحصل من غيره وإن صح هذا فإنه يظهر إحدى معجزات الشرع الشريف ولفظ- عفر- يُؤَيّد اختصاص التراب لأن العفر لغة هو: وجه الأرض والتراب.
+٦- عظمة هذه الشريعة المطهرة، وأنها تزيل من حكيم خبير، وأن مؤُديها صلوات الله عليه لم ينطق عن الهوى، وذلك أن بعض العلماء حار في حكمة هذا التغليظ في هذه النجاسة، مع أنه يوجد ما هو مثلها غلظة، ولم يشدد في التطهير منها، حتى قال فريق من العلماء: إن التطهير على هذه الكيفية من ولوغ الكلب تعبدي لا تعقل حكمته، حتى جاء الطب الحديث باكتشافاته ومكبراته. فأثبت أن في لعاب الكلب مكروبات وأمراضاً فتاكة، لا يزيلها الماء وحده..
+فسبحان العليم الخبير، وهنيئا للموقنين. وويلا للجاحدين.
+٧- ظاهر الحديث أنه عام في جميع الكلاب، أما الكلاب التي أذنت الشارع باتخاذها، مثل كلاب الصيد والحراسة والماشية فقد قيل: إن إيجاب الغسل على ما يحصل منها فيه حرج، فالرخصة باتخاذها قرينة تقود إلى تخصيص التسبيع بغيرها.
+
+كيفية الوضوء وفضيلته كما رواه عثمان بن عفان رضي الله عنه
+عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ، أنه رَأى عُثْمَانَ دَعَا بِوَضوء فَأفرَغ عَلَى يَدَيْهِ مِنْ إنَائِهِ فَغَسَلهُمَا ثَلاثَ مَرات، ثُمَّ أدْخَلَ يَميِنَهُ في الوَضُوءِ، ثم تمضْمَضَ وَاستَنْشَق واسثتَنْثَرَ، ثُم غَسَلَ وَجهَهُ ثَلاثَاً، وَيَدَيْهِ إلَىِ الْمِرْفَقَيْنِ ثَلاثاً، ثُّمَ مَسَحَ برأسه ثُم غَسَل كِلْتَا رجْلَيْهِ ثَلاثاً، ثُمَ قَالَ: رَأيتُ النبي صَلى الله عَلَيْهِ وَسَلَّمَ توَضًأ نحْوَ وضوئي هذَا وَقَالَ: "من تَوَضًأ نَحْوَ وُضُوئي هذَا ثُمَّ صَلَى رَكْعَتَين لا يُحَدِّثُ فِيهِمَا نَفْسَهُ غَفَرَ الله لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ ".
+غريب الحديث:
+١- "وَضوء": بفتح الواو. الماء الذي يتوضأ به. قال النووي: يقال: "الوضوء والطهور -بضم أولهما- إذا أريد الفعل الذي هو المصدر وبفتح أولهما، إذا أريد الماء الذي يتطهر به". وأصل الوضوء من الوضاءة، وهى الحسن والنظافة فسمي وضوء الصلاة وضوءاً لأنه ينظف صاحبه.
+٢- "فأفرغ": قلب من ماء الإناء كل يديه.
+٣- "لا يحدِّث فيهما نفسه": حديث النفس، هو الوساوس والخطرات. والمراد به هنا ما كان في شؤون الدنيا.
+يعنى، فلا يسترسل في ذلك، وإلا فالأفكار يتعذر السلامة منها.
+٤- "إلى المرفقين": (إلى) بمعنى (مع) يعنى مع المرفقين.
+٥- "ثم": لم يقصد بها هنا التراخي كما هو الأصل في معناها، وإنما قصد بها مجرد الترتيب. وقد أشار ابن هشام في المغنى والرضي في شرح الكافية إلى أنها قد تأتي لمجرد الترتيب.
+٦- "نحو وضوئي": جاء في بعض ألفاظ هذا الحديث "مثل وضوئي هذا" ومعنى "نحو"
+و"مثل" متفاوت: فإن لفظة "مثل" تقتضي ظاهر المساواة من كل وجه، أما "نحو" فما تعطى معنى المثلية إلا مجازا. والمجاز هنا متعين، لارتباط الثواب بالمماثلة.
+المعنى الإجمالي:
+اشتمل هذا الحديث العظيم على الصفة الكاملة لوضوء النبي صلى الله عليه وسلم.
+فإن عثمان -رضى الله عنه- من حسن تعليمه وتفهيمه علمهم صفة وضوء النبي صلى الله عليه وسلم بطريق عملية، ليكون أبلغ تفهُّماً، وأتَمَّ تصوُّراً في أذهانهم. فإنه دعا بإناء فيه ماء، ولئلا يلوثه، لم يغمس يده فيه. وإنما صب على يديه ثلاث مرات حتى نظفتا، بعد ذلك أدخل يده اليمنى في الإناء، وأخذ بها ماء تمضمض منه واستنشق، ثم غسل وجهه ثلاث مرات، ثم غسل يديه مع المرفقين ثلاثا، ثم مسح جميع رأسه مرة واحدة، ثم غسل رجليه مع الكعبين ثلاثا.
+فلما فرع رضى الله عنه من هذا التطبيق، أخبرهم أنه رأى النبي صلى الله عليه وسلم توضأ مثل هذا الوضوء.
+ولما فرغ صلى الله عليه وسلم من هذا الوضوء الكامل، أخبرهم أنه من توضأ مثل وضوئه، وصلى ركعتين، مُحْضراً قلبه بين يدي ربه عز وجل فيهما، فإنه- بفضله تعالى يجازيه على هذا الوضوء الكامل، وهذه الصلاة الخالصة بغفران ما تقدم من ذنبه.
+اختلاف العلماء:
+ذهب الأئمة، أبو حنيفة، ومالك، والشافعي، وسفيان، وغيرهم، إلى أن الاستنشاق مستحب في الوضوء لا واجب.
+والمشهور عند الإمام "أحمد" الوجوب، فلا يصح الوضوء بدونه وهو مذهب أبى ليلى، وإسحاق، وغيرهما.
+استدل الأولونْ على قولهم بحديث: " عشر من سنن المرسلين " ومنها الاستنشاق، والسنة غير واجب واستدل الموجبون بقوله تعالى: {فاغْسِلُوا وجُوهَكُم} والأنف من الوجه، وبالأحاديث الكثيرة الصحيحة من صفة فعله صلى الله عليه وسلم وأمره بذلك.
+وأجابوا عن دليل غير الموجبين بأن المراد بالسنة في الحديث الطريقة، لأن تسمية السنة غير الواجب اصطلاَح من الفقهاء المتأخرين.
+ولهذا ورد في كثير من الأحاديث ومنها [عشر من الفطرة] .
+ولاشك في صحة المذهب الأخير لقوة أدلته، وعدم ما يعارضها- في علمي- والله أعلم.
+وقد اتفق العلماء على وجوب مسح الرأس، واتفقوا أيضا على استحباب مسح جميعه، ولكن اختلفوا، هل يجزئ مسح بعضه أو لابد من مسحه كله؟.
+فذهب الثوري، والأوزاعي، وأبو حنيفة، والشافعي، إلى جواز الاقتصار على بعضه، على اختلافهم- في القدر المجزئ منه.
+وذهب مالك، وأحمد: إلى وجوب استيعابه كله.
+استدل الأولون بقوله تعالى: {وَامْسَحُوا بِرُؤوسِكم} على أن الباء للتبعيض، وبما رواه مسلم عن المغيرة بلفظ: "أنه صلى الله عليه وسلم تَوَضَأ فَمَسَحَ بِنَاصيَتهِ وَعَلَى الْعِمَامَةِ ".
+واستدل الموجبون لمسحه كله بأحاديث كثيرة، كلها تصف وضوء النبي صلى الله عليه وسلم، منها حديث الباب، ومنها ما رواه الجماعة: " مَسِحَ رأسه بيدَيْهِ فَاْقْبَلَ بِهِمَا وَأدْبِرَ، بَدَأ بُمَقدَّم رَأسِهِ، ثُمً ذَهَبَ بِهِمَا إِلى قَفاه، ثُم ردهما إِلَى المَكَانِ الذي بَدَأ مِنْهُ ".
+وأجابوا عن أدلة المجيزين لمسح بعضه، بأن "الباء" لم ترد في اللغة للتبعيض وإنما معناها في الآية، الإلصاق. أي: ألصقوا المسح برؤوسكم والإلصاق هو المعنى الحقيقي للباء وقد سئل نفطويه وابن دريد عن معنى التبعيض في الباء فلم يعرفاه. وقال ابن برهان: من زعم أن الباء للتبعيض فقد جاء عن أهل العربية بما لا يعرفونه.
+قال ابن القيم: "لم يصح في حديث واحد أنه اقتصر على مسح بعض رأس البتة".
+ما يؤخذ من الحديث:
+١- مشروعية غسل اليدين ثلاثاً قبل إدخالهما في ماء الوضوء عند التوضؤ.
+٢- التيامن في تناول ماء الوضوء لغسل الأعضاء.
+٣- مشروعية التمضمض، والاستنشاق، والاستنثار على هذا الترتيب. ولا خلاف في مشروعيتهما، وإنما الخلاف في وجوبهما، وتقدم أنه هو الصحيح.
+٤- غسل الوجه ثلاثا، وحده: من منابت شعر الرأس إلى الذقن طولا، ومن الأذن إلى الأذن عرضا. وكذلك يثلث في المضمضة والاستنشاق، لأن الأنف والفم من مسمى الوجه. فالوجه عند العرب. ما حصلت به المواجهة.
+٥- غسل اليدين مع المرفقين ثلاثاً.
+
+## My raw comments
+
+This actually reminds me of the topic: when the tree gets to, for example: proofs → hadiths → hadith عثمان بن عفان, is there any further granulation?
+
+The answer is: ideally yes. CATCH THIS EXPLANATION (VERY IMPORTANT): a common methodology between scholars is that when explaining a hadith they explain it chunk by chunk. For example:
+
+“عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ” → stop → explain this (who was he etc)
+
+“أنه رَأى عُثْمَانَ دَعَا بِوَضوء” → stop → explain this (what is a ‘وَضوء’ etc)
+
+…
+
+Preferably, my ideal structure in the library would be:
+
+… → hadith عثمان بن عفان → raw (this is the part where the hadith ready-to-memorize (externally gathered by the library in correct formatting) lives)
+                         → full explanations (this is where non-chunked ‘general’ explanations would come that do not address a specific part of the hadith but rather try to explain the hadith in its entirety)
+                         → chunk1 → excerpts explaining this chunk
+                         → chunk2 → excerpts explaining this chunk
+
+But obviously, this introduces more complexity. Rarely do two or three follow the exact same chunking choices when explaining hadiths, let alone tens and hundreds. Also: the longer the hadiths, the more complex this operation becomes.
+
+But that is not a challenge too big to solve. The ideal library should be able to do this without a problem.
+
+For the specific excerpt in question, this would mean something like (depends on how the scholars actually do it, but since they will probably differ a lot there needs to be some decision making point in which this is exactly determined):
+
+chunk1 could be “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, in which the comments of scholars who regarded this as one chunk (i.e. one ‘stop here and explain’) can be placed. Now, if some scholars stopped at “عن حُمْرانَ” and then at “عُثْمَانَ بْنِ عَفَانَ”, while others stopped only once at the end of “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, then the two explanations of the previous group of scholars can just all come under the leaf handling “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, because otherwise I fear it would introduce too much complexity. Instead of trying to please all scholars and their chunking, we can focus on using their chunkings as inspiration and instead reason and make a decision about how it should be done.
+
+Then, for example, “أنه رَأى عُثْمَانَ دَعَا بِوَضوء”. One of the excerpts that would come under this would be “١ء "وَضوء": بفتح الواو. الماء الذي يتوضأ به. قال النووي: يقال: "الوضوء والطهور ءبضم أولهماء إذا أريد الفعل الذي هو المصدر وبفتح أولهما، إذا أريد الماء الذي يتطهر به". وأصل الوضوء من الوضاءة، وهى الحسن والنظافة فسمي وضوء الصلاة وضوأً لأنه ينظف صاحبه.”
+
+And so on for all chunks.
+
+But then we face an explanation not regarding a specific chunk, but the entire hadith at once: “المعنى الإجمالي: …”. This would come under the leaf ‘full explanations’.
+
+DO YOU SEE HOW THE LIBRARY SHOULD BE ADAPTED? DO YOU SEE HOW THE 
+
+This is actually a major breakthrough. This is a universal concept for excerpts where two related things are present (explained-explanation, …); there can still be further refinement and granulation. VERY IMPORTANT.
+
+I just realized: we should define and focus and research the different scenarios of ‘relationships between proofs’. With that I mean: imagine under a specific topic, under its proof leaf there are 3 hadiths present. These hadith have a specific relationship.
+
+For example: they could be ‘supporting each other in order to form the full ruling together’. Such is the case with wudu: it is not 1 hadith that contains the entire ruling, it’s multiple hadiths together that give the full picture of how wudu is to be done.
+
+There are other types of relationships. For example: some hadiths seem contradicting on the first sight, but resolving that contradiction also gives an important part of the ruling, so in some sense they are supporting as well.
+
+In general: proofs being under the same ‘proof-leaf’ should mean that they together support the ruling. It should never happen that two hadiths each supporting a specific opinion are together under the same ‘proof’-leaf; that is not enough granularity.
+
+For example:
+
+“umrah is mandatory” → own branch, with own “proof”-leaf
+
+“umrah is not mandatory” → own branch, with own “proof”-leaf
+
+So we shouldn’t worry about further classification within a proof-leaf regarding “this group of proofs proves opinion1, this group proves opinion2, …” because they are already under a specific opinion-branch. What we should do, however, is clearly indicate the relationship: “proof1 and proof2 both support the opinion that umrah is mandatory, but HOW? Do they each give a piece of the puzzle? Is one a pure saying of the PROPHET, WHILE THE OTHER AN ACTION? ….”
+
+This actually brings me to a broader topic: proofs have much more classification behind them than the library currently accounts for. Hadiths, quran verses, … are of many different types; some give direct rulings, others hint at a ruling by proving the opposite is false, … but also: many times proofs individually can get wrongfully understood until they are merged and put side by side.
+
+This is a very broad topic, AND NOT SOMETHING WE NEED TO MERELY SKIM OVER. Instead, this is something that requires deep and long research. We need to really pause at this point and do some prolonged and deep research. This actually links directly back to some of the Islamic sciences (like how usul al fiqh handles all these different kinds of proofs and their relationships, types, …). Logic, knowledge of Islamic sciences and more importantly: deep and thorough research and reasoning are REALLY NEEDED FOR THIS!!!!
+
+To summarize: the point is: the way in which proofs support each other (are they just different versions of the same hadith, do they each solve a piece of the puzzle, …) differs. And we need to analyze and recognize each case in order to provide clear data and structure within the library; when I open an excerpt, I also get an overview of “this hadith is supported by such and such other proof, backed by this and that scholar, in this and that madhab, …”
+
+THIS IS A VERY IMPORTANT CONCEPT. EXCERPTS DO NOT ONLY PROVIDE RAW THEORY, BUT ALSO ANALYTICS TO GIVE THE OWNER THAT UNPRECEDENTED EDGE. WHAT PREVIOUS STUDENT OF KNOWLEDGE HAD ACCESS TO IS THE RAW TEXT THAT I ALSO HAVE, THE DIFFERENCE IS THAT I HAVE IT EXCERPTED … BUT NOBODY HAD ACCESS TO THE DATA AND ANALYTICS AND RELATIONSHIPS WE CAN RECOGNIZE … VERY VERY IMPORTANT !!!!!!!!!
+
+IMPORTANT: I’ve already proposed that under “proofs”-branch, the proofs need to be branchified further. For example: per narrator, so you would have proofs → hadiths → hadith of حُمْرانَ, and so on for each proof.
+
+However, the mere name of the narrator is not enough as a unique identifier. THIS IS VERY IMPORTANT; UNIQUENESS IN THE BRANCH, AND IDENTIFIERS. We can’t just loosely rely on non-unique duplicate-possible values. THE WAY THE ENVIRONMENT IS SETUP IS THAT THE OWNER, WHEN STUDYING, WILL NOT FACE ANY DIFFICULTIES LIKE: “WHICH ONE OF THE حُمْرانَ-hadiths WAS THIS AGAIN”??
+
+NO ROOM FOR AMBIGUITY IN THE LIBRARY. NO ROOM FOR SUBOPTIMALNESS IN THE LIBRARY. NO ROOM FOR <you can fill this further at these extremes>.
+
+IMPORTANT; “غريب الحديث:” is a form of explanation of a hadith, but just a specific form; explanations of words, in a more “grammar-like” way instead of focusing on the ruling itself. This can be taken into the library: that the explanations themselves branch into explanations of the hadith itself with focus on the rulings, and another branch with explanations of the words. Even further: grammar breakdowns, sarf-breakdowns.
+
+THIS IS ACTUALLY A VERY GOOD IDEA: because there are hundreds of books like “شرح غريب الأحاديث” that focus specifically on the grammar-part.
+
+Moreover, this also gives the opportunity to do SOMETHING UNPRECEDENTED AND THAT WILL TAKE THE LIBRARY INTO THE NEXT LEVEL: a location for the words from dictionaries (like لسان العرب) to land in. So, for example, when digesting a dictionary, the library can first try to identify the most specific locations this belongs to.
+
+This really proves that we haven’t thought out how branching really should work, and how detailed the branching should be. It should not just be “as granulated as reasonably possible”; instead, there should be some beginning blueprint that lays down the fundamental granularity expected. But this sounds more like a taxonomy-issue.
+
+This also proves that every science individually needs thorough thinking through about how will this affect the protocols of the library and the rules of the engines? A good example is the example of the dictionary-vocabulary-words being excerpted then placed into either the most specific locations where they belong, or else in general “arabic vocabulary” tree.
+
+THIS ALSO RAISES THE QUESTION: HOW WILL WE HANDLE WHEN THE SAME PROOF IS USED AT MULTIPLE DIFFERENT TOPICS? So, for example, if a hadith is used to prove how to pray, but the same hadith also touches on topics of wudu, which makes scholars mention this hadith at both the prayer-topic as well as the wudu-topic, how do we ensure maximal benefit from this? We need some very clear protocol; either we keep the two explanations completely separate, or we first identify if the explanation of the hadith at the prayer-topic contains some useful pieces that can be duplicated into the wudu-topic, …
+
+VERY VERY IMPORTANT TO GET STRAIGHT, BECAUSE THIS DIRECTLY TOUCHES ON THE TOPIC OF LOST POTENTIAL: WHEN I STUDY WUDU WHILE THE PRAYER-TOPIC ALSO CONTAINS SOME TEXT THAT TOUCHES ON WUDU, THAT TEXT AND THE UNDERSTANDINGS I COULD POTENTIALLY GAIN FROM IT ARE LOST!!! I WOULD ONLY ENCOUNTER THAT WUDU-related text when studying prayer, but by then I’m not in the “zone” of studying wudu; I’m focused on prayer, so I would just skim over unrelated wudu-topics … which is different than if I encounter this text while studying wudu-itself; I would actively process it and it would improve my understanding.
+
+Actually … the library should definitely identify that the prayer-hadith also contains wudu related text, excerpt and separate both, then place the wudu-text at the wudu branch … so I shouldn’t encounter wudu-related text when studying prayer in the first place. THIS IS A VERY IMPORTANT CONCEPT; NO LIMITATIONS TO EXCERPTING BUT ALSO NOT TO TAXONOMY PLACEMENT. When excerpts are placed in the taxonomy tree, never should the locations be limited to anything; not the science, nor any branches within. Instead, it should answer the open general question: “where does this excerpt fit within the islamic sciences”?
+
+## Critical rule about the excerpt as given
+
+The questionnaire answer must evaluate the **excerpt as currently given**.
+
+Do **NOT** let the engineering layer silently replace the current excerpt with an ideal full hadith architecture.
+
+Use the excerpt as given to answer:
+
+- does it feel like one topic or multiple
+- whether to keep it whole or split it
+- where exactly to draw the split line(s)
+
+But also preserve this owner-faithful hierarchy:
+
+- the current excerpt already contains at least three functional layers:
+  - hadith raw text
+  - غريب الحديث
+  - المعنى الإجمالي
+- the closest questionnaire answer may still be too shallow compared with the deeper ideal
+- the deeper ideal includes:
+  - raw hadith layer
+  - full explanation layer
+  - chunk-based explanation layer
+  - vocabulary / grammar explanation layer
+  - proof-relationship analytics
+- that deeper architecture belongs in the engineering collection, not as a silent replacement for the owner questionnaire answer
+
+Do **NOT** let the forced A/B/C menu cap the deeper diagnosis.
+
+## Your job
+
+Take that raw reaction and turn it into the strongest possible answer to this question.
+
+But before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- what the actual questionnaire choice is: A, B, or C
+- whether the excerpt as given already contains multiple functions
+- whether C is the closest minimal answer for the current excerpt
+- whether even C is still too shallow compared to the deeper ideal
+- where the exact split lines are in the text as given
+- whether the heading “كيفية الوضوء وفضيلته…” belongs with the hadith raw text
+- whether “غريب الحديث:” is a separate layer
+- whether “المعنى الإجمالي:” is a separate layer
+- whether the hadith raw text itself ideally admits deeper chunk-based branching
+- whether chunk explanations and full explanations should be distinct
+- whether scholar chunking should be copied exactly or only used as inspiration
+- whether proof relationships under one proof leaf need explicit classification
+- whether same-proof multi-topic reuse needs explicit protocol
+- whether proof identifiers need stronger uniqueness than narrator-name only
+- whether vocabulary / dictionary ingestion opens a further library layer
+- whether taxonomy placement should remain unlimited across sciences and branches
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.
+Use it to sharpen the final output.
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_g2_collection/`
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_g2_collection/README.md`
+- `engines/excerpting/chatgpt_g2_collection/source_artifacts/g2_full_user_input_2026_04_04.txt`
+- `engines/excerpting/chatgpt_g2_collection/source_artifacts/g2_owner_raw_reaction_2026_04_04.txt`
+
+Requirements:
+
+- `g2_full_user_input_2026_04_04.txt` must contain the full question block, excerpt block, full-context block, and my raw comments **verbatim**
+- `g2_owner_raw_reaction_2026_04_04.txt` must contain my raw comments **verbatim**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+`File creation is not available in this chat; I can only emit raw text.`
+
+and stop.
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.
+Do **NOT** restart from the beginning.
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_g2_collection/README.md`
+2. `engines/excerpting/chatgpt_g2_collection/source_artifacts/g2_full_user_input_2026_04_04.txt`
+3. `engines/excerpting/chatgpt_g2_collection/source_artifacts/g2_owner_raw_reaction_2026_04_04.txt`
+4. `engines/excerpting/chatgpt_g2_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_g2_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_g2_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_g2_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_g2_collection/04_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_g2_collection/05_candidate_split_map.jsonl`
+10. `engines/excerpting/chatgpt_g2_collection/06_explanation_layers.jsonl`
+11. `engines/excerpting/chatgpt_g2_collection/07_hadith_chunking_strategy.jsonl`
+12. `engines/excerpting/chatgpt_g2_collection/08_proof_relationships.jsonl`
+13. `engines/excerpting/chatgpt_g2_collection/09_proof_identifier_strategy.jsonl`
+14. `engines/excerpting/chatgpt_g2_collection/10_vocabulary_branching.jsonl`
+15. `engines/excerpting/chatgpt_g2_collection/11_cross_topic_proof_reuse.jsonl`
+16. `engines/excerpting/chatgpt_g2_collection/12_nonnegotiables.jsonl`
+17. `engines/excerpting/chatgpt_g2_collection/13_red_team_tests.jsonl`
+18. `engines/excerpting/chatgpt_g2_collection/14_priority_matrix.yaml`
+19. `engines/excerpting/chatgpt_g2_collection/15_traceability.jsonl`
+20. `engines/excerpting/chatgpt_g2_collection/16_open_questions.jsonl`
+21. `engines/excerpting/chatgpt_g2_collection/17_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_g2_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_g2_collection/` folder.
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what G2 is
+- why this is a collection bundle, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `final_questionnaire_choice`
+- `total_decision_steps`
+- `total_candidate_split_records`
+- `total_explanation_layer_records`
+- `total_hadith_chunking_records`
+- `total_proof_relationship_records`
+- `total_proof_identifier_records`
+- `total_vocabulary_branching_records`
+- `total_cross_topic_reuse_records`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+It must contain only what I could honestly stand behind as my questionnaire answer.
+
+Use this exact format:
+
+Your assessment:
+[A / B / C]
+
+Immediate reaction:
+[short paste-ready text]
+
+Detailed analysis:
+[longer paste-ready text in first person, concrete and precise, explaining whether this excerpt feels like one topic or multiple]
+
+If split, exact boundary line(s):
+[quote the exact marker(s) where one topic ends and another begins, or "n/a"]
+
+Confidence:
+[High / Medium / Low]
+
+Requirements for this file:
+
+- first person
+- owner-faithful
+- no generic “long excerpts are fine / not fine” fluff
+- no shallow hadith-vs-commentary answer
+- preserve the hierarchy of my answer
+- make clear whether the current excerpt as given should be kept or split
+- if the final choice is C, explain why it is the closest answer for the current excerpt as given
+- make clear that the deeper ideal may go beyond the forced A/B/C menu
+- do **NOT** silently import broad model-only architecture doctrine into this file
+
+### `02_case_dossier.md`
+
+This is the **human canonical artifact** for engineering / protocol use.
+
+Populate it with actual content, not placeholder language.
+
+At minimum include:
+
+- Purpose and scope
+- Explicit separation between:
+  - owner-faithful questionnaire layer
+  - expanded engineering / protocol layer
+- Core assessment thesis
+- Why the current excerpt already contains multiple functional layers
+- Minimal split answer for the current question
+- Why the minimal questionnaire split is still not the full ideal
+- Raw hadith vs full explanation vs chunk explanation distinction
+- غريب الحديث as a special explanatory branch
+- Proof-relationship doctrine pressure
+- Proof-identifier doctrine pressure
+- Vocabulary / dictionary branching doctrine pressure
+- Cross-topic proof reuse doctrine pressure
+- Unlimited placement doctrine pressure
+- What would be reckless to flatten
+- What would be reckless to automate blindly
+
+### `03_terms.yaml`
+
+Create a controlled vocabulary for this case.
+
+At minimum include:
+
+- `raw_hadith_layer`
+- `full_explanations_layer`
+- `chunk_explanations_layer`
+- `ghareeb_al_hadith`
+- `proof_relationship`
+- `same_hadith_multiple_versions`
+- `same_proof_multiple_topics`
+- `proof_identifier`
+- `proof_leaf`
+- `complementary_proofs`
+- `apparent_contradiction_resolution`
+- `dictionary_ingestion_target`
+- `vocabulary_branch`
+- `unlimited_taxonomy_placement`
+- `chunking_inspiration_vs_chunking_copy`
+- `minimal_questionnaire_split`
+- `deeper_ideal_split`
+
+Each term must include:
+
+- `term`
+- `current_controlled_meaning`
+- `dangerous_competing_meanings`
+- `status`
+- `source_basis`
+
+### `04_decision_ladder.jsonl`
+
+This file must capture the layered reasoning instead of flattening it.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `decision_scope` (`surface_read`, `minimal_questionnaire_verdict`, `deeper_structure_read`, `chunking_policy`, `proof_relationship_read`, `placement_read`)
+- `question_being_answered`
+- `judgment`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+### `05_candidate_split_map.jsonl`
+
+This file must capture the resulting split candidates for the current excerpt.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `candidate_label`
+- `included_text_or_range`
+- `proposed_function`
+- `why_it_should_be_its_own_piece`
+- `minimal_questionnaire_relevance`
+- `deeper_ideal_relevance`
+- `exact_boundary_markers`
+- `source_basis`
+- `owner_relation`
+
+At minimum include candidates for:
+
+- hadith raw text
+- غريب الحديث block
+- المعنى الإجمالي block
+
+### `06_explanation_layers.jsonl`
+
+This file must classify explanatory layers.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `layer_label`
+- `what_it_explains`
+- `explanation_scope` (`full_hadith`, `chunk_specific`, `word_specific`, `ruling_specific`)
+- `why_this_layer_is_distinct`
+- `source_basis`
+- `owner_relation`
+
+At minimum include:
+
+- full explanations
+- chunk explanations
+- غريب الحديث as word/lexical explanation
+
+### `07_hadith_chunking_strategy.jsonl`
+
+This file must capture the chunk-based branching idea.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `chunk_label`
+- `chunk_text`
+- `why_this_chunk_boundary_is_plausible`
+- `how_scholar_disagreement_on_chunking_should_be_handled`
+- `main_complexity_risk`
+- `preferred_resolution_direction`
+- `source_basis`
+- `owner_relation`
+
+At minimum include examples such as:
+
+- `عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ`
+- `أنه رَأى عُثْمَانَ دَعَا بِوَضوء`
+
+### `08_proof_relationships.jsonl`
+
+This file must capture the relationships between proofs.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `relationship_type`
+- `description`
+- `why_it_matters_for_library_structure`
+- `example_or_case_pressure`
+- `source_basis`
+- `owner_relation`
+
+At minimum include relationships such as:
+
+- same hadith different versions
+- multiple proofs forming one ruling together
+- apparent contradiction resolved by combining proofs
+- action vs saying vs complementary evidence
+
+### `09_proof_identifier_strategy.jsonl`
+
+This file must capture the uniqueness / identifier issue.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `candidate_identifier_strategy`
+- `why_narrator_name_alone_is_insufficient`
+- `required_uniqueness_properties`
+- `risk_if_done_badly`
+- `source_basis`
+- `owner_relation`
+
+### `10_vocabulary_branching.jsonl`
+
+This file must capture the غريب الحديث / vocabulary / dictionary layer.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `branch_label`
+- `content_type`
+- `why_it_deserves_branching_distinction`
+- `possible_sources`
+- `library_advantage_created`
+- `source_basis`
+- `owner_relation`
+
+At minimum include:
+
+- غريب الحديث
+- grammar-like explanation
+- sarf breakdown
+- dictionary ingestion target
+
+### `11_cross_topic_proof_reuse.jsonl`
+
+This file must capture the same-proof-multiple-topics issue.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `reuse_scenario`
+- `why_it_matters`
+- `lost_potential_if_ignored`
+- `possible_handling_patterns`
+- `preferred_direction_if_any`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the idea that a prayer-topic hadith may contain wudu-related text that should not be lost under prayer only.
+
+### `12_nonnegotiables.jsonl`
+
+Translate this case into machine-readable constraints.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `statement`
+- `derived_from_ids`
+- `what_it_prevents`
+- `severity_if_violated`
+
+At minimum capture constraints like:
+
+- do not collapse raw hadith, غريب الحديث, and المعنى الإجمالي into one undifferentiated unit when they perform different jobs
+- do not force chunking to copy scholar chunking exactly
+- do not rely on narrator name alone as a proof identifier
+- do not treat proofs under one proof leaf as unrelated or opposing if the leaf is already opinion-specific
+- do not ignore the relationship types between proofs
+- do not limit taxonomy placement by current science or branch if the excerpt genuinely belongs elsewhere too
+
+### `13_red_team_tests.jsonl`
+
+Create adversarial tests for this case.
+
+Each line must be a valid standalone JSON object.
+
+Each test must include:
+
+- `id`
+- `target_ids`
+- `test_type` (`contrast`, `mutation`, `stress`, `audit`, `simulation`)
+- `test_description`
+- `what_it_is_trying_to_expose`
+- `why_this_test_matters`
+
+At minimum include tests such as:
+
+- compare the current excerpt kept whole vs split at `غريب الحديث:` and `المعنى الإجمالي:`
+- test a long hadith where different scholars chunk it differently
+- test same hadith reused in two topic branches
+- test proof leaf containing proofs that should not actually live under one branch together
+- test narrator-name collisions in proof identification
+- test dictionary ingestion into the most specific possible location
+
+### `14_priority_matrix.yaml`
+
+This file must rank the issue landscape.
+
+At minimum include:
+
+- strongest local reason for final questionnaire choice
+- highest-risk structural overmerge
+- highest-risk missed granularity
+- highest-risk proof-relationship blind spot
+- highest-risk identifier ambiguity
+- highest-risk cross-topic lost-potential issue
+- most important branching insight
+- most important preservation requirement
+
+### `15_traceability.jsonl`
+
+This file must prove that my raw answer was not flattened.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `source_point_summary`
+- `source_basis`
+- `target_layer` (`owner_answer`, `engineering_collection`, `both`)
+- `routed_to_file`
+- `routed_to_ids`
+- `routing_rationale`
+
+### `16_open_questions.jsonl`
+
+Only include genuine unresolved owner-threshold questions or protocol gaps that still matter after reasoning.
+
+If none remain, emit an empty file.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+### `17_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what the final questionnaire choice is and why
+- why the weaker answer would flatten the real issue
+- what the most important split insight is
+- what the most important hadith-chunking insight is
+- what the most important proof-relationship insight is
+- what the most important identifier insight is
+- what the most important cross-topic-reuse insight is
+- what would be reckless to ignore
+- what would be reckless to automate blindly
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_g2_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - final questionnaire choice
+   - total decision steps
+   - total candidate-split records
+   - total explanation-layer records
+   - total hadith-chunking records
+   - total proof-relationship records
+   - total proof-identifier records
+   - total vocabulary-branching records
+   - total cross-topic-reuse records
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+
+## Final requirements
+
+- no generic filler
+- no shallow A/B/C answer
+- no fake completeness
+- no reopening excerpt review
+- no reopening F1/F2/F3/F4/F5/F6/F7/F8/G1 canon work
+- no “we should later...” except inside explicitly marked open questions
+- no capping the answer at my explicit raw comments
+- no flattening the hierarchy of my answer
+- no silently upgrading `model_expansion` into owner truth
+- no letting the minimal questionnaire split replace the deeper architecture implied by the case
+
+Most important:
+
+I do **NOT** want a shallow local answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this case reveals multi-layer hadith structure, chunked explanations, proof relationships, proof identifiers, vocabulary branching, and cross-topic proof reuse** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.
+Otherwise proceed directly to generating the files and ZIP.
+
+
+
+Take your time.

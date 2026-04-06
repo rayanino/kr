@@ -1,0 +1,43 @@
+General rule: Excerpting should not be done purely on rules without intelligence and reason and logical thinking, as I’ve explained before. The goal is not purely and blindly excerpt. The goal is to give the owner the perfect environment to study in, which applies to the excerpting as well. A useless excerpt may comply to the excerpting rule, but if it’s useless / adds no benefit and only wastes time and focus then it should not be included. Excerpts should add value. A useless excerpt is not only valueless but also takes away from the potential; it being useless means it’s part of a bigger piece, and keeping it with that bigger piece would add some benefit, as opposed to separating it completely.
+
+Now back to the excerpt: it is very useless. Knowing that “في الحديث ثلاثة مباحث:” adds no value since I can’t see all three. Getting a listing of all three (instead of the first) would add some value but still not enough; “ok it has 3 مباحث and I know what they are, but explain them?” … you see, no value added, except confusion.
+
+That same principle applies to “المبحث الأول: في خلاف العلماء” .. what’s the point of mentioning “within this hadith, one of the things you will study is the dispute of the scholars” like yeah I already expect that since many scholars dispute over explanations of hadiths? What’s the added benefit?
+
+ESPECIALLY if the text where “المبحث الأول: في خلاف العلماء.” would actually be needed (i.e. فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، …) lacks this sentence now because it has been included in this excerpt (if the system thinks: ‘this sentence already belongs to an excerpt so it is not lost, we can chill from here and loosely evaluate if it needs to be duplicated or not, but either way it’s present so no worries’) … In that case, this is just a catastrophe.
+
+What do we do? I would reason something like this:
+
+I think we can extract a rule: rule of added benefit, or something like that.
+
+— excerpt 1 —
+
+…<previous possible pieces…>
+
+إذا قمت إلى الصلاة فكبر تكبيرة الإحرام، ثم اقرأ ما تيسر من القرآن، بعد قراءة سورة الفاتحة (٢) ثم اركع حتى تطمئن راكعاً، ثم ارفع من الركوع حتى تعتدل قائما، وتطمئن في اعتدالك (١) ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.
+
+وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.
+
+في الحديث ثلاثة مباحث:
+—
+
+— excerpt 2 —
+
+في الحديث ثلاثة مباحث:
+
+المبحث الأول: في خلاف العلماء.
+
+فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، حتى من قادر على الفاتحة مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْهُ} وبإحدى روايات هذا الحديث " ثم اقرأ ما تيسر معك من القرآن".
+
+…
+—-
+
+“في الحديث ثلاثة مباحث:” is more like a “heading” … however, IT IS SHORT AND UNOBSTRUCTIVE. Which is why it is kept in both excerpts; it may not directly be related, but its 1% vs 99%, and it DOES NOT HARM (important: short is not enough, should be short and harmless, or long and harmless, either case: HARMLESS). Actually, that’s pretty important; SHOULD BE HARMLESS!!! HARMLESS + extra potential = DO IT!
+
+We should realize that the owner knows he is dealing with excerpts, so there is some level of consciousness that if he encounters something like “في الحديث ثلاثة مباحث” that the system just kept it in while excerpting, for the greater benefit.
+
+In general: I’m in love with extensiveness, extreme detail, encyclopedic-sized amounts, vast, comprehensive, wide-ranging, substantial, and sweeping amounts of knowledge, understanding, excerpt counts. I want thousands. I want hundreds of thousands. I want everything. Which also means: I love to open an excerpt and see a long explanation. I have something to dive into. I know I can expect deep knowledge and that the leaf it is about will be clearly laid out here. This has no effect on excerpting because the CORE RULE is that excerpting never gets affected by anything else other than the rules and protocols (not forcing it to be long, not bending it to fit in the taxonomy tree, …)
+
+So the answer to “Would you want something this short as its own entry in your library? How does its length affect its usefulness to you?” is a very LOUD AND CLEAR: “IT DOESN’T FUCKING MATTER”. It doesn’t matter if I prefer long or short excerpts. It doesn’t matter if I prefer excerpts of one particular writing style or another. EXCERPTING IS OBJECTIVE. NO OUTSIDE FACTORS AFFECT IT. MAKE THIS VERRRRYYYY FUCKING CLEAR.
+
+So: A: Yes — even this short entry has value as a standalone piece

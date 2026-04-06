@@ -1,0 +1,16 @@
+strongest_local_reason_for_final_questionnaire_choice: This block contains new distinct
+  conditions and even subconditions, so merging it back into earlier conditions would
+  erase real structure; a tiny note alone is also too weak, so C is strongest.
+highest_risk_continuation_failure: Treating `تقدم بعضها` as satisfied by a minimal
+  note while failing to surface where the earlier part is and why the topic resumed.
+highest_risk_short_and_harmless_misclassification: Keeping a short phrase that actually
+  introduces a different شرط and silently linking unrelated conditions.
+highest_risk_branch_proximity_mistake: Assuming the same retained overlap is equally
+  harmless in same-branch and distant-branch placements.
+highest_risk_condition_overmerge: Combining all earlier and later conditions into
+  one mega-entry because they belong to one juridical heading.
+most_important_branching_insight: Conditions, references, applications, and methods
+  need distinct but related branching rather than one flat block.
+most_important_naming_vocabulary_insight: Without stable machine-readable vocabulary
+  and Arabic-only internal naming, both agents and the owner-facing library drift
+  toward ambiguity.

@@ -1,0 +1,21 @@
+strongest_local_reason_for_final_questionnaire_choice:
+  value: The note can function as a reminder in the author’s continuous book flow,
+    but not as a sufficient support layer when the owner opens the excerpt in isolation.
+highest_risk_reference_back_failure:
+  value: Treating a concept-building callback as if it were only a light orientational
+    reminder.
+highest_risk_author_flow_loss:
+  value: Ignoring that the author assumed sequential reading, flip-back ability, and
+    retained awareness of earlier discussion.
+highest_risk_context_restoration_failure:
+  value: Forcing the owner to manually reconstruct the earlier passage instead of
+    surfacing it directly.
+highest_risk_overexpansion_failure:
+  value: Letting teaching-unit expansion displace source centrality and dissolve protocol
+    discipline.
+most_important_passage_linkage_insight:
+  value: Some edge cases need excerpt-to-passage linkage, not only excerpt-to-excerpt
+    linkage.
+most_important_teaching_unit_insight:
+  value: The source text remains central, but bounded context support and passage
+    visibility can legitimately expand the unit into a true teaching surface.

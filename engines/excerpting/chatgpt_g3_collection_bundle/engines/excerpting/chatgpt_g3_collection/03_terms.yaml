@@ -1,0 +1,153 @@
+- term: numbering_noncriterion
+  current_controlled_meaning: Numbering itself must not decide excerpt identity or
+    placement.
+  dangerous_competing_meanings:
+  - Each bullet is automatically its own excerpt
+  - Numbered lists should always stay whole
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: content_first_excerpting
+  current_controlled_meaning: Excerpting determined by topic, function, and benefit
+    rather than presentation markers like numbering.
+  dangerous_competing_meanings:
+  - Excerpting based on author formatting only
+  - Excerpting based on arbitrary wrappers
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: point_identity
+  current_controlled_meaning: The specific knowledge-unit identity of one numbered
+    point considered on its own content.
+  dangerous_competing_meanings:
+  - Its numeric position in the list
+  - Its bullet marker alone
+  status: active_case_term
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: multi_function_point
+  current_controlled_meaning: A numbered point whose text performs more than one real
+    library function.
+  dangerous_competing_meanings:
+  - Any point with a long sentence
+  - Any point with explanation attached
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: double_function_excerpt
+  current_controlled_meaning: An excerpt that simultaneously belongs to more than
+    one meaningful library role or leaf.
+  dangerous_competing_meanings:
+  - An excerpt duplicated accidentally
+  - An excerpt that merely mentions two things
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: numbered_list_context
+  current_controlled_meaning: The surrounding list frame that raises questions about
+    neighboring points and the list introduction.
+  dangerous_competing_meanings:
+  - A reason to keep everything merged
+  - A reason to split everything
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: parent_list_reassurance
+  current_controlled_meaning: Extra reassurance needed so the owner can understand
+    how an extracted point sits within its larger list context.
+  dangerous_competing_meanings:
+  - Optional cosmetic context
+  - A substitute for correct excerpting
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: list_intro_dependency
+  current_controlled_meaning: Potential dependence of one point on the introduction
+    that introduced the whole numbered list.
+  dangerous_competing_meanings:
+  - All points always depend on the intro
+  - List intros never matter
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: point_specific_ruling
+  current_controlled_meaning: A numbered point that states or argues a distinct ruling-related
+    claim.
+  dangerous_competing_meanings:
+  - Any sentence under the list
+  - Any repeated wording
+  status: active_case_term
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: packaging_pattern
+  current_controlled_meaning: A concrete way of packaging a point and its attachments
+    in the library.
+  dangerous_competing_meanings:
+  - One global rule for all similar cases
+  - Pure UI layout only
+  status: active_case_term
+  source_basis: model_expansion
+  owner_relation: model_only
+- term: multi_leaf_placement
+  current_controlled_meaning: Legitimate placement of the same text under more than
+    one leaf when functions truly differ.
+  dangerous_competing_meanings:
+  - Loose duplication everywhere
+  - Taxonomy indecision
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: content_based_duplication
+  current_controlled_meaning: Duplication justified by genuine multi-function content
+    rather than formatting or convenience.
+  dangerous_competing_meanings:
+  - Duplicate because it appeared in a list
+  - Duplicate because context feels nice
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: objective_excerpting
+  current_controlled_meaning: Excerpting governed by objective analysis of knowledge
+    content and functions, not owner taste about long/short or bullet/no-bullet.
+  dangerous_competing_meanings:
+  - Blind rule following
+  - Ignoring study usefulness entirely
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: numbering_bias
+  current_controlled_meaning: The error of letting numbered status influence excerpting
+    or placement decisions directly.
+  dangerous_competing_meanings:
+  - Helpful context awareness
+  - Legitimate list-based grouping
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: study_reassurance
+  current_controlled_meaning: The owner’s ability to study an excerpt with peace of
+    mind rather than manhunting for missing frame or context.
+  dangerous_competing_meanings:
+  - Simple readability
+  - Politeness of presentation
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: methodology_advantage
+  current_controlled_meaning: A real benefit and reassurance advantage the library
+    must provide over plain book reading.
+  dangerous_competing_meanings:
+  - Any wrapper around books
+  - Novelty without benefit
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: library_value_over_books
+  current_controlled_meaning: The degree to which the library offers enough explicit
+    benefit and trust to justify choosing it over direct book reading.
+  dangerous_competing_meanings:
+  - Minor convenience
+  - Aesthetic modernization
+  status: active_case_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

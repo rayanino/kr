@@ -1,0 +1,80 @@
+This actually reminds me of the topic: when the tree gets to, for example: proofs → hadiths → hadith عثمان بن عفان, is there any further granulation?
+
+The answer is: ideally yes. CATCH THIS EXPLANATION (VERY IMPORTANT): a common methodology between scholars is that when explaining a hadith they explain it chunk by chunk. For example:
+
+“عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ” → stop → explain this (who was he etc)
+
+“أنه رَأى عُثْمَانَ دَعَا بِوَضوء” → stop → explain this (what is a ‘وَضوء’ etc)
+
+…
+
+Preferably, my ideal structure in the library would be:
+
+… → hadith عثمان بن عفان → raw (this is the part where the hadith ready-to-memorize (externally gathered by the library in correct formatting) lives)
+                         → full explanations (this is where non-chunked ‘general’ explanations would come that do not address a specific part of the hadith but rather try to explain the hadith in its entirety)
+                         → chunk1 → excerpts explaining this chunk
+                         → chunk2 → excerpts explaining this chunk
+
+But obviously, this introduces more complexity. Rarely do two or three follow the exact same chunking choices when explaining hadiths, let alone tens and hundreds. Also: the longer the hadiths, the more complex this operation becomes.
+
+But that is not a challenge too big to solve. The ideal library should be able to do this without a problem.
+
+For the specific excerpt in question, this would mean something like (depends on how the scholars actually do it, but since they will probably differ a lot there needs to be some decision making point in which this is exactly determined):
+
+chunk1 could be “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, in which the comments of scholars who regarded this as one chunk (i.e. one ‘stop here and explain’) can be placed. Now, if some scholars stopped at “عن حُمْرانَ” and then at “عُثْمَانَ بْنِ عَفَانَ”, while others stopped only once at the end of “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, then the two explanations of the previous group of scholars can just all come under the leaf handling “عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ”, because otherwise I fear it would introduce too much complexity. Instead of trying to please all scholars and their chunking, we can focus on using their chunkings as inspiration and instead reason and make a decision about how it should be done.
+
+Then, for example, “أنه رَأى عُثْمَانَ دَعَا بِوَضوء”. One of the excerpts that would come under this would be “١ء "وَضوء": بفتح الواو. الماء الذي يتوضأ به. قال النووي: يقال: "الوضوء والطهور ءبضم أولهماء إذا أريد الفعل الذي هو المصدر وبفتح أولهما، إذا أريد الماء الذي يتطهر به". وأصل الوضوء من الوضاءة، وهى الحسن والنظافة فسمي وضوء الصلاة وضوأً لأنه ينظف صاحبه.”
+
+And so on for all chunks.
+
+But then we face an explanation not regarding a specific chunk, but the entire hadith at once: “المعنى الإجمالي: …”. This would come under the leaf ‘full explanations’.
+
+DO YOU SEE HOW THE LIBRARY SHOULD BE ADAPTED? DO YOU SEE HOW THE 
+
+This is actually a major breakthrough. This is a universal concept for excerpts where two related things are present (explained-explanation, …); there can still be further refinement and granulation. VERY IMPORTANT.
+
+I just realized: we should define and focus and research the different scenarios of ‘relationships between proofs’. With that I mean: imagine under a specific topic, under its proof leaf there are 3 hadiths present. These hadith have a specific relationship.
+
+For example: they could be ‘supporting each other in order to form the full ruling together’. Such is the case with wudu: it is not 1 hadith that contains the entire ruling, it’s multiple hadiths together that give the full picture of how wudu is to be done.
+
+There are other types of relationships. For example: some hadiths seem contradicting on the first sight, but resolving that contradiction also gives an important part of the ruling, so in some sense they are supporting as well.
+
+In general: proofs being under the same ‘proof-leaf’ should mean that they together support the ruling. It should never happen that two hadiths each supporting a specific opinion are together under the same ‘proof’-leaf; that is not enough granularity.
+
+For example:
+
+“umrah is mandatory” → own branch, with own “proof”-leaf
+
+“umrah is not mandatory” → own branch, with own “proof”-leaf
+
+So we shouldn’t worry about further classification within a proof-leaf regarding “this group of proofs proves opinion1, this group proves opinion2, …” because they are already under a specific opinion-branch. What we should do, however, is clearly indicate the relationship: “proof1 and proof2 both support the opinion that umrah is mandatory, but HOW? Do they each give a piece of the puzzle? Is one a pure saying of the PROPHET, WHILE THE OTHER AN ACTION? ….”
+
+This actually brings me to a broader topic: proofs have much more classification behind them than the library currently accounts for. Hadiths, quran verses, … are of many different types; some give direct rulings, others hint at a ruling by proving the opposite is false, … but also: many times proofs individually can get wrongfully understood until they are merged and put side by side.
+
+This is a very broad topic, AND NOT SOMETHING WE NEED TO MERELY SKIM OVER. Instead, this is something that requires deep and long research. We need to really pause at this point and do some prolonged and deep research. This actually links directly back to some of the Islamic sciences (like how usul al fiqh handles all these different kinds of proofs and their relationships, types, …). Logic, knowledge of Islamic sciences and more importantly: deep and thorough research and reasoning are REALLY NEEDED FOR THIS!!!!
+
+To summarize: the point is: the way in which proofs support each other (are they just different versions of the same hadith, do they each solve a piece of the puzzle, …) differs. And we need to analyze and recognize each case in order to provide clear data and structure within the library; when I open an excerpt, I also get an overview of “this hadith is supported by such and such other proof, backed by this and that scholar, in this and that madhab, …”
+
+THIS IS A VERY IMPORTANT CONCEPT. EXCERPTS DO NOT ONLY PROVIDE RAW THEORY, BUT ALSO ANALYTICS TO GIVE THE OWNER THAT UNPRECEDENTED EDGE. WHAT PREVIOUS STUDENT OF KNOWLEDGE HAD ACCESS TO IS THE RAW TEXT THAT I ALSO HAVE, THE DIFFERENCE IS THAT I HAVE IT EXCERPTED … BUT NOBODY HAD ACCESS TO THE DATA AND ANALYTICS AND RELATIONSHIPS WE CAN RECOGNIZE … VERY VERY IMPORTANT !!!!!!!!!
+
+IMPORTANT: I’ve already proposed that under “proofs”-branch, the proofs need to be branchified further. For example: per narrator, so you would have proofs → hadiths → hadith of حُمْرانَ, and so on for each proof.
+
+However, the mere name of the narrator is not enough as a unique identifier. THIS IS VERY IMPORTANT; UNIQUENESS IN THE BRANCH, AND IDENTIFIERS. We can’t just loosely rely on non-unique duplicate-possible values. THE WAY THE ENVIRONMENT IS SETUP IS THAT THE OWNER, WHEN STUDYING, WILL NOT FACE ANY DIFFICULTIES LIKE: “WHICH ONE OF THE حُمْرانَ-hadiths WAS THIS AGAIN”??
+
+NO ROOM FOR AMBIGUITY IN THE LIBRARY. NO ROOM FOR SUBOPTIMALNESS IN THE LIBRARY. NO ROOM FOR <you can fill this further at these extremes>.
+
+IMPORTANT; “غريب الحديث:” is a form of explanation of a hadith, but just a specific form; explanations of words, in a more “grammar-like” way instead of focusing on the ruling itself. This can be taken into the library: that the explanations themselves branch into explanations of the hadith itself with focus on the rulings, and another branch with explanations of the words. Even further: grammar breakdowns, sarf-breakdowns.
+
+THIS IS ACTUALLY A VERY GOOD IDEA: because there are hundreds of books like “شرح غريب الأحاديث” that focus specifically on the grammar-part.
+
+Moreover, this also gives the opportunity to do SOMETHING UNPRECEDENTED AND THAT WILL TAKE THE LIBRARY INTO THE NEXT LEVEL: a location for the words from dictionaries (like لسان العرب) to land in. So, for example, when digesting a dictionary, the library can first try to identify the most specific locations this belongs to.
+
+This really proves that we haven’t thought out how branching really should work, and how detailed the branching should be. It should not just be “as granulated as reasonably possible”; instead, there should be some beginning blueprint that lays down the fundamental granularity expected. But this sounds more like a taxonomy-issue.
+
+This also proves that every science individually needs thorough thinking through about how will this affect the protocols of the library and the rules of the engines? A good example is the example of the dictionary-vocabulary-words being excerpted then placed into either the most specific locations where they belong, or else in general “arabic vocabulary” tree.
+
+THIS ALSO RAISES THE QUESTION: HOW WILL WE HANDLE WHEN THE SAME PROOF IS USED AT MULTIPLE DIFFERENT TOPICS? So, for example, if a hadith is used to prove how to pray, but the same hadith also touches on topics of wudu, which makes scholars mention this hadith at both the prayer-topic as well as the wudu-topic, how do we ensure maximal benefit from this? We need some very clear protocol; either we keep the two explanations completely separate, or we first identify if the explanation of the hadith at the prayer-topic contains some useful pieces that can be duplicated into the wudu-topic, …
+
+VERY VERY IMPORTANT TO GET STRAIGHT, BECAUSE THIS DIRECTLY TOUCHES ON THE TOPIC OF LOST POTENTIAL: WHEN I STUDY WUDU WHILE THE PRAYER-TOPIC ALSO CONTAINS SOME TEXT THAT TOUCHES ON WUDU, THAT TEXT AND THE UNDERSTANDINGS I COULD POTENTIALLY GAIN FROM IT ARE LOST!!! I WOULD ONLY ENCOUNTER THAT WUDU-related text when studying prayer, but by then I’m not in the “zone” of studying wudu; I’m focused on prayer, so I would just skim over unrelated wudu-topics … which is different than if I encounter this text while studying wudu-itself; I would actively process it and it would improve my understanding.
+
+Actually … the library should definitely identify that the prayer-hadith also contains wudu related text, excerpt and separate both, then place the wudu-text at the wudu branch … so I shouldn’t encounter wudu-related text when studying prayer in the first place. THIS IS A VERY IMPORTANT CONCEPT; NO LIMITATIONS TO EXCERPTING BUT ALSO NOT TO TAXONOMY PLACEMENT. When excerpts are placed in the taxonomy tree, never should the locations be limited to anything; not the science, nor any branches within. Instead, it should answer the open general question: “where does this excerpt fit within the islamic sciences”?

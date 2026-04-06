@@ -1,0 +1,15 @@
+strongest_local_reason_for_final_questionnaire_choice: The phrase `هذه الأفعال والأقوال`
+  reaches backward to omitted earlier material, so the fragment is not safe on its
+  own even though some of its wording is readable.
+highest_risk_context_loss_failure: A scope phrase silently governing omitted earlier
+  material while the owner studies only the visible tail fragment.
+highest_risk_identity_loss_failure: The owner not realizing that the fragment is hadith
+  explanation at all.
+highest_risk_scope_reference_failure: Over-narrowing `هذه الأفعال والأقوال` to the
+  local visible lines only.
+highest_risk_pipeline_gap_failure: No temporary reassembly or owner-view pass/refuse
+  gate before taxonomy placement.
+most_important_security_gate_insight: A fragment can be readable and still deserve
+  refusal if owner-view validation fails.
+most_important_copy_forward_insight: Later scope-governing lines may need to travel
+  back into earlier split excerpts they semantically govern.

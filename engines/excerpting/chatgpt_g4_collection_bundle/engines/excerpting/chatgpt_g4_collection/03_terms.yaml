@@ -1,0 +1,136 @@
+- term: condition_excerpt
+  current_controlled_meaning: A unit centered on one specific شرط or one tightly bound
+    subpart of a شرط.
+  dangerous_competing_meanings:
+  - Any sentence mentioning a condition.
+  - The full condition chapter merged as one entry.
+  status: provisional
+  source_basis: explicit_draft
+- term: condition_branch
+  current_controlled_meaning: A taxonomy node dedicated to one specific شرط and its
+    close internal substructure.
+  dangerous_competing_meanings:
+  - Any parent heading that casually contains conditions.
+  - A mere list label.
+  status: provisional
+  source_basis: explicit_draft
+- term: continued_topic
+  current_controlled_meaning: A topic the author started earlier and explicitly resumes
+    later, as signaled here by `تقدم بعضها`.
+  dangerous_competing_meanings:
+  - Any repeated topic mention.
+  - A complete standalone treatment.
+  status: emerging
+  source_basis: explicit_draft
+- term: continuation_support
+  current_controlled_meaning: Library help that does more than a tiny note by clearly
+    surfacing resumed-topic relationships.
+  dangerous_competing_meanings:
+  - A minimal note only.
+  - Merging everything back together.
+  status: emerging
+  source_basis: explicit_draft
+- term: context_carryover
+  current_controlled_meaning: Short surrounding text retained with a core excerpt
+    because it adds reassurance or benefit without causing harm.
+  dangerous_competing_meanings:
+  - All surrounding text by default.
+  - Any short text regardless of harm.
+  status: emerging
+  source_basis: explicit_draft
+- term: short_and_harmless
+  current_controlled_meaning: A retention rule that applies only when extra text is
+    both short and genuinely harmless, with some added benefit.
+  dangerous_competing_meanings:
+  - Short therefore harmless.
+  - Harmlessness without checking branch distance or confusion risk.
+  status: emerging
+  source_basis: explicit_draft
+- term: same_branch_proximity
+  current_controlled_meaning: A closeness relation where sibling pieces under the
+    same parent branch are more likely to tolerate retained overlap safely.
+  dangerous_competing_meanings:
+  - Any nearby text in a book.
+  - A universal permission to retain overlap.
+  status: candidate
+  source_basis: explicit_draft
+- term: distant_branch_risk
+  current_controlled_meaning: The higher ambiguity risk created when retained overlap
+    lands far from its most natural neighboring branch.
+  dangerous_competing_meanings:
+  - Any overlap is equally safe.
+  - Distance never matters if text is short.
+  status: candidate
+  source_basis: explicit_draft
+- term: condition_applications
+  current_controlled_meaning: Concrete cases/examples that instantiate a condition
+    such as examples of شبهة.
+  dangerous_competing_meanings:
+  - The condition statement itself.
+  - Any illustrative sentence.
+  status: provisional
+  source_basis: explicit_draft
+- term: condition_examples
+  current_controlled_meaning: Example-level excerpts nested under a condition or its
+    applications.
+  dangerous_competing_meanings:
+  - Any later mention that shares a word with the condition.
+  - The full condition block unchanged.
+  status: candidate
+  source_basis: explicit_draft
+- term: condition_methods
+  current_controlled_meaning: Ways in which a condition is established, such as proof
+    methods under `ثبوت السرقة`.
+  dangerous_competing_meanings:
+  - Examples only.
+  - Separate unrelated conditions.
+  status: provisional
+  source_basis: explicit_draft
+- term: condition_reference_root
+  current_controlled_meaning: A supporting explanatory unit like `مرجع الحرز` that
+    clarifies how the main condition is determined.
+  dangerous_competing_meanings:
+  - A full independent condition.
+  - A trivial side note.
+  status: candidate
+  source_basis: explicit_draft
+- term: branch_proximity
+  current_controlled_meaning: The relative closeness of branches used to estimate
+    whether retained overlap will self-resolve or remain confusing.
+  dangerous_competing_meanings:
+  - Physical line distance only.
+  - A formal metric already solved.
+  status: candidate
+  source_basis: explicit_draft
+- term: entry_term_ambiguity
+  current_controlled_meaning: The project-level problem that words like `entry` are
+    overloaded and may refer to different artifact types.
+  dangerous_competing_meanings:
+  - Benign wording choice.
+  - Only a UI problem.
+  status: emerging
+  source_basis: explicit_draft
+- term: machine_readable_vocabulary
+  current_controlled_meaning: Vocabulary and file structures optimized for agents
+    to read, parse, remember, and use consistently.
+  dangerous_competing_meanings:
+  - Human-readable only prose.
+  - Any file format is fine.
+  status: emerging
+  source_basis: explicit_draft
+- term: arabic_only_internal_naming
+  current_controlled_meaning: The owner's demand that the actual library's internal
+    titles and naming be Arabic-only.
+  dangerous_competing_meanings:
+  - No English anywhere in engineering collections.
+  - Mixed internal naming is harmless.
+  status: explicit
+  source_basis: explicit_draft
+- term: continued_condition_listing
+  current_controlled_meaning: A resumed list of شروط where some were introduced earlier
+    and others appear later.
+  dangerous_competing_meanings:
+  - A complete condition list in one place.
+  - A reason to merge all conditions automatically.
+  status: emerging
+  source_basis: explicit_draft

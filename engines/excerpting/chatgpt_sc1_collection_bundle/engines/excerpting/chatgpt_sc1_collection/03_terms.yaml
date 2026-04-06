@@ -1,0 +1,144 @@
+- term: reference_back
+  current_controlled_meaning: A phrase that points the reader to earlier material
+    already discussed in the source.
+  dangerous_competing_meanings:
+  - Any contextual phrase
+  - A harmless reminder in every environment
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: author_flow_assumption
+  current_controlled_meaning: A condition the author presumes about how the reader
+    is moving through the book and what the reader still has available.
+  dangerous_competing_meanings:
+  - Pure sequencing ornament
+  - Optional literary texture
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: continuous_reading_book
+  current_controlled_meaning: A book form where cover-to-cover order and easy backward
+    reference are assumed by the author.
+  dangerous_competing_meanings:
+  - Any text collection
+  - A format equivalent to isolated excerpt reading
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: excerpt_library_context
+  current_controlled_meaning: A study setting where the owner may open a single excerpt
+    with zero prior context and expects the system to supply what is needed.
+  dangerous_competing_meanings:
+  - Just another way of reading the same book
+  - A context where the owner should reconstruct missing support manually
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: orientational_summary
+  current_controlled_meaning: A summary or reminder whose main job is to locate the
+    reader rather than rebuild a concept.
+  dangerous_competing_meanings:
+  - Any reference-back note
+  - A note that carries real conceptual dependence
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: concept_building_summary
+  current_controlled_meaning: A summary that presupposes earlier concepts and then
+    expands further on them.
+  dangerous_competing_meanings:
+  - A simple orientation cue
+  - A dispensable reminder
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: context_restoration
+  current_controlled_meaning: Library support that restores the earlier text or concept
+    an excerpt depends on but no longer carries.
+  dangerous_competing_meanings:
+  - Adding arbitrary summaries
+  - Replacing source material with synthetic explanation
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: passage_linkage
+  current_controlled_meaning: An explicit link between the current excerpt and the
+    larger or earlier passage it depends on.
+  dangerous_competing_meanings:
+  - Any hyperlink
+  - A loose topical relation
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: teaching_unit
+  current_controlled_meaning: An excerpt-centered unit where the source text remains
+    central but bounded supporting layers make it teachable in isolation.
+  dangerous_competing_meanings:
+  - A free-form UI card
+  - Permission to ignore source centrality
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: owner_zero_precontext
+  current_controlled_meaning: The operational assumption that the owner may open the
+    unit knowing nothing else at that moment.
+  dangerous_competing_meanings:
+  - An edge case that can be ignored
+  - Owner laziness
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: self_containment
+  current_controlled_meaning: The degree to which the unit supplies what the owner
+    needs without forcing manhunt for essential support.
+  dangerous_competing_meanings:
+  - Pure textual isolation only
+  - Any amount of synthetic help
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: original_passage_visibility
+  current_controlled_meaning: The ability to open and inspect the larger original
+    passage around an excerpt from inside the unit.
+  dangerous_competing_meanings:
+  - A generic citation
+  - A replacement for excerpt-level structure
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: reference_support_layer
+  current_controlled_meaning: A secondary layer that helps the owner access exactly
+    what a reference-back note is pointing to.
+  dangerous_competing_meanings:
+  - A generic tooltip
+  - Pure metadata detached from source text
+  status: working_collection_term
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: summary_note_sufficiency
+  current_controlled_meaning: Whether a note alone is enough for the owner to follow
+    the current passage without opening earlier material.
+  dangerous_competing_meanings:
+  - Whether the note is helpful at all
+  - Whether the note reads smoothly
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: author_intended_reader_model
+  current_controlled_meaning: The level, memory state, and reading conditions the
+    author presumes of the reader for a specific passage.
+  dangerous_competing_meanings:
+  - A genre stereotype only
+  - An irrelevant literary detail
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: book_to_excerpt_translation_loss
+  current_controlled_meaning: Meaning, reassurance, or navigability lost when a continuous-reading
+    source is converted into fine excerpts.
+  dangerous_competing_meanings:
+  - Only OCR corruption
+  - Any transformation at all
+  status: working_collection_term
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

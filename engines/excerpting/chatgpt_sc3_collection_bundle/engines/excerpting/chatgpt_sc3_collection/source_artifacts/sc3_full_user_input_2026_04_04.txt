@@ -1,0 +1,801 @@
+We are now switching to **questionnaire mode** for **SC3**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F6/F7/F8/G1/G2/G3/G4/SC1/SC2 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple question about whether an excerpt that begins mid-instruction can still be understood. But the deeper issue is much bigger:
+
+- the loss of context when a text begins in the middle of a sequence
+- the loss of identity about what kind of text this even is
+- the catastrophic risk when a phrase refers to omitted earlier material
+- the need for zero-precontext assumptions
+- the need for passage-analysis and correction gates
+- the need for copy-forward / context-restoration logic
+- the need for 100% pass-or-refuse security gates before taxonomy placement
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**SC3**
+
+**Assumed Chapter Context**
+
+**Context:**  
+This excerpt assumes you know which hadith is being discussed and what came before — it begins mid-instruction.
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification
+
+`وتطمئن في اعتدالك ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.`  
+`وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.`
+
+**Question:**  
+This excerpt assumes you know which hadith is being discussed and what came before — it begins mid-instruction. Can you understand it on its own, or does it need more context?
+
+**Your assessment:**
+- A: Yes, I can understand it on its own — it describes prayer postures clearly
+- B: No, it needs context — I need to know which hadith this is from
+- C: Partially — the content is clear but I feel something is missing
+
+**Immediate reaction:**
+
+**Confidence in your response:** High / Medium / Low
+
+## Full context
+
+بَابُ وجُوب الطّمَأنينة في الركوع والسجود
+
+عَنْ أبي هُرَيرةَ رضيَ الله عَنْهُ أنَّ رَسُولَء الله صلى الله عليه وسلم دَخَلَ الْمَسْجِدَ فَدَخَلَ رَجُلٌ فَصَلَّى، ثمَّ جَاءَ فَسَلَّمَ عَلى النَّبيِّ صلى الله عليه وسلم فَقَالَ: " ارْجع فَصَلِّ فَإِنَّكَ لَمْ تُصَلِّ ".
+
+فَرَجَعَ فَصَلى كَمَا صَلَّى، ثُم جَاءَ فَسَلمَ عَلى النَبي صلى الله عليه وسلم فَقَالَ: " ارْجعْ فَصَلِّ، فَإنَّكَ لَمْ تُصَل" ثلاثاً.
+
+فقال: وَالَّذِي بَعَثَكَ بالْحَقِّ مَا أُحْسِنُ غَيره فَعَلِّمْني.
+
+فقال: "إِذا قُمْتَ إلَى الصَّلاةِ، فَكَبِّرْ، ثم اقْرأ مَا تَيَسَّر مَعَكَ مِنَ الْقرْآنِ ثم اركعْ حَتَّى تَطْمَئِنَّ رَاكِعاً، ثمَّ ارفَعْ حَتَى تَعْتدِلَ قَائِماً، مَّ اسْجُدْ حَتَّى تَطْمَئِنَّ سَاجداً، ثم ارْفعْ حَتَى تَطْمَئِنَّ جَالِساً. وَافْعَلْ ذلِكَ في صَلاتِكَ كُلِّهَاَ.
+
+المعنى الإجمالي:
+
+هذا حديث جليل يسميه العلماء "حديث المسيء في صلاته" وهو عمدتهم فيما يجب في الصلاة وما لا يجب، حيث جاء من النبي صلى الله عليه وسلم موضع الاستقصاء في التعليم والتبييِن لأعمال الصلاة، التي يجب الإتيان بها ويعتبر ما ترك في هذا الحديث من فعلها غير واجب كما سنوضحه فيما بعد، إن شاء الله تعالى.
+
+ومجمل هذا الحديث: أن النبي صلى الله عليه وسلم دخل المسجد، فدخل رجل من الصحابة، اسمه (خَلاّد بن رافع) ، فصلى صلاة غير تامة الأفعال والأقوال.
+
+فلما فرغ من صلاته، جاء إلى النبي صلى الله عليه وسلم، فسلم عليه فرد عليه السلام (١) ثم قال له: ارجع فَصَلِّ، فإنك لم تصل.
+
+فرجع وعمل في صلاته الثانية كما عمل في صلاته الأولى، ثم جاء إلى النبي صلى الله عليه وسلم، فقال له: ارجع فَصَلِّ فإنك لم تصل ثلاث مرات.
+
+فأقسم الرجل بقوله: والذي بعثك بالحق، ما أحسن غير ما فعلت فعَلِّمني
+
+فعندما اشتاق إلى العلم، وتاقت نفسه إليه، وتهيأ لقبوله بعد طول الترديد قال له النبي صلى الله عليه وسلم ما معناه.
+
+إذا قمت إلى الصلاة فكبر تكبيرة الإحرام، ثم اقرأ ما تيسر من القرآن، بعد قراءة سورة الفاتحة (٢) ثم اركع حتى تطمئن راكعاً، ثم ارفع من الركوع حتى تعتدل قائما،
+
+(١) جاء في البخاري ومسلم أن النبيصلى الله عليه وسلم، رد عليه السلام.  
+(٢) كما جاء في روية أبي داود ((ثم اقر بأم القرن وبما شاء الله)) وروية ابن حبان "بما شئت ".
+
+وتطمئن في اعتدالك (١) ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.
+
+وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.
+
+في الحديث ثلاثة مباحث:
+
+المبحث الأول: في خلاف العلماء.
+
+فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، حتى من قادر على الفاتحة مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْهُ} وبإحدى روايات هذا الحديث " ثم اقرأ ما تيسر معك من القرآن".
+
+وذهب الجمهور إلى عدم صحة الصلاة بدون الفاتحة لمن يحسن قراءتها. مستدلين بقوله عليه الصلاة والسلام: " لا صلاَةَ لِمَنْ لَم يَقرأْ بِفاِتحَة الكِتَاب" متفق عليه. فالتقدير: لا صلاة توجد، وعدم وجودها شرعا هو عدم صحتها وهذا هو الأصل في مثل هذا النفي.
+
+وأدلة عدم صحة الصلاة بدونها كثيرة.
+
+وأجابوا عن الآية بأنها جاءت لبيان القرآن في قيام الليل، يعني: اقرأوا ما تيسر من القرآن بعد قراءة الفاتحة بلا مشقة عليكم.
+
+وأجابوا عن الحديث، بأن هذه الرواية مجملة تفسرها الروايات الأخرى عند أبي داود وابن حبان "ثم اقرَأ بِأم القُرآن وبِمَا شَاءَ الله". وقد سكت عنه أبو داود. وما سكت عنه فإنه لا قدح فيه.
+
+ولابن حبان في حديثه "واقرأ بأم القرآن ثم اقرأ بما شئت". قال ابن الهمام: " الأولى الحكم بأنه صلى الله عليه وسلم قال للمسيء في صلاته ذلك كله.
+
+ثم إن بعض العلماء يرى وجوب الفاتحة في الركعة الأولى دون غيرها
+
+والجمهور يرى وجوبها في كل ركعة، ويدل له قوله: "ثم افْعَلْ ذلِكَ في صَلاَتِكَ كُلهَا". قال الحافظ ابن حجر: وحديث أبي قتادة في البخاري من أنه صلى الله عليه وسلم كان يقرأ الفاتحة في كل ركعة مع قوله "صلوا كما رأيتموني أصلي" دليل الوجوب.
+
+ثم اختلفوا في وجوب الطمأنينة في الاعتدال من الركوع والسجود.
+
+فذهب الحنفية إلى علم وجوبها.
+
+وذهب الجمهور إلى وجوبها، وحجتهم هذا الحديث الصحيح الصريح، وحديث البراء بن عازب أنه "رَمَقَ صَلاةَ النَّبيَّ صلى الله عليه وسلم فَوَجَدَ قيامَهُ،
+
+(١) كما جاء في ذكر الاطمئنان في هذا الحديث عند الإمام أحمد، ء جاد بقوله: حتى تطمئن قائماْ ولفظ أحمد: فأقم صلبك حتى ترجع العظام فَرَكعَتَهُ، فَاعتِدَالَهُ بَعدَ رُكُوعِهِ، فسجدتهُ، فَجَلْسَتهُ مَا بينَ التسلِيم وَالانْصِرَافِ، قَرِيباً مِنَ السَّوَاءِ " متفق عليه.
+
+وتقدم الكلام عليهء وثبت أنه يقف في اعتداله بعد الركوع حتى يظن أنه قد نَسِىَ لإطالتهء والأدلة على ذلك كثرة.
+
+وليس لدى الحنفية، دليل على ما ذهبوا إليه، ولا جواب صحيح على أدلة الجمهور الصحيحة الصريحة.
+
+المبحث الثاني: في كيفية الاستدلال بهذا الحديث على الواجبات في الصلاة وغير الواجبات.
+
+قال في "سبل السلام": واعلم أن هذا حديث جليل، تكرر من العلماء الاستدلال به على وجوب كل ما ذكر فيه، وعدم وجوب كل ما لم يذكر فيه.
+
+أما الاستدلال على أن كل ما ذكر فيه واجب، فلأنه ساقه صلى الله عليه وسلم بلفظ الأمر بعد قوله: "لن تتم الصلاة إلا بما ذكر فيه". فيقوى مرتبة الحصر أنه صلى الله عليه وسلم ذكر ما تعلقت به الإساءة من عمل هذا المصلى، وما لم تتعلق به إساءته من واجبات الصلاة. وهذا يدل على أنه لم يقصر المقصود على ما وقعت فيه الإساءة فقط ولم يحدد موضع الإساءة من صلاة هذا الرجل. ولكنه عند أبي داود والترمذي والنسائي "أنه أخف صلاته" وأئمة الحديث يجعلون هذا الحديث في باب وجوب الطمأنينة فلعل الإساءة راجعة إلى أن هذا الرجل نقر الصلاة فأخف أعمالها وأقوالها.
+
+وأما الاستدلال على أن كل ما لم يذكر فيه لا يجب، فلأن المقام مقام تعليم الواجبات في الصلاة.
+
+فلو ترك ذكر بعض ما يجب لكان فيه تأخير البيان عن وقت الحاجة، وهو لا يجوز بالإجماع، فإذا أحصيت ألفاظ الحديث الصحيح، أخذ منها بالزائد.
+
+ثم إن عارض الوجوب الدالة عليه ألفاظ هذا الحديث أو عدم الوجوب دليل أقوى منه عمل به. فكل موضع اختلف الفقهاء في وجوبه، وكان مذكورا في هذا الحديث فإننا نتمسك بوجوبه. وكل موضع اختلفوا في وجوبه ولم يكن مذكوراً في هذا الحديث فإنا نتمسك بعدم وجوبه، استنادا إلى هذا الحديث لأنه موضع تعليم.
+
+وإن جاءت صيغة أمر بشيء لم يذكر في هذا الحديث، احتمل أن يكون هذا الحديث قرينة على حمل الصيغة على الندب، واحتمل البقاء على الظاهر، فيحتاج إلى مرجح، للعمل به.
+
+## My raw comments
+
+I will start by flagging the first words I see in your question: “This excerpt assumes you know which hadith is being discussed and what came before — it begins mid-instruction.” FUCKING DISAPPOINTING …. 
+
+… this assumption goes against some of the most important fucking principles of the library: no ambiguities, ASSUME STUDY OF AN EXCERPT STARTS WITH 0 KNOWLEDGE AND CONTEXT BEFOREHAND (before the owner opens the excerpt he knows nothing, has read nothing, comes straight from the outside world directly into this excerpt without touching any other part of the library). Assumptions are: no, the owner does not know. ABUNDANCE IS BETTER THAN AMBIGUITY.
+
+VERY DANGEROUS: (and once again why I insist on keeping some form of link between the explained and explanation): I would have never known this excerpt is an explanation of a hadith. I would have just guessed it’s the author just talking and explaining, … I don’t know … I MISSED POTENTIAL … THIS CURRENT EXCERPTING SYSTEM IS MAKING ME LOSE FUCKING POTENTIAL!!!!!!!!!!!!!!!!!!!!!!!
+
+FUCKING CONTEXT IS LOST .. the aspect “this part of the source, in what context is it present? is it the author explaining something, is it him just writing the rules without any links to proofs etc, is this a summary”, … and some very dangerous ones like: “IS THIS EVEN HIS OPINION, OR IS HE QUOTING SOMEONE ELSE”? “Is he mentioning the wrong opinion to disprove it later”? I NEED CONTEXT. I NEED REASSURANCE. I NEED 100% PEACE OF HEART THAT I’M UNDERSTANDING AND STUDYING CORRECTLY!!!!!!!!!!!!!
+
+VERY DANGEROUS (!!!!): `وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام،` refers to much more than `وتطمئن في اعتدالك ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.` … but if I would read this, I would assume `هذه الأفعال والأقوال` refers only to the latter ones, while in reality it references the text that came before this excerpt as well … this is CATASTROPHIC. CATASTROPHIC CATASTROPHIC CATASTROPHIC.
+
+MORE CATASTROPHIC: the excerpts from the previous texts may miss the part `وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.` if it is not identified and copied to there as well!
+
+A possible solution: this needs to be recognized, then the other excerpts may be something like this (rule of leaving out chunks from the middle): `<excerpt> <notify that a piece has been left out here and what it is about> <وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.>`.
+
+THIS IS WHY THIS IS A MUST DO: we will take time to deeply analyze and research our current passaging system, then design a clear gate that analyzes a passage and identifies things like this: relationships, … IN SOME FORM …
+
+… ACTUALLY, why don’t we do this: AFTER EXCERPTING, the excerpts are pieced back together temporarily (by the pipeline), then analyzed and researched, including looking at them from the OWNER’S POINT OF VIEW, with the goal of determining (either a full clear 100% yes or a full on refusal, 99% is not enough); IS THIS PASSAGE CORRECTLY EXCERPTED AND READY TO GO TO THE TAXONOMY ENGINE, OR NOT?
+
+WE MISS SUCH GATES. WE MISS EXTRA PROTECTION. WE MISS EXTRA SAFETY. THIS IS NOT A JOKE; THIS IS SENSITIVE KNOWLEDGE, THAT ONCE CORRUPTED WILL RENDER DECADES (DECADES!!!!) WORTH OF EFFORTS IN TOTAL VAIN!!!!!!!!!!!!!!!!!!!
+
+THE CURRENT PIPELINE IS CATASTOPHICALLY LACKING IN SECURITY GATES, CORRECTION GATES, FULL ON 100% PASS OR REFUSE GATES, …
+
+THE CURRENT PIPELINE IS CATASTOPHICALLY LACKING IN SECURITY GATES, CORRECTION GATES, FULL ON 100% PASS OR REFUSE GATES, …
+
+THE CURRENT PIPELINE IS CATASTOPHICALLY LACKING IN SECURITY GATES, CORRECTION GATES, FULL ON 100% PASS OR REFUSE GATES, …
+
+THE CURRENT PIPELINE IS CATASTOPHICALLY LACKING IN SECURITY GATES, CORRECTION GATES, FULL ON 100% PASS OR REFUSE GATES, …
+
+THE CURRENT PIPELINE IS CATASTOPHICALLY LACKING IN SECURITY GATES, CORRECTION GATES, FULL ON 100% PASS OR REFUSE GATES, …
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+We need to fix this.
+
+## Critical tensions to preserve
+
+My raw comments contain several important tensions that must **NOT** be flattened:
+
+- The wording about prayer postures is locally readable.
+- But the larger scope of what `هذه الأفعال والأقوال` refers to is catastrophically under-specified.
+- So local clarity is **not** the same as safe understanding.
+- The excerpt also loses the identity that this is an explanation of a hadith.
+- So I do **not** just want “a bit more context” in a weak sense.
+- I want strong reassurance, correct framing, and no ambiguity.
+- I also move from a local complaint to a much deeper pipeline complaint:
+  - the system is missing pass/refuse gates
+  - the system should validate temporary reassembled excerpts from the owner’s point of view
+- The excerpt may still communicate something.
+- But the cost of misunderstanding is too high to tolerate that as “good enough.”
+
+You must preserve those tensions honestly.
+
+## Critical rule about the full context
+
+The questionnaire answer **may** use the full context here, because the question itself asks whether the excerpt can be understood on its own.
+
+But do **NOT** let the full context silently rescue the excerpt as acceptable in actual library use.
+
+Use the full context to reason about:
+
+- what hadith this belongs to
+- what missing earlier material `هذه الأفعال والأقوال` actually refers to
+- why the author could rely on that in the original source
+- why excerpting this fragment alone becomes dangerous
+- whether the strongest owner-faithful answer is A, B, or C
+
+Do **NOT** treat “the full context exists in the prompt” as automatically meaning the excerpt would be safe in the library.
+
+## Your job
+
+Take that raw reaction and turn it into the strongest possible answer to this question.
+
+But before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- what the actual questionnaire verdict is: A, B, or C
+- whether B is the strongest owner-faithful answer
+- whether C is tempting because the surface content is partially understandable
+- whether local clarity is being confused with acceptable understanding
+- whether the excerpt loses the identity that it is explaining a hadith
+- whether `هذه الأفعال والأقوال` creates catastrophic scope ambiguity
+- whether omitted earlier material must be copied forward to other excerpts if the text is split
+- whether the pipeline needs a temporary reassembly / validation gate
+- whether 100% pass-or-refuse logic is what the owner is demanding
+- whether the excerpt-library must assume absolute zero pre-context
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.
+Use it to sharpen the final output.
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_sc3_collection/`
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_sc3_collection/README.md`
+- `engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_full_user_input_2026_04_04.txt`
+- `engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_owner_raw_reaction_2026_04_04.txt`
+
+Requirements:
+
+- `sc3_full_user_input_2026_04_04.txt` must contain the full question block, excerpt block, full-context block, option block, and my raw comments **verbatim**
+- `sc3_owner_raw_reaction_2026_04_04.txt` must contain my raw comments **verbatim**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+`File creation is not available in this chat; I can only emit raw text.`
+
+and stop.
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.
+Do **NOT** restart from the beginning.
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_sc3_collection/README.md`
+2. `engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_full_user_input_2026_04_04.txt`
+3. `engines/excerpting/chatgpt_sc3_collection/source_artifacts/sc3_owner_raw_reaction_2026_04_04.txt`
+4. `engines/excerpting/chatgpt_sc3_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_sc3_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_sc3_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_sc3_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_sc3_collection/04_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_sc3_collection/05_mid_instruction_dependencies.jsonl`
+10. `engines/excerpting/chatgpt_sc3_collection/06_explanation_identity_loss.jsonl`
+11. `engines/excerpting/chatgpt_sc3_collection/07_scope_reference_failures.jsonl`
+12. `engines/excerpting/chatgpt_sc3_collection/08_context_recovery_mechanisms.jsonl`
+13. `engines/excerpting/chatgpt_sc3_collection/09_copy_forward_requirements.jsonl`
+14. `engines/excerpting/chatgpt_sc3_collection/10_passage_analysis_gates.jsonl`
+15. `engines/excerpting/chatgpt_sc3_collection/11_zero_precontext_assumption.jsonl`
+16. `engines/excerpting/chatgpt_sc3_collection/12_nonnegotiables.jsonl`
+17. `engines/excerpting/chatgpt_sc3_collection/13_red_team_tests.jsonl`
+18. `engines/excerpting/chatgpt_sc3_collection/14_priority_matrix.yaml`
+19. `engines/excerpting/chatgpt_sc3_collection/15_traceability.jsonl`
+20. `engines/excerpting/chatgpt_sc3_collection/16_open_questions.jsonl`
+21. `engines/excerpting/chatgpt_sc3_collection/17_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_sc3_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_sc3_collection/` folder.
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what SC3 is
+- why this is a collection bundle, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `final_questionnaire_choice`
+- `total_decision_steps`
+- `total_mid_instruction_dependency_records`
+- `total_explanation_identity_loss_records`
+- `total_scope_reference_failure_records`
+- `total_context_recovery_mechanism_records`
+- `total_copy_forward_requirement_records`
+- `total_passage_analysis_gate_records`
+- `total_zero_precontext_assumption_records`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+It must contain only what I could honestly stand behind as my questionnaire answer.
+
+Use this exact format:
+
+Your assessment:
+[A / B / C]
+
+Immediate reaction:
+[short paste-ready text]
+
+Detailed analysis:
+[longer paste-ready text in first person, concrete and precise, explaining whether I can understand this on its own]
+
+Confidence in your response:
+[High / Medium / Low]
+
+Requirements for this file:
+
+- first person
+- owner-faithful
+- no generic “a bit more context would help” fluff
+- no shallow answer
+- preserve the tensions in my raw comments
+- make clear whether the content is partially clear
+- make clear why that still does **not** make the excerpt safe
+- make clear that I would not even know this is explanation of a hadith without more context
+- make clear the catastrophic scope problem in `هذه الأفعال والأقوال`
+- do **NOT** silently import broad model-only doctrine into this file
+
+### `02_case_dossier.md`
+
+This is the **human canonical artifact** for engineering / protocol use.
+
+Populate it with actual content, not placeholder language.
+
+At minimum include:
+
+- Purpose and scope
+- Explicit separation between:
+  - owner-faithful questionnaire layer
+  - expanded engineering / protocol layer
+- Core assessment thesis
+- Local readability vs safe understanding
+- Explanation-identity loss
+- Scope-reference catastrophe analysis
+- Copy-forward pressure
+- Zero-precontext doctrine
+- Passage-analysis gate pressure
+- Temporary reassembly / owner-view validation concept
+- Why 100% pass-or-refuse pressure emerges here
+- What would be reckless to flatten
+- What would be reckless to automate blindly
+
+### `03_terms.yaml`
+
+Create a controlled vocabulary for this case.
+
+At minimum include:
+
+- `mid_instruction_excerpt`
+- `explanation_identity_loss`
+- `scope_reference_failure`
+- `carryover_scope`
+- `copy_forward_requirement`
+- `temporary_reassembly`
+- `owner_view_validation`
+- `pass_or_refuse_gate`
+- `zero_precontext`
+- `catastrophic_context_loss`
+- `local_readability`
+- `safe_understanding`
+- `omitted_instruction_scope`
+- `passage_analysis_gate`
+- `owner_peace_of_heart`
+- `abundance_over_ambiguity`
+- `contextual_identity`
+
+Each term must include:
+
+- `term`
+- `current_controlled_meaning`
+- `dangerous_competing_meanings`
+- `status`
+- `source_basis`
+
+### `04_decision_ladder.jsonl`
+
+This file must capture the layered reasoning instead of flattening it.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `decision_scope` (`surface_question`, `local_clarity_verdict`, `safety_verdict`, `identity_verdict`, `scope_verdict`, `pipeline_verdict`)
+- `question_being_answered`
+- `judgment`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+### `05_mid_instruction_dependencies.jsonl`
+
+This file must capture how the excerpt starts mid-instruction.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `trigger_text`
+- `what_clearly_came_before`
+- `why_mid_instruction_matters`
+- `local_clarity_vs_missing_scope`
+- `source_basis`
+- `owner_relation`
+
+### `06_explanation_identity_loss.jsonl`
+
+This file must capture the loss of knowing what kind of text this is.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `missing_identity_aspect`
+- `why_owner_could_misread_it`
+- `what_potential_is_lost`
+- `main_risk`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the issue:
+- the owner may not know this is an explanation of a hadith
+
+### `07_scope_reference_failures.jsonl`
+
+This file must capture catastrophic scope failures.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `scope_phrase`
+- `what_it_actually_refers_to`
+- `what_the_owner_might_wrongly_assume`
+- `why_this_is_catastrophic`
+- `source_basis`
+- `owner_relation`
+
+At minimum analyze:
+
+- `هذه الأفعال والأقوال`
+
+### `08_context_recovery_mechanisms.jsonl`
+
+This file must capture possible recovery mechanisms.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `mechanism_label`
+- `what_problem_it_solves`
+- `main_benefit`
+- `main_risk`
+- `preferred_use_case`
+- `source_basis`
+- `owner_relation`
+
+At minimum include patterns such as:
+
+- exact linked earlier excerpt
+- openable prior passage
+- copy-forward inclusion
+- explicit omission marker
+- owner-view reassurance layer
+
+### `09_copy_forward_requirements.jsonl`
+
+This file must capture the need to duplicate later scope text back into earlier split excerpts.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `text_that_may_need_copy_forward`
+- `why_copy_forward_is_needed`
+- `what_other_excerpt_it_must_attach_to`
+- `risk_if_not_copied`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the issue around:
+- `وافعل هذه الأفعال والأقوال في صلاتك كلها…`
+
+### `10_passage_analysis_gates.jsonl`
+
+This file must capture the missing pipeline stage / gate idea.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `gate_label`
+- `when_it_runs`
+- `what_it_checks`
+- `pass_condition`
+- `refuse_condition`
+- `why_current_pipeline_needs_it`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve:
+- temporary reassembly after excerpting
+- owner-perspective validation
+- 100% pass or full refusal mentality
+
+### `11_zero_precontext_assumption.jsonl`
+
+This file must capture the owner zero-precontext rule.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `assumption_label`
+- `what_the_owner_is_assumed_to_know` 
+- `why_that_assumption_is_forbidden_or_allowed`
+- `risk_if_wrong`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the rule:
+- assume the owner opens the excerpt with zero prior knowledge and zero prior context
+
+### `12_nonnegotiables.jsonl`
+
+Translate this case into machine-readable constraints.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `statement`
+- `derived_from_ids`
+- `what_it_prevents`
+- `severity_if_violated`
+
+At minimum capture constraints like:
+
+- do not allow mid-instruction excerpts to pass without scope validation
+- do not let local readability be mistaken for safe understanding
+- do not let the owner miss the identity that a text is explaining a hadith
+- do not allow scope phrases to refer to omitted material without recovery support
+- do not assume prior context
+- do not let an excerpt proceed if owner-view validation fails
+
+### `13_red_team_tests.jsonl`
+
+Create adversarial tests for this case.
+
+Each line must be a valid standalone JSON object.
+
+Each test must include:
+
+- `id`
+- `target_ids`
+- `test_type` (`contrast`, `mutation`, `stress`, `audit`, `simulation`)
+- `test_description`
+- `what_it_is_trying_to_expose`
+- `why_this_test_matters`
+
+At minimum include tests such as:
+
+- compare local readability without full context vs with full context
+- remove identity markers and test whether the owner knows this is hadith explanation
+- test scope phrase with omitted earlier material
+- test copy-forward present vs absent
+- test owner-view validation gate present vs absent
+- test zero-precontext assumption enforcement vs relaxed assumption
+
+### `14_priority_matrix.yaml`
+
+This file must rank the issue landscape.
+
+At minimum include:
+
+- strongest local reason for final questionnaire choice
+- highest-risk context-loss failure
+- highest-risk identity-loss failure
+- highest-risk scope-reference failure
+- highest-risk pipeline-gap failure
+- most important security gate insight
+- most important copy-forward insight
+
+### `15_traceability.jsonl`
+
+This file must prove that my raw answer was not flattened.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `source_point_summary`
+- `source_basis`
+- `target_layer` (`owner_answer`, `engineering_collection`, `both`)
+- `routed_to_file`
+- `routed_to_ids`
+- `routing_rationale`
+
+### `16_open_questions.jsonl`
+
+Only include genuine unresolved owner-threshold questions or protocol gaps that still matter after reasoning.
+
+If none remain, emit an empty file.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+### `17_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what the final questionnaire choice is and why
+- what the deepest tension in the raw comments was
+- what the strongest owner-faithful interpretation is
+- what the most important identity-loss insight is
+- what the most important scope-reference insight is
+- what the most important zero-precontext insight is
+- what the most important pipeline-gate insight is
+- what would be reckless to ignore
+- what would be reckless to automate blindly
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_sc3_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - final questionnaire choice
+   - total decision steps
+   - total mid-instruction dependency records
+   - total explanation-identity-loss records
+   - total scope-reference-failure records
+   - total context-recovery-mechanism records
+   - total copy-forward-requirement records
+   - total passage-analysis-gate records
+   - total zero-precontext-assumption records
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+
+## Final requirements
+
+- no generic filler
+- no shallow A/B/C answer
+- no fake completeness
+- no reopening excerpt review
+- no reopening F1/F2/F3/F4/F5/F6/F7/F8/G1/G2/G3/G4/SC1/SC2 canon work
+- no “we should later...” except inside explicitly marked open questions
+- no capping the answer at my explicit raw comments
+- no flattening the tensions in my answer
+- no silently upgrading `model_expansion` into owner truth
+- no mistaking local readability for safe study
+- no mistaking context availability in the prompt for context availability in the library
+
+Most important:
+
+I do **NOT** want a shallow local answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this edge case reveals mid-instruction dependency, explanation-identity loss, catastrophic scope reference, zero-precontext assumptions, copy-forward needs, and missing pass/refuse validation gates** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.
+Otherwise proceed directly to generating the files and ZIP.
+
+Take your time.

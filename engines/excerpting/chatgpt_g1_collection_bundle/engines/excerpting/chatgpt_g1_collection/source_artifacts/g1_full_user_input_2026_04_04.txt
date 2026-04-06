@@ -1,0 +1,183 @@
+We are now switching to **questionnaire mode** for **G1**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F6/F7/F8 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks tiny, but it is actually about a very important edge case:
+**very short structural transition text** and whether it deserves independent excerpt status.
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**G1**
+
+**A Very Short Structural Transition**
+
+**Context**
+
+This excerpt is a brief structural transition that announces the discussion plan for a hadith — only 53 characters long.
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification:  
+—excerpt start  
+في الحديث ثلاثة مباحث:  
+المبحث الأول: في خلاف العلماء.  
+—excerpt end
+
+**Question:**  
+Would you want something this short as its own entry in your library? How does its length affect its usefulness to you?
+
+**Your assessment:**
+
+- A: Yes — even this short entry has value as a standalone piece
+- B: No — it is too short to be useful on its own, merge it with what follows
+- C: It depends — I would need to see what comes before and after
+
+**Immediate reaction:** {fill it here}
+
+**Confidence in your response:**  
+High / Medium / Low
+
+## Full context
+
+بَابُ وجُوب الطّمَأنينة في الركوع والسجود
+
+عَنْ أبي هُرَيرةَ رضيَ الله عَنْهُ أنَّ رَسُولَء الله صلى الله عليه وسلم دَخَلَ الْمَسْجِدَ فَدَخَلَ رَجُلٌ فَصَلَّى، ثمَّ جَاءَ فَسَلَّمَ عَلى النَّبيِّ صلى الله عليه وسلم فَقَالَ: " ارْجع فَصَلِّ فَإِنَّكَ لَمْ تُصَلِّ ".
+
+فَرَجَعَ فَصَلى كَمَا صَلَّى، ثُم جَاءَ فَسَلمَ عَلى النَبي صلى الله عليه وسلم فَقَالَ: " ارْجعْ فَصَلِّ، فَإنَّكَ لَمْ تُصَل" ثلاثاً.
+
+فقال: وَالَّذِي بَعَثَكَ بالْحَقِّ مَا أُحْسِنُ غَيره فَعَلِّمْني.
+
+فقال: "إِذا قُمْتَ إلَى الصَّلاةِ، فَكَبِّرْ، ثم اقْرأ مَا تَيَسَّر مَعَكَ مِنَ الْقرْآنِ ثم اركعْ حَتَّى تَطْمَئِنَّ رَاكِعاً، ثمَّ ارفَعْ حَتَى تَعْتدِلَ قَائِماً، مَّ اسْجُدْ حَتَّى تَطْمَئِنَّ سَاجداً، ثم ارْفعْ حَتَى تَطْمَئِنَّ جَالِساً. وَافْعَلْ ذلِكَ في صَلاتِكَ كُلِّهَاَ.
+
+المعنى الإجمالي:
+
+هذا حديث جليل يسميه العلماء "حديث المسيء في صلاته" وهو عمدتهم فيما يجب في الصلاة وما لا يجب، حيث جاء من النبي صلى الله عليه وسلم موضع الاستقصاء في التعليم والتبييِن لأعمال الصلاة، التي يجب الإتيان بها ويعتبر ما ترك في هذا الحديث من فعلها غير واجب كما سنوضحه فيما بعد، إن شاء الله تعالى.
+
+ومجمل هذا الحديث: أن النبي صلى الله عليه وسلم دخل المسجد، فدخل رجل من الصحابة، اسمه (خَلاّد بن رافع) ، فصلى صلاة غير تامة الأفعال والأقوال.
+
+فلما فرغ من صلاته، جاء إلى النبي صلى الله عليه وسلم، فسلم عليه فرد عليه السلام (١) ثم قال له: ارجع فَصَلِّ، فإنك لم تصل.
+
+فرجع وعمل في صلاته الثانية كما عمل في صلاته الأولى، ثم جاء إلى النبي صلى الله عليه وسلم، فقال له: ارجع فَصَلِّ فإنك لم تصل ثلاث مرات.
+
+فأقسم الرجل بقوله: والذي بعثك بالحق، ما أحسن غير ما فعلت فعَلِّمني
+
+فعندما اشتاق إلى العلم، وتاقت نفسه إليه، وتهيأ لقبوله بعد طول الترديد قال له النبي صلى الله عليه وسلم ما معناه.
+
+إذا قمت إلى الصلاة فكبر تكبيرة الإحرام، ثم اقرأ ما تيسر من القرآن، بعد قراءة سورة الفاتحة (٢) ثم اركع حتى تطمئن راكعاً، ثم ارفع من الركوع حتى تعتدل قائما، وتطمئن في اعتدالك (١) ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.
+
+وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.
+
+في الحديث ثلاثة مباحث:
+
+المبحث الأول: في خلاف العلماء.
+
+فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، حتى من قادر على الفاتحة مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْهُ} وبإحدى روايات هذا الحديث " ثم اقرأ ما تيسر معك من القرآن".
+
+وذهب الجمهور إلى عدم صحة الصلاة بدون الفاتحة لمن يحسن قراءتها. مستدلين بقوله عليه الصلاة والسلام: " لا صلاَةَ لِمَنْ لَم يَقرأْ بِفاِتحَة الكِتَاب" متفق عليه. فالتقدير: لا صلاة توجد، وعدم وجودها شرعا هو عدم صحتها وهذا هو الأصل في مثل هذا النفي.
+
+وأدلة عدم صحة الصلاة بدونها كثيرة.
+
+وأجابوا عن الآية بأنها جاءت لبيان القرآن في قيام الليل، يعني: اقرأوا ما تيسر من القرآن بعد قراءة الفاتحة بلا مشقة عليكم.
+
+وأجابوا عن الحديث، بأن هذه الرواية مجملة تفسرها الروايات الأخرى عند أبي داود وابن حبان "ثم اقرَأ بِأم القُرآن وبِمَا شَاءَ الله". وقد سكت عنه أبو داود. وما سكت عنه فإنه لا قدح فيه.
+
+ولابن حبان في حديثه "واقرأ بأم القرآن ثم اقرأ بما شئت". قال ابن الهمام: " الأولى الحكم بأنه صلى الله عليه وسلم قال للمسيء في صلاته ذلك كله.
+
+ثم إن بعض العلماء يرى وجوب الفاتحة في الركعة الأولى دون غيرها
+
+والجمهور يرى وجوبها في كل ركعة، ويدل له قوله: "ثم افْعَلْ ذلِكَ في صَلاَتِكَ كُلهَا". قال الحافظ ابن حجر: وحديث أبي قتادة في البخاري من أنه صلى الله عليه وسلم كان يقرأ الفاتحة في كل ركعة مع قوله "صلوا كما رأيتموني أصلي" دليل الوجوب.
+
+ثم اختلفوا في وجوب الطمأنينة في الاعتدال من الركوع والسجود.
+
+فذهب الحنفية إلى علم وجوبها.
+
+وذهب الجمهور إلى وجوبها، وحجتهم هذا الحديث الصحيح الصريح، وحديث البراء بن عازب أنه "رَمَقَ صَلاةَ النَّبيَّ صلى الله عليه وسلم فَوَجَدَ قيامَهُ،
+
+## My raw comments
+
+General rule: Excerpting should not be done purely on rules without intelligence and reason and logical thinking, as I’ve explained before. The goal is not purely and blindly excerpt. The goal is to give the owner the perfect environment to study in, which applies to the excerpting as well. A useless excerpt may comply to the excerpting rule, but if it’s useless / adds no benefit and only wastes time and focus then it should not be included. Excerpts should add value. A useless excerpt is not only valueless but also takes away from the potential; it being useless means it’s part of a bigger piece, and keeping it with that bigger piece would add some benefit, as opposed to separating it completely.
+
+Now back to the excerpt: it is very useless. Knowing that “في الحديث ثلاثة مباحث:” adds no value since I can’t see all three. Getting a listing of all three (instead of the first) would add some value but still not enough; “ok it has 3 مباحث and I know what they are, but explain them?” … you see, no value added, except confusion.
+
+That same principle applies to “المبحث الأول: في خلاف العلماء” .. what’s the point of mentioning “within this hadith, one of the things you will study is the dispute of the scholars” like yeah I already expect that since many scholars dispute over explanations of hadiths? What’s the added benefit?
+
+ESPECIALLY if the text where “المبحث الأول: في خلاف العلماء.” would actually be needed (i.e. فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، …) lacks this sentence now because it has been included in this excerpt (if the system thinks: ‘this sentence already belongs to an excerpt so it is not lost, we can chill from here and loosely evaluate if it needs to be duplicated or not, but either way it’s present so no worries’) … In that case, this is just a catastrophe.
+
+What do we do? I would reason something like this:
+
+I think we can extract a rule: rule of added benefit, or something like that.
+
+— excerpt 1 —
+
+…<previous possible pieces…>
+
+إذا قمت إلى الصلاة فكبر تكبيرة الإحرام، ثم اقرأ ما تيسر من القرآن، بعد قراءة سورة الفاتحة (٢) ثم اركع حتى تطمئن راكعاً، ثم ارفع من الركوع حتى تعتدل قائما، وتطمئن في اعتدالك (١) ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.
+
+وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.
+
+في الحديث ثلاثة مباحث:
+—
+
+— excerpt 2 —
+
+في الحديث ثلاثة مباحث:
+
+المبحث الأول: في خلاف العلماء.
+
+فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، حتى من قادر على الفاتحة مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْهُ} وبإحدى روايات هذا الحديث " ثم اقرأ ما تيسر معك من القرآن".
+
+…
+—-
+
+“في الحديث ثلاثة مباحث:” is more like a “heading” … however, IT IS SHORT AND UNOBSTRUCTIVE. Which is why it is kept in both excerpts; it may not directly be related, but its 1% vs 99%, and it DOES NOT HARM (important: short is not enough, should be short and harmless, or long and harmless, either case: HARMLESS). Actually, that’s pretty important; SHOULD BE HARMLESS!!! HARMLESS + extra potential = DO IT!
+
+We should realize that the owner knows he is dealing with excerpts, so there is some level of consciousness that if he encounters something like “في الحديث ثلاثة مباحث” that the system just kept it in while excerpting, for the greater benefit.
+
+In general: I’m in love with extensiveness, extreme detail, encyclopedic-sized amounts, vast, comprehensive, wide-ranging, substantial, and sweeping amounts of knowledge, understanding, excerpt counts. I want thousands. I want hundreds of thousands. I want everything. Which also means: I love to open an excerpt and see a long explanation. I have something to dive into. I know I can expect deep knowledge and that the leaf it is about will be clearly laid out here. This has no effect on excerpting because the CORE RULE is that excerpting never gets affected by anything else other than the rules and protocols (not forcing it to be long, not bending it to fit in the taxonomy tree, …)
+
+So the answer to “Would you want something this short as its own entry in your library? How does its length affect its usefulness to you?” is a very LOUD AND CLEAR: “IT DOESN’T FUCKING MATTER”. It doesn’t matter if I prefer long or short excerpts. It doesn’t matter if I prefer excerpts of one particular writing style or another. EXCERPTING IS OBJECTIVE. NO OUTSIDE FACTORS AFFECT IT. MAKE THIS VERRRRYYYY FUCKING CLEAR.
+
+So: A: Yes — even this short entry has value as a standalone piece
+
+## Critical tension to preserve
+
+My raw comments contain an **important tension** that must **not** be flattened:
+
+- On one side, I call the excerpt **very useless** as a standalone piece.
+- On the other side, I insist that **length preference should not control excerpting**, and I even end by saying `A`.
+
+You must **not** erase that tension.
+
+You must explicitly reason through whether:
+
+- `A` is truly my final owner answer
+- or whether the deeper point is that the line may deserve **retention inside adjacent excerpts** while still being weak as an autonomous entry
+- or whether the answer depends on distinguishing:
+  - standalone entry value
+  - retained-context value
+  - harmless duplication value
+  - subjective preference vs objective excerpting
+
+If you conclude that my own raw answer is internally pulling in two directions, preserve that honestly instead of smoothing it away.
+
+## Critical rule about the full context
+
+The questionnaire answer **may** use the surrounding context here, because the question itself includes option `C: It depends — I would need to see what comes before and after`.
+
+But do **NOT** let the full context erase the local weakness of the text as a standalone unit.
+
+Use the full context to reason about:
+
+- whether the line is better kept attached to what comes before
+- whether it is better kept attached to what follows
+- whether it should be duplicated in both
+- whether it has enough standalone value
+- whether the real value is not standalone but structural
+
+Do **NOT** treat “context explains it” as automatically meaning “therefore it is a good standalone entry”.

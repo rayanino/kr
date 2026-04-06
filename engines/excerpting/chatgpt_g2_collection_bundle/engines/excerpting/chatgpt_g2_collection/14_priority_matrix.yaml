@@ -1,0 +1,17 @@
+strongest_local_reason_for_final_questionnaire_choice: 'The current excerpt visibly
+  contains three different functional layers with explicit textual markers: raw hadith,
+  غريب الحديث, and المعنى الإجمالي.'
+highest_risk_structural_overmerge: Keeping raw hadith, lexical explanation, and full
+  explanation in one undifferentiated unit.
+highest_risk_missed_granularity: Treating C as the whole answer and missing the deeper
+  chunk-based explanation architecture.
+highest_risk_proof_relationship_blind_spot: Flattening multiple proofs under one leaf
+  without relation typing.
+highest_risk_identifier_ambiguity: Using narrator name alone to identify proof branches.
+highest_risk_cross_topic_lost_potential_issue: Leaving multi-topic proof material
+  trapped under only one branch, especially prayer-only retention of wudu-relevant
+  text.
+most_important_branching_insight: 'Hadith-centered proof nodes naturally support multiple
+  distinct layers: raw, full explanation, chunk explanation, and vocabulary explanation.'
+most_important_preservation_requirement: Do not let the minimal split answer erase
+  the deeper structural architecture implied by the case.

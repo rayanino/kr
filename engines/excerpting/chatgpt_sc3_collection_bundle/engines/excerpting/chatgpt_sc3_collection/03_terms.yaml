@@ -1,0 +1,156 @@
+- term: mid_instruction_excerpt
+  current_controlled_meaning: An excerpt that begins after an instructional sequence
+    has already started, so its visible words are downstream of omitted earlier material.
+  dangerous_competing_meanings:
+  - Any short excerpt
+  - Any excerpt that starts with a conjunction only
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: explanation_identity_loss
+  current_controlled_meaning: Loss of the owner’s ability to tell that the current
+    text is an explanation of a hadith rather than standalone author speech or something
+    else.
+  dangerous_competing_meanings:
+  - General lack of metadata
+  - Only missing author/source information
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: scope_reference_failure
+  current_controlled_meaning: A failure where a phrase inside the excerpt refers to
+    a wider omitted scope than the visible text makes apparent.
+  dangerous_competing_meanings:
+  - Any vague pronoun
+  - Only a stylistic ambiguity
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: carryover_scope
+  current_controlled_meaning: The full range of earlier actions, statements, or concepts
+    that a later phrase still governs or points back to.
+  dangerous_competing_meanings:
+  - Only immediately adjacent wording
+  - Only the previous sentence
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: copy_forward_requirement
+  current_controlled_meaning: A need to duplicate or carry a later scope-governing
+    phrase into earlier split excerpts so the earlier pieces remain semantically complete.
+  dangerous_competing_meanings:
+  - Arbitrary duplication
+  - Pure UI convenience
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: temporary_reassembly
+  current_controlled_meaning: A validation step where produced excerpts are reassembled
+    against their parent passage to test whether the split is still safe from the
+    owner’s point of view.
+  dangerous_competing_meanings:
+  - Just concatenating text
+  - A final output format
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: owner_view_validation
+  current_controlled_meaning: Checking excerpt safety from the perspective of an owner
+    opening the excerpt with zero prior context.
+  dangerous_competing_meanings:
+  - Model-only internal confidence
+  - Human QA after the fact
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: pass_or_refuse_gate
+  current_controlled_meaning: A gate that either passes an excerpt only when it is
+    fully safe enough, or refuses it rather than allowing a 99% acceptable but dangerous
+    result forward.
+  dangerous_competing_meanings:
+  - Any threshold
+  - A soft warning mechanism
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: zero_precontext
+  current_controlled_meaning: The rule that the owner must be assumed to open an excerpt
+    with zero prior knowledge, zero open tabs, and zero earlier reading in mind.
+  dangerous_competing_meanings:
+  - Low prior knowledge only
+  - No scholarly background at all
+  status: accepted
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: catastrophic_context_loss
+  current_controlled_meaning: Context loss severe enough to change what the owner
+    thinks a scope phrase, instruction, or explanatory text refers to.
+  dangerous_competing_meanings:
+  - Any missing context
+  - Only total unreadability
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: local_readability
+  current_controlled_meaning: The fact that a fragment can still be read and understood
+    at the surface sentence level.
+  dangerous_competing_meanings:
+  - Safe study-readiness
+  - Adequate self-containment
+  status: accepted
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: safe_understanding
+  current_controlled_meaning: Understanding that is reliable enough for study because
+    identity, scope, and dependencies are correctly framed and recoverable.
+  dangerous_competing_meanings:
+  - Rough comprehension
+  - No confusion whatsoever at any level
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: omitted_instruction_scope
+  current_controlled_meaning: Earlier instruction content omitted from the excerpt
+    but still governed by later scope phrases like `هذه الأفعال والأقوال`.
+  dangerous_competing_meanings:
+  - Anything omitted from the original passage
+  - Only omitted commands
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: passage_analysis_gate
+  current_controlled_meaning: A pre-placement analysis stage that maps dependencies,
+    relationships, and split risks inside the parent passage before or after excerpting.
+  dangerous_competing_meanings:
+  - Taxonomy analysis
+  - Generic validation
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: owner_peace_of_heart
+  current_controlled_meaning: The owner being able to study with full reassurance
+    that the excerpt is framed correctly and not silently misleading.
+  dangerous_competing_meanings:
+  - Aesthetic comfort
+  - General user satisfaction
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: abundance_over_ambiguity
+  current_controlled_meaning: A rule that when safety is at stake, giving more explicit
+    framing and linkage is preferable to leaving ambiguity for the owner to resolve.
+  dangerous_competing_meanings:
+  - Always include more text
+  - Never excerpt tightly
+  status: accepted
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: contextual_identity
+  current_controlled_meaning: 'What kind of textual object the owner is looking at:
+    hadith explanation, ruling summary, quotation, opposing view, etc.'
+  dangerous_competing_meanings:
+  - Only title metadata
+  - Authorship alone
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

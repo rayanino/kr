@@ -1,0 +1,53 @@
+question_id: G4
+bundle_id: chatgpt_g4_collection_bundle
+version: 0.1.0
+status: collection_preservation
+source_basis:
+  explicit_draft: directly stated in the owner's raw comments or prompt
+  inferred_from_prior_chat: strongly supported by earlier established owner positions
+    in this chat
+  model_expansion: engineering expansion beyond direct owner wording
+raw_owner_source_layer: source_artifacts/g4_owner_raw_reaction_2026_04_04.txt
+raw_full_input_layer: source_artifacts/g4_full_user_input_2026_04_04.txt
+files_emitted:
+- README.md
+- source_artifacts/g4_full_user_input_2026_04_04.txt
+- source_artifacts/g4_owner_raw_reaction_2026_04_04.txt
+- 00_manifest.yaml
+- 01_questionnaire_answer.md
+- 02_case_dossier.md
+- 03_terms.yaml
+- 04_decision_ladder.jsonl
+- 05_condition_excerpts.jsonl
+- 06_context_carryover_analysis.jsonl
+- 07_short_harmless_rule.jsonl
+- 08_proximity_rules.jsonl
+- 09_condition_branching_map.jsonl
+- 10_continued_topic_detection.jsonl
+- 11_naming_vocabulary_pressures.jsonl
+- 12_nonnegotiables.jsonl
+- 13_red_team_tests.jsonl
+- 14_priority_matrix.yaml
+- 15_traceability.jsonl
+- 16_open_questions.jsonl
+- 17_hard_judgment.md
+final_questionnaire_choice: C
+total_decision_steps: 8
+total_condition_excerpt_records: 7
+total_context_carryover_records: 4
+total_short_harmless_records: 4
+total_proximity_rule_records: 4
+total_condition_branching_records: 8
+total_continued_topic_detection_records: 4
+total_naming_vocabulary_pressure_records: 5
+total_nonnegotiables: 10
+total_red_team_tests: 9
+total_explicit_draft_items: 19
+total_inferred_items: 1
+total_model_expansion_items: 0
+highest_risk_issue_families:
+- condition_overmerge
+- weak_continuation_support
+- short_and_harmless_misclassification
+- proximity_blindness
+- naming_vocabulary_ambiguity

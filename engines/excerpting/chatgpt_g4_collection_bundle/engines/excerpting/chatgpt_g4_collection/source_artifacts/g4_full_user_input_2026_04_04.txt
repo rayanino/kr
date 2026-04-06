@@ -1,0 +1,238 @@
+We are now switching to **questionnaire mode** for **G4**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F6/F7/F8/G1/G2/G3 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple question about “extra conditions” and whether they should stay separate or be merged back into one full condition-entry. But the deeper issue is much bigger:
+
+- whether each condition deserves its own excerpt
+- whether a continued topic should be reassembled or kept distributed with explicit continuation support
+- when short surrounding text should remain attached under the short-and-harmless rule
+- how far to sub-excerpt a condition
+- how branch proximity changes what is harmless
+- how naming / vocabulary / machine-readable structure should work
+- how the library should detect that a topic was split by the author and continue helping the owner accordingly
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**G4**
+
+**An Exception to a Ruling**
+
+**Context:**  
+من الشروط المتقدمة لقطع يد السارق: بلوغ النصاب، وكون السارق مكلفاً بالغاً عاقلاً، وأن يكون المسروق مالاً محترماً
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification
+
+`4- للعلماء شروط في قطع يد السارق، تقدم بعضها:`  
+`وأهم الباقي أن يكون المسروق من حرز مثله، والحرز يختلف باختلاف الأموال والبلدان والحكام.`  
+`ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.`  
+`وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة، وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`
+
+**Question:**  
+This is a set of additional conditions for a ruling — it explicitly says some conditions were already mentioned earlier. Should it be its own excerpt, or should it be combined with the earlier conditions into one complete entry?
+
+**Follow-up:**  
+If the exception only makes sense after you have read the earlier conditions, should they always be kept together in one entry?
+
+**Your assessment:**
+- A: Keep as its own entry — a note about earlier conditions is enough
+- B: Combine with the earlier conditions into one complete entry
+- C: Keep separate but add a clear link to the earlier entry
+
+**Immediate reaction**
+
+## Full context
+
+الحديث الأول
+
+عَنْ عَبْدِ الله بن عُمَرَ رَضيَ الله عَنْهُمَا: أنَّ النبي صلى الله عليه وسلم قَطَعَ مِجَنّ قِيمَتُهُ ثَلاَثة درَاهِمَ.
+
+وفي لفظ: ثَمَنُهُء ثَلاثَةُ درَاهِمَ.
+
+الحديث الثاني
+
+عَنْ عَاِئشَةَ رَضي الله عَنْهَا: أنَّهَا سَمِعَتْ رَسولَ الله يَقُولُ: "تُقْطَعُ الْيَدُ في رُبْعِ دِينَار فَصَاعِداً".
+
+الغريب:
+
+القطع: يراد به الأمر بالقطع.
+
+قيمته: ما تنتهي إليه الرغبة من الثمن.
+
+الثمن: ما يقابل به المبيع.
+
+المجن: بكسر الميم وفتح الجيم، بعدها نون مشددة، هو الترس الذي يتقى به وقع السيف مأخوذ من الاجتنان والاختفاء، لأن الفارس يختفي به، وكسرت ميمه، لأنه اسم آلة.
+
+المعنى الإجمالي:
+
+أمن الله عز وجل دماء الناس وأعراضهم وأموالهم، بكل ما يكفل ردع المفسدين المعتدين.
+
+فكان أن جعل عقوبة السارق (الذي أخذ المال من حرزه على وجه الاختفاء، قطع العضو الذي تناول به المال المسروق، ليكفر القطع ذنبه.
+
+وليرتدع هو وغيره عن الطرق الدنيئة، وينصرفوا إلى اكتساب المال من الطرق الشرعية الكريمة", فيكثر العمل، وتستخرج الثمار فيعمر الكون وتعز النفوس.
+
+ومن حكمته تعالى، أن جعل النصاب الذي تقطع فيه اليد، ما يعادل ربع دينار من الذهب، حماية للأموال، وصيانة للحياة، ليستتب الأمن، وتطمئن النفوس، وينشر الناس أموالهم للكسب والاستثمار.
+
+ما يستفاد من الحديث:
+
+١ء قطع يد السارق، والمراد بالسارق [الذي يأخذ المال من حرزه على وجه الاختفاء] وليس منه الغاصب والمنتهب والمختلس.
+
+قال القاضي عياض رحمه الله: (صان الله الأموال بإيجاب القطع على السارق، ولم يجعل ذلك في غير السرقة، كالاختلاس، والانتهاب، والغصب، لان ذلك قليل بالنسبة إلى السرقة، ولأنه يمكن استرجاع هذا النوع بالاستدعاء إلى ولاة الأمر، وتسهل إقامة البينة عليه، بخلاف السرقة، فإنه تندر إقامة البينة عليها، فعظم أمرها، واشتدت عقوبتها، ليكون أبلغ في الزجر عنها.
+
+وقد أجع المسلمون على قطع السارق في الجملة.
+
+٢ء في الحديثين، أن نصاب القطع ربع دينار من الذهب " أو ما قيمته ثلاثة دراهم من الفضة، ويأتيء قريباء مذاهب العلماء في بيان النصاب.
+
+٣ء قال ابن دقيق العيد: القيمة والثمن مختلفان في الحقيقة، فلو اختلفت القيمة والثمن الذي اشتراه به مالكه لم تعتبر إلا القيمة.
+
+٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:
+
+وأهم الباقي أن يكون المسروق من حرز مثله، والحرز يختلف باختلاف الأموال والبلدان والحكام.
+
+ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.
+
+وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة، وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.
+
+٥ء لهذا الحكم السامي، حكمته التشريعية العظمى.
+
+فالحدود كلهاء على وجه العمومء رحمة ونعمة. فإن في المجموعة البشرية أفراد، أشْرِبَتْ نفوسهم حبَّ الأذى، وإقلاق الناس، وإفزاعهم في أنفسهم وأعراضهم وأموالهم، وأنه إذا لم يجعل لهؤلاء المجرمين رادع من التأديب والعقوبة، اضطربت الأحوال، وخاف الناس، وتقطعت السبل
+
+ومن رحمته تعالى، أن جعل عقوبات تناسب هذه الجرائم ليرتدع بها المجرم وليكف عن الجرائم من يحاول غشيانها.
+
+ومن ذلك قطع يد السارق.
+
+فهذا المعتدى الذي ترك ما أباح الله تعالى له، واستحسنه الناس من المكاسب الشريفة، التي تعود عليه وعلى مجتمعه بالصالح العام، فأقدم على أموال الناس بغير حق، وأفزعهم وأخافهم، يناسبه في العقوبة أن تقطع يده، لأنها الآلة الوحيدة [لعملية الإجرام] .
+
+ولكناء مع الأسفء ابتلينا بهذه الطوائف المتزندقة، التي عشقت القوانين الأوروبية الآثمة، تلك القوانين التي لم تحجز المجرمين عن إفسادهم في الأرض، وإخافة الأبرياء في بيوتهم وسبلهم.
+
+عشقوا تلك القوانين التي حاولت إصلاح المجرمين المفسدة بغير ما أنزل الله تعالى عليهم، من
+
+العلاجات الشافية لهم، ولمن في قلبه مرض من أمثالهم، فلم تفلح، بل زادت عندهم الجرائم
+
+والمفاسد. لأن عقابهم وعلاجهم السجن، مهما عظمت المعصية، وكبر الإجرام.
+
+والسجن يلذ لكثير من المفسدين العاطلين، الذين يجدون فيه الطعام والشراب، وفي خارجه الجوع والبطالة.
+
+وبالتجارب وجدنا حكومتنا [السعودية] وفقها الله، لما حكمتء ولله الحمدء بالشرع الشريف، خفت عندها أعمال الإجرام، لاسيما سلب الأموال.
+
+بينما غيرها من الأمم القوية، تعج بالمنكرات، وعصابات المجرمين، وقطاع الطرق والمهاجمين. أعاد الله المسلمين إلى حظيرة دينهم، والعمل بما فيه من الخير والبركة.
+
+اختلاف العلماء:
+
+اختلف العلماء في قدر النصاب الذي تقطع فيه يد السارق
+
+## My raw comments
+
+NOTE: careful with the naming, as “entry” I believe was earlier used to mean the encyclopedic entries the synthesizing engine produces.
+And this really brings to an important topic we were focusing on in the early days of the project: defining clear project-vocabulary. I think the early versions of my VISION.md had this, but it’s definitely not ready yet, and we should ask ourselves the question we should ask at every stages in the project concerning files: IS THIS IN A MACHINE READABLE / OPTIMAL FORMAT?? The vocabulary will be read and used by the agents working on this project … matter of fact, this counts for EVERY file inside the project … so the format, types, file extensions, … should always be aimed only towards: what is best for those agents to read and understand and actually remember and take into consideration (i.e. ‘what is machine-readable?’).
+
+NOW TO THE EXCERPT: First of all, every condition for cutting off the hand of a thief should have its own excerpt, something like:
+
+→ … → conditions → {condition1}  
+					  → {condition2}  
+					  → {condition3}  
+                   → …
+
+So: this excerpt just contains some more conditions (together with some other text like the heading after the number ‘4’, etc).
+
+So, for example:
+
+—-------conditionX excerpt—----  
+٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:
+
+وأهم الباقي أن يكون المسروق من حرز مثله، والحرز يختلف باختلاف الأموال والبلدان والحكام.
+
+ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.
+
+HERE, once again, the surrounding not-directly related text (`٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:` and `وأهم الباقي`) is left in because it doesn’t do harm, but can yet be beneficially used by the owner (for example, it directly shows that some scholars separate their listing of the conditions of cutting off a hand, which means there is a reason to that which needs to be further explored … ACTUALLY; it would be very nice and a major milestone if the library can even detect things like this (cut-off topics getting continued) and then adapt to it by giving the owner everything he needs to know: where is the other part, what came in between, why did the author do this, …. VERY IMPORTANT)!!!
+
+in the excerpt of conditionX, my ideal world would be: (in which conditionX is `كون المسروق من حرز`):
+
+branch: conditions → branch: كون المسروق من حرز → excerpt: الشرط  
+                          → excerpt: مرجع الحرز
+
+Where:
+
+—-------------excerpt: الشرط—---------------
+
+٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:
+
+وأهم الباقي أن يكون المسروق من حرز مثله،
+
+—-------------excerpt: مرجع الحرز—----------
+
+<indicator that this is not a standalone text but that it got cut off mid sentence> الحرز يختلف باختلاف الأموال والبلدان والحكام.
+
+ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.
+
+Technically, each of the two excerpts could just be a copy of conditionX excerpt: the full entire thing, just copied twice … why? Because the text of each excerpt is so short that it doesn’t really matter if it gets repeated in an unrelated place: DOES NO HARM … yet, as you can see, I did not lazily apply this principle; instead, I first analyzed; should we apply this principle (i.e. does excerpting further genuinely make for good standalone excerpts), or just take the safe way and apply the no-harm principle?
+As you can see, these exceptions should not just be applied blindly. I keep putting emphasis on how the library should be intelligent at every single corner, and we should never just rely on HARD-DEFINED / HARDCODED rules, protocols, algorithms, … BECAUSE WE ARE DEALING WITH DYNAMIC SOURCES: no two books are alike, matter of fact two chapters within the same books can vary a lot …
+
+That does remind me (I believe I’ve briefly mentioned this before): the excerpting LLM should have some (minor) wiggling room in which it has its own freedom to decide how excerpting should happen. So alongside the protocols and rules it adheres to (95%), there should also be creative / room for reasoning (5%), in which the llm just receives all the context (the excerpt and its surroundings), then does its own reasoning about how it should be excerpted!
+
+If we now dive further into the second part (`وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة، وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`), this is how I would justify my ideal excerpting pattern:
+
+branch: conditions → branch: انتفاء الشبهة → excerpt:الشرط  
+ 
+                            → excerpt: تطبيقات (أمثلة)
+
+—-------------excerpt:الشرط—-------------
+
+وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة
+
+NOTE: this is just the content part, the context part and the starting “و” still need to be addressed by the system … that “و” can mean it’s the next summed up شرط, but it could also be used in a context with any other meaning of “و”.
+
+—-------------------excerpt: تطبيقات (أمثلة)-----
+
+كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة
+
+Once again, even though it would be okay to contain the following short piece (`وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`) in it, if it can be flawlessly avoided without any loss, then it should. Just like I did here: I did not include `وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.` as part of the excerpt, even though it’s short … though now taking a closer look at it, it DOES NOT SEEM HARMLESS; it’s a different شرط, and putting two شرط together may cause serious confusion, or even worse: the owner silently linking two شرط that shouldn’t be directly related to each other.
+
+SO THIS IS A GOOD EXAMPLE OF WHAT SHOULD BE CLASSIFIED AS “harmless” within the “short and harmless”-rule.
+
+IMPORTANT NOTE: in my ideal library, I would want even further granulation, but I didn’t mention it above because of how afraid I am of over-granulating.
+
+This would be my dream and ideal scenario, to which the pipeline is slowly but surely evolving and getting hardened into:
+
+excerpt: تطبيقات (أمثلة) → dad-son  
+                    → son-dad  
+                    → poor-endowment  
+                    → shared money
+
+IMPORTANTLY: throughout the pipeline, we need to ESTABLISH CLEAR NAMING PROTOCOLS … because the excerpts will have file-names, the taxonomy leafs will have titles, … we need to establish clear naming guides, for example: ‘every example gets named like this: ‘part1-part2-part…’, in short but explanatory burst that reflect the contents of the example’. This is merely a quick example, but the point is: WE ARE SERIOUSLY LACKING IN VOCABULARY (as mentioned earlier) AND THE THEORETICAL / SPEC / DOCUMENTARY PART OF THE LIBRARY … WE NEED TO SPEND MORE TIME ON IT, AND THESE QUESTIONNAIRES WERE MY FIRST STEPS TOWARDS THAT.
+
+NOTE: I’M MIXING ARABIC AND ENGLISH, BUT THE LIBRARY AND EVERYTHING INSIDE OF IT SHOULD ONLY BE IN ARABIC!!!!!!!!!! INCLUDING TITLES, NAMINGS, …!!!!!!!!!!!!!!
+
+Now, going on to the last شرط, which is the part (`وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`). As you can see, these conditions are intertwined, but luckily the commas are clear enough separators.
+
+branch: conditions → branch: الثبوت → excerpt: الشرط  
+        → sub-branch: الكيفية → excerpt: إقرار من السارق  
+								→ excerpt: شاهدين
+
+—----------excerpt: الشرط—--------
+
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+—-----------excerpt: إقرار من —------------
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+—---------------excerpt: إقرار من —-------------
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+In this case, the short and harmless rule does apply, especially since they are under the direct same branch AND they are just so intertwined that even though excerpting them out of this interwindness is perfectly possible and the engine SHOULD DEFINITELY BE ABLE TO, we have enough reason to AVOID TAKING THIS RISK.
+
+Also: I want to emphasise that ‘being under the same branch’; these not directly related things (the condition, first way, second way) being under the same branch not only means that they are nevertheless very closely related (since their proximity is as close as can be: siblings within the same partent branch), but it also means that I would read them within a short period of each other, and that I would most likely read them together (so that the study sessions scope encompasses them all), which means that any possible confusion would be eliminated: if I read the ‘شرط’-bit with both ways included in it, the confusion would quickly disappear when I go to the other two excerpts and see they all three are identical; I would quickly realize they are just kept together because of their extremely close relationship that doesn’t cause harm in not-excerpting them to the max granularity.
+
+I just realized a major part in the “does the short and harmless rule apply” is whether the other not directly related part is or is not part of the same branch … because how more branched out, how less related, how bigger the chance of ambiguity, and how bigger the chance this ambiguity won’t resolve itself (by me realizing the connections in the branches etc).
+
+Maybe we should set some ‘proximity-rules’ that calculate how approximately related excerpts are … just a rough idea I’m throwing out.
+
+And we should define clear vocabulary AS I FUCKING SAID: what is a leaf, branch, parent, siblings, …

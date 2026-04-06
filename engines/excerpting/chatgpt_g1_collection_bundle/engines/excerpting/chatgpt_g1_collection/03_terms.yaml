@@ -1,0 +1,150 @@
+- term: standalone_value
+  current_controlled_meaning: The value a text has when opened as its own entry without
+    relying on adjacent material.
+  dangerous_competing_meanings:
+  - any value at all
+  - contextual usefulness
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: retained_context_value
+  current_controlled_meaning: The value a text contributes when kept attached to adjacent
+    excerpts as structural context.
+  dangerous_competing_meanings:
+  - standalone explanatory value
+  - mere duplication
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: duplication_value
+  current_controlled_meaning: The value gained by preserving a short structural segment
+    in more than one adjacent excerpt.
+  dangerous_competing_meanings:
+  - redundancy with no purpose
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: added_benefit
+  current_controlled_meaning: The extra study value a piece contributes beyond merely
+    existing in the source.
+  dangerous_competing_meanings:
+  - formal rule compliance
+  - personal liking
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: harmlessness
+  current_controlled_meaning: A property of retained text where keeping it does not
+    meaningfully obstruct the main study object.
+  dangerous_competing_meanings:
+  - usefulness
+  - shortness by itself
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: harmful_excerpt
+  current_controlled_meaning: An excerpt that wastes focus, obstructs the main study
+    object, or harms packaging quality.
+  dangerous_competing_meanings:
+  - any weak excerpt
+  - any short excerpt
+  status: observation
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: useless_excerpt
+  current_controlled_meaning: An excerpt that adds no meaningful benefit on its own
+    and may only subtract value by wasting attention.
+  dangerous_competing_meanings:
+  - any excerpt with low richness
+  - anything short
+  status: observation
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: structural_transition
+  current_controlled_meaning: A short textual unit whose main role is to signal organizational
+    movement rather than teach rich content itself.
+  dangerous_competing_meanings:
+  - full explanation
+  - mere noise
+  status: candidate
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: heading_fragment
+  current_controlled_meaning: A small piece of chapter or section labeling text that
+    may be worth preserving depending on benefit and harmlessness.
+  dangerous_competing_meanings:
+  - always disposable
+  - always standalone-worthy
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: objective_excerpting
+  current_controlled_meaning: Excerpting governed by rules, protocols, benefit, and
+    reason rather than taste for long or short writing.
+  dangerous_competing_meanings:
+  - blind mechanical rule application
+  - ignoring usefulness
+  status: provisional
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: subjective_preference
+  current_controlled_meaning: Owner taste such as liking long explanations or disliking
+    tiny entries.
+  dangerous_competing_meanings:
+  - legitimate excerpt criterion
+  - irrelevant to all decisions
+  status: observation
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: context_dependent_value
+  current_controlled_meaning: Value that appears mainly when a segment is read with
+    what comes before or after.
+  dangerous_competing_meanings:
+  - standalone value
+  - no value at all
+  status: candidate
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: micro_excerpt
+  current_controlled_meaning: A very small excerpt candidate whose status depends
+    heavily on packaging logic.
+  dangerous_competing_meanings:
+  - always bad
+  - always fine
+  status: candidate
+  source_basis: model_expansion
+  owner_relation: model_only
+- term: packaging_pattern
+  current_controlled_meaning: 'A concrete way of preserving a segment: standalone,
+    merged, duplicated, or omitted.'
+  dangerous_competing_meanings:
+  - mere UI choice
+  - the same as excerpt identity
+  status: provisional
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: short_but_harmless
+  current_controlled_meaning: A short segment whose retention does not obstruct and
+    may preserve context.
+  dangerous_competing_meanings:
+  - therefore useful enough automatically
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: short_but_valueless
+  current_controlled_meaning: A short segment whose size does not rescue it from adding
+    no real benefit.
+  dangerous_competing_meanings:
+  - therefore delete automatically
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: non_obstructive
+  current_controlled_meaning: Present without materially dragging study attention
+    away from the dominant content around it.
+  dangerous_competing_meanings:
+  - fully beneficial
+  - always duplicate-worthy
+  status: candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

@@ -1,0 +1,32 @@
+My raw comments
+
+This depends entirely on the type and context. But I would say: each point from a numbering usually has its own excerpt. Even though the points are definitely related, that relationship is captured by them - in one way or another - being under the same parent leaf.
+
+So, for example: if we looking at these points (not just point 2, but also like point 1), we see they have a double function. For example, point 1 has the functions:
+
+explanation of hadith  
+contains the repetition of a ruling
+
+So it is relevant both as part of the “--> … hadith → …”-branch, as well as part of the “ruling”-branch, because it has a double function.
+
+AND THAT FUNCTION IS VERY IMPORTANT; IDENTIFYING ALL FUNCTIONS OF AN EXCERPT!!! In order to identify and classify it more precisely, and to easily distinguish where in the library it should come (since we do accept parts of text being present under multiple leafs at the same time, as long as that genuinely makes sense).
+
+IMPORTANTLY: the position an excerpt comes under SHOULD NEVER DEPEND / BE LIMITED TO IF IT’S PART OF A BULLET LISTING, its context, the current state of the taxonomy tree … it should only be determined by objective analysis of the excerpt: “what are its functions”? “what topics does it touch on”? And if the answer is multiple, it should be confirmed then accordingly duplicated (since maybe half the excerpt has only one function, while the other has a double function like with a hadith explanation: the hadith itself has one function (proofs → hadith …), while the explanation that simultaneously contains the ruling has a double).
+
+So the subject of proof-explanations and other functions those explanations have is a very sensitive yet important one, and definitely something that needs thorough grounding and clear rules. In some books, the entire book is just a collection of proof x explanations, so it’s a very relevant topic to handle … ‘How does the library handle proof-explanations and the various things they touch on?’.
+
+Other than that: as I said, a piece of text being bulleted or not should not individually affect its excerpting nor its taxonomy places (I THINK, I may be wrong) … but what it definitely does: introduces a bigger need for context. The raised questions with encountering a bulleted piece of text is immense: “how does this relate to the previous / next points?”, “why was it listed as second not the first?”, “does this relate to the introduction given before the points were even mentioned?” …
+
+Technically, I DON’T THINK I WILL EVER STUDY AN EXCERPT WITH 100% assurance and confidence that I don’t have to worry about studying it wrong because of the lack of context, or because this just happens to be the one excerpt from an unexpected context (like when a scholar is deep into explaining the opposition’s opinion that he talks about it as if it were his own, which now that I think about it is a VERY big trap for the library; it sounds like it’s his opinion, but going back in context you discover it WASN’T).
+
+This is why the library should focus on context just as much as content of the excerpts. It should incorporate intelligent and creative ways of making sure the owner is 100% reassured, and more importantly: that he is in a 100% reliable spot to just worry about studying the excerpt with a heart at peace instead of him having to manhunt, ask, look, research …
+
+I THINK ONE OF THE BIGGEST NIGHTMARES IS: the entire library being built, but the owner then deciding to just not use it because why would he use it over just reading books? The point: if it doesn’t provide enough benefit / reassurance over the regular methodology.
+
+THIS IS A BRAND NEW STUDYING METHODOLOGY, WHICH MEANS THAT ITS BENEFITS AND REASONS-WHY SHOULD BE VERY EXPLICIT AND CLEAR. It shouldn’t just be “a book in a wrapper”, because the tradeoff between “a better way to read books” and the potential dangers that come with the pipeline is something that can easily drive the owner away from the library back into regular methodology … this is something WE NEED TO AVOID. The library should genuinely provide an unprecedented learning environment THAT WOULD MAKE THE OWNER DESIRE TO COME STUDY IN IT … that can be either by providing edges that nobody has (like being able to compare all excerpts ever produced on a topic with just a couple of clicks), but also by making what the general public has access to significantly more efficient.
+
+Back to the actual question: “Should each numbered point be its own excerpt in the library, or do all the points belong together as one entry?” is a bad question. IT IS A DANGEROUS AND CATASTROPHIC TYPE OF QUESTION. It is asking: “should excerpts be based on the numbering” … it is asking if excerpts should be based on a SUBJECTIVE thing the author puts down for structure … NO!!! instead, excerpting should - in every circumstance - solely and only be reliant on the knowledge itself, according to our base protocol / checklist of “what qualifies as an excerpt?”.
+
+About “Follow-up: If the numbered list has 8 points, and each point is about a different ruling, should they still all be in one entry?” If each point is about a different ruling, as you said it: “DIFFERENT”, then that sounds to me like even more reason to see them as different excerpts … except, of course, in cases where duplicates may be allowed, like in the evidence-explanation case described above (in which the explanation itself falls under multiple categories, i.e. has multiple functions).
+
+I think the closest of answers to the meaning I’ve tried to express in my raw answer is: “C: It depends on the content — some points deserve their own entry, others do not”.

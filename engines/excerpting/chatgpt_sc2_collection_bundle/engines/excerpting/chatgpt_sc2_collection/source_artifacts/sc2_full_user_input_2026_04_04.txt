@@ -1,0 +1,818 @@
+We are now switching to **questionnaire mode** for **SC2**.
+
+Do **NOT** reopen excerpt review or the F1/F2/F3/F4/F5/F6/F7/F8/G1/G2/G3/G4/SC1 canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple question about backward references to an earlier hadith, but the deeper issue is much bigger:
+
+- the danger of separating the explained from the explanation
+- how tightly an explanation must remain linked to the proof it explains
+- how damaging it is if the owner must guess which earlier hadith is being referenced
+- the difference between a merely *possible* benefit and a *safe* study environment
+- whether the library should simply note earlier material or actively recover and link it
+- whether the pipeline is missing an important passage-analysis stage before excerpting
+- how self-containment should eliminate manhunt at all costs
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+## The question
+
+**SC2**
+
+**A Backward Reference (Edge Case)**
+
+**Context**  
+هذه فوائد إضافية من حديث عبد الله بن زيد في صفة الوضوء مقارنة بحديث عثمان بن عفان المتقدم
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification
+
+`1- صرح هنا بأن المضمضة والاستنشاق كانتا ثلاثا ثلاثا من ثلاث غرفات.`  
+`2- في الحديث السابق ذكر أن غسل اليدين كان ثلاثا، وفى هذا الحديث ذكره مرتين فقط`  
+`3- قوله: " ثم أدخل يده فغسل وجهه ثلاثا " إفراد اليد رواية مسلم وأكثر روايات البخاري. قال النووي بعد ذكره أحاديث الروايتين. هي دالة على أن ذلك سنة، ولكن المشهور الذي قطع به الجمهور أن المستحب أخذ الماء للوجه باليدين جميعا لكونه أسهل وأقرب إلى الإسباغ.`  
+`4- قال في الحديث السابق: " ثم مسح برأسه " وهذا التعبير يمكن تأويله ببعض الرأس كما أولت الآية {وامْسَحُوا برؤوسِكُم} .`  
+`وفى هذا الحديث صرح بمسحه كله، وفَصل كيفية المسح، والشرع يبين بعضه بعضاً، فدل على وجوب مسحه كله كما تقدم.`  
+`5- في الحديثين يذكر عند المضمضة والاستنشاق أنه يدخل يداً واحدة.`  
+`وفى هذا الحديث، ذكر أنه أدخل يديه عند غسلهما ومسح الرأس بيديه، أقبل بهما وأدبر مرة واحدة. قال أبو داود: أحاديث الصحاح كلها تدل على أن مسح الرأس مرة واحدة. قال ابن المنذر: "إن الثابت عن النبي صلى الله عليه وسلم في المسح مرة واحدة.`  
+`6- الحديث صرح بغسل الرجلين وهنا لم يذكره، وغسلهما من الفروض المتفق عليها، فلا يكون في ترك ذكرهما هنا، ما يدل على عدم وجوب غسلهما.`  
+`7- يؤخذ من هذا، جواز مخالفة أعضاء الوضوء بتفضيل بعضها على بعض، وأن التثليث هو الصفة الكاملة وما دونها يجزئ كما صحت بذلك الأحاديث.`  
+`8- اختلف العلماء في البداءة بالمسح فهي من المقدم إلى المؤخر عند ابن دقيق العيد والصنعاني. وفهم بعضهم من قوله: " فأقبل بهما وأدبر " أن المسح من مؤخر الرأس إلى مقدمه. ثم يعاد باليدين إلى قفا الرأس.`
+
+**Question:**  
+This excerpt repeatedly refers to "the previous hadith" without repeating it. How do you feel reading it without the previous hadith in front of you? Can you still benefit from this excerpt without seeing the previous hadith right in front of you?
+
+**Follow-up:**  
+Should the library try to find and link what was mentioned earlier? Or is it enough to simply note that a reference to earlier material exists?
+
+**Your assessment**
+- A: I can follow it — the references to the previous hadith are clear enough
+- B: I need the previous hadith alongside this — without it I am lost
+- C: I can partially follow it, but the library should automatically show the linked hadith
+
+**Immediate reaction**
+
+## Full context
+
+كيفية أخرى للوضوء مروي عن عمر بن يحيى المازني
+
+عن عَمْرِو بن يَحْيىَ اْلمازِني عَنْ أبِيهِ قَال: شَهِدْتُ عمرْو بن أبي اْلحَسَنِ سَألَ عَبْدَ الله بْنَ زيد عَن وُضُوءِ النبي صلى الله عليه وسلم، فَدَعَاَ بِتَوْر (١) مِنْ مَاءٍ فتَوَضأ لَهُم وُضُوءَ النبي صلى الله عليه وسلم. فَأكفأ عَلَى يَدَيْهِ مَنِ التَوْرِ فَغسَل يَدَيْه ثَلاثا، ثُمَّ أدْخَل يَدَهُ في التَّور فَمضْمضَ وَاستَنْشَقَ واستَنْثَرَ ثَلاثاً بثَلاث غرْفَاتِ، ثُمَّ أدْخل يدهِ فِي التَّوْر فغَسَل وجْهَهِ ثلاثا ثمَّ أدْخَلَ يَدَه فَغَسَلهُمَا مرتين إلى المرْفقيْن، ثُمَّ أدْخَلَ يَدَيْهِ فَمَسَحَ بهما رَأسَهُ فَأقَبَلَ بهمَا، وأدْبَرَ مَرّة وَاحِدَة، ثم غَسَلَ رجْلَيْهِ.
+
+(١) قال الزركشي: لفظه " التور " ليست في شيء من مرويات البخاري وإنما هي من مفردات " مسلم ". وهذا وهم منه، فقد جاءت في صحيح البخاري، في حديث عبد الله بن زيد، في باب غسل الرجلين إلى الكعبين. وقال الصنعاني: إني تتبعت رواية مسلم لهذا الحديث فلم أجد " التور".
+
+وفي رواية " بَدَأ بِمُقَدَّم رَأسِهِ حَتًى ذَهبَ بِهِمَا إِلَى قَفَاهُ، ثمَ ردهما حَتَى رجع إِلَى المَكَانِ الذِي بَدَأ مِنْهُ ".
+
+وفي رواية "أتَانَا رَسُولُ الله صلى الله عليه وسلم فَأخرَجنا لَه مَاءً في تور مِن صُفْر ". متفق عليه. " التور " شِبْهُ الطَّست.
+
+غريب الحديث:
+
+١ء "بتور من ماء": بالمثناة الطست، وهو الإناء الصغير. قال الزمخشرى: وهو مذكر عند أهل اللغة.
+
+٢ء "فأكفأ على يديه": أمال وصب على يديه وفى بعض الروايات " على يده " قال ابن حجر: تحمل رواية الإفراد على إرادة الجنس.
+
+٣ء "من صُفر": بضم الصاد وسكون الفاء، نوع من النحاس.
+
+٤ء "إلى المرفقين مرتين": قال الصنعاني: كذا في نسخة العمدة لفظ " مرتين " ولفظ البخاري في هذا الحديث " مرتين مرتين" وكذا في مسلم مكررا ولم ينبه الزركشي إلى هذا.
+
+المعنى الإجمالي:
+
+هذا الحديث يعرف معناه مما تقدم في شرح حديث عثمان، لأن كلا الحديثين يصف الوضوء الكامل للنبي صلى الله عليه وسلم، إلا أنه يوجد في هذا الحديث زيادة فوائد على الحديث السابق نجملها بما يلي:
+
+١ء صرح هنا بأن المضمضة والاستنشاق كانتا ثلاثا ثلاثا من ثلاث غرفات.
+
+٢ء في الحديث السابق ذكر أن غسل اليدين كان ثلاثا، وفى هذا الحديث ذكره مرتين فقط
+
+٣ء قوله: " ثم أدخل يده فغسل وجهه ثلاثا " إفراد اليد رواية مسلم وأكثر روايات البخاري. قال النووي بعد ذكره أحاديث الروايتين. هي دالة على أن ذلك سنة، ولكن المشهور الذي قطع به الجمهور أن المستحب أخذ الماء للوجه باليدين جميعا لكونه أسهل وأقرب إلى الإسباغ.
+
+٤ء قال في الحديث السابق: " ثم مسح برأسه " وهذا التعبير يمكن تأويله ببعض الرأس كما أولت الآية {وامْسَحُوا برؤوسِكُم} .
+
+وفى هذا الحديث صرح بمسحه كله، وفَصل كيفية المسح، والشرع يبين بعضه بعضاً، فدل على وجوب مسحه كله كما تقدم.
+
+٥ء في الحديثين يذكر عند المضمضة والاستنشاق أنه يدخل يداً واحدة.
+
+وفى هذا الحديث، ذكر أنه أدخل يديه عند غسلهما ومسح الرأس بيديه، أقبل بهما وأدبر مرة واحدة. قال أبو داود: أحاديث الصحاح كلها تدل على أن مسح الرأس مرة واحدة. قال ابن المنذر: "إن الثابت عن النبي صلى الله عليه وسلم في المسح مرة واحدة.
+
+٦ء الحديث صرح بغسل الرجلين وهنا لم يذكره، وغسلهما من الفروض المتفق عليها، فلا يكون في ترك ذكرهما هنا، ما يدل على عدم وجوب غسلهما.
+
+٧ء يؤخذ من هذا، جواز مخالفة أعضاء الوضوء بتفضيل بعضها على بعض، وأن التثليث هو الصفة الكاملة وما دونها يجزئ كما صحت بذلك الأحاديث.
+
+٨ء اختلف العلماء في البداءة بالمسح فهي من المقدم إلى المؤخر عند ابن دقيق العيد والصنعاني. وفهم بعضهم من قوله: " فأقبل بهما وأدبر " أن المسح من مؤخر الرأس إلى مقدمه. ثم يعاد باليدين إلى قفا الرأس.
+
+استحباب التيمن في الأمور الشريفة المستطابة
+
+عَنْ عَائِشَةَ رضي الله عَنْهَا قَالَتْ: " كَاَن رَسُولُ الله صلى الله عليه وسلم يُعْجبُهُ التَيمُّن في تَنَعّلِهِ وَتَرَجُّلِهِ وَطُهُورِهِ وَفِي شَأنِهِ كُلهِ ".
+
+غريب الحديث:
+
+١ء "يعجبه التيمن": يفضل تقديم الأيمن على الأيسر. قال الصنعانى: كل فعل يحبه الله أو رسوله، فهو يدل على مشروعيته للشركة بين الإيجاب والندب.
+
+٢ء "في تنعله": لبس نعله.
+
+٣ء "وترجله": تسريح شعر رأسه ولحيته بالمشط.
+
+## My raw comments
+
+This is one of the reasons why I insisted on preventing separating the explained and the explanation; it’s because when studying the explanation, I always need some form of quick reference to the explained. Especially with ahadiths …
+
+This brings up the topic of how excerpts should be linked to each other, especially excerpts that need to be cross referenced often.
+
+So to answer the question: yes, when I’m reading an explanation of a proof I always need the proof within close proximity. I don’t need it constantly blocking my vision, but the flow I follow is usually:
+
+read explanation → understand what part of the proof it is about → check proof → read explanation and cover this part of the proof, → …
+
+This actually brings me to an important point about my study technique; I study in small chunks, mastering each chunk, then moving onto the next chunk.
+
+So when I’m studying the explanation of a proof, I study it in small chunks, master each, then go to the next, until I can call myself a master of the proof. After each chunk (and also after finishing all chunks), a process of rigorous repetition and active recall follows.
+
+But importantly: my very first step in studying a chunkable thing (like an explanation consisting of multiple chunks) IS NEVER BLINDLY diving into one chunk and already mastering it. Instead, what I always do is a quick read / skim over all the contents I have to study. This actually is a CORE PRINCIPLE I have: if I’m studying a scope consisting of 10 branches, I never start by directly deep diving into the first branch.
+
+Instead, I start at the first branch but skim over it quickly, go to the second do the same, … and so on. MY FIRST GOAL IS TO GET AN OVERVIEW / UNDERSTANDING OF WHAT I’M ABOUT TO STUDY.
+
+Once that’s in place, only then do I start with the deep dives.
+
+So IMPORTANTLY: there are levels. I could have mastered one chunk, more chunks, or all chunks (full mastery), …
+
+But back to the question about the excerpt: it is actually not just a preference to have the hadith in question easily referenceable, it is actually catastrophic not to have that. What I mean is: the topic of the dangers of separating the explained from the explanation.
+
+That’s because, for example, let’s look at the hadith that is being explained; it’s the hadith of عَمْرِو بن يَحْيىَ. Now imagine there are 3 versions of this hadith, as is often found with hadiths. The author is explaining one specific version (as found in the full context source text). So his explanation is TAILOR MADE for that specific version.
+
+This gets increasingly dangerous once we realize that some hadiths differ in ‘cosmetic’ wordings (i.e. the difference in wordings do not change much), while MANY DIFFERING HADITHS VARY IN SIGNIFICANT WORDS THAT CHANGE THE INTERPRETATION/UNDERSTANDING/EXPLANATION COMPLETELY. THE DANGER: if I don’t have the proof (in this case the hadith) that is being explained referenceable EXACTLY FROM THE SOURCE TEXT, then I may look up the hadith myself (in the library under proofs) and stumble across a different version, then wrongfully attribute this explanation from the current excerpt we’re handling to be explaining that specific version … THIS CAN LEAD TO EXTREME MISUNDERSTANDING AND EXTREME DEVIATION IN KNOWLEDGE!!!
+
+So the importance of LINKING THE EXPLAINED AND EXPLANATION AND KEEPING THEM LINKED IN SOME FORM is extremely important!!!
+
+PREVENT THE OWNER FROM NEEDING TO GO ON A MANHUNT AT ALL COSTS!!! BOTH BECAUSE THIS CREATES A SUBOPTIMAL LEARNING ENVIRONMENT WHERE THE GOAL OF THE OWNER PURELY NEEDED TO FOCUS ON MEMORIZING AND STUDYING IS NOT ACHIEVED, but also: BECAUSE A MANHUNT CAN GO WRONG, WHICH INTRODUCES ERRORS, WHICH IS THE EXACT THING THAT NEEDS TO BE PREVENTED AT ALL COSTS!!!!!!!
+
+To answer the question: “Can you still benefit from this excerpt without seeing the previous hadith right in front of you?”, then that depends on if I have an idea of what hadith is referenced but I just don’t have its contents viewable, vs if I have no idea what hadith is being referenced.
+
+If I know in the back of my mind, somehow, that this is the hadith of عَمْرِو بن يَحْيىَ, so I know exactly which one it is (even if I may or may not have it memorized, this is a gamble that should never be relied on), then I will at least have some form of LINK between the explained and explanation. THERE IS A LINK, IT’S JUST EXTREMELY BAD: non documented (which is exactly the goal of the library: DOCUMENTING THE MIND OF A SCHOLAR), ERROR PRONE, NEEDS TO BE FIGURED OUT BY THE OWNER, …
+
+But in case I have absolutely no idea what hadith this is referencing, then I will nevertheless be able to benefit from it (for example, reading “المضمضة والاستنشاق كانتا ثلاثا ثلاثا من ثلاث غرفات.” still gives some knowledge), but I’M LEARNING SOMETHING WHILE THE TRADEOFF IS EXTREME CONFUSION, LOSS OF POTENTIAL (I cannot pinpoint knowledge to where it comes from / its proofs), AND MORE DANGEROUSLY: I COULD MAKE THE ASSUMPTION THAT THIS EXPLANATION BELONGS TO A CERTAIN PROOF (a guess), WHICH CAN END CATASTROPHICALLY AND SCRAMBLE MY KNOWLEDGE.
+
+All of these things - scrambled knowledge, having to make guesses, ambiguities, … - THE LIBRARY NEEDS TO ELIMINATE AT ALL COSTS!!!
+
+To answer the next question: “Should the library try to find and link what was mentioned earlier? Or is it enough to simply note that a reference to earlier material exists?”: IT IS EVEN ABSURD THAT THIS NEEDS TO BE ASKED: THE ANSWER SHOULD BE CLEAR FROM THE EXTREME QUALITY STANDARDS THIS PROJECT HOLD TO!!!
+
+The general answer is: ANYTHING THAT CAN BE DONE TO IMPROVE THE KNOWLEDGE POTENTIAL - without corruptions or bad tradeoffs - MUST BE DONE. HIGHEST QUALITY STANDARDS. HIGHEST POTENTIAL. BEST AND MOST OPTIMAL STUDY ENVIRONMENT.
+
+“Should the library try to find and link what was mentioned earlier?” Absolutely ..
+
+… Actually, I think I have one of the most important IDEAS SO FAR:
+
+I THINK THE SKIP FROM PASSAGING TO EXCERPTING IS TOO BIG …
+
+Imagine this: after a passage is defined, it is first deeply scanned and analyzed for any connections, context needs, … imagine every atom (sentence, for example) its needs are exactly known: what other atoms is it related to, what context is missing, what can go wrong …
+
+THIS IS AN EXTREMELY BIG MISSING PIECE IN OUR CURRENT PIPELINE: WE ARE LOSING QUALITY POTENTIAL BY SKIPPING TOO QUICKLY FROM STEP TO STEP. WE NEED MORE SECURITY AND QUALITY GATES. WE NEED DEEPER STRUCTURES. WE NEED STRONGER DATA STRUCTURES. WE NEED STRONGER DEFINITIONS. We need to hammer down and analyze every single subprocess, then make sure it is optimized to the max.
+
+“Or is it enough to simply note that a reference to earlier material exists?” not enough; there is a big gap of questions left for the owner: “what is that earlier material”? and even worse: THE OWNER NEEDS TO LEAVE THE CURRENT EXCERPT TO GO REFERENCE SOMETHING ELSE, WHICH IS EXACTLY AGAINST THE SELF CONTAINMENT PRINCIPLE.
+
+A good measure of the self-containment principle is that the owner SHOULD NEVER need to leave the excerpt he is at to go look for some other reference. The excerpt is self-contained to the highest degree and on all aspects.
+
+Also: imagine a world where it would have been enough to “simply note that a reference to earlier material exists” … then the answer would have been: IT IS NOT ENOUGH ACCORDING TO THE LIBRARY’S STANDARDS.
+
+That’s because “enough” and “good” in the library are not just decent or middle, but mean: IT IS OF THE ABSOLUTE MAX EFFORT AND QUALITY, WHERE EVERYTHING THAT CAN BE DONE HAS BEEN DONE, AND DOING ANYTHING FURTHER WOULD HAVE MAJOR TRADEOFFS THAT WOULD CORRUPT SOMETHING. Where improving would be cosmetic (improving purely to say “we improved!”), but not functional.
+
+The highest most extreme standards need to be held for the library.
+
+I THINK THE BIG MISSING PIECE IN THE LIBRARY IS DEFINING THESE THINGS. I feel like you ALWAYS FUCKING SKIP OVER THEM and just “loosely define” them … this is the FUCKING PROBLEM WITH YOU. You should divide all aspects and terminologies into single atoms (small pieces), then focus on one piece, ask me any questions (AskUserQuestion), then NOT MOVE ON UNTIL YOU HAVE IT DOWN IN A WAY THAT WE CAN RELY ON IT FOR THE FURTHER EXTENT OF THIS PROJECT: FOR THE NEXT DECADES IN WHICH THIS LIBRARY WILL BE USED FOR!!!!!!
+
+THE PIPELINE IS NOT GOOD ENOUGH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! WHICH IS DISAPPOINTING FROM YOU!!!!!!!!!!!!!
+
+## Critical tensions to preserve
+
+My raw comments contain several important tensions that must **NOT** be flattened:
+
+- If I already know exactly which hadith is being referenced, I can still get partial benefit.
+- But that is still a terrible and unsafe situation compared to what the library should provide.
+- If I do **not** know exactly which hadith is being referenced, the danger increases massively.
+- So partial benefit is **not** the same thing as acceptable design.
+- The follow-up question is almost beneath the library’s standards; the answer is not merely “yes, linking would be nice,” but rather “not linking it properly is unacceptable.”
+- The current excerpt may still teach something.
+- But it also risks knowledge scrambling, wrong attribution of explanation to proof-version, and manhunt.
+- I want extremely strong linkage.
+- But I do **not** mean the previous hadith must permanently block my vision.
+- I want close, reliable, low-friction, exact referenceability.
+- I also think the pipeline is missing a whole passage-analysis stage before excerpting.
+
+You must preserve those tensions honestly.
+
+## Critical rule about the full context
+
+The questionnaire answer **may** use the full context here, because the question itself is about repeated references to “the previous hadith”.
+
+But do **NOT** let the full context silently rescue the excerpt as acceptable in normal library use.
+
+Use the full context to reason about:
+
+- what hadith is being referenced
+- why the author could rely on that reference in the original book
+- why that reliance becomes dangerous in an excerpt-library
+- what kind of linkage is actually needed
+- why “just note that a reference exists” is too weak
+- whether the strongest owner-faithful answer is A, B, or C
+
+Do **NOT** treat “the full context exists in the prompt” as automatically meaning the library experience would be safe.
+
+## Your job
+
+Take that raw reaction and turn it into the strongest possible answer to this question.
+
+But before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- what the actual questionnaire verdict is: A, B, or C
+- whether C is the strongest owner-faithful answer
+- whether B is too strong because I still admit partial benefit in some cases
+- whether A is clearly too weak given the risks I describe
+- whether the explanation must remain tightly linked to the explained hadith
+- whether “knowing in the back of my mind which hadith it is” counts as acceptable or merely less bad
+- whether exact source-version linkage matters
+- whether wrong hadith-version lookup is a catastrophic risk
+- whether “just note earlier material exists” is enough
+- whether the library must automatically find and show what is being referenced
+- whether the owner should ever need to leave the current excerpt
+- whether self-containment here means close-proximity cross-reference rather than blind isolation
+- whether a missing passage-analysis stage is the deeper pipeline failure revealed by the case
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.
+Use it to sharpen the final output.
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_sc2_collection/`
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_sc2_collection/README.md`
+- `engines/excerpting/chatgpt_sc2_collection/source_artifacts/sc2_full_user_input_2026_04_04.txt`
+- `engines/excerpting/chatgpt_sc2_collection/source_artifacts/sc2_owner_raw_reaction_2026_04_04.txt`
+
+Requirements:
+
+- `sc2_full_user_input_2026_04_04.txt` must contain the full question block, excerpt block, full-context block, option block, and my raw comments **verbatim**
+- `sc2_owner_raw_reaction_2026_04_04.txt` must contain my raw comments **verbatim**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+`File creation is not available in this chat; I can only emit raw text.`
+
+and stop.
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.
+Do **NOT** restart from the beginning.
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_sc2_collection/README.md`
+2. `engines/excerpting/chatgpt_sc2_collection/source_artifacts/sc2_full_user_input_2026_04_04.txt`
+3. `engines/excerpting/chatgpt_sc2_collection/source_artifacts/sc2_owner_raw_reaction_2026_04_04.txt`
+4. `engines/excerpting/chatgpt_sc2_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_sc2_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_sc2_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_sc2_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_sc2_collection/04_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_sc2_collection/05_explained_explanation_linkage.jsonl`
+10. `engines/excerpting/chatgpt_sc2_collection/06_linked_hadith_requirements.jsonl`
+11. `engines/excerpting/chatgpt_sc2_collection/07_reference_sufficiency_analysis.jsonl`
+12. `engines/excerpting/chatgpt_sc2_collection/08_study_chunk_flow.jsonl`
+13. `engines/excerpting/chatgpt_sc2_collection/09_variant_mismatch_risks.jsonl`
+14. `engines/excerpting/chatgpt_sc2_collection/10_passage_analysis_gap.jsonl`
+15. `engines/excerpting/chatgpt_sc2_collection/11_self_containment_thresholds.jsonl`
+16. `engines/excerpting/chatgpt_sc2_collection/12_nonnegotiables.jsonl`
+17. `engines/excerpting/chatgpt_sc2_collection/13_red_team_tests.jsonl`
+18. `engines/excerpting/chatgpt_sc2_collection/14_priority_matrix.yaml`
+19. `engines/excerpting/chatgpt_sc2_collection/15_traceability.jsonl`
+20. `engines/excerpting/chatgpt_sc2_collection/16_open_questions.jsonl`
+21. `engines/excerpting/chatgpt_sc2_collection/17_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_sc2_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_sc2_collection/` folder.
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what SC2 is
+- why this is a collection bundle, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `final_questionnaire_choice`
+- `total_decision_steps`
+- `total_explained_explanation_linkage_records`
+- `total_linked_hadith_requirement_records`
+- `total_reference_sufficiency_records`
+- `total_study_chunk_flow_records`
+- `total_variant_mismatch_records`
+- `total_passage_analysis_gap_records`
+- `total_self_containment_threshold_records`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+It must contain only what I could honestly stand behind as my questionnaire answer.
+
+Use this exact format:
+
+Your assessment:
+[A / B / C]
+
+Immediate reaction:
+[short paste-ready text]
+
+Detailed analysis:
+[longer paste-ready text in first person, concrete and precise, answering both the main question and the follow-up]
+
+Confidence:
+[High / Medium / Low]
+
+Requirements for this file:
+
+- first person
+- owner-faithful
+- no generic “cross-references are useful” fluff
+- no shallow answer
+- preserve the tensions in my raw comments
+- make clear whether I can benefit partially or not
+- make clear whether partial benefit is still unacceptable design
+- make clear that I need the previous hadith within close and reliable reach
+- make clear that “simply noting” earlier material is not enough
+- do **NOT** silently import broad model-only doctrine into this file
+
+### `02_case_dossier.md`
+
+This is the **human canonical artifact** for engineering / protocol use.
+
+Populate it with actual content, not placeholder language.
+
+At minimum include:
+
+- Purpose and scope
+- Explicit separation between:
+  - owner-faithful questionnaire layer
+  - expanded engineering / protocol layer
+- Core assessment thesis
+- Why this is a classic explained↔explanation linkage failure
+- Partial-benefit vs acceptable-design distinction
+- Exact linkage requirement doctrine
+- Study-chunk flow and proof proximity
+- Variant-mismatch catastrophe risk
+- Why “just note earlier material exists” is too weak
+- Passage-analysis-stage gap
+- Self-containment without manhunt
+- What would be reckless to flatten
+- What would be reckless to automate blindly
+
+### `03_terms.yaml`
+
+Create a controlled vocabulary for this case.
+
+At minimum include:
+
+- `explained_explanation_linkage`
+- `linked_hadith`
+- `close_proximity_reference`
+- `undocumented_mental_link`
+- `documented_reference_link`
+- `variant_mismatch`
+- `proof_version_binding`
+- `manhunt_risk`
+- `study_chunk_flow`
+- `overview_first_pass`
+- `chunk_mastery`
+- `passage_analysis_gate`
+- `reference_note_only`
+- `self_containment`
+- `acceptable_design`
+- `partial_benefit`
+- `knowledge_scrambling`
+
+Each term must include:
+
+- `term`
+- `current_controlled_meaning`
+- `dangerous_competing_meanings`
+- `status`
+- `source_basis`
+
+### `04_decision_ladder.jsonl`
+
+This file must capture the layered reasoning instead of flattening it.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `decision_scope` (`surface_question`, `benefit_verdict`, `safety_verdict`, `linking_verdict`, `followup_verdict`, `pipeline_gap_verdict`)
+- `question_being_answered`
+- `judgment`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+### `05_explained_explanation_linkage.jsonl`
+
+This file must capture the core structural issue.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `explained_item`
+- `explanation_item`
+- `current_link_quality`
+- `required_link_quality`
+- `main_risk_if_link_is_weak`
+- `source_basis`
+- `owner_relation`
+
+### `06_linked_hadith_requirements.jsonl`
+
+This file must capture what kind of hadith linkage is actually required.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `requirement_label`
+- `what_must_be_accessible`
+- `visibility_mode` (`always_visible`, `openable_nearby`, `one_click_exact_reference`, `persistent_side_reference`)
+- `why_this_is_needed`
+- `what_is_not_enough`
+- `source_basis`
+- `owner_relation`
+
+### `07_reference_sufficiency_analysis.jsonl`
+
+This file must analyze different kinds of reference support.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `reference_support_pattern`
+- `benefit_level`
+- `risk_level`
+- `is_acceptable_for_library_standards`
+- `why`
+- `source_basis`
+- `owner_relation`
+
+At minimum include patterns such as:
+
+- no link, only implicit mention
+- owner remembers the hadith mentally
+- note that earlier material exists
+- linked excerpt only
+- exact source-version-linked hadith
+- openable full passage / proof view
+
+### `08_study_chunk_flow.jsonl`
+
+This file must capture the owner’s study technique relevant to this case.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `study_step`
+- `what_the_owner_does`
+- `why_it_matters_here`
+- `dependency_on_proof_proximity`
+- `source_basis`
+- `owner_relation`
+
+This file must preserve:
+
+- overview-first skim
+- chunk-by-chunk mastery
+- repeated checking of the proof while reading explanation
+- active recall after chunk mastery
+
+### `09_variant_mismatch_risks.jsonl`
+
+This file must capture the danger of wrong proof-version matching.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `mismatch_pattern`
+- `why_it_can_happen`
+- `how_it_scrambles_knowledge`
+- `severity`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the risk that a scholar’s explanation is tailored to one wording/version while the owner may look up a different version.
+
+### `10_passage_analysis_gap.jsonl`
+
+This file must capture the missing pipeline stage idea.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `missing_stage_or_gate`
+- `what_it_should_analyze`
+- `why_the_current_pipeline_loses_quality_without_it`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve the idea that passage-level atoms and their dependencies should be analyzed before excerpting.
+
+### `11_self_containment_thresholds.jsonl`
+
+This file must capture how self-containment is being understood in this case.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `threshold_label`
+- `owner_needs_to_leave_excerpt` (`yes`, `no`, `reduced_but_still_bad`)
+- `why_this_threshold_matters`
+- `acceptable_or_not`
+- `source_basis`
+- `owner_relation`
+
+This file must explicitly preserve the strong statement:
+the owner should never need to go on a manhunt.
+
+### `12_nonnegotiables.jsonl`
+
+Translate this case into machine-readable constraints.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `statement`
+- `derived_from_ids`
+- `what_it_prevents`
+- `severity_if_violated`
+
+At minimum capture constraints like:
+
+- do not separate explanation from the proof it explains without strong exact linkage
+- do not rely on the owner’s memory to identify the referenced hadith
+- do not treat “a note that earlier material exists” as sufficient
+- do not allow proof-version ambiguity where explanation is tied to a specific wording
+- do not force the owner into manhunt
+- do not skip passage-level dependency analysis
+
+### `13_red_team_tests.jsonl`
+
+Create adversarial tests for this case.
+
+Each line must be a valid standalone JSON object.
+
+Each test must include:
+
+- `id`
+- `target_ids`
+- `test_type` (`contrast`, `mutation`, `stress`, `audit`, `simulation`)
+- `test_description`
+- `what_it_is_trying_to_expose`
+- `why_this_test_matters`
+
+At minimum include tests such as:
+
+- compare excerpt with no linked hadith vs exact linked hadith
+- compare owner mental-memory link vs documented library link
+- test explanation against the wrong hadith version
+- test “note only” vs “openable exact proof”
+- test whether chunk-by-chunk study is still possible without close proof access
+- test passage-analysis gate presence vs absence
+
+### `14_priority_matrix.yaml`
+
+This file must rank the issue landscape.
+
+At minimum include:
+
+- strongest local reason for final questionnaire choice
+- highest-risk linkage failure
+- highest-risk knowledge-scrambling failure
+- highest-risk manhunt failure
+- highest-risk version-mismatch failure
+- most important study-flow insight
+- most important pipeline-gap insight
+
+### `15_traceability.jsonl`
+
+This file must prove that my raw answer was not flattened.
+
+Each line must be a valid standalone JSON object.
+
+Each record must include:
+
+- `id`
+- `source_point_summary`
+- `source_basis`
+- `target_layer` (`owner_answer`, `engineering_collection`, `both`)
+- `routed_to_file`
+- `routed_to_ids`
+- `routing_rationale`
+
+### `16_open_questions.jsonl`
+
+Only include genuine unresolved owner-threshold questions or protocol gaps that still matter after reasoning.
+
+If none remain, emit an empty file.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+### `17_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what the final questionnaire choice is and why
+- what the deepest tension in the raw comments was
+- what the strongest owner-faithful interpretation is
+- what the most important explained↔explanation linkage insight is
+- what the most important proof-proximity insight is
+- what the most important variant-mismatch insight is
+- what the most important pipeline-gap insight is
+- what would be reckless to ignore
+- what would be reckless to automate blindly
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_sc2_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - final questionnaire choice
+   - total decision steps
+   - total explained↔explanation linkage records
+   - total linked-hadith requirement records
+   - total reference-sufficiency records
+   - total study-chunk-flow records
+   - total variant-mismatch records
+   - total passage-analysis-gap records
+   - total self-containment-threshold records
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+
+## Final requirements
+
+- no generic filler
+- no shallow A/B/C answer
+- no fake completeness
+- no reopening excerpt review
+- no reopening F1/F2/F3/F4/F5/F6/F7/F8/G1/G2/G3/G4/SC1 canon work
+- no “we should later...” except inside explicitly marked open questions
+- no capping the answer at my explicit raw comments
+- no flattening the tensions in my answer
+- no silently upgrading `model_expansion` into owner truth
+- no mistaking partial benefit for acceptable design
+- no mistaking “earlier material exists” for a sufficient library solution
+
+Most important:
+
+I do **NOT** want a shallow local answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this edge case reveals explained↔explanation linkage, exact proof proximity, version-mismatch danger, passage-analysis gaps, and no-manhunt self-containment requirements** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.
+Otherwise proceed directly to generating the files and ZIP.

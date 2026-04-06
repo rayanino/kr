@@ -1,0 +1,65 @@
+This is one of the reasons why I insisted on preventing separating the explained and the explanation; it’s because when studying the explanation, I always need some form of quick reference to the explained. Especially with ahadiths …
+
+This brings up the topic of how excerpts should be linked to each other, especially excerpts that need to be cross referenced often.
+
+So to answer the question: yes, when I’m reading an explanation of a proof I always need the proof within close proximity. I don’t need it constantly blocking my vision, but the flow I follow is usually:
+
+read explanation → understand what part of the proof it is about → check proof → read explanation and cover this part of the proof, → …
+
+This actually brings me to an important point about my study technique; I study in small chunks, mastering each chunk, then moving onto the next chunk.
+
+So when I’m studying the explanation of a proof, I study it in small chunks, master each, then go to the next, until I can call myself a master of the proof. After each chunk (and also after finishing all chunks), a process of rigorous repetition and active recall follows.
+
+But importantly: my very first step in studying a chunkable thing (like an explanation consisting of multiple chunks) IS NEVER BLINDLY diving into one chunk and already mastering it. Instead, what I always do is a quick read / skim over all the contents I have to study. This actually is a CORE PRINCIPLE I have: if I’m studying a scope consisting of 10 branches, I never start by directly deep diving into the first branch.
+
+Instead, I start at the first branch but skim over it quickly, go to the second do the same, … and so on. MY FIRST GOAL IS TO GET AN OVERVIEW / UNDERSTANDING OF WHAT I’M ABOUT TO STUDY.
+
+Once that’s in place, only then do I start with the deep dives.
+
+So IMPORTANTLY: there are levels. I could have mastered one chunk, more chunks, or all chunks (full mastery), …
+
+But back to the question about the excerpt: it is actually not just a preference to have the hadith in question easily referenceable, it is actually catastrophic not to have that. What I mean is: the topic of the dangers of separating the explained from the explanation.
+
+That’s because, for example, let’s look at the hadith that is being explained; it’s the hadith of عَمْرِو بن يَحْيىَ. Now imagine there are 3 versions of this hadith, as is often found with hadiths. The author is explaining one specific version (as found in the full context source text). So his explanation is TAILOR MADE for that specific version.
+
+This gets increasingly dangerous once we realize that some hadiths differ in ‘cosmetic’ wordings (i.e. the difference in wordings do not change much), while MANY DIFFERING HADITHS VARY IN SIGNIFICANT WORDS THAT CHANGE THE INTERPRETATION/UNDERSTANDING/EXPLANATION COMPLETELY. THE DANGER: if I don’t have the proof (in this case the hadith) that is being explained referenceable EXACTLY FROM THE SOURCE TEXT, then I may look up the hadith myself (in the library under proofs) and stumble across a different version, then wrongfully attribute this explanation from the current excerpt we’re handling to be explaining that specific version … THIS CAN LEAD TO EXTREME MISUNDERSTANDING AND EXTREME DEVIATION IN KNOWLEDGE!!!
+
+So the importance of LINKING THE EXPLAINED AND EXPLANATION AND KEEPING THEM LINKED IN SOME FORM is extremely important!!!
+
+PREVENT THE OWNER FROM NEEDING TO GO ON A MANHUNT AT ALL COSTS!!! BOTH BECAUSE THIS CREATES A SUBOPTIMAL LEARNING ENVIRONMENT WHERE THE GOAL OF THE OWNER PURELY NEEDED TO FOCUS ON MEMORIZING AND STUDYING IS NOT ACHIEVED, but also: BECAUSE A MANHUNT CAN GO WRONG, WHICH INTRODUCES ERRORS, WHICH IS THE EXACT THING THAT NEEDS TO BE PREVENTED AT ALL COSTS!!!!!!!
+
+To answer the question: “Can you still benefit from this excerpt without seeing the previous hadith right in front of you?”, then that depends on if I have an idea of what hadith is referenced but I just don’t have its contents viewable, vs if I have no idea what hadith is being referenced.
+
+If I know in the back of my mind, somehow, that this is the hadith of عَمْرِو بن يَحْيىَ, so I know exactly which one it is (even if I may or may not have it memorized, this is a gamble that should never be relied on), then I will at least have some form of LINK between the explained and explanation. THERE IS A LINK, IT’S JUST EXTREMELY BAD: non documented (which is exactly the goal of the library: DOCUMENTING THE MIND OF A SCHOLAR), ERROR PRONE, NEEDS TO BE FIGURED OUT BY THE OWNER, …
+
+But in case I have absolutely no idea what hadith this is referencing, then I will nevertheless be able to benefit from it (for example, reading “المضمضة والاستنشاق كانتا ثلاثا ثلاثا من ثلاث غرفات.” still gives some knowledge), but I’M LEARNING SOMETHING WHILE THE TRADEOFF IS EXTREME CONFUSION, LOSS OF POTENTIAL (I cannot pinpoint knowledge to where it comes from / its proofs), AND MORE DANGEROUSLY: I COULD MAKE THE ASSUMPTION THAT THIS EXPLANATION BELONGS TO A CERTAIN PROOF (a guess), WHICH CAN END CATASTROPHICALLY AND SCRAMBLE MY KNOWLEDGE.
+
+All of these things - scrambled knowledge, having to make guesses, ambiguities, … - THE LIBRARY NEEDS TO ELIMINATE AT ALL COSTS!!!
+
+To answer the next question: “Should the library try to find and link what was mentioned earlier? Or is it enough to simply note that a reference to earlier material exists?”: IT IS EVEN ABSURD THAT THIS NEEDS TO BE ASKED: THE ANSWER SHOULD BE CLEAR FROM THE EXTREME QUALITY STANDARDS THIS PROJECT HOLD TO!!!
+
+The general answer is: ANYTHING THAT CAN BE DONE TO IMPROVE THE KNOWLEDGE POTENTIAL - without corruptions or bad tradeoffs - MUST BE DONE. HIGHEST QUALITY STANDARDS. HIGHEST POTENTIAL. BEST AND MOST OPTIMAL STUDY ENVIRONMENT.
+
+“Should the library try to find and link what was mentioned earlier?” Absolutely ..
+
+… Actually, I think I have one of the most important IDEAS SO FAR:
+
+I THINK THE SKIP FROM PASSAGING TO EXCERPTING IS TOO BIG …
+
+Imagine this: after a passage is defined, it is first deeply scanned and analyzed for any connections, context needs, … imagine every atom (sentence, for example) its needs are exactly known: what other atoms is it related to, what context is missing, what can go wrong …
+
+THIS IS AN EXTREMELY BIG MISSING PIECE IN OUR CURRENT PIPELINE: WE ARE LOSING QUALITY POTENTIAL BY SKIPPING TOO QUICKLY FROM STEP TO STEP. WE NEED MORE SECURITY AND QUALITY GATES. WE NEED DEEPER STRUCTURES. WE NEED STRONGER DATA STRUCTURES. WE NEED STRONGER DEFINITIONS. We need to hammer down and analyze every single subprocess, then make sure it is optimized to the max.
+
+“Or is it enough to simply note that a reference to earlier material exists?” not enough; there is a big gap of questions left for the owner: “what is that earlier material”? and even worse: THE OWNER NEEDS TO LEAVE THE CURRENT EXCERPT TO GO REFERENCE SOMETHING ELSE, WHICH IS EXACTLY AGAINST THE SELF CONTAINMENT PRINCIPLE.
+
+A good measure of the self-containment principle is that the owner SHOULD NEVER need to leave the excerpt he is at to go look for some other reference. The excerpt is self-contained to the highest degree and on all aspects.
+
+Also: imagine a world where it would have been enough to “simply note that a reference to earlier material exists” … then the answer would have been: IT IS NOT ENOUGH ACCORDING TO THE LIBRARY’S STANDARDS.
+
+That’s because “enough” and “good” in the library are not just decent or middle, but mean: IT IS OF THE ABSOLUTE MAX EFFORT AND QUALITY, WHERE EVERYTHING THAT CAN BE DONE HAS BEEN DONE, AND DOING ANYTHING FURTHER WOULD HAVE MAJOR TRADEOFFS THAT WOULD CORRUPT SOMETHING. Where improving would be cosmetic (improving purely to say “we improved!”), but not functional.
+
+The highest most extreme standards need to be held for the library.
+
+I THINK THE BIG MISSING PIECE IN THE LIBRARY IS DEFINING THESE THINGS. I feel like you ALWAYS FUCKING SKIP OVER THEM and just “loosely define” them … this is the FUCKING PROBLEM WITH YOU. You should divide all aspects and terminologies into single atoms (small pieces), then focus on one piece, ask me any questions (AskUserQuestion), then NOT MOVE ON UNTIL YOU HAVE IT DOWN IN A WAY THAT WE CAN RELY ON IT FOR THE FURTHER EXTENT OF THIS PROJECT: FOR THE NEXT DECADES IN WHICH THIS LIBRARY WILL BE USED FOR!!!!!!
+
+THE PIPELINE IS NOT GOOD ENOUGH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! WHICH IS DISAPPOINTING FROM YOU!!!!!!!!!!!!!

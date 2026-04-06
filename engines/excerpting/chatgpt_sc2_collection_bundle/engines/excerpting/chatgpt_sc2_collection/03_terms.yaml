@@ -1,0 +1,153 @@
+- term: explained_explanation_linkage
+  current_controlled_meaning: The documented connection between an explanation unit
+    and the exact proof/source wording it is explaining.
+  dangerous_competing_meanings:
+  - Any loose thematic relation between two excerpts
+  - A reader mentally knowing what was probably meant
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: linked_hadith
+  current_controlled_meaning: The exact hadith/proof record that an explanation excerpt
+    is pointing back to and depends on.
+  dangerous_competing_meanings:
+  - Any hadith on the same broad topic
+  - Any version of the same hadith family
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: close_proximity_reference
+  current_controlled_meaning: A linked proof that is reachable immediately or with
+    one low-friction action without forcing the owner into search.
+  dangerous_competing_meanings:
+  - Permanently visible block only
+  - Anything somewhere else in the library
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: undocumented_mental_link
+  current_controlled_meaning: The owner happening to know from memory which proof
+    is being referred to, without the library documenting it.
+  dangerous_competing_meanings:
+  - A sufficient replacement for a system link
+  - A safe study state
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: documented_reference_link
+  current_controlled_meaning: A system-provided explicit link from an explanation
+    excerpt to the exact referenced hadith/passage.
+  dangerous_competing_meanings:
+  - A vague note saying earlier material exists
+  - A generic link to a topic page
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: variant_mismatch
+  current_controlled_meaning: A situation where the owner or system pairs an explanation
+    with the wrong wording/version of the proof.
+  dangerous_competing_meanings:
+  - Cosmetic wording variation only
+  - A trivial lookup inconvenience
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: proof_version_binding
+  current_controlled_meaning: The fact that an explanation may be tailored to one
+    particular wording/version of a proof.
+  dangerous_competing_meanings:
+  - Any version of the proof is equally safe
+  - Version only matters for raw memorization, not explanation
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: manhunt_risk
+  current_controlled_meaning: The risk created when the owner must leave the current
+    excerpt and hunt manually for missing referenced material.
+  dangerous_competing_meanings:
+  - Minor friction only
+  - An acceptable part of serious study
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: study_chunk_flow
+  current_controlled_meaning: The owner’s chunk-based study pattern of skim first,
+    then master chunk by chunk while checking the proof repeatedly.
+  dangerous_competing_meanings:
+  - Purely linear reading
+  - A UI preference disconnected from pipeline requirements
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: overview_first_pass
+  current_controlled_meaning: The initial skim over the whole study scope before deep-diving
+    into one chunk.
+  dangerous_competing_meanings:
+  - Superficial reading only
+  - Optional habit with no relevance here
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: chunk_mastery
+  current_controlled_meaning: Studying one chunk until it is mastered before advancing
+    to the next.
+  dangerous_competing_meanings:
+  - Reading without repeated proof checking
+  - Memorizing without understanding
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: passage_analysis_gate
+  current_controlled_meaning: A pipeline stage that analyzes passage-level atoms,
+    dependencies, and reference needs before excerpting.
+  dangerous_competing_meanings:
+  - Simple passage extraction only
+  - Optional later refinement
+  status: proposed
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: reference_note_only
+  current_controlled_meaning: A design where the library merely states that earlier
+    material exists without recovering and linking it exactly.
+  dangerous_competing_meanings:
+  - Adequate contextual support
+  - Equivalent to documented linkage
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: self_containment
+  current_controlled_meaning: A state where the excerpt has enough direct or nearby
+    support that the owner need not leave it on a manhunt to study safely.
+  dangerous_competing_meanings:
+  - Text-only isolation
+  - Partial benefit without support
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: acceptable_design
+  current_controlled_meaning: A library state that is not merely somewhat informative
+    but safe, low-friction, and fit for confident study.
+  dangerous_competing_meanings:
+  - Anything that still teaches something
+  - Anything that can be salvaged by owner effort
+  status: active
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- term: partial_benefit
+  current_controlled_meaning: A condition where some knowledge can still be extracted
+    even though the surrounding study design is unsafe or incomplete.
+  dangerous_competing_meanings:
+  - Evidence that the design is acceptable
+  - Equivalent to self-containment
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- term: knowledge_scrambling
+  current_controlled_meaning: Knowledge becoming misbound, ambiguous, or wrongly attributed
+    because explanation and proof linkage failed.
+  dangerous_competing_meanings:
+  - Minor confusion that corrects itself
+  - Harmless temporary uncertainty
+  status: active
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

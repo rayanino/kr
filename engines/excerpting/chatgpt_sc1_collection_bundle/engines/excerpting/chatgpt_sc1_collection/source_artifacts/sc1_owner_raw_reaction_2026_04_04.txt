@@ -1,0 +1,114 @@
+If the question is if `تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.`, then this introduces an important topic: the importance of not totally forgetting the intended flow of the author … matter of fact, the original intent and flow of the author (how he intended his book to be written, the division he intended in his work) is a MAJOR player in how to excerpt.
+
+So here, when the author said `تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.`, he knew:
+
+1 - according to his flow of how he wrote, he is referring to something he has already spoken about earlier, and he clearly expects the book to be read from cover to cover (unlike a dictionary in which it is expected to be used as a look-up, in which such wordings as this current sentence are not usually found).
+
+2 - the reader has a full copy of the book in his hands, so the author knows the reader has the possibility to go back in the book and look for what he is referring to here, which is why he only referenced it and didn’t fully re-write it.
+
+3 - the author expects a certain level of his reader (beginner, intermediate, …), which also has effect on how things like these are handled (beginner books usually re-summarize, while advanced books expect a level of independency)
+
+The point I’m trying to make is that the AUTHOR’S INTENT AND FLOW should NEVER BE LOST; instead, they are one of the major things to ALWAYS TAKE INTO ACCOUNT.
+
+Now, imagine I read the excerpt starting with `تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.`. The difference is that point 1 and point 2 from the three points I’ve mentioned above are missing; I did not read the book from cover to cover, nor do I have the full book open to go back and forth. SO: THE LIBRARY NEEDS TO PROVIDE THAT ENVIRONMENT FOR ME. It needs to make sure that any aspect the author relies on (like if an author says to reference a specific chapter, …) are always kept possible. THIS IS A MAJOR PART OF PROVIDING THE OPTIMAL STUDY ENVIRONMENT.
+
+This is why I keep emphasizing that the context is at least as important as the content itself … authors rely heavily on context … when they write a book, they have a certain flow and expectations in mind … dictionary / encyclopedia authors expect their works to be referenced and not read from beginning to end in one sequential go … while most science books DO expect a specific order … in fact, in sciences like al-fiqh the traditional order in which scholars cover this science (wudu, then prayer, then fasting, …) is a studied and emphasized-on topic.
+
+I propose: we should do some general deep research about the aspects any author expects from his reader: that he can reference any part of the book at any time, that he has a certain level, that he does or does not skip some chapter, … Then, the specific expectations / requirements an author has from a reader at one specific passage / for one specific excerpt are specific and need to be identified per individual passage / excerpt. THIS IS A MAJOR ROLE OF THE LIBRARY, AND EXTREMELY IMPORTANT.
+
+We need to focus more on what is important / what gets lost when translating a book - that the author never intended for it to be heavily excerpted / quoted - into fine excerpts … VERY VERY IMPORTANT.
+
+The point in one sentence: how do we ensure no loss when translating a book intended for continuous reading into fine excerpts? What protocols are needed, what is possible, what is risky, …
+
+The question answered in one sentence: if I were reading this book in the traditional way, then yes, `تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.` would have been enough of a reminder, because the only book in my mind is this current book that I’m freshly reading, I still remember the part of the book the author is referring to.
+
+However, an excerpt can absolutely not rely on this text alone … we first of all need some way to show the original text the author is referring to (much like if I didn’t remember correctly what the author is referring to I would just flip back a couple of pages).
+
+FOR EVERY EXCERPT, WE NEED TO ASSUME THAT the owner opens it with 0 pre-context; he doesn’t know about the book, nor does he have any other tabs or books open; he comes to the excerpt expecting FULL GUIDANCE.
+
+That is actually a very important part: EXCERPTING SHOULD NOT ONLY BE DONE FROM AN LLM-SCIENTIFIC PERSPECTIVE, BUT AT CERTAIN INTERVALS THE POINT OF VIEW NEEDS TO BE SWITCHED TO “WHAT DOES THE OWNER SEE WHEN HE OPENS THIS EXCERPT WITH 0 PRE-CONTEXT; THE EXCERPT NEEDS TO BE SELF-CONTAINED AND PROVIDE HIM WITH EVERYTHING HE MAY NEED”.
+
+As you can see, the difference between the traditional way and the excerpting way still has some similarities: in both cases will I have to go back to earlier parts, in both cases there may be confusion, … BUT THE THING IS THAT IN OUR EXCERPTING SYSTEM, THE SYSTEM ITSELF NEEDS TO PROVIDE THE ANSWERS INSTEAD OF RELYING ON THE OWNER TO GO LOOK FOR THEM; THIS IS BECAUSE OUR LIBRARY PROVIDES THE COMPLETE FULL PERFECT ENVIRONMENT TO STUDY IN, WHILE A BOOK IS ONE PIECE OF THE ENVIRONMENT TRADITIONAL STUDENTS STUDY IN!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+I’m starting to realize an excerpt is much more than a pure quote / copy of the original author’s text … THE ORIGINAL AUTHOR’S TEXT IS MERELY THE STARTING POINT OF A SELF-CONTAINED TEACHING UNIT!!!!!!! An excerpt is a teaching unit!!!! THE GOAL IS NOT ONLY TO PRESENT A RELEVANT PIECE OF A SOURCE, BUT IS WAY BIGGER: this is the starting point and the main thing the excerpt is based on, but the system takes this and expands on it in as much as beneficially possible!!!
+
+SO I GENUINELY JUST REALIZED OUR SYSTEM IS ACTUALLY A SYSTEM OF “TEACHING UNITS” rather than “EXCERPTS” … if we weren’t this far into the engine I would have switched the vocabulary from “excerpt” to “teaching unit”!!!!!!!!!!!
+
+THIS MEANS THAT THE SKY IS THE LIMIT!!!! The base unbreakable rule is that a teaching unit (excerpt) must contain a clear presentation of the original source’s relevant text … but it can expand on this as much as it want … I’m talking: the LLM can be allowed to reason and think as thoroughly as possible about things it wants to accompany this specific excerpt’s text in order to increase its value, specifically looking from a “WHAT DOES THE OWNER SEE”-perspective.
+
+SO I GENUINELY JUST REALIZED OUR SYSTEM IS ACTUALLY A SYSTEM OF “TEACHING UNITS” rather than “EXCERPTS” … if we weren’t this far into the engine I would have switched the vocabulary from “excerpt” to “teaching unit”!!!!!!!!!!!
+
+THIS MEANS THAT THE SKY IS THE LIMIT!!!! The base unbreakable rule is that a teaching unit (excerpt) must contain a clear presentation of the original source’s relevant text … but it can expand on this as much as it want … I’m talking: the LLM can be allowed to reason and think as thoroughly as possible about things it wants to accompany this specific excerpt’s text in order to increase its value, specifically looking from a “WHAT DOES THE OWNER SEE”-perspective.
+
+THE SKY IS THE LIMIT!!!!!!!!!! But it needs to be kept realistic; the library is vast, and there may be hundreds of excerpts under one leaf (expected minimum scale of the library).
+
+THE SKY IS THE LIMIT!!!!!!!!!! THE SKY IS THE LIMIT!!!!!!!!!! But this does not mean we should start disregarding / undervaluing our protocols and rules.
+
+WHAT I EXPLAINED UP TO HERE WAS MORE OF A GENERAL NOTE.
+
+Now, if we look at this specific excerpt, we realize that not every ‘reference back’ per se needs additional context / explanation. It depends; if the reference back is purely for orientational purposes, then the extra need is minimal. But if it is for recalling concepts, building further on previous parts, … then it is extensively needed to add context and missing pieces.
+
+In this specific case, `تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.` does not sound like an orientation / “this is where we are”-piece … instead, it is a “remember that, we are now expanding on it” … why? Because it specifically expands on exactly what is referred back to: `الخمر، وتعريفه، واختلاف العلماء في حده`. The author is about to expand on what exactly is `الخمر`...
+
+Which means: the piece that is referred back to is very relevant, and me (the owner) personally, if I would have encountered this reference back while reading the book the traditional way, I would have flipped back to what is being referred to and revised it, or at least I would have actively tried to recall what is being referred to.
+
+In an excerpt-library, this flipping back / identifying what text exactly is being referred back to is lost. Which means that the library should make up for it.
+
+So in this specific case, the library should make up for the tradeoffs of excerpting: that the entire book is not available as one unit to go back and forth it, and a lot of context (many of which the author directly relies on to get the student to understand the topic, like with this specific example) is lost.
+
+Example solution (MERE EXAMPLE): the library provides an openable tab that contains the exact part being referenced to, OR A REFERENCE TO THE SPECIFIC EXCERPTS this is referencing (though that can become chaotic very quickly because imagine if the part this text is referencing to is excerpted into multiple excerpts), …
+
+About that last one: I think that throughout this engine I have mentioned my desire for excerpts to reference each other … but I’m starting to realize that WE ARE SOMETIMES LEANING TOWARDS: ‘NO FULL TEXTS, ONLY EXCERPTS’ … but I THINK THIS WILL BE OUR DEMISE IF WE KEEP THIS ATTITUDE … there are some locations where it is okay to include canonical unexcerpted text, this specific example being one of them: for reference … when a chapter is being referenced, then it is WAY EASIER TO JUST INCLUDE THE ENTIRE CHAPTER TEXT AS A REFERENCABLE instead of ONE EXCERPT REFERENCING 10, THOSE REFERENCING 2 each,...
+
+YOU SEE HOW PART OF SELF-CONTAINMENT IS NOT SENDING THE OWNER ON A MANTHUNT?
+
+So our library can have a specific section “references” in which not excerpting is the accepted standard …
+
+Matter of fact, within this reference we could include the original texts, so that if any confusion happens at one of its excerpts the owner still has access to the original text!!!
+
+VERY GOOD IDEA!!! What I mean is:
+
+<original full chapter, a passage>
+
+Produces excerpts:
+
+→ excerpt1  
+→ excerpt2  
+→ excerpt3
+
+But each one of these excerpts still has something like an openable box that shows the entire passage!!!
+
+That’s the missing link, actually: the link between excerpt and passage. Just like the ORIGINAL SOURCE TEXT NEVER GETS LOST (from the source/normalization engine), THE PASSAGE NEVER GETS LOST AND IS ALWAYS VIEWABLE WITHIN AN EXCERPT.
+
+With this, we have expanded the idea of an excerpt from a pure text / quote up to an actual learning unit, with its full original text fully viewable.
+
+This also solves a big portion of the context issues; when the original passage (so the excerpt + its surroundings) are viewable, then that eliminates a big piece of the context being lost.
+
+So, this is what I now imagine an excerpt to be: a teaching unit:
+
+╭──────────────────────────────────────────────────────────────╮
+│                                                              │
+│                       T I T L E                              │
+│                                                              │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ╭────────────────────────────────────────────────────────╮  │
+│  │ 💡 LLM Context Notes                                   │  │
+│  │ Additional context, summaries, or guiding questions    │  │
+│  │ added by the AI before the student reads the text.     │  │
+│  ╰────────────────────────────────────────────────────────╯  │
+│                                                              │
+│   "This is the actual text of the excerpt. It sits right     │
+│    here in the middle of the unit, taking center stage       │
+│    so it can be easily read and analyzed…"                 │
+│                                                              │
+│  ╭────────────────────────────────────────────────────────╮  │
+│  │ 🏷️ Metadata                                            │  │
+│  │ Author: [Name] | Source: [Title/Link] | Date: [Year]   │  │
+│  ╰────────────────────────────────────────────────────────╯  │
+│                                                              │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│             ▼  OPEN TO VIEW ENTIRE PASSAGE  ▼                │
+│                                                              │
+╰──────────────────────────────────────────────────────────────╯

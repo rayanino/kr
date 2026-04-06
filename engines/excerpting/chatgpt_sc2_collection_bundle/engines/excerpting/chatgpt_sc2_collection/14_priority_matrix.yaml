@@ -1,0 +1,14 @@
+strongest_local_reason_for_final_questionnaire_choice: partial benefit exists but
+  design is still unacceptable without exact linked hadith access
+highest_risk_linkage_failure: explanation points to a previous hadith but no exact
+  linked proof/version is provided
+highest_risk_knowledge_scrambling_failure: owner pairs the explanation with the wrong
+  hadith wording/version and binds the wrong meaning to it
+highest_risk_manhunt_failure: owner must leave the excerpt and search manually for
+  what is being referenced
+highest_risk_version_mismatch_failure: scholar explains one version while the owner
+  studies a different one under the same hadith family label
+most_important_study_flow_insight: chunk-by-chunk study depends on repeated low-friction
+  proof checking
+most_important_pipeline_gap_insight: passage-level dependency analysis must happen
+  before excerpting, not after damage is already introduced

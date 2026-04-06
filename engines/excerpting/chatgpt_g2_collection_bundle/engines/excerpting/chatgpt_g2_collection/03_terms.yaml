@@ -1,0 +1,136 @@
+- term: raw_hadith_layer
+  current_controlled_meaning: The proof text itself as a proof object before later
+    explanatory layers are attached.
+  dangerous_competing_meanings:
+  - Any hadith-related text in the excerpt.
+  - The final memorization-ready form regardless of source.
+  status: provisional
+  source_basis: explicit_draft
+- term: full_explanations_layer
+  current_controlled_meaning: Explanations that address the hadith as a whole rather
+    than a small local chunk.
+  dangerous_competing_meanings:
+  - Any explanation text.
+  - Only summary notes.
+  status: provisional
+  source_basis: explicit_draft
+- term: chunk_explanations_layer
+  current_controlled_meaning: Explanations tied to specific local chunks inside a
+    hadith rather than the whole hadith.
+  dangerous_competing_meanings:
+  - Arbitrary sentence splitting.
+  - Exact copying of every scholar’s pause choices.
+  status: provisional
+  source_basis: explicit_draft
+- term: ghareeb_al_hadith
+  current_controlled_meaning: A special explanatory branch focused on lexical, phrase-level,
+    and grammar-like clarification of hadith wording.
+  dangerous_competing_meanings:
+  - Generic commentary.
+  - Only dictionary lookup.
+  status: provisional
+  source_basis: explicit_draft
+- term: proof_relationship
+  current_controlled_meaning: The structured way in which proofs under one proof leaf
+    support, complete, or interact with each other.
+  dangerous_competing_meanings:
+  - Simple co-presence under one node.
+  - Only contradiction relations.
+  status: provisional
+  source_basis: explicit_draft
+- term: same_hadith_multiple_versions
+  current_controlled_meaning: Different textual versions or narrations of what is
+    treated as one hadith-family within study.
+  dangerous_competing_meanings:
+  - Duplicate noise.
+  - Always interchangeable wording.
+  status: provisional
+  source_basis: explicit_draft
+- term: same_proof_multiple_topics
+  current_controlled_meaning: A proof or proof-segment that is relevant to more than
+    one topic branch and should not be trapped under only one of them.
+  dangerous_competing_meanings:
+  - Redundant duplication only.
+  - A retrieval problem rather than a structural one.
+  status: provisional
+  source_basis: explicit_draft
+- term: proof_identifier
+  current_controlled_meaning: The unique identification strategy used to distinguish
+    one proof object or proof family from another.
+  dangerous_competing_meanings:
+  - Narrator name only.
+  - Any human-friendly label.
+  status: provisional
+  source_basis: explicit_draft
+- term: proof_leaf
+  current_controlled_meaning: A branch that groups proofs supporting one already-specified
+    topic or opinion branch.
+  dangerous_competing_meanings:
+  - A mixed branch containing proofs for opposing views.
+  - A generic evidence bucket.
+  status: provisional
+  source_basis: explicit_draft
+- term: complementary_proofs
+  current_controlled_meaning: Multiple proofs that each contribute a different piece
+    of the ruling rather than simply repeating each other.
+  dangerous_competing_meanings:
+  - Any multiple-proof situation.
+  - Pure duplicate support.
+  status: provisional
+  source_basis: explicit_draft
+- term: apparent_contradiction_resolution
+  current_controlled_meaning: A proof relationship where two proofs look conflicting
+    at first but their reconciliation yields important ruling insight.
+  dangerous_competing_meanings:
+  - True contradiction only.
+  - A problem to hide rather than structure.
+  status: provisional
+  source_basis: explicit_draft
+- term: dictionary_ingestion_target
+  current_controlled_meaning: A destination in the library where dictionary-derived
+    lexical material can land at the most specific relevant location.
+  dangerous_competing_meanings:
+  - Only a generic dictionary branch.
+  - Only Arabic-language trees with no proof linkage.
+  status: provisional
+  source_basis: explicit_draft
+- term: vocabulary_branch
+  current_controlled_meaning: A branch dedicated to word-level, grammar-like, or lexical
+    explanation that is distinct from full-hadith meaning explanation.
+  dangerous_competing_meanings:
+  - Any text about words.
+  - An optional UI decoration.
+  status: provisional
+  source_basis: explicit_draft
+- term: unlimited_taxonomy_placement
+  current_controlled_meaning: Placement should answer where an excerpt truly belongs
+    across sciences and branches, not be capped by the current source branch.
+  dangerous_competing_meanings:
+  - Random uncontrolled duplication.
+  - Ignoring topical precision.
+  status: provisional
+  source_basis: explicit_draft
+- term: chunking_inspiration_vs_chunking_copy
+  current_controlled_meaning: Scholar chunking can inform chunk boundaries without
+    forcing the system to copy every scholar’s chunking exactly.
+  dangerous_competing_meanings:
+  - Ignore scholar chunking completely.
+  - Copy each scholar chunking literally.
+  status: provisional
+  source_basis: explicit_draft
+- term: minimal_questionnaire_split
+  current_controlled_meaning: The smallest split that answers the forced questionnaire
+    correctly for the excerpt as given.
+  dangerous_competing_meanings:
+  - The full ideal architecture.
+  - The final system design.
+  status: provisional
+  source_basis: inferred_from_prior_chat
+- term: deeper_ideal_split
+  current_controlled_meaning: The richer multi-layer architecture implied by the case
+    beyond the forced questionnaire answer.
+  dangerous_competing_meanings:
+  - A direct replacement for the questionnaire answer.
+  - Promoted doctrine already.
+  status: provisional
+  source_basis: explicit_draft

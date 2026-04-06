@@ -1,0 +1,105 @@
+NOTE: careful with the naming, as “entry” I believe was earlier used to mean the encyclopedic entries the synthesizing engine produces.
+And this really brings to an important topic we were focusing on in the early days of the project: defining clear project-vocabulary. I think the early versions of my VISION.md had this, but it’s definitely not ready yet, and we should ask ourselves the question we should ask at every stages in the project concerning files: IS THIS IN A MACHINE READABLE / OPTIMAL FORMAT?? The vocabulary will be read and used by the agents working on this project … matter of fact, this counts for EVERY file inside the project … so the format, types, file extensions, … should always be aimed only towards: what is best for those agents to read and understand and actually remember and take into consideration (i.e. ‘what is machine-readable?’).
+
+NOW TO THE EXCERPT: First of all, every condition for cutting off the hand of a thief should have its own excerpt, something like:
+
+→ … → conditions → {condition1}  
+					  → {condition2}  
+					  → {condition3}  
+                   → …
+
+So: this excerpt just contains some more conditions (together with some other text like the heading after the number ‘4’, etc).
+
+So, for example:
+
+—-------conditionX excerpt—----  
+٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:
+
+وأهم الباقي أن يكون المسروق من حرز مثله، والحرز يختلف باختلاف الأموال والبلدان والحكام.
+
+ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.
+
+HERE, once again, the surrounding not-directly related text (`٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:` and `وأهم الباقي`) is left in because it doesn’t do harm, but can yet be beneficially used by the owner (for example, it directly shows that some scholars separate their listing of the conditions of cutting off a hand, which means there is a reason to that which needs to be further explored … ACTUALLY; it would be very nice and a major milestone if the library can even detect things like this (cut-off topics getting continued) and then adapt to it by giving the owner everything he needs to know: where is the other part, what came in between, why did the author do this, …. VERY IMPORTANT)!!!
+
+in the excerpt of conditionX, my ideal world would be: (in which conditionX is `كون المسروق من حرز`):
+
+branch: conditions → branch: كون المسروق من حرز → excerpt: الشرط  
+                          → excerpt: مرجع الحرز
+
+Where:
+
+—-------------excerpt: الشرط—---------------
+
+٤ء للعلماء شروط في قطع يد السارق، تقدم بعضها:
+
+وأهم الباقي أن يكون المسروق من حرز مثله،
+
+—-------------excerpt: مرجع الحرز—----------
+
+<indicator that this is not a standalone text but that it got cut off mid sentence> الحرز يختلف باختلاف الأموال والبلدان والحكام.
+
+ومرجع الحرز، العُرْفُ. فلا قطع في سرقة من غير حرز مثلها.
+
+Technically, each of the two excerpts could just be a copy of conditionX excerpt: the full entire thing, just copied twice … why? Because the text of each excerpt is so short that it doesn’t really matter if it gets repeated in an unrelated place: DOES NO HARM … yet, as you can see, I did not lazily apply this principle; instead, I first analyzed; should we apply this principle (i.e. does excerpting further genuinely make for good standalone excerpts), or just take the safe way and apply the no-harm principle?
+As you can see, these exceptions should not just be applied blindly. I keep putting emphasis on how the library should be intelligent at every single corner, and we should never just rely on HARD-DEFINED / HARDCODED rules, protocols, algorithms, … BECAUSE WE ARE DEALING WITH DYNAMIC SOURCES: no two books are alike, matter of fact two chapters within the same books can vary a lot …
+
+That does remind me (I believe I’ve briefly mentioned this before): the excerpting LLM should have some (minor) wiggling room in which it has its own freedom to decide how excerpting should happen. So alongside the protocols and rules it adheres to (95%), there should also be creative / room for reasoning (5%), in which the llm just receives all the context (the excerpt and its surroundings), then does its own reasoning about how it should be excerpted!
+
+If we now dive further into the second part (`وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة، كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة، وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`), this is how I would justify my ideal excerpting pattern:
+
+branch: conditions → branch: انتفاء الشبهة → excerpt:الشرط  
+ 
+                            → excerpt: تطبيقات (أمثلة)
+
+—-------------excerpt:الشرط—-------------
+
+وأن تنتفي الشبهة، فلا قطع من مال له فيه شبهة
+
+NOTE: this is just the content part, the context part and the starting “و” still need to be addressed by the system … that “و” can mean it’s the next summed up شرط, but it could also be used in a context with any other meaning of “و”.
+
+—-------------------excerpt: تطبيقات (أمثلة)-----
+
+كسرقة الابن من أبيه، أو الأب من ابنه، والفقير من غلة وقف على الفقراء، أو من مال له في شركة
+
+Once again, even though it would be okay to contain the following short piece (`وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`) in it, if it can be flawlessly avoided without any loss, then it should. Just like I did here: I did not include `وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.` as part of the excerpt, even though it’s short … though now taking a closer look at it, it DOES NOT SEEM HARMLESS; it’s a different شرط, and putting two شرط together may cause serious confusion, or even worse: the owner silently linking two شرط that shouldn’t be directly related to each other.
+
+SO THIS IS A GOOD EXAMPLE OF WHAT SHOULD BE CLASSIFIED AS “harmless” within the “short and harmless”-rule.
+
+IMPORTANT NOTE: in my ideal library, I would want even further granulation, but I didn’t mention it above because of how afraid I am of over-granulating.
+
+This would be my dream and ideal scenario, to which the pipeline is slowly but surely evolving and getting hardened into:
+
+excerpt: تطبيقات (أمثلة) → dad-son  
+                    → son-dad  
+                    → poor-endowment  
+                    → shared money
+
+IMPORTANTLY: throughout the pipeline, we need to ESTABLISH CLEAR NAMING PROTOCOLS … because the excerpts will have file-names, the taxonomy leafs will have titles, … we need to establish clear naming guides, for example: ‘every example gets named like this: ‘part1-part2-part…’, in short but explanatory burst that reflect the contents of the example’. This is merely a quick example, but the point is: WE ARE SERIOUSLY LACKING IN VOCABULARY (as mentioned earlier) AND THE THEORETICAL / SPEC / DOCUMENTARY PART OF THE LIBRARY … WE NEED TO SPEND MORE TIME ON IT, AND THESE QUESTIONNAIRES WERE MY FIRST STEPS TOWARDS THAT.
+
+NOTE: I’M MIXING ARABIC AND ENGLISH, BUT THE LIBRARY AND EVERYTHING INSIDE OF IT SHOULD ONLY BE IN ARABIC!!!!!!!!!! INCLUDING TITLES, NAMINGS, …!!!!!!!!!!!!!!
+
+Now, going on to the last شرط, which is the part (`وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عد لين.`). As you can see, these conditions are intertwined, but luckily the commas are clear enough separators.
+
+branch: conditions → branch: الثبوت → excerpt: الشرط  
+        → sub-branch: الكيفية → excerpt: إقرار من السارق  
+								→ excerpt: شاهدين
+
+—----------excerpt: الشرط—--------
+
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+—-----------excerpt: إقرار من —------------
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+—---------------excerpt: إقرار من —-------------
+وأن تثبت السرقة إما بإقرار من السارق معتبر، أو شاهدين عدلين.
+
+In this case, the short and harmless rule does apply, especially since they are under the direct same branch AND they are just so intertwined that even though excerpting them out of this interwindness is perfectly possible and the engine SHOULD DEFINITELY BE ABLE TO, we have enough reason to AVOID TAKING THIS RISK.
+
+Also: I want to emphasise that ‘being under the same branch’; these not directly related things (the condition, first way, second way) being under the same branch not only means that they are nevertheless very closely related (since their proximity is as close as can be: siblings within the same partent branch), but it also means that I would read them within a short period of each other, and that I would most likely read them together (so that the study sessions scope encompasses them all), which means that any possible confusion would be eliminated: if I read the ‘شرط’-bit with both ways included in it, the confusion would quickly disappear when I go to the other two excerpts and see they all three are identical; I would quickly realize they are just kept together because of their extremely close relationship that doesn’t cause harm in not-excerpting them to the max granularity.
+
+I just realized a major part in the “does the short and harmless rule apply” is whether the other not directly related part is or is not part of the same branch … because how more branched out, how less related, how bigger the chance of ambiguity, and how bigger the chance this ambiguity won’t resolve itself (by me realizing the connections in the branches etc).
+
+Maybe we should set some ‘proximity-rules’ that calculate how approximately related excerpts are … just a rough idea I’m throwing out.
+
+And we should define clear vocabulary AS I FUCKING SAID: what is a leaf, branch, parent, siblings, …

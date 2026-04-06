@@ -1,0 +1,430 @@
+=========================== F1 ORIGINAL ANSWER ===========================
+
+So ... to me it's like capturing one scholar's whole explanation on one topic in particular ... in a book of islamic knowledge, there are many topics spoken about. There is a clear relationship between all topics, which is the purpose of the taxonomy tree (engine 4) ... but those topics 
+
+And by topic, I do not mean "heading" ... I just mean "one exact granulated thing the conversation is about" ... I have a little difficulty exactly explaning what I mean by "granulated thing" ... buta good way to put it; anything that can accept a heading, no matter how granulated. For example: "the definition of al-sarf in the arabic language", but this is actually too broad (not yet granulated to my liking) ... why? because within this topic, you can even go deeper 
+
+I'm not sure "anything that could have a heading" is an optimal way of putting it ... i'm not sure if this will cause some potential being lost, or if this definition will put a cap or limit to granulating topics .... but this is the best thing I can think of ... can even go as deep as a level 12 heading .. but literally just anything that can accept a logical heading ... this means:
+
+"definition of als-sarf" NOT GRANULATED ENOUGH
+"definition of als-sarf" --> "definition of al-sarf in the arabic language" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" NOT GRANULATED ENOUGH
+"definition of al-sarf in the arabic language" --> "the al-basra school" --> "opinion1 <insert opinion title>"
+                                                                                                                                                      --> "opinion2 <insert opinion title>"
+
+That last one looks more like what I want, though I this is a mere example and in reality it could even be more granulated.
+
+This granulation should be at the highest encyclopedic level ... it's like we're making an encylopedia of the science, but in a different structure; with a taxonomy tree, with excerpts, instead of flowing text ... you could (probably) convert this tree with its excerpts into a mundane encyclopedia, but again: the goal is to make the perfect environment for me to study in ... an enecylopedia cannot be indexed as easily as a tree with clear branches, and it doesn't provide for the overview this tree would; it's text after text, not clear tree structure where you can get the overview of the entire science in one look.
+
+
+After thinking about it, what I'm trying to do really is digitilizing the whole process of picking a book to read --> using highlighters, sticky notes, ... to highlight chapters, topics, ... 
+
+The whole point is that it's not that simple. We can't just literally seperate every single topic, because by that definition every single sentence would become an excerpt. I'm trying to explain my idea, but it's a little challenging for me to give the right idea ...
+
+I just want to open a topic within the science tree, and see what a particular source of knowledge said / explained about it. The goal is: I think true mastery of an islamic science comes by mastering every single topic in it, but also: understanding the relationships, structure, reason the science is like this, the scope. This is the goal of the taxonomy tree; understanding. But the mastery of the individual topics only comes by reading many books from scholars about this topic and how they explain it, and their different insights, opinions, ... the problem is that when you read that book, 99% is unrelated (other topics), while only 1% is the actual topic in question. So if I want true mastery of this topic, I would have to read 1000 books (for example), recognize where in each book this topic is spoken about, highlight it / mark it, remember it, .... this is chaos. The goal is to create structure.
+
+I just want to open the leaf "the definition of al-sarf in the arabic language". Traditionally, I would be reading a book, then encounter this topic, read it, go on to the other topics. But then I've not mastered this topic; I only have one explanation from one particular scholar. I would have to read 1000 books, and constantly at each book refresh my memory: "what have the previous books said about this topic"? You see the chaos and un-productiveness? The solution in reliaty would be to have all those 1000 books next to each other. Start at the first book, read his explanation about "the definition of al-sarf in the arabic language", go to the next book , look up where this is spoken about ... x1000. That is what I want to ease on myself. 
+
+The goal of me is to become the most knowledgeable scholar. The man with the most unmatched understanding and knowledge. And that would mean that for every topic within tevery single islamic science, I have read and attended many lectures. The problem is structure;a lecture talks about 100 topics, a book aswell. I go topic A --> topic B --> ... then go to the next book / lecture and once again ... I would much rather master topic A --> master topic B --> ....
+
+This will give me the edge. The goal is to give me the edge over any student of knowledge. No previous student of knowledge in history had the technology and Ai available that could do this. The goal is to make things that in practise are hard / impossible but would genuinly give an edge and ease in the process of aqcuiring knowledge possible for me. That is the only way I can become that unprecedented scholar. I won't make it by following the traditional way ...
+
+I will only make it by genuinly inventing unprecedented ways of aqcuiring knowledge. THIS IS THE DRIVING MOTIVATION BEHIND THIS PROJECT, AND I JUST REALIZE THIS HAS NOT BEEN CLEARLY COMMUNICATED WITHIN THE PROJECT. The project is not a mere copy of any existing system. It's a whole new system. It should never be limited by "the owner said this, so it should be like this", or "the usual way is like this, so let's do it like this" ... this is why during the engineering (claude code, codex, gemini, ... working on the project), I constantly end my prompts with "think thoroughly, think outside the box, ...".
+
+I have an idea, but I deeply understand and recognize that I may very well be MISSING OPPERTUNITIES TO MAKE THIS EVEN BETTER. That is my nightmare. I'm a one man army, supported by AI. AI can be stupid and follow exactly what I say ... but that's not what will make my goal of becoming the most unprecedented scholar ever real ... it is if AI can think outside the box, as if it were a team of 200 iq scientists, about constantly making this project better and finding ways to give me the edge.
+
+Of course, I understand that the true becoming-a-scholar-process is by actually utilizing what this app will produce and studying ... this is the tool that will make that, and set the environment to let me study at the highes capacity.
+
+Catch this: ONCE I START MY ISLAMIC STUDY JOURNEY, I SHOULD NOT BE WORRIED ABOUT  MAKING CONNECTION BETWEEN TOPICS, COLLECTING KNOWLEDGE, ... MY ONLY WORRY SHOULD BE: MEMORIZING. PLEASE CATCH THIS CLEARLY.
+
+This text contains some core principles on which the whole project and its motivation leans ... cannot be just written somewhere ... it must be understood by any agent working on this project.
+
+I also realized: I feel like the current project is hard-capping what en excerpt is at: it can only contain text from the source, nothing else. But I think we can gain an edge by expanding this ... what I mean: when the LLM call is made to excerpt, we can additionally let the LLM add comments ... I'm not talking explanation, I'm talking comments that would make the excerpt even more 'self contained' ... kinda of like the green boxes I find in my high school textbooks (usually with a lightbulb image next to them); "note: the author had just finished topci x when he started mentioning this topic", or "note: beware, ..." ... not pure 'theory / lectural explanation'; that explanation is too much to add and needs its dedicated system (synthesis engine), but just those little things that genuinly fill any gaps I could encounter while reading the excerpt ...
+
+... maybe we should add a checklist that gets sent to the LLM with the instructions: "after you have produced an excerpt, go down this checklist and make sure everything is checked", for example "this excerpt is self contained" though this is too broad of a checklis item ... but you get it, this is just an example, the idea is what counts.
+
+And oh yes, I forgot to explain that 'self contained' thing ... there are many dangers when doing what we're doing; excerpting parts from a text that was originally meant to be read as one continous whole ... and to add even more dangers: we are forcing many books with distint outlines / structures (tables of contents / order of topics) into ONE order (taxonomy tree) ... this creates even more dangers and knowledge corruption threats ...
+
+I think we need very dedicated anger-detection sessions because these are serious threats to the knowledge ... this is something we should use my strongest llms available for (chatgpt, claude, gemini, all three with and without deep research available) to identify every single threat ... we genuinly cannot let anything slip ... then have a clear threat checklist that MUST be crossed before any excerpt is accepted ...
+
+I just realized this threat thing is way more serious than we thought ... this should be a top priority ... it seems like the LLM call should do way more than merely "excerpt, done ..." there should be a clear protocol and checklist to be followed to avoid mistakes at any costs ...
+
+I think I skipped too quick over the "ground unbreakable rules" of the project (like knowledge integrity at any cost, surgical accuracy, avoid corruptions, ...) ... i kinda just said "oh, this should be a core principle of the project that never gets broken" scatter through the project any time I thought something was important to capture ... but never really had clear sessions about this ...
+
+In general I just realized: the core architecture of the project is missing ... there is still room for ambigiouty ... there are no clear well though out protocols ... I think this identifies our next new top priority ...
+
+
+Please, chatgpt, ... I'm stuck with this idea in my mind but can't communicate it properly ... this is the most important part of the project ... 
+
+
+
+
+
+
+==============  ext_39_masala #3 ORIGINAL FEEDBACK ===================================
+
+This excerpt is not really self contained. Imagine this excerpt was found under the leaf .... --> استحباب اجتماع الخوف من الذنوب والرجاء في رحمة الله عند حضور الموت.
+
+The leaf itself would give me quite some context on what this text tries to explain (what topic) ... but still, I am left with some questions; "this is clearly the second point of a listing the author made on what the sick should do, why did he place this as second"? "what is the relationship to the previous point"? ...
+
+You see how this limits the potential understanding I could get? There is a big difference in scholarly level between me just seeing this excerpt, and me having the FULL CONTEXT so I can easily see the context things, like the previous listing, etc. Though the excerpt's content is self contained (reading this excerpt gives me the theory), this is not what makes a scholar. 
+
+So there are clearly two  layers:
+
+- the theory layer
+- the context layer
+
+This is actually a broader aspect found throughout the library. For example; the taxonomy trees provide mostly context, while the excerpt focus on theory. Though the excerpts themselves also have a theory and a context part. The context part is clearly not well defined yet. Needs expansion, to allow for the highest levels of scholarship possible. NO POTENTIAL SHOULD BE LOST.
+
+A second problem: not only does this excerpt start with a number that raises the first group of questions mentioned above, but also: it starts with a reference to "عليه " .. who is "he"? I can guess and most likely be correct: "he" is reffering to the muslim in general. But this is a guess, AND A SCHOLAR'S KNOWLEDGE SHOULD NEVER BE BASED ON GUESSES. 
+
+This again raises questions and limits potential. It goes directly in contrast with the principle of self-containment, and that I can study directly from an excerpt. That second one is actually not mentioned before in the repo: I SHOULD BE ABLE TO STUDY DIRECTLY FROM THE EXCERPT.
+
+The problem conceretely: I encounter either the number '2' or the reference "عليه " ... so I ask myself; I need to know exactly what this means because I'm not going to base my knowledge on guesses. So: I go looking for the piece of text that came right before this excerpt in the original source. This is a problem; it's a manhunt.
+
+So what do I do? I open the shamela library, look up the book this excerpt came from (which the excerpt also doesn't contain, so that is a manhunt on itself), paste this excerpt, find the location in the original source, then read the surrounding text to understand and confirm the context understanding.
+
+The thing to learn from this: an excerpt should preferably have a clear reference to exactly the excerpt that came before it IN THE ORIGINAL source (so: "in what excerpt is the text that came right before this excerpt visible"), kinda like a "linked list". The reason: safety measure. In no case should I need to go to a previous excerpt out of non-self-containment issues. It is just in case I feel like reading what came before it, and as a security incase an excerpt has a flaw like this one where I genuine need other excerpts to understand this one excerpt correctly.
+
+Outside of these two instantly met problems; I'm having doubts about the excerpt itself. My question precisely is: 
+
+This excerpt actually has two "topics to be spoken about / heading potentials". This excerpt answers the question: "in what state is it preffered for the sick person to be in", but also "what is the proof that this state in particular (ينبغي عليه أن يكون بين الخوف والرجاء) is preffered"? ... 
+
+The problem: imagine there was not one proof but 10 proofs mentioned: some quranic verses, some hadiths ... then I would have definitely said: this is not one excerpt, this should be multiple. This means that what I want in my library is A CLEAR DISTINCTION between "rules" and "proofs" that proof those rules. For example:
+
+استحباب اجتماع الخوف من الذنوب والرجاء في رحمة الله عند حضور الموت.
+--> الحكم
+--> الأدلة
+     --> من الحديث
+          --> حديث أنس
+
+The benefits:
+
+- I get a unmatched clear MIND-PLEASING. This is directly in line with the goal of the library; giving unprecedented edges. PREVIOUS SCHOLARS HAD TO RELY ON LONG UNSTRUCTURED TEXT. I GET TO SEE EXACTLY HOW EVERYTHING IS CONNECTED, AND WHAT EXACTLY IS PRESENT.
+
+-  the proof itself usually consists of two parts: the scholar mentioning the proof, then explaining it. THIS IS NOT SOMETHING I WANT EXCERPTED. Imagine if this excerpt did not just bluntly mention the hadith, but instead it mentioned it + added some explanation under it. I think (and I could be wrong, this could result in potential being lost) that this is where we draw the line; the mentioning of a proof by a scholar and his explanation should NOT be seperated. This would genuinly cause in the extreme granulation we aim to avoid, and would cause the confusion we try to avoid, and would send me on a manhunt again: what version of the hadith did the scholar base his explanation on? You see how they are too interlinked?
+
+The problem:
+
+- Even though I said my choise is to split the "rule" from the "proof", there is still A VERY IMPORTANT AND CLEAR CONNECTION between what group of proofs belong to what scholar (so a grouping in the rules; scholar x mentioned proof a, proof b, ... and these proofs are most likely scattered in the library; some under the hadith, some verses, different hadiths, ...). That connection should never be lost, because that is a CORRUPTION in the knowledge potential. I would have to go ON A MANTHUNT if I want to know for a particular scholar what the stack of proofs were he proofed with. This is going to be particularly important for proofs that rely on each other or support each other ... and that happens A LOT. SO THIS IS EXTREMELY EXTREMELY IMPORTANT TO GET RIGHT.
+
+Proposed solution: the proof solutions SHOULD have a clearly seperated section that says something like: "this scholar's other proof stack is: ....".
+
+This solves the problem of the proofs and their underlying connection. BUT THE OTHER PROBLEM IS: THE PROBLEM OF PROOFS AND THE EXCERPT CONTAINING THE "rule" they are trying to prove. There also needs to be a clear connection between: "this rule belong to this stack, and this stack is proving the rule found in this excerpt"
+
+This brings us to the crucial realization: excerpting is way bigger than just telling an LLM: "excerpt this" ... it is way broader ... it is way more complex ... IT IS WAY MORE COMPLEX ... we really need a system of protocols that always need to be followed. And every edge case needs to be accounted for.
+
+
+
+
+==============  ext_39_masala #6 ORIGINAL FEEDBACK ===================================
+
+
+The first thing I encounter is the word "صحيح " ... what does this mean? Is it talking about the sick one being healthy ("صحيح ")? Is it a cutoff grading of the hadith mentioned in point 6? This is genuinly confusing .. this is not a problem 100% in the excerpting engine; the author wrote this weirdly ... but the excerpting engine should have detected this. This implies that the current way excerpting is being done is too narrow and without evaluating the excerpts after producing ... it is almost like the llms see their only jobs: produce an excerpt .. no evaluation, no reasoning, no "is this valid as a self contianed excerpt when fully detached from the surrounding texts", "does it need added notes or something added, ..." ... catastrophic!
+
+This excerpt introduces a new aspect to the earlier identified rule/proof issue, and that is: what to do when the rule is interwined with other non-explanatory text (since we said explanation should prefereably be held together with the proof), like: when the rule and the proof are interwined?
+
+I'm talking specifically about "... أن ينقص منه لحديث سعد ..." .. this is one continous sentence, how do we do this? 
+
+I would say; in this particular case, we have two parts: part A (in this case should be a seperate excerpt; it's a ruling), and part B (also seperate excerpt: specific hadith as proof). But A and B are interwined. I believe this case is already documented within the current excerpt definition in the repo. To be honest, I'm not really sure about the best way to define a clear rule for this, but  if I would now blindly follow my gut, this is what I would say needs to happen:
+
+- If part A and part B are not long (needs precise boundary for what "long" is); just keep them as one excerpt but place the excerpt at both leafs. So in this exceptional case, A and B would defer fromthe rule of seperating rulings from proofs, and instead there will be two copies of one excerpt containing both ... though both excerpts contain similar source text, they are different in other aspects. I'm absolutely not sure if this is the best solution, but this is the best to my opinion because duplicating an excerpt and placing at both - given that both parts are not that long, not to the degree that would cause hardship or confusion or manthunt etc - sounds easier than trying to cut up a continous sentence that was meant to be one, or changing the taxonomy tree, ...
+
+- if A is long and B is short: B can stay in A's excerpt since it's not really hindering. But for B, we cannot include A. Instead, we need a logical clear solution; either A gets compressed / summarized, only part of A is shown, ... I can't really conclude what the best strategy is, but there should definitely be a strategy
+
+NOTE: I just realized how important context is for me ... if I see a "7 - ..." I NEED to understand the bigger picture and what exactly came before ... I won't be at easy without ... I need to get that "aha, that is what the context was" ... imagine I have an "angle on my shoulder" with full knowledge of everything inside the book, and every time I open an excerpt he tells me "here is the page this excerpt is from, the author was talking about ... then he went ... and that's how he started the summation, the previous points are not directly related,... now go ahead and study the excerpt" ... that is the level of reassurance and context the library should provide per excerpt .. this will also allow me to recognize patterns.
+
+IMPORTANT NOTE: In all cases, it should be clear that this is an 'A x B case', as to avoid confusion (avoid me thinking "B is mentioned in A, so it must be explaining the same leaf").
+
+IMPORTANT NOTE: I think we need to define as many edge cases as possible, naming them exactly (for example: "edge case A interwined with B", ...), so that instead of just a messy spec we have clear guidelines and clear exceptions, so that we can isolate and recognize each edge case, brainstorm deeply about how to prevent it every time, mark test excerpt runs with "edge case ..." as to have data for every edge case, ...
+
+
+
+============ ext_46_qa #9 ORIGINAL FEEDBACK =======================
+
+When I open this excerpt, the first thing I see is "قال ابن مالك في (شرح التسهيل):". Now, I don't directly see a clear indication of what level this is. Why is a scholar quotes here? Is this a scholar quoting another scholar? Or is this a  researcher doing some form of تحقيق / transforming old manuscripts into one version? I don't get it. This is a loss of potential. There is a difference between me understanding "this scholar quoted that scholar", and more imopratntly: this gives access to bigger insights, like understanding how much a specific scholar gets quoted by others (which in case this would have been a تحقيق would not count towards that). 
+
+So this is problematic. Once again the context is not clear from the very beginning of the excerpt. 
+
+Let's assume this is a scholar quoting ابن مالك, with the goal of proving "جواز توسط خبر (ما)" ... if we look at ibn malik's text himself, then it has a clear direction: he proves جواز توسط خبر (ما), and his proof is regarding الفرزدق . So this is a clear "rule"/"proof" case. 
+
+But the important thing is that the context in which this is present in the original source - i.e. that this is a direct quote - should be preserved. So it should never be made to look as if this proof came directly from the book of ابن مالك, but it should be clear that the one actually doing the proofing is the original author, his way is just by quoting ابن مالك's proof.
+
+What I'm trying to say: the quote itself belongs to the 'proof' category and not to the 'rule' category. The 'rule' is the original scholar saying, for example, right before this quote: "يجوز توسط خبر (ما)". He then quotes ibn malik as evidence, but importantly he doesn't quote ibn malik himself, he quotes ibn malik for ibn malik's proof. So this entire quoting of ibn malik should come under the "proof", not under the "rule".
+
+So the point I'm trying to make: a scholar quoting another scholar as proof makes that other quoting a proof, even if the other scholars quote may contain some things that are not directly proofs (like how ibn malik starts with "(استدل على جواز توسط خبر (ما) الحجازية ونصبه بقوله الفرزدق:" here). 
+
+This does not mean "any time a scholar quotes another scholar that quote is always proof", because sometimes a scholar may quote another as part of explaining the ruling, like saying: "the ruling is y, much like scholar z said: ...". This is part of the "rule", not the "proof" ... he is not proving the rule, he is just exmphasizing / mentioning the rule.
+
+I don't want to be cutting up other scholar's quote in another scholars book, because those quotes are not really the "main character", in the sense that doing that may cause too extreme of granulation and make for an unintended manhunt. I have not seen enough example other than this excerpt, so I cannot say for sure. But there are probably edge cases like when the other's scholar quote is very long (spans pages), ... in which case we will have to adapt. 
+
+And this is very important, because scholars quote each other continously.
+
+In this case, the ibn maliks explanation only contains 1 proof, so it's pretty straight forward where to place it and it does not need further excerpting. But what if it contained 2 or more? In that case, honestly, I think the best thing to do would be to excerpt ibn maliks quote into multiple part, but prefix each part with something like:
+
+قال ابن مالك: ..... <القول>. 
+
+The goal: other scholars quotes are subject to excerpting. We should just be carefull not to mess it up, and make it clear that it was quoted in another scholars book. 
+
+Yes, technically we could just "act" as if what ibn malik said just came from ibn maliks own book (where the quote is from) and leave out the technicallity of clearly indicating that he was quoted somewhere (i.e. just keep it at an excerpt containing ibn maliks explanation with its author being ibn malik, leaving out any details of quotes etc), but this makes the owner lose potential on knowing who quoted who. The owner would get a deeper understanding if he encounters similar excerpts each containing some form of this exact ibn malik quote, because that would mean many scholars quoted ibn malik and would also give insights into who did that. You see the level of analytics this provides. THIS IS WHAT THE LIBRARY AIMS FOR; THE BEST POSSIBLE ENVIRONMENT.
+
+What should definitely not happen: "ابن مالك" is not a proof on itself. It's just quoting another scholar's proofing. 
+
+Final note: looking at ibn maliks proof, he says "ورده المانعون بأن الفرزدق تميمي، تكلم بهذا معتقدا جوازه عند الحجازيين فلم يصب.". This is a classic patern found within the proofs of scholars: they mention a proof, then mention what the opposition says, then react to that opposition and explain where they went wrong. This is extensively found in all scholars book; from hadiths, ...
+
+I would say: my dream library would be one where for every type of proof there is a clear distincation between: explaining of the proof, and defening / refuting. So that would bring our current understanding of how proofs are mentioned by scholars into three (order is non binding, could be different):
+
+1 - they mention the proof
+2 - they explain the proof
+3 - they defend / refute
+
+1 & 2 should be together as I already mentioned. There is no point in seperating them. If a leaf is titled "حديث ابن عباس", then there is no point of having a subleaf "ذكر نص الحديث" and another one "شروح الحديث" ... it would be much better to have them as one excerpt "حديث ابن عباس" with the rule being that the mentioning of the rule (in this case hadith) and the explanation are always together; this is better in many fronts, including that I don't have to hunt; which version of the hadith is a particular explanation about (because hadiths may differ in wording).
+
+But for 3: I would prefer there to be a seperate leaf for this; refutations, something like: "الردود". Though I understand that refutations are sometimes interwined with the explanation, so the excerpting should be carefully done and the rules (like the previously mentioned A x B rule) should be clearly defined.
+
+
+========================= ibn_aqil_v1 excerpt #11 ORIGINAL FEEDBACK ==================================
+
+# Part 1: the excerpt itself, disregarding the footnote
+
+Once again do I start this excerpt with immediate confusion. I see "⌜10⌝" .. what is this? Is this an error (because the weird rectangle marks make it seem like that)? Is this a summation? I haven't even started reading the excerpt and am already confused.
+
+Then, I read " من ذاك ذو إن صحبة أبانا … والفم حيث الميم منه بانا (1)" ... what is this? Is this part of a matn? Is this some poetry? Is it used as evidence? Is it just used as part of ruling? 
+
+Most importantly: what is the context? Is the context proving something wrong, and is this explanation that follows? I mean specifically: in the broader sense, is the broader context "listing the opinions and proofs of the opposition" and are we so deep in that context that it seems like the author is taking a stance when he's actually "undercover" trying to dive into the head and mind of the opposition?
+
+That last comment actually makes me realize something even bigger ... the concept I've briefly mentioned before is even more important: the extreme importance of getting the context complete which includes pottential add-ons (by the excerpting LLM). I think we're zooming in too much on "just getting an excerpt", and "focus on the basic functions of the excerping engine" but we're totally forgetting that basic functionality extends beyond getting the basic excerpt visible; we also may need some "add-ons". Not every "add-on" / "feature" is an extra in the sense that we should leave it for later; many are just part of the basic engine built.
+
+For example, how nice would it be for me to open an excerpt, and be met with a “welcome-note”:
+
+"the author here is explaining his stance, and is at listing x. Previously, he ... His goal is that after he finishes his current topic, he ..."
+
+This is a merely quick idea, but the broader concept still holds; the current excerpting engine gets many things wrong, on both the main fronts; theory (excerpts contents) and context. The excerpting engine really needs some deep research and grounding (thinking about: what context is needed? how to handle edge cases? any additional things needed? …). I feel like the current version of this engine (and even other engines) has skipped too quickly from the “analysis” / “research” phase into implementation.
+
+Back to the excerpt itself: the excerpt seems to be of this format:
+
+<matn>
+<sharh>
+<example>
+
+
+I would expect the taxonomy position for this to be something like:
+
+الأسماء المرفوعة
+	ذو
+		explanation (theory)
+		examples 
+	فم
+		explanation (theory)
+		examples
+
+First: the <matn> itself, even though it is poetry, is not a proof itself. Ibn malik’s matn “من ذاك ذو إن صحبة أبانا … والفم حيث الميم منه بانا “ is not a proof (it is not something like an ancient preserved poetry verse from the arabic, which is used often in arabic grammar to prove concepts). It is a matn; theory put in poetry. So: it is part of the “rule”, not the “proof”. 
+
+It is then followed by an explanation by the author. I think the rule should be: “the explained and the explanation should NEVER be separated”. I had applied this rule too when I said earlier that “the hadith and the explanation of the hadith should not be separated”. This is because of the great risk that comes with separating explanation and what it explains. One of the biggest KNOWLEDGE-CORRUPTIONS is wrongfully attributing an explanation to something else than the actual piece it explains. And also: separating this would require the explained-piece to be mentioned in the context / metadata of the explanation-excerpt anyway (self containment principle; else I would have to look up the explained-piece to understand what the explanation is explaining exactly), so why separate in the first place; it’s fine to be kept part of the excerpt, even though strictly speaking the excerpt contains two things then: explained and explanation. But this is an “exception” to the rule of separation of topics, because the benefit seems greater than the harm.
+
+Note: to still give some form of “seperation” between the explained and the explanation, we can add a boundary / separation (even if it would be just a line) … but this sounds like something not to be worried about right now.
+
+About the explanation itself: The excerpt explains two topics, the explanation is very interwined between the two. But the explanation is 95% about ذو … the “فم” merely gets explained, only mentioned. The remaining 5% is split like this:
+
+- 2% to mentioning the matn (⌜10⌝ من ذاك ذو إن صحبة أبانا … والفم حيث الميم منه بانا (1))
+
+- 1% to the explanation mentioning “فم” (أي من الأسماء التي ترفع بالواو وتنصب بالألف وتجر بالياء ذو وفم ولكن يشترط في ذو أن تكون …)
+
+– 2% to the example at the bottom
+
+Blindly, just looking at the concepts the excerpt speaks about, I would guess the resulting excerpts should look something like:
+
+excerpt A: the matn + explanation of the matn specific to concept1: ذو 
+
+excerpt B: the matn + explanation of the matn specific to concept2: فم
+
+excerpt C: containing the example for ذو  (since the example only represents ذو)
+
+
+Then the question is: how will this excerpting be done, now with regarding the specific wording of the excerpt, keeping in mind (edge) cases like interwindness, atoms being linked gramatically, …
+
+In this case, I would reason:
+
+- excerpt A: this is the 95%. It is intertwined with excerpt B, and grammatically linked to excerpt C (through ومنه قوله). This means that the engine will have to perform the risky operation of separating linked items (which it should be able to 100% do). But since it is a 95% x 5% relationship, and it adheres to the word-count principle mentioned under “VERY IMPORTANT NOTE” (see below) (i.e. the 5% is not a significantly long part of text), it is fine to avoid the risky operation and just leave it as is. 
+Which means: the excerpt we are handling right now is actually an excerpt for the leaf topic “explanation” under ذو. Yes it contains an example, yes it contains a brief mention of a topic that as its own separate leaf topic (فم), but the amount of text is intertwined (first reason) and negligible (second reason).
+
+Note: if it were not intertwined, we would not have done this; we would not have kept the other 5%. Instead, the 95% would get its own excerpt completely separated from the 5%. It just happens that the operation of separating what was originally meant to be linked, and that the original author wrote to be read together, is dangerous, so to prevent that we keep the 5% with the 95%.
+
+- excerpt B: under the “examples” leaf of “ذو”, the example should still be found (4 - فإما كرام موسرون لقيتهم … فحسبي من ذو عندهم ما كفانيا). Even though the example is also found at the “explanation”, it is not in the right location there (which should be seen as equal to it not existing; important rule), and is sitting there because of the previous principle applied at excerpt A. 
+
+Importantly, for excerpt B, there is no need for any prior text from the explanation preceding it, since that explanation does not refer to it. “ومنه قوله” is only mentioned to make the transition from the theory to the example. 
+
+BUT: I think the rule would be: the surrounding text arround an example (given it is not totally unrelated, like other examples or explanation relating 100% to other examples like if the author put his explanation after each example and not before it) should always be in one way or another present, just to give the owner a clear picture (context) of how the transition went from theory to practice (example). Even if the preceding text is not strictly needed for examples since examples are meant to be “self contained” by default (representations of theory)
+
+
+Also: imagine after this explanation there would have been some explanation explaining the example. Then, the rule that would apply is once again: “the explained and explanation should never be separated”. So in that case, excerpt B would just have explanation under the actual example, which - as the principle of “the explained and the explanation” implies - is fine and does not need further granulation. 
+
+Also: imagine if there would be a dedicated solution / solved version of the example. This also falls under the “explained explanation” principle. Solutions should NEVER be separated from the thing they solve. So the new rule is: “solved solver” (or something like that).
+
+
+IMPORTANT THING TO NOTICE: there is no dedicated excerpt for “ذو “ (not for the “explanation”, nor for “examples”). The reason: there is nothing … there is no explanation or any significant thing said about فم … it is only mentioned, and a mention IS NOT A REASON TO EXCERPT (otherwise the system would be ruined, because many things are mentioned in totally unrelated places but not gone further into; just mentioned). This is very important to get right. The system should not be “forced” to “find” an excerpt incase it detects multiple topics being mentioned. Instead, it should be intelligently and logically reasoned and decided. That’s why I emphasize so much on intelligent design.
+
+NOTE: I’m not sure if this is optimal or not, but I quite like this system with the percentage calculations to determine if excerpt-candidates linked to other excerpt-candidates (by intertwined, linking words like “ومنه قوله” …) are worth seperating or not. A 95% piece linking to a 5% piece is not worth separating: I would not get “caught up” reading that 5%; It’s quick read. This is like a “the rule of forgiveness”; yes, that 5% also should be its own excerpt, but since the previous excerpt that is relatively bigger is linked to it, it is fines if the previous excerpt still contains the 5%; this way we avoid the risk of wrongfully separating things that are interlinked. Yes, the engine should still be 100% capable of making such separations (sepearting intertwined parts, linked parts, …), but the engine should also have many security principles and gates, one of which being avoiding danger if the “harm” that would cause is negligible.  
+
+
+VERY IMPORTANT NOTE: I think, actually, instead of percentages, we should additionally have a second gate: character count. I’m saying this because: if saying that in a 95% x 5%, for example, the 5% is negligible, then that would cause significant problems with very large excerpts. Imagine an excerpt is 10 000 words, 9500 of which being about 1 specific granulated topic, the other 500 about something else. Those 500 would still cause hardship when studying the excerpt. Even though they seem little in comparison to the 9500 previous, we should not make that comparison. Instead, we should look at the 500 individually: 500 is a significant amount of text, which would keep the owner reading for a significant amount of time about a topic that should have its own excerpt … which goes DIRECLTY agains the principle of excerpting. This is different than with a 95 words x 5 word relationship: those 5 words, individually, do not require hard commitment; the owner barely skims over them then moves on. If he realizes that those 5 words do not belong to the topic the 95 address, then he will just say “true, but they were left because of the principles of the library”, not “... I just spent time reading something unrelated, and though it is beneficial knowledge, all that time reading I was making connections in my head assuming they all belong to the one leaf we are under, but it turns out some belong to another leaf”. The last one is very frustrating.
+
+
+
+To be clear: excerpting should not be capped at a specific character count. That goes entirely against the concept of an intelligent library. This is a broader principle that must be enforced at all times; never excerpt on hard unreasoned numbers, ... The knowledge is boss. I don't mind a long excerpt, as long as it is genuinly an excerpt (i.e. adhering to the defintion and only talking about  exact thing), but I do not expect to have many long excerpts since it's pretty hard to continously speak about exactly  1 thing that cannot be further granulated. Long excerpts usually means that there is one main topic but multiple aspects, which usually means there is sub-excerpting possible.
+
+Unrelated but important: I noticed that some scholars - especially earlier scholars - have a habit of not using diatric marks / clearly separating their sentences. Assuming correct excerpting (which does keep in mind things like intertwined sentences etc), this is not something that should be refined further. What I mean exactly: the focus of the excerpting engine should be getting surgically correct and accurate excerpts, not changing the layout of the excerpts. Once an excerpt is 100% determined to be an excerpt, we should not spend time determining “this one sentence should actually be two sentences”; this MUTATES the original source text which we should try to avoid. This is a mere “make it easier to read”, not “make it easier to study”, the latter being the aim of the excerpting engine. I hope this is clear, if not, ask me about it.
+
+Note: I think we should really distill and focus on defining exact rules, but also accounting for cases where we don’t have guidelines, in which we need to define a protocol for (for example: the llm may intelligently reason about what should happen, …). 
+
+
+
+Sidenote: some books may have the following structure:
+
+<theory>
+
+<exampleA>
+
+<theory>
+
+<exampleB>
+
+…
+
+actual example listing
+
+<exampleC>
+<exampleD>
+<exampleE>
+
+In this case, we are once again found at the intertwined-principles. I would say: for the excerpt that comes in the theory-leaf the examples should be kept, because they are PART OF THE THEORY. SO: VERY IMPORTANTLLY: there is a clear distinction between EXAMPLES AS PART OF THEORY, AND EXAMPLES FOR PRACTICE PURPOSES. There is a disintction between examples that are brought up to apply and explain the theory, and examples that are brought up to give the reader practise.
+
+Further: there should then also be an excerpt containing exampleA, another excerpt for exampleB, another excerpt for exampleC, another excerpt for D. Examples should be separated. One example per excerpt. Why? So that I can open up the excerpts containing examples, and per excerpt I can focus on 1 example; solving it, reading the explanation / solution, …
+
+Also, importantly: the “example” leafs should be like an “archive” of any practical application of theory. A dump of anything that shows how a theory is applied. Examples are easier to excerpt because in most cases they do not 100% depend on other text (especially with recent scholars who put clear “example” sections).
+
+Practice and applications are extremely important, because they are what solidify the theory in the owners mind. They should be absolutely treated to the highest standards and well though out. What I mean: they should not be neglected. 
+
+
+# Part 2: about the footnote
+
+We need to do some deep research and reasoning about all possible cases a footnote can fall into. It would be very nice if we have a clear canonical encyclopedic guide within the excerpting process that lists all possible cases and handling protocols to handle them (like: directly related footnotes, …).
+
+With that being said: In many islamic books, I notice that the footnote sometimes is a book on its own. 
+
+Now, let’s talk about the footnote specifically present within the excerpt we’re handling.
+
+“استشهد به ابن هشام في أوضح المسالك (ش 7) في مبحث الاسماء الخمسة، وفي باب الموصول، كما فعل الشارح هنا، واستشهد به الاشموني (ش 155) مرتين أيضا.” → this is a footnote directly related to the text it is footnoting. So it should be treated as part of that text, and always accompany it as footnote. 
+
+This also counts for footnotes taking the role of reference, hadith verification, adding small notes, … everything that is DIRECTLY related to the text it is footnoting. The rule: “never separate a directly related footnote from the thing it is footnoting”.
+
+
+
+Then, looking at the rest of the footnote, I start by first identifying the type. Looking at it, I would classify it under “not strictly needed to understand the current excerpt, still directly related to the current excerpt’s main text, still directly related to the current leaf we are under, contains many unrelated things but yet does not totally drift away from the current topic”.
+
+Though I’ve not read the entire footnote, it seems like the footnote itself could be a mix of theory and examples … almost like its own footnotes.
+
+I stop here because I think my further exploration would start to drift into nonesense. CHATGPT, you may complete this on my behalf. Just make sure it aligns with my principles and what I would say.
+
+NOTE: many times, islamic scholars / researchers drift so much in the footnotes that the footnote itself becomes excerpt-like. It needs its own excerpting. It is as if a part of another book dug its way into this excerpt’s footnotes. The excerpt’s science, sub-excerpts, … all need to be determined from scratch. The metdatada too … which is part of the reason of my comment down below “TO BE VERY HONEST”. 
+
+
+
+TO BE VERY HONEST, forgetting what I mentioned above for a second: I would always lean towards just keeping the footnote glued to the text it is footnoting, because I feel like we should avoid granulating / excerpting footnotes … and just accept that some books have footnotes that are unrelated. I may be wrong, but I just feel like this is better than completely diving into the world of “how are we going to excerpt footnotes” alongside “how are we going to excerpt the main text”.
+
+But I could very well be wrong. There are so many different forms of footnotes. We can research and analyze data in order to identify all. Then, for each, we should deeply and thoroughly reason about what exactly is best to do; keeping accuracy, full context and environment preservation, and possible sacrifices for the better (like with the 95% x 5% example) in mind. But importantly: my analysis of this specific footnote we’re handling is by far not enough to form a definitive conclusion about how footnotes should be handled. But it does give more insights into the way I think.
+
+
+
+
+
+========================= ibn_aqil_v3 excerpt #13 ORIGINAL FEEDBACK ==================================
+
+The Core Problem: Context and Self-Containment
+We once again face the main problem with excerpting, right at the start: context and re-assurance that there is no meaning loss / understanding lost, or that something from the earlier text needs to be known before this current text is correctly understood.
+
+I immediately read "و" ... "and" ... and what? You see how this is against the self-containment principle? Self-containment spans way more than purely the theory part; the context is equally as important.
+
+Expected Excerpt Output
+Back to the excerpt, this is not what I want as an excerpt. Down below what I would expect:
+
+Main Excerpts
+—--Excerpt1: about “ب”—-- > ويستعمل من والباء بمعنى بدل ... <here, put some re-assurance that this part is not relevant + what that is that is left out> ... ومن استعمال الباء بمعنى بدل ما ورد في الحديث ما يسرني بها حمر النعم أي بدلها وقول الشاعر: فليت لي بهم قوما إذا ركبوا … شنوا الإغارة فرسانا وركبانا
+
+—-EXCERPT2: about “من”: > ويستعمل من والباء بمعنى بدل فمن استعمال من بمعنى بدل قوله عز وجل: {أرَضِيتُمْ بِالْحَيَاةِ الدُّنْيَا مِنَ الآخِرَةِ} أي بدل الآخرة وقوله تعالى: {وَلَوْ نَشَاءُ لَجَعَلْنَا مِنْكُمْ مَلائِكَةً فِي الأَرْضِ يَخْلُفُونَ} أي بدلكم وقول الشاعر: 206 ء جاريه لم تأكل المرققا … ولم تذق من البقول الفستقا أي بدل البقول … <again, do not just cut off text without warning, mention here that text is cut off + that it is nor relevant + what is was about>
+
+TWO NOTES: * In cases where excerpting leaves out a piece of text, the owner should not be deceived into thinking this is how it originally stems from the source.
+
+Principle: NO DECEPTION; CLEAR AND HONEST.
+
+Individual Examples
+—--EXCERPT3: individual example for “من”: > فمن استعمال من بمعنى بدل قوله عز وجل: {أرَضِيتُمْ بِالْحَيَاةِ الدُّنْيَا مِنَ الآخِرَةِ} أي بدل الآخرة
+
+NOTE: you see how I didn’t leave out the part “فمن استعمال من”? This is once again because excerpting should be strategic, not blunt.
+
+—--EXCERPT4 individual example for “من”: > وقوله تعالى: {وَلَوْ نَشَاءُ لَجَعَلْنَا مِنْكُمْ مَلائِكَةً فِي الأَرْضِ يَخْلُفُونَ} أي بدلكم
+
+—--EXCERPT5 individual example for “من”: > وقول الشاعر: 206 ء جاريه لم تأكل المرققا … ولم تذق من البقول الفستقا أي بدل البقول
+
+—--EXCERPT6 individual example for “ب”: > ومن استعمال الباء بمعنى بدل ما ورد في الحديث ما يسرني بها حمر النعم أي بدلها
+
+—--EXCERPT7 individual example for “ب”: > وقول الشاعر: فليت لي بهم قوما إذا ركبوا … شنوا الإغارة فرسانا وركبانا
+
+Strategy and Research Protocol
+Rule: Keeping Theory and Examples Together
+What I did here: I enforced a rule: “the exampled and the example do not get split apart” .. why? Because even though examples should have their own leaves, they are still very beneficial to keep in the original placement. This way, when I’m studying the theory about “من” I don’t have to go on a manhunt to find examples (because I will definitely need them).
+
+The Necessity of Intelligent Excerpting
+DO YOU SEE THE STRATEGY? DO YOU SEE THAT EXCERPTING SHOULD NOT JUST BE BLINDY “BY TOPIC”, but INTELLIGENTLY BY “TOPIC + DOES THIS MAKE SENSE + SHOULD WE OVERRIDE THE PER TOPIC RULE OR ANY OTHER RULE FOR THE BETTER? + …;”.
+
+Exactly laying this out: the exact protocol, is exactly why I insist we do deep research across all available platforms (chatgpt pro & dr, claude chat dr, gemini dr, …).
+
+Strategic Intertwining of Topics
+I just realized: the principle of mixing / leaving intertwined topics IS very important. I mean: it’s extremely strategic to sometimes purusefully leave topics intertwined, because that would result in a better understanding.
+
+The understanding I would get from totally isolating “من” and “ب” is different than if there would be small hinst that they belong together (for example, the excerpt of “ب” containing “ويستعمل من والباء بمعنى”). This would cause the understanding: “ب and من are different topics, but scholars usually mention them together”. This is VERY important, and I just realized this may affect some of our rules; we should switch to strategically allow the deepest levels of understanding and comprehension. WE SHOULD DO THAT!
+
+Matter of fact: I think we should switch from “what does the owner feel like an excerpt looks like” (me evaluating excerpts), to deep and comprehensive and extensive research into: what are the best ways, rules, protocols, guidelines, … possible to allow for the best potential of deep understanding and comprehension.
+
+Final Note
+Looking at all the excerpts, it seems like the current state of the excerpting engine is that it gets the general big outlines of excerpting right, but it still fails in the finer details.
+
+
+
+====================== Infrastructure notes ====================== 
+
+* i feel like we should spend at least a week on constant deep research and evaluation before we have enough rules, edge case coverings, owner input, research, ideas, ... to say that the spec/theoretical part of the excerpting engine is working. I feel like we skipped over this way too quickly. THE PROJECT IS LACKING IN ITS VERY FIRST STAGES: ANALYSIS, RESEARCH, OWNNER QUESTIONING ... we should make up for it, but: at an unprecedented level!
+
+* I feel like after having digesting everything and have improved the excerpting engine, we should focus on more testing. But I feel like this testing needs a better structure and ui. For example; instead of processing many books, the ui can allow to to choose what to process, give me the output very clearly structured and feedback-able, ... But that is not a worry for now.
+
+* I have a clearer picture of the general stage we are in regarding building the pipeline. We are in the stage where we are defining universal protocols, rules, definitions, ... "shamela exports" are our first specific source, and from the normalization engine on the source should not have mattered. So the distinction between "what falls under our current stage" and "what is more like a 'feature' or 'add-on'" should be very clear now. The goal is that after this stage is finished, we have a working pipeline that can 100% accurately and buglessly take any normalized source --> turn it into excerpts at taxonomy leaves. What is not included in this stage: 
+
+	A - "extras", especially regarding the source engine; sources to accept, OCR, audio to text (as source), ... these are the main category of "add ons" that we should not worry about right now. We should worry about getting the process of normalized input --> excerpts at taxonomy leaves fully right, and hardening this to include everything it needs. Then, in the future, we can focus on adding accepted sources, because then the only engineering needed is turning a specific source into our normalized format, after which the pipeline can take over according to what was established in the stage we are currently in.
+
+	B - synthesizing engine; leave this at the very end, after we celebrate source --> taxonomy being absolutely done and ready. Only then can we focus on presenting the owner with more precise and comprehensive entries. Not for now.
+
+* While looking at all the excerpts, it seems like the current state of the excerpting engine is that it gets the general big outlines of excerpting right, but it still fails in the finer details.
+
+* I just realized an important aspect we missed. In the taxonomy tree, wouldn't it make the environment way better for studying - and it would - if instead of the taxonomy tree purely relying on containing excerpts, we switch the concept from 'only end node leaf contain excerpts' to: every leaf contains excerpts / content, but the deeper you go, the more granulated it gets, with the end node leafs having the most granulated excerpts (which is what we're working on right now; the most granulated / end of the branches) ... WE SHOULD BUILD A PROPER BOOK DIGESTER, NOT JUST A BOOK EXCERPTER!!!!
+
+That means:
+
+al-sarf (science, top level) --> contains full sarf-books.
+   --> subbranch1 --> contains full chapters
+       --> subbranch2 --> contains subchapters;
+	    --> ...
+                    ---> end nodes; this is what we're currently defining
+
+My point is; we can preserve the excerpted pieces
+
+So, for any given book, the engine goes level by level:
+
+starts with the full book
+then excerpts into topics
+then excerpts a topic into subtopics 
+...
+then excerpts into what we currently call excerpts --> this is the level we are currently working on, but we disregarded the other levels
+
+In other words ... we can turn this pipeline into a proper 'book digester' pipeline, that instead of taking a book --> going to finely granulated excerpts, it still does that but it doesn't lose the progress / greater less granulated "excerpts" / pieces ...
+
