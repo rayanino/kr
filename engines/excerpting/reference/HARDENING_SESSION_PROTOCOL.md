@@ -1,7 +1,7 @@
-# Hardening Session Protocol v4.2
+# Hardening Session Protocol v4.3
 
 ---
-governing_version: "4.2"
+governing_version: "4.3"
 ---
 
 > **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
@@ -19,6 +19,7 @@ governing_version: "4.2"
 > - v4.0 (2026-04-06): Session 2 empirical amendments — Codex + Gemini CLI consensus review of 12 proposed changes. Key: (1) lane-based context budgets (bootstrap 52K→150K, Full Lane 50K/atom, target 5-8 not 25-30), (2) 5 session types (intake-only, debt-clearance, prompt-architecture, full-atom, validation-only), (3) gate-precedence matrix, (4) WIP cap (max 1 Full Lane in Stages 3-5), (5) science list 12→16 (+Qirāʾāt/Tajwīd, +Fatāwā/Nawāzil, +Takhrīj/Rijāl, +Adab/Shiʿr), (6) indivisible units 17→23 (+Nāsikh/Mansūkh, +Qāʿidah/Farʿ, +Sabab al-Nuzūl, +Mafhūm/Manṭūq, +Muqsam), (7) checkpoint states for emergency handoff, (8) §4.15 contradiction resolved, (9) DR relay classes, (10) core+delta bootstrap, (11) grouped-implementation briefing enforcement, (12) scholarly sections 8-13 stay CC-local (Gemini: "dispatching severs cognitive link"). Based on Session 2 actual experience (96% context exhaustion at ~20 atoms).
 > - v4.1 (2026-04-06): ChatGPT DR adversarial review (DR9, 18 findings: 8 CRITICAL, 9 HIGH, 1 MEDIUM). Pre-mortem analysis of July 2026 "40% CLOSED atoms have errors" scenario. Key patches: (1) checkpoint resolution gate in §1.6 (prevents orphaned atoms), (2) model_only ineligible for Light Lane (closes authority bypass), (3) WIP cap split into active-processing vs awaiting-external (prevents deadlock), (4) DR deadlock fallback in §4.9 (>7 days → downgrade to REOPENED), (5) document-precedence: Protocol > NEXT.md > handoffs (§0), (6) atom-review-sampled DR class (§4.16), (7) coverage-tier-specific G-CHALLENGED gate (not just "2/3"), (8) blinded DR tiebreaker template (§5.4), (9) session-type compatibility matrix (only 2 allowed pairs), (10) expansion evidence minimums + per-atom attention isolation (anti-checkbox-theater), (11) owner engagement heartbeat every 10 atoms post-50 (§4.15), (12) prompt coherence counter in handoff template, (13) refactor safety checklist (§4.11), (14) §8.4 doctrine backfill protocol, (15) Q-12 outcome spot-check for cross-science/ALWAYS-INDIVISIBLE atoms, (16) verify_atom_closure_minimal.py (DA-001 implemented). Stage 7 wording fixed: "post-decision + safety-critical veto" replaces "informational."
 > - v4.2 (2026-04-06): Claude DR scholarly review (DR10, 5 findings: 3 CRITICAL, 2 HIGH). Grounded in Islamic textual traditions (taḥqīq, isnād methodology, madrasa pedagogy). Key changes: (1) science list 16→19: +ʿIlm al-Kalām [ARG] (dialectical shubhah-radd, distinct from ʿaqīdah), +ʿIlm al-Farāʾiḍ [ARG+RUL] (computationally structured inheritance), +Taṣawwuf [SEQ] (sequential-progressive maqāmāt with prerequisite-chain tracking). (2) New [SEQ] structural family. (3) [COM] REMOVED as peer family → replaced with 2-dimensional taxonomy (Family × Layer). Ḥadīth collections moved to [ENT]. Text Layer dimension: [M] Matn, [S] Sharḥ, [H] Ḥāshiyah, [T] Taʿlīqah with 3 interleaving types. (4) Indivisible units 23→30: +Mujmal/Mubayyan, +Dalīl/Wajh al-Dalālah, +Tarjīḥ block, +Istidrāk/Tanbīh, +Waqf markers [ALWAYS]; +Ijāzah chain [USUALLY]; +Taḥqīq apparatus [CONDITIONALLY]; Qiyās expanded with taʿlīl 3-stage manāṭ. (5) §4.13: madhhab-context parameter, edition metadata, authorship-confidence, genre-flexibility. (6) §4.15: theme-based cross-science batching (Gemini amended: discipline-homogeneous rejected for hardening), Tier 1 reversion, rubber-stamping detection. Gemini validation: AGREE on 3/4 scholarly findings, DISAGREE on discipline-homogeneous batching (synthesized into hybrid approach).
+> - v4.3 (2026-04-06): Gemini DR pedagogical evaluation (DR11, 6 findings: 4 "FUNDAMENTALLY FLAWED", 2 "PROBLEMATIC"). Evaluated through Islamic curricula traditions (Waḥdat al-ʿUlūm, Mulāzamah, Tadarruj, ʿArḍ). **3 findings ADOPTED:** (1) Fatāwā/Nawāzil demoted from peer science to fiqh sub-clause (sciences 19→18), (2) NTU/GLL fields made CONDITIONAL (mandatory for CONTENT atoms, auto-bypass for STRUCTURAL), (3) Applied Visual ʿArḍ added to §4.15 (before/after Arabic text examples in batched summaries). **2 kernels EXTRACTED:** (4) cross-science dependency note added to expansion template (preserves waḥdat al-ʿulūm across sessions), (5) §0 persistent axiom reference to SPEC §1.1b as LIBRARY_USUL. **3 findings REJECTED:** session type abolition (would reproduce Session 2 context exhaustion), protocol decimation to 200 lines (ignores 34+ documented failures), Q-CLOSED reduction to 3 gates (covered by existing FPs + mechanisms). **FINAL DR REPORT — all 3 DRs (DR9 ChatGPT, DR10 Claude, DR11 Gemini) fully processed.**
 
 ---
 
@@ -29,6 +30,8 @@ governing_version: "4.2"
 1. Read this entire protocol (use the Quick Reference Card at §9 for subsequent sessions after the first full read)
 
 **AUTHORITATIVE TASK ORDER (v4.1):** If NEXT.md conflicts with any handoff document about session type or primary objective, NEXT.md wins. Handoff docs may ONLY specify resume point within the session type chosen by §1.6 gate-precedence. When protocol, NEXT.md, and handoffs disagree: Protocol > NEXT.md > handoffs. This prevents governance drift from handoff documents accumulating de-facto authority.
+
+**PERSISTENT AXIOM REFERENCE (v4.3 DR11, LIBRARY_USUL):** SPEC §1.1b (Foundational Principles FP-1 through FP-22) is the persistent axiom set that survives all session boundaries. Unlike handoff documents (which decay across sessions) or ledger entries (which accumulate into unreadable bulk), the FPs are stable doctrine that every session must internalize. When in doubt about a rule established in a prior session, check the FPs first — if it was important enough to survive, it's there. This is the modern equivalent of the classical *matn* (core text) that preserves knowledge through concise foundational statements.
 
 2. Read `.kr/HANDOFF.md` for current resume point
 3. Read `engines/excerpting/CLAUDE.md` for engine state
@@ -409,7 +412,7 @@ OUT OF SCOPE: [precise list]
 - Every text gets BOTH dimensions: *Fatḥ al-Bārī* = [ENT]+[S] Type 2. *Ḥāshiyat al-Bājūrī* = [ARG]+[H] Type 3. *Ṣaḥīḥ al-Bukhārī* standalone = [ENT]+[M]. Commentary-layer awareness applies to ALL families, not just ḥadīth (v4.2 DR10 fix: [COM] was misclassified as a peer family when it is an orthogonal layer dimension).
 
 **[ARG] Argument-based:**
-- Fiqh (madhab attribution, masʾalah structure)
+- Fiqh (madhab attribution, masʾalah structure). *Fatāwā/Nawāzil sub-clause (v4.3 DR11):* If the text is applied fiqh (fatāwā or nawāzil), strictly enforce the Suʾāl-Jawāb indivisible unit to preserve questioner context fused to the ruling. Fatāwā is NOT a separate science — it uses identical epistemological tools as fiqh, merely formatted as dialogue (v4.3 Gemini DR correction).
 - Uṣūl al-fiqh (evidence methodology, qiyās chains). *Maqāṣid note:* inductive-cumulative arguments (istiqrāʾ maʿnawī) require preservation of full evidence base — extend Qāʿidah/Farʿ indivisible unit to cover principle-hierarchy structures.
 - ʿAqīdah (creedal positions, dalīl cascades — linear, declarative architecture)
 - ʿIlm al-Kalām (عِلْم الكَلَام) — dialectical architecture: thesis → shubhah (objection) → radd (refutation), often multi-level nested. DISTINCT from ʿaqīdah: shubhah-radd pair is the atomic unit; nested refutations create boundary-detection requirements absent from declarative ʿaqīdah. Test: al-Juwaynī's *al-Irshād*, 4-level nested refutation of Aristotelian eternalism. (v4.2 DR10)
@@ -419,7 +422,7 @@ OUT OF SCOPE: [precise list]
 **[NAR] Narrative-based:**
 - Tārīkh/sīrah (chronological narrative)
 - Tafsīr (verse-by-verse or thematic commentary)
-- Fatāwā/Nawāzil (ruling + specific questioner context — abstracting the ruling without the scenario corrupts the jurisprudence)
+<!-- Fatāwā/Nawāzil REMOVED as peer science in v4.3 (DR11) — demoted to fiqh sub-clause under [ARG]. See Fiqh entry. -->
 
 **[ENT] Entry-based:**
 - Ṭabaqāt/tarājim (biographical dictionaries — each tarjamah is atomic)
@@ -493,23 +496,30 @@ If any risk: document the safeguard. If uncertain whether a unit is indivisible 
 Target: [new FP / strengthen FP-X / prompt addition (+N words) / contract change / test case / SPEC-only / deferred]
 Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K/1500]
 
-### Natural Teaching Unit (الوحدة التعليمية الطبيعية)
+### Natural Teaching Unit (الوحدة التعليمية الطبيعية) — CONDITIONAL (v4.3 DR11)
+**Trigger:** MANDATORY for CONTENT atoms (dealing with scholarly texts, legal definitions, or substance of Islamic sciences). For STRUCTURAL or ENGINEERING atoms (formatting, boundary logic, tagging, relay constraints), auto-fill "N/A — System Logic" and skip evaluation.
+
 [What is the organic knowledge unit for THIS specific text's genre? (mas'alah in fiqh, tarjamah+hadith+commentary in hadith encyclopedias, bayt+qa'idah+shawahid in nahw, thematic verse group + athar in tafsir, attribute + evidence cascade in aqidah). Would the proposed rule PRESERVE or FRAGMENT this natural unit?]
 
-### Graduated Learning Level (مستوى التدرج)
+### Graduated Learning Level (مستوى التدرج) — CONDITIONAL (v4.3 DR11)
+**Trigger:** Same as NTU above — CONTENT atoms only. Classical texts already encode their own tadarruj level (Mukhtaṣar = beginner, Sharḥ = intermediate, Mabsūṭ = advanced); re-deriving this for every atom wastes context without adding information.
+
 [Is the source text beginner (مختصر/مبتدئ — memorize rulings only), intermediate (متن مع شرح/متوسط — understand evidences), or advanced (مبسوط/منتهي — master comparative analysis)? The proposed rule MUST respect the text's intended depth: do not inject complexity into beginner texts or truncate analysis in advanced texts.]
 
 ### Blast-Radius Assessment
 [No conflicts with finalized atoms | Conflicts with ATOM-X: resolution plan]
 [Cross-reference orphaning check: would this atom's boundary orphan any كما تقدم / سيأتي references from their targets?]
+
+### Cross-Science Dependencies (v4.3 DR11)
+[If this atom establishes a rule that could interact with atoms from OTHER structural families (e.g., a ḥadīth boundary rule affecting how fiqh texts cite the same ḥadīth, or a naḥw grammar rule affecting how tafsīr citations are bounded), list the dependency explicitly: "This atom interacts with [family] because [reason]. Future atoms in [family] must reference this rule." This preserves holistic scholarly connections (waḥdat al-ʿulūm) across sessions without requiring all related atoms in the same session. If no cross-science dependencies: "None identified."]
 ```
 
 **Template section requirements by atom lane (v4.0):**
 - **Full Lane (prompt/contract-affecting):** Sections 1-13 ALL mandatory. CC writes all sections locally. Subagents may GATHER evidence (e.g., "find a nahw text where this rule fails") but CC WRITES the final scholarly judgment. Dispatching ownership of sections 8-13 is FORBIDDEN — Gemini CLI review confirmed this "severs the orchestrator's cognitive link to cross-rule implications."
 - **Full Lane (SPEC-structural):** Sections 1-13 ALL mandatory. CC writes sections 1-7 and the final verdicts for 8-13. Subagents may draft evidence for sections 8-13 which CC reviews and edits.
-- **Light Lane:** Sections 1-5 mandatory (scope, rule, exceptions, hypothesis, blast-radius). Sections 8-13 are EVALUATED but may be abbreviated: "No cross-science risk identified. Checked: [list 19 sciences]. No atomic integrity risk. Checked: [30 indivisible units]." Sections 6-7 (correct/incorrect examples) optional for Light Lane. NOTE: Gemini CLI confirmed "there is no such thing as purely editorial in classical Arabic" — even Light Lane atoms must evaluate sections 8-13 to prove no hidden cross-science risk.
+- **Light Lane:** Sections 1-5 mandatory (scope, rule, exceptions, hypothesis, blast-radius). Sections 8-13 are EVALUATED but may be abbreviated: "No cross-science risk identified. Checked: [list 18 sciences]. No atomic integrity risk. Checked: [30 indivisible units]." Sections 6-7 (correct/incorrect examples) optional for Light Lane. NOTE: Gemini CLI confirmed "there is no such thing as purely editorial in classical Arabic" — even Light Lane atoms must evaluate sections 8-13 to prove no hidden cross-science risk.
 
-**Evidence minimum (v4.1, anti-checkbox-theater):** For Cross-Science Variation and Atomic Integrity Risk, marking "checked" or "APPLIES UNCHANGED" is INVALID without evidence. Minimum: (a) 2 sciences from 2 DIFFERENT Structural Families (e.g., one [ARG] + one [NAR]) with concrete Arabic counterexamples demonstrating the rule holds, OR (b) 1 science with a named classical-genre exemplar AND an explicit non-applicability rationale for 2 sciences from different families. Cross-family validation is required because rules safe within one family (e.g., [ARG] fiqh) can corrupt a different family (e.g., [ENT] ṭabaqāt) — Gemini v4.1 finding. "No cross-science risk identified. Checked: [19 sciences]." is ONLY valid for Light Lane after per-science evaluation.
+**Evidence minimum (v4.1, anti-checkbox-theater):** For Cross-Science Variation and Atomic Integrity Risk, marking "checked" or "APPLIES UNCHANGED" is INVALID without evidence. Minimum: (a) 2 sciences from 2 DIFFERENT Structural Families (e.g., one [ARG] + one [NAR]) with concrete Arabic counterexamples demonstrating the rule holds, OR (b) 1 science with a named classical-genre exemplar AND an explicit non-applicability rationale for 2 sciences from different families. Cross-family validation is required because rules safe within one family (e.g., [ARG] fiqh) can corrupt a different family (e.g., [ENT] ṭabaqāt) — Gemini v4.1 finding. "No cross-science risk identified. Checked: [18 sciences]." is ONLY valid for Light Lane after per-science evaluation.
 
 **Per-atom attention isolation (v4.1):** Expansion MUST be per-atom. Grouped expansion is FORBIDDEN. Each atom gets a distinct Stage 3 document and distinct coworker prompts (no shared "combined prompt" except in `research` DR class). If atoms interact, expand each separately then document interactions in the Interaction Map section. Evidence: each atom must have a unique expansion document identifier in the ledger.
 
@@ -920,6 +930,7 @@ The owner can request full per-atom delivery for any batch at any time. The dist
 3. **Graduated complexity:** Within batches, present lower-risk decisions first, higher-risk last (tadarruj principle).
 4. **Tier 1 reversion:** Any atom involving an ALWAYS INDIVISIBLE unit reverts to Phase A per-atom briefing regardless of sequence position. The tradition's own approach — ʿarḍ of the Quran required word-level verification — supports risk-tiered verification granularity.
 5. **Rubber-stamping detection:** If owner approval rate exceeds 95% across 3+ consecutive batches, flag for possible rubber-stamping. Trigger a competence-check prompt with one deliberately challenging atom.
+6. **Applied Visual ʿArḍ (v4.3 DR11):** Every batched summary MUST include at least 1 concrete before/after Arabic text example showing the rule's effect on a real excerpt. Instead of abstract descriptions ("Refined boundary rules for fiqh extraction"), show: "If we apply this rule, your study card from *al-Hidāyah* will look like [example A]. Without this rule, it would look like [example B]. Which serves your study better?" This engages the owner with scholarly outcomes, not engineering process — the modern equivalent of taḥqīq al-fahm (verification of comprehension).
 
 ### 4.16 DR Budget Per Session (PROC-003)
 
