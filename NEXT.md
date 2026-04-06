@@ -2,17 +2,25 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-04)
+## IMMEDIATE STATE (updated 2026-04-06)
 
 ### ACTIVE LANE: Foundations Hardening (atom-by-atom)
 
 Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
+**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v2.2 (GOVERNING LAW)**
 Plan: `.claude/plans/tender-moseying-crayon.md`
 
-**Foundations Q&A: 8 / 8 answered (F1-F8).** Owner is available 24/7 with all coworker tools open.
+**Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1 bundles received at repo root. Owner continuing methodology for all 40 questions.
 
-**Session 2 active.** Merged atom queue built. Batch processing underway.
+**Session 2 complete. Session 3 protocol redesigned.** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md v2.2, which fixes 8 critical workflow failures from sessions 1-2. Key changes: per-atom lifecycle (not batched), formal coworker voting, dispatch-first context management, reopen protocol for finalized atoms.
+
+**Protocol review status:**
+- Codex CLI: REVIEWED (1 CRITICAL + 1 HIGH + 2 MEDIUM → all fixed in v2.2)
+- Gemini CLI: REVIEWED (2 CRITICAL + 2 HIGH + 2 MEDIUM + 1 LOW → all fixed in v2.1)
+- ChatGPT DR: PENDING (adversarial relay prompt prepared)
+- Claude DR: PENDING (scholarly reasoning relay prompt prepared)
+- Gemini DR: PENDING (process optimization relay prompt prepared)
 
 **Atom progress:**
 | # | Atom | Status |
@@ -43,11 +51,16 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 4. **Empirical validation** — run atom_test.py against taysir fixture with the hardened prompt to verify new rules don't cause regressions.
 5. **Prompt optimization** — 1474/1500 words. If empirical validation shows LLM ignoring late rules (primacy bias), consider REPLACING lower-priority rules with higher-priority ones.
 
-**Session 2 complete (15 commits). Next session should:**
-1. Run `/catchup` then read this file + ledger
-2. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3) — taysir chunk 0 validated: 5 TUs (correct), hadith core unified
-3. Investigate EE-1 FAIL flag in atom_test.py — may be a stale check (the grouping is actually correct now)
-4. Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
+**Session 3 should (IN THIS ORDER):**
+1. Read `HARDENING_SESSION_PROTOCOL.md` §0 checklist (10 items) — this is now the governing law
+2. Check if DR coworker responses have arrived for the protocol review (owner may have relayed)
+3. If DR findings exist: incorporate into v2.3, then proceed
+4. **G1-G4 + SC1 Bundle Intake** — follow §3 of the protocol: unzip 5 bundles at repo root, inventory, extract atoms, integrate into MERGED_ATOM_QUEUE.md
+5. Begin per-atom processing of remaining F1-F8 atoms using the 7-stage lifecycle (§4)
+6. Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
+7. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3)
+8. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom). DR-5 recommends Options 2+4 (compress + few-shot)
+9. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
 5. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom), ~19 prompt-affecting atoms remaining. DR-5 recommends Options 2+4 (compress existing rules + few-shot examples)
 6. Prepare Phase 1 smoke run with fully hardened prompt
 7. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)

@@ -1,0 +1,956 @@
+# Hardening Session Protocol v2.0
+
+> **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
+> **Supersedes:** `ATOM_PROTOCOL.md` v1.0 (2026-04-04) for process governance. ATOM_PROTOCOL.md's Hard Rules (§Hard Rules) remain in force and are incorporated here.
+> **Created:** 2026-04-06, derived from Session 1 experience + 6-agent design + 3-agent Plan synthesis.
+> **Version history:**
+> - v1.0 (2026-04-04): ATOM_PROTOCOL.md — Session 1 protocol. Batch-centric, no per-atom gates, no context management.
+> - v2.0 (2026-04-06): This document — Per-atom lifecycle, formal consensus voting, dispatch-first context strategy, self-improvement mechanism.
+> - v2.1 (2026-04-06): Gemini CLI review — arabic-scholarly-conventions.md in bootstrap, cross-science variation in expansion, distinct DR templates, expanded science list, attribution safety clarification, Arabic text degradation in bundle intake.
+> - v2.2 (2026-04-06): Codex CLI review — reopen protocol for finalized atoms, CC voting role clarification, G-RAW made checkable, word budget running tracker.
+
+---
+
+## §0 — STOP. READ THIS FIRST.
+
+**This protocol is the law.** Every hardening session — whether on F1-F8, G1-G4, SC1-SC3, or any future batch — follows this document exactly. Before doing ANYTHING:
+
+1. Read this entire protocol (use the Quick Reference Card at §9 for subsequent sessions after the first full read)
+2. Read `.kr/HANDOFF.md` for current resume point
+3. Read `engines/excerpting/CLAUDE.md` for engine state
+4. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` for atom status
+5. Read the active batch's atom queue section in `MERGED_ATOM_QUEUE.md` (dispatch a subagent for this — do NOT read the full 63KB file)
+6. Verify you are on the correct branch
+7. Run `python -m pytest engines/excerpting/tests/ -q --ignore=engines/excerpting/tests/test_phase2_integration.py --ignore=engines/excerpting/tests/test_phase3_integration.py` — must pass
+8. Run `python scripts/check_prompt_spec_sync.py` — must PASS
+9. Estimate your context budget: `bootstrap (~52K tokens) + target_atoms × 20K = ?` — plan your atom count target
+10. Inventory any new collection bundles at the repo root (see §3)
+
+**Do NOT process any atoms until all 10 checks pass.**
+
+---
+
+## §1 — Scope, Principles, and Relationships
+
+### 1.1 Scope
+
+This protocol governs the **hardening session lifecycle** — the process by which a CC (Claude Code) session transforms raw owner feedback (from collection bundles) into finalized, consensus-approved, implemented engine changes.
+
+It applies to:
+- All batch types: F (foundational), G (generalization), SC (scholarly context), and any future question series
+- All CC sessions working on excerpting foundations hardening
+- All coworker dispatches made during hardening sessions
+
+### 1.2 Core Principles
+
+These principles resolve ALL ambiguity in the protocol. When a rule is unclear, apply these in order:
+
+1. **Per-atom rigor over throughput.** Processing 5 atoms perfectly is infinitely more valuable than processing 50 atoms shallowly. Even if it means 300 atomic sessions per batch.
+2. **Owner feedback is the starting point, not the endpoint.** Each atom is extracted from owner signal, then EXPANDED into a complete, edge-cased specification. The expansion is the real work.
+3. **No single-model conclusions.** Every content quality judgment requires CC + at least one coworker (Codex minimum, Gemini preferred). No exceptions.
+4. **Context window preservation.** CC's context is the scarcest resource. Dispatch aggressively. Read locally only when CC must make a judgment call.
+5. **Fail loud, not silent.** If a gate cannot be passed, the atom stays at its current stage. It does not advance with a "we'll fix it later" note.
+6. **Raw owner text is ground truth.** When structured files (YAML/JSONL/MD) contradict the raw `.txt` source artifacts, raw text wins absolutely.
+7. **The library is the mind of a scholar put on a screen.** Every boundary, every classification, every excerpt must be as clear as if a scholar is explaining it to you.
+
+### 1.3 Relationship to Other Documents
+
+| Document | Relationship |
+|----------|-------------|
+| `ATOM_PROTOCOL.md` | Superseded for process. Its Hard Rules (§Hard Rules) are preserved verbatim below. Historical reference. |
+| `CLAUDE.md` (project root) | Overarching project rules. This protocol operates within those rules. |
+| `engines/excerpting/CLAUDE.md` | Engine-specific context. Read at session start for current state. |
+| `.claude/rules/mandatory-coworker-dispatch.md` | Operationalized by §5 of this protocol. |
+| `.claude/rules/no-single-model-conclusion.md` | Operationalized by §5 of this protocol. |
+| `.claude/rules/context-management.md` | Extended and made concrete by §6 of this protocol. |
+| `.claude/skills/coworker-dispatch/SKILL.md` | Prompt templates updated by §5 of this protocol. |
+| `MERGED_ATOM_QUEUE.md` | The atom queue this protocol processes. |
+| `FOUNDATIONS_HARDENING_LEDGER.md` | The ledger where all stage artifacts are recorded. |
+
+### 1.4 Hard Rules (Preserved from ATOM_PROTOCOL.md — Violations Are Session Failures)
+
+1. **Never finalize an atom with fewer than 2 coworker reports** (CC + at least 1 external). Period.
+2. **Never read only the extraction summary.** Always go back to the original collection files.
+3. **Never skip the raw owner source layer.** Read `source_artifacts/*.txt` before anything else.
+4. **Never modify the prompt without updating the SPEC code block.** Use `check_prompt_spec_sync.py`.
+5. **Never skip empirical validation for prompt-affecting atoms.** Use `atom_test.py`.
+6. **Never let a prior session's atom inventory cap your scope.** Extractions are a floor, not a ceiling.
+7. **Never treat `model_only` atoms as confirmed without owner verification.**
+8. **Never say "done" before Q-CLOSED gate passes** (see §4.8).
+9. **Never end a session without writing a handoff** (see §7).
+10. **Never read files >10KB directly** when a subagent can summarize them (see §6).
+11. **ADDED v2.0: Never bulk atoms.** Each atom is analyzed, expanded, challenged, and briefed individually.
+12. **ADDED v2.0: Never skip owner briefing.** Owner is briefed after EVERY atom closure, not per-batch.
+
+---
+
+## §2 — Pre-Session Checklist
+
+Before processing any atoms, complete this 10-item checklist. Items 1-8 are in §0. Items 9-10 are detailed here.
+
+### 2.1 Context Budget Estimation
+
+At session start, estimate your total budget:
+
+```
+Available tokens:     1,000,000
+System overhead:       -30,000  (rules, skills, MCP, schemas)
+Bootstrap reading:     -52,000  (protocol, handoff, ledger, CLAUDE.md, queue section, prompt)
+Safety reserve:       -100,000  (Zone 3-5 buffer, never touch)
+─────────────────────────────────
+Working budget:       ~818,000  tokens
+Per-atom cost (dispatch-first): ~20,000 tokens
+────────────
+Target atoms this session: ~25-30 (conservative: 20)
+```
+
+State this estimate explicitly before processing the first atom: "Context budget: ~818K working tokens. Target: ~20 atoms. Handoff after atom ~18-20."
+
+### 2.2 New Bundle Inventory
+
+Check the repo root for new `.zip` bundles:
+
+```bash
+ls *.zip 2>/dev/null
+```
+
+For each new bundle:
+1. Record: filename, size, modified date
+2. Do NOT unzip yet — that happens during Bundle Intake (§3)
+3. Check if the bundle's series (G1, G2, SC1, etc.) has a corresponding extracted atom queue section in MERGED_ATOM_QUEUE.md
+4. If not: this bundle needs full intake processing
+
+### 2.3 Resume From Handoff
+
+If this is a continuation session (not the first session for this batch):
+1. Read the previous session's handoff document
+2. Identify the exact atom to resume at and its current stage
+3. Verify all PRELIMINARY atoms from the previous session are still marked correctly in the ledger
+4. Check if any coworker reports arrived since the last session (owner may have relayed DR responses)
+
+---
+
+## §3 — Collection Bundle Intake Protocol
+
+This section governs how new collection bundles are received, verified, and prepared for atom extraction.
+
+### 3.1 Bundle Structure Reference
+
+All bundles follow a two-layer separation model:
+
+**Layer A — Owner-Faithful Source (GROUND TRUTH):**
+- `source_artifacts/*.txt` — raw owner text, verbatim, unmodified
+- `01_questionnaire_answer.md` — cleaned owner answer with confidence level
+- Authority: `owner_explicit`
+
+**Layer B — Engineering Expansion (REFERENCE, NOT DOCTRINE):**
+- `02_*` through `14_*` — structured analysis files (case dossiers, decision ladders, nonnegotiables, red-team tests, priority matrices, traceability, open questions, hard judgments)
+- Authority: varies (`owner_explicit`, `owner_consistent_inference`, `model_only`)
+- **CRITICAL:** Layer B files were produced by ChatGPT interpreting the owner's words. They may have softened, qualified, or expanded beyond the owner's actual intent. ALWAYS cross-check against Layer A.
+
+**Bundle variants:**
+- **Standard full-expansion** (F3-F6, F8, G-series, SC-series): 14-16 numbered files + README + source_artifacts/
+- **Failure package** (F7): Same core structure, files 05-07 are failure-specific
+- **Lightweight workflow** (F2): Only 4 main files + source artifacts
+- **Early-stage** (F1): Minimal structure (manifest + README only)
+
+### 3.2 Intake Steps (Per Bundle)
+
+**Step 1: Unzip and verify structure.**
+```bash
+mkdir -p engines/excerpting/chatgpt_{series}_collection
+unzip -o chatgpt_{series}_collection_bundle.zip -d engines/excerpting/chatgpt_{series}_collection/
+```
+Verify: source_artifacts/ directory exists, README.md exists, manifest present.
+
+**Step 2: Dispatch a subagent to inventory the bundle.**
+Do NOT read the files yourself. Dispatch:
+> "Read all files in `engines/excerpting/chatgpt_{series}_collection/`. Return: (a) file count and names, (b) which variant this is (standard/failure/lightweight/early-stage), (c) source_artifacts filenames and sizes, (d) authority level breakdown from manifest, (e) any red flags (missing source_artifacts, empty files, unrecognized structure)."
+
+CC reads only the 2-4KB summary returned by the subagent.
+
+**Step 3: Conflict detection scan (including Arabic text degradation).**
+Dispatch a subagent:
+> "Read `source_artifacts/*.txt` and `01_questionnaire_answer.md` from `engines/excerpting/chatgpt_{series}_collection/`. Compare the raw owner text against the cleaned answer. Report:
+> (a) Contradictions, softened statements, added qualifications, or ALL-CAPS emphasis normalized to neutral.
+> (b) **Arabic text degradation:** ligature normalization (e.g., ﷺ expanded to صلى الله عليه وسلم), honorific stripping (الإمام, الحافظ, شيخ الإسلام removed), diacritic loss, scholarly abbreviation changes (per `.claude/rules/arabic-scholarly-conventions.md`).
+> (c) **Structural unit splitting:** muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد) separated, colophon elements fragmented, isnad chains broken.
+> Return: list of conflicts with file:line references, or 'no conflicts detected'."
+
+**Step 4: Extract atoms from the bundle.**
+Dispatch a subagent:
+> "Read ALL files in `engines/excerpting/chatgpt_{series}_collection/`. Extract every discrete owner directive, pain point, nonnegotiable, red-team test, and preference. For each atom, provide: (a) a 1-2 sentence summary, (b) source file and line, (c) authority level (owner_explicit / owner_consistent_inference / model_only), (d) category (nonnegotiable / red-team / directive / preference / meta). Return as a structured list."
+
+**Step 5: Assign MAQ-IDs and integrate into the queue.**
+CC reviews the subagent's extraction, assigns MAQ-IDs following the existing numbering scheme in MERGED_ATOM_QUEUE.md, and appends the new atoms to the appropriate section.
+
+**Step 6: Move the zip to the collection directory.**
+```bash
+mv chatgpt_{series}_collection_bundle.zip engines/excerpting/chatgpt_{series}_collection/source_artifacts/
+```
+
+### 3.3 Intake Quality Gate
+
+Before processing any atoms from a new bundle:
+- [ ] Bundle unzipped and structure verified
+- [ ] Subagent inventory completed
+- [ ] Conflict scan completed (conflicts documented or "none" confirmed)
+- [ ] Atoms extracted and assigned MAQ-IDs
+- [ ] MERGED_ATOM_QUEUE.md updated with new atoms
+- [ ] Zip archived in source_artifacts/
+
+---
+
+## §4 — Atom Lifecycle: 7 Stages
+
+Every atom passes through exactly 7 stages. No stage can be skipped. No atom advances without passing the exit gate. The stages are:
+
+```
+RAW ──→ SOURCED ──→ EXPANDED ──→ CHALLENGED ──→ SYNTHESIZED ──→ IMPLEMENTED ──→ CLOSED
+ (1)      (2)         (3)          (4)            (5)             (6)           (7)
+```
+
+### 4.1 Stage 1: RAW
+
+**Entry:** Atom appears in MERGED_ATOM_QUEUE.md or is discovered during queue audit / bundle intake.
+
+**What exists:** MAQ-ID, 1-2 sentence summary, source reference, authority classification, status: NEW.
+
+**Selection priority:** nonnegotiable > red-team test > prompt-affecting > SPEC-only > deferred.
+
+**Exit gate (G-RAW):**
+- [ ] CC has marked this atom's status as `IN_PROGRESS` in MERGED_ATOM_QUEUE.md
+- [ ] The atom's MAQ-ID and source collection are recorded in the ledger as a new entry
+
+### 4.2 Stage 2: SOURCED
+
+**Entry:** G-RAW passed.
+**Actor:** CC orchestrator. For files >10KB, dispatch a subagent to read and summarize; CC reads the summary.
+**Duration:** 10-15 minutes.
+
+**Process:**
+1. Read the RAW OWNER SOURCE first — `source_artifacts/*.txt` from the relevant collection. This is ground truth. CC MUST quote at least one exact owner sentence in the ledger entry.
+2. Read the cleaned answer — `01_questionnaire_answer.md`.
+3. Read the SPECIFIC structured file the atom came from (the nonnegotiable JSONL, red-team test, decision ladder, etc.). Record file path and entry ID.
+4. Read the traceability entry if it exists.
+5. **Conflict check:** Does the structured file match the raw source? If not, raw wins. Document the drift: "ChatGPT drift at [file:line]: structured says X, raw says Y, proceeding with raw."
+6. **Authority verification:** If `model_only`, flag that owner confirmation is required before Stage 5 synthesis.
+
+**Artifacts produced:**
+- Ledger section: "Raw owner artifacts used" (file paths + exact quotes)
+- Ledger section: "Owner signal reconstruction" (what the owner meant, in CC's words)
+- Ledger section: "Owner tensions" (contradictions within owner's own statements, if any)
+- Ledger section: "Authority level" (with justification)
+- Conflict notes (if any)
+
+**Exit gate (G-SOURCED):**
+- [ ] At least one raw `.txt` file read and owner quote recorded
+- [ ] Structured collection file read
+- [ ] Authority level classified and justified
+- [ ] Conflict check performed (even if "no conflicts" — recorded)
+
+### 4.3 Stage 3: EXPANDED
+
+**Entry:** G-SOURCED passed.
+**Actor:** CC orchestrator. May dispatch subagents for interaction mapping or blast-radius checks.
+**Duration:** 15-20 minutes.
+
+**This is the stage Session 1 skipped entirely.** A raw atom like "mention is NOT a reason to excerpt" must become a COMPLETE SPECIFICATION before coworkers can meaningfully review it.
+
+**MANDATORY pre-expansion read:** Before drafting any expansion, CC (or a subagent) must read `.claude/rules/arabic-scholarly-conventions.md` to avoid proposing rules that violate Islamic scholarly text structure (e.g., splitting muqaddimah preamble blocks, breaking isnad chains, mishandling colophon attribution). This prevents guaranteed REJECT votes from Gemini in Stage 4.
+
+**Expansion process:**
+1. **Scope definition:** What does this atom govern? What is IN scope, OUT of scope? Be precise about pipeline phase, text type, scholarly context.
+2. **Exception analysis:** When does this NOT apply? CC generates at least 2 candidate exceptions and evaluates each.
+3. **Interaction mapping:** Which FPs, prompt rules, and existing atoms interact? Check: SPEC §1.1b (all FPs), current GROUP_SYSTEM_PROMPT, current CLASSIFY_SYSTEM_PROMPT, other atoms in same thematic area, previously finalized atoms.
+4. **Concrete examples:** At least one Arabic text scenario where the atom works correctly, and one where misapplication causes damage.
+5. **Implementation hypothesis:** WHERE will this land? New FP? Strengthen existing FP? Prompt addition (+ word budget check)? Contract change? Test case? SPEC-only? Deferred?
+6. **Blast-radius assessment:** Does implementing this conflict with any finalized atom? Does it require reopening a closed atom?
+
+**Expansion Template (MANDATORY format):**
+
+```markdown
+## ATOM [MAQ-ID]: [Name]
+
+### Raw Signal
+[Exact owner quote(s) from source_artifacts/*.txt, with file:line references]
+Authority: [owner_explicit | owner_consistent_inference | model_only]
+
+### Scope
+IN SCOPE: [precise list]
+OUT OF SCOPE: [precise list]
+
+### Rule Statement
+[The atom expressed as a testable, falsifiable rule]
+
+### Exceptions
+1. [Exception scenario] → [ACCEPTED / REJECTED] because [reasoning]
+2. [Exception scenario] → [ACCEPTED / REJECTED] because [reasoning]
+
+### Interaction Map
+- FP-X: [compatible / tension / conflict — explain]
+- Prompt rule Y: [compatible / tension / conflict — explain]
+- Atom MAQ-ZZZ: [compatible / tension / conflict — explain]
+
+### Correct Application Example
+[Concrete scenario, ideally with Arabic text reference from fixtures]
+
+### Incorrect Application Example
+[Concrete scenario showing damage from misapplication — seeds coworker adversarial prompts]
+
+### Cross-Science Variation
+[How does this rule apply differently across sciences? Check at minimum: fiqh (madhab attribution), hadith (isnad chains), nahw (grammatical analysis), tafsir (ayah commentary), usul (evidence methodology), aqidah (creedal positions), lughah (lexicography/rhetoric), tarikh (biographical/historical narrative). Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / NEEDS RESEARCH.]
+
+### Atomic Integrity Risk
+[Does this rule risk splitting indivisible textual units? Check: isnad-matn chains (حدثنا...أخبرنا), muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد), manuscript colophons (تم الكتاب...كتبه), internal cross-references (كما تقدم → target), Quranic citation blocks (قال تعالى ﴿...﴾). If any risk: document the safeguard.]
+
+### Implementation Hypothesis
+Target: [new FP / strengthen FP-X / prompt addition (+N words) / contract change / test case / SPEC-only / deferred]
+Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K/1500]
+
+### Blast-Radius Assessment
+[No conflicts with finalized atoms | Conflicts with ATOM-X: resolution plan]
+[Cross-reference orphaning check: would this atom's boundary orphan any كما تقدم / سيأتي references from their targets?]
+```
+
+**Exit gate (G-EXPANDED):**
+- [ ] Scope defined with IN/OUT boundaries
+- [ ] At least 2 exceptions evaluated
+- [ ] Interaction mapping completed against FPs and current prompt
+- [ ] At least 1 correct-application and 1 incorrect-application example
+- [ ] Implementation hypothesis stated
+- [ ] Blast-radius check passed (no unresolvable conflicts)
+- [ ] If prompt-affecting: word budget has headroom or compression strategy proposed
+
+### 4.4 Stage 4: CHALLENGED
+
+**Entry:** G-EXPANDED passed.
+**Actor:** CC dispatches to coworkers. CC waits for returns.
+**Duration:** Variable (depends on coworker availability; up to 48h per DR timeout).
+
+CC prepares specialized prompts tailored to each coworker's strength. Each prompt includes the expansion document from Stage 3.
+
+**Codex CLI dispatch (Contract Guardian):**
+```
+codex exec "
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+
+PRIMARY (contract guardian):
+1. Read: contracts.py, phase2_group.py GROUP_SYSTEM_PROMPT, SPEC.md §1.1b, ledger recent entries
+2. What contracts change? What validators need updating? What tests are affected?
+3. Does check_prompt_spec_sync.py still pass?
+4. Implementation cost: files, lines, test count
+
+ADVERSARIAL:
+5. Worst runtime failure if implemented naively?
+6. Subtle regression deterministic tests would miss?
+
+OUTPUT: Per-atom verdict (ACCEPT/MODIFY/ITERATE/REJECT), contract impact, regression risk (HIGH/MEDIUM/LOW)
+"
+```
+
+**Gemini CLI dispatch (Scholarly Auditor):**
+```
+gemini -p "
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+
+PRIMARY (scholarly auditor):
+1. Read: SPEC.md §1.1b, arabic-scholarly-conventions.md, ledger recent entries
+2. Is this correct across fiqh, hadith, nahw, tafsir, usul, aqidah, lughah/balaghah, tarikh/sirah? Arabic examples per science.
+3. Find a counterexample: real Arabic text where this rule fails.
+4. Blast radius across normalization, taxonomy, synthesis engines?
+
+ADVERSARIAL:
+5. Worst scholarly failure? Name a specific book/passage.
+6. Which genre is most at risk?
+
+OUTPUT: Per-atom verdict (ACCEPT/MODIFY/ITERATE/REJECT), per-science assessment, counterexample, blast radius
+"
+```
+
+**ChatGPT DR dispatch (Architecture + Error Patterns — relay via owner):**
+```
+Read these files from the rayanino/kr repository:
+- engines/excerpting/SPEC.md §1.1b
+- engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md (recent entries)
+- engines/excerpting/src/phase2_group.py (lines 43-209)
+
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+Codex found: [summary]. Gemini found: [summary].
+
+QUESTIONS:
+1. What did Codex and Gemini MISS?
+2. Construct a catastrophic scenario: named book, specific passage, confidently wrong excerpt.
+3. Does this + other recent atoms create an emergent compound failure?
+4. Silent corruption paths (T-1 through T-7) opened or closed?
+5. ARCHITECTURAL: Is the current prompt structure optimal for this atom? What refactoring prevents the issue?
+
+OUTPUT per atom: verdict, findings, missed-by-CLIs, catastrophic scenario, architectural recommendations, confidence
+```
+
+**Claude DR dispatch (Scholarly Reasoning + Boundary Quality — relay via owner):**
+```
+Read these files from the rayanino/kr repository:
+- engines/excerpting/SPEC.md §1.1b
+- engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md (recent entries)
+- .claude/rules/arabic-scholarly-conventions.md
+
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+Codex found: [summary]. Gemini found: [summary].
+
+QUESTIONS:
+1. What did Codex and Gemini MISS from a scholarly reasoning perspective?
+2. Does the proposed boundary risk DECONTEXTUALIZATION — stripping a passage from the argument chain that gives it meaning?
+3. Would a student of [relevant Islamic science] understand this excerpt as a standalone study unit?
+4. Does this atom preserve the author's dialectical structure (claim → evidence → rebuttal → synthesis)?
+5. Attribution safety: does this risk confusing copyist (ناسخ) with author (مؤلف), or editorial (محقق) with original text?
+
+OUTPUT per atom: verdict, scholarly findings, decontextualization risk, study-unit assessment, confidence
+```
+
+**Gemini DR dispatch (Islamic Pedagogy + Genre Validation — relay via owner, FILE UPLOADS REQUIRED):**
+```
+[Owner: upload these files to the Gemini session: SPEC.md §1.1b, FOUNDATIONS_HARDENING_LEDGER.md recent entries, arabic-scholarly-conventions.md]
+
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+Codex found: [summary]. Gemini found: [summary].
+
+QUESTIONS:
+1. As a study unit, does the excerpt this atom would produce match how [specific Islamic science] is ACTUALLY TAUGHT and STUDIED?
+2. What is the "natural atom" of knowledge in this genre? Does the proposed rule align with it?
+3. Would a traditional Islamic teacher (شيخ) consider this excerpt boundary natural, or would they object?
+4. Does this atom respect the graduated learning methodology (متدرج) — from basic to advanced within the science?
+5. Genre-specific check: for this specific text type (شرح/حاشية/متن/رسالة), is the proposed rule appropriate?
+
+OUTPUT per atom: verdict, pedagogical assessment, natural-atom alignment, genre suitability, confidence
+```
+
+**Dispatch rules:**
+- Codex and Gemini dispatch SIMULTANEOUSLY (independent)
+- DR dispatch can happen simultaneously OR after CLI returns (CC decides based on whether CLI findings should feed DR)
+- CC does NOT proceed to Stage 5 until at least 2/3 coworker reports received
+- If one coworker unavailable after 48h: proceed with 2/3, mark atom PRELIMINARY, document gap
+- If 2+ coworkers unavailable: STOP. Report to owner.
+
+**Exit gate (G-CHALLENGED):**
+- [ ] At least 2 of 3 coworker reports received
+- [ ] Each report is structured (verdict + findings, not freeform)
+- [ ] Reports recorded in ledger
+- [ ] If fewer than 3 reports: gap documented with reason
+
+### 4.5 Stage 5: SYNTHESIZED
+
+**Entry:** G-CHALLENGED passed.
+**Actor:** CC orchestrator. This is CC's core intellectual work — deciding doctrine.
+**Duration:** 10-15 minutes.
+
+**Process:**
+
+1. **3-column comparison table:**
+
+| Dimension | Codex | Gemini | DR |
+|-----------|-------|--------|----|
+| Scope correct? | [finding] | [finding] | [finding] |
+| Exceptions valid? | [finding] | [finding] | [finding] |
+| Implementation safe? | [finding] | [finding] | [finding] |
+| Adversarial scenario | [scenario] | [scenario] | [scenario] |
+| Verdict | [ACCEPT/MODIFY/ITERATE/REJECT] | [same] | [same] |
+
+2. **Consensus determination (see §5 for full voting rules):**
+   - 2+ ACCEPT/MODIFY (with accepted modifications) and 0 REJECT = **CONFIRMED**
+   - Any single REJECT = **BLOCKED** — must address the finding
+   - Split vote = **DISPUTED** — apply resolution hierarchy (§5.4)
+   - <2 reports = **INSUFFICIENT** — stays PRELIMINARY
+
+3. **Expansion refinement:** Update the expansion document with coworker-discovered exceptions, scope tightening, or new interactions.
+
+4. **Implementation decision:** Finalize what changes to which files. Must be specific: file path + what changes, not "update the SPEC."
+
+5. **Owner question (if needed):** If synthesis reveals a study-experience question only the owner can answer, formulate ONE concrete question with examples. Ask NOW, not deferred.
+
+**Exit gate (G-SYNTHESIZED):**
+- [ ] 3-column table exists in ledger
+- [ ] All coworker disagreements resolved with recorded reasoning
+- [ ] Implementation decision is specific (file paths + exact change description)
+- [ ] If owner question needed: question asked and answer received
+- [ ] If `model_only` authority: owner has confirmed intent
+
+### 4.6 Stage 6: IMPLEMENTED
+
+**Entry:** G-SYNTHESIZED passed.
+**Actor:** CC orchestrator (writes code/docs).
+**Duration:** 5-30 minutes depending on change scope.
+
+**Process:**
+1. Make the changes:
+   - SPEC: add to §1.1b (new FP) or relevant §6 subsection
+   - Prompt: update `phase2_group.py` AND SPEC §5.3.2 code block (BOTH — check sync)
+   - Contract: update `contracts.py` with backward-compatible additions
+   - Tests: red-team atoms → actual pytest cases
+   - Deferred: entry in `DEFERRED_IDEAS.md` with full expansion and reason
+
+2. Run validation suite:
+   - `python -m pytest engines/excerpting/tests/ -q` (excluding LLM integration) — zero regressions
+   - `python -m pyright <modified_files>` — zero errors
+   - `python scripts/check_prompt_spec_sync.py` — PASSED
+   - If prompt-affecting: `python scripts/atom_test.py --package taysir --chunk 0` — empirical validation
+
+3. If validation fails: fix, re-run. Do not proceed until green.
+
+**Note on grouped implementation:** When 2-3 atoms affect the same SPEC section or prompt, their implementations MAY be designed together for coherence. But each atom MUST have been individually analyzed through Stages 2-5 before grouping. The group is never more than 3 atoms. Each atom is briefed to the owner individually (Stage 7).
+
+**Word budget tracking (MANDATORY for prompt-affecting atoms):** After every prompt edit, record in the ledger: `GROUP before: N words → delta: +K → after: N+K → remaining: 1500-(N+K)`. Same for CLASSIFY. This running ledger prevents word-budget exhaustion across grouped implementations.
+
+**Reopen Protocol (when implementation forces changes to a FINALIZED atom):**
+If validation failure at Stage 6 requires modifying a previously FINALIZED atom:
+1. The current atom HALTS at Stage 6 (does not proceed to CLOSED).
+2. The previously FINALIZED atom's status is demoted to **REOPENED** in the ledger with: reason for reopening, which current atom triggered it, what specific change is needed.
+3. The REOPENED atom re-enters the lifecycle at Stage 3 (EXPANDED) with the proposed modification. It does NOT need to re-source (Stage 2) since the original sourcing is still valid.
+4. The REOPENED atom must pass through Stages 3-7 again, including coworker challenge (Stage 4). Minimum coverage: same tier as the original finalization. If the original was FINALIZED with 3/3 coworkers, the reopen must also get 3/3.
+5. Only after the REOPENED atom passes Q-CLOSED again can the HALTED atom resume at Stage 6.
+6. Both atoms' ledger entries are linked: "REOPENED by MAQ-XXX" and "Triggered reopen of MAQ-YYY".
+
+**Exit gate (G-IMPLEMENTED):**
+- [ ] All targeted files changed
+- [ ] pytest passes with zero regressions
+- [ ] pyright clean on modified files
+- [ ] prompt-SPEC sync passes
+- [ ] If prompt-affecting: empirical validation shows no degradation
+
+### 4.7 Stage 7: CLOSED
+
+**Entry:** G-IMPLEMENTED passed.
+**Actor:** CC orchestrator.
+**Duration:** 5-10 minutes.
+
+**Process:**
+
+1. **Owner brief (MANDATORY, per-atom):**
+   Present to the owner:
+   - What the atom IS (1-2 sentences, non-technical language)
+   - What changed (which principle added/strengthened, which rule added to prompt)
+   - What was REJECTED from coworker findings, and why
+   - What residual risks remain
+   - Any question for the owner (if deferred from Stage 5)
+   
+   The brief is informational. The owner does not approve or reject (that was CC + coworkers' job). The owner's reaction is SIGNAL for future atoms.
+
+2. **Ledger update (MANDATORY):**
+   Full disposition entry with:
+   - Atom name and MAQ-ID
+   - Sources read (file paths + exact quotes)
+   - Authority level
+   - Expansion summary
+   - Coworker reports (all received, key findings per coworker)
+   - Synthesis decision and reasoning
+   - Implementation changes (file:line)
+   - Tests added/run
+   - Empirical validation result (if applicable)
+   - Residual risks
+   - Final status: CLOSED / CLOSED-PRELIMINARY (if <3 coworkers) / DEFERRED / REJECTED
+
+3. **Blast-radius forward check:** Now that this atom is implemented, does it affect the NEXT atoms in the queue? Check for cascade effects.
+
+4. **Queue status update:** Mark the atom's status in MERGED_ATOM_QUEUE.md.
+
+### 4.8 Q-CLOSED Gate (Definition of "Done")
+
+An atom is CLOSED if and only if ALL 11 criteria are TRUE:
+
+| # | Criterion | How Verified |
+|---|-----------|-------------|
+| Q-1 | Raw owner source text was read and quoted | Ledger has exact owner quotes with file:line |
+| Q-2 | Authority level classified | Ledger has authority field; model_only confirmed by owner |
+| Q-3 | Atom EXPANDED into complete specification | Expansion document exists with scope, exceptions, examples |
+| Q-4 | Minimum 2 coworker reports received (CC + 1 external minimum) | Dispatch log entries exist; reports structured |
+| Q-5 | Coworker findings synthesized in 3-column table | Synthesis table in ledger |
+| Q-6 | Implementation artifact produced | Git diff or ledger records file:line change (or explicit DEFERRED with reason) |
+| Q-7 | No regression: pytest pass, pyright clean, sync pass | Test run output recorded |
+| Q-8 | Empirical validation IF prompt-affecting | atom_test.py output or "SPEC-only, no empirical needed" |
+| Q-9 | Blast-radius check: no conflict with finalized atoms | Explicit check recorded |
+| Q-10 | Owner briefed on THIS atom individually | Brief delivered in session |
+| Q-11 | Ledger fully updated | Complete entry per the template above |
+
+If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
+
+---
+
+## §5 — Coworker Consensus Protocol
+
+### 5.1 Coverage Tiers
+
+| Change Type | Minimum Coverage | Target Coverage |
+|-------------|-----------------|-----------------|
+| **Prompt-affecting** (adds/changes words in GROUP or CLASSIFY prompt) | CC + Codex + Gemini | + 1 DR |
+| **SPEC-structural** (adds/modifies FPs, changes §4-7 behavioral rules) | CC + Codex + Gemini | + 2 DR |
+| **Contract-affecting** (modifies contracts.py types, enums, validators) | CC + Codex | + Gemini |
+| **SPEC-doctrinal** (adds principles without code/prompt change) | CC + Gemini | + 1 DR |
+| **Phase gates** (transition from one phase to next) | All 6 sources | All 6 sources |
+
+**Absolute floor:** No atom finalized with fewer than 2 independent confirmations (CC + at least 1 external).
+
+### 5.2 Voting System
+
+Each **external** coworker (Codex, Gemini, DR) votes per atom. **CC does NOT vote** — CC is the decision-maker that synthesizes votes, not a voter. The coverage tier counts (e.g., "CC + Codex + Gemini") mean CC orchestrated the process AND Codex + Gemini each cast a formal vote. Consensus is determined by external coworker votes only.
+
+| Vote | Meaning | Consensus Effect |
+|------|---------|-----------------|
+| **ACCEPT** | Correct as proposed | +1 |
+| **MODIFY** | Right intent, needs specific changes (coworker provides exact change) | +1 if CC accepts modification; -1 if CC rejects with reasoning |
+| **ITERATE** | Needs significant rework | -1 (atom stays PRELIMINARY) |
+| **REJECT** | Fundamentally wrong or dangerous | BLOCK (atom cannot proceed regardless of other votes) |
+
+**Clarification on tie votes:** With 2 external coworkers (Codex + Gemini) and a 1-1 split (one ACCEPT, one ITERATE): this is a **tie** → stays PRELIMINARY → escalate to DR as tiebreaker per §5.4 Step 5. With 3 external coworkers and a 2-1 split: **majority** FINALIZED with documented dissent.
+
+### 5.3 Consensus Thresholds
+
+| Scenario | Result |
+|----------|--------|
+| All ACCEPT/MODIFY (accepted) and 0 REJECT | **FINALIZED** |
+| Majority ACCEPT/MODIFY, minority ITERATE | **FINALIZED** with documented dissent |
+| Split (equal ACCEPT and ITERATE) | **PRELIMINARY** — escalate per §5.4 |
+| Any single REJECT | **BLOCKED** — must address the finding |
+| Fewer than minimum coworkers reported | **PRELIMINARY** regardless of votes |
+
+### 5.4 Disagreement Resolution Hierarchy
+
+When coworkers disagree, resolve in this strict sequence:
+
+1. **SPEC as tiebreaker.** If an existing FP governs the case, apply it. The aligned position wins.
+2. **FP-13 precedence stack.** Attribution safety > dialogue preservation > grammatical integrity > self-containment > granularity. **Attribution safety specifically includes:** guarding against copyist (ناسخ, كتبه العبد الفقير) being confused with author (مؤلف, فرغ من تأليفه), editorial apparatus (محقق, حاشية, في الأصل) leaking into author-attributed content, and `layer_type: editorial` manuscript marginalia being misattributed.
+3. **Evidence weight.** Concrete Arabic example beats abstract principle. Cross-science generalization beats single-science claim. Empirical data beats theory.
+4. **CC decides with documented reasoning.** The losing position is preserved verbatim in ledger as dissent.
+5. **Escalation to additional coworker.** For SPEC-structural atoms, dispatch a DR coworker as BLINDED tiebreaker (does not see other positions before forming assessment).
+6. **Owner involvement (LAST RESORT).** Only for study-experience questions. Concrete with examples, never abstract.
+
+### 5.5 Async DR Relay Protocol
+
+1. CC writes the DR prompt following templates in §4.4.
+2. CC presents to owner: "Please paste this into [ChatGPT DR / Claude DR / Gemini DR]."
+3. CC records dispatch in `dispatch_log.jsonl` with `status: dispatched`.
+4. CC does NOT block. Continues with CLI coworker work.
+5. When owner returns DR response, CC records with `status: completed`.
+
+**Timeouts:**
+| Elapsed | Action |
+|---------|--------|
+| 0-24h | Normal. CC works on CLI coworker tasks. |
+| 24-48h | Gentle check to owner: "DR relay is waiting when you have a moment." |
+| 48h | Proceed with N-1. Document gap. Atom: PRELIMINARY (N-1). |
+
+**DR access reminders:**
+- ChatGPT DR: HAS repo access. Give FILE PATHS.
+- Claude DR: HAS repo access. Give FILE PATHS.
+- Gemini DR: CANNOT access repo. Prepare FILE UPLOADS.
+
+### 5.6 Coworker Review Scope
+
+| Coworker | Reviews | Does NOT Review |
+|----------|---------|-----------------|
+| **Codex CLI** | Contract impact, test regression, cross-prompt consistency, implementation cost, implementation adversarial | Arabic text quality, scholarly accuracy, pedagogy |
+| **Gemini CLI** | Cross-science validity, counterexamples, convention compliance, cross-engine blast radius, scholarly adversarial | Code structure, test coverage, implementation cost |
+| **ChatGPT DR** | Gap detection, silent corruption paths, architectural analysis, error patterns | (Overlap with Claude DR on adversarial) |
+| **Claude DR** | Scholarly reasoning depth, boundary quality, decontextualization risk | (Overlap with ChatGPT DR on adversarial) |
+| **Gemini DR** | Islamic pedagogy, study-unit validity, genre-specific "natural atom" validation | (Requires file uploads, no direct repo access) |
+
+### 5.7 Escalation Triggers (Require ALL 6 Sources)
+
+- Phase gates (always)
+- Modifying the excerpt definition
+- Changing khilaf/tarjih handling (owner's most sensitive domain — triggered OPS-DEC-006)
+- Any coworker REJECT vote needing resolution
+- Any regression in empirical validation
+- Any silent corruption path (T-1 through T-7) found by any coworker
+- Owner explicitly flags something as "wrong" or "confusing"
+
+---
+
+## §6 — Context Window Management
+
+### 6.1 Budget Zones
+
+```
+Zone 0: SYSTEM       [0% - 3%]      ~30K tokens    Fixed (rules, skills, MCP)
+Zone 1: BOOTSTRAP    [3% - 8%]      ~52K tokens    One-time session init
+Zone 2: WORKING      [8% - 75%]    ~670K tokens    Active atom processing
+Zone 3: BUFFER       [75% - 85%]   ~100K tokens    Handoff zone (MANDATORY handoff begins)
+Zone 4: EMERGENCY    [85% - 96%]   ~110K tokens    Compact + minimal recovery
+Zone 5: FORBIDDEN    [96% - 100%]   ~40K tokens    NEVER ENTER (hallucination zone)
+```
+
+**Hard rules:**
+- Zone 3 entry → stop new atoms, begin Session Handoff (§7)
+- Zone 4 without handoff started → immediate `/smart-compact`, then finish current atom only, then handoff
+- Zone 5 → refuse all work, write emergency handoff only
+
+### 6.2 Dispatch-vs-Local Decision Matrix
+
+**ALWAYS DISPATCH (to subagent or coworker — never read locally):**
+
+| Task | Target | Savings |
+|------|--------|---------|
+| Reading collection source_artifacts/*.txt | CC Subagent → 2-4KB summary | Saves 20-60KB per file |
+| Reading structured JSONL/YAML/MD files | CC Subagent → 2-4KB summary | Saves 10-30KB per file |
+| Codex CLI challenge | codex exec (external process) | Zero CC context for coworker reasoning |
+| Gemini CLI review | gemini -p (external process) | Zero CC context for coworker reasoning |
+| SPEC section reading (full section) | CC Subagent → 2-3KB summary | Saves 10-30KB per section |
+| DR report summarization | CC Subagent (if report >10KB) | Saves 10-50KB per report |
+| Cross-atom regression check | CC Subagent reads ledger | Saves 25KB |
+
+**ALWAYS LOCAL (CC's own context):**
+
+| Task | Rationale |
+|------|-----------|
+| Synthesis decision-making (Stage 5) | Core intellectual work requiring judgment |
+| Implementation edits | CC must see code to edit it (but edits are small, <5KB) |
+| Ledger updates | Small writes, requires decision context |
+| Owner briefing composition | Requires CC judgment |
+| Test execution + result interpretation | Tool calls with structured output |
+| Commit message composition | Requires session context |
+
+**CONDITIONAL (dispatch if >60% context):**
+- Blast-radius checks → dispatch subagent
+- Test execution → run via Bash with -q flag, read only failures
+
+### 6.3 Per-Atom Context Tracking
+
+After every 3rd atom, CC MUST state:
+> "Context estimate: ~X% used. Remaining capacity: ~Y atoms. Handoff planned after atom Z."
+
+**Rough formula:**
+```
+estimated_tokens ≈ 52K + (atoms_completed × 20K) + (response_turns × 10K)
+```
+
+At ~18-20 completed atoms with ~5 turns each: ~52K + 400K + 1000K... this gets complex. The practical rule: **hand off after ~15-18 atoms to be safe.** Session 2's failure at 96% happened around atom 20 with the LESS efficient non-dispatch approach.
+
+### 6.4 Compaction Recovery Protocol
+
+When `/smart-compact` runs, IMMEDIATELY re-read (in this order):
+
+1. Session state from memory/handoff (batch progress, FP changes, decisions, next action)
+2. `engines/excerpting/CLAUDE.md` (~8KB)
+3. SPEC §1.1b only (FPs, ~6KB) — dispatch subagent if needed
+4. Current prompt from `phase2_group.py` lines 43-209 (~7KB)
+5. Ledger: ONLY last 5 entries (~5KB)
+6. Current batch atoms from MERGED_ATOM_QUEUE (~3-5KB)
+
+**Total recovery cost: ~35KB (~10K tokens).** Compare with full bootstrap at ~52K.
+
+**What can be re-derived (do NOT re-read):**
+- Collection file contents (dispatch subagent again if needed)
+- Coworker reports from completed atoms (summarized in ledger)
+- NEXT.md (doesn't change during session)
+- ATOM_PROTOCOL.md (behavioral rules internalized)
+
+---
+
+## §7 — Session Handoff Protocol
+
+### 7.1 Handoff Triggers
+
+| Trigger | Action |
+|---------|--------|
+| **Planned:** Last atom that fits in Zone 2 budget | Begin handoff |
+| **Triggered:** Entering Zone 3 (75% context) | Stop new atoms, begin handoff |
+| **Emergency:** Zone 4 (85%) without handoff started | Compact → finish current atom → handoff |
+
+### 7.2 Handoff Document Template
+
+Create at `reference/handoffs/excerpting_foundations_sessionN+1_kickoff_YYYY-MM-DD.md`:
+
+```markdown
+# Session [N+1] Kickoff — Excerpting Foundations Hardening
+
+## STOP — Read in this exact order:
+1. `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` (§0 checklist)
+2. This handoff document
+3. `engines/excerpting/CLAUDE.md`
+4. `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` (recent entries only)
+5. Continue from ATOM [MAQ-ID] at Stage [N]
+
+## Session [N] Accomplishments
+- **Atoms processed:** [N] ([list MAQ-IDs])
+- **Atoms CLOSED:** [N] (fully closed, Q-CLOSED passed)
+- **Atoms PRELIMINARY:** [N] (awaiting coworker confirmation — list which coworker)
+- **FPs added/modified:** [list FP numbers + 1-line each]
+- **Prompt changes:** GROUP [current]/1500 words, CLASSIFY [current]/~1000 words
+- **Test count:** [N] pass, [N] xfail, [N] skip
+- **Coworker dispatch summary:** Codex [N] dispatches, Gemini [N], DR [N] (list pending)
+
+## What Session [N] Got RIGHT (keep these patterns)
+1. [pattern]
+2. [pattern]
+3. [pattern]
+
+## What Session [N] Got WRONG (avoid these)
+1. [anti-pattern]
+2. [anti-pattern]
+3. [anti-pattern]
+
+## Context Management Report
+- Peak context estimate: ~[N]%
+- Compactions: [N]
+- Dispatch efficiency: [N]% of reads delegated
+- Atoms per session achieved: [N] (target was [M])
+
+## What Remains
+- **Next atom to process:** MAQ-[ID] at Stage [N] — [description]
+- **Unstarted atoms:** [N] ([list batch/series])
+- **PRELIMINARY atoms:** [list MAQ-IDs with missing coworker]
+- **Pending DR responses:** [list, with dispatch date]
+- **Unresolved risks:** [list]
+
+## Budget Update
+- EUR spent this session: [N]
+- EUR total: [N] / 100
+- Budget remaining: [N]
+
+## Process Improvements Discovered (for protocol §8)
+1. [improvement]
+2. [improvement]
+3. [improvement]
+```
+
+### 7.3 State Files to Update Before Session End
+
+- [ ] Handoff document written at `reference/handoffs/`
+- [ ] `.kr/HANDOFF.md` updated with resume point
+- [ ] `FOUNDATIONS_HARDENING_LEDGER.md` — all atom dispositions current
+- [ ] `MERGED_ATOM_QUEUE.md` — all atom statuses updated
+- [ ] All changes committed with descriptive messages
+
+---
+
+## §8 — Self-Improvement Mechanism
+
+### 8.1 Per-Session Retrospective
+
+Every session records (in the handoff document, §7.2):
+- 3 things that WORKED (keep these patterns)
+- 3 things that DIDN'T WORK (avoid these anti-patterns)
+- 3 proposed PROTOCOL IMPROVEMENTS
+
+### 8.2 Protocol Amendment Process
+
+After every 3 sessions, CC + Codex perform a protocol review:
+1. Read all retrospectives from the last 3 sessions
+2. Identify recurring patterns (good and bad)
+3. Propose specific protocol amendments
+4. Gemini reviews scholarly-impact amendments
+5. Amendments require: CC + Codex agreement minimum; Gemini for scholarly aspects
+
+**Amendment format:** Added to the version history in §0, with the change description, reasoning, and session that discovered the need.
+
+### 8.3 Living Document Principle
+
+This protocol is LIVING DOCTRINE, not frozen law. If a session discovers that a rule is counterproductive, it:
+1. Documents the issue in the retrospective
+2. Proposes the amendment with evidence
+3. Gets coworker confirmation
+4. Updates this document with version bump
+
+---
+
+## §9 — Quick Reference Card
+
+**Read this in 30 seconds at any point during a session for orientation.**
+
+### Atom Lifecycle
+
+```
+RAW → SOURCED → EXPANDED → CHALLENGED → SYNTHESIZED → IMPLEMENTED → CLOSED
+       read raw    scope+      coworkers     3-column      code+test    brief owner
+       + quote    exceptions   vote          decide                    + ledger
+```
+
+### Per-Stage Cheat Sheet
+
+| Stage | Who | Gate | Duration |
+|-------|-----|------|----------|
+| 1 RAW | CC selects | Atom chosen by priority | 0 min |
+| 2 SOURCED | CC (dispatch for >10KB) | Raw quoted, authority set, conflicts checked | 10-15 min |
+| 3 EXPANDED | CC | Scope, 2 exceptions, examples, hypothesis, blast-radius | 15-20 min |
+| 4 CHALLENGED | Codex + Gemini + DR | 2/3 reports received, structured | Variable |
+| 5 SYNTHESIZED | CC decides | 3-column table, disagreements resolved, decision specific | 10-15 min |
+| 6 IMPLEMENTED | CC codes | Tests green, pyright clean, sync passes | 5-30 min |
+| 7 CLOSED | CC briefs owner | Q-CLOSED: all 11 criteria TRUE | 5-10 min |
+
+### Dispatch Decision Tree
+
+```
+Is the file >10KB?  ──YES──→  Dispatch subagent, read summary
+        │
+        NO
+        │
+Is it a judgment call?  ──YES──→  Do locally (synthesis, implementation)
+        │
+        NO
+        │
+Can a coworker do it better?  ──YES──→  Dispatch to Codex/Gemini/DR
+        │
+        NO ──→ Do locally
+```
+
+### Context Checkpoints
+
+```
+After atom 3:    State context estimate
+After atom 6:    State estimate. If >50%, increase dispatch.
+After atom 9:    State estimate. If >60%, /smart-compact.
+After atom 12:   State estimate. If >70%, start planning handoff.
+At 75%:          STOP new atoms. Begin handoff.
+At 85%:          EMERGENCY. Compact → finish current → handoff.
+At 96%:          FORBIDDEN. Emergency handoff only.
+```
+
+### Coworker Minimums
+
+```
+Prompt change  = CC + Codex + Gemini (+ DR if disagreement)
+SPEC change    = CC + Codex + Gemini (+ DR for structural)
+Contract       = CC + Codex (+ Gemini preferred)
+SPEC-doctrine  = CC + Gemini (+ DR for scholarly)
+Phase gate     = ALL 6 sources, NO exceptions
+```
+
+### Anti-Patterns (Session Failures)
+
+```
+NEVER bulk atoms (analyze individually, implement in small groups max 3)
+NEVER read raw files >10KB locally (dispatch subagent)
+NEVER skip owner brief per-atom (even if "trivial")
+NEVER say "done" without Q-CLOSED (11 criteria ALL true)
+NEVER finalize with <2 coworker reports
+NEVER skip raw owner .txt source
+NEVER modify prompt without SPEC sync check
+NEVER push past 75% context without starting handoff
+```
+
+---
+
+## Appendix A: Collection File Authority Reference
+
+| Authority Level | Meaning | Protocol Handling |
+|----------------|---------|-------------------|
+| `owner_explicit` | Owner directly stated this | Treat as high-confidence input to expansion |
+| `owner_consistent_inference` | Consistent with owner's known standards | Treat as medium-confidence; verify against raw text |
+| `model_only` | ChatGPT engineering expansion only | Owner confirmation REQUIRED before Stage 5 synthesis |
+
+## Appendix B: Session 1 Failure → Protocol Fix Mapping
+
+| Session 1 Failure | Protocol Section | Specific Fix |
+|-------------------|-----------------|-------------|
+| Atoms bulked | §4 (lifecycle), §1.4 rule 11 | Per-atom lifecycle; max group of 3 for implementation only |
+| Owner not briefed per-atom | §4.7 (Stage 7), §1.4 rule 12 | Mandatory per-atom owner brief at closure |
+| Context hit 96% | §6 (context management) | Dispatch-first strategy; hard handoff at 75% |
+| Only 15/139 files read | §3 (bundle intake), §4.2 (SOURCED) | Subagent-based complete inventory; raw source mandatory |
+| Inconsistent coworker coverage | §5 (consensus protocol) | Per-atom minimum 2 coworkers; formal voting |
+| Premature "done" | §4.8 (Q-CLOSED) | 11-criterion gate; mechanically checkable |
+| No atom expansion | §4.3 (EXPANDED stage) | Mandatory expansion template with 7 sections |
+| DR not executed | §5.5 (async relay) | Timeout protocol; parallel work during wait |

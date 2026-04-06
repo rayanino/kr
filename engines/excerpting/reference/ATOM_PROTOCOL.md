@@ -1,6 +1,9 @@
-# Atom-by-Atom Hardening Protocol
+# Atom-by-Atom Hardening Protocol (v1.0 — SUPERSEDED)
 
-> **Authority:** ABSOLUTE. Governs ALL future sessions working on excerpting foundations hardening. No session may deviate from this protocol.
+> **STATUS: SUPERSEDED by `HARDENING_SESSION_PROTOCOL.md` v2.0 (2026-04-06).**
+> **This document is preserved as historical reference.** The Hard Rules section below remains in force (incorporated into the new protocol §1.4). For the governing process protocol, read `HARDENING_SESSION_PROTOCOL.md`.
+>
+> **Original authority:** ABSOLUTE. Governed all sessions working on excerpting foundations hardening.
 > **Created:** 2026-04-04, session 1.
 > **Why this exists:** The owner spent an ENTIRE WEEKEND (15+ hours) working with ChatGPT to produce 139 files of structured, machine-readable feedback across 8 collections (F1-F8). This is the highest-value owner input the project has EVER received. A previous Codex handoff session caused the first CC session to drift and nearly waste this data. THIS PROTOCOL PREVENTS THAT FROM HAPPENING AGAIN.
 
