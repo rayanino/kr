@@ -473,6 +473,7 @@ HR-19: Never disposition MCU as "ALREADY COVERED" without citing the exact FP cl
 HR-20: Never close Q-CLOSED for a prompt-affecting atom without behavior-change evidence (atom_test output required — no waivers for prompt-affecting atoms, per §1.4 Rule 5).
 HR-21: Never merge prompt changes without `scripts/run_regression_suite.py` passing.
 HR-22: Never combine extraction and verification roles in the same session/agent — the extractor cannot be the verifier (DR17 role separation, muqābil ≠ nāsikh).
+HR-23: **Never dispatch a prompt to ANY target (Codex CLI, Gemini CLI, DR relay, CC subagent) without first passing it through `/prompt-architect`.** The optimized version is what gets dispatched. Draft prompts are NEVER sent directly. Speed is not a constraint; quality is. Owner ALL-CAPS directive 2026-04-06. Session 3 evidence: raw Gemini prompt missed 6 real issues; prompt-architect RCoT version found all 6.
 
 ### 3B.3 Artifact Suite
 
@@ -917,6 +918,7 @@ OUTPUT: Independent verdict (ACCEPT/MODIFY/ITERATE/REJECT), counterexample, risk
 ```
 
 **Dispatch rules:**
+- **MANDATORY (HR-23):** Every dispatch prompt — Codex, Gemini, DR, subagent — MUST pass through `/prompt-architect` before sending. Draft the prompt, optimize it, send the optimized version. No exceptions.
 - Codex and Gemini dispatch SIMULTANEOUSLY (independent)
 - DR dispatch can happen simultaneously OR after CLI returns (CC decides based on whether CLI findings should feed DR)
 - CC does NOT proceed to Stage 5 until at least 2/3 coworker reports received
@@ -1329,8 +1331,9 @@ When coworkers disagree, resolve in this strict sequence:
 
 ### 5.5 Async DR Relay Protocol
 
-1. CC writes the DR prompt following templates in §4.4.
-2. CC presents to owner: "Please paste this into [ChatGPT DR / Claude DR / Gemini DR]."
+1. CC drafts the DR prompt following templates in §4.4.
+1A. **CC runs the draft through `/prompt-architect` (HR-23, MANDATORY).** The optimized version replaces the draft. This applies to ALL targets: DR relay, Codex CLI, Gemini CLI, CC subagents.
+2. CC presents the OPTIMIZED prompt to owner: "Please paste this into [ChatGPT DR / Claude DR / Gemini DR]."
 3. CC records dispatch in `dispatch_log.jsonl` with `status: dispatched`.
 4. CC does NOT block. Continues with CLI coworker work.
 5. When owner returns DR response, CC records with `status: completed`.
@@ -1719,6 +1722,7 @@ NEVER strip ALL-CAPS / emphasis — they are semantic content (v5.0 §3A.3, HR-1
 NEVER self-audit: extractor ≠ verifier (v5.0 §5.8, HR-17/HR-22)
 NEVER merge prompt changes without regression suite passing (v5.0 §4.18, HR-21)
 NEVER expand without fidelity indicator: exact / paraphrased / interpreted (v5.0 §4.3)
+NEVER dispatch a prompt without /prompt-architect optimization first (v5.0 §3B.2, HR-23)
 ```
 
 ---

@@ -69,6 +69,7 @@ When you're unsure whether to fix a subtle edge case or move on to the next phas
 11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `RESULT_PRESERVATION.md`.
 12. Every single action needs to be thoroughly thought-out, reviewed and optimized before being implemented.
 13. **ALL data is future training material.** The endgoal is to train local LLM(s) that live in the library. Every excerpt, API response, evaluation trace, owner feedback entry, coworker report, and metadata record is potential training data. NEVER delete data. Always preserve full outputs with provenance (model, prompt version, timestamp, confidence).
+14. **Every prompt dispatched to any target MUST pass through `/prompt-architect` first.** This applies to ALL dispatches: Codex CLI, Gemini CLI, DR relay prompts, CC subagent prompts, any natural language instruction to any agent. Draft the prompt → run `/prompt-architect` → dispatch the optimized version. The draft is NEVER sent directly. Speed is not a constraint; quality is. Owner ALL-CAPS directive 2026-04-06.
 
 ## Before Starting Work
 
