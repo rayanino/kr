@@ -10,7 +10,7 @@
 | 1 | Claude DR | Owner decision map across all 5 engines | 2026-04-06 | 2026-04-07 | `DR18_claude_owner_decision_map.md` | YES (3 agents) |
 | 2 | ChatGPT DR | Pattern gap analysis from campaign + bundles | 2026-04-06 | PENDING | — | — |
 | 3 | Gemini DR | Islamic madrasa curriculum perspective | 2026-04-06 | PENDING | — | — |
-| 4 | Codex CLI | Schema/contract analysis for unmet data deps | 2026-04-06 | PENDING | — | — |
+| 4 | Codex CLI | Schema/contract analysis for unmet data deps | 2026-04-06 | 2026-04-07 | `CODEX_CLI_data_type_analysis.md` | YES (direct) |
 | 5 | Gemini CLI | Islamic pedagogy + student learning methodology | 2026-04-06 | PENDING | — | — |
 
 ## Per-Coworker Unique Findings
@@ -35,8 +35,19 @@
 ### Gemini DR — PENDING
 **Expected contribution:** Islamic curriculum prerequisites. Knowledge sequencing. Study method taxonomy. Excerpt quality from student perspective. Minimum viable curriculum data per science.
 
-### Codex CLI — PENDING
-**Expected contribution:** Contract-level field analysis. SPEC rule → questionnaire mapping gaps. Schema validation of bundle format. Machine-checkable data dependency graph.
+### Codex CLI — Received 2026-04-07
+**Unique contribution:** 11 policy families (DT-01 through DT-11) with dependency chains, minimum record counts, and questionnaire gap analysis. Fundamentally different angle from DR18 — maps data TYPES rather than decision POINTS.
+- DT-01 (user model) identified as ROOT dependency — all other decisions depend on it
+- DT-02 (quality rubric S-1) shows "Not yet defined" — priority order among quality dimensions unmapped
+- DT-05/06/07 (evidence, khilaf, genre) are entirely unique to Codex — DR18 missed these as structured data types
+- DT-08 (study-readiness) correctly SEPARATED from self-containment via FP-18
+- TEAM_TRANSLATION_GUIDE.md has ZERO FP-13..22 mappings (pre-hardening gap)
+- FP operationalization verdict: only FP-8 and FP-18 need owner calibration
+- **Two-layer insight:** Policy layer (what owner WANTS) precedes Decision layer (what pipeline NEEDS)
+
+**Corrections:** None — all claims verified (5/5 confirmed, 1 plausible).
+**Disagreements with DR18:** 4 identified and resolved (see CODEX_CLI_verification_crossref.md).
+**Verification:** `CODEX_CLI_verification_crossref.md`
 
 ### Gemini CLI — PENDING
 **Expected contribution:** Islamic pedagogy grounding. Student-defined data per science. Genre-specific excerpting preferences from scholarly perspective. Scholarly convention compliance.
