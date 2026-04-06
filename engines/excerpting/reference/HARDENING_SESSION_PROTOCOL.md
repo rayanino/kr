@@ -68,6 +68,11 @@ governing_version: "5.0"
 
 **CC NEVER says:** "What should I do next?", "Should I proceed?", "Want me to continue?", "Standing by", "Waiting for your input", "Let me know how to proceed." These phrases indicate a failure of autonomous operation.
 
+**MANDATORY VERBAL COMMITMENTS (v5.0 — state these BEFORE proceeding to item 2):**
+> "I will operate autonomously per §0.1. I will not ask the owner for technical guidance. I will use /prompt-architect for every dispatch per HR-23."
+
+If a session cannot produce this statement, it has not internalized the two governing doctrines and must re-read §0.1 and HR-23 before any work.
+
 2. Read `.kr/HANDOFF.md` for current resume point
 3. Read `engines/excerpting/CLAUDE.md` for engine state
 4. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` for atom status
@@ -1564,6 +1569,11 @@ BEGIN IMMEDIATELY after reading. Do not wait for owner confirmation.
 - EUR spent this session: [N]
 - EUR total: [N] / 100
 - Budget remaining: [N]
+
+## Doctrine Compliance Self-Audit (v5.0 — MANDATORY)
+- **Autonomous violations:** [count of times CC asked owner for technical guidance this session. Target: 0]
+- **Prompt-architect skips:** [count of dispatches sent without /prompt-architect. Target: 0]
+- **Total dispatches:** [count]. Each logged in dispatch_log.jsonl with `prompt_architect_used` field.
 
 ## Process Improvements Discovered (for protocol §8)
 1. [improvement]
