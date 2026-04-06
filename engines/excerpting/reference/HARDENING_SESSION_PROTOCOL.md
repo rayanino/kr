@@ -10,6 +10,7 @@
 > - v2.2 (2026-04-06): Codex CLI review — reopen protocol for finalized atoms, CC voting role clarification, G-RAW made checkable, word budget running tracker.
 > - v3.0 (2026-04-06): ChatGPT DR adversarial review (38 findings, 10 pre-mortems) → 10 accepted via Codex+Gemini consensus: terminal state split, MODIFY→DISPUTED escalation, preliminary debt ceiling, prompt refactor gate, verbatim span extraction, scholarly integrity arbitration, scoped NEEDS RESEARCH blocking, prompt coherence reviews, owner objection mechanism, closure verification script (to build).
 > - v3.1 (2026-04-06): Gemini DR pedagogical review (8 findings, 4/10 + 3/10 scores) → 5 accepted via Codex+Gemini consensus: Natural Teaching Unit field, Graduated Learning Level field, atom complexity triage (Full/Light lane), owner briefing optimization (exception-based after 50 atoms), DR budget per session (max 5/session). 3 redirected to engine SPEC/downstream engines.
+> - v3.2 (2026-04-06): Claude DR scholarly review (19 findings, 5/10 score) → 8 accepted via Codex consensus: science list expanded 8→12 with structural families, indivisible units expanded 5→17 in 3 tiers (always/usually/conditionally), mandatory pre-expansion genre classification (3 decisions), scholarly uncertainty flags, sharḥ-matn pair as critical indivisible unit, multi-layer text awareness, honorific+transmission formula preservation, suʾāl-jawāb+radd+qiyās+taqsīm structures. FP-13 genre-sensitivity (SCH-009/010) redirected to SPEC.
 
 ---
 
@@ -261,6 +262,14 @@ RAW ──→ SOURCED ──→ EXPANDED ──→ CHALLENGED ──→ SYNTHESI
 
 **MANDATORY pre-expansion read:** Before drafting any expansion, CC (or a subagent) must read `.claude/rules/arabic-scholarly-conventions.md` to avoid proposing rules that violate Islamic scholarly text structure (e.g., splitting muqaddimah preamble blocks, breaking isnad chains, mishandling colophon attribution). This prevents guaranteed REJECT votes from Gemini in Stage 4.
 
+**MANDATORY pre-expansion classification (SCH-013, 3 decisions before drafting):**
+Before CC writes ANY expansion content, CC must record three classification decisions:
+1. **Science category:** From the expanded list in Cross-Science Variation below. If uncertain: `[SCHOLARLY_CHECK_NEEDED]`.
+2. **Structural family:** `[ARG]` argument-based (fiqh, uṣūl, ʿaqīdah, manṭiq) / `[NAR]` narrative-based (tārīkh, sīrah) / `[ENT]` entry-based (ṭabaqāt, muṣṭalaḥ) / `[RUL]` rule-based (naḥw, ṣarf) / `[COM]` commentary-structured (sharḥ/ḥāshiya/taʿlīqa). If uncertain: `[SCHOLARLY_CHECK_NEEDED]`.
+3. **Text layer position:** matn / sharḥ / ḥāshiya / taʿlīqa / single-layer. If uncertain: `[SCHOLARLY_CHECK_NEEDED]`.
+
+Any `[SCHOLARLY_CHECK_NEEDED]` flag means CC must explicitly state what it does not know. Example: "This appears to be a single ḥadīth + commentary, but I cannot verify whether the bāb heading is semantically integral. [SCHOLARLY_CHECK_NEEDED: Is the bāb the correct atomic unit in this genre?]" Gemini reviews these flags FIRST in Stage 4.
+
 **Expansion process:**
 1. **Scope definition:** What does this atom govern? What is IN scope, OUT of scope? Be precise about pipeline phase, text type, scholarly context.
 2. **Exception analysis:** When does this NOT apply? CC generates at least 2 candidate exceptions and evaluates each.
@@ -301,11 +310,65 @@ OUT OF SCOPE: [precise list]
 [Concrete scenario showing damage from misapplication — seeds coworker adversarial prompts]
 
 ### Cross-Science Variation
-[How does this rule apply differently across sciences? Check at minimum: fiqh (madhab attribution), hadith (isnad chains), nahw (grammatical analysis), tafsir (ayah commentary), usul (evidence methodology), aqidah (creedal positions), lughah (lexicography/rhetoric), tarikh (biographical/historical narrative). Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / SCOPED (domain-specific, irrelevant to this science) / NEEDS RESEARCH.
-**DA-027 rule:** If any science is marked NEEDS RESEARCH AND the ambiguity affects a shared cross-science structural element (paragraph boundaries, chapter headings, excerpt boundaries, textual unit splitting), the atom CANNOT be finalized for prompt-affecting changes — it stays PRELIMINARY until scholarly coworker resolves the ambiguity. Domain-specific ambiguity (e.g., isnad rule in a nahw text) may be tagged SCOPED and finalized.]
+[How does this rule apply differently across sciences? Check ALL 12 categories grouped by structural family:
+
+**[ARG] Argument-based:**
+- Fiqh (madhab attribution, masʾalah structure)
+- Uṣūl al-fiqh (evidence methodology, qiyās chains)
+- ʿAqīdah (creedal positions, dalīl cascades)
+- Manṭiq (syllogistic chains: premise-premise-conclusion)
+
+**[NAR] Narrative-based:**
+- Tārīkh/sīrah (chronological narrative)
+- Tafsīr (verse-by-verse or thematic commentary)
+
+**[ENT] Entry-based:**
+- Ṭabaqāt/tarājim (biographical dictionaries — each tarjamah is atomic)
+- Muṣṭalaḥ al-ḥadīth (definition→criteria→examples structure, NO isnāds)
+
+**[RUL] Rule-based:**
+- Naḥw (grammatical rules + shawāhid)
+- Ṣarf (morphological paradigm tables — tabular, not prose)
+- Lughah/balāghah (lexicography/rhetoric)
+
+**[COM] Commentary-structured:**
+- Ḥadīth collections + sharḥ (isnād-matn pairs; bāb = natural atom in Bukhārī)
+
+Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / SCOPED / NEEDS RESEARCH.
+**DA-027 rule:** NEEDS RESEARCH on a shared cross-science structural element → blocks finalization for prompt-affecting atoms until scholarly coworker resolves. Domain-specific NEEDS RESEARCH may be tagged SCOPED and finalized.]
 
 ### Atomic Integrity Risk
-[Does this rule risk splitting indivisible textual units? Check: isnad-matn chains (حدثنا...أخبرنا), muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد), manuscript colophons (تم الكتاب...كتبه), internal cross-references (كما تقدم → target), Quranic citation blocks (قال تعالى ﴿...﴾). If any risk: document the safeguard.]
+[Does this rule risk splitting indivisible textual units? Check against ALL tiers:
+
+**ALWAYS INDIVISIBLE (splitting is always corruption):**
+- Isnād-matn chains (حدثنا...أخبرنا — transmission formula + narrated text)
+- **Sharḥ-matn pair (THE MOST CRITICAL — majority of corpus):** Commentary snippet + the base text it explains. In all forms (interleaved, "قوله... أي...", or ص/ش markers), the sharḥ uses anaphoric references requiring the matn. In multi-layer texts: matn segment + sharḥ passage + ḥāshiya passage for that segment are ALL inseparable.
+- **Suʾāl-jawāb:** Fatwā question + answer. The jawāb's referential context ("this is permissible") is meaningless without the suʾāl specifying what "this" is.
+- **Radd/iʿtirāḍ-jawāb:** Opponent's position (فإن قيل / قال) + author's refutation (قلنا / والجواب). Refutation without stated position is unintelligible.
+- **Qiyās (analogical reasoning):** The four arkān — aṣl, farʿ, ʿillah, ḥukm. Removing any one invalidates the argument.
+- Muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد)
+- Manuscript colophons (تم الكتاب...كتبه)
+- Quranic citation blocks (قال تعالى ﴿...﴾)
+- Istishhād (poetic evidence: verse + grammatical explanation + attribution)
+- Takhrīj (ḥadīth text + source list + grading — separating a ḥadīth from its grading is catastrophic)
+- Paradigm tables (jadāwil al-taṣrīf — partial conjugation tables are misleading)
+
+**USUALLY INDIVISIBLE (split only when exceeding maximum excerpt size with natural sub-boundaries):**
+- **Khilāf register:** Complete disagreement survey for one masʾalah. Presenting only one madhhab misrepresents the law.
+- **Taqsīm (taxonomy trees):** "X is of three types..." — splitting after type 2 means the reader has an incomplete taxonomy and may not know it (FP-5 silent corruption).
+- Internal cross-references (كما تقدم → target)
+
+**CONDITIONALLY INDIVISIBLE (context-dependent):**
+- Ijmāʿ + noted dissent. Separating the exception transforms a qualified consensus into an absolute one.
+- Sharṭ-jawāb (conditional-consequence). Presenting only the condition leaves the ruling incomplete.
+
+If any risk: document the safeguard. If uncertain whether a unit is indivisible in this context: `[SCHOLARLY_CHECK_NEEDED]`.]
+
+### Multi-Layer Text Awareness (SCH-016)
+[If the source text has multiple layers (matn/sharḥ/ḥāshiya/taʿlīqa): (a) Which layer is the TARGET of this atom? (b) Which LOWER layers must be included for the target to be intelligible? (c) Does the atom's boundary in the target layer align with natural boundaries in lower layers? An excerpt at layer N MUST include corresponding text at all layers below N, down to the matn segment that anchors the discussion. If single-layer text: "N/A — single layer."]
+
+### Honorific & Transmission Formula Preservation (SCH-017, SCH-019)
+[When this atom mentions any scholar, prophet, or companion: verify honorifics in source text are preserved exactly (ﷺ, رضي الله عنه, رحمه الله). Honorifics are integral text, NOT optional metadata. When the atom touches ḥadīth content (identifiable by: حدّثنا / أخبرنا / سمعت / عن / قال): invoke FP-11 isnād-matn integrity. Transmission formulas indicate strength — they CANNOT be removed, altered, or truncated.]
 
 ### Implementation Hypothesis
 Target: [new FP / strengthen FP-X / prompt addition (+N words) / contract change / test case / SPEC-only / deferred]
