@@ -73,6 +73,8 @@ governing_version: "5.0"
 
 If a session cannot produce this statement, it has not internalized the two governing doctrines and must re-read §0.1 and HR-23 before any work.
 
+1B. **AUDIT PRIOR SESSION (v5.0.1 DR18):** If a prior session handoff exists, run `python scripts/audit_prior_session.py --handoff <prior_handoff>`. If it fails (exit 1), document the discrepancies and address them before proceeding. This is the inter-session compliance audit — each session verifies the prior session's self-reported compliance.
+
 2. Read `.kr/HANDOFF.md` for current resume point
 3. Read `engines/excerpting/CLAUDE.md` for engine state
 4. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` for atom status
@@ -479,6 +481,7 @@ HR-20: Never close Q-CLOSED for a prompt-affecting atom without behavior-change 
 HR-21: Never merge prompt changes without `scripts/run_regression_suite.py` passing.
 HR-22: Never combine extraction and verification roles in the same session/agent — the extractor cannot be the verifier (DR17 role separation, muqābil ≠ nāsikh).
 HR-23: **Never dispatch a prompt to ANY target (Codex CLI, Gemini CLI, DR relay, CC subagent) without first passing it through `/prompt-architect`.** The optimized version is what gets dispatched. Draft prompts are NEVER sent directly. Speed is not a constraint; quality is. Owner ALL-CAPS directive 2026-04-06. Session 3 evidence: raw Gemini prompt missed 6 real issues; prompt-architect RCoT version found all 6.
+HR-24: **Never end a session without running `scripts/lint_session_norms.py` on the handoff — must PASS.** Checks: permission-seeking language (C1), next-step presence (C2), dispatch completeness (C3), prompt-architect compliance (C4). DR18 Mechanism 2 (norm-linter gate). A failing lint report means the handoff has governance violations that the next session would inherit.
 
 ### 3B.3 Artifact Suite
 
@@ -1574,6 +1577,12 @@ BEGIN IMMEDIATELY after reading. Do not wait for owner confirmation.
 - **Autonomous violations:** [count of times CC asked owner for technical guidance this session. Target: 0]
 - **Prompt-architect skips:** [count of dispatches sent without /prompt-architect. Target: 0]
 - **Total dispatches:** [count]. Each logged in dispatch_log.jsonl with `prompt_architect_used` field.
+
+## Session Scorecard (v5.0.1 DR18 — MANDATORY)
+Run `python scripts/compute_session_scorecard.py --handoff <this_file> --dispatch-log .kr/runtime/dispatch_log.jsonl` and paste the summary:
+- **Norm 1 (Autonomy):** [N] violations ([breakdown by severity: CRITICAL/HIGH/MEDIUM/LOW])
+- **Norm 2 (Prompt-Architect):** [X]% compliance ([dispatches with promptcard] / [total dispatches])
+- **Lint report:** `scripts/lint_session_norms.py` result: [PASS/FAIL] (HR-24 — must PASS before session end)
 
 ## Process Improvements Discovered (for protocol §8)
 1. [improvement]
