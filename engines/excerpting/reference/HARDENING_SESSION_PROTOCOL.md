@@ -141,10 +141,10 @@ Each session declares its type at start. The type determines what work is done a
   |---|---|---|---|---|---|---|
   | intake-only | — | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN |
   | debt-clearance | FORBIDDEN | — | ALLOWED | FORBIDDEN | ALLOWED | FORBIDDEN |
+  | prompt-architecture | FORBIDDEN | ALLOWED | — | FORBIDDEN | FORBIDDEN | FORBIDDEN |
+  | full-atom | FORBIDDEN | FORBIDDEN | FORBIDDEN | — | FORBIDDEN | FORBIDDEN |
+  | validation-only | FORBIDDEN | ALLOWED | FORBIDDEN | FORBIDDEN | — | FORBIDDEN |
   | batch-verification | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | — |
-  | prompt-architecture | FORBIDDEN | ALLOWED | — | FORBIDDEN | FORBIDDEN |
-  | full-atom | FORBIDDEN | FORBIDDEN | FORBIDDEN | — | FORBIDDEN |
-  | validation-only | FORBIDDEN | ALLOWED | FORBIDDEN | FORBIDDEN | — |
 
   Only 2 combinations are ALLOWED: (`debt-clearance` + `prompt-architecture`) and (`validation-only` + `debt-clearance`). ALL other combinations are FORBIDDEN. When in doubt: single-type session. New atoms from intake are never processed in the same session as the intake.
 - If a session discovers mid-work that it should be a different type (e.g., started `full-atom` but found new bundles at repo root), it STOPS, writes a handoff, and the next session handles the discovered work.
@@ -169,8 +169,9 @@ When multiple gates trigger simultaneously at session start, resolve in this str
     (§3 Step 7) but has NOT passed the Batch Completion Gate (§3B), session type
     MUST be batch-verification. Run scripts/verify_batch_completion_gate.py —
     if exit code ≠ 0, BCV session required. This gate blocks ALL downstream
-    processing (prompt refactor, per-atom) until every word of every batch
-    source file is verified and traced. See §3A-3C.
+    processing (prompt refactor, per-atom) until every batch source file is
+    verified at its designated standard (Ḥāfiẓ for F1/F2 raw text, Faqīh
+    for F3-F8 structured files — see §3A.4). See §3A-3C.
 6. PROMPT REFACTOR GATE — §4.11. If triggered → session type = prompt-architecture
 7. PER-ATOM PROCESSING — only reachable if gates 4-6 all clear → session type = full-atom
 ```
@@ -447,7 +448,7 @@ HR-16: Never strip ALL-CAPS, exclamation marks, or emphasis markers from owner t
 HR-17: Never self-audit — the session that performed extraction CANNOT perform verification (muqābil ≠ qāriʾ, DR17 §4).
 HR-18: Never post-edit the queue after verification without rolling back the affected file's status to DRIFTED.
 HR-19: Never disposition MCU as "ALREADY COVERED" without citing the exact FP clause + writing a minimal counterexample.
-HR-20: Never close Q-CLOSED for a prompt-affecting atom without behavior-change evidence (atom_test output or explicit waiver with scheduled debt).
+HR-20: Never close Q-CLOSED for a prompt-affecting atom without behavior-change evidence (atom_test output required — no waivers for prompt-affecting atoms, per §1.4 Rule 5).
 HR-21: Never merge prompt changes without `scripts/run_regression_suite.py` passing.
 HR-22: Never combine extraction and verification roles in the same session/agent — the extractor cannot be the verifier (DR17 role separation, muqābil ≠ nāsikh).
 
@@ -495,6 +496,12 @@ Upon Ijāzah, produce a formal verification certificate with these 9 fields (gro
 7. **Variant notation key:** Mapping of provenance sigla used in the collation register (e.g., "خ O2 = owner feedback version 2")
 8. **Exemplar pagination reference:** File:line references preserved for traceability
 9. **Integrity closing:** "All MCUs verified. Coverage: X%. This certificate is revocable per §3C.3."
+
+**Lock-to-certificate field mapping (v5.0, Gemini-corrected):**
+- Lock 1 (Mulāzamah) → Field 2 (exemplar description with SHA-256) + Field 6 (completeness: "100% file coverage")
+- Lock 2 (Taḥqīq) → Field 6 (completeness: "zero SOFTENED at CRITICAL/HIGH; N gaps remediated") + Field 9 (closing attestation)
+- Lock 3 (Mudhākarah) → Field 3 (collator identity: list all coworkers who reviewed) + Field 4 (method: "assembly" if multiple reviewers)
+- Lock 4 (ʿArḍ) → Field 9 (closing: "Owner approval: Full/Partial. Caveats: [if any]")
 
 ### 3C.3 Partial Certification and Revocation
 
@@ -723,7 +730,7 @@ For EACH claim in the expansion, CC MUST declare the fidelity level:
 - **Mandatory-exact text types (Gemini CLI correction):** Devotional formulae (dhikr, duʿāʾ), jawāmiʿ al-kalim (concise prophetic sayings), and any directive where exact phrasing carries legal/doctrinal weight MUST be `exact` — `paraphrased` or `interpreted` is FORBIDDEN for these text types regardless of context
 - **The 5 conditions for meaning-based expansion (riwāyah bi-l-maʿnā):** Before using `paraphrased` or `interpreted`, verify: (1) CC has deep domain understanding, (2) no change to legal implications, (3) text is not devotional, (4) text is not jawāmiʿ al-kalim, (5) if doubtful, append the hedging marker. If ANY condition fails → `exact` required.
 
-**Anchor-bound expansion (R-09):** The EXPANDED→CHALLENGED stages MUST maintain verbatim source anchors. G-CHALLENGED (§4.4 exit gate) CANNOT pass unless at least one challenger audits fidelity: "What in the anchors proves this claim?" This prevents interpretation drift during expansion.
+**Anchor-bound expansion (v5.0 DR16):** The EXPANDED→CHALLENGED stages MUST maintain verbatim source anchors. G-CHALLENGED (§4.4 exit gate) CANNOT pass unless at least one challenger audits fidelity: "What in the anchors proves this claim?" This prevents interpretation drift during expansion.
 
 ### Natural Teaching Unit (الوحدة التعليمية الطبيعية) — CONDITIONAL (v4.3 DR11)
 **Trigger:** MANDATORY for CONTENT atoms (dealing with scholarly texts, legal definitions, or substance of Islamic sciences). For STRUCTURAL or ENGINEERING atoms (formatting, boundary logic, tagging, relay constraints), auto-fill "N/A — System Logic" and skip evaluation.
@@ -1055,6 +1062,8 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-10 | Per-atom brief artifact in ledger with 4 required elements | Ledger entry contains what/changed/rejected/risks for THIS atom |
 | Q-11 | Ledger fully updated | Complete entry per the template above |
 | Q-12 | Outcome spot-check (for any atom tagged 'cross-science' OR touching any ALWAYS INDIVISIBLE unit OR scoped to structurally rigid sciences: Naḥw, Ṣarf, Qirāʾāt/Tajwīd, Adab/Shiʿr): run mini-fixture through relevant pipeline step, record observed vs expected behavior | atom_test.py output on representative Arabic passage, or written analysis with specific Arabic example |
+| Q-13 | **Regression gate passed (v5.0 §4.18):** If this atom changed the prompt or SPEC, `scripts/run_regression_suite.py` must have exited 0 AFTER the change. If no prompt/SPEC change: "N/A — no prompt/SPEC modification." | regression_runs/<run_id>/summary.json with exit 0, or "N/A" with justification |
+| Q-14 | **Doctrine coherence verified (v5.0 §4.19):** If this atom introduces or modifies a MUST/NEVER/ALWAYS rule, `scripts/prompt_coherence_lint.py` must have exited 0 confirming no conflicting quantifiers with existing rules. If no rule change: "N/A — no rule modification." | coherence_report.md with exit 0, or "N/A" with justification |
 
 If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
 
