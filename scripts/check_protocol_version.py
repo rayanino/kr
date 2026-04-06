@@ -20,7 +20,7 @@ def extract_title_version(text: str) -> str | None:
 
 
 def extract_frontmatter_version(text: str) -> str | None:
-    m = re.search(r"^governing_version:\s*([\d.]+)", text, re.MULTILINE)
+    m = re.search(r'^governing_version:\s*"?([\d.]+)"?', text, re.MULTILINE)
     return m.group(1) if m else None
 
 

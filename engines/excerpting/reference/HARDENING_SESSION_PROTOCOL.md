@@ -1,7 +1,7 @@
-# Hardening Session Protocol v4.3
+# Hardening Session Protocol v5.0
 
 ---
-governing_version: "4.3"
+governing_version: "5.0"
 ---
 
 > **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
@@ -20,6 +20,19 @@ governing_version: "4.3"
 > - v4.1 (2026-04-06): ChatGPT DR adversarial review (DR9, 18 findings: 8 CRITICAL, 9 HIGH, 1 MEDIUM). Pre-mortem analysis of July 2026 "40% CLOSED atoms have errors" scenario. Key patches: (1) checkpoint resolution gate in §1.6 (prevents orphaned atoms), (2) model_only ineligible for Light Lane (closes authority bypass), (3) WIP cap split into active-processing vs awaiting-external (prevents deadlock), (4) DR deadlock fallback in §4.9 (>7 days → downgrade to REOPENED), (5) document-precedence: Protocol > NEXT.md > handoffs (§0), (6) atom-review-sampled DR class (§4.16), (7) coverage-tier-specific G-CHALLENGED gate (not just "2/3"), (8) blinded DR tiebreaker template (§5.4), (9) session-type compatibility matrix (only 2 allowed pairs), (10) expansion evidence minimums + per-atom attention isolation (anti-checkbox-theater), (11) owner engagement heartbeat every 10 atoms post-50 (§4.15), (12) prompt coherence counter in handoff template, (13) refactor safety checklist (§4.11), (14) §8.4 doctrine backfill protocol, (15) Q-12 outcome spot-check for cross-science/ALWAYS-INDIVISIBLE atoms, (16) verify_atom_closure_minimal.py (DA-001 implemented). Stage 7 wording fixed: "post-decision + safety-critical veto" replaces "informational."
 > - v4.2 (2026-04-06): Claude DR scholarly review (DR10, 5 findings: 3 CRITICAL, 2 HIGH). Grounded in Islamic textual traditions (taḥqīq, isnād methodology, madrasa pedagogy). Key changes: (1) science list 16→19: +ʿIlm al-Kalām [ARG] (dialectical shubhah-radd, distinct from ʿaqīdah), +ʿIlm al-Farāʾiḍ [ARG+RUL] (computationally structured inheritance), +Taṣawwuf [SEQ] (sequential-progressive maqāmāt with prerequisite-chain tracking). (2) New [SEQ] structural family. (3) [COM] REMOVED as peer family → replaced with 2-dimensional taxonomy (Family × Layer). Ḥadīth collections moved to [ENT]. Text Layer dimension: [M] Matn, [S] Sharḥ, [H] Ḥāshiyah, [T] Taʿlīqah with 3 interleaving types. (4) Indivisible units 23→30: +Mujmal/Mubayyan, +Dalīl/Wajh al-Dalālah, +Tarjīḥ block, +Istidrāk/Tanbīh, +Waqf markers [ALWAYS]; +Ijāzah chain [USUALLY]; +Taḥqīq apparatus [CONDITIONALLY]; Qiyās expanded with taʿlīl 3-stage manāṭ. (5) §4.13: madhhab-context parameter, edition metadata, authorship-confidence, genre-flexibility. (6) §4.15: theme-based cross-science batching (Gemini amended: discipline-homogeneous rejected for hardening), Tier 1 reversion, rubber-stamping detection. Gemini validation: AGREE on 3/4 scholarly findings, DISAGREE on discipline-homogeneous batching (synthesized into hybrid approach).
 > - v4.3 (2026-04-06): Gemini DR pedagogical evaluation (DR11, 6 findings: 4 "FUNDAMENTALLY FLAWED", 2 "PROBLEMATIC"). Evaluated through Islamic curricula traditions (Waḥdat al-ʿUlūm, Mulāzamah, Tadarruj, ʿArḍ). **3 findings ADOPTED:** (1) Fatāwā/Nawāzil demoted from peer science to fiqh sub-clause (sciences 19→18), (2) NTU/GLL fields made CONDITIONAL (mandatory for CONTENT atoms, auto-bypass for STRUCTURAL), (3) Applied Visual ʿArḍ added to §4.15 (before/after Arabic text examples in batched summaries). **2 kernels EXTRACTED:** (4) cross-science dependency note added to expansion template (preserves waḥdat al-ʿulūm across sessions), (5) §0 persistent axiom reference to SPEC §1.1b as LIBRARY_USUL. **3 findings REJECTED:** session type abolition (would reproduce Session 2 context exhaustion), protocol decimation to 200 lines (ignores 34+ documented failures), Q-CLOSED reduction to 3 gates (covered by existing FPs + mechanisms). **FINAL DR REPORT — all 3 DRs (DR9 ChatGPT, DR10 Claude, DR11 Gemini) fully processed.**
+> - v5.0 (2026-04-06): **Batch Lifecycle Protocol** — synthesized from 6 DR reports (DR12 ChatGPT batch completeness, DR13 Gemini pedagogical lifecycle, DR14 Claude tahqiq framework, DR15 Gemini operational verification, DR16 ChatGPT traceability/integrity, DR17 Claude manuscript verification scholarly reference). 52 implementation units. Gemini CLI validated scholarly grounding (5 corrections accepted). Key additions:
+>   - **NEW §3A: Batch Lifecycle** — 6-phase model (Intake→Extraction→Challenge→Verification→Briefing→Finalization) grounded in Islamic madrasa pedagogy. MCU (Minimum Content Unit) definition with verbatim anchors. MCU classification (MISSED/SOFTENED/DISTORTED-tashif/DISTORTED-tahrif/SKIPPED-FILE). Bifurcated Hafiz/Faqih standard extended to 4-factor threshold matrix (genre, collator competence, text status, exemplar availability). ALL-CAPS = semantic content (fatal lahn if stripped). Fan-in threshold. Lahn severity framework (science-specific: fatal/tolerable varies by Islamic science).
+>   - **NEW §3B: Batch Completion Gate** — 5-condition script-enforced gate. Batch status DERIVED not DECLARED. 9 hard rules (HR-13 through HR-22). Hash-bound inventory with drift detection.
+>   - **NEW §3C: Batch Finalization (Ijazah)** — 4-lock ceremony + 9-field shahadah certificate anatomy (DR17 classical structure). Partial certification (ijazah mu'ayyanah). Revocation policy (Sijill al-Istidrак).
+>   - **§1.5/§1.6 amended:** verification-only session type added. Gate-precedence: BCV gate after bundle intake, before prompt refactor.
+>   - **§4.3 amended:** Anchor-bound expansion (R-09). Expansion fidelity indicator (R-20, او كما قال convention): exact/paraphrased/interpreted with mandatory-exact enforcement for devotional formulae and jawami' al-kalim.
+>   - **§4.6 amended:** Absolute Reopen Authority (Haqq al-Istidrак). Istidrak remediation chain with generation indexing (R-21).
+>   - **§4.8 amended:** Behavior-change evidence for Q-CLOSED (R-11). Model-environment equivalence contract (R-15). Coverage-claim validation (R-14).
+>   - **NEW §4.18: Regression Gate** — Mandatory sweep after prompt/SPEC change (R-10).
+>   - **NEW §4.19: Doctrine Coherence Gate** — Cross-batch lint (R-12).
+>   - **§5 amended:** Variant preservation with authority-ordered provenance sigla (R-22, DR17). Role separation formalization: 5 classical roles mapped to protocol agents (R-26). Scholarly grounding note for authority hierarchy.
+>   - **NEW §8.5: Calibration File** — Nuskha mi'yariyyah for drift detection (R-16). Dabt deficiency linkage from lahn framework (R-25).
+>   - **8 new scripts:** batch_inventory.py, batch_verification_init.py, batch_compute_coverage.py, batch_generate_trace_report.py, verify_batch_completion_gate.py, run_regression_suite.py, prompt_coherence_lint.py, atom_impact_diff.py.
 
 ---
 
@@ -118,15 +131,17 @@ Each session declares its type at start. The type determines what work is done a
 | `prompt-architecture` | Review and refactor prompt(s). Triggered by §4.11 prompt refactor gate | NO | Full prompt + SPEC §5.3.2 in context |
 | `full-atom` | Per-atom 7-stage lifecycle. The core hardening work | YES: 3-5 Full Lane or 5-8 mixed | Per-atom budgets from §2.1 |
 | `validation-only` | Run smoke tests, dispatch analysis teams, evaluate results | NO | Budget for test runs + team dispatches |
+| `batch-verification` | **v5.0:** Batch Completeness Verification (§3A). Muqabalah bi-l-asl against raw .txt source files. SINGLE-PURPOSE — FORBIDDEN to combine with any other type. | NO (verification only) | 100% for file-by-file collation + MCU tracing |
 
 **Rules:**
 - A session MUST declare its type before processing the first work item.
 - **Session-type compatibility matrix (v4.1):**
 
-  | | intake-only | debt-clearance | prompt-architecture | full-atom | validation-only |
-  |---|---|---|---|---|---|
-  | intake-only | — | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN |
-  | debt-clearance | FORBIDDEN | — | ALLOWED | FORBIDDEN | ALLOWED |
+  | | intake-only | debt-clearance | prompt-architecture | full-atom | validation-only | batch-verification |
+  |---|---|---|---|---|---|---|
+  | intake-only | — | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN |
+  | debt-clearance | FORBIDDEN | — | ALLOWED | FORBIDDEN | ALLOWED | FORBIDDEN |
+  | batch-verification | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN | — |
   | prompt-architecture | FORBIDDEN | ALLOWED | — | FORBIDDEN | FORBIDDEN |
   | full-atom | FORBIDDEN | FORBIDDEN | FORBIDDEN | — | FORBIDDEN |
   | validation-only | FORBIDDEN | ALLOWED | FORBIDDEN | FORBIDDEN | — |
@@ -150,11 +165,17 @@ When multiple gates trigger simultaneously at session start, resolve in this str
    to REOPENED with written rationale. Checkpoints are globally blocking.
 4. PRELIMINARY DEBT CHECK — §4.9. If debt > threshold → session type = debt-clearance
 5. BUNDLE INTAKE INVENTORY — if new .zip bundles at repo root → session type = intake-only
+5A. BATCH COMPLETENESS VERIFICATION (v5.0) — If any batch has completed intake
+    (§3 Step 7) but has NOT passed the Batch Completion Gate (§3B), session type
+    MUST be batch-verification. Run scripts/verify_batch_completion_gate.py —
+    if exit code ≠ 0, BCV session required. This gate blocks ALL downstream
+    processing (prompt refactor, per-atom) until every word of every batch
+    source file is verified and traced. See §3A-3C.
 6. PROMPT REFACTOR GATE — §4.11. If triggered → session type = prompt-architecture
 7. PER-ATOM PROCESSING — only reachable if gates 4-6 all clear → session type = full-atom
 ```
 
-A higher-numbered gate CANNOT be evaluated until all lower-numbered gates are cleared. This prevents: processing new atoms while checkpoint debt or preliminary debt exceeds threshold, refactoring prompt before inventorying new bundles, or starting atom work before version consistency is verified.
+A higher-numbered gate CANNOT be evaluated until all lower-numbered gates are cleared. This prevents: processing new atoms while checkpoint debt or preliminary debt exceeds threshold, refactoring prompt before inventorying new bundles, **verifying batch completeness before starting atom work (v5.0)**, or starting atom work before version consistency is verified.
 
 ---
 
@@ -292,6 +313,194 @@ Before processing any atoms from a new bundle:
 - [ ] Atoms deduplicated, assigned MAQ-IDs
 - [ ] MERGED_ATOM_QUEUE.md updated with new atoms + coverage totals
 - [ ] Zip archived in source_artifacts/
+
+---
+
+## §3A — Batch Lifecycle Protocol (v5.0)
+
+> **Grounding:** This section implements the classical Islamic muqābalah (collation) framework as described in DR17. The 6-phase model maps to: Muṭālaʿah (reading), Fahm (comprehension), Mudhākarah (peer discussion), Murājaʿah (revision/collation), ʿArḍ (presentation), Ijāzah (certification). Each phase prevents a distinct anti-pattern documented in DR13.
+
+### 3A.1 Purpose and Scope
+
+The per-atom lifecycle (§4) ensures each atom is correctly processed. But it does NOT prevent batch-level omissions — processing the *wrong set* of atoms perfectly. Session 1 proved this: 124 owner feedback atoms were silently dropped; entire files (F1/F2) were never read; ALL-CAPS urgency was systematically stripped.
+
+§3A-3C close this gap. After bundle intake (§3) and BEFORE any per-atom processing (§4), every batch MUST pass through the Batch Lifecycle Protocol: a structural guarantee that every word of owner feedback is captured, verified, and traced from raw .txt source to the atom queue.
+
+**Architecture: Serial Muqābalah (DR15 Architecture D, DR17 §1).** A primary agent extracts; a secondary agent (the muḥaqqiq) performs muqābalah bi-l-aṣl — side-by-side collation against the author's original — hunting for gaps left by the first agent. This matches the classical gold standard for written texts. Parallel independent extraction (Architecture A) is REJECTED — it produces non-comparable outputs with endless false positives.
+
+### 3A.2 Minimum Content Unit (MCU) Definition
+
+An **MCU** is the smallest span of owner source text that expresses a single: directive, definition, risk, rule-example, severity signal, or meta-instruction.
+
+**Required fields for every MCU:**
+- `mcu_id`: unique identifier within the batch
+- `file_path`: source file containing the MCU
+- `start_line`, `end_line`: exact line range in the source file
+- `verbatim_anchor`: minimum 15 characters of exact source text (no paraphrase)
+- `severity`: CRITICAL / HIGH / MEDIUM / LOW
+- `classification`: see §3A.3
+
+MCUs are identified during the Extraction phase (Phase 2) and verified during the Verification phase (Phase 4). The denominator for coverage calculations is ALWAYS total MCUs across all inventory files.
+
+### 3A.3 MCU Classification System
+
+Every MCU must be classified into exactly one category:
+
+| Classification | Definition | Example | Remediation |
+|---|---|---|---|
+| **MAPPED** | MCU has a corresponding MAQ entry, META entry, or explicit REJECT entry | Owner says "mention is not a reason to excerpt" → MAQ-045 | None — this is the target state |
+| **MISSED** (nuqṣān) | MCU has no MAQ/META/REJECT mapping | Entire directive silently dropped during extraction | Must create MAQ entry or explicit REJECT with justification |
+| **SOFTENED** (takhfīf) | Direction preserved but urgency/force reduced | "NEVER allow this" → "Try to avoid this" | Strength restoration required. CRITICAL/HIGH cannot close without restoration or owner acknowledgment |
+| **DISTORTED-tashif** (تصحيف, v5.0 DR17) | Surface corruption: diacritical/presentation error, recoverable by context. Sub-types: tashif al-baṣar (visual misreading), tashif al-samʿ (auditory mishearing). | Diacritic placed wrong, producing different but contextually detectable wrong word | Restore correct reading from source context |
+| **DISTORTED-tahrif** (تحريف, v5.0 DR17) | Structural corruption: meaning altered, requires re-extraction from original. | "permissible" extracted as "impermissible"; isnad attribution swapped | Full re-extraction from raw .txt source; escalate to owner if ambiguous |
+| **SKIPPED-FILE** | Entire file not processed during extraction | F1 source_artifacts/raw_notes.txt never read | Session failure. BCV gate CANNOT pass. |
+
+**Location qualifier (v5.0 DR17):** MCU errors in the body text (matn) carry standard weight. MCU errors in the transmission chain (isnād) or attribution metadata carry ELEVATED weight because they affect provenance, not just content.
+
+**Emphasis as semantic content (v5.0 DR13/DR14):** ALL-CAPS, exclamation marks, "PLEASE", and emotional intensity markers are SEMANTIC CONTENT, not formatting. Stripping them is MISSED or SOFTENED at the emphasis level — fatal laḥn when the emphasis changes the import of the directive.
+
+**Three priority tiers for emphasis:**
+- **Tier 1 (Immediate):** ALL-CAPS directives, "PLEASE" statements, emotional markers → must map to corresponding atom with force preserved
+- **Tier 2 (Standard):** Normal directives without emphasis → standard MCU processing
+- **Tier 3 (Deferred):** Observations, tentative suggestions → may be deferred with justification
+
+### 3A.4 Verification Standard: 4-Factor Threshold Matrix (v5.0 DR17)
+
+The classical Ḥāfiẓ-Faqīh spectrum determines how rigorously each file is verified. The threshold is selected per-file using 4 factors:
+
+| Factor | Ḥāfiẓ Standard (lafẓī, word-for-word) | Faqīh Standard (maʿnawī, meaning-based) |
+|---|---|---|
+| **1. Genre/content type** | Devotional formulae, jawāmiʿ al-kalim, foundational vision statements, core rules | Implementation details, research analysis, structured expansions |
+| **2. Collator competence** | Only an agent with deep domain understanding (ʿālim bi-l-lugha) may perform maʿnawī verification | Any qualified agent may perform lafẓī verification (it's mechanical) |
+| **3. Text status** | Foundational (F1/F2), nonnegotiables, owner ALL-CAPS directives | Supplementary analysis (F3-F8 structured files), model-only expansions |
+| **4. Exemplar availability** | Clear, unambiguous source text → stricter threshold | Ambiguous, handwritten, or fragmentary source → may require interpretation |
+
+**Default assignments:**
+- **F1/F2 source_artifacts/*.txt** → Ḥāfiẓ standard (100% sentence-by-sentence, verbatim collation)
+- **F3-F8 01_questionnaire_answer.md** → Ḥāfiẓ standard (owner's cleaned answer is still owner text)
+- **F3-F8 02-14_*.md/.jsonl** → Faqīh standard (15% random sample + all files flagged for SOFTENED/DISTORTED, 100% coverage for any file with CRITICAL-severity MCUs)
+- **G-series, SC-series** → Apply 4-factor matrix per-file at intake time
+
+**Mandatory-exact constraints (v5.0 DR17, Gemini-corrected):** Regardless of file classification, the following text types ALWAYS require Ḥāfiẓ (exact) verification:
+- Devotional formulae (dhikr, duʿāʾ, shahāda) — exact wording carries ritual weight
+- Jawāmiʿ al-kalim (concise prophetic sayings) — precise wording is integral to meaning
+- Any directive where the owner's exact phrasing carries legal/doctrinal weight
+- The classical 5 conditions for meaning-based transmission (riwāyah bi-l-maʿnā) must ALL hold before Faqīh standard is applied: (1) collator has deep domain knowledge, (2) no change to legal implications, (3) not devotional text, (4) not jawāmiʿ al-kalim, (5) if doubtful, append hedging marker per R-20
+
+### 3A.5 Fan-In Threshold
+
+When many MCUs map to a single MAQ entry:
+- If a single MAQ maps to **>5 MCUs** OR **>1 CRITICAL-severity MCU**: the verifier MUST either:
+  - Split the MAQ entry into sub-atoms, OR
+  - Add a **Sub-Claim Table** showing 1:1 mapping from each MCU to a specific clause in the EXPANDED doctrine
+- The Batch Completion Gate (§3B) FAILS if fan-in violations are unresolved
+- This prevents semantic compression loss: all MCUs "accounted for" but a single downstream atom cannot faithfully implement all distinct constraints
+
+### 3A.6 Laḥn Severity Framework (v5.0 DR17, Gemini-corrected)
+
+Errors discovered during verification are classified by consequence, not just type:
+
+**Fatal laḥn (HALT + escalate + correct before proceeding):**
+- Changes a legal ruling, doctrinal position, or scholarly attribution
+- Alters the owner's intent substantively (not just phrasing)
+- Occurs in devotional text, jawāmiʿ al-kalim, or nonnegotiable directives
+- Indicates lack of ḍabṭ (precision) by the extraction/verification agent
+
+**Tolerable laḥn (LOG with variant notation + continue):**
+- Minor phrasing variations that preserve meaning and intent
+- Dialect-level or stylistic differences not affecting substance
+- Errors in supplementary analysis (not core owner directives)
+
+**Science-specific severity (Gemini CLI correction):**
+- In **Qirāʾāt/Tajwīd:** No cosmetic errors. Errors are jalī (obvious, fatal — invalidates prayer) or khafī (hidden, but graded). All are at minimum HIGH severity.
+- In **Naḥw:** A single vowel change can destroy the structural purpose of a grammatical evidence (shāhid). Treat as HIGH minimum.
+- In **ʿAqīdah:** Doctrinal sensitivity means almost all textual alterations are CRITICAL.
+- In **Ḥadīth faḍāʾil al-aʿmāl:** Tolerable laḥn applies — minor errors in narrations about virtues (not legal rulings) are logged but do not block.
+- In **Fiqh implementation details:** Standard tolerable/fatal classification applies.
+
+**Ḍabṭ deficiency detection:** If the same agent produces tolerable laḥn at a rate exceeding 15% of verified MCUs across 3+ verification sessions, flag for ḍabṭ deficiency. Trigger recalibration via the Calibration File (§8.5, R-16): the agent must independently re-extract the calibration file and achieve <5% error rate before continuing verification work.
+
+---
+
+## §3B — Batch Completion Gate (v5.0)
+
+### 3B.1 Gate Conditions
+
+A batch's Completion Gate passes if and only if ALL 5 conditions are TRUE:
+
+| # | Condition | How Verified |
+|---|-----------|-------------|
+| G-B-1 | **100% file coverage:** Every file in the inventory (§3 Step 2) has state VERIFIED in verification_status.json | `scripts/verify_batch_completion_gate.py` checks all file states |
+| G-B-2 | **MCU mapping completeness:** Every MCU in mcu_trace.jsonl has classification ≠ MISSED at CRITICAL or HIGH severity | `scripts/batch_compute_coverage.py` reports zero CRITICAL/HIGH MISSED |
+| G-B-3 | **Zero SKIPPED-FILE:** No file has state SKIPPED-FILE | `scripts/verify_batch_completion_gate.py` checks |
+| G-B-4 | **Queue terminality:** Every MCU maps to a MAQ entry (status ≠ NEW), META entry, or explicit REJECT with justification | `scripts/batch_compute_coverage.py` checks mapping completeness |
+| G-B-5 | **Script attestation:** `scripts/verify_batch_completion_gate.py` exits 0 with coverage summary | Deterministic — no human judgment |
+
+**Batch status is DERIVED, not DECLARED.** The gate passes when the script says it passes. No session may manually mark a batch as "verification complete." The script reads the artifact files (inventory.json, verification_status.json, mcu_trace.jsonl, coverage.json) and computes the verdict.
+
+### 3B.2 Hard Rules for Batch Verification
+
+HR-13: Never begin per-atom processing on a batch until BCV session complete and Batch Completion Gate passes.
+HR-14: Never mark a file VERIFIED without MCU trace records containing verbatim anchors + line ranges.
+HR-15: Never verify Layer B without first verifying Layer A (raw owner source).
+HR-16: Never strip ALL-CAPS, exclamation marks, or emphasis markers from owner text — they are semantic content.
+HR-17: Never self-audit — the session that performed extraction CANNOT perform verification (muqābil ≠ qāriʾ, DR17 §4).
+HR-18: Never post-edit the queue after verification without rolling back the affected file's status to DRIFTED.
+HR-19: Never disposition MCU as "ALREADY COVERED" without citing the exact FP clause + writing a minimal counterexample.
+HR-20: Never close Q-CLOSED for a prompt-affecting atom without behavior-change evidence (atom_test output or explicit waiver with scheduled debt).
+HR-21: Never merge prompt changes without `scripts/run_regression_suite.py` passing.
+HR-22: Never combine extraction and verification roles in the same session/agent — the extractor cannot be the verifier (DR17 role separation, muqābil ≠ nāsikh).
+
+### 3B.3 Artifact Suite
+
+Each batch-verification session produces:
+
+| Artifact | Path | Schema |
+|----------|------|--------|
+| `inventory.json` | `engines/excerpting/{batch}_collection/verification/` | `{files: [{path, sha256, size_bytes, line_count, layer: A|B}], batch_id, created_at}` |
+| `verification_status.json` | same | `{files: [{path, state: UNVERIFIED|IN_PROGRESS|VERIFIED|DRIFTED, mcu_count, verifier, timestamp}], batch_verification_run_id}` |
+| `mcu_trace.jsonl` | same | Per-line: `{mcu_id, file_path, start_line, end_line, verbatim_anchor, classification, maq_id?, severity, confidence, fidelity_level}` |
+| `coverage.json` | same | `{total_files, verified_files, total_mcus, mapped_mcus, missed_count, softened_count, distorted_tashif_count, distorted_tahrif_count, coverage_pct}` |
+| `verification_report.md` | same | Human-readable: coverage table, gap inventory, adversarial sample results, recommendations |
+| `gap_remediation_tracker.jsonl` | same | Per-line: `{asl_ref: {file, line, text}, state: 1|2|3, atom_id?, spec_section?, date_changed, responsible}` — tracks Aṣl-only → Established → Implemented |
+| `collation_register.jsonl` | same | Per-line: `{file_path, mcu_id, collation_mode: lafzi|ma'nawi, finding: sahh|saqt|ziyada|tashif|tahrif, correction?, checkpoint_position, session_id}` — the Sijill al-Muqābalah |
+
+**Hash-bound integrity:** `inventory.json` records SHA-256 per file at intake time. If a file changes after inventory (editing the raw source), its state automatically becomes DRIFTED and the Completion Gate fails until re-verified.
+
+---
+
+## §3C — Batch Finalization: Ijāzah Ceremony (v5.0)
+
+### 3C.1 4-Lock Gate
+
+A batch receives its Ijāzah (certification of completeness) if and only if all 4 locks are satisfied:
+
+| Lock | Name | Condition |
+|------|------|-----------|
+| 1 | **Mulāzamah Proof** | Cryptographic proof (SHA-256) that 100% of inventory files were ingested and mapped |
+| 2 | **Taḥqīq Clearance** | Zero SOFTENED at CRITICAL/HIGH severity remaining + count of remediated gaps documented |
+| 3 | **Mudhākarah Consensus** | At least 2 independent coworker reviews of the verification report. Coworker signatures recorded |
+| 4 | **ʿArḍ Validation** | Owner approval: Full (all files) or Partial (specific files). For F1/F2: 15-20 min exhaustive ʿArḍ (Ḥāfiẓ). For F3-F8: 20-30 min spot-check (Faqīh) |
+
+### 3C.2 Shahādat al-Muqābalah: 9-Field Certificate (v5.0 DR17)
+
+Upon Ijāzah, produce a formal verification certificate with these 9 fields (grounded in classical manuscript attestation, DR17 §2):
+
+1. **Statement of completion:** "بلغ مقابلة بأصله" — "Collation against its original has been completed"
+2. **Exemplar description:** Which aṣl (raw .txt files) was used, identified by file path and SHA-256
+3. **Collator identity:** Which agent/session performed the verification, with session ID
+4. **Method statement:** Collation mode per file (lafẓī or maʿnawī), individual or assembly (solo agent or coworker team)
+5. **Date:** ISO 8601 timestamp
+6. **Completeness statement:** "100% file coverage" or "على حسب الإمكان" (as well as possible) with explicit limitations
+7. **Variant notation key:** Mapping of provenance sigla used in the collation register (e.g., "خ O2 = owner feedback version 2")
+8. **Exemplar pagination reference:** File:line references preserved for traceability
+9. **Integrity closing:** "All MCUs verified. Coverage: X%. This certificate is revocable per §3C.3."
+
+### 3C.3 Partial Certification and Revocation
+
+**Partial certification (Ijāzah muʿayyanah):** When the owner approves F3-F8 but challenges F1 interpretation, F3-F8 atoms may be FINALIZED while F1 atoms remain CHALLENGED. This prevents bottlenecks while maintaining rigor.
+
+**Revocation (Rujūʿ):** If the owner discovers a flaw after Ijāzah — or a future verification session invokes Absolute Reopen Authority (§4.6, R-08) — the existing certificate is archived (never deleted), affected atoms are demoted, and the full 4-lock gate must be re-executed. Record in Sijill al-Istidrāk (remediation journal) with: revocation date, reason, affected atoms, new certificate ID.
 
 ---
 
@@ -495,6 +704,26 @@ If any risk: document the safeguard. If uncertain whether a unit is indivisible 
 ### Implementation Hypothesis
 Target: [new FP / strengthen FP-X / prompt addition (+N words) / contract change / test case / SPEC-only / deferred]
 Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K/1500]
+
+### Expansion Fidelity Indicator (v5.0 DR17, او كما قال convention)
+
+For EACH claim in the expansion, CC MUST declare the fidelity level:
+
+| Level | Marker | Meaning | Verification Threshold |
+|-------|--------|---------|----------------------|
+| `exact` | (none) | Verbatim owner quote — CC reproduces the owner's exact words | Ḥāfiẓ (lafẓī): word-for-word match required |
+| `paraphrased` | او كما قال | CC rephrases the owner's statement preserving intent | Faqīh (maʿnawī): meaning match required; hedging marker preserved in all downstream artifacts |
+| `interpreted` | او نحو هذا | CC infers owner's intent from context, not direct statement | Faqīh (maʿnawī): meaning match; coworker MUST audit fidelity ("What in the anchors proves this claim?") |
+
+**Rules:**
+- Every claim in the Rule Statement section MUST have a fidelity level
+- `exact` claims MUST include the file:line reference to the verbatim source
+- `paraphrased` and `interpreted` claims MUST include the nearest verbatim anchor from source_artifacts/*.txt
+- The fidelity marker TRAVELS through all lifecycle stages — coworkers see it at Stage 4, synthesis preserves it at Stage 5, the ledger records it at Stage 7
+- **Mandatory-exact text types (Gemini CLI correction):** Devotional formulae (dhikr, duʿāʾ), jawāmiʿ al-kalim (concise prophetic sayings), and any directive where exact phrasing carries legal/doctrinal weight MUST be `exact` — `paraphrased` or `interpreted` is FORBIDDEN for these text types regardless of context
+- **The 5 conditions for meaning-based expansion (riwāyah bi-l-maʿnā):** Before using `paraphrased` or `interpreted`, verify: (1) CC has deep domain understanding, (2) no change to legal implications, (3) text is not devotional, (4) text is not jawāmiʿ al-kalim, (5) if doubtful, append the hedging marker. If ANY condition fails → `exact` required.
+
+**Anchor-bound expansion (R-09):** The EXPANDED→CHALLENGED stages MUST maintain verbatim source anchors. G-CHALLENGED (§4.4 exit gate) CANNOT pass unless at least one challenger audits fidelity: "What in the anchors proves this claim?" This prevents interpretation drift during expansion.
 
 ### Natural Teaching Unit (الوحدة التعليمية الطبيعية) — CONDITIONAL (v4.3 DR11)
 **Trigger:** MANDATORY for CONTENT atoms (dealing with scholarly texts, legal definitions, or substance of Islamic sciences). For STRUCTURAL or ENGINEERING atoms (formatting, boundary logic, tagging, relay constraints), auto-fill "N/A — System Logic" and skip evaluation.
@@ -743,6 +972,21 @@ If validation failure at Stage 6 requires modifying a previously FINALIZED atom:
 5. Only after the REOPENED atom passes Q-CLOSED again can the HALTED atom resume at Stage 6.
 6. Both atoms' ledger entries are linked: "REOPENED by MAQ-XXX" and "Triggered reopen of MAQ-YYY".
 
+**Absolute Reopen Authority — Ḥaqq al-Istidrāk (v5.0 DR15/DR17):**
+Batch-verification sessions (§3A) are granted authority to reopen ANY finalized atom — regardless of coworker consensus, owner approval, or Q-CLOSED status — if that atom violates an F1/F2 foundational directive discovered during muqābalah bi-l-aṣl. Every reopened atom requires a formal **Istidrāk justification** citing the specific forensic audit gap. This mirrors the classical mustadrak tradition (al-Dāraquṭnī's corrections to al-Bukhārī/Muslim).
+
+**Istidrāk Remediation Chain (v5.0 DR17):**
+Every atom reopening MUST create a formal istidrāk entry in the ledger:
+- `istidrак_id`: unique identifier
+- `references`: the prior version (atom ID + generation number)
+- `generation`: integer (0 = original, 1+ = correction level)
+- `gap_type`: nuqṣān (omission) / takhfīf (softening) / taḥrīf (distortion) / idrāj (interpolation)
+- `evidence`: what forensic audit finding motivated the correction
+- `correction`: the revised content
+- `genre_label`: mustadrak (supplements omission) / takmila (completes) / ṣila (continues) / istidrāk (corrects)
+
+The chain is indexed by generation: original → istidrāk-1 → istidrāk-2 → ... This ensures that across a 15-30 session campaign, the full correction genealogy is reconstructable. Al-Dāraquṭnī → al-Ḥākim → al-Dhahabī → Ibn al-Mulaqqin spans 5 centuries of traceable corrections. Our chain must do the same across 5 months.
+
 **Exit gate (G-IMPLEMENTED):**
 - [ ] All targeted files changed
 - [ ] pytest passes with zero regressions
@@ -966,6 +1210,39 @@ The following Gemini DR findings are valid scholarly insights but belong in engi
 | PED-003 (Knowledge dependency mapping) | Taxonomy + Synthesis engines | Document as a cross-engine design requirement for the knowledge graph layer |
 | PED-004 (Study Path Reconstruction Test) | Evaluation layer / campaign review tools | Integrate into `tools/evaluate_excerpts.py` as a multi-text coherence check |
 
+### 4.18 Regression Gate (v5.0 DR16)
+
+**Trigger:** After ANY prompt or SPEC change that affects excerpting behavior.
+
+**Process:**
+1. Run `scripts/run_regression_suite.py --profile production_validation_profile.json`
+2. The script re-executes all previously validated atom checks (from `validation/` directory)
+3. Input: prompt.txt hash, SPEC.md hash, per-atom validation artifacts
+4. Output: `regression_runs/<run_id>/summary.json` + junit-style report
+5. Exit 0 = pass (no regressions). Exit 1 = regression detected.
+
+**Rules:**
+- Q-CLOSED CANNOT be granted for any atom if the regression suite has not passed after the most recent prompt/SPEC change
+- Merge to branch is BLOCKED if regression suite fails (HR-21)
+- Run after every prompt refactor (§4.11) and after every 5th prompt-affecting atom (§4.12)
+- Regression suite is mandatory in `validation-only` sessions and before closing any IMPLEMENTED atom
+
+### 4.19 Cross-Batch Doctrine Coherence Gate (v5.0 DR16)
+
+**Trigger:** Before G-batch hardening begins AND before any SC-batch atom enters Stage 5 (SYNTHESIZED).
+
+**Process:**
+1. Run `scripts/prompt_coherence_lint.py` on the current prompt + SPEC doctrine
+2. The script performs static analysis for:
+   - Duplicate clause detection (string + semantic similarity)
+   - Conflicting modal/quantifier detection ("always" vs "never" on same concept)
+   - Unreachable conditions (rule A makes rule B impossible)
+   - Token budget accounting by section
+3. If two Q-CLOSED atoms assert conflicting constraints on the same concept, the gate FAILS
+4. Resolution: CC must explicitly mark one as overriding with "OVERRIDE of MAQ-XXX" or reconcile the conflict
+
+**Cross-batch scope:** Later batch generalizations (G-series) can override previously finalized foundation atoms (F-series) ONLY with explicit override marking. Without it, the coherence gate catches the contradiction. This prevents silent doctrine drift across the 15-30 session campaign.
+
 ---
 
 ## §5 — Coworker Consensus Protocol
@@ -1012,7 +1289,7 @@ When coworkers disagree, resolve in this strict sequence:
 1. **SPEC as tiebreaker.** If an existing FP governs the case, apply it. The aligned position wins.
 2. **FP-13 precedence stack.** Attribution safety > dialogue preservation > grammatical integrity > self-containment > granularity. **Attribution safety specifically includes:** guarding against copyist (ناسخ, كتبه العبد الفقير) being confused with author (مؤلف, فرغ من تأليفه), editorial apparatus (محقق, حاشية, في الأصل) leaking into author-attributed content, and `layer_type: editorial` manuscript marginalia being misattributed.
 3. **Evidence weight.** Concrete Arabic example beats abstract principle. Cross-science generalization beats single-science claim. Empirical data beats theory.
-4. **CC decides with documented reasoning.** The losing position is preserved verbatim in ledger as dissent.
+4. **CC decides with documented reasoning.** The losing position is preserved as a formal **variant reading** (v5.0 DR17): with provenance sigla (خ notation) identifying which coworker holds each position. The winning position enters the body text (the aṣl reading); losing positions are preserved in the ledger as **authority-ordered variants** — not flat-egalitarian alternatives, but hierarchically ordered with the aṣl (closest to owner's original intent) as primary and others as marginal readings. This mirrors classical taḥqīq practice where the editor chooses the primary reading but preserves all variants with identified exemplar provenance.
 5. **Escalation to additional coworker.** For SPEC-structural atoms, dispatch a DR coworker as BLINDED tiebreaker (does not see other positions before forming assessment).
 
    **BLINDED means (v4.1):** DR prompt MUST include ONLY the expansion document and raw source excerpts. It MUST NOT include Codex/Gemini verdicts, summaries, or any indication of their positions. Use the BLINDED TIEBREAK template (§4.4), NOT the standard DR templates that include "Codex found / Gemini found."
@@ -1058,6 +1335,30 @@ When coworkers disagree, resolve in this strict sequence:
 - Any regression in empirical validation
 - Any silent corruption path (T-1 through T-7) found by any coworker
 - Owner explicitly flags something as "wrong" or "confusing"
+
+### 5.8 Role Separation Formalization (v5.0 DR17)
+
+The protocol's coworker roles map to the 5 classical roles of the Islamic verification assembly (majlis al-muʿāraḍah):
+
+| Classical Role | Protocol Role | Responsibility | Cannot Do |
+|---|---|---|---|
+| **Musammiʿ** (presiding authority) | CC orchestrator | Final decision-making, active real-time correction during synthesis, granting ijāzah (certification). NOT passive — CC actively corrects during the process. | Vote (§5.2 — CC decides, doesn't vote) |
+| **Qāriʾ** (reader) | Extraction subagent | Read source files, extract MCUs, produce per-file inventories | Judge correctness, approve variants |
+| **Mustamiʿūn** (witnesses with veto) | Coworker reviewers (Codex, Gemini, DR) | Challenge expansions, cast votes, exercise veto via REJECT | Make final decisions; that's CC's role |
+| **Muqābil** (collator) | Verification agent (in batch-verification sessions) | Compare extraction against raw source (muqābalah bi-l-aṣl), mark gaps | Approve final text or close atoms |
+| **Kātib** (certificate writer) | Script artifacts + ledger entries | Record session details, produce certificates, maintain audit trail | Interpret meaning or judge variants |
+
+**Key constraint (HR-22):** The extraction agent (Qāriʾ) CANNOT be the verification agent (Muqābil). The session that performed extraction CANNOT perform verification. This prevents the "self-audit" conflict of interest where the same mental model that produced the work reviews it.
+
+### 5.9 Scholarly Grounding: Authority Hierarchy (v5.0 DR17)
+
+The protocol's consensus mechanism (§5.1-5.4) is validated by the classical Islamic N-version verification tradition (DR17 §4). The key classical principle: **a single authoritative copy outweighs multiple copies of uncertain provenance**. In KR terms:
+
+- The owner's raw .txt files (= nuskhat al-muʾallif, the author's autograph) have SUPREME authority
+- Supervised extractions (= copies made under author's supervision) = `owner_explicit` authority atoms
+- Model-only expansions (= copies of uncertain provenance) = `model_only` atoms requiring owner confirmation
+
+This authority hierarchy is already implemented: Rule 6 ("Raw owner text is ground truth"), §4.10 (owner objection overrides all consensus), and the authority classification system (§4.2, Appendix A). Coworker votes within §5 are scope-weighted (§5.6) rather than provenance-weighted because coworkers have complementary, non-overlapping expertise — each is authoritative in their domain.
 
 ---
 
@@ -1277,6 +1578,20 @@ Any amendment that changes (a) Cross-Science Variation categories, (b) Atomic In
 
 This prevents "silent drift accumulation" where newer doctrine invalidates older closures without detection.
 
+### 8.5 Calibration File — Nuskha Miʿyāriyyah (v5.0 DR15/DR17)
+
+**Purpose:** Detect standards degradation across a 15-30 session campaign. The classical tradition tested a narrator's ḍabṭ (precision/retention) periodically; this is the digital equivalent.
+
+**Designation:** Designate one moderately complex file (e.g., an F4 segment with mixed directives, nonnegotiables, and research analysis) as the **Calibration File**. Record its path and SHA-256 in the protocol's configuration section.
+
+**Calibration check (every 5th batch-verification session):**
+1. The incoming verification agent independently extracts MCUs from the Calibration File WITHOUT access to the baseline extraction
+2. Compare: does the agent miss ALL-CAPS directives? Soften nuance? Extract unstructured paragraphs incorrectly?
+3. If the agent's extraction differs from baseline in >3 MCUs OR misses any CRITICAL-severity MCU: flag for **ḍabṭ deficiency** (Sūʾ al-Ḥifẓ — "poor retention")
+4. On ḍabṭ flag: HALT verification work. Recalibrate system prompts/agent configuration. Re-test on Calibration File. Resume only after <5% error rate achieved.
+
+**Linkage to Laḥn Framework (§3A.6):** The Calibration File check is the operational mechanism for detecting habitual tolerable laḥn. If an agent consistently produces tolerable errors, the calibration check catches the pattern before it accumulates into systemic drift.
+
 ---
 
 ## §9 — Quick Reference Card
@@ -1359,6 +1674,11 @@ NEVER dismiss a coworker MODIFY without escalation (DA-009 → DISPUTED)
 NEVER let >5 PRELIMINARY atoms accumulate without clearing (DA-008)
 NEVER skip Prompt Coherence Review after 5 prompt-affecting atoms (DA-029)
 NEVER implement owner directive that would corrupt text structure (DA-018 → block + surface)
+NEVER begin atom processing before Batch Completion Gate passes (v5.0 §3B, HR-13)
+NEVER strip ALL-CAPS / emphasis — they are semantic content (v5.0 §3A.3, HR-16)
+NEVER self-audit: extractor ≠ verifier (v5.0 §5.8, HR-17/HR-22)
+NEVER merge prompt changes without regression suite passing (v5.0 §4.18, HR-21)
+NEVER expand without fidelity indicator: exact / paraphrased / interpreted (v5.0 §4.3)
 ```
 
 ---

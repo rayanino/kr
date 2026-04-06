@@ -25,8 +25,8 @@ Debiased two-session environment audit. Merged plan at `reference/handoffs/envir
 
 Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
-**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v4.3 (GOVERNING LAW) — ALL 3 DR REPORTS PROCESSED (DR9-DR11)**
-Plan: `.claude/plans/tender-pondering-swing.md` (DR9 patch plan — 18 findings, 16 implementation units)
+**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v5.0 (GOVERNING LAW) — ALL 6 BATCH LIFECYCLE DRs PROCESSED (DR12-DR17)**
+Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 52 requirements from 6 DRs, Gemini-corrected)
 
 **Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1-SC3 bundles received at repo root. Owner continuing methodology for all 40 questions.
 
