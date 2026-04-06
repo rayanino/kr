@@ -25,12 +25,27 @@ Debiased two-session environment audit. Merged plan at `reference/handoffs/envir
 
 Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
-**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v4.0 (GOVERNING LAW)**
-Plan: `.claude/plans/tender-moseying-crayon.md`
+**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v4.1 (GOVERNING LAW)**
+Plan: `.claude/plans/tender-pondering-swing.md` (DR9 patch plan — 18 findings, 16 implementation units)
 
-**Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1 bundles received at repo root. Owner continuing methodology for all 40 questions.
+**Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1-SC3 bundles received at repo root. Owner continuing methodology for all 40 questions.
 
-**Session 2 complete. Protocol v4.0 (amended from v3.2).** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md, now at v4.0 after Session 2 empirical amendments (Codex + Gemini consensus). v3.2 was reviewed by 5 coworker sources (34 improvements). v4.0 adds 12 amendments from Session 2 experience: 5 session types, gate-precedence matrix, lane-based context budgets (5-8 atoms/session target), WIP cap, 16 sciences (was 12), 22 indivisible units (was 17), checkpoint states, DR relay classes, §4.15 contradiction resolution.
+**Session 2 complete. Protocol v4.0 → v4.1 patch in progress.** ChatGPT DR adversarial review (DR9, archived at `engines/excerpting/reference/dr_reviews/DR9_chatgpt_protocol_v40_adversarial.md`) found 18 issues (8 CRITICAL, 9 HIGH, 1 MEDIUM). Cross-referenced by explore agent: 12 confirmed gaps, 4 partially addressed, 2 already fixed. Plan approved, implementation in progress: 14 protocol amendments + 1 closure verifier script + version bump.
+
+**v4.1 amendment status: COMPLETE**
+- Units 1-14: All 14 protocol text amendments applied
+- Unit 15: `scripts/verify_atom_closure_minimal.py` — BUILT AND PASSING (12 closed atoms verified)
+- Unit 16: Version bump to v4.1 — DONE (protocol, NEXT.md, check_protocol_version.py all agree)
+
+**Key v4.1 changes (from DR9):**
+- Checkpoint resolution gate in §1.6 (prevents orphaned atoms)
+- model_only atoms ineligible for Light Lane (closes authority bypass)
+- WIP cap split: active-processing vs awaiting-external (prevents deadlock)
+- Blinded DR tiebreaker template (ensures independence)
+- Session-type compatibility matrix (only 2 allowed combinations)
+- Q-12 outcome spot-check for cross-science atoms (outcomes, not just artifacts)
+- Owner engagement heartbeat every 10 atoms post-50 (prevents silent disengagement)
+- Doctrine backfill protocol on amendment (§8.4)
 
 **Protocol review COMPLETE:**
 - Codex CLI: 4/4 accepted → v2.2

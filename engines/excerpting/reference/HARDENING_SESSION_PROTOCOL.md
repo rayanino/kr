@@ -1,7 +1,7 @@
-# Hardening Session Protocol v4.0
+# Hardening Session Protocol v4.1
 
 ---
-governing_version: "4.0"
+governing_version: "4.1"
 ---
 
 > **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
@@ -17,6 +17,7 @@ governing_version: "4.0"
 > - v3.2 (2026-04-06): Claude DR scholarly review (19 findings, 5/10 score) → 8 accepted via Codex consensus: science list expanded 8→12 with structural families, indivisible units expanded 5→17 in 3 tiers (always/usually/conditionally), mandatory pre-expansion genre classification (3 decisions), scholarly uncertainty flags, sharḥ-matn pair as critical indivisible unit, multi-layer text awareness, honorific+transmission formula preservation, suʾāl-jawāb+radd+qiyās+taqsīm structures. FP-13 genre-sensitivity (SCH-009/010) redirected to SPEC.
 > - v3.3 (2026-04-06): Owner concern — guarantee every note is captured. Layer B upgraded from "reference" to "critically important source." Extraction changed from single bulk pass to per-file extraction with mandatory coverage verification table, red-flag re-reads, and density checks. Prevents Session 1 failure (15/139 files read).
 > - v4.0 (2026-04-06): Session 2 empirical amendments — Codex + Gemini CLI consensus review of 12 proposed changes. Key: (1) lane-based context budgets (bootstrap 52K→150K, Full Lane 50K/atom, target 5-8 not 25-30), (2) 5 session types (intake-only, debt-clearance, prompt-architecture, full-atom, validation-only), (3) gate-precedence matrix, (4) WIP cap (max 1 Full Lane in Stages 3-5), (5) science list 12→16 (+Qirāʾāt/Tajwīd, +Fatāwā/Nawāzil, +Takhrīj/Rijāl, +Adab/Shiʿr), (6) indivisible units 17→23 (+Nāsikh/Mansūkh, +Qāʿidah/Farʿ, +Sabab al-Nuzūl, +Mafhūm/Manṭūq, +Muqsam), (7) checkpoint states for emergency handoff, (8) §4.15 contradiction resolved, (9) DR relay classes, (10) core+delta bootstrap, (11) grouped-implementation briefing enforcement, (12) scholarly sections 8-13 stay CC-local (Gemini: "dispatching severs cognitive link"). Based on Session 2 actual experience (96% context exhaustion at ~20 atoms).
+> - v4.1 (2026-04-06): ChatGPT DR adversarial review (DR9, 18 findings: 8 CRITICAL, 9 HIGH, 1 MEDIUM). Pre-mortem analysis of July 2026 "40% CLOSED atoms have errors" scenario. Key patches: (1) checkpoint resolution gate in §1.6 (prevents orphaned atoms), (2) model_only ineligible for Light Lane (closes authority bypass), (3) WIP cap split into active-processing vs awaiting-external (prevents deadlock), (4) DR deadlock fallback in §4.9 (>7 days → downgrade to REOPENED), (5) document-precedence: Protocol > NEXT.md > handoffs (§0), (6) atom-review-sampled DR class (§4.16), (7) coverage-tier-specific G-CHALLENGED gate (not just "2/3"), (8) blinded DR tiebreaker template (§5.4), (9) session-type compatibility matrix (only 2 allowed pairs), (10) expansion evidence minimums + per-atom attention isolation (anti-checkbox-theater), (11) owner engagement heartbeat every 10 atoms post-50 (§4.15), (12) prompt coherence counter in handoff template, (13) refactor safety checklist (§4.11), (14) §8.4 doctrine backfill protocol, (15) Q-12 outcome spot-check for cross-science/ALWAYS-INDIVISIBLE atoms, (16) verify_atom_closure_minimal.py (DA-001 implemented). Stage 7 wording fixed: "post-decision + safety-critical veto" replaces "informational."
 
 ---
 
@@ -25,6 +26,9 @@ governing_version: "4.0"
 **This protocol is the law.** Every hardening session — whether on F1-F8, G1-G4, SC1-SC3, or any future batch — follows this document exactly. Before doing ANYTHING:
 
 1. Read this entire protocol (use the Quick Reference Card at §9 for subsequent sessions after the first full read)
+
+**AUTHORITATIVE TASK ORDER (v4.1):** If NEXT.md conflicts with any handoff document about session type or primary objective, NEXT.md wins. Handoff docs may ONLY specify resume point within the session type chosen by §1.6 gate-precedence. When protocol, NEXT.md, and handoffs disagree: Protocol > NEXT.md > handoffs. This prevents governance drift from handoff documents accumulating de-facto authority.
+
 2. Read `.kr/HANDOFF.md` for current resume point
 3. Read `engines/excerpting/CLAUDE.md` for engine state
 4. Read `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md` for atom status
@@ -113,7 +117,17 @@ Each session declares its type at start. The type determines what work is done a
 
 **Rules:**
 - A session MUST declare its type before processing the first work item.
-- A session MAY combine two compatible types (e.g., `debt-clearance` + `prompt-architecture`) if context allows. It MUST NOT combine `intake-only` with `full-atom` — new atoms from intake are not processed in the same session.
+- **Session-type compatibility matrix (v4.1):**
+
+  | | intake-only | debt-clearance | prompt-architecture | full-atom | validation-only |
+  |---|---|---|---|---|---|
+  | intake-only | — | FORBIDDEN | FORBIDDEN | FORBIDDEN | FORBIDDEN |
+  | debt-clearance | FORBIDDEN | — | ALLOWED | FORBIDDEN | ALLOWED |
+  | prompt-architecture | FORBIDDEN | ALLOWED | — | FORBIDDEN | FORBIDDEN |
+  | full-atom | FORBIDDEN | FORBIDDEN | FORBIDDEN | — | FORBIDDEN |
+  | validation-only | FORBIDDEN | ALLOWED | FORBIDDEN | FORBIDDEN | — |
+
+  Only 2 combinations are ALLOWED: (`debt-clearance` + `prompt-architecture`) and (`validation-only` + `debt-clearance`). ALL other combinations are FORBIDDEN. When in doubt: single-type session. New atoms from intake are never processed in the same session as the intake.
 - If a session discovers mid-work that it should be a different type (e.g., started `full-atom` but found new bundles at repo root), it STOPS, writes a handoff, and the next session handles the discovered work.
 - Given infinite session availability, prefer SMALLER, CLEANER sessions over overloaded ones. 5 atoms done perfectly in a focused session is worth more than 15 atoms crammed into an exhausted context.
 
@@ -125,13 +139,18 @@ When multiple gates trigger simultaneously at session start, resolve in this str
 1. VERSION RECONCILIATION — verify protocol title, frontmatter governing_version,
    and NEXT.md all agree (run scripts/check_protocol_version.py)
 2. PREREQUISITE GATE — §0 checklist (10 items, all must pass)
-3. PRELIMINARY DEBT CHECK — §4.9. If debt > threshold → session type = debt-clearance
-4. BUNDLE INTAKE INVENTORY — if new .zip bundles at repo root → session type = intake-only
-5. PROMPT REFACTOR GATE — §4.11. If triggered → session type = prompt-architecture
-6. PER-ATOM PROCESSING — only reachable if gates 3-5 all clear → session type = full-atom
+3. CHECKPOINT RESOLUTION GATE — If ANY atom is in a checkpoint state
+   (PAUSED-*, IMPLEMENTED-*), session type MUST be validation-only
+   (if IMPLEMENTED-*) or debt-clearance (if PAUSED-*) until all
+   checkpointed atoms are resolved to a terminal state or demoted
+   to REOPENED with written rationale. Checkpoints are globally blocking.
+4. PRELIMINARY DEBT CHECK — §4.9. If debt > threshold → session type = debt-clearance
+5. BUNDLE INTAKE INVENTORY — if new .zip bundles at repo root → session type = intake-only
+6. PROMPT REFACTOR GATE — §4.11. If triggered → session type = prompt-architecture
+7. PER-ATOM PROCESSING — only reachable if gates 4-6 all clear → session type = full-atom
 ```
 
-A higher-numbered gate CANNOT be evaluated until all lower-numbered gates are cleared. This prevents: processing new atoms while preliminary debt exceeds threshold, refactoring prompt before inventorying new bundles, or starting atom work before version consistency is verified.
+A higher-numbered gate CANNOT be evaluated until all lower-numbered gates are cleared. This prevents: processing new atoms while checkpoint debt or preliminary debt exceeds threshold, refactoring prompt before inventorying new bundles, or starting atom work before version consistency is verified.
 
 ---
 
@@ -276,7 +295,7 @@ Before processing any atoms from a new bundle:
 
 Every atom passes through exactly 7 stages. No stage can be skipped. No atom advances without passing the exit gate. The stages are:
 
-**WIP Cap (v4.0):** Maximum 1 Full Lane atom in Stages 3-5 (EXPANDED through SYNTHESIZED) at any time. Maximum 3 atoms total in any non-terminal state. Exceeding the WIP cap is a session failure. This prevents the batching anti-pattern that caused Session 2's context exhaustion.
+**WIP Cap (v4.0, amended v4.1):** Maximum 1 Full Lane atom in Stages 3 and 5 (EXPANDED or SYNTHESIS-IN-PROGRESS) at any time. Stage 4 (AWAITING COWORKERS) is tracked separately: max 3 Full Lane atoms may be in AWAITING COWORKERS concurrently, provided no more than 1 is actively being expanded or synthesized. Maximum 3 atoms total in any non-terminal state. Exceeding any WIP sub-cap is a session failure. This split prevents the "no legal moves" deadlock where async coworker latency blocks all progress.
 
 ```
 RAW ──→ SOURCED ──→ EXPANDED ──→ CHALLENGED ──→ SYNTHESIZED ──→ IMPLEMENTED ──→ CLOSED
@@ -473,6 +492,10 @@ Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K
 - **Full Lane (SPEC-structural):** Sections 1-13 ALL mandatory. CC writes sections 1-7 and the final verdicts for 8-13. Subagents may draft evidence for sections 8-13 which CC reviews and edits.
 - **Light Lane:** Sections 1-5 mandatory (scope, rule, exceptions, hypothesis, blast-radius). Sections 8-13 are EVALUATED but may be abbreviated: "No cross-science risk identified. Checked: [list 16 sciences]. No atomic integrity risk. Checked: [23 indivisible units]." Sections 6-7 (correct/incorrect examples) optional for Light Lane. NOTE: Gemini CLI confirmed "there is no such thing as purely editorial in classical Arabic" — even Light Lane atoms must evaluate sections 8-13 to prove no hidden cross-science risk.
 
+**Evidence minimum (v4.1, anti-checkbox-theater):** For Cross-Science Variation and Atomic Integrity Risk, marking "checked" or "APPLIES UNCHANGED" is INVALID without evidence. Minimum: (a) 2 sciences with concrete Arabic counterexamples demonstrating the rule holds, OR (b) 1 science with a named classical-genre exemplar AND an explicit non-applicability rationale for 2 other sciences. "No cross-science risk identified. Checked: [16 sciences]." is ONLY valid for Light Lane after per-science evaluation.
+
+**Per-atom attention isolation (v4.1):** Expansion MUST be per-atom. Grouped expansion is FORBIDDEN. Each atom gets a distinct Stage 3 document and distinct coworker prompts (no shared "combined prompt" except in `research` DR class). If atoms interact, expand each separately then document interactions in the Interaction Map section. Evidence: each atom must have a unique expansion document identifier in the ledger.
+
 **Exit gate (G-EXPANDED):**
 - [ ] Scope defined with IN/OUT boundaries
 - [ ] At least 2 exceptions evaluated
@@ -590,6 +613,24 @@ QUESTIONS:
 OUTPUT per atom: verdict, pedagogical assessment, natural-atom alignment, genre suitability, confidence
 ```
 
+**BLINDED TIEBREAK DR template (use ONLY for §5.4 step 5 escalation):**
+```
+[DR source — relay via owner]:
+ATOM: [MAQ-ID] — [Name]
+EXPANSION: [paste expansion document]
+RAW SOURCE: [paste relevant owner quotes from source_artifacts/*.txt]
+
+You are an INDEPENDENT evaluator. Do NOT seek consensus with other reviewers.
+
+QUESTIONS:
+1. Is the proposed rule correct for this Islamic science and text genre?
+2. Find a concrete counterexample: real Arabic text where this rule fails.
+3. Does this rule risk splitting any indivisible textual unit?
+4. Would a student of this science understand an excerpt governed by this rule?
+
+OUTPUT: Independent verdict (ACCEPT/MODIFY/ITERATE/REJECT), counterexample, risk assessment, confidence.
+```
+
 **Dispatch rules:**
 - Codex and Gemini dispatch SIMULTANEOUSLY (independent)
 - DR dispatch can happen simultaneously OR after CLI returns (CC decides based on whether CLI findings should feed DR)
@@ -598,7 +639,7 @@ OUTPUT per atom: verdict, pedagogical assessment, natural-atom alignment, genre 
 - If 2+ coworkers unavailable: STOP. Report to owner.
 
 **Exit gate (G-CHALLENGED):**
-- [ ] At least 2 of 3 coworker reports received
+- [ ] Received the minimum coverage tier required by §5.1 for this atom's change type — NOT merely "2 of 3 reports." If a required specialty reviewer is missing (e.g., Gemini for Arabic scholarly on a prompt-affecting atom), atom MUST remain PAUSED-CHALLENGED, not PRELIMINARY.
 - [ ] Each report is structured (verdict + findings, not freeform)
 - [ ] Reports recorded in ledger
 - [ ] If fewer than 3 reports: gap documented with reason
@@ -698,7 +739,7 @@ If validation failure at Stage 6 requires modifying a previously FINALIZED atom:
    - What residual risks remain
    - Any question for the owner (if deferred from Stage 5)
    
-   The brief is informational. The owner does not approve or reject (that was CC + coworkers' job). The owner's reaction is SIGNAL for future atoms.
+   The brief is post-decision (owner does not vote on consensus), but owner objections on content quality and reading experience are safety-critical and trigger automatic reopening per §4.10. The owner's reaction is both signal for future atoms AND a potential veto — "feels off" from the owner must be investigated, not dismissed as "future signal."
 
    NOTE: The 4-element brief artifact above is ALWAYS per-atom in the ledger. Owner-facing delivery follows §4.15 (per-atom for first 50, batchable after).
 
@@ -742,6 +783,7 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-9 | Blast-radius check: no conflict with finalized atoms | Explicit check recorded |
 | Q-10 | Per-atom brief artifact in ledger with 4 required elements | Ledger entry contains what/changed/rejected/risks for THIS atom |
 | Q-11 | Ledger fully updated | Complete entry per the template above |
+| Q-12 | Outcome spot-check (for any atom tagged 'cross-science' OR touching any ALWAYS INDIVISIBLE unit): run mini-fixture through relevant pipeline step, record observed vs expected behavior | atom_test.py output on representative Arabic passage, or written analysis with specific Arabic example |
 
 If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
 
@@ -756,6 +798,8 @@ CLOSED-PRELIMINARY atoms (missing full coworker coverage) accumulate debt. Uncon
 - If debt exceeds either threshold: session MUST spend its first phase clearing preliminaries (getting missing coworker votes) before processing any new RAW atoms.
 - Clearing means: re-dispatch to the missing coworker with the original expansion. If coworker returns ACCEPT/MODIFY → upgrade to CLOSED-IMPLEMENTED. If ITERATE/REJECT → demote to REOPENED.
 - Exception: if the missing coworker is DR and owner relay is unavailable, the session may process up to 3 new atoms while waiting, but must attempt DR dispatch within the session.
+
+**Hard fallback (v4.1):** If the missing coworker is DR and owner relay is unavailable for >2 consecutive sessions OR >7 calendar days, the atom MUST be downgraded from CLOSED-PRELIMINARY to REOPENED and re-enter Stage 4 using only available coworkers (Codex+Gemini), with the DR slot explicitly waived as 'UNAVAILABLE' and logged as a risk in the ledger. Preliminary is not a parking lot — debt that cannot be cleared must be resolved by downgrade, not deferred indefinitely.
 
 ### 4.10 Owner Objection Mechanism (DA-012)
 
@@ -780,6 +824,12 @@ The GROUP prompt has a 1500-word hard cap. The CLASSIFY prompt has a ~1000-word 
 4. After refactor: record new word count, log what was removed/compressed, resume atom processing.
 
 **Medium-term strategy:** Move structural rules that can be checked deterministically (e.g., minimum word count, segment contiguity, boundary ordering) out of the LLM prompt into deterministic validators/tests. Reserve prompt space for rules that REQUIRE LLM judgment (scholarly boundaries, self-containment, attribution).
+
+**Refactor Safety Checklist (v4.1, MANDATORY):**
+1. For every removed/merged rule: record destination (kept in prompt / moved to validator / moved to tests / deprecated) in a "Rule Migration Map" artifact.
+2. Run `atom_test.py` on at least 3 fixtures spanning 3 different Islamic sciences (not just taysir).
+3. Gemini CLI must supply at least 1 counterexample check for each removed rule class.
+4. If any fixture shows regression: HALT refactor, restore previous prompt, investigate.
 
 ### 4.12 Prompt Coherence Review (DA-029)
 
@@ -816,6 +866,8 @@ Not all atoms require the full 7-stage lifecycle. After Stage 1 (RAW), CC classi
 - Cross-science or cross-engine atoms
 - Any atom where the owner's raw text contains ALL-CAPS, conditional reasoning, or expressed uncertainty
 
+**ABSOLUTE PROHIBITION:** No `model_only` atom is eligible for Light Lane. Owner confirmation is REQUIRED before ANY implementation or closure outcome (including CLOSED-VERIFIED), regardless of lane. model_only atoms MUST use Full Lane to ensure Stage 5 owner confirmation gate is reached.
+
 **LIGHT LANE:** Stages 2-3-6-7 only (skip CHALLENGED + SYNTHESIZED). Requires 1 external coworker spot-check (Codex or Gemini). Eligible ONLY for:
 - Editorial/typographical corrections to existing SPEC text
 - Verification-only atoms (confirming existing FPs already cover the atom)
@@ -836,6 +888,8 @@ At 600 atoms, per-atom owner briefing causes checkbox fatigue. After the first 5
 
 The owner can request full per-atom delivery for any batch at any time. The distinction is: ledger artifact = always per-atom; owner delivery = batchable after trust established. This resolves the v3.2 contradiction between §4.7 (mandatory per-atom) and §4.15 (exception-based).
 
+**Owner Engagement Heartbeat (v4.1):** Every 10 CLOSED atoms post-50, the owner MUST review 2 full per-atom briefs chosen by CC (1 'lowest confidence' atom, 1 random). If owner does not respond to the heartbeat within 7 calendar days, session type MUST switch to `validation-only` and produce a 10-atom retrospective before any more closures. This prevents silent disengagement from neutralizing the owner objection safety valve (§4.10).
+
 ### 4.16 DR Budget Per Session (PROC-003)
 
 At ~600 atoms requiring ~200 DR relays, owner relay fatigue is unsustainable.
@@ -854,6 +908,9 @@ At ~600 atoms requiring ~200 DR relays, owner relay fatigue is unsustainable.
 | `atom-review` | Exactly 1 MAQ-ID per relay | Each counts as 1 against budget | Per-atom expansion + coworker findings |
 | `research` | Topic-based, may span multiple atoms | Counts as 1 regardless of atoms touched | Research question + context files |
 | `phase-gate` | Covers entire phase transition | Counts as 1 | Phase summary + evidence + gate criteria |
+| `atom-review-sampled` | 1 atom deep review + 3 atoms red-flag scan (max 10 min each) | Counts as 1 | Deep review: full expansion + questions. Scan: expansion summary + "any red flags?" |
+
+Use `atom-review-sampled` when DR budget is tight and >4 atoms need review. Output MUST clearly separate 'deep review findings' from 'scan findings.' Scan findings marked with [SCAN] prefix.
 
 Combined "review these 3 atoms together" relays are FORBIDDEN for `atom-review` class — they produce shallow per-atom feedback (Session 2 finding). Research and phase-gate relays may legitimately span multiple atoms.
 
@@ -915,6 +972,9 @@ When coworkers disagree, resolve in this strict sequence:
 3. **Evidence weight.** Concrete Arabic example beats abstract principle. Cross-science generalization beats single-science claim. Empirical data beats theory.
 4. **CC decides with documented reasoning.** The losing position is preserved verbatim in ledger as dissent.
 5. **Escalation to additional coworker.** For SPEC-structural atoms, dispatch a DR coworker as BLINDED tiebreaker (does not see other positions before forming assessment).
+
+   **BLINDED means (v4.1):** DR prompt MUST include ONLY the expansion document and raw source excerpts. It MUST NOT include Codex/Gemini verdicts, summaries, or any indication of their positions. Use the BLINDED TIEBREAK template (§4.4), NOT the standard DR templates that include "Codex found / Gemini found."
+
 6. **Owner involvement (LAST RESORT).** Only for study-experience questions. Concrete with examples, never abstract.
 
 ### 5.5 Async DR Relay Protocol
@@ -1087,7 +1147,7 @@ Create at `reference/handoffs/excerpting_foundations_sessionN+1_kickoff_YYYY-MM-
 - **Atoms CLOSED:** [N] (fully closed, Q-CLOSED passed)
 - **Atoms PRELIMINARY:** [N] (awaiting coworker confirmation — list which coworker)
 - **FPs added/modified:** [list FP numbers + 1-line each]
-- **Prompt changes:** GROUP [current]/1500 words, CLASSIFY [current]/~1000 words
+- **Prompt changes:** GROUP [current]/1500 words, CLASSIFY [current]/~1000 words. Prompt-affecting atoms since last coherence review: [N]. Last coherence review: Session [X], date [Y]. (§4.12 triggers at every 5th prompt-affecting atom.)
 - **Test count:** [N] pass, [N] xfail, [N] skip
 - **Coworker dispatch summary:** Codex [N] dispatches, Gemini [N], DR [N] (list pending)
 
@@ -1163,6 +1223,18 @@ This protocol is LIVING DOCTRINE, not frozen law. If a session discovers that a 
 3. Gets coworker confirmation
 4. Updates this document with version bump
 
+### 8.4 Doctrine Backfill Protocol (v4.1)
+
+Any amendment that changes (a) Cross-Science Variation categories, (b) Atomic Integrity Risk units, or (c) a prompt rule MUST trigger a backfill audit:
+
+1. Identify all previously CLOSED atoms impacted by the changed rule (check ledger Cross-Science Variation and Atomic Integrity Risk sections).
+2. Sample 5 impacted atoms (prioritize: prompt-affecting > SPEC-structural > SPEC-doctrinal).
+3. Re-evaluate each sampled atom against the new rule version.
+4. If ≥1 sampled atom fails the new rule: escalate to a targeted reopening campaign for all impacted atoms.
+5. If all 5 pass: record "backfill audit passed" in the amendment's version history entry.
+
+This prevents "silent drift accumulation" where newer doctrine invalidates older closures without detection.
+
 ---
 
 ## §9 — Quick Reference Card
@@ -1187,7 +1259,7 @@ RAW → SOURCED → EXPANDED → CHALLENGED → SYNTHESIZED → IMPLEMENTED → 
 | 4 CHALLENGED | Codex + Gemini + DR | 2/3 reports received, structured | Variable |
 | 5 SYNTHESIZED | CC decides | 3-column table, disagreements resolved, decision specific | 10-15 min |
 | 6 IMPLEMENTED | CC codes | Tests green, pyright clean, sync passes | 5-30 min |
-| 7 CLOSED | CC briefs owner | Q-CLOSED: all 11 criteria TRUE | 5-10 min |
+| 7 CLOSED | CC briefs owner | Q-CLOSED: all 12 criteria TRUE | 5-10 min |
 
 ### Dispatch Decision Tree
 
