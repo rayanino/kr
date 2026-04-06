@@ -159,15 +159,23 @@ def main() -> int:
 
     log.info("Computing impact diff for atom %s on %s chunk %d", atom_id, fixture, chunk)
 
+    # Fix #11: Invalid atom ID must exit 1, not warn and succeed
     atom_def = load_atom_definition(atom_id)
     if atom_def is None:
-        log.warning(
-            "Atom definition not found for %s — proceeding with stub comparison", atom_id
+        log.error(
+            "Atom definition not found for %s — cannot compute impact diff", atom_id
         )
+        return 1
 
-    # Render prompts (stubs)
-    with_prompt = render_prompt_with_atom(atom_def or {"atom_id": atom_id}, fixture, chunk)
-    without_prompt = render_prompt_without_atom(atom_def or {"atom_id": atom_id}, fixture, chunk)
+    # Fix #4: Stub must exit 1 (fail-closed) until real implementation exists
+    log.error(
+        "STUB: atom impact comparison not yet implemented. "
+        "Cannot verify behavioral delta."
+    )
+
+    # Still write the artifact for traceability, but exit 1
+    with_prompt = render_prompt_with_atom(atom_def, fixture, chunk)
+    without_prompt = render_prompt_without_atom(atom_def, fixture, chunk)
 
     diff = compute_structural_diff(with_prompt, without_prompt)
     artifact = build_impact_artifact(atom_id, fixture, chunk, atom_def, diff)
@@ -180,9 +188,9 @@ def main() -> int:
     output_path = output_dir / f"{artifact['run_id']}.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(artifact, f, indent=2, ensure_ascii=False)
-    log.info("Impact artifact written to %s", output_path)
+    log.info("Impact artifact written to %s (exit 1 — stub only)", output_path)
 
-    return 0
+    return 1
 
 
 if __name__ == "__main__":

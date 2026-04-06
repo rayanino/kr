@@ -77,24 +77,48 @@ def discover_baselines(validation_dir: Path) -> list[Path]:
     return baselines
 
 
-def compare_with_baseline(baseline_path: Path) -> dict:
+def compare_with_baseline(
+    baseline_path: Path, current_prompt_hash: str, current_spec_hash: str
+) -> dict:
     """Compare current state against a single baseline artifact.
 
-    Returns a comparison result dict. Actual LLM re-execution is deferred;
-    this stub compares structural metadata only.
+    Fail-closed: if hashes mismatch, regression_detected = True.
+    LLM re-execution is deferred; this compares structural metadata.
     """
     with open(baseline_path, encoding="utf-8") as f:
         baseline = json.load(f)
 
     atom_id = baseline.get("atom_id", baseline_path.parent.name)
+    stored_prompt_hash = baseline.get("prompt_hash", "")
+    stored_spec_hash = baseline.get("spec_hash", "")
+
+    status = "MATCH"
+    regression_detected = False
+    notes: list[str] = []
+
+    if stored_prompt_hash and stored_prompt_hash != current_prompt_hash:
+        status = "PROMPT_CHANGED"
+        regression_detected = True
+        notes.append(
+            f"Prompt hash mismatch: baseline={stored_prompt_hash[:16]}... "
+            f"current={current_prompt_hash[:16]}..."
+        )
+    if stored_spec_hash and stored_spec_hash != current_spec_hash:
+        status = "SPEC_CHANGED"
+        regression_detected = True
+        notes.append(
+            f"SPEC hash mismatch: baseline={stored_spec_hash[:16]}... "
+            f"current={current_spec_hash[:16]}..."
+        )
+
     return {
         "atom_id": atom_id,
         "baseline_path": str(baseline_path),
-        "baseline_prompt_hash": baseline.get("prompt_hash", ""),
-        "baseline_spec_hash": baseline.get("spec_hash", ""),
-        "status": "PENDING_RERUN",
-        "regression_detected": False,
-        "notes": "Structural comparison only; LLM re-execution deferred.",
+        "baseline_prompt_hash": stored_prompt_hash,
+        "baseline_spec_hash": stored_spec_hash,
+        "status": status,
+        "regression_detected": regression_detected,
+        "notes": "; ".join(notes) if notes else "Hashes match baseline.",
     }
 
 
@@ -110,12 +134,7 @@ def run_regression_checks(
 
     results: list[dict] = []
     for bp in baselines:
-        result = compare_with_baseline(bp)
-        # Flag as needing rerun if hashes differ
-        if result["baseline_prompt_hash"] and result["baseline_prompt_hash"] != prompt_hash:
-            result["status"] = "PROMPT_CHANGED"
-        if result["baseline_spec_hash"] and result["baseline_spec_hash"] != spec_hash:
-            result["status"] = "SPEC_CHANGED"
+        result = compare_with_baseline(bp, prompt_hash, spec_hash)
         results.append(result)
     return results
 
@@ -167,6 +186,14 @@ def main() -> int:
 
     results = run_regression_checks(profile, validation_dir, prompt_hash, spec_hash)
 
+    # Fail-closed: if no baselines exist, we cannot verify no regression
+    if not results:
+        log.error(
+            "FAIL: No baselines found — cannot verify no regression. "
+            "Create baselines first."
+        )
+        return 1
+
     run_id = str(uuid.uuid4())[:8]
     output_dir: Path = (
         args.output_dir or REPO_ROOT / "regression_runs" / run_id
@@ -192,7 +219,10 @@ def main() -> int:
     if regressions:
         log.error("FAIL: %d regression(s) detected", len(regressions))
         for r in regressions:
-            log.error("  Regression in atom %s", r["atom_id"])
+            log.error(
+                "  Regression in atom %s: %s", r["atom_id"], r.get("notes", "")
+            )
+        log.error("Hash mismatch detected.")
         return 1
 
     log.info("PASS: no regressions detected across %d baselines", len(results))

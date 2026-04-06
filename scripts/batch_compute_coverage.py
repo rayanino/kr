@@ -33,9 +33,14 @@ def load_inventory(path: Path) -> dict:
         return json.load(f)
 
 
-def load_mcu_traces(path: Path) -> list[dict[str, Any]]:
-    """Load mcu_trace.jsonl (one JSON object per line)."""
+def load_mcu_traces(path: Path) -> tuple[list[dict[str, Any]], int]:
+    """Load mcu_trace.jsonl (one JSON object per line).
+
+    Returns (valid_traces, malformed_count). Malformed lines are counted
+    separately so callers can fail-closed on data corruption.
+    """
     traces: list[dict[str, Any]] = []
+    malformed_count = 0
     with open(path, encoding="utf-8") as f:
         for line_num, line in enumerate(f, 1):
             stripped = line.strip()
@@ -44,20 +49,61 @@ def load_mcu_traces(path: Path) -> list[dict[str, Any]]:
             try:
                 traces.append(json.loads(stripped))
             except json.JSONDecodeError as e:
-                log.warning("Skipping malformed line %d in mcu_trace.jsonl: %s", line_num, e)
-    return traces
+                malformed_count += 1
+                log.error(
+                    "Malformed line %d in mcu_trace.jsonl: %s", line_num, e
+                )
+    return traces, malformed_count
+
+
+def load_verification_status(path: Path) -> dict | None:
+    """Load verification_status.json if it exists."""
+    if not path.is_file():
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def compute_coverage(
     inventory: dict,
     traces: list[dict[str, Any]],
+    verification_status: dict | None,
+    malformed_count: int,
 ) -> dict[str, int | float]:
-    """Compute coverage metrics from inventory and MCU traces."""
+    """Compute coverage metrics from inventory, traces, and verification_status."""
     total_files = inventory.get("file_count", len(inventory.get("files", [])))
 
-    verified_files = sum(
-        1 for t in traces if t.get("file_status") == "VERIFIED"
+    # Fix #8: Count unique file_path values from traces, not total rows.
+    trace_verified_files = len(
+        {t["file_path"] for t in traces if t.get("file_path") and t.get("file_status") == "VERIFIED"}
     )
+
+    # Fix #9: Use verification_status.json as authoritative file coverage source
+    # when available, and cross-check with trace-derived counts.
+    if verification_status is not None:
+        files_list = verification_status.get("files", [])
+        vs_verified = sum(
+            1 for f in files_list if f.get("state") == "VERIFIED"
+        )
+        vs_total = len(files_list)
+        if trace_verified_files != vs_verified:
+            log.warning(
+                "Verified file count mismatch: trace-derived=%d, "
+                "verification_status=%d (using verification_status as authoritative)",
+                trace_verified_files,
+                vs_verified,
+            )
+        verified_files = vs_verified
+        # Use verification_status total if available for cross-check
+        if vs_total != total_files:
+            log.warning(
+                "File count mismatch: inventory=%d, verification_status=%d",
+                total_files,
+                vs_total,
+            )
+    else:
+        verified_files = trace_verified_files
+
     total_mcus = len(traces)
 
     mapped_mcus = sum(
@@ -87,6 +133,7 @@ def compute_coverage(
         "distorted_tashif_count": distorted_tashif,
         "distorted_tahrif_count": distorted_tahrif,
         "coverage_pct": round(coverage_pct, 2),
+        "malformed_count": malformed_count,
     }
 
 
@@ -136,10 +183,18 @@ def main() -> int:
     inventory = load_inventory(inventory_path)
 
     log.info("Loading MCU traces from %s", trace_path)
-    traces = load_mcu_traces(trace_path)
-    log.info("Loaded %d MCU trace entries", len(traces))
+    traces, malformed_count = load_mcu_traces(trace_path)
+    log.info("Loaded %d MCU trace entries (%d malformed)", len(traces), malformed_count)
 
-    coverage = compute_coverage(inventory, traces)
+    # Fix #9: Load verification_status.json as authoritative file coverage source
+    vs_path = batch_dir / "verification_status.json"
+    verification_status = load_verification_status(vs_path)
+    if verification_status is not None:
+        log.info("Loaded verification_status.json from %s", vs_path)
+    else:
+        log.warning("verification_status.json not found in %s — using trace-derived counts only", batch_dir)
+
+    coverage = compute_coverage(inventory, traces, verification_status, malformed_count)
     log.info(
         "Coverage: %d/%d MCUs mapped (%.1f%%), %d missed, %d softened, "
         "%d tashif, %d tahrif",
@@ -156,6 +211,14 @@ def main() -> int:
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(coverage, f, indent=2, ensure_ascii=False)
     log.info("Coverage report written to %s", output_path)
+
+    # Fix #1: Fail-closed on malformed trace lines — data corruption invalidates coverage
+    if malformed_count > 0:
+        log.error(
+            "FAIL: %d malformed line(s) in mcu_trace.jsonl — coverage unreliable",
+            malformed_count,
+        )
+        return 1
 
     threshold: float = args.threshold
     if coverage["coverage_pct"] >= threshold:

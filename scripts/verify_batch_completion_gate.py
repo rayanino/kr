@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import logging
 import sys
@@ -47,13 +48,18 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def check_all_files_verified(status: dict) -> tuple[bool, list[str]]:
-    """Condition 1: all files in verification_status.json are VERIFIED."""
+    """Condition 1: all files in verification_status.json are VERIFIED.
+
+    Uses protocol-correct schema: files[].state (not entries[].status).
+    """
     failures: list[str] = []
-    for entry in status.get("entries", []):
-        if entry.get("status") != "VERIFIED":
+    for file_entry in status.get("files", []):
+        if file_entry.get("state") != "VERIFIED":
             failures.append(
-                f"  {entry['path']}: status={entry.get('status', 'MISSING')}"
+                f"  {file_entry.get('path', 'UNKNOWN')}: state={file_entry.get('state', 'MISSING')}"
             )
+    if not status.get("files"):
+        failures.append("  No 'files' array found in verification_status.json")
     passed = len(failures) == 0
     return passed, failures
 
@@ -94,14 +100,73 @@ def check_all_mcus_mapped(traces: list[dict[str, Any]]) -> tuple[bool, list[str]
     return passed, failures
 
 
-def run_gate(status: dict, traces: list[dict[str, Any]]) -> tuple[bool, str]:
-    """Run all 5 conditions and produce a report."""
-    conditions = [
+def sha256_of_file(path: Path) -> str:
+    """Compute SHA-256 hex digest of a file."""
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def check_inventory_hash_drift(
+    inventory: dict, batch_dir: Path
+) -> tuple[bool, list[str]]:
+    """Condition 6: recompute SHA-256 for each file and detect hash drift."""
+    failures: list[str] = []
+    for file_entry in inventory.get("files", []):
+        rel_path = file_entry.get("path", "")
+        stored_hash = file_entry.get("sha256", "")
+        abs_path = batch_dir / rel_path
+        if not abs_path.is_file():
+            failures.append(f"  {rel_path}: FILE MISSING (expected by inventory)")
+            continue
+        current_hash = sha256_of_file(abs_path)
+        if current_hash != stored_hash:
+            failures.append(
+                f"  {rel_path}: DRIFTED (stored={stored_hash[:16]}..., "
+                f"current={current_hash[:16]}...)"
+            )
+    passed = len(failures) == 0
+    return passed, failures
+
+
+def check_queue_terminality(traces: list[dict[str, Any]]) -> tuple[bool, list[str]]:
+    """Condition 7: all MCUs resolved — each has a maq_id or explicit reject."""
+    failures: list[str] = []
+    for t in traces:
+        mcu_id = t.get("mcu_id", "unknown")
+        has_maq = bool(t.get("maq_id"))
+        mapping = t.get("mapping", "")
+        if not has_maq and mapping != "REJECT":
+            failures.append(
+                f"  {mcu_id}: no maq_id and mapping={mapping or 'NONE'} "
+                f"(expected maq_id or REJECT)"
+            )
+    passed = len(failures) == 0
+    return passed, failures
+
+
+def run_gate(
+    status: dict,
+    traces: list[dict[str, Any]],
+    inventory: dict | None,
+    batch_dir: Path,
+) -> tuple[bool, str]:
+    """Run all conditions and produce a report."""
+    conditions: list[tuple[str, tuple[bool, list[str]]]] = [
         ("C1: All files VERIFIED", check_all_files_verified(status)),
         ("C2: Zero MISSED at CRITICAL/HIGH", check_no_critical_high_missed(traces)),
         ("C3: Zero SKIPPED-FILE", check_no_skipped_files(traces)),
         ("C4: All MCUs mapped to MAQ/META/REJECT", check_all_mcus_mapped(traces)),
     ]
+    if inventory is not None:
+        conditions.append(
+            ("C6: No inventory hash drift", check_inventory_hash_drift(inventory, batch_dir))
+        )
+    conditions.append(
+        ("C7: Queue terminality (all MCUs resolved)", check_queue_terminality(traces))
+    )
 
     all_passed = True
     report_lines = ["Batch Completion Gate Report", "=" * 40, ""]
@@ -156,13 +221,21 @@ def main() -> int:
         log.error("mcu_trace.jsonl not found in %s", batch_dir)
         return 1
 
+    inventory_path = batch_dir / "inventory.json"
+    inventory: dict | None = None
+    if inventory_path.is_file():
+        log.info("Loading inventory from %s", inventory_path)
+        inventory = load_json(inventory_path)
+    else:
+        log.warning("inventory.json not found in %s — hash-drift check skipped", batch_dir)
+
     log.info("Loading verification status from %s", status_path)
     status = load_json(status_path)
 
     log.info("Loading MCU traces from %s", trace_path)
     traces = load_jsonl(trace_path)
 
-    passed, report = run_gate(status, traces)
+    passed, report = run_gate(status, traces, inventory, batch_dir)
     log.info("\n%s", report)
 
     report_path = batch_dir / "gate_report.txt"

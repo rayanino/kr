@@ -30,6 +30,22 @@ log = logging.getLogger(__name__)
 LAYER_A_DIR = "source_artifacts"
 LAYER_B_PATTERN = re.compile(r"^[0-9]{2}_")
 
+# Fix #5: Files produced by the verification toolchain — exclude from inventory scan
+EXCLUDED_FILENAMES: set[str] = {
+    "inventory.json",
+    "verification_status.json",
+    "mcu_trace.jsonl",
+    "coverage.json",
+    "verification_report.md",
+    "collation_register.jsonl",
+    "gap_remediation_tracker.jsonl",
+}
+
+# Fix #6: Known directory name patterns for deterministic batch_id derivation
+_BATCH_ID_PATTERN = re.compile(
+    r"chatgpt_([a-z][0-9a-z]+)_collection(?:_bundle)?$", re.IGNORECASE
+)
+
 
 def sha256_of_file(path: Path) -> str:
     """Compute SHA-256 hex digest of a file."""
@@ -60,10 +76,18 @@ def classify_layer(relative_path: Path) -> str:
 
 
 def scan_directory(batch_dir: Path) -> list[dict[str, str | int]]:
-    """Scan batch directory and return file inventory entries."""
+    """Scan batch directory and return file inventory entries.
+
+    Excludes toolchain output files (EXCLUDED_FILENAMES) to prevent
+    the inventory from including its own output on re-runs.
+    """
     entries: list[dict[str, str | int]] = []
     for file_path in sorted(batch_dir.rglob("*")):
         if not file_path.is_file():
+            continue
+        # Fix #5: Skip toolchain output files
+        if file_path.name in EXCLUDED_FILENAMES:
+            log.debug("Excluded toolchain file: %s", file_path.name)
             continue
         relative = file_path.relative_to(batch_dir)
         entry = {
@@ -78,11 +102,30 @@ def scan_directory(batch_dir: Path) -> list[dict[str, str | int]]:
     return entries
 
 
+def derive_batch_id(batch_dir: Path) -> str:
+    """Derive a deterministic batch_id from the directory name.
+
+    E.g. 'chatgpt_f3_collection_bundle' -> 'f3'.
+    Falls back to UUID if no known pattern matches.
+    """
+    dir_name = batch_dir.name
+    m = _BATCH_ID_PATTERN.match(dir_name)
+    if m:
+        batch_id = m.group(1)
+        log.info("Derived batch_id '%s' from directory name '%s'", batch_id, dir_name)
+        return batch_id
+    log.warning(
+        "Directory name '%s' does not match a known pattern — using UUID as batch_id",
+        dir_name,
+    )
+    return str(uuid.uuid4())
+
+
 def build_inventory(batch_dir: Path) -> dict:
     """Build the full inventory document."""
     files = scan_directory(batch_dir)
     return {
-        "batch_id": str(uuid.uuid4()),
+        "batch_id": derive_batch_id(batch_dir),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "batch_dir": str(batch_dir.resolve()),
         "file_count": len(files),

@@ -37,15 +37,20 @@ def load_inventory(path: Path) -> dict:
 
 
 def build_verification_status(inventory: dict) -> dict:
-    """Build verification_status.json from inventory data."""
+    """Build verification_status.json from inventory data.
+
+    Uses protocol-correct schema: files[].state (not entries[].status),
+    with mcu_count and timestamp fields per protocol S3B.3.
+    """
     run_id = str(uuid.uuid4())
-    entries = []
+    files: list[dict] = []
     for file_entry in inventory["files"]:
-        entries.append({
+        files.append({
             "path": file_entry["path"],
             "sha256": file_entry["sha256"],
-            "status": "UNVERIFIED",
-            "verified_at": None,
+            "state": "UNVERIFIED",
+            "mcu_count": 0,
+            "timestamp": None,
             "verified_by": None,
             "notes": None,
         })
@@ -53,9 +58,9 @@ def build_verification_status(inventory: dict) -> dict:
         "batch_verification_run_id": run_id,
         "batch_id": inventory["batch_id"],
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "total_files": len(entries),
+        "total_files": len(files),
         "verified_count": 0,
-        "entries": entries,
+        "files": files,
     }
 
 
