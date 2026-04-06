@@ -11,7 +11,7 @@
 | 2 | ChatGPT DR | Pattern gap analysis from campaign + bundles | 2026-04-06 | PENDING | — | — |
 | 3 | Gemini DR | Islamic madrasa curriculum perspective | 2026-04-06 | PENDING | — | — |
 | 4 | Codex CLI | Schema/contract analysis for unmet data deps | 2026-04-06 | 2026-04-07 | `CODEX_CLI_data_type_analysis.md` | YES (direct) |
-| 5 | Gemini CLI | Islamic pedagogy + student learning methodology | 2026-04-06 | PENDING | — | — |
+| 5 | Gemini CLI | Islamic pedagogy + student learning methodology | 2026-04-06 | 2026-04-07 | `GEMINI_CLI_pedagogical_analysis.md` | YES (direct) |
 
 ## Per-Coworker Unique Findings
 
@@ -49,8 +49,17 @@
 **Disagreements with DR18:** 4 identified and resolved (see CODEX_CLI_verification_crossref.md).
 **Verification:** `CODEX_CLI_verification_crossref.md`
 
-### Gemini CLI — PENDING
-**Expected contribution:** Islamic pedagogy grounding. Student-defined data per science. Genre-specific excerpting preferences from scholarly perspective. Scholarly convention compliance.
+### Gemini CLI — Received 2026-04-07
+**Unique contribution:** Student-first pedagogical analysis grounded in talaqqi/hifz/fahm. 9 findings unique to Gemini, most architecturally disruptive of the three reports:
+- Per-science study MODE choices (madhhab target, munazarah vs qawa'id, shubuhat exposure)
+- **CHALLENGES FP-1:** qa'idah+shahid may need separation for flashcard memorization
+- Genre override rules: matn (zero truncation), hashiyah (pedagogical filtering), mukhtasar (exception-pulling)
+- Proof sourcing (FP-7): book-preserved vs fetched — architectural cross-reference decision
+- 2 genuine pipeline gaps: cognitive complexity grading (no difficulty dimension), active recall output format
+- 10 new data types identified (GEM-01 through GEM-10): 5 TEDIOUS-NOW, 3 NON-TEDIOUS, 2 SUMMER
+
+**Corrections applied:** Prerequisite sequencing PARTIALLY WRONG — user_model SPEC has full curriculum infrastructure (§4.A.5, §4.B.2) SPECIFIED but not implemented.
+**Verification:** `GEMINI_CLI_verification_crossref.md`
 
 ## Synthesis Protocol
 
