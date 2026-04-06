@@ -64,7 +64,7 @@ Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-pr
 
 ## Current State
 
-- **SPEC:** COMPLETE + HARDENING (2530+ lines, FP-1 through FP-18 in §1.1b)
+- **SPEC:** COMPLETE + HARDENING (2530+ lines, FP-1 through FP-22 in §1.1b)
 - **Contracts:** COMPLETE (1111 lines, independently reviewed)
 - **Phase 1:** COMPLETE (117 tests, 1,531 lines) — deterministic assembly + hardening
 - **Phase 2:** COMPLETE (141 tests, 854 lines) — LLM classification + grouping + hardening
@@ -107,8 +107,8 @@ Follow normalization conventions:
 
 **If working on foundations hardening (the current active lane):**
 1. `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md` — **START HERE**
-2. `engines/excerpting/reference/ATOM_PROTOCOL.md` — the governing protocol
-3. `SPEC.md` §1.1b — the 18 foundational principles (FP-1 through FP-18)
+2. `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` — the governing protocol (v4.0)
+3. `SPEC.md` §1.1b — the 22 foundational principles (FP-1 through FP-22)
 4. `engines/excerpting/reference/F1_F8_COMPLETE_ATOM_EXTRACTION.md` — the atom queue
 5. `engines/excerpting/reference/QUEUE_AUDIT_RAW_VS_EXTRACTION.md` — 124 gaps to address
 

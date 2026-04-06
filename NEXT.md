@@ -25,12 +25,12 @@ Debiased two-session environment audit. Merged plan at `reference/handoffs/envir
 
 Branch: `excerpting-foundations-hardening-20260404`
 Ledger: `engines/excerpting/reference/FOUNDATIONS_HARDENING_LEDGER.md`
-**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v3.2 (GOVERNING LAW)**
+**Protocol: `engines/excerpting/reference/HARDENING_SESSION_PROTOCOL.md` v4.0 (GOVERNING LAW)**
 Plan: `.claude/plans/tender-moseying-crayon.md`
 
 **Foundations Q&A: 8 / 8 answered (F1-F8).** G1-G4 + SC1 bundles received at repo root. Owner continuing methodology for all 40 questions.
 
-**Session 2 complete. Protocol v3.2 FULLY REVIEWED by 5 sources.** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md v3.2, reviewed by all 5 coworker sources. 34 improvements across 5 review cycles. Key features: 7-stage per-atom lifecycle, formal voting (ACCEPT/MODIFY/ITERATE/REJECT), dispatch-first context management, 12-science cross-science variation, 17 indivisible units in 3 tiers, scholarly uncertainty flags, prompt refactor gate, preliminary debt ceiling, owner objection mechanism.
+**Session 2 complete. Protocol v4.0 (amended from v3.2).** The v1 ATOM_PROTOCOL.md has been superseded by HARDENING_SESSION_PROTOCOL.md, now at v4.0 after Session 2 empirical amendments (Codex + Gemini consensus). v3.2 was reviewed by 5 coworker sources (34 improvements). v4.0 adds 12 amendments from Session 2 experience: 5 session types, gate-precedence matrix, lane-based context budgets (5-8 atoms/session target), WIP cap, 16 sciences (was 12), 22 indivisible units (was 17), checkpoint states, DR relay classes, §4.15 contradiction resolution.
 
 **Protocol review COMPLETE:**
 - Codex CLI: 4/4 accepted → v2.2
@@ -69,20 +69,36 @@ Plan: `.claude/plans/tender-moseying-crayon.md`
 4. **Empirical validation** — run atom_test.py against taysir fixture with the hardened prompt to verify new rules don't cause regressions.
 5. **Prompt optimization** — 1474/1500 words. If empirical validation shows LLM ignoring late rules (primacy bias), consider REPLACING lower-priority rules with higher-priority ones.
 
-**Session 3 should (IN THIS ORDER):**
-1. Read `HARDENING_SESSION_PROTOCOL.md` §0 checklist (10 items) — v3.2 is the governing law
-2. **PROMPT REFACTOR PASS (§4.11 TRIGGERED)** — GROUP prompt at 1474/1500 (>80% = gate triggered). CC + Codex review entire prompt for: redundant rules to merge, low-priority rules to move to deterministic validators, verbose rules to compress. Gemini validates refactored prompt preserves scholarly meaning. This MUST complete before any new prompt-affecting atoms.
-3. **G1-G4 + SC1 Bundle Intake** — follow §3: unzip 5 bundles at repo root, inventory via subagents, extract atoms, integrate into MERGED_ATOM_QUEUE.md
-4. **Preliminary Debt Clearing (§4.9)** — Batches B1-B3 are PRELIMINARY. Check if DR responses arrived; upgrade or re-dispatch.
-5. Begin per-atom processing using the 7-stage lifecycle with Full/Light lane triage (§4.14)
-6. Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
-7. Route to SPEC: FP-13 genre-sensitivity (SCH-009/010), Organic Knowledge Unit (PED-001)
-8. Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3)
-9. Build `verify_atom_closure.py` (DA-001) — machine-checkable Q-CLOSED evidence
-10. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
-5. Word budget strategy: GROUP prompt at 1440/1500 (60 headroom), ~19 prompt-affecting atoms remaining. DR-5 recommends Options 2+4 (compress existing rules + few-shot examples)
-6. Prepare Phase 1 smoke run with fully hardened prompt
-7. Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
+**Session 3 = intake-only session (per protocol v4.0 §1.5 + §1.6 gate precedence):**
+
+PREREQUISITE GATE (§0 checklist):
+1. Read `HARDENING_SESSION_PROTOCOL.md` v4.0 (§0 checklist + version delta from v3.3). Run `python scripts/check_protocol_version.py` to verify version consistency.
+2. Read `engines/excerpting/CLAUDE.md` + this file + `FOUNDATIONS_HARDENING_LEDGER.md` (recent entries only — dispatch subagent for full ledger)
+3. Verify branch: `excerpting-foundations-hardening-20260404`. Run pytest + `check_prompt_spec_sync.py` — must pass.
+4. Inventory bundles: `ls *.zip` at repo root → G1-G4 + SC1 exist → gate 4 (§1.6) triggers → session type = `intake-only`.
+5. State: "Session type: intake-only. No atom processing this session. Target: complete intake for 5 bundles."
+
+PHASE A — Bundle Intake (G1-G4 + SC1, follow §3 exactly):
+6. Unzip 5 bundles to `engines/excerpting/chatgpt_{series}_collection/`
+7. Per bundle: dispatch subagent for inventory → conflict scan (including Arabic text degradation per §3.2 Step 3) → per-file atom extraction (NOT single bulk pass — §3.2 Step 4)
+8. Coverage verification: flag any files with 0 extracted atoms for re-read (prevents Session 1's 124-gap failure)
+9. Assign MAQ-IDs, integrate into `MERGED_ATOM_QUEUE.md`. Deduplicate against existing F1-F8 atoms.
+10. Archive zips to `source_artifacts/`. Verify quality gate (§3.3 — 8 checkboxes).
+
+PHASE B — Preliminary Debt + Future Session Planning:
+11. Count PRELIMINARY atoms from Session 2 (B1-B3). Check if DR responses arrived since Session 2.
+12. Do NOT clear debt this session — defer to Session 4 (`debt-clearance` type).
+13. Count total prompt-affecting atoms across ALL batches (F + G + SC). This informs Session 5's prompt refactor.
+
+HANDOFF: Write Session 4 kickoff per §7.2. Session 4 type = `debt-clearance`. Session 5 type = `prompt-architecture` (§4.11 refactor gate). Session 6+ type = `full-atom` (3-5 Full Lane or 5-8 mixed atoms per session).
+
+**Deferred work (NOT Session 3 — future full-atom sessions):**
+- Formalize SPEC §6 entries for ~30 SPEC-only atoms from Batches 4-6
+- Route to SPEC: FP-13 genre-sensitivity (SCH-009/010), Organic Knowledge Unit (PED-001)
+- Re-run empirical validation on additional chunks (ibn_aqil_v1 chunk 0, taysir chunks 1-3)
+- Build `verify_atom_closure.py` (DA-001) — machine-checkable Q-CLOSED evidence
+- Fix remaining 4 xfail red-team gaps (ZWSP, damma truncation, segment contiguity, boundary ordering)
+- Prepare Phase 1 smoke run with fully hardened prompt
 
 **Pre-existing test failure:** `test_phase2_integration.py::test_classify_and_normalize` fails with 401 (expired OpenRouter API key). Not related to hardening changes. Confirmed pre-existing on clean master.
 

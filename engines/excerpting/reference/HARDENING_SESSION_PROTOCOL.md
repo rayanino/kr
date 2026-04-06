@@ -1,4 +1,8 @@
-# Hardening Session Protocol v2.0
+# Hardening Session Protocol v4.0
+
+---
+governing_version: "4.0"
+---
 
 > **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
 > **Supersedes:** `ATOM_PROTOCOL.md` v1.0 (2026-04-04) for process governance. ATOM_PROTOCOL.md's Hard Rules (§Hard Rules) remain in force and are incorporated here.
@@ -12,6 +16,7 @@
 > - v3.1 (2026-04-06): Gemini DR pedagogical review (8 findings, 4/10 + 3/10 scores) → 5 accepted via Codex+Gemini consensus: Natural Teaching Unit field, Graduated Learning Level field, atom complexity triage (Full/Light lane), owner briefing optimization (exception-based after 50 atoms), DR budget per session (max 5/session). 3 redirected to engine SPEC/downstream engines.
 > - v3.2 (2026-04-06): Claude DR scholarly review (19 findings, 5/10 score) → 8 accepted via Codex consensus: science list expanded 8→12 with structural families, indivisible units expanded 5→17 in 3 tiers (always/usually/conditionally), mandatory pre-expansion genre classification (3 decisions), scholarly uncertainty flags, sharḥ-matn pair as critical indivisible unit, multi-layer text awareness, honorific+transmission formula preservation, suʾāl-jawāb+radd+qiyās+taqsīm structures. FP-13 genre-sensitivity (SCH-009/010) redirected to SPEC.
 > - v3.3 (2026-04-06): Owner concern — guarantee every note is captured. Layer B upgraded from "reference" to "critically important source." Extraction changed from single bulk pass to per-file extraction with mandatory coverage verification table, red-flag re-reads, and density checks. Prevents Session 1 failure (15/139 files read).
+> - v4.0 (2026-04-06): Session 2 empirical amendments — Codex + Gemini CLI consensus review of 12 proposed changes. Key: (1) lane-based context budgets (bootstrap 52K→150K, Full Lane 50K/atom, target 5-8 not 25-30), (2) 5 session types (intake-only, debt-clearance, prompt-architecture, full-atom, validation-only), (3) gate-precedence matrix, (4) WIP cap (max 1 Full Lane in Stages 3-5), (5) science list 12→16 (+Qirāʾāt/Tajwīd, +Fatāwā/Nawāzil, +Takhrīj/Rijāl, +Adab/Shiʿr), (6) indivisible units 17→23 (+Nāsikh/Mansūkh, +Qāʿidah/Farʿ, +Sabab al-Nuzūl, +Mafhūm/Manṭūq, +Muqsam), (7) checkpoint states for emergency handoff, (8) §4.15 contradiction resolved, (9) DR relay classes, (10) core+delta bootstrap, (11) grouped-implementation briefing enforcement, (12) scholarly sections 8-13 stay CC-local (Gemini: "dispatching severs cognitive link"). Based on Session 2 actual experience (96% context exhaustion at ~20 atoms).
 
 ---
 
@@ -27,8 +32,16 @@
 6. Verify you are on the correct branch
 7. Run `python -m pytest engines/excerpting/tests/ -q --ignore=engines/excerpting/tests/test_phase2_integration.py --ignore=engines/excerpting/tests/test_phase3_integration.py` — must pass
 8. Run `python scripts/check_prompt_spec_sync.py` — must PASS
-9. Estimate your context budget: `bootstrap (~52K tokens) + target_atoms × 20K = ?` — plan your atom count target
+9. Estimate your context budget: `bootstrap (~150K tokens) + full_atoms × 50K + light_atoms × 15K = ?` — plan your atom count target
 10. Inventory any new collection bundles at the repo root (see §3)
+
+**Bootstrap optimization for returning sessions (v4.0):** After your first full read of this protocol, subsequent sessions use a core + delta model:
+1. Read version frontmatter (governing_version field) — verify it matches NEXT.md
+2. Read §0 checklist directly (this section — always authoritative)
+3. Read version delta: scan version history for entries AFTER the version you last read
+4. Read §9 Quick Reference Card
+5. Read any §-sections that changed in the delta
+A subagent may assist reading §1-§8 and summarizing changes, but CC reads §0 and the version delta directly. Summary-only bootstrap causes law drift — the core sections must be read authoritatively.
 
 **Do NOT process any atoms until all 10 checks pass.**
 
@@ -84,7 +97,41 @@ These principles resolve ALL ambiguity in the protocol. When a rule is unclear, 
 9. **Never end a session without writing a handoff** (see §7).
 10. **Never read files >10KB directly** when a subagent can summarize them (see §6).
 11. **ADDED v2.0: Never bulk atoms.** Each atom is analyzed, expanded, challenged, and briefed individually.
-12. **ADDED v2.0: Never skip owner briefing.** Owner is briefed after EVERY atom closure, not per-batch.
+12. **ADDED v2.0, AMENDED v4.0: Never skip per-atom ledger brief artifact.** Owner is briefed after EVERY atom closure (ledger artifact mandatory). Owner-facing DELIVERY may be batched after 50 atoms per §4.15, but the ledger artifact is always per-atom.
+
+### 1.5 Session Types (v4.0)
+
+Each session declares its type at start. The type determines what work is done and how context is budgeted.
+
+| Type | Purpose | Atom Processing? | Context Strategy |
+|------|---------|-------------------|------------------|
+| `intake-only` | Unzip, inventory, extract atoms from new bundles, integrate into queue | NO | 100% for bundle reads + subagent dispatches |
+| `debt-clearance` | Re-dispatch missing coworkers for PRELIMINARY atoms, upgrade or re-open | Only PRELIMINARY atoms | Budget for N re-dispatches |
+| `prompt-architecture` | Review and refactor prompt(s). Triggered by §4.11 prompt refactor gate | NO | Full prompt + SPEC §5.3.2 in context |
+| `full-atom` | Per-atom 7-stage lifecycle. The core hardening work | YES: 3-5 Full Lane or 5-8 mixed | Per-atom budgets from §2.1 |
+| `validation-only` | Run smoke tests, dispatch analysis teams, evaluate results | NO | Budget for test runs + team dispatches |
+
+**Rules:**
+- A session MUST declare its type before processing the first work item.
+- A session MAY combine two compatible types (e.g., `debt-clearance` + `prompt-architecture`) if context allows. It MUST NOT combine `intake-only` with `full-atom` — new atoms from intake are not processed in the same session.
+- If a session discovers mid-work that it should be a different type (e.g., started `full-atom` but found new bundles at repo root), it STOPS, writes a handoff, and the next session handles the discovered work.
+- Given infinite session availability, prefer SMALLER, CLEANER sessions over overloaded ones. 5 atoms done perfectly in a focused session is worth more than 15 atoms crammed into an exhausted context.
+
+### 1.6 Gate-Precedence Matrix (v4.0)
+
+When multiple gates trigger simultaneously at session start, resolve in this strict order:
+
+```
+1. VERSION RECONCILIATION — verify protocol title, frontmatter governing_version,
+   and NEXT.md all agree (run scripts/check_protocol_version.py)
+2. PREREQUISITE GATE — §0 checklist (10 items, all must pass)
+3. PRELIMINARY DEBT CHECK — §4.9. If debt > threshold → session type = debt-clearance
+4. BUNDLE INTAKE INVENTORY — if new .zip bundles at repo root → session type = intake-only
+5. PROMPT REFACTOR GATE — §4.11. If triggered → session type = prompt-architecture
+6. PER-ATOM PROCESSING — only reachable if gates 3-5 all clear → session type = full-atom
+```
+
+A higher-numbered gate CANNOT be evaluated until all lower-numbered gates are cleared. This prevents: processing new atoms while preliminary debt exceeds threshold, refactoring prompt before inventorying new bundles, or starting atom work before version consistency is verified.
 
 ---
 
@@ -97,18 +144,22 @@ Before processing any atoms, complete this 10-item checklist. Items 1-8 are in �
 At session start, estimate your total budget:
 
 ```
-Available tokens:     1,000,000
-System overhead:       -30,000  (rules, skills, MCP, schemas)
-Bootstrap reading:     -52,000  (protocol, handoff, ledger, CLAUDE.md, queue section, prompt)
-Safety reserve:       -100,000  (Zone 3-5 buffer, never touch)
-─────────────────────────────────
-Working budget:       ~818,000  tokens
-Per-atom cost (dispatch-first): ~20,000 tokens
-────────────
-Target atoms this session: ~25-30 (conservative: 20)
+Session-type caps (see §1.5):
+  intake-only:         Budget 100% for bundle intake. 0 atoms processed.
+  debt-clearance:      Budget for re-dispatching N preliminary atoms. 0 new RAW atoms.
+  prompt-architecture: Budget for full prompt review + refactor. 0 atoms processed.
+  full-atom:           3-5 Full Lane atoms OR 5-8 mixed (Full + Light) atoms.
+  validation-only:     Budget for smoke run + analysis dispatch. 0 atoms processed.
+
+Per-atom budgets:
+  Full Lane:   ~50K tokens (expansion + 2-3 coworker dispatches + synthesis + implementation)
+  Light Lane:  ~15K tokens (abbreviated expansion + 1 spot-check + implementation)
+
+Bootstrap reading:    ~150K tokens (protocol summary + handoff + ledger recent + CLAUDE.md + queue section + prompt)
+Safety reserve:       ~100K tokens (Zone 3-5 buffer, never touch)
 ```
 
-State this estimate explicitly before processing the first atom: "Context budget: ~818K working tokens. Target: ~20 atoms. Handoff after atom ~18-20."
+State session type and budget explicitly before any work: "Session type: [type]. Budget: [full-atom: 5-8 atoms | intake-only: N bundles | etc.]. Handoff trigger: [Zone 3 at 75%]."
 
 ### 2.2 New Bundle Inventory
 
@@ -225,6 +276,8 @@ Before processing any atoms from a new bundle:
 
 Every atom passes through exactly 7 stages. No stage can be skipped. No atom advances without passing the exit gate. The stages are:
 
+**WIP Cap (v4.0):** Maximum 1 Full Lane atom in Stages 3-5 (EXPANDED through SYNTHESIZED) at any time. Maximum 3 atoms total in any non-terminal state. Exceeding the WIP cap is a session failure. This prevents the batching anti-pattern that caused Session 2's context exhaustion.
+
 ```
 RAW ──→ SOURCED ──→ EXPANDED ──→ CHALLENGED ──→ SYNTHESIZED ──→ IMPLEMENTED ──→ CLOSED
  (1)      (2)         (3)          (4)            (5)             (6)           (7)
@@ -327,7 +380,7 @@ OUT OF SCOPE: [precise list]
 [Concrete scenario showing damage from misapplication — seeds coworker adversarial prompts]
 
 ### Cross-Science Variation
-[How does this rule apply differently across sciences? Check ALL 12 categories grouped by structural family:
+[How does this rule apply differently across sciences? Check ALL 16 categories grouped by structural family:
 
 **[ARG] Argument-based:**
 - Fiqh (madhab attribution, masʾalah structure)
@@ -338,18 +391,24 @@ OUT OF SCOPE: [precise list]
 **[NAR] Narrative-based:**
 - Tārīkh/sīrah (chronological narrative)
 - Tafsīr (verse-by-verse or thematic commentary)
+- Fatāwā/Nawāzil (ruling + specific questioner context — abstracting the ruling without the scenario corrupts the jurisprudence)
 
 **[ENT] Entry-based:**
 - Ṭabaqāt/tarājim (biographical dictionaries — each tarjamah is atomic)
 - Muṣṭalaḥ al-ḥadīth (definition→criteria→examples structure, NO isnāds)
+- Takhrīj/Rijāl (chain variations, narrator critiques, jarḥ wa taʿdīl grading matrices — structurally distinct from standard matn)
 
 **[RUL] Rule-based:**
 - Naḥw (grammatical rules + shawāhid)
 - Ṣarf (morphological paradigm tables — tabular, not prose)
 - Lughah/balāghah (lexicography/rhetoric)
+- Qirāʾāt/Tajwīd (recitation variants, pausing symbols waqf/ibtidāʾ, phonetic transmission chains — highly specialized structural rules)
 
 **[COM] Commentary-structured:**
 - Ḥadīth collections + sharḥ (isnād-matn pairs; bāb = natural atom in Bukhārī)
+
+**[ART] Artistic/literary:**
+- Adab/Shiʿr (meter-bound wazn + rhyme qāfiyah — qaṣīdah structure means bayt is atomic unit; extracting single bayt from thematic section destroys semantic intent)
 
 Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / SCOPED / NEEDS RESEARCH.
 **DA-027 rule:** NEEDS RESEARCH on a shared cross-science structural element → blocks finalization for prompt-affecting atoms until scholarly coworker resolves. Domain-specific NEEDS RESEARCH may be tagged SCOPED and finalized.]
@@ -369,15 +428,22 @@ Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / SCOP
 - Istishhād (poetic evidence: verse + grammatical explanation + attribution)
 - Takhrīj (ḥadīth text + source list + grading — separating a ḥadīth from its grading is catastrophic)
 - Paradigm tables (jadāwil al-taṣrīf — partial conjugation tables are misleading)
+- Nāsikh and Mansūkh (الناسخ والمنسوخ) — abrogating and abrogated texts. If a scholar cites both, separating them is a catastrophic theological and legal failure.
+- Qāʿidah and Farʿ/Ḍābiṭ (القاعدة والفرع / الضابط) — legal maxim + illustrative application. A branch excerpted without its governing maxim, or a maxim without example, is incomplete.
+- Muṭlaq and Muqayyad (المطلق والمقيد) — unrestricted ruling + its restriction. Separating the restriction from the base ruling makes the reader apply a ruling without its legally binding condition (Gemini v4.0 uṣūlī gap).
+- ʿĀmm and Khāṣṣ (العام والخاص) — general ruling + its specification. Presenting only the general without the specific exception misrepresents the law (Gemini v4.0 uṣūlī gap).
 
 **USUALLY INDIVISIBLE (split only when exceeding maximum excerpt size with natural sub-boundaries):**
 - **Khilāf register:** Complete disagreement survey for one masʾalah. Presenting only one madhhab misrepresents the law.
 - **Taqsīm (taxonomy trees):** "X is of three types..." — splitting after type 2 means the reader has an incomplete taxonomy and may not know it (FP-5 silent corruption).
 - Internal cross-references (كما تقدم → target)
+- Sabab al-Nuzūl / Sabab al-Wurūd (سبب النزول / سبب الورود) — historical context paired with the verse/hadith. Removing the sabab decontextualizes the text.
 
 **CONDITIONALLY INDIVISIBLE (context-dependent):**
 - Ijmāʿ + noted dissent. Separating the exception transforms a qualified consensus into an absolute one.
 - Sharṭ-jawāb (conditional-consequence). Presenting only the condition leaves the ruling incomplete.
+- Mafhūm and Manṭūq (مفهوم ومنطوق) — when an author explicitly states the contrary implication (mafhūm al-mukhālafah) immediately following the stated ruling (manṭūq), they must be kept together to preserve the author's precise intent.
+- Al-Muqsam bih wa al-Muqsam ʿalayh (المقسم به والمقسم عليه) — the oath and the subject of the oath; separating them corrupts the rhetorical and legal force.
 
 If any risk: document the safeguard. If uncertain whether a unit is indivisible in this context: `[SCHOLARLY_CHECK_NEEDED]`.]
 
@@ -401,6 +467,11 @@ Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K
 [No conflicts with finalized atoms | Conflicts with ATOM-X: resolution plan]
 [Cross-reference orphaning check: would this atom's boundary orphan any كما تقدم / سيأتي references from their targets?]
 ```
+
+**Template section requirements by atom lane (v4.0):**
+- **Full Lane (prompt/contract-affecting):** Sections 1-13 ALL mandatory. CC writes all sections locally. Subagents may GATHER evidence (e.g., "find a nahw text where this rule fails") but CC WRITES the final scholarly judgment. Dispatching ownership of sections 8-13 is FORBIDDEN — Gemini CLI review confirmed this "severs the orchestrator's cognitive link to cross-rule implications."
+- **Full Lane (SPEC-structural):** Sections 1-13 ALL mandatory. CC writes sections 1-7 and the final verdicts for 8-13. Subagents may draft evidence for sections 8-13 which CC reviews and edits.
+- **Light Lane:** Sections 1-5 mandatory (scope, rule, exceptions, hypothesis, blast-radius). Sections 8-13 are EVALUATED but may be abbreviated: "No cross-science risk identified. Checked: [list 16 sciences]. No atomic integrity risk. Checked: [23 indivisible units]." Sections 6-7 (correct/incorrect examples) optional for Light Lane. NOTE: Gemini CLI confirmed "there is no such thing as purely editorial in classical Arabic" — even Light Lane atoms must evaluate sections 8-13 to prove no hidden cross-science risk.
 
 **Exit gate (G-EXPANDED):**
 - [ ] Scope defined with IN/OUT boundaries
@@ -629,6 +700,8 @@ If validation failure at Stage 6 requires modifying a previously FINALIZED atom:
    
    The brief is informational. The owner does not approve or reject (that was CC + coworkers' job). The owner's reaction is SIGNAL for future atoms.
 
+   NOTE: The 4-element brief artifact above is ALWAYS per-atom in the ledger. Owner-facing delivery follows §4.15 (per-atom for first 50, batchable after).
+
 2. **Ledger update (MANDATORY):**
    Full disposition entry with:
    - Atom name and MAQ-ID
@@ -667,7 +740,7 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-7 | No regression: pytest pass, pyright clean, sync pass | Test run output recorded |
 | Q-8 | Empirical validation IF prompt-affecting | atom_test.py output or "SPEC-only, no empirical needed" |
 | Q-9 | Blast-radius check: no conflict with finalized atoms | Explicit check recorded |
-| Q-10 | Owner briefed on THIS atom individually | Brief delivered in session |
+| Q-10 | Per-atom brief artifact in ledger with 4 required elements | Ledger entry contains what/changed/rejected/risks for THIS atom |
 | Q-11 | Ledger fully updated | Complete entry per the template above |
 
 If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
@@ -757,11 +830,11 @@ At 600 atoms, per-atom owner briefing causes checkbox fatigue. After the first 5
 
 **Phase A (atoms 1-50): Full per-atom briefing.** Every atom gets an individual brief as described in Stage 7.
 
-**Phase B (atoms 51+): Exception-based briefing.** CC provides:
+**Phase B (atoms 51+): Batched DELIVERY, per-atom LEDGER artifact.** The ledger ALWAYS contains a per-atom brief artifact with the 4 required elements (what, changed, rejected, risks) — this is non-negotiable regardless of atom count. Owner-facing DELIVERY may be batched:
 - A **batch summary** after every 5 atoms (1-2 sentences per atom, highlighting only what changed)
-- **Full individual briefs** only for: atoms where coworkers disagreed, atoms touching the owner's core concerns (self-containment, loose knowledge, attribution), atoms where the expansion revealed tensions in the owner's own raw text, and any atom where CC exercised the Scholarly Integrity override (§4.13)
+- **Full individual delivery** only for: atoms where coworkers disagreed, atoms touching the owner's core concerns (self-containment, loose knowledge, attribution), atoms where the expansion revealed tensions in the owner's own raw text, atoms where CC exercised the Scholarly Integrity override (§4.13), and any atom the owner specifically requests full delivery for.
 
-The owner can request full per-atom briefing for any batch at any time. This optimization reduces owner cognitive load by ~80% while preserving visibility on high-stakes atoms.
+The owner can request full per-atom delivery for any batch at any time. The distinction is: ledger artifact = always per-atom; owner delivery = batchable after trust established. This resolves the v3.2 contradiction between §4.7 (mandatory per-atom) and §4.15 (exception-based).
 
 ### 4.16 DR Budget Per Session (PROC-003)
 
@@ -774,6 +847,15 @@ At ~600 atoms requiring ~200 DR relays, owner relay fatigue is unsustainable.
 - Phase gates
 
 **Exempt from DR:** Light Lane atoms, verification-only atoms, SPEC-only doctrinal additions with Codex+Gemini agreement.
+
+**DR relay classes (v4.0):**
+| Class | Scope | Budget Count | Format |
+|-------|-------|-------------|--------|
+| `atom-review` | Exactly 1 MAQ-ID per relay | Each counts as 1 against budget | Per-atom expansion + coworker findings |
+| `research` | Topic-based, may span multiple atoms | Counts as 1 regardless of atoms touched | Research question + context files |
+| `phase-gate` | Covers entire phase transition | Counts as 1 | Phase summary + evidence + gate criteria |
+
+Combined "review these 3 atoms together" relays are FORBIDDEN for `atom-review` class — they produce shallow per-atom feedback (Session 2 finding). Research and phase-gate relays may legitimately span multiple atoms.
 
 ### 4.17 Redirected Findings (Valid but Not Protocol Scope)
 
@@ -883,8 +965,8 @@ When coworkers disagree, resolve in this strict sequence:
 
 ```
 Zone 0: SYSTEM       [0% - 3%]      ~30K tokens    Fixed (rules, skills, MCP)
-Zone 1: BOOTSTRAP    [3% - 8%]      ~52K tokens    One-time session init
-Zone 2: WORKING      [8% - 75%]    ~670K tokens    Active atom processing
+Zone 1: BOOTSTRAP    [3% - 15%]     ~150K tokens   One-time session init
+Zone 2: WORKING      [15% - 75%]   ~600K tokens    Active atom processing
 Zone 3: BUFFER       [75% - 85%]   ~100K tokens    Handoff zone (MANDATORY handoff begins)
 Zone 4: EMERGENCY    [85% - 96%]   ~110K tokens    Compact + minimal recovery
 Zone 5: FORBIDDEN    [96% - 100%]   ~40K tokens    NEVER ENTER (hallucination zone)
@@ -933,10 +1015,10 @@ After every 3rd atom, CC MUST state:
 
 **Rough formula:**
 ```
-estimated_tokens ≈ 52K + (atoms_completed × 20K) + (response_turns × 10K)
+estimated_tokens ≈ 150K + (full_atoms × 50K) + (light_atoms × 15K) + (response_turns × 10K)
 ```
 
-At ~18-20 completed atoms with ~5 turns each: ~52K + 400K + 1000K... this gets complex. The practical rule: **hand off after ~15-18 atoms to be safe.** Session 2's failure at 96% happened around atom 20 with the LESS efficient non-dispatch approach.
+The practical rule: **hand off after ~5-8 atoms (full-atom session) or when entering Zone 3.** Session 2's failure at 96% happened around atom 20 with the LESS efficient non-dispatch approach; v4.0 budgets are calibrated to prevent that.
 
 ### 6.4 Compaction Recovery Protocol
 
@@ -949,13 +1031,30 @@ When `/smart-compact` runs, IMMEDIATELY re-read (in this order):
 5. Ledger: ONLY last 5 entries (~5KB)
 6. Current batch atoms from MERGED_ATOM_QUEUE (~3-5KB)
 
-**Total recovery cost: ~35KB (~10K tokens).** Compare with full bootstrap at ~52K.
+**Total recovery cost: ~35KB (~10K tokens).** Compare with full bootstrap at ~150K.
 
 **What can be re-derived (do NOT re-read):**
 - Collection file contents (dispatch subagent again if needed)
 - Coworker reports from completed atoms (summarized in ledger)
 - NEXT.md (doesn't change during session)
 - ATOM_PROTOCOL.md (behavioral rules internalized)
+
+### 6.5 Checkpoint States for Emergency Handoff (v4.0)
+
+When context emergency forces mid-atom handoff, use these checkpoint states instead of fake terminal states. PRELIMINARY is a coworker-coverage state, NOT an emergency-exit state — do not misuse it.
+
+| Checkpoint State | Meaning | Resume Point |
+|------------------|---------|-------------|
+| `PAUSED-EXPANDED` | Expansion complete, not yet challenged | Resume at Stage 4 (dispatch coworkers) |
+| `PAUSED-CHALLENGED` | Some coworker reports received, waiting for rest | Resume at Stage 4 (wait) or Stage 5 (if minimum met) |
+| `PAUSED-SYNTHESIS` | Synthesis in progress, context emergency | Resume at Stage 5 (complete synthesis) |
+| `IMPLEMENTED-UNVERIFIED` | Code written, tests not yet run | Resume at Stage 6 (run validation suite) |
+| `IMPLEMENTED-AWAITING-BRIEF` | Tests pass, owner not yet briefed | Resume at Stage 7 (compose and deliver brief) |
+
+**Rules:**
+- NEVER attempt Stage 7 (owner brief) during a context emergency — brief quality suffers under context pressure.
+- Checkpoint states are NOT terminal. They MUST be resolved in the next session.
+- Handoff document MUST list each checkpointed atom with its state and exact resume instructions.
 
 ---
 
@@ -1109,11 +1208,11 @@ Can a coworker do it better?  ──YES──→  Dispatch to Codex/Gemini/DR
 ### Context Checkpoints
 
 ```
-After atom 3:    State context estimate
-After atom 6:    State estimate. If >50%, increase dispatch.
-After atom 9:    State estimate. If >60%, /smart-compact.
-After atom 12:   State estimate. If >70%, start planning handoff.
-At 75%:          STOP new atoms. Begin handoff.
+After atom 2:    State context estimate. Verify session type still correct.
+After atom 4:    State estimate. If >50%, increase dispatch ratio.
+After atom 6:    State estimate. If >60%, /smart-compact.
+At 70%:          Plan handoff. Complete current atom only.
+At 75%:          STOP new atoms. Begin handoff (Zone 3).
 At 85%:          EMERGENCY. Compact → finish current → handoff.
 At 96%:          FORBIDDEN. Emergency handoff only.
 ```
@@ -1126,6 +1225,8 @@ SPEC change    = CC + Codex + Gemini (+ DR for structural)
 Contract       = CC + Codex (+ Gemini preferred)
 SPEC-doctrine  = CC + Gemini (+ DR for scholarly)
 Phase gate     = ALL 6 sources, NO exceptions
+Session type  = Declare at start per §1.5. Never combine intake + full-atom.
+WIP cap       = Max 1 Full Lane in Stages 3-5. Max 3 open atoms total.
 ```
 
 ### Anti-Patterns (Session Failures)
@@ -1133,7 +1234,7 @@ Phase gate     = ALL 6 sources, NO exceptions
 ```
 NEVER bulk atoms (analyze individually, implement in small groups max 3)
 NEVER read raw files >10KB locally (dispatch subagent — use Verbatim Span Extraction)
-NEVER skip owner brief per-atom (even if "trivial")
+NEVER skip per-atom LEDGER brief artifact (owner DELIVERY may batch after 50 atoms per §4.15)
 NEVER say "done" without Q-CLOSED (11 criteria ALL true)
 NEVER finalize with <2 coworker reports
 NEVER skip raw owner .txt source
