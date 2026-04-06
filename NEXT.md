@@ -44,6 +44,39 @@
 2. **DR20 PROCESSED:** 40-book production batch selected. Manifest at `engines/excerpting/reference/BOOK_SELECTION_MANIFEST.md`. DR21 (prompt compression) and DR22 (multi-layer detection) still incoming.
 3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → prompt refactor (§4.11, informed by DR21) → full-atom processing
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
+5. **PARALLEL: Feedback Collection Strategy brainstorm** — see section below
+
+### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
+
+**Goal:** Design the optimal system for collecting ALL owner-dependent data before July 1 (summer full-time build phase).
+
+**Accomplished (this session):**
+- Owner interview (4 rounds): study priorities (Arabic→fiqh→usul→aqidah), fatigue profile (prefers structured/interactive), granularity is #1 excerpt issue, product vision ("present everything, tell me just memorize")
+- 5 coworkers dispatched with /prompt-architect-optimized prompts (3/5 received, 2 pending)
+- **DR18 (Claude DR):** 42 owner-dependent decisions across all 5 engines. Critical path: science scope → book priority → muhaqiq list. ~5h tedious now, ~20-30h summer.
+- **Codex CLI:** 11 policy families (DT-01..11) with dependency chain. Root: user model. Two-layer insight: policy precedes decisions. Only FP-8/FP-18 need calibration. TEAM_TRANSLATION_GUIDE has zero FP-13..22 mapping.
+- **Gemini CLI:** Student-first pedagogical analysis. 9 unique findings including FP-1 challenge (qa'idah+shahid separation for flashcard mode), shubuhat safety, genre overrides, 2 genuine gaps (cognitive complexity grading, active recall output format).
+- All 3 reports: saved to `engines/excerpting/reference/dr_reviews/`, verified against codebase, cross-referenced, corrections documented
+- **4-layer synthesis architecture emerging:**
+  - Layer 1: User model + pedagogical modes (Gemini) → "What kind of student?"
+  - Layer 2: Quality policies (Codex) → "What rules govern output?"
+  - Layer 3: Engine decisions (DR18) → "What configures each engine?"
+  - Layer 4: Calibration (all three) → "Does engine match the owner's brain?"
+
+**Pending:**
+- ChatGPT DR report (pattern gap analysis from v2 campaign)
+- Gemini DR report (madrasa curriculum minimum viable data)
+- After all 5: unified synthesis → requirements document → `/ce:plan` for collection system
+
+**Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
+- Science priority: Arabic first, fiqh/usul/aqidah passion lane
+- Priority book: الفقه على المذاهب الأربعة
+- Study level: beginner
+- Product vision: eliminate preparation, go straight to memorization
+- Excerpt issue: engine under-divides (granularity)
+- Feedback preference: 10-15 excerpts/session, structured/interactive, show reasoning
+
+**Tracker:** `engines/excerpting/reference/dr_reviews/COWORKER_SYNTHESIS_TRACKER.md`
 
 ### COMPLETED: Environment Audit (2026-04-06)
 
