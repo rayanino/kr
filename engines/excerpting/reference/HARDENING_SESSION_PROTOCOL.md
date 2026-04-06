@@ -484,6 +484,7 @@ HR-23: **Never dispatch a prompt to ANY target (Codex CLI, Gemini CLI, DR relay,
 HR-24: **Never end a session without running `scripts/lint_session_norms.py` on the handoff — must PASS.** Checks: permission-seeking language (C1), next-step presence (C2), dispatch completeness (C3), prompt-architect compliance (C4). DR18 Mechanism 2 (norm-linter gate). A failing lint report means the handoff has governance violations that the next session would inherit.
 HR-25: **The PreToolUse hooks for autonomy enforcement and prompt-architect enforcement MUST NEVER be disabled, bypassed, or removed.** These hooks are the HARD enforcement layer (DR19). `.claude/hooks/enforce-autonomy.sh` blocks technical guidance-seeking questions. `.claude/hooks/enforce-prompt-architect.sh` blocks Agent dispatches without prior `/prompt-architect` invocation. Disabling these hooks is equivalent to removing the fire alarm from a building. DR19 evidence: without hard enforcement, 23 rules at 95% each = 31% full-session compliance.
 HR-26: **Cross-model auditing: when auditing a session's outputs, use a DIFFERENT model family than the session being audited.** Claude audits Codex. Gemini audits Claude. Codex audits Gemini. Same-model auditing amplifies errors — DeepMind (Dec 2025) showed unstructured multi-agent networks amplify errors up to 17.2x. DR19 Layer 3.
+HR-27: **Deploy Deep Research for every major decision, not just critical questions.** Every CC session should deploy at minimum 1 DR per major milestone. DR has access to academic papers, primary sources, and cross-domain knowledge that CLI coworkers lack — at zero cost. If a session ends without deploying any DR, that is a missed opportunity. Always use `/prompt-architect` (HR-23) before drafting the relay prompt. Owner ALL-CAPS directive 2026-04-07.
 
 ### 3B.3 Artifact Suite
 
@@ -1585,6 +1586,7 @@ Run `python scripts/compute_session_scorecard.py --handoff <this_file> --dispatc
 - **Norm 1 (Autonomy):** [N] violations ([breakdown by severity: CRITICAL/HIGH/MEDIUM/LOW])
 - **Norm 2 (Prompt-Architect):** [X]% compliance ([dispatches with promptcard] / [total dispatches])
 - **Lint report:** `scripts/lint_session_norms.py` result: [PASS/FAIL] (HR-24 — must PASS before session end)
+- **DR deployments:** [N] reports dispatched. Topics: [list]. (HR-27 — minimum 1 per major milestone. If 0: document why no DR was needed.)
 
 ## Process Improvements Discovered (for protocol §8)
 1. [improvement]

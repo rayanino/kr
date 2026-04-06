@@ -70,6 +70,7 @@ When you're unsure whether to fix a subtle edge case or move on to the next phas
 12. Every single action needs to be thoroughly thought-out, reviewed and optimized before being implemented.
 13. **ALL data is future training material.** The endgoal is to train local LLM(s) that live in the library. Every excerpt, API response, evaluation trace, owner feedback entry, coworker report, and metadata record is potential training data. NEVER delete data. Always preserve full outputs with provenance (model, prompt version, timestamp, confidence).
 14. **Every prompt dispatched to any target MUST pass through `/prompt-architect` first.** This applies to ALL dispatches: Codex CLI, Gemini CLI, DR relay prompts, CC subagent prompts, any natural language instruction to any agent. Draft the prompt → run `/prompt-architect` → dispatch the optimized version. The draft is NEVER sent directly. Speed is not a constraint; quality is. Owner ALL-CAPS directive 2026-04-06.
+15. **Deploy Deep Research for every major decision.** DR reports are the highest-ROI activity in this project — every DR has transformed the project more than multiple coding sessions. At every decision point, ask: "Would a DR give us better information?" Deploy at minimum 1 DR per major milestone. ChatGPT DR for architecture/patterns, Claude DR for scholarly reasoning/research, Gemini DR for Islamic methodology. Cost is zero; owner relays willingly. Owner ALL-CAPS directive 2026-04-07.
 
 ## Before Starting Work
 
