@@ -8,6 +8,7 @@
 > - v2.0 (2026-04-06): This document — Per-atom lifecycle, formal consensus voting, dispatch-first context strategy, self-improvement mechanism.
 > - v2.1 (2026-04-06): Gemini CLI review — arabic-scholarly-conventions.md in bootstrap, cross-science variation in expansion, distinct DR templates, expanded science list, attribution safety clarification, Arabic text degradation in bundle intake.
 > - v2.2 (2026-04-06): Codex CLI review — reopen protocol for finalized atoms, CC voting role clarification, G-RAW made checkable, word budget running tracker.
+> - v3.0 (2026-04-06): ChatGPT DR adversarial review (38 findings, 10 pre-mortems) → 10 accepted via Codex+Gemini consensus: terminal state split, MODIFY→DISPUTED escalation, preliminary debt ceiling, prompt refactor gate, verbatim span extraction, scholarly integrity arbitration, scoped NEEDS RESEARCH blocking, prompt coherence reviews, owner objection mechanism, closure verification script (to build).
 
 ---
 
@@ -299,7 +300,8 @@ OUT OF SCOPE: [precise list]
 [Concrete scenario showing damage from misapplication — seeds coworker adversarial prompts]
 
 ### Cross-Science Variation
-[How does this rule apply differently across sciences? Check at minimum: fiqh (madhab attribution), hadith (isnad chains), nahw (grammatical analysis), tafsir (ayah commentary), usul (evidence methodology), aqidah (creedal positions), lughah (lexicography/rhetoric), tarikh (biographical/historical narrative). Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / NEEDS RESEARCH.]
+[How does this rule apply differently across sciences? Check at minimum: fiqh (madhab attribution), hadith (isnad chains), nahw (grammatical analysis), tafsir (ayah commentary), usul (evidence methodology), aqidah (creedal positions), lughah (lexicography/rhetoric), tarikh (biographical/historical narrative). Mark each as: APPLIES UNCHANGED / APPLIES WITH EXCEPTION / DOES NOT APPLY / SCOPED (domain-specific, irrelevant to this science) / NEEDS RESEARCH.
+**DA-027 rule:** If any science is marked NEEDS RESEARCH AND the ambiguity affects a shared cross-science structural element (paragraph boundaries, chapter headings, excerpt boundaries, textual unit splitting), the atom CANNOT be finalized for prompt-affecting changes — it stays PRELIMINARY until scholarly coworker resolves the ambiguity. Domain-specific ambiguity (e.g., isnad rule in a nahw text) may be tagged SCOPED and finalized.]
 
 ### Atomic Integrity Risk
 [Does this rule risk splitting indivisible textual units? Check: isnad-matn chains (حدثنا...أخبرنا), muqaddimah preamble blocks (بسم الله + حمدلة + أما بعد), manuscript colophons (تم الكتاب...كتبه), internal cross-references (كما تقدم → target), Quranic citation blocks (قال تعالى ﴿...﴾). If any risk: document the safeguard.]
@@ -552,7 +554,12 @@ If validation failure at Stage 6 requires modifying a previously FINALIZED atom:
    - Tests added/run
    - Empirical validation result (if applicable)
    - Residual risks
-   - Final status: CLOSED / CLOSED-PRELIMINARY (if <3 coworkers) / DEFERRED / REJECTED
+   - Final status (mutually exclusive terminal states):
+     - **CLOSED-IMPLEMENTED**: Q-CLOSED passed, implementation artifact exists in code/SPEC/prompt/tests
+     - **CLOSED-VERIFIED**: Atom was already correctly captured in existing FPs/rules; verification-only, no new change needed
+     - **CLOSED-PRELIMINARY**: Q-CLOSED passed but with <3 coworker reports (subject to Preliminary Debt Ceiling, see §4.9)
+     - **DEFERRED-RECORDED**: NOT Q-CLOSED eligible. Atom is documented but not implemented. Cannot be counted as "atoms closed." Tracked as debt with explicit revisit condition. Must remain visible in queue with status DEFERRED.
+     - **REJECTED**: Atom evaluated and explicitly rejected with coworker-supported reasoning
 
 3. **Blast-radius forward check:** Now that this atom is implemented, does it affect the NEXT atoms in the queue? Check for cascade effects.
 
@@ -569,7 +576,7 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-3 | Atom EXPANDED into complete specification | Expansion document exists with scope, exceptions, examples |
 | Q-4 | Minimum 2 coworker reports received (CC + 1 external minimum) | Dispatch log entries exist; reports structured |
 | Q-5 | Coworker findings synthesized in 3-column table | Synthesis table in ledger |
-| Q-6 | Implementation artifact produced | Git diff or ledger records file:line change (or explicit DEFERRED with reason) |
+| Q-6 | Implementation artifact produced (CLOSED-IMPLEMENTED only; DEFERRED-RECORDED is NOT Q-CLOSED eligible) | Git diff or ledger records file:line change |
 | Q-7 | No regression: pytest pass, pyright clean, sync pass | Test run output recorded |
 | Q-8 | Empirical validation IF prompt-affecting | atom_test.py output or "SPEC-only, no empirical needed" |
 | Q-9 | Blast-radius check: no conflict with finalized atoms | Explicit check recorded |
@@ -577,6 +584,66 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-11 | Ledger fully updated | Complete entry per the template above |
 
 If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
+
+**Machine verification (DA-001):** Build `scripts/verify_atom_closure.py` to check objective Q-CLOSED signals: ledger entry exists with required fields, queue status matches, referenced files exist in git, pytest/pyright/sync outputs recorded, prompt word counts recomputed deterministically. This script should be run before each commit. Human-judgment criteria (Q-1 faithfulness, Q-10 comprehension) remain ledger-attested but should include specific evidence (exact quotes, brief timestamps).
+
+### 4.9 Preliminary Debt Ceiling (DA-008)
+
+CLOSED-PRELIMINARY atoms (missing full coworker coverage) accumulate debt. Uncontrolled debt becomes permanent-by-neglect.
+
+**Rules:**
+- At session start, count PRELIMINARY atoms older than 2 sessions or totaling >5.
+- If debt exceeds either threshold: session MUST spend its first phase clearing preliminaries (getting missing coworker votes) before processing any new RAW atoms.
+- Clearing means: re-dispatch to the missing coworker with the original expansion. If coworker returns ACCEPT/MODIFY → upgrade to CLOSED-IMPLEMENTED. If ITERATE/REJECT → demote to REOPENED.
+- Exception: if the missing coworker is DR and owner relay is unavailable, the session may process up to 3 new atoms while waiting, but must attempt DR dispatch within the session.
+
+### 4.10 Owner Objection Mechanism (DA-012)
+
+When the owner reads an atom brief (Stage 7) and says "this is wrong" or "that's not what I meant":
+
+1. The atom is automatically demoted to **REOPENED** regardless of coworker consensus.
+2. CC must surface the specific conflict between the atom's implementation and the owner's objection.
+3. The atom re-enters at Stage 3 (EXPANDED) with the owner's objection as new input.
+4. Minimum 2 coworkers must re-review the revised expansion.
+5. For excerpt-definition or khilaf/tarjih atoms: escalate to ALL 6 sources.
+
+Owner objection on **content quality and intent** overrides all coworker consensus. Owner objection on **technical implementation** is treated as signal (per existing rule) — CC + coworkers resolve.
+
+### 4.11 Prompt Refactor Gate (DA-015/DA-028)
+
+The GROUP prompt has a 1500-word hard cap. The CLASSIFY prompt has a ~1000-word soft cap.
+
+**Trigger:** When either prompt exceeds 80% capacity (GROUP >1200 words, CLASSIFY >800 words):
+1. **FREEZE** new prompt-affecting atoms until refactor completes.
+2. **Refactor pass:** CC + Codex review the entire prompt for: redundant rules (merge), low-priority rules (move to deterministic validators or Phase 3 gates), verbose rules (compress), rules that can become structured rubrics.
+3. **Gemini validates** that refactored prompt preserves scholarly meaning.
+4. After refactor: record new word count, log what was removed/compressed, resume atom processing.
+
+**Medium-term strategy:** Move structural rules that can be checked deterministically (e.g., minimum word count, segment contiguity, boundary ordering) out of the LLM prompt into deterministic validators/tests. Reserve prompt space for rules that REQUIRE LLM judgment (scholarly boundaries, self-containment, attribution).
+
+### 4.12 Prompt Coherence Review (DA-029)
+
+**Trigger:** After every 5 prompt-affecting atoms, OR immediately when the Prompt Refactor Gate (§4.11) trips.
+
+**Review checks (from Gemini's Islamic scholarly framework):**
+1. **Contradictions (تعارض):** Do any two rules demand opposite behaviors on the same text boundary?
+2. **Hierarchy/Priority:** Is the fallback resolution explicitly defined when rules conflict? (e.g., "Structural Integrity > Word Count Limit")
+3. **Overfitting (إفراط في التخصيص):** Is the prompt accumulating micro-fixes that should be refactored into a single robust heuristic?
+
+**Process:** CC reads the FULL prompt, dispatches Codex (structural coherence) + Gemini (scholarly coherence). Both review the prompt AS A WHOLE, not per-atom diffs. Findings are implemented before the next atom proceeds.
+
+### 4.13 Scholarly Integrity Arbitration (DA-018)
+
+When owner intent conflicts with scholarly correctness (e.g., owner requests a heuristic that would split an indivisible textual unit):
+
+**Rule: Scholarly Integrity > Owner Intent when the implementation would corrupt text structure.**
+
+1. CC **blocks** implementation of the owner-conflicting directive.
+2. CC **surfaces** the specific conflict to the owner with concrete Arabic examples showing what would break.
+3. CC proposes two options: (a) intent-faithful implementation with documented scholarly risk, (b) scholar-faithful implementation with explanation of how it differs from the owner's request.
+4. Owner chooses. If owner insists on the intent-faithful option despite documented risk, CC implements with an explicit `SCHOLARLY_RISK_ACCEPTED` tag in the ledger.
+
+This does NOT apply to preference-level decisions (granularity, formatting). It applies ONLY when implementation would damage: isnad chains, attribution integrity, indivisible textual units, or Quranic citation boundaries.
 
 ---
 
@@ -601,7 +668,7 @@ Each **external** coworker (Codex, Gemini, DR) votes per atom. **CC does NOT vot
 | Vote | Meaning | Consensus Effect |
 |------|---------|-----------------|
 | **ACCEPT** | Correct as proposed | +1 |
-| **MODIFY** | Right intent, needs specific changes (coworker provides exact change) | +1 if CC accepts modification; -1 if CC rejects with reasoning |
+| **MODIFY** | Right intent, needs specific changes (coworker provides exact change) | +1 if CC accepts modification. If CC rejects: atom enters **DISPUTED** state requiring escalation (see §5.4) — CC cannot unilaterally dismiss a MODIFY. |
 | **ITERATE** | Needs significant rework | -1 (atom stays PRELIMINARY) |
 | **REJECT** | Fundamentally wrong or dangerous | BLOCK (atom cannot proceed regardless of other votes) |
 
@@ -689,6 +756,8 @@ Zone 5: FORBIDDEN    [96% - 100%]   ~40K tokens    NEVER ENTER (hallucination zo
 - Zone 5 → refuse all work, write emergency handoff only
 
 ### 6.2 Dispatch-vs-Local Decision Matrix
+
+**Verbatim Span Extraction Rule (DA-005/DA-026):** When dispatching subagents to summarize owner files or Arabic scholarly texts, the subagent prompt MUST include: *"When summarizing, you MUST extract and quote the exact, verbatim Arabic text span (with surrounding context) that contains the ruling, condition, or conflict. Never translate or paraphrase the core Arabic qualifier. Preserve: particles of restriction (إنما, لو, لولا), qualifiers (السائمة, تنزيهاً, تحريماً), epistemic weight indicators (passive قيل vs active قال), and exception chains (إلا, سوى, غير)."* This prevents summarization from collapsing critical scholarly distinctions.
 
 **ALWAYS DISPATCH (to subagent or coworker — never read locally):**
 
@@ -923,13 +992,18 @@ Phase gate     = ALL 6 sources, NO exceptions
 
 ```
 NEVER bulk atoms (analyze individually, implement in small groups max 3)
-NEVER read raw files >10KB locally (dispatch subagent)
+NEVER read raw files >10KB locally (dispatch subagent — use Verbatim Span Extraction)
 NEVER skip owner brief per-atom (even if "trivial")
 NEVER say "done" without Q-CLOSED (11 criteria ALL true)
 NEVER finalize with <2 coworker reports
 NEVER skip raw owner .txt source
 NEVER modify prompt without SPEC sync check
 NEVER push past 75% context without starting handoff
+NEVER count DEFERRED-RECORDED as "atoms closed" (DA-002)
+NEVER dismiss a coworker MODIFY without escalation (DA-009 → DISPUTED)
+NEVER let >5 PRELIMINARY atoms accumulate without clearing (DA-008)
+NEVER skip Prompt Coherence Review after 5 prompt-affecting atoms (DA-029)
+NEVER implement owner directive that would corrupt text structure (DA-018 → block + surface)
 ```
 
 ---
