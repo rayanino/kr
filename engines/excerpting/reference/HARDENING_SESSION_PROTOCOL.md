@@ -492,7 +492,7 @@ Word budget impact: [current GROUP: N/1500, CLASSIFY: M/~1000. After change: N+K
 - **Full Lane (SPEC-structural):** Sections 1-13 ALL mandatory. CC writes sections 1-7 and the final verdicts for 8-13. Subagents may draft evidence for sections 8-13 which CC reviews and edits.
 - **Light Lane:** Sections 1-5 mandatory (scope, rule, exceptions, hypothesis, blast-radius). Sections 8-13 are EVALUATED but may be abbreviated: "No cross-science risk identified. Checked: [list 16 sciences]. No atomic integrity risk. Checked: [23 indivisible units]." Sections 6-7 (correct/incorrect examples) optional for Light Lane. NOTE: Gemini CLI confirmed "there is no such thing as purely editorial in classical Arabic" — even Light Lane atoms must evaluate sections 8-13 to prove no hidden cross-science risk.
 
-**Evidence minimum (v4.1, anti-checkbox-theater):** For Cross-Science Variation and Atomic Integrity Risk, marking "checked" or "APPLIES UNCHANGED" is INVALID without evidence. Minimum: (a) 2 sciences with concrete Arabic counterexamples demonstrating the rule holds, OR (b) 1 science with a named classical-genre exemplar AND an explicit non-applicability rationale for 2 other sciences. "No cross-science risk identified. Checked: [16 sciences]." is ONLY valid for Light Lane after per-science evaluation.
+**Evidence minimum (v4.1, anti-checkbox-theater):** For Cross-Science Variation and Atomic Integrity Risk, marking "checked" or "APPLIES UNCHANGED" is INVALID without evidence. Minimum: (a) 2 sciences from 2 DIFFERENT Structural Families (e.g., one [ARG] + one [NAR]) with concrete Arabic counterexamples demonstrating the rule holds, OR (b) 1 science with a named classical-genre exemplar AND an explicit non-applicability rationale for 2 sciences from different families. Cross-family validation is required because rules safe within one family (e.g., [ARG] fiqh) can corrupt a different family (e.g., [ENT] ṭabaqāt) — Gemini v4.1 finding. "No cross-science risk identified. Checked: [16 sciences]." is ONLY valid for Light Lane after per-science evaluation.
 
 **Per-atom attention isolation (v4.1):** Expansion MUST be per-atom. Grouped expansion is FORBIDDEN. Each atom gets a distinct Stage 3 document and distinct coworker prompts (no shared "combined prompt" except in `research` DR class). If atoms interact, expand each separately then document interactions in the Interaction Map section. Evidence: each atom must have a unique expansion document identifier in the ledger.
 
@@ -783,7 +783,7 @@ An atom is CLOSED if and only if ALL 11 criteria are TRUE:
 | Q-9 | Blast-radius check: no conflict with finalized atoms | Explicit check recorded |
 | Q-10 | Per-atom brief artifact in ledger with 4 required elements | Ledger entry contains what/changed/rejected/risks for THIS atom |
 | Q-11 | Ledger fully updated | Complete entry per the template above |
-| Q-12 | Outcome spot-check (for any atom tagged 'cross-science' OR touching any ALWAYS INDIVISIBLE unit): run mini-fixture through relevant pipeline step, record observed vs expected behavior | atom_test.py output on representative Arabic passage, or written analysis with specific Arabic example |
+| Q-12 | Outcome spot-check (for any atom tagged 'cross-science' OR touching any ALWAYS INDIVISIBLE unit OR scoped to structurally rigid sciences: Naḥw, Ṣarf, Qirāʾāt/Tajwīd, Adab/Shiʿr): run mini-fixture through relevant pipeline step, record observed vs expected behavior | atom_test.py output on representative Arabic passage, or written analysis with specific Arabic example |
 
 If ANY criterion is FALSE, the atom is NOT CLOSED. It stays at the relevant earlier stage.
 
@@ -888,7 +888,7 @@ At 600 atoms, per-atom owner briefing causes checkbox fatigue. After the first 5
 
 The owner can request full per-atom delivery for any batch at any time. The distinction is: ledger artifact = always per-atom; owner delivery = batchable after trust established. This resolves the v3.2 contradiction between §4.7 (mandatory per-atom) and §4.15 (exception-based).
 
-**Owner Engagement Heartbeat (v4.1):** Every 10 CLOSED atoms post-50, the owner MUST review 2 full per-atom briefs chosen by CC (1 'lowest confidence' atom, 1 random). If owner does not respond to the heartbeat within 7 calendar days, session type MUST switch to `validation-only` and produce a 10-atom retrospective before any more closures. This prevents silent disengagement from neutralizing the owner objection safety valve (§4.10).
+**Owner Engagement Heartbeat (v4.1):** Every 10 CLOSED atoms post-50, the owner MUST review 2 full per-atom briefs chosen by CC (1 'lowest confidence / most disputed' atom, 1 'highest systemic impact' — e.g., most prompt words altered, most cross-science boundaries affected, or required Scholarly Integrity Arbitration). If owner does not respond to the heartbeat within 7 calendar days, session type MUST switch to `validation-only` and produce a 10-atom retrospective before any more closures. This prevents silent disengagement from neutralizing the owner objection safety valve (§4.10).
 
 ### 4.16 DR Budget Per Session (PROC-003)
 
@@ -1228,7 +1228,7 @@ This protocol is LIVING DOCTRINE, not frozen law. If a session discovers that a 
 Any amendment that changes (a) Cross-Science Variation categories, (b) Atomic Integrity Risk units, or (c) a prompt rule MUST trigger a backfill audit:
 
 1. Identify all previously CLOSED atoms impacted by the changed rule (check ledger Cross-Science Variation and Atomic Integrity Risk sections).
-2. Sample 5 impacted atoms (prioritize: prompt-affecting > SPEC-structural > SPEC-doctrinal).
+2. Sample impacted atoms using dimension-based selection: at least 1 per Structural Family ([ARG], [NAR], [ENT], [RUL], [ART], [COM]) affected by the change, minimum 5 total (prioritize: prompt-affecting > SPEC-structural > SPEC-doctrinal). A flat sample of 5 from the same family is INSUFFICIENT — drift in unsampled families goes undetected (Gemini v4.1 finding).
 3. Re-evaluate each sampled atom against the new rule version.
 4. If ≥1 sampled atom fails the new rule: escalate to a targeted reopening campaign for all impacted atoms.
 5. If all 5 pass: record "backfill audit passed" in the amendment's version history entry.
