@@ -24,7 +24,27 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-06 — environment audit complete)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 3 complete, Session 4 BCV complete, Session 5 in progress)
+
+### Session 3 Accomplishments (2026-04-06)
+- **Protocol v5.0 COMPLETE** — Batch Lifecycle Protocol: §3A (6-phase model), §3B (Completion Gate), §3C (Ijazah Ceremony), §4.18 (Regression Gate), §4.19 (Doctrine Coherence), §5.8 (Role Separation), §8.5 (Calibration File), §0.1 (Autonomous Operations Doctrine)
+- **12 scripts built** (S-01 to S-12): 8 batch verification + 4 norm enforcement
+- **3 PreToolUse hooks** for hard enforcement: enforce-autonomy.sh, enforce-prompt-architect.sh, track-prompt-architect.sh
+- **DR17-DR19 processed**: manuscript verification scholarly grounding, norm decay research, hard enforcement architecture
+- **HR-23 to HR-26 added**: mandatory prompt-architect, lint before session end, hooks never disabled, cross-model auditing
+- **915 tests pass**, all checks green
+
+### Session 4 BCV Complete (2026-04-07)
+- **First BCV on F1-F8**: 139 files verified, 208 MCUs traced, 94.7% MAPPED, 5.8% SOFTENED, 0% MISSED
+- Gate script bug found and fixed (META terminal state)
+- 12 SOFTENED items documented for debt clearance
+
+### What's Needed Next
+1. **Session 5 (IN PROGRESS):** Intake G1-G4 + SC1-SC3 (7 bundles). Handoff at `reference/handoffs/excerpting_foundations_session5_kickoff_2026-04-07.md`
+2. **DR20-DR22 deployed:** Book prioritization (ChatGPT), prompt compression (Claude), multi-layer text detection (Gemini). Reports incoming.
+3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → prompt refactor (§4.11) → full-atom processing
+
+### COMPLETED: Environment Audit (2026-04-06)
 
 ### COMPLETED: Environment Audit (2026-04-06)
 
