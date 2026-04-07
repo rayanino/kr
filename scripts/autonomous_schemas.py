@@ -186,6 +186,25 @@ class Finding(BaseModel):
     created_at: str = Field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
+    # KB digestion fields (all optional — backward compatible with existing records)
+    gap_ids: list[str] = Field(
+        default_factory=list, description="ResearchGap IDs this finding resolves"
+    )
+    prompt_id: Optional[str] = Field(
+        None, description="DR prompt that produced this finding"
+    )
+    related_finding_ids: list[str] = Field(
+        default_factory=list, description="Findings in same contradiction/agreement cluster"
+    )
+    confidence: float = Field(
+        0.0, ge=0.0, le=1.0, description="Parser confidence in extraction quality"
+    )
+    raw_text_hash: str = Field(
+        "", description="SHA-256 prefix of source text span for dedup"
+    )
+    section_heading: str = Field(
+        "", description="Heading in the DR response this was extracted from"
+    )
 
 
 class ResearchGap(BaseModel):
@@ -237,6 +256,44 @@ class ResearchTopic(BaseModel):
     hard_dependencies: list[str] = Field(default_factory=list)
     tsi: float = Field(0.0, description="Topic Saturation Index 0.0-1.0")
     last_dr_date: Optional[str] = None
+
+
+class Contradiction(BaseModel):
+    """A conflict between findings from different DR responses."""
+
+    contradiction_id: str = Field(..., description="e.g. CONTRA-001")
+    finding_id_a: str
+    finding_id_b: str
+    dr_id_a: str
+    dr_id_b: str
+    topic: str = Field(..., description="What the contradiction is about")
+    description: str
+    resolution_status: str = Field(
+        "unresolved",
+        description="unresolved / a_preferred / b_preferred / synthesized / deferred",
+    )
+    resolution_notes: str = Field("")
+    created_at: str = Field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+
+
+class DigestionRecord(BaseModel):
+    """Tracks the processing state of a DR response file."""
+
+    dr_id: str
+    response_file: str
+    provider: DRTarget
+    line_count: int = 0
+    section_count: int = 0
+    finding_count: int = 0
+    contradiction_count: int = 0
+    followup_prompt_count: int = 0
+    digested_at: str = Field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+    digestion_version: str = Field("2.0", description="Parser version for reprocessing")
+    status: str = Field("complete")
 
 
 # ═══════════════════════════════════════════════════════════════════
