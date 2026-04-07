@@ -132,24 +132,39 @@ _SNIPPET_NOT_FOUND_FEEDBACK = (
 # ═══════════════════════════════════════════════════════════════════
 
 
-def _build_classify_user_message(chunk: AssembledChunk) -> str:
+def _build_classify_user_message(
+    chunk: AssembledChunk,
+    error_feedback: Optional[str] = None,
+) -> str:
     """Build DR28 user message: <active_rules> + <input> + <critical_reminders>.
 
     Classification does not use progressive disclosure (all rules always
     apply), but the 2-message architecture (system=CONSTITUTION,
     user=rules+input+reminders) provides cache efficiency and the
     instruction sandwich pattern.
+
+    Error feedback (DD-S2-5) is placed between <input> and
+    <critical_reminders> to preserve the instruction sandwich — critical
+    reminders must be the last block the LLM reads before responding.
     """
     classify_rules = _CLASSIFY_RULES.format(
         structural_format=chunk.structural_format.value,
     )
 
-    return (
+    parts = [
         f"<active_rules>\n{classify_rules}\n</active_rules>\n\n"
-        f"<input>\n<text>\n{chunk.assembled_text}\n</text>\n</input>\n\n"
-        f"<critical_reminders>\n{CLASSIFY_CRITICAL_REMINDERS}\n"
+        f"<input>\n<text>\n{chunk.assembled_text}\n</text>\n</input>",
+    ]
+
+    if error_feedback:
+        parts.append(f"\n\n<error_correction>{error_feedback}\n</error_correction>")
+
+    parts.append(
+        f"\n\n<critical_reminders>\n{CLASSIFY_CRITICAL_REMINDERS}\n"
         f"</critical_reminders>"
     )
+
+    return "".join(parts)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -407,9 +422,7 @@ def classify_chunk(
             System prompt stays constant across retries.
         timeout_override: If provided, overrides config.CLASSIFY_TIMEOUT (for retry escalation).
     """
-    user_message = _build_classify_user_message(chunk)
-    if error_feedback:
-        user_message += error_feedback
+    user_message = _build_classify_user_message(chunk, error_feedback)
 
     timeout = timeout_override if timeout_override is not None else config.CLASSIFY_TIMEOUT
 

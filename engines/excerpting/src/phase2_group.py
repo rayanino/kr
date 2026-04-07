@@ -126,11 +126,15 @@ def _compute_group_max_tokens(word_count: int) -> int:
 def _build_group_user_message(
     chunk: AssembledChunk,
     segments: list[ClassifiedSegment],
+    error_feedback: Optional[str] = None,
 ) -> str:
     """Build DR28 user message: <active_rules> + <input> + <critical_reminders>.
 
     Progressive disclosure: only loads rule modules relevant to this chunk's
     classified content. CORE and OUTPUT_FORMAT are always included.
+
+    Error feedback (DD-S2-5) is placed between <input> and
+    <critical_reminders> to preserve the instruction sandwich.
     """
     active_modules = compute_active_modules(segments)
     output_format = GROUP_OUTPUT_FORMAT.format(
@@ -141,14 +145,22 @@ def _build_group_user_message(
 
     segment_summary = _build_segment_summary(segments)
 
-    return (
+    parts = [
         f"<active_rules>\n{active_rules}\n</active_rules>\n\n"
         f"<input>\n"
         f"<text>\n{chunk.assembled_text}\n</text>\n\n"
         f"<classified_segments>\n{segment_summary}\n</classified_segments>\n"
-        f"</input>\n\n"
-        f"<critical_reminders>\n{GROUP_CRITICAL_REMINDERS}\n</critical_reminders>"
+        f"</input>",
+    ]
+
+    if error_feedback:
+        parts.append(f"\n\n<error_correction>{error_feedback}\n</error_correction>")
+
+    parts.append(
+        f"\n\n<critical_reminders>\n{GROUP_CRITICAL_REMINDERS}\n</critical_reminders>"
     )
+
+    return "".join(parts)
 
 
 def _build_segment_summary(segments: list[ClassifiedSegment]) -> str:
@@ -189,9 +201,7 @@ def group_chunk(
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
         timeout_override: If provided, overrides config.GROUP_TIMEOUT (for retry escalation).
     """
-    user_message = _build_group_user_message(chunk, segments)
-    if error_feedback:
-        user_message += error_feedback
+    user_message = _build_group_user_message(chunk, segments, error_feedback)
 
     timeout = timeout_override if timeout_override is not None else config.GROUP_TIMEOUT
 
