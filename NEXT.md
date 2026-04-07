@@ -24,7 +24,21 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — D3 FULL intake COMPLETE + REVIEWED, 16 SPEC sections, 942 tests, 22 adversarial tests, SPEC 2859 lines)
+## IMMEDIATE STATE (updated 2026-04-07 — Autonomous system DESIGN.md + 8 DR relay prompts)
+
+### Session 13 — Autonomous System Design (2026-04-07)
+- **DESIGN.md written:** `docs/autonomous-system/DESIGN.md` — formal design document synthesizing 15 memory files from owner design session. Covers 3 pillars (DR research, pipeline hardening, creative ideas), owner interaction model, DR relay engine, dashboard spec, branching model, integration with existing 5,543-line overnight infrastructure.
+- **8 DR relay prompts generated and pushed to remote:**
+  - Batch 0 (3 system design prompts): ChatGPT DR (architecture + dashboard), Claude DR (research prioritization), Gemini DR (18 sciences mapping)
+  - Batch 1 (5 research gap prompts): RQ-001 Gemini (OQ-001-004 calibration), RQ-002 Claude (taxonomy trustworthiness), RQ-003 ChatGPT (passaging gaps), RQ-004 Gemini (hadith isnad-matn), RQ-005 ChatGPT (multi-layer detection)
+- **Coworker reviews dispatched:** Codex CLI (structural feasibility) + Gemini-style agent (scholarly alignment) — running in background
+- **All prompts passed /prompt-architect** (Rule 14 compliant)
+- **Research gaps identified by codebase scan:** 4 [OPEN] in excerpting SPEC, 14 [NOT YET IMPLEMENTED] in synthesis, 4 in passaging, taxonomy "not trustworthy"
+- **Next:**
+  1. Process coworker review findings → amend DESIGN.md
+  2. Owner relays 8 DR prompts → process responses when received
+  3. Generate batch 2 DR prompts (targeting taxonomy + synthesis gaps)
+  4. Begin DR28 prompt architecture implementation (IU-1 through IU-5 from Session 12 handoff)
 
 ### Session 11 — D3 Full Intake + Coworker Review (2026-04-07)
 - **D3 intake:** Read ALL 22 files (97 atomic records). Session 10 only read 8/22.
