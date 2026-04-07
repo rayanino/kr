@@ -31,7 +31,7 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `SPEC.md` | 2387 | Behavioral authority (12 sections) |
+| `SPEC.md` | 2856 | Behavioral authority (12 sections, §6 has 23 domain rules, §10.6 has 22 adversarial tests) |
 | `contracts.py` | 1111 | All types: 2 enums, 12 sub-types, 4 main types, 7 LLM schemas, 28 error codes, 18 config params |
 | `tests/conftest.py` | 184 | 4 factories: AssembledChunk, ClassifiedSegment, TeachingUnit, ExcerptRecord |
 | `docs/architecture.md` | — | Module structure, data flow, build session plan |
@@ -64,7 +64,7 @@ Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-pr
 
 ## Current State
 
-- **SPEC:** COMPLETE + HARDENING (2530+ lines, FP-1 through FP-22 in §1.1b)
+- **SPEC:** COMPLETE + HARDENING (2856 lines, FP-1 through FP-22 in §1.1b, §6.1-6.23 domain rules, ADV-E-01 through ADV-E-22)
 - **Contracts:** COMPLETE (1111 lines, independently reviewed)
 - **Phase 1:** COMPLETE (117 tests, 1,531 lines) — deterministic assembly + hardening
 - **Phase 2:** COMPLETE (141 tests, 854 lines) — LLM classification + grouping + hardening
@@ -100,7 +100,7 @@ Follow normalization conventions:
 - `conftest.py` factories for all complex types (ContentUnit, DivisionNode, NormalizedPackage)
 - Real Arabic text from Shamela for domain tests; synthetic only for structural tests
 - Regression baselines from `experiments/` directories (do NOT modify)
-- Adversarial cases: ADV-E-01 through ADV-E-12 (§10.6)
+- Adversarial cases: ADV-E-01 through ADV-E-22 (§10.6)
 - Error code tests verify: (a) code emitted, (b) message context, (c) recovery per §8.2
 
 ## Required Reading
@@ -114,7 +114,7 @@ Follow normalization conventions:
 
 **For general excerpting work:**
 1. `NEXT.md` — current task
-2. `SPEC.md` — relevant section only (do NOT read all 2530 lines)
+2. `SPEC.md` — relevant section only (do NOT read all 2856 lines)
 3. `contracts.py` — type signatures
 4. `engines/normalization/contracts.py` — upstream types consumed
 5. `experiments/architecture_test/extract_divisions.py` — validated reference implementations

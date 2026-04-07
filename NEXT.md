@@ -24,7 +24,21 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — D3 processed, Q&A hardening phase COMPLETE, 13 SPEC sections written, 937 tests)
+## IMMEDIATE STATE (updated 2026-04-07 — D3 FULL intake COMPLETE + REVIEWED, 16 SPEC sections, 942 tests, 22 adversarial tests, SPEC 2859 lines)
+
+### Session 11 — D3 Full Intake + Coworker Review (2026-04-07)
+- **D3 intake:** Read ALL 22 files (97 atomic records). Session 10 only read 8/22.
+- **3 gaps found and filled:** School-specific branching (§6.21), pre-excerpt structural analysis (§6.22), attribution coupling rules (§6.23)
+- **2 existing sections amended:** §6.18 LP-1 ([OPEN] marker), §6.19 PO-1 (attribution-coupling direction + [OPEN])
+- **10 adversarial tests added:** ADV-E-13 through ADV-E-22
+- **Coworker review COMPLETE (2 CC subagents):**
+  - **Code reviewer:** 0 CRITICAL, 0 HIGH, 3 MEDIUM (all fixed: AC-1→FR-1 link, ADV refs, NN-008 explicit)
+  - **Arabic reviewer:** 1 CRITICAL (fixed: الكلالة example misframed — Hanafi dissent is phantom, all 4 madhabs agree), 5 warnings (all fixed: consensus weight, AP-003 domain grounding, phantom عند الحنابلة removed, fixture refs added)
+- **All findings addressed.** SPEC sections are now CONFIRMED (2-source reviewed).
+- **Campaign evaluation plan ready:** `engines/excerpting/reference/CAMPAIGN_EVAL_PLAN_SESSION11.md` — 10 sample excerpts extracted from taysir
+- **Key campaign finding:** 46% of definition excerpts contain embedded proof indicators — D3 rules are directly relevant to real data
+- **Tests:** 942 passed, 4 xfailed, 0 failures. SPEC: 2859 lines.
+- **Next:** DR28 prompt architecture (IU-1 through IU-5), then campaign evaluation on 10 taysir samples.
 
 ### Pipeline Visual Architecture (2026-04-07)
 - **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)

@@ -1716,6 +1716,8 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Key principle:** The author's choice to intertwine is itself meaningful. Separating deliberately intertwined content is a form of meaning distortion (FP-1). (MAQ-050, owner F1 — "A×B intertwined" handling protocol.)
 
+**Anti-premature-hardening principle (NN-008, D3):** Unresolved distinctions between packaging exceptions and ontological claims must remain explicitly unresolved until calibrated across additional cases. The [OPEN] markers throughout §6.18-6.23 are expressions of this principle. Do not silently convert tentative boundaries into settled doctrine.
+
 ### §6.18 — Leaf Pollution Prevention (LP-1)
 
 **LP-1 (Not every mention deserves an excerpt):** A brief mention of a topic does NOT justify creating a dedicated excerpt or leaf for that mention if the book treats the topic in fuller form elsewhere. Creating excerpts from every mention pollutes the taxonomy tree with shallow, redundant entries that dilute the value of substantive treatments.
@@ -1730,6 +1732,8 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 **Relation to "MENTION IS NOT EXCERPT" (GROUP prompt rule):** LP-1 extends that rule from individual passages to book-level scope. The prompt rule prevents forced excerpts from brief mentions within a chunk. LP-1 prevents leaf pollution across the entire source by considering whether the topic has substantive treatment elsewhere. (D3, owner ALL-CAPS: "LEAF POLLUTION!!!!!!! LEAF POLLUTION!!!!!!!! LEAF POLLUTION!!!!!!!!!!")
 
 **Implementation note:** Full leaf-pollution detection requires book-level awareness (knowing what topics appear later). This cannot be done within Phase 2's per-chunk processing. It requires a post-Phase-2 or Phase-3 cross-chunk audit that flags potential pollution candidates. The current "MENTION IS NOT EXCERPT" prompt rule is the first line of defense; LP-1 is the book-level second line.
+
+**[OPEN: Significance threshold generalization]** The significance threshold defined above was derived from the D3 case (a short proof mention within a definition of الكلالة). How far this logic generalizes — particularly whether the three criteria above are sufficient or whether additional criteria emerge from other cases — is explicitly unresolved. Do not harden the current threshold into a universal rule without testing across more cases. (D3, OQ-002)
 
 ### §6.19 — Packaging vs Ontology Distinction (PO-1)
 
@@ -1746,6 +1750,10 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Concrete example (D3):** An excerpt about الكلالة (kalala) contains: (1) the definition, (2) "وهذا هو نص الآية..." (proof inference from ayah), (3) attribution to Abu Bakr + consensus. These are three ontologically distinct layers (definition/proof/attribution) even though they're physically adjacent. When the proof phrase is short, it may remain as packaging. When attribution text is short, it may remain. But this does NOT make them one unit — the engine must recognize the distinct layers for correct classification.
 
+**Attribution-coupling direction (D3, AP-003):** Proof×attribution coupling is especially important in **proof excerpts** — knowing whose interpretation is being cited enriches the proof's scholarly value. This means attribution material is more likely to remain as carry-over inside a proof excerpt than inside a definition excerpt. Conversely, if proof text is long, an attribution excerpt should NOT drag the full proof along — context-fill should replace it (D3, AP-004).
+
+**[OPEN: Context-fill threshold]** The exact point at which carried text should be replaced by context-fill (rather than retaining the original text) is unresolved. The D3 case provides a direction — "when the proof is longer" — but no quantitative threshold. (D3, OQ-003)
+
 ### §6.20 — Source Hints as Non-Deciding Signals (SH-1)
 
 **SH-1 (Source layout hints are supplementary, never authoritative):** Author layout cues — diacritics, punctuation, comma placement, paragraph breaks, section ordering, table of contents structure, references — may be used as **supporting hints** for structural analysis but must NEVER be treated as deciding authority for excerpting decisions.
@@ -1755,6 +1763,65 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 **Relation to FP-6:** FP-6 says "rules + intelligence." SH-1 adds: source layout is neither a rule nor a substitute for intelligence. It is a hint that may increase or decrease confidence, but it cannot override function classification.
 
 **Implementation:** Phase 2 classification must derive function from semantic content, not from source formatting. If the LLM's classification changes when source layout cues are removed, the classification was layout-dependent and unreliable.
+
+### §6.21 — School-Specific Branching (SSB-1)
+
+**SSB-1 (School-specific meanings must not be auto-merged into generic technical meaning):** When a term has a technical definition (اصطلاحا) and a school-specific definition, the school-specific meaning must not be silently merged into the generic technical definition merely because both are non-linguistic. The relationship between school-specific and technical meaning depends on the case:
+
+**Three scenarios:**
+1. **Genuinely distinct:** The school's definition materially differs from the generic technical definition. Model as a **branch under the technical definition layer**, not as a flat sibling. The school-specific branch gets its own definition entry.
+   - Example: الحيض (menstruation) — the Hanafi definition requires a minimum duration of 3 days, while Shafi'i and Hanbali schools have no minimum duration requirement. These are genuinely different definitions that merit separate branches under the technical layer.
+2. **Merely adopting the same definition (consensus attribution):** A school or group is named but uses the same technical definition unchanged. This is **attribution, not a new definition**. Model as attribution metadata (who adopted this definition), not as a separate definitional entry.
+   - Example: The الكلالة case in D3 — "وعليه جمهور الصحابة والتابعين والأئمة... والفقهاء السبعة، والأئمة الأربعة" is consensus attribution: all four madhabs hold the same definition (Abu Bakr al-Siddiq's interpretation). There is no school-specific dissent on this term. This is Scenario 2, not Scenario 1.
+   - **Note on attribution weight:** Consensus attributions (الأئمة الأربعة, الفقهاء السبعة) carry doctrinal force that single-school attributions do not. The attribution metadata must distinguish between a single school's adoption and unanimous cross-school consensus.
+3. **Narrower specification:** The school refines or narrows the generic technical definition. Model as a **sub-branch under the technical layer** with the narrowing as the distinct content.
+
+**Why this matters:** Auto-merging school-specific meanings into the generic technical layer erases real scholarly distinctions. Auto-separating every school mention into its own full definition entry creates false fragmentation. The correct handling depends on whether the school's meaning is genuinely different content or merely an attribution of the same content.
+
+**[OPEN: Distinction threshold]** When exactly a school-specific "meaning" is distinct enough to deserve its own definition entry — versus being merely an attribution of the same technical definition — is not fully settled. The D3 case provides the three-scenario framework above, but the boundary between scenarios 1 and 2 requires more cases to calibrate. Do not harden this prematurely. (D3, OQ-001)
+
+**Relation to FP-8:** FP-8 covers attribution-critical tarjih. SSB-1 adds: even before tarjih evaluation, the engine must determine WHETHER the school-specific meaning is a new definition or an attribution of an existing one.
+
+### §6.22 — Pre-Excerpt Structural Analysis (PA-1)
+
+**PA-1 (Gather structural hints before excerpting, but they remain non-deciding):** Before passages are sent for excerpting, deeper structural analysis — pattern recognition, sentence linking, role detection — should gather factual information about the text's structure. These gathered hints are **supplementary confirmation**, not deciding authority.
+
+**What analysis may gather:**
+- Which sentences link to which (dependency structure)
+- Where role transitions occur (definition→proof→attribution)
+- Whether a passage contains mixed scholarly functions
+- Whether cross-references point to other sections
+- Structural patterns (isnad chains, formulaic openings, numbered items)
+
+**What analysis must NOT do:**
+- Override Phase 2 classification decisions
+- Silently become the primary determinant of excerpt boundaries
+- Replace the core excerpting logic with pattern-matching
+- Create false confidence that deceives human reviewers
+
+**Why this matters (D3, owner ALL-CAPS):** "WE CAN STILL DO WAY MORE ANALYSIS AND PATTERN RECOGNITION before officially sending passages off to be excerpted." The owner demands that excerpting be surrounded by security and verification gates because it is "the most important yet dangerous part of the pipeline." Pre-excerpt analysis is one such gate.
+
+**Relation to §6.20 SH-1:** PA-1 extends SH-1 from source-level hints (diacritics, punctuation) to analysis-level hints (pattern recognition, LLM-derived structure). Both share the same non-deciding constraint: hints may increase confidence but must not decide.
+
+**[OPEN: Analysis authority boundary]** How strongly pre-excerpt structural analysis may shape later decisions — without becoming deciding authority itself — is unresolved. The tension is real: analysis that has zero influence is useless, but analysis that silently becomes the decision-maker violates SH-1. (D3, OQ-004)
+
+**Implementation note:** This capability corresponds to what the old "atomizing" engine was designed to do. With the current architecture (passaging and atomization engines dropped), pre-excerpt analysis must be integrated as a Phase 1.5 step or as Phase 2 preamble. The analysis output should be structured metadata (not free text) that Phase 2 can reference as optional context.
+
+### §6.23 — Attribution Coupling Rules (AC-1)
+
+**AC-1 (Attribution and proof/definition are coupled but distinct):** Attribution (who said it), definition (what was said), and proof (why it is justified) are ontologically distinct scholarly functions. However, they are often tightly coupled in the source text — the definition and proof are what gets attributed. This coupling creates packaging decisions:
+
+**Direction rules:**
+1. **Definition→Proof coupling (AP-001):** When a short proof phrase directly supports a definition, it may remain as carry-over in the definition excerpt if it is short and harmless. But the proof layer remains a distinct function — it does not become part of the definition's identity.
+2. **Definition→Attribution coupling (AP-002):** Attribution of a definition (who holds this view) may remain in the definition excerpt when the whole span is short and helpful. But the attribution layer remains distinct.
+3. **Proof→Attribution coupling (AP-003):** Attribution is **especially important** inside proof excerpts — knowing whose interpretation the proof supports enriches the proof's scholarly value. Attribution material is therefore more likely to be retained as carry-over in proof excerpts than in other excerpt types. **Domain grounding:** In usul al-fiqh, Companion interpretation (تفسير الصحابي) is a near-independent source of evidence. "وهو تفسير أبي بكر الصديق" is not decorative — it establishes the proof's authority. Stripping attribution from a proof excerpt may reduce the argument from hujja (binding proof) to mere ra'y (opinion).
+4. **Attribution→Proof drag risk (AP-004):** When attribution excerpts are constructed, they may be tempted to drag along full proof text (because attribution attaches to the proof). This is only acceptable when the proof is genuinely short (for quantitative guidance, see FR-1's ~33% dual-gate in §6.14; for the unresolved context-fill threshold, see [OPEN: OQ-003] in §6.19). If the proof text is long, the attribution excerpt should use **context-fill** instead of carrying the full proof.
+
+**Context-fill principle (D3, owner):** "Context can be replaced with actual text in cases where the text is short and harmless. Else we need to manually fill with context." This means: the default is context-fill (a brief summary replacing the original text). The exception is when the original text is so short that carrying it wholesale is simpler and more helpful than summarizing it.
+
+**When coupling stops being harmless:** Per §6.19 PO-1, the moment carried material becomes long enough to pass MV-1 independently, or when it creates confusion about the excerpt's primary function, it must be separated. See §6.17 IC-1 for multi-function content handling.
+
+**Concrete example (D3):** The الكلالة passage: in the **definition excerpt**, the short proof reference "وهذا هو نص الآية..." may remain as carry-over. In the **attribution excerpt**, the definition/proof may remain because the whole stretch is short. In the **proof excerpt**, the attribution "وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة..." should remain because proof×attribution coupling is especially valuable (تفسير الصحابي is near-independent evidence). But if the proof were longer (multiple paragraphs of istidlal), the attribution excerpt should replace the proof with context-fill.
 
 ---
 
@@ -2731,6 +2798,26 @@ Adversarial cases verify that specific knowledge corruption paths are blocked. E
 **ADV-E-11 (Gate write failure):** Input: trigger a gate condition (EX-G-001), but the gate file write fails (simulate I/O error). Expected: EX-M-008 is emitted. The engine retries the write. If the retry fails, the engine HALTS processing for this source (§8.2 — invisible uncertainty is more dangerous than a visible stop). The engine does NOT continue processing with an unwritten gate entry.
 
 **ADV-E-12 (Consensus verification timeout):** Input: trigger consensus verification where the verification model times out on all retries. Expected: the enrichment model's result is kept with a `verification_skipped` flag. The excerpt is produced but with reduced confidence. The engine does NOT discard the excerpt just because verification failed — deterministic fields (F-DET-1–9) are still valid.
+
+**ADV-E-13 (School repeats generic technical definition — D3/RT-001):** Input: a passage where a school states the exact same definition as the generic technical meaning, with no substantive difference (e.g., الكلالة where all four madhabs adopt the Abu Bakr definition). Expected: the engine classifies this as attribution (who adopts the definition), NOT as a new definition entry. Per §6.21 SSB-1 scenario 2, a school name appearing next to an unchanged definition does not create a separate definitional unit. The engine does NOT force a separate definition entry simply because a school name appears. Fixture source: `engines/excerpting/chatgpt_d3_collection/source_artifacts/d3_full_user_input_2026_04_07.txt` lines 214-218.
+
+**ADV-E-14 (School-specific meaning genuinely distinct — D3/RT-002):** Input: a passage where a school's definition materially differs from the generic technical definition (e.g., a different scope, different conditions, or different ruling). Expected: the engine preserves the school-specific distinction as a branch under the technical definition layer per §6.21 SSB-1 scenario 1. The engine does NOT auto-merge it into the generic technical definition.
+
+**ADV-E-15 (Forced-menu flattening — D3/RT-003):** Input: a classification prompt with flat A/B/C choices while the real structure is hierarchical (e.g., a school-specific meaning that is a branch under the technical layer, not a flat peer). Expected: the engine's classification preserves hierarchical relationships per §6.21 SSB-1. The classification system does NOT treat flat menu options as ontological truths that erase deeper structure.
+
+**ADV-E-16 (Mixed excerpt misread as parallel meanings — D3/RT-004):** Input: a passage containing definition + proof/inference + attribution/consensus (like the الكلالة case), presented with a prompt that asks about "three types of meaning." Expected: per §5.2-§5.3, the engine correctly identifies the local function layers (definition/proof/attribution) based on scholarly function analysis, not questionnaire framing. The engine does NOT return a classification that only addresses the menu question while ignoring the excerpt's actual structure. Fixture source: `engines/excerpting/chatgpt_d3_collection/source_artifacts/d3_full_user_input_2026_04_07.txt` lines 214-218.
+
+**ADV-E-17 (Short harmless proof inside definition — D3/RT-005):** Input: a definition excerpt immediately followed by a very short proof phrase (one sentence). Expected: the engine may retain the proof phrase as packaging carry-over per §6.19 PO-1 while correctly classifying the excerpt as `definition` (not `definition_proof`). The engine does NOT dogmatically split the short proof into a separate excerpt, AND does NOT merge the ontology because the text stayed together.
+
+**ADV-E-18 (Extended proof no longer harmless — D3/RT-006):** Input: a definition excerpt followed by a multi-paragraph proof argument (exceeds the harmlessness threshold). Expected: the engine recognizes the proof has crossed from packaging exception to genuine multi-function content. §6.17 IC-1 applies — the proof must be separated or the excerpt classified as intertwined. The engine does NOT continue treating long proof material as harmless carry-over because a previous short case allowed it.
+
+**ADV-E-19 (Proof mention with fuller treatment elsewhere — D3/RT-007):** Input: a passage with a brief proof mention (one-line ayah reference), AND a separate passage later in the same source that treats the same proof in full detail (multiple paragraphs of istidlal). Expected: the brief mention is treated as carry-over or supporting context within its host excerpt, NOT as a leaf-worthy proof excerpt. §6.18 LP-1 applies. The engine does NOT create duplicate proof leaves from every mention.
+
+**ADV-E-20 (Source layout misleads classification — D3/RT-008):** Input: a passage where punctuation and layout create the visual impression that proof and definition are a single block, but semantic analysis reveals they serve different scholarly functions. Expected: the engine classifies based on semantic content, not on source formatting per §6.20 SH-1. The engine does NOT treat surface adjacency or comma placement as deciding authority for function classification.
+
+**ADV-E-21 (Attribution drags excessive proof — D3/RT-009):** Input: an attribution passage ("وهو تفسير أبي بكر...") that is physically adjacent to a long proof section (5+ sentences of istidlal). Expected: the attribution excerpt uses context-fill to represent the proof, NOT full carry-over. Per §6.23 AC-1 direction rule 4, long proof text must not be dragged into attribution excerpts. The engine does NOT keep attribution and long proof merged because they are related.
+
+**ADV-E-22 (Every support mention becomes an excerpt — D3/RT-010):** Input: a chapter-length passage with multiple brief supporting mentions of different topics (a one-line hadith reference, a brief school name, a passing proof reference). Expected: the engine applies §6.18 LP-1 significance threshold — brief supporting mentions do NOT automatically become dedicated excerpts. The engine does NOT pollute the taxonomy tree with trivial leaves for every supporting mention.
 
 ### §10.7 — Cross-Engine Contract Tests
 
