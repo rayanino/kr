@@ -24,7 +24,7 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 
 | # | Atom Name | Status | Disposition |
 |---|-----------|--------|-------------|
-| 1 | explained + explanation default unity (EE-1) | **FINALIZED + EMPIRICALLY VALIDATED** | SPEC §6.4b + prompt + tests. Codex: 3 fixed. Gemini: universal. Empirical: taysir PASS, ibn_aqil PASS. |
+| 1 | explained + explanation default unity (EE-1) | **FINALIZED + EMPIRICALLY VALIDATED** | SPEC §6.4b + prompt + tests. Codex: 3 fixed. Gemini: universal. Empirical: taysir PASS, ibn_aqil PASS. Origin: F1 line 222 (first stated), F5 (expanded). |
 | 2 | note-compensation vs source-preserving context (NC-1) | **FINALIZED** | NC-1 hierarchy in SPEC §3. Source surroundings vision saved to memory. FP-2, FP-10. |
 | 3 | linking-word preservation | **FINALIZED** | C-SC-2 expanded in prompt + SPEC with specific Arabic patterns + "don't flag blindly" instruction. FP-3. |
 | 4 | rule/proof split without scholar linkage loss | **DOCUMENTED — deferred to K-1/K-2/K-3** | Owner signal captured in §6.1 design note. FP-8. Current DP rules preserved pending DR-3 resolution. |
@@ -49,20 +49,20 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B1-FP20 | **NEW FP-20: Validation rigor** | **IMPLEMENTED** | 5 hardest patterns from Gemini. Hard cases over polished paths. |
 | B1-FP21 | **NEW FP-21: Severity class distinction** | **IMPLEMENTED** | Silent corruption (existential) vs visible flagged failure (recoverable). 4 per-science examples. Rephrased per Codex (no taxonomy-external language). |
 | B1-FP22 | **NEW FP-22: Anti-covert-excerpter** | **IMPLEMENTED** | Validator must not reshape text/span/boundaries. V-P3-8 exempt (Codex). |
-| B2 | **BATCH 2: Self-Containment (5 actionable MAQ atoms)** | **PRELIMINARY (1/3 coworkers, Gemini)** | Session 2, Batch 2. Codex pending. DR pending owner relay. |
-| B2-P1 | Anti-surface-classification | **IMPLEMENTED IN PROMPT** | +210 words to GROUP_SYSTEM_PROMPT. الأصل/اعلم/مقدمة examples from Gemini. |
-| B2-P2 | Forgiving retention (≤15%, لأن/فإن) | **IMPLEMENTED IN PROMPT + SPEC** | FP-3 strengthened with forgiving-retention clause. |
-| B2-P3 | Title-retention asymmetry (MODIFIED) | **IMPLEMENTED IN PROMPT + SPEC** | Gemini found fatal flaw: Bukhari tarajim have no grammatical link but title IS ruling. Added semantic anchor clause. |
-| B2-P4 | Dependency-first splits | **IMPLEMENTED IN PROMPT** | Question-cluster methodology: "what question does each segment answer?" |
-| B2-SP | Two-layer model (theory + context) | **DOCUMENTED** | MAQ-023. Formalized in SPEC as extension of FP-18. No prompt change. |
-| B3 | **BATCH 3: Boundary & Grouping (10 MAQ atoms)** | **PRELIMINARY (1/3 Gemini)** | Session 2. 3 prompt rules added (+141 words). 4 SPEC-only. 1 merged. 2 deferred. |
-| B3-P1 | Multi-function split (>20% per function) | **IMPLEMENTED IN PROMPT** | Gemini: Usul counterexample (العام ruling). Splitting definition from ruling orphans both. |
-| B3-P2 | Introduction scope classification | **IMPLEMENTED IN PROMPT** | Gemini: full-topic (كتاب الطهارة) vs chapter-specific (باب التيمم). Confusion elevates exceptions. |
-| B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **IMPLEMENTED IN PROMPT** | Gemini counterexample: explanation=refutation in dialectical texts. "MAY be separate" handles this. |
-| B3-SP1 | Scholar-quoting-scholar protocol | **SPEC-ONLY** | MAQ-032. Too complex for prompt cap. Ibn Hajar 4-layer nesting example. Links to FP-14/15. |
-| B3-SP2 | Boundary consistency audit | **SPEC-ONLY** | MAQ-030. Cross-passage comparison tests needed. Design deferred to evaluation phase. |
-| B3-SP3 | Malformation-first diagnosis | **SPEC-ONLY** | MAQ-028. Phase 3 note-handling: fix structure before optimizing notes. |
-| B3-SP4 | Boundary mustn't distort meaning | **VERIFIED** | MAQ-029. FP-1+3+9 collectively cover this. No additional FP needed. |
+| B2 | **BATCH 2: Self-Containment (5 actionable MAQ atoms)** | **CONFIRMED (2/2: Gemini+Codex, Session 8)** | All 5 atoms confirmed with amendments. SPEC sync + prompt changes → Session 9. |
+| B2-P1 | Anti-surface-classification | **CONFIRMED + SPEC SYNC PENDING** | Gemini: CONFIRM (scholarly sound). Codex: NEEDS-REVISION (not in SPEC §5.2.2). T2-1: copy to SPEC. |
+| B2-P2 | Forgiving retention (≤15%, لأن/فإن) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (add إذ, لكونه). Codex: NEEDS-REVISION (threshold should be heuristic). T1-1: expand particles + soften threshold → Session 9. |
+| B2-P3 | Title-retention asymmetry (MODIFIED) | **CONFIRMED (2/2)** | Gemini: CONFIRM. Codex: CONFIRM. No changes needed. |
+| B2-P4 | Dependency-first splits | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (fails for Rijal). Codex: CHALLENGE (not formalized). T2-2: add to SPEC. T3-1: Rijal exception deferred. |
+| B2-SP | Two-layer model (theory + context) | **CONFIRMED (1/2 Codex)** | Codex: CONFIRM (FP-18 captures it). Gemini: not reviewed (gap). |
+| B3 | **BATCH 3: Boundary & Grouping (10 MAQ atoms)** | **CONFIRMED (2/2: Gemini+Codex, Session 8)** | All atoms confirmed with amendments. SPEC sync + prompt changes → Session 9. |
+| B3-P1 | Multi-function split (>20% per function) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (exempt تخصيص/شرط/استثناء). Codex: NEEDS-REVISION (20% is weak heuristic). T1-2: soften threshold + semantic exemption → Session 9. |
+| B3-P2 | Introduction scope classification | **CONFIRMED + SPEC SYNC PENDING** | Gemini: CONFIRM (distinction sound). Codex: NEEDS-REVISION (not in SPEC §5.3.2). T2-3: add to SPEC. |
+| B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (dialectical exception). Codex: NEEDS-REVISION (no SPEC section + FP-14 cross-ref). T1-3 + T2-4 → Session 9. |
+| B3-SP1 | Scholar-quoting-scholar protocol | **CONFIRMED + NEEDS SPEC PROTOCOL** | Gemini: CONFIRM (essential). Codex: CHALLENGE (**highest risk** — no SQ-1, 80% rule flips authorship). T2-5 → Session 9. |
+| B3-SP2 | Boundary consistency audit | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM. Codex: CHALLENGE (no BC-1 audit rule). T2-6 → Session 9. |
+| B3-SP3 | Malformation-first diagnosis | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM (universal). Codex: NEEDS-REVISION (no MF-1 rule). T2-7 → Session 9. |
+| B3-SP4 | Boundary mustn't distort meaning | **CONFIRMED (2/2)** | Gemini: CONFIRM. Codex: CONFIRM. FP-1+3+9+13 collectively cover this. |
 | B4 | **BATCH 4: Granularity (17 MAQ atoms)** | **IMPLEMENTED** | 1 prompt rule (mention≠excerpt, +51w). 16 SPEC-only. Prompt: 1474/1500 (FULL). |
 | B4-P1 | Mention is NOT excerpt | **IN PROMPT** | MAQ-047. Owner ALL-CAPS: "a mention IS NOT A REASON TO EXCERPT." Anti-false-positive. |
 | B4-SP1 | Forgiving rule ~33% quantitative limit | **SPEC-ONLY** | MAQ-036. Dual-gate: percentage + character count. 10000/500 worked example. Calibration deferred to 30-book probe. |
@@ -101,7 +101,8 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 ## ATOM 1: explained + explanation default unity
 
 ### Raw owner artifacts used
-- `engines/excerpting/chatgpt_f5_collection/source_artifacts/f5_owner_raw_reaction_2026_04_04.txt`
+- `engines/excerpting/chatgpt_f1_collection/source_artifacts/f1_owner_original_notes_2026_04_03.txt` (lines 222-224: first statement of EE-1 principle, chronological origin)
+- `engines/excerpting/chatgpt_f5_collection/source_artifacts/f5_owner_raw_reaction_2026_04_04.txt` (expanded articulation of EE-1)
 - `engines/excerpting/chatgpt_f5_collection/source_artifacts/f5_full_user_input_2026_04_04.txt`
 - `engines/excerpting/chatgpt_f3_collection/source_artifacts/f3_owner_raw_reaction_2026_04_04.txt`
 

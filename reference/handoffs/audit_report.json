@@ -1,0 +1,32 @@
+{
+  "checks": [
+    {
+      "name": "A1_atom_count",
+      "status": "WARN",
+      "details": [
+        "Could not extract atom counts from handoff"
+      ]
+    },
+    {
+      "name": "A2_dispatch_count",
+      "status": "WARN",
+      "details": [
+        "Could not extract 'Total dispatches' from handoff"
+      ]
+    },
+    {
+      "name": "A3_doctrine_compliance",
+      "status": "WARN",
+      "details": [
+        "Could not extract violation/skip counts from handoff"
+      ]
+    },
+    {
+      "name": "A4_session_end",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "overall": "PASS",
+  "timestamp": "2026-04-07T06:29:41.467382+00:00"
+}
