@@ -24,7 +24,13 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 7 dedup complete, protocol v5.0.2)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 8 complete, Session 9 = prompt refactor)
+
+### Session 8 Accomplishments (2026-04-07) — Debt Clearance
+- **B2/B3 CONFIRMED (2/2 coworkers):** Gemini CLI + Codex CLI reviewed all 12 atoms. Zero true contradictions — dimensional complementarity. 3 Tier-1 prompt changes + 7 Tier-2 SPEC sync items identified → Session 9.
+- **12 SOFTENED items RESOLVED:** 11 accept-as-is, 1 ledger update. BCV Session 4 debt CLEARED.
+- **Highest risk found:** B3-SP1 (scholar-quoting-scholar) — no SQ-1 protocol in SPEC, 80% rule can flip authorship.
+- **917 tests pass**, prior session audit PASS.
 
 ### Session 3 Accomplishments (2026-04-06)
 - **Protocol v5.0 COMPLETE** — Batch Lifecycle Protocol: §3A (6-phase model), §3B (Completion Gate), §3C (Ijazah Ceremony), §4.18 (Regression Gate), §4.19 (Doctrine Coherence), §5.8 (Role Separation), §8.5 (Calibration File), §0.1 (Autonomous Operations Doctrine)
@@ -39,39 +45,12 @@
 - Gate script bug found and fixed (META terminal state)
 - 12 SOFTENED items documented for debt clearance
 
-### Session 5 Complete (2026-04-07)
-- **G/SC Bundle Intake**: 7 bundles (G1-G4, SC1-SC3) fully ingested
-- 157 raw atoms extracted via 7 parallel agents, 60 ground truth pre-validated
-- 10 FP candidates identified, 36 prompt-affecting atoms (BLOCKED by §4.11)
-
-### Session 6 BCV Complete (2026-04-07)
-- **BCV on G1-G4 + SC1-SC3**: 133 files verified, 68 MCUs traced, 100% MAPPED, 0 MISSED
-- **Key finding**: G3/G4 pre-extraction cross-contamination (4 atoms misattributed, corrected)
-- **7/7 batches APPROVED** by verify_batch_completion_gate.py
-- Report: `engines/excerpting/reference/BCV_SESSION6_REPORT.md`
-
-### DR23 In Progress (2026-04-07)
-- **Claude DR: Round-Trip Correctness gate** — lossless decomposition proof for excerpting
-- Archived: `dr_reviews/DR23_claude_round_trip_correctness_gate.md`
-- Codex CLI + Gemini CLI dispatched for validation (HR-23/HR-30 compliant)
-- Critical tension: DR23 suggests PyArabic normalization for hashing vs our byte-for-byte diacritics preservation
-- Implementation plan drafted: 8 units, ~200 lines new code, 0 API calls
-
-### Session 7 Complete (2026-04-07)
-- **Session 6 work committed** — 3 logical commits (197 files: collection restructuring, BCV, DR reviews)
-- **Protocol v5.0.2** — NTU → "Natural Unit Type" rename (DR24 collision fix), DR23 RTC gate ACCEPTED (PRELIMINARY), scholarly grounding corrected (iḥṣāʾ al-ḥurūf not balāgha), v5.0.1 backfilled
-- **Dedup register created** — 67/157 NN atoms classified: 30 EXTENDS (41%), 20 NOVEL (32%), 8 FP-CAND (8%), 7 META (10%), 4 DUPLICATE (5%). 6 novel clusters identified.
-- **Key finding:** G/SC rounds added substantial operational knowledge, not just safety reinforcement. Top novel clusters: conditions excerpting (G4), zero-precontext (SC3), author flow (SC1), proof relationships (G2).
-- Register: `engines/excerpting/reference/DEDUP_REGISTER.md`
-
 ### What's Needed Next
-1. **Session 8: Debt clearance** — B2/B3 Codex/DR coworker confirmations + 12 F-series SOFTENED items. Lowest-risk work to advance the ledger.
-2. **Session 9: Prompt refactor** — §4.11 gate is THE critical bottleneck. 36 G/SC prompt atoms + DR21 7-step recipe all blocked by GROUP_SYSTEM_PROMPT at 1484/1500 words.
-3. **DR23 Codex structural review** — RTC gate still PRELIMINARY (2/3 coworkers). Need short focused prompt.
-4. **Assign MAQ-089+ IDs** — 20 genuinely novel atoms need new IDs. Complete remaining 90 non-NN atoms dedup.
-5. **8 FP candidates need multi-coworker validation** — FP-C2 (lost-potential, 3 batches) and FP-C10 (anti-manhunt, 2 batches) are strongest.
-6. **After hardening complete:** Book Resolution → Tier 1 smoke run (10 books, ~$30)
-7. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Next: owner reaction to 3 curriculum questions → requirements doc
+1. **Session 9 (NEXT):** Prompt refactor (§4.11 gate) + SPEC sync. Handoff at `reference/handoffs/excerpting_foundations_session9_kickoff_2026-04-07.md`. 3 prompt changes (T1-1..T1-3) + 7 SPEC additions (T2-1..T2-7). DR21 7-step recipe for prompt compression.
+2. **Session 10:** Complete dedup (remaining 90 non-NN atoms) + MAQ-089+ assignment
+3. **Session 11+:** Full-atom processing through 7-stage lifecycle
+4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
+5. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
@@ -101,9 +80,9 @@
 3. Basran terminology: **TBD** (not yet asked — lower priority, blocks nahw synonym layer)
 
 **Next steps:**
-1. ~~Write brainstorm requirements document~~ **DONE** → `docs/brainstorms/2026-04-07-feedback-collection-strategy-requirements.md` (17 requirements, 4 layers)
-2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline) — **NEXT SESSION**
-3. Begin Phase A collection: owner starts S-1 (quality priority ranking) via existing ChatGPT bundle workflow — **OWNER CAN START NOW**
+1. Write brainstorm requirements document (`docs/brainstorms/`) formalizing the 5-coworker synthesis into implementation-ready requirements
+2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline)
+3. Begin Phase A collection: formalize user_model artifact + remaining questionnaire items (S-1 priority ranking first)
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane
