@@ -66,70 +66,79 @@ def _normalize_whitespace(text: str) -> str:
 _PRONOUN_SC_WORD_CEILING = 30
 
 # 3rd-person pronoun suffixes that indicate unresolved anaphora.
-# These attach to verbs/nouns: طلقها (divorced her), إرجاعها (returning her),
-# حكمهم (their ruling). Pattern: word ending in one of these suffixes.
+# Multi-char suffixes only — single ه excluded because root-final ه words
+# (فقه, وجه, شبه, مكره) are extremely common in fiqh texts and cause
+# systematic false positives. Arabic-auditor + code-reviewer finding.
 # Use explicit Unicode ranges, NOT \b (fails for Arabic clitics).
 _PRONOUN_SUFFIX_RE = re.compile(
     r"[\u0600-\u06FF]"  # preceded by Arabic char (attached suffix)
-    r"(?:هما|هم|هن|ها|ه)"  # 3rd-person suffixes (longest first for greedy)
+    r"(?:هما|هم|هن|ها)"  # 3rd-person suffixes (no single ه)
     r"(?:\s|$|[^\u0600-\u06FF])"  # followed by space, end, or non-Arabic
 )
 
-# Named entity patterns: proper nouns that could serve as antecedents.
-# Scholar names, prophet names, common subjects that resolve pronouns.
+# Named entity patterns: nominal antecedents that resolve pronoun reference.
+# Only genuine person/role nouns — NOT الله (appears in ~100% of Islamic
+# texts), NOT ابن/أبو (scholar citation fragments, not antecedents).
+# Arabic-auditor + code-reviewer + architect finding.
 _ANTECEDENT_MARKERS: list[str] = [
     "النبي",
     "الرسول",
     "رسول الله",
-    "النبي صلى",
-    "عمر",
-    "عائشة",
-    "ابن",
-    "أبو",
-    "الله",
     "المرأة",
     "الرجل",
     "الزوج",
     "الزوجة",
     "المطلقة",
     "المطلق",
+    "عمر",
+    "عائشة",
 ]
 
 
 def _check_pronoun_suffix_sc(
     excerpt: ExcerptRecord,
     errors: list[str],
-) -> None:
+) -> ExcerptRecord:
     """Flag FULL excerpts under 30 words with unresolved pronoun suffixes.
 
     Session 17 campaign finding: 82 excerpts rated FULL but containing
-    attached 3rd-person pronoun suffixes (ها/هم/هما/هن/ه) without a
+    attached 3rd-person pronoun suffixes (ها/هم/هما/هن) without a
     named entity antecedent. These are not self-contained for a reader.
+
+    Architect review: emits review_flag (not error code) because content
+    quality judgments belong in consensus, not deterministic validation.
+    Phase 2 LLM had full context when it assigned FULL — this heuristic
+    is advisory, not authoritative.
     """
     if excerpt.self_containment != SelfContainmentLevel.FULL:
-        return
+        return excerpt
 
     word_count = excerpt.end_word - excerpt.start_word + 1
     if word_count >= _PRONOUN_SC_WORD_CEILING:
-        return
+        return excerpt
 
     text = excerpt.primary_text
     if not _PRONOUN_SUFFIX_RE.search(text):
-        return
+        return excerpt
 
     # Check if a named entity antecedent exists in the text
     for marker in _ANTECEDENT_MARKERS:
         if marker in text:
-            return  # antecedent found — pronoun is likely resolved
+            return excerpt  # antecedent found — pronoun is likely resolved
 
-    errors.append(ExcerptingErrorCodes.EX_M_012)
-    logger.warning(
-        "%s: FULL excerpt %s has %d words with unresolved pronoun "
-        "suffix — may need PARTIAL rating.",
-        ExcerptingErrorCodes.EX_M_012,
-        excerpt.excerpt_id,
-        word_count,
-    )
+    # Emit as review_flag, not error code — advisory signal for human review
+    if "pronoun_anaphora_risk" not in excerpt.review_flags:
+        flags = list(excerpt.review_flags)
+        flags.append("pronoun_anaphora_risk")
+        excerpt = excerpt.model_copy(update={"review_flags": flags})
+        logger.info(
+            "V-P3-10: FULL excerpt %s has %d words with unresolved pronoun "
+            "suffix — flagged for review (pronoun_anaphora_risk).",
+            excerpt.excerpt_id,
+            word_count,
+        )
+
+    return excerpt
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -309,8 +318,9 @@ def validate_excerpt(
 
     # V-P3-10: Pronoun-suffix self-containment check (Session 17 finding)
     # Short FULL excerpts with 3rd-person pronoun suffixes likely have
-    # unresolved anaphora — the reader cannot tell who "ها/هم/ه" refers to.
-    _check_pronoun_suffix_sc(excerpt, errors)
+    # unresolved anaphora — the reader cannot tell who "ها/هم" refers to.
+    # Emits review_flag, not error code (architect review finding).
+    modified = _check_pronoun_suffix_sc(modified, errors)
 
     # V-P3-9: Content type consistency
     for ct in excerpt.content_types:

@@ -276,6 +276,17 @@ def merge_micro_units(
 
 _MV1_WORD_FLOOR = 25
 
+# Transmission formulas that mark isnad chains — units containing these
+# MUST NOT be merged even if sub-viable. Isnads are atomic scholarly units
+# per arabic-scholarly-conventions.md. Arabic-auditor review finding.
+_ISNAD_MARKERS: list[str] = [
+    "حدثنا",
+    "أخبرنا",
+    "أنبأنا",
+    "سمعت",
+    "قرأت على",
+]
+
 
 def merge_subviable_units(
     units: list[TeachingUnit],
@@ -297,12 +308,24 @@ def merge_subviable_units(
     if len(units) <= 1:
         return units
 
-    tokens = assembled_text.split()
-
     def word_count(u: TeachingUnit) -> int:
         return u.end_word - u.start_word + 1
 
-    subviable = [word_count(u) < _MV1_WORD_FLOOR for u in units]
+    def _unit_has_isnad(u: TeachingUnit) -> bool:
+        """Check if unit text contains transmission formulas (isnad).
+
+        Arabic-auditor finding: isnad chains (7-12 words) are sub-viable
+        by word count but MUST NOT be merged — they are atomic scholarly
+        units per arabic-scholarly-conventions.md.
+        """
+        char_s, char_e = _word_to_char_range(assembled_text, u.start_word, u.end_word)
+        text = assembled_text[char_s:char_e]
+        return any(marker in text for marker in _ISNAD_MARKERS)
+
+    subviable = [
+        word_count(u) < _MV1_WORD_FLOOR and not _unit_has_isnad(u)
+        for u in units
+    ]
 
     if not any(subviable):
         return units
@@ -351,7 +374,6 @@ def merge_subviable_units(
     for src_idx, tgt_idx in sorted(absorb_into.items()):
         src = units[src_idx]
         if tgt_idx not in merged:
-            # Target was itself absorbed (shouldn't happen with run logic)
             logger.warning(
                 "MV-1 merge: unit %d target %d missing — keeping standalone.",
                 src_idx,
@@ -365,14 +387,10 @@ def merge_subviable_units(
         new_end = max(src.end_word, target.end_word)
         new_segments = sorted(set(src.segment_indices + target.segment_indices))
 
-        # Recompute text_snippet from merged range
-        start_char = (
-            sum(len(tokens[j]) + 1 for j in range(new_start))
-            if new_start > 0
-            else 0
-        )
-        end_char = sum(len(tokens[j]) + 1 for j in range(new_end + 1))
-        merged_text = assembled_text[start_char:end_char].strip()
+        # Use _word_to_char_range (DD-S3-2) — handles multi-space, leading
+        # whitespace, and ZWNJ correctly. Do NOT duplicate char arithmetic.
+        char_s, char_e = _word_to_char_range(assembled_text, new_start, new_end)
+        merged_text = assembled_text[char_s:char_e].strip()
 
         merged[tgt_idx] = TeachingUnit(
             unit_index=target.unit_index,

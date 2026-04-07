@@ -3982,6 +3982,36 @@ class TestMergeSubviableUnits:
         result = merge_subviable_units(units, text)
         assert len(result) == 2
 
+    def test_trailing_subviable_backward_merge(self) -> None:
+        """Sub-viable unit at end of list merges backward (code-reviewer gap)."""
+        viable = " ".join(["وقال"] + ["الشافعي"] * 12 + ["رحمه"] * 12 + ["الله"])
+        subviable = "والله أعلم بالصواب"
+        text = f"{viable} {subviable}"
+        words = text.split()
+        assert len(words) == 29
+        units = [
+            _make_unit(0, 0, 25, viable[:80]),  # 26 words — viable
+            _make_unit(1, 26, 28, subviable),  # 3 words — sub-viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 28
+
+    def test_isnad_unit_preserved_despite_subviable(self) -> None:
+        """Sub-viable unit with isnad markers must NOT be merged (arabic-auditor)."""
+        viable = " ".join(["وقال"] + ["الشافعي"] * 12 + ["رحمه"] * 12 + ["الله"])
+        isnad = "حدثنا مالك عن نافع عن ابن عمر"  # 7 words, sub-viable
+        text = f"{viable} {isnad}"
+        words = text.split()
+        units = [
+            _make_unit(0, 0, 25, viable[:80]),  # 26 words — viable
+            _make_unit(1, 26, len(words) - 1, isnad),  # 7 words with isnad
+        ]
+        result = merge_subviable_units(units, text)
+        # Isnad preserved as separate unit despite being sub-viable
+        assert len(result) == 2
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Takhrij data derivation (DR29 #8 + Gemini CLI minimum-viable spec)

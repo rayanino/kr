@@ -586,7 +586,7 @@ class TestVP310PronounSuffixSC:
     """
 
     def test_short_full_with_unresolved_pronoun_flagged(self) -> None:
-        """Sample 6 regression: 'إرجاعها' without antecedent → EX-M-012."""
+        """Sample 6 regression: 'إرجاعها' without antecedent → review flag."""
         exc = _make_excerpt_record(
             primary_text="وجوب إرجاعها في الطهر",
             text_snippet="وجوب إرجاعها في الطهر",
@@ -594,8 +594,9 @@ class TestVP310PronounSuffixSC:
             end_word=3,  # 4 words
             self_containment=SelfContainmentLevel.FULL,
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" in result.review_flags
 
     def test_short_full_with_antecedent_no_flag(self) -> None:
         """Pronoun suffix with named antecedent → no flag."""
@@ -606,8 +607,9 @@ class TestVP310PronounSuffixSC:
             end_word=5,  # 6 words
             self_containment=SelfContainmentLevel.FULL,
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 not in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" not in result.review_flags
 
     def test_partial_rating_skipped(self) -> None:
         """PARTIAL excerpts are already correctly rated — skip check."""
@@ -620,8 +622,9 @@ class TestVP310PronounSuffixSC:
             self_containment_notes="يعتمد على سياق الحديث",
             context_hint="في حديث ابن عمر",
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 not in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" not in result.review_flags
 
     def test_long_full_with_pronoun_skipped(self) -> None:
         """Excerpts >= 30 words skip the check (sufficient context likely)."""
@@ -633,8 +636,9 @@ class TestVP310PronounSuffixSC:
             end_word=30,  # 31 words
             self_containment=SelfContainmentLevel.FULL,
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 not in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" not in result.review_flags
 
     def test_no_pronoun_suffix_no_flag(self) -> None:
         """Short FULL excerpt without pronoun suffixes → no flag."""
@@ -645,11 +649,12 @@ class TestVP310PronounSuffixSC:
             end_word=3,
             self_containment=SelfContainmentLevel.FULL,
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 not in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" not in result.review_flags
 
     def test_plural_pronoun_suffix_flagged(self) -> None:
-        """Plural pronoun suffix 'هم' without antecedent → EX-M-012."""
+        """Plural pronoun suffix 'هم' without antecedent → review flag."""
         exc = _make_excerpt_record(
             primary_text="استدل بقولهم على الوجوب",
             text_snippet="استدل بقولهم على الوجوب",
@@ -657,5 +662,19 @@ class TestVP310PronounSuffixSC:
             end_word=3,
             self_containment=SelfContainmentLevel.FULL,
         )
-        _, errors = validate_excerpt(exc)
-        assert ExcerptingErrorCodes.EX_M_012 in errors
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" in result.review_flags
+
+    def test_root_final_ha_no_false_positive(self) -> None:
+        """Root-final ه words (فقه, وجه) must NOT trigger flag."""
+        exc = _make_excerpt_record(
+            primary_text="وعلى هذا الوجه يكون الفقه",
+            text_snippet="وعلى هذا الوجه يكون الفقه",
+            start_word=0,
+            end_word=4,
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        result, _ = validate_excerpt(exc)
+        assert result is not None
+        assert "pronoun_anaphora_risk" not in result.review_flags
