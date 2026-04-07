@@ -138,10 +138,11 @@ The owner has a strict fatigue profile: prefers structured/interactive feedback,
 
 ### Deferred to Implementation
 
-- **Fiqh masking integration:** How does the masking layer integrate with Phase 2b grouping? Needs excerpting contract analysis during implementation.
+- **R8 fiqh masking policy integration:** Data captured in Unit 2 (owner_profile.yaml), but how the masking layer integrates with Phase 2b grouping is a cross-engine design question. Deferred to a dedicated fiqh-masking session after Layer 3 engine decisions are collected.
 - **Retroactive bundle format upgrade:** Should F1-F8/G1-G4/SC1 bundles be reformatted? Cost-benefit analysis during implementation.
-- **Structured review UI design:** Layer 4 calibration interface is a separate implementation session.
+- **Structured review UI implementation:** Layer 4 calibration uses existing `tools/review.py` (questionnaire + review + comparison modes). Extending it is in scope; rebuilding it is not. Implementation is a separate session after Unit 7 spec is complete.
 - **DEPENDENT disposition rubrics:** What exactly constitutes a rubric entry? Clarified during Layer 4 calibration when real output is available.
+- **3 synthesis items not routed (Codex review finding):** "Proof handling / architecture for fetched" (FP-7 deferred capability), "Complexity grading" (Gemini CLI gap), "Active recall output format" (Gemini CLI gap). All three are post-pipeline features — explicitly out of scope for this collection plan.
 
 ## High-Level Technical Design
 
@@ -162,7 +163,8 @@ flowchart TB
     subgraph "Layer 2: Quality Policies"
         ZIP --> INTAKE[bundle_intake.py]
         INTAKE --> INV[inventory.json]
-        INTAKE --> ATOMS[Atom Extraction]
+        INV --> CC_REVIEW[CC semantic review]
+        CC_REVIEW --> ATOMS[Atom Extraction — CC manual]
         ATOMS --> MAQ[MERGED_ATOM_QUEUE.md]
         MAQ --> SPEC[SPEC.md amendments]
     end
@@ -310,7 +312,7 @@ flowchart TB
 
 **Goal:** Create session templates for DR18's 5 focused owner sessions, each collecting specific engine configuration parameters.
 
-**Requirements:** R9, R10
+**Requirements:** R9
 
 **Dependencies:** Unit 2 (user model artifact provides context for sessions)
 
@@ -321,12 +323,15 @@ flowchart TB
 - Create: `engines/excerpting/reference/dr18_sessions/session_D_thresholds.md`
 - Create: `engines/excerpting/reference/dr18_sessions/session_E_style.md`
 - Create: `engines/excerpting/reference/dr18_sessions/README.md`
+- Create: `engines/source/config/owner_decisions.yaml` (Session A+B+C outputs)
+- Create: `engines/excerpting/config/owner_decisions.yaml` (Session D outputs)
+- Create: `engines/synthesis/config/owner_decisions.yaml` (Session E outputs)
 
 **Approach:**
 - Each session template maps DR18 decision codes (SRC-D-001, EXC-D-010, etc.) to owner-facing questions
 - Questions are structured/interactive: multiple choice, ranking, concrete examples
 - Each session designed for ~60 min owner time (fits 2 days at 30 min/day)
-- Outputs stored as engine-specific config files: `engines/<engine>/config/owner_decisions.yaml`
+- Outputs stored as engine-specific config files (listed in Files above)
 - Each session specifies which coworkers validate the results
 
 **Patterns to follow:**
@@ -423,20 +428,31 @@ flowchart TB
 - Create: `engines/excerpting/reference/calibration_spec.md`
 
 **Approach:**
-- Define the calibration data schema: excerpt ID, owner judgment (teaching unit quality rating 1-5), study-readiness label (FULL → acceptable/study-ready split), free-text reaction, timestamp
-- Define the structured review session format: 10-15 excerpts per session, each with side-by-side source view, multiple-choice judgment options, optional free-text
+- Define the calibration data schema using **gated questions aligned to S-1 priority architecture**, NOT a single scalar quality score. The S-1 bundle (S1-007, S1-008) explicitly prohibits flattening the 4 priority dimensions into symmetric sliders or weighted averages. Schema fields per excerpt:
+  - **Gate 1 (veto): Source integrity** — "Is the source text faithfully preserved? Any mutation, false attribution, or silent corruption?" Binary: PASS/FAIL. A FAIL here vetoes the excerpt regardless of all other scores (S1-002, S1-005, FP-5).
+  - **Gate 2: Self-containment** — "Can you study this without hunting for missing context?" + disambiguation: "Is any meaning-bearing text missing or damaged?" (dual reading per S1-003). Tri-state: FULL / PARTIAL / DEPENDENT.
+  - **Gate 3: Granularity fitness** — "Are topics mixed or scrambled? Is the scope right for studying one thing?" (S1-004). Tri-state: GOOD / OVERSIZED / UNDERSIZED.
+  - **Gate 4: Study usefulness** — "Would you actually study from this teaching unit?" (S1-001). Tri-state: STUDY-READY / ACCEPTABLE / NOT-USEFUL.
+  - **Free-text reaction** — optional owner commentary
+  - **Confidence** — owner's self-assessed certainty (High/Medium/Low)
+- **Source-integrity violations are veto conditions** (S1-005): a high usefulness score CANNOT compensate for an integrity breach. The schema must enforce this structurally, not just document it.
+- Define the study-readiness label split: FULL → ACCEPTABLE vs STUDY-READY (FP-18 calibration)
+- Define the structured review session format: 10-15 excerpts per session, each with side-by-side source view, gated judgment sequence, optional free-text
 - Define the 30-book probe protocol: book selection criteria, review order, pass/fail criteria
 - Define how calibration data feeds back: FP-18 threshold calibration, quality metric validation, error pattern detection
 - Specify provenance requirements: every judgment tagged with model version of excerpt, prompt version, owner session ID
+- Reference existing review server: `tools/review.py` already has review + comparison modes that can be extended (not rebuilt) for calibration
 
 **Test scenarios:**
 - Test expectation: none — specification document, not code
 
 **Verification:**
-- Calibration schema covers all 4 calibration requirements (R11-R14)
+- Calibration schema uses gated questions, not a single scalar score
+- Source-integrity gate is a structural veto (Gate 1 FAIL = excerpt rejected)
 - Schema includes all provenance fields per R15
 - Session format respects owner fatigue profile (10-15 per session, structured/interactive)
 - 30-book probe criteria defined with clear pass/fail thresholds
+- Schema is consistent with S-1 governance atoms (S1-001 through S1-009)
 
 ## System-Wide Impact
 

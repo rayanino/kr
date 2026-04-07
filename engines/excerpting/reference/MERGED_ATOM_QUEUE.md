@@ -665,7 +665,7 @@ MAQ-ID assignment deferred to BCV session (Session 6) after deduplication pass a
 | S1-007 | STRUCTURAL ASYMMETRY — The 4 ranking items are NOT peer criteria: (4)=top-level goal, (1)=hard constraint, (2)+(3)=subordinate design pressures. Do not flatten into symmetric sliders or weighted averages. | owner_consistent_inference | META | NO | New structural insight for priority encoding |
 | S1-008 | FORCED RANKING WITH CAVEAT — Owner-faithful order is 4>1>2>3 as a forced linearization with explicit caveat: first two positions strongly anchored, tail less settled, ranking is not a clean peer-to-peer ordering. | owner_explicit | SPEC | NO | Governance atom for priority conflicts |
 | S1-009 | RECOVERABLE vs SILENT FAILURE HIERARCHY — Owner distinguishes: missing context = recoverable (manual lookup exists, serious but not catastrophic); silent corruption = catastrophic (no warning, knowledge damage). This hierarchy governs failure-mode severity classification. | owner_explicit | SPEC | NO | New severity classification; extends error handling framework |
-| S1-010 | LEXICOGRAPHIC PRIORITY MODEL — The ranking is best understood as: "maximize study usefulness WITHIN the hard boundary of source integrity, UNDER the design pressures of self-containment and granularity fitness." Not a weighted average. | owner_consistent_inference | META | NO | Governance model for priority conflicts |
+| S1-010 | LEXICOGRAPHIC PRIORITY MODEL — The ranking is best understood as: "maximize study usefulness WITHIN the hard boundary of source integrity, UNDER the design pressures of self-containment and granularity fitness." Not a weighted average. | model_expansion | META | NO | Engineering representation of priority architecture (not owner doctrine) |
 | S1-011 | RED-TEAM BATTERY FOR PRIORITY RANKING — 8 adversarial tests: (RT-001) usefulness-justifies-mutation, (RT-002) fidelity-excuses-fragments, (RT-003) ordinary-reading-flattening, (RT-004) right-size-is-shortness, (RT-005) recoverable-vs-silent-confusion, (RT-006) peer-slider-flattening, (RT-007) neat-tail-overclaim, (RT-008) external-add-on-conflation. | model_expansion | TEST | NO | Section K equivalent for S-1 |
 
 ### M.3 — Disposition Breakdown
@@ -674,23 +674,29 @@ MAQ-ID assignment deferred to BCV session (Session 6) after deduplication pass a
 |-------------|-------|-------|
 | SPEC | 5 | S1-002, S1-005, S1-006, S1-008, S1-009 — governance-level SPEC amendments |
 | SPEC+PROMPT | 1 | S1-003 — dual-reading disambiguation affects prompt self-containment instructions |
-| FP | 1 | S1-001 — teaching-unit-as-goal is FP-level (strengthens FP-5, validates FP-C5) |
-| META | 2 | S1-007, S1-010 — structural/governance documentation |
+| FP | 1 | S1-001 — teaching-unit-as-goal is FP-level (strengthens FP-18, validates FP-C5) |
+| META | 2 | S1-007 (owner_consistent_inference), S1-010 (model_expansion — downgraded per Codex review) |
 | TEST | 1 | S1-011 — 8 red-team test cases for Section K |
 | **PROMPT-AFFECTING** | **3** | S1-001, S1-003, S1-004 |
 
 ### M.4 — Cross-Reference to Existing FPs and Atoms
 
-| S1 Atom | Existing FP/Atom | Relationship |
-|---------|-----------------|--------------|
-| S1-001 | FP-5 (study-readiness), FP-C5 (teaching-unit naming) | STRENGTHENS — elevates teaching-unit concept to top-level goal |
-| S1-002 | FP-2 (source integrity), FP-19 (no silent failures) | REINFORCES — confirms catastrophic-failure classification |
-| S1-003 | C-SC-2 (self-containment), FP-C10 (anti-manhunt) | EXTENDS — adds dual-reading disambiguation requirement |
-| S1-004 | FP-1 (granularity), FP-6 (topic purity) | STRENGTHENS — "right size" = anti-scrambling, not brevity |
-| S1-005 | FP-2 (source integrity) | NEW CONSTRAINT — usefulness ≠ mutation license |
-| S1-006 | FP-2 (source integrity) | NEW DISTINCTION — add-on context ≠ source mutation |
-| S1-009 | Error handling framework | NEW — recoverable vs silent failure severity hierarchy |
-| S1-010 | N/A | NEW — lexicographic priority model for conflict resolution |
+> Rebuilt against current SPEC §1.1b FP numbering per Codex CLI review (2026-04-07).
+> FP-C* entries are queue-internal candidates (Section L), not canonical SPEC FPs.
+
+| S1 Atom | Canonical FP | Relationship |
+|---------|-------------|--------------|
+| S1-001 | FP-18 (three-level quality distinction) | STRENGTHENS — teaching unit is the study object; FP-18's FULL/ACCEPTABLE/STUDY-READY distinction is the implementation surface |
+| S1-001 | FP-C5 (queue candidate: teaching-unit naming) | VALIDATES — owner explicitly uses "teaching unit" vocabulary |
+| S1-002 | FP-5 (knowledge corruption is worst failure) | REINFORCES — owner confirms catastrophic-failure classification, cascading trust collapse |
+| S1-002 | FP-19 (omission honesty) | REINFORCES — silent corruption = catastrophic; visible failure = recoverable |
+| S1-003 | C-SC-2 (reference resolution), FP-18 | EXTENDS — dual-reading: ordinary self-containment ≠ destructive cutting. Must disambiguate before scoring |
+| S1-003 | FP-C10 (queue candidate: anti-manhunt) | EXTENDS — recoverable context friction (ordinary reading) maps to anti-manhunt |
+| S1-004 | FP-9 (overgranulation worse than undergranulation) | STRENGTHENS — "right size" = anti-scrambling/anti-topic-mixing, NOT word-count minimization |
+| S1-005 | FP-5 (knowledge corruption), FP-2 (context resolution: "help layers beside, never overwrite") | NEW CONSTRAINT — top-ranked usefulness does NOT authorize source mutation |
+| S1-006 | FP-2 (context resolution: "Help layers sit BESIDE preserved source as parallel layers — they never overwrite it") | ALIGNS — external add-on context ≠ source mutation. FP-2 already encodes this. |
+| S1-009 | FP-21 (severity class distinction: silent corruption vs visible flagged failure) | EXTENDS — owner's recoverable/catastrophic hierarchy maps directly to FP-21's Class A/B/C system |
+| S1-010 | N/A (model_expansion) | Engineering representation — lexicographic priority model. Not owner doctrine. |
 
 ### M.5 — Open Questions from S-1
 
