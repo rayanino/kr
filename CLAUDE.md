@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # خزانة ريان (KR) — Personal Intelligent Islamic Scholarly Library
 
 **The library IS the user's knowledge. An error here is an error in his mind.**
