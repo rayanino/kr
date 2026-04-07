@@ -48,7 +48,7 @@
 | CR-26 | ENRICH_TIMEOUT | 900s | contracts.py:815 | Calibrated from CLI timings |
 | CR-27 | ESCALATION_TIMEOUT | 300s | contracts.py:817 | Design (shorter for tiebreaker) |
 | CR-28 | Cross-reference demotion | 30 words | SPEC §5.4.3 | DR evaluation (TU-6 graded 1/5) |
-| CR-29 | Small unit merge trigger | 25 words | SPEC §5.4.3 | Documented as soft, not hard |
+| CR-29 | MV-1 sub-viable merge floor | 25 words | SPEC §5.5.5, phase3_deterministic.py:_MV1_WORD_FLOOR | DR consensus (ChatGPT 2/5 + Claude 1/5 on 5-word TU-5). Implemented Session 18. CAVEAT: isnad chains (7-12 words) are exempt via _ISNAD_MARKERS. Hadith collections may need corpus-specific calibration — 15-20 word isnads are legitimate standalone units (arabic-auditor finding 2026-04-08). |
 | CR-30-38 | Layer validation, coverage invariants, gate policies | Various | contracts.py, SPEC §5.4 | Deterministic rules |
 
 ## REMOVED Constraints

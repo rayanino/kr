@@ -52,40 +52,45 @@
 - **DR archives:** ChatGPT DR at `downloads/deep-research-report (19).md`, Claude DR at `downloads/compass_artifact_wf-ae430a21-...md`
 - **Budget:** EUR 0.00 this session (evaluating existing data)
 
-### Session 17 — Next Steps (HANDOFF TO NEXT CC SESSION)
+### Session 18 — 5 Fixes IMPLEMENTED + 3-Source Review HARDENED (2026-04-08)
 
-**Priority order (highest impact first):**
+**All 5 Session 17 findings implemented, then independently verified by 3 reviewer agents (code-reviewer + arabic-auditor + architect). 5 additional issues found and fixed in the same session.**
 
-1. **Implement MV-1 content merge pass** in `engines/excerpting/src/phase3_deterministic.py`
-   - Extend `merge_micro_units()` OR add a separate `merge_subviable_units()` function
-   - After Phase 2b grouping and before Phase 3 enrichment (same call site, phase3_orchestrator.py:101-104)
-   - Logic: scan all units, identify those below 25 Arabic words, merge with adjacent per SPEC §5.5.5 (backward-merge preferred, forward if first in chunk)
-   - ChatGPT DR decision rule: "standalone only when the standalone object is actually a standalone scholarly unit" — check semantic independence (no unresolved pronouns per LP-1 criterion 4) before keeping standalone
-   - Target: 191→0 sub-MV-1 excerpts in taysir
-   - Tests: parametrize over 5+ numbered-list cases from taysir fixtures
+**7 commits, 991 tests passing:**
+1. ✅ `ad455a4` — MV-1 sub-viable merge pass (`merge_subviable_units()`, 9 tests)
+2. ✅ `1416200` — Pronoun-suffix SC validation (V-P3-10, 6 tests)
+3. ✅ `f27b0e6` — IC-1 content_intertwined flag (2 tests)
+4. ✅ `b9b65d8` — StructuralSection enum + field
+5. ✅ `963bd49` — OCR word-corruption detector
+6. ✅ `04c4c00` — **3-source review fixes:** char-offset bug (use _word_to_char_range), isnad chain protection (_ISNAD_MARKERS), pronoun ه false-positive removal, antecedent marker cleanup, EX_M_012→review_flag
+7. ✅ `658b997` — structural_section TODO in enrichment
 
-2. **Add pronoun-suffix SC validation** (post-enrichment check)
-   - Location: `phase3_validation.py` or new validation function called from `phase3_orchestrator.py`
-   - Logic: for FULL-rated excerpts under 30 words, use regex to detect attached 3rd-person pronoun suffixes (ها/هم/هما/هن/ه at word boundaries), then check if a compatible named entity antecedent exists within the excerpt text
-   - Claude DR recommendation: Farasa/CAMeL for proper clitic segmentation (98.9% accuracy). But regex heuristic is acceptable as first pass given the pipeline doesn't currently use these tools.
-   - Target: 82→0 misrated excerpts
-   - Tests: Sample 6 (إرجاعها/طلقها) as primary regression test
+**3-source review findings (all resolved):**
+- Code Reviewer: char-offset arithmetic fails on multi-space (HIGH→FIXED), missing trailing test (HIGH→FIXED), pronoun ه false positives (HIGH→FIXED)
+- Arabic Auditor: isnad splitting risk (CRITICAL→FIXED), root-final ه vocabulary (WARNING→FIXED), الله/ابن/أبو antecedent suppression (WARNING→FIXED)
+- Architect: pronoun check should be review_flag not error code (HIGH→FIXED), structural_section dead field (MEDIUM→TODO added)
 
-3. **Exempt IC-1 from FR-1 percentage gate**
-   - Location: SPEC §6.14 and/or Phase 3 validation
-   - Claude DR: when definition+proof+attribution are in one continuous paragraph, the proof/attribution are constitutive, not supplementary. Don't split.
-   - Implementation: add a `content_intertwined` flag that suppresses FR-1's 33% audit when content_types has 3+ distinct types in a single-paragraph excerpt
-   - Tests: Sample 1 (الكلالة) — should not trigger FR-1 warning
+**Batch 2 DR dispatched:** 10 Gemini DR prompts relayed and researching (2026-04-08).
 
-4. **Add `structural_section` metadata facet** to contracts.py
-   - Claude DR recommends: `structural_section` enum with values like `general_meaning`, `vocabulary`, `rulings`, `scholarly_disagreement`, `hadith_text`
-   - Orthogonal to `primary_function` — both are valid classification dimensions
-   - Low priority but high future value for taxonomy and study interface
+### Session 18 — Next Steps (HANDOFF TO NEXT CC SESSION)
 
-5. **Add OCR word-corruption detector** to arabic_fidelity_flags
-   - Current system has diacritic_density_mismatch, double_zwnj, missing_honorific, etc. but NO word-level OCR detection
-   - Simple approach: dictionary lookup of Arabic lexical forms, flag words that don't match any known form
-   - Lower priority — only 2 instances found in taysir corpus
+**Priority order:**
+
+1. **Campaign re-run on taysir** (~€2.93 via API)
+   - Validates 191→0 sub-MV-1 and 82→0 pronoun misrating targets empirically
+   - Must use same 5 packages (ext_39_masala, ext_46_qa, ibn_aqil_v1, ibn_aqil_v3, taysir)
+   - Compare against Session 17 baseline: 4 PASS, 3 ADVISORY, 3 FAIL → expect improvement
+
+2. **Batch 2 DR intake** — 10 Gemini DR responses to process
+   - Archive each response, extract findings, synthesize
+   - Topics: hadith isnad boundaries, sharh layer detection, mashyakha handling, nahw parsing, aqidah classification, tafsir verse detection, qa format detection, fiqh madhab attribution, poetry detection, manuscript colophon parsing
+
+3. **structural_section enrichment prompt** — the field exists (contracts.py) but enrichment prompt doesn't populate it
+   - Add to UnitEnrichment schema
+   - Update ENRICH prompt to classify structural_section
+   - Wire into phase3_enrichment.py model_copy
+
+4. **MV-1 corpus-specific calibration** — the 25-word floor was calibrated on taysir (fiqh). Arabic-auditor flagged: hadith collections have 15-20 word isnads that are legitimate standalone units. When processing hadith texts, the floor may need adjustment. Tracked in CONSTRAINT_REGISTRY CR-29.
 
 ### Session 15 — DR28 Prompt Architecture COMPLETE + 6-Source Verification (2026-04-07)
 - **DR28 IU-6/IU-7/IU-8/IU-9 implemented:** CLASSIFY and ENRICH refactored to 2-message architecture (system=CONSTITUTION, user=rules+input+reminders). SPEC §5.2.2/§5.2.3/§5.3.2/§5.3.3/§7.2.2/§7.2.3 updated.
@@ -104,9 +109,9 @@
 - **Tests:** All smoke tests pass (4 pages render, idea submission persists, real data displays).
 
 ### Next Steps (for next CC session)
-  1. ✅ **Campaign evaluation on taysir** — NOW Session 17 (in progress). 4/6 coworkers complete. 5 confirmed findings.
-  2. **Implement MV-1 content merge fix** — extend `merge_micro_units()` in `phase3_deterministic.py` to handle all units below 25 words. Highest-impact fix: eliminates 191 sub-viable fragments.
-  3. **Add pronoun-suffix SC check** — post-enrichment validation that short FULL excerpts don't have unresolved ها/هم/هما suffixes. Fixes 82 misrated excerpts.
+  1. ✅ **Campaign evaluation on taysir** — Session 17 COMPLETE. 5 confirmed findings.
+  2. ✅ **Implement all 5 fixes** — Session 18 COMPLETE. 7 commits, 991 tests, 3-source review.
+  3. **Campaign re-run** — validate fixes empirically (~€2.93). See Session 18 Next Steps above.
   4. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready in dashboard at localhost:8000 AND at `docs/autonomous-system/dr_relay_queue_batch_2.md`.
   5. **IU-10: A/B test monolithic vs progressive** — ~EUR 10 budget. Validates DR28 empirically.
 
