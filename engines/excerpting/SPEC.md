@@ -1678,6 +1678,44 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Implementation:** This is a post-Phase-2 audit concern. When Phase 2 groups segments, if a `ruling_primary` segment appears only within a teaching unit dominated by `refutation` or `evidence_*` function, flag for review: the ruling may need a separate teaching unit at its home location, with the refutation context preserved via cross-reference. (MAQ-038, owner F3 — hukm-return within refutation.)
 
+### §6.14 — Forgiving Rule Quantitative Limit (FR-1)
+
+**FR-1 (Anti-over-forgiveness):** The forgiving retention rule (C-SC-2, "small linked carryover may stay attached") has a quantitative bound. When the retained material exceeds approximately one-third (~33%) of the total teaching unit by character count, the unit is no longer "an excerpt with retained context" — it has become a merged multi-topic unit. At this threshold, the forgiving rule no longer applies and the material must be split.
+
+**Dual-gate mechanism:** Both conditions must hold for the forgiving rule to apply:
+1. **Percentage gate:** Retained material ≤ ~33% of the teaching unit (by character count).
+2. **Absolute gate:** Retained material ≤ a reasonable absolute size. A 10,000-character excerpt with 500 characters of retained linking context is a clear forgiving case. A 10,000-character excerpt with 3,300 characters of retained context crosses the percentage threshold.
+
+**Calibration note:** The 33% threshold is derived from owner feedback (F3) and is a starting point. Exact calibration deferred to the 30-book probe. The dual-gate prevents pathological cases where a very long excerpt makes even large retained blocks fall under the percentage. (MAQ-036, owner F1/F3 — anti-over-forgiveness constraint.)
+
+### §6.15 — Configuration-Sensitivity Audit (CS-1)
+
+**CS-1 (Audit trigger for configuration-dependent excerpting):** If excerpting output varies when only engine configuration changes (not source content), this is a signal of configuration-sensitivity rather than source-sensitivity. Any such variation must trigger an audit, not normalization.
+
+**Detection:** Compare excerpt output across different model configurations, temperature settings, or prompt versions on the same source. If boundaries, groupings, or classifications diverge for non-stochastic reasons, the engine has a configuration dependency that violates FP-4 (excerpting is source-driven, not tree-driven — extended: not configuration-driven).
+
+**Response:** Log the divergence with: (a) which configuration changed, (b) which excerpts diverged, (c) the nature of the divergence (boundary shift, classification change, grouping change). Do NOT normalize by picking the "better" output — investigate the root cause. (MAQ-042, owner F8 — configuration-sensitivity detection.)
+
+### §6.16 — Theory-Example Distinction (TE-1)
+
+**TE-1 (Theory-example vs practice-example):** Within scholarly texts, examples serve two distinct functions:
+1. **Theory-examples** (أمثلة نظرية): Examples used within a theoretical explanation to illustrate a rule or principle. These belong WITH the theory they illustrate (EE-1 applies).
+2. **Practice-examples** (أمثلة تطبيقية): Standalone practical applications that demonstrate how a rule works in real cases. These may form their own teaching units — an "archive" of practical application.
+
+**Rule:** One example per excerpt when examples are practice-type. Theory-examples stay with their parent theory. The distinction is determined by context: does the example follow a rule statement and explain it (theory), or does it stand independently as a worked case (practice)?
+
+**Implementation:** Phase 2 classification should tag example segments with their type. A segment classified as `example_illustration` following a `ruling_primary` or `definition` stays merged (EE-1). A segment classified as `example_application` standing alone may form its own teaching unit if it passes MV-1. (MAQ-048, owner F1 — theory-example vs practice-example separation.)
+
+### §6.17 — Intertwined Content Protocol (IC-1)
+
+**IC-1 (A×B intertwined content):** When two topics A and B are substantively intertwined in the source text (the author deliberately weaves them together), the following protocol determines handling:
+
+1. **Both short (< MV-1 threshold individually):** Duplicate the intertwined passage at both topic leaves. The cost of duplication is lower than the cost of severing the author's intentional structure.
+2. **A long, B short:** B's content stays within A's excerpt. B does NOT get a separate excerpt from this passage (B is a supporting mention within A, not a standalone treatment). If B has its own dedicated passage elsewhere, that passage generates B's excerpt.
+3. **Both long:** This is a genuine multi-topic passage that requires Phase 2 function analysis. If the functions can be separated (clear function boundaries exist within the intertwined text), split. If they cannot (the intertwining is the author's argument structure), keep merged and tag as multi-topic.
+
+**Key principle:** The author's choice to intertwine is itself meaningful. Separating deliberately intertwined content is a form of meaning distortion (FP-1). (MAQ-050, owner F1 — "A×B intertwined" handling protocol.)
+
 ---
 
 ## §7 — Phase 3: Metadata Enrichment

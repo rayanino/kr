@@ -91,21 +91,21 @@ Of the 25 SPEC-ONLY atoms:
 
 | MAQ | Original Status | Reconciled Status | Evidence |
 |-----|----------------|-------------------|----------|
-| 036 | NEW | **SPEC-PENDING** | Forgiving rule ~33% quantitative limit — needs SPEC §6.11 or similar |
+| 036 | NEW | **IMPLEMENTED (Session 10)** | Forgiving rule ~33% quantitative limit — needs SPEC §6.11 or similar |
 | 037 | NEW | **DEFERRED** | Anti-duplication via sub-excerpting requires taxonomy coordination |
-| 038 | NEW | **SPEC-PENDING** | Hukm-return visibility — needs SPEC addition |
+| 038 | NEW | **IMPLEMENTED (Session 10)** | Hukm-return visibility — needs SPEC addition |
 | 039 | NEW | **COVERED** | Intra-khilaf clustering covered by Phase 2 grouping logic |
 | 040 | NEW | **COVERED** | Question-cluster methodology covered by B2-P4 SPEC §6.6 |
 | 041 | PARTIAL | **COVERED** | Frozen excerpt immutability covered by FP-4 |
-| 042 | NEW | **SPEC-PENDING** | Config-sensitivity audit — needs SPEC trigger mechanism |
+| 042 | NEW | **IMPLEMENTED (Session 10)** | Config-sensitivity audit — needs SPEC trigger mechanism |
 | 043 | NEW | **COVERED** | False contradiction mechanism covered by FP-9 explanation |
 | 044 | NEW | **REFERENCE** | Owner's al-sarf granulation cascade example → reference doc |
 | 045 | NEW | **COVERED** | No hard caps (SPEC line 1434) + no mutation (FP-4, FP-22) |
 | 046 | NEW | **COVERED** | Wrong location = nonexistent covered by FP-4+FP-9 |
 | 047 | NEW | **B4-IMPLEMENTED** | Mention ≠ excerpt IN PROMPT + SPEC §5.3.2 |
-| 048 | NEW | **SPEC-PENDING** | Theory-example vs practice-example — needs SPEC section |
+| 048 | NEW | **IMPLEMENTED (Session 10)** | Theory-example vs practice-example — needs SPEC section |
 | 049 | NEW | **COVERED** | Solved-solver unity = EE-1 extension (already covered by EE-1 scope) |
-| 050 | NEW | **SPEC-PENDING** | A×B intertwined protocol — needs SPEC section |
+| 050 | NEW | **IMPLEMENTED (Session 10)** | A×B intertwined protocol — needs SPEC section |
 | 051 | MERGED | MERGED | Into FP-9 |
 | 052 | NEW | **COVERED** | Readability ≠ correctness covered by FP-20 |
 
@@ -113,10 +113,10 @@ Of the 25 SPEC-ONLY atoms:
 
 | MAQ | Original Status | Reconciled Status | Evidence |
 |-----|----------------|-------------------|----------|
-| 053 | PARTIAL | **SPEC-PENDING** | Attribution-critical tarjih — FP-8 needs strengthening |
-| 054 | NEW | **SPEC-PENDING** | Clipped tarjih prohibition — needs SPEC rule |
+| 053 | PARTIAL | **IMPLEMENTED (Session 10)** | Attribution-critical tarjih — FP-8 needs strengthening |
+| 054 | NEW | **IMPLEMENTED (Session 10)** | Clipped tarjih prohibition — needs SPEC rule |
 | 055 | MERGED | MERGED | Into MAQ-039 |
-| 056 | NEW | **SPEC-PENDING** | Hadith variant-mismatch risk — needs SPEC addition to FP-7 |
+| 056 | NEW | **IMPLEMENTED (Session 10)** | Hadith variant-mismatch risk — needs SPEC addition to FP-7 |
 | 057 | DEFERRED | DEFERRED | DEF-001 (three-layer proof, cross-engine) |
 | 058 | PARTIAL | **B5-VERIFIED** | FP-7 explicitly covers two-layer distinction |
 | 059 | NEW | **COVERED** | Parallel-layer principle covered by FP-2+FP-7 |
@@ -129,10 +129,10 @@ Of the 25 SPEC-ONLY atoms:
 | 066 | CAPTURED | CAPTURED | FP-1/EE-1 (F1 origin) |
 | 067 | NEW | **DEFERRED** | Proof-stack cross-reference (cross-engine) |
 | 068 | CAPTURED | CAPTURED | FP-7 |
-| 069 | NEW | **SPEC-PENDING** | Interleaved methodology pattern — needs SPEC section |
+| 069 | NEW | **IMPLEMENTED (Session 10)** | Interleaved methodology pattern — needs SPEC section |
 | 070 | CAPTURED | CAPTURED | FP-6 |
-| 071 | NEW | **SPEC-PENDING** | Footnote handling protocol — needs SPEC section |
-| 072 | PARTIAL | **SPEC-PENDING** | Same as MAQ-056 — FP-7 version-sensitivity gap |
+| 071 | NEW | **IMPLEMENTED (Session 10)** | Footnote handling protocol — needs SPEC section |
+| 072 | PARTIAL | **IMPLEMENTED (Session 10)** | Same as MAQ-056 — FP-7 version-sensitivity gap |
 | 073 | NEW | **REFERENCE** | Excerpt=quote conceptual framing → reference doc |
 
 ## Section I Reconciliation (B6 — Other)
@@ -157,7 +157,7 @@ Of the 25 SPEC-ONLY atoms:
 
 ---
 
-## SPEC-PENDING Atoms (10 items — the real debt)
+## SPEC Additions Written in Session 10 (all 10 items — debt cleared)
 
 Priority order based on scholarly risk:
 

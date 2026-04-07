@@ -93,7 +93,11 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B5-DEF | 7 atoms deferred (cross-engine) | **DEFERRED** | MAQ-057/060/061/062 (proof alignment, variant classification, analytics, layer chunking). |
 | B4-SP3 | Hukm-return visibility | **IMPLEMENTED (Session 10)** | MAQ-038. New SPEC §6.13 HR-1: ruling must appear at home location. |
 | B5-072 | Hadith version-sensitivity | **IMPLEMENTED (Session 10)** | MAQ-072. Merged with B5-SP3 in FP-7 strengthening. |
-| DEDUP | **MAQ Dedup Reconciliation** | **COMPLETE (Session 10)** | All 80 actionable atoms reconciled. 33 implemented, 22 covered, 4 SPEC-pending (LOW), 10 deferred, 3 open, rest merged/captured/documented. See DEDUP_RECONCILIATION_SESSION10.md. |
+| B4-SP1 | Forgiving rule ~33% quantitative limit | **IMPLEMENTED (Session 10)** | MAQ-036. New SPEC §6.14 FR-1: dual-gate (percentage + absolute) anti-over-forgiveness. |
+| B4-SP7 | Config-sensitivity audit trigger | **IMPLEMENTED (Session 10)** | MAQ-042. New SPEC §6.15 CS-1: configuration-dependent output triggers audit. |
+| B4-SP12 | Theory-example vs practice-example | **IMPLEMENTED (Session 10)** | MAQ-048. New SPEC §6.16 TE-1: theory-examples stay with parent, practice-examples separate. |
+| B4-SP14 | A×B intertwined protocol | **IMPLEMENTED (Session 10)** | MAQ-050. New SPEC §6.17 IC-1: both-short=duplicate, A-long-B-short=B-stays-in-A. |
+| DEDUP | **MAQ Dedup Reconciliation** | **COMPLETE (Session 10)** | All 80 actionable atoms reconciled. 37 implemented, 22 covered, 0 SPEC-pending, 10 deferred, 3 open, rest merged/captured/documented. See DEDUP_RECONCILIATION_SESSION10.md. |
 | B6 | **BATCH 6: Other (9 MAQ atoms)** | **SPEC-ONLY** | Mixed: 3 SPEC, 2 deferred, 1 prompt (FP-15 enforcement), 3 documented. |
 | B6-P1 | FP-15 rhetorical posture → prompt | **DEFERRED** | MAQ-I09. FP-15 is SPEC-only. Prompt enforcement deferred to corpus expansion per FP-15 text. |
 | B6-SP1 | No-layout-mutation principle | **SPEC-ONLY** | MAQ-I06. Don't change determined excerpt layout. |

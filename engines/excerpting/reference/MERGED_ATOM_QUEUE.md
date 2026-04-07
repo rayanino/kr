@@ -26,9 +26,9 @@
 
 | Status | Count | Notes |
 |--------|-------|-------|
-| **IMPLEMENTED** (code/SPEC changes exist) | 33 | B1 FPs + B2 prompt/SPEC + B3 §6.7-6.10 + B4-P1 prompt + Session 10 §6.11-6.13 |
+| **IMPLEMENTED** (code/SPEC changes exist) | 37 | B1 FPs + B2 prompt/SPEC + B3 §6.7-6.10 + B4-P1 prompt + Session 10 §6.11-6.17 + FP-7/8 |
 | **COVERED** (existing FPs/rules adequate) | 22 | No new changes needed |
-| **SPEC-PENDING** (need SPEC text, LOW priority) | 4 | MAQ-036/042/048/050 — Session 10 wrote 6 of original 10 |
+| **SPEC-PENDING** | **0** | All 10 written in Session 10 |
 | **MERGED** | 8 | Consolidated into other MAQs |
 | **CAPTURED** | 4 | Already fully encoded in FPs |
 | **DEFERRED** | 10 | Cross-engine or future capability |
