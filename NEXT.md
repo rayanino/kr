@@ -24,25 +24,23 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Autonomous system DESIGN.md + 8 DR relay prompts)
+## IMMEDIATE STATE (updated 2026-04-07 — 5 of 8 DR responses received and archived, coworker validation in progress)
 
-### Session 13 — Autonomous System Design (2026-04-07)
-- **DESIGN.md written:** `docs/autonomous-system/DESIGN.md` — formal design document synthesizing 15 memory files from owner design session. Covers 3 pillars (DR research, pipeline hardening, creative ideas), owner interaction model, DR relay engine, dashboard spec, branching model, integration with existing 5,543-line overnight infrastructure.
-- **8 DR relay prompts generated and pushed to remote:**
-  - Batch 0 (3 system design prompts): ChatGPT DR (architecture + dashboard), Claude DR (research prioritization), Gemini DR (18 sciences mapping)
-  - Batch 1 (5 research gap prompts): RQ-001 Gemini (OQ-001-004 calibration), RQ-002 Claude (taxonomy trustworthiness), RQ-003 ChatGPT (passaging gaps), RQ-004 Gemini (hadith isnad-matn), RQ-005 ChatGPT (multi-layer detection)
-- **2 coworker reviews COMPLETE:**
-  - Codex: FEASIBLE_WITH_CHANGES — 5 findings. Critical: `.kr/autonomous/` hits FORBIDDEN_EDIT_PREFIXES (moved to `overnight_codex/autonomous/`), DR relay must be 2 decoupled processes (prompt gen + response ingestion)
-  - Gemini: PARTIALLY_ALIGNED — 5 findings. Critical: add scholarly edge case gap scanner (50-100 DR prompts from FP/ADV rules), Arabic text safety needed in DR data flows, genre-prioritized hardening (hadith > fiqh > multi-layer)
-  - **12 amendments applied to DESIGN.md** (3 CRITICAL applied inline, 9 PENDING for Phase 0)
-- **All prompts passed /prompt-architect** (Rule 14 compliant)
-- **Research gaps identified by codebase scan:** 4 [OPEN] in excerpting SPEC, 14 [NOT YET IMPLEMENTED] in synthesis, 4 in passaging, taxonomy "not trustworthy"
-- **OWNER ACTION:** Relay 8 DR prompts from `docs/autonomous-system/` (all independent, any order). Gemini DR prompts need file uploads (instructions in files).
-- **Next (for next CC session):**
-  1. Process DR responses as owner relays them
-  2. Implement Phase 0: create `autonomous/nightly` branch, define JSONL schemas (A5), build scholarly edge case gap scanner (A8), create `process_dr_response.py` skeleton (A2)
-  3. Generate batch 2 DR prompts targeting DC-01-16 deferred capabilities + genre-prioritized hardening questions
-  4. Resume DR28 prompt architecture implementation (IU-1 through IU-5 from Session 12 handoff)
+### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
+- **DESIGN.md written + reviewed by 2 coworkers + 12 amendments applied**
+- **8 DR prompts dispatched, 5 responses received and archived:**
+  - DR32 (ChatGPT): System architecture — dashboard FastAPI+HTMX (4.75/5), 6-stage response pipeline, Idea Quarry creative framework. **Critical finding: doctrine file untracked (FIXED).**
+  - DR33 (Claude): Research prioritization — 35/22/18/15/10 topic allocation, 5-state completeness machine with TSI index, 3-phase temporal strategy, 20 research topics (RT-01 to RT-20), critical path 8 topics/35-45 days.
+  - DR34 (Gemini): Hadith isnad-matn boundary patterns — transition markers, compound isnads, commentary structure.
+  - DR35 (ChatGPT): Passaging engine gap analysis — [NOT YET IMPLEMENTED] features, boundary detection, hardening priorities.
+  - DR36 (ChatGPT): Multi-layer text detection — sharh/hashiyah detection patterns, layer detection approaches.
+  - **Awaiting:** DR37 (Gemini — 18 sciences mapping), DR38 (Claude — taxonomy trustworthiness), DR39 (Gemini — OQ-001-004 calibration)
+- **Coworker validation of DR32-36 dispatching** (HR-23 /prompt-architect passed)
+- **Next:**
+  1. Complete coworker validation of DR32-36 findings
+  2. Process remaining 3 DR responses as owner relays them
+  3. Write unified implementation plan synthesizing all DR findings
+  4. Begin Phase 0 implementation: dashboard skeleton, JSONL schemas, response processing script
 
 ### Session 11 — D3 Full Intake + Coworker Review (2026-04-07)
 - **D3 intake:** Read ALL 22 files (97 atomic records). Session 10 only read 8/22.
