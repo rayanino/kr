@@ -8,7 +8,7 @@
 | # | Coworker | Angle | Dispatched | Received | Archived At | Verified |
 |---|----------|-------|-----------|----------|-------------|---------|
 | 1 | Claude DR | Owner decision map across all 5 engines | 2026-04-06 | 2026-04-07 | `DR18_claude_owner_decision_map.md` | YES (3 agents) |
-| 2 | ChatGPT DR | Pattern gap analysis from campaign + bundles | 2026-04-06 | PENDING | — | — |
+| 2 | ChatGPT DR | Pattern gap analysis from campaign + bundles | 2026-04-06 | 2026-04-07 | `CHATGPT_DR_owner_data_audit.md` | YES (direct) |
 | 3 | Gemini DR | Islamic madrasa curriculum perspective | 2026-04-06 | PENDING | — | — |
 | 4 | Codex CLI | Schema/contract analysis for unmet data deps | 2026-04-06 | 2026-04-07 | `CODEX_CLI_data_type_analysis.md` | YES (direct) |
 | 5 | Gemini CLI | Islamic pedagogy + student learning methodology | 2026-04-06 | 2026-04-07 | `GEMINI_CLI_pedagogical_analysis.md` | YES (direct) |
@@ -29,8 +29,20 @@
 **Verification:** `DR18_verification_notes.md`, `DR18_gap_analysis.md`
 **Interview cross-ref:** `DR18_interview_crossref.md`
 
-### ChatGPT DR — PENDING
-**Expected contribution:** Error patterns from v2 campaign (2,303 excerpts) that require owner input. Bundle format evaluation. Collection priority based on error severity.
+### ChatGPT DR — Received 2026-04-07
+**Unique contribution:** Only coworker that inventoried what's ALREADY COLLECTED. 313-line audit covering:
+- Detailed bundle-to-data mapping (F1-F8, G1-G4, SC1 → data categories)
+- "Highest-stakes values already integrated" — FPs encode foundational doctrine
+- 5 missing data families from campaign evidence (S-1, FP-18, K-1..3, E-1..3, D-1..3)
+- Error classification: 4 categories by owner-dependency (boundary, classification, context, granularity)
+- Bundle format evaluation: 4 weaknesses + 3 proposed additions
+- Collection priority: 3 tiers (governance → corruption risk → scaling safety)
+
+**Corrections:** None — all claims verified (6/6 confirmed, 1 plausible).
+**Verification:** `CHATGPT_DR_verification_crossref.md`
+
+### PRELIMINARY SYNTHESIS: `PRELIMINARY_SYNTHESIS_4_OF_5.md` (4/5 coworkers)
+4-layer architecture, what's collected vs missing table, unified collection roadmap.
 
 ### Gemini DR — PENDING
 **Expected contribution:** Islamic curriculum prerequisites. Knowledge sequencing. Study method taxonomy. Excerpt quality from student perspective. Minimum viable curriculum data per science.

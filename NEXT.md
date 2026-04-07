@@ -58,21 +58,23 @@
 
 **Accomplished (this session):**
 - Owner interview (4 rounds): study priorities (Arabic→fiqh→usul→aqidah), fatigue profile (prefers structured/interactive), granularity is #1 excerpt issue, product vision ("present everything, tell me just memorize")
-- 5 coworkers dispatched with /prompt-architect-optimized prompts (3/5 received, 2 pending)
+- 5 coworkers dispatched with /prompt-architect-optimized prompts (**4/5 received**, 1 pending)
 - **DR18 (Claude DR):** 42 owner-dependent decisions across all 5 engines. Critical path: science scope → book priority → muhaqiq list. ~5h tedious now, ~20-30h summer.
 - **Codex CLI:** 11 policy families (DT-01..11) with dependency chain. Root: user model. Two-layer insight: policy precedes decisions. Only FP-8/FP-18 need calibration. TEAM_TRANSLATION_GUIDE has zero FP-13..22 mapping.
 - **Gemini CLI:** Student-first pedagogical analysis. 9 unique findings including FP-1 challenge (qa'idah+shahid separation for flashcard mode), shubuhat safety, genre overrides, 2 genuine gaps (cognitive complexity grading, active recall output format).
-- All 3 reports: saved to `engines/excerpting/reference/dr_reviews/`, verified against codebase, cross-referenced, corrections documented
-- **4-layer synthesis architecture emerging:**
-  - Layer 1: User model + pedagogical modes (Gemini) → "What kind of student?"
-  - Layer 2: Quality policies (Codex) → "What rules govern output?"
-  - Layer 3: Engine decisions (DR18) → "What configures each engine?"
-  - Layer 4: Calibration (all three) → "Does engine match the owner's brain?"
+- **ChatGPT DR:** Only coworker to inventory what's ALREADY COLLECTED. 5 missing data families from campaign evidence. Bundle format evaluation (4 weaknesses, 3 additions). Error classification by owner-dependency.
+- All 4 reports: saved to `engines/excerpting/reference/dr_reviews/`, verified against codebase, cross-referenced, corrections documented
+- **PRELIMINARY 4-COWORKER SYNTHESIS COMPLETE** at `engines/excerpting/reference/dr_reviews/PRELIMINARY_SYNTHESIS_4_OF_5.md`
+- **4-layer architecture CONFIRMED across 4/5 coworkers:**
+  - Layer 1: User model + pedagogical modes → "What kind of student?" (~2h, partially resolved)
+  - Layer 2: Quality policies + S-1 governance → "What rules govern output?" (~3h, mostly missing)
+  - Layer 3: Engine decisions + parameters → "What configures each engine?" (~5h, 5 sessions)
+  - Layer 4: Calibration with real output → "Does engine match the brain?" (~20-30h, summer)
 
 **Pending:**
-- ChatGPT DR report (pattern gap analysis from v2 campaign)
 - Gemini DR report (madrasa curriculum minimum viable data)
-- After all 5: unified synthesis → requirements document → `/ce:plan` for collection system
+- After Gemini DR: finalize synthesis → requirements document → `/ce:plan` for collection system
+- If Gemini DR not received within 48h: proceed with 4/5 per protocol
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane
