@@ -24,7 +24,19 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 8 complete, Session 9 = prompt refactor)
+## IMMEDIATE STATE (updated 2026-04-07 — Memory System Upgrade complete, Session 9 = prompt refactor)
+
+### Memory System Upgrade (2026-04-07) — 6-Source Investigation + 3-Layer Implementation
+- **Trigger:** Owner challenged dismissal of mempalace → full 6-source investigation launched
+- **Sources:** DR25 (Claude DR — critical audit), DR26 (ChatGPT DR — architecture design), DR27 (Gemini DR — Islamic scholarly traditions), Gemini CLI (domain validation), Codex CLI (structural verification), CC direct measurements
+- **Architecture decided:** 4-layer system. Graph DB and mempalace permanently killed by domain expert.
+- **Layer 1 DEPLOYED:** AGENTS.md expanded 465B→8KB with Arabic scholarly conventions. @AGENTS.md import in CLAUDE.md. Codex overnight now reads curated conventions.
+- **Layer 2 DEPLOYED:** `generate_memory_index.py` auto-generates MEMORY.md (154→102 lines, 6 broken YAML files recovered). `check_invariant_consistency.py` detects doctrine drift + Arabic invariants. Fixed 5-vs-7 engine contradiction.
+- **Layer 3 DEPLOYED:** `session_stop.py` appends JSONL events to `memory/events/` with provenance (Sanad principle).
+- **Layer 4 DEFERRED:** SQLite FTS5 when corpus outgrows grep.
+- **Gemini CLI review:** Identified 3 HIGH findings (all fixed), 3 MEDIUM deferred, 3 LOW deferred. CC-first rating: 5/10 retrieval, 5/10 domain, 1/10 student learning (by design — pipeline-first).
+- **Remaining:** Codex CLI review pending. Kunnash/Ishkalat/Bridge Mechanism are post-pipeline features.
+- **DRs archived:** DR25, DR26, DR27 + Codex crossref in `engines/excerpting/reference/dr_reviews/`
 
 ### Session 8 Accomplishments (2026-04-07) — Debt Clearance
 - **B2/B3 CONFIRMED (2/2 coworkers):** Gemini CLI + Codex CLI reviewed all 12 atoms. Zero true contradictions — dimensional complementarity. 3 Tier-1 prompt changes + 7 Tier-2 SPEC sync items identified → Session 9.
