@@ -50,7 +50,7 @@
    - DR22: Multi-layer text detection blueprint at `dr_reviews/DR22_gemini_multilayer_text_detection.md` (6 publisher profiles, 22-marker catalog, hybrid detection architecture)
 3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → **prompt refactor (§4.11, DR21 7-step recipe)** → full-atom processing
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-5. **PARALLEL: Feedback Collection Strategy brainstorm** — see section below
+5. **PARALLEL: Feedback Collection Strategy brainstorm (4/5 coworkers synthesized)** — see section below. Next: Gemini DR arrival or 48h timeout → finalize synthesis → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
