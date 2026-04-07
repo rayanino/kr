@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KR Autonomous System</title>
+    <script src="/static/htmx.min.js"></script>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --surface: #16213e;
+            --surface2: #0f3460;
+            --text: #e0e0e0;
+            --text-dim: #8892a4;
+            --accent: #e94560;
+            --green: #4ecca3;
+            --yellow: #f0c040;
+            --orange: #e87040;
+            --blue: #4ea8de;
+            --border: #2a2a4a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        nav {
+            width: 200px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 0;
+            flex-shrink: 0;
+        }
+        nav h1 {
+            font-size: 1rem;
+            padding: 0 1rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+        nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+        }
+        nav a:hover { color: var(--text); background: var(--surface2); }
+        nav a.active {
+            color: var(--text);
+            border-left-color: var(--accent);
+            background: var(--surface2);
+        }
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 960px;
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .card-title { font-weight: 600; font-size: 0.95rem; }
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .badge-critical { background: var(--accent); color: #fff; }
+        .badge-high { background: var(--orange); color: #fff; }
+        .badge-medium { background: var(--yellow); color: #1a1a2e; }
+        .badge-low { background: var(--blue); color: #fff; }
+        .badge-informational { background: var(--text-dim); color: #fff; }
+        .badge-target { background: var(--surface2); color: var(--green); border: 1px solid var(--green); }
+        .badge-pending { background: var(--surface2); color: var(--yellow); border: 1px solid var(--yellow); }
+        .badge-processed { background: var(--surface2); color: var(--green); border: 1px solid var(--green); }
+        .prompt-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            unicode-bidi: plaintext;
+            max-height: 300px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--surface2);
+            color: var(--green);
+            border: 1px solid var(--green);
+            padding: 0.25rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .copy-btn:hover { background: var(--green); color: var(--bg); }
+        .copy-btn.copied { background: var(--green); color: var(--bg); }
+        details summary {
+            cursor: pointer;
+            color: var(--blue);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        .stats-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1.25rem;
+            min-width: 120px;
+            text-align: center;
+        }
+        .stat-value { font-size: 1.5rem; font-weight: 700; }
+        .stat-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; }
+        .stat-value.green { color: var(--green); }
+        .stat-value.yellow { color: var(--yellow); }
+        .stat-value.red { color: var(--accent); }
+        .stat-value.blue { color: var(--blue); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.25rem; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+        .btn-submit {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-submit:hover { opacity: 0.9; }
+        .severity-group {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+        }
+        .meta { font-size: 0.8rem; color: var(--text-dim); }
+        .unblocks { font-size: 0.8rem; color: var(--green); margin-top: 0.25rem; }
+        .file-bundle { font-size: 0.8rem; color: var(--yellow); margin-top: 0.25rem; }
+        .finding-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.25rem; line-height: 1.5; }
+        .empty-state { text-align: center; padding: 3rem; color: var(--text-dim); }
+        .error-banner {
+            background: rgba(233, 69, 96, 0.15);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        .warning-banner {
+            background: rgba(240, 192, 64, 0.15);
+            border: 1px solid var(--yellow);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--yellow);
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <nav>
+        <h1>KR Autonomous</h1>
+        <a href="/" class="{% if page == 'relay' %}active{% endif %}">DR Relay Queue</a>
+        <a href="/findings" class="{% if page == 'findings' %}active{% endif %}">Findings</a>
+        <a href="/ideas" class="{% if page == 'ideas' %}active{% endif %}">Ideas</a>
+        <a href="/status" class="{% if page == 'status' %}active{% endif %}">Status</a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</div>
+<script>
+function copyPrompt(btn, promptId) {
+    var raw = document.getElementById('raw-prompt-' + promptId);
+    var text = raw.value;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+            markCopied(btn);
+        }).catch(function() {
+            fallbackCopy(text, btn);
+        });
+    } else {
+        fallbackCopy(text, btn);
+    }
+}
+function fallbackCopy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); markCopied(btn); }
+    catch(e) { btn.textContent = 'Select manually'; }
+    document.body.removeChild(ta);
+}
+function markCopied(btn) {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+}
+</script>
+</body>
+</html>

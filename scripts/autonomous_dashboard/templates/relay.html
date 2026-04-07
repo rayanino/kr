@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>DR Relay Queue</h2>
+
+{% if data_errors %}
+<div class="warning-banner">
+    Data warnings: {{ data_errors|length }} record(s) could not be loaded.
+    <details><summary>Details</summary>{% for e in data_errors %}<div>{{ e }}</div>{% endfor %}</details>
+</div>
+{% endif %}
+
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ stats.pending }}</div>
+        <div class="stat-label">Pending</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value blue">{{ stats.relayed }}</div>
+        <div class="stat-label">Relayed</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ stats.processed }}</div>
+        <div class="stat-label">Processed</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+</div>
+
+{% if not prompts %}
+<div class="empty-state">No prompts in queue.</div>
+{% endif %}
+
+{% for prompt in prompts %}
+<div class="card">
+    <div class="card-header">
+        <span class="badge {{ priority_class(prompt.priority.value) }}">{{ prompt.priority.value }}</span>
+        <span class="badge badge-target">{{ target_label(prompt.target.value) }}</span>
+        <span class="badge badge-pending">{{ prompt.status.value }}</span>
+        <span class="meta">~{{ prompt.estimated_minutes }} min</span>
+    </div>
+    <div class="card-title">{{ prompt.prompt_id }}: {{ prompt.topic }}</div>
+    <div class="unblocks">Unblocks: {{ prompt.unblocks }}</div>
+    {% if prompt.file_bundle %}
+    <div class="file-bundle">Upload: {{ prompt.file_bundle }}</div>
+    {% endif %}
+    <details>
+        <summary>Show prompt text (click to expand, then copy)</summary>
+        <div style="position: relative;">
+            <button class="copy-btn" onclick="copyPrompt(this, '{{ prompt.prompt_id }}')">Copy</button>
+            <div class="prompt-block" dir="auto">{{ prompt.prompt_text }}</div>
+            <textarea id="raw-prompt-{{ prompt.prompt_id }}" style="display:none;">{{ prompt.prompt_text }}</textarea>
+        </div>
+    </details>
+</div>
+{% endfor %}
+{% endblock %}

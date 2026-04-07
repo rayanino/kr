@@ -119,7 +119,7 @@ class TopicState(str, Enum):
 class DRPrompt(BaseModel):
     """A DR prompt ready for the relay queue."""
 
-    prompt_id: str = Field(..., description="Unique ID, e.g. RQ-B2-001")
+    prompt_id: str = Field(..., pattern=r"^[A-Za-z0-9\-]+$", description="Unique ID, e.g. RQ-B2-001")
     target: DRTarget
     category: ResearchCategory
     priority: Priority

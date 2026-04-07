@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>System Status</h2>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">DR Relay</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ relay_stats.pending }}</div>
+        <div class="stat-label">Pending</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value blue">{{ relay_stats.relayed }}</div>
+        <div class="stat-label">Relayed</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ relay_stats.processed }}</div>
+        <div class="stat-label">Processed</div>
+    </div>
+</div>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">DR Responses</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value green">{{ dr_stats.total }}</div>
+        <div class="stat-label">Responses</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ dr_stats.total_findings }}</div>
+        <div class="stat-label">Extracted Findings</div>
+    </div>
+</div>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">Findings</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value">{{ findings_stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value red">{{ findings_stats.get('critical', 0) }}</div>
+        <div class="stat-label">Critical</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ findings_stats.get('high', 0) }}</div>
+        <div class="stat-label">High</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value blue">{{ findings_stats.unresolved }}</div>
+        <div class="stat-label">Unresolved</div>
+    </div>
+</div>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">Research Gaps</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value">{{ gaps_stats.total }}</div>
+        <div class="stat-label">Total Gaps</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ gaps_stats.open }}</div>
+        <div class="stat-label">Open</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ gaps_stats.prompted }}</div>
+        <div class="stat-label">Prompted</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value red">{{ gaps_stats.critical }}</div>
+        <div class="stat-label">Critical</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ gaps_stats.high }}</div>
+        <div class="stat-label">High</div>
+    </div>
+</div>
+{% endblock %}
