@@ -226,6 +226,87 @@ def check_diacritic_density(
     return flags
 
 
+# ═══════════════════════════════════════════════════════════════════
+# OCR word-corruption detector (Session 17 Fix #5)
+# ═══════════════════════════════════════════════════════════════════
+
+# Common Arabic OCR corruption indicators:
+# 1. Isolated Latin characters mixed into Arabic text
+# 2. Non-Arabic Unicode that looks like corruption (box-drawing, symbols)
+# 3. Repeated identical diacritics (misread dots → stacked marks)
+# Using explicit ranges, NOT \d or \b (per arabic-digits rule).
+# Latin char directly attached to Arabic char = OCR corruption artifact
+_LATIN_IN_ARABIC_RE = re.compile(
+    r"[\u0600-\u06FF\u064B-\u065F]"  # Arabic letter or diacritic
+    r"[a-zA-Z]+"                      # followed by Latin char(s)
+)
+
+_STACKED_DIACRITICS_RE = re.compile(
+    r"[\u064B-\u065F]{3,}"  # 3+ consecutive combining marks
+)
+
+# Control / replacement characters that indicate encoding corruption
+_REPLACEMENT_CHARS = set("\ufffd\ufffe\uffff\u0000\u0001\u0002")
+
+
+def check_ocr_word_corruption(
+    primary_text: str, excerpt_id: str, pkg_name: str,
+) -> list[dict[str, Any]]:
+    """Flag words with OCR corruption indicators.
+
+    Detects: embedded Latin in Arabic, stacked diacritics, replacement
+    characters. Low priority — only 2 instances found in taysir corpus.
+    """
+    flags: list[dict[str, Any]] = []
+
+    # Check for Latin characters embedded in Arabic text
+    for match in _LATIN_IN_ARABIC_RE.finditer(primary_text):
+        pos = match.start()
+        context = primary_text[max(0, pos - 10):min(len(primary_text), pos + 20)]
+        flags.append({
+            "package": pkg_name,
+            "excerpt_id": excerpt_id,
+            "flag_type": "ocr_latin_in_arabic",
+            "severity": "medium",
+            "position": pos,
+            "context": context,
+            "message": f"Latin character embedded in Arabic text at position {pos}",
+        })
+
+    # Check for stacked diacritics (OCR dot misread)
+    for match in _STACKED_DIACRITICS_RE.finditer(primary_text):
+        pos = match.start()
+        context = primary_text[max(0, pos - 5):min(len(primary_text), pos + 15)]
+        flags.append({
+            "package": pkg_name,
+            "excerpt_id": excerpt_id,
+            "flag_type": "ocr_stacked_diacritics",
+            "severity": "medium",
+            "position": pos,
+            "count": len(match.group()),
+            "context": context,
+            "message": f"{len(match.group())} stacked diacritics at position {pos}",
+        })
+
+    # Check for replacement/control characters
+    for i, ch in enumerate(primary_text):
+        if ch in _REPLACEMENT_CHARS:
+            context = primary_text[max(0, i - 5):min(len(primary_text), i + 10)]
+            flags.append({
+                "package": pkg_name,
+                "excerpt_id": excerpt_id,
+                "flag_type": "ocr_replacement_char",
+                "severity": "high",
+                "position": i,
+                "char_code": f"U+{ord(ch):04X}",
+                "context": context,
+                "message": f"Replacement/control character U+{ord(ch):04X} at position {i}",
+            })
+            break  # One flag per excerpt is sufficient
+
+    return flags
+
+
 def audit_package(root: Path, pkg_name: str) -> list[dict[str, Any]]:
     """Audit one package for Arabic fidelity issues."""
     all_flags: list[dict[str, Any]] = []
@@ -256,6 +337,9 @@ def audit_package(root: Path, pkg_name: str) -> list[dict[str, Any]]:
         )
         all_flags.extend(
             check_diacritic_density(primary_text, text_snippet, excerpt_id, pkg_name)
+        )
+        all_flags.extend(
+            check_ocr_word_corruption(primary_text, excerpt_id, pkg_name)
         )
 
     return all_flags
