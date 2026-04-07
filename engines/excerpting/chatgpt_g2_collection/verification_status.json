@@ -1,0 +1,198 @@
+{
+  "batch_verification_run_id": "38c27514-bc4e-4460-94f3-64829ca73ee8",
+  "batch_id": "g2",
+  "created_at": "2026-04-06T22:25:30.893831+00:00",
+  "total_files": 21,
+  "verified_count": 21,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "7149acc5813112dcfcbdd536d491da4598855cbbf97f6dec35a1aede4c329c92",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "962cd4dd22e5d38f1582d8bd08aab09080e80c7f80e1a9b3863f0e1fb44ceb65",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "646e74ae9ff8efef873a1f93667e7609621913315cfb4d7506e4ba3d492930a9",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "98746155363023af8bc0fd28ffaa64c2fa40e30da53e841f199479055d6a329f",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "59cf015011d7bca9af983f3010c00323d8cee67e462c867212d64b42ed3429b1",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "05_candidate_split_map.jsonl",
+      "sha256": "bcb341ee0f9b740f3e54d0e5a25d3af73a2f96b6d00a7ffa834a082405e2e76e",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "06_explanation_layers.jsonl",
+      "sha256": "ef0eee64d5f25525c6422ff7e3fac21edb8f930f9d36026fb4a522434de9565b",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "07_hadith_chunking_strategy.jsonl",
+      "sha256": "716ed6bb96808f9c0581d246e9bf04619f87360365c3c99ebe5f0955cac4498e",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "08_proof_relationships.jsonl",
+      "sha256": "982749c71ec3681ddde205b52cd57612df9c668fbae1250f337447408b6f415e",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "09_proof_identifier_strategy.jsonl",
+      "sha256": "53f29489ba66298fd9ee1d2a262e338c72276008bdcdcdd37918092304f5d298",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "10_vocabulary_branching.jsonl",
+      "sha256": "bbb85940d7f62546a901f5011ada1eb7eb02e284d646ac3923289fbdab3432d2",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "11_cross_topic_proof_reuse.jsonl",
+      "sha256": "c7bd51d8bbc7c065db33bfadd9f8e32ede26bc35b0181be744e28d1d5d70221f",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "12_nonnegotiables.jsonl",
+      "sha256": "41559d7960d5c44a5d65079fc9a0d40ec3e96e998943f51784379fa6f189a20b",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "13_red_team_tests.jsonl",
+      "sha256": "39d378836c68122600b24bd7e0581a612fea848ef67d935a3f3ef30fb1a3c8c2",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "14_priority_matrix.yaml",
+      "sha256": "f53a92a2f180172a6c33bebd71c5906857eea93932425ecc9052590cee76de65",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "15_traceability.jsonl",
+      "sha256": "24ae301c634c6155f1bde2c903b3ec8582dfa85a35aa9dd14645fba7340098cd",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "16_open_questions.jsonl",
+      "sha256": "98dbbde9da4fc7f689addaee0a51500cf7295defad4f0a42f0b8867cfdf4dff0",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "17_hard_judgment.md",
+      "sha256": "4b815b64c9cc5a4652aaac8f2753f270820ba916fc334b989ae32ffad88055b6",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "fb427457ed97f62d55ae44571c7b180d6e030c1a8aa0d3a97cd5561080fe74bc",
+      "state": "VERIFIED",
+      "mcu_count": 0,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "source_artifacts\\g2_full_user_input_2026_04_04.txt",
+      "sha256": "5d932357570ba4a4ed45a20732e9328fcfd51fd56efd7ad4e1cddf66423fc6fb",
+      "state": "VERIFIED",
+      "mcu_count": 1,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    },
+    {
+      "path": "source_artifacts\\g2_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "04c896727f3cc5d374b2c4c6af6b2859b80f251ff15c27bbb250343d277e5205",
+      "state": "VERIFIED",
+      "mcu_count": 10,
+      "timestamp": "2026-04-07T05:45:59.022960+00:00",
+      "verified_by": "CC-Session6",
+      "notes": "BCV Session 6 — Ḥāfiẓ for Layer A, Faqīh for Layer B"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "batch_id": "sc2",
+  "created_at": "2026-04-06T22:19:26.284381+00:00",
+  "batch_dir": "C:\\Users\\Rayane\\Desktop\\kr\\engines\\excerpting\\chatgpt_sc2_collection",
+  "file_count": 21,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "f47729accba07b465dc9134b8ff078296c8c86bdef6d50437a40908b09577f99",
+      "size_bytes": 1704,
+      "line_count": 51,
+      "layer": "B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "d1d3eddcb83f25212860420c85223de53ad47701472cd9b3f1be0638b58376a9",
+      "size_bytes": 3003,
+      "line_count": 21,
+      "layer": "B"
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "be6fd1c24c3348f57c05e3195f36e8a05f7ef8bd9e476d12c5a9210e264ac1f7",
+      "size_bytes": 5693,
+      "line_count": 115,
+      "layer": "B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "772715c228ec8ae14dbaea896dedf9b4c494aaaa29ad5406d7bc4b27ed6a5d16",
+      "size_bytes": 6123,
+      "line_count": 153,
+      "layer": "B"
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "4de2d00868cbff34fb7f064fdaccce23df87ffee31d7d8a9f6d4f4a00bbe5516",
+      "size_bytes": 3037,
+      "line_count": 8,
+      "layer": "B"
+    },
+    {
+      "path": "05_explained_explanation_linkage.jsonl",
+      "sha256": "bee0e0af303cedf39f3cc3d303e433b39ddef0122e375c80ce53395b23ad30ec",
+      "size_bytes": 2673,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "06_linked_hadith_requirements.jsonl",
+      "sha256": "5137b295e424df6b8705bb52a4b4a0ea67abf388fb076e2d33507e1b0fe5ccaf",
+      "size_bytes": 2648,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "07_reference_sufficiency_analysis.jsonl",
+      "sha256": "8bb3a2f62197158b406f22c5fdd8a152da463ad8aa696ad52ebf397765e01829",
+      "size_bytes": 2271,
+      "line_count": 6,
+      "layer": "B"
+    },
+    {
+      "path": "08_study_chunk_flow.jsonl",
+      "sha256": "441e94e9c07457ad59365f3ceee85129d7d3b65d7df76c62a7aa4f999c4d392e",
+      "size_bytes": 1777,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "09_variant_mismatch_risks.jsonl",
+      "sha256": "f51be6f14248d1acd774daea6705125b318569601935770d3b7f62ac9334e1b8",
+      "size_bytes": 2084,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "10_passage_analysis_gap.jsonl",
+      "sha256": "55b3485743a7e207d6b4921578bb962fc0436b0287645b313f16506e1300ea25",
+      "size_bytes": 1781,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "11_self_containment_thresholds.jsonl",
+      "sha256": "74e572b723a08f9206ef945a730e98a51db7e96baec6b7fabd11c976dd7e1d19",
+      "size_bytes": 1489,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "12_nonnegotiables.jsonl",
+      "sha256": "ffa000a063c4ca5967332900f47705e64086b782c16087c628736a7e346c7399",
+      "size_bytes": 3512,
+      "line_count": 10,
+      "layer": "B"
+    },
+    {
+      "path": "13_red_team_tests.jsonl",
+      "sha256": "852575c2b047e8357a135e29735ea3080fb9bae7c5d6bb1b502cada008636590",
+      "size_bytes": 4328,
+      "line_count": 9,
+      "layer": "B"
+    },
+    {
+      "path": "14_priority_matrix.yaml",
+      "sha256": "29b968854a0404e8dcde6df6ed577f6eba47514ce3c0f1985da6ea9db9d76dcb",
+      "size_bytes": 915,
+      "line_count": 14,
+      "layer": "B"
+    },
+    {
+      "path": "15_traceability.jsonl",
+      "sha256": "232d8b4225fff51f11e06420cbd16b2685e7ebed051583d02bfae32a9508b0d2",
+      "size_bytes": 3781,
+      "line_count": 9,
+      "layer": "B"
+    },
+    {
+      "path": "16_open_questions.jsonl",
+      "sha256": "0d8752ee19df77333edec8e11c772f54778135004409bd2ba6d74edbc11a754c",
+      "size_bytes": 463,
+      "line_count": 1,
+      "layer": "B"
+    },
+    {
+      "path": "17_hard_judgment.md",
+      "sha256": "bc012191ca53fdc2f4f5c8aff0bf1d29ec5d4947041ac065d167319d4a06bff5",
+      "size_bytes": 2577,
+      "line_count": 54,
+      "layer": "B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ee28d8ad192e4b52563df80dd7d3e3a34d190cd6e4d858c5d17f6c9f148a9065",
+      "size_bytes": 3255,
+      "line_count": 58,
+      "layer": "UNKNOWN"
+    },
+    {
+      "path": "source_artifacts\\sc2_full_user_input_2026_04_04.txt",
+      "sha256": "c6d17cfd544ff138648bf3ab29dbc14fab78f925207ae53e9360a9753c04b8c6",
+      "size_bytes": 40325,
+      "line_count": 818,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\sc2_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "7368e11d497256b46a0a5a213c6eb0f9b4efc1de563970caeaa83bc421610192",
+      "size_bytes": 8638,
+      "line_count": 65,
+      "layer": "A"
+    }
+  ]
+}

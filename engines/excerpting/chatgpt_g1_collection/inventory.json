@@ -1,0 +1,141 @@
+{
+  "batch_id": "g1",
+  "created_at": "2026-04-06T22:19:16.365192+00:00",
+  "batch_dir": "C:\\Users\\Rayane\\Desktop\\kr\\engines\\excerpting\\chatgpt_g1_collection",
+  "file_count": 19,
+  "files": [
+    {
+      "path": "00_manifest.yaml",
+      "sha256": "563e173898d6061d64b19d071f0686c64c832b07a02ccfca89833a6b1dc39289",
+      "size_bytes": 2353,
+      "line_count": 47,
+      "layer": "B"
+    },
+    {
+      "path": "01_questionnaire_answer.md",
+      "sha256": "222610bd784065a63575b01112170e4f16a8baef5f881b8bde2820f89e6187b7",
+      "size_bytes": 1564,
+      "line_count": 15,
+      "layer": "B"
+    },
+    {
+      "path": "02_case_dossier.md",
+      "sha256": "e9fa0f67d403b2e534b02b135e1df1cacef556130fcfdb3d02b6d973af4c3330",
+      "size_bytes": 4521,
+      "line_count": 82,
+      "layer": "B"
+    },
+    {
+      "path": "03_terms.yaml",
+      "sha256": "ce56822a08fa2dc539a14d3f2abdcfb9c2e2b1f653f97dd33089e4ab61ab6310",
+      "size_bytes": 5404,
+      "line_count": 150,
+      "layer": "B"
+    },
+    {
+      "path": "04_decision_ladder.jsonl",
+      "sha256": "3df07a7544e53f6bfd0cefc0686fbb7edee078b8f8dbcb41a91fdf8b25238092",
+      "size_bytes": 3222,
+      "line_count": 8,
+      "layer": "B"
+    },
+    {
+      "path": "05_added_benefit_analysis.jsonl",
+      "sha256": "1aef32df136d569af1296269d8b63421e11ff19593db21e272e9956f14b633af",
+      "size_bytes": 1673,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "06_harmlessness_analysis.jsonl",
+      "sha256": "e219064cdedee0a594747cccf2e23cacd43d4c930b9618e0aa9236d012b79042",
+      "size_bytes": 1681,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "07_candidate_packaging_patterns.jsonl",
+      "sha256": "128dfe273f9dc3045671c3da9f4e1eba42c79b436bf0ab967195bfd8e48aea30",
+      "size_bytes": 2706,
+      "line_count": 5,
+      "layer": "B"
+    },
+    {
+      "path": "08_objectivity_vs_preference.jsonl",
+      "sha256": "d25648cbdab6f77bc6d5871ef9d69e0f38d0fb66e3102a431fa0caa827ccd2ec",
+      "size_bytes": 2569,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "09_context_dependency_analysis.jsonl",
+      "sha256": "3b42335a125b1c4eeecbd2d1eb33ad2278d4df5b4085616a665f7b16f87c8135",
+      "size_bytes": 2277,
+      "line_count": 4,
+      "layer": "B"
+    },
+    {
+      "path": "10_nonnegotiables.jsonl",
+      "sha256": "331f7b3751ee6e864b71715c45afdb0a9f80f774c18ff780ff3599640aed39db",
+      "size_bytes": 2834,
+      "line_count": 8,
+      "layer": "B"
+    },
+    {
+      "path": "11_red_team_tests.jsonl",
+      "sha256": "89ff3b589f3f19226376ebb32ca91e50cf007c6db2c294bc6fad258c52afc459",
+      "size_bytes": 4230,
+      "line_count": 9,
+      "layer": "B"
+    },
+    {
+      "path": "12_priority_matrix.yaml",
+      "sha256": "c53cd2bca99f0472bbb437d732b54754424ebc9a4790080a10f67b15fd3504c4",
+      "size_bytes": 987,
+      "line_count": 14,
+      "layer": "B"
+    },
+    {
+      "path": "13_traceability.jsonl",
+      "sha256": "125f062e967cb75a57375ffac93d85749358ff825d187e98b6a02ea8624a3797",
+      "size_bytes": 3990,
+      "line_count": 10,
+      "layer": "B"
+    },
+    {
+      "path": "14_open_questions.jsonl",
+      "sha256": "a641b8bd92230d7d3f0355bbef521e59f79c067822cb5974302a617ba7832823",
+      "size_bytes": 583,
+      "line_count": 1,
+      "layer": "B"
+    },
+    {
+      "path": "15_hard_judgment.md",
+      "sha256": "8549aa072f310a344cff0789f78fbc827eb2e0fb9de88f81b6362d0464a9c4e2",
+      "size_bytes": 2542,
+      "line_count": 49,
+      "layer": "B"
+    },
+    {
+      "path": "README.md",
+      "sha256": "3a5bb5c999578bfb2a395fa78d712c2c3bcf6229ab81c81122eba8599e3e7694",
+      "size_bytes": 2183,
+      "line_count": 45,
+      "layer": "UNKNOWN"
+    },
+    {
+      "path": "source_artifacts\\g1_full_user_input_2026_04_04.txt",
+      "sha256": "ba5281138cd40d9c48e1f9e9c73877d90fc86530b14f66503560dae5cf1e7944",
+      "size_bytes": 14710,
+      "line_count": 183,
+      "layer": "A"
+    },
+    {
+      "path": "source_artifacts\\g1_owner_raw_reaction_2026_04_04.txt",
+      "sha256": "d8ccff8892ee786f3d73f9ee557ed2bdc04396615800e792135af9a3061b7cb3",
+      "size_bytes": 5226,
+      "line_count": 43,
+      "layer": "A"
+    }
+  ]
+}
