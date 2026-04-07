@@ -24,7 +24,12 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 6 code fixes applied)
+## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 6 code fixes applied, pipeline diagrams added)
+
+### Pipeline Visual Architecture (2026-04-07)
+- **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)
+- **Changelog mechanism:** CHG-NNN entries at bottom of file — update when engine status, contracts, or architecture changes
+- **Renders on:** GitHub, VS Code (Mermaid extension), any Mermaid-compatible viewer
 
 ### DR29-DR31 Processing Session (2026-04-07) — 3 Deep Research Reports
 - **DR29 (ChatGPT):** Strategic audit of excerpting improvement portfolio. 15 ranked items. **8/8 code claims verified against source.** Highest-accuracy DR to date.
