@@ -9,7 +9,7 @@
 |---|----------|-------|-----------|----------|-------------|---------|
 | 1 | Claude DR | Owner decision map across all 5 engines | 2026-04-06 | 2026-04-07 | `DR18_claude_owner_decision_map.md` | YES (3 agents) |
 | 2 | ChatGPT DR | Pattern gap analysis from campaign + bundles | 2026-04-06 | 2026-04-07 | `CHATGPT_DR_owner_data_audit.md` | YES (direct) |
-| 3 | Gemini DR | Islamic madrasa curriculum perspective | 2026-04-06 | PENDING | — | — |
+| 3 | Gemini DR | Islamic madrasa curriculum perspective | 2026-04-06 | 2026-04-07 | `GEMINI_DR_madrasa_curriculum_framework.md` | YES (direct) |
 | 4 | Codex CLI | Schema/contract analysis for unmet data deps | 2026-04-06 | 2026-04-07 | `CODEX_CLI_data_type_analysis.md` | YES (direct) |
 | 5 | Gemini CLI | Islamic pedagogy + student learning methodology | 2026-04-06 | 2026-04-07 | `GEMINI_CLI_pedagogical_analysis.md` | YES (direct) |
 

@@ -50,7 +50,7 @@
    - DR22: Multi-layer text detection blueprint at `dr_reviews/DR22_gemini_multilayer_text_detection.md` (6 publisher profiles, 22-marker catalog, hybrid detection architecture)
 3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → **prompt refactor (§4.11, DR21 7-step recipe)** → full-atom processing
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-5. **PARALLEL: Feedback Collection Strategy brainstorm (4/5 coworkers synthesized)** — see section below. Next: Gemini DR arrival or 48h timeout → finalize synthesis → requirements doc → `/ce:plan` for collection system
+5. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
@@ -71,10 +71,15 @@
   - Layer 3: Engine decisions + parameters → "What configures each engine?" (~5h, 5 sessions)
   - Layer 4: Calibration with real output → "Does engine match the brain?" (~20-30h, summer)
 
-**Pending:**
-- Gemini DR report (madrasa curriculum minimum viable data)
-- After Gemini DR: finalize synthesis → requirements document → `/ce:plan` for collection system
-- If Gemini DR not received within 48h: proceed with 4/5 per protocol
+**ALL 5 COWORKERS COMPLETE. Final synthesis:** `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`
+**Gemini DR added:** Fiqh masking layer, mantiq as science #19, Basran terminology default, month-by-month calendar.
+
+**3 owner-facing curriculum questions (BLOCKING next steps):**
+1. Which madhab to follow? (blocks fiqh processing)
+2. Basran-only or both grammar schools? (blocks nahw synonym layer)
+3. Study logic (mantiq) before usul? (blocks mantiq tree)
+
+**Next:** Owner answers → requirements document → `/ce:plan` for collection system implementation
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane
