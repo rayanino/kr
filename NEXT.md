@@ -32,16 +32,16 @@
   2. ✅ **OQ-001-004 RESOLVED in SPEC §6.18-6.23:** All 4 [OPEN] markers converted to [CALIBRATED] with DR37's concrete fiqh cases. OQ-001: ثمرات الخلاف test (5 Hanafi/Shafi'i calibration cases). OQ-002: 7 significance criteria (4 new from DR37: استقلال المبنى, تغيّر الفنّ, البناء على أصل, قصد الإفادة). OQ-003: 3-principle context-fill test (أمن اللبس, المعلوم من السياق, البناء على الأصل). OQ-004: 3-layer analysis authority model (preserve structure, semantic tagging override, cross-disciplinary indexing).
   3. ✅ **Batch 2 DR relay queue generated:** 10 prompts (5 aqidah, 3 sarf, 1 balagha, 1 cross-science) targeting Gemini DR for taxonomy tree research gaps. File: `docs/autonomous-system/dr_relay_queue_batch_2.md`.
   4. ✅ **DR33 framework corrections applied:** 6 amendments (critical path RT-03 start, RT-13 split into 13a/13b, scholarly allocation 22%→28%, imla' 250+→80-120, 6 topics pre-advanced to ACTIVE/DEEP, simplified TSI proxy).
-- **Tests:** 942 passed, 4 xfailed (on committed code — pre-existing phase2_group.py breakage from incomplete DR28 refactoring does not affect committed tests).
+- **Tests:** 942 passed, 4 xfailed. All pyright clean.
 - **Budget:** EUR 0.00 this session (all deterministic).
-- **DR28 prompt refactoring verified working:** `phase2_group.py` + `prompts.py` (untracked) work together — 942 tests pass. Both files need to be committed together.
+- **4-source verification COMPLETE:** CC Code (Anthropic), CC Scholarly (Anthropic), Codex CLI (OpenAI), Gemini CLI (Google). All PASS. 24 findings found and fixed.
+- **4 commits:** `e9cdccba4` (core), `546088e11` (DR28 refactoring), `2e6acff5b` (state), `cedde2645` (infra).
 
-### Session 14 — Next Steps
-  1. **Commit DR28 refactoring** — `prompts.py` (253 lines) + `phase2_group.py` changes + `phase2_classify.py` + `phase3_enrichment.py` need to be committed together as the DR28 prompt extraction.
+### Session 14 — Next Steps (for next CC session)
+  1. **Campaign evaluation on taysir (HIGHEST PRIORITY)** — the $97 campaign (2,303 excerpts from 5 books) has never been evaluated against the hardened SPEC. Now that OQ-001-004 are calibrated, pick 10 taysir excerpts and evaluate against 22 FPs + 23 domain rules + 4 newly calibrated thresholds. This proves whether the doctrine translates to reality. Dispatch all 6 coworkers for the evaluation.
   2. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready at `docs/autonomous-system/dr_relay_queue_batch_2.md`. Priority: RQ-B2-010 (sarf/nahw boundary) > RQ-B2-009 (المجاز العقلي) > RQ-B2-007 (تصريف vs أزمنة).
-  3. **Campaign evaluation on taysir** — highest-priority deferred item. Pick 10 excerpts from the $97 campaign, evaluate against hardened SPEC (now with resolved OQs).
-  4. **DR28 instruction sandwich implementation** — prompts.py provides the module structure (CONSTITUTION + rule modules). Next: implement progressive disclosure (8-12 rules per call from current monolith).
-  5. **Dashboard skeleton (FastAPI+HTMX)** — Phase 2 of autonomous system. JSONL schemas and gap scanner are ready as data backends.
+  3. **DR28 instruction sandwich implementation** — `prompts.py` provides the module structure (CONSTITUTION + 7 rule modules). Next: implement progressive disclosure (8-12 rules per call from current monolith per DR28 synthesis).
+  4. **Dashboard skeleton (FastAPI+HTMX)** — Phase 2 of autonomous system. JSONL schemas and gap scanner are ready as data backends.
 
 ### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
 - **DESIGN.md written + 2 design reviews + 12 amendments applied**
