@@ -213,7 +213,50 @@ def main() -> int:
         encoding="utf-8",
     )
 
+    # Layer 3: Append-only event log (Sanad principle — provenance for every session)
+    append_session_event(project_dir, state)
+
     return 0
+
+
+def append_session_event(project_dir: Path, state: dict) -> None:
+    """Append a structured event to the session event log.
+
+    Events are append-only JSONL — never overwritten, never deleted.
+    Each event carries provenance (which agent, which branch, what changed).
+    This is Layer 3 of the KR memory architecture (DR25-DR27 investigation).
+    """
+    events_dir = project_dir / "memory" / "events"
+    events_dir.mkdir(parents=True, exist_ok=True)
+
+    now = datetime.now(timezone.utc)
+    log_file = events_dir / f"sessions_{now.strftime('%Y_%m')}.jsonl"
+
+    # Determine agent identity from environment
+    agent = "claude_code"
+    if os.environ.get("CODEX_CLI"):
+        agent = "codex_cli"
+    elif os.environ.get("GEMINI_CLI"):
+        agent = "gemini_cli"
+
+    event = {
+        "event_type": "session_end",
+        "timestamp": now.isoformat(),
+        "agent": agent,
+        "branch": state.get("branch", ""),
+        "active_engine": state.get("active_engine"),
+        "active_spec_section": state.get("active_spec_section"),
+        "modified_file_count": len(state.get("modified_files", [])),
+        "recent_commits": state.get("recent_commits", ""),
+        "cost_summary": state.get("cost_summary"),
+        "print_warnings_count": len(state.get("print_warnings", [])),
+    }
+
+    try:
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(event, ensure_ascii=False) + "\n")
+    except OSError:
+        pass  # Non-blocking — event log failure must not break session stop
 
 
 if __name__ == "__main__":
