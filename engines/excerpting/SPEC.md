@@ -890,9 +890,13 @@ The LLM receives:
 - The full `assembled_text` of the `AssembledChunk`
 - The chunk's `structural_format` (for contextual awareness — the LLM adapts its segmentation granularity to the format)
 
-#### §5.2.2 — LLM System Prompt
+#### §5.2.2 — LLM Prompt (DR28 Architecture)
 
-The classification prompt is adapted from the experiment's `APPROACH_B_CLASSIFY_SYSTEM`, with production additions marked. The full prompt text:
+**Message architecture (DR28):** The classification call uses a 2-message structure:
+- **System message:** CONSTITUTION only (shared hard invariants — stable across all phases, cacheable for 90% cost reduction). See `prompts.py`.
+- **User message:** `<active_rules>` (classification task rules below) + `<input>` (`<text>` wrapper) + `<critical_reminders>` (instruction sandwich).
+
+The classification task rules (placed in `<active_rules>` of the user message) are adapted from the experiment's `APPROACH_B_CLASSIFY_SYSTEM`, with production additions marked. The full rule text:
 
 ```
 You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
@@ -910,7 +914,7 @@ Segment boundary rules:
 - A position marker ("قال X") + the stated position = one segment
 - Each Quran citation with its introduction = one segment
 - A condition + its result ("إذا ... فـ") = one segment
-- Each distinct sentence or bonded group gets exactly one classification
+- Derived rulings (ما يؤخذ من الحديث) are rule_statement, NOT evidence_hadith
 - Consecutive sentences serving the same function may form one segment
   if they are tightly bonded (e.g., a two-sentence definition)
 
@@ -955,17 +959,31 @@ The text format is: {structural_format}
 
 **Implementation note:** The word "approximate" in the prompt (for `start_word` and `end_word`) is deliberate — it reduces LLM effort on offset precision, which the normalization algorithm (§5.4.1) handles post-hoc using `text_snippet` as the alignment anchor. CC should not attempt to improve offset accuracy in the prompt. The `text_snippet` field is the critical alignment input, not the offset numbers.
 
-#### §5.2.3 — User Message
+#### §5.2.3 — User Message (DR28 Architecture)
 
-The user message contains only the assembled text, wrapped for clarity:
+The user message follows the DR28 instruction sandwich pattern:
 
 ```
+<active_rules>
+{classification task rules from §5.2.2, with {structural_format} resolved}
+</active_rules>
+
+<input>
 <text>
 {assembled_text}
 </text>
+</input>
+
+<critical_reminders>
+REMEMBER — these override all other considerations:
+- text_snippet must be an EXACT character-for-character copy from the input
+- Classify by scholarly FUNCTION, not by surface language or section labels
+- An isnad chain + its matn = one segment (never split)
+- Derived rulings (ما يؤخذ من الحديث) are rule_statement, NOT evidence_hadith
+</critical_reminders>
 ```
 
-No additional context is provided. The system prompt carries all instructions. The text is the sole input.
+The `<active_rules>` block carries all classification instructions (previously in the system message). The `<critical_reminders>` block restates the 3-4 most compliance-critical rules at the end of the message (instruction sandwich), exploiting LLM recency bias.
 
 #### §5.2.4 — Response Schema
 
@@ -1003,9 +1021,14 @@ The LLM receives:
 
 The classification summary is formatted as a structured list in the user message (§5.3.3), not embedded in the system prompt. This keeps the system prompt stable across chunks.
 
-#### §5.3.2 — LLM System Prompt
+#### §5.3.2 — LLM Prompt (DR28 Architecture)
 
-The grouping prompt is adapted from the experiment's `APPROACH_B_GROUP_SYSTEM`, with production additions for self-containment evaluation, segment index tracking, decontextualization prevention, and hardening amendments (T1-1/T1-2/T1-3 from Session 9). The full prompt text:
+**Message architecture (DR28):** The grouping call uses a 2-message structure:
+- **System message:** CONSTITUTION only (shared hard invariants). See `prompts.py`.
+- **User message:** `<active_rules>` (CORE + conditional modules + OUTPUT_FORMAT) + `<input>` (`<text>` + `<classified_segments>`) + `<critical_reminders>`.
+- **Progressive disclosure:** Only genre-relevant rule modules are loaded per chunk (see `compute_active_modules()` in `phase2_group.py`). This reduces per-call rule count from ~25 to ~12.
+
+The grouping rules (placed in `<active_rules>`) are adapted from the experiment's `APPROACH_B_GROUP_SYSTEM`, with production additions for self-containment evaluation, segment index tracking, decontextualization prevention, and hardening amendments (T1-1/T1-2/T1-3 from Session 9). The full CORE rule text (always loaded):
 
 ```
 You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
@@ -1201,11 +1224,18 @@ The text format is: {structural_format}
 - Changed: 1500-word cap REMOVED — full detail preserved for maximum quality (DR21 compression reverted after owner challenge + Gemini CLI found 2 quality gaps in compressed version)
 - Preserved: all original experiment grouping rules exactly
 
-#### §5.3.3 — User Message
+#### §5.3.3 — User Message (DR28 Architecture)
 
-The user message contains the text and the classification summary:
+The user message follows the DR28 instruction sandwich pattern with progressive disclosure:
 
 ```
+<active_rules>
+{CORE rules — always loaded}
+{conditional modules — loaded by compute_active_modules() based on classified content}
+{OUTPUT_FORMAT — always loaded, with {structural_format} resolved}
+</active_rules>
+
+<input>
 <text>
 {assembled_text}
 </text>
@@ -1215,9 +1245,16 @@ The user message contains the text and the classification summary:
 Segment {segment_index}: words {start_word}–{end_word}, function={scholarly_function}, snippet="{text_snippet}"
 {end for}
 </classified_segments>
+</input>
+
+<critical_reminders>
+{top 3-4 cannot-fail rules restated — instruction sandwich}
+</critical_reminders>
 ```
 
-The segment summary uses the **post-normalization** word offsets (canonical tokenization). The LLM sees the segments anchored to the actual text via both word ranges and snippets.
+The `<active_rules>` block loads CORE rules always, plus conditional modules (HADITH, VERSE, FIQH, DIALECTICAL, INTRO) based on which scholarly functions appear in the classified segments. This reduces per-call rule count from ~25 to ~12.
+
+The segment summary uses **post-normalization** word offsets (canonical tokenization). The LLM sees the segments anchored to the actual text via both word ranges and snippets.
 
 #### §5.3.4 — Response Schema
 
@@ -1716,7 +1753,7 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Key principle:** The author's choice to intertwine is itself meaningful. Separating deliberately intertwined content is a form of meaning distortion (FP-1). (MAQ-050, owner F1 — "A×B intertwined" handling protocol.)
 
-**Anti-premature-hardening principle (NN-008, D3):** Unresolved distinctions between packaging exceptions and ontological claims must remain explicitly unresolved until calibrated across additional cases. The [OPEN] markers throughout §6.18-6.23 are expressions of this principle. Do not silently convert tentative boundaries into settled doctrine.
+**Anti-premature-hardening principle (NN-008, D3):** Unresolved distinctions between packaging exceptions and ontological claims must remain explicitly unresolved until calibrated across additional cases. The original [OPEN] markers throughout §6.18-6.23 were expressions of this principle. **All four OQ markers have been CALIBRATED by DR37 (Gemini DR, 2026-04-07)** using concrete fiqh cases from primary sources (al-Hidayah, Mughni al-Muhtaj, al-Durr al-Mukhtar, Fath al-Bari, al-Majmu'). The calibrated thresholds are now settled doctrine backed by classical scholarly evidence. Future cases that fall outside the calibration range should be flagged for additional DR research rather than resolved by extrapolation.
 
 ### §6.18 — Leaf Pollution Prevention (LP-1)
 
@@ -1733,7 +1770,28 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Implementation note:** Full leaf-pollution detection requires book-level awareness (knowing what topics appear later). This cannot be done within Phase 2's per-chunk processing. It requires a post-Phase-2 or Phase-3 cross-chunk audit that flags potential pollution candidates. The current "MENTION IS NOT EXCERPT" prompt rule is the first line of defense; LP-1 is the book-level second line.
 
-**[OPEN: Significance threshold generalization]** The significance threshold defined above was derived from the D3 case (a short proof mention within a definition of الكلالة). How far this logic generalizes — particularly whether the three criteria above are sufficient or whether additional criteria emerge from other cases — is explicitly unresolved. Do not harden the current threshold into a universal rule without testing across more cases. (D3, OQ-002)
+**[CALIBRATED: Significance threshold generalization — DR37]** DR37 tested the D3-derived criteria against 5 digression cases from Fath al-Bari (Ibn Hajar) and Al-Majmu' (al-Nawawi). The original three criteria (sole reference, unique scholarly value, standalone teaching unit) are **necessary but insufficient**. Four additional classical criteria must be applied:
+
+**Extended significance criteria (7 total):**
+1. *(D3 original)* Sole reference to the topic in the entire source
+2. *(D3 original)* Unique scholarly value not present in fuller treatments
+3. *(D3 original)* Passes MV-1 (minimum viability as standalone teaching unit)
+4. *(DR37)* **استقلال المبنى والمعنى — structural and semantic independence:** The mention possesses its own internal logic. No unresolved referential pronouns (ضمائر) or anaphoric references (ولهذا, وفيه) linking back to the host paragraph. If the dependency tree of the extracted sentence has unresolved external roots → NOT leaf-worthy.
+5. *(DR37)* **تغيّر الفنّ — disciplinary shift:** The mention represents a shift in epistemic discipline (e.g., a grammatical rule inside a legal proof, a rhetorical analysis inside a theological discussion). A shift in domain vocabulary signals an extractable istidrad.
+6. *(DR37)* **البناء على أصل مستقلّ — foundation on independent proof:** The mention introduces its own primary evidence (dalil) — a new Quranic verse or hadith not used in the main argument. Novel authoritative citations confirm self-containment.
+7. *(DR37)* **قصد الإفادة والتنبيه — explicit intent to benefit:** Scholarly meta-markers (فائدة, تنبيه, تذنيب, فرع) signal the author intended standalone value. This criterion is a **weighting factor**, not absolute — it must be paired with criterion 4 (semantic independence). Case: a تنبيه that is a structurally dependent faidah on the preceding isnad (e.g., "هذا السناد كله كوفيون" — valuable in علم الرجال but unintelligible without its host isnad) fails criterion 4 despite carrying the marker.
+
+**Calibration verdicts (DR37, 5 digression cases):**
+
+| Case | Type | Verdict | Key criterion |
+|------|------|---------|---------------|
+| Geographic data in Fath al-Bari (location of السنح) | Historic/geographic | **EXTRACT** | Criterion 5 (disciplinary shift) + 4 (fully independent) |
+| مسألة خارجة in Al-Majmu' (du'a against oppressor) | Jurisprudential pivot | **EXTRACT** | Author's explicit flag + criterion 6 (own legal logic) |
+| تجنيس الاشتقاق in Fath al-Bari (rhetorical analysis) | Disciplinary shift | **EXTRACT** | Criterion 5 (total shift: fiqh → balaghah) |
+| Pronoun resolution يعني بالعالية | Taqdir | **RETAIN** | Fails criterion 4 (semantically hollow without host) |
+| هذا السناد كله كوفيون | Structurally dependent faidah | **RETAIN** | Has marker (تنبيه) and is valuable in علم الرجال, but fails criterion 4 (unintelligible without its host isnad) |
+
+**Implementation note:** Criteria 1-3 (D3) are evaluated during Phase 2 per-chunk processing. Criteria 4-7 (DR37) require the LLM to assess structural dependencies and domain vocabulary shifts. The LLM prompt should instruct: "Before classifying a mention as a separate excerpt, verify it passes ALL of: (a) no unresolved external references, (b) discipline matches the host paragraph or is explicitly different, (c) introduces its own evidence if making a claim, (d) scholarly markers alone are insufficient without semantic independence." (OQ-002, RESOLVED by DR37)
 
 ### §6.19 — Packaging vs Ontology Distinction (PO-1)
 
@@ -1752,7 +1810,27 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Attribution-coupling direction (D3, AP-003):** Proof×attribution coupling is especially important in **proof excerpts** — knowing whose interpretation is being cited enriches the proof's scholarly value. This means attribution material is more likely to remain as carry-over inside a proof excerpt than inside a definition excerpt. Conversely, if proof text is long, an attribution excerpt should NOT drag the full proof along — context-fill should replace it (D3, AP-004).
 
-**[OPEN: Context-fill threshold]** The exact point at which carried text should be replaced by context-fill (rather than retaining the original text) is unresolved. The D3 case provides a direction — "when the proof is longer" — but no quantitative threshold. (D3, OQ-003)
+**[CALIBRATED: Context-fill threshold — DR37]** The decision between carrying original text versus context-fill is governed by three classical pedagogical principles, each providing an independent test:
+
+**Three-principle context-fill test:**
+
+1. **أمن اللبس (security from ambiguity):** If replacing carried text with a summary would strip the excerpt of necessary conditions (شروط) or preventative boundaries (موانع) that the reader needs to understand the ruling → carry the full text. If the summary preserves all actionable conditions → context-fill is safe.
+
+2. **المعلوم من السياق (what is known from context):** If the author used explicit referencing terminology (تقدم ذكره, كما سبق, سيأتي في باب), the author **intentionally omitted** the text. The engine must honor the omission — do NOT autonomously "fill in" full text from other chapters where the author deliberately used a pointer. Filling violates the pedagogical pacing and structural eloquence of the original work.
+
+3. **البناء على الأصل (building upon foundation):** Classical texts are architecturally tiered: once an أصل (foundation) is established, all subsequent فروع (branches) merely point to it. If the excerpt is a فرع that references an established أصل → use context-fill pointer. If the excerpt IS the أصل → no summarization permitted under any circumstance.
+
+**Algorithmic rule:** Context-fill is correct when ALL three conditions are met:
+- (a) The carried text serves as **secondary support** (not the primary object of the current paragraph)
+- (b) The summary preserves all conditions needed for the reader to understand the ruling
+- (c) The original author's referencing pattern (if any) is honored
+
+Context-fill is PROHIBITED when:
+- The carried text is the foundational proof (أصل) for the excerpt's claim
+- Summarizing would lose conditions (شروط) or boundaries (موانع)
+- The carried text is an isnad chain (which must remain atomic)
+
+**Quantitative guidance (extending FR-1's ~33% gate):** When carried text exceeds FR-1's dual-gate (~33% of host excerpt and independently passes MV-1), context-fill becomes strongly recommended rather than merely optional. Below that gate, carrying original text remains the simpler and safer choice. (OQ-003, RESOLVED by DR37)
 
 ### §6.20 — Source Hints as Non-Deciding Signals (SH-1)
 
@@ -1778,7 +1856,19 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Why this matters:** Auto-merging school-specific meanings into the generic technical layer erases real scholarly distinctions. Auto-separating every school mention into its own full definition entry creates false fragmentation. The correct handling depends on whether the school's meaning is genuinely different content or merely an attribution of the same content.
 
-**[OPEN: Distinction threshold]** When exactly a school-specific "meaning" is distinct enough to deserve its own definition entry — versus being merely an attribution of the same technical definition — is not fully settled. The D3 case provides the three-scenario framework above, but the boundary between scenarios 1 and 2 requires more cases to calibrate. Do not harden this prematurely. (D3, OQ-001)
+**[CALIBRATED: Distinction threshold — DR37]** The boundary between scenarios 1 (genuinely distinct) and 2 (attribution of same) is determined by a single test: **does the school-specific meaning change the concrete legal application or outcome (ثمرات الخلاف)?** If the definition's inclusionary/exclusionary scope dictates different rulings, liabilities, or validations → Scenario 1 (separate entries). If the scope encompasses the same logical set of realities → Scenario 2 (merged with school-specific attribution tags).
+
+**Calibration cases (DR37, 5 cases from Hanafi/Shafi'i primary sources):**
+
+| Case | Term | Verdict | Why |
+|------|------|---------|-----|
+| 1 | الغصب (usurpation) | **GENUINELY DISTINCT** | Hanafi restricts to tangible movable property (مال متقوم); Shafi'i extends to intangible rights (حق). Different liability scope. |
+| 2 | السفاهة (incompetence) | **GENUINELY DISTINCT** | Hanafi: financial squandering only; Shafi'i: includes moral/religious corruption. Different civil interdiction (حجر) criteria. |
+| 3 | النكاح (marriage) | **STYLISTIC VARIANT** | ملك المتعة vs ملك وطء → same physical/legal reality. Classical commentators explicitly note خلاف لفظي. |
+| 4 | الإجارة (leasing) | **STYLISTIC VARIANT** | "Contract over utility" vs "transfer of ownership of utility" → identical conditions and exclusions. |
+| 5 | الفقير/المسكين | **BORDERLINE — hierarchical model** | Total semantic inversion: Shafi'i/Hanbali rely on Surah al-Kahf (المساكين owned a ship → Miskin can own property → Faqir is more destitute); Hanafi/Maliki rely on the linguistic root of Miskin (from سكون, immobility/destitution → Miskin is more destitute). The union الفقير ∪ المسكين covers the same demographic in both schools. Model as parent node with inverted child sub-categorizations. |
+
+**Algorithmic rule:** The engine must analyze the semantic scope — the inclusive and exclusive boundaries of the definition — NOT string-match surface lexical divergence. A school-specific definition that uses different words but maps to the same legal outcomes is Scenario 2. A school-specific definition that produces different outcomes when applied to a real case is Scenario 1. Case 5 (borderline) requires a hierarchical parent/child model when the union is identical but internal categorization is inverted. (OQ-001, RESOLVED by DR37)
 
 **Relation to FP-8:** FP-8 covers attribution-critical tarjih. SSB-1 adds: even before tarjih evaluation, the engine must determine WHETHER the school-specific meaning is a new definition or an attribution of an existing one.
 
@@ -1803,7 +1893,25 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Relation to §6.20 SH-1:** PA-1 extends SH-1 from source-level hints (diacritics, punctuation) to analysis-level hints (pattern recognition, LLM-derived structure). Both share the same non-deciding constraint: hints may increase confidence but must not decide.
 
-**[OPEN: Analysis authority boundary]** How strongly pre-excerpt structural analysis may shape later decisions — without becoming deciding authority itself — is unresolved. The tension is real: analysis that has zero influence is useless, but analysis that silently becomes the decision-maker violates SH-1. (D3, OQ-004)
+**[CALIBRATED: Analysis authority boundary — DR37]** The classical maxim العبرة بالمقاصد والمعاني لا بالألفاظ والمباني (consideration is given to objectives and meanings, not to external words and forms) resolves the tension. **Note:** This maxim originates in contract law (المجلة الأحكام العدلية, Article 3: العبرة في العقود للمقاصد والمعاني) where it governs whether a contract's validity depends on exact wording or intended meaning. Its application here to structural taxonomy is an **analogical extension** — the underlying principle (المعنى هو الأصل واللفظ تابع له — meaning is primary, wording follows it) generalizes beyond contracts to all hermeneutic analysis. Pre-excerpt analysis operates in a **three-layer model** mirroring classical commentary practice:
+
+**Layer 1 — Preserve structural integrity (NON-MODIFIABLE):** Analysis must never alter the source's hierarchical structure. Just as classical commentators never physically moved misplaced text to a new chapter, the engine preserves the original structural path (e.g., كتاب الصلاة > باب الإمامة > الإمامة الكبرى) for historical fidelity and research traceability.
+
+**Layer 2 — Epistemic override via semantic tagging (THIS IS THE AUTHORITY BOUNDARY):** Analysis may produce **semantic metadata tags** that override the inherited structural taxonomy for classification purposes. This mirrors how Ibn Abidin tagged الإمامة الكبرى content as belonging to علم الكلام and سياسة شرعية despite its structural placement under ritual prayer. The engine allows content-derived classification to override source-structure-derived classification **in metadata only**.
+
+**Layer 3 — Cross-disciplinary indexing (SUPPLEMENTARY):** Analysis may produce cross-reference links between excerpts in different structural locations that address the same epistemic topic. This ensures that querying "Constitutional Law in Hanafi Fiqh" retrieves the Caliphate excerpt housed under Ritual Prayer.
+
+**The authority boundary is therefore:** Pre-excerpt analysis outputs **structured metadata** (Layer 2 tags + Layer 3 links) that Phase 2 classification may reference as optional context. Analysis does NOT output excerpting decisions, does NOT override Phase 2's function classification, and does NOT alter source structure. The metadata flows as supplementary confidence signals — they increase or decrease confidence but never decide.
+
+**Calibration examples (DR37, 3 cases of structural misplacement):**
+
+| Source | Structural location | True epistemic category | How analysis helps |
+|--------|--------------------|-----------------------|-------------------|
+| Al-Durr al-Mukhtar | كتاب الصلاة > باب الإمامة | علم الكلام / سياسة شرعية | Analysis tags content domain shift; Phase 2 classifies by content not location |
+| Classical fiqh texts (al-Kasani, Bada'i al-Sana'i) | كتاب الغصب | الإتلاف (independent liability) | Analysis detects itlaf vocabulary distinct from ghasb; Phase 2 considers |
+| Al-Shaybani (al-Asl/al-Mabsut), commentary tradition | طهارة > المسح على الخفين | أصول الفقه (quantification rule) | Analysis detects usuli domain terminology; Phase 2 may classify as usuli excerpt |
+
+(OQ-004, RESOLVED by DR37)
 
 **Implementation note:** This capability corresponds to what the old "atomizing" engine was designed to do. With the current architecture (passaging and atomization engines dropped), pre-excerpt analysis must be integrated as a Phase 1.5 step or as Phase 2 preamble. The analysis output should be structured metadata (not free text) that Phase 2 can reference as optional context.
 
@@ -1815,7 +1923,7 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 1. **Definition→Proof coupling (AP-001):** When a short proof phrase directly supports a definition, it may remain as carry-over in the definition excerpt if it is short and harmless. But the proof layer remains a distinct function — it does not become part of the definition's identity.
 2. **Definition→Attribution coupling (AP-002):** Attribution of a definition (who holds this view) may remain in the definition excerpt when the whole span is short and helpful. But the attribution layer remains distinct.
 3. **Proof→Attribution coupling (AP-003):** Attribution is **especially important** inside proof excerpts — knowing whose interpretation the proof supports enriches the proof's scholarly value. Attribution material is therefore more likely to be retained as carry-over in proof excerpts than in other excerpt types. **Domain grounding:** In usul al-fiqh, Companion interpretation (تفسير الصحابي) is a near-independent source of evidence. "وهو تفسير أبي بكر الصديق" is not decorative — it establishes the proof's authority. Stripping attribution from a proof excerpt may reduce the argument from hujja (binding proof) to mere ra'y (opinion).
-4. **Attribution→Proof drag risk (AP-004):** When attribution excerpts are constructed, they may be tempted to drag along full proof text (because attribution attaches to the proof). This is only acceptable when the proof is genuinely short (for quantitative guidance, see FR-1's ~33% dual-gate in §6.14; for the unresolved context-fill threshold, see [OPEN: OQ-003] in §6.19). If the proof text is long, the attribution excerpt should use **context-fill** instead of carrying the full proof.
+4. **Attribution→Proof drag risk (AP-004):** When attribution excerpts are constructed, they may be tempted to drag along full proof text (because attribution attaches to the proof). This is only acceptable when the proof is genuinely short (for quantitative guidance, see FR-1's ~33% dual-gate in §6.14; for the calibrated context-fill threshold, see [CALIBRATED: OQ-003] in §6.19). If the proof text is long, the attribution excerpt should use **context-fill** instead of carrying the full proof.
 
 **Context-fill principle (D3, owner):** "Context can be replaced with actual text in cases where the text is short and harmless. Else we need to manually fill with context." This means: the default is context-fill (a brief summary replacing the original text). The exception is when the original text is so short that carrying it wholesale is simpler and more helpful than summarizing it.
 
@@ -1971,9 +2079,13 @@ The LLM receives:
 - Source metadata: author name, work title, science/discipline, school affiliation (from the normalization engine's manifest)
 - For each teaching unit: unit_index, word range, text_snippet, primary_function, self_containment level, self_containment_notes, and the deterministic `evidence_refs` (so the LLM can resolve partial references rather than re-detecting them)
 
-#### §7.2.2 — LLM System Prompt
+#### §7.2.2 — LLM Prompt (DR28 Architecture)
 
-The enrichment prompt specifies each output field with instructions and constraints. Full prompt text:
+**Message architecture (DR28):** The enrichment call uses a 2-message structure:
+- **System message:** CONSTITUTION only (shared hard invariants). See `prompts.py`.
+- **User message:** `<active_rules>` (enrichment task rules below) + `<input>` (`<source_metadata>` + `<text>` + `<teaching_units>`) + `<critical_reminders>` (instruction sandwich).
+
+The enrichment task rules (placed in `<active_rules>` of the user message) specify each output field with instructions and constraints. Full rule text:
 
 ```
 You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
@@ -2016,7 +2128,15 @@ For EACH teaching unit listed in the input, provide these fields:
      * "classification_frame" — the unit quotes this scholar's text as the
        frame being commented on (matn author in a sharh excerpt)
      * "refuted_position" — the unit quotes this scholar to refute their view
+     * "narrator" — the person appears in a hadith transmission chain
+       (preceded by عن، حدثنا، أخبرنا) as a transmitter, not an opinion-holder
    - confidence: 0.0 to 1.0
+
+   NARRATOR ROLE: When a person appears in a hadith transmission chain
+   (preceded by عن، حدثنا، أخبرنا، سمعت، أنبأنا), classify their role as
+   "narrator", NOT "quoted_opinion". Companion narrators (صحابة) who transmit
+   hadith from the Prophet are narrators, not opinion-holders. Only use
+   "quoted_opinion" when the person's own scholarly VIEW is being cited.
 
    EPITHET RESOLUTION: Common epithets are context-dependent:
    - "الإمام" → in Hanbali texts usually Ahmad ibn Hanbal; in Shafi'i texts
@@ -2025,7 +2145,9 @@ For EACH teaching unit listed in the input, provide these fields:
    - "الشيخ" → varies by author and era; use source metadata for context
    - "صاحب الكتاب" / "المصنف" → the author of the current work
    Use the source school metadata provided to resolve ambiguous epithets.
-   If resolution is uncertain, set confidence < 0.5 and provide your best guess.
+   If resolution is uncertain, set resolved_name to null and confidence
+   below 0.3. Do not guess — a missing resolution is always preferable
+   to a wrong attribution.
    Never silently drop an unresolvable mention — include it with low confidence.
 
 4. TAKHRIJ DATA (takhrij_data): For teaching units containing hadith citations,
@@ -2083,11 +2205,16 @@ in the same order as the input units.
 - Removed: `proposed_leaf` — taxonomy placement is the taxonomy engine's responsibility (design decision documented above).
 - Removed: `atom_ids`, `core_atom_ids`, `context_atom_ids` — the atom-based data model is eliminated in this architecture.
 
-#### §7.2.3 — User Message
+#### §7.2.3 — User Message (DR28 Architecture)
 
-The user message contains the text, source metadata, and unit summaries with their deterministic annotations:
+The user message follows the DR28 instruction sandwich pattern:
 
 ```
+<active_rules>
+{enrichment task rules from §7.2.2}
+</active_rules>
+
+<input>
 <source_metadata>
 Author: {author_name}
 Work: {work_title}
@@ -2110,6 +2237,15 @@ Unit {unit_index}: words {start_word}–{end_word}
   footnotes: {footnotes_relevant text, or "none"}
 {end for}
 </teaching_units>
+</input>
+
+<critical_reminders>
+REMEMBER — these override all other considerations:
+- Wrong attributions become wrong beliefs. When uncertain: null + low confidence, NEVER guess.
+- Attribute the POSITION's school, not the AUTHOR's school
+- Do NOT invent or infer hadith grades — record ONLY what the text states
+- Use "narrator" role for hadith transmission chains (عن، حدثنا), not "quoted_opinion"
+</critical_reminders>
 ```
 
 The `evidence_detected` summary includes the pattern-matched evidence references from §7.1 (F-DET-5), so the LLM can refine and complete them (e.g., resolving a partial Quran quote to surah/ayah) rather than re-detecting from scratch.

@@ -212,7 +212,7 @@ TRANSITIONS = [
 ]
 ```
 
-### Composite Topic Saturation Index (TSI) computation
+### Composite Topic Saturation Index (TSI) computation — ⚠️ AMD-6: Use simplified proxy (keyword-overlap) until embedding infra justified
 
 ```python
 def compute_tsi(topic) -> float:
@@ -267,8 +267,8 @@ PHASE_1 = {
     ),
     "strategic_priority": (
         "Lock ALL architectural decisions and cross-engine contracts. "
-        "The critical path starts here: RT-01 (metadata schema) and RT-02 (Arabic text standards) "
-        "block EVERYTHING downstream. By Day 28, no engine SPEC should reference an unresolved "
+        "⚠️ SUPERSEDED BY AMD-1: Critical path starts at RT-03, not RT-01/RT-02 (Source+Norm complete). "
+        "RT-03 (book structure) is the gateway. By Day 28, no engine SPEC should reference an unresolved "
         "architectural question. Passaging SPEC should be elevated from first-draft to detailed-draft. "
         "Excerpting hardening should be nearing completion (targeting 1000+ tests)."
     ),
@@ -324,7 +324,7 @@ PHASE_2 = {
 }
 ```
 
-**Rationale for Phase 2 distribution**: Engine-specific research jumps to **40%** because this is where SPECs must be written. The scholarly domain allocation rises to **25%** because the taxonomy tree design (the V.02 document confirms "gap nodes" are a real problem when trees are under-granular) directly feeds into the Excerpting and Synthesis engine designs. The nahw tree's 183 leaves set the precedent; building the الإملاء tree (~250+ leaves based on the project context document), الصرف tree (~300+ leaves), and البلاغة tree (~200+ leaves) requires sustained scholarly research. Architecture drops to 10% because decisions should be locked.
+**Rationale for Phase 2 distribution**: Engine-specific research jumps to **40%** because this is where SPECs must be written. The scholarly domain allocation rises to **25%** because the taxonomy tree design (the V.02 document confirms "gap nodes" are a real problem when trees are under-granular) directly feeds into the Excerpting and Synthesis engine designs. The nahw tree's 183 leaves set the precedent; building the الإملاء tree (⚠️ AMD-4: ~80-120 leaves, not 250+), الصرف tree (~300+ leaves), and البلاغة tree (~200+ leaves) requires sustained scholarly research. Architecture drops to 10% because decisions should be locked. ⚠️ AMD-3: Overall scholarly allocation raised to 28% (from 22%).
 
 ### Phase 3: Long-tail closure + validation (Days 57–83, June 4 – July 1)
 
@@ -432,7 +432,7 @@ RESEARCH_TOPICS = {
         "name": "Taxonomy tree architecture for 5 sciences",
         "category": Category.SCHOLARLY_DOMAIN,
         "urgency": "HIGH",
-        "evidence": "engines/taxonomy/SPEC.md sections 1-2. Nahw v2.0 has 183 leaves. 4 remaining trees needed. Project context document contains full preliminary trees for الإملاء, الصرف, النحو, البلاغة (original 4 Arabic language sciences). The trees are extraordinarily granular—الإملاء alone has ~250+ leaves. D3 process for tree evolution (granulate leaf → parent with children, migrate excerpts) referenced in V.02 doc.",
+        "evidence": "engines/taxonomy/SPEC.md sections 1-2. Nahw v2.0 has 183 leaves. 4 remaining trees needed. Project context document contains full preliminary trees for الإملاء, الصرف, النحو, البلاغة (original 4 Arabic language sciences). ⚠️ AMD-4: الإملاء revised to ~80-120 leaves (not 250+). D3 process for tree evolution (granulate leaf → parent with children, migrate excerpts) referenced in V.02 doc.",
         "estimated_drs": 30,
     },
     "RT-08": {
@@ -474,7 +474,7 @@ RESEARCH_TOPICS = {
     },
 
     # TIER 4: DOMAIN-SPECIFIC
-    "RT-13": {
+    "RT-13": {  # ⚠️ SUPERSEDED BY AMD-2: Split into RT-13a (Quranic) + RT-13b (hadith)
         "name": "Quranic citation and hadith isnād detection",
         "category": Category.SCHOLARLY_DOMAIN,
         "urgency": "MEDIUM",
@@ -568,10 +568,11 @@ DEPENDENCIES = [
 ### Critical path: the longest dependency chain
 
 ```
-RT-01 → RT-02 → RT-03 → RT-04 → RT-05 → RT-06 → RT-07 → RT-08
-Schema   Arabic   Book      Passage   Atom      Excerpt   Taxonomy  Synthesis
-(D-023)  Standards Structure Rules     Granular  Hardening Trees     Architecture
-~20 DRs  ~15 DRs  ~20 DRs   ~25 DRs   ~25 DRs   ~20 DRs   ~30 DRs   ~25 DRs
+⚠️ SUPERSEDED BY AMD-1 — corrected critical path below:
+RT-03 → RT-04 → RT-05 → RT-06 → RT-07 → RT-08
+Book      Passage   Atom      Excerpt   Taxonomy  Synthesis
+Structure Rules     Granular  Hardening Trees     Architecture
+~20 DRs   ~25 DRs   ~25 DRs   ~20 DRs   ~30 DRs   ~25 DRs
 ```
 
 **Total critical path: ~180 DRs across 8 sequential topics.** At 10 DRs/day, this chain requires **18 working days minimum** if each topic reaches DEEP state before the next begins. In practice, topics overlap (RT-01 and RT-02 can start simultaneously; RT-06 is already in hardening). The realistic critical path duration is **35-45 days**, which fits within Phase 1 + Phase 2 (56 days). The bottleneck is the **RT-06↔RT-07 co-dependency**: excerpting and taxonomy design form a loop that must be resolved through iterative prototyping.
@@ -617,6 +618,105 @@ PARALLEL_CLUSTERS = {
 
 ### Optimal first-week execution plan
 
-On Day 1, launch research on **all three parallel clusters A, B, and C** simultaneously alongside the critical path's first two topics (RT-01 and RT-02). This means Day 1's 15 prompts might look like: 5 on RT-01/RT-02 (metadata schema + Arabic standards), 3 on RT-09/RT-10/RT-11 (cross-cutting quality systems), 3 on RT-13/RT-16 (Arabic NLP detection), 2 on RT-20 (Claude Code setup), and 2 on RT-03 (book structure patterns). By Day 7, the metadata schema should be in ACTIVE state approaching DEEP, Arabic standards should have initial decisions locked, and all parallel clusters should have their first findings in.
+⚠️ SUPERSEDED BY AMD-1/AMD-2: On Day 1, launch research on **all three parallel clusters A, B, and C** simultaneously alongside the critical path starting at **RT-03** (book structure patterns, not RT-01/RT-02 which are already DEEP). Day 1's 15 prompts: 5 on RT-03 (book structure), 3 on RT-09/RT-10/RT-11 (quality systems), 3 on RT-13a/RT-13b/RT-16 (Quran+hadith+scholar detection — split per AMD-2), 2 on RT-20 (Claude Code setup), 2 on RT-07 (taxonomy trees). By Day 7, book structure should be in ACTIVE approaching DEEP, and all parallel clusters should have first findings in.
 
 The project's own philosophy provides the closing principle: "assume infinite time and budget, focus on building an application that utilises that infinite time and budget to incorporate as many tools and design very intricate systems that deliver top notch quality." The 830 DR sessions are that infinite budget applied to research. This framework ensures not a single session is wasted.
+
+---
+
+## AMENDMENTS (Post-DR Coworker Review Corrections — 2026-04-07)
+
+**Sources:** CC Structural Agent (coworker_dr32_36_structural_review.md) + CC Scholarly Agent (coworker_dr33_34_scholarly_review.md). Applied Session 14.
+
+### AMD-1: Critical Path Starts at RT-03, Not RT-01
+
+**Finding (Q5):** The Source and Normalization engines are COMPLETE — 2 engines with full test suites, proven contracts, and verified metadata flow. RT-01 (metadata schema D-023) and RT-02 (Arabic text standards) are therefore already **largely resolved** by existing implementation. The critical path should start at RT-03 (book structure patterns).
+
+**Correction:** The critical path chain is:
+
+```
+RT-03 → RT-04 → RT-05 → RT-06 → RT-07 → RT-08
+Book      Passage   Atom      Excerpt   Taxonomy  Synthesis
+Structure Rules     Granular  Hardening Trees     Architecture
+~20 DRs   ~25 DRs   ~25 DRs   ~20 DRs   ~30 DRs   ~25 DRs
+```
+
+Total critical path: **~145 DRs across 6 sequential topics** (reduced from ~180 across 8). RT-01 and RT-02 move to Cluster B (quality systems) as validation/refinement topics, not blocking prerequisites. Realistic critical path duration: **30-38 days** (reduced from 35-45).
+
+**Impact on Phase 1:** The `strategic_priority` no longer says "RT-01 and RT-02 block EVERYTHING downstream." Instead: "RT-03 (book structure) is the gateway — understanding how classical Arabic texts are structured across genres is prerequisite for all downstream engine SPECs."
+
+### AMD-2: RT-13 Must Split — Quranic and Hadith Are Distinct Sciences
+
+**Finding (Q3):** RT-13 "Quranic citation and hadith isnād detection" conflates two entirely distinct Islamic sciences: علوم القرآن (ulum al-Quran) and علوم الحديث (ulum al-hadith). These have different:
+- Detection patterns (Quranic: ﴿﴾ brackets, citation formulas like قال تعالى; hadith: isnad chains with حدثنا/أخبرنا)
+- Scholarly methodologies (Quranic: tajwid, qira'at, asbab al-nuzul; hadith: jarh wa ta'dil, takhrij)
+- Downstream pipeline impacts (Quranic: verse alignment, rasm uthmani; hadith: isnad-matn boundary, narrator chains)
+
+**Correction:** Split into:
+
+```python
+RT13_SPLIT = {
+"RT-13a": {
+    "name": "Quranic citation detection and handling (ulum al-Quran)",
+    "category": Category.SCHOLARLY_DOMAIN,
+    "urgency": "MEDIUM",
+    "evidence": "Project context doc section 12 (الرسم العثماني). Detection patterns: ﴿﴾ brackets, قال تعالى formula, verse numbering. Handling: preserve rasm uthmani, cross-reference to surah/ayah, detect tajwid markers.",
+    "estimated_drs": 10,
+},
+"RT-13b": {
+    "name": "Hadith isnād-matn detection and handling (ulum al-hadith)",
+    "category": Category.SCHOLARLY_DOMAIN,
+    "urgency": "MEDIUM",
+    "evidence": "DR34 identified 7 new transmission patterns beyond existing AGENTS.md rules. Detection: isnad chain formulas, matn boundary, narrator entity extraction. Handling: keep isnad atomic, extract hadith grade signals.",
+    "estimated_drs": 10,
+},
+}
+```
+
+**Impact on dependencies:** The existing dependency `("RT-02", "RT-13", ...)` splits into two. `("RT-02", "RT-13a", "Quranic text handling depends on Arabic normalization policy for rasm uthmani")` and `("RT-02", "RT-13b", "Hadith narrator name extraction depends on Arabic text representation standards")`.
+
+### AMD-3: Scholarly Domain Allocation Raised to 28-30%
+
+**Finding (Q1):** 22% (183 sessions) is too low. The 5 taxonomy trees alone require extensive research, plus cross-science routing, plus madhab-specific patterns. Scholarly domain research cannot be retroactively bolted onto engine designs.
+
+**Correction:** Raise scholarly allocation from 22% to **28%** (232 sessions). Redistribute from architecture (15%→12%) and creative (10%→7%), since architecture decisions are fewer than DR33 estimated (Source+Norm being complete eliminates many).
+
+```python
+# CORRECTED ALLOCATION
+ALLOCATIONS_CORRECTED = {
+    Category.ENGINE_SPECIFIC:    0.35,   # 290 sessions — unchanged
+    Category.CROSS_CUTTING:      0.18,   # 150 sessions — unchanged
+    Category.SCHOLARLY_DOMAIN:   0.28,   # 232 sessions — raised from 0.22
+    Category.ARCHITECTURE:       0.12,   # 100 sessions — reduced from 0.15
+    Category.CREATIVE_VISIONARY: 0.07,   #  58 sessions — reduced from 0.10
+}
+```
+
+### AMD-4: Imla' Leaf Estimate Corrected (250+ → 80-120)
+
+**Finding (Q2):** DR33 estimated الإملاء tree at ~250+ leaves based on the project context document's preliminary tree. The scholarly agent found this unrealistic — the installed imlaa v1.0 has 105 leaves and the cold-read audit draft has 51 leaves. A well-structured imla' tree should have **80-120 leaves**. The 250+ figure was inflated by counting every sub-variant as a separate leaf.
+
+**Correction:** In the RT-07 entry and Phase 2 rationale, replace "الإملاء tree (~250+ leaves)" with "الإملاء tree (~80-120 leaves)". The sarf estimate (~300+ leaves) is plausible per the scholarly agent and remains unchanged.
+
+### AMD-5: 6/20 Topics Partially Answered
+
+**Finding (Q4, structural review):** RT-01, RT-02, RT-06, RT-09, RT-11, and RT-13 are partially answered by existing work (completed engines, 942 excerpting tests, D-041 implementation). Their initial state should be ACTIVE or DEEP, not IDENTIFIED.
+
+**Correction:** When the research state machine is initialized, these 6 topics start at:
+- RT-01: **DEEP** (D-023 metadata flow verified by `verify_metadata_flow.py`)
+- RT-02: **DEEP** (Arabic text rules in AGENTS.md, normalization engine complete)
+- RT-06: **DEEP** (942 tests, 22 FPs, 23 domain rules, active hardening)
+- RT-09: **ACTIVE** (D-041 consensus implemented for excerpting, not yet generalized)
+- RT-11: **ACTIVE** (test framework exists for excerpting, not yet formalized cross-engine)
+- RT-13: **ACTIVE** (basic patterns in AGENTS.md, DR34 extended with 7 new patterns)
+
+### AMD-6: TSI Requires Embedding Infrastructure
+
+**Finding (Q6, structural review):** The TSI (Topic Saturation Index) computation references semantic novelty via sentence embeddings, but no embedding infrastructure exists in the project. Implementing TSI as specified requires sentence-transformers + PyTorch.
+
+**Correction:** For Phase 0 implementation, use a **simplified TSI proxy** that does not require embeddings:
+- Replace semantic novelty with keyword-overlap ratio (Jaccard similarity on extracted key phrases)
+- Replace cosine similarity with TF-IDF overlap score
+- Add a TODO marker for full embedding-based TSI when torch is justified by the research volume
+
+The simplified proxy is sufficient for the first 50-100 DRs. Upgrade to embedding-based TSI only if keyword overlap proves insufficient for detecting saturation.
