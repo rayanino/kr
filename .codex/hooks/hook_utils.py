@@ -359,7 +359,18 @@ def extract_next_scope(root: Path) -> set[str]:
     except OSError:
         return set()
     header = "\n".join(text.splitlines()[:30]).lower()
-    return {engine for engine in KNOWN_ENGINES if engine in header}
+    # Match engine names only in KR-specific contexts to avoid false positives
+    # ("source" in "open source", "normalization" in "Unicode normalization").
+    # Accepted patterns: "engines/<name>", "<name> engine", "engine: <name>"
+    found: set[str] = set()
+    for engine in KNOWN_ENGINES:
+        if re.search(rf"engines/{engine}\b", header):
+            found.add(engine)
+        elif re.search(rf"\b{engine}\s+engine\b", header):
+            found.add(engine)
+        elif re.search(rf"engine[:\s]+.*\b{engine}\b", header):
+            found.add(engine)
+    return found
 
 
 def detect_drift(root: Path, paths: list[str]) -> str | None:

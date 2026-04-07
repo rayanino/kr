@@ -2,6 +2,7 @@
 # PostToolUse hook: Suggest relevant skills/commands/agents based on edited file.
 # ACTIVATION hook (not enforcement) — outputs suggestions, never blocks.
 # Fast: pure pattern matching, no external scripts, no python calls.
+# Uses additive SUGGESTIONS — multiple matching patterns accumulate.
 
 FILE="$CLAUDE_TOOL_FILE_PATH"
 if [ -z "$FILE" ]; then exit 0; fi
@@ -39,30 +40,30 @@ if echo "$FILE" | grep -qE 'engines/[^/]+/src/.*\.py$'; then
     esac
 fi
 
-# --- Test files ---
+# --- Test files (additive — may combine with engine src for conftest) ---
 if echo "$FILE" | grep -qE '(engines|shared)/[^/]+/tests/.*\.py$'; then
-    SUGGESTIONS="Tools for tests: test-engineer agent | spec-examples skill | /regression-check"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }test-engineer agent | spec-examples skill | /regression-check"
 fi
 
-# --- SPEC files ---
-if echo "$FILE" | grep -qE 'SPEC\.md$'; then
-    SUGGESTIONS="Tools for SPEC: /check-spec | spec-writer agent | spec-adversary agent | spec-examples skill"
+# --- SPEC files (additive) ---
+if echo "$FILE" | grep -qE '(^|/)SPEC\.md$'; then
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }/check-spec | spec-writer agent | spec-adversary agent"
 fi
 
-# --- Contract files ---
+# --- Contract files (additive — contracts.py inside engine src gets both) ---
 if echo "$FILE" | grep -qE 'contracts\.py$'; then
-    SUGGESTIONS="Tools for contracts: /verify-boundaries | boundary-validator agent"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }/verify-boundaries | boundary-validator agent"
 fi
 
 # --- Claude Code infrastructure ---
 if echo "$FILE" | grep -qE '^\.(claude|codex)/'; then
-    SUGGESTIONS="Tools for harness: /harness-audit"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }/harness-audit"
 fi
 
 # --- Shared modules ---
 if echo "$FILE" | grep -qE 'shared/[^/]+/src/.*\.py$'; then
     MODULE=$(echo "$FILE" | grep -oE 'shared/[^/]+' | cut -d/ -f2)
-    SUGGESTIONS="Tools for shared/$MODULE: /quality-gate | code-reviewer agent | /verify-boundaries"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }shared/$MODULE: /quality-gate | /verify-boundaries"
     case "$MODULE" in
         consensus)
             SUGGESTIONS="$SUGGESTIONS | consensus-pattern skill"
@@ -75,17 +76,17 @@ fi
 
 # --- Integration tests ---
 if echo "$FILE" | grep -qE '^integration_tests/.*\.py$'; then
-    SUGGESTIONS="Tools for integration tests: /regression-check | test-engineer agent"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }/regression-check | test-engineer agent"
 fi
 
 # --- Planning files ---
-if echo "$FILE" | grep -qE '(^NEXT\.md|^\.kr/|^docs/plans/)'; then
-    SUGGESTIONS="Tools for planning: /catchup | /excerpt-status"
+if echo "$FILE" | grep -qE '(^NEXT\.md$|^\.kr/|^docs/plans/)'; then
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }/catchup | /excerpt-status"
 fi
 
 # --- Library files ---
 if echo "$FILE" | grep -qE '^library/'; then
-    SUGGESTIONS="Tools for library: library-integrity-checker agent | knowledge-safety skill"
+    SUGGESTIONS="${SUGGESTIONS:+$SUGGESTIONS | }library-integrity-checker agent | knowledge-safety skill"
 fi
 
 # Output suggestion if any matched
