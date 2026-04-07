@@ -165,6 +165,7 @@ def _make_excerpt_record(**overrides: Any) -> ExcerptRecord:
         "secondary_functions": [],
         "content_types": [ScholarlyFunction.DEFINITION],
         "description_arabic": "وصف عربي قصير للاختبار يتضمن عدة كلمات",
+        "structural_section": None,
         # Self-containment (I-ER-4: FULL -> no notes, no hint)
         "self_containment": SelfContainmentLevel.FULL,
         "self_containment_notes": None,

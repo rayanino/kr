@@ -76,6 +76,25 @@ class SelfContainmentLevel(str, Enum):
     DEPENDENT = "DEPENDENT"
 
 
+class StructuralSection(str, Enum):
+    """Section type within a book's pedagogical structure (Session 17 DR).
+
+    Orthogonal to ScholarlyFunction — primary_function classifies WHAT
+    the content IS (definition, evidence, etc.), structural_section
+    classifies WHERE it sits in the book's didactic layout (meaning
+    section, vocabulary section, etc.). High value for taxonomy and
+    the study interface.
+    """
+
+    GENERAL_MEANING = "general_meaning"
+    VOCABULARY = "vocabulary"
+    RULINGS = "rulings"
+    SCHOLARLY_DISAGREEMENT = "scholarly_disagreement"
+    HADITH_TEXT = "hadith_text"
+    BENEFITS = "benefits"
+    COMMENTARY = "commentary"
+
+
 # StructuralFormat is imported from engines.normalization.contracts — NOT redefined.
 
 
@@ -489,6 +508,11 @@ class ExcerptRecord(BaseModel):
     )
     description_arabic: str = Field(
         description="Brief Arabic description (5-35 Arabic words)"
+    )
+    structural_section: Optional[StructuralSection] = Field(
+        None,
+        description="Book-structural section type (orthogonal to primary_function). "
+        "Populated by Phase 3 enrichment when available.",
     )
 
     # ── Self-containment (3) ──────────────────────────────────────

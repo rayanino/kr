@@ -1066,11 +1066,12 @@ def build_deterministic_excerpts(
             end_word=ew,
             segment_indices=unit.segment_indices,
             physical_pages=physical_pages,
-            # ── Classification (4) ──
+            # ── Classification (5) ──
             primary_function=unit.primary_function,
             secondary_functions=unit.secondary_functions,
             content_types=content_types,
             description_arabic=unit.description_arabic,
+            structural_section=None,  # Populated by Phase 3 LLM enrichment
             # ── Self-containment (3) ──
             self_containment=unit.self_containment,
             self_containment_notes=unit.self_containment_notes,
