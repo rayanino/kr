@@ -50,18 +50,18 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B1-FP21 | **NEW FP-21: Severity class distinction** | **IMPLEMENTED** | Silent corruption (existential) vs visible flagged failure (recoverable). 4 per-science examples. Rephrased per Codex (no taxonomy-external language). |
 | B1-FP22 | **NEW FP-22: Anti-covert-excerpter** | **IMPLEMENTED** | Validator must not reshape text/span/boundaries. V-P3-8 exempt (Codex). |
 | B2 | **BATCH 2: Self-Containment (5 actionable MAQ atoms)** | **CONFIRMED (2/2: Gemini+Codex, Session 8)** | All 5 atoms confirmed with amendments. SPEC sync + prompt changes → Session 9. |
-| B2-P1 | Anti-surface-classification | **CONFIRMED + SPEC SYNC PENDING** | Gemini: CONFIRM (scholarly sound). Codex: NEEDS-REVISION (not in SPEC §5.2.2). T2-1: copy to SPEC. |
-| B2-P2 | Forgiving retention (≤15%, لأن/فإن) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (add إذ, لكونه). Codex: NEEDS-REVISION (threshold should be heuristic). T1-1: expand particles + soften threshold → Session 9. |
+| B2-P1 | Anti-surface-classification | **IMPLEMENTED (Session 9)** | T2-1 DONE: Added to SPEC §5.2.2 + adaptation notes. Already in CLASSIFY prompt code. |
+| B2-P2 | Forgiving retention (≤15%, لأن/فإن) | **IMPLEMENTED (Session 9)** | T1-1 DONE: Causal particles expanded (إذ, لكونه added). "exhaustive" → "primary causal particles". Prompt compressed from ~1440→794w. |
 | B2-P3 | Title-retention asymmetry (MODIFIED) | **CONFIRMED (2/2)** | Gemini: CONFIRM. Codex: CONFIRM. No changes needed. |
-| B2-P4 | Dependency-first splits | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (fails for Rijal). Codex: CHALLENGE (not formalized). T2-2: add to SPEC. T3-1: Rijal exception deferred. |
+| B2-P4 | Dependency-first splits | **IMPLEMENTED (Session 9)** | T2-2 DONE: QM-4 added to SPEC §6.6 (question-cluster dependencies). T3-1: Rijal exception deferred (no fixtures). |
 | B2-SP | Two-layer model (theory + context) | **CONFIRMED (1/2 Codex)** | Codex: CONFIRM (FP-18 captures it). Gemini: not reviewed (gap). |
 | B3 | **BATCH 3: Boundary & Grouping (10 MAQ atoms)** | **CONFIRMED (2/2: Gemini+Codex, Session 8)** | All atoms confirmed with amendments. SPEC sync + prompt changes → Session 9. |
-| B3-P1 | Multi-function split (>20% per function) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (exempt تخصيص/شرط/استثناء). Codex: NEEDS-REVISION (20% is weak heuristic). T1-2: soften threshold + semantic exemption → Session 9. |
-| B3-P2 | Introduction scope classification | **CONFIRMED + SPEC SYNC PENDING** | Gemini: CONFIRM (distinction sound). Codex: NEEDS-REVISION (not in SPEC §5.3.2). T2-3: add to SPEC. |
-| B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (dialectical exception). Codex: NEEDS-REVISION (no SPEC section + FP-14 cross-ref). T1-3 + T2-4 → Session 9. |
-| B3-SP1 | Scholar-quoting-scholar protocol | **CONFIRMED + NEEDS SPEC PROTOCOL** | Gemini: CONFIRM (essential). Codex: NEEDS-REVISION (no SQ-1, LA-2 can flip authorship on nested quotes). T2-5 → Session 9. |
-| B3-SP2 | Boundary consistency audit | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM. Codex: CHALLENGE (no BC-1 audit rule). T2-6 → Session 9. |
-| B3-SP3 | Malformation-first diagnosis | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM (universal). Codex: NEEDS-REVISION (no MF-1 rule). T2-7 → Session 9. |
+| B3-P1 | Multi-function split (>20% per function) | **IMPLEMENTED (Session 9)** | T1-2 DONE: Hard 20% threshold removed. Semantic dependency exemption added (تخصيص/شرط/استثناء/تقييد stays with عام). FP-5 referenced. |
+| B3-P2 | Introduction scope classification | **IMPLEMENTED (Session 9)** | T2-3 DONE: INTRODUCTION SCOPE rule in compressed GROUP prompt + SPEC §5.3.2 synced. |
+| B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **IMPLEMENTED (Session 9)** | T1-3 + T2-4 DONE: FP-14 dialectical cross-ref in prompt. New SPEC §6.7 (PS-1, PS-2). |
+| B3-SP1 | Scholar-quoting-scholar protocol | **IMPLEMENTED (Session 9)** | T2-5 DONE: New SPEC §6.8 SQ-1 with Ibn Hajar/Ibn Malik example. LA-1/LA-2 override for quotation dominance. |
+| B3-SP2 | Boundary consistency audit | **IMPLEMENTED (Session 9)** | T2-6 DONE: New SPEC §6.9 BC-1 diagnostic rule (3 audit checks). Flags, does not auto-correct. |
+| B3-SP3 | Malformation-first diagnosis | **IMPLEMENTED (Session 9)** | T2-7 DONE: New SPEC §6.10 MF-1 diagnosis priority (input → classification → grouping). |
 | B3-SP4 | Boundary mustn't distort meaning | **CONFIRMED (2/2)** | Gemini: CONFIRM. Codex: CONFIRM. FP-1+3+9+13 collectively cover this. |
 | B4 | **BATCH 4: Granularity (17 MAQ atoms)** | **IMPLEMENTED** | 1 prompt rule (mention≠excerpt, +51w). 16 SPEC-only. Prompt: 1474/1500 (FULL). |
 | B4-P1 | Mention is NOT excerpt | **IN PROMPT** | MAQ-047. Owner ALL-CAPS: "a mention IS NOT A REASON TO EXCERPT." Anti-false-positive. |

@@ -35,7 +35,7 @@ These principles were extracted, challenged, and hardened from owner Q&A respons
 
 **FP-2 (Context resolution hierarchy, NC-1):** When an excerpt needs context, the hierarchy is: (1) keep original context via structural unity (EE-1), (2) source surroundings — the reader accesses the actual frozen source pages, (3) generated context_hint — supplementary guidance pointing into the surroundings. See §3 PARTIAL definition for the full hierarchy. **Anti-rescue prohibition:** surrounding context and generated notes are diagnostic tools for ENGINEERING analysis — they must never silently "rescue" the owner-facing verdict on a defective excerpt. If an excerpt requires surrounding context to be understood, it is PARTIAL or DEPENDENT, not FULL — regardless of how readable it appears when context is available to the evaluator. Generated summary notes must never replace source-preserving context where source integrity matters: the note is a secondary aid, not a primary context mechanism. Help layers (comparisons, summaries, study-friendly structuring) sit BESIDE the preserved source as parallel layers — they never overwrite it (owner F4, F5, F6; Batch 1 hardening session 2).
 
-**FP-3 (Linking-word intelligence):** Linking words (pronouns, demonstratives, opening conjunctions) must be evaluated intelligently, not flagged blindly. See the expanded C-SC-2 for specific patterns. Opening و does not automatically indicate a dangling reference. **Forgiving retention:** when a small linked carryover (≤15% of the unit, maximum ~30 words) would need removal for function purity but removing it would expose an unsafe start at a causal continuation (لأن, فإن, ولأنه, فإنه — exhaustive list for forgiving retention; other conjunctions evaluated normally under C-SC-2), retain the carryover. Apply at most once per teaching unit to prevent cascading retention — the harm of orphaned causals exceeds the harm of minor function mixing (owner F3, Batch 2 hardening session 2). **Title-retention asymmetry:** chapter/section titles must be retained when demonstrative references depend on them (هذا الباب, في هذا الفصل) OR when the title carries jurisprudential content the text does not repeat (e.g., hadith collections with fiqhi tarajim where the title IS the author's ruling). Title retention is per-unit, not global (Gemini counterexample: Bukhari's tarajim are indispensable semantic anchors despite no grammatical link to text).
+**FP-3 (Linking-word intelligence):** Linking words (pronouns, demonstratives, opening conjunctions) must be evaluated intelligently, not flagged blindly. See the expanded C-SC-2 for specific patterns. Opening و does not automatically indicate a dangling reference. **Forgiving retention:** when a small linked carryover (≤15% of the unit, maximum ~30 words) would need removal for function purity but removing it would expose an unsafe start at a causal continuation (primary causal particles: لأن, فإن, ولأنه, فإنه, إذ, لكونه — other conjunctions evaluated normally under C-SC-2), retain the carryover. Apply at most once per teaching unit to prevent cascading retention — the harm of orphaned causals exceeds the harm of minor function mixing (owner F3, Batch 2 hardening session 2). **Title-retention asymmetry:** chapter/section titles must be retained when demonstrative references depend on them (هذا الباب, في هذا الفصل) OR when the title carries jurisprudential content the text does not repeat (e.g., hadith collections with fiqhi tarajim where the title IS the author's ruling). Title retention is per-unit, not global (Gemini counterexample: Bukhari's tarajim are indispensable semantic anchors despite no grammatical link to text).
 
 **FP-4 (Taxonomy independence):** The excerpting engine's output must be identical regardless of the taxonomy tree's state. Excerpting is source-driven, not tree-driven. An overgranulated, undergranulated, or perfectly granulated taxonomy tree must all receive the same excerpts. Excerpting-bias — where boundary decisions are influenced by downstream placement — is a top failure mode (owner F8, 2026-04-04).
 
@@ -914,6 +914,22 @@ Segment boundary rules:
 - Consecutive sentences serving the same function may form one segment
   if they are tightly bonded (e.g., a two-sentence definition)
 
+ANTI-SURFACE CLASSIFICATION: Do not classify by surface language alone.
+A passage starting with "الأصل" or "اعلم" or labeled "مقدمة", "فصل",
+"تنبيه", or "فائدة" may carry core rulings, definitions, or evidence.
+Classify by scholarly FUNCTION, not first-glance appearance. A passage is
+genuinely introductory (structural_transition) only when it (a) contains no
+independent ruling, definition, or evidence AND (b) serves only to announce,
+preview, or transition to later material.
+
+HADITH COMMENTARY CLASSIFICATION:
+- Sections starting with "المعنى الإجمالي" (general meaning) in hadith sharh
+  texts are substantive author commentary. Prefer content labels:
+  rule_statement if deriving rulings, narration if retelling events,
+  opinion_statement if comparing scholarly positions.
+  Reserve editorial_note for genuine editor/muhaqqiq apparatus (footnotes,
+  variant readings, printing notes), not the author's own commentary.
+
 For each segment, provide:
 - segment_index: 0-based position in the sequence
 - start_word: approximate start word offset in the text
@@ -932,6 +948,8 @@ The text format is: {structural_format}
 - Added: condition + result bonded rule (from atomization SPEC §4.A.2 AB-2; experiment relied on implicit LLM understanding)
 - Added: consecutive-sentences-same-function rule (clarifies that segments can span multiple sentences)
 - Added: structural_format context (the experiment tested per-division; production includes format as context)
+- Added: anti-surface-classification rule (B2-P1 hardening atom — prevents surface-level labeling of passages that carry substantive content)
+- Added: hadith commentary classification guidance (distinguishes المعنى الإجمالي author commentary from editorial apparatus)
 - Preserved: all original experiment boundary rules exactly
 - Removed: nothing from experiment prompt
 
@@ -987,7 +1005,7 @@ The classification summary is formatted as a structured list in the user message
 
 #### §5.3.2 — LLM System Prompt
 
-The grouping prompt is adapted from the experiment's `APPROACH_B_GROUP_SYSTEM`, with production additions for self-containment evaluation, segment index tracking, and decontextualization prevention. The full prompt text:
+The grouping prompt is adapted from the experiment's `APPROACH_B_GROUP_SYSTEM`, with production additions for self-containment evaluation, segment index tracking, decontextualization prevention, and hardening amendments (T1-1/T1-2/T1-3 from Session 9). The full prompt text:
 
 ```
 You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
@@ -999,40 +1017,92 @@ A teaching unit is the smallest segment a student could study and learn
 something complete from.
 
 GROUPING RULES:
-- **EE-1 (Explained-explanation unity):** An explained object and its
-  immediately following explanation form one teaching unit by default.
-  The explained text is context for the explanation — separating them
-  orphans the explanation. This applies to: hadith + sharh, verse (matn)
-  + commentary, definition + examples, principle + reasoning, ruling +
-  evidence. Split only when a different scholarly function boundary begins
-  (e.g., transition from explanation to scholarly_disagreement).
+- GENERAL PRINCIPLE (EE-1): An explained object and its immediately
+  following explanation form one teaching unit by default. The explained
+  text is context for the explanation — separating them orphans the
+  explanation. This applies to: hadith + sharh, verse (matn) + commentary,
+  definition + examples, principle + reasoning, ruling + evidence. Split
+  only when a different scholarly function boundary begins.
 - A position (opinion_statement) + its evidence + any counter-evidence
   + conclusion = one unit
 - A definition + its examples = one unit
 - A hadith + its chain + commentary = one unit (for hadith citations
-  within broader discussions — NOT for derived benefits sections).
-- **Derived Benefits Rule:** Sections opening with "ما يؤخذ من الحديث:"
-  or "فوائد:" split per numbered item. Each numbered benefit is a
-  separate teaching unit. Exception: consecutive items that are fragments
-  of one immediate ruling cluster AND are individually under 20 words may
-  be grouped. If uncertain whether items are same-topic or different-topic,
-  SPLIT. (This split-on-uncertainty rule is specific to derived benefits
-  and numbered items. For general grouping, prefer keeping related content
-  together per EE-1 — overgranulation is more harmful than
-  undergranulation, FP-9.)
-- The hadith text + gharib + المعنى الإجمالي form the inseparable core
-  of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
-- **Numbered Item Boundaries:** Numbered items (1-, 2-, 3-... or
-  فائدة/مسألة + numbering) are strong unit boundary markers. Each is a
-  separate unit unless explicitly continuing the same argument. Two items
-  covering different topics MUST NOT be merged (e.g., items about void
-  bequests and burial are separate units). Exception: consecutive sub-20-word
-  items in the same ruling cluster may be grouped. If uncertain, split.
+  within broader discussions — NOT for derived benefits sections)
 - A question and its answer belong in the same unit
 - A rule_statement + its condition_exception(s) = one unit
 - Never group unrelated content (e.g., two different مسائل) into one unit
 - structural_transition segments may be grouped with the content they introduce,
   or stand alone if they serve as section markers
+- FORGIVING RETENTION: When a small linked sentence (≤15% of the unit,
+  maximum ~30 words) would need removal to avoid function mixing, but removing
+  it would start the next unit at an unsafe causal continuation (primary causal
+  particles: لأن, فإن, ولأنه, فإنه, إذ, لكونه — other conjunctions are
+  evaluated normally under C-SC-2), RETAIN the carryover. Apply forgiving
+  retention at most once per teaching unit; if the next boundary also triggers
+  it, the boundary stands and the causal particle is flagged in
+  self_containment_notes. The harm of orphaned causal particles exceeds the
+  harm of minor function mixing.
+- TITLE RETENTION: Retain the chapter/section title in the teaching unit when:
+  (a) a demonstrative (هذا الباب, في هذا الفصل) references it, OR
+  (b) the title carries scholarly content the text does not repeat — common
+  in hadith collections with fiqhi tarajim where the bāb title IS the author's
+  ruling. Title retention is per-unit, not global.
+- MULTI-FUNCTION SPLIT: A passage substantively containing introduction +
+  ruling + proof-overview + refutation must NOT remain as one unit. Split at
+  function boundaries. A chapter-intro sentence that merely touches on the
+  ruling may stay via FORGIVING RETENTION; but when each function is
+  substantive, they are separate teaching units. Exemption: semantic
+  dependencies (تخصيص/شرط/استثناء/تقييد) must stay with عام regardless of
+  proportion — splitting عام from مخصص creates false absolutes (FP-5).
+- INTRODUCTION SCOPE: Distinguish chapter-specific introductions ("هذا الباب
+  يذكر فيه...") from full-topic introductions that define the science or
+  subject. A chapter-specific intro applies only to this source's chapter;
+  treating it as a universal topic introduction creates scope mismatch.
+- PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof,
+  (2) explain it, (3) defend/refute objections. Phases 1+2 belong together per
+  EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a
+  separate unit when it answers a different question than phases 1+2.
+  (Cross-check: for dialectical structures فإن قيل/قلنا — apply FP-14.
+  Refutation always stays with the objection it answers.)
+- MENTION IS NOT EXCERPT: A topic being briefly mentioned in passing does NOT
+  make it an excerpt. Only create a teaching unit when the text substantively
+  discusses the topic (explains, rules on, or proves something about it). Brief
+  mentions in unrelated passages must not generate forced or empty excerpt units.
+
+DERIVED BENEFITS RULE:
+- Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived
+  benefits from the preceding hadith.
+- Default: split per numbered item. Each item is a separate teaching unit.
+- Exception: consecutive items that are fragments of one immediate ruling
+  cluster AND are individually under 20 words may be grouped into one excerpt.
+- If uncertain whether items are same-topic or different-topic, SPLIT.
+  (This split-on-uncertainty rule is specific to derived benefits and
+  numbered items. For general grouping, prefer keeping related content
+  together per EE-1 rather than splitting aggressively — overgranulation
+  is more harmful than undergranulation, FP-9.)
+- The hadith text + gharib + المعنى الإجمالي form the inseparable core
+  of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
+
+NUMBERED ITEM BOUNDARIES:
+- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) and classical
+  textual ordinals (أحدها, والثاني, والثالث, الوجه الأول) are unit
+  boundary signals. Default: each numbered or ordinally-marked item is a
+  separate unit.
+- Exception: numbered غريب الحديث items within the hadith inseparable core
+  (hadith + gharib + المعنى الإجمالي) do NOT split — they stay with the core.
+- Two numbered items covering different topics MUST NOT be merged
+  (e.g., items about void bequests and burial are separate units).
+- Exception: consecutive sub-20-word items in the same ruling cluster
+  may be grouped. If uncertain, split.
+
+CONFLICT RESOLUTION (when grouping rules conflict):
+If keeping a unit together (EE-1 unity) conflicts with granularity goals,
+apply this precedence:
+1. Speaker-role correctness — who endorses what — highest priority
+2. Dialogue completeness — objection + response must stay together
+3. Textual/grammatical integrity — no mid-sentence Arabic fragments
+4. Self-containment — the unit teaches a complete thought
+5. Granularity — lowest priority; optimize post-grouping, not here
 
 DECONTEXTUALIZATION PREVENTION (critical):
 - A reported position ("قال أبو حنيفة...") and its refutation
@@ -1042,9 +1112,12 @@ DECONTEXTUALIZATION PREVENTION (critical):
 - Evidence cited for a ruling MUST stay with the ruling
 - A condition and its exception (rule + إلا clause) belong together
 - A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
-  selects among competing positions MUST remain with the alternatives it
-  judges. Without the alternatives, the verdict reads as a standalone
-  ruling and the reader cannot evaluate the reasoning.
+  selects among competing positions should remain with the alternatives it
+  judges when the alternatives are only briefly mentioned. However, when a
+  long dispute section extensively lists multiple opinions with evidence,
+  the tarjīḥ conclusion MAY be a separate teaching unit (see FP-8).
+  Default: keep together unless the dispute section is substantial enough
+  to stand alone as a distinct teaching unit.
 - Qualifications and disclaimers (لكن، غير أن، إلا أن، على خلاف) MUST
   remain with the statement they qualify. A rule without its qualification
   is actively misleading.
@@ -1095,6 +1168,9 @@ For each teaching unit, provide:
 - end_word: the end_word of the last constituent segment
 - text_snippet: the FIRST 80 CHARACTERS of this unit's text, copied EXACTLY
   from the input — preserve all diacritics, punctuation, and whitespace.
+  COPY FIDELITY: text_snippet MUST be an exact character-for-character
+  copy from the input text. Preserve all newlines (\n) exactly as they
+  appear. Do NOT reflow whitespace or collapse \n to space.
 - primary_function: the dominant scholarly function (must be a function present
   in the constituent segments)
 - secondary_functions: other functions present in the unit (may be empty)
@@ -1109,14 +1185,21 @@ The text format is: {structural_format}
 
 **Adaptation notes (differences from experiment prompt):**
 - Added: `segment_indices` field instruction (new field — experiment had only word ranges)
-- Added: full self-containment criteria C-SC-1–5 (experiment had one-sentence instruction; production embeds the formal criteria)
+- Added: full self-containment criteria C-SC-1–5 with detailed examples (experiment had one-sentence instruction; production embeds the formal criteria with visible/invisible reference guidance)
 - Added: `self_containment` 3-level enum (experiment used binary `self_contained`)
 - Added: `description_arabic` target range 5–35 words (experiment said "10-30"; relaxed per §2.3 Finding 2)
-- Added: decontextualization prevention rules (from §6.1, embedded here because the LLM needs them during grouping)
-- Added: structural_transition grouping guidance
-- Added: structural_format context
+- Added: decontextualization prevention rules with full Arabic examples (from §6.1, embedded because the LLM needs them during grouping)
+- Added: FORGIVING RETENTION with expanded causal particle list (T1-1: إذ، لكونه — Session 9)
+- Added: MULTI-FUNCTION SPLIT with semantic dependency exemption (T1-2: تخصيص/شرط/استثناء/تقييد — Session 9)
+- Added: PROOF STRUCTURE with dialectical cross-reference to FP-14 (T1-3 — Session 9)
+- Added: INTRODUCTION SCOPE rule (B3-P2 hardening atom — Session 9)
+- Added: MENTION IS NOT EXCERPT rule (prevents forced empty units from brief mentions)
+- Added: TITLE RETENTION rule (fiqhi tarajim where bāb title IS the ruling)
+- Added: classical textual ordinals in NUMBERED ITEM BOUNDARIES (أحدها, والثاني, الوجه الأول — Gemini CLI review Session 9)
+- Added: structural_transition grouping guidance, structural_format context
 - Changed: self_containment_notes requirement aligned with I-TU-6/I-TU-7 (must be absent for FULL)
-- Preserved: all original experiment grouping rules
+- Changed: 1500-word cap REMOVED — full detail preserved for maximum quality (DR21 compression reverted after owner challenge + Gemini CLI found 2 quality gaps in compressed version)
+- Preserved: all original experiment grouping rules exactly
 
 #### §5.3.3 — User Message
 
@@ -1522,7 +1605,49 @@ Q&A format (سؤال وجواب) and masala format (مسألة enumerated legal 
 
 **QM-3 (Cross-masala references):** If a masala references a previous masala ("كما في المسألة السابقة"), the reference creates a self-containment gap (C-SC-2). Phase 2b marks the unit as `PARTIAL` and notes the dependency. Phase 3 attempts to resolve the reference to a specific masala (IR-1 from §6.4).
 
-**No special handling beyond marker preservation.** The Q&A and masala formats are well-structured enough that the LLM's general segment classification and grouping produce correct results without format-specific prompting.
+**QM-4 (Question-cluster dependencies):** When consecutive questions (مسائل) share definitions, reference each other's answers, or form a pedagogical progression, treat them as a cluster. Within a cluster, each question remains a separate teaching unit, but self-containment evaluation (C-SC-2) accounts for the cluster context: a question that references "the previous masala" is `PARTIAL` (not `DEPENDENT`) when the referenced content is a standard concept the student would know from the cluster's opening. Questions that define terms used by subsequent questions should be ordered first in any pedagogical sequencing. (B2-P4 hardening atom — Session 9.)
+
+**No special handling beyond marker preservation and QM-4 cluster awareness.** The Q&A and masala formats are well-structured enough that the LLM's general segment classification and grouping produce correct results without format-specific prompting.
+
+### §6.7 — Proof Structure
+
+Scholars present proofs in a standard 3-phase pattern that the LLM must recognize for correct unit boundary placement.
+
+**PS-1 (Three-phase proof pattern):** (1) Cite the proof (evidence_quran, evidence_hadith, evidence_rational, etc.), (2) explain the proof's relevance (how it supports the ruling), (3) defend against objections or refute counter-proofs. Phases 1+2 belong together per EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a separate unit when it addresses a different question than phases 1+2. (B3-P3 hardening atom — Session 9.)
+
+**PS-2 (Dialectical structures):** For dialectical objection-response pairs (فإن قيل/قلنا), apply FP-14: the refutation always stays with the objection it answers. This cross-checks with PS-1 phase 3 — when phase 3 is a dialectical structure, FP-14 takes precedence over the separation option. (T1-3 — Session 9.)
+
+### §6.8 — Scholar-Quoting-Scholar Protocol (SQ-1)
+
+**Risk level:** HIGH. Codex CLI identified this as the highest-risk finding in B2/B3 coworker synthesis (Session 8). The existing LA-1/LA-2 80% dominant-layer rule can silently flip authorship attribution.
+
+**SQ-1 (Scholar attribution in extended quotation):** When Author A quotes Scholar B at length (the quotation dominates the text by character count), the teaching unit's attribution must reflect the actual teaching voice:
+
+- The `primary_function` is determined by how Author A uses the quotation — if Author A quotes Scholar B as evidence for a ruling, the function is `evidence_*`, not `opinion_statement` (even though the quoted text reads as an opinion).
+- The `resolved_scholars` field (Phase 3) must distinguish `quoted_opinion` (Scholar B's view presented as content) from `classification_frame` (Scholar B's text being commented upon).
+- The LA-1/LA-2 80% dominant-layer rule does NOT apply when the dominant text is a quotation from a different scholar. The authorship of the teaching unit follows the scholarly voice making the pedagogical argument, not the voice being quoted.
+
+**Example:** Ibn Hajar quotes Ibn Malik as proof for a grammatical point. The quote occupies 85% of the passage. Without SQ-1, LA-1 would attribute the teaching unit to Ibn Malik. With SQ-1, the unit is attributed to Ibn Hajar (who is using the quotation as evidence), and Ibn Malik appears in `resolved_scholars` with role `quoted_opinion`. (B3-SP1 — Session 9.)
+
+### §6.9 — Boundary Consistency Audit (BC-1)
+
+**BC-1 (Boundary audit):** After Phase 2b produces teaching units for a chunk, the following consistency checks apply:
+
+1. **Adjacent-unit coherence:** For each pair of adjacent units (unit N and unit N+1), verify that the boundary between them does not split: (a) a sentence mid-clause, (b) an isnad from its matn, (c) a verdict from the positions it judges, (d) a qualification from the statement it qualifies.
+2. **Boundary-at-function-change:** Every unit boundary should correspond to a change in scholarly function or a structural marker (numbered item, مسألة, باب, فصل). A boundary that falls within a single uninterrupted function is suspect and should be flagged for review.
+3. **Self-containment correlation:** Units marked `DEPENDENT` at a boundary suggest the boundary may be wrong. When two adjacent units are both `DEPENDENT` on each other, they should likely be merged.
+
+BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather than automatically correcting them. Implementation: post-Phase-2b validation step that logs warnings. (B3-SP2 — Session 9.)
+
+### §6.10 — Malformation-First Diagnosis (MF-1)
+
+**MF-1 (Diagnosis priority):** When a teaching unit fails self-containment evaluation or produces unexpected grouping, diagnose in this order:
+
+1. **Input malformation:** Is the assembled text correctly formed? Check for: encoding errors, truncated text, missing structural markers, incorrect layer separation.
+2. **Classification error:** Did Phase 2a misclassify a segment? A misclassified segment (e.g., `definition` labeled as `editorial_note`) propagates into incorrect grouping.
+3. **Grouping logic:** Only after ruling out input and classification errors, investigate the grouping prompt's behavior.
+
+**Rationale:** Most grouping failures observed during hardening trace back to upstream issues (malformed input or classification errors), not to grouping prompt deficiencies. Diagnosing in the wrong order (starting with the prompt) leads to unnecessary prompt patches that mask the real problem. (B3-SP3 — Session 9.)
 
 ---
 

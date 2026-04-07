@@ -68,12 +68,13 @@ within broader discussions — NOT for derived benefits sections)
   or stand alone if they serve as section markers
 - FORGIVING RETENTION: When a small linked sentence (≤15% of the unit, \
 maximum ~30 words) would need removal to avoid function mixing, but removing \
-it would start the next unit at an unsafe causal continuation (لأن, فإن, \
-ولأنه, فإنه — this list is exhaustive; other conjunctions are evaluated \
-normally under C-SC-2), RETAIN the carryover. Apply forgiving retention at \
-most once per teaching unit; if the next boundary also triggers it, the \
-boundary stands and the causal particle is flagged in self_containment_notes. \
-The harm of orphaned causal particles exceeds the harm of minor function mixing.
+it would start the next unit at an unsafe causal continuation (primary causal \
+particles: لأن, فإن, ولأنه, فإنه, إذ, لكونه — other conjunctions are \
+evaluated normally under C-SC-2), RETAIN the carryover. Apply forgiving \
+retention at most once per teaching unit; if the next boundary also triggers \
+it, the boundary stands and the causal particle is flagged in \
+self_containment_notes. The harm of orphaned causal particles exceeds the \
+harm of minor function mixing.
 - TITLE RETENTION: Retain the chapter/section title in the teaching unit when: \
 (a) a demonstrative (هذا الباب, في هذا الفصل) references it, OR \
 (b) the title carries scholarly content the text does not repeat — common \
@@ -82,8 +83,10 @@ ruling. Title retention is per-unit, not global.
 - MULTI-FUNCTION SPLIT: A passage substantively containing introduction + \
 ruling + proof-overview + refutation must NOT remain as one unit. Split at \
 function boundaries. A chapter-intro sentence that merely touches on the \
-ruling (1% of text) may stay via FORGIVING RETENTION; but when each function \
-is substantive (>20% of text), they are separate teaching units.
+ruling may stay via FORGIVING RETENTION; but when each function is \
+substantive, they are separate teaching units. Exemption: semantic \
+dependencies (تخصيص/شرط/استثناء/تقييد) must stay with عام regardless of \
+proportion — splitting عام from مخصص creates false absolutes (FP-5).
 - INTRODUCTION SCOPE: Distinguish chapter-specific introductions ("هذا الباب \
 يذكر فيه...") from full-topic introductions that define the science or \
 subject. A chapter-specific intro applies only to this source's chapter; \
@@ -91,7 +94,9 @@ treating it as a universal topic introduction creates scope mismatch.
 - PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof, \
 (2) explain it, (3) defend/refute objections. Phases 1+2 belong together per \
 EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
-separate unit when it answers a different question than phases 1+2.
+separate unit when it answers a different question than phases 1+2. \
+(Cross-check: for dialectical structures فإن قيل/قلنا — apply FP-14. \
+Refutation always stays with the objection it answers.)
 - MENTION IS NOT EXCERPT: A topic being briefly mentioned in passing does NOT \
 make it an excerpt. Only create a teaching unit when the text substantively \
 discusses the topic (explains, rules on, or proves something about it). Brief \
@@ -112,8 +117,10 @@ is more harmful than undergranulation, FP-9.)
 of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
 
 NUMBERED ITEM BOUNDARIES:
-- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) are unit \
-boundary signals. Default: each numbered item is a separate unit.
+- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) and classical \
+textual ordinals (أحدها, والثاني, والثالث, الوجه الأول) are unit \
+boundary signals. Default: each numbered or ordinally-marked item is a \
+separate unit.
 - Exception: numbered غريب الحديث items within the hadith inseparable core \
 (hadith + gharib + المعنى الإجمالي) do NOT split — they stay with the core.
 - Two numbered items covering different topics MUST NOT be merged \

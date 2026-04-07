@@ -58,8 +58,8 @@
 - 12 SOFTENED items documented for debt clearance
 
 ### What's Needed Next
-1. **Session 9 (NEXT):** Prompt refactor (§4.11 gate) + SPEC sync. Handoff at `reference/handoffs/excerpting_foundations_session9_kickoff_2026-04-07.md`. Prep doc at `engines/excerpting/reference/PROMPT_REFACTOR_PREP_SESSION9.md` — shared content analysis done (~195 words extractable), all 25 rules pre-categorized A/B/C/D, merging candidates identified. 3 prompt changes (T1-1..T1-3, +32 words net) + 7 SPEC additions (T2-1..T2-7). DR21 7-step recipe for prompt compression. Execute Step 1 (system prompt extraction) first.
-2. **Session 10:** Complete dedup (remaining 90 non-NN atoms) + MAQ-089+ assignment
+1. **Session 9: COMPLETE** — Prompt refactor (§4.11 gate) + SPEC sync. GROUP prompt compressed 1440→794 words (45%). All 3 T1 prompt amendments + all 7 T2 SPEC additions done. Handoff at `reference/handoffs/excerpting_foundations_session10_kickoff_2026-04-07.md`.
+2. **Session 10 (NEXT):** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check Codex/Gemini CLI review results from Session 9 dispatch first.
 3. **Session 11+:** Full-atom processing through 7-stage lifecycle
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
 5. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
@@ -157,7 +157,7 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 - **SC1 TRANSFORMATIVE**: Owner realized excerpts are "teaching units" (would rename engine)
 - **SC3 CRITICAL**: 5x "PIPELINE CATASTROPHICALLY LACKING SECURITY GATES" — post-excerpting reassembly gate needed
 - **G1 FP candidate**: "Excerpting is OBJECTIVE — NO OUTSIDE FACTORS" (generalizes FP-4)
-- **Prompt FULL**: GROUP_SYSTEM_PROMPT 1484/1500 — §4.11 refactor gate TRIPPED
+- **Prompt RESTORED (Session 9)**: GROUP_SYSTEM_PROMPT at 1483 words — full detail + T1-1/T1-2/T1-3 amendments + Gemini classical ordinals fix. DR21 compression attempted then reverted (owner: quality > compression). 1500-word cap REMOVED. DR28 prepared for long-term prompt architecture research.
 - **PRELIMINARY debt**: B2 (1/3) + B3 (1/3) + all G/SC (0/3)
 
 **Roadmap (updated):**
