@@ -124,10 +124,10 @@ def is_contradictory(a: Finding, b: Finding) -> tuple[bool, str]:
     pos_a, neg_a = _sentiment_vector(a.description)
     pos_b, neg_b = _sentiment_vector(b.description)
 
-    # One is predominantly positive, the other negative
-    a_positive = pos_a > neg_a and pos_a >= 2
+    # One is predominantly positive, the other negative (require strong signal)
+    a_positive = pos_a > neg_a and pos_a >= 3
     a_negative = neg_a > pos_a and neg_a >= 2
-    b_positive = pos_b > neg_b and pos_b >= 2
+    b_positive = pos_b > neg_b and pos_b >= 3
     b_negative = neg_b > pos_b and neg_b >= 2
 
     if a_positive and b_negative:
@@ -135,7 +135,7 @@ def is_contradictory(a: Finding, b: Finding) -> tuple[bool, str]:
     if a_negative and b_positive:
         return True, f"A recommends against ({neg_a} neg signals), B recommends action ({pos_b} pos signals)"
 
-    # Different severity on the same topic suggests disagreement
+    # Different severity on the same topic suggests disagreement (only extreme gaps)
     severity_order = {
         FindingSeverity.CRITICAL: 4,
         FindingSeverity.HIGH: 3,
@@ -144,7 +144,7 @@ def is_contradictory(a: Finding, b: Finding) -> tuple[bool, str]:
         FindingSeverity.INFORMATIONAL: 0,
     }
     sev_diff = abs(severity_order[a.severity] - severity_order[b.severity])
-    if sev_diff >= 2:
+    if sev_diff >= 3:
         return True, f"Severity gap: {a.severity.value} vs {b.severity.value} (diff={sev_diff})"
 
     return False, ""
@@ -207,7 +207,9 @@ def cross_reference(
             related_map[a.finding_id].append(b.finding_id)
             related_map[b.finding_id].append(a.finding_id)
 
-            # Check for contradiction
+            # Check for contradiction (only in strongly related pairs)
+            if score < 0.35:
+                continue
             is_contra, reason = is_contradictory(a, b)
             if is_contra:
                 pair_key = tuple(sorted([a.finding_id, b.finding_id]))

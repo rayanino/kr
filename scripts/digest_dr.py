@@ -108,19 +108,22 @@ def digest_single(
     record = build_digestion_record(response, dr_findings, dr_contras, score, verdict)
     append_jsonl(DIGESTION_LOG, record)
 
-    # Stage 5: Generate follow-up prompts
+    # Stage 5: Generate follow-up prompts (non-fatal — don't crash pipeline)
     logger.info("[5/5] Generating follow-up prompts...")
-    followups = generate_followups(batch=followup_batch)
-    logger.info("  %d follow-up prompts generated", len(followups))
+    try:
+        followups = generate_followups(batch=followup_batch)
+        logger.info("  %d follow-up prompts generated", len(followups))
 
-    if followups:
-        from scripts.autonomous_schemas import append_jsonl as _append
-        prompts_dir = KB_DIR / "dr_prompts"
-        prompts_dir.mkdir(parents=True, exist_ok=True)
-        batch_file = prompts_dir / f"{followup_batch}.jsonl"
-        for p in followups:
-            _append(batch_file, p)
-        logger.info("  Persisted to %s", batch_file)
+        if followups:
+            from scripts.autonomous_schemas import append_jsonl as _append
+            prompts_dir = KB_DIR / "dr_prompts"
+            prompts_dir.mkdir(parents=True, exist_ok=True)
+            batch_file = prompts_dir / f"{followup_batch}.jsonl"
+            for p in followups:
+                _append(batch_file, p)
+            logger.info("  Persisted to %s", batch_file)
+    except Exception as e:
+        logger.warning("Follow-up generation failed (non-fatal): %s", e)
 
     return response, dr_findings, verdict
 
