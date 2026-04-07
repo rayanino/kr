@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — 5 of 8 DR responses received and archived, coworker validation in progress)
+## IMMEDIATE STATE (updated 2026-04-07 — ALL 8 DR responses received and archived, coworker validation in progress)
 
 ### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
 - **DESIGN.md written + reviewed by 2 coworkers + 12 amendments applied**
@@ -34,7 +34,9 @@
   - DR34 (Gemini): Hadith isnad-matn boundary patterns — transition markers, compound isnads, commentary structure.
   - DR35 (ChatGPT): Passaging engine gap analysis — [NOT YET IMPLEMENTED] features, boundary detection, hardening priorities.
   - DR36 (ChatGPT): Multi-layer text detection — sharh/hashiyah detection patterns, layer detection approaches.
-  - **Awaiting:** DR37 (Gemini — 18 sciences mapping), DR38 (Claude — taxonomy trustworthiness), DR39 (Gemini — OQ-001-004 calibration)
+  - DR37 (Gemini): OQ-001-004 calibration cases — 4 new significance criteria, context-fill principles, analysis authority 3-layer approach
+  - DR38 (Gemini): 18 sciences mapping — 54 DR questions, 10 ranked edge cases, scholarly completeness criteria for mas'ala/hadith/tafsir/tarjama
+  - DR39 (Claude): Taxonomy trustworthiness — engine has NO LLM adapter (Session 2 never built), gold baseline 13/13 MISSING, 10 hardening priorities, 10 research gaps
 - **Coworker validation of DR32-36 dispatching** (HR-23 /prompt-architect passed)
 - **Next:**
   1. Complete coworker validation of DR32-36 findings
