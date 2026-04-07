@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 10 dedup complete, 10 SPEC sections written, 937 tests)
+## IMMEDIATE STATE (updated 2026-04-07 — D3 processed, Q&A hardening phase COMPLETE, 13 SPEC sections written, 937 tests)
 
 ### Pipeline Visual Architecture (2026-04-07)
 - **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)
@@ -101,15 +101,20 @@
 - **Tests:** 937 passed, 4 xfailed, 0 real failures. Prompt-SPEC sync: PASS.
 - **Budget:** EUR 0.00 this session (all deterministic). Total: 36.70/100.
 
+### D3 Intake (2026-04-07) — LAST Questionnaire Question
+
+- **D3 "Multi-Layered Definition"**: 22-file ChatGPT bundle processed. Owner case study: الكلالة with definition/proof/attribution layers.
+- **3 new SPEC sections:** §6.18 LP-1 (leaf pollution prevention), §6.19 PO-1 (packaging ≠ ontology), §6.20 SH-1 (source hints non-deciding)
+- **2 documented (not hardened):** pre-excerpt deep analysis (arch question), significance threshold calibration (needs more cases)
+- **Q&A HARDENING PHASE COMPLETE.** All questionnaire answers (F1-F8, G1-G4, SC1-SC3, D3) processed.
+
 ### What's Needed Next
 
-1. **DR28 prompt architecture implementation (HIGHEST PRIORITY):** Converged architecture from 2-provider DR: instruction sandwich + progressive disclosure (8-12 rules per call from 25). Synthesis at `engines/excerpting/reference/dr_reviews/DR28_synthesis.md`. This is the next transformative step — restructure all 3 prompts. Also naturally addresses Gemini's 2 PRELIMINARY CHALLENGEs (classical ordinals, حيث إن causal particle).
-2. **3 OPEN design questions need DR:** MAQ-074 (chapter-intro marking), MAQ-075 (EE-1 hadith exceptions), MAQ-077 (non-taxonomic guidance). Deploy 1 DR per question.
-3. **Section K red-team tests:** 62 tests to automate as pytest cases. High-value testing debt.
-4. **DR31 Templates 4+6:** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration (both rated COMPATIBLE by Codex CLI).
-5. **Deferred:** review_flags placeholder refactoring, DR31 Templates 1/2/3 prompt rewrites (NEEDS_ADAPTATION).
-6. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-7. **PARALLEL: Feedback Collection Strategy — Units 1/2/5 DONE.** S-1 intake (11 atoms), plan, bundle_intake.py (13 tests), owner_profile.yaml, COLLECTION_TRACKER.md. Next: Codex CLI review → Units 3/4 (questionnaire + session templates)
+1. **Evaluate existing campaign data (HIGHEST PRIORITY):** The $97 campaign (2,303 excerpts from 5 books, 2026-03-31) has never been evaluated against the hardened SPEC. Pick 1 book. CC + coworkers evaluate every excerpt against 22 FPs + 20 domain rules. Surface only study-experience questions to owner. This proves whether the doctrine translates to reality.
+2. **DR28 prompt architecture:** Instruction sandwich + progressive disclosure (8-12 rules per call from 25). Synthesis at `engines/excerpting/reference/dr_reviews/DR28_synthesis.md`. Restructure all 3 prompts. Addresses Gemini's 2 PRELIMINARY CHALLENGEs.
+3. **3 OPEN design questions need DR:** MAQ-074 (chapter-intro marking), MAQ-075 (EE-1 hadith exceptions), MAQ-077 (non-taxonomic guidance).
+4. **Section K red-team tests:** 62 tests to automate as pytest cases.
+5. **Deferred:** review_flags placeholder refactoring, DR31 Templates, Book Resolution session
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
