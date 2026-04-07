@@ -16,12 +16,24 @@ from typing import TYPE_CHECKING, Any, Optional
 import instructor
 from pydantic import ValidationError
 
+from engines.excerpting.src.prompts import (
+    CONSTITUTION,
+    GROUP_CORE_RULES,
+    GROUP_CRITICAL_REMINDERS,
+    GROUP_DIALECTICAL_RULES,
+    GROUP_FIQH_RULES,
+    GROUP_HADITH_RULES,
+    GROUP_INTRO_RULES,
+    GROUP_OUTPUT_FORMAT,
+    GROUP_VERSE_RULES,
+)
 from engines.excerpting.contracts import (
     AssembledChunk,
     ClassifiedSegment,
     ExcerptingConfig,
     ExcerptingErrorCodes,
     ExtractionResult,
+    ScholarlyFunction,
     SelfContainmentLevel,
     TeachingUnit,
     validate_tu_invariants,
@@ -38,187 +50,53 @@ logger = logging.getLogger(__name__)
 # Constants
 # ═══════════════════════════════════════════════════════════════════
 
-# System prompt copied VERBATIM from SPEC §5.3.2.
-# Only {structural_format} is substituted at call time (DD-S2-1).
-GROUP_SYSTEM_PROMPT = """\
-You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
+# All GROUP rule modules loaded; IU-5 will make this dynamic per chunk flags.
+# Only {structural_format} (in GROUP_OUTPUT_FORMAT) is substituted at call time.
+_GROUP_RULES = "\n\n".join([
+    GROUP_CORE_RULES,
+    GROUP_HADITH_RULES,
+    GROUP_VERSE_RULES,
+    GROUP_FIQH_RULES,
+    GROUP_DIALECTICAL_RULES,
+    GROUP_INTRO_RULES,
+    GROUP_OUTPUT_FORMAT,
+])
 
-You previously classified segments of this Arabic text by scholarly function.
-Now group these classified segments into TEACHING UNITS — self-contained
-scholarly segments that each teach one distinct concept, ruling, or argument.
-A teaching unit is the smallest segment a student could study and learn
-something complete from.
-
-GROUPING RULES:
-- GENERAL PRINCIPLE (EE-1): An explained object and its immediately \
-following explanation form one teaching unit by default. The explained \
-text is context for the explanation — separating them orphans the \
-explanation. This applies to: hadith + sharh, verse (matn) + commentary, \
-definition + examples, principle + reasoning, ruling + evidence. Split \
-only when a different scholarly function boundary begins.
-- A position (opinion_statement) + its evidence + any counter-evidence
-  + conclusion = one unit
-- A definition + its examples = one unit
-- A hadith + its chain + commentary = one unit (for hadith citations \
-within broader discussions — NOT for derived benefits sections)
-- A question and its answer belong in the same unit
-- A rule_statement + its condition_exception(s) = one unit
-- Never group unrelated content (e.g., two different مسائل) into one unit
-- structural_transition segments may be grouped with the content they introduce,
-  or stand alone if they serve as section markers
-- FORGIVING RETENTION: When a small linked sentence (≤15% of the unit, \
-maximum ~30 words) would need removal to avoid function mixing, but removing \
-it would start the next unit at an unsafe causal continuation (primary causal \
-particles: لأن, فإن, ولأنه, فإنه, إذ, لكونه — other conjunctions are \
-evaluated normally under C-SC-2), RETAIN the carryover. Apply forgiving \
-retention at most once per teaching unit; if the next boundary also triggers \
-it, the boundary stands and the causal particle is flagged in \
-self_containment_notes. The harm of orphaned causal particles exceeds the \
-harm of minor function mixing.
-- TITLE RETENTION: Retain the chapter/section title in the teaching unit when: \
-(a) a demonstrative (هذا الباب, في هذا الفصل) references it, OR \
-(b) the title carries scholarly content the text does not repeat — common \
-in hadith collections with fiqhi tarajim where the bāb title IS the author's \
-ruling. Title retention is per-unit, not global.
-- MULTI-FUNCTION SPLIT: A passage substantively containing introduction + \
-ruling + proof-overview + refutation must NOT remain as one unit. Split at \
-function boundaries. A chapter-intro sentence that merely touches on the \
-ruling may stay via FORGIVING RETENTION; but when each function is \
-substantive, they are separate teaching units. Exemption: semantic \
-dependencies (تخصيص/شرط/استثناء/تقييد) must stay with عام regardless of \
-proportion — splitting عام from مخصص creates false absolutes (FP-5).
-- INTRODUCTION SCOPE: Distinguish chapter-specific introductions ("هذا الباب \
-يذكر فيه...") from full-topic introductions that define the science or \
-subject. A chapter-specific intro applies only to this source's chapter; \
-treating it as a universal topic introduction creates scope mismatch.
-- PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof, \
-(2) explain it, (3) defend/refute objections. Phases 1+2 belong together per \
-EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
-separate unit when it answers a different question than phases 1+2. \
-(Cross-check: for dialectical structures فإن قيل/قلنا — apply FP-14. \
-Refutation always stays with the objection it answers.)
-- MENTION IS NOT EXCERPT: A topic being briefly mentioned in passing does NOT \
-make it an excerpt. Only create a teaching unit when the text substantively \
-discusses the topic (explains, rules on, or proves something about it). Brief \
-mentions in unrelated passages must not generate forced or empty excerpt units.
-
-DERIVED BENEFITS RULE:
-- Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived \
-benefits from the preceding hadith.
-- Default: split per numbered item. Each item is a separate teaching unit.
-- Exception: consecutive items that are fragments of one immediate ruling \
-cluster AND are individually under 20 words may be grouped into one excerpt.
-- If uncertain whether items are same-topic or different-topic, SPLIT.
-  (This split-on-uncertainty rule is specific to derived benefits and \
-numbered items. For general grouping, prefer keeping related content \
-together per EE-1 rather than splitting aggressively — overgranulation \
-is more harmful than undergranulation, FP-9.)
-- The hadith text + gharib + المعنى الإجمالي form the inseparable core \
-of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
-
-NUMBERED ITEM BOUNDARIES:
-- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) and classical \
-textual ordinals (أحدها, والثاني, والثالث, الوجه الأول) are unit \
-boundary signals. Default: each numbered or ordinally-marked item is a \
-separate unit.
-- Exception: numbered غريب الحديث items within the hadith inseparable core \
-(hadith + gharib + المعنى الإجمالي) do NOT split — they stay with the core.
-- Two numbered items covering different topics MUST NOT be merged \
-(e.g., items about void bequests and burial are separate units).
-- Exception: consecutive sub-20-word items in the same ruling cluster \
-may be grouped. If uncertain, split.
-
-CONFLICT RESOLUTION (when grouping rules conflict):
-If keeping a unit together (EE-1 unity) conflicts with granularity goals, \
-apply this precedence:
-1. Speaker-role correctness — who endorses what — highest priority
-2. Dialogue completeness — objection + response must stay together
-3. Textual/grammatical integrity — no mid-sentence Arabic fragments
-4. Self-containment — the unit teaches a complete thought
-5. Granularity — lowest priority; optimize post-grouping, not here
-
-DECONTEXTUALIZATION PREVENTION (critical):
-- A reported position ("قال أبو حنيفة...") and its refutation
-  ("ورد عليه بأن...") MUST be in the same unit
-- A counter-argument MUST include enough of the original argument to be
-  understood on its own
-- Evidence cited for a ruling MUST stay with the ruling
-- A condition and its exception (rule + إلا clause) belong together
-- A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
-  selects among competing positions should remain with the alternatives it
-  judges when the alternatives are only briefly mentioned. However, when a
-  long dispute section extensively lists multiple opinions with evidence,
-  the tarjīḥ conclusion MAY be a separate teaching unit (see FP-8).
-  Default: keep together unless the dispute section is substantial enough
-  to stand alone as a distinct teaching unit.
-- Qualifications and disclaimers (لكن، غير أن، إلا أن، على خلاف) MUST
-  remain with the statement they qualify. A rule without its qualification
-  is actively misleading.
-- A question (فإن قيل، سؤال، اعترض) and its answer (قلنا، الجواب، وأجيب)
-  MUST be in the same unit — even when multiple question-answer cycles
-  appear in sequence
-
-SELF-CONTAINMENT EVALUATION:
-For each teaching unit, evaluate self-containment against these criteria:
-
-C-SC-1 (Term Resolution): Every technical term is either defined within the
-  unit, is standard terminology any student of the science would know, or is
-  flagged as requiring external knowledge.
-
-C-SC-2 (Reference Resolution): Every pronoun, demonstrative, anaphoric
-  reference, or IMPLIED dependency resolves within the unit. No dangling
-  references to text outside the unit. Watch for:
-  - Visible: هذا/هذه/هؤلاء, المذكور/ما تقدم/ما سبق, pronoun suffixes
-    (ـه/ـها/ـهم/ـهما), opening conjunctions (لأن/فإن)
-  - Invisible (taqdir): implied subjects in قال/ذهب/رأى where the speaker
-    is determined from prior context, not stated in this unit
-  Note: opening و does NOT always indicate a dangling reference — it may
-  simply continue within the same topic. Reason about whether each referent
-  (visible or implied) resolves inside the unit. Do not flag blindly.
-
-C-SC-3 (Evidence Completeness): Every evidence citation either includes its
-  text, is a universally known citation identifiable by its opening words
-  (e.g., حديث "إنما الأعمال بالنيات"), or is flagged.
-
-C-SC-4 (Argument Completeness): The unit's argument, ruling, or teaching is
-  complete — not a fragment whose premise or conclusion is elsewhere.
-
-C-SC-5 (Dialogue Completeness): If the unit responds to another scholar's
-  position, enough of that position is included to understand the response.
-
-Assign self_containment as:
-- FULL: All five criteria met. The unit stands alone.
-- PARTIAL: Most criteria met, but some context would help. Populate
-  self_containment_notes describing what's missing.
-- DEPENDENT: Cannot be understood alone. Populate self_containment_notes
-  explaining the dependency.
-
-For each teaching unit, provide:
-- unit_index: 0-based position in the sequence
-- segment_indices: list of segment_index values composing this unit
-  (must be a contiguous ascending sequence, e.g. [3, 4, 5])
-- start_word: the start_word of the first constituent segment
-- end_word: the end_word of the last constituent segment
-- text_snippet: the FIRST 80 CHARACTERS of this unit's text, copied EXACTLY
-  from the input — preserve all diacritics, punctuation, and whitespace.
-  COPY FIDELITY: text_snippet MUST be an exact character-for-character \
-copy from the input text. Preserve all newlines (\\n) exactly as they \
-appear. Do NOT reflow whitespace or collapse \\n to space.
-- primary_function: the dominant scholarly function (must be a function present
-  in the constituent segments)
-- secondary_functions: other functions present in the unit (may be empty)
-- description_arabic: a brief Arabic description of what this unit teaches,
-  5 to 35 Arabic words. Write it as a student-facing summary.
-- self_containment: FULL, PARTIAL, or DEPENDENT
-- self_containment_notes: present and non-empty for PARTIAL/DEPENDENT;
-  absent or null for FULL
-
-The text format is: {structural_format}"""
+GROUP_SYSTEM_PROMPT = CONSTITUTION + "\n\n" + _GROUP_RULES
 
 
 # ═══════════════════════════════════════════════════════════════════
 # Internal Helpers
 # ═══════════════════════════════════════════════════════════════════
+
+
+def compute_active_modules(segments: list[ClassifiedSegment]) -> list[str]:
+    """Determine which conditional GROUP rule modules to load (DR28 IU-4).
+
+    Analyzes classified segment functions to select genre-specific rule
+    modules. CORE and OUTPUT_FORMAT are always loaded; this function
+    returns only the conditional modules relevant to this chunk's content.
+    """
+    functions = {seg.scholarly_function for seg in segments}
+    modules: list[str] = []
+
+    if functions & {ScholarlyFunction.EVIDENCE_HADITH, ScholarlyFunction.NARRATION}:
+        modules.append(GROUP_HADITH_RULES)
+    if ScholarlyFunction.EVIDENCE_QURAN in functions:
+        modules.append(GROUP_VERSE_RULES)
+    if functions & {
+        ScholarlyFunction.RULE_STATEMENT,
+        ScholarlyFunction.CONDITION_EXCEPTION,
+        ScholarlyFunction.EVIDENCE_IJMA,
+        ScholarlyFunction.EVIDENCE_QIYAS,
+    }:
+        modules.append(GROUP_FIQH_RULES)
+    if ScholarlyFunction.REFUTATION in functions:
+        modules.append(GROUP_DIALECTICAL_RULES)
+    if ScholarlyFunction.STRUCTURAL_TRANSITION in functions:
+        modules.append(GROUP_INTRO_RULES)
+
+    return modules
 
 
 def _compute_group_max_tokens(word_count: int) -> int:
@@ -243,6 +121,34 @@ def _compute_group_max_tokens(word_count: int) -> int:
     if word_count > 1500:
         return 16384
     return 8192
+
+
+def _build_group_user_message(
+    chunk: AssembledChunk,
+    segments: list[ClassifiedSegment],
+) -> str:
+    """Build DR28 user message: <active_rules> + <input> + <critical_reminders>.
+
+    Progressive disclosure: only loads rule modules relevant to this chunk's
+    classified content. CORE and OUTPUT_FORMAT are always included.
+    """
+    active_modules = compute_active_modules(segments)
+    output_format = GROUP_OUTPUT_FORMAT.format(
+        structural_format=chunk.structural_format.value,
+    )
+    rules_parts = [GROUP_CORE_RULES] + active_modules + [output_format]
+    active_rules = "\n\n".join(rules_parts)
+
+    segment_summary = _build_segment_summary(segments)
+
+    return (
+        f"<active_rules>\n{active_rules}\n</active_rules>\n\n"
+        f"<input>\n"
+        f"<text>\n{chunk.assembled_text}\n</text>\n\n"
+        f"<classified_segments>\n{segment_summary}\n</classified_segments>\n"
+        f"</input>\n\n"
+        f"<critical_reminders>\n{GROUP_CRITICAL_REMINDERS}\n</critical_reminders>"
+    )
 
 
 def _build_segment_summary(segments: list[ClassifiedSegment]) -> str:
@@ -276,22 +182,16 @@ def group_chunk(
 ) -> ExtractionResult:
     """Send chunk + classified segments to LLM for grouping (§5.3).
 
-    Uses the system prompt from §5.3.2 and user message from §5.3.3.
-    Returns raw ExtractionResult.
+    DR28 architecture: system=CONSTITUTION (stable, cacheable),
+    user=<active_rules>+<input>+<critical_reminders> (dynamic per chunk).
 
     Args:
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
         timeout_override: If provided, overrides config.GROUP_TIMEOUT (for retry escalation).
     """
-    system_prompt = GROUP_SYSTEM_PROMPT.format(
-        structural_format=chunk.structural_format.value,
-    )
+    system_prompt = CONSTITUTION
 
-    segment_summary = _build_segment_summary(segments)
-    user_message = (
-        f"<text>\n{chunk.assembled_text}\n</text>\n\n"
-        f"<classified_segments>\n{segment_summary}\n</classified_segments>"
-    )
+    user_message = _build_group_user_message(chunk, segments)
     if error_feedback:
         user_message += error_feedback
 
@@ -442,17 +342,10 @@ def run_phase2b(
         if cache is not None:
             from engines.excerpting.src.cache import compute_cache_key
 
-            system_prompt = GROUP_SYSTEM_PROMPT.format(
-                structural_format=chunk.structural_format.value,
-            )
-            segment_summary = _build_segment_summary(segments)
-            first_user_message = (
-                f"<text>\n{chunk.assembled_text}\n</text>\n\n"
-                f"<classified_segments>\n{segment_summary}\n</classified_segments>"
-            )
+            first_user_message = _build_group_user_message(chunk, segments)
             cache_key = compute_cache_key(
                 "group",
-                system_prompt,
+                CONSTITUTION,
                 first_user_message,
                 config.GROUP_MODEL,
                 config.LLM_TEMPERATURE,

@@ -21,10 +21,19 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase2_group import (
     GROUP_SYSTEM_PROMPT,
+    _build_group_user_message,
     _build_segment_summary,
+    compute_active_modules,
     group_chunk,
     run_phase2b,
     verify_units,
+)
+from engines.excerpting.src.prompts import (
+    GROUP_DIALECTICAL_RULES,
+    GROUP_FIQH_RULES,
+    GROUP_HADITH_RULES,
+    GROUP_INTRO_RULES,
+    GROUP_VERSE_RULES,
 )
 from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
@@ -141,6 +150,160 @@ class TestGroupSystemPrompt:
         assert "hadith + sharh" in GROUP_SYSTEM_PROMPT
         assert "verse (matn) + commentary" in GROUP_SYSTEM_PROMPT
         assert "definition + examples" in GROUP_SYSTEM_PROMPT
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Tests — compute_active_modules (DR28 IU-4)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestComputeActiveModules:
+    def test_empty_segments_returns_no_modules(self) -> None:
+        assert compute_active_modules([]) == []
+
+    def test_unclassified_triggers_nothing(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.UNCLASSIFIED,
+        )
+        assert compute_active_modules([seg]) == []
+
+    def test_evidence_hadith_triggers_hadith(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.EVIDENCE_HADITH,
+        )
+        modules = compute_active_modules([seg])
+        assert GROUP_HADITH_RULES in modules
+        assert len(modules) == 1
+
+    def test_narration_triggers_hadith(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.NARRATION,
+        )
+        assert GROUP_HADITH_RULES in compute_active_modules([seg])
+
+    def test_evidence_quran_triggers_verse(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.EVIDENCE_QURAN,
+        )
+        modules = compute_active_modules([seg])
+        assert GROUP_VERSE_RULES in modules
+        assert len(modules) == 1
+
+    @pytest.mark.parametrize("fn", [
+        ScholarlyFunction.RULE_STATEMENT,
+        ScholarlyFunction.CONDITION_EXCEPTION,
+        ScholarlyFunction.EVIDENCE_IJMA,
+        ScholarlyFunction.EVIDENCE_QIYAS,
+    ])
+    def test_fiqh_triggers(self, fn: ScholarlyFunction) -> None:
+        seg = _make_classified_segment(scholarly_function=fn)
+        assert GROUP_FIQH_RULES in compute_active_modules([seg])
+
+    def test_refutation_triggers_dialectical(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.REFUTATION,
+        )
+        assert GROUP_DIALECTICAL_RULES in compute_active_modules([seg])
+
+    def test_structural_transition_triggers_intro(self) -> None:
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.STRUCTURAL_TRANSITION,
+        )
+        assert GROUP_INTRO_RULES in compute_active_modules([seg])
+
+    def test_multiple_triggers_load_multiple_modules(self) -> None:
+        """A chunk with hadith + fiqh + dialectical content loads 3 modules."""
+        segs = [
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.EVIDENCE_HADITH,
+            ),
+            _make_classified_segment(
+                segment_index=1, start_word=10, end_word=19,
+                scholarly_function=ScholarlyFunction.RULE_STATEMENT,
+            ),
+            _make_classified_segment(
+                segment_index=2, start_word=20, end_word=29,
+                scholarly_function=ScholarlyFunction.REFUTATION,
+            ),
+        ]
+        modules = compute_active_modules(segs)
+        assert GROUP_HADITH_RULES in modules
+        assert GROUP_FIQH_RULES in modules
+        assert GROUP_DIALECTICAL_RULES in modules
+        assert len(modules) == 3
+
+    def test_definition_triggers_nothing(self) -> None:
+        """DEFINITION does not trigger any conditional module."""
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.DEFINITION,
+        )
+        assert compute_active_modules([seg]) == []
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Tests — _build_group_user_message (DR28 IU-5)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestBuildGroupUserMessage:
+    def test_contains_xml_structure(self) -> None:
+        """DR28 user message has <active_rules>, <input>, <critical_reminders>."""
+        chunk = _make_test_chunk()
+        segments = _make_two_segments()
+        msg = _build_group_user_message(chunk, segments)
+        assert "<active_rules>" in msg
+        assert "</active_rules>" in msg
+        assert "<input>" in msg
+        assert "</input>" in msg
+        assert "<critical_reminders>" in msg
+        assert "</critical_reminders>" in msg
+
+    def test_contains_text_and_segments(self) -> None:
+        """Input block wraps <text> and <classified_segments>."""
+        chunk = _make_test_chunk()
+        segments = _make_two_segments()
+        msg = _build_group_user_message(chunk, segments)
+        assert "<text>" in msg
+        assert "</text>" in msg
+        assert "<classified_segments>" in msg
+        assert "</classified_segments>" in msg
+
+    def test_core_rules_always_present(self) -> None:
+        """CORE rules appear in active_rules regardless of segment types."""
+        chunk = _make_test_chunk()
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.DEFINITION,
+        )
+        msg = _build_group_user_message(chunk, [seg])
+        assert "EE-1" in msg
+        assert "DECONTEXTUALIZATION" in msg
+
+    def test_hadith_module_loaded_when_hadith_present(self) -> None:
+        chunk = _make_test_chunk()
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.EVIDENCE_HADITH,
+        )
+        msg = _build_group_user_message(chunk, [seg])
+        assert "HADITH RULES:" in msg
+        assert "DERIVED BENEFITS" in msg
+
+    def test_hadith_module_absent_for_grammar(self) -> None:
+        chunk = _make_test_chunk()
+        seg = _make_classified_segment(
+            scholarly_function=ScholarlyFunction.DEFINITION,
+        )
+        msg = _build_group_user_message(chunk, [seg])
+        assert "HADITH RULES:" not in msg
+        assert "DERIVED BENEFITS" not in msg
+
+    def test_structural_format_substituted(self) -> None:
+        """The {structural_format} variable is resolved in the output format."""
+        chunk = _make_test_chunk()
+        segments = _make_two_segments()
+        msg = _build_group_user_message(chunk, segments)
+        assert "The text format is: prose" in msg
+        assert "{structural_format}" not in msg
 
 
 # ═══════════════════════════════════════════════════════════════════

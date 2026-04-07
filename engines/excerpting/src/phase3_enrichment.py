@@ -18,6 +18,7 @@ import instructor
 
 from pydantic import ValidationError
 
+from engines.excerpting.src.prompts import CONSTITUTION
 from engines.excerpting.contracts import (
     AssembledChunk,
     EnrichmentResult,
@@ -53,12 +54,10 @@ def _compute_enrich_max_tokens(word_count: int) -> int:
 
 
 # ═══════════════════════════════════════════════════════════════════
-# §7.2.2 — System Prompt (exact text from SPEC)
+# §7.2.2 — Task-specific enrichment rules (DR28 architecture)
 # ═══════════════════════════════════════════════════════════════════
 
-ENRICH_SYSTEM_PROMPT = """\
-You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
-
+_ENRICH_RULES = """\
 You are enriching teaching units extracted from this Arabic text with semantic
 metadata. Each teaching unit has already been identified, classified, and
 partially annotated. Your task is to add inferred metadata that requires
@@ -223,6 +222,9 @@ names for حروف الجر used in different grammatical traditions.
 
 Respond with a JSON array containing one enrichment object per teaching unit,
 in the same order as the input units."""
+
+# Full system prompt: constitution (shared invariants) + task rules (DR28).
+ENRICH_SYSTEM_PROMPT = CONSTITUTION + "\n\n" + _ENRICH_RULES
 
 
 # ═══════════════════════════════════════════════════════════════════

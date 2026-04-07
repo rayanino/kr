@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, Any, Optional
 import instructor
 from pydantic import ValidationError
 
+from engines.excerpting.src.prompts import CONSTITUTION
 from engines.excerpting.contracts import (
     AssembledChunk,
     ClassificationResult,
@@ -36,11 +37,10 @@ logger = logging.getLogger(__name__)
 # Constants
 # ═══════════════════════════════════════════════════════════════════
 
-# System prompt copied VERBATIM from SPEC §5.2.2 (lines 826–855).
+# Task-specific classification rules (§5.2.2). Combined with CONSTITUTION
+# to form the full system prompt (DR28 architecture).
 # Only {structural_format} is substituted at call time (DD-S2-1).
-CLASSIFY_SYSTEM_PROMPT = """\
-You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
-
+_CLASSIFY_RULES = """\
 Classify each sentence or closely bonded group of sentences in this Arabic text
 by scholarly function. The scholarly function types are:
 
@@ -105,15 +105,13 @@ For each segment, provide:
 - text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY
   from the input — preserve all diacritics, punctuation, and whitespace precisely.
   This field is used for alignment; exact copying is critical.
-  COPY FIDELITY: text_snippet MUST be an exact character-for-character \
-copy from the input text. Preserve all newlines (\\n) exactly as they \
-appear in the source. Do NOT reflow whitespace or collapse \\n to space. \
-If the source text has a newline at position N, the snippet must have \
-that same newline.
 - scholarly_function: one of the 16 types listed above
 - confidence: your classification confidence from 0.0 to 1.0
 
 The text format is: {structural_format}"""
+
+# Full system prompt: constitution (shared invariants) + task rules (DR28).
+CLASSIFY_SYSTEM_PROMPT = CONSTITUTION + "\n\n" + _CLASSIFY_RULES
 
 # Arabic diacritics stripped in fallback matching (U+064B–U+0652, U+0670).
 # Explicit set — NOT regex \p{Mn} which would strip non-Arabic combining marks.
