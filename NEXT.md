@@ -109,7 +109,7 @@
 4. **DR31 Templates 4+6:** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration (both rated COMPATIBLE by Codex CLI).
 5. **Deferred:** review_flags placeholder refactoring, DR31 Templates 1/2/3 prompt rewrites (NEEDS_ADAPTATION).
 6. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-7. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
+7. **PARALLEL: Feedback Collection Strategy — PLAN COMPLETE.** S-1 intake done (11 atoms). Plan at `docs/plans/2026-04-07-001-feat-feedback-collection-system-plan.md`. Next: Codex CLI review → Unit 1 (bundle_intake.py) → Unit 2 (owner_profile.yaml)
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
@@ -138,10 +138,17 @@
 2. Mantiq: **Yes, add as science #19** → foundational logic tree required before usul al-fiqh
 3. Basran terminology: **TBD** (not yet asked — lower priority, blocks nahw synonym layer)
 
-**Next steps:**
-1. Write brainstorm requirements document (`docs/brainstorms/`) formalizing the 5-coworker synthesis into implementation-ready requirements
-2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline)
-3. Begin Phase A collection: formalize user_model artifact + remaining questionnaire items (S-1 priority ranking first)
+**Session 11 accomplishments (feedback collection workstream):**
+- **S-1 INTAKE COMPLETE:** 18 files unzipped, validated (9 JSONL, 3 YAML, 6 MD/TXT). 11 governance atoms extracted to MERGED_ATOM_QUEUE.md Section M. Key atoms: teaching-unit-as-goal (S1-001), source integrity constraint (S1-002), self-containment dual reading (S1-003), granularity ≠ brevity (S1-004), usefulness ≠ mutation license (S1-005). All PRELIMINARY (0/3 coworkers).
+- **Requirements doc EXISTS:** `docs/brainstorms/2026-04-07-feedback-collection-strategy-requirements.md` (108 lines, 17 requirements across 4 layers)
+- **`/ce:plan` COMPLETE:** `docs/plans/2026-04-07-001-feat-feedback-collection-system-plan.md` — 7 implementation units across 4 phases. Phased: Foundation (week 1) → Questionnaire infra (weeks 1-2) → Integration (weeks 2-3) → Calibration spec (weeks 3-4).
+- **Codex CLI review prompt prepared** (via /prompt-architect) for plan + S-1 atom validation. 5 checks: structural consistency, requirements coverage, 4-layer alignment, atom correctness, cross-artifact consistency.
+
+**Next steps (feedback collection workstream):**
+1. **Dispatch Codex CLI review** of plan + S-1 atoms (prompt ready, awaiting dispatch)
+2. **Begin Unit 1:** `scripts/bundle_intake.py` — intake automation script (zero-risk infrastructure, no content decisions)
+3. **Begin Unit 2:** `shared/user_model/owner_profile.yaml` — formalize user model from existing interview data
+4. **S-1 atom coworker validation:** Minimum 2 independent sources before any atom advances to IMPLEMENTED
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane

@@ -36,6 +36,11 @@
 - Taxonomy engine changes trigger curriculum validity checks
 - Synthesizing engine may use study depth to adjust analytical layer
 
+## Owner Profile Artifact
+
+`owner_profile.yaml` — structured data file formalizing the owner's scholarly profile from interview data and the 5-coworker synthesis. Contains: study mode, 19-science ranking, Hanbali madhab config with masking layer, terminology preferences, fatigue profile, S-1 priority architecture, and collection status tracking (7/46 decisions resolved). This artifact seeds the user model when Cycle 0 implementation begins.
+
 ## SPEC Refinement Status
 - Cycle 0 (not yet started)
 - Implementation-ready: NO — refinement required before implementation
+- Owner profile data: AVAILABLE at `owner_profile.yaml`

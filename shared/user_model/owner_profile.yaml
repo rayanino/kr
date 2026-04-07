@@ -1,0 +1,237 @@
+# Owner Profile — KR User Model Artifact
+# Formalized from interview data (2026-04-07) + 5-coworker synthesis
+# Source: NEXT.md interview rounds + FINAL_SYNTHESIS_5_OF_5.md
+#
+# This is structured data, not code implementation. It seeds shared/user_model/
+# when that component is built (Cycle 0).
+#
+# Each field tagged with: source, date, confidence, decision_id (DR18 codes)
+
+identity:
+  name: Rayane
+  role: student
+  level: beginner
+  source: interview
+  date: "2026-04-07"
+
+study_mode:
+  primary_approach: memorization_first
+  description: "Present everything, tell me just memorize"
+  source: interview
+  date: "2026-04-07"
+  confidence: high
+  decision_id: null  # Not a DR18 decision — interview-derived
+
+science_priorities:
+  # Ordered from highest to lowest priority
+  # Source: interview (Arabic first, fiqh/usul/aqidah passion lane)
+  # Extended by: Gemini DR curriculum framework (tadarruj grounding)
+  ranking:
+    - science: arabic  # العربية
+      priority: 1
+      sub_sciences: [imla, sarf, nahw, balagha]
+      source: interview
+      date: "2026-04-07"
+      confidence: high
+
+    - science: fiqh  # الفقه
+      priority: 2
+      notes: "passion lane — الفقه على المذاهب الأربعة is priority book"
+      source: interview
+      date: "2026-04-07"
+      confidence: high
+      decision_id: SRC-D-010  # Book processing priority
+
+    - science: usul_al_fiqh  # أصول الفقه
+      priority: 3
+      prerequisites: [mantiq, nahw]
+      source: interview
+      date: "2026-04-07"
+      confidence: high
+
+    - science: aqidah  # العقيدة
+      priority: 4
+      notes: "passion lane"
+      source: interview
+      date: "2026-04-07"
+      confidence: high
+
+    # Remaining 15 sciences — ordering PENDING (needs Layer 3 Session A)
+    - science: tafsir
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: hadith
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: sirah
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: tarikh
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: tajwid
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: adab
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: mustalah_al_hadith
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: qawa_id_fiqhiyyah
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: maqasid_al_shariah
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: faraidh
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: tarbiyah
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: lugha
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: falsafah
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: tasawwuf
+      priority: null
+      status: PENDING
+      decision_id: SRC-D-004
+
+    - science: mantiq  # المنطق — NEW, science #19
+      priority: null
+      status: RESOLVED
+      notes: "Owner confirmed: yes, add as #19. Foundational logic tree required before usul al-fiqh."
+      source: owner_answer
+      date: "2026-04-07"
+      confidence: high
+      decision_id: null  # Gemini DR recommendation, owner-confirmed
+
+  total_sciences: 19
+
+madhab_config:
+  primary_madhab: hanbali  # حنبلي
+  masking_layer:
+    enabled: true
+    description: "Suppress Hanafi/Shafi'i/Maliki rulings until baseline mastery in Hanbali"
+    suppressed_schools: [hanafi, shafii, maliki]
+    unlock_condition: "Verified baseline mastery in Hanbali fiqh"
+    source: owner_answer
+    date: "2026-04-07"
+    confidence: high
+    decision_id: null  # Gemini DR recommendation, owner-confirmed
+
+terminology_preferences:
+  nahw_school: basran  # بصري
+  status: ASSUMED
+  notes: "Assumed Basran default per Gemini DR recommendation. Owner not yet asked."
+  kufan_synonym_layer: TBD
+  question_to_ask: "When you study nahw, should the system use only Basran terms, or show both Basran and Kufan?"
+  source: gemini_dr_recommendation
+  date: "2026-04-07"
+  confidence: low  # Not yet confirmed by owner
+  decision_id: null
+
+study_modes_per_science:
+  # Per-science: memorizing rules only, or also training dialectical reasoning?
+  # Status: PENDING — needs Layer 1 collection (Phase A, question 4)
+  status: PENDING
+  question_to_ask: "For each science: are you memorizing rules only, or also training dialectical reasoning?"
+  decision_id: null
+
+fatigue_profile:
+  max_session_duration_minutes: 30
+  excerpts_per_session: "10-15"
+  preferred_format: structured_interactive
+  rejected_format: open_ended
+  notes: "Open-ended questions exhaust (1h each). Strongly prefers multiple choice, highlighting, comparisons."
+  source: interview
+  date: "2026-04-07"
+  confidence: high
+
+priority_architecture:
+  # From S-1 intake (Session 11)
+  ranking:
+    - item: "making the excerpt useful to study from"
+      rank: 1
+      role_type: top_level_goal
+      status: solid
+
+    - item: "keeping the exact original text untouched"
+      rank: 2
+      role_type: hard_constraint
+      status: solid
+
+    - item: "making the excerpt understandable on its own"
+      rank: 3
+      role_type: design_pressure
+      status: conditional
+      notes: "Dual reading: ordinary = recoverable friction; destructive = approaches corruption severity"
+
+    - item: "making the excerpt the right size"
+      rank: 4
+      role_type: design_pressure
+      status: medium_stability
+      notes: "Granularity fitness, not brevity"
+
+  confidence: medium
+  structural_asymmetry: true
+  source: S-1_bundle
+  date: "2026-04-07"
+  maq_section: M
+
+# Collection status summary
+collection_status:
+  layer_1_user_model:
+    resolved: 5  # level, study_mode, arabic_first, hanbali, mantiq
+    pending: 4   # basran, study_modes_per_science, full 19-science ranking, shubuhat policy
+    total: 9
+
+  layer_2_quality_policies:
+    resolved: 1  # S-1 priority ranking
+    pending: 14  # S-2, K1-3, E1-3, D1-3, SC2/3, GN1/2, L1/2
+    total: 15
+
+  layer_3_engine_decisions:
+    resolved: 1  # book priority (partial — 1 book)
+    pending: 17  # DR18 SRC/EXC/TAX/SYN decisions across 5 sessions
+    total: 18
+
+  layer_4_calibration:
+    resolved: 0
+    pending: 4   # 100+ judgments, 30-100 labels, 30-book gate, rubrics
+    total: 4
+
+  overall:
+    resolved: 7
+    pending: 39
+    total: 46  # 42 from DR18 + 4 new from Gemini DR
