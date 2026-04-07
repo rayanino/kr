@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Findings</h2>
+
+{% if data_errors %}
+<div class="warning-banner">
+    Data warnings: {{ data_errors|length }} record(s) could not be loaded.
+    <details><summary>Details</summary>{% for e in data_errors %}<div>{{ e }}</div>{% endfor %}</details>
+</div>
+{% endif %}
+
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value red">{{ stats.get('critical', 0) }}</div>
+        <div class="stat-label">Critical</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ stats.get('high', 0) }}</div>
+        <div class="stat-label">High</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value blue">{{ stats.unresolved }}</div>
+        <div class="stat-label">Unresolved</div>
+    </div>
+</div>
+
+{% if not grouped %}
+<div class="empty-state">No findings recorded yet.</div>
+{% endif %}
+
+{% for severity, findings in grouped.items() %}
+<div class="severity-group">
+    <span class="badge {{ severity_class(severity) }}">{{ severity }}</span>
+    ({{ findings|length }})
+</div>
+{% for f in findings %}
+<div class="card">
+    <div class="card-header">
+        <span class="meta">{{ f.finding_id }}</span>
+        <span class="badge {{ severity_class(f.severity.value) }}">{{ f.severity.value }}</span>
+        <span class="meta">from {{ f.source_id }}</span>
+    </div>
+    <div class="card-title">{{ f.title[:120] }}{% if f.title|length > 120 %}...{% endif %}</div>
+    {% if f.description and f.description != f.title %}
+    <details>
+        <summary>Details</summary>
+        <div class="finding-desc">{{ f.description }}</div>
+    </details>
+    {% endif %}
+    {% if f.action_required %}
+    <div class="meta" style="margin-top:0.25rem">Action: {{ f.action_required }}</div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}
