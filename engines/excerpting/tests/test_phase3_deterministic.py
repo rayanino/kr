@@ -1468,7 +1468,7 @@ class TestEdgeCaseOrchestrator:
         assert "llm_enrichment_failed" in result[0].review_flags
 
     def test_full_unit_no_review_flag(self) -> None:
-        """FULL self-containment -> no review_flags."""
+        """FULL self-containment with 1 content type -> no review_flags."""
         chunk = _make_assembled_chunk()
         unit = _make_teaching_unit(
             start_word=0,
@@ -1478,6 +1478,53 @@ class TestEdgeCaseOrchestrator:
         seg = _make_classified_segment(segment_index=0)
         result = build_deterministic_excerpts(chunk, [unit], [seg])
         assert result[0].review_flags == []
+
+    def test_ic1_content_intertwined_flag(self) -> None:
+        """IC-1: 3+ distinct content_types → content_intertwined review flag."""
+        chunk = _make_assembled_chunk()
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+            self_containment=SelfContainmentLevel.FULL,
+            # 3 segments with different functions → 3 content_types
+        )
+        segs = [
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.DEFINITION,
+            ),
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.EVIDENCE_HADITH,
+            ),
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.RULE_STATEMENT,
+            ),
+        ]
+        result = build_deterministic_excerpts(chunk, [unit], segs)
+        assert "content_intertwined" in result[0].review_flags
+
+    def test_two_content_types_no_intertwined_flag(self) -> None:
+        """2 content_types → no content_intertwined flag (threshold is 3+)."""
+        chunk = _make_assembled_chunk()
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        segs = [
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.DEFINITION,
+            ),
+            _make_classified_segment(
+                segment_index=0,
+                scholarly_function=ScholarlyFunction.EVIDENCE_HADITH,
+            ),
+        ]
+        result = build_deterministic_excerpts(chunk, [unit], segs)
+        assert "content_intertwined" not in result[0].review_flags
 
     def test_d023_all_33_fields_populated(self) -> None:
         """D-023: All 33 ExcerptRecord fields are explicitly set (not None by default)."""

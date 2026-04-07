@@ -1040,6 +1040,13 @@ def build_deterministic_excerpts(
         ):
             review_flags = ["llm_enrichment_failed"]
 
+        # IC-1 exemption (Session 17 Fix #3): when 3+ distinct content_types
+        # exist in one unit, the content is intertwined (e.g. definition +
+        # proof + attribution in one paragraph). FR-1's 33% audit does not
+        # apply — the secondary content is constitutive, not supplementary.
+        if len(content_types) >= 3:
+            review_flags.append("content_intertwined")
+
         # Assemble ExcerptRecord with all 33 fields
         record = ExcerptRecord(
             # ── Identification (6) ──
