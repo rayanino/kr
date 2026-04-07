@@ -24,25 +24,28 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — ALL 8 DR responses received and archived, coworker validation in progress)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 13 COMPLETE: DESIGN.md + 8 DRs + 4 coworker reviews)
 
 ### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
-- **DESIGN.md written + reviewed by 2 coworkers + 12 amendments applied**
-- **8 DR prompts dispatched, 5 responses received and archived:**
-  - DR32 (ChatGPT): System architecture — dashboard FastAPI+HTMX (4.75/5), 6-stage response pipeline, Idea Quarry creative framework. **Critical finding: doctrine file untracked (FIXED).**
-  - DR33 (Claude): Research prioritization — 35/22/18/15/10 topic allocation, 5-state completeness machine with TSI index, 3-phase temporal strategy, 20 research topics (RT-01 to RT-20), critical path 8 topics/35-45 days.
-  - DR34 (Gemini): Hadith isnad-matn boundary patterns — transition markers, compound isnads, commentary structure.
-  - DR35 (ChatGPT): Passaging engine gap analysis — [NOT YET IMPLEMENTED] features, boundary detection, hardening priorities.
-  - DR36 (ChatGPT): Multi-layer text detection — sharh/hashiyah detection patterns, layer detection approaches.
-  - DR37 (Gemini): OQ-001-004 calibration cases — 4 new significance criteria, context-fill principles, analysis authority 3-layer approach
-  - DR38 (Gemini): 18 sciences mapping — 54 DR questions, 10 ranked edge cases, scholarly completeness criteria for mas'ala/hadith/tafsir/tarjama
-  - DR39 (Claude): Taxonomy trustworthiness — engine has NO LLM adapter (Session 2 never built), gold baseline 13/13 MISSING, 10 hardening priorities, 10 research gaps
-- **Coworker validation of DR32-36 dispatching** (HR-23 /prompt-architect passed)
-- **Next:**
-  1. Complete coworker validation of DR32-36 findings
-  2. Process remaining 3 DR responses as owner relays them
-  3. Write unified implementation plan synthesizing all DR findings
-  4. Begin Phase 0 implementation: dashboard skeleton, JSONL schemas, response processing script
+- **DESIGN.md written + 2 design reviews + 12 amendments applied**
+- **8 DR prompts relayed, ALL 8 responses received and archived (DR32-39):**
+  - DR32 (ChatGPT): Dashboard FastAPI+HTMX (4.75/5), 6-stage response pipeline, Idea Quarry creative framework
+  - DR33 (Claude): 20 research topics (RT-01 to RT-20), 3-phase strategy, TSI saturation index, critical path 35-45 days
+  - DR34 (Gemini): Hadith isnad-matn boundaries — 7 new patterns beyond existing rules
+  - DR35 (ChatGPT): Passaging engine gap analysis + hardening priorities
+  - DR36 (ChatGPT): Multi-layer sharh/hashiyah detection patterns
+  - DR37 (Gemini): OQ-001-004 calibration — 5 fiqh cases, 4 new significance criteria, context-fill principles
+  - DR38 (Gemini): 18 sciences — 54 DR questions, 10 ranked edge cases, completeness criteria
+  - DR39 (Claude): Taxonomy "no brain" — LLM adapter not built, gold baseline 100% invalid, 10 priorities
+- **4 coworker reviews COMPLETE (2 design + 2 DR validation):**
+  - Structural: dashboard PASS, critical path corrected (starts RT-03 not RT-01), 6/20 topics partially answered, no embedding infra for TSI
+  - Scholarly: allocation 22%→28-30%, RT-13 must split (Quran vs hadith), imla' 250+→80-120, RT-06/07 co-dep = tanzil al-'ilm
+- **5 confirmed decisions:** Dashboard FastAPI+HTMX, 20-topic research framework, taxonomy LLM adapter Priority 1, OQ-001-004 resolved by DR37, genre-prioritized hardening
+- **Next (for next CC session):**
+  1. Phase 0 implementation: dashboard skeleton (FastAPI+HTMX per DR32), JSONL schemas, `process_dr_response.py`, research gap scanner
+  2. Apply DR37 calibration cases to resolve OQ-001-004 [OPEN] markers in excerpting SPEC §6.18-6.23
+  3. Generate Batch 2 DR prompts from DR39's 10 taxonomy research gaps (aqidah 7, sarf 5, balagha 1)
+  4. Correct DR33's research framework: adjust critical path (RT-03 start), split RT-13, raise scholarly allocation to 28-30%
 
 ### Session 11 — D3 Full Intake + Coworker Review (2026-04-07)
 - **D3 intake:** Read ALL 22 files (97 atomic records). Session 10 only read 8/22.
