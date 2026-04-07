@@ -23,7 +23,16 @@
 | 9 | `6_078_0_9` | SCHOOL | 41 | opinion_statement | FULL | **PASS** | Correct SSB-1 Scenario 1 |
 | 10 | `6_088_0_2` | SCHOOL | 96 | evidence_ijma | FULL | **PASS** | Excellent ijma classification + roles |
 
-**Summary: 6 PASS, 1 ADVISORY, 1 BORDERLINE, 2 FAIL**
+**Summary (post Arabic reviewer): 5 PASS, 2 ADVISORY, 0 BORDERLINE, 3 FAIL**
+
+### Cross-Validation: Arabic Reviewer (CC subagent, independent assessment)
+
+The Arabic reviewer independently evaluated all 10 excerpts BEFORE reading CC's verdicts. Results:
+- **8/10 AGREE** with CC's verdicts
+- **2/10 ESCALATED** — Sample 2 from PASS→ADVISORY (invisible Unicode), Sample 4 from BORDERLINE→FAIL (المعنى الإجمالي misclassification is systematic)
+- **4 NEW FINDINGS** CC missed: (1) T-1 invisible Unicode in Excerpt 2, (2) ابن حجر overconfidence at 0.97 (should cap ~0.85), (3) Quranic citation uses `{ }` not `﴿ ﴾` — bracket-only detection would miss, (4) secondary_functions vs content_types schema inconsistency
+
+**Revised verdict table incorporates Arabic reviewer's escalations.**
 
 ---
 
@@ -316,3 +325,58 @@ Ran automated pattern checks across all 1,283 taysir excerpts:
 - Content quality judgments (function classification correctness, self-containment accuracy, packaging appropriateness) require coworker confirmation
 
 **Next:** Dispatch 6 coworkers for cross-validation.
+
+---
+
+## Cross-Validation Results (3/6 sources complete)
+
+### Source 2: CC Arabic Reviewer (Anthropic subagent)
+- **8/10 AGREE**, 2 escalated (Sample 2 PASS→ADVISORY, Sample 4 BORDERLINE→FAIL)
+- **4 new findings:** invisible Unicode in Excerpt 2, ابن حجر overconfidence, Quranic `{ }` encoding, secondary_functions vs content_types mismatch
+- **المعنى الإجمالي verdict:** FAIL (function incorrect) — confirmed as systematic
+
+### Source 3: Gemini CLI (Google)
+- Confirms all CC verdicts except Sample 4 (FAIL, not BORDERLINE)
+- **CRITICAL — Arabic text corruption found in 3 excerpts:**
+  - Sample 1: `سورةْ النساء` — sukun on ta' marbuta in idafa (tashkeel error)
+  - Sample 2: `يُتَسَوًكُ` — tanwin fatha instead of shadda+fatha (should be `يُتَسَوَّكُ`)
+  - Sample 7: `مال روى` — **SEVERE OCR corruption** (should be `ما روي`/`ما رواه`). CONFIRMED in raw text.
+  - Sample 7: `برواتها` — **SEVERE OCR corruption** (nonsensical, should be `يراد بها`). CONFIRMED in raw text.
+  - Sample 7: Missing hamzas, alif maqsura/ya' confusion
+- **Key critique:** CC evaluated metadata and pipeline logic but didn't byte-inspect Arabic strings. The `arabic_fidelity_flags` system has 382 flags but zero OCR word-corruption flags and zero flags for Sample 7.
+- **Gap identified:** The fidelity detection system covers diacritic density, ZWNJ, and honorifics — but NOT OCR word corruption (garbled words that don't match any Arabic lexical form).
+
+### Revised Verdict Table (post 3-source synthesis)
+
+| # | Category | CC | Arabic Rev | Gemini | **Final** |
+|---|----------|-----|-----------|--------|-----------|
+| 1 | KALALA | ADVISORY | ADVISORY | PASS+tashkeel | **ADVISORY** |
+| 2 | DEF+PROOF | PASS | ADVISORY | PASS+tashkeel | **ADVISORY** |
+| 3 | DEF+PROOF | PASS | PASS | AGREE | **PASS** |
+| 4 | DEF+PROOF | BORDERLINE | FAIL | FAIL | **FAIL** (3/3 agree) |
+| 5 | SHORT-RULE | FAIL | FAIL | FAIL | **FAIL** (3/3 agree) |
+| 6 | SHORT-RULE | FAIL | FAIL | FAIL | **FAIL** (3/3 agree) |
+| 7 | OPINION+ATTR | PASS | PASS | PASS+OCR! | **ADVISORY** (OCR corruption) |
+| 8 | OPINION+ATTR | PASS | PASS | AGREE | **PASS** |
+| 9 | SCHOOL | PASS | PASS | AGREE | **PASS** |
+| 10 | SCHOOL | PASS | PASS | AGREE | **PASS** |
+
+**Revised summary: 4 PASS, 3 ADVISORY, 3 FAIL**
+
+### Source 4: Codex CLI (OpenAI)
+- **AGREE** on all major findings (MV-1, SC misrating, merge_micro_units gap)
+- **CORRECTS CC's counts upward:** 82 pronoun-suffix excerpts (not 72), 568 numbered-list items (not 550)
+- **Nuance:** MV-1 triggers adjacent merging only — the shared div_id is separate evidence of Phase 2b over-fragmentation. Both point to the same fix but are independent findings.
+- **Codex-specific verification:** Ran independent Python script against excerpts.jsonl. 82/176 (46.6%) of short FULL excerpts have pronoun suffixes.
+
+### Corrected Counts (post Codex verification)
+
+| Metric | CC Original | Codex Verified | Adopted |
+|--------|------------|---------------|---------|
+| Short FULL w/ pronoun suffixes | 72 (5.6%) | **82 (6.4%)** | **82** |
+| Numbered-list pattern excerpts | 550 (42.9%) | **568 (44.3%)** | **568** |
+| Below MV-1 | 191 (14.9%) | Not re-counted | 191 |
+
+### Sources Pending
+- Source 5: ChatGPT DR (owner relay)
+- Source 6: Claude DR (owner relay)
