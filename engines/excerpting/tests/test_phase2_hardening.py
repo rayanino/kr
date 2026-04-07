@@ -47,6 +47,7 @@ from engines.excerpting.contracts import (
     validate_tu_invariants,
 )
 from engines.excerpting.src.phase2_classify import (
+    _build_classify_user_message,
     _build_token_char_map,
     _char_to_token_index,
     _compute_classify_max_tokens,
@@ -800,14 +801,12 @@ class TestRunPhase2aMixedErrors:
             side_effect=[
                 ValidationError.from_exception_data(
                     title="ClassificationResult",
-                    line_errors=[
-                        {
-                            "type": "missing",
-                            "loc": ("segments",),
-                            "msg": "Field required",
-                            "input": {},
-                        }
-                    ],
+                    line_errors=[{
+                        "type": "missing",
+                        "loc": ("segments",),
+                        "input": {},
+                        "ctx": {},
+                    }],
                 ),
                 bad_snippet_cr,  # normalize will fail
                 good_cr,  # success
@@ -1356,14 +1355,12 @@ class TestDDS28NoFeedbackOnValidationError:
             side_effect=[
                 ValidationError.from_exception_data(
                     title="ClassificationResult",
-                    line_errors=[
-                        {
-                            "type": "missing",
-                            "loc": ("segments",),
-                            "msg": "Field required",
-                            "input": {},
-                        }
-                    ],
+                    line_errors=[{
+                        "type": "missing",
+                        "loc": ("segments",),
+                        "input": {},
+                        "ctx": {},
+                    }],
                 ),
                 good_cr,
             ]
@@ -1382,8 +1379,8 @@ class TestDDS28NoFeedbackOnValidationError:
         user_msg = second_call.kwargs["messages"][1]["content"]
         assert "text_snippet that could not be located" not in user_msg
         assert "coverage invariant" not in user_msg
-        # User message is just the text wrapper
-        assert user_msg == f"<text>\n{self._TEXT}\n</text>"
+        # User message is the clean DR28 message (no feedback appended)
+        assert user_msg == _build_classify_user_message(chunk)
 
     def test_group_retry_no_feedback_after_validation_error(self) -> None:
         """After ValidationError in group, retry user message has no feedback."""
@@ -1421,14 +1418,12 @@ class TestDDS28NoFeedbackOnValidationError:
             side_effect=[
                 ValidationError.from_exception_data(
                     title="ExtractionResult",
-                    line_errors=[
-                        {
-                            "type": "missing",
-                            "loc": ("teaching_units",),
-                            "msg": "Field required",
-                            "input": {},
-                        }
-                    ],
+                    line_errors=[{
+                        "type": "missing",
+                        "loc": ("teaching_units",),
+                        "input": {},
+                        "ctx": {},
+                    }],
                 ),
                 good_er,
             ]

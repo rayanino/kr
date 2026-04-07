@@ -8,8 +8,6 @@ enrichment application, failure graceful degradation, scholar merge.
 from __future__ import annotations
 
 from typing import Any
-from unittest.mock import MagicMock
-
 import pytest
 
 from engines.excerpting.contracts import (
@@ -189,6 +187,61 @@ class TestUserMessage:
         exc = _make_excerpt_record(div_id=chunk.div_id, evidence_refs=[])
         msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
         assert "evidence_detected: none" in msg
+
+
+# ═══════════════════════════════════════════════════════════════════
+# 2b. DR28 User Message Structure (IU-7)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestDR28EnrichUserMessage:
+    """Verify DR28 2-message architecture for enrichment."""
+
+    def test_contains_xml_structure(self) -> None:
+        """DR28 user message has <active_rules>, <input>, <critical_reminders>."""
+        chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
+        assert "<active_rules>" in msg
+        assert "</active_rules>" in msg
+        assert "<input>" in msg
+        assert "</input>" in msg
+        assert "<critical_reminders>" in msg
+        assert "</critical_reminders>" in msg
+
+    def test_rules_contain_all_7_fields(self) -> None:
+        """All 7 enrichment field instructions appear in active_rules."""
+        chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
+        for field in [
+            "TOPIC KEYWORDS", "SCHOOL ATTRIBUTION", "QUOTED SCHOLAR RESOLUTION",
+            "TAKHRIJ DATA", "TERMINOLOGY VARIANTS", "CROSS-REFERENCES",
+            "CONTEXT HINT",
+        ]:
+            assert field in msg, f"Missing: {field}"
+
+    def test_critical_reminders_contain_key_rules(self) -> None:
+        """Instruction sandwich: critical rules restated at end."""
+        chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
+        assert "Wrong attributions" in msg
+        assert "POSITION" in msg
+        assert "Do NOT invent" in msg
+
+    def test_input_wraps_metadata_text_units(self) -> None:
+        """<input> block contains source_metadata, text, and teaching_units."""
+        chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
+        # All input sub-elements inside <input>
+        input_start = msg.index("<input>")
+        input_end = msg.index("</input>")
+        input_block = msg[input_start:input_end]
+        assert "<source_metadata>" in input_block
+        assert "<text>" in input_block
+        assert "<teaching_units>" in input_block
 
 
 # ═══════════════════════════════════════════════════════════════════
