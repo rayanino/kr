@@ -37,8 +37,8 @@ def detect_provider(text: str) -> DetectionResult:
     }
     signals: dict[DRTarget, list[str]] = {t: [] for t in DRTarget}
 
-    # ChatGPT signals
-    filecite_count = len(re.findall(r"fileciteturn[0-9]+file[0-9]+", text))
+    # ChatGPT signals — \ue202 private-use chars appear between tokens in ChatGPT DR output
+    filecite_count = len(re.findall(r"filecite[\ue200-\ue2ff]*turn[0-9]+file[0-9]+", text))
     if filecite_count > 0:
         scores[DRTarget.CHATGPT] += 0.6
         signals[DRTarget.CHATGPT].append(f"fileciteturn citations: {filecite_count}")
@@ -110,7 +110,7 @@ def extract_sections(text: str, provider: DRTarget) -> list[Section]:
     """Extract sections using provider-aware heading detection."""
     # Strip ChatGPT fileciteturn noise before parsing
     if provider == DRTarget.CHATGPT:
-        text = re.sub(r"\s*fileciteturn[0-9]+file[0-9]+L[0-9]+-L[0-9]+", "", text)
+        text = re.sub(r"\s*filecite[\ue200-\ue2ff]*turn[0-9]+file[\ue200-\ue2ff]*[0-9]+[\ue200-\ue2ff]*L[0-9]+-L[0-9]+[\ue200-\ue2ff]*", "", text)
 
     sections: list[Section] = []
     current_heading = ""
