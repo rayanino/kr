@@ -80,9 +80,9 @@
 3. Basran terminology: **TBD** (not yet asked — lower priority, blocks nahw synonym layer)
 
 **Next steps:**
-1. Write brainstorm requirements document (`docs/brainstorms/`) formalizing the 5-coworker synthesis into implementation-ready requirements
-2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline)
-3. Begin Phase A collection: formalize user_model artifact + remaining questionnaire items (S-1 priority ranking first)
+1. ~~Write brainstorm requirements document~~ **DONE** → `docs/brainstorms/2026-04-07-feedback-collection-strategy-requirements.md` (17 requirements, 4 layers)
+2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline) — **NEXT SESSION**
+3. Begin Phase A collection: owner starts S-1 (quality priority ranking) via existing ChatGPT bundle workflow — **OWNER CAN START NOW**
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane
