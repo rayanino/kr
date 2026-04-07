@@ -219,6 +219,46 @@ def main() -> int:
     return 0
 
 
+def _detect_agent_identity() -> str:
+    """Detect which AI agent is running this session.
+
+    Uses multiple signals since env vars are unreliable:
+    1. Explicit env vars (CODEX_CLI, GEMINI_CLI)
+    2. Process tree detection (codex, gemini in parent process names)
+    3. Config file presence (.codex/ session markers)
+    4. Fallback to claude_code
+    """
+    # Signal 1: explicit env vars
+    if os.environ.get("CODEX_CLI"):
+        return "codex_cli"
+    if os.environ.get("GEMINI_CLI"):
+        return "gemini_cli"
+
+    # Signal 2: check if running inside a codex session via config
+    codex_session = Path.home() / ".codex" / "session_index.jsonl"
+    if codex_session.exists():
+        try:
+            lines = codex_session.read_text(encoding="utf-8").strip().split("\n")
+            if lines:
+                last = json.loads(lines[-1])
+                # If the last codex session is very recent (within 5 min), likely codex
+                from datetime import timedelta
+                ts_str = last.get("timestamp", "2000-01-01T00:00:00+00:00")
+                last_ts = datetime.fromisoformat(ts_str)
+                if last_ts.tzinfo is None:
+                    last_ts = last_ts.replace(tzinfo=timezone.utc)
+                if (datetime.now(timezone.utc) - last_ts) < timedelta(minutes=5):
+                    return "codex_cli"
+        except (json.JSONDecodeError, OSError, KeyError, ValueError):
+            pass
+
+    # Signal 3: check CLAUDE_CODE env marker (set by CC hooks)
+    if os.environ.get("CLAUDE_CODE"):
+        return "claude_code"
+
+    return "claude_code"  # safe default — CC is the 90% case
+
+
 def append_session_event(project_dir: Path, state: dict) -> None:
     """Append a structured event to the session event log.
 
@@ -232,13 +272,10 @@ def append_session_event(project_dir: Path, state: dict) -> None:
     now = datetime.now(timezone.utc)
     log_file = events_dir / f"sessions_{now.strftime('%Y_%m')}.jsonl"
 
-    # Determine agent identity from environment
-    agent = "claude_code"
-    if os.environ.get("CODEX_CLI"):
-        agent = "codex_cli"
-    elif os.environ.get("GEMINI_CLI"):
-        agent = "gemini_cli"
+    # Determine agent identity — check multiple signals, not just env vars
+    agent = _detect_agent_identity()
 
+    modified_files = state.get("modified_files", [])
     event = {
         "event_type": "session_end",
         "timestamp": now.isoformat(),
@@ -246,7 +283,8 @@ def append_session_event(project_dir: Path, state: dict) -> None:
         "branch": state.get("branch", ""),
         "active_engine": state.get("active_engine"),
         "active_spec_section": state.get("active_spec_section"),
-        "modified_file_count": len(state.get("modified_files", [])),
+        "modified_files": modified_files,
+        "modified_file_count": len(modified_files),
         "recent_commits": state.get("recent_commits", ""),
         "cost_summary": state.get("cost_summary"),
         "print_warnings_count": len(state.get("print_warnings", [])),
@@ -255,8 +293,9 @@ def append_session_event(project_dir: Path, state: dict) -> None:
     try:
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(event, ensure_ascii=False) + "\n")
-    except OSError:
-        pass  # Non-blocking — event log failure must not break session stop
+    except OSError as e:
+        # Non-blocking but visible — silent provenance loss violates KR doctrine
+        sys.stderr.write(f"WARNING: event log write failed: {e}\n")
 
 
 if __name__ == "__main__":

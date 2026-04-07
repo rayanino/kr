@@ -6,10 +6,9 @@ index sorted by type and relevance. Replaces manual MEMORY.md curation.
 Solves: 200-line ceiling, manual curation bottleneck, staleness detection.
 
 Usage:
-    python scripts/generate_memory_index.py [--check] [--fix-missing]
+    python scripts/generate_memory_index.py [--check]
 
     --check       Validate only, don't write. Exit 1 if issues found.
-    --fix-missing Add missing optional fields with defaults (non-destructive).
 """
 
 from __future__ import annotations
@@ -44,7 +43,11 @@ INDEX_FILE = MEMORY_DIR / "MEMORY.md"
 
 def parse_frontmatter(path: Path) -> dict | None:
     """Extract YAML frontmatter from a markdown file."""
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (UnicodeDecodeError, OSError) as e:
+        logger.warning("CANNOT READ %s: %s", path.name, e)
+        return None
     match = re.match(r"^---\s*\n(.*?)\n---", text, re.DOTALL)
     if not match:
         return None

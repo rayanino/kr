@@ -102,6 +102,16 @@ python3 scripts/check_compliance.py --all            # Code-to-SPEC
 make quality-gate MODE=<mode> PATHS="<paths>"        # Quality gate
 ```
 
+## Workflow Rules (All Agents)
+
+- **Every prompt to any agent/coworker MUST pass through `/prompt-architect` first.** No exceptions.
+- **Deploy Deep Research for every major decision.** Min 1 DR per milestone. Zero cost, transformative ROI.
+- **Maximize coworker dispatch.** If 5 coworkers are available, use all 5. Never hold back.
+- **Technology survey before custom code.** Check existing tools/libraries before building.
+- **ABD legacy has zero authority (D-019).** SPECs define what to build, not old code.
+- **Result preservation is non-negotiable.** Every API call persists its full output.
+- **Owner questions must be non-technical.** Never: "Should we modify DP-4?" Always: "Is this too broad?"
+
 ## Autonomous Operation Constraints
 
 When running without human supervision (overnight, autonomous mode):
@@ -112,6 +122,12 @@ When running without human supervision (overnight, autonomous mode):
 - Pre-session: read `NEXT.md` and `.kr/ACTIVE.md` for the current frontier.
 - Post-session: update `.kr/ACTIVE.md` with what was accomplished and what's next.
 - All generated artifacts go to `tests/results/` or `engines/<n>/reference/`.
+
+## Branching Rules
+
+- **Claude Code (human-supervised):** Commits directly to master. Exception: hardening branches.
+- **Codex CLI / autonomous:** Every change on a branch, merged via PR. Never direct to master.
+- **Conflict resolution:** If AGENTS.md and a memory file disagree, AGENTS.md governs.
 
 ## Codex-Specific
 
