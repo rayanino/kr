@@ -417,6 +417,10 @@ def apply_enrichment(
             )
 
         # Build updated record via model_copy
+        # TODO(structural_section): not yet populated by enrichment prompt.
+        # When added to UnitEnrichment schema, include here explicitly:
+        #   "structural_section": ue.structural_section,
+        # Current None passthrough is safe but implicit (architect review).
         updated = exc.model_copy(
             update={
                 "excerpt_topic": ue.excerpt_topic,
