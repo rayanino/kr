@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 6 code fixes applied, pipeline diagrams added)
+## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 8 fixes shipped, 931 tests)
 
 ### Pipeline Visual Architecture (2026-04-07)
 - **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)
@@ -43,7 +43,13 @@
   5. EX-M-011 added to SPEC error catalog (was contracts-only)
   6. `os.fsync()` added to overnight `atomic_write()`
 - **Deferred:** `review_flags` placeholder refactoring (large blast radius — needs coworker validation before changing I-ER-4 model validator)
-- **Pending coworker dispatch:** Codex CLI structural review of DR31 templates, Gemini CLI scholarly validation of micro-unit merge strategy and takhrij derivation
+- **Coworker reports processed (2/2):**
+  - Codex CLI: DR31 templates — T4+T6 COMPATIBLE, T1/2/3 NEEDS_ADAPTATION, T5 INCOMPATIBLE (requires Arabic judgment)
+  - Gemini CLI: DR29 #4 USUALLY_MERGE (bidirectional: forward for openers, backward for closers). DR29 #8 minimum-viable takhrij = 4 required fields (hadith_anchor, sources, locator, provenance)
+- **Micro-unit merge pass implemented (931 pass, +16 tests):**
+  - `merge_micro_units()` in phase3_deterministic.py — bidirectional merge per Gemini scholarly validation
+  - Called from phase3_orchestrator before build_deterministic_excerpts
+  - Bare openers forward-merge, bare closers backward-merge, semantically-complete headings exempt
 
 ### Memory System Upgrade (2026-04-07) — 6-Source Investigation + 3-Layer Implementation
 - **Trigger:** Owner challenged dismissal of mempalace → full 6-source investigation launched
@@ -77,9 +83,9 @@
 - 12 SOFTENED items documented for debt clearance
 
 ### What's Needed Next
-1. **DR29-31 coworker dispatch (IN PROGRESS):** Codex CLI structural review of DR31's 6 template proposals. Gemini CLI scholarly validation of micro-unit merge strategy and takhrij_data derivation. Prompt-architect optimized prompts ready.
-2. **DR29 remaining actionable items:** #4 micro-unit merge pass (needs scholarly validation), #8 takhrij_data population (needs scholarly validation), #6 review_flags placeholder refactoring (needs coworker consensus on blast radius).
-3. **Session 10:** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check Codex/Gemini CLI review results from Session 9 dispatch first.
+1. **Takhrij data population (NEXT):** Implement DR29 #8 with Gemini's 4-field minimum spec. Populate `takhrij_data` from HADITH_TAKHRIJ footnotes when source + locator present. Distinguish author vs muhaqqiq provenance.
+2. **DR31 Templates 4+6:** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration templates (both rated COMPATIBLE by Codex CLI).
+3. **Session 10:** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment.
 4. **Session 11+:** Full-atom processing through 7-stage lifecycle
 5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
 6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
