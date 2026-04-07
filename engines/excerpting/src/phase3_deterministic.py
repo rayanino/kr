@@ -54,6 +54,8 @@ _LAYER_LEVEL: dict[LayerType, int] = {
 }
 
 # §7.1 F-DET-5: Evidence marker lists (DD-S3-8: plain substring, NO word boundaries)
+# Expanded per DR29 improvement #11 — high-precision transmission/citation verbs
+# from arabic-scholarly-conventions.md and HARDENING_SESSION_PROTOCOL indivisible units.
 _HADITH_MARKERS: list[str] = [
     "رواه",
     "أخرجه",
@@ -61,6 +63,16 @@ _HADITH_MARKERS: list[str] = [
     "متفق عليه",
     "في صحيح",
     "في سنن",
+    # Transmission formulas (arabic-scholarly-conventions.md)
+    "حدثنا",
+    "أخبرنا",
+    "أنبأنا",
+    "سمعت",
+    "عن النبي",
+    "قال رسول الله",
+    # Collection references
+    "في المسند",
+    "في الموطأ",
 ]
 
 _IJMA_MARKERS: list[str] = [
@@ -69,6 +81,11 @@ _IJMA_MARKERS: list[str] = [
     "لا خلاف",
     "اتفق العلماء",
     "بالاتفاق",
+    # Additional consensus/agreement formulas
+    "بلا خلاف",
+    "من غير خلاف",
+    "لا نعلم فيه خلافا",
+    "اتفقوا على",
 ]
 
 
@@ -446,14 +463,28 @@ def filter_relevant_footnotes(
     result: list[Footnote] = []
     for footnote in all_footnotes:
         pattern = f"\u231C{footnote.ref_marker}\u231D"
-        pos = assembled_text.find(pattern)
-        if pos == -1:
+        # Search ALL occurrences — a marker may appear multiple times
+        # (e.g. repeated ref in different chunks). Include the footnote
+        # if ANY occurrence falls within [char_start, char_end).
+        found_any = False
+        matched = False
+        search_start = 0
+        while True:
+            pos = assembled_text.find(pattern, search_start)
+            if pos == -1:
+                break
+            found_any = True
+            if char_start <= pos < char_end:
+                matched = True
+                break
+            search_start = pos + 1
+        if not found_any:
             logger.warning(
                 "Orphaned footnote marker '%s' — not found in assembled_text",
                 footnote.ref_marker,
             )
             continue
-        if char_start <= pos < char_end:
+        if matched:
             result.append(footnote)
     return result
 
@@ -617,7 +648,10 @@ def build_deterministic_excerpts(
             div_path=chunk.div_path,
             # ── Text (6) ──
             primary_text=primary_text,
-            text_snippet=unit.text_snippet,
+            # Deterministic snippet: derive from primary_text, not LLM-supplied
+            # unit.text_snippet. LLMs cannot count Unicode codepoints precisely
+            # in Arabic (diacritics are separate codepoints). DR29 improvement #1.
+            text_snippet=primary_text[:80],
             start_word=sw,
             end_word=ew,
             segment_indices=unit.segment_indices,

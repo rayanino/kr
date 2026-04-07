@@ -16,11 +16,8 @@ import pytest
 from engines.excerpting.contracts import (
     AssemblyMetadata,
     AuthorAttribution,
-    ClassifiedSegment,
     JoinPoint,
-    ScholarAttribution,
     ScholarlyFunction,
-    SplitInfo,
 )
 from engines.excerpting.src.phase3_deterministic import (
     build_deterministic_excerpts,
@@ -35,20 +32,16 @@ from engines.excerpting.src.phase3_deterministic import (
 )
 from engines.normalization.contracts import (
     BoundaryContinuityType,
-    ContentFlags,
     Footnote,
     FootnoteType,
     LayerType,
     PhysicalPage,
-    StructuralFormat,
     TextLayerSegment,
 )
 
 from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
-    _make_chunk_with_footnotes,
     _make_classified_segment,
-    _make_multi_layer_chunk,
     _make_teaching_unit,
 )
 
@@ -757,17 +750,15 @@ class TestFootnoteFilteringAdversarial:
         )
         assert len(result) == 0
 
-    def test_marker_appearing_twice_first_outside_second_inside_excluded(
-        self, caplog: pytest.LogCaptureFixture
+    def test_marker_appearing_twice_first_outside_second_inside_included(
+        self,
     ) -> None:
-        """LATENT BUG EXPOSURE: marker appearing twice, first outside range, second inside.
+        """Multi-occurrence fix: marker appears twice, first outside range, second inside.
 
-        filter_relevant_footnotes uses assembled_text.find(pattern) which returns
-        the FIRST occurrence. If the first occurrence is before char_start, the
-        footnote is excluded even though a second occurrence IS within the unit range.
-
-        This test documents the current behavior (first-occurrence-only semantics)
-        so that if this is ever fixed, the test will need to be updated.
+        filter_relevant_footnotes now checks ALL occurrences via while-loop.
+        If ANY occurrence falls within [char_start, char_end), the footnote
+        is included. Previously this was a documented latent bug (first-hit-only).
+        Fixed per DR29 improvement #7.
         """
         # assembled_text has ⌜1⌝ at position 0 (before unit) and position 30 (in unit)
         prefix = "⌜1⌝ مقدمة خارج النطاق "  # marker at pos 0, outside unit
@@ -785,9 +776,9 @@ class TestFootnoteFilteringAdversarial:
         result = filter_relevant_footnotes(
             assembled, assembled, [footnote], char_start, char_end
         )
-        # Current behavior: EXCLUDED (find() returns first occurrence at pos 0 < char_start)
-        # This is a documented limitation — not a fix.
-        assert len(result) == 0
+        # Fixed: now correctly includes footnote when second occurrence is in range
+        assert len(result) == 1
+        assert result[0].ref_marker == "1"
 
     def test_100_footnotes_all_relevant(self) -> None:
         """100 footnotes with markers all within unit range — all returned."""
@@ -1019,7 +1010,7 @@ class TestQuotedScholarsAdversarial:
         the SPEC behavior (F-DET-9 does not deduplicate within quoted_scholars).
         The deduplication with §7.2 LLM detections is a post-step.
         """
-        text = "أ ب ج د ه"  # 5 tokens
+        # 5-token text: "أ ب ج د ه"
         # Layer pattern: SHARH/sch_b at [0,2), MATN/sch_a at [2,6), SHARH/sch_b at [6,9)
         # Not adjacent at a split point → NOT merged
         layers = [

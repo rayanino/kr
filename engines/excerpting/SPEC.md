@@ -2238,6 +2238,7 @@ Each code is defined exactly once in the section where its triggering condition 
 | `EX-M-008` | Gate entry not written despite gate trigger | CRITICAL | Retry write. If retry fails, halt source processing — the uncertainty is now invisible. | §7.4 (V-P3-7) |
 | `EX-M-009` | Footnote `ref_marker` offset outside excerpt's character range | WARNING | Remove footnote from this excerpt's `footnotes_relevant` | §7.4 (V-P3-8) |
 | `EX-M-010` | Unknown content type in `content_types` set | WARNING | Log; likely indicates a new scholarly function type not in the enum | §7.4 (V-P3-9) |
+| `EX-M-011` | Consensus verification failed (2+ models disagree on enrichment fields) | ERROR | Flag excerpt with `consensus_disagreement` review flag; log per-field disagreements. Excerpt proceeds but is marked for human review. | §7.3 |
 
 **Validation (EX-V-*):**
 
@@ -2565,6 +2566,7 @@ For each V-P2 check, the test must:
 | EX-M-008 | Gate entry write fails — **critical**: verify retry and halt behavior |
 | EX-M-009 | Footnote ref_marker offset falls outside excerpt's character range (orphan footnote) |
 | EX-M-010 | Unknown content type |
+| EX-M-011 | Consensus verification failed — verify disagreement logging and review flag |
 | EX-V-001 | Phase 1 self-validation check failed (any V-P1 fatal check) |
 | EX-V-002 | Primary text integrity check fails |
 | EX-G-001 | Attribution disagreement (3 models disagree) → gate queue entry |

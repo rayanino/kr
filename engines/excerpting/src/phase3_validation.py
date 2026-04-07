@@ -79,10 +79,8 @@ def validate_excerpt(
 
     # V-P3-2: Primary text integrity
     # Compare text_snippet against primary_text prefix after whitespace
-    # normalization. LLMs cannot count Unicode codepoints precisely in
-    # Arabic (diacritics are separate codepoints), so text_snippet length
-    # varies (typically 51-74 chars instead of the requested 80). Compare
-    # at the shorter of the two lengths, with a 20-char minimum threshold.
+    # normalization. text_snippet is now deterministically derived as
+    # primary_text[:80] (DR29 fix), so mismatches indicate corruption.
     # FP-19/FP-21 hardening: also catch truncation attacks where snippet
     # is a prefix of primary but significantly shorter (condition stripping).
     snippet_normalized = _normalize_whitespace(excerpt.text_snippet)
@@ -94,9 +92,20 @@ def validate_excerpt(
         len(primary_normalized) == 0
         or len(snippet_normalized) / len(primary_normalized) >= 0.5
     )
+    # Short-text policy (DR29 #1): if the primary text itself is < 20 chars,
+    # compare the full available overlap and accept exact matches. The old
+    # compare_len < 20 threshold was designed to catch LLM-miscounted snippets;
+    # with deterministic derivation, short compare_len means a genuinely short
+    # micro-unit (e.g. "الثالثة", "المسألة الخامسة") — not corruption.
+    snippet_too_short = compare_len < 20 and len(primary_normalized) >= 20
+    prefix_mismatch = (
+        compare_len > 0
+        and snippet_normalized[:compare_len] != primary_normalized[:compare_len]
+    )
     if (
-        compare_len < 20
-        or snippet_normalized[:compare_len] != primary_normalized[:compare_len]
+        snippet_too_short
+        or prefix_mismatch
+        or compare_len == 0  # empty snippet and/or primary = corrupt
         or not length_ratio_ok
     ):
         drop = True

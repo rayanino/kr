@@ -293,10 +293,22 @@ def utc_now_iso() -> str:
 
 
 def atomic_write(path: Path, content: str) -> None:
-    """Write a file atomically."""
+    """Write a file atomically (write-to-temp → fsync → rename).
+
+    DR30 SFM-17: without fsync, a crash between write and rename can lose
+    data on some filesystems. fsync ensures the temp file is durable before
+    the atomic rename replaces the target.
+    """
+    import os
+
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(content, encoding="utf-8")
+    fd = os.open(str(tmp), os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
+    try:
+        os.write(fd, content.encode("utf-8"))
+        os.fsync(fd)
+    finally:
+        os.close(fd)
     tmp.replace(path)
 
 
