@@ -1,0 +1,12 @@
+{
+  "disableSessionStartContext": false,
+  "disableProtectedAreaWarnings": false,
+  "disableDestructiveCommandWarnings": false,
+  "disableAuthorityMutationWarnings": false,
+  "disableCoworkerDispatchWarnings": false,
+  "disableStopQualityGateReminder": false,
+  "disableStopSetupAuditReminder": false,
+  "disableStopDispatchReminder": false,
+  "disableStopPlanReminder": false,
+  "disableDriftDetection": false
+}

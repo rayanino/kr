@@ -9,6 +9,20 @@ from pathlib import Path
 from typing import Any
 
 
+HOOK_CONFIG_REL_PATH = Path(".codex/hooks/config/hooks-config.json")
+DEFAULT_HOOK_CONFIG: dict[str, bool] = {
+    "disableSessionStartContext": False,
+    "disableProtectedAreaWarnings": False,
+    "disableDestructiveCommandWarnings": False,
+    "disableAuthorityMutationWarnings": False,
+    "disableCoworkerDispatchWarnings": False,
+    "disableStopQualityGateReminder": False,
+    "disableStopSetupAuditReminder": False,
+    "disableStopDispatchReminder": False,
+    "disableStopPlanReminder": False,
+    "disableDriftDetection": False,
+}
+
 SETUP_SAFE_PREFIXES = (
     ".codex/",
     ".agents/skills/",
@@ -21,6 +35,7 @@ SETUP_SAFE_PREFIXES = (
     "scripts/run_codex_backend_proof_smoke.sh",
     "scripts/run_codex_wsl_preflight.sh",
     "scripts/run_overnight_codex_shadow_loop.ps1",
+    "scripts/start_codex_kr.ps1",
     "scripts/start_overnight_codex.sh",
 )
 
@@ -55,6 +70,11 @@ MUTATING_COMMAND_PATTERNS = (
     r">\s*[^&]",
 )
 
+KNOWN_ENGINES = frozenset({
+    "source", "normalization", "passaging", "atomization",
+    "excerpting", "taxonomy", "synthesis",
+})
+
 ENGINE_PATH_HINTS = (
     "engines/",
     "shared/",
@@ -70,6 +90,30 @@ INTEGRATION_TRIGGER_PREFIXES = (
     "scripts/run_codex_wsl_preflight.sh",
     "shared/llm/",
     "tools/check_cross_engine_contracts.py",
+)
+
+REVIEW_PACKET_HINTS = (
+    "docs/codex/reviews/",
+    "docs/codex/dispatch-templates.md",
+    "docs/codex/relay-prompts.md",
+    "docs/codex/weekend_dr_prompts.md",
+)
+
+ANALYSIS_PATH_HINTS = (
+    "analysis",
+    "assessment",
+    "findings",
+    "handoff",
+    "report",
+    "review",
+)
+
+PLAN_PATH_HINTS = (
+    "NEXT.md",
+    ".kr/ACTIVE.md",
+    ".kr/HANDOFF.md",
+    "docs/plans/",
+    "reference/handoffs/",
 )
 
 
@@ -141,6 +185,30 @@ def active_authority_state(root: Path) -> dict[str, str]:
     return parse_simple_kv(root / "ACTIVE_AUTHORITY.md")
 
 
+def load_hook_config(root: Path) -> dict[str, bool]:
+    path = root / HOOK_CONFIG_REL_PATH
+    if not path.exists():
+        return dict(DEFAULT_HOOK_CONFIG)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return dict(DEFAULT_HOOK_CONFIG)
+
+    config = dict(DEFAULT_HOOK_CONFIG)
+    for key, default in DEFAULT_HOOK_CONFIG.items():
+        value = payload.get(key)
+        if isinstance(value, bool):
+            config[key] = value
+        else:
+            config[key] = default
+    return config
+
+
+def hook_enabled(root: Path, flag: str) -> bool:
+    config = load_hook_config(root)
+    return not config.get(flag, False)
+
+
 def changed_paths(root: Path) -> list[str]:
     try:
         proc = subprocess.run(
@@ -189,9 +257,12 @@ def needs_setup_audit(paths: list[str]) -> bool:
         ".agents/skills/",
         "docs/codex/",
         "overnight_codex/README.md",
+        "docs/codex/windows-workflow.md",
         "scripts/check_codex_kr_setup.py",
         "scripts/check_runtime_cli_auth.py",
         "scripts/run_codex_wsl_preflight.sh",
+        "scripts/run_overnight_codex_shadow_loop.ps1",
+        "scripts/start_codex_kr.ps1",
     )
     return any(path.startswith(setup_prefixes) for path in paths)
 
@@ -254,3 +325,91 @@ def command_references_only_safe_setup_paths(command: str) -> bool:
             continue
         return False
     return True
+
+
+def command_targets_external_coworker_cli(command: str) -> bool:
+    normalized = command.lower()
+    return bool(re.search(r"(^|[\s(])claude(\.cmd|\.exe)?\b", normalized)) or bool(
+        re.search(r"(^|[\s(])gemini(\.cmd|\.exe)?\b", normalized)
+    )
+
+
+def command_uses_review_packet_path(command: str) -> bool:
+    normalized = command.replace("\\", "/")
+    return any(hint in normalized for hint in REVIEW_PACKET_HINTS)
+
+
+def paths_look_like_major_conclusions(paths: list[str]) -> bool:
+    lowered = [path.lower() for path in paths]
+    return any(any(hint in path for hint in ANALYSIS_PATH_HINTS) and path.endswith(".md") for path in lowered)
+
+
+def paths_touch_planning_surface(paths: list[str]) -> bool:
+    normalized = [path.replace("\\", "/") for path in paths]
+    return any(any(hint == path or hint in path for hint in PLAN_PATH_HINTS) for path in normalized)
+
+
+def extract_next_scope(root: Path) -> set[str]:
+    """Extract expected engine scope from NEXT.md header lines."""
+    next_file = root / "NEXT.md"
+    if not next_file.exists():
+        return set()
+    try:
+        text = next_file.read_text(encoding="utf-8")
+    except OSError:
+        return set()
+    header = "\n".join(text.splitlines()[:30]).lower()
+    return {engine for engine in KNOWN_ENGINES if engine in header}
+
+
+def detect_drift(root: Path, paths: list[str]) -> str | None:
+    """Return a drift warning if changed paths diverge from NEXT.md scope."""
+    scope = extract_next_scope(root)
+    if not scope:
+        return None
+    engine_paths = [p for p in paths if p.startswith("engines/")]
+    if not engine_paths:
+        return None
+    out_of_scope: list[str] = []
+    for p in engine_paths:
+        parts = p.split("/")
+        if len(parts) >= 2 and parts[1] not in scope:
+            out_of_scope.append(p)
+    if not out_of_scope or len(out_of_scope) <= len(engine_paths) // 2:
+        return None
+    engines_touched = {p.split("/")[1] for p in out_of_scope if len(p.split("/")) >= 2}
+    return (
+        f"DRIFT WARNING: NEXT.md scope is {', '.join(sorted(scope))} "
+        f"but {len(out_of_scope)}/{len(engine_paths)} engine changes touch "
+        f"{', '.join(sorted(engines_touched))}. "
+        "Verify this is intentional."
+    )
+
+
+def git_branch(root: Path) -> str:
+    proc = run_git(root, ["branch", "--show-current"])
+    if proc.returncode != 0:
+        return "unknown"
+    branch = proc.stdout.strip()
+    return branch or "detached"
+
+
+def dirty_summary(root: Path) -> str:
+    paths = changed_paths(root)
+    if not paths:
+        return "clean"
+    return f"dirty ({len(paths)} path(s))"
+
+
+def run_git(root: Path, args: list[str]) -> subprocess.CompletedProcess[str]:
+    try:
+        return subprocess.run(
+            ["git", "-C", str(root), *args],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+    except OSError:
+        return subprocess.CompletedProcess(args, 1, "", "git unavailable")

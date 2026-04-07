@@ -25,4 +25,5 @@
   - [ ] no leftover print() statements
   - [ ] D-023 metadata preserved (if contracts.py touched)
   - [ ] commit message follows conventional format
+- **No command output = automatic rejection.** When verifying a fix or claiming a test passes, the actual command output MUST be present in the conversation. "I ran the tests and they pass" without showing output is an automatic FAIL — rerun with visible output. Inspecting code and reasoning about correctness is NOT a substitute for executing verification commands.
 - When multiple findings exist, address CRITICAL and HIGH before committing. MEDIUM and LOW can be tracked as follow-up tasks.

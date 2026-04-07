@@ -8,3 +8,9 @@
 - **The owner should never have to ask "what now?"** If the owner asks this, CC has failed at its role.
 - **The owner should never have to catch gaps in the plan.** CC uses coworkers (all 6 sources) to find gaps BEFORE the owner sees them. If the owner catches a gap CC missed, that is a failure of CC's process, not the owner's job.
 - **Common failure pattern:** CC completes a task → reports results → stops. WRONG. CC completes a task → reports results → identifies what the results reveal → proposes and starts the next action.
+- **Session handoff structure** — When ending a session or handing off to a new context, include these structured sections:
+  1. **Accomplished** — What was delivered (concrete artifacts, not intentions)
+  2. **Errors and Corrections** — What went wrong during this session, what was tried and failed, what was reverted. This is the most valuable section for preventing repeated mistakes across sessions.
+  3. **Learnings** — Non-obvious insights discovered during the work that should persist (save to memory if cross-session relevant)
+  4. **Blockers** — What's preventing progress, including non-obvious blockers
+  5. **Next Steps** — Proposed actions with reasoning, ready for the next session to execute immediately
