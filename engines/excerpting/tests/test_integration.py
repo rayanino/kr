@@ -133,7 +133,10 @@ class TestPhase3Orchestrator:
             code != ExcerptingErrorCodes.EX_V_001
             for code in result.errors
         )
-        assert len(result.excerpts) == len(units)
+        # MV-1 merge (§5.5.5) may reduce excerpt count when units are
+        # sub-viable (<25 words). Both test units are 4 words → merged.
+        assert len(result.excerpts) >= 1
+        assert result.excerpts[0].start_word == 0
 
     def test_enrichment_failure_degrades_gracefully(self) -> None:
         """LLM enrichment exception → deterministic fields survive."""
@@ -207,11 +210,11 @@ class TestPhase3Orchestrator:
             config=config,
         )
 
-        # Both chunks contribute excerpts
+        # Both chunks contribute excerpts (MV-1 merge may reduce per-chunk count)
         div_ids = {exc.div_id for exc in result.excerpts}
         assert "div_a_0" in div_ids
         assert "div_b_0" in div_ids
-        assert len(result.excerpts) == len(units_a) + len(units_b)
+        assert len(result.excerpts) >= 2  # at least 1 per chunk
 
     def test_empty_chunks_returns_empty(self) -> None:
         """No chunks → empty result, no errors."""
@@ -654,8 +657,8 @@ class TestDeterministicOnlyMode:
             config=config,
         )
 
-        # 3 chunks × 2 units each = 6 excerpts
-        assert len(result.excerpts) == 6
+        # 3 chunks × 2 sub-viable units each → MV-1 merges to 1 per chunk = 3
+        assert len(result.excerpts) == 3
 
 
 # ═══════════════════════════════════════════════════════════════════

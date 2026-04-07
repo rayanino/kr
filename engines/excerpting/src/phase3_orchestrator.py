@@ -99,9 +99,14 @@ def run_phase3(
             continue
 
         # DR29 #4: merge bare micro-units before deterministic assembly
-        from engines.excerpting.src.phase3_deterministic import merge_micro_units
+        from engines.excerpting.src.phase3_deterministic import (
+            merge_micro_units,
+            merge_subviable_units,
+        )
 
         units = merge_micro_units(units, chunk.assembled_text)
+        # §5.5.5: merge sub-viable units (<25 words) after structural merge
+        units = merge_subviable_units(units, chunk.assembled_text)
         excerpts = build_deterministic_excerpts(chunk, units, segments)
         all_excerpts.extend(excerpts)
 

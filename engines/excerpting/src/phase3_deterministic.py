@@ -271,6 +271,150 @@ def merge_micro_units(
 
 
 # ═══════════════════════════════════════════════════════════════════
+# MV-1 sub-viable merge (SPEC §5.5.5, Session 17 campaign finding)
+# ═══════════════════════════════════════════════════════════════════
+
+_MV1_WORD_FLOOR = 25
+
+
+def merge_subviable_units(
+    units: list[TeachingUnit],
+    assembled_text: str,
+) -> list[TeachingUnit]:
+    """Merge sub-viable units (<25 words) per SPEC §5.5.5.
+
+    Runs AFTER merge_micro_units (which handles structural openers/closers).
+    Catches remaining fragments — typically numbered-list items that are
+    content but too short to stand alone as teaching units.
+
+    Merge strategy (§5.5.5 rules 1–5):
+    1. Scan in reading order for units below 25 words.
+    2. Backward-merge preferred (into preceding unit).
+    3. If preceding is also sub-viable, merge entire run forward.
+    4. If sub-viable unit is first in chunk, merge forward.
+    5. Log every merge.
+    """
+    if len(units) <= 1:
+        return units
+
+    tokens = assembled_text.split()
+
+    def word_count(u: TeachingUnit) -> int:
+        return u.end_word - u.start_word + 1
+
+    subviable = [word_count(u) < _MV1_WORD_FLOOR for u in units]
+
+    if not any(subviable):
+        return units
+
+    # ── Group consecutive sub-viable units into runs ──────────────
+    runs: list[tuple[int, int]] = []  # (start_idx, end_idx_exclusive)
+    i = 0
+    while i < len(units):
+        if subviable[i]:
+            run_start = i
+            while i < len(units) and subviable[i]:
+                i += 1
+            runs.append((run_start, i))
+        else:
+            i += 1
+
+    # ── Build merge plan ──────────────────────────────────────────
+    absorb_into: dict[int, int] = {}
+
+    for run_start, run_end in runs:
+        if run_start == 0:
+            # Rule 4: run at chunk start → forward into first viable
+            if run_end < len(units):
+                target = run_end
+            else:
+                # ALL units sub-viable → collapse into index 0
+                for idx in range(1, len(units)):
+                    absorb_into[idx] = 0
+                continue
+        else:
+            # Rule 2: backward into preceding viable unit
+            target = run_start - 1
+
+        for idx in range(run_start, run_end):
+            absorb_into[idx] = target
+
+    if not absorb_into:
+        return units
+
+    # ── Execute merges ────────────────────────────────────────────
+    merged: dict[int, TeachingUnit] = {}
+    for idx, u in enumerate(units):
+        if idx not in absorb_into:
+            merged[idx] = u
+
+    for src_idx, tgt_idx in sorted(absorb_into.items()):
+        src = units[src_idx]
+        if tgt_idx not in merged:
+            # Target was itself absorbed (shouldn't happen with run logic)
+            logger.warning(
+                "MV-1 merge: unit %d target %d missing — keeping standalone.",
+                src_idx,
+                tgt_idx,
+            )
+            merged[src_idx] = src
+            continue
+
+        target = merged[tgt_idx]
+        new_start = min(src.start_word, target.start_word)
+        new_end = max(src.end_word, target.end_word)
+        new_segments = sorted(set(src.segment_indices + target.segment_indices))
+
+        # Recompute text_snippet from merged range
+        start_char = (
+            sum(len(tokens[j]) + 1 for j in range(new_start))
+            if new_start > 0
+            else 0
+        )
+        end_char = sum(len(tokens[j]) + 1 for j in range(new_end + 1))
+        merged_text = assembled_text[start_char:end_char].strip()
+
+        merged[tgt_idx] = TeachingUnit(
+            unit_index=target.unit_index,
+            segment_indices=new_segments,
+            start_word=new_start,
+            end_word=new_end,
+            text_snippet=merged_text[:80],
+            primary_function=target.primary_function,
+            secondary_functions=list(
+                set(target.secondary_functions) | set(src.secondary_functions)
+            ),
+            description_arabic=target.description_arabic,
+            self_containment=target.self_containment,
+            self_containment_notes=target.self_containment_notes,
+        )
+
+        logger.info(
+            "MV-1 merge: unit %d (%d words) → unit %d. Result: %d words.",
+            src_idx,
+            word_count(src),
+            tgt_idx,
+            new_end - new_start + 1,
+        )
+
+    # ── Reindex ───────────────────────────────────────────────────
+    result = sorted(merged.values(), key=lambda u: u.start_word)
+    reindexed = [
+        u.model_copy(update={"unit_index": idx})
+        for idx, u in enumerate(result)
+    ]
+
+    total_merged = len(absorb_into)
+    logger.info(
+        "MV-1 sub-viable merge: %d units → %d units (%d absorbed).",
+        len(units),
+        len(reindexed),
+        total_merged,
+    )
+    return reindexed
+
+
+# ═══════════════════════════════════════════════════════════════════
 # Shared Helpers
 # ═══════════════════════════════════════════════════════════════════
 

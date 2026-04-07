@@ -33,6 +33,7 @@ from engines.excerpting.src.phase3_deterministic import (
     extract_primary_text,
     filter_relevant_footnotes,
     merge_micro_units,
+    merge_subviable_units,
 )
 from engines.normalization.contracts import (
     BoundaryContinuityType,
@@ -3783,6 +3784,156 @@ class TestMergeUnits:
         assert len(result) == 2
         assert result[0].start_word == 0  # الأولى merged with حكم كذا
         assert result[1].start_word == 3  # الثانية merged with حكم كذا آخر
+
+
+# ═══════════════════════════════════════════════════════════════════
+# MV-1 sub-viable merge (SPEC §5.5.5, Session 17 campaign finding)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestMergeSubviableUnits:
+    """Tests for merge_subviable_units — MV-1 content merge pass.
+
+    Campaign finding: 191 excerpts (14.9%) in taysir were numbered-list
+    fragments below 25 words. This merge pass eliminates them.
+    """
+
+    def test_single_subviable_backward_merge(self) -> None:
+        """A short numbered-list item merges backward into preceding viable unit."""
+        # Build a 26-word viable unit + 5-word sub-viable fragment
+        viable = " ".join(
+            ["وفي"] + ["الحديث"] * 12 + ["دلالة"] * 12 + ["على"]
+        )  # 26 words
+        subviable = "استحباب خدمة أهل العلم والفضل"  # 5 words
+        text = f"{viable} {subviable}"
+        words = text.split()
+        assert len(words) == 31
+        units = [
+            _make_unit(0, 0, 25, viable[:80]),  # 26 words — viable
+            _make_unit(1, 26, 30, subviable),  # 5 words — sub-viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 30
+
+    def test_first_unit_subviable_forward_merge(self) -> None:
+        """Sub-viable unit at chunk start merges forward (§5.5.5 rule 4)."""
+        subviable = "إرجاع المطلقة في الحيض"  # 4 words
+        viable = " ".join(
+            ["وفي"] + ["الحديث"] * 12 + ["دلالة"] * 12 + ["على"]
+        )  # 26 words
+        text = f"{subviable} {viable}"
+        words = text.split()
+        assert len(words) == 30
+        units = [
+            _make_unit(0, 0, 3, subviable),  # 4 words — sub-viable
+            _make_unit(1, 4, 29, viable[:80]),  # 26 words — viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 29
+
+    def test_consecutive_subviable_run_forward(self) -> None:
+        """Two consecutive sub-viable at start → both merge forward into first viable."""
+        sub_a = "حكم الطلاق في الحيض"  # 4 words
+        sub_b = "وجوب الرجعة"  # 2 words
+        viable = " ".join(
+            ["وفي"] + ["الحديث"] * 12 + ["دلالة"] * 12 + ["على"]
+        )  # 26 words
+        text = f"{sub_a} {sub_b} {viable}"
+        words = text.split()
+        assert len(words) == 32
+        units = [
+            _make_unit(0, 0, 3, sub_a),  # 4 words — sub-viable
+            _make_unit(1, 4, 5, sub_b),  # 2 words — sub-viable
+            _make_unit(2, 6, 31, viable[:80]),  # 26 words — viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 31
+
+    def test_subviable_between_two_viable_backward_preferred(self) -> None:
+        """Sub-viable between two viable units → backward merge (preferred)."""
+        # Build text with two 26-word viable units and a 4-word sub-viable between
+        viable_a = " ".join(["وقال"] + ["الشافعي"] * 12 + ["رحمه"] * 12 + ["الله"])  # 26 words
+        subviable = "والله أعلم بالصواب"  # 3 words
+        viable_b = " ".join(["وذهب"] + ["أحمد"] * 12 + ["حنبل"] * 12 + ["رحمه"])  # 26 words
+        text = f"{viable_a} {subviable} {viable_b}"
+        words = text.split()
+        assert len(words) == 55
+        units = [
+            _make_unit(0, 0, 25, viable_a[:80]),  # 26 words — viable
+            _make_unit(1, 26, 28, subviable),  # 3 words — sub-viable
+            _make_unit(2, 29, 54, viable_b[:80]),  # 26 words — viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 2
+        # Sub-viable merged backward into unit 0
+        assert result[0].end_word == 28
+        assert result[1].start_word == 29
+
+    def test_no_merge_when_all_above_floor(self) -> None:
+        """No merge when all units are >= 25 words."""
+        # Build two units of 25+ words each
+        text = " ".join(["كلمة"] * 55)
+        units = [
+            _make_unit(0, 0, 27, "كلمة " * 20),
+            _make_unit(1, 28, 54, "كلمة " * 20),
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 2
+
+    def test_all_subviable_collapse_to_one(self) -> None:
+        """All units sub-viable → collapse into single unit."""
+        text = "حكم الطلاق وجوب الرجعة استحباب الخدمة"
+        units = [
+            _make_unit(0, 0, 1, "حكم الطلاق"),
+            _make_unit(1, 2, 3, "وجوب الرجعة"),
+            _make_unit(2, 4, 5, "استحباب الخدمة"),
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 5
+
+    def test_reindexing_after_merge(self) -> None:
+        """unit_index values contiguous 0..N-1 after MV-1 merge."""
+        viable_a = " ".join(["وفي"] + ["الحديث"] * 12 + ["دلالة"] * 12 + ["على"])  # 26 words
+        subviable = "استحباب الخدمة"  # 2 words
+        viable_b = " ".join(["وذهب"] + ["أحمد"] * 12 + ["إلى"] * 12 + ["وجوب"])  # 26 words
+        text = f"{viable_a} {subviable} {viable_b}"
+        words = text.split()
+        assert len(words) == 54
+        units = [
+            _make_unit(0, 0, 25, viable_a[:80]),  # 26 words — viable
+            _make_unit(1, 26, 27, subviable),  # 2 words — sub-viable
+            _make_unit(2, 28, 53, viable_b[:80]),  # 26 words — viable
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 2
+        assert result[0].unit_index == 0
+        assert result[1].unit_index == 1
+
+    def test_empty_and_single_unit(self) -> None:
+        """Edge cases: empty list and single unit return as-is."""
+        assert merge_subviable_units([], "") == []
+        text = "استحباب الخدمة"
+        units = [_make_unit(0, 0, 1, text)]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 1
+
+    def test_exactly_25_words_not_merged(self) -> None:
+        """Unit with exactly 25 words is NOT sub-viable (threshold is <25)."""
+        text = " ".join(["كلمة"] * 50)
+        units = [
+            _make_unit(0, 0, 24, "كلمة " * 20),  # exactly 25 words
+            _make_unit(1, 25, 49, "كلمة " * 20),  # exactly 25 words
+        ]
+        result = merge_subviable_units(units, text)
+        assert len(result) == 2
 
 
 # ═══════════════════════════════════════════════════════════════════
