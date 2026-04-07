@@ -180,13 +180,15 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 - **Prompt RESTORED (Session 9)**: GROUP_SYSTEM_PROMPT at 1483 words — full detail + T1-1/T1-2/T1-3 amendments + Gemini classical ordinals fix. DR21 compression attempted then reverted (owner: quality > compression). 1500-word cap REMOVED. DR28 prepared for long-term prompt architecture research.
 - **PRELIMINARY debt**: B2 (1/3) + B3 (1/3) + all G/SC (0/3)
 
-### Session 9 Foundation Integrity Audit (2026-04-07)
+### Session 9 Foundation Integrity Audit + DR28 Architecture (2026-04-07)
 - **3-coworker audit** of all 38 numeric constraints: 7 HIGH, 15 MEDIUM, 16 LOW. No other phantom constraints.
 - **Fix 1:** Consensus text truncation ([:1500]) REMOVED — verifier sees full text now.
 - **Fix 2:** GROUP_MAX_TOKENS made dynamic (8192/16384/32768) matching CLASSIFY/ENRICH.
 - **Fix 3:** `CONSTRAINT_REGISTRY.md` — every threshold documented with origin + calibration status.
 - **Guardrail:** `constraint-origin-trace.md` rule — prevents phantom constraint pattern.
-- **Gemini Arabic audit:** 8/10 lists UNSOUND (PRELIMINARY). Deferred to DR28.
+- **Codex doctrine audit:** 18 ALIGNED, 4 DRIFT (FP-5/11/21/22 — all deferred implementation, not contradictions).
+- **Gemini Arabic audit:** 8/10 lists UNSOUND (PRELIMINARY). Deferred to DR28 architecture.
+- **DR28 received (2 providers):** ChatGPT DR (10+ citations) + Claude DR (60+ sources). Converged architecture: 2-message instruction sandwich + progressive disclosure (8-12 rules per call, down from 25). Synthesis at `engines/excerpting/reference/dr_reviews/DR28_synthesis.md`. Codex + Gemini validating compatibility.
 
 ### Session 9 Accomplishments (2026-04-07) — Prompt Architecture + SPEC Sync
 - **T1-1/T1-2/T1-3 prompt amendments:** Causal particles expanded (إذ, لكونه). Semantic dependency exemption (تخصيص/شرط/استثناء/تقييد stays with عام, FP-5). Dialectical cross-ref (فإن قيل/قلنا → FP-14).
@@ -200,9 +202,9 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 
 **Roadmap (updated):**
 1. **Sessions 6-9**: COMPLETE
-2. **Session 10 (NEXT):** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check DR28 results when available. Handoff: `reference/handoffs/excerpting_foundations_session10_kickoff_2026-04-07.md`
+2. **Session 10 (NEXT):** Implement DR28 prompt architecture (instruction sandwich + progressive disclosure, 10 implementation units). Check Codex/Gemini validation results first. Then: dedup remaining ~90 non-NN atoms.
 3. **Session 11+:** Full-atom processing (G/SC atoms through 7-stage lifecycle)
-4. **After hardening:** LLM behavioral regression test on prompt (50+ inputs, ~EUR 5-10). Book Resolution session (40 DR20 titles → Shamela IDs). Tier 1 smoke run (10 books, ~$30).
+4. **After hardening:** A/B test new vs monolithic prompt on 50+ inputs (~EUR 10). Book Resolution (40 DR20 titles → Shamela IDs). Tier 1 smoke run (10 books, ~$30).
 
 **Session 2 complete. Protocol v4.0 → v4.1 patch in progress.** ChatGPT DR adversarial review (DR9, archived at `engines/excerpting/reference/dr_reviews/DR9_chatgpt_protocol_v40_adversarial.md`) found 18 issues (8 CRITICAL, 9 HIGH, 1 MEDIUM). Cross-referenced by explore agent: 12 confirmed gaps, 4 partially addressed, 2 already fixed. Plan approved, implementation in progress: 14 protocol amendments + 1 closure verifier script + version bump.
 
