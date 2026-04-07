@@ -27,7 +27,7 @@ fi
 
 # Check if state file exists
 if [ ! -f "$STATE_FILE" ]; then
-    echo "{\"decision\":\"block\",\"reason\":\"HR-23 violation: No prompt-architect invocation recorded this session. Run /prompt-architect to optimize your dispatch prompt before calling Agent. State file not found at $STATE_FILE.\"}"
+    echo "{\"decision\":\"block\",\"reason\":\"HR-23 BLOCKED: No /prompt-architect invocation this session. You MUST run /prompt-architect first, then retry the Agent dispatch. DO NOT bypass by doing the work yourself with Read/Grep/Bash — that defeats the purpose of multi-model prompt optimization. The agent dispatch exists for a reason; circumventing HR-23 by substituting direct tool calls is a rule violation.\"}"
     exit 0
 fi
 
@@ -37,7 +37,7 @@ NOW=$(date +%s)
 AGE=$(( NOW - LAST_INVOCATION ))
 
 if [ "$AGE" -gt 1800 ]; then
-    echo "{\"decision\":\"block\",\"reason\":\"HR-23 violation: Last /prompt-architect invocation was ${AGE}s ago (>1800s). Run /prompt-architect again to optimize your dispatch prompt before calling Agent.\"}"
+    echo "{\"decision\":\"block\",\"reason\":\"HR-23 BLOCKED: Last /prompt-architect was ${AGE}s ago (>1800s). Run /prompt-architect again, then retry this Agent dispatch. DO NOT bypass by doing the work yourself — circumventing HR-23 with direct tool calls is a rule violation. The prompt must be optimized before any dispatch.\"}"
     exit 0
 fi
 
