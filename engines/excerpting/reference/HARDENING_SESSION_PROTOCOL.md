@@ -1542,6 +1542,16 @@ Create at `reference/handoffs/excerpting_foundations_sessionN+1_kickoff_YYYY-MM-
 
 BEGIN IMMEDIATELY after reading. Do not wait for owner confirmation.
 
+## OWNER ACTION (v5.0 — the owner reads ONLY this section)
+**What to do RIGHT NOW:** Start a fresh Claude Code session and paste:
+> Read `reference/handoffs/excerpting_foundations_session[N+1]_kickoff_YYYY-MM-DD.md` on branch `excerpting-foundations-hardening-20260404`. Follow the NEXT SESSION DIRECTIVE. Begin immediately.
+
+**What you need to relay:** [NONE / DR prompt for [target] — paste into [window]]
+**What you need to answer:** [NONE / preference question about X]
+**Estimated time until next owner touchpoint:** [N minutes/hours]
+
+The session will drive itself. You do not need to guide it.
+
 ## Session [N] Accomplishments
 - **Atoms processed:** [N] ([list MAQ-IDs])
 - **Atoms CLOSED:** [N] (fully closed, Q-CLOSED passed)
