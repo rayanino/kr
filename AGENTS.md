@@ -62,6 +62,15 @@ These rules are ABSOLUTE. Violations cause silent corruption of scholarly text.
 - Honorifics (الشيخ, الإمام, الحافظ) before scholar names: strip for matching, preserve in display.
 - The name after كتبه is the COPYIST, not the author. The name after ألفه is the author.
 
+### Scholarly Convention Rules (from arabic-scholarly-conventions.md)
+
+- **Scholarly abbreviations — preserve as-is, never expand:** صلى الله عليه وسلم / ﷺ / صلعم (blessings on Prophet), رضي الله عنه (Companions), رحمه الله (deceased scholars). Preserve whichever form the source uses.
+- **Madhab attribution signals — detect, don't guess:** وعندنا / ومذهبنا = author's own madhab. وقال أبو حنيفة = attribution to specific school. والراجح = author's preference, not necessarily school position.
+- **Cross-reference formulas — preserve in excerpts:** كما تقدم / كما سبق (backward ref), سيأتي (forward ref), انظر / راجع (see/refer). These are part of the author's argument structure.
+- **Marginal notes are EDITORIAL, not author text:** هامش / حاشية / في الأصل / نسخة / كذا في المطبوع / لعله — tag as `layer_type: editorial`, attribute to muhaqqiq not author.
+- **Transmission formulas indicate hadith content:** حدثنا / أخبرنا / سمعت / أجاز لي — these form isnads. Keep as atomic units.
+- **Hamdala/sababiyyah at book opening is structural:** Everything before أما بعد is formulaic preamble. Everything after until first chapter heading (كتاب, باب, فصل) is the author's muqaddimah.
+
 ## Python Code Rules
 
 - Type hints on ALL function signatures. No `Any` unless justified.

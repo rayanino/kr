@@ -73,6 +73,10 @@ def validate_memory(path: Path, fm: dict) -> list[str]:
     if desc and len(desc) > 200:
         issues.append(f"description too long ({len(desc)} chars, max 200)")
 
+    # Sanad principle: warn on missing provenance (not blocking, but flagged)
+    if "source_agent" not in fm:
+        issues.append("missing provenance: source_agent (Sanad — who created this memory?)")
+
     return issues
 
 

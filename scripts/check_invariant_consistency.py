@@ -123,6 +123,53 @@ def check_d_rule_references() -> list[str]:
     return issues
 
 
+def check_arabic_invariants() -> list[str]:
+    """Check Arabic text handling invariants across governance files.
+
+    Verifies that anti-normalization stance, diacritics preservation,
+    and Taa Marbuta prohibition are consistent.
+    """
+    issues = []
+
+    # Key Arabic invariants that must appear in AGENTS.md
+    agents_path = REPO_ROOT / "AGENTS.md"
+    if agents_path.exists():
+        agents_text = agents_path.read_text(encoding="utf-8")
+
+        required_arabic_rules = [
+            ("normalization prohibition", r"(?i)never.*normali[sz]"),
+            ("Taa Marbuta warning", r"[ةه]"),
+            ("regex digit rule", r"\\d.*Arabic-Indic|\\[0-9\\]"),
+            ("diacritics preservation", r"(?i)(?:diacritics?.*preserv|preserv.*diacritics?)"),
+            ("isnad atomicity", r"(?i)isnad.*atomic"),
+        ]
+
+        for rule_name, pattern in required_arabic_rules:
+            if not re.search(pattern, agents_text):
+                issues.append(
+                    f"AGENTS.md missing Arabic invariant: {rule_name} "
+                    f"(pattern '{pattern}' not found)"
+                )
+
+    # Check that CLAUDE.md and AGENTS.md don't contradict on normalization
+    claude_path = REPO_ROOT / "CLAUDE.md"
+    if claude_path.exists() and agents_path.exists():
+        claude_text = claude_path.read_text(encoding="utf-8")
+        agents_text = agents_path.read_text(encoding="utf-8")
+
+        # Both should prohibit normalization
+        claude_prohibits = bool(re.search(r"(?i)never.*normali[sz]|no.*normali[sz]", claude_text))
+        agents_prohibits = bool(re.search(r"(?i)never.*normali[sz]|no.*normali[sz]", agents_text))
+
+        if claude_prohibits != agents_prohibits:
+            issues.append(
+                "NORMALIZATION CONTRADICTION — CLAUDE.md and AGENTS.md disagree on "
+                "Unicode normalization prohibition"
+            )
+
+    return issues
+
+
 def main() -> int:
     """Run all invariant consistency checks."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -137,6 +184,9 @@ def main() -> int:
 
     logger.info("Checking D-rule references...")
     all_issues.extend(check_d_rule_references())
+
+    logger.info("Checking Arabic text handling invariants...")
+    all_issues.extend(check_arabic_invariants())
 
     if all_issues:
         for issue in all_issues:
