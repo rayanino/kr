@@ -553,4 +553,62 @@ MAQ-018, MAQ-019, MAQ-020, MAQ-021, MAQ-026, MAQ-027, MAQ-032, MAQ-033, MAQ-035,
 
 ---
 
-*End of Merged Atom Queue. Every idea from F1-F8 is accounted for: processed (Section A), captured (Section B), classified as meta-directive (Section C), queued for batch processing (Sections D-I), deferred with reason (Section J), or registered as a red-team test (Section K). Zero silent drops.*
+---
+
+## Section L: G/SC SERIES INTAKE (Session 5, 2026-04-07)
+
+> 7 bundles (G1-G4, SC1-SC3) ingested via 7 parallel extraction agents.
+> 157 raw atoms extracted from 143 files (7,500 lines).
+> Ground truth validation: PASS (60/60 pre-extracted atoms confirmed).
+> Arabic degradation: 0 pipeline-introduced; 4 pre-existing source OCR artifacts.
+> Full per-atom reports: `engines/excerpting/reference/G_SC_GROUND_TRUTH_PREEXTRACTION.md` + agent output files.
+
+### L.1 — Batch Summary
+
+| Batch | Question Topic | Raw Atoms | FP Candidates | Prompt-Affecting | DEFERRED | Duplicates of F-series |
+|-------|---------------|-----------|---------------|------------------|----------|----------------------|
+| G1 | Added benefit & excerpting objectivity | 18 | 1 (G1-004: OBJECTIVE rule) | 7 | 0 | G1-004 generalizes FP-4 |
+| G2 | Hadith chunking & proof relationships | 24 | 4 (G2-005, G2-012, G2-018, G2-019) | 2 | 6 | G2-005 extends EE-1; G2-019 extends FP-4 |
+| G3 | Multi-function excerpts & numbering | 18 | 3 (G3-015, G3-016, G3-017) | 5 | 0 | G3-005 reinforces FP-4; G3-012 extends EE-1 |
+| G4 | Conditions excerpting & granularity | 20 | 0 | 8 | 3 | G4-004/005 strengthen FP-6 |
+| SC1 | Teaching units & author flow | 32 | 0 (SC1-010 is SPEC-level teaching unit def) | 5 | 3 | SC1-007 strengthens FP-2; SC1-017 extends FP-10 |
+| SC2 | Quality standards & explanation linkage | 20 | 1 (SC2-010: MAX EFFORT quality) | 4 | 2 | SC2-001 extends EE-1; SC2-002 extends FP-7 |
+| SC3 | Zero-context & security gates | 25 | 1 (SC3-024: readability ≠ safety) | 5 | 0 | SC3-001 duplicates FP-19; SC3-005 extends C-SC-2 |
+| **TOTAL** | | **157** | **10** | **36** | **14** | |
+
+### L.2 — Cross-Bundle FP Candidates (require multi-coworker validation)
+
+| # | Candidate | Source Bundles | Strengthens/Extends |
+|---|-----------|---------------|---------------------|
+| FP-C1 | Excerpting is OBJECTIVE — no outside factors | G1, G3 | Generalizes FP-4 |
+| FP-C2 | Lost-potential principle (cross-topic placement) | G2 | New |
+| FP-C3 | Zero-ambiguity for identifiers/labels | G2 | New |
+| FP-C4 | Anti-hardening of statistical tendencies | G3 | New |
+| FP-C5 | Excerpt = teaching unit (vocabulary shift) | SC1 | New (transformative) |
+| FP-C6 | Quality = MAX EFFORT, not good enough | SC2 | Strengthens FP-5/FP-20 |
+| FP-C7 | Local readability ≠ safe understanding | SC3 | New |
+| FP-C8 | Post-excerpting reassembly verification gate | SC3 | New pipeline gate |
+| FP-C9 | Author flow preservation (NEVER lost) | SC1 | New |
+| FP-C10 | Anti-manhunt principle (self-containment operational) | SC1, SC2, SC3 | Strengthens C-SC rules |
+
+### L.3 — Disposition Breakdown
+
+| Disposition | Count | Notes |
+|-------------|-------|-------|
+| PROMPT | 36 | **BLOCKED by §4.11 refactor gate** (GROUP_SYSTEM_PROMPT at 1484/1500) |
+| SPEC | 62 | Can proceed to SPEC §6 formalization |
+| FP | 10 | Require multi-coworker validation before adoption |
+| META | 24 | Documentation, vocabulary, study methodology |
+| DEFERRED | 14 | Cross-engine or future feature work |
+| Duplicate/overlap | 11 | Extend or strengthen existing F-series atoms |
+
+### L.4 — Status
+
+All 157 atoms are **PRELIMINARY (0/3 coworkers)**. Session 5 is CC-only extraction.
+Next step: BCV (Session 6) + coworker validation before any atoms advance to IMPLEMENTED.
+
+MAQ-ID assignment deferred to BCV session (Session 6) after deduplication pass across G/SC atoms themselves.
+
+---
+
+*End of Merged Atom Queue. Every idea from F1-F8 + G1-G4 + SC1-SC3 is accounted for. F-series: 250 ideas (88 actionable). G/SC-series: 157 raw atoms (pending dedup + BCV). Zero silent drops.*

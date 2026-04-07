@@ -15,3 +15,36 @@ ignore = ["E501"]  # line length handled by black
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["B011"]  # allow assert False in tests
 "experiments/**" = ["F401", "E402"]  # relaxed for experiments
+
+[tool.coverage.run]
+branch = true
+source = [
+    "engines/excerpting/src",
+    "engines/source/src",
+    "engines/normalization/src",
+    "shared/consensus/src",
+    "shared/validation/src",
+]
+omit = [
+    "*/tests/*",
+    "*/experiments/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 0  # start at 0, raise to 80 once baseline established
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__ ==",
+    "raise NotImplementedError",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.mutmut]
+paths_to_mutate = "engines/excerpting/src/"
+tests_dir = "engines/excerpting/tests/"
+runner = "python -m pytest engines/excerpting/tests/ -x -q --tb=no"

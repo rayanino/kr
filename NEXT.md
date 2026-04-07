@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 3 complete, Session 4 BCV complete, Session 5 in progress)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 6 BCV complete, DR23 processing)
 
 ### Session 3 Accomplishments (2026-04-06)
 - **Protocol v5.0 COMPLETE** — Batch Lifecycle Protocol: §3A (6-phase model), §3B (Completion Gate), §3C (Ijazah Ceremony), §4.18 (Regression Gate), §4.19 (Doctrine Coherence), §5.8 (Role Separation), §8.5 (Calibration File), §0.1 (Autonomous Operations Doctrine)
@@ -39,18 +39,31 @@
 - Gate script bug found and fixed (META terminal state)
 - 12 SOFTENED items documented for debt clearance
 
+### Session 5 Complete (2026-04-07)
+- **G/SC Bundle Intake**: 7 bundles (G1-G4, SC1-SC3) fully ingested
+- 157 raw atoms extracted via 7 parallel agents, 60 ground truth pre-validated
+- 10 FP candidates identified, 36 prompt-affecting atoms (BLOCKED by §4.11)
+
+### Session 6 BCV Complete (2026-04-07)
+- **BCV on G1-G4 + SC1-SC3**: 133 files verified, 68 MCUs traced, 100% MAPPED, 0 MISSED
+- **Key finding**: G3/G4 pre-extraction cross-contamination (4 atoms misattributed, corrected)
+- **7/7 batches APPROVED** by verify_batch_completion_gate.py
+- Report: `engines/excerpting/reference/BCV_SESSION6_REPORT.md`
+
+### DR23 In Progress (2026-04-07)
+- **Claude DR: Round-Trip Correctness gate** — lossless decomposition proof for excerpting
+- Archived: `dr_reviews/DR23_claude_round_trip_correctness_gate.md`
+- Codex CLI + Gemini CLI dispatched for validation (HR-23/HR-30 compliant)
+- Critical tension: DR23 suggests PyArabic normalization for hashing vs our byte-for-byte diacritics preservation
+- Implementation plan drafted: 8 units, ~200 lines new code, 0 API calls
+
 ### What's Needed Next
-1. **Session 5 (IN PROGRESS):** Intake G1-G4 + SC1-SC3 (7 bundles). Handoff at `reference/handoffs/excerpting_foundations_session5_kickoff_2026-04-07.md`
-2. **ALL 6 SESSION DRs PROCESSED (DR17-DR22):**
-   - DR17: Manuscript verification scholarly grounding (protocol v5.0 foundation)
-   - DR18: Norm decay + 4 detection scripts (S-09-S-12)
-   - DR19: Hard enforcement hooks (3 PreToolUse hooks)
-   - DR20: 40-book manifest at `engines/excerpting/reference/BOOK_SELECTION_MANIFEST.md`
-   - DR21: Prompt compression 7-step recipe at `dr_reviews/DR21_claude_prompt_compression_recipe.md`
-   - DR22: Multi-layer text detection blueprint at `dr_reviews/DR22_gemini_multilayer_text_detection.md` (6 publisher profiles, 22-marker catalog, hybrid detection architecture)
-3. **After Session 5:** BCV on G/SC batches → debt clearance for B1-B3 + 12 SOFTENED → **prompt refactor (§4.11, DR21 7-step recipe)** → full-atom processing
-4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-5. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
+1. **DR23 coworker reports** — synthesize Codex + Gemini findings, resolve diacritics question
+2. **Session 7: Deduplication pass** — 157 G/SC atoms deduplicated against each other AND against F-series MAQ-001 through MAQ-088. Assign MAQ-IDs.
+3. **Session 8: Debt clearance** — B2/B3 DR relay + G/SC coworker confirmation (Codex + Gemini minimum)
+4. **Session 9: Prompt refactor** — §4.11 gate (1484/1500 words, 36 new atoms blocked). DR21 7-step recipe.
+5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
+6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
