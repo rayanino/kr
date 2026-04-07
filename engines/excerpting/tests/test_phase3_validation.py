@@ -571,3 +571,91 @@ class TestVP39NonEnumContentType:
         assert ExcerptingErrorCodes.EX_M_010 in errors
         # Should not crash — result can be None or non-None depending on V-P3-2
         # The key assertion is no AttributeError was raised
+
+
+# ═══════════════════════════════════════════════════════════════════
+# V-P3-10: Pronoun-suffix SC check (Session 17 campaign finding)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestVP310PronounSuffixSC:
+    """Tests for pronoun-suffix self-containment check.
+
+    Campaign finding: 82 short FULL excerpts had unresolved 3rd-person
+    pronoun suffixes (ها/هم/هما/هن/ه), making them not actually self-contained.
+    """
+
+    def test_short_full_with_unresolved_pronoun_flagged(self) -> None:
+        """Sample 6 regression: 'إرجاعها' without antecedent → EX-M-012."""
+        exc = _make_excerpt_record(
+            primary_text="وجوب إرجاعها في الطهر",
+            text_snippet="وجوب إرجاعها في الطهر",
+            start_word=0,
+            end_word=3,  # 4 words
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 in errors
+
+    def test_short_full_with_antecedent_no_flag(self) -> None:
+        """Pronoun suffix with named antecedent → no flag."""
+        exc = _make_excerpt_record(
+            primary_text="طلق المرأة ثم راجعها في العدة",
+            text_snippet="طلق المرأة ثم راجعها في العدة",
+            start_word=0,
+            end_word=5,  # 6 words
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 not in errors
+
+    def test_partial_rating_skipped(self) -> None:
+        """PARTIAL excerpts are already correctly rated — skip check."""
+        exc = _make_excerpt_record(
+            primary_text="وجوب إرجاعها في الطهر",
+            text_snippet="وجوب إرجاعها في الطهر",
+            start_word=0,
+            end_word=3,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يعتمد على سياق الحديث",
+            context_hint="في حديث ابن عمر",
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 not in errors
+
+    def test_long_full_with_pronoun_skipped(self) -> None:
+        """Excerpts >= 30 words skip the check (sufficient context likely)."""
+        long_text = " ".join(["كلمة"] * 25 + ["طلقها"] + ["كلمة"] * 5)
+        exc = _make_excerpt_record(
+            primary_text=long_text,
+            text_snippet=long_text[:80],
+            start_word=0,
+            end_word=30,  # 31 words
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 not in errors
+
+    def test_no_pronoun_suffix_no_flag(self) -> None:
+        """Short FULL excerpt without pronoun suffixes → no flag."""
+        exc = _make_excerpt_record(
+            primary_text="وجوب الصلاة في المسجد",
+            text_snippet="وجوب الصلاة في المسجد",
+            start_word=0,
+            end_word=3,
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 not in errors
+
+    def test_plural_pronoun_suffix_flagged(self) -> None:
+        """Plural pronoun suffix 'هم' without antecedent → EX-M-012."""
+        exc = _make_excerpt_record(
+            primary_text="استدل بقولهم على الوجوب",
+            text_snippet="استدل بقولهم على الوجوب",
+            start_word=0,
+            end_word=3,
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        _, errors = validate_excerpt(exc)
+        assert ExcerptingErrorCodes.EX_M_012 in errors
