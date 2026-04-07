@@ -37,10 +37,17 @@
 - **4-source verification COMPLETE:** CC Code (Anthropic), CC Scholarly (Anthropic), Codex CLI (OpenAI), Gemini CLI (Google). All PASS. 24 findings found and fixed.
 - **4 commits:** `e9cdccba4` (core), `546088e11` (DR28 refactoring), `2e6acff5b` (state), `cedde2645` (infra).
 
-### Session 14 — Next Steps (for next CC session)
-  1. **Campaign evaluation on taysir (HIGHEST PRIORITY)** — the $97 campaign (2,303 excerpts from 5 books) has never been evaluated against the hardened SPEC. Now that OQ-001-004 are calibrated, pick 10 taysir excerpts and evaluate against 22 FPs + 23 domain rules + 4 newly calibrated thresholds. This proves whether the doctrine translates to reality. Dispatch all 6 coworkers for the evaluation.
+### Session 15 — DR28 Prompt Architecture COMPLETE + 6-Source Verification (2026-04-07)
+- **DR28 IU-6/IU-7/IU-8/IU-9 implemented:** CLASSIFY and ENRICH refactored to 2-message architecture (system=CONSTITUTION, user=rules+input+reminders). SPEC §5.2.2/§5.2.3/§5.3.2/§5.3.3/§7.2.2/§7.2.3 updated.
+- **6-source multi-provider verification COMPLETE:** CC Code Reviewer (Anthropic), Gemini CLI ×2 (Google), Codex CLI (OpenAI), CC Arabic Auditor (Anthropic), CC Architecture Auditor (Anthropic). 10 findings found, all resolved.
+- **Key fixes from review:** Instruction sandwich preserved on retry (error feedback inside `<error_correction>` before `<critical_reminders>`), GROUP cache key mismatch fixed, CLASSIFY reminder improved with derived-rulings rule per Gemini suggestion, SPEC §7.2.2 narrator role + confidence threshold synced to code.
+- **Tests:** 971 passed, 4 xfailed. pyright clean.
+- **Commits:** `546088e11` (DR28 refactoring), `eb88f611d` (6-source review fixes).
+
+### Session 15 — Next Steps (for next CC session)
+  1. **Campaign evaluation on taysir (HIGHEST PRIORITY)** — the $97 campaign (2,303 excerpts from 5 books) has never been evaluated against the hardened SPEC. Now that DR28 is implemented and OQ-001-004 are calibrated, pick 10 taysir excerpts and evaluate against 22 FPs + 23 domain rules + 4 newly calibrated thresholds. This proves whether the doctrine translates to reality. Dispatch all 6 coworkers for the evaluation. Plan: `engines/excerpting/reference/CAMPAIGN_EVAL_PLAN_SESSION11.md`.
   2. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready at `docs/autonomous-system/dr_relay_queue_batch_2.md`. Priority: RQ-B2-010 (sarf/nahw boundary) > RQ-B2-009 (المجاز العقلي) > RQ-B2-007 (تصريف vs أزمنة).
-  3. **DR28 instruction sandwich implementation** — `prompts.py` provides the module structure (CONSTITUTION + 7 rule modules). Next: implement progressive disclosure (8-12 rules per call from current monolith per DR28 synthesis).
+  3. **IU-10: A/B test monolithic vs progressive** — ~EUR 10 budget. Run 50+ chunks through both architectures, compare compliance metrics. Validates DR28 empirically.
   4. **Dashboard skeleton (FastAPI+HTMX)** — Phase 2 of autonomous system. JSONL schemas and gap scanner are ready as data backends.
 
 ### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
