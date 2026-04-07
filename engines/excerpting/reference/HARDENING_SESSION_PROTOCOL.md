@@ -1,7 +1,7 @@
-# Hardening Session Protocol v5.0.2
+# Hardening Session Protocol v5.0
 
 ---
-governing_version: "5.0.2"
+governing_version: "5.0"
 ---
 
 > **Authority:** ABSOLUTE. Governs ALL future hardening sessions for ALL batch types (F, G, SC, and any future series). No session may deviate from this protocol without a protocol amendment (see §8).
@@ -33,10 +33,6 @@ governing_version: "5.0.2"
 >   - **§5 amended:** Variant preservation with authority-ordered provenance sigla (R-22, DR17). Role separation formalization: 5 classical roles mapped to protocol agents (R-26). Scholarly grounding note for authority hierarchy.
 >   - **NEW §8.5: Calibration File** — Nuskha mi'yariyyah for drift detection (R-16). Dabt deficiency linkage from lahn framework (R-25).
 >   - **8 new scripts:** batch_inventory.py, batch_verification_init.py, batch_compute_coverage.py, batch_generate_trace_report.py, verify_batch_completion_gate.py, run_regression_suite.py, prompt_coherence_lint.py, atom_impact_diff.py.
-> - v5.0.1 (2026-04-07): DR18 ChatGPT DR norm enforcement review. Key additions: (1) §0 AUDIT PRIOR SESSION step — inter-session compliance audit via `audit_prior_session.py`, (2) Session Scorecard (mandatory handoff section), (3) 4 enforcement scripts (S-09 through S-12), (4) HR-24 norm decay prevention. Addresses why norms decay + 5 enforcement mechanisms.
-> - v5.0.2 (2026-04-07): DR23+DR24 synthesis (Session 7). Two changes:
->   - **NTU renamed:** "Natural Teaching Unit" → "Natural Unit Type" in §4.13 template. Resolves naming collision identified by DR24 (ChatGPT DR): output "teaching unit" and protocol NTU field shared the same name despite different semantics. NTU = the genre-native atom TYPE (mas'alah, tarjamah, etc.); output = the extracted INSTANCE. CC+Codex CONFIRMED (2/3 coworkers). Full `ExcerptRecord → TeachingUnitRecord` rename deferred to post-hardening.
->   - **DR23 RTC gate ACCEPTED (PRELIMINARY):** Round-Trip Correctness gate — lossless decomposition proof via SHA-256 hash verification. Post-Phase-2, pre-Phase-3 pipeline gate. Scholarly grounding CORRECTED by Gemini CLI (4/10): use iḥṣāʾ al-ḥurūf (letter-counting, al-Dānī) not balāgha (session pause markers); decouple from reversibility (intikhāb was understood as irreversible). Normalization: hash normalization engine's deterministic output directly (no PyArabic). Implementation: 8 units, ~200 lines, 0 API calls. Awaiting Codex structural review for CONFIRMED status.
 
 ---
 
@@ -773,13 +769,13 @@ For EACH claim in the expansion, CC MUST declare the fidelity level:
 
 **Anchor-bound expansion (v5.0 DR16):** The EXPANDED→CHALLENGED stages MUST maintain verbatim source anchors. G-CHALLENGED (§4.4 exit gate) CANNOT pass unless at least one challenger audits fidelity: "What in the anchors proves this claim?" This prevents interpretation drift during expansion.
 
-### Natural Unit Type (نوع الوحدة الطبيعية) — CONDITIONAL (v4.3 DR11, renamed v5.0.2 DR24)
+### Natural Teaching Unit (الوحدة التعليمية الطبيعية) — CONDITIONAL (v4.3 DR11)
 **Trigger:** MANDATORY for CONTENT atoms (dealing with scholarly texts, legal definitions, or substance of Islamic sciences). For STRUCTURAL or ENGINEERING atoms (formatting, boundary logic, tagging, relay constraints), auto-fill "N/A — System Logic" and skip evaluation.
 
 [What is the organic knowledge unit for THIS specific text's genre? (mas'alah in fiqh, tarjamah+hadith+commentary in hadith encyclopedias, bayt+qa'idah+shawahid in nahw, thematic verse group + athar in tafsir, attribute + evidence cascade in aqidah). Would the proposed rule PRESERVE or FRAGMENT this natural unit?]
 
 ### Graduated Learning Level (مستوى التدرج) — CONDITIONAL (v4.3 DR11)
-**Trigger:** Same as Natural Unit Type above — CONTENT atoms only. Classical texts already encode their own tadarruj level (Mukhtaṣar = beginner, Sharḥ = intermediate, Mabsūṭ = advanced); re-deriving this for every atom wastes context without adding information.
+**Trigger:** Same as NTU above — CONTENT atoms only. Classical texts already encode their own tadarruj level (Mukhtaṣar = beginner, Sharḥ = intermediate, Mabsūṭ = advanced); re-deriving this for every atom wastes context without adding information.
 
 [Is the source text beginner (مختصر/مبتدئ — memorize rulings only), intermediate (متن مع شرح/متوسط — understand evidences), or advanced (مبسوط/منتهي — master comparative analysis)? The proposed rule MUST respect the text's intended depth: do not inject complexity into beginner texts or truncate analysis in advanced texts.]
 

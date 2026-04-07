@@ -74,7 +74,8 @@ Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-pr
 - **Phase 3.4:** COMPLETE (50 tests, ~350 impl lines) — validation (V-P3-1–9) + output writer (excerpts.jsonl, gate_queue.jsonl, V-P3-7 paranoid verification)
 - **Phase 3 Orchestrator:** COMPLETE (25 integration tests, ~300 impl lines) — phase3_orchestrator.py + pipeline.py + end-to-end tests
 - **Overnight Hardening:** 40+ additional edge case tests across all phases
-- **Total:** 907+ tests, ~4,860 impl lines, 0 failures (907 deterministic, ~10 LLM integration)
+- **DR28 Prompt Architecture:** COMPLETE (IU-1–IU-9) — CONSTITUTION in system, rules+input+reminders in user. Progressive disclosure for GROUP. 9 new tests.
+- **Total:** 970+ tests, ~5,000 impl lines, 0 failures (970 deterministic, ~10 LLM integration)
 
 ### Recent Sessions (post-overnight hardening)
 - **Preamble gap fix:** `_complete_division_tree()` inserts synthetic leaf nodes for parent content gaps (2-29% content was silently lost). ACCEPTED.

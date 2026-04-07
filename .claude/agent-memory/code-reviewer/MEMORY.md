@@ -7,6 +7,7 @@
 
 ## Engine-Specific Notes
 - [Excerpting foundations review](excerpting_foundations_review_20260404.md) -- SPEC §5.3.2 code block vs actual code prompt drift is the primary risk pattern
+- [D3 SPEC additions review](d3_spec_review_20260407.md) -- §6.18-6.23 + ADV-E-13-22 all clean, atom catalog audit trail is solid
 
 ## Recurring Issues
 - SPEC code blocks claiming to be the definitive prompt text can drift from actual code -- always diff them
