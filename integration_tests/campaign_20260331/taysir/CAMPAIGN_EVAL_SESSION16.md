@@ -377,6 +377,47 @@ Ran automated pattern checks across all 1,283 taysir excerpts:
 | Numbered-list pattern excerpts | 550 (42.9%) | **568 (44.3%)** | **568** |
 | Below MV-1 | 191 (14.9%) | Not re-counted | 191 |
 
-### Sources Pending
-- Source 5: ChatGPT DR (owner relay)
-- Source 6: Claude DR (owner relay)
+### Source 5: ChatGPT DR (OpenAI Deep Research)
+- **CONFIRMS** fragmentation is a real quality problem, not a pedagogy preference
+- **Classical precedent found** for standalone فوائد: Ibn Hajar (Fath al-Bari), al-Nawawi (Sharh Muslim), Tuhfat al-Ahwadhi all use enumerated benefit lists
+- **But standalone requires semantic independence** — classical authors anchor benefits to "this hadith" frame. Items with unresolved pronouns assume the frame, not standalone.
+- **Decision rule confirmed:** Default to merging sub-MV-1 items. Allow standalone only when item passes semantic independence + MV-1 floor. "Standalone only when the standalone object is actually a standalone scholarly unit."
+- **Key quote:** "These are not 'Islamic pedagogy differences.' They are 'your excerpt object is mislabeled and frequently not independently understandable.'"
+- **Archived:** `C:\Users\Rayane\Downloads\deep-research-report (19).md`
+
+### Source 6: Claude DR (Anthropic Deep Research)
+- **Q1 (FR-1/IC-1):** Keep definition+proof+attribution together. Al-Ghazali's تصور/تصديق distinction collapses for Shari'a terms. Ibn Taymiyyah's Hanbali tradition demands definitions include scriptural basis. "A percentage-of-words heuristic should not govern splitting decisions for this pattern."
+- **Q2 (Pronoun resolution):** Systematic LLM blindness explained — BPE tokenization, comprehensible≠self-contained confusion, Arabic compounds 5 hard NLP problems. Fix: Farasa/CAMeL Tools (98.9% accuracy) for clitic segmentation + antecedent checking.
+- **Q3 (المعنى الإجمالي): DISAGREES with Arabic reviewer + Gemini.** Variable classification is CORRECT — المعنى الإجمالي is a structural container whose content inherits the source hadith's function. Recommends faceted classification: `structural_section` orthogonal to `primary_function`.
+- **Novel finding:** "No existing computational project systematically addresses the problem of atomizing Arabic scholarly texts into discrete knowledge units classified by function." KR is doing genuinely novel work.
+- **Archived:** `C:\Users\Rayane\Downloads\compass_artifact_wf-ae430a21-a867-4689-8678-4a7b45b23001_text_markdown.md`
+
+### المعنى الإجمالي Disagreement Resolution (3 vs 1)
+- **Arabic reviewer + Gemini + (partially) Codex:** All المعنى الإجمالي should be `rule_statement`, not `definition`. Finding #3 = FAIL.
+- **Claude DR:** Variable classification is correct. The 8-function distribution is a FEATURE. Section labels don't determine content function.
+- **RESOLUTION:** Claude DR's argument is stronger (grounded in NLP discourse theory + genre analysis). The GENERAL principle (variable classification = correct) coexists with SPECIFIC misclassifications (Sample 4 IS `rule_statement`). 
+  - **Don't** force all 172 to `rule_statement`
+  - **DO** add `structural_section` metadata facet (Claude DR recommendation)
+  - **DO** audit the 13 classified as `definition` individually — some may be misclassified
+  - Downgrade Finding #3 from FAIL to **ADVISORY with faceted-classification enhancement**
+
+---
+
+## FINAL 6-SOURCE EVALUATION SUMMARY
+
+### Confirmed Findings (action required)
+
+| # | Finding | Sources | Impact | Priority | Fix |
+|---|---------|---------|--------|----------|-----|
+| 1 | Numbered-list fragmentation | 5/6 | 568 (44%), 191 sub-MV-1 (15%) | **CRITICAL** | Extend merge_micro_units() with MV-1 content pass |
+| 2 | SC misrating on pronoun suffixes | 5/6 | 82 excerpts (6.4%) | **HIGH** | Add Farasa/CAMeL clitic segmentation + antecedent check |
+| 3 | FR-1 gate inappropriate for sharh | 3/6 | def+proof+attr units | **HIGH** | Exempt IC-1 intertwined content from FR-1 percentage gate |
+| 4 | OCR word corruption undetected | 1/6 (confirmed by byte check) | 2 instances | **MEDIUM** | Add OCR word-corruption detector to fidelity flags |
+| 5 | المعنى الإجمالي classification | RESOLVED (6/6) | 172 excerpts | **LOW** | Add `structural_section` facet; audit 13 `definition` cases |
+
+### What Works Well (reinforce)
+- School handling (cross_school detection, SSB-1 scenarios, ثمرات الخلاف test)
+- Scholar identification with role differentiation (refuted_position vs quoted_opinion)
+- 100% context_hint coverage on PARTIAL excerpts
+- Terminology variants capture (الحُبُس/الوقف/الأحباس)
+- Attribution-coupling (AC-1) preserves consensus weight distinctions

@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 17 IN PROGRESS: Campaign evaluation on taysir, 4/6 coworkers complete)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 17 COMPLETE: Campaign evaluation on taysir, 6/6 coworkers done)
 
 ### Session 14 — Autonomous System Execution (2026-04-07)
 - **All 4 Session 13 next-steps EXECUTED:**
@@ -37,27 +37,55 @@
 - **4-source verification COMPLETE:** CC Code (Anthropic), CC Scholarly (Anthropic), Codex CLI (OpenAI), Gemini CLI (Google). All PASS. 24 findings found and fixed.
 - **4 commits:** `e9cdccba4` (core), `546088e11` (DR28 refactoring), `2e6acff5b` (state), `cedde2645` (infra).
 
-### Session 17 — Campaign Evaluation on Taysir (2026-04-07, IN PROGRESS)
-- **HIGHEST PRIORITY GATE:** Does the pipeline produce correct output against the hardened SPEC?
+### Session 17 — Campaign Evaluation COMPLETE (2026-04-07)
+- **HIGHEST PRIORITY GATE ANSWERED:** The pipeline produces good school handling, scholar identification, and cross-school detection. But it has 3 systematic defects: numbered-list fragmentation, pronoun-based SC misrating, and missing OCR detection.
 - **10 taysir excerpts deep-evaluated** against 22 FPs + 23 domain rules + 4 DR37-calibrated thresholds
-- **4/6 coworkers complete** (CC Arabic Reviewer, CC Structural, Gemini CLI, Codex CLI). 2 DRs researching.
-- **Revised verdict: 4 PASS, 3 ADVISORY, 3 FAIL**
-- **5 CONFIRMED findings (3+ provider agreement):**
-  1. **Numbered-list fragmentation (CRITICAL):** 568 excerpts (44.3%) follow numbered-list patterns; 191 (14.9%) below MV-1 25-word floor. Root cause: `merge_micro_units()` only handles structural micro-units, not MV-1 content pass. Fix: extend function.
-  2. **SC misrating on pronoun suffixes (HIGH):** 82 excerpts (6.4%) rated FULL with unresolved pronoun ها/هم/هما. Fix: add pronoun-suffix check to SC evaluator.
-  3. **المعنى الإجمالي misclassification (HIGH):** 172 excerpts (13.4%) classified as `definition` when they're `rule_statement`. Systematic — Taysir al-Allam's sharh structure not recognized by CLASSIFY prompt.
-  4. **OCR word corruption (MEDIUM):** 2 instances in Sample 7 (مال روى → ما روي, برواتها → يراد بها). Source-inherited Class B. arabic_fidelity_flags has no OCR word-corruption detector.
-  5. **merge_micro_units() code gap (ROOT CAUSE of #1):** phase3_deterministic.py:170 only handles openers/closers, not the general MV-1 25-word floor per SPEC §5.5.5.
+- **6/6 coworkers complete:** CC Arabic Reviewer (Anthropic), CC Structural (Anthropic), Gemini CLI (Google), Codex CLI (OpenAI), ChatGPT DR (OpenAI), Claude DR (Anthropic). 3-provider diversity.
+- **Final verdict: 4 PASS, 3 ADVISORY, 3 FAIL**
+- **5 CONFIRMED findings:**
+  1. **Numbered-list fragmentation (CRITICAL):** 568 excerpts (44.3%) follow numbered-list patterns; 191 (14.9%) below MV-1 25-word floor. Root cause: `merge_micro_units()` (phase3_deterministic.py:170) only handles structural openers/closers, not MV-1 content pass. ChatGPT DR confirms: merge by default, standalone only when semantically independent.
+  2. **SC misrating on pronoun suffixes (HIGH):** 82 excerpts (6.4%) rated FULL with unresolved ها/هم/هما. Claude DR: use Farasa (98.9% accuracy) or CAMeL Tools for clitic segmentation + antecedent checking.
+  3. **FR-1 gate inappropriate for sharh (HIGH):** Claude DR: "A percentage-of-words heuristic should not govern splitting decisions" for def+proof+attr units. Al-Ghazali + Ibn Taymiyyah methodology demands unity. Exempt IC-1 intertwined content from FR-1 percentage gate.
+  4. **OCR word corruption undetected (MEDIUM):** 2 instances in Sample 7 (مال روى, برواتها). Gemini CLI caught what CC missed. Add OCR word-corruption detector to arabic_fidelity_flags.
+  5. **المعنى الإجمالي (RESOLVED — LOW):** Arabic reviewer + Gemini said FAIL; Claude DR said variable classification is CORRECT (container, not label). Resolution: add `structural_section` facet, audit the 13 classified as `definition`.
 - **Report:** `integration_tests/campaign_20260331/taysir/CAMPAIGN_EVAL_SESSION16.md`
-- **Commits:** `b70570621` (eval files), `4509d6beb` (4-source synthesis)
+- **DR archives:** ChatGPT DR at `downloads/deep-research-report (19).md`, Claude DR at `downloads/compass_artifact_wf-ae430a21-...md`
 - **Budget:** EUR 0.00 this session (evaluating existing data)
 
-### Session 17 — Next Steps
-  1. **Integrate DR findings** when ChatGPT DR + Claude DR complete (owner relaying)
-  2. **Implement MV-1 content merge fix** in `phase3_deterministic.py` — extend `merge_micro_units()` to handle all units below 25 words, not just structural openers/closers
-  3. **Add pronoun-suffix SC check** — post-enrichment validation that short FULL excerpts don't have unresolved ها/هم/هما suffixes
-  4. **Add OCR word-corruption detector** to arabic_fidelity_flags system
-  5. **Re-run taysir** with fixes and compare corpus metrics (target: 191→0 sub-MV-1, 82→0 SC misratings)
+### Session 17 — Next Steps (HANDOFF TO NEXT CC SESSION)
+
+**Priority order (highest impact first):**
+
+1. **Implement MV-1 content merge pass** in `engines/excerpting/src/phase3_deterministic.py`
+   - Extend `merge_micro_units()` OR add a separate `merge_subviable_units()` function
+   - After Phase 2b grouping and before Phase 3 enrichment (same call site, phase3_orchestrator.py:101-104)
+   - Logic: scan all units, identify those below 25 Arabic words, merge with adjacent per SPEC §5.5.5 (backward-merge preferred, forward if first in chunk)
+   - ChatGPT DR decision rule: "standalone only when the standalone object is actually a standalone scholarly unit" — check semantic independence (no unresolved pronouns per LP-1 criterion 4) before keeping standalone
+   - Target: 191→0 sub-MV-1 excerpts in taysir
+   - Tests: parametrize over 5+ numbered-list cases from taysir fixtures
+
+2. **Add pronoun-suffix SC validation** (post-enrichment check)
+   - Location: `phase3_validation.py` or new validation function called from `phase3_orchestrator.py`
+   - Logic: for FULL-rated excerpts under 30 words, use regex to detect attached 3rd-person pronoun suffixes (ها/هم/هما/هن/ه at word boundaries), then check if a compatible named entity antecedent exists within the excerpt text
+   - Claude DR recommendation: Farasa/CAMeL for proper clitic segmentation (98.9% accuracy). But regex heuristic is acceptable as first pass given the pipeline doesn't currently use these tools.
+   - Target: 82→0 misrated excerpts
+   - Tests: Sample 6 (إرجاعها/طلقها) as primary regression test
+
+3. **Exempt IC-1 from FR-1 percentage gate**
+   - Location: SPEC §6.14 and/or Phase 3 validation
+   - Claude DR: when definition+proof+attribution are in one continuous paragraph, the proof/attribution are constitutive, not supplementary. Don't split.
+   - Implementation: add a `content_intertwined` flag that suppresses FR-1's 33% audit when content_types has 3+ distinct types in a single-paragraph excerpt
+   - Tests: Sample 1 (الكلالة) — should not trigger FR-1 warning
+
+4. **Add `structural_section` metadata facet** to contracts.py
+   - Claude DR recommends: `structural_section` enum with values like `general_meaning`, `vocabulary`, `rulings`, `scholarly_disagreement`, `hadith_text`
+   - Orthogonal to `primary_function` — both are valid classification dimensions
+   - Low priority but high future value for taxonomy and study interface
+
+5. **Add OCR word-corruption detector** to arabic_fidelity_flags
+   - Current system has diacritic_density_mismatch, double_zwnj, missing_honorific, etc. but NO word-level OCR detection
+   - Simple approach: dictionary lookup of Arabic lexical forms, flag words that don't match any known form
+   - Lower priority — only 2 instances found in taysir corpus
 
 ### Session 15 — DR28 Prompt Architecture COMPLETE + 6-Source Verification (2026-04-07)
 - **DR28 IU-6/IU-7/IU-8/IU-9 implemented:** CLASSIFY and ENRICH refactored to 2-message architecture (system=CONSTITUTION, user=rules+input+reminders). SPEC §5.2.2/§5.2.3/§5.3.2/§5.3.3/§7.2.2/§7.2.3 updated.
