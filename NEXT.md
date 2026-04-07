@@ -160,12 +160,21 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 - **Prompt RESTORED (Session 9)**: GROUP_SYSTEM_PROMPT at 1483 words — full detail + T1-1/T1-2/T1-3 amendments + Gemini classical ordinals fix. DR21 compression attempted then reverted (owner: quality > compression). 1500-word cap REMOVED. DR28 prepared for long-term prompt architecture research.
 - **PRELIMINARY debt**: B2 (1/3) + B3 (1/3) + all G/SC (0/3)
 
+### Session 9 Accomplishments (2026-04-07) — Prompt Architecture + SPEC Sync
+- **T1-1/T1-2/T1-3 prompt amendments:** Causal particles expanded (إذ, لكونه). Semantic dependency exemption (تخصيص/شرط/استثناء/تقييد stays with عام, FP-5). Dialectical cross-ref (فإن قيل/قلنا → FP-14).
+- **T2-1..T2-7 SPEC sync:** Anti-surface-classification in §5.2.2. QM-4 in §6.6. New §6.7 (PS-1/PS-2 proof structure), §6.8 (SQ-1 scholar-quoting-scholar — highest risk), §6.9 (BC-1 boundary audit), §6.10 (MF-1 malformation-first diagnosis).
+- **Gemini CLI fix:** Classical textual ordinals (أحدها, والثاني, الوجه الأول) added to NUMBERED ITEMS.
+- **Codex CLI fix:** FP-3 causal particle list synced with prompt (stale "exhaustive" wording corrected).
+- **DR21 compression attempted then reverted:** 1440→794 words lost quality (Gemini found 2 gaps). Owner challenged: "quality > compression." Full detail restored at 1483 words. 1500-word cap removed.
+- **DR28 brief prepared:** Long-term prompt architecture research (multi-message, structured formats, progressive disclosure). Ready for Claude DR + ChatGPT DR relay.
+- **All B2/B3 atoms: IMPLEMENTED.** Ledger updated.
+- **917 tests pass**, SPEC-prompt alignment: EXACT MATCH.
+
 **Roadmap (updated):**
-1. **Session 6**: BCV on G/SC batches (Hafiz/Faqih verification per §3A-§3B)
-2. **Session 7**: Deduplication pass (157 G/SC atoms vs each other and vs F-series MAQ-001—088)
-3. **Session 8**: Debt clearance (B2/B3 DR relay + G/SC coworker confirmation)
-4. **Session 9**: Prompt refactor (§4.11 — 36 new prompt-affecting atoms need space in 1484/1500)
-5. **Session 10+**: Full-atom processing (G/SC atoms through 7-stage lifecycle)
+1. **Sessions 6-9**: COMPLETE
+2. **Session 10 (NEXT):** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check DR28 results when available. Handoff: `reference/handoffs/excerpting_foundations_session10_kickoff_2026-04-07.md`
+3. **Session 11+:** Full-atom processing (G/SC atoms through 7-stage lifecycle)
+4. **After hardening:** LLM behavioral regression test on prompt (50+ inputs, ~EUR 5-10). Book Resolution session (40 DR20 titles → Shamela IDs). Tier 1 smoke run (10 books, ~$30).
 
 **Session 2 complete. Protocol v4.0 → v4.1 patch in progress.** ChatGPT DR adversarial review (DR9, archived at `engines/excerpting/reference/dr_reviews/DR9_chatgpt_protocol_v40_adversarial.md`) found 18 issues (8 CRITICAL, 9 HIGH, 1 MEDIUM). Cross-referenced by explore agent: 12 confirmed gaps, 4 partially addressed, 2 already fixed. Plan approved, implementation in progress: 14 protocol amendments + 1 closure verifier script + version bump.
 
