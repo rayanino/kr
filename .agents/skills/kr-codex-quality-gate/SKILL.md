@@ -15,7 +15,9 @@ For Codex setup and runtime-control-plane changes, also run:
 
 `python scripts/check_codex_kr_setup.py`
 
-Use WSL for the real gate whenever hooks, MCP, or unattended-runtime behavior is part of the task.
+For Windows-first Codex work, pair that with:
+
+`python scripts/check_codex_kr_setup.py --auth-preflight`
 
 Do not declare KR setup work complete until:
 

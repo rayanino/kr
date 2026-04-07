@@ -1,9 +1,11 @@
 ---
 name: kr-codex-wsl-preflight
-description: Use before unattended KR Codex runs or after bootstrap changes to confirm the WSL runtime, auth mirrors, and scheduler-safe entrypoints.
+description: Legacy fallback skill. Use only when a concrete Windows blocker forces KR Codex work back onto the WSL runtime.
 ---
 
 # KR Codex WSL Preflight
+
+Only use this skill after documenting why the Windows checkout is insufficient.
 
 Run these checks in order:
 
@@ -18,4 +20,4 @@ Confirm:
 - `codex`, `claude`, and `gemini` are native Linux installs in WSL
 - the Windows checkout is not stale enough to overwrite the runtime on the next bootstrap
 
-If parity is broken, do not treat the runtime as healthy until the drift is explained or corrected.
+If parity is broken, do not treat the runtime as healthy until the drift is explained or corrected. This is fallback-only, not the default KR path.

@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
+import argparse
 import json
+import logging
 import re
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 try:
     from scripts.overnight_codex_common import (
@@ -198,6 +204,7 @@ def _upsert_result_action_items(
     source_signature: str,
     backlog: dict[str, Any],
     run_id: str,
+    result_filename: str = "final_response.json",
 ) -> tuple[int, int]:
     created = 0
     updated = 0
@@ -210,7 +217,7 @@ def _upsert_result_action_items(
     write_prefixes = infer_allowed_write_prefixes(subsystem)
     evidence_paths = _merge_evidence_paths(
         paths,
-        [repo_rel(RESULTS_DIR / task_id / "final_response.json")],
+        [repo_rel(RESULTS_DIR / task_id / result_filename)],
     )
     seen_keys: set[str] = set()
     for raw_item in items:
@@ -247,7 +254,7 @@ def _upsert_result_action_items(
                 list(existing.get("evidence_paths", [])),
                 evidence_paths,
             )
-            existing["latest_result_path"] = repo_rel(RESULTS_DIR / task_id / "final_response.json")
+            existing["latest_result_path"] = repo_rel(RESULTS_DIR / task_id / result_filename)
             existing["latest_source_signature"] = source_signature
             existing["occurrences"] = int(existing.get("occurrences", 1)) + 1
             updated += 1
@@ -276,7 +283,7 @@ def _upsert_result_action_items(
             "status_updated_at": utc_now_iso(),
             "status_updated_by_run": run_id,
             "occurrences": 1,
-            "latest_result_path": repo_rel(RESULTS_DIR / task_id / "final_response.json"),
+            "latest_result_path": repo_rel(RESULTS_DIR / task_id / result_filename),
             "latest_source_signature": source_signature,
         }
         created += 1
@@ -388,24 +395,55 @@ def _migrate_legacy_queue(backlog: dict[str, Any], run_id: str) -> int:
     return migrated
 
 
+def _find_result_files(results_dir: Path) -> list[tuple[Path, str]]:
+    """Discover result JSON files across all task directories.
+
+    Scans ``final_response.json`` first.  For ``creative-*`` directories that
+    lack a ``final_response.json``, falls back to ``creative.json`` so that
+    partial creative-task outputs still flow into the backlog.
+    """
+    found: list[tuple[Path, str]] = []
+    if not results_dir.is_dir():
+        return found
+    for task_dir in sorted(results_dir.iterdir()):
+        if not task_dir.is_dir():
+            continue
+        primary = task_dir / "final_response.json"
+        if primary.exists():
+            found.append((primary, task_dir.name))
+            continue
+        # Fallback: creative tasks may only have creative.json
+        if task_dir.name.startswith("creative-"):
+            fallback = task_dir / "creative.json"
+            if fallback.exists():
+                found.append((fallback, task_dir.name))
+    return found
+
+
 def sync_backlog_from_artifacts(run_id: str) -> dict[str, int]:
     """Sync actionable runtime artifacts into the canonical backlog."""
     backlog = load_backlog()
     created = 0
     updated = 0
-    for final_response in sorted(RESULTS_DIR.glob("*/final_response.json")):
+    for result_file, task_id in _find_result_files(RESULTS_DIR):
         try:
-            payload = json.loads(final_response.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+            payload = json.loads(result_file.read_text(encoding="utf-8"))
+        except OSError:
+            logger.error("Cannot read result file %s: OS error", result_file)
             continue
-        task_id = final_response.parent.name
-        source_signature = f"{task_id}:{final_response.stat().st_mtime_ns}"
+        except json.JSONDecodeError as exc:
+            logger.error(
+                "Invalid JSON in %s: %s", result_file, exc,
+            )
+            continue
+        source_signature = f"{task_id}:{result_file.stat().st_mtime_ns}"
         add_created, add_updated = _upsert_result_action_items(
             payload,
             task_id=task_id,
             source_signature=source_signature,
             backlog=backlog,
             run_id=run_id,
+            result_filename=result_file.name,
         )
         created += add_created
         updated += add_updated
@@ -513,3 +551,159 @@ def approved_backlog_items(frontier_tag: str) -> list[dict[str, Any]]:
         reverse=False,
     )
     return eligible
+
+
+def _item_age_days(record: dict[str, Any]) -> float:
+    """Return the age of an item in days since its creation."""
+    created = str(record.get("created_at", ""))
+    if not created:
+        return 0.0
+    try:
+        ts = datetime.fromisoformat(created)
+    except ValueError:
+        return 0.0
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=timezone.utc)
+    delta = datetime.now(timezone.utc) - ts
+    return delta.total_seconds() / 86400
+
+
+def auto_approve_aged_items(*, days: int = 7, run_id: str) -> int:
+    """Approve all proposed items older than *days*.
+
+    Returns the number of items approved.
+    """
+    backlog = load_backlog()
+    approved = 0
+    for record in backlog["items"].values():
+        if not isinstance(record, dict):
+            continue
+        if _status_value(record) != "proposed":
+            continue
+        if _item_age_days(record) < days:
+            continue
+        record["status"] = "approved"
+        record["status_updated_at"] = utc_now_iso()
+        record["status_updated_by_run"] = run_id
+        record["last_touched_run"] = run_id
+        approved += 1
+    if approved:
+        save_backlog(backlog)
+    return approved
+
+
+def proposed_items_needing_review(max_age_days: int = 3) -> list[dict[str, Any]]:
+    """Return proposed items older than *max_age_days* for the morning report."""
+    backlog = load_backlog()
+    items: list[dict[str, Any]] = []
+    for record in backlog["items"].values():
+        if not isinstance(record, dict):
+            continue
+        if _status_value(record) != "proposed":
+            continue
+        if _item_age_days(record) < max_age_days:
+            continue
+        items.append(record)
+    items.sort(
+        key=lambda r: (
+            PRIORITY_ORDER.get(str(r.get("priority", "MEDIUM")), 9),
+            -int(r.get("occurrences", 1)),
+        ),
+    )
+    return items
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+def _cmd_approve(args: argparse.Namespace) -> None:
+    ok = update_backlog_status(
+        args.item_id, status="approved", run_id="cli-manual",
+    )
+    if ok:
+        print(f"Approved: {args.item_id}")
+    else:
+        print(f"Item not found: {args.item_id}", file=sys.stderr)
+        sys.exit(1)
+
+
+def _cmd_reject(args: argparse.Namespace) -> None:
+    ok = update_backlog_status(
+        args.item_id, status="superseded", run_id="cli-manual",
+    )
+    if ok:
+        print(f"Rejected (superseded): {args.item_id}")
+    else:
+        print(f"Item not found: {args.item_id}", file=sys.stderr)
+        sys.exit(1)
+
+
+def _cmd_list(args: argparse.Namespace) -> None:
+    backlog = load_backlog()
+    rows: list[tuple[str, str, str, str, int]] = []
+    for record in backlog["items"].values():
+        if not isinstance(record, dict):
+            continue
+        status = _status_value(record)
+        if args.status and status != args.status:
+            continue
+        rows.append((
+            str(record.get("item_id", "")),
+            status,
+            str(record.get("priority", "")),
+            str(record.get("summary", ""))[:72],
+            int(record.get("occurrences", 1)),
+        ))
+    rows.sort(key=lambda r: (PRIORITY_ORDER.get(r[2], 9), -r[4]))
+    if not rows:
+        print("No items found.")
+        return
+    print(f"{'ID':<42} {'STATUS':<12} {'PRI':<7} {'OCC':>3}  SUMMARY")
+    print("-" * 120)
+    for item_id, status, priority, summary, occ in rows:
+        print(f"{item_id:<42} {status:<12} {priority:<7} {occ:>3}  {summary}")
+    print(f"\nTotal: {len(rows)} items")
+
+
+def _cmd_auto_approve(args: argparse.Namespace) -> None:
+    count = auto_approve_aged_items(days=args.days, run_id="cli-auto-approve")
+    print(f"Auto-approved {count} items older than {args.days} days.")
+
+
+def main(argv: list[str] | None = None) -> None:
+    """CLI entry point for backlog management."""
+    parser = argparse.ArgumentParser(
+        prog="overnight_codex_backlog",
+        description="Manage the overnight Codex backlog.",
+    )
+    sub = parser.add_subparsers(dest="command")
+
+    p_approve = sub.add_parser("approve", help="Approve a proposed item")
+    p_approve.add_argument("item_id")
+    p_approve.set_defaults(func=_cmd_approve)
+
+    p_reject = sub.add_parser("reject", help="Reject (supersede) an item")
+    p_reject.add_argument("item_id")
+    p_reject.set_defaults(func=_cmd_reject)
+
+    p_list = sub.add_parser("list", help="List backlog items")
+    p_list.add_argument("--status", default="", help="Filter by status")
+    p_list.set_defaults(func=_cmd_list)
+
+    p_auto = sub.add_parser("auto-approve", help="Auto-approve aged items")
+    p_auto.add_argument(
+        "--days", type=int, default=7,
+        help="Approve proposed items older than N days (default: 7)",
+    )
+    p_auto.set_defaults(func=_cmd_auto_approve)
+
+    args = parser.parse_args(argv)
+    if not hasattr(args, "func"):
+        parser.print_help()
+        sys.exit(1)
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

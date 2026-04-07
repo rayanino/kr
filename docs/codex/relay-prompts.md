@@ -45,7 +45,7 @@ Audit this KR Codex control-plane change.
 
 Constraints:
 - active_authority remains claude
-- WSL is the canonical Codex runtime lane
+- the active Windows checkout is the canonical Codex lane unless a concrete blocker is documented
 - focus on setup, runtime, hooks, scripts, docs, and verification only
 
 Files:

@@ -1,4 +1,4 @@
-"""Audit the KR Codex setup across repo, home config, and runtime surfaces."""
+"""Audit the KR Codex setup for the active Windows-first control plane."""
 
 from __future__ import annotations
 
@@ -34,6 +34,7 @@ EXPECTED_AGENT_FILES = [
 ]
 EXPECTED_HOOK_FILES = [
     ".codex/hooks.json",
+    ".codex/hooks/config/hooks-config.json",
     ".codex/hooks/hook_utils.py",
     ".codex/hooks/session_start.py",
     ".codex/hooks/pre_tool_use_policy.py",
@@ -42,11 +43,9 @@ EXPECTED_HOOK_FILES = [
 EXPECTED_SCRIPT_FILES = [
     "scripts/check_codex_kr_setup.py",
     "scripts/check_runtime_cli_auth.py",
-    "scripts/overnight_codex_wsl_bootstrap.sh",
-    "scripts/overnight_codex_wsl_resume.ps1",
     "scripts/run_codex_backend_proof_smoke.sh",
-    "scripts/run_codex_wsl_preflight.sh",
     "scripts/run_overnight_codex_shadow_loop.ps1",
+    "scripts/start_codex_kr.ps1",
     "scripts/start_overnight_codex.sh",
 ]
 EXPECTED_SKILL_FILES = [
@@ -69,6 +68,42 @@ PARITY_FILES = [
     "scripts/check_codex_kr_setup.py",
     "scripts/check_runtime_cli_auth.py",
 ]
+
+DOC_FRESHNESS_REQUIRED_FILES = [
+    "docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md",
+    "docs/codex/windows-workflow.md",
+    "scripts/run_overnight_codex_shadow_loop.ps1",
+    "scripts/start_codex_kr.ps1",
+]
+
+DOC_FRESHNESS_STALE_PHRASES: dict[str, list[str]] = {
+    "ACTIVE_AUTHORITY.md": [
+        "currently missing from `docs/codex`",
+    ],
+    "docs/codex/operating-model.md": [
+        "Preferred host: WSL runtime clone.",
+    ],
+    "docs/codex/runtime-policy.md": [
+        "Preferred unattended host: WSL2 runtime clone.",
+        "Do not run the long-lived unattended runtime from the interactive Windows checkout.",
+    ],
+    "docs/codex/coworker-dispatch.md": [
+        "/home/rayane/kr-codex",
+    ],
+    "docs/codex/wsl-bootstrap.md": [
+        "wsl --status` still reports WSL as not installed.",
+        "remaining host-side blocker is a Windows reboot",
+    ],
+    "docs/codex/shadow-24x7-runbook.md": [
+        "WSL clone at `~/kr-codex` is the canonical unattended lane.",
+    ],
+    "docs/codex/relay-prompts.md": [
+        "WSL is the canonical Codex runtime lane",
+    ],
+    "docs/codex/backend-proof-status.md": [
+        "Runtime host: WSL clone at `~/kr-codex`",
+    ],
+}
 
 
 @dataclass
@@ -135,6 +170,32 @@ def check_repo_files() -> CheckResult:
         "repo_files",
         True,
         "repo-local Codex config, hooks, agents, skills, and preflight scripts are present",
+    )
+
+
+def check_docs_freshness() -> CheckResult:
+    missing = [path for path in DOC_FRESHNESS_REQUIRED_FILES if not (ROOT / path).exists()]
+    stale_hits: list[str] = []
+    for rel_path, phrases in DOC_FRESHNESS_STALE_PHRASES.items():
+        path = ROOT / rel_path
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for phrase in phrases:
+            if phrase in text:
+                stale_hits.append(f"{rel_path}: {phrase}")
+
+    problems: list[str] = []
+    if missing:
+        problems.append(f"missing: {', '.join(missing)}")
+    if stale_hits:
+        problems.append(f"stale host assumptions: {'; '.join(stale_hits)}")
+    if problems:
+        return CheckResult("docs_freshness", False, "; ".join(problems))
+    return CheckResult(
+        "docs_freshness",
+        True,
+        "Windows-first Codex docs and launcher references are present and free of known stale host assumptions",
     )
 
 
@@ -213,7 +274,7 @@ def check_home_config() -> CheckResult:
     config = load_toml(path)
     expected = [str(ROOT)]
     if os.name == "nt":
-        expected.extend([r"\\?\{}".format(ROOT), "/home/rayane/kr-codex"])
+        expected.append(r"\\?\{}".format(ROOT))
     elif str(ROOT).startswith("/home/"):
         expected.append(str(ROOT))
 
@@ -228,8 +289,17 @@ def check_home_agents() -> CheckResult:
     if not path.exists():
         return CheckResult("home_agents", False, f"missing {path}")
     text = path.read_text(encoding="utf-8")
-    if "Prefer repo-local" not in text or "WSL clone" not in text:
-        return CheckResult("home_agents", False, "global AGENTS.md does not contain the expected Codex defaults")
+    required_fragments = [
+        "Prefer repo-local",
+        "run the project's canonical verification command",
+    ]
+    missing = [fragment for fragment in required_fragments if fragment not in text]
+    if missing:
+        return CheckResult(
+            "home_agents",
+            False,
+            f"global AGENTS.md is missing expected defaults: {', '.join(missing)}",
+        )
     return CheckResult("home_agents", True, "global AGENTS.md contains the expected Codex defaults")
 
 
@@ -277,10 +347,17 @@ def peer_repo_root() -> Path | None:
     return candidate if candidate.exists() else None
 
 
-def check_runtime_parity(require_windows_parity: bool = False) -> CheckResult:
+def check_runtime_parity(check_requested: bool, require_windows_parity: bool = False) -> CheckResult:
+    if not check_requested:
+        return CheckResult(
+            "runtime_parity",
+            True,
+            "skipped (Windows-first audit; use --check-wsl-parity only when diagnosing legacy WSL clone drift)",
+        )
+
     peer = peer_repo_root()
     if peer is None:
-        detail = "peer Windows/WSL checkout not found"
+        detail = "legacy WSL clone not found"
         return CheckResult("runtime_parity", not require_windows_parity, detail)
 
     local_head = run(["git", "rev-parse", "HEAD"], cwd=ROOT)
@@ -314,7 +391,7 @@ def check_runtime_parity(require_windows_parity: bool = False) -> CheckResult:
     return CheckResult(
         "runtime_parity",
         True,
-        detail + " (allowed in WSL-first mode; resync the Windows checkout before Windows-launched bootstrap or resume)",
+        detail + " (advisory only; resync the legacy WSL clone only if you need it again)",
     )
 
 
@@ -347,9 +424,20 @@ def main() -> int:
         help="Run the runtime backend auth probe in addition to static setup checks.",
     )
     parser.add_argument(
-        "--require-windows-parity",
+        "--check-wsl-parity",
         action="store_true",
-        help="Fail when the Windows checkout drifts from the WSL checkout. Use this for Windows-launched bootstrap validation.",
+        help="Compare the Windows checkout against the legacy WSL clone for drift diagnostics.",
+    )
+    parser.add_argument(
+        "--require-wsl-parity",
+        action="store_true",
+        help="Fail when the legacy WSL clone drifts from the current Windows checkout.",
+    )
+    parser.add_argument(
+        "--require-windows-parity",
+        dest="require_wsl_parity",
+        action="store_true",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--json",
@@ -360,12 +448,13 @@ def main() -> int:
 
     results = [
         check_repo_files(),
+        check_docs_freshness(),
         check_repo_config(),
         check_hook_commands(),
         check_home_config(),
         check_home_agents(),
         check_codex_mcp(),
-        check_runtime_parity(args.require_windows_parity),
+        check_runtime_parity(args.check_wsl_parity or args.require_wsl_parity, args.require_wsl_parity),
         check_auth_preflight(args.auth_preflight),
     ]
 

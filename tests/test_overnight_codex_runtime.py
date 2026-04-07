@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import textwrap
 from pathlib import Path
+from typing import Any
 
 import pytest
 from pytest import MonkeyPatch
@@ -300,6 +301,258 @@ def test_sync_backlog_from_artifacts_creates_proposed_item(
         "engines/excerpting/tests/",
     ]
     assert item["occurrences"] == 1
+
+
+def test_sync_reads_creative_json_fallback(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """creative-* dirs without final_response.json use creative.json fallback."""
+    results_dir = tmp_path / "results"
+    # Creative task dir — only has creative.json, no final_response.json
+    creative_dir = results_dir / "creative-excerpting-boundary-ideas"
+    creative_dir.mkdir(parents=True)
+    (creative_dir / "creative.json").write_text(
+        json.dumps(
+            {
+                "task_status": "success",
+                "summary": "Boundary analysis ideas.",
+                "evidence": [],
+                "findings": ["Boundary improvement found."],
+                "action_items": [
+                    {
+                        "id": "C1",
+                        "category": "IMPROVEMENT",
+                        "summary": "Refine passage boundary heuristics.",
+                        "effort": "M",
+                        "priority": "MEDIUM",
+                    }
+                ],
+                "files_changed": [],
+                "tests_run": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    backlog_file = tmp_path / "backlog.json"
+    monkeypatch.setattr(backlog, "RESULTS_DIR", results_dir)
+    monkeypatch.setattr(backlog, "QUEUE_DIR", tmp_path / "queue")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+    monkeypatch.setattr(backlog, "FINDINGS_REGISTRY_FILE", tmp_path / "no_findings.json")
+
+    summary = backlog.sync_backlog_from_artifacts("run-creative-fallback")
+
+    assert summary["created"] == 1
+    payload = json.loads(backlog_file.read_text(encoding="utf-8"))
+    items = list(payload["items"].values())
+    assert len(items) == 1
+    item = items[0]
+    assert item["status"] == "proposed"
+    assert "creative.json" in item["latest_result_path"]
+
+
+def test_sync_logs_json_parse_failure(
+    tmp_path: Path, monkeypatch: MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    """Corrupted JSON files are logged, not silently swallowed."""
+    import logging
+
+    results_dir = tmp_path / "results"
+    task_dir = results_dir / "review-broken-json"
+    task_dir.mkdir(parents=True)
+    (task_dir / "final_response.json").write_text(
+        "{invalid json content", encoding="utf-8"
+    )
+
+    backlog_file = tmp_path / "backlog.json"
+    monkeypatch.setattr(backlog, "RESULTS_DIR", results_dir)
+    monkeypatch.setattr(backlog, "QUEUE_DIR", tmp_path / "queue")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+    monkeypatch.setattr(backlog, "FINDINGS_REGISTRY_FILE", tmp_path / "no_findings.json")
+
+    with caplog.at_level(logging.ERROR, logger="scripts.overnight_codex_backlog"):
+        summary = backlog.sync_backlog_from_artifacts("run-bad-json")
+
+    assert summary["created"] == 0
+    assert any("Invalid JSON" in record.message for record in caplog.records)
+
+
+def _make_backlog_item(
+    item_id: str,
+    status: str = "proposed",
+    created_at: str = "2026-01-01T00:00:00+00:00",
+) -> dict[str, Any]:
+    """Helper: minimal backlog item for testing."""
+    return {
+        "item_id": item_id,
+        "dedupe_key": item_id,
+        "summary": f"Test item {item_id}",
+        "proposed_action": f"Action for {item_id}",
+        "category": "FOLLOW_UP",
+        "priority": "MEDIUM",
+        "effort": "M",
+        "status": status,
+        "frontier_tag": "general",
+        "subsystem": "general",
+        "allowed_write_prefixes": [],
+        "gate_mode": "all",
+        "evidence_paths": [],
+        "source_task_ids": [],
+        "source_kind": "test",
+        "legacy_input": False,
+        "created_at": created_at,
+        "created_by_run": "test",
+        "last_seen": created_at,
+        "last_touched_run": "test",
+        "status_updated_at": created_at,
+        "status_updated_by_run": "test",
+        "occurrences": 1,
+    }
+
+
+def test_cli_approve_updates_status(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """CLI approve subcommand marks a proposed item as approved."""
+    backlog_file = tmp_path / "backlog.json"
+    data = {
+        "meta": {"schema_version": 1},
+        "items": {"item-1": _make_backlog_item("item-1")},
+    }
+    backlog_file.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+
+    backlog.main(["approve", "item-1"])
+
+    reloaded = json.loads(backlog_file.read_text(encoding="utf-8"))
+    assert reloaded["items"]["item-1"]["status"] == "approved"
+
+
+def test_auto_approve_aged_items(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """Items older than the threshold get auto-approved."""
+    backlog_file = tmp_path / "backlog.json"
+    data = {
+        "meta": {"schema_version": 1},
+        "items": {
+            "old-item": _make_backlog_item(
+                "old-item", created_at="2025-01-01T00:00:00+00:00",
+            ),
+            "new-item": _make_backlog_item(
+                "new-item", created_at="2099-01-01T00:00:00+00:00",
+            ),
+        },
+    }
+    backlog_file.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+
+    count = backlog.auto_approve_aged_items(days=7, run_id="test-auto")
+
+    assert count == 1
+    reloaded = json.loads(backlog_file.read_text(encoding="utf-8"))
+    assert reloaded["items"]["old-item"]["status"] == "approved"
+    assert reloaded["items"]["new-item"]["status"] == "proposed"
+
+
+def test_auto_approve_skips_non_proposed(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """Only proposed items are auto-approved; other statuses are left alone."""
+    backlog_file = tmp_path / "backlog.json"
+    data = {
+        "meta": {"schema_version": 1},
+        "items": {
+            "approved-item": _make_backlog_item(
+                "approved-item", status="approved",
+                created_at="2025-01-01T00:00:00+00:00",
+            ),
+            "blocked-item": _make_backlog_item(
+                "blocked-item", status="blocked",
+                created_at="2025-01-01T00:00:00+00:00",
+            ),
+        },
+    }
+    backlog_file.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+
+    count = backlog.auto_approve_aged_items(days=7, run_id="test-skip")
+
+    assert count == 0
+    reloaded = json.loads(backlog_file.read_text(encoding="utf-8"))
+    assert reloaded["items"]["approved-item"]["status"] == "approved"
+    assert reloaded["items"]["blocked-item"]["status"] == "blocked"
+
+
+def _minimal_state() -> OvernightCodexState:
+    """Helper: minimal OvernightCodexState for morning report tests."""
+    return OvernightCodexState(
+        run_id="test-run-2026-04-07",
+        started_at="2026-04-07T00:00:00+00:00",
+        deadline="2026-04-07T08:00:00+00:00",
+        launch_head="abcdef12",
+        apply_mode="queue_only",
+        baseline_clean=True,
+        baseline_tests_passed=True,
+    )
+
+
+def test_morning_report_shows_needs_owner(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """Morning report includes 'Needs Owner Attention' with approve commands."""
+    report_path = tmp_path / "MORNING_REPORT.md"
+    backlog_file = tmp_path / "backlog.json"
+    data = {
+        "meta": {"schema_version": 1},
+        "items": {
+            "old-item": _make_backlog_item(
+                "old-item", created_at="2025-01-01T00:00:00+00:00",
+            ),
+        },
+    }
+    backlog_file.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+    monkeypatch.setattr(orchestrator, "MORNING_REPORT", report_path)
+    monkeypatch.setattr(common, "CUMULATIVE_FINDINGS", tmp_path / "no_findings.md")
+    monkeypatch.setattr(orchestrator, "CUMULATIVE_FINDINGS", tmp_path / "no_findings.md")
+    monkeypatch.setattr(orchestrator, "FINDINGS_REGISTRY_FILE", tmp_path / "no_reg.json")
+
+    state = _minimal_state()
+    orchestrator.generate_morning_report(state, [])
+
+    report = report_path.read_text(encoding="utf-8")
+    assert "## Needs Owner Attention" in report
+    assert "old-item" in report
+    assert "python -m scripts.overnight_codex_backlog approve" in report
+
+
+def test_morning_report_shows_cumulative_findings(
+    tmp_path: Path, monkeypatch: MonkeyPatch
+) -> None:
+    """Morning report shows cumulative findings count from CUMULATIVE_FINDINGS.md."""
+    report_path = tmp_path / "MORNING_REPORT.md"
+    findings_path = tmp_path / "CUMULATIVE_FINDINGS.md"
+    findings_path.write_text(
+        "# Findings\n\n"
+        "## creative-task-1 — PASS\n**Date:** 2026-04-06\n\n---\n\n"
+        "## creative-task-2 — REJECT\n**Date:** 2026-04-06\n\n---\n\n"
+        "## creative-task-3 — PASS\n**Date:** 2026-04-07\n\n---\n",
+        encoding="utf-8",
+    )
+    backlog_file = tmp_path / "backlog.json"
+    backlog_file.write_text(json.dumps({"meta": {}, "items": {}}), encoding="utf-8")
+    monkeypatch.setattr(backlog, "BACKLOG_FILE", backlog_file)
+    monkeypatch.setattr(orchestrator, "MORNING_REPORT", report_path)
+    monkeypatch.setattr(common, "CUMULATIVE_FINDINGS", findings_path)
+    monkeypatch.setattr(orchestrator, "CUMULATIVE_FINDINGS", findings_path)
+    monkeypatch.setattr(orchestrator, "FINDINGS_REGISTRY_FILE", tmp_path / "no_reg.json")
+
+    state = _minimal_state()
+    orchestrator.generate_morning_report(state, [])
+
+    report = report_path.read_text(encoding="utf-8")
+    assert "Cumulative findings: 3 (2 passing)" in report
 
 
 def test_build_backlog_write_tasks_uses_only_approved_items(

@@ -11,7 +11,7 @@ rollback_authority: codex
 autonomy_doctrine_file: docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md
 current_scope: Claude is the active engineering authority for the post-F6 excerpting foundations hardening lane on local master. Start from the staged takeover brief at `reference/handoffs/excerpting_foundations_claude_hardening_takeover_2026-04-04.md`, move implementation to a clean excerpting-focused branch before hardening work, and treat Codex as setup/runtime/read-only shadow support.
 codex_scope_after_cutover: Hardening, regression growth, audits, queued patch generation, and unattended runtime operation.
-blocked_after_claude_expiry: The referenced doctrine file is currently missing from `docs/codex`. Until that control-plane gap is repaired, keep operation conservative: queue-only starts, explicit blocker logging, and no policy expansion inferred from the missing doctrine file.
+blocked_after_claude_expiry: Keep operation conservative until the intended Windows checkout is green for the Codex setup audit, auth preflight, and queue-only shadow loop. Until then, keep queue-only starts, explicit blocker logging, and no policy expansion.
 
 ## Interpretation
 
@@ -27,7 +27,7 @@ blocked_after_claude_expiry: The referenced doctrine file is currently missing f
 - Start from `shadow_setup` discipline and use the staged excerpting takeover brief before any hardening implementation begins.
 - Move hardening work to a clean excerpting branch rather than running it on the taxonomy branch.
 - Record Claude Code quota limits explicitly at major milestones and continue under degraded coworker capacity when needed.
-- Restore or replace `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md` before relying on doctrine-governed promotions or degraded-mode assumptions beyond the conservative starting lane.
+- Keep the Windows-first Codex docs, launcher, setup audit, and shadow loop aligned before relying on doctrine-governed promotions or degraded-mode assumptions beyond the conservative starting lane.
 
 ## Rollback
 

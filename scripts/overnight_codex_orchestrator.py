@@ -21,6 +21,8 @@ from typing import Any
 
 try:
     from scripts.overnight_codex_backlog import (
+        auto_approve_aged_items,
+        proposed_items_needing_review,
         summarize_backlog,
         sync_backlog_from_artifacts,
         update_backlog_status,
@@ -28,6 +30,7 @@ try:
     from scripts.overnight_codex_common import (
         ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
+        CUMULATIVE_FINDINGS,
         CREATIVE_RUN_LOG,
         DECISIONS_LOG,
         EVENTS_FILE,
@@ -69,6 +72,8 @@ try:
     )
 except ImportError:
     from overnight_codex_backlog import (
+        auto_approve_aged_items,
+        proposed_items_needing_review,
         summarize_backlog,
         sync_backlog_from_artifacts,
         update_backlog_status,
@@ -77,6 +82,7 @@ except ImportError:
         ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
         CREATIVE_RUN_LOG,
+        CUMULATIVE_FINDINGS,
         DECISIONS_LOG,
         EVENTS_FILE,
         FINAL_RESPONSE_SCHEMA,
@@ -1048,6 +1054,22 @@ def _write_result_artifacts(task: CodexTaskDef, result_dir: Path, payload: dict[
     if task.category == "creative" and action_items:
         write_json(result_dir / "actionable.json", action_items)
 
+    # Evaluate creative outputs and persist verdict alongside result.
+    if task.category == "creative":
+        try:
+            from scripts.overnight_codex_evaluator import (
+                evaluate_creative_output,
+                route_to_findings,
+            )
+        except ImportError:
+            from overnight_codex_evaluator import (  # type: ignore[no-redef]
+                evaluate_creative_output,
+                route_to_findings,
+            )
+        verdict = evaluate_creative_output(payload, task_id=task.task_id)
+        write_json(result_dir / "evaluator_verdict.json", verdict.to_dict())
+        route_to_findings(verdict, payload)
+
     lines = [f"# {task.name}", "", payload.get("summary", ""), ""]
     if payload.get("findings"):
         lines.append("## Findings")
@@ -2016,6 +2038,33 @@ def _load_findings_registry_summary() -> tuple[int, list[dict[str, Any]]]:
     return len(records), records[:5]
 
 
+def _load_cumulative_findings_summary() -> tuple[int, int, list[str]]:
+    """Parse CUMULATIVE_FINDINGS.md for total count, passing count, and recent entry titles.
+
+    Returns (total_findings, passing_count, recent_entry_titles).
+    """
+    if not CUMULATIVE_FINDINGS.exists():
+        return 0, 0, []
+    try:
+        text = CUMULATIVE_FINDINGS.read_text(encoding="utf-8")
+    except OSError:
+        return 0, 0, []
+    total = 0
+    passing = 0
+    recent: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("## ") and " — " in stripped:
+            total += 1
+            title = stripped[3:]  # strip "## "
+            if "PASS" in title.upper():
+                passing += 1
+            recent.append(title)
+    # Most recent entries are at the bottom of the file (appended).
+    recent.reverse()
+    return total, passing, recent[:5]
+
+
 def _current_signal_records(
     state: OvernightCodexState,
     manifest: list[CodexTaskDef],
@@ -2087,6 +2136,7 @@ def generate_morning_report(
     current_signals = _current_signal_records(state, manifest)
     new_signals, recurring_signals = _split_new_vs_recurring(current_signals, previous_snapshot)
     findings_count, recent_finding_items = _load_findings_registry_summary()
+    cum_total, cum_passing, cum_recent = _load_cumulative_findings_summary()
 
     def signal_rank(signal: dict[str, Any]) -> tuple[int, int, int]:
         status_rank = {
@@ -2169,6 +2219,8 @@ def generate_morning_report(
             f"+{backlog_summary.get('approved_this_run', 0)} approved, "
             f"+{backlog_summary.get('implemented_this_run', 0)} implemented"
         )
+    if cum_total:
+        lines.append(f"- Cumulative findings: {cum_total} ({cum_passing} passing)")
     if state.notes:
         lines.append("")
         lines.append("## Launch Notes")
@@ -2248,6 +2300,23 @@ def generate_morning_report(
                 f"- `{item.get('id', 'unknown')}`: {item.get('summary', 'No summary')} "
                 f"(seen {item.get('occurrences', 1)} times)"
             )
+    if cum_recent:
+        lines.append(f"- Recent cumulative entries: {', '.join(cum_recent[:3])}")
+
+    needs_review = proposed_items_needing_review(max_age_days=3)
+    if needs_review:
+        lines.append("")
+        lines.append("## Needs Owner Attention")
+        lines.append("")
+        for item in needs_review[:3]:
+            item_id = item.get("item_id", "unknown")
+            summary = str(item.get("summary", ""))[:100]
+            priority = item.get("priority", "MEDIUM")
+            occurrences = item.get("occurrences", 1)
+            lines.append(f"- **{summary}** (priority: {priority}, seen {occurrences}x)")
+            lines.append(
+                f"  Approve: `python -m scripts.overnight_codex_backlog approve {item_id}`"
+            )
 
     lines.append("")
     lines.append("## Snapshot")
@@ -2301,7 +2370,14 @@ def run_overnight(
     print(f"Duration target: {hours} hours")
     print()
 
-    sync_backlog(utc_now().strftime("%Y-%m-%d"))
+    run_date = utc_now().strftime("%Y-%m-%d")
+    sync_backlog(run_date)
+    try:
+        n_approved = auto_approve_aged_items(days=7, run_id=run_date)
+        if n_approved:
+            log_decision("Auto-approved aged backlog items", {"count": n_approved})
+    except Exception as exc:
+        log_decision("Failed to auto-approve aged items", {"error": str(exc)})
 
     if manifest_path and manifest_path.exists():
         manifest = load_manifest(manifest_path)

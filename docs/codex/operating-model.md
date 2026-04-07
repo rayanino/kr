@@ -25,6 +25,7 @@ Read in this order:
 2. Rebuild current context from `.kr/ACTIVE.md` and `.kr/HANDOFF.md`.
 3. Read the relevant engine `CLAUDE.md`.
 4. Select the quality-gate mode before editing anything.
+5. Launch from Windows with `powershell -ExecutionPolicy Bypass -File scripts/start_codex_kr.ps1` unless a documented Windows blocker forces a fallback path.
 
 ## Quality-Gate Mapping
 
@@ -51,7 +52,8 @@ The unattended runtime must never stop and wait for the owner.
 
 ## Runtime Policy
 
-- Preferred host: WSL runtime clone.
+- Preferred lane: the current Windows checkout for interactive Codex work, setup audits, auth preflight, coworker dispatch, and queue-only shadow runs.
+- Legacy fallback: the WSL path is optional and should be used only when a concrete Windows blocker is documented.
 - Default pre-cutover mode: shadow, queue-only, no engine-code writes.
 - Default post-cutover starting mode: `autonomous_codex + queue_only`.
 - During the April 9, 2026 to July 1, 2026 doctrine period, the canonical doctrine file controls cadence, degraded modes, budget, stop rules, and cutover gates.

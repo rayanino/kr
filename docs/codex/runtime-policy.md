@@ -2,16 +2,16 @@
 
 ## Host
 
-- Preferred unattended host: WSL2 runtime clone.
-- Do not run the long-lived unattended runtime from the interactive Windows checkout.
-- Keep tool caches, temp files, and Python runtimes inside the WSL environment.
+- Preferred control-plane host: the current Windows checkout at `C:\Users\Rayane\Desktop\kr`.
+- Use the Windows checkout for setup audits, auth preflight, coworker dispatch, backend proof, and queue-only shadow work.
+- WSL bootstrap scripts remain in the repo as legacy fallback tooling. Do not route through them unless a concrete Windows blocker is documented.
 
 ## Bootstrap
 
-- Windows-side prerequisites: enable `Microsoft-Windows-Subsystem-Linux`, reboot, and install `Ubuntu 24.04 LTS`.
-- First post-reboot launch: run `ubuntu2404.exe` once and finish the Linux user creation.
-- Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal`
-- The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current Windows checkout into `~/kr-codex`, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal.
+- Canonical Windows launcher: `powershell -ExecutionPolicy Bypass -File scripts/start_codex_kr.ps1`
+- Setup-only preflight: `powershell -ExecutionPolicy Bypass -File scripts/start_codex_kr.ps1 -NoLaunch`
+- Full coworker/auth preflight: `powershell -ExecutionPolicy Bypass -File scripts/start_codex_kr.ps1 -RunAuthPreflight -NoLaunch`
+- Queue-only shadow loop: `powershell -ExecutionPolicy Bypass -File scripts/run_overnight_codex_shadow_loop.ps1`
 
 ## Runtime Profiles
 
@@ -88,10 +88,10 @@ Protected-area enforcement must be synchronous. It must block the write before a
 
 1. Confirm `ACTIVE_AUTHORITY.md`.
 2. Confirm runtime mode.
-3. Run the setup audit from the canonical host.
+3. Run `python scripts/check_codex_kr_setup.py` from the current Windows checkout.
 4. Verify Codex CLI, Python, pytest, and git are available.
-5. Run preflight.
-6. Start `overnight_codex`.
+5. Run `python scripts/check_runtime_cli_auth.py --json` when runtime or coworker health matters.
+6. Start `overnight_codex` through the Windows loop or an explicit bounded orchestrator run.
 
 ## Shutdown Artifacts
 

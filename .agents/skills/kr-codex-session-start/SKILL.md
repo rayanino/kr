@@ -19,6 +19,6 @@ Then lock these facts before doing work:
 - `active_authority`
 - `runtime_mode`
 - whether the task is setup/runtime/review-only or engine-lane implementation
-- whether WSL is required for the intended checks
+- whether the current Windows checkout is sufficient for the intended checks
 
-Use the WSL clone at `/home/rayane/kr-codex` whenever hooks, repo MCP, quality-gate, or unattended runtime behavior matters.
+Use the current Windows checkout as the default Codex lane. Only fall back to WSL if a concrete Windows blocker is proven and documented.

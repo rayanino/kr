@@ -1,6 +1,6 @@
 ---
 name: kr-codex-bootstrap
-description: Use when building or repairing KR's repo-local Codex layer, especially `.codex/`, `.agents/skills/`, and WSL bootstrap surfaces.
+description: Use when building or repairing KR's repo-local Codex layer, especially `.codex/`, `.agents/skills/`, the Windows launcher, and shadow-control surfaces.
 ---
 
 # KR Codex Bootstrap
@@ -17,10 +17,11 @@ Focus on:
 - repo-local `.codex/config.toml`
 - repo-local `.codex/agents/`
 - repo-local `.agents/skills/`
-- WSL bootstrap and resume scripts
+- Windows launcher and shadow-loop scripts
 - preserving Claude Code and Gemini workflow surfaces
 
 Before concluding bootstrap work:
 
 - run `python scripts/check_codex_kr_setup.py`
-- note whether Windows checkout parity is current, advisory-only, or explicitly stale
+- run `python scripts/check_codex_kr_setup.py --auth-preflight` if coworker/runtime health matters
+- note any legacy WSL fallback dependency explicitly instead of assuming it

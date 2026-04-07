@@ -14,7 +14,7 @@ Choose the narrowest repo-local Codex agent:
 - `kr_code_reviewer` for correctness, regressions, and missing tests
 - `kr_arabic_reviewer` for Arabic-risk and scholarly metadata structure
 - `kr_build_prober` for cumulative session-diff vs SPEC checks
-- `kr_runtime_prober` for WSL, auth, runtime, and backend-proof paths
+- `kr_runtime_prober` for Windows auth, runtime, and backend-proof paths
 - `kr_coworker_brief_writer` for Claude/Gemini/DR review packets
 - `kr_quick_check` for fast pyright/pytest/grep sanity passes
 

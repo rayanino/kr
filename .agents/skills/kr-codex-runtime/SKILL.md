@@ -1,6 +1,6 @@
 ---
 name: kr-codex-runtime
-description: "Use for KR Codex runtime work: WSL bootstrap, overnight_codex, auth preflights, bounded backend proof, and scheduler-safe shadow operation."
+description: "Use for KR Codex runtime work: Windows launchers, overnight_codex, auth preflights, bounded backend proof, and scheduler-safe shadow operation."
 ---
 
 # KR Codex Runtime
@@ -15,8 +15,8 @@ Read these files first:
 
 Operational defaults:
 
-- WSL clone is the canonical runtime host
-- Windows checkout is secondary and interactive only
+- Windows checkout is the canonical Codex host
+- WSL is legacy fallback only when a Windows blocker is documented
 - in `shadow_setup`, keep project-code work queue-only
 - never touch protected KR areas from unattended runs
 

@@ -1,62 +1,53 @@
-# Codex WSL Bootstrap
+# Codex Windows Bootstrap
 
-Status captured on 2026-03-30:
+This file keeps the historical path name, but the canonical KR Codex bootstrap is now Windows-first.
 
-- `Microsoft-Windows-Subsystem-Linux` is enabled.
-- `VirtualMachinePlatform` is enabled.
-- `wsl --status` still reports WSL as not installed.
-- The remaining host-side blocker is a Windows reboot so the WSL feature becomes active.
+## Default Startup
 
-## Exact Next Step
-
-1. Reboot Windows.
-2. From `C:\Users\Rayane\Desktop\kr`, run:
+From `C:\Users\Rayane\Desktop\kr`, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1
 ```
 
-If Ubuntu asks for its first Linux user, create `rayane`, close the Ubuntu window, and run the same command again.
+That launcher:
 
-## What The Launcher Does
+- prints `active_authority` and `runtime_mode`
+- runs the repo-local Codex setup audit unless you skip it
+- optionally runs auth preflight for `codex`, `claude`, and `gemini`
+- starts Codex with the requested KR profile from the current Windows checkout
 
-- installs Ubuntu if it is still missing
-- runs the WSL bootstrap script at `scripts/overnight_codex_wsl_bootstrap.sh`
-- installs the runtime prerequisites inside WSL, including `make`
-- syncs the current Windows working tree into `~/kr-codex` so the local dirty takeover-layer changes are preserved
-- verifies:
-  - `git`
-  - `python`
-  - `uv`
-  - `node`
-  - `npm`
-  - `codex`
-  - `claude`
-  - `gemini`
-  - `pytest`
-  - `rg`
-  - `jq`
+## Recommended Windows Commands
 
-## First Shadow Rehearsal
-
-After bootstrap succeeds, run:
+Setup audit only:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\overnight_codex_wsl_resume.ps1 -RunShadowRehearsal
+powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1 -NoLaunch
 ```
 
-That launches the safest valid rehearsal for the current authority state:
+Setup + auth preflight:
 
-- `active_authority: claude`
-- `runtime_mode: shadow_setup`
-- queue-only behavior
-- one bounded read-only task: `val-contracts`
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1 -RunAuthPreflight -NoLaunch
+```
+
+Queue-only shadow loop:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_overnight_codex_shadow_loop.ps1
+```
 
 ## KR Profiles
 
-Recommended Codex profiles once the WSL clone is healthy:
+Recommended Codex profiles on Windows:
 
 - `codex -p kr_interactive`
 - `codex -p kr_shadow`
 - `codex -p kr_peer_review`
 - `codex -p kr_research`
+
+## Legacy WSL Fallback
+
+The WSL bootstrap and resume scripts remain in the repo for diagnostics or historical fallback, but they are no longer the default KR Codex path.
+
+Only revisit them if a concrete Windows blocker is documented and cannot be resolved in the current checkout.

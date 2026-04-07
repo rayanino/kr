@@ -14,23 +14,25 @@ If a coworker fails, log the failure explicitly and continue in degraded mode.
 
 ## Claude Code CLI
 
-Preferred read-only pattern:
+Preferred Windows pattern:
 
-```bash
-cat docs/codex/reviews/coworker-packet-template.md | claude -p --permission-mode plan --add-dir /home/rayane/kr-codex
+```powershell
+$packet = Get-Content -Raw docs/codex/reviews/coworker-packet-template.md
+claude -p $packet --permission-mode plan --add-dir C:\Users\Rayane\Desktop\kr
 ```
 
 Notes:
 
-- `--print` mode expects the prompt on stdin or as a plain positional prompt
 - keep the packet path-specific and authority-aware
+- if the packet grows large, write it to a temp file rather than improvising the prompt inline
 
 ## Gemini CLI
 
-Preferred read-only pattern on this machine:
+Preferred Windows pattern on this machine:
 
-```bash
-gemini --approval-mode plan --include-directories /home/rayane/kr-codex -p "$(cat docs/codex/reviews/coworker-packet-template.md)"
+```powershell
+$packet = Get-Content -Raw docs/codex/reviews/coworker-packet-template.md
+gemini --approval-mode plan --include-directories C:\Users\Rayane\Desktop\kr -p $packet
 ```
 
 Notes:
