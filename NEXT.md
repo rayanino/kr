@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 10 fixes shipped, 940 tests)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 10 dedup complete, 10 SPEC sections written, 937 tests)
 
 ### Pipeline Visual Architecture (2026-04-07)
 - **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)
@@ -82,14 +82,34 @@
 - Gate script bug found and fixed (META terminal state)
 - 12 SOFTENED items documented for debt clearance
 
+### Session 10 Accomplishments (2026-04-07) — Dedup Reconciliation + SPEC Debt Clearance
+
+- **MAQ dedup COMPLETE:** All 80 actionable atoms reconciled against SPEC/code. Key finding: B4/B5 "SPEC-ONLY" was disposition tag not implementation status — 10 atoms had classified dispositions but no SPEC text. All 10 now written. SPEC-PENDING: 0.
+- **10 SPEC additions written:**
+  - FP-7 strengthened: hadith variant-mismatch risk (MAQ-056/072)
+  - FP-8 strengthened: attribution-critical tarjih + clipped tarjih prohibition (MAQ-053/054)
+  - §6.11 FN-1: Footnote handling protocol (MAQ-071)
+  - §6.12 IM-1: Interleaved methodology awareness (MAQ-069)
+  - §6.13 HR-1: Hukm-return visibility (MAQ-038)
+  - §6.14 FR-1: Forgiving rule ~33% quantitative limit (MAQ-036)
+  - §6.15 CS-1: Configuration-sensitivity audit trigger (MAQ-042)
+  - §6.16 TE-1: Theory-example vs practice-example (MAQ-048)
+  - §6.17 IC-1: A×B intertwined content protocol (MAQ-050)
+- **Codex CLI Session 9 results processed:** 5 PASS, 1 MEDIUM (already fixed). No blockers.
+- **Reconciliation doc:** `engines/excerpting/reference/DEDUP_RECONCILIATION_SESSION10.md`
+- **Reconciled totals:** 37 implemented, 22 covered, 0 SPEC-pending, 10 deferred, 3 open, 8 merged, 4 captured
+- **Tests:** 937 passed, 4 xfailed, 0 real failures. Prompt-SPEC sync: PASS.
+- **Budget:** EUR 0.00 this session (all deterministic). Total: 36.70/100.
+
 ### What's Needed Next
-1. **Takhrij data population: COMPLETE** — `derive_takhrij_from_footnotes()` implemented with Gemini 4-field minimum spec. 9 tests. 940 total tests pass.
-2. **DR31 Templates 4+6 (NEXT):** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration templates (both rated COMPATIBLE by Codex CLI).
-3. **Session 10:** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment.
-4. **Deferred:** review_flags placeholder refactoring, DR31 Templates 1/2/3 prompt rewrites (NEEDS_ADAPTATION).
-4. **Session 11+:** Full-atom processing through 7-stage lifecycle
-5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
+
+1. **DR28 prompt architecture implementation (HIGHEST PRIORITY):** Converged architecture from 2-provider DR: instruction sandwich + progressive disclosure (8-12 rules per call from 25). Synthesis at `engines/excerpting/reference/dr_reviews/DR28_synthesis.md`. This is the next transformative step — restructure all 3 prompts. Also naturally addresses Gemini's 2 PRELIMINARY CHALLENGEs (classical ordinals, حيث إن causal particle).
+2. **3 OPEN design questions need DR:** MAQ-074 (chapter-intro marking), MAQ-075 (EE-1 hadith exceptions), MAQ-077 (non-taxonomic guidance). Deploy 1 DR per question.
+3. **Section K red-team tests:** 62 tests to automate as pytest cases. High-value testing debt.
+4. **DR31 Templates 4+6:** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration (both rated COMPATIBLE by Codex CLI).
+5. **Deferred:** review_flags placeholder refactoring, DR31 Templates 1/2/3 prompt rewrites (NEEDS_ADAPTATION).
+6. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
+7. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
