@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 14 COMPLETE: Phase 0 infra + OQ resolution + Batch 2 DRs + framework corrections)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 17 IN PROGRESS: Campaign evaluation on taysir, 4/6 coworkers complete)
 
 ### Session 14 — Autonomous System Execution (2026-04-07)
 - **All 4 Session 13 next-steps EXECUTED:**
@@ -37,6 +37,28 @@
 - **4-source verification COMPLETE:** CC Code (Anthropic), CC Scholarly (Anthropic), Codex CLI (OpenAI), Gemini CLI (Google). All PASS. 24 findings found and fixed.
 - **4 commits:** `e9cdccba4` (core), `546088e11` (DR28 refactoring), `2e6acff5b` (state), `cedde2645` (infra).
 
+### Session 17 — Campaign Evaluation on Taysir (2026-04-07, IN PROGRESS)
+- **HIGHEST PRIORITY GATE:** Does the pipeline produce correct output against the hardened SPEC?
+- **10 taysir excerpts deep-evaluated** against 22 FPs + 23 domain rules + 4 DR37-calibrated thresholds
+- **4/6 coworkers complete** (CC Arabic Reviewer, CC Structural, Gemini CLI, Codex CLI). 2 DRs researching.
+- **Revised verdict: 4 PASS, 3 ADVISORY, 3 FAIL**
+- **5 CONFIRMED findings (3+ provider agreement):**
+  1. **Numbered-list fragmentation (CRITICAL):** 568 excerpts (44.3%) follow numbered-list patterns; 191 (14.9%) below MV-1 25-word floor. Root cause: `merge_micro_units()` only handles structural micro-units, not MV-1 content pass. Fix: extend function.
+  2. **SC misrating on pronoun suffixes (HIGH):** 82 excerpts (6.4%) rated FULL with unresolved pronoun ها/هم/هما. Fix: add pronoun-suffix check to SC evaluator.
+  3. **المعنى الإجمالي misclassification (HIGH):** 172 excerpts (13.4%) classified as `definition` when they're `rule_statement`. Systematic — Taysir al-Allam's sharh structure not recognized by CLASSIFY prompt.
+  4. **OCR word corruption (MEDIUM):** 2 instances in Sample 7 (مال روى → ما روي, برواتها → يراد بها). Source-inherited Class B. arabic_fidelity_flags has no OCR word-corruption detector.
+  5. **merge_micro_units() code gap (ROOT CAUSE of #1):** phase3_deterministic.py:170 only handles openers/closers, not the general MV-1 25-word floor per SPEC §5.5.5.
+- **Report:** `integration_tests/campaign_20260331/taysir/CAMPAIGN_EVAL_SESSION16.md`
+- **Commits:** `b70570621` (eval files), `4509d6beb` (4-source synthesis)
+- **Budget:** EUR 0.00 this session (evaluating existing data)
+
+### Session 17 — Next Steps
+  1. **Integrate DR findings** when ChatGPT DR + Claude DR complete (owner relaying)
+  2. **Implement MV-1 content merge fix** in `phase3_deterministic.py` — extend `merge_micro_units()` to handle all units below 25 words, not just structural openers/closers
+  3. **Add pronoun-suffix SC check** — post-enrichment validation that short FULL excerpts don't have unresolved ها/هم/هما suffixes
+  4. **Add OCR word-corruption detector** to arabic_fidelity_flags system
+  5. **Re-run taysir** with fixes and compare corpus metrics (target: 191→0 sub-MV-1, 82→0 SC misratings)
+
 ### Session 15 — DR28 Prompt Architecture COMPLETE + 6-Source Verification (2026-04-07)
 - **DR28 IU-6/IU-7/IU-8/IU-9 implemented:** CLASSIFY and ENRICH refactored to 2-message architecture (system=CONSTITUTION, user=rules+input+reminders). SPEC §5.2.2/§5.2.3/§5.3.2/§5.3.3/§7.2.2/§7.2.3 updated.
 - **6-source multi-provider verification COMPLETE:** CC Code Reviewer (Anthropic), Gemini CLI ×2 (Google), Codex CLI (OpenAI), CC Arabic Auditor (Anthropic), CC Architecture Auditor (Anthropic). 10 findings found, all resolved.
@@ -44,11 +66,21 @@
 - **Tests:** 971 passed, 4 xfailed. pyright clean.
 - **Commits:** `546088e11` (DR28 refactoring), `eb88f611d` (6-source review fixes).
 
-### Session 15 — Next Steps (for next CC session)
-  1. **Campaign evaluation on taysir (HIGHEST PRIORITY)** — the $97 campaign (2,303 excerpts from 5 books) has never been evaluated against the hardened SPEC. Now that DR28 is implemented and OQ-001-004 are calibrated, pick 10 taysir excerpts and evaluate against 22 FPs + 23 domain rules + 4 newly calibrated thresholds. This proves whether the doctrine translates to reality. Dispatch all 6 coworkers for the evaluation. Plan: `engines/excerpting/reference/CAMPAIGN_EVAL_PLAN_SESSION11.md`.
-  2. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready at `docs/autonomous-system/dr_relay_queue_batch_2.md`. Priority: RQ-B2-010 (sarf/nahw boundary) > RQ-B2-009 (المجاز العقلي) > RQ-B2-007 (تصريف vs أزمنة).
-  3. **IU-10: A/B test monolithic vs progressive** — ~EUR 10 budget. Run 50+ chunks through both architectures, compare compliance metrics. Validates DR28 empirically.
-  4. **Dashboard skeleton (FastAPI+HTMX)** — Phase 2 of autonomous system. JSONL schemas and gap scanner are ready as data backends.
+### Session 16 — Autonomous Dashboard BUILT (2026-04-07)
+- **Dashboard operational:** `python scripts/dashboard.py` → localhost:8000
+  - 4 pages: DR Relay Queue (10 Batch 2 prompts), Findings (38 from DR37), Ideas (form → ideas.jsonl), Status (aggregate stats)
+  - FastAPI + HTMX + Jinja2, dark theme, one-click prompt copy, sidebar nav
+  - Data layer reads existing JSONL files via autonomous_schemas.py Pydantic models
+  - Files: `scripts/dashboard.py`, `scripts/autonomous_dashboard/{app,store,__init__}.py`, `scripts/autonomous_dashboard/templates/{base,relay,findings,ideas,status}.html`
+  - Seeder: `scripts/seed_batch2_prompts.py` (already run, 10 prompts in knowledge_base/dr_prompts/batch_2.jsonl)
+- **Tests:** All smoke tests pass (4 pages render, idea submission persists, real data displays).
+
+### Next Steps (for next CC session)
+  1. ✅ **Campaign evaluation on taysir** — NOW Session 17 (in progress). 4/6 coworkers complete. 5 confirmed findings.
+  2. **Implement MV-1 content merge fix** — extend `merge_micro_units()` in `phase3_deterministic.py` to handle all units below 25 words. Highest-impact fix: eliminates 191 sub-viable fragments.
+  3. **Add pronoun-suffix SC check** — post-enrichment validation that short FULL excerpts don't have unresolved ها/هم/هما suffixes. Fixes 82 misrated excerpts.
+  4. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready in dashboard at localhost:8000 AND at `docs/autonomous-system/dr_relay_queue_batch_2.md`.
+  5. **IU-10: A/B test monolithic vs progressive** — ~EUR 10 budget. Validates DR28 empirically.
 
 ### Session 13 — Autonomous System Design + DR Processing (2026-04-07)
 - **DESIGN.md written + 2 design reviews + 12 amendments applied**
