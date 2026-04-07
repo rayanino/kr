@@ -73,4 +73,36 @@
         <div class="stat-label">High</div>
     </div>
 </div>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">Contradictions</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value red">{{ contradiction_stats.unresolved }}</div>
+        <div class="stat-label">Unresolved</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ contradiction_stats.resolved }}</div>
+        <div class="stat-label">Resolved</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ contradiction_stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+</div>
+
+<h2 style="font-size:1rem; margin-top:1.5rem;">Digestion</h2>
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value green">{{ digestion_stats.pass }}</div>
+        <div class="stat-label">Pass</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ digestion_stats.warn }}</div>
+        <div class="stat-label">Warn</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value red">{{ digestion_stats.fail }}</div>
+        <div class="stat-label">Fail</div>
+    </div>
+</div>
 {% endblock %}

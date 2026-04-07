@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Contradictions</h2>
+
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value red">{{ stats.unresolved }}</div>
+        <div class="stat-label">Unresolved</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ stats.resolved }}</div>
+        <div class="stat-label">Resolved</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+</div>
+
+{% if data_errors %}
+<div class="warning-banner">
+    Parse warnings: {{ data_errors | length }} line(s) skipped.
+    <details><summary>Details</summary>
+    {% for err in data_errors %}<div>{{ err }}</div>{% endfor %}
+    </details>
+</div>
+{% endif %}
+
+{% if not contradictions %}
+<div class="empty-state">
+    No contradictions detected yet. Run the cross-referencing engine to find them.
+</div>
+{% endif %}
+
+{% for c in contradictions %}
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">{{ c.contradiction_id }}</span>
+        {% if c.resolution_status == 'unresolved' %}
+        <span class="badge badge-critical">UNRESOLVED</span>
+        {% else %}
+        <span class="badge badge-processed">{{ c.resolution_status }}</span>
+        {% endif %}
+    </div>
+    <div class="card-title" style="margin-bottom:0.5rem;">{{ c.topic }}</div>
+    <div class="finding-desc">{{ c.description }}</div>
+    <div class="meta" style="margin-top:0.5rem;">
+        Finding A: <strong>{{ c.finding_id_a }}</strong> ({{ c.dr_id_a }})
+        &nbsp;vs&nbsp;
+        Finding B: <strong>{{ c.finding_id_b }}</strong> ({{ c.dr_id_b }})
+    </div>
+    {% if c.resolution_notes %}
+    <details>
+        <summary>Resolution notes</summary>
+        <div class="prompt-block">{{ c.resolution_notes }}</div>
+    </details>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

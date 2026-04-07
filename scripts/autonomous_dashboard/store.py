@@ -15,6 +15,8 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from scripts.autonomous_schemas import (
+    Contradiction,
+    DigestionRecord,
     DRPrompt,
     DRPromptStatus,
     DRResponse,
@@ -223,4 +225,45 @@ def get_dr_response_stats() -> dict[str, int]:
     return {
         "total": len(records),
         "total_findings": sum(r.finding_count for r in records),
+    }
+
+
+# ═════════════════════════════════════════════════════════════��═════
+# Contradictions
+# ═══════════════════════════════════════════════════════════════════
+
+def load_contradictions() -> tuple[list[Contradiction], list[str]]:
+    """Load all contradictions. Returns (contradictions, errors)."""
+    path = KB / "contradictions.jsonl"
+    return _safe_read_jsonl(path, Contradiction)
+
+
+def get_contradiction_stats() -> dict[str, int]:
+    """Quick stats for contradictions."""
+    contras, _ = load_contradictions()
+    return {
+        "total": len(contras),
+        "unresolved": sum(1 for c in contras if c.resolution_status == "unresolved"),
+        "resolved": sum(1 for c in contras if c.resolution_status != "unresolved"),
+    }
+
+
+# ═════════════════════════════════════════════════════��═════════════
+# Digestion Log
+# ═══════════════════════════════════════════════════════════════════
+
+def load_digestion_records() -> tuple[list[DigestionRecord], list[str]]:
+    """Load all digestion records. Returns (records, errors)."""
+    path = KB / "digestion_log.jsonl"
+    return _safe_read_jsonl(path, DigestionRecord)
+
+
+def get_digestion_stats() -> dict[str, int]:
+    """Quick stats for digestion log."""
+    records, _ = load_digestion_records()
+    return {
+        "total": len(records),
+        "pass": sum(1 for r in records if r.status == "pass"),
+        "warn": sum(1 for r in records if r.status == "warn"),
+        "fail": sum(1 for r in records if r.status == "fail"),
     }

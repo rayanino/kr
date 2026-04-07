@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Digestion Log</h2>
+
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-value green">{{ stats.pass }}</div>
+        <div class="stat-label">Pass</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ stats.warn }}</div>
+        <div class="stat-label">Warn</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value red">{{ stats.fail }}</div>
+        <div class="stat-label">Fail</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+</div>
+
+{% if data_errors %}
+<div class="warning-banner">
+    Parse warnings: {{ data_errors | length }} line(s) skipped.
+    <details><summary>Details</summary>
+    {% for err in data_errors %}<div>{{ err }}</div>{% endfor %}
+    </details>
+</div>
+{% endif %}
+
+{% if not records %}
+<div class="empty-state">
+    No DR responses digested yet. Use <code>python scripts/digest_dr.py</code> to process responses.
+</div>
+{% endif %}
+
+{% for r in records %}
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">{{ r.dr_id }}</span>
+        <span class="badge badge-target">{{ target_label(r.provider.value if r.provider else 'unknown') }}</span>
+        {% if r.status == 'pass' %}
+        <span class="badge badge-processed">PASS</span>
+        {% elif r.status == 'warn' %}
+        <span class="badge badge-medium">WARN</span>
+        {% else %}
+        <span class="badge badge-critical">FAIL</span>
+        {% endif %}
+    </div>
+    <div class="meta">
+        {{ r.line_count }} lines &middot;
+        {{ r.section_count }} sections &middot;
+        {{ r.finding_count }} findings &middot;
+        {{ r.contradiction_count }} contradictions
+    </div>
+    <div class="meta" style="margin-top:0.25rem;">
+        File: {{ r.response_file }}
+    </div>
+    <div class="meta" style="margin-top:0.25rem;">
+        Digested: {{ r.digested_at[:19] }} &middot; Parser v{{ r.digestion_version }}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

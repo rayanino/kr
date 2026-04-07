@@ -164,6 +164,34 @@ async def submit_idea(
         }, status_code=500)
 
 
+@app.get("/contradictions", response_class=HTMLResponse)
+async def contradictions_page(request: Request) -> HTMLResponse:
+    """Contradictions page — cross-DR conflicts."""
+    contradictions, errors = store.load_contradictions()
+    stats = store.get_contradiction_stats()
+    return templates.TemplateResponse("contradictions.html", {
+        "request": request,
+        "page": "contradictions",
+        "contradictions": contradictions,
+        "stats": stats,
+        "data_errors": errors,
+    })
+
+
+@app.get("/digestion", response_class=HTMLResponse)
+async def digestion_page(request: Request) -> HTMLResponse:
+    """Digestion log — processing status of each DR response."""
+    records, errors = store.load_digestion_records()
+    stats = store.get_digestion_stats()
+    return templates.TemplateResponse("digestion.html", {
+        "request": request,
+        "page": "digestion",
+        "records": records,
+        "stats": stats,
+        "data_errors": errors,
+    })
+
+
 @app.get("/status", response_class=HTMLResponse)
 async def status_page(request: Request) -> HTMLResponse:
     """Status page — pipeline health and research progress."""
@@ -171,6 +199,8 @@ async def status_page(request: Request) -> HTMLResponse:
     findings_stats = store.get_findings_stats()
     gaps_stats = store.get_gaps_stats()
     dr_stats = store.get_dr_response_stats()
+    contradiction_stats = store.get_contradiction_stats()
+    digestion_stats = store.get_digestion_stats()
     return templates.TemplateResponse("status.html", {
         "request": request,
         "page": "status",
@@ -178,4 +208,6 @@ async def status_page(request: Request) -> HTMLResponse:
         "findings_stats": findings_stats,
         "gaps_stats": gaps_stats,
         "dr_stats": dr_stats,
+        "contradiction_stats": contradiction_stats,
+        "digestion_stats": digestion_stats,
     })
