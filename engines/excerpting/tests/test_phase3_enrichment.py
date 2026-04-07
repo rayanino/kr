@@ -230,6 +230,14 @@ class TestDR28EnrichUserMessage:
         assert "POSITION" in msg
         assert "Do NOT invent" in msg
 
+    def test_no_unresolved_format_variables(self) -> None:
+        """Enrichment rules have no format variables — verify none leak."""
+        chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
+        exc = _make_excerpt_record(div_id=chunk.div_id)
+        msg = _build_enrichment_user_message(chunk, [exc], _SOURCE_META)
+        assert "{structural_format}" not in msg
+        assert "{structural" not in msg
+
     def test_input_wraps_metadata_text_units(self) -> None:
         """<input> block contains source_metadata, text, and teaching_units."""
         chunk = _make_assembled_chunk(assembled_text=_ARABIC_TEXT)
@@ -538,7 +546,8 @@ class TestEnrichChunk:
         assert call_kwargs.kwargs["response_model"] is EnrichmentResult
         assert result == er
 
-    def test_enrich_chunk_passes_system_and_user_messages(self) -> None:
+    def test_enrich_chunk_dr28_message_architecture(self) -> None:
+        """DR28: system=CONSTITUTION only, user=rules+input+reminders."""
         chunk = _make_assembled_chunk()
         exc = _make_excerpt_record(div_id=chunk.div_id)
         er = _make_enrichment_result(1)
@@ -550,9 +559,17 @@ class TestEnrichChunk:
         call_kwargs = client.chat.completions.create.call_args
         messages = call_kwargs.kwargs["messages"]
         assert len(messages) == 2
+        # System = CONSTITUTION only (no task rules)
         assert messages[0]["role"] == "system"
+        assert "constitution" in messages[0]["content"].lower()
+        assert "TOPIC KEYWORDS" not in messages[0]["content"]
+        assert "SCHOOL ATTRIBUTION" not in messages[0]["content"]
+        # User = <active_rules> + <input> + <critical_reminders>
+        user_msg = messages[1]["content"]
         assert messages[1]["role"] == "user"
-        assert "ابن قدامة" in messages[1]["content"]
+        assert "<active_rules>" in user_msg
+        assert "ابن قدامة" in user_msg
+        assert "<critical_reminders>" in user_msg
 
 
 # ═══════════════════════════════════════════════════════════════════

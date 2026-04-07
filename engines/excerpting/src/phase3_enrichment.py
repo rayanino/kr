@@ -18,7 +18,7 @@ import instructor
 
 from pydantic import ValidationError
 
-from engines.excerpting.src.prompts import CONSTITUTION
+from engines.excerpting.src.prompts import CONSTITUTION, ENRICH_CRITICAL_REMINDERS
 from engines.excerpting.contracts import (
     AssembledChunk,
     EnrichmentResult,
@@ -237,34 +237,40 @@ def _build_enrichment_user_message(
     excerpts: list[ExcerptRecord],
     source_metadata: dict[str, str],
 ) -> str:
-    """Build the user message for enrichment per §7.2.3 template."""
-    parts: list[str] = []
+    """Build DR28 user message: <active_rules> + <input> + <critical_reminders>.
+
+    Enrichment does not use progressive disclosure (all rules always
+    apply), but the 2-message architecture (system=CONSTITUTION,
+    user=rules+input+reminders) provides cache efficiency and the
+    instruction sandwich pattern.
+    """
+    input_parts: list[str] = []
 
     # Source metadata block
-    parts.append("<source_metadata>")
-    parts.append(f"Author: {source_metadata.get('author_name', 'unknown')}")
-    parts.append(f"Work: {source_metadata.get('work_title', 'unknown')}")
-    parts.append(f"Science: {source_metadata.get('science', 'unknown')}")
-    parts.append(f"School: {source_metadata.get('source_school', 'unknown')}")
-    parts.append("</source_metadata>")
-    parts.append("")
+    input_parts.append("<source_metadata>")
+    input_parts.append(f"Author: {source_metadata.get('author_name', 'unknown')}")
+    input_parts.append(f"Work: {source_metadata.get('work_title', 'unknown')}")
+    input_parts.append(f"Science: {source_metadata.get('science', 'unknown')}")
+    input_parts.append(f"School: {source_metadata.get('source_school', 'unknown')}")
+    input_parts.append("</source_metadata>")
+    input_parts.append("")
 
     # Full text
-    parts.append("<text>")
-    parts.append(chunk.assembled_text)
-    parts.append("</text>")
-    parts.append("")
+    input_parts.append("<text>")
+    input_parts.append(chunk.assembled_text)
+    input_parts.append("</text>")
+    input_parts.append("")
 
     # Teaching units with deterministic annotations
-    parts.append("<teaching_units>")
+    input_parts.append("<teaching_units>")
     for exc in excerpts:
-        parts.append(
-            f"Unit {exc.unit_index}: words {exc.start_word}–{exc.end_word}"
+        input_parts.append(
+            f"Unit {exc.unit_index}: words {exc.start_word}\u2013{exc.end_word}"
         )
-        parts.append(f'  snippet: "{exc.text_snippet}"')
-        parts.append(f"  function: {exc.primary_function.value}")
-        parts.append(f"  self_containment: {exc.self_containment.value}")
-        parts.append(
+        input_parts.append(f'  snippet: "{exc.text_snippet}"')
+        input_parts.append(f"  function: {exc.primary_function.value}")
+        input_parts.append(f"  self_containment: {exc.self_containment.value}")
+        input_parts.append(
             f"  self_containment_notes: "
             f"{exc.self_containment_notes or 'none'}"
         )
@@ -274,22 +280,29 @@ def _build_enrichment_user_message(
             ev_summary = ", ".join(
                 f"{er.type}({er.text_snippet[:30]}...)" for er in exc.evidence_refs
             )
-            parts.append(f"  evidence_detected: {ev_summary}")
+            input_parts.append(f"  evidence_detected: {ev_summary}")
         else:
-            parts.append("  evidence_detected: none")
+            input_parts.append("  evidence_detected: none")
 
         # Footnotes (F-DET-8)
         if exc.footnotes_relevant:
             fn_texts = "; ".join(
                 f"[{fn.ref_marker}] {fn.text}" for fn in exc.footnotes_relevant
             )
-            parts.append(f"  footnotes: {fn_texts}")
+            input_parts.append(f"  footnotes: {fn_texts}")
         else:
-            parts.append("  footnotes: none")
+            input_parts.append("  footnotes: none")
 
-    parts.append("</teaching_units>")
+    input_parts.append("</teaching_units>")
 
-    return "\n".join(parts)
+    input_block = "\n".join(input_parts)
+
+    return (
+        f"<active_rules>\n{_ENRICH_RULES}\n</active_rules>\n\n"
+        f"<input>\n{input_block}\n</input>\n\n"
+        f"<critical_reminders>\n{ENRICH_CRITICAL_REMINDERS}\n"
+        f"</critical_reminders>"
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -310,8 +323,8 @@ def enrich_chunk(
     One LLM call per chunk (not per-unit). Inter-unit context improves
     quality — references like "as mentioned above" can be resolved.
 
-    Uses system prompt from §7.2.2 and user message from §7.2.3.
-    Returns EnrichmentResult with per-unit enrichments.
+    DR28 architecture: system=CONSTITUTION (stable, cacheable),
+    user=<active_rules>+<input>+<critical_reminders> (dynamic per chunk).
 
     Args:
         timeout_override: If provided, overrides config.ENRICH_TIMEOUT (for retry escalation).
@@ -333,7 +346,7 @@ def enrich_chunk(
         timeout=timeout,
         response_model=EnrichmentResult,
         messages=[
-            {"role": "system", "content": ENRICH_SYSTEM_PROMPT},
+            {"role": "system", "content": CONSTITUTION},
             {"role": "user", "content": user_message},
         ],
     )
@@ -541,7 +554,7 @@ def run_phase3_enrichment(
             )
             cache_key = compute_cache_key(
                 "enrich",
-                ENRICH_SYSTEM_PROMPT,
+                CONSTITUTION,
                 enrich_user_message,
                 config.ENRICH_MODEL,
                 config.LLM_TEMPERATURE,

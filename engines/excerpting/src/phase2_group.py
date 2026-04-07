@@ -189,8 +189,6 @@ def group_chunk(
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
         timeout_override: If provided, overrides config.GROUP_TIMEOUT (for retry escalation).
     """
-    system_prompt = CONSTITUTION
-
     user_message = _build_group_user_message(chunk, segments)
     if error_feedback:
         user_message += error_feedback
@@ -207,7 +205,7 @@ def group_chunk(
         timeout=timeout,
         response_model=ExtractionResult,
         messages=[
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": CONSTITUTION},
             {"role": "user", "content": user_message},
         ],
     )
@@ -349,7 +347,7 @@ def run_phase2b(
                 first_user_message,
                 config.GROUP_MODEL,
                 config.LLM_TEMPERATURE,
-                config.GROUP_MAX_TOKENS,
+                _compute_group_max_tokens(chunk.total_tokens),
             )
             cached = cache.load("group", cache_key, ExtractionResult)
             if cached is not None:

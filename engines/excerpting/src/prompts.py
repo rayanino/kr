@@ -258,3 +258,33 @@ For each teaching unit, provide:
   absent or null for FULL
 
 The text format is: {structural_format}"""
+
+
+# ═══════════════════════════════════════════════════════════════════
+# CLASSIFY critical reminders — instruction sandwich (DR28 IU-6)
+#
+# Restated at the end of the user message to reinforce the most
+# compliance-critical rules. Targets the recency bias demonstrated
+# in "Lost in the Middle" research.
+# ═══════════════════════════════════════════════════════════════════
+
+CLASSIFY_CRITICAL_REMINDERS = """\
+REMEMBER — these override all other considerations:
+- text_snippet must be an EXACT character-for-character copy from the input
+- Classify by scholarly FUNCTION, not by surface language or section labels
+- An isnad chain + its matn = one segment (never split)
+- Derived rulings (ما يؤخذ من الحديث) are rule_statement, NOT evidence_hadith"""
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ENRICH critical reminders — instruction sandwich (DR28 IU-7)
+# ═══════════════════════════════════════════════════════════════════
+
+ENRICH_CRITICAL_REMINDERS = """\
+REMEMBER — these override all other considerations:
+- Wrong attributions become wrong beliefs. When uncertain: null + low \
+confidence, NEVER guess.
+- Attribute the POSITION's school, not the AUTHOR's school
+- Do NOT invent or infer hadith grades — record ONLY what the text states
+- Use "narrator" role for hadith transmission chains (عن، حدثنا), \
+not "quoted_opinion\""""

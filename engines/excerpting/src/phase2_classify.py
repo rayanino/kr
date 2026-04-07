@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Any, Optional
 import instructor
 from pydantic import ValidationError
 
-from engines.excerpting.src.prompts import CONSTITUTION
+from engines.excerpting.src.prompts import CLASSIFY_CRITICAL_REMINDERS, CONSTITUTION
 from engines.excerpting.contracts import (
     AssembledChunk,
     ClassificationResult,
@@ -125,6 +125,31 @@ _SNIPPET_NOT_FOUND_FEEDBACK = (
     "could not be located in the source text. Ensure each text_snippet is "
     "copied exactly from the input."
 )
+
+
+# ═══════════════════════════════════════════════════════════════════
+# DR28 User Message Builder
+# ═══════════════════════════════════════════════════════════════════
+
+
+def _build_classify_user_message(chunk: AssembledChunk) -> str:
+    """Build DR28 user message: <active_rules> + <input> + <critical_reminders>.
+
+    Classification does not use progressive disclosure (all rules always
+    apply), but the 2-message architecture (system=CONSTITUTION,
+    user=rules+input+reminders) provides cache efficiency and the
+    instruction sandwich pattern.
+    """
+    classify_rules = _CLASSIFY_RULES.format(
+        structural_format=chunk.structural_format.value,
+    )
+
+    return (
+        f"<active_rules>\n{classify_rules}\n</active_rules>\n\n"
+        f"<input>\n<text>\n{chunk.assembled_text}\n</text>\n</input>\n\n"
+        f"<critical_reminders>\n{CLASSIFY_CRITICAL_REMINDERS}\n"
+        f"</critical_reminders>"
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -374,18 +399,15 @@ def classify_chunk(
 ) -> ClassificationResult:
     """Send chunk's assembled_text to LLM for segment classification (§5.2).
 
-    Uses the system prompt from §5.2.2 and user message from §5.2.3.
-    Returns raw ClassificationResult (offsets not yet normalized).
+    DR28 architecture: system=CONSTITUTION (stable, cacheable),
+    user=<active_rules>+<input>+<critical_reminders> (dynamic per chunk).
 
     Args:
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
             System prompt stays constant across retries.
         timeout_override: If provided, overrides config.CLASSIFY_TIMEOUT (for retry escalation).
     """
-    system_prompt = CLASSIFY_SYSTEM_PROMPT.format(
-        structural_format=chunk.structural_format.value,
-    )
-    user_message = f"<text>\n{chunk.assembled_text}\n</text>"
+    user_message = _build_classify_user_message(chunk)
     if error_feedback:
         user_message += error_feedback
 
@@ -399,7 +421,7 @@ def classify_chunk(
         timeout=timeout,
         response_model=ClassificationResult,
         messages=[
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": CONSTITUTION},
             {"role": "user", "content": user_message},
         ],
     )
@@ -447,13 +469,10 @@ def run_phase2a(
         if cache is not None:
             from engines.excerpting.src.cache import compute_cache_key
 
-            system_prompt = CLASSIFY_SYSTEM_PROMPT.format(
-                structural_format=chunk.structural_format.value,
-            )
-            first_user_message = f"<text>\n{chunk.assembled_text}\n</text>"
+            first_user_message = _build_classify_user_message(chunk)
             cache_key = compute_cache_key(
                 "classify",
-                system_prompt,
+                CONSTITUTION,
                 first_user_message,
                 config.CLASSIFY_MODEL,
                 config.LLM_TEMPERATURE,

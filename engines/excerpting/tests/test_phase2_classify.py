@@ -22,6 +22,7 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase2_classify import (
     CLASSIFY_SYSTEM_PROMPT,
+    _build_classify_user_message,
     classify_chunk,
     run_phase2a,
 )
@@ -82,13 +83,61 @@ class TestClassifySystemPrompt:
 
 
 # ═══════════════════════════════════════════════════════════════════
+# Tests — _build_classify_user_message (DR28 IU-6)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestBuildClassifyUserMessage:
+    def test_contains_xml_structure(self) -> None:
+        """DR28 user message has <active_rules>, <input>, <critical_reminders>."""
+        chunk = _make_test_chunk()
+        msg = _build_classify_user_message(chunk)
+        assert "<active_rules>" in msg
+        assert "</active_rules>" in msg
+        assert "<input>" in msg
+        assert "</input>" in msg
+        assert "<critical_reminders>" in msg
+        assert "</critical_reminders>" in msg
+
+    def test_contains_text_in_input(self) -> None:
+        """Input block wraps <text>."""
+        chunk = _make_test_chunk()
+        msg = _build_classify_user_message(chunk)
+        assert "<text>" in msg
+        assert _TEST_TEXT in msg
+        assert "</text>" in msg
+
+    def test_structural_format_substituted(self) -> None:
+        """The {structural_format} variable is resolved in active_rules."""
+        chunk = _make_test_chunk()
+        msg = _build_classify_user_message(chunk)
+        assert "The text format is: prose" in msg
+        assert "{structural_format}" not in msg
+
+    def test_all_16_functions_in_rules(self) -> None:
+        """All 16 scholarly function types appear in the active_rules."""
+        chunk = _make_test_chunk()
+        msg = _build_classify_user_message(chunk)
+        for fn in ScholarlyFunction:
+            assert fn.value in msg, f"Missing: {fn.value}"
+
+    def test_critical_reminders_contain_key_rules(self) -> None:
+        """Instruction sandwich: critical rules restated at end."""
+        chunk = _make_test_chunk()
+        msg = _build_classify_user_message(chunk)
+        assert "EXACT character-for-character copy" in msg
+        assert "scholarly FUNCTION" in msg
+        assert "rule_statement, NOT evidence_hadith" in msg
+
+
+# ═══════════════════════════════════════════════════════════════════
 # Tests — classify_chunk
 # ═══════════════════════════════════════════════════════════════════
 
 
 class TestClassifyChunk:
-    def test_prompt_construction(self) -> None:
-        """System prompt formatted with structural_format; user message wraps text."""
+    def test_prompt_construction_dr28(self) -> None:
+        """DR28: system=CONSTITUTION, user=<active_rules>+<input>+<critical_reminders>."""
         cr = _make_classification_result(_TEST_TEXT, n_segments=1)
         client = _make_mock_instructor_client(return_value=cr)
         config = ExcerptingConfig()
@@ -98,12 +147,23 @@ class TestClassifyChunk:
 
         call_kwargs = client.chat.completions.create.call_args
         messages = call_kwargs.kwargs["messages"]
+        # System = CONSTITUTION only (stable, cacheable)
         assert messages[0]["role"] == "system"
-        assert "prose" in messages[0]["content"]  # structural_format
+        assert "constitution" in messages[0]["content"].lower()
+        assert "prose" not in messages[0]["content"]  # format var in user, not system
+        # User = <active_rules> + <input> + <critical_reminders>
+        user_msg = messages[1]["content"]
         assert messages[1]["role"] == "user"
-        assert "<text>" in messages[1]["content"]
-        assert _TEST_TEXT in messages[1]["content"]
-        assert "</text>" in messages[1]["content"]
+        assert "<active_rules>" in user_msg
+        assert "</active_rules>" in user_msg
+        assert "prose" in user_msg  # structural_format resolved in user msg
+        assert "<input>" in user_msg
+        assert "<text>" in user_msg
+        assert _TEST_TEXT in user_msg
+        assert "</text>" in user_msg
+        assert "</input>" in user_msg
+        assert "<critical_reminders>" in user_msg
+        assert "</critical_reminders>" in user_msg
 
     def test_max_retries_zero(self) -> None:
         """CLI adapter handles retries; outer loop provides error feedback."""
