@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Session 6 BCV complete, DR23 processing)
+## IMMEDIATE STATE (updated 2026-04-07 — Session 7 dedup complete, protocol v5.0.2)
 
 ### Session 3 Accomplishments (2026-04-06)
 - **Protocol v5.0 COMPLETE** — Batch Lifecycle Protocol: §3A (6-phase model), §3B (Completion Gate), §3C (Ijazah Ceremony), §4.18 (Regression Gate), §4.19 (Doctrine Coherence), §5.8 (Role Separation), §8.5 (Calibration File), §0.1 (Autonomous Operations Doctrine)
@@ -57,13 +57,21 @@
 - Critical tension: DR23 suggests PyArabic normalization for hashing vs our byte-for-byte diacritics preservation
 - Implementation plan drafted: 8 units, ~200 lines new code, 0 API calls
 
+### Session 7 Complete (2026-04-07)
+- **Session 6 work committed** — 3 logical commits (197 files: collection restructuring, BCV, DR reviews)
+- **Protocol v5.0.2** — NTU → "Natural Unit Type" rename (DR24 collision fix), DR23 RTC gate ACCEPTED (PRELIMINARY), scholarly grounding corrected (iḥṣāʾ al-ḥurūf not balāgha), v5.0.1 backfilled
+- **Dedup register created** — 67/157 NN atoms classified: 30 EXTENDS (41%), 20 NOVEL (32%), 8 FP-CAND (8%), 7 META (10%), 4 DUPLICATE (5%). 6 novel clusters identified.
+- **Key finding:** G/SC rounds added substantial operational knowledge, not just safety reinforcement. Top novel clusters: conditions excerpting (G4), zero-precontext (SC3), author flow (SC1), proof relationships (G2).
+- Register: `engines/excerpting/reference/DEDUP_REGISTER.md`
+
 ### What's Needed Next
-1. **DR23 coworker reports** — synthesize Codex + Gemini findings, resolve diacritics question
-2. **Session 7: Deduplication pass** — 157 G/SC atoms deduplicated against each other AND against F-series MAQ-001 through MAQ-088. Assign MAQ-IDs.
-3. **Session 8: Debt clearance** — B2/B3 DR relay + G/SC coworker confirmation (Codex + Gemini minimum)
-4. **Session 9: Prompt refactor** — §4.11 gate (1484/1500 words, 36 new atoms blocked). DR21 7-step recipe.
-5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
+1. **Session 8: Debt clearance** — B2/B3 Codex/DR coworker confirmations + 12 F-series SOFTENED items. Lowest-risk work to advance the ledger.
+2. **Session 9: Prompt refactor** — §4.11 gate is THE critical bottleneck. 36 G/SC prompt atoms + DR21 7-step recipe all blocked by GROUP_SYSTEM_PROMPT at 1484/1500 words.
+3. **DR23 Codex structural review** — RTC gate still PRELIMINARY (2/3 coworkers). Need short focused prompt.
+4. **Assign MAQ-089+ IDs** — 20 genuinely novel atoms need new IDs. Complete remaining 90 non-NN atoms dedup.
+5. **8 FP candidates need multi-coworker validation** — FP-C2 (lost-potential, 3 batches) and FP-C10 (anti-manhunt, 2 batches) are strongest.
+6. **After hardening complete:** Book Resolution → Tier 1 smoke run (10 books, ~$30)
+7. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Next: owner reaction to 3 curriculum questions → requirements doc
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
