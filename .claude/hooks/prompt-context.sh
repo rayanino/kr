@@ -86,6 +86,33 @@ else
     CONTEXT="$CONTEXT | DISPATCH: No dispatch log found — create .kr/runtime/dispatch_log.jsonl"
 fi
 
+# TOOL ACTIVATION: Suggest relevant tools for active engine
+if [ -n "$ACTIVE_ENGINE" ]; then
+    case "$ACTIVE_ENGINE" in
+        excerpting)
+            CONTEXT="$CONTEXT | Tools: /excerpt-status, /quality-gate excerpting, /arabic-audit, consensus-pattern skill, code-reviewer agent"
+            ;;
+        normalization)
+            CONTEXT="$CONTEXT | Tools: /quality-gate normalization, /verify-boundaries, arabic-text skill, arabic-text-quality skill"
+            ;;
+        passaging)
+            CONTEXT="$CONTEXT | Tools: /quality-gate passaging, /verify-boundaries, boundary-validator agent"
+            ;;
+        atomization)
+            CONTEXT="$CONTEXT | Tools: /quality-gate atomization, /verify-boundaries, boundary-validator agent"
+            ;;
+        taxonomy)
+            CONTEXT="$CONTEXT | Tools: /quality-gate taxonomy, /check-spec, islamic-sciences-classification skill, domain-glossary skill"
+            ;;
+        synthesis)
+            CONTEXT="$CONTEXT | Tools: /quality-gate synthesis, /check-spec, scholarly-design skill"
+            ;;
+        source)
+            CONTEXT="$CONTEXT | Tools: /quality-gate source, /check-spec, /verify-boundaries, technology-survey skill"
+            ;;
+    esac
+fi
+
 # F2 ENFORCEMENT: Leadership reminder (always injected, compaction-proof)
 CONTEXT="$CONTEXT | ROLE: Senior engineer. After milestones: propose + execute next steps. NEVER say standing by/waiting/should I."
 

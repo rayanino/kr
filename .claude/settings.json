@@ -175,114 +175,32 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/ruff-format.sh\"",
-            "timeout": 15
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -z \"$FILE\" ]; then exit 0; fi; if echo \"$FILE\" | grep -q 'SPEC.md'; then echo 'SPEC MODIFIED — run: python3 scripts/check_spec_quality.py '\"$FILE\"; fi; if echo \"$FILE\" | grep -qE '\\.py$' && echo \"$FILE\" | grep -q 'src/'; then echo 'CODE MODIFIED — verify: Arabic text safe? Metadata preserved (D-023)?'; fi",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/arabic-safety-check.sh\"",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
             "command": "( FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -n \"$FILE\" ] && git -C \"$CLAUDE_PROJECT_DIR\" rev-parse --git-dir >/dev/null 2>&1; then git -C \"$CLAUDE_PROJECT_DIR\" add \"$FILE\" 2>/dev/null; echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Modified: $FILE\" >> \"$CLAUDE_PROJECT_DIR/.claude/changes.log\"; fi ) &>/dev/null & exit 0",
             "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
+          },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pyright-check.sh\"",
-            "timeout": 45,
-            "statusMessage": "Type-checking with pyright..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/tool-router.sh\"",
+            "timeout": 5,
+            "statusMessage": "Routing tools..."
+          },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-test.sh\"",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/code-quality.sh\"",
             "timeout": 180,
-            "statusMessage": "Running tests..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
+            "statusMessage": "Code quality checks..."
+          },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/boundary-check.sh\"",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/domain-safety.sh\"",
             "timeout": 30,
-            "statusMessage": "Validating contract boundaries..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
+            "statusMessage": "Domain safety checks..."
+          },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/diacritic-preservation.sh\"",
-            "timeout": 10,
-            "statusMessage": "Checking Arabic diacritic preservation..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/spec-coverage-check.sh\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/spec-validate.sh\"",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/spec-and-plan.sh\"",
             "timeout": 30,
-            "statusMessage": "Validating SPEC quality..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/plan-completeness-check.sh\"",
-            "timeout": 10,
-            "statusMessage": "Validating plan completeness..."
+            "statusMessage": "SPEC & plan validation..."
           }
         ]
       }
