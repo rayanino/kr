@@ -670,6 +670,84 @@ def filter_relevant_footnotes(
     return result
 
 
+def derive_takhrij_from_footnotes(
+    footnotes_relevant: list[Footnote],
+) -> Optional[list["TakhrijEntry"]]:
+    """Derive takhrij_data from HADITH_TAKHRIJ footnotes (DR29 #8).
+
+    Gemini CLI minimum-viable spec: only populate when the footnote contains
+    at least a source collection name + retrievable locator (hadith number
+    or volume/page). Footnotes without locators are below minimum and are
+    not included (e.g. "رواه البخاري ومسلم" without a number).
+
+    Distinguishes author vs muhaqqiq provenance via footnote_type context.
+    """
+    from engines.excerpting.contracts import TakhrijEntry
+    from engines.normalization.contracts import FootnoteType
+
+    entries: list[TakhrijEntry] = []
+
+    for fn in footnotes_relevant:
+        # Only process HADITH_TAKHRIJ footnotes
+        if fn.footnote_type != FootnoteType.HADITH_TAKHRIJ:
+            continue
+
+        # Check if structured takhrij_data exists from normalization
+        if fn.takhrij_data is None:
+            continue
+
+        collections_raw = fn.takhrij_data.collections
+        if not collections_raw:
+            continue
+
+        # Extract collection names and locators
+        collection_names: list[str] = []
+        hadith_numbers: list[str] = []
+        has_locator = False
+
+        for coll in collections_raw:
+            name = coll.get("name", "")
+            if name:
+                collection_names.append(name)
+            number = coll.get("number")
+            if number:
+                hadith_numbers.append(str(number))
+                has_locator = True
+            book = coll.get("book")
+            if book:
+                has_locator = True  # book/bab reference counts as locator
+
+        # Gemini minimum-viable: must have source + locator
+        if not collection_names or not has_locator:
+            logger.debug(
+                "Footnote '%s' has takhrij but no locator — below minimum.",
+                fn.ref_marker,
+            )
+            continue
+
+        # Extract grade if present
+        grade: Optional[str] = None
+        grade_source: Optional[str] = None
+        if fn.takhrij_data.grading:
+            grade = fn.takhrij_data.grading.get("grade")
+            grade_source = fn.takhrij_data.grading.get("grader")
+
+        # hadith_text_snippet: first 80 chars of the footnote text as anchor
+        anchor = fn.text[:80].strip()
+
+        entries.append(
+            TakhrijEntry(
+                hadith_text_snippet=anchor,
+                collections=collection_names,
+                hadith_numbers=hadith_numbers,
+                grade=grade,
+                grade_source=grade_source,
+            )
+        )
+
+    return entries if entries else None
+
+
 def compute_quoted_scholars(
     text_layers: list[TextLayerSegment],
     unit_char_start: int,
@@ -857,7 +935,7 @@ def build_deterministic_excerpts(
             terminology_variants=[],
             # ── Evidence/references (4) ──
             evidence_refs=evidence_refs,
-            takhrij_data=None,
+            takhrij_data=derive_takhrij_from_footnotes(footnotes_relevant),
             cross_references=[],
             footnotes_relevant=footnotes_relevant,
             # ── Metadata/flags (3) ──

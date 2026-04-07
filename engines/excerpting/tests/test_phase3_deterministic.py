@@ -28,6 +28,7 @@ from engines.excerpting.src.phase3_deterministic import (
     compute_page_range,
     compute_quoted_scholars,
     compute_word_offsets,
+    derive_takhrij_from_footnotes,
     detect_evidence_refs,
     extract_primary_text,
     filter_relevant_footnotes,
@@ -3782,3 +3783,130 @@ class TestMergeUnits:
         assert len(result) == 2
         assert result[0].start_word == 0  # الأولى merged with حكم كذا
         assert result[1].start_word == 3  # الثانية merged with حكم كذا آخر
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Takhrij data derivation (DR29 #8 + Gemini CLI minimum-viable spec)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestTakhrijDerivation:
+    """Tests for derive_takhrij_from_footnotes."""
+
+    def _make_takhrij_footnote(
+        self,
+        ref: str = "1",
+        text: str = "رواه البخاري (5645) ومسلم (2573)",
+        collections: Optional[list[dict]] = None,
+        grading: Optional[dict] = None,
+    ) -> Footnote:
+        """Helper: create a HADITH_TAKHRIJ footnote with structured data."""
+        from engines.normalization.contracts import TakhrijData
+
+        if collections is None:
+            collections = [
+                {"name": "صحيح البخاري", "number": "5645"},
+                {"name": "صحيح مسلم", "number": "2573"},
+            ]
+        return Footnote(
+            ref_marker=ref,
+            text=text,
+            footnote_type=FootnoteType.HADITH_TAKHRIJ,
+            confidence=0.95,
+            takhrij_data=TakhrijData(
+                collections=collections,
+                grading=grading,
+            ),
+        )
+
+    def test_valid_takhrij_with_locators(self) -> None:
+        """Footnote with collection names + numbers → TakhrijEntry."""
+        fn = self._make_takhrij_footnote()
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is not None
+        assert len(result) == 1
+        assert "صحيح البخاري" in result[0].collections
+        assert "صحيح مسلم" in result[0].collections
+        assert "5645" in result[0].hadith_numbers
+
+    def test_no_locator_below_minimum(self) -> None:
+        """Footnote with collection name but no number → below minimum (Gemini spec)."""
+        fn = self._make_takhrij_footnote(
+            text="رواه البخاري ومسلم",
+            collections=[
+                {"name": "صحيح البخاري"},
+                {"name": "صحيح مسلم"},
+            ],
+        )
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is None
+
+    def test_non_takhrij_footnote_ignored(self) -> None:
+        """Footnotes with other types are skipped."""
+        fn = Footnote(
+            ref_marker="1",
+            text="انظر: المغني لابن قدامة",
+            footnote_type=FootnoteType.CROSS_REFERENCE,
+            confidence=0.9,
+        )
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is None
+
+    def test_grading_extracted(self) -> None:
+        """Grade and grade_source flow through when present."""
+        fn = self._make_takhrij_footnote(
+            text="أخرجه الترمذي (1327) وقال: حسن صحيح",
+            collections=[{"name": "سنن الترمذي", "number": "1327"}],
+            grading={"grader": "الترمذي", "grade": "حسن صحيح"},
+        )
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is not None
+        assert result[0].grade == "حسن صحيح"
+        assert result[0].grade_source == "الترمذي"
+
+    def test_no_grading_is_none(self) -> None:
+        """No grading → grade and grade_source are None."""
+        fn = self._make_takhrij_footnote()
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is not None
+        assert result[0].grade is None
+        assert result[0].grade_source is None
+
+    def test_empty_footnotes_returns_none(self) -> None:
+        """Empty list → None."""
+        result = derive_takhrij_from_footnotes([])
+        assert result is None
+
+    def test_no_takhrij_data_on_footnote_skipped(self) -> None:
+        """HADITH_TAKHRIJ footnote with takhrij_data=None → skipped."""
+        fn = Footnote(
+            ref_marker="1",
+            text="رواه أحمد",
+            footnote_type=FootnoteType.HADITH_TAKHRIJ,
+            confidence=0.8,
+            takhrij_data=None,
+        )
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is None
+
+    def test_book_reference_counts_as_locator(self) -> None:
+        """Collection with book/bab but no number → still qualifies (Gemini spec)."""
+        fn = self._make_takhrij_footnote(
+            text="أخرجه أبو داود في كتاب الطهارة",
+            collections=[{"name": "سنن أبي داود", "book": "كتاب الطهارة"}],
+        )
+        result = derive_takhrij_from_footnotes([fn])
+        assert result is not None
+        assert "سنن أبي داود" in result[0].collections
+
+    def test_multiple_takhrij_footnotes(self) -> None:
+        """Multiple HADITH_TAKHRIJ footnotes → multiple TakhrijEntry objects."""
+        fn1 = self._make_takhrij_footnote(ref="1")
+        fn2 = self._make_takhrij_footnote(
+            ref="2",
+            text="أخرجه أبو داود (3594)",
+            collections=[{"name": "سنن أبي داود", "number": "3594"}],
+        )
+        result = derive_takhrij_from_footnotes([fn1, fn2])
+        assert result is not None
+        assert len(result) == 2
