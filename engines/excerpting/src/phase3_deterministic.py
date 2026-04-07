@@ -90,6 +90,187 @@ _IJMA_MARKERS: list[str] = [
 
 
 # ═══════════════════════════════════════════════════════════════════
+# Micro-unit merge (DR29 #4 + Gemini CLI scholarly validation)
+# ═══════════════════════════════════════════════════════════════════
+
+# Bare opener patterns — forward-merge into following unit.
+# Gemini CLI: "indexing devices for the point that follows"
+_OPENER_PATTERNS: list[str] = [
+    "المسألة",
+    "الفرع",
+    "فائدة",
+    "تنبيه",
+    "تتمة",
+    "خاتمة",
+    "فرع",
+    # Ordinals (bare Arabic ordinals without substantive content)
+    "الأولى",
+    "الثانية",
+    "الثالثة",
+    "الرابعة",
+    "الخامسة",
+    "السادسة",
+    "السابعة",
+    "الثامنة",
+    "التاسعة",
+    "العاشرة",
+    # Discourse ordinals
+    "أحدها",
+    "والثاني",
+    "والثالث",
+    "الوجه الأول",
+    "الوجه الثاني",
+    "الوجه الثالث",
+]
+
+# Bare closer patterns — backward-merge into preceding unit.
+# Gemini CLI: "closing formulas merge backward, not forward"
+_CLOSER_PATTERNS: list[str] = [
+    "والله أعلم",
+    "انتهى",
+    "تم",
+    "هذا آخره",
+    "انتهى كلامه",
+]
+
+# Maximum character length for a unit to be considered "bare micro"
+_MICRO_UNIT_MAX_CHARS = 40
+
+
+def _is_bare_micro_unit(text: str) -> str | None:
+    """Classify a short text as opener, closer, or not a micro-unit.
+
+    Returns "opener", "closer", or None.
+    A unit is bare if it matches a known pattern AND does not contain
+    substantive content after the marker (i.e., no colon-then-content).
+    """
+    stripped = text.strip()
+    if len(stripped) > _MICRO_UNIT_MAX_CHARS:
+        return None
+    # Semantically-complete heading exemption: if the text contains a colon
+    # followed by substantive content (>10 chars), it's not bare.
+    # e.g. "قاعدة: اليقين لا يزول بالشك" is a complete heading.
+    colon_pos = stripped.find(":")
+    if colon_pos == -1:
+        colon_pos = stripped.find(":")  # Arabic colon (rare but possible)
+    if colon_pos >= 0 and len(stripped) - colon_pos - 1 > 10:
+        return None
+
+    # Closers: pattern must be at or near the END of the text
+    for pattern in _CLOSER_PATTERNS:
+        if stripped.endswith(pattern) or stripped.endswith(pattern + "."):
+            return "closer"
+    # Openers: pattern must be at the START of the text (not embedded in a sentence)
+    for pattern in _OPENER_PATTERNS:
+        if stripped.startswith(pattern):
+            return "opener"
+    return None
+
+
+def merge_micro_units(
+    units: list[TeachingUnit],
+    assembled_text: str,
+) -> list[TeachingUnit]:
+    """Merge bare structural micro-units into adjacent substantive units.
+
+    DR29 #4 + Gemini CLI scholarly validation (USUALLY_MERGE).
+    Openers (ordinals, مسألة, فائدة, تنبيه) → forward-merge into NEXT unit.
+    Closers (والله أعلم, انتهى) → backward-merge into PREVIOUS unit.
+
+    Returns a new list with merged units and reindexed unit_index values.
+    """
+    if len(units) <= 1:
+        return units
+
+    # Build a char map for extracting text from word offsets
+    tokens = assembled_text.split()
+
+    def unit_text(u: TeachingUnit) -> str:
+        """Extract the actual text of a unit from assembled_text."""
+        start_char = sum(len(tokens[i]) + 1 for i in range(u.start_word)) if u.start_word > 0 else 0
+        end_char = sum(len(tokens[i]) + 1 for i in range(u.end_word + 1))
+        return assembled_text[start_char:end_char].strip()
+
+    # Phase 1: classify each unit
+    classifications: list[str | None] = []
+    for u in units:
+        text = unit_text(u)
+        classifications.append(_is_bare_micro_unit(text))
+
+    # Phase 2: build merge plan (which units absorb which)
+    # absorb_into[i] = j means unit i is absorbed into unit j
+    absorb_into: dict[int, int] = {}
+
+    for i, cls in enumerate(classifications):
+        if cls == "opener" and i + 1 < len(units) and classifications[i + 1] is None:
+            absorb_into[i] = i + 1
+        elif cls == "closer" and i - 1 >= 0 and classifications[i - 1] is None:
+            absorb_into[i] = i - 1
+
+    if not absorb_into:
+        return units
+
+    # Phase 3: execute merges
+    merged: dict[int, TeachingUnit] = {}
+    for i, u in enumerate(units):
+        if i in absorb_into:
+            continue  # this unit will be absorbed
+        merged[i] = u
+
+    for micro_idx, target_idx in absorb_into.items():
+        micro = units[micro_idx]
+        if target_idx not in merged:
+            # Target was itself absorbed — skip (don't chain merges)
+            logger.warning(
+                "Micro-unit %d target %d also absorbed — keeping micro standalone.",
+                micro_idx,
+                target_idx,
+            )
+            merged[micro_idx] = micro
+            continue
+
+        target = merged[target_idx]
+        # Merge: expand word range and segment indices
+        new_start = min(micro.start_word, target.start_word)
+        new_end = max(micro.end_word, target.end_word)
+        new_segments = sorted(set(micro.segment_indices + target.segment_indices))
+
+        # Recompute text_snippet from merged range
+        start_char = sum(len(tokens[j]) + 1 for j in range(new_start)) if new_start > 0 else 0
+        end_char = sum(len(tokens[j]) + 1 for j in range(new_end + 1))
+        merged_text = assembled_text[start_char:end_char].strip()
+
+        merged[target_idx] = TeachingUnit(
+            unit_index=target.unit_index,  # reindexed below
+            segment_indices=new_segments,
+            start_word=new_start,
+            end_word=new_end,
+            text_snippet=merged_text[:80],
+            primary_function=target.primary_function,
+            secondary_functions=list(
+                set(target.secondary_functions) | set(micro.secondary_functions)
+            ),
+            description_arabic=target.description_arabic,
+            self_containment=target.self_containment,
+            self_containment_notes=target.self_containment_notes,
+        )
+
+    # Phase 4: reindex and sort
+    result = sorted(merged.values(), key=lambda u: u.start_word)
+    reindexed = []
+    for idx, u in enumerate(result):
+        reindexed.append(u.model_copy(update={"unit_index": idx}))
+
+    logger.info(
+        "Micro-unit merge: %d units → %d units (%d merged).",
+        len(units),
+        len(reindexed),
+        len(absorb_into),
+    )
+    return reindexed
+
+
+# ═══════════════════════════════════════════════════════════════════
 # Shared Helpers
 # ═══════════════════════════════════════════════════════════════════
 

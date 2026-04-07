@@ -20,6 +20,7 @@ from engines.excerpting.contracts import (
     SplitInfo,
 )
 from engines.excerpting.src.phase3_deterministic import (
+    _is_bare_micro_unit,
     build_deterministic_excerpts,
     compute_content_types,
     compute_excerpt_id,
@@ -30,6 +31,7 @@ from engines.excerpting.src.phase3_deterministic import (
     detect_evidence_refs,
     extract_primary_text,
     filter_relevant_footnotes,
+    merge_micro_units,
 )
 from engines.normalization.contracts import (
     BoundaryContinuityType,
@@ -3639,3 +3641,144 @@ class TestT1AttributionCorruptionProbe:
         for scholar in result:
             assert scholar.role == "quoted_opinion"
             assert scholar.source == "layer_overlap"
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Micro-unit merge (DR29 #4 + Gemini CLI validation)
+# ═══════════════════════════════════════════════════════════════════
+
+
+def _make_unit(
+    index: int,
+    start: int,
+    end: int,
+    snippet: str,
+    func: ScholarlyFunction = ScholarlyFunction.DEFINITION,
+) -> "TeachingUnit":
+    """Helper: create a TeachingUnit for merge tests."""
+    from engines.excerpting.contracts import TeachingUnit
+
+    return TeachingUnit(
+        unit_index=index,
+        segment_indices=[index],
+        start_word=start,
+        end_word=end,
+        text_snippet=snippet[:80],
+        primary_function=func,
+        secondary_functions=[],
+        description_arabic="وصف عربي للاختبار يتضمن عدة كلمات عربية",
+        self_containment=SelfContainmentLevel.FULL,
+        self_containment_notes=None,
+    )
+
+
+class TestMicroUnitClassification:
+    """Tests for _is_bare_micro_unit classification."""
+
+    def test_bare_ordinal_is_opener(self) -> None:
+        assert _is_bare_micro_unit("الثالثة") == "opener"
+
+    def test_bare_masala_is_opener(self) -> None:
+        assert _is_bare_micro_unit("المسألة الخامسة") == "opener"
+
+    def test_bare_tanbih_is_opener(self) -> None:
+        assert _is_bare_micro_unit("تنبيه") == "opener"
+
+    def test_bare_closer_wallahu_alam(self) -> None:
+        assert _is_bare_micro_unit("والله أعلم") == "closer"
+
+    def test_bare_closer_intaha(self) -> None:
+        assert _is_bare_micro_unit("انتهى") == "closer"
+
+    def test_substantive_text_not_micro(self) -> None:
+        """Normal scholarly text is not a micro-unit."""
+        assert _is_bare_micro_unit("وقال الشافعي رحمه الله في هذه المسألة") is None
+
+    def test_long_text_not_micro(self) -> None:
+        """Text exceeding _MICRO_UNIT_MAX_CHARS is never micro."""
+        long = "المسألة " + "و" * 50
+        assert _is_bare_micro_unit(long) is None
+
+    def test_semantically_complete_heading_exempt(self) -> None:
+        """Heading with colon + content is NOT bare (Gemini exemption)."""
+        # "قاعدة: اليقين لا يزول بالشك" = complete heading
+        assert _is_bare_micro_unit("قاعدة: اليقين لا يزول بالشك") is None
+
+    def test_colon_with_short_content_still_bare(self) -> None:
+        """Heading with colon but very short content IS still bare."""
+        assert _is_bare_micro_unit("فائدة: قال") == "opener"
+
+
+class TestMergeUnits:
+    """Tests for merge_micro_units bidirectional merge."""
+
+    def test_forward_merge_opener_into_next(self) -> None:
+        """Bare opener (تنبيه) merges forward into following unit."""
+        text = "تنبيه ذكر القاضي عياض أن الحديث صحيح عند أهل العلم"
+        units = [
+            _make_unit(0, 0, 0, "تنبيه"),
+            _make_unit(1, 1, 9, "ذكر القاضي عياض أن الحديث صحيح عند أهل العلم"),
+        ]
+        result = merge_micro_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 9
+
+    def test_backward_merge_closer_into_previous(self) -> None:
+        """Bare closer (والله أعلم) merges backward into preceding unit."""
+        text = "وأي ذلك فعلت أجزأ والله أعلم"
+        units = [
+            _make_unit(0, 0, 3, "وأي ذلك فعلت أجزأ"),
+            _make_unit(1, 4, 5, "والله أعلم"),
+        ]
+        result = merge_micro_units(units, text)
+        assert len(result) == 1
+        assert result[0].start_word == 0
+        assert result[0].end_word == 5
+
+    def test_no_merge_when_all_substantive(self) -> None:
+        """No merge when all units have substantive content."""
+        text = "وقال الشافعي في هذا الباب وقال أحمد في هذا الباب"
+        units = [
+            _make_unit(0, 0, 4, "وقال الشافعي في هذا الباب"),
+            _make_unit(1, 5, 9, "وقال أحمد في هذا الباب"),
+        ]
+        result = merge_micro_units(units, text)
+        assert len(result) == 2
+
+    def test_reindexing_after_merge(self) -> None:
+        """unit_index values are contiguous 0..N-1 after merge."""
+        text = "الثالثة حكم الصلاة في المسجد واجبة عند الحنابلة"
+        units = [
+            _make_unit(0, 0, 0, "الثالثة"),
+            _make_unit(1, 1, 7, "حكم الصلاة في المسجد واجبة عند الحنابلة"),
+        ]
+        result = merge_micro_units(units, text)
+        assert len(result) == 1
+        assert result[0].unit_index == 0
+
+    def test_single_unit_no_merge(self) -> None:
+        """Single unit list returned as-is."""
+        text = "بسم الله الرحمن الرحيم"
+        units = [_make_unit(0, 0, 3, "بسم الله الرحمن الرحيم")]
+        result = merge_micro_units(units, text)
+        assert len(result) == 1
+
+    def test_empty_list_no_crash(self) -> None:
+        """Empty input returns empty output."""
+        result = merge_micro_units([], "")
+        assert result == []
+
+    def test_multiple_merges_in_sequence(self) -> None:
+        """Multiple openers can each merge into their following unit."""
+        text = "الأولى حكم كذا الثانية حكم كذا آخر"
+        units = [
+            _make_unit(0, 0, 0, "الأولى"),
+            _make_unit(1, 1, 2, "حكم كذا"),
+            _make_unit(2, 3, 3, "الثانية"),
+            _make_unit(3, 4, 6, "حكم كذا آخر"),
+        ]
+        result = merge_micro_units(units, text)
+        assert len(result) == 2
+        assert result[0].start_word == 0  # الأولى merged with حكم كذا
+        assert result[1].start_word == 3  # الثانية merged with حكم كذا آخر
