@@ -1,0 +1,37 @@
+ranking_items:
+- item_id: P-1
+  item_text: keeping the exact original text untouched
+  owner_rank: 2
+  rank_status: solid
+  role_type: hard_constraint
+  why_this_rank: Violating it causes false attribution and catastrophic corruption, but the system still exists for the higher purpose of producing study-worthy teaching units.
+  failure_if_lost: source corruption / false attribution / silent trust collapse
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- item_id: P-2
+  item_text: making the excerpt understandable on its own
+  owner_rank: 3
+  rank_status: conditional
+  role_type: design_pressure
+  why_this_rank: Under the ordinary reading it means recoverable context deficiency rather than direct corruption. Under a harsher reading it becomes much more severe.
+  failure_if_lost: manual lookup burden under ordinary reading; possible deadly damage under destructive-cutting reading
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- item_id: P-3
+  item_text: making the excerpt the right size
+  owner_rank: 4
+  rank_status: medium_stability
+  role_type: design_pressure
+  why_this_rank: The owner links this to mixed topics and mental chaos, but still treats it as less catastrophic than corruption or ordinary self-containment failure.
+  failure_if_lost: topic-mixing / mental scrambling / poor granularity
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- item_id: P-4
+  item_text: making the excerpt useful to study from
+  owner_rank: 1
+  rank_status: solid
+  role_type: top_level_goal
+  why_this_rank: The owner explicitly says the engine is for teaching units rather than excerpts as ends in themselves.
+  failure_if_lost: system misses its actual purpose and becomes formally correct but educationally weak
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

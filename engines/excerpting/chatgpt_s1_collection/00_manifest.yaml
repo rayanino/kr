@@ -1,0 +1,54 @@
+question_id: S-1
+bundle_id: chatgpt_s1_collection
+version: 0.1.0
+status: collection_bundle
+source_basis:
+  owner_answer_primary: explicit_draft
+  engineering_layers_mix:
+  - explicit_draft
+  - inferred_from_prior_chat
+  - model_expansion
+raw_owner_source_layer: source_artifacts/s1_owner_raw_reaction_2026_04_07.txt
+raw_full_input_layer: source_artifacts/s1_full_user_input_2026_04_07.txt
+files_emitted:
+- README.md
+- source_artifacts/s1_full_user_input_2026_04_07.txt
+- source_artifacts/s1_owner_raw_reaction_2026_04_07.txt
+- 00_manifest.yaml
+- 01_questionnaire_answer.md
+- 02_case_dossier.md
+- 03_terms.yaml
+- 04_priority_decision_ladder.jsonl
+- 05_priority_ranking_matrix.yaml
+- 06_tradeoff_scenarios.jsonl
+- 07_term_disambiguation.jsonl
+- 08_goal_vs_constraint_analysis.jsonl
+- 09_failure_modes_by_priority.jsonl
+- 10_nonnegotiables.jsonl
+- 11_red_team_tests.jsonl
+- 12_traceability.jsonl
+- 13_open_questions.jsonl
+- 14_hard_judgment.md
+final_owner_ranking:
+- making the excerpt useful to study from
+- keeping the exact original text untouched
+- making the excerpt understandable on its own
+- making the excerpt the right size
+ranking_status: forced_linearization_with_explicit_caveat
+structural_asymmetry_present: true
+total_decision_steps: 8
+total_tradeoff_scenarios: 7
+total_term_disambiguation_records: 6
+total_goal_constraint_records: 5
+total_failure_mode_records: 5
+total_nonnegotiables: 8
+total_red_team_tests: 8
+total_explicit_draft_items: 7
+total_inferred_items: 3
+total_model_expansion_items: 1
+highest_risk_issue_families:
+- source_integrity_violation
+- item_2_interpretation_drift
+- goal_constraint_flattening
+- granularity_fitness_reduced_to_brevity
+- usefulness_used_to_justify_mutation

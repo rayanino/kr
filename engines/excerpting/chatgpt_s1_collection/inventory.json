@@ -1,0 +1,132 @@
+{
+  "bundle_id": "chatgpt_s1_collection",
+  "question_id": "S-1",
+  "question_topic": "extracted from bundle",
+  "inventory_date": "2026-04-07",
+  "status": "collection_bundle",
+  "file_count": 19,
+  "total_size_bytes": 98579,
+  "source_basis_distribution": {
+    "explicit_draft": 1,
+    "inferred_from_prior_chat": 1,
+    "model_expansion": 1
+  },
+  "validation_errors": [],
+  "validation_passed": true,
+  "files": [
+    {
+      "name": "00_manifest.yaml",
+      "size_bytes": 1705,
+      "type": "yaml",
+      "records": null
+    },
+    {
+      "name": "01_questionnaire_answer.md",
+      "size_bytes": 1951,
+      "type": "md",
+      "records": null
+    },
+    {
+      "name": "02_case_dossier.md",
+      "size_bytes": 5087,
+      "type": "md",
+      "records": null
+    },
+    {
+      "name": "03_terms.yaml",
+      "size_bytes": 4648,
+      "type": "yaml",
+      "records": null
+    },
+    {
+      "name": "04_priority_decision_ladder.jsonl",
+      "size_bytes": 2947,
+      "type": "jsonl",
+      "records": 8
+    },
+    {
+      "name": "05_priority_ranking_matrix.yaml",
+      "size_bytes": 1833,
+      "type": "yaml",
+      "records": null
+    },
+    {
+      "name": "06_tradeoff_scenarios.jsonl",
+      "size_bytes": 3363,
+      "type": "jsonl",
+      "records": 7
+    },
+    {
+      "name": "07_term_disambiguation.jsonl",
+      "size_bytes": 3273,
+      "type": "jsonl",
+      "records": 6
+    },
+    {
+      "name": "08_goal_vs_constraint_analysis.jsonl",
+      "size_bytes": 1924,
+      "type": "jsonl",
+      "records": 5
+    },
+    {
+      "name": "09_failure_modes_by_priority.jsonl",
+      "size_bytes": 1892,
+      "type": "jsonl",
+      "records": 5
+    },
+    {
+      "name": "10_nonnegotiables.jsonl",
+      "size_bytes": 2410,
+      "type": "jsonl",
+      "records": 8
+    },
+    {
+      "name": "11_red_team_tests.jsonl",
+      "size_bytes": 3301,
+      "type": "jsonl",
+      "records": 8
+    },
+    {
+      "name": "12_traceability.jsonl",
+      "size_bytes": 3271,
+      "type": "jsonl",
+      "records": 6
+    },
+    {
+      "name": "13_open_questions.jsonl",
+      "size_bytes": 861,
+      "type": "jsonl",
+      "records": 2
+    },
+    {
+      "name": "14_hard_judgment.md",
+      "size_bytes": 1596,
+      "type": "md",
+      "records": null
+    },
+    {
+      "name": "README.md",
+      "size_bytes": 2467,
+      "type": "md",
+      "records": null
+    },
+    {
+      "name": "source_artifacts/chatgpt_s1_collection_bundle.zip",
+      "size_bytes": 28656,
+      "type": "zip",
+      "records": null
+    },
+    {
+      "name": "source_artifacts/s1_full_user_input_2026_04_07.txt",
+      "size_bytes": 26331,
+      "type": "txt",
+      "records": null
+    },
+    {
+      "name": "source_artifacts/s1_owner_raw_reaction_2026_04_07.txt",
+      "size_bytes": 1063,
+      "type": "txt",
+      "records": null
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+- id: T-001
+  term: teaching_unit
+  working_definition: 'The actual study object produced by the system: raw excerpt text plus any valid surrounding context, metadata, and framing layers needed for study.'
+  why_it_matters_here: It explains why item (4) is treated as the top-level purpose.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-002
+  term: raw_source_text
+  working_definition: The original wording taken from the source text before any external contextual framing is added around it.
+  why_it_matters_here: The owner treats corruption of this layer as catastrophic.
+  status: owner_consistent_inference
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- id: T-003
+  term: untouched_original_text
+  working_definition: The requirement that the raw source wording itself not be silently mutated, rewritten, or falsely attributed.
+  why_it_matters_here: This is item (1) in the ranking question.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-004
+  term: self_containment
+  working_definition: Enough local framing and integrity that the owner does not need to manually hunt for missing context in order to study safely.
+  why_it_matters_here: This is one ordinary reading of item (2).
+  status: owner_consistent_inference
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- id: T-005
+  term: understandable_on_its_own
+  working_definition: Ambiguous question term that can mean either ordinary local understandability or much harsher damage from omitted meaning-bearing text.
+  why_it_matters_here: The ranking changes depending on which reading is intended.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-006
+  term: right_size
+  working_definition: A shorthand for appropriate excerpt granularity, not mere shortness.
+  why_it_matters_here: The owner connects this to mental chaos when topics are mixed.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-007
+  term: granularity_fitness
+  working_definition: Whether the excerpt is sized and scoped in a way that keeps topics distinct, digestible, and non-scrambling.
+  why_it_matters_here: This is the deeper meaning behind item (3).
+  status: owner_consistent_inference
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- id: T-008
+  term: study_usefulness
+  working_definition: How well the final teaching unit actually supports study, understanding, and transfer into the owner’s mind.
+  why_it_matters_here: This is the top-ranked item in the raw reaction.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-009
+  term: recoverable_failure
+  working_definition: A failure that is serious but can still be manually repaired or checked by the owner, such as manual context lookup.
+  why_it_matters_here: The owner places ordinary-reading item (2) in this family.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-010
+  term: silent_failure
+  working_definition: A failure that can mislead the owner without obvious warning, especially false attribution or corruption.
+  why_it_matters_here: The owner repeatedly contrasts it with recoverable inconvenience.
+  status: owner_consistent_inference
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference
+- id: T-011
+  term: corruption
+  working_definition: Damage or alteration that changes what the source is understood to say, or wrongly attributes words or meanings to a scholar.
+  why_it_matters_here: This is why item (1) remains non-negotiable.
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-012
+  term: false_attribution
+  working_definition: The owner studying or teaching wording as though it belongs to a scholar when it does not.
+  why_it_matters_here: The raw reaction names this as the catastrophe produced by violating item (1).
+  status: owner_explicit
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-013
+  term: external_add_on_context
+  working_definition: Clearly separated metadata, context, or framing added around the raw source text without mutating it.
+  why_it_matters_here: It is the key non-destructive way to improve item (4) and ordinary-reading item (2) without violating item (1).
+  status: owner_consistent_inference
+  source_basis: inferred_from_prior_chat
+  owner_relation: owner_consistent_inference

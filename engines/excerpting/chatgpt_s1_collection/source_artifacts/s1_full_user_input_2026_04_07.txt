@@ -1,0 +1,792 @@
+We are now switching to **questionnaire mode** for **S-1**.
+
+Do **NOT** reopen excerpt review or canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This is **not** a shallow ranking question. It is a foundational question about the excerpting engine’s **priority architecture**, and the answer can easily get flattened if you treat the four items as four clean peer criteria.
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+---
+
+## The question
+
+**S-1 — Priority ranking under conflict**
+
+**Question**  
+When the excerpting engine faces conflict between these four things —
+
+1. keeping the exact original text untouched  
+2. making the excerpt understandable on its own  
+3. making the excerpt the right size  
+4. making the excerpt useful to study from  
+
+— which one should win?
+
+Rank them from most important to least important, and explain why.
+
+---
+
+## Critical handling rule
+
+This question is structurally tricky.
+
+Do **NOT** assume all four items are the same kind of thing.
+
+At minimum, you must test whether:
+
+- **(4) useful to study from** is the **top-level goal / objective**
+- **(1) exact original text untouched** is a **hard integrity constraint**
+- **(2) understandable on its own** is interpretation-sensitive
+- **(3) right size** is really about **granularity fitness**, not simple shortness
+
+So you must **not** flatten this into a naive weighted list like four equal sliders.
+
+If forced to give a clean ranking, you still must give one. But you must also explicitly preserve any structural asymmetry in the explanation.
+
+---
+
+## Critical owner hierarchy to preserve
+
+My raw reaction currently seems to contain the following hierarchy:
+
+1. **Strong owner signal:** **(4)** is first.  
+   Why: the system is not ultimately optimizing for “excerpts” as an end in themselves, but for **teaching units / study units**. The excerpt, surrounding context, metadata, and other framing layers together serve the higher goal of making knowledge maximally usable for study.
+
+2. **Strong owner signal:** **(1)** is second.  
+   Why: corrupting or mutating the source text, or causing false attribution to scholars, is catastrophic.
+
+3. **Important caution:** **(4) winning does NOT mean usefulness is allowed to justify source corruption.**  
+   Do **NOT** let the answer collapse into “usefulness beats everything, so mutate if helpful.” That would be false to my reaction.
+
+4. **Important structural distinction:** keeping the exact original text untouched must be distinguished from adding **clearly separated external framing / metadata / context / add-ons** outside the raw excerpt text.  
+   I am not saying “never add anything around the excerpt.” I am saying the **raw source wording itself** should not be silently altered.
+
+5. **Interpretation-sensitive ambiguity:** **(2) understandable on its own** is not stable unless you define what it means.  
+   Under one reading, it means enough context / framing / local completeness that I do not have to hunt elsewhere.  
+   Under another reading, it means pieces were cut out or the text was damaged / mutilated so understanding breaks.  
+   Those are **not the same thing**, and they should not receive the same ranking treatment.
+
+6. **Current owner signal about (2):** under the ordinary reading where (2) means local understandability / self-containment / reduced context-hunting, it seems **less catastrophic than violating (1)** because the knowledge is not necessarily corrupted and the problem is not fully silent; I can in principle manually recover context.
+
+7. **Current owner signal about (2) under harsher reading:** if “understandable on its own” really means text was cut in a way that damages meaning, then this becomes much more severe and may start collapsing into the same family as integrity failure.
+
+8. **Current owner signal about (3):** “right size” matters because oversized, poorly granulated excerpts scramble topics and create mental chaos.
+
+9. **But do NOT overstate certainty:** my raw comments strongly stabilize **(4)** first and **(1)** second.  
+   The ordering between **ordinary-reading (2)** and **(3)** is less clearly locked unless you can justify it carefully from the raw material.  
+   My current lean may still be `4 > 1 > 2 > 3`, but do **NOT** pretend this is rock-solid if the raw evidence only clearly fixes the first two.
+
+10. **Most important anti-flattening rule:** this answer should preserve the distinction between:
+    - the **library’s top-level purpose** = creating optimal study/teaching units
+    - **hard integrity protections**
+    - **recoverable usability defects**
+    - **granularity / sizing fitness**
+
+Do **NOT** blur those into a single mushy ranking explanation.
+
+---
+
+## Internal gap-audit requirements
+
+Before drafting, do an **internal** gap-audit against what this question really needs.
+
+At minimum, your internal reasoning must test all of the following:
+
+- whether the question is asking for a **true linear ranking**, or a **forced linearization of a more structured priority architecture**
+- whether **(4)** is really a goal-level item rather than a peer criterion
+- whether **(1)** is best understood as:
+  - no mutation of raw source wording,
+  - or also no added external framing whatsoever
+- whether **(2)** has at least two materially different readings
+- whether the owner-faithful ranking depends on which reading of **(2)** is used
+- whether **(3)** means:
+  - smallness,
+  - optimal granularity,
+  - or avoidance of overload / mixed topics
+- whether the strongest owner-faithful answer is:
+  - a fully resolved `4 > 1 > 2 > 3`,
+  - or `4 > 1` with a less-settled `2/3` tail
+- whether the answer should explicitly distinguish:
+  - catastrophic corruption
+  - recoverable inconvenience
+  - mental overload / topic scrambling
+  - top-level study value
+- whether “useful to study from” is partly **composed of** the other factors, rather than simply competing with them
+- whether the owner-faithful answer should treat the ranking as:
+  - absolute,
+  - conditional,
+  - lexicographic,
+  - or mixed
+- what is owner-faithful
+- what is reasonable engineering expansion
+- what would be reckless to flatten
+
+Do **NOT** dump that whole internal audit unless useful.  
+Use it to sharpen the final output.
+
+---
+
+## Question-asking rule
+
+If you truly need owner-specific clarification, ask at most **3 direct questions** first and stop.
+
+But only ask if the question is genuinely about my personal threshold or reaction and cannot responsibly be inferred.
+
+Otherwise, proceed directly.
+
+---
+
+## Collection-path rule
+
+This is still **questionnaire-side collection material**, not promoted doctrine.
+
+So do **NOT** place outputs under `canon/...`.
+
+Create everything under this exact collection path:
+
+`engines/excerpting/chatgpt_s1_collection/`
+
+---
+
+## Raw-owner-source preservation rule
+
+I do **NOT** want my raw owner wording lost or only indirectly preserved.
+
+You must create these files:
+
+- `engines/excerpting/chatgpt_s1_collection/README.md`
+- `engines/excerpting/chatgpt_s1_collection/source_artifacts/s1_full_user_input_2026_04_07.txt`
+- `engines/excerpting/chatgpt_s1_collection/source_artifacts/s1_owner_raw_reaction_2026_04_07.txt`
+
+Requirements:
+
+- `s1_full_user_input_2026_04_07.txt` must contain the **full question block** and my **raw comments** **verbatim as provided in this prompt**
+- `s1_owner_raw_reaction_2026_04_07.txt` must contain my **raw comments** **verbatim as provided in this prompt**
+- Do **NOT** summarize those files
+- Do **NOT** clean them up there
+- Do **NOT** normalize them into doctrine there
+- Preserve them as raw owner source artifacts
+- If any file-system-safe normalization is absolutely unavoidable, do the **minimum possible** and report it explicitly
+
+Also `00_manifest.yaml` must include:
+
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+
+---
+
+## Downloadables + ZIP rule
+
+I want **actual downloadable files** and a **downloadable ZIP bundle**, not just inline pseudo-files.
+
+Because you may not have write access to my repo, create the files in your available workspace / sandbox, but preserve the exact repo-relative directory structure inside the generated files and ZIP.
+
+If file creation is available in this chat:
+
+- generate the individual files
+- generate one ZIP containing the full folder
+- return real download links
+
+If file creation is **not** available in this chat, do **NOT** partially comply by giving inline file contents.
+
+Either generate real files and ZIP, or say exactly:
+
+**File creation is not available in this chat; I can only emit raw text.**
+
+and stop.
+
+---
+
+## Truncation / continuation rule
+
+If the full bundle does not fit in one response:
+
+- continue automatically **if the platform allows**
+- if automatic continuation is not possible, stop only after a completed write batch and end with:
+
+`CONTINUE_REQUIRED`
+
+followed by the exact remaining file list.
+
+On my next message asking you to continue, resume **without repeating** already completed files.
+
+Do **NOT** stop halfway silently.  
+Do **NOT** restart from the beginning.
+
+---
+
+## File creation requirements
+
+Create actual files at these exact paths:
+
+1. `engines/excerpting/chatgpt_s1_collection/README.md`
+2. `engines/excerpting/chatgpt_s1_collection/source_artifacts/s1_full_user_input_2026_04_07.txt`
+3. `engines/excerpting/chatgpt_s1_collection/source_artifacts/s1_owner_raw_reaction_2026_04_07.txt`
+4. `engines/excerpting/chatgpt_s1_collection/00_manifest.yaml`
+5. `engines/excerpting/chatgpt_s1_collection/01_questionnaire_answer.md`
+6. `engines/excerpting/chatgpt_s1_collection/02_case_dossier.md`
+7. `engines/excerpting/chatgpt_s1_collection/03_terms.yaml`
+8. `engines/excerpting/chatgpt_s1_collection/04_priority_decision_ladder.jsonl`
+9. `engines/excerpting/chatgpt_s1_collection/05_priority_ranking_matrix.yaml`
+10. `engines/excerpting/chatgpt_s1_collection/06_tradeoff_scenarios.jsonl`
+11. `engines/excerpting/chatgpt_s1_collection/07_term_disambiguation.jsonl`
+12. `engines/excerpting/chatgpt_s1_collection/08_goal_vs_constraint_analysis.jsonl`
+13. `engines/excerpting/chatgpt_s1_collection/09_failure_modes_by_priority.jsonl`
+14. `engines/excerpting/chatgpt_s1_collection/10_nonnegotiables.jsonl`
+15. `engines/excerpting/chatgpt_s1_collection/11_red_team_tests.jsonl`
+16. `engines/excerpting/chatgpt_s1_collection/12_traceability.jsonl`
+17. `engines/excerpting/chatgpt_s1_collection/13_open_questions.jsonl`
+18. `engines/excerpting/chatgpt_s1_collection/14_hard_judgment.md`
+
+Then create one ZIP named:
+
+`chatgpt_s1_collection_bundle.zip`
+
+The ZIP must contain the full `engines/excerpting/chatgpt_s1_collection/` folder.
+
+---
+
+## Validation requirements
+
+Before returning:
+
+1. confirm every required file exists
+2. confirm every `.jsonl` file is valid line-delimited JSON
+3. confirm every `.yaml` file parses
+4. confirm the ZIP opens successfully
+5. confirm the raw owner source artifacts exist
+6. confirm the manifest counts match the generated bundle as closely as possible
+7. confirm the raw owner source and full input source are preserved
+8. if any repair was required, perform the **minimum necessary repair only** and report it explicitly
+
+---
+
+## File-specific requirements
+
+### `README.md`
+
+This file must explain:
+
+- what S-1 is
+- why this is a **collection bundle**, not promoted doctrine
+- the two-layer separation:
+  - owner-faithful questionnaire answer
+  - engineering / protocol expansion
+- what the raw owner source artifacts are
+- what `source_basis` means
+- what `owner_relation` means
+- a short map of the files in this collection
+
+---
+
+### `00_manifest.yaml`
+
+Include at minimum:
+
+- `question_id`
+- `bundle_id`
+- `version`
+- `status`
+- `source_basis`
+- `raw_owner_source_layer`
+- `raw_full_input_layer`
+- `files_emitted`
+- `final_owner_ranking`
+- `ranking_status`
+- `structural_asymmetry_present`
+- `total_decision_steps`
+- `total_tradeoff_scenarios`
+- `total_term_disambiguation_records`
+- `total_goal_constraint_records`
+- `total_failure_mode_records`
+- `total_nonnegotiables`
+- `total_red_team_tests`
+- `total_explicit_draft_items`
+- `total_inferred_items`
+- `total_model_expansion_items`
+- `highest_risk_issue_families`
+
+If the answer remains conditional or partially unresolved, do **NOT** fake full resolution. Reflect that honestly.
+
+---
+
+### `01_questionnaire_answer.md`
+
+This file must contain the **app-ready answer only**.
+
+Use this exact structure:
+
+**Priority ranking (most to least important):**  
+1. [item text exactly as asked in the question]  
+2. [item text exactly as asked in the question]  
+3. [item text exactly as asked in the question]  
+4. [item text exactly as asked in the question]
+
+**Why this order:**  
+[text]
+
+**Critical caveat / interpretation note:**  
+[text]
+
+**Confidence:**  
+[high / medium / low]
+
+Requirements:
+
+- The answer must be **owner-faithful**
+- It must directly rank all four items
+- It must explicitly preserve the asymmetry if **(4)** is a goal-level objective and **(1)** is an integrity constraint
+- It must not let **(4)** erase **(1)**
+- It must explicitly state the caveat about **(2)** if that caveat survives reasoning
+- It must **not** silently harden the last two ranks if the owner evidence does not fully justify that
+- If the best owner-faithful answer is a forced ranking with conditional notes, say that plainly
+- Do **NOT** silently import broader engineering doctrine unless it is a direct consequence of my raw reaction
+
+---
+
+### `02_case_dossier.md`
+
+This file must be the disciplined narrative analysis for this case.
+
+It must clearly separate:
+
+1. **Owner-faithful questionnaire judgment**
+2. **Structural problem in the question itself**
+3. **What is certain**
+4. **What is tentative**
+5. **What is unresolved**
+6. **What would be reckless to flatten**
+
+At minimum include:
+
+- the likely owner-faithful ranking
+- the strongest case for `4 > 1`
+- the interpretation-sensitive issue with **(2)**
+- the meaning of **(3)** as granularity / sizing fitness rather than mere smallness
+- the distinction between:
+  - raw source integrity
+  - external framing/add-ons
+  - local understandability
+  - study utility
+- the question’s **goal vs constraint** asymmetry
+- whether the ranking is best treated as a pure linear order or a forced linearization of a structured priority architecture
+
+Do **NOT** turn this into vague prose.
+
+---
+
+### `03_terms.yaml`
+
+Include the load-bearing terms from this case.
+
+At minimum include entries for:
+
+- `teaching_unit`
+- `raw_source_text`
+- `untouched_original_text`
+- `self_containment`
+- `understandable_on_its_own`
+- `right_size`
+- `granularity_fitness`
+- `study_usefulness`
+- `recoverable_failure`
+- `silent_failure`
+- `corruption`
+- `false_attribution`
+- `external_add_on_context`
+
+Each entry must include at minimum:
+
+- `id`
+- `term`
+- `working_definition`
+- `why_it_matters_here`
+- `status`
+- `source_basis`
+- `owner_relation`
+
+Do **NOT** silently overstate tentative terms as settled owner doctrine.
+
+---
+
+### `04_priority_decision_ladder.jsonl`
+
+This must contain atomic decision records for how the final ranking was reached.
+
+Each record must include at minimum:
+
+- `id`
+- `decision_question`
+- `answer`
+- `why`
+- `certainty`
+- `source_basis`
+- `owner_relation`
+
+The ladder must include decisions about:
+
+- whether **(4)** is first
+- whether **(1)** is second
+- whether the answer is a true ranking or a forced ranking over asymmetric items
+- what **(2)** means under ordinary reading
+- what changes if **(2)** is read as destructive cutting / damaged comprehensibility
+- whether **(3)** is really granularity / sizing fitness
+- whether the last two ranks are fully resolved or still conditional
+- whether usefulness can ever justify mutating the source text
+- whether external framing/add-ons are compatible with keeping the raw source text untouched
+
+---
+
+### `05_priority_ranking_matrix.yaml`
+
+This file must contain one structured record for each of the four priorities.
+
+Each record must include at minimum:
+
+- `item_id`
+- `item_text`
+- `owner_rank`
+- `rank_status`
+- `role_type`
+- `why_this_rank`
+- `failure_if_lost`
+- `source_basis`
+- `owner_relation`
+
+`role_type` should help clarify whether the item behaves as:
+
+- `top_level_goal`
+- `hard_constraint`
+- `design_pressure`
+- `derived_quality_pressure`
+- or another better term if justified
+
+Do **NOT** force all four into the same type if they are not the same type.
+
+---
+
+### `06_tradeoff_scenarios.jsonl`
+
+This file must contain concrete conflict scenarios that test how the ranking actually behaves.
+
+Each record must include at minimum:
+
+- `id`
+- `scenario_name`
+- `conflict`
+- `likely_winner`
+- `why`
+- `caveat`
+- `source_basis`
+- `owner_relation`
+
+At minimum include scenarios covering:
+
+- usefulness improved only by silently rewriting raw source wording
+- usefulness improved by adding clearly separated external context / metadata
+- raw text preserved perfectly but the unit requires manual context-hunting
+- excerpt is perfectly understandable but wrongfully attributed
+- excerpt is accurate but too large / mentally scrambling
+- **(2)** under ordinary reading
+- **(2)** under destructive-cutting reading
+
+This file must make the ranking operational, not merely verbal.
+
+---
+
+### `07_term_disambiguation.jsonl`
+
+This file must explicitly separate dangerous alternative readings of the ranking terms.
+
+Each record must include at minimum:
+
+- `id`
+- `term_or_item`
+- `ordinary_reading`
+- `dangerous_alternative_reading`
+- `why_reading_shift_changes_the_answer`
+- `recommended_handling`
+- `source_basis`
+- `owner_relation`
+
+At minimum cover:
+
+- item **(1)**
+- item **(2)**
+- item **(3)**
+- item **(4)**
+- `study-ready`
+- `understandable on its own`
+- `untouched`
+
+---
+
+### `08_goal_vs_constraint_analysis.jsonl`
+
+This file must analyze the structural asymmetry of the question.
+
+Each record must include at minimum:
+
+- `id`
+- `claim`
+- `status`
+- `why`
+- `implication_for_ranking`
+- `source_basis`
+- `owner_relation`
+
+At minimum assess:
+
+- whether **(4)** is a top-level goal
+- whether **(1)** is a hard integrity boundary
+- whether **(2)** and **(3)** are subordinate design pressures
+- whether a pure linear ranking hides that structure
+- whether the owner-faithful answer should explicitly say this
+
+---
+
+### `09_failure_modes_by_priority.jsonl`
+
+This file must show what kind of failure happens when each priority loses.
+
+Each record must include at minimum:
+
+- `id`
+- `priority_lost`
+- `failure_mode`
+- `why_catastrophic_or_not`
+- `recoverability`
+- `silent_or_visible`
+- `source_basis`
+- `owner_relation`
+
+At minimum preserve:
+
+- violating **(1)** causes false attribution / corruption risk
+- weak **(2)** under ordinary reading causes manual lookup / recoverable friction
+- weak **(2)** under destructive-reading causes far worse failure
+- weak **(3)** causes topic-mixing / mental scrambling
+- weak **(4)** means the system misses its actual purpose
+
+---
+
+### `10_nonnegotiables.jsonl`
+
+Include the non-negotiables this case reveals.
+
+At minimum include records covering:
+
+- usefulness is the top-level purpose of the system
+- usefulness is **not** permission to mutate source wording
+- false attribution / corruption is catastrophic
+- external framing can be compatible with untouched raw source text
+- the reading of **(2)** must be disambiguated
+- “right size” must not be reduced to naive shortness
+- do **NOT** pretend a symmetric ranking if the structure is asymmetric
+
+Each record must include at minimum:
+
+- `id`
+- `rule`
+- `why_nonnegotiable`
+- `source_basis`
+- `owner_relation`
+
+---
+
+### `11_red_team_tests.jsonl`
+
+This file must actively try to break the ranking.
+
+At minimum include tests for:
+
+- using usefulness to justify text mutation
+- using exact-text fidelity to excuse unusable fragments
+- treating “understandable on its own” as if it were always benign
+- treating “right size” as a simple word-count problem
+- ignoring the difference between recoverable inconvenience and silent corruption
+- pretending all four items are same-type peer criteria
+- forcing a neat `4 > 1 > 2 > 3` answer when the raw evidence may only clearly fix `4 > 1`
+- treating external framing as the same thing as mutating source text
+
+Each record must include at minimum:
+
+- `id`
+- `test_name`
+- `attack`
+- `what_bad_systems_would_do`
+- `what_correct_handling_requires`
+- `source_basis`
+- `owner_relation`
+
+---
+
+### `12_traceability.jsonl`
+
+This file must prove no-loss routing.
+
+Every distinct substantive point from my raw reaction must be routed somewhere.
+
+Each record must include at minimum:
+
+- `id`
+- `raw_point`
+- `point_type`
+- `routed_to`
+- `why_routed_there`
+- `source_basis`
+- `owner_relation`
+
+At minimum route all of these:
+
+- system optimizes for teaching units, not excerpts as ends in themselves
+- item **(4)** is most important
+- violating **(1)** is catastrophic because of false attribution
+- item **(2)** is less catastrophic under ordinary reading because manual recovery exists
+- item **(2)** becomes deadly under harsher reading
+- item **(3)** too big causes chaos in the owner’s mind
+
+Do **NOT** let important points remain preserved only implicitly.
+
+---
+
+### `13_open_questions.jsonl`
+
+Only include **genuine unresolved owner-threshold questions or protocol gaps** that still matter after reasoning.
+
+If none remain, emit an **empty file**.
+
+If included, each record must include:
+
+- `id`
+- `question`
+- `why_unresolved`
+- `what_answer_would_change`
+
+Likely candidates include:
+
+- whether the owner-faithful order between ordinary-reading **(2)** and **(3)** is actually stable
+- whether the question should be represented as a pure ranking or as an explicitly structured priority architecture
+
+Do **NOT** pad this file with fake openness.
+
+---
+
+### `14_hard_judgment.md`
+
+This file must be blunt.
+
+It must state clearly:
+
+- what the strongest owner-faithful ranking is
+- what parts of that ranking are solid vs conditional
+- why **(4)** wins
+- why **(1)** remains near-top and non-negotiable
+- why **(2)** is the most interpretation-sensitive item
+- why **(3)** must be treated as granularity fitness, not mere brevity
+- what would be reckless to automate or flatten
+- what would be reckless to treat as fully settled
+
+Also separate clearly between:
+
+- **owner-faithful judgment**
+- **broader engineering / protocol judgment**
+
+No motivational fluff.
+
+---
+
+## Final response format
+
+If file creation succeeds, do **NOT** print the full contents inline.
+
+Return only:
+
+1. a real download link to `chatgpt_s1_collection_bundle.zip`
+2. real download links to the individual generated files
+3. a short integrity report containing:
+   - total files created
+   - final owner ranking
+   - ranking status
+   - total decision steps
+   - total tradeoff scenarios
+   - total term-disambiguation records
+   - total goal-vs-constraint records
+   - total failure-mode records
+   - total nonnegotiables
+   - total red-team tests
+   - total explicit draft items
+   - total inferred items
+   - total model-expansion items
+   - any minimal repairs made during validation
+   - `raw_owner_source_preserved: yes/no`
+   - `raw_full_input_preserved: yes/no`
+
+---
+
+## Final requirements
+
+- no generic filler
+- no shallow ranking answer
+- no fake neatness
+- no reopening excerpt review
+- no reopening unrelated canon work
+- no “we should later...” except inside explicitly marked open questions
+- no silently upgrading `model_expansion` into owner truth
+- no treating the four items as same-type peers if they are not
+- no letting usefulness justify mutation
+- no letting fidelity excuse unusable fragments
+- no flattening the ambiguity of item **(2)**
+- no reducing item **(3)** to simple shortness
+
+Most important:
+
+I do **NOT** want a shallow ranking answer.
+
+I want an **owner-faithful questionnaire answer plus an exhaustive machine-readable collection showing how this case reveals the system’s top-level study objective, the non-negotiability of source integrity, the interpretation-sensitive nature of self-containment, the granularity problem behind “right size,” and the structural asymmetry between goals and constraints** — with raw owner source preserved, actual downloadables generated, and the whole collection packaged consistently.
+
+Start now.
+
+If owner-specific questions are truly needed, ask them first and stop.  
+Otherwise proceed directly to generating the files and ZIP.
+
+---
+
+## Appendix A — Full question block
+### This block is part of the full input artifact.
+### Preserve it in `s1_full_user_input_2026_04_07.txt`.
+
+New question: S-1.
+
+The question is about priority ranking.
+
+When the excerpting engine faces conflict between these four things —
+
+1. keeping the exact original text untouched  
+2. making the excerpt understandable on its own  
+3. making the excerpt the right size  
+4. making the excerpt useful to study from  
+
+— which one should win?
+
+Rank them from most important to least important, and explain why.
+
+---
+
+## Appendix B — Raw owner reaction
+### Preserve this in `s1_owner_raw_reaction_2026_04_07.txt` exactly as given here.
+
+A: 4. This is the most important; everything else (all the rules, protocols, ...) are specifically designed to present TEACHING UNITS, not per se 'excerpts' ... 'excerpts' is kinda like refering to the raw text from a specific source, but the combination of that excerpt, context, metadata ... is a teaching unit. And that's the ultimate goal
+
+B: 1. Not adhering to this is catasptrohpic, and will cause the owner to attribute wrong things to scholars.
+
+C: 2. Assuming this means context: This does not corrupt the knowledge itself, and most importantly: it's not silent and there IS a solution (me looking up things manually). This is absolutely not what the library should provide, but if this would happen, it would be les catastrophic than any silent failures.
+
+But if with 'understandle on its own' is meant that there are pieces cut out, ... then that is absolutely deadly.
+
+D: 3. a too big of an excerpt (not optimally subexcerpted) causes chaos in the mind of the owner: topics get mixed, scrambled, ... which is exactly what the library aims to prevent.

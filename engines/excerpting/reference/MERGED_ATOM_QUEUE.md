@@ -6,6 +6,7 @@
 > Cross-referenced against: SPEC.md section 1.1b (FP-1 through FP-18), FOUNDATIONS_HARDENING_LEDGER.md (atoms 1-17), THEMATIC_BATCHES.md (7 batches)
 >
 > **Dedup reconciliation: 2026-04-07, Session 10.** All 80 actionable atoms reconciled against ledger B1-B6 and SPEC content. See `DEDUP_RECONCILIATION_SESSION10.md` for full mapping.
+> **S-1 intake: 2026-04-07, Session 11.** 11 governance atoms extracted from S-1 priority ranking bundle (18 files). See Section M.
 
 ---
 
@@ -19,7 +20,8 @@
 | **Meta-directives from F1/F2 (Section C)** | 47 |
 | **Deferred / cross-engine (Section J)** | 18 |
 | **Red-team tests to automate (Section K)** | 62 |
-| **Total owner ideas accounted for** | 250 |
+| **S-1 governance atoms (Section M)** | 11 |
+| **Total owner ideas accounted for** | 261 |
 | **Silent drops** | **0** |
 
 ### Reconciled implementation status (Session 10 dedup)
@@ -629,4 +631,79 @@ MAQ-ID assignment deferred to BCV session (Session 6) after deduplication pass a
 
 ---
 
-*End of Merged Atom Queue. Every idea from F1-F8 + G1-G4 + SC1-SC3 is accounted for. F-series: 250 ideas (88 actionable). G/SC-series: 157 raw atoms (pending dedup + BCV). Zero silent drops.*
+---
+
+## Section M: S-1 PRIORITY RANKING INTAKE (Session 11, 2026-04-07)
+
+> S-1 bundle: "Priority ranking under conflict" — owner's forced ranking of 4 priorities.
+> 1 bundle, 18 files, ~70KB. Ingested from `chatgpt_s1_collection_bundle.zip`.
+> Source: ChatGPT questionnaire session with owner raw reaction preserved verbatim.
+> This is a GOVERNANCE bundle, not a behavioral-observation bundle like G/SC.
+> Atoms here shape how conflicts between existing FPs are resolved.
+
+### M.1 — Owner Priority Ranking (Ground Truth)
+
+**Forced ranking (most → least important):**
+1. Making the excerpt useful to study from
+2. Keeping the exact original text untouched
+3. Making the excerpt understandable on its own
+4. Making the excerpt the right size
+
+**Confidence:** medium (first two positions solid, tail conditional on interpretation of item 3)
+**Structural asymmetry:** YES — items are NOT peer criteria
+
+### M.2 — Extracted Atoms
+
+| ID | Summary | Authority | Disposition | Prompt-Affecting | Strengthens/Extends |
+|----|---------|-----------|-------------|------------------|---------------------|
+| S1-001 | TEACHING UNIT IS THE TOP-LEVEL GOAL — System exists to produce teaching units (excerpt + context + metadata), not excerpts as ends. Study usefulness is the #1 objective. | owner_explicit | FP | YES | Strengthens FP-5 (study-readiness), reinforces FP-C5 (teaching-unit vocabulary) |
+| S1-002 | SOURCE INTEGRITY IS A HARD CONSTRAINT — Source corruption / false attribution is CATASTROPHIC. Ranked #2 but functions as a non-negotiable boundary, not a peer priority. | owner_explicit | SPEC | NO | Reinforces FP-2, FP-19 (source integrity) |
+| S1-003 | SELF-CONTAINMENT HAS DUAL READINGS — "Understandable on its own" splits: (a) ordinary = recoverable context friction (ranked #3), (b) destructive = meaning-damaging text omission ("absolutely deadly", merges with integrity failure). Must disambiguate before scoring. | owner_explicit | SPEC+PROMPT | YES | New insight for C-SC rules; extends FP-C10 (anti-manhunt) |
+| S1-004 | GRANULARITY ≠ BREVITY — "Right size" means topic non-mixing / anti-scrambling discipline, NOT word-count minimization. Oversized excerpts cause mental chaos. | owner_explicit | SPEC | YES | Strengthens FP-1 (granularity), FP-6 (topic purity) |
+| S1-005 | USEFULNESS ≠ MUTATION LICENSE — Top-ranked study usefulness does NOT authorize source text corruption. Usefulness must be achieved WITHIN the integrity boundary, not at its expense. | owner_explicit | SPEC | NO | New constraint; reinforces FP-2 |
+| S1-006 | EXTERNAL ADD-ONS ≠ SOURCE MUTATION — Clearly separated metadata, context, framing around raw excerpt text is NOT a violation of source integrity. This is the key non-destructive pathway for achieving usefulness. | owner_consistent_inference | SPEC | NO | New distinction; aligns with FP-2 layered architecture |
+| S1-007 | STRUCTURAL ASYMMETRY — The 4 ranking items are NOT peer criteria: (4)=top-level goal, (1)=hard constraint, (2)+(3)=subordinate design pressures. Do not flatten into symmetric sliders or weighted averages. | owner_consistent_inference | META | NO | New structural insight for priority encoding |
+| S1-008 | FORCED RANKING WITH CAVEAT — Owner-faithful order is 4>1>2>3 as a forced linearization with explicit caveat: first two positions strongly anchored, tail less settled, ranking is not a clean peer-to-peer ordering. | owner_explicit | SPEC | NO | Governance atom for priority conflicts |
+| S1-009 | RECOVERABLE vs SILENT FAILURE HIERARCHY — Owner distinguishes: missing context = recoverable (manual lookup exists, serious but not catastrophic); silent corruption = catastrophic (no warning, knowledge damage). This hierarchy governs failure-mode severity classification. | owner_explicit | SPEC | NO | New severity classification; extends error handling framework |
+| S1-010 | LEXICOGRAPHIC PRIORITY MODEL — The ranking is best understood as: "maximize study usefulness WITHIN the hard boundary of source integrity, UNDER the design pressures of self-containment and granularity fitness." Not a weighted average. | owner_consistent_inference | META | NO | Governance model for priority conflicts |
+| S1-011 | RED-TEAM BATTERY FOR PRIORITY RANKING — 8 adversarial tests: (RT-001) usefulness-justifies-mutation, (RT-002) fidelity-excuses-fragments, (RT-003) ordinary-reading-flattening, (RT-004) right-size-is-shortness, (RT-005) recoverable-vs-silent-confusion, (RT-006) peer-slider-flattening, (RT-007) neat-tail-overclaim, (RT-008) external-add-on-conflation. | model_expansion | TEST | NO | Section K equivalent for S-1 |
+
+### M.3 — Disposition Breakdown
+
+| Disposition | Count | Notes |
+|-------------|-------|-------|
+| SPEC | 5 | S1-002, S1-005, S1-006, S1-008, S1-009 — governance-level SPEC amendments |
+| SPEC+PROMPT | 1 | S1-003 — dual-reading disambiguation affects prompt self-containment instructions |
+| FP | 1 | S1-001 — teaching-unit-as-goal is FP-level (strengthens FP-5, validates FP-C5) |
+| META | 2 | S1-007, S1-010 — structural/governance documentation |
+| TEST | 1 | S1-011 — 8 red-team test cases for Section K |
+| **PROMPT-AFFECTING** | **3** | S1-001, S1-003, S1-004 |
+
+### M.4 — Cross-Reference to Existing FPs and Atoms
+
+| S1 Atom | Existing FP/Atom | Relationship |
+|---------|-----------------|--------------|
+| S1-001 | FP-5 (study-readiness), FP-C5 (teaching-unit naming) | STRENGTHENS — elevates teaching-unit concept to top-level goal |
+| S1-002 | FP-2 (source integrity), FP-19 (no silent failures) | REINFORCES — confirms catastrophic-failure classification |
+| S1-003 | C-SC-2 (self-containment), FP-C10 (anti-manhunt) | EXTENDS — adds dual-reading disambiguation requirement |
+| S1-004 | FP-1 (granularity), FP-6 (topic purity) | STRENGTHENS — "right size" = anti-scrambling, not brevity |
+| S1-005 | FP-2 (source integrity) | NEW CONSTRAINT — usefulness ≠ mutation license |
+| S1-006 | FP-2 (source integrity) | NEW DISTINCTION — add-on context ≠ source mutation |
+| S1-009 | Error handling framework | NEW — recoverable vs silent failure severity hierarchy |
+| S1-010 | N/A | NEW — lexicographic priority model for conflict resolution |
+
+### M.5 — Open Questions from S-1
+
+| ID | Question | Impact |
+|----|----------|--------|
+| S1-OQ-001 | Is the tail ordering (self-containment > granularity) fully stable under all readings of "understandable on its own"? | Affects SPEC encoding of priority order |
+| S1-OQ-002 | Should the priority structure be encoded as a pure ranking or as a lexicographic goal/constraint architecture in the SPEC? | Affects §1.1b FP formulation |
+
+### M.6 — Status
+
+All 11 atoms are **PRELIMINARY (0/3 coworkers)**. CC-only extraction.
+Next step: Coworker validation (minimum 2 sources) before any S1 atoms advance.
+
+---
+
+*End of Merged Atom Queue. Every idea from F1-F8 + G1-G4 + SC1-SC3 + S-1 is accounted for. F-series: 250 ideas (88 actionable). G/SC-series: 157 raw atoms (pending dedup + BCV). S-1: 11 governance atoms (pending coworker validation). Zero silent drops.*
