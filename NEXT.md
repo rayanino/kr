@@ -58,7 +58,7 @@
 - 12 SOFTENED items documented for debt clearance
 
 ### What's Needed Next
-1. **Session 9 (NEXT):** Prompt refactor (§4.11 gate) + SPEC sync. Handoff at `reference/handoffs/excerpting_foundations_session9_kickoff_2026-04-07.md`. 3 prompt changes (T1-1..T1-3) + 7 SPEC additions (T2-1..T2-7). DR21 7-step recipe for prompt compression.
+1. **Session 9 (NEXT):** Prompt refactor (§4.11 gate) + SPEC sync. Handoff at `reference/handoffs/excerpting_foundations_session9_kickoff_2026-04-07.md`. Prep doc at `engines/excerpting/reference/PROMPT_REFACTOR_PREP_SESSION9.md` — shared content analysis done (~195 words extractable), all 25 rules pre-categorized A/B/C/D, merging candidates identified. 3 prompt changes (T1-1..T1-3, +32 words net) + 7 SPEC additions (T2-1..T2-7). DR21 7-step recipe for prompt compression. Execute Step 1 (system prompt extraction) first.
 2. **Session 10:** Complete dedup (remaining 90 non-NN atoms) + MAQ-089+ assignment
 3. **Session 11+:** Full-atom processing through 7-stage lifecycle
 4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)

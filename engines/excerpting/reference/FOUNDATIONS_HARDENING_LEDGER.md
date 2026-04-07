@@ -59,7 +59,7 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B3-P1 | Multi-function split (>20% per function) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (exempt تخصيص/شرط/استثناء). Codex: NEEDS-REVISION (20% is weak heuristic). T1-2: soften threshold + semantic exemption → Session 9. |
 | B3-P2 | Introduction scope classification | **CONFIRMED + SPEC SYNC PENDING** | Gemini: CONFIRM (distinction sound). Codex: NEEDS-REVISION (not in SPEC §5.3.2). T2-3: add to SPEC. |
 | B3-P3 | Three-part proof structure (1+2 together, 3 conditional) | **CONFIRMED WITH AMENDMENTS** | Gemini: CHALLENGE (dialectical exception). Codex: NEEDS-REVISION (no SPEC section + FP-14 cross-ref). T1-3 + T2-4 → Session 9. |
-| B3-SP1 | Scholar-quoting-scholar protocol | **CONFIRMED + NEEDS SPEC PROTOCOL** | Gemini: CONFIRM (essential). Codex: CHALLENGE (**highest risk** — no SQ-1, 80% rule flips authorship). T2-5 → Session 9. |
+| B3-SP1 | Scholar-quoting-scholar protocol | **CONFIRMED + NEEDS SPEC PROTOCOL** | Gemini: CONFIRM (essential). Codex: NEEDS-REVISION (no SQ-1, LA-2 can flip authorship on nested quotes). T2-5 → Session 9. |
 | B3-SP2 | Boundary consistency audit | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM. Codex: CHALLENGE (no BC-1 audit rule). T2-6 → Session 9. |
 | B3-SP3 | Malformation-first diagnosis | **CONFIRMED + NEEDS SPEC RULE** | Gemini: CONFIRM (universal). Codex: NEEDS-REVISION (no MF-1 rule). T2-7 → Session 9. |
 | B3-SP4 | Boundary mustn't distort meaning | **CONFIRMED (2/2)** | Gemini: CONFIRM. Codex: CONFIRM. FP-1+3+9+13 collectively cover this. |

@@ -19,7 +19,7 @@
 | B3-P1 | CHALLENGE | NEEDS-REVISION | **BOTH WANT CHANGES** | 20% threshold + semantic dependency exemption |
 | B3-P2 | CONFIRM | NEEDS-REVISION | Compatible | SPEC SYNC needed (not in §5.3.2) |
 | B3-P3 | CHALLENGE | NEEDS-REVISION | **BOTH WANT CHANGES** | Dialectical exception + SPEC formalization |
-| B3-SP1 | CONFIRM | CHALLENGE | Compatible | Scholarly sound + needs SPEC protocol (SQ-1) |
+| B3-SP1 | CONFIRM | NEEDS-REVISION | Compatible | Scholarly sound + needs SPEC protocol (SQ-1) |
 | B3-SP2 | CONFIRM | CHALLENGE | Compatible | Sound + needs SPEC audit rule (BC-1) |
 | B3-SP3 | CONFIRM | NEEDS-REVISION | Compatible | Sound + needs explicit MF-1 rule |
 | B3-SP4 | CONFIRM | CONFIRM | **CONFIRMED (2/2)** | No changes needed |
