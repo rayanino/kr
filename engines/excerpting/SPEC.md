@@ -43,9 +43,9 @@ These principles were extracted, challenged, and hardened from owner Q&A respons
 
 **FP-6 (Rules + intelligence):** The more rules, examples, and edge cases we define, the more accurate the engine gets. But rules alone are not enough — the LLM must also apply intelligent reasoning for cases not covered by explicit rules. New scholar methodologies will appear that no predefined rule anticipates. The engine must have uncertainty gates for cases where the system is not confident (owner F5, 2026-04-04).
 
-**FP-7 (Fetched proof vs book-preserved proof):** Book-preserved proofs (as scholars cite them) and authoritatively fetched proofs (from primary sources like Sahih al-Bukhari) are two distinct layers that both belong in the library. The book-preserved proof is for analyzing how the scholar handled it. The fetched proof is for memorization and direct study. Neither replaces the other (owner F5, F6, 2026-04-04). Implementation of the fetched-proof layer is deferred to a cross-engine design phase.
+**FP-7 (Fetched proof vs book-preserved proof):** Book-preserved proofs (as scholars cite them) and authoritatively fetched proofs (from primary sources like Sahih al-Bukhari) are two distinct layers that both belong in the library. The book-preserved proof is for analyzing how the scholar handled it. The fetched proof is for memorization and direct study. Neither replaces the other (owner F5, F6, 2026-04-04). Implementation of the fetched-proof layer is deferred to a cross-engine design phase. **Hadith variant-mismatch risk (MAQ-056/072, B5-SP3):** Different scholars may cite different wordings, transmission routes, or gradings of what appears to be "the same hadith." A scholar who explains حديث أنس may be working from a version that differs in wording, chain, or grading from another scholar's citation. The engine must NOT collapse these into a single generic proof reference — each scholar's version is a distinct witness that may carry different rulings. When FP-7's fetched-proof layer is implemented, the alignment between book-preserved and authoritative versions must record match type (exact / close variant / materially different) per proof instance (owner F5, F6; MAQ-056 "hunting" problem).
 
-**FP-8 (Khilaf-tarjih distinction):** The unbiased mapping of scholarly disagreement (تحرير الخلاف) and the scholar's biased conclusion (ترجيح) are distinct scholarly functions. Full resolution is deferred to questionnaire items K-1 through K-3. See §6.1 design note.
+**FP-8 (Khilaf-tarjih distinction):** The unbiased mapping of scholarly disagreement (تحرير الخلاف) and the scholar's biased conclusion (ترجيح) are distinct scholarly functions. Full resolution is deferred to questionnaire items K-1 through K-3. See §6.1 design note. **Attribution-critical tarjih (MAQ-053, B5-SP1):** Tarjih records what a specific scholar prefers — clipping or flattening a tarjih statement changes what the scholar is recorded as saying. A passage "وأصحها ما ذهب إليه الجمهور ..." (and the most correct is what the majority held...) where the completion is stripped produces a fragment that attributes the majority view without the scholar's reasoning or qualification. This is not a granularity problem — it is an attribution corruption (T-2). **Clipped tarjih prohibition (MAQ-054, B5-SP2):** A tarjih lead-in without its completion (the preferred view fully stated) must not be accepted as a standalone excerpt. If Phase 1 chunk splitting severs a tarjih from its completion, the chunk must be flagged for review. A tarjih is complete when: (a) the preferred opinion is stated, (b) the scholar's reasoning is included or cross-referenced, and (c) the alternatives are identified or cross-referenced (owner F4, ALL-CAPS "THE ترجيح OF A SCHOLAR IS EXTREMELY IMPORTANT").
 
 **FP-9 (Overgranulation is worse than undergranulation):** An overgranulated taxonomy tree is more dangerous than an undergranulated one because reassembling fragments is harder than splitting a coarse unit. This constrains both excerpting granularity and taxonomy placement (owner F8, 2026-04-04).
 
@@ -1648,6 +1648,35 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 3. **Grouping logic:** Only after ruling out input and classification errors, investigate the grouping prompt's behavior.
 
 **Rationale:** Most grouping failures observed during hardening trace back to upstream issues (malformed input or classification errors), not to grouping prompt deficiencies. Diagnosing in the wrong order (starting with the prompt) leads to unnecessary prompt patches that mask the real problem. (B3-SP3 — Session 9.)
+
+### §6.11 — Footnote Handling Protocol (FN-1)
+
+**FN-1 (Footnote-excerpt unity):** A directly related footnote must never be separated from the text it footnotes. Footnotes in Islamic scholarly texts range from brief marginal notes to extensive sub-treatments that constitute "sub-books" within a work. The default disposition is: keep the footnote glued to its parent text.
+
+**Separation conditions (all must hold):**
+1. The footnote is self-contained (it does not reference the parent text with pronouns, demonstratives, or implicit subject).
+2. The footnote addresses a substantively different topic (not a clarification, source citation, or variant reading for the parent).
+3. The footnote is long enough to constitute a standalone teaching unit (passes MV-1).
+
+**When footnotes cannot be separated:** Citation footnotes (sources for a claim), variant-reading footnotes (نسخة / في نسخة), clarification footnotes (أي / يعني), and editorial apparatus (في الأصل / كذا في المطبوع) always stay with their parent text. These are part of the author's or editor's argument structure.
+
+**Phase 1 responsibility:** Footnote renumbering (§4.7) preserves the footnote-text association. Phase 2 grouping must not split a text+footnote pair across teaching units unless the separation conditions are met. (MAQ-071, owner F1: "always lean towards keeping the footnote glued.")
+
+### §6.12 — Interleaved Methodology Awareness (IM-1)
+
+**IM-1 (Topic-proof-explanation pattern):** Some scholars present material in a deeply interleaved pattern: topic → proof₁ → explanation-containing-rules → proof₂ → more-explanations. In this pattern, rulings and proofs are not neatly separated — the explanation of one proof naturally contains rules that could themselves be excerpted. The engine must recognize this pattern and NOT force artificial separation of what the scholar intentionally interleaved.
+
+**Detection signal:** When Phase 2 classifies consecutive segments as alternating between `evidence_*` and `ruling_*` or `opinion_statement` functions within a single passage, with no clear section breaks (كتاب, باب, فصل), the text likely follows interleaved methodology.
+
+**Handling:** Apply EE-1 (explained-explanation unity) broadly across the interleaved sequence. The passage boundaries should respect the scholar's methodological structure, not impose an artificial topic-proof-explanation separation. Phase 2 grouping should prefer larger, scholar-coherent units over finer function-based splits when interleaving is detected. (MAQ-069, owner F5 — concrete scholarly methodology observation.)
+
+### §6.13 — Hukm-Return Visibility (HR-1)
+
+**HR-1 (Ruling visibility at home location):** When a short hukm-return phrase (a brief restatement of a ruling) appears within a refutation or evidence section, it may remain in that context. However, the ruling itself must ALSO appear in a ruling-focused excerpt at its logical home location. A ruling that exists only as a fragment inside a refutation is invisible to a reader studying rulings.
+
+**The problem:** A reader studying "أحكام الصلاة" (rulings of prayer) expects to find the ruling at the prayer-rulings leaf. If the only place that ruling appears is buried inside a refutation passage at the "ردود" (refutations) leaf, the reader will not find it. The ruling effectively does not exist at its home.
+
+**Implementation:** This is a post-Phase-2 audit concern. When Phase 2 groups segments, if a `ruling_primary` segment appears only within a teaching unit dominated by `refutation` or `evidence_*` function, flag for review: the ruling may need a separate teaching unit at its home location, with the refutation context preserved via cross-reference. (MAQ-038, owner F3 — hukm-return within refutation.)
 
 ---
 

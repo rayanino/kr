@@ -81,16 +81,19 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B4-SP14 | A×B intertwined protocol | **SPEC-ONLY** | MAQ-050. If both short: duplicate. If A long B short: B stays in A. |
 | B4-SP15 | Readability ≠ correctness | **SPEC-ONLY** | MAQ-052. Readable output is not proven correct. |
 | B5 | **BATCH 5: Tarjih/Khilaf/Proof (21 MAQ atoms)** | **SPEC-ONLY** | Prompt FULL (1474/1500). All atoms go to SPEC or deferred. |
-| B5-SP1 | Attribution-critical tarjih | **SPEC-ONLY** | MAQ-053. Strengthen FP-8 with attribution-loss framing. |
-| B5-SP2 | Clipped tarjih prohibition | **SPEC-ONLY** | MAQ-054. Tarjih must include completion of preferred view. |
-| B5-SP3 | Hadith variant-mismatch risk | **SPEC-ONLY** | MAQ-056. Scholars may explain different wordings of same proof. |
+| B5-SP1 | Attribution-critical tarjih | **IMPLEMENTED (Session 10)** | MAQ-053. FP-8 strengthened with attribution-critical framing + clipped tarjih prohibition. |
+| B5-SP2 | Clipped tarjih prohibition | **IMPLEMENTED (Session 10)** | MAQ-054. Added to FP-8: tarjih lead-in without completion rejected. |
+| B5-SP3 | Hadith variant-mismatch risk | **IMPLEMENTED (Session 10)** | MAQ-056. Added to FP-7: version/wording/grading differences, match-type recording. |
 | B5-SP4 | Proof-as-witness not-memorization-source | **VERIFIED** | MAQ-058. FP-7 covers this. |
-| B5-SP5 | Parallel-layer principle (help beside source) | **SPEC-ONLY** | MAQ-059. Help never overwrites source. Extends FP-2. |
-| B5-SP6 | Provenance-auditability | **SPEC-ONLY** | MAQ-063. Every unit traceable to source+version+lineage. Extends D-023. |
+| B5-SP5 | Parallel-layer principle (help beside source) | **COVERED** | MAQ-059. FP-2+FP-7 collectively cover help-beside-source. No new SPEC needed. |
+| B5-SP6 | Provenance-auditability | **COVERED** | MAQ-063. D-023+FP-5 three-class provenance covers auditability. No new SPEC needed. |
 | B5-SP7 | Proof-stack cross-reference | **DEFERRED** | MAQ-067. Which proofs a scholar used together. Cross-engine. |
-| B5-SP8 | Interleaved methodology awareness | **SPEC-ONLY** | MAQ-069. topic→proof→explanation-with-rules→proof pattern. |
-| B5-SP9 | Footnote handling protocol | **SPEC-ONLY** | MAQ-071. Directly related footnotes never separated. Default: keep glued. |
+| B5-SP8 | Interleaved methodology awareness | **IMPLEMENTED (Session 10)** | MAQ-069. New SPEC §6.12 IM-1: topic-proof-explanation interleaved pattern. |
+| B5-SP9 | Footnote handling protocol | **IMPLEMENTED (Session 10)** | MAQ-071. New SPEC §6.11 FN-1: footnote-excerpt unity with separation conditions. |
 | B5-DEF | 7 atoms deferred (cross-engine) | **DEFERRED** | MAQ-057/060/061/062 (proof alignment, variant classification, analytics, layer chunking). |
+| B4-SP3 | Hukm-return visibility | **IMPLEMENTED (Session 10)** | MAQ-038. New SPEC §6.13 HR-1: ruling must appear at home location. |
+| B5-072 | Hadith version-sensitivity | **IMPLEMENTED (Session 10)** | MAQ-072. Merged with B5-SP3 in FP-7 strengthening. |
+| DEDUP | **MAQ Dedup Reconciliation** | **COMPLETE (Session 10)** | All 80 actionable atoms reconciled. 33 implemented, 22 covered, 4 SPEC-pending (LOW), 10 deferred, 3 open, rest merged/captured/documented. See DEDUP_RECONCILIATION_SESSION10.md. |
 | B6 | **BATCH 6: Other (9 MAQ atoms)** | **SPEC-ONLY** | Mixed: 3 SPEC, 2 deferred, 1 prompt (FP-15 enforcement), 3 documented. |
 | B6-P1 | FP-15 rhetorical posture → prompt | **DEFERRED** | MAQ-I09. FP-15 is SPEC-only. Prompt enforcement deferred to corpus expansion per FP-15 text. |
 | B6-SP1 | No-layout-mutation principle | **SPEC-ONLY** | MAQ-I06. Don't change determined excerpt layout. |

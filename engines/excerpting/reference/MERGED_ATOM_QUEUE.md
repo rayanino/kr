@@ -4,6 +4,8 @@
 > Generated: 2026-04-04, Session 2.
 > Sources: F1_F8_COMPLETE_ATOM_EXTRACTION.md (81 atoms), QUEUE_AUDIT (124 gaps), CRITICAL_ATOMS (63 NN + 62 RT)
 > Cross-referenced against: SPEC.md section 1.1b (FP-1 through FP-18), FOUNDATIONS_HARDENING_LEDGER.md (atoms 1-17), THEMATIC_BATCHES.md (7 batches)
+>
+> **Dedup reconciliation: 2026-04-07, Session 10.** All 80 actionable atoms reconciled against ledger B1-B6 and SPEC content. See `DEDUP_RECONCILIATION_SESSION10.md` for full mapping.
 
 ---
 
@@ -19,6 +21,22 @@
 | **Red-team tests to automate (Section K)** | 62 |
 | **Total owner ideas accounted for** | 250 |
 | **Silent drops** | **0** |
+
+### Reconciled implementation status (Session 10 dedup)
+
+| Status | Count | Notes |
+|--------|-------|-------|
+| **IMPLEMENTED** (code/SPEC changes exist) | 33 | B1 FPs + B2 prompt/SPEC + B3 §6.7-6.10 + B4-P1 prompt + Session 10 §6.11-6.13 |
+| **COVERED** (existing FPs/rules adequate) | 22 | No new changes needed |
+| **SPEC-PENDING** (need SPEC text, LOW priority) | 4 | MAQ-036/042/048/050 — Session 10 wrote 6 of original 10 |
+| **MERGED** | 8 | Consolidated into other MAQs |
+| **CAPTURED** | 4 | Already fully encoded in FPs |
+| **DEFERRED** | 10 | Cross-engine or future capability |
+| **OPEN** | 3 | Design questions needing DR or research |
+| **PROJECT-LEVEL** | 4 | Budget/infrastructure, not excerpting SPEC |
+| **DOCUMENTED** | 1 | Design rationale recorded |
+| **REFERENCE** | 3 | Canonical examples for reference docs |
+| **Section K** | 1 | Red-team test cross-reference |
 
 ### Authority distribution (new MAQ atoms, Sections D-I)
 
