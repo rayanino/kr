@@ -74,12 +74,15 @@
 **ALL 5 COWORKERS COMPLETE. Final synthesis:** `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`
 **Gemini DR added:** Fiqh masking layer, mantiq as science #19, Basran terminology default, month-by-month calendar.
 
-**3 owner-facing curriculum questions (BLOCKING next steps):**
-1. Which madhab to follow? (blocks fiqh processing)
-2. Basran-only or both grammar schools? (blocks nahw synonym layer)
-3. Study logic (mantiq) before usul? (blocks mantiq tree)
+**Owner curriculum decisions (2026-04-07, RESOLVED):**
+1. Primary madhab: **Hanbali** → fiqh masking layer suppresses Hanafi/Shafi'i/Maliki until baseline mastery
+2. Mantiq: **Yes, add as science #19** → foundational logic tree required before usul al-fiqh
+3. Basran terminology: **TBD** (not yet asked — lower priority, blocks nahw synonym layer)
 
-**Next:** Owner answers → requirements document → `/ce:plan` for collection system implementation
+**Next steps:**
+1. Write brainstorm requirements document (`docs/brainstorms/`) formalizing the 5-coworker synthesis into implementation-ready requirements
+2. `/ce:plan` to design the feedback collection system (structured review interface, questionnaire completion, calibration pipeline)
+3. Begin Phase A collection: formalize user_model artifact + remaining questionnaire items (S-1 priority ranking first)
 
 **Key owner data already collected from interview (partially resolves 9 of 42 decisions):**
 - Science priority: Arabic first, fiqh/usul/aqidah passion lane
