@@ -1,0 +1,62 @@
+We already adressed that the linguistic and technical meaning should be separated.
+
+Within the technical meaning, there can be branches, ofcourse. Most of the times, there are different opinions about the technical definition, so usually there will be multiple branches.
+
+This specific excerpt we are handling, this is how I would want it to be:
+
+In the leaf:
+
+… → kilalah → definition → جمهور → definition → ex1  
+                                  → attributions → ex2  
+									 → proof → ayahx → ex3
+
+—------- … ex1: the definition —--------
+<context needed>
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.
+
+Note how وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد is actually more related to the proof and not directly to the definition. But, as we have seen many times before, this is insignificantly short but more importantly: harmless. Reading this entire excerpt, even if it contains that part that is not 100% directly related, does absolutely no harm, in fact: it benefits me; the author wrote this continuously for a reason: only separated by a comma because they are not 100% related but reading it as one continuous piece hardens the understanding.
+
+So the way the author writes; his intentions, use of diatrics etc. reveals a lot. But this is NOT SOMETHING TO RELY ON, JUST A MERE HINT; because earlier scholars sometimes write without diatrics; canonical texts. So the layout of the author: all the way from the table of contents, diatrics, hints, references, … all can be used as hints, but should be deemed unreliable to make conclusions on.
+
+This actually reminds me of something I’ve spoken about earlier and I still think its true: WE CAN STILL DO WAY MORE ANALYSIS AND PATTERN RECOGNITION before officially sending passages off to be excerpted. DEEP ANALYSIS OF THE PASSAGES - POSSIBLY BY LLMS - will reveal a lot of structure, what sentences link to what … This is what the old “atomizing” engine kinda had to do. With our new design (dropping the passaging and atomizing engines), I don’t know how well this is focused on: clear pattern recognition etc;
+
+The goal of that: BEFORE EXCERPTING GATHER AS MUCH FACTUAL INFORMATION, HINTS, … THESE SHOULD NOT INFLUENCE THE DECISION MAKING OF EXCERPTING, BUT CAN BE USED AS EXTRA NON-DECIDING confirmation.
+
+Because, as I said earlier: we need to enforce as many security and verification gates as possible to ensure SURGICAL ACCURACY. Excerpting is the most important yet dangerous part of the pipeline, so absurd amount of security and verification is absolutely justified.
+
+AN IMPORTANT TOPIC: we have already established the rule that none of the authors original text should be lost (except maybe in very rare cases we may come across, but for now the base rule stands). But there is another important question: where do we draw the line of a piece of text being ‘unsignificant’ / ‘redundant’?
+
+For example: imagine a part of text strictly speaking, this belongs to “proofs” … but what added benefit would it give to go through copying this, giving it its own dedicated excerpt, placing it at a tree … Especially since the system should recognize that this is a mere ‘mention’ of something that will come in more detail: the ayah itself will definitely still get mentioned and explained … so this is not the only reference of this proof.
+
+So the point is: if a small piece of ‘quick mention of a proof’ was the only reference to the proof, then yes, it should definitely get its own entry. But imagine if we know it’s not; we know the book later brings up the exact ayah and goes into way more detail. Then, that short mention loses significance …
+
+Do YOU SEE HOW MANY RECOGNIZABLE PATTERNS THERE ARE? THIS IS WHY I KEEP INSISTING ON DEDICATING TIME TO THIS.
+
+THE POINT: LEAF POLLUTION. This is an actual important topic we have not addressed properly yet: LEAF POLLUTION!!!!!!! LEAF POLLUTION!!!!!!!! LEAF POLLUTION!!!!!!!!!
+
+Back to my ideals:
+
+—------- … ex2: attributions —--------
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+As you can see, attributions is too closely related to the definition and the proof. The definition and the proof are directly related to the attributor: it is the proof and definition themselves that get attributed; THEY ARE THE ATTRIBUTIONS.
+
+So either we can keep the full excerpt (as I did here), or we can only keep the attribution-text and fill the rest up with context .. though in this specific case where the proof and definition are not exhaustively long (short and harmless), we can just keep them as one excerpt.
+
+But if the proofs was longer (which happens often; proofs are long), then the attributions-text should not include that proof, and instead, filled with context.
+
+You see how context can be replaced with actual text incases where the text is short and harmless? Else we need to manually fill with context.
+
+This brings up the topic of attributions, and what is relevant to know when something gets attributed to someone.
+
+—---exc3: the proof—-
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+Here the attributions are kept “proof x attributions” is especially important in the proof-excerpts, even more so than in the attribution-excerpts.

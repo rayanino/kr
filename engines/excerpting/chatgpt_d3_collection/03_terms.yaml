@@ -1,0 +1,144 @@
+- id: T-001
+  term: excerpt
+  working_definition: A bounded unit of knowledge treatment, not merely any adjacent
+    source text chunk.
+  why_it_matters_here: The case turns on whether adjacent definition/proof/attribution
+    material forms one excerpt or several.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-002
+  term: linguistic_definition
+  working_definition: The لغة meaning of a term as a distinct definitional unit.
+  why_it_matters_here: The owner already treats linguistic and technical meanings
+    as separate.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-003
+  term: technical_definition
+  working_definition: The شرعي / اصطلاحي meaning of a term as a distinct definitional
+    unit.
+  why_it_matters_here: This is the second main definition layer in the forced menu.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-004
+  term: school_specific_definition
+  working_definition: A meaning attributed to a school that may be distinct, nested,
+    or merely attributed, depending on the case.
+  why_it_matters_here: The menu risks flattening this into a flat third peer.
+  status: tentative
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-005
+  term: branch_under_technical
+  working_definition: A school-specific meaning modeled as a branch beneath the technical-definition
+    layer rather than as a flat sibling.
+  why_it_matters_here: This appears to be the stronger owner-consistent structure
+    for many cases.
+  status: owner_consistent_candidate
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-006
+  term: flat_menu_risk
+  working_definition: The danger that a forced questionnaire menu oversimplifies a
+    deeper hierarchy.
+  why_it_matters_here: The menu asks about three meanings while the current excerpt
+    is not actually three clean meaning layers.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-007
+  term: definition_excerpt
+  working_definition: The segment whose primary job is to define the term itself.
+  why_it_matters_here: Needed to distinguish the true definition from proof and attribution
+    material.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-008
+  term: proof_excerpt
+  working_definition: A segment whose primary job is to justify or infer the definition
+    from evidence.
+  why_it_matters_here: The ayah-related material in the current excerpt leans this
+    way.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-009
+  term: attribution_excerpt
+  working_definition: A segment whose primary job is to attribute a definition or
+    view to named authorities or a consensus layer.
+  why_it_matters_here: The Abu Bakr / جمهور sentence is best understood this way.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-010
+  term: short_harmless_carryover
+  working_definition: A packaging exception where a short tightly-related segment
+    may remain attached without changing the ontology of the unit.
+  why_it_matters_here: The raw reaction explicitly allows this for short proof material.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-011
+  term: leaf_pollution
+  working_definition: The problem of creating dedicated leaves for insignificant or
+    redundant mentions that do not deserve their own tree location.
+  why_it_matters_here: The raw reaction explicitly flags this as a major issue.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-012
+  term: mention_only
+  working_definition: A small or quick reference that may not be significant enough
+    to justify its own excerpt/leaf.
+  why_it_matters_here: The proof reference in this case may be such a mention if treated
+    later in fuller form.
+  status: tentative
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-013
+  term: significance_threshold
+  working_definition: The judgment of when a mention becomes important enough to deserve
+    its own excerpt or leaf.
+  why_it_matters_here: This is present in the raw reaction but not fully settled.
+  status: tentative
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-014
+  term: source_hint
+  working_definition: A structural clue from the source text that may increase confidence
+    but must not decide classification on its own.
+  why_it_matters_here: The raw reaction strongly distinguishes hints from deciding
+    authority.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-015
+  term: non_deciding_confirmation
+  working_definition: Use of source hints as secondary support rather than primary
+    determinant of excerpt structure.
+  why_it_matters_here: This is the owner’s stated role for pre-excerpt analysis.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-016
+  term: pre_excerpt_analysis
+  working_definition: Deeper structural analysis performed before excerpting to gather
+    hints and patterns.
+  why_it_matters_here: The raw reaction calls for more of this after dropping earlier
+    engines.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit
+- id: T-017
+  term: security_gate
+  working_definition: A verification gate that checks structural decisions before
+    excerpting is accepted as reliable.
+  why_it_matters_here: The owner explicitly demands stronger security and verification
+    around excerpting.
+  status: owner_stable
+  source_basis: explicit_draft
+  owner_relation: owner_explicit

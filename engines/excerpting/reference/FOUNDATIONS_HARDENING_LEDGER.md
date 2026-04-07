@@ -98,6 +98,12 @@ Agent team outputs are reviewed before closure. They feed the pressure-testing p
 | B4-SP12 | Theory-example vs practice-example | **IMPLEMENTED (Session 10)** | MAQ-048. New SPEC §6.16 TE-1: theory-examples stay with parent, practice-examples separate. |
 | B4-SP14 | A×B intertwined protocol | **IMPLEMENTED (Session 10)** | MAQ-050. New SPEC §6.17 IC-1: both-short=duplicate, A-long-B-short=B-stays-in-A. |
 | DEDUP | **MAQ Dedup Reconciliation** | **COMPLETE (Session 10)** | All 80 actionable atoms reconciled. 37 implemented, 22 covered, 0 SPEC-pending, 10 deferred, 3 open, rest merged/captured/documented. See DEDUP_RECONCILIATION_SESSION10.md. |
+| D3 | **D3: Multi-Layered Definition (last Q&A question)** | **IMPLEMENTED (Session 10)** | 22-file bundle processed. 3 new SPEC sections written. |
+| D3-LP1 | Leaf pollution prevention | **IMPLEMENTED (Session 10)** | New SPEC §6.18 LP-1: not every mention deserves an excerpt. Significance threshold. Book-level anti-pollution. |
+| D3-PO1 | Packaging vs ontology distinction | **IMPLEMENTED (Session 10)** | New SPEC §6.19 PO-1: packaging exceptions ≠ identity claims. Short carry-over doesn't merge functions. |
+| D3-SH1 | Source hints non-deciding | **IMPLEMENTED (Session 10)** | New SPEC §6.20 SH-1: layout/diacritics/punctuation are hints, never deciding authority. Extends FP-6. |
+| D3-NOTE | Pre-excerpt deep analysis | **DOCUMENTED** | Owner wants more pattern recognition before excerpting. Architectural question for Phase 1 enhancement or new pre-Phase-2 step. Not hardened into SPEC — needs design research. |
+| D3-NOTE2 | Significance threshold calibration | **DOCUMENTED** | Owner says threshold logic "not yet fully settled from one case" (LP-004). LP-1 is the framework; calibration deferred to evaluation phase. |
 | B6 | **BATCH 6: Other (9 MAQ atoms)** | **SPEC-ONLY** | Mixed: 3 SPEC, 2 deferred, 1 prompt (FP-15 enforcement), 3 documented. |
 | B6-P1 | FP-15 rhetorical posture → prompt | **DEFERRED** | MAQ-I09. FP-15 is SPEC-only. Prompt enforcement deferred to corpus expansion per FP-15 text. |
 | B6-SP1 | No-layout-mutation principle | **SPEC-ONLY** | MAQ-I06. Don't change determined excerpt layout. |

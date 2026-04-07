@@ -1,0 +1,40 @@
+issue_families:
+- issue_family: menu_flattening_risk
+  priority: high
+  why: The forced menu can hide the actual hierarchical structure the owner wants.
+  owner_relation: owner_explicit
+- issue_family: linguistic_vs_technical_separation
+  priority: high
+  why: This is already a stable owner judgment and anchors the whole answer.
+  owner_relation: owner_explicit
+- issue_family: school_specific_branching
+  priority: high
+  why: The answer turns on not flattening this into either flat peerhood or blind
+    merger.
+  owner_relation: owner_explicit
+- issue_family: current_excerpt_function_layer_mapping
+  priority: high
+  why: The current text itself is definition/proof/attribution, not simply three meanings.
+  owner_relation: owner_explicit
+- issue_family: short_harmless_carryover
+  priority: medium
+  why: Important packaging exception, but must not be mistaken for ontology.
+  owner_relation: owner_explicit
+- issue_family: attribution_and_proof_coupling
+  priority: medium
+  why: Needed to understand when short material may stay together and when it should
+    not.
+  owner_relation: owner_explicit
+- issue_family: leaf_pollution_and_significance
+  priority: high
+  why: Over-creating leaves from insignificant mentions is explicitly flagged as a
+    major danger.
+  owner_relation: owner_explicit
+- issue_family: source_hints_vs_deciding_authority
+  priority: high
+  why: The owner repeatedly insists that source hints cannot become deciding authority.
+  owner_relation: owner_explicit
+- issue_family: security_and_verification_gates
+  priority: high
+  why: The owner frames excerpting as high-risk and security-heavy.
+  owner_relation: owner_explicit

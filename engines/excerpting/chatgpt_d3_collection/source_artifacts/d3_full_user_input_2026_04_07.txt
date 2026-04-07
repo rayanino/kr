@@ -1,0 +1,316 @@
+D3
+
+We are now switching to **questionnaire mode** for **D3**.
+
+Do **NOT** reopen excerpt review or canon/backfill work unless I explicitly ask. Use everything already established in this chat as **background context only**.
+
+This item looks like a simple one/two/three-definition count question. It is actually a deeper question about:
+
+- linguistic meaning vs technical meaning
+- school-specific meaning vs school-specific branching
+- the difference between **definition identity** and **packaging**
+- the actual structure of the current excerpt as given
+- short harmless carry-over vs real merger
+- proof / attribution / definition coupling
+- significance vs mere mention
+- leaf pollution
+- source hints vs deciding criteria
+- pre-excerpt analysis / security-gate pressure
+
+You must treat it as:
+
+- **Layer A = my actual owner answer to the questionnaire**
+- **Layer B = the expanded engineering / protocol / red-team collection**
+
+These must **NOT** be blurred together.
+
+---
+
+## The question
+
+**D3 — A Multi-Layered Definition**
+
+**Context**  
+This excerpt defines "kalalah" (inheritance when there are no parents or children).
+
+**Excerpt to evaluate**  
+تيسير العلام / Campaign run / Claude Opus classification  
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+**Question**  
+If a term has THREE definitions — a linguistic meaning (لغة), a technical meaning (اصطلاحا), and a school-specific meaning (like "according to the Hanbalis" عند الحنابلة) — should these be one excerpt, two, or three?
+
+**Your assessment**  
+A: One excerpt — all three meanings of the same term belong together  
+B: Two excerpts — linguistic meaning alone, then technical/school meanings together  
+C: Three separate excerpts — each type of meaning is its own entry
+
+**Fields present in the question**
+- Immediate reaction
+- Add detailed analysis (optional)
+- Confidence in your response
+
+---
+
+## Critical rule about the excerpt as given
+
+The questionnaire answer must evaluate the **question honestly**, but it must also stay aware that the **current excerpt as given is not mainly a three-definition excerpt**.
+
+Use the surrounding context **diagnostically only**.
+
+Do **NOT** let the hypothetical menu about linguistic / technical / school-specific meanings flatten the actual internal structure of the current excerpt.
+
+The actual excerpt as given appears to contain, at minimum:
+
+- a **definition layer**
+- a **proof / inference layer**
+- an **attribution / consensus layer**
+
+That means the deeper issue here is **not only** “one/two/three meanings,” but also:
+
+- what part is truly the definition
+- what part is proof-related
+- what part is attribution-related
+- when short carry-over is acceptable
+- when a short mention is too insignificant to justify a separate leaf
+- when separate ontology must still be preserved even if packaging remains combined
+
+The questionnaire answer must not hide that.
+
+---
+
+## Critical owner-faithfulness rule
+
+My raw reaction for this case contains both a fairly clear judgment and several important unresolved boundaries.
+
+You must preserve both.
+
+At minimum, the owner-faithful hierarchy currently looks like this:
+
+1. We have **already established** that the **linguistic meaning** and the **technical meaning** should be separated.
+2. A **school-specific meaning** should **not** be auto-merged into the generic technical meaning merely because both are non-linguistic.
+3. But the deeper tree logic is **not** simply “three flat peer meanings.”  
+   A school-specific meaning is often better modeled as a **branch under the technical definition layer**, not just a third flat sibling.
+4. Therefore the questionnaire menu is somewhat **flattening**.  
+   **C** is likely the closest owner-faithful answer, but only if that deeper hierarchy is preserved.
+5. The current excerpt itself is **not** mainly about three parallel meanings.  
+   It is much more obviously about:
+   - a definition
+   - a proof / inference from the ayah
+   - an attribution / consensus layer
+6. The phrase `وهذا هو نص الآية التي في آخر سورة النساء في انتفاء الولد` leans more toward the **proof** side than the pure definition side.
+7. The phrase `ويظهر منها عند التأمل، انتفاء الوالد ...` is even more clearly part of the **proof / inference** side.
+8. The phrase `وهذا التفسير للكلالة، وهو تفسير أبي بكر ...` is clearly **attribution / consensus**.
+9. Even so, in this specific current case, small proof-related material may remain inside the definition excerpt as **short and harmless carry-over**.
+10. Likewise, attribution material may sometimes keep the definition/proof with it when the whole thing is short and tightly related.
+11. But that is a **packaging exception**, not evidence that the underlying units are one thing.
+12. If the proof layer were longer, the attribution excerpt should not simply drag the whole proof along.
+13. Not every mention deserves its own excerpt.  
+    A short quick mention of a proof may be too insignificant to justify a dedicated leaf, especially if the proof is handled later in fuller form.
+14. That issue reveals a broader problem: **leaf pollution**.
+15. Author layout, sequencing, commas, diacritics, table of contents, and similar source signals may help as **hints**, but they must remain **non-deciding confirmation**, not decisive authority.
+16. There is also a broader pre-excerpting requirement:
+    - deep analysis / pattern recognition may gather useful structural hints
+    - those hints may support confidence
+    - but they must not silently replace the core excerpting logic
+17. The base rule that the author’s original text should not be lost still stands strongly here.
+18. But the owner is not yet fully settled on how far to generalize the “insignificant / redundant / leaf-polluting mention” logic from this one case.
+19. The owner is also not yet fully settled on when a school-specific “meaning” is truly a distinct definition, versus merely an attribution of the same technical definition.
+20. Do **NOT** silently convert those unresolved parts into settled doctrine.
+
+---
+
+## Very important tension to preserve
+
+There is a real tension here between:
+
+- the forced questionnaire menu
+- the actual structure of the current excerpt
+- the deeper tree architecture the owner seems to want
+
+That tension must remain visible.
+
+More concretely:
+
+- **Option C** may be the best owner-faithful questionnaire answer
+- but the deeper architecture is **not** “three flat peers”
+- and the current excerpt’s actual layered structure is **definition / proof / attribution**, not “linguistic / technical / Hanbali”
+
+Do **NOT** flatten those into one neat local answer without preserving the mismatch.
+
+---
+
+## Appendix A — Full question, excerpt, and context
+### This block is part of the full input artifact.
+### Preserve it in `d3_full_user_input_2026_04_07.txt`.
+
+d3
+
+“
+A Multi-Layered Definition  
+D-3  
+18 / 40  
+Context  
+This excerpt defines "kalalah" (inheritance when there are no parents or children).
+
+Excerpt to evaluate  
+تيسير العلام / Campaign run / Claude Opus classification  
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+Question  
+If a term has THREE definitions — a linguistic meaning (لغة), a technical meaning (اصطلاحا), and a school-specific meaning (like "according to the Hanbalis" عند الحنابلة) — should these be one excerpt, two, or three?
+
+Your assessment  
+A: One excerpt — all three meanings of the same term belong together  
+B: Two excerpts — linguistic meaning alone, then technical/school meanings together  
+C: Three separate excerpts — each type of meaning is its own entry
+
+Immediate reaction  
++Add detailed analysis (optional)
+
+Confidence in your response  
+HighMediumLow
+
+“
+
+FULL CONTEXT:
+
+[كتاب الأشربة]
+
+الحديث الأول
+
+عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عَنْهُمَا: أنَّ عُمَرَ قَالَ عَلَى مِنْبَرِ رَسُولِ الله صلى الله عليه وسلم: أمَّا بَعْدُ أيُهَا النَّاسُ، إنَّهُ نَزَلَ تَحْرِيمُ الْخَمْرِ، وَهِيَ مِنْ خَمْسَةٍ، ١ء مِنَ الْعِنَبِ، ٢ء وَالتَمْرِ، ٣ء وَالْعَسَلِ، ٤ء وَالْحِنْطَةِ، ٥ء وَالشَعِيرِء وَالْخَمْرُ مَا خَامَرَ الْعَقْلَ.
+
+ثلاث وَدِدْتُ أنَّ رَسُولَ الله صلى الله عليه وسلم كَانَ عَهِدَ إلَيْنَا فِيهِنَّ عهدا نَنْتَهِي إلَيْهِ: ١ء الْجَدُّ، ٢ء والكلالةُ. ٣ـ وأبواب مِنْ أبوَابِ الرِّبَا.
+
+ما يستفاد من الحديث:
+
+تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء في حده. وتقدمت الإشارةء أيضاًء إلى هذا الأثر عن عمر رضي الله عنه.
+
+وأن الصحيح: أن الخمر كل ما خامر العقل من أي شراب، وأن ما أسكر كثيره، فقليله حرام، وفيه فوائد زائدة نجملها فيما يأتي:
+
+١ء أن الخمر التي أنزل تحريمها وفهمها الصحابة عند النزول، هي كل ما خامر العقل، وأنه يوجد منها في ذلك الوقت أنواع من العنب، والتمر،
+
+والعسل، والحنطة، والشعير. وكلها من مسمى الخمر، وما حدث بعدها فهو خمر، وإن تعددت أسماؤه.
+
+٢ء أن العالم مهما بلغ من العلم، فإنه لا يحيط به، ويخفى عليه أشياء.
+
+وليس في الصحابة أعلم من عمر بعد أبي بكر، ومع هذا أشكلت عليه هذه المسائل الثلاث وتمنى أنه استوثق في علمه بهن من النبي صلى الله عليه وسلم.
+
+وليس معنى هذا أن النبي صلى الله عليه وسلم لم يبينهن، فقد أتم الرسالة، وأدى الأمانة، وبلغ عن الله ما هو أخفى وأقل شأنا منهن.
+
+ولكن ليس أحد يحيط بجميع ما جاء به الرسول صلى الله عليه وسلم.
+
+٣ء المسألة الأولى توريث الجد مع الإخوة الأشقاء أو لأب.
+
+فزيد بن ثابت، وجمهور العلماء، ومنهم الأئمة الثلاثة، مالك، والشافعي، وأحمد في المشهور عنه، يشركونه مع الإخوة بتفصيل مذكور في بابه.
+
+وأبو بكر الصديق، وتبعه أبو حنيفة، ورواية عن الإمام أحمد، واختيار شيخ الإسلام وأتباعه يسقطون الإخوة به ويجعلونه بمنزلة الأب.
+
+٤ء الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.
+
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .
+
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+٥ء الثالثة أبواب من الربا، ولعل هذا من المسائل التي اختلف العلماء فيها.
+
+فحرمها بعضهم، لاعتقاده أنها من الربا، وأحلها بعضهم، لاعتقاده أنها ليست منه.
+
+وبالجملة فالنبي صلى الله عليه وسلم توفي وقد تركنا على المحجة البيضاء، ليلها كنهارها.
+
+ولكن أفهام العلماء تختلف، ويبلغ بعضهم من السنة مالا يبلغ الآخر.
+
+فمن هنا وأشباهه من الأعذار، ينشأ الخلاف بينهم، وكل منهم ذو مقصد حسن. رحمهم الله تعالى أجمعين.
+
+الحديث الثاني
+
+عَنْ عَائِشَةَ رَضي الله عَنْهَا: أنَّ النبي صلى الله عليه وسلم سُئِلَ عَن البِتْعِ فقَالَ: "كُلُّ شَرَابٍ أسكر فَهُوَ حرام".
+
+قَالَ رضي الله عَنْهُ: البتعُ: نَبِيذُ العَسَلِ.
+
+المعنى الإجمالي:
+
+سئل النبي صلى الله عليه وسلم عن شرب البتع (١) الذي هو نبيذ العسل، فأتى صلى الله عليه وسلم بجوانب عام شامل.
+
+مفاده أنه لا عبرة باختلاف الأسماء، ما دام المعنى واحداً، والحقيقة واحدة.
+
+فكل شراب أسكر، فهو خمر محرَّم، من أي نوع أخذ.
+
+وهو من جوامع كلمه صلى الله عليه وسلم، وحسن بيانه عن ربه.
+
+وبهذا جاء من العلم في مدة بعثته بما يسعد البشرية في الدنيا والآخرة.
+
+(١) البتع: بكسر الباء وسكون التاء، هو نبيذ العسل.
+
+---
+
+## Appendix B — Raw owner reaction
+### Preserve this in `d3_owner_raw_reaction_2026_04_07.txt` exactly as given here.
+
+We already adressed that the linguistic and technical meaning should be separated.
+
+Within the technical meaning, there can be branches, ofcourse. Most of the times, there are different opinions about the technical definition, so usually there will be multiple branches.
+
+This specific excerpt we are handling, this is how I would want it to be:
+
+In the leaf:
+
+… → kilalah → definition → جمهور → definition → ex1  
+                                  → attributions → ex2  
+									 → proof → ayahx → ex3
+
+—------- … ex1: the definition —--------
+<context needed>
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.
+
+Note how وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد is actually more related to the proof and not directly to the definition. But, as we have seen many times before, this is insignificantly short but more importantly: harmless. Reading this entire excerpt, even if it contains that part that is not 100% directly related, does absolutely no harm, in fact: it benefits me; the author wrote this continuously for a reason: only separated by a comma because they are not 100% related but reading it as one continuous piece hardens the understanding.
+
+So the way the author writes; his intentions, use of diatrics etc. reveals a lot. But this is NOT SOMETHING TO RELY ON, JUST A MERE HINT; because earlier scholars sometimes write without diatrics; canonical texts. So the layout of the author: all the way from the table of contents, diatrics, hints, references, … all can be used as hints, but should be deemed unreliable to make conclusions on.
+
+This actually reminds me of something I’ve spoken about earlier and I still think its true: WE CAN STILL DO WAY MORE ANALYSIS AND PATTERN RECOGNITION before officially sending passages off to be excerpted. DEEP ANALYSIS OF THE PASSAGES - POSSIBLY BY LLMS - will reveal a lot of structure, what sentences link to what … This is what the old “atomizing” engine kinda had to do. With our new design (dropping the passaging and atomizing engines), I don’t know how well this is focused on: clear pattern recognition etc;
+
+The goal of that: BEFORE EXCERPTING GATHER AS MUCH FACTUAL INFORMATION, HINTS, … THESE SHOULD NOT INFLUENCE THE DECISION MAKING OF EXCERPTING, BUT CAN BE USED AS EXTRA NON-DECIDING confirmation.
+
+Because, as I said earlier: we need to enforce as many security and verification gates as possible to ensure SURGICAL ACCURACY. Excerpting is the most important yet dangerous part of the pipeline, so absurd amount of security and verification is absolutely justified.
+
+AN IMPORTANT TOPIC: we have already established the rule that none of the authors original text should be lost (except maybe in very rare cases we may come across, but for now the base rule stands). But there is another important question: where do we draw the line of a piece of text being ‘unsignificant’ / ‘redundant’?
+
+For example: imagine a part of text strictly speaking, this belongs to “proofs” … but what added benefit would it give to go through copying this, giving it its own dedicated excerpt, placing it at a tree … Especially since the system should recognize that this is a mere ‘mention’ of something that will come in more detail: the ayah itself will definitely still get mentioned and explained … so this is not the only reference of this proof.
+
+So the point is: if a small piece of ‘quick mention of a proof’ was the only reference to the proof, then yes, it should definitely get its own entry. But imagine if we know it’s not; we know the book later brings up the exact ayah and goes into way more detail. Then, that short mention loses significance …
+
+Do YOU SEE HOW MANY RECOGNIZABLE PATTERNS THERE ARE? THIS IS WHY I KEEP INSISTING ON DEDICATING TIME TO THIS.
+
+THE POINT: LEAF POLLUTION. This is an actual important topic we have not addressed properly yet: LEAF POLLUTION!!!!!!! LEAF POLLUTION!!!!!!!! LEAF POLLUTION!!!!!!!!!
+
+Back to my ideals:
+
+—------- … ex2: attributions —--------
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+As you can see, attributions is too closely related to the definition and the proof. The definition and the proof are directly related to the attributor: it is the proof and definition themselves that get attributed; THEY ARE THE ATTRIBUTIONS.
+
+So either we can keep the full excerpt (as I did here), or we can only keep the attribution-text and fill the rest up with context .. though in this specific case where the proof and definition are not exhaustively long (short and harmless), we can just keep them as one excerpt.
+
+But if the proofs was longer (which happens often; proofs are long), then the attributions-text should not include that proof, and instead, filled with context.
+
+You see how context can be replaced with actual text incases where the text is short and harmless? Else we need to manually fill with context.
+
+This brings up the topic of attributions, and what is relevant to know when something gets attributed to someone.
+
+—---exc3: the proof—-
+
+4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.  
+ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .  
+وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.
+
+Here the attributions are kept “proof x attributions” is especially important in the proof-excerpts, even more so than in the attribution-excerpts.

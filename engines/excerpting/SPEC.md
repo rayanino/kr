@@ -1716,6 +1716,46 @@ BC-1 is a diagnostic rule — it flags suspicious boundaries for review rather t
 
 **Key principle:** The author's choice to intertwine is itself meaningful. Separating deliberately intertwined content is a form of meaning distortion (FP-1). (MAQ-050, owner F1 — "A×B intertwined" handling protocol.)
 
+### §6.18 — Leaf Pollution Prevention (LP-1)
+
+**LP-1 (Not every mention deserves an excerpt):** A brief mention of a topic does NOT justify creating a dedicated excerpt or leaf for that mention if the book treats the topic in fuller form elsewhere. Creating excerpts from every mention pollutes the taxonomy tree with shallow, redundant entries that dilute the value of substantive treatments.
+
+**Significance threshold:** A mention is leaf-worthy ONLY when:
+1. It is the **sole reference** to the topic in the entire source — if the book never treats it elsewhere, even a brief mention must be preserved.
+2. It adds **unique scholarly value** not present in the fuller treatment — a different angle, a different scholar's view, a different proof.
+3. It constitutes a **standalone teaching unit** that passes MV-1 (minimum viability).
+
+**When a mention is NOT leaf-worthy:** If the book addresses the same topic in a dedicated section later (or earlier), a brief supporting mention within another topic's discussion is better treated as carry-over text within the host excerpt, not as an independent excerpt. The mention is preserved (no text loss per NN-007) but it does not generate its own entry.
+
+**Relation to "MENTION IS NOT EXCERPT" (GROUP prompt rule):** LP-1 extends that rule from individual passages to book-level scope. The prompt rule prevents forced excerpts from brief mentions within a chunk. LP-1 prevents leaf pollution across the entire source by considering whether the topic has substantive treatment elsewhere. (D3, owner ALL-CAPS: "LEAF POLLUTION!!!!!!! LEAF POLLUTION!!!!!!!! LEAF POLLUTION!!!!!!!!!!")
+
+**Implementation note:** Full leaf-pollution detection requires book-level awareness (knowing what topics appear later). This cannot be done within Phase 2's per-chunk processing. It requires a post-Phase-2 or Phase-3 cross-chunk audit that flags potential pollution candidates. The current "MENTION IS NOT EXCERPT" prompt rule is the first line of defense; LP-1 is the book-level second line.
+
+### §6.19 — Packaging vs Ontology Distinction (PO-1)
+
+**PO-1 (Packaging exceptions are not ontology claims):** When a short piece of text from one scholarly function (e.g., a proof phrase) is retained within an excerpt of a different function (e.g., a definition) for packaging convenience, this does NOT mean the two functions are the same ontological unit. The packaging decision is a practical exception; the functions remain distinct.
+
+**Why this matters:** If packaging exceptions are mistaken for identity claims, the engine will gradually merge distinct scholarly functions into single excerpts. A definition that retains a short proof phrase is still a definition excerpt — it has not become a "definition-proof" hybrid. The proof, if substantive, still needs its own excerpt at its own leaf.
+
+**When packaging is allowed:** Per §6.14 FR-1, short harmless carry-over may remain when:
+- The carried material is insignificantly short relative to the host
+- Removing it would harm self-containment more than keeping it
+- It does not create false impressions about what the excerpt IS
+
+**When packaging stops being harmless:** The moment carried material becomes long enough to independently pass MV-1, or when it creates confusion about the excerpt's primary function, it must be separated. A proof that grows from a one-line reference to a multi-sentence argument has crossed from packaging exception to genuine multi-function content (§6.17 IC-1 applies).
+
+**Concrete example (D3):** An excerpt about الكلالة (kalala) contains: (1) the definition, (2) "وهذا هو نص الآية..." (proof inference from ayah), (3) attribution to Abu Bakr + consensus. These are three ontologically distinct layers (definition/proof/attribution) even though they're physically adjacent. When the proof phrase is short, it may remain as packaging. When attribution text is short, it may remain. But this does NOT make them one unit — the engine must recognize the distinct layers for correct classification.
+
+### §6.20 — Source Hints as Non-Deciding Signals (SH-1)
+
+**SH-1 (Source layout hints are supplementary, never authoritative):** Author layout cues — diacritics, punctuation, comma placement, paragraph breaks, section ordering, table of contents structure, references — may be used as **supporting hints** for structural analysis but must NEVER be treated as deciding authority for excerpting decisions.
+
+**Why this matters (D3, owner signal):** Earlier scholars wrote without diacritics. Canonical texts often have minimal punctuation. Source order can be deceptive — adjacent text that looks like one continuous argument may contain distinct scholarly functions. The near-mistake in D3 (initially nesting relation text under the legal-definition branch because of source adjacency) proves how real this danger is.
+
+**Relation to FP-6:** FP-6 says "rules + intelligence." SH-1 adds: source layout is neither a rule nor a substitute for intelligence. It is a hint that may increase or decrease confidence, but it cannot override function classification.
+
+**Implementation:** Phase 2 classification must derive function from semantic content, not from source formatting. If the LLM's classification changes when source layout cues are removed, the classification was layout-dependent and unreliable.
+
 ---
 
 ## §7 — Phase 3: Metadata Enrichment
