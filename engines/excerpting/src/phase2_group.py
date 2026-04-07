@@ -221,6 +221,30 @@ The text format is: {structural_format}"""
 # ═══════════════════════════════════════════════════════════════════
 
 
+def _compute_group_max_tokens(word_count: int) -> int:
+    """Compute MAX_TOKENS for grouping call based on input size.
+
+    ≤1500 words → 8192.  1501-4000 → 16384.  >4000 → 32768.
+    Matches the dynamic scaling pattern of CLASSIFY and ENRICH.
+
+    Grouping output is smaller than classification (fewer objects with
+    more fields each), so the base tier starts at 8192 rather than
+    CLASSIFY's 8192 or ENRICH's 16384.  The largest validated grouping
+    output was 41 units from 3111 words (Taysir div_661), well within
+    16384 tokens.
+    """
+    if word_count > 4000:
+        logger.warning(
+            "Untested word count range: %d > 4000. Using MAX_TOKENS=32768 "
+            "(provisional). Monitor for output truncation.",
+            word_count,
+        )
+        return 32768
+    if word_count > 1500:
+        return 16384
+    return 8192
+
+
 def _build_segment_summary(segments: list[ClassifiedSegment]) -> str:
     """Build the <classified_segments> block for the user message (§5.3.3).
 
@@ -273,10 +297,12 @@ def group_chunk(
 
     timeout = timeout_override if timeout_override is not None else config.GROUP_TIMEOUT
 
+    max_tokens = _compute_group_max_tokens(chunk.total_tokens)
+
     return client.chat.completions.create(
         model=config.GROUP_MODEL,
         temperature=config.LLM_TEMPERATURE,
-        max_tokens=config.GROUP_MAX_TOKENS,
+        max_tokens=max_tokens,
         max_retries=0,
         timeout=timeout,
         response_model=ExtractionResult,

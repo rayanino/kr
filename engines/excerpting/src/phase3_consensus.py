@@ -133,7 +133,7 @@ def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
                 f'School attributed as "{excerpt.school}". '
                 f"Is this correct given the text content?"
             ),
-            "unit_text": excerpt.primary_text[:1500],
+            "unit_text": excerpt.primary_text,
         }
         if excerpt.primary_function is not None:
             item["scholarly_function"] = excerpt.primary_function.value
@@ -152,7 +152,7 @@ def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
                 f"rule LA-3). Is this attribution correct, or should it be "
                 f"attributed differently?"
             ),
-            "unit_text": excerpt.primary_text[:1500],
+            "unit_text": excerpt.primary_text,
         }
         if excerpt.primary_function is not None:
             item["scholarly_function"] = excerpt.primary_function.value
@@ -170,7 +170,7 @@ def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
                 f"Notes: {excerpt.self_containment_notes or 'none'}. "
                 f"Is this assessment correct?"
             ),
-            "unit_text": excerpt.primary_text[:1500],
+            "unit_text": excerpt.primary_text,
         }
         if excerpt.primary_function is not None:
             item["scholarly_function"] = excerpt.primary_function.value

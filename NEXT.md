@@ -24,7 +24,21 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — Memory System Upgrade complete, Session 9 = prompt refactor)
+## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 6 code fixes applied)
+
+### DR29-DR31 Processing Session (2026-04-07) — 3 Deep Research Reports
+- **DR29 (ChatGPT):** Strategic audit of excerpting improvement portfolio. 15 ranked items. **8/8 code claims verified against source.** Highest-accuracy DR to date.
+- **DR30 (Claude):** 19 silent failure modes in overnight system. **Core assumptions wrong** — claimed no atomic writes exist (they do), claimed SBERT dedup (it's slug-based). Valid finding: missing `os.fsync()` in atomic_write.
+- **DR31 (Gemini):** Autonomous template evaluation for Islamic texts. 8 existing templates scored avg 1.6/5 on Islamic scholarly grounding. 6 new templates proposed. Pending Codex CLI structural review.
+- **6 code fixes implemented (917 pass):**
+  1. `filter_relevant_footnotes` multi-occurrence bug fixed (while-loop instead of single find())
+  2. `text_snippet` now deterministic (`primary_text[:80]` not LLM-supplied)
+  3. V-P3-2 short-text policy — micro-units no longer auto-dropped
+  4. Evidence markers expanded: hadith 6→14, ijma 5→9
+  5. EX-M-011 added to SPEC error catalog (was contracts-only)
+  6. `os.fsync()` added to overnight `atomic_write()`
+- **Deferred:** `review_flags` placeholder refactoring (large blast radius — needs coworker validation before changing I-ER-4 model validator)
+- **Pending coworker dispatch:** Codex CLI structural review of DR31 templates, Gemini CLI scholarly validation of micro-unit merge strategy and takhrij derivation
 
 ### Memory System Upgrade (2026-04-07) — 6-Source Investigation + 3-Layer Implementation
 - **Trigger:** Owner challenged dismissal of mempalace → full 6-source investigation launched
@@ -58,11 +72,12 @@
 - 12 SOFTENED items documented for debt clearance
 
 ### What's Needed Next
-1. **Session 9: COMPLETE** — Prompt refactor (§4.11 gate) + SPEC sync. GROUP prompt compressed 1440→794 words (45%). All 3 T1 prompt amendments + all 7 T2 SPEC additions done. Handoff at `reference/handoffs/excerpting_foundations_session10_kickoff_2026-04-07.md`.
-2. **Session 10 (NEXT):** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check Codex/Gemini CLI review results from Session 9 dispatch first.
-3. **Session 11+:** Full-atom processing through 7-stage lifecycle
-4. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
-5. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
+1. **DR29-31 coworker dispatch (IN PROGRESS):** Codex CLI structural review of DR31's 6 template proposals. Gemini CLI scholarly validation of micro-unit merge strategy and takhrij_data derivation. Prompt-architect optimized prompts ready.
+2. **DR29 remaining actionable items:** #4 micro-unit merge pass (needs scholarly validation), #8 takhrij_data population (needs scholarly validation), #6 review_flags placeholder refactoring (needs coworker consensus on blast radius).
+3. **Session 10:** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment. Check Codex/Gemini CLI review results from Session 9 dispatch first.
+4. **Session 11+:** Full-atom processing through 7-stage lifecycle
+5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
+6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
 
 ### PARALLEL WORKSTREAM: 3-Month Feedback Collection Strategy (2026-04-07)
 
@@ -159,6 +174,14 @@ Plan: `.claude/plans/protocol-v50-batch-lifecycle.md` (Batch Lifecycle plan — 
 - **G1 FP candidate**: "Excerpting is OBJECTIVE — NO OUTSIDE FACTORS" (generalizes FP-4)
 - **Prompt RESTORED (Session 9)**: GROUP_SYSTEM_PROMPT at 1483 words — full detail + T1-1/T1-2/T1-3 amendments + Gemini classical ordinals fix. DR21 compression attempted then reverted (owner: quality > compression). 1500-word cap REMOVED. DR28 prepared for long-term prompt architecture research.
 - **PRELIMINARY debt**: B2 (1/3) + B3 (1/3) + all G/SC (0/3)
+
+### Session 9 Foundation Integrity Audit (2026-04-07)
+- **3-coworker audit** of all 38 numeric constraints: 7 HIGH, 15 MEDIUM, 16 LOW. No other phantom constraints.
+- **Fix 1:** Consensus text truncation ([:1500]) REMOVED — verifier sees full text now.
+- **Fix 2:** GROUP_MAX_TOKENS made dynamic (8192/16384/32768) matching CLASSIFY/ENRICH.
+- **Fix 3:** `CONSTRAINT_REGISTRY.md` — every threshold documented with origin + calibration status.
+- **Guardrail:** `constraint-origin-trace.md` rule — prevents phantom constraint pattern.
+- **Gemini Arabic audit:** 8/10 lists UNSOUND (PRELIMINARY). Deferred to DR28.
 
 ### Session 9 Accomplishments (2026-04-07) — Prompt Architecture + SPEC Sync
 - **T1-1/T1-2/T1-3 prompt amendments:** Causal particles expanded (إذ, لكونه). Semantic dependency exemption (تخصيص/شرط/استثناء/تقييد stays with عام, FP-5). Dialectical cross-ref (فإن قيل/قلنا → FP-14).
