@@ -1,0 +1,1097 @@
+[
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_1_004_pre_0_5",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_1_004_pre",
+    "chunk_index": 0,
+    "unit_index": 5,
+    "div_path": [
+      "كتاب الأشربة",
+      "مقدمة"
+    ],
+    "primary_text": "4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآية التي في آخر سورةْ النساء في انتفاء الولد.\nويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت لا يفرض لها النصف مع الوالد قال تعالى في الآية: {إنِ امرؤ هَلَكَ لَيسَ لَهُ وَلَدٌ ولَهُ أخْتٌ فلَهَا نِصْفُ ما ترك} .\nوهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، وعليه جمهور الصحابة والتابعين والأئمة، في قديم الزمن وحديثه، والفقهاء السبعة، والأئمة الأربعة رضي الله عن الجميع.",
+    "text_snippet": "4- الثانية الكلالة ومعناها، الذي يموت، وليس له ولد ولا والد، وهذا هو نص الآي",
+    "start_word": 292,
+    "end_word": 370,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 727,
+      "end_page": 727
+    },
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "content_types": [
+      "definition",
+      "evidence_rational",
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "description_arabic": "تعريف الكلالة بأنها من يموت وليس له ولد ولا والد، مع الاستدلال بآية سورة النساء، وبيان أن هذا تفسير أبي بكر وعليه جمهور العلماء والأئمة الأربعة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "أبي بكر الصديق",
+        "resolved_name": "أبو بكر الصديق",
+        "role": "quoted_opinion",
+        "confidence": 1.0,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "جمهور الصحابة والتابعين والأئمة",
+        "resolved_name": "جمهور الصحابة والتابعين والأئمة",
+        "role": "quoted_opinion",
+        "confidence": 1.0,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الفقهاء السبعة",
+        "resolved_name": "الفقهاء السبعة",
+        "role": "quoted_opinion",
+        "confidence": 1.0,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الأئمة الأربعة",
+        "resolved_name": "الأئمة الأربعة",
+        "role": "quoted_opinion",
+        "confidence": 1.0,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "تعريف الكلالة",
+      "تفسير آية الكلالة"
+    ],
+    "terminology_variants": [
+      {
+        "term": "الكلالة",
+        "variants": [
+          "من لا ولد له ولا والد"
+        ]
+      }
+    ],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": null,
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_003_0_0",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_003",
+    "chunk_index": 0,
+    "unit_index": 0,
+    "div_path": [
+      "كتاب الطهارة",
+      "بَابُ السّوَاك"
+    ],
+    "primary_text": "‌‌بَابُ السّوَاك\nالسواك: بكسر السين، اسم للعود الذي يُتَسَوًكُ به، وللفعل الذي هو دَلك الأسنان بالعود أو نحوه، لتذهب الصفرة والأوساخ، وليطهر الفم ويحصل الثواب.\nمناسبة ذكره هنا، أنه من سنن الوضوء ومن الطهارة المرغب فيها.\nفهو أحد أبواب \" كتاب الطهارة \" المتقدم.\nوفيه من الفوائد ما يفوت الحصر من النظافة، والصحة، وقطع الرائحة الكريهة، وطيب الفم، وتحصيل الثواب، واتباع النبي صلى الله عليه وسلم.",
+    "text_snippet": "‌‌بَابُ السّوَاك\nالسواك: بكسر السين، اسم للعود الذي يُتَسَوًكُ به، وللفعل الذي هو دَلك",
+    "start_word": 0,
+    "end_word": 65,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 46,
+      "end_page": 46
+    },
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "cross_reference",
+      "rule_statement"
+    ],
+    "content_types": [
+      "structural_transition",
+      "definition",
+      "editorial_note",
+      "cross_reference",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف السواك لغةً واصطلاحاً، وبيان مناسبة ذكره في كتاب الطهارة، وذكر فوائده العامة من النظافة والصحة والثواب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "تعريف السواك",
+      "سنن الوضوء"
+    ],
+    "terminology_variants": [
+      {
+        "term": "السواك",
+        "variants": [
+          "المسواك",
+          "الاستياك"
+        ]
+      }
+    ],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [
+      {
+        "reference_text": "كتاب الطهارة المتقدم",
+        "target_description": "كتاب الطهارة الذي يندرج تحته باب السواك",
+        "target_div_id": null,
+        "resolved": true
+      }
+    ],
+    "footnotes_relevant": [],
+    "consensus_metadata": null,
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_2_003_pre_0_5",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_2_003_pre",
+    "chunk_index": 0,
+    "unit_index": 5,
+    "div_path": [
+      "كتاب الطهارة",
+      "كِتَابُ الصلاة",
+      "بَابُ المَواقِيت",
+      "مقدمة",
+      "مقدمة"
+    ],
+    "primary_text": "غريب الحديث:\n\"الصلاة على وقتها\": يريد بها الصلاة المفروضة، لأنها هي المرادة عند الإطلاق.\n\"أيّ\": استفهامية معربة. وقيل: إنها غير منونة مع إعرابها وذلك لتقدير الإضافة.",
+    "text_snippet": "غريب الحديث:\n\"الصلاة على وقتها\": يريد بها الصلاة المفروضة، لأنها هي المرادة عند الإ",
+    "start_word": 227,
+    "end_word": 252,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 84,
+      "end_page": 84
+    },
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "content_types": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "شرح غريب ألفاظ الحديث: معنى الصلاة على وقتها وإعراب كلمة أيّ الاستفهامية",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على معرفة نص الحديث السابق الذي يُشرح غريبه، وإن كانت الألفاظ المشروحة مذكورة ضمن الشرح",
+    "context_hint": "هذا شرح لغريب حديث ابن مسعود رضي الله عنه في سؤاله النبي صلى الله عليه وسلم عن أحب الأعمال إلى الله",
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "غريب حديث أحب الأعمال",
+      "الصلاة على وقتها"
+    ],
+    "terminology_variants": [],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "self_containment",
+          "enrichment_value": "PARTIAL",
+          "verifier_value": "PARTIAL",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "PARTIAL",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_006_0_8",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_006",
+    "chunk_index": 0,
+    "unit_index": 8,
+    "div_path": [
+      "كتاب الطهارة",
+      "فائدة"
+    ],
+    "primary_text": "المعنى الإجمالي: يذكر أبو هريرة أنه سمع النبي صلى الله عليه وسلم يقول: خمس خصال من دين الإسلام، الذي فطر اللَه الناس عليه، فمن أتى بها، فقد قام بخصال عظام من الدين الحنيف.\nوهذه الخمس المذكرة في هذا الحديث، من جملة النظافة، التي أتى بها الإسلام.\nأولها- قطع قُلْفة الذكر، التي يسبب بقاؤها تراكم النجاسات والأوساخ فتحدث الأمراض والجروح.\nوثانيها- حلق الشعور التي حول الفرج، سواء أكان قبلا أم دبرا، لأن بقاءها في مكانها يجعلها معرضة للتلوث بالنجاسات، وربما أخلت بالطهارة الشرعية.\nوثالثها- قص الشارب، الذي بقاؤه، يسبب تشويه الخلقة، ويكره الشراب بعد صاحبه، وهو من التشبه بالمجوس.\nورابعها- تقليم الأظافر، التي يسبب بقاؤها تجمع الأوساخ فيها، فتخالط الطعام، فيحدث المرض.\nوأيضا ربما منعت كمال الطهارة لسترها بعض الفرض.\nوخامسها- نتف الإبط، الذي يجلب بقاؤه الرائحة الكريهة.\nوبالجملة فإزالة هذه الأشياء من محاسن الإِسلام، الذي جاء بالنظافة والطهارة، والتأديب والتهذيب، ليكون المسلم على أحسن حال وأجمل صورة، فإن النظافة من الإِيمان.",
+    "text_snippet": "المعنى الإجمالي:\nيذكر أبو هريرة أنه سمع النبي صلى الله عليه وسلم يقول: خمس خصال من د",
+    "start_word": 649,
+    "end_word": 799,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 58,
+      "end_page": 59
+    },
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational",
+      "structural_transition"
+    ],
+    "content_types": [
+      "structural_transition",
+      "definition",
+      "evidence_rational"
+    ],
+    "description_arabic": "شرح المعنى الإجمالي لحديث خصال الفطرة الخمس مع تفصيل كل خصلة وبيان حكمتها من الختان والاستحداد وقص الشارب وتقليم الأظافر ونتف الإبط",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "أبو هريرة",
+        "resolved_name": "أبو هريرة عبد الرحمن بن صخر الدوسي",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "شرح خصال الفطرة الخمس",
+      "الختان والاستحداد"
+    ],
+    "terminology_variants": [
+      {
+        "term": "الاستحداد",
+        "variants": [
+          "حلق العانة"
+        ]
+      },
+      {
+        "term": "قُلْفة الذكر",
+        "variants": [
+          "الغُرلة"
+        ]
+      }
+    ],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": null,
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_6",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_1_002_pre",
+    "chunk_index": 0,
+    "unit_index": 6,
+    "div_path": [
+      "كتاب الطلاق",
+      "مقدمة"
+    ],
+    "primary_text": "ما يؤخذ من الحديث:\n1- تحريم الطلاق في الحيض، وأنه من الطلاق البِدعِي الذي ليس على أمر الشارع.",
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الطلاق في الحيض، وأنه من الطلاق البِدعِي الذي ليس عل",
+    "start_word": 449,
+    "end_word": 466,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 599,
+      "end_page": 599
+    },
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "content_types": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "استنباط حكم تحريم الطلاق في الحيض وأنه من الطلاق البدعي",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى حديث ابن عمر بقوله 'من الحديث' دون إعادة نصه، لكن الحكم واضح بذاته.",
+    "context_hint": "مستفاد من حديث ابن عمر أنه طلق امرأته وهي حائض فتغيظ النبي صلى الله عليه وسلم وأمره بمراجعتها.",
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "تحريم الطلاق في الحيض"
+    ],
+    "terminology_variants": [
+      {
+        "term": "الطلاق البدعي",
+        "variants": [
+          "طلاق البدعة"
+        ]
+      }
+    ],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "self_containment",
+          "enrichment_value": "PARTIAL",
+          "verifier_value": "PARTIAL",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "PARTIAL",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_8",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_1_002_pre",
+    "chunk_index": 0,
+    "unit_index": 8,
+    "div_path": [
+      "كتاب الطلاق",
+      "مقدمة"
+    ],
+    "primary_text": "3- الأمر بإرجاعها إذا طلقها في الحيض، وإمساكها حتى تطهر ثم تحيض فتطهر.",
+    "text_snippet": "3- الأمر بإرجاعها إذا طلقها في الحيض، وإمساكها حتى تطهر ثم تحيض فتطهر.",
+    "start_word": 522,
+    "end_word": 534,
+    "segment_indices": [
+      28
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 599,
+      "end_page": 599
+    },
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "content_types": [
+      "rule_statement"
+    ],
+    "description_arabic": "حكم وجوب إرجاع المطلقة في الحيض وإمساكها حتى تطهر ثم تحيض فتطهر",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "رجعة المطلقة في الحيض"
+    ],
+    "terminology_variants": [],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": null,
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_018_0_14",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_018",
+    "chunk_index": 0,
+    "unit_index": 14,
+    "div_path": [
+      "كتاب الطهارة",
+      "باب فضْل صَلاة الجماعَةِ وَوجوبها",
+      "بَابُ صفَة صَلاة النَّبي صلى الله عليه وسلم"
+    ],
+    "primary_text": "واختلفوا في الصفة المستحبة في الجلوس.\nفذهبت الحنفية إلى الافتراش في جميع جلسات الصلاة، سواء بين السجدتين أو التشهدين، الأول، أو الأخير. ويقابلهم المالكية، فهم يرون مشروعية التورك في كل جلسات الصلاة سواء ما كان منها للتشهدين أو كان بين السجدتين. وذهبت الشافعية إلى الافتراش في التشهد الأول من الصلاة ذات التشهدين وإلى التورُّك في التشهد الأخير، سواء كانت الصلاة ثنائية أم اكثر من ذلك. وذهبت الحنابلة إلى الافتراش في التشهد الأول، وفي التشهد الأخير إذا كانت الصلاة ليس فيها إلا تشهد واحد، وإلى التورُك في التشهد الأخير من الصلاة، ذات التشهدين.\nودليل الحنفية، ما رواه سعيد بن منصور، عن وائل بن حُجْر قال: \" صليت خلف النبي صلى الله عليه وسلم، فلما قعد وتشهد، فرش قدمه اليسرى على الأرض وجلس عليها\".\nوما رواه أحمد عن رفاعة بن رافع: أن النبي صلى الله عليه وسلم قال للأعرابي: \" إذا جلست، فاجلس على رجلك اليسرى \".\nوبما أخرجه الترمذى وصححه، من حديث أبي حميد: \" أن رسول الله صلى الله عليه وسلم جلس- يعنى للتشهد- فافترش رجله اليسرى، وأقبل بصدر اليمنى على قبلته.\nوأما صفة الجلوس بين السجدتين فهو الافتراش عند الشافعية والحنابلة.\nووجه الدلالة: من هذه الأحاديث أن رواتها ذكروا الافتراش للتشهد، ولم يقيدوه بالأول.\nواقتصارهم عليها بلا تعرض لغيرها، يشعر بأن هذه الصفة للتشهدين جميعاً.\nودليل المالكية مال روى عن عبد الله بن مسعود: \" أن النبي صلى الله عليه وسلم كان يجلس في وسط الصلاة وفي آخرها متوركاً \". رواه أحمد في مسنده قال \" الهيثمى \": ورجاله مُوَثَّقُون.\nودليل الشافعية والحنابلة: أن الأحاديث التي وردت في الافتراش في التشهد برواتها التشهد الأول، حيث ورد في البخاري عن أبي حميد الساعدي قوله: \" فإذا جلس في الركعة الأخيرة، قدم رجله اليسرى، ونصب الأخرى وقعد على مقعدته \".\nوما ذكره \" مسلم \" من حديث عبد الله بن الزبير: \" أنه صلى الله عليه وسلم كان يجعل رجله اليسرى بين فخذه وساقه، ويفرق قدمه اليمنى \".\nوفي حديث أبي حميد أيضاً، عند أبي حاتم في صحيحه وفيه \" حتى إذا كانت السجدة التي فيها التسليم، أخرج رجله اليسرى، وجلس على شقه الأيسر متوركاً\".",
+    "text_snippet": "واختلفوا في الصفة المستحبة في الجلوس. فذهبت الحنفية إلى الافتراش في جميع جلسات الصلاة",
+    "start_word": 1523,
+    "end_word": 1856,
+    "segment_indices": [
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 148,
+      "end_page": 149
+    },
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "structural_transition"
+    ],
+    "content_types": [
+      "structural_transition",
+      "opinion_statement",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف المذاهب الأربعة في صفة الجلوس في الصلاة بين الافتراش والتورك مع أدلة كل مذهب من الأحاديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "الحنفية",
+        "resolved_name": "الحنفية",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "المالكية",
+        "resolved_name": "المالكية",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الشافعية",
+        "resolved_name": "الشافعية",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الحنابلة",
+        "resolved_name": "الحنابلة",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "وائل بن حُجْر",
+        "resolved_name": "وائل بن حجر الحضرمي",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "رفاعة بن رافع",
+        "resolved_name": "رفاعة بن رافع الزرقي",
+        "role": "quoted_opinion",
+        "confidence": 0.9,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "أبي حميد",
+        "resolved_name": "أبو حميد الساعدي",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "عبد الله بن مسعود",
+        "resolved_name": "عبد الله بن مسعود",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الهيثمى",
+        "resolved_name": "نور الدين علي بن أبي بكر الهيثمي",
+        "role": "quoted_opinion",
+        "confidence": 0.9,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "عبد الله بن الزبير",
+        "resolved_name": "عبد الله بن الزبير بن العوام",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "سعيد بن منصور",
+        "resolved_name": "سعيد بن منصور",
+        "role": "quoted_opinion",
+        "confidence": 0.9,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "أحمد",
+        "resolved_name": "أحمد بن حنبل",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "أبي حاتم",
+        "resolved_name": "ابن حبان محمد بن حبان البستي",
+        "role": "quoted_opinion",
+        "confidence": 0.8,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": "cross_school",
+    "school_confidence": 0.95,
+    "excerpt_topic": [
+      "صفة الجلوس في الصلاة",
+      "الافتراش والتورك"
+    ],
+    "terminology_variants": [
+      {
+        "term": "الافتراش",
+        "variants": [
+          "افتراش الرجل اليسرى"
+        ]
+      },
+      {
+        "term": "التورك",
+        "variants": [
+          "الجلوس متوركاً"
+        ]
+      }
+    ],
+    "evidence_refs": [
+      {
+        "type": "hadith",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": "شهدين.\nودليل الحنفية، ما رواه سعيد بن منصور، عن وائل ب",
+        "marker_text": "رواه",
+        "scope": null
+      },
+      {
+        "type": "hadith",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": "ى الأرض وجلس عليها\".\nوما رواه أحمد عن رفاعة بن رافع: أ",
+        "marker_text": "رواه",
+        "scope": null
+      },
+      {
+        "type": "hadith",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": "لاة وفي آخرها متوركاً \". رواه أحمد في مسنده قال \" الهي",
+        "marker_text": "رواه",
+        "scope": null
+      },
+      {
+        "type": "hadith",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": " على رجلك اليسرى \".\nوبما أخرجه الترمذى وصححه، من حديث أ",
+        "marker_text": "أخرجه",
+        "scope": null
+      },
+      {
+        "type": "hadith",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": "حميد أيضاً، عند أبي حاتم في صحيحه وفيه \" حتى إذا كانت الس",
+        "marker_text": "في صحيح",
+        "scope": null
+      }
+    ],
+    "takhrij_data": [
+      {
+        "hadith_text_snippet": "صليت خلف النبي صلى الله عليه وس",
+        "collections": [
+          "سنن سعيد بن منصور"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      },
+      {
+        "hadith_text_snippet": "إذا جلست، فاجلس على رجلك اليسرى",
+        "collections": [
+          "مسند أحمد"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      },
+      {
+        "hadith_text_snippet": "أن رسول الله صلى الله عليه وسلم",
+        "collections": [
+          "سنن الترمذي"
+        ],
+        "hadith_numbers": [],
+        "grade": "صحيح",
+        "grade_source": "الترمذي"
+      },
+      {
+        "hadith_text_snippet": "أن النبي صلى الله عليه وسلم كان",
+        "collections": [
+          "مسند أحمد"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      },
+      {
+        "hadith_text_snippet": "فإذا جلس في الركعة الأخيرة، قدم",
+        "collections": [
+          "صحيح البخاري"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      },
+      {
+        "hadith_text_snippet": "أنه صلى الله عليه وسلم كان يجعل",
+        "collections": [
+          "صحيح مسلم"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      },
+      {
+        "hadith_text_snippet": "حتى إذا كانت السجدة التي فيها ال",
+        "collections": [
+          "صحيح ابن حبان"
+        ],
+        "hadith_numbers": [],
+        "grade": null,
+        "grade_source": null
+      }
+    ],
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "school_attribution",
+          "enrichment_value": "cross_school",
+          "verifier_value": "cross_school",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "cross_school",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_099_0_8",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_099",
+    "chunk_index": 0,
+    "unit_index": 8,
+    "div_path": [
+      "كتاب الزكاة",
+      "باب المحرمات من النكاح",
+      "بَابُ الشروط في النكاح"
+    ],
+    "primary_text": "5- قوله: [والشغار: أن يزوج الرجل.. إلخ] قال ابن حجر: اختلفت الروايات عن مالك فيمن ينسب إليه تفسير الشغار، فالأكثر لم ينسبوه لأحد، وبهذا قال الشافعي، فقد قال: لا أدرى التفسير عن النبي صلى الله عليه وسلم أو عن ابن عمر أو عن نافع أو عن مالك وجعله بعضهم من تفسير نافع وليس خاصا بالابنة، بل كل مولية. وقال القرطبي: تفسير الشغار صحيح موافق لما ذكر أهل اللغة، فإن كان مرفوعا فهو المقصود. وإن كان من قول الصحابي فمقبول أيضا لأنه أعلم بالمقال وأفقه بالحال.",
+    "text_snippet": "5- قوله: [والشغار: أن يزوج الرجل.. إلخ] قال ابن حجر: اختلفت الروايات عن مالك ف",
+    "start_word": 591,
+    "end_word": 675,
+    "segment_indices": [
+      36
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 575,
+      "end_page": 575
+    },
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "content_types": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بحث في نسبة تفسير الشغار الوارد في الحديث: هل هو مرفوع أم من كلام الصحابي أو نافع، ونقل أقوال ابن حجر والشافعي والقرطبي",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى تفسير الشغار الوارد في حديث ابن عمر المذكور في وحدة سابقة",
+    "context_hint": "تفسير الشغار المشار إليه هو ما جاء في حديث ابن عمر: «أن يزوج الرجل ابنته على أن يزوجه الآخر ابنته وليس بينهما صداق»",
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "ابن حجر",
+        "resolved_name": "أحمد بن علي بن حجر العسقلاني",
+        "role": "quoted_opinion",
+        "confidence": 0.97,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "مالك",
+        "resolved_name": "مالك بن أنس",
+        "role": "quoted_opinion",
+        "confidence": 0.97,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الشافعي",
+        "resolved_name": "محمد بن إدريس الشافعي",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "نافع",
+        "resolved_name": "نافع مولى ابن عمر",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "القرطبي",
+        "resolved_name": "محمد بن أحمد القرطبي",
+        "role": "quoted_opinion",
+        "confidence": 0.85,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": null,
+    "school_confidence": null,
+    "excerpt_topic": [
+      "تفسير الشغار",
+      "نسبة تفسير الشغار"
+    ],
+    "terminology_variants": [],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "self_containment",
+          "enrichment_value": "PARTIAL",
+          "verifier_value": "PARTIAL",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "PARTIAL",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_078_0_9",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_078",
+    "chunk_index": 0,
+    "unit_index": 9,
+    "div_path": [
+      "كتاب الزكاة",
+      "باب بيع النخل بعد التأبير",
+      "بَابُ الحَوَالة"
+    ],
+    "primary_text": "فإن كانت الحوالة على غير مليء فعند الظاهرية أنها حوالة فاسدة لا تصح، لأنها لم توافق محلها الذي ارتضاه الشارع وهو الملاءة.\nوعند الحنابلة تصح، لأن الحق للمحال وقد رضى بذلك.\nواختلفوا: هل يرجع المحال على المحيل في ذلك؟ خلافات وتفاصيل.",
+    "text_snippet": "فإن كانت الحوالة على غير مليء فعند الظاهرية أنها ",
+    "start_word": 343,
+    "end_word": 383,
+    "segment_indices": [
+      18,
+      19,
+      20
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 510,
+      "end_page": 510
+    },
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "content_types": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم الحوالة على غير مليء: الظاهرية يبطلونها والحنابلة يصححونها مع خلاف في رجوع المحال على المحيل",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "الظاهرية",
+        "resolved_name": "الظاهرية",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الحنابلة",
+        "resolved_name": "الحنابلة",
+        "role": "quoted_opinion",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": "cross_school",
+    "school_confidence": 0.95,
+    "excerpt_topic": [
+      "الحوالة على غير مليء",
+      "صحة الحوالة على غير مليء"
+    ],
+    "terminology_variants": [],
+    "evidence_refs": [],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "school_attribution",
+          "enrichment_value": "cross_school",
+          "verifier_value": "cross_school",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "cross_school",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  },
+  {
+    "excerpt_id": "exc_src_test0001_div_src_test0001_6_088_0_2",
+    "source_id": "src_test0001",
+    "div_id": "div_src_test0001_6_088",
+    "chunk_index": 0,
+    "unit_index": 2,
+    "div_path": [
+      "كتاب الزكاة",
+      "باب بيع النخل بعد التأبير",
+      "بَابُ الوَقف"
+    ],
+    "primary_text": "قال الشافعي: ولم يحبس أهل الجاهلية فيما علمته. وإنما حبس أهل الإسلام وهذا إشارة إلى أنه حقيقة شرعية.\nوقال الترمذي: \" لا نعلم بين الصحابة والمتقدمين من أهل العلم خلافاً في جواز وقف الأرضين \" إلا أنه نقل عن شريح القاضي أنه أنكر الْحُبُسَ.\nومثل هذا لا يعطى حكم الوقف من اللزوم والثواب والفضل والأحكام.\nوقال أبو حنيفة: لا يلزم، وخالفه جميع أصحابه.\nقال جابر بن عبد الله: \" لم يكن أحد من أصحاب رسول الله صلى الله عليه وسلم ذا مقدرة، إلا وقف \".\nوبهذا يعلم إجماع القرن المفضل عليه، فلا يلتفت إلى خلاف بعدَه.",
+    "text_snippet": "قال الشافعي: ولم يحبس أهل الجاهلية فيما علمته. وإنما حبس أهل الإسلام وهذا إشارة إلى",
+    "start_word": 99,
+    "end_word": 194,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "physical_pages": {
+      "volume": 1,
+      "start_page": 533,
+      "end_page": 533
+    },
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "opinion_statement",
+      "narration",
+      "refutation"
+    ],
+    "content_types": [
+      "opinion_statement",
+      "evidence_ijma",
+      "narration"
+    ],
+    "description_arabic": "بيان أن الوقف حقيقة شرعية إسلامية مع نقل إجماع الصحابة عليه وذكر قول أبي حنيفة بعدم لزومه ورده بأثر جابر وإجماع القرن المفضل",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "context_hint": null,
+    "primary_author_layer": {
+      "layer_id": "matn",
+      "author_id": "unknown",
+      "coverage_pct": 1.0,
+      "rule_applied": "LA-4"
+    },
+    "attribution_confidence": null,
+    "quoted_scholars": [
+      {
+        "mention_text": "الشافعي",
+        "resolved_name": "محمد بن إدريس الشافعي",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "الترمذي",
+        "resolved_name": "محمد بن عيسى الترمذي",
+        "role": "quoted_opinion",
+        "confidence": 0.98,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "شريح القاضي",
+        "resolved_name": "شريح بن الحارث الكندي",
+        "role": "refuted_position",
+        "confidence": 0.95,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "أبو حنيفة",
+        "resolved_name": "أبو حنيفة النعمان بن ثابت",
+        "role": "refuted_position",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      },
+      {
+        "mention_text": "جابر بن عبد الله",
+        "resolved_name": "جابر بن عبد الله الأنصاري",
+        "role": "quoted_opinion",
+        "confidence": 0.99,
+        "source": "llm_enrichment"
+      }
+    ],
+    "school": "cross_school",
+    "school_confidence": 0.7,
+    "excerpt_topic": [
+      "إجماع الصحابة على الوقف",
+      "لزوم الوقف"
+    ],
+    "terminology_variants": [
+      {
+        "term": "الحُبُس",
+        "variants": [
+          "الوقف",
+          "الأحباس"
+        ]
+      }
+    ],
+    "evidence_refs": [
+      {
+        "type": "ijma",
+        "surah": null,
+        "ayah_start": null,
+        "ayah_end": null,
+        "text_snippet": "ة، إلا وقف \".\nوبهذا يعلم إجماع القرن المفضل عليه، فلا ي",
+        "marker_text": "إجماع",
+        "scope": null
+      }
+    ],
+    "takhrij_data": null,
+    "cross_references": [],
+    "footnotes_relevant": [],
+    "consensus_metadata": {
+      "decisions": [
+        {
+          "decision_type": "school_attribution",
+          "enrichment_value": "cross_school",
+          "verifier_value": "cross_school",
+          "verifier_agrees": true,
+          "escalation_value": null,
+          "final_value": "cross_school",
+          "resolution_method": "consensus_agree"
+        }
+      ]
+    },
+    "gate_flags": [],
+    "review_flags": []
+  }
+]
