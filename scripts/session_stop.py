@@ -234,16 +234,16 @@ def _detect_agent_identity() -> str:
     if os.environ.get("GEMINI_CLI"):
         return "gemini_cli"
 
-    # Signal 2: check if running inside a codex session via config
+    # Signal 2: check if running inside a codex session via recency
+    # Schema: {"id": "...", "thread_name": "...", "updated_at": "ISO8601"}
     codex_session = Path.home() / ".codex" / "session_index.jsonl"
     if codex_session.exists():
         try:
             lines = codex_session.read_text(encoding="utf-8").strip().split("\n")
             if lines:
                 last = json.loads(lines[-1])
-                # If the last codex session is very recent (within 5 min), likely codex
                 from datetime import timedelta
-                ts_str = last.get("timestamp", "2000-01-01T00:00:00+00:00")
+                ts_str = last.get("updated_at", "2000-01-01T00:00:00+00:00")
                 last_ts = datetime.fromisoformat(ts_str)
                 if last_ts.tzinfo is None:
                     last_ts = last_ts.replace(tzinfo=timezone.utc)
