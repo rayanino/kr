@@ -24,7 +24,7 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 8 fixes shipped, 931 tests)
+## IMMEDIATE STATE (updated 2026-04-07 — DR29-31 processed, 10 fixes shipped, 940 tests)
 
 ### Pipeline Visual Architecture (2026-04-07)
 - **Created:** `docs/architecture/pipeline_diagrams.md` — 4 Mermaid diagrams (pipeline overview, data flow, excerpting internals, source internals)
@@ -83,9 +83,10 @@
 - 12 SOFTENED items documented for debt clearance
 
 ### What's Needed Next
-1. **Takhrij data population (NEXT):** Implement DR29 #8 with Gemini's 4-field minimum spec. Populate `takhrij_data` from HADITH_TAKHRIJ footnotes when source + locator present. Distinguish author vs muhaqqiq provenance.
-2. **DR31 Templates 4+6:** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration templates (both rated COMPATIBLE by Codex CLI).
+1. **Takhrij data population: COMPLETE** — `derive_takhrij_from_footnotes()` implemented with Gemini 4-field minimum spec. 9 tests. 940 total tests pass.
+2. **DR31 Templates 4+6 (NEXT):** Write Codex overnight JSON files for Pedagogical Self-Containment and Cross-Engine Taxonomic Integration templates (both rated COMPATIBLE by Codex CLI).
 3. **Session 10:** Complete dedup (remaining ~90 non-NN atoms) + MAQ-089+ assignment.
+4. **Deferred:** review_flags placeholder refactoring, DR31 Templates 1/2/3 prompt rewrites (NEEDS_ADAPTATION).
 4. **Session 11+:** Full-atom processing through 7-stage lifecycle
 5. **After hardening complete:** Book Resolution session (resolve 40 DR20 titles to Shamela corpus IDs) → Tier 1 smoke run (10 books, ~$30)
 6. **PARALLEL: Feedback Collection Strategy — ALL 5 COWORKERS SYNTHESIZED.** Final synthesis at `engines/excerpting/reference/dr_reviews/FINAL_SYNTHESIS_5_OF_5.md`. Next: owner reaction to 3 curriculum questions → requirements doc → `/ce:plan` for collection system
