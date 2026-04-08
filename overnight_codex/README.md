@@ -109,8 +109,8 @@ Reads CONFIRMED HIGH/CRITICAL findings that have a non-empty `action_required` f
 ## Cross-Model Verification (D-041)
 
 All HIGH/CRITICAL findings start as `PRELIMINARY`. The bridge attempts verification via:
-1. **Claude Code CLI** (primary) -- `claude --bare --model sonnet`
-2. **Gemini CLI** (fallback) -- `gemini -p`
+1. **Anthropic API** (preferred when `ANTHROPIC_API_KEY` is set) -- direct SDK call to `claude-sonnet-4-6`
+2. **OpenRouter API** (fallback when `OPENROUTER_API_KEY` is set) -- Anthropic verifier model via `https://openrouter.ai/api/v1/chat/completions`
 
 A finding becomes `CONFIRMED` (verifier agrees) or `DISPUTED` (verifier disagrees). Only CONFIRMED findings are eligible for backlog promotion.
 
@@ -175,9 +175,9 @@ This calls `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the chec
 
 ## Known Issues (v1)
 
-1. **Verification auth:** `claude --bare` subprocess is not authenticated (returns "Not logged in"). CC verification currently skips all findings. Fix: configure `ANTHROPIC_API_KEY` env var for subprocess mode, or use Gemini CLI as primary verifier.
+1. **Verification credentials must exist somewhere:** the bridge is now API-only. If neither `ANTHROPIC_API_KEY` nor `OPENROUTER_API_KEY` is configured, HIGH/CRITICAL findings remain `PRELIMINARY`.
 2. **No creative results yet:** No `creative-*` task directories exist because creative tasks haven't been scheduled. Bridge 1 is ready but has no input data.
-3. **All findings PRELIMINARY:** 126 HIGH/CRITICAL findings are stuck at PRELIMINARY because neither verifier is available in subprocess mode. Once verification works, Bridge 3 will auto-promote confirmed findings to the backlog.
+3. **Backlog promotion still depends on confirmation throughput:** HIGH/CRITICAL findings only promote after a verifier returns `CONFIRMED`. If the verifier path is healthy, Bridge 3 will auto-promote confirmed findings to the backlog on the next ingest run.
 
 ## Development
 

@@ -16,12 +16,13 @@ Usage:
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import logging
+import os
 import re
-import shutil
-import subprocess
 import sys
+from collections.abc import Callable
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -224,6 +225,9 @@ def convert_task_to_findings(
 # ═══════════════════════════════════════════════════════════════════
 
 _VERIFY_SEVERITIES = {FindingSeverity.CRITICAL, FindingSeverity.HIGH}
+_ANTHROPIC_VERIFY_MODEL = "claude-sonnet-4-6"
+_OPENROUTER_VERIFY_MODEL = "anthropic/claude-opus-4.6"
+_VerifierRunner = Callable[[Finding], tuple[VerificationStatus, str]]
 
 _VERIFY_PROMPT = """\
 You are reviewing a finding from an automated code analysis (Codex CLI) of the KR \
@@ -245,31 +249,74 @@ INSTRUCTIONS:
 4. Then provide a brief explanation (2-3 sentences max).
 """
 
-# Verifier priority: CC first (most important), Gemini second
-# Each entry: (cli_name, label, extra_args)
-_VERIFIERS: list[tuple[str, str, list[str]]] = [
-    ("claude", "claude_code", ["--bare", "--model", "sonnet", "--max-budget-usd", "0.05"]),
-    ("gemini", "gemini_cli", []),
-]
+def _load_api_key(env_name: str) -> str | None:
+    """Load an API key from the environment, .env, or a repo-local key file."""
+    env_value = os.environ.get(env_name, "").strip()
+    if env_value:
+        return env_value
 
+    env_file = PROJECT_DIR / ".env"
+    if env_file.exists():
+        for raw_line in env_file.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            if key.strip() == env_name:
+                return value.strip().strip('"').strip("'")
 
-def _find_verifier() -> tuple[str, str, list[str]] | None:
-    """Find the best available CLI verifier. CC first, Gemini second."""
-    for cli_name, label, extra_args in _VERIFIERS:
-        path = shutil.which(cli_name)
-        if path:
-            return path, label, extra_args
+    key_file = PROJECT_DIR / env_name.lower()
+    if key_file.exists():
+        return key_file.read_text(encoding="utf-8").strip()
+
     return None
 
 
-def _run_cli_verify(
-    finding: Finding, cli_path: str, cli_label: str,
-    extra_args: list[str] | None = None,
+def _parse_verifier_output(
+    output: str,
+    verifier_label: str,
+    finding_id: str,
 ) -> tuple[VerificationStatus, str]:
-    """Dispatch a single finding to a CLI verifier (CC or Gemini).
+    """Parse verifier text into a verification verdict."""
+    cleaned = output.strip()
+    if not cleaned:
+        return VerificationStatus.PRELIMINARY, cleaned
 
-    Returns (status, response_text).
-    """
+    first_line = cleaned.split("\n")[0].strip().upper()
+    if first_line == "AGREE":
+        return VerificationStatus.CONFIRMED, cleaned
+    if first_line == "DISAGREE":
+        return VerificationStatus.DISPUTED, cleaned
+    if first_line.startswith("AGREE"):
+        logger.warning(
+            "%s verdict for %s is not exact AGREE: '%s' — treating as CONFIRMED",
+            verifier_label, finding_id, first_line[:80],
+        )
+        return VerificationStatus.CONFIRMED, cleaned
+    if first_line.startswith("DISAGREE"):
+        logger.warning(
+            "%s verdict for %s is not exact DISAGREE: '%s' — treating as DISPUTED",
+            verifier_label, finding_id, first_line[:80],
+        )
+        return VerificationStatus.DISPUTED, cleaned
+
+    logger.warning(
+        "%s returned unparseable verdict for %s: '%s'",
+        verifier_label, finding_id, first_line[:80],
+    )
+    return VerificationStatus.PRELIMINARY, cleaned
+def _run_anthropic_api_verify(
+    finding: Finding,
+    api_key: str,
+) -> tuple[VerificationStatus, str]:
+    """Verify a finding directly against Anthropic's API."""
+    try:
+        anthropic_module: Any = importlib.import_module("anthropic")
+        anthropic_client = anthropic_module.Anthropic
+    except ImportError as exc:
+        logger.error("anthropic SDK not available for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"anthropic_api import error: {exc}"
+
     prompt = _VERIFY_PROMPT.format(
         title=finding.title,
         severity=finding.severity.value,
@@ -278,71 +325,126 @@ def _run_cli_verify(
         description=finding.description[:1500],
     )
 
-    cmd = [cli_path, "-p", prompt] + (extra_args or [])
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            timeout=180,
-            cwd=str(Path(__file__).resolve().parent.parent),
+        client = anthropic_client(api_key=api_key)
+        response = client.messages.create(
+            model=_ANTHROPIC_VERIFY_MODEL,
+            max_tokens=220,
+            temperature=0,
+            messages=[{"role": "user", "content": prompt}],
         )
-    except subprocess.TimeoutExpired:
-        logger.warning("%s timed out verifying %s", cli_label, finding.finding_id)
-        return VerificationStatus.PRELIMINARY, f"{cli_label} timeout"
-    except OSError as exc:
-        logger.error("%s failed for %s: %s", cli_label, finding.finding_id, exc)
-        return VerificationStatus.PRELIMINARY, f"{cli_label} error: {exc}"
+    except Exception as exc:
+        logger.error("anthropic_api failed for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"anthropic_api error: {exc}"
 
-    # Check return code and stderr before parsing stdout
-    if result.returncode != 0:
-        stderr_msg = (result.stderr or "").strip()[:500]
+    text_blocks = [
+        block.text.strip()
+        for block in getattr(response, "content", [])
+        if getattr(block, "type", None) == "text" and getattr(block, "text", "").strip()
+    ]
+    if not text_blocks:
+        logger.warning("anthropic_api returned no text blocks for %s", finding.finding_id)
+        return VerificationStatus.PRELIMINARY, "anthropic_api returned empty output"
+
+    return _parse_verifier_output("\n".join(text_blocks), "anthropic_api", finding.finding_id)
+
+
+def _run_openrouter_verify(
+    finding: Finding,
+    api_key: str,
+) -> tuple[VerificationStatus, str]:
+    """Verify a finding against Anthropic's OpenRouter model when only OR auth exists."""
+    try:
+        httpx_module: Any = importlib.import_module("httpx")
+    except ImportError as exc:
+        logger.error("httpx not available for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"openrouter_api import error: {exc}"
+
+    prompt = _VERIFY_PROMPT.format(
+        title=finding.title,
+        severity=finding.severity.value,
+        category=finding.category.value,
+        files=", ".join(finding.affected_files[:5]) or "(none)",
+        description=finding.description[:1500],
+    )
+
+    try:
+        response = httpx_module.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": _OPENROUTER_VERIFY_MODEL,
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 220,
+                "temperature": 0,
+            },
+            timeout=60.0,
+        )
+    except Exception as exc:
+        logger.error("openrouter_api failed for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"openrouter_api error: {exc}"
+
+    if response.status_code != 200:
+        detail = response.text.strip()[:500]
         logger.error(
-            "%s exited with code %d for %s. stderr: %s",
-            cli_label, result.returncode, finding.finding_id, stderr_msg,
+            "openrouter_api exited with status %d for %s: %s",
+            response.status_code, finding.finding_id, detail,
         )
-        return VerificationStatus.PRELIMINARY, f"{cli_label} exit code {result.returncode}: {stderr_msg}"
+        return VerificationStatus.PRELIMINARY, (
+            f"openrouter_api status {response.status_code}: {detail}"
+        )
 
-    output = result.stdout.strip()
-    if not output:
-        stderr_hint = (result.stderr or "").strip()[:200]
-        logger.warning(
-            "%s returned empty stdout for %s (stderr=%s)",
-            cli_label, finding.finding_id, stderr_hint,
-        )
-        return VerificationStatus.PRELIMINARY, f"{cli_label} returned empty output"
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        logger.error("openrouter_api returned invalid JSON for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"openrouter_api invalid JSON: {exc}"
 
-    # Parse verdict — exact match preferred, prefix match with warning
-    first_line = output.split("\n")[0].strip().upper()
-    if first_line == "AGREE":
-        return VerificationStatus.CONFIRMED, output
-    elif first_line == "DISAGREE":
-        return VerificationStatus.DISPUTED, output
-    elif first_line.startswith("AGREE"):
-        logger.warning(
-            "%s verdict for %s is not exact AGREE: '%s' — treating as CONFIRMED",
-            cli_label, finding.finding_id, first_line[:80],
-        )
-        return VerificationStatus.CONFIRMED, output
-    elif first_line.startswith("DISAGREE"):
-        logger.warning(
-            "%s verdict for %s is not exact DISAGREE: '%s' — treating as DISPUTED",
-            cli_label, finding.finding_id, first_line[:80],
-        )
-        return VerificationStatus.DISPUTED, output
+    message = payload.get("choices", [{}])[0].get("message", {})
+    content = message.get("content", "")
+    if isinstance(content, list):
+        text = "\n".join(
+            str(block.get("text", "")).strip()
+            for block in content
+            if isinstance(block, dict) and str(block.get("text", "")).strip()
+        ).strip()
     else:
-        logger.warning(
-            "%s returned unparseable verdict for %s: '%s'",
-            cli_label, finding.finding_id, first_line[:80],
-        )
-        return VerificationStatus.PRELIMINARY, output
+        text = str(content).strip()
+    if not text:
+        logger.warning("openrouter_api returned empty output for %s", finding.finding_id)
+        return VerificationStatus.PRELIMINARY, "openrouter_api returned empty output"
+
+    return _parse_verifier_output(text, "openrouter_api", finding.finding_id)
+
+
+def _build_verifier_backends() -> list[tuple[str, _VerifierRunner]]:
+    """Build API verifier backends in priority order."""
+    backends: list[tuple[str, _VerifierRunner]] = []
+
+    anthropic_api_key = _load_api_key("ANTHROPIC_API_KEY")
+    if anthropic_api_key:
+        backends.append((
+            "anthropic_api",
+            lambda finding, api_key=anthropic_api_key: _run_anthropic_api_verify(finding, api_key),
+        ))
+
+    openrouter_api_key = _load_api_key("OPENROUTER_API_KEY")
+    if openrouter_api_key:
+        backends.append((
+            "openrouter_api",
+            lambda finding, api_key=openrouter_api_key: _run_openrouter_verify(finding, api_key),
+        ))
+
+    return backends
 
 
 def verify_findings(
     findings: list[Finding],
 ) -> dict[str, int]:
-    """Verify HIGH/CRITICAL findings with CC (primary) or Gemini (fallback).
+    """Verify HIGH/CRITICAL findings with the first working verifier backend.
 
     Mutates findings in-place and rewrites findings.jsonl.
     Returns stats: verified, confirmed, disputed, skipped.
@@ -361,16 +463,20 @@ def verify_findings(
         logger.info("No HIGH/CRITICAL PRELIMINARY findings to verify")
         return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
 
-    verifier = _find_verifier()
-    if not verifier:
+    verifiers = _build_verifier_backends()
+    if not verifiers:
         logger.warning(
-            "No CLI verifier found (tried: %s) — skipping verification for %d findings",
-            ", ".join(name for name, _, _ in _VERIFIERS), len(to_verify),
+            "No API verifier backend found (checked ANTHROPIC_API_KEY and OPENROUTER_API_KEY) "
+            "— skipping verification for %d findings",
+            len(to_verify),
         )
         return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": len(to_verify)}
 
-    cli_path, cli_label, extra_args = verifier
-    logger.info("Using %s (%s) as verifier for %d findings", cli_label, cli_path, len(to_verify))
+    logger.info(
+        "Using verifier backends in priority order for %d findings: %s",
+        len(to_verify),
+        ", ".join(label for label, _ in verifiers),
+    )
 
     confirmed = 0
     disputed = 0
@@ -391,24 +497,36 @@ def verify_findings(
     try:
         for idx, finding in enumerate(to_verify):
             logger.info("Verifying [%d/%d] %s: %s", idx + 1, len(to_verify), finding.finding_id, finding.title[:60])
-            status, response = _run_cli_verify(finding, cli_path, cli_label, extra_args)
+            verifier_label: str | None = None
+            status = VerificationStatus.PRELIMINARY
+            response = ""
 
-            if status == VerificationStatus.PRELIMINARY:
+            for candidate_label, runner in verifiers:
+                status, response = runner(finding)
+                if status != VerificationStatus.PRELIMINARY:
+                    verifier_label = candidate_label
+                    break
+                logger.info(
+                    "  %s could not verify %s — trying next backend if available",
+                    candidate_label, finding.finding_id,
+                )
+
+            if status == VerificationStatus.PRELIMINARY or verifier_label is None:
                 skipped += 1
                 continue
 
             finding.verification_status = status
-            finding.verified_by = cli_label
+            finding.verified_by = verifier_label
             finding.verified_at = now
             finding.verification_response = response[:2000]
             dirty = True
 
             if status == VerificationStatus.CONFIRMED:
                 confirmed += 1
-                logger.info("  → CONFIRMED by %s", cli_label)
+                logger.info("  → CONFIRMED by %s", verifier_label)
             else:
                 disputed += 1
-                logger.info("  → DISPUTED by %s: %s", cli_label, response[:120])
+                logger.info("  → DISPUTED by %s: %s", verifier_label, response[:120])
 
             # Save every 5 findings to avoid losing work on interrupt
             if dirty and (idx + 1) % 5 == 0:
@@ -425,8 +543,8 @@ def verify_findings(
 
     total = confirmed + disputed
     logger.info(
-        "Verification complete (%s): %d verified (%d confirmed, %d disputed, %d skipped)",
-        cli_label, total, confirmed, disputed, skipped,
+        "Verification complete: %d verified (%d confirmed, %d disputed, %d skipped)",
+        total, confirmed, disputed, skipped,
     )
     return {"verified": total, "confirmed": confirmed, "disputed": disputed, "skipped": skipped}
 
@@ -556,7 +674,7 @@ def bridge_creative_to_ideas() -> dict[str, int]:
 # ═══════════════════════════════════════════════════════════════════
 
 # Pattern for [OPEN: description] markers in SPEC files
-_OPEN_MARKER_RE = re.compile(r"\[OPEN:\s*(.+?)\]")
+_OPEN_MARKER_RE = re.compile(r"\[OPEN:\s*([^\]\r\n]+?)\]")
 
 # Pattern for L-NNN limitation entries in KNOWN_LIMITATIONS.md
 _LIMITATION_RE = re.compile(r"^##\s+(L-[0-9]+):\s*(.+)$", re.MULTILINE)
@@ -913,7 +1031,7 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, Any]:
         findings_created += len(new_in_task)
         logger.info("Ingested %s: %d findings", task_id, len(new_in_task))
 
-    # Verify HIGH/CRITICAL findings with Gemini CLI (D-041 cross-model)
+    # Verify HIGH/CRITICAL findings via API backends (D-041 cross-model)
     # Covers both newly ingested AND existing PRELIMINARY findings
     verify_stats = {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
     try:
@@ -921,8 +1039,8 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, Any]:
         verify_candidates = [f for f in all_existing if isinstance(f, Finding)]
         if verify_candidates:
             verify_stats = verify_findings(verify_candidates)
-    except (OSError, subprocess.SubprocessError, ValueError) as exc:
-        logger.exception("Gemini verification failed (findings remain PRELIMINARY): %s", exc)
+    except (OSError, ValueError) as exc:
+        logger.exception("API verification failed (findings remain PRELIMINARY): %s", exc)
 
     # Cross-reference ALL findings (existing + new).
     # Isolated try/except: cross-ref failure must not block stats or follow-ups.
@@ -1019,8 +1137,9 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, Any]:
         if preliminary_needing_action:
             logger.warning(
                 "⚠ %d HIGH/CRITICAL findings stuck at PRELIMINARY — "
-                "follow-up prompts blocked until Gemini CLI verifies them. "
-                "Run 'python scripts/codex_kb_bridge.py' when Gemini is available.",
+                "follow-up prompts blocked until a verifier backend is available. "
+                "Set ANTHROPIC_API_KEY or OPENROUTER_API_KEY, then rerun "
+                "'python scripts/codex_kb_bridge.py'.",
                 len(preliminary_needing_action),
             )
 
