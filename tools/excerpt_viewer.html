@@ -616,9 +616,11 @@ function startPolling(){
   $("live-dot").style.display="inline-block";
   if(pollTimer)clearInterval(pollTimer);
   pollTimer=setInterval(async()=>{
-    try{const r=await fetch(`/api/excerpts/${currentPackage}`);const f=await r.json();
+    try{const r=await fetch(`/api/excerpts/${currentPackage}`);
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const f=await r.json();
       if(f.length>excerpts.length){excerpts=f;renderList();$("pos").textContent=`${currentIndex+1}/${excerpts.length}`}
-    }catch{}
+    }catch(e){console.error("Polling error:",e);$("live-dot").style.background="var(--red)";$("live-dot").title="Live updates failed: "+e.message}
   },10000);
 }
 
@@ -714,7 +716,7 @@ function render(){
     </div>
     ${scholarsHtml?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow open">\u25B8</span> Scholars Cited</div><div class="sec-body open">${scholarsHtml}</div></div>`:""}
     ${refs.length+tak.length+xrefs.length>0?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow">\u25B8</span> Evidence &amp; References</div><div class="sec-body">${evidHtml}</div></div>`:""}
-    ${renderRelatedUnits(ex)}
+    ${(()=>{try{return renderRelatedUnits(ex)}catch(e){console.error("renderRelatedUnits error:",e);return ""}})()}
   `;
 
   renderRight(ex);
@@ -731,8 +733,8 @@ function renderRelatedUnits(ex){
     // Find the linked excerpt by unit_index in the same chunk
     const targetIdx=excerpts.findIndex(e=>e.chunk_index===ex.chunk_index&&e.unit_index===rel.target_unit_index);
     const target=targetIdx>=0?excerpts[targetIdx]:null;
-    const relTypes={evidence_for:"\u2192 Evidence for",companion_definition:"\u2194 Companion",elaboration:"\u2193 Elaborates"};
-    const typeLabel=relTypes[rel.relationship]||rel.relationship;
+    const relTypes={evidence_for:"\u2192 Evidence for",companion_definition:"\u2194 Companion",condition_for:"\u2192 Condition for"};
+    const typeLabel=relTypes[rel.relationship]||esc(rel.relationship);
     if(target){
       const tsc=target.self_containment||"FULL";
       const tscCls=tsc==="FULL"?"full":tsc==="PARTIAL"?"partial":"dependent";
@@ -743,7 +745,7 @@ function renderRelatedUnits(ex){
           <span class="rel-desc">${esc(rel.description||"")}</span>
         </div>
         <div class="rel-card-body">
-          <div class="rel-card-text">${esc(target.primary_text)}</div>
+          <div class="rel-card-text">${target.primary_text?esc(target.primary_text):'<span style="color:var(--red);font-style:italic">Missing primary_text</span>'}</div>
           <div class="rel-card-meta">
             <span class="rel-chip">${v(target.primary_function)}</span>
             <span class="rel-chip chip-${tscCls}">${tsc}</span>
