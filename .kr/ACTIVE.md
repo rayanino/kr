@@ -12,41 +12,56 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 Status: active
 
-## Current frontier — Excerpting Engine Deep Q&A + Exhaustive Hardening
+## Current frontier — Repo Cleanup + Owner-Facing Visual Representations
 
-A 4-phase operation to finalize the excerpting engine's prompt quality and output calibration using owner feedback and 5-coworker evaluation.
+Pause excerpting engine builds at the Session 22 checkpoint. The active workstream is now repo cleanup, structure clarification, and owner-readable visual representations that help the owner react to the system without needing to inspect engine code directly.
 
-### Phase 0: Owner Q&A
-Design and conduct a structured questionnaire with the owner using real campaign excerpts (2,303 at `integration_tests/campaign_20260331/`). All 5 coworkers collaboratively design the questionnaire. Questions are end-user only — what the owner wants to experience when using his library.
+### Immediate deliverable
+Create a cleaner repo surface plus visual maps/diagrams that let the owner review:
+- the 7-engine pipeline and handoff boundaries
+- the excerpting phase flow and artifact outputs
+- runtime, authority, and frontier control surfaces
+- where owner insight is useful versus where engineering autonomy applies
 
-### Phase 1: Smoke Run + 6-Team Analysis
-Run `scripts/run_full_integration.py --backend api --output-dir integration_tests/smoke_api_v2/` (~130 excerpts, ~EUR 3, ~30 min). Then 6 parallel analysis teams evaluate output:
-- A: Boundary Quality (CC + Codex)
-- B: Classification (Gemini + ChatGPT DR)
-- C: Arabic Fidelity (Claude DR + Gemini)
-- D: Consensus & Metadata (Codex + CC)
-- E: Coverage & Gaps (ChatGPT DR + Claude DR)
-- F: Owner Review (Owner + review tool)
+### Excerpting freeze checkpoint
+- Branch frozen for engine work: `excerpting-foundations-hardening-20260404`
+- Tests at freeze: `1008` pass, `0` fail, `4` xfail
+- Budget at freeze: `EUR 36.70 / 100.00`
+- Review artifact: `integration_tests/review_session22/eval_session22_talaq/`
+- Live feedback file: `integration_tests/review_session22/eval_session22_talaq/owner_feedback.jsonl`
+- First analyzed owner verdict: Session 22 excerpt 1 is a Phase 2 granularity miss; the current pipeline split `لغة` vs `شرعا`, but still fused lexical definition with `اشتقاق`
+- Deferred generalization candidates:
+  - `div_src_test0001_7_006`
+  - `div_src_test0001_4_000`
+  - `div_src_test0001_6_076`
 
-### Phase 2: Deep Hardening
-Fix everything from Phase 1 + Q&A. Re-run smoke (~EUR 3). Re-evaluate. Iterate until convergence.
+### Allowed while paused
+- repo cleanup and archival reshaping
+- owner-facing walkthrough docs
+- mermaid diagrams and visual maps
+- naming and navigation cleanup
+- collecting owner review feedback into queued evidence
 
-### Phase 3: Full 5-Book Run
-Definitive run with fully hardened prompts (~$15-20). Compare against campaign baseline (2,303 excerpts, old prompts).
+### Disallowed while paused
+- excerpting code changes
+- prompt or contract changes for excerpting
+- new smoke runs, campaign reruns, or generalization runs
+- coworker dispatch tied to excerpting fixes
+
+### Resume trigger
+Resume excerpting only after the cleanup/visual sessions are complete and the owner feedback collected during the pause has been consolidated into a single implementation brief.
 
 ## Success criteria
-1. Owner has reviewed excerpts from at least 2 packages and accepted them
-2. All 5 coworkers independently confirm output quality
-3. Zero known unaddressed error patterns
-4. All automated checks pass (pyright, pytest, Arabic safety, boundary validation)
+1. The repo surface is simpler to navigate for non-technical owner review.
+2. Visual representations exist for the major architectural and workflow surfaces.
+3. The owner can react to structure, flow, and information design without code-level interpretation.
+4. The excerpting Session 22 checkpoint remains explicit and reproducible.
 
 ## Budget
-- OpenRouter: ~EUR 50 remaining
-- Smoke run: ~EUR 3 per run
-- Full 5-book: ~$15-20
+- Excerpting budget remains frozen at the Session 22 checkpoint unless the frontier is explicitly switched back.
 
 ## Relevant decisions
 - OPS-DEC-001 through OPS-DEC-006
 
-## Previous frontier (completed 2026-03-29)
-Build the excerpting evaluation layer v1 (analyzer, campaign aggregator, review-packet exporter) and patch all 6 observability gaps in the runner.
+## Previous frontier (paused 2026-04-08)
+Excerpting Engine Deep Q&A + Exhaustive Hardening. See `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md` for the exact frozen state and resume protocol.

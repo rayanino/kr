@@ -7,6 +7,7 @@ Use this as the short operator guide for day-to-day Codex work in KR.
 - Launch normally: `powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1`
 - Audit only: `powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1 -NoLaunch`
 - Audit plus backend health: `powershell -ExecutionPolicy Bypass -File .\scripts\start_codex_kr.ps1 -RunAuthPreflight -NoLaunch`
+- Machine migration: `docs/codex/windows-migration.md` and `powershell -ExecutionPolicy Bypass -File .\scripts\export_codex_windows_setup.ps1`
 
 ## Profiles
 

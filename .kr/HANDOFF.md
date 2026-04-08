@@ -5,46 +5,24 @@
 
 # KR Handoff
 
-## Session purpose
-Foundations hardening session 1: initial SPEC hardening from F1-F8 owner feedback, empirical validation, 5 DR coworker reports, environment preparation for session 2.
+## Current session purpose
+Pause excerpting engine builds at the Session 22 checkpoint and redirect the next serious sessions to repo cleanup plus owner-facing visual representations.
 
-## What this session completed
-
-### SPEC Hardening (SPEC grew from 2387 to 2530 lines)
-- FP-1 through FP-18 in §1.1b (18 foundational principles)
-- EE-1 (explained+explanation unity) as §6.4b
-- NC-1 (context resolution hierarchy) in §3
-- MV-1 (minimum viability, 25-word floor) in §5.3
-- Hadith sequence fix in §6.3, tarjih softened, C-SC-2 expanded with taqdir
-
-### Prompt Changes (phase2_group.py)
-- EE-1 general unity rule, expanded C-SC-2, tarjih MAY, FP-9 scope
-
-### Empirical Validation
-- Taysir: EE-1 2/2 PASS. Ibn Aqil: 32/32 PASS.
-
-### Tools: `scripts/atom_test.py`, `scripts/check_prompt_spec_sync.py`
-
-### 5 DR Reports archived at `evaluation_reports/dispatch_packets/foundations_hardening_2026_04_04/`
-
-### Critical Discovery
-F1-F8 collections contain 139 files of deep analysis. Session 1 only processed ~15. Remaining 124 files contain nonnegotiables, red-team tests, decision ladders, linking dependencies, and open questions that must be processed atom-by-atom.
-
-## Session 2 completed (2026-04-04, 17 commits)
-
-- Merged all F1-F8 owner feedback into MERGED_ATOM_QUEUE.md (250 ideas, 88 MAQ atoms, 0 silent drops)
-- Processed 6 thematic batches: Safety (17 atoms), Self-Containment (5), Boundary (10), Granularity (17), Tarjih/Proof (21), Other (9)
-- 22 FPs (FP-1 through FP-22) in SPEC §1.1b, hardened by 5 adversarial DR reviews
-- 10 prompt rules in GROUP_SYSTEM_PROMPT (1440/1500 words) + 1 in CLASSIFY_SYSTEM_PROMPT
-- 10 red-team tests (5 pass, 4 xfail documenting real gaps, 1 gap fixed)
-- V-P3-2 truncation fix + EE-1 gharib exception
-- Empirical validation: taysir chunk 0 = 5 correct TUs (was 12 fragmented)
+## Current state
+- Active frontier now lives in `.kr/ACTIVE.md`
+- Exact excerpting freeze state is recorded in `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
+- The owner may continue reviewing Session 22 excerpts; review collection remains live at `integration_tests/review_session22/eval_session22_talaq/owner_feedback.jsonl`
 
 ## Current resume point
+1. **For cleanup/visual sessions:** start from `.kr/ACTIVE.md` and `NEXT.md`
+2. Keep excerpting implementation paused while cleanup/visual work is active
+3. When returning to excerpting, start from `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
 
-1. **START HERE:** Read `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md`
-2. Read SPEC §1.1b (22 FPs), MERGED_ATOM_QUEUE.md, FOUNDATIONS_HARDENING_LEDGER.md
-3. Run tests (expect 912+ pass, 4 xfail) + check_prompt_spec_sync.py (expect PASS)
-4. Follow the session 3 task sequence (Phase A-D)
+## Suggested branch discipline
+- Keep `excerpting-foundations-hardening-20260404` as the frozen excerpting checkpoint
+- Do cleanup/visual work on a separate branch such as `repo-cleanup-visual-maps-20260408`
 
-Branch: `excerpting-foundations-hardening-20260404`. Do not finalize without coworker reports.
+## Historical note
+The earlier foundations-hardening kickoff and session-2 handoff context remains archived in:
+- `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md`
+- `reference/handoffs/excerpting_foundations_claude_hardening_takeover_2026-04-04.md`

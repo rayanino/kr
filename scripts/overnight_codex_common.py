@@ -81,8 +81,11 @@ SHADOW_SETUP_WRITE_TARGETS = (
     "ACTIVE_AUTHORITY.md",
     "Makefile",
     "docs/codex/",
+    "scripts/export_codex_windows_setup.ps1",
     "scripts/quality_gate.py",
     "scripts/overnight_codex_",
+    "scripts/run_overnight_codex_shadow_loop.ps1",
+    "scripts/start_codex_kr.ps1",
     "scripts/start_overnight_codex.sh",
 )
 
