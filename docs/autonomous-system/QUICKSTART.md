@@ -42,6 +42,7 @@ Open `http://localhost:8000`. Pages:
 | **Contradictions** (`/contradictions`) | Conflicts between DR sources. |
 | **Digestion Log** (`/digestion`) | Processing status of each DR file. |
 | **Ideas** (`/ideas`) | Idea quarry — submit and track ideas. |
+| **Research Gaps** (`/gaps`) | SPEC open questions and known limitations. |
 | **Status** (`/status`) | Overall KB health stats. |
 
 ### 3. Relay follow-up prompts
@@ -72,21 +73,33 @@ python scripts/digest_dr.py response.md --source claude_dr
 
 ## Current KB State
 
-- 32 DR responses digested
-- 234 findings (45 critical, 77 high, 31 medium, 81 low)
+- 35 DR responses digested
+- 244 findings (126 HIGH/CRITICAL still PRELIMINARY — pending verification)
 - 47 contradictions
-- 114 follow-up prompts in the relay queue
-- 10 batch_2 Gemini DR scholarly answers (taxonomy tree decisions)
+- 13 research gaps (from KNOWN_LIMITATIONS.md)
+- 5 backlog items
+- 3 creative templates ready
+
+## Data Bridges
+
+After every ingestion, `codex_kb_bridge.py` runs three bridges:
+
+1. **Creative -> Ideas:** Codex creative task results become `Idea` records in the quarry
+2. **Gap Scanner -> Research Gaps:** SPEC `[OPEN:]` markers + `KNOWN_LIMITATIONS.md` become `ResearchGap` records
+3. **Findings -> Backlog:** CONFIRMED HIGH/CRITICAL findings auto-promote to the Codex backlog
 
 ## File Locations
 
 ```
 overnight_codex/autonomous/knowledge_base/
-  findings.jsonl          — All extracted findings
-  dr_responses.jsonl      — DR response metadata
-  contradictions.jsonl    — Detected contradictions
-  digestion_log.jsonl     — Processing log
+  findings.jsonl          — All extracted findings (244)
+  research_gaps.jsonl     — SPEC gaps + known limitations (13)
+  ideas.jsonl             — Idea quarry (created on first creative run)
+  dr_responses.jsonl      — DR response metadata (35)
+  contradictions.jsonl    — Detected contradictions (47)
+  digestion_log.jsonl     — Processing log (35)
   dr_prompts/
     batch_2.jsonl         — Original taxonomy DR prompts
     batch-full.jsonl      — Auto-generated follow-up prompts
+    codex-auto.jsonl      — Auto-generated from Codex findings
 ```

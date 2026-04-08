@@ -29,6 +29,8 @@ FINDINGS_JSONL = KB_DIR / "findings.jsonl"
 DR_RESPONSES_JSONL = KB_DIR / "dr_responses.jsonl"
 CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
 DIGESTION_LOG_JSONL = KB_DIR / "digestion_log.jsonl"
+IDEAS_JSONL = KB_DIR / "ideas.jsonl"
+RESEARCH_GAPS_JSONL = KB_DIR / "research_gaps.jsonl"
 PROMPTS_DIR = KB_DIR / "dr_prompts"
 
 # ═══════════════════════════════════════════════════════════════════
@@ -264,7 +266,7 @@ class Idea(BaseModel):
     title: str
     description: str
     source: str = Field(
-        ..., description="owner / system / dr_response / coworker"
+        ..., description="owner / system / dr_response / coworker / codex_creative"
     )
     status: IdeaStatus = IdeaStatus.GENERATED
     dr_prompt_ids: list[str] = Field(default_factory=list)

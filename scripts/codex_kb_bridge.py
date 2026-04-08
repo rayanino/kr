@@ -4,6 +4,11 @@ Reads final_response.json from each task result, converts action_items
 and findings strings into Finding records, persists to the KB JSONL files,
 then runs cross-referencing and follow-up prompt generation.
 
+Also bridges three additional data flows:
+- Creative task results → Idea Quarry (ideas.jsonl)
+- SPEC [OPEN:] markers + KNOWN_LIMITATIONS.md → Research Gaps (research_gaps.jsonl)
+- CONFIRMED HIGH/CRITICAL findings → Codex backlog (backlog.json)
+
 Usage:
     python scripts/codex_kb_bridge.py              # ingest all un-ingested results
     python scripts/codex_kb_bridge.py --dry-run     # report without writing
@@ -13,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import re
 import shutil
 import subprocess
 import sys
@@ -26,13 +32,20 @@ from scripts.autonomous_schemas import (
     DIGESTION_LOG_JSONL,
     DR_RESPONSES_JSONL,
     FINDINGS_JSONL,
+    IDEAS_JSONL,
+    PROJECT_DIR,
     PROMPTS_DIR,
+    RESEARCH_GAPS_JSONL,
     DigestionRecord,
     DRResponse,
     DRTarget,
     Finding,
     FindingSeverity,
+    GapSource,
+    Idea,
+    Priority,
     ResearchCategory,
+    ResearchGap,
     VerificationStatus,
     append_jsonl,
     read_jsonl,
@@ -419,11 +432,398 @@ def verify_findings(
 
 
 # ═══════════════════════════════════════════════════════════════════
+# Bridge 1: Creative tasks → Idea Quarry
+# ═══════════════════════════════════════════════════════════════════
+
+
+def _load_existing_idea_ids() -> set[str]:
+    """Return set of idea_ids already in ideas.jsonl."""
+    records = read_jsonl(IDEAS_JSONL, Idea)
+    return {r.idea_id for r in records if isinstance(r, Idea)}
+
+
+def _extract_ideas_from_payload(
+    task_id: str,
+    payload: dict[str, Any],
+    existing_ids: set[str],
+) -> tuple[int, int]:
+    """Extract Idea records from a creative task payload.
+
+    Returns (created, skipped).
+    """
+    created = 0
+    skipped = 0
+
+    for raw_item in payload.get("action_items", []):
+        if not isinstance(raw_item, dict):
+            continue
+        summary = str(raw_item.get("summary", "")).strip()
+        if not summary:
+            continue
+        item_id = str(raw_item.get("id", "")).strip()
+        if not item_id:
+            item_id = hashlib.sha256(summary.encode("utf-8")).hexdigest()[:8]
+
+        idea_id = f"IDEA-{task_id}-{item_id}"[:60]
+        if idea_id in existing_ids:
+            skipped += 1
+            continue
+
+        idea = Idea(
+            idea_id=idea_id,
+            title=summary[:200],
+            description=summary,
+            source="codex_creative",
+            implementation_sketch=str(raw_item.get("detail", ""))[:2000],
+            estimated_effort=str(raw_item.get("effort", "")).strip(),
+        )
+        append_jsonl(IDEAS_JSONL, idea)
+        existing_ids.add(idea_id)
+        created += 1
+
+    for raw_finding in payload.get("findings", []):
+        if not isinstance(raw_finding, str) or not raw_finding.strip():
+            continue
+        text = raw_finding.strip()
+        str_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()[:8]
+        idea_id = f"IDEA-{task_id}-s{str_hash}"[:60]
+        if idea_id in existing_ids:
+            skipped += 1
+            continue
+
+        idea = Idea(
+            idea_id=idea_id,
+            title=text[:200],
+            description=text,
+            source="codex_creative",
+        )
+        append_jsonl(IDEAS_JSONL, idea)
+        existing_ids.add(idea_id)
+        created += 1
+
+    return created, skipped
+
+
+def bridge_creative_to_ideas() -> dict[str, int]:
+    """Scan creative-* result dirs for creative.json and create Idea records.
+
+    Falls back to final_response.json if creative.json is absent.
+    Returns stats: ideas_created, ideas_skipped.
+    """
+    existing_ids = _load_existing_idea_ids()
+    created = 0
+    skipped = 0
+
+    creative_dirs = sorted(RESULTS_DIR.glob("creative-*"))
+    if not creative_dirs:
+        logger.info("No creative-* result dirs found in %s", RESULTS_DIR)
+        return {"ideas_created": 0, "ideas_skipped": 0}
+
+    for task_dir in creative_dirs:
+        task_id = task_dir.name
+        creative_file = task_dir / "creative.json"
+        if not creative_file.exists():
+            creative_file = task_dir / "final_response.json"
+        if not creative_file.exists():
+            logger.warning("No creative.json or final_response.json in %s", task_dir)
+            skipped += 1
+            continue
+
+        try:
+            payload = json.loads(creative_file.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            logger.warning("Skipping %s: %s", creative_file, exc)
+            skipped += 1
+            continue
+
+        if not isinstance(payload, dict):
+            logger.warning("Skipping %s: not a dict", task_id)
+            skipped += 1
+            continue
+
+        task_created, task_skipped = _extract_ideas_from_payload(
+            task_id, payload, existing_ids,
+        )
+        created += task_created
+        skipped += task_skipped
+
+    logger.info("Creative → Ideas: %d created, %d skipped", created, skipped)
+    return {"ideas_created": created, "ideas_skipped": skipped}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Bridge 2: Gap scanner → Research Gaps
+# ═══════════════════════════════════════════════════════════════════
+
+# Pattern for [OPEN: description] markers in SPEC files
+_OPEN_MARKER_RE = re.compile(r"\[OPEN:\s*(.+?)\]")
+
+# Pattern for L-NNN limitation entries in KNOWN_LIMITATIONS.md
+_LIMITATION_RE = re.compile(r"^##\s+(L-[0-9]+):\s*(.+)$", re.MULTILINE)
+
+# Engines directory for scanning
+_ENGINES_DIR = PROJECT_DIR / "engines"
+
+
+def _load_existing_gap_ids() -> set[str]:
+    """Return set of gap_ids already in research_gaps.jsonl."""
+    records = read_jsonl(RESEARCH_GAPS_JSONL, ResearchGap)
+    return {r.gap_id for r in records if isinstance(r, ResearchGap)}
+
+
+def _scan_spec_open_markers(existing_ids: set[str]) -> list[ResearchGap]:
+    """Grep SPEC.md files for [OPEN: ...] markers."""
+    gaps: list[ResearchGap] = []
+    for spec_file in sorted(_ENGINES_DIR.glob("*/SPEC.md")):
+        engine_name = spec_file.parent.name
+        try:
+            content = spec_file.read_text(encoding="utf-8")
+        except OSError as exc:
+            logger.warning("Cannot read %s: %s", spec_file, exc)
+            continue
+
+        for line_num, line in enumerate(content.splitlines(), 1):
+            match = _OPEN_MARKER_RE.search(line)
+            if not match:
+                continue
+            description = match.group(1).strip()
+            desc_hash = hashlib.sha256(description.encode("utf-8")).hexdigest()[:8]
+            gap_id = f"GAP-OPEN-{engine_name}-{desc_hash}"
+            if gap_id in existing_ids:
+                continue
+
+            gaps.append(ResearchGap(
+                gap_id=gap_id,
+                source=GapSource.SPEC_OPEN,
+                source_file=str(spec_file.relative_to(PROJECT_DIR)).replace("\\", "/"),
+                source_line=line_num,
+                description=f"[{engine_name}] {description}",
+                priority=Priority.MEDIUM,
+            ))
+            existing_ids.add(gap_id)
+
+    return gaps
+
+
+def _scan_known_limitations(existing_ids: set[str]) -> list[ResearchGap]:
+    """Parse KNOWN_LIMITATIONS.md files for L-NNN entries."""
+    gaps: list[ResearchGap] = []
+
+    for lim_file in sorted(PROJECT_DIR.glob("engines/*/KNOWN_LIMITATIONS.md")):
+        engine_name = lim_file.parent.name
+        try:
+            content = lim_file.read_text(encoding="utf-8")
+        except OSError as exc:
+            logger.warning("Cannot read %s: %s", lim_file, exc)
+            continue
+
+        for match in _LIMITATION_RE.finditer(content):
+            lim_id = match.group(1)  # e.g. "L-001"
+            lim_title = match.group(2).strip()
+            gap_id = f"GAP-LIM-{engine_name}-{lim_id}"
+            if gap_id in existing_ids:
+                continue
+
+            gaps.append(ResearchGap(
+                gap_id=gap_id,
+                source=GapSource.KNOWN_LIMITATION,
+                source_file=str(lim_file.relative_to(PROJECT_DIR)).replace("\\", "/"),
+                source_line=None,
+                description=f"[{engine_name}] {lim_id}: {lim_title}",
+                priority=Priority.LOW,
+            ))
+            existing_ids.add(gap_id)
+
+    # Also scan scripts/excerpting_eval/ for KNOWN_LIMITATIONS.md
+    for lim_file in sorted(PROJECT_DIR.glob("scripts/*/KNOWN_LIMITATIONS.md")):
+        module_name = lim_file.parent.name
+        try:
+            content = lim_file.read_text(encoding="utf-8")
+        except OSError as exc:
+            logger.warning("Cannot read %s: %s", lim_file, exc)
+            continue
+
+        for match in _LIMITATION_RE.finditer(content):
+            lim_id = match.group(1)
+            lim_title = match.group(2).strip()
+            gap_id = f"GAP-LIM-{module_name}-{lim_id}"
+            if gap_id in existing_ids:
+                continue
+
+            gaps.append(ResearchGap(
+                gap_id=gap_id,
+                source=GapSource.KNOWN_LIMITATION,
+                source_file=str(lim_file.relative_to(PROJECT_DIR)).replace("\\", "/"),
+                source_line=None,
+                description=f"[{module_name}] {lim_id}: {lim_title}",
+                priority=Priority.LOW,
+            ))
+            existing_ids.add(gap_id)
+
+    return gaps
+
+
+def bridge_gaps_to_research_gaps() -> dict[str, int]:
+    """Scan SPEC [OPEN:] markers and KNOWN_LIMITATIONS.md for research gaps.
+
+    Returns stats: gaps_created (open + limitations), gaps_skipped.
+    """
+    existing_ids = _load_existing_gap_ids()
+    initial_count = len(existing_ids)
+
+    open_gaps = _scan_spec_open_markers(existing_ids)
+    lim_gaps = _scan_known_limitations(existing_ids)
+
+    all_new = open_gaps + lim_gaps
+    for gap in all_new:
+        append_jsonl(RESEARCH_GAPS_JSONL, gap)
+
+    created = len(all_new)
+    logger.info(
+        "Gap scanner → Research Gaps: %d created (%d from [OPEN:], %d from KNOWN_LIMITATIONS)",
+        created, len(open_gaps), len(lim_gaps),
+    )
+    return {
+        "gaps_created": created,
+        "gaps_from_open": len(open_gaps),
+        "gaps_from_limitations": len(lim_gaps),
+        "gaps_skipped": initial_count,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Bridge 3: Findings → Backlog promotion
+# ═══════════════════════════════════════════════════════════════════
+
+_PROMOTABLE_SEVERITIES = {FindingSeverity.CRITICAL, FindingSeverity.HIGH}
+
+
+def _import_backlog_helpers() -> tuple[Any, ...]:
+    """Lazy-import backlog helpers to avoid circular deps."""
+    try:
+        from scripts.overnight_codex_backlog import (
+            dedupe_key, infer_frontier_tag, infer_subsystem,
+            infer_allowed_write_prefixes, load_backlog, save_backlog,
+        )
+        from scripts.overnight_codex_common import utc_now_iso
+    except ImportError:
+        from overnight_codex_backlog import (  # type: ignore[no-redef]
+            dedupe_key, infer_frontier_tag, infer_subsystem,
+            infer_allowed_write_prefixes, load_backlog, save_backlog,
+        )
+        from overnight_codex_common import utc_now_iso  # type: ignore[no-redef]
+    return dedupe_key, infer_frontier_tag, infer_subsystem, infer_allowed_write_prefixes, load_backlog, save_backlog, utc_now_iso
+
+
+def _build_backlog_item(
+    finding: Finding,
+    item_key: str,
+    subsystem: str,
+    frontier_tag: str,
+    write_prefixes: list[str],
+    run_id: str,
+    utc_now_iso: Any,
+) -> dict[str, Any]:
+    """Build a backlog item dict from a confirmed finding."""
+    return {
+        "item_id": item_key,
+        "dedupe_key": item_key,
+        "summary": finding.action_required.strip()[:500],
+        "proposed_action": finding.action_required.strip()[:500],
+        "category": finding.category.value.upper(),
+        "priority": finding.severity.value.upper(),
+        "effort": "M",
+        "status": "proposed",
+        "frontier_tag": frontier_tag,
+        "subsystem": subsystem,
+        "allowed_write_prefixes": write_prefixes,
+        "gate_mode": "all",
+        "evidence_paths": finding.affected_files[:12],
+        "source_task_ids": [finding.source_id],
+        "source_kind": "kb_finding_promotion",
+        "source_finding_id": finding.finding_id,
+        "legacy_input": False,
+        "latest_result_path": "",
+        "latest_source_signature": f"{finding.finding_id}:{finding.verified_at or ''}",
+        "created_at": utc_now_iso(),
+        "created_by_run": run_id,
+        "last_seen": utc_now_iso(),
+        "last_touched_run": run_id,
+        "status_updated_at": utc_now_iso(),
+        "status_updated_by_run": run_id,
+        "occurrences": 1,
+    }
+
+
+def bridge_findings_to_backlog() -> dict[str, int]:
+    """Promote CONFIRMED HIGH/CRITICAL findings to the Codex backlog."""
+    (dedupe_key, infer_frontier_tag, infer_subsystem,
+     infer_allowed_write_prefixes, load_backlog, save_backlog,
+     utc_now_iso) = _import_backlog_helpers()
+
+    if not FINDINGS_JSONL.exists():
+        logger.info("No findings.jsonl — skipping backlog promotion")
+        return {"promoted": 0, "already_in_backlog": 0, "skipped": 0}
+
+    all_findings_raw = read_jsonl(FINDINGS_JSONL, Finding)
+    candidates = [
+        f for f in all_findings_raw
+        if isinstance(f, Finding)
+        and f.verification_status == VerificationStatus.CONFIRMED
+        and f.severity in _PROMOTABLE_SEVERITIES
+        and f.action_required.strip()
+    ]
+
+    if not candidates:
+        logger.info("No CONFIRMED HIGH/CRITICAL findings with action_required to promote")
+        return {"promoted": 0, "already_in_backlog": 0, "skipped": 0}
+
+    backlog = load_backlog()
+    promoted = 0
+    already = 0
+    run_id = f"bridge-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}"
+
+    for finding in candidates:
+        paths = finding.affected_files[:10]
+        subsystem = infer_subsystem(finding.finding_id, paths)
+        summary = finding.action_required.strip()[:500]
+        category = finding.category.value.upper()
+        item_key = dedupe_key(subsystem=subsystem, category=category, summary=summary)
+
+        if item_key in backlog["items"]:
+            already += 1
+            continue
+
+        backlog["items"][item_key] = _build_backlog_item(
+            finding, item_key, subsystem,
+            infer_frontier_tag(subsystem),
+            infer_allowed_write_prefixes(subsystem),
+            run_id, utc_now_iso,
+        )
+        promoted += 1
+
+    if promoted > 0:
+        backlog["meta"]["last_synced_at"] = utc_now_iso()
+        backlog["meta"]["last_sync_run"] = run_id
+        save_backlog(backlog)
+
+    logger.info(
+        "Findings → Backlog: %d promoted, %d already present",
+        promoted, already,
+    )
+    return {
+        "promoted": promoted,
+        "already_in_backlog": already,
+        "skipped": len(candidates) - promoted - already,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════
 # Main entry point
 # ═══════════════════════════════════════════════════════════════════
 
 
-def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
+def ingest_codex_results(run_id: str | None = None) -> dict[str, Any]:
     """Scan results/ and ingest all un-ingested Codex results into the KB.
 
     Returns stats: tasks_processed, findings_created, skipped,
@@ -574,6 +974,39 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         except Exception as exc:
             logger.exception("Follow-up prompt generation failed (likely code bug): %s", exc)
 
+    # ── Bridges: each isolated, errors tracked for caller visibility ──
+    bridge_errors: list[str] = []
+
+    creative_stats = {"ideas_created": 0, "ideas_skipped": 0}
+    try:
+        creative_stats = bridge_creative_to_ideas()
+    except (OSError, ValueError) as exc:
+        logger.error("Creative → Ideas bridge failed (I/O or data error): %s", exc)
+        bridge_errors.append(f"creative: {exc}")
+    except Exception as exc:
+        logger.exception("Creative → Ideas bridge failed (likely code bug): %s", exc)
+        bridge_errors.append(f"creative: {exc}")
+
+    gap_stats = {"gaps_created": 0, "gaps_from_open": 0, "gaps_from_limitations": 0, "gaps_skipped": 0}
+    try:
+        gap_stats = bridge_gaps_to_research_gaps()
+    except (OSError, ValueError) as exc:
+        logger.error("Gap scanner → Research Gaps bridge failed: %s", exc)
+        bridge_errors.append(f"gaps: {exc}")
+    except Exception as exc:
+        logger.exception("Gap scanner → Research Gaps bridge failed: %s", exc)
+        bridge_errors.append(f"gaps: {exc}")
+
+    backlog_stats = {"promoted": 0, "already_in_backlog": 0, "skipped": 0}
+    try:
+        backlog_stats = bridge_findings_to_backlog()
+    except (OSError, ValueError) as exc:
+        logger.error("Findings → Backlog promotion failed: %s", exc)
+        bridge_errors.append(f"backlog: {exc}")
+    except Exception as exc:
+        logger.exception("Findings → Backlog promotion failed: %s", exc)
+        bridge_errors.append(f"backlog: {exc}")
+
     # Warn if PRELIMINARY findings are blocking follow-ups (chicken-and-egg)
     if FINDINGS_JSONL.exists():
         all_for_check = read_jsonl(FINDINGS_JSONL, Finding)
@@ -620,6 +1053,11 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         "verified": verify_stats.get("verified", 0),
         "confirmed": verify_stats.get("confirmed", 0),
         "disputed": verify_stats.get("disputed", 0),
+        # Bridge stats
+        "ideas_created": creative_stats.get("ideas_created", 0),
+        "gaps_created": gap_stats.get("gaps_created", 0),
+        "backlog_promoted": backlog_stats.get("promoted", 0),
+        "bridge_errors": bridge_errors,
         # KB totals (cumulative across all runs)
         "kb_total_tasks": total_tasks,
         "kb_total_findings": total_findings,
@@ -652,12 +1090,20 @@ def main() -> None:
 
     stats = ingest_codex_results(run_id=args.run_id)
     print(f"\nCodex → KB Bridge Results:")
-    print(f"  Tasks processed:  {stats['tasks_processed']}")
-    print(f"  Findings created: {stats['findings_created']}")
-    print(f"  Skipped:          {stats['skipped']}")
-    print(f"  Verified:         {stats['verified']} ({stats['confirmed']} confirmed, {stats['disputed']} disputed)")
-    print(f"  Contradictions:   {stats['contradictions']}")
+    print(f"  Tasks processed:   {stats['tasks_processed']}")
+    print(f"  Findings created:  {stats['findings_created']}")
+    print(f"  Skipped:           {stats['skipped']}")
+    print(f"  Verified:          {stats['verified']} ({stats['confirmed']} confirmed, {stats['disputed']} disputed)")
+    print(f"  Contradictions:    {stats['contradictions']}")
     print(f"  Follow-up prompts: {stats['followup_prompts']}")
+    print(f"  Ideas created:     {stats['ideas_created']}")
+    print(f"  Gaps created:      {stats['gaps_created']}")
+    print(f"  Backlog promoted:  {stats['backlog_promoted']}")
+    errors = stats.get("bridge_errors", [])
+    if errors:
+        print(f"\n  BRIDGE ERRORS ({len(errors)}):")
+        for err in errors:
+            print(f"    - {err}")
 
 
 if __name__ == "__main__":

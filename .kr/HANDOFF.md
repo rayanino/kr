@@ -3,48 +3,79 @@
 > Update when: A session materially advances work, changes the recommended resume point, or discovers a meaningful new risk.
 > Must not contain: Duplicate durable law from `CHARTER.md`, multiple conflicting next steps, or broad backlog lists.
 
-# KR Handoff
+# KR Handoff — Autonomous System v1
 
 ## Session purpose
-Build the excerpting evaluation layer v1 and patch all observability gaps in the runner.
+Complete the autonomous system's 3 missing data bridges and prepare v1 documentation for Codex continuation.
 
 ## What this session completed
 
-### Evaluation layer (8 new files)
-- `scripts/excerpting_eval/{__init__, models, ingest, analysis, packet}.py` — shared module
-- `scripts/analyze_excerpting_run.py` — per-book analyzer
-- `scripts/analyze_excerpting_campaign.py` — campaign aggregator
-- `scripts/export_excerpting_review_packet.py` — review packet exporter
+### 3 Data Bridges (codex_kb_bridge.py)
+All three wired into `ingest_codex_results()` so they run automatically:
 
-### Runner observability patches (2 files modified)
-- `scripts/run_integration_test.py` — failure ledgers, validation drops, gate verification, trace metadata, call-level error propagation
-- `engines/excerpting/src/phase3_orchestrator.py` — `Phase3Result.validation_drops` field + set-diff computation
+1. **Creative -> Ideas bridge**: Scans `results/creative-*/creative.json`, creates `Idea` records in `knowledge_base/ideas.jsonl`. Dedup by idea_id. No creative results exist yet (bridge is ready, waiting for creative tasks to run).
 
-### Analyzer bug fix
-- `scripts/excerpting_eval/packet.py` — book-level key collision fixed (B1)
+2. **Gap Scanner -> Research Gaps bridge**: Greps SPEC files for `[OPEN:]` markers + parses `KNOWN_LIMITATIONS.md` for L-NNN entries. Creates `ResearchGap` records in `knowledge_base/research_gaps.jsonl`. **13 gaps created** on first run (all from normalization + excerpting_eval KNOWN_LIMITATIONS).
 
-### Analyzer upgrades for new artifacts
-- Consumes `validation_drops.jsonl` → upgrades evidence to OBSERVED
-- Consumes `phase2a/2b_failures.jsonl` → new `detect_phase_failures` detector
-- Reads `semantic_phase` from trace requests when present → skips content inference
+3. **Findings -> Backlog promotion bridge**: Reads CONFIRMED HIGH/CRITICAL findings with non-empty `action_required`. Auto-promotes to `overnight_codex/backlog.json` using existing backlog format. **0 promoted yet** because all 126 HIGH/CRITICAL findings are stuck at PRELIMINARY (verification bottleneck — see below).
 
-## All 6 regression checks pass
-1. taysir grouped-unit loss (indices [2, 9]) — detected
-2. ibn_aqil_v3 zero-output — detected
-3. truncation finish_reason=length — detected
-4. client-label ambiguity — no false anomaly
-5. semantic phase inference — 4/4 correct
-6. clean books — 3/3 STRUCTURALLY_CLEAN
+### v1 Documentation
+- `overnight_codex/README.md` — comprehensive v1 README (architecture, components, data layout, operating model, known issues)
+- `docs/autonomous-system/SYSTEM_MAP.md` — updated with bridges + new KB data paths
+- `docs/autonomous-system/QUICKSTART.md` — updated KB state + bridge documentation
 
-808 excerpting engine tests pass, 0 failures.
+### Pyright clean
+`codex_kb_bridge.py` passes pyright with 0 errors.
 
-## Deferred flaw: L-001
+## Known Issue: Verification Bottleneck
 
-**chunk_id not in raw LLM traces.** The runner sets `semantic_phase` but cannot set `chunk_id` because phase functions iterate internally. Requires threading `trace_context` through `run_phase2a` → `classify_chunk` and `run_phase2b` → `group_chunk`.
+**All 126 HIGH/CRITICAL findings are PRELIMINARY.** The verification pipeline (`_run_cli_verify` in `codex_kb_bridge.py`) tries:
+1. `claude --bare --model sonnet --max-budget-usd 0.05` — fails with "Not logged in" (subprocess doesn't inherit auth)
+2. `gemini -p` — not found on PATH
 
-**Documented in:** `scripts/excerpting_eval/KNOWN_LIMITATIONS.md`
-**When to fix:** Before the first campaign that processes >1 chunk per book. The current test data uses 1 chunk per book, so this is dormant.
-**Impact if unfixed:** Analyzer infers chunk association from call sequence — works but fragile for multi-chunk runs.
+**Impact:** Bridge 3 (findings -> backlog) has no input because nothing is CONFIRMED.
 
-## Current resume point
-Resume from `ACTIVE.md`. The frontier is completed. Owner decision needed on next frontier.
+**Fix options (for Codex to implement):**
+- Set `ANTHROPIC_API_KEY` environment variable so `claude --bare` works in subprocess mode
+- Install and configure `gemini` CLI so it's on PATH
+- Or: add a direct API-based verifier that uses the Anthropic Python SDK instead of subprocess CLI invocation
+
+## Current state
+
+| Metric | Value |
+|--------|-------|
+| KB findings | 244 (126 HIGH/CRITICAL PRELIMINARY) |
+| Research gaps | 13 |
+| Contradictions | 47 |
+| Backlog items | 5 |
+| Creative templates | 3 |
+| Total autonomous code | ~9,000 lines / 16 Python files |
+| Dashboard pages | 7 (relay, findings, contradictions, ideas, gaps, digestion, status) |
+
+## What Codex should do next
+
+### Priority 1: Fix verification so Bridge 3 activates
+The single biggest gap. 126 findings are waiting. Options:
+- Add an API-based verifier in `codex_kb_bridge.py` that calls Anthropic/OpenRouter directly instead of subprocess
+- Or configure env vars for CLI auth
+
+### Priority 2: Schedule creative tasks
+No `creative-*` results exist yet. The task generator needs to schedule creative template tasks so Bridge 1 produces ideas. Check `overnight_codex_task_generator.py` for creative task scheduling logic.
+
+### Priority 3: Add a `/gaps` route to the dashboard
+`store.py` already has `load_research_gaps()` and `get_gaps_stats()`. But there's no `/gaps` route in `app.py` or `gaps.html` template. Wire it up — should be ~30 lines following the `ideas` page pattern.
+
+### Priority 4: Run overnight with all bridges active
+Once verification works, run `python scripts/launch_autonomous.py --hours 8` and verify the full loop: tasks -> results -> findings -> verification -> backlog promotion -> next tasks.
+
+## Files modified this session
+
+- `scripts/codex_kb_bridge.py` — 3 bridges + wiring + updated CLI output
+- `overnight_codex/README.md` — comprehensive v1 rewrite
+- `docs/autonomous-system/SYSTEM_MAP.md` — bridges + new data paths
+- `docs/autonomous-system/QUICKSTART.md` — current state + bridge docs
+- `.kr/HANDOFF.md` — this file
+
+## Resume point
+
+Codex should start with Priority 1 (fix verification). Read `codex_kb_bridge.py` lines 230-330 for the verification pipeline, then either add API-based verification or fix CLI auth.

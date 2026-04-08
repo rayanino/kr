@@ -15,8 +15,10 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from scripts.autonomous_schemas import (
+    IDEAS_JSONL,
     KB_DIR,
     PROMPTS_DIR,
+    RESEARCH_GAPS_JSONL,
     Contradiction,
     DigestionRecord,
     DRPrompt,
@@ -170,8 +172,7 @@ def get_findings_stats() -> dict[str, int]:
 
 def load_research_gaps() -> list[ResearchGap]:
     """Load all research gaps."""
-    path = KB / "research_gaps.jsonl"
-    records, _ = _safe_read_jsonl(path, ResearchGap)
+    records, _ = _safe_read_jsonl(RESEARCH_GAPS_JSONL, ResearchGap)
     return records
 
 
@@ -191,12 +192,9 @@ def get_gaps_stats() -> dict[str, int]:
 # Ideas
 # ═══════════════════════════════════════════════════════════════════
 
-IDEAS_FILE = KB / "ideas.jsonl"
-
-
 def load_ideas() -> list[Idea]:
     """Load all ideas."""
-    records, _ = _safe_read_jsonl(IDEAS_FILE, Idea)
+    records, _ = _safe_read_jsonl(IDEAS_JSONL, Idea)
     return records
 
 
@@ -212,7 +210,7 @@ def submit_idea(title: str, description: str) -> Idea:
         description=description,
         source="owner",
     )
-    append_jsonl(IDEAS_FILE, idea)
+    append_jsonl(IDEAS_JSONL, idea)
     return idea
 
 

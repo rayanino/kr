@@ -46,6 +46,18 @@ Read this when you come back confused about what all the overnight/autonomous sc
 
 ---
 
+### Data Bridges (connecting Systems 1 and 2)
+
+Three bridges in `scripts/codex_kb_bridge.py` run automatically after every ingestion:
+
+1. **Creative -> Ideas:** `results/creative-*/creative.json` -> `knowledge_base/ideas.jsonl` (Idea Quarry)
+2. **Gap Scanner -> Research Gaps:** SPEC `[OPEN:]` markers + `KNOWN_LIMITATIONS.md` -> `knowledge_base/research_gaps.jsonl`
+3. **Findings -> Backlog:** CONFIRMED HIGH/CRITICAL findings with `action_required` -> `overnight_codex/backlog.json`
+
+These close the autonomous loop: tasks produce findings, findings become backlog items, backlog items become tasks.
+
+---
+
 ## The Unified Launcher
 
 **Run:** `python scripts/launch_autonomous.py --hours 6`
@@ -85,6 +97,8 @@ DR responses come back --> digest_dr.py --> more findings --> cycle continues
 | System 1 backlog | `overnight_codex/backlog.json` |
 | System 1 morning reports | `overnight_codex/MORNING_REPORT.md` |
 | KB findings | `overnight_codex/autonomous/knowledge_base/findings.jsonl` |
+| KB research gaps | `overnight_codex/autonomous/knowledge_base/research_gaps.jsonl` |
+| KB ideas | `overnight_codex/autonomous/knowledge_base/ideas.jsonl` |
 | KB contradictions | `overnight_codex/autonomous/knowledge_base/contradictions.jsonl` |
 | DR relay prompts | `overnight_codex/autonomous/knowledge_base/dr_prompts/` |
 | Digestion log | `overnight_codex/autonomous/knowledge_base/digestion_log.jsonl` |
