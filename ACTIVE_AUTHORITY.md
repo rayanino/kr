@@ -1,7 +1,7 @@
 # Active Authority
 
-active_authority: claude
-effective_date: 2026-04-04
+active_authority: codex
+effective_date: 2026-04-08
 planned_codex_cutover: 2026-04-02
 autonomous_period_end: 2026-07-01
 runtime_mode: shadow_setup
