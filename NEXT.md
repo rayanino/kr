@@ -95,11 +95,8 @@ python tools/review.py integration_tests/
 Opens browser → select `dr40_smoke_talaq_v2` → review 20 excerpts → mark ACCEPT/NEEDS WORK/REJECT with comments. Feedback saves to `integration_tests/dr40_smoke_talaq_v2/owner_feedback.jsonl`.
 
 **CODEX NEXT STEPS:**
-1. **Run fresh smoke test** for Session 22 evaluation data:
-   ```
-   python scripts/run_integration_test.py --package-path experiments/format_diversity_test/packages/taysir/ --output-dir integration_tests/eval_session22_talaq --div-id div_src_test0001_1_002_pre --backend api
-   ```
-2. **After owner reviews talaq v2:** Read `owner_feedback.jsonl`, analyze verdict patterns, translate NEEDS WORK/REJECT feedback into pipeline improvements
+1. ~~Run fresh smoke test~~ ✅ Owner already ran: `integration_tests/eval_session22_talaq/` (running as of handoff)
+2. **After owner reviews excerpts:** Read `owner_feedback.jsonl` from both `dr40_smoke_talaq_v2/` and `eval_session22_talaq/`, analyze verdict patterns, translate NEEDS WORK/REJECT feedback into pipeline improvements
 3. **Pick 2-3 diverse chapters** for generalization testing — one from a different kitab, one hadith-heavy, one with cross-madhab debate
 4. **Coworker dispatch** on any pipeline changes (Gemini CLI for Arabic scholarly accuracy, Codex-verify for structural review)
 
