@@ -1,0 +1,16 @@
+{
+    "backup_timestamp": "2026-04-09T01:27:38+02:00",
+    "source_host": "DESKTOP-RM3LS2J",
+    "source_user": "Rayane",
+    "source_home": "/c/Users/Rayane",
+    "source_claude_dir": "/c/Users/Rayane/.claude",
+    "source_os": "MINGW64_NT-10.0-26200",
+    "node_version": "v24.14.0",
+    "python_version": "Python 3.13.12",
+    "npm_version": "11.11.0",
+    "claude_version": "2.1.97 (Claude Code)",
+    "project_paths": {
+        "kr": "C:/Users/Rayane/Desktop/kr",
+        "kr_branch": "canonical/excerpting-clean-start-20260409"
+    }
+}
