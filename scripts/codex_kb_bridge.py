@@ -233,23 +233,25 @@ INSTRUCTIONS:
 """
 
 # Verifier priority: CC first (most important), Gemini second
-_VERIFIERS: list[tuple[str, str]] = [
-    ("claude", "claude_code"),    # CC is primary verifier
-    ("gemini", "gemini_cli"),     # Gemini is secondary
+# Each entry: (cli_name, label, extra_args)
+_VERIFIERS: list[tuple[str, str, list[str]]] = [
+    ("claude", "claude_code", ["--bare", "--model", "sonnet", "--max-budget-usd", "0.05"]),
+    ("gemini", "gemini_cli", []),
 ]
 
 
-def _find_verifier() -> tuple[str, str] | None:
+def _find_verifier() -> tuple[str, str, list[str]] | None:
     """Find the best available CLI verifier. CC first, Gemini second."""
-    for cli_name, label in _VERIFIERS:
+    for cli_name, label, extra_args in _VERIFIERS:
         path = shutil.which(cli_name)
         if path:
-            return path, label
+            return path, label, extra_args
     return None
 
 
 def _run_cli_verify(
     finding: Finding, cli_path: str, cli_label: str,
+    extra_args: list[str] | None = None,
 ) -> tuple[VerificationStatus, str]:
     """Dispatch a single finding to a CLI verifier (CC or Gemini).
 
@@ -263,9 +265,10 @@ def _run_cli_verify(
         description=finding.description[:1500],
     )
 
+    cmd = [cli_path, "-p", prompt] + (extra_args or [])
     try:
         result = subprocess.run(
-            [cli_path, "-p", prompt],
+            cmd,
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -349,46 +352,63 @@ def verify_findings(
     if not verifier:
         logger.warning(
             "No CLI verifier found (tried: %s) — skipping verification for %d findings",
-            ", ".join(name for name, _ in _VERIFIERS), len(to_verify),
+            ", ".join(name for name, _, _ in _VERIFIERS), len(to_verify),
         )
         return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": len(to_verify)}
 
-    cli_path, cli_label = verifier
+    cli_path, cli_label, extra_args = verifier
     logger.info("Using %s (%s) as verifier for %d findings", cli_label, cli_path, len(to_verify))
 
     confirmed = 0
     disputed = 0
     skipped = 0
     now = datetime.now(timezone.utc).isoformat()
+    dirty = False  # tracks whether we have unsaved changes
 
-    for finding in to_verify:
-        logger.info("Verifying %s: %s", finding.finding_id, finding.title[:60])
-        status, response = _run_cli_verify(finding, cli_path, cli_label)
+    def _save_progress() -> None:
+        """Persist verified findings to disk (incremental save)."""
+        all_raw = read_jsonl(FINDINGS_JSONL, Finding)
+        all_f = [f for f in all_raw if isinstance(f, Finding)]
+        vmap = {f.finding_id: f for f in to_verify if f.verification_status != VerificationStatus.PRELIMINARY}
+        for i, f in enumerate(all_f):
+            if f.finding_id in vmap:
+                all_f[i] = vmap[f.finding_id]
+        rewrite_jsonl(FINDINGS_JSONL, all_f)
 
-        if status == VerificationStatus.PRELIMINARY:
-            skipped += 1
-            continue
+    try:
+        for idx, finding in enumerate(to_verify):
+            logger.info("Verifying [%d/%d] %s: %s", idx + 1, len(to_verify), finding.finding_id, finding.title[:60])
+            status, response = _run_cli_verify(finding, cli_path, cli_label, extra_args)
 
-        finding.verification_status = status
-        finding.verified_by = cli_label
-        finding.verified_at = now
-        finding.verification_response = response[:2000]
+            if status == VerificationStatus.PRELIMINARY:
+                skipped += 1
+                continue
 
-        if status == VerificationStatus.CONFIRMED:
-            confirmed += 1
-            logger.info("  → CONFIRMED by %s", cli_label)
-        else:
-            disputed += 1
-            logger.info("  → DISPUTED by %s: %s", cli_label, response[:120])
+            finding.verification_status = status
+            finding.verified_by = cli_label
+            finding.verified_at = now
+            finding.verification_response = response[:2000]
+            dirty = True
 
-    # Rewrite findings.jsonl with updated verification statuses
-    all_findings_raw = read_jsonl(FINDINGS_JSONL, Finding)
-    all_findings = [f for f in all_findings_raw if isinstance(f, Finding)]
-    verified_map = {f.finding_id: f for f in to_verify if f.verification_status != VerificationStatus.PRELIMINARY}
-    for i, f in enumerate(all_findings):
-        if f.finding_id in verified_map:
-            all_findings[i] = verified_map[f.finding_id]
-    rewrite_jsonl(FINDINGS_JSONL, all_findings)
+            if status == VerificationStatus.CONFIRMED:
+                confirmed += 1
+                logger.info("  → CONFIRMED by %s", cli_label)
+            else:
+                disputed += 1
+                logger.info("  → DISPUTED by %s: %s", cli_label, response[:120])
+
+            # Save every 5 findings to avoid losing work on interrupt
+            if dirty and (idx + 1) % 5 == 0:
+                logger.info("  Saving progress (%d verified so far)...", confirmed + disputed)
+                _save_progress()
+                dirty = False
+
+    except KeyboardInterrupt:
+        logger.warning("Verification interrupted — saving %d partial results", confirmed + disputed)
+
+    # Final save of any remaining unsaved results
+    if dirty:
+        _save_progress()
 
     total = confirmed + disputed
     logger.info(
