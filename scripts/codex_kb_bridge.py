@@ -478,12 +478,15 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         logger.info("Ingested %s: %d findings", task_id, len(new_in_task))
 
     # Verify HIGH/CRITICAL findings with Gemini CLI (D-041 cross-model)
+    # Covers both newly ingested AND existing PRELIMINARY findings
     verify_stats = {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
-    if all_new_findings:
-        try:
-            verify_stats = verify_findings_with_gemini(all_new_findings)
-        except (OSError, subprocess.SubprocessError, ValueError) as exc:
-            logger.exception("Gemini verification failed (findings remain PRELIMINARY): %s", exc)
+    try:
+        all_existing = read_jsonl(FINDINGS_JSONL, Finding)
+        verify_candidates = [f for f in all_existing if isinstance(f, Finding)]
+        if verify_candidates:
+            verify_stats = verify_findings_with_gemini(verify_candidates)
+    except (OSError, subprocess.SubprocessError, ValueError) as exc:
+        logger.exception("Gemini verification failed (findings remain PRELIMINARY): %s", exc)
 
     # Cross-reference ALL findings (existing + new).
     # Isolated try/except: cross-ref failure must not block stats or follow-ups.
@@ -536,10 +539,12 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
             logger.exception("Follow-up prompt generation failed (likely code bug): %s", exc)
 
     # Warn if PRELIMINARY findings are blocking follow-ups (chicken-and-egg)
-    if all_new_findings:
+    if FINDINGS_JSONL.exists():
+        all_for_check = read_jsonl(FINDINGS_JSONL, Finding)
         preliminary_needing_action = [
-            f for f in all_new_findings
-            if f.verification_status == VerificationStatus.PRELIMINARY
+            f for f in all_for_check
+            if isinstance(f, Finding)
+            and f.verification_status == VerificationStatus.PRELIMINARY
             and f.severity in _VERIFY_SEVERITIES
         ]
         if preliminary_needing_action:
