@@ -207,8 +207,11 @@ def cross_reference(
             related_map[a.finding_id].append(b.finding_id)
             related_map[b.finding_id].append(a.finding_id)
 
-            # Check for contradiction (only in strongly related pairs)
+            # Check for contradiction (only in strongly related pairs, same category)
             if score < 0.35:
+                continue
+            # Skip cross-domain pairs — scholarly vs engineering contradictions are noise
+            if a.category != b.category:
                 continue
             is_contra, reason = is_contradictory(a, b)
             if is_contra:
