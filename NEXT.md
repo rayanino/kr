@@ -81,11 +81,27 @@
 - Prompt exemptions (d) composite proof and (e) cross-type interdependence added to prompts.py
 - **1008 tests, 0 failures, 2 commits: `7493562fa` + `baab068ac`**
 
-**Immediate next steps (Session 22):**
-1. **Incremental evaluation with owner in the loop** — run ONE division at a time via `--div-id`, CC verifies, owner reviews in UI. NOT a full campaign rerun.
-2. **Adapt questionnaire UI for excerpt viewing** — the owner wants to see and evaluate excerpts interactively, not in JSONL files. The questionnaire UI already exists and looks good — extend it for excerpt review.
-3. **Start with the talaq chapter** (`--div-id div_src_test0001_1_002_pre`) — this is the chapter with the 2 owner rejections, the most critical test of whether DR40 + MV-1 fix work together.
-4. **Then pick 2-3 diverse chapters** — one from a different kitab, one with hadith-heavy content, one with cross-madhab debate — to validate the split rules generalize. (after coworker validation)
+**Session 22 — Handoff to Codex (CC context limit reached)**
+
+**COMPLETED (Session 22, CC):**
+- ✅ Excerpt review UI already had full functionality (verdict buttons, Arabic RTL, issue tags, keyboard shortcuts, feedback saving)
+- ✅ Added related_units rendering to viewer — DR40 relationship links now display as clickable cards with full Arabic text (commit `91a860fbe`)
+- ✅ No new smoke test needed — talaq v2 (20 excerpts) already exists from Session 21
+
+**OWNER ACTION — Start reviewing excerpts:**
+```
+python tools/review.py integration_tests/
+```
+Opens browser → select `dr40_smoke_talaq_v2` → review 20 excerpts → mark ACCEPT/NEEDS WORK/REJECT with comments. Feedback saves to `integration_tests/dr40_smoke_talaq_v2/owner_feedback.jsonl`.
+
+**CODEX NEXT STEPS:**
+1. **Run fresh smoke test** for Session 22 evaluation data:
+   ```
+   python scripts/run_integration_test.py --package-path experiments/format_diversity_test/packages/taysir/ --output-dir integration_tests/eval_session22_talaq --div-id div_src_test0001_1_002_pre --backend api
+   ```
+2. **After owner reviews talaq v2:** Read `owner_feedback.jsonl`, analyze verdict patterns, translate NEEDS WORK/REJECT feedback into pipeline improvements
+3. **Pick 2-3 diverse chapters** for generalization testing — one from a different kitab, one hadith-heavy, one with cross-madhab debate
+4. **Coworker dispatch** on any pipeline changes (Gemini CLI for Arabic scholarly accuracy, Codex-verify for structural review)
 
 ### Session 20 — DR40 Granularity Calibration Implementation (2026-04-08)
 
