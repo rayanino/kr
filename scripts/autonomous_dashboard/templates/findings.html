@@ -26,6 +26,18 @@
         <div class="stat-value blue">{{ stats.unresolved }}</div>
         <div class="stat-label">Unresolved</div>
     </div>
+    <div class="stat-box">
+        <div class="stat-value green">{{ stats.get('confirmed', 0) }}</div>
+        <div class="stat-label">Confirmed</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value yellow">{{ stats.get('disputed', 0) }}</div>
+        <div class="stat-label">Disputed</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">{{ stats.get('preliminary', 0) }}</div>
+        <div class="stat-label">Preliminary</div>
+    </div>
 </div>
 
 {% if not grouped %}
@@ -42,6 +54,7 @@
     <div class="card-header">
         <span class="meta">{{ f.finding_id }}</span>
         <span class="badge {{ severity_class(f.severity.value) }}">{{ f.severity.value }}</span>
+        <span class="badge badge-{{ f.verification_status.value }}">{{ f.verification_status.value }}</span>
         <span class="meta">from {{ f.source_id }}</span>
     </div>
     <div class="card-title">{{ f.title[:120] }}{% if f.title|length > 120 %}...{% endif %}</div>

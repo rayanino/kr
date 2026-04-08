@@ -27,6 +27,7 @@ from scripts.autonomous_schemas import (
     Idea,
     Priority,
     ResearchGap,
+    VerificationStatus,
     append_jsonl,
 )
 
@@ -152,12 +153,14 @@ def get_findings_by_severity() -> tuple[dict[str, list[Finding]], list[str]]:
 
 
 def get_findings_stats() -> dict[str, int]:
-    """Quick stats for findings."""
+    """Quick stats for findings including verification status."""
     findings, _ = load_findings()
     stats: dict[str, int] = {"total": len(findings), "unresolved": 0}
     for sev in FindingSeverity:
         stats[sev.value] = sum(1 for f in findings if f.severity == sev)
     stats["unresolved"] = sum(1 for f in findings if not f.resolved)
+    for vs in VerificationStatus:
+        stats[vs.value] = sum(1 for f in findings if f.verification_status == vs)
     return stats
 
 
