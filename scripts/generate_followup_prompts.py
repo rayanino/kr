@@ -262,12 +262,15 @@ def generate_followups(
     batch: str = "auto",
 ) -> list[DRPrompt]:
     """Generate follow-up prompts from findings and contradictions."""
-    # Load existing prompts for dedup
+    # Load existing prompts for dedup (by hash AND by unblocks target)
+    # Codex finding #11: dedup must prevent re-generation for already-prompted items
     existing_hashes: set[str] = set()
+    existing_unblocks: set[str] = set()
     for jsonl_file in sorted(PROMPTS_DIR.glob("*.jsonl")) if PROMPTS_DIR.exists() else []:
         index = load_dr_index(jsonl_file)
         for p in index.values():
             existing_hashes.add(p.dedup_hash)
+            existing_unblocks.add(p.unblocks)
 
     logger.info("Loaded %d existing prompt hashes for dedup", len(existing_hashes))
 
@@ -296,15 +299,21 @@ def generate_followups(
     new_prompts: list[DRPrompt] = []
     counter = 1
 
-    # From findings needing follow-up
+    # From findings needing follow-up (skip if already prompted)
     for f in findings:
         if needs_followup(f):
+            unblocks_key = f"Resolution of {f.finding_id}"
+            if unblocks_key in existing_unblocks:
+                continue
             original_provider = dr_provider_map.get(f.source_id)
             new_prompts.append(finding_to_prompt(f, batch, counter, original_provider))
             counter += 1
 
-    # From unresolved contradictions
+    # From unresolved contradictions (skip if already prompted)
     for c in contradictions:
+        unblocks_key = f"Resolution of {c.contradiction_id}"
+        if unblocks_key in existing_unblocks:
+            continue
         finding_a = findings_by_id.get(c.finding_id_a)
         finding_b = findings_by_id.get(c.finding_id_b)
         new_prompts.append(contradiction_to_prompt(c, finding_a, finding_b, batch, counter))

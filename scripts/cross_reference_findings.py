@@ -29,7 +29,6 @@ from scripts.autonomous_schemas import (
     Contradiction,
     Finding,
     FindingSeverity,
-    append_jsonl,
     read_jsonl,
 )
 
@@ -299,17 +298,39 @@ def persist_cross_references(
             updated_count += 1
 
     # Rewrite findings.jsonl (atomic: write tmp then rename)
+    # Codex finding #3: Windows NTFS .replace() can fail if dashboard has file open.
+    # Retry with backoff to handle concurrent reader PermissionError.
+    import time
     tmp_path = FINDINGS_JSONL.with_suffix(".jsonl.tmp")
     with open(tmp_path, "w", encoding="utf-8") as fh:
         for f in findings:
             fh.write(f.model_dump_json() + "\n")
-    tmp_path.replace(FINDINGS_JSONL)
+    for attempt in range(5):
+        try:
+            tmp_path.replace(FINDINGS_JSONL)
+            break
+        except PermissionError:
+            if attempt < 4:
+                time.sleep(0.2 * (attempt + 1))
+            else:
+                raise
     logger.info("Updated %d findings with cross-references in %s", updated_count, FINDINGS_JSONL)
 
-    # Append contradictions
+    # Rewrite contradictions.jsonl atomically (not append — prevents duplication)
     if contradictions:
-        for c in contradictions:
-            append_jsonl(CONTRADICTIONS_JSONL, c)
+        tmp_contra = CONTRADICTIONS_JSONL.with_suffix(".jsonl.tmp")
+        with open(tmp_contra, "w", encoding="utf-8") as fh:
+            for c in contradictions:
+                fh.write(c.model_dump_json() + "\n")
+        for attempt in range(5):
+            try:
+                tmp_contra.replace(CONTRADICTIONS_JSONL)
+                break
+            except PermissionError:
+                if attempt < 4:
+                    time.sleep(0.2 * (attempt + 1))
+                else:
+                    raise
         logger.info("Wrote %d contradictions to %s", len(contradictions), CONTRADICTIONS_JSONL)
 
 

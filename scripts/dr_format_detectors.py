@@ -106,7 +106,8 @@ def extract_sections(text: str, provider: DRTarget) -> list[Section]:
     """Extract sections using provider-aware heading detection."""
     # Strip ChatGPT fileciteturn noise before parsing
     if provider == DRTarget.CHATGPT:
-        text = re.sub(r"\s*filecite[\ue200-\ue2ff]*turn[0-9]+file[\ue200-\ue2ff]*[0-9]+[\ue200-\ue2ff]*L[0-9]+-L[0-9]+[\ue200-\ue2ff]*", "", text)
+        # Codex finding #7: also consume leading U+E200 before "filecite"
+        text = re.sub(r"\s*[\ue200-\ue2ff]*filecite[\ue200-\ue2ff]*turn[0-9]+file[\ue200-\ue2ff]*[0-9]+[\ue200-\ue2ff]*L[0-9]+-L[0-9]+[\ue200-\ue2ff]*", "", text)
 
     sections: list[Section] = []
     current_heading = ""

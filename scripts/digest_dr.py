@@ -63,6 +63,7 @@ def digest_single(
     prompt_id: str = "unknown",
     source: DRTarget | None = None,
     followup_batch: str = "auto",
+    skip_followups: bool = False,
 ) -> tuple[DRResponse, list[Finding], str]:
     """Process a single DR response file through the full pipeline.
 
@@ -108,7 +109,11 @@ def digest_single(
     record = build_digestion_record(response, dr_findings, dr_contras, score, verdict)
     append_jsonl(DIGESTION_LOG, record)
 
-    # Stage 5: Generate follow-up prompts (non-fatal — don't crash pipeline)
+    # Stage 5: Generate follow-up prompts (non-fatal for I/O issues only)
+    # Codex finding #5: bare Exception is too broad — narrow to expected failures.
+    if skip_followups:
+        logger.info("[5/5] Skipping follow-up generation (batch mode)")
+        return response, dr_findings, verdict
     logger.info("[5/5] Generating follow-up prompts...")
     try:
         followups = generate_followups(batch=followup_batch)
@@ -122,8 +127,11 @@ def digest_single(
             for p in followups:
                 _append(batch_file, p)
             logger.info("  Persisted to %s", batch_file)
-    except Exception as e:
-        logger.warning("Follow-up generation failed (non-fatal): %s", e)
+    except (OSError, PermissionError) as e:
+        logger.warning("Follow-up generation I/O failed (non-fatal): %s", e)
+    except ValueError as e:
+        logger.error("Follow-up generation data error: %s", e)
+        raise
 
     return response, dr_findings, verdict
 
@@ -161,8 +169,21 @@ def digest_batch(
 
         _, findings, verdict = digest_single(
             md_file, dr_id, followup_batch=followup_batch,
+            skip_followups=True,
         )
         results.append((dr_id, verdict, len(findings)))
+
+    # Generate follow-ups once at end (not per-file — prevents duplication)
+    if results:
+        logger.info("Generating follow-up prompts for batch...")
+        followups = generate_followups(batch=followup_batch)
+        if followups:
+            prompts_dir = KB_DIR / "dr_prompts"
+            prompts_dir.mkdir(parents=True, exist_ok=True)
+            batch_file = prompts_dir / f"{followup_batch}.jsonl"
+            for p in followups:
+                append_jsonl(batch_file, p)
+            logger.info("Persisted %d follow-ups to %s", len(followups), batch_file)
 
     return results
 
