@@ -200,6 +200,23 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 .flag-gate{background:var(--red-soft);color:var(--red)}
 .flag-review{background:var(--amber-soft);color:var(--amber)}
 
+/* ── Related Units Panel ───── */
+.rel-section{margin-top:0.8rem;max-width:700px;margin-left:auto;margin-right:auto}
+.rel-header{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;font-weight:600}
+.rel-header .rel-count{color:var(--gold);font-family:var(--font-mono)}
+.rel-cards{display:flex;flex-direction:column;gap:0.5rem}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.rel-card:hover{border-color:var(--gold)}
+.rel-card.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold-dim)}
+.rel-card-top{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.8rem;border-bottom:1px solid var(--border)}
+.rel-card-top .rel-idx{font-size:0.62rem;color:var(--text3);font-family:var(--font-mono)}
+.rel-card-top .rel-type{font-size:0.62rem;padding:0.07rem 0.35rem;border-radius:3px;background:var(--gold-soft);color:var(--gold)}
+.rel-card-top .rel-desc{font-size:0.72rem;color:var(--text2);font-family:var(--font-ar);direction:rtl;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rel-card-body{padding:0.7rem 0.9rem}
+.rel-card-text{font-family:var(--font-ar);font-size:1.15rem;line-height:1.9;direction:rtl;text-align:right;color:var(--text);white-space:pre-wrap;word-wrap:break-word}
+.rel-card-meta{display:flex;gap:0.4rem;margin-top:0.4rem;flex-wrap:wrap}
+.rel-chip{font-size:0.62rem;padding:0.1rem 0.4rem;border-radius:3px;background:var(--surface3);color:var(--text2)}
+
 /* ── Shortcuts Modal ────────── */
 #shortcuts{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 #shortcuts.open{display:flex}
@@ -697,6 +714,7 @@ function render(){
     </div>
     ${scholarsHtml?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow open">\u25B8</span> Scholars Cited</div><div class="sec-body open">${scholarsHtml}</div></div>`:""}
     ${refs.length+tak.length+xrefs.length>0?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow">\u25B8</span> Evidence &amp; References</div><div class="sec-body">${evidHtml}</div></div>`:""}
+    ${renderRelatedUnits(ex)}
   `;
 
   renderRight(ex);
@@ -704,6 +722,49 @@ function render(){
 }
 
 function toggleSec(el){el.querySelector(".arrow").classList.toggle("open");el.nextElementSibling.classList.toggle("open")}
+
+// ─── Related Units ────────────────────────────────────────────────────────
+function renderRelatedUnits(ex){
+  const rels=ex.related_units||[];
+  if(!rels.length)return "";
+  const cards=rels.map(rel=>{
+    // Find the linked excerpt by unit_index in the same chunk
+    const targetIdx=excerpts.findIndex(e=>e.chunk_index===ex.chunk_index&&e.unit_index===rel.target_unit_index);
+    const target=targetIdx>=0?excerpts[targetIdx]:null;
+    const relTypes={evidence_for:"\u2192 Evidence for",companion_definition:"\u2194 Companion",elaboration:"\u2193 Elaborates"};
+    const typeLabel=relTypes[rel.relationship]||rel.relationship;
+    if(target){
+      const tsc=target.self_containment||"FULL";
+      const tscCls=tsc==="FULL"?"full":tsc==="PARTIAL"?"partial":"dependent";
+      return `<div class="rel-card" onclick="go(${targetIdx})">
+        <div class="rel-card-top">
+          <span class="rel-idx">#${targetIdx+1}</span>
+          <span class="rel-type">${typeLabel}</span>
+          <span class="rel-desc">${esc(rel.description||"")}</span>
+        </div>
+        <div class="rel-card-body">
+          <div class="rel-card-text">${esc(target.primary_text)}</div>
+          <div class="rel-card-meta">
+            <span class="rel-chip">${v(target.primary_function)}</span>
+            <span class="rel-chip chip-${tscCls}">${tsc}</span>
+          </div>
+        </div>
+      </div>`;
+    }
+    return `<div class="rel-card" style="opacity:0.5;cursor:default">
+      <div class="rel-card-top">
+        <span class="rel-idx">u${rel.target_unit_index}</span>
+        <span class="rel-type">${typeLabel}</span>
+        <span class="rel-desc">${esc(rel.description||"")}</span>
+      </div>
+      <div class="rel-card-body"><div class="rel-card-text" style="color:var(--text3);font-size:0.9rem">Linked excerpt not in current view</div></div>
+    </div>`;
+  }).join("");
+  return `<div class="rel-section">
+    <div class="rel-header"><span>\u25B8</span> Related Units <span class="rel-count">${rels.length}</span></div>
+    <div class="rel-cards">${cards}</div>
+  </div>`;
+}
 
 // ─── Review mode: Right Panel ──────────────────────────────────────────────
 function renderRight(ex){
