@@ -233,12 +233,12 @@ class TestComputeActiveModules:
         assert GROUP_DIALECTICAL_RULES in modules
         assert len(modules) == 3
 
-    def test_definition_triggers_nothing(self) -> None:
-        """DEFINITION does not trigger any conditional module."""
+    def test_definition_triggers_fiqh_rules(self) -> None:
+        """DEFINITION triggers GROUP_FIQH_RULES for FP-25 definition pair splitting (DR40)."""
         seg = _make_classified_segment(
             scholarly_function=ScholarlyFunction.DEFINITION,
         )
-        assert compute_active_modules([seg]) == []
+        assert compute_active_modules([seg]) == [GROUP_FIQH_RULES]
 
 
 # ═══════════════════════════════════════════════════════════════════

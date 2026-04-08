@@ -89,6 +89,7 @@ def compute_active_modules(segments: list[ClassifiedSegment]) -> list[str]:
         ScholarlyFunction.CONDITION_EXCEPTION,
         ScholarlyFunction.EVIDENCE_IJMA,
         ScholarlyFunction.EVIDENCE_QIYAS,
+        ScholarlyFunction.DEFINITION,  # FP-25 definition pair splitting
     }:
         modules.append(GROUP_FIQH_RULES)
     if ScholarlyFunction.REFUTATION in functions:

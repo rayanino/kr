@@ -53,8 +53,11 @@ CONFLICT RESOLUTION PRECEDENCE (when any rules conflict, apply in this order):
 1. Speaker-role correctness — who endorses what — highest priority
 2. Dialogue completeness — objection + response must stay together
 3. Textual/grammatical integrity — no mid-sentence Arabic fragments
-4. Self-containment — the unit teaches a complete thought
-5. Granularity — lowest priority; optimize separately
+4. Leaf-atomicity — one excerpt → one taxonomy leaf (by function + scope). \
+Split by function boundary. Over-granularity is recoverable; under-granularity \
+blocks leaf-level comparison permanently.
+5. Pedagogical packaging — "complete thought" is a UI concern, not a boundary \
+concern. Use relationship links between split excerpts instead of bundling.
 </constitution>"""
 
 
@@ -118,7 +121,11 @@ DECONTEXTUALIZATION PREVENTION (critical):
   ("ورد عليه بأن...") MUST be in the same unit
 - A counter-argument MUST include enough of the original argument to be
   understood on its own
-- Evidence cited for a ruling MUST stay with the ruling
+- Evidence stays with its ruling ONLY when: (a) syntactically embedded in \
+the same sentence, (b) splitting would break dialogue/refutation integrity, \
+or (c) the evidence is a brief parenthetical (≤15 words). Otherwise, split \
+evidence by type (quran/hadith/ijma/rational) into separate units with \
+relationship links back to the ruling (FP-24).
 - A condition and its exception (rule + إلا clause) belong together
 - A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
   selects among competing positions should remain with the alternatives it
@@ -204,9 +211,27 @@ ruling may stay via FORGIVING RETENTION; but when each function is \
 substantive, they are separate teaching units. Exemption: semantic \
 dependencies (تخصيص/شرط/استثناء/تقييد) must stay with عام regardless of \
 proportion — splitting عام from مخصص creates false absolutes (FP-5).
+- DEFINITION PAIR SPLITTING (FP-25): When a text defines a term both \
+linguistically (في اللغة / لغة) and technically (في الشرع / شرعا / اصطلاحا), \
+split into two teaching units. The لغة definition = one unit. The شرعا \
+definition = a separate unit. Any bridging sentence (e.g., "والتعريف الشرعي \
+فَرْد من معناه اللغوي العام") stays with the شرعا unit as context. The شرعا \
+unit must NOT start with a bare "وفي الشرع..." — include the term being \
+defined for independent comprehensibility. Both units get \
+related_units entries with type "companion_definition" pointing to each other.
+- EVIDENCE TYPE SPLITTING (FP-24): When a ruling is followed by proofs from \
+multiple evidence types (Quran, Sunnah, Ijma, Qiyas), split by evidence type. \
+The ruling statement = one unit. Each evidence type = a separate unit. Within \
+Quranic evidence, split per-ayah when multiple verses have separate reasoning. \
+Each evidence unit gets a related_units entry with type "evidence_for" \
+pointing to the ruling unit. A brief enumeration header ("وحكمه ثابت في \
+الكتاب والسنة والإجماع") stays with the ruling unit — it is a general \
+statement, not evidence. Evidence stays with the ruling ONLY when: \
+(a) embedded in the same sentence, (b) ≤15 words and parenthetical, or \
+(c) splitting would break dialogue integrity.
 - PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof, \
-(2) explain it, (3) defend/refute objections. Phases 1+2 belong together per \
-EE-1 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
+(2) explain it, (3) defend/refute objections. Phases 1+2 belong together \
+(proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
 separate unit when it answers a different question than phases 1+2. \
 For dialectical structures (فإن قيل/قلنا), refutation always stays with \
 the objection it answers."""
@@ -237,7 +262,10 @@ REMEMBER — these override all other considerations:
 - text_snippet must be an EXACT character-for-character copy from the input
 - An explained object + its explanation = one teaching unit (EE-1)
 - A reported position + its refutation MUST be in the same unit
-- A question + its answer MUST be in the same unit"""
+- A question + its answer MUST be in the same unit
+- Definition pairs (لغة/شرعا) MUST be split into separate units (FP-25)
+- Evidence types MUST be split by type unless syntactically inseparable (FP-24)
+- Emit related_units links for all split pairs"""
 
 GROUP_OUTPUT_FORMAT = """\
 For each teaching unit, provide:
@@ -256,6 +284,11 @@ For each teaching unit, provide:
 - self_containment: FULL, PARTIAL, or DEPENDENT
 - self_containment_notes: present and non-empty for PARTIAL/DEPENDENT;
   absent or null for FULL
+- related_units: list of relationship links to other units in this chunk. \
+Each entry has: target_unit_index (int), relationship (one of: \
+"companion_definition", "evidence_for", "condition_for"), description \
+(optional brief note). Emit when splitting definition pairs (FP-25) or \
+evidence types (FP-24). Empty list when no relationships apply.
 
 The text format is: {structural_format}"""
 

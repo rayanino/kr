@@ -11,7 +11,10 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
+
+if TYPE_CHECKING:
+    from engines.excerpting.contracts import TakhrijEntry
 
 from engines.excerpting.contracts import (
     AssembledChunk,
@@ -27,6 +30,7 @@ from engines.excerpting.contracts import (
     ScholarlyFunction,
     SelfContainmentLevel,
     TeachingUnit,
+    UnitRelationship,
 )
 from engines.excerpting.src.phase2_classify import _build_token_char_map
 from engines.normalization.contracts import (
@@ -167,6 +171,54 @@ def _is_bare_micro_unit(text: str) -> str | None:
     return None
 
 
+def _reindex_related_units(
+    units: list[TeachingUnit],
+    old_to_new: dict[int, int],
+) -> list[TeachingUnit]:
+    """Remap target_unit_index in related_units after merge reindexing.
+
+    Fixes stale indices (DR40 codex-verify finding):
+    - Remaps target_unit_index using old_to_new mapping
+    - Drops self-referential links (target == self after remap)
+    - Deduplicates by (target_unit_index, relationship)
+    """
+    result: list[TeachingUnit] = []
+    for unit in units:
+        if not unit.related_units:
+            result.append(unit)
+            continue
+        seen: set[tuple[int, str]] = set()
+        remapped: list[UnitRelationship] = []
+        for rel in unit.related_units:
+            new_target = old_to_new.get(rel.target_unit_index)
+            if new_target is None:
+                # Target was absorbed — drop the link
+                logger.debug(
+                    "Dropped related_unit link: unit %d → old target %d "
+                    "(absorbed during merge).",
+                    unit.unit_index,
+                    rel.target_unit_index,
+                )
+                continue
+            if new_target == unit.unit_index:
+                # Self-referential after remap — drop
+                logger.debug(
+                    "Dropped self-referential link: unit %d → %d.",
+                    unit.unit_index,
+                    new_target,
+                )
+                continue
+            dedup_key = (new_target, rel.relationship.value)
+            if dedup_key in seen:
+                continue
+            seen.add(dedup_key)
+            remapped.append(
+                rel.model_copy(update={"target_unit_index": new_target})
+            )
+        result.append(unit.model_copy(update={"related_units": remapped}))
+    return result
+
+
 def merge_micro_units(
     units: list[TeachingUnit],
     assembled_text: str,
@@ -253,13 +305,19 @@ def merge_micro_units(
             description_arabic=target.description_arabic,
             self_containment=target.self_containment,
             self_containment_notes=target.self_containment_notes,
+            related_units=target.related_units + micro.related_units,
         )
 
-    # Phase 4: reindex and sort
+    # Phase 4: reindex, remap related_units, and sort
     result = sorted(merged.values(), key=lambda u: u.start_word)
-    reindexed = []
-    for idx, u in enumerate(result):
-        reindexed.append(u.model_copy(update={"unit_index": idx}))
+    old_to_new: dict[int, int] = {
+        u.unit_index: idx for idx, u in enumerate(result)
+    }
+    reindexed = [
+        u.model_copy(update={"unit_index": idx})
+        for idx, u in enumerate(result)
+    ]
+    reindexed = _reindex_related_units(reindexed, old_to_new)
 
     logger.info(
         "Micro-unit merge: %d units → %d units (%d merged).",
@@ -405,6 +463,7 @@ def merge_subviable_units(
             description_arabic=target.description_arabic,
             self_containment=target.self_containment,
             self_containment_notes=target.self_containment_notes,
+            related_units=target.related_units + src.related_units,
         )
 
         logger.info(
@@ -415,12 +474,16 @@ def merge_subviable_units(
             new_end - new_start + 1,
         )
 
-    # ── Reindex ───────────────────────────────────────────────────
+    # ── Reindex + remap related_units ────────────────────────────
     result = sorted(merged.values(), key=lambda u: u.start_word)
+    old_to_new: dict[int, int] = {
+        u.unit_index: idx for idx, u in enumerate(result)
+    }
     reindexed = [
         u.model_copy(update={"unit_index": idx})
         for idx, u in enumerate(result)
     ]
+    reindexed = _reindex_related_units(reindexed, old_to_new)
 
     total_merged = len(absorb_into)
     logger.info(
@@ -1108,6 +1171,8 @@ def build_deterministic_excerpts(
             takhrij_data=derive_takhrij_from_footnotes(footnotes_relevant),
             cross_references=[],
             footnotes_relevant=footnotes_relevant,
+            # ── Relationship links (1) ──
+            related_units=unit.related_units,
             # ── Metadata/flags (3) ──
             consensus_metadata=None,
             gate_flags=[],

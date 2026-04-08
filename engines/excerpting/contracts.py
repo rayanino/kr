@@ -76,6 +76,19 @@ class SelfContainmentLevel(str, Enum):
     DEPENDENT = "DEPENDENT"
 
 
+class RelationshipType(str, Enum):
+    """Relationship between split teaching units within the same chunk (SPEC §FP-23).
+
+    companion_definition: Paired definitions (لغة/شرعا) that illuminate each other.
+    evidence_for: An evidence unit supporting a ruling unit.
+    condition_for: A condition/exception qualifying a rule.
+    """
+
+    COMPANION_DEFINITION = "companion_definition"
+    EVIDENCE_FOR = "evidence_for"
+    CONDITION_FOR = "condition_for"
+
+
 class StructuralSection(str, Enum):
     """Section type within a book's pedagogical structure (Session 17 DR).
 
@@ -402,12 +415,31 @@ class ClassifiedSegment(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
 
 
+class UnitRelationship(BaseModel):
+    """A relationship link between split teaching units (SPEC §FP-23, §6.24, §6.25).
+
+    Emitted by Phase 2b when splitting content that was authored as a
+    continuous passage. The target_unit_index refers to another unit
+    within the same chunk's grouping output.
+    """
+
+    target_unit_index: int = Field(
+        ge=0,
+        description="unit_index of the related unit within the same chunk",
+    )
+    relationship: RelationshipType
+    description: Optional[str] = Field(
+        None,
+        description="Brief note on the relationship, e.g. 'paired linguistic definition'",
+    )
+
+
 class TeachingUnit(BaseModel):
-    """Phase 2b output: a self-contained teaching unit (SPEC §2.3.4).
+    """Phase 2b output: a self-contained teaching unit (SPEC §2.3.4, FP-23).
 
     Groups one or more ClassifiedSegments into the smallest segment of text
     a student can study and learn something complete from.
-    10 fields.
+    11 fields.
     """
 
     unit_index: int = Field(description="0-based index within chunk grouping")
@@ -433,6 +465,12 @@ class TeachingUnit(BaseModel):
         None,
         description="What context is missing. Required when PARTIAL or DEPENDENT, "
         "must be null when FULL (I-TU-6, I-TU-7).",
+    )
+    related_units: list[UnitRelationship] = Field(
+        default_factory=list,
+        description="Relationship links to other units in the same chunk (FP-23). "
+        "Emitted when splitting definition pairs, evidence types, or "
+        "condition-rule pairs.",
     )
 
     @model_validator(mode="after")
@@ -462,8 +500,9 @@ class ExcerptRecord(BaseModel):
     """The excerpting engine's final output (SPEC §2.2).
 
     One ExcerptRecord per teaching unit. Contains all TeachingUnit fields
-    plus Phase 3 enrichment: attribution, topic, evidence, cross-references.
-    33 fields across 7 categories. Invariants I-ER-1 through I-ER-7.
+    plus Phase 3 enrichment: attribution, topic, evidence, cross-references,
+    and relationship links (FP-23).
+    34 fields across 8 categories. Invariants I-ER-1 through I-ER-7.
     """
 
     # ── Identification (6) ─────────────────────────────────────────
@@ -548,6 +587,13 @@ class ExcerptRecord(BaseModel):
     takhrij_data: Optional[list[TakhrijEntry]] = None
     cross_references: list[CrossReference] = Field(default_factory=list)
     footnotes_relevant: list[Footnote] = Field(default_factory=list)
+
+    # ── Relationship links (1) ───────────────────────────────────
+    related_units: list[UnitRelationship] = Field(
+        default_factory=list,
+        description="Relationship links from Phase 2b (FP-23). "
+        "Propagated unchanged from TeachingUnit.",
+    )
 
     # ── Metadata/flags (3) ────────────────────────────────────────
     consensus_metadata: Optional[ConsensusRecord] = None
@@ -1133,6 +1179,22 @@ def validate_tu_invariants(
             f"I-TU-3: segment assignment mismatch. "
             f"Missing: {missing}, Extra: {extra}"
         )
+
+    # I-TU-10: related_units integrity (DR40 codex-verify)
+    valid_unit_indices = {u.unit_index for u in units}
+    for unit in units:
+        for rel in unit.related_units:
+            if rel.target_unit_index not in valid_unit_indices:
+                raise ValueError(
+                    f"I-TU-10: unit {unit.unit_index} has related_unit "
+                    f"target_unit_index={rel.target_unit_index} which does "
+                    f"not exist in chunk (valid: {sorted(valid_unit_indices)})"
+                )
+            if rel.target_unit_index == unit.unit_index:
+                raise ValueError(
+                    f"I-TU-10: unit {unit.unit_index} has self-referential "
+                    f"related_unit (target_unit_index == unit_index)"
+                )
 
 
 def validate_er_invariants(record: ExcerptRecord) -> None:

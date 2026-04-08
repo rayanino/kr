@@ -52,6 +52,28 @@
 - **DR archives:** ChatGPT DR at `downloads/deep-research-report (19).md`, Claude DR at `downloads/compass_artifact_wf-ae430a21-...md`
 - **Budget:** EUR 0.00 this session (evaluating existing data)
 
+### Session 20 — DR40 Granularity Calibration Implementation (2026-04-08)
+
+**All 5 DR40 decisions implemented: SPEC + contracts + prompts + tests. Owner feedback gap CLOSED.**
+
+**Changes:**
+- **SPEC FP-13 re-ranked:** Leaf-atomicity promoted to #4, pedagogical packaging demoted to #5 (UI concern)
+- **3 new foundational principles:** FP-23 (relationship links), FP-24 (conditional evidence splitting), FP-25 (definition pair splitting)
+- **2 new domain rules:** §6.24 (DP-SPLIT-1 definition pairs), §6.25 (EV-SPLIT-1 evidence type splitting)
+- **PS-1 proof structure amended** for FP-24 alignment
+- **Contracts:** `RelationshipType` enum (3 values), `UnitRelationship` model, `related_units` on TeachingUnit + ExcerptRecord
+- **Prompts:** CONSTITUTION precedence stack, GROUP_CORE_RULES conditional evidence, GROUP_FIQH_RULES definition pair + evidence type splitting, GROUP_OUTPUT_FORMAT related_units, GROUP_CRITICAL_REMINDERS
+- **Phase 3 propagation:** related_units flows through deterministic assembly and both merge functions
+- **DEFINITION now triggers GROUP_FIQH_RULES** in compute_active_modules (FP-25)
+- **CR-31 registered** in CONSTRAINT_REGISTRY.md (≤15 word parenthetical exemption — UNCALIBRATED)
+- **18 new regression tests** from owner rejections — 1006 total, 0 failures, 4 xfailed
+- **Budget:** EUR 0.00 (all deterministic)
+
+**Immediate next steps:**
+1. **Smoke test** the taysir talaq chapter with updated prompts — verify the 2 rejected excerpts now split correctly
+2. **Dispatch coworkers** — Gemini CLI for Arabic scholarly accuracy of split rules, Codex CLI for contract review
+3. **Full campaign rerun** to measure impact on all 1,491 excerpts
+
 ### Session 19 — Campaign Rerun Analysis + CRITICAL FEEDBACK GAP DISCOVERED (2026-04-08)
 
 **Campaign rerun validated all 5 structural fixes. But owner feedback from Session 17 baseline was never consumed — the core excerpting quality problem (grouping granularity) is untouched.**

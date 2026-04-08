@@ -38,6 +38,8 @@
 | CR-21 | CLASSIFY MAX_TOKENS >1500w | 32768 | phase2_classify.py:153 | Same single chunk test | SINGLE-SOURCE |
 | CR-22 | ENRICH MAX_TOKENS ≤1500w | 16384 | phase3_enrichment.py:50 | ibn_aqil_v3: 14863 tokens at 91% utilization | SINGLE-SOURCE (tight margin) |
 
+| CR-31 | FP-24 parenthetical exemption | ≤15 words | SPEC §FP-24, §6.25, prompts.py GROUP_CORE_RULES | DR40: "brief parenthetical citation with no independent study value" | UNCALIBRATED — heuristic from DR40. Needs calibration against real evidence citations in taysir + ibn_aqil to verify 15 words is the right threshold. Risk: too low → unnecessary splits of trivial citations; too high → evidence bundles survive that should split. |
+
 ## LOW Risk (well-justified or deterministic)
 
 | ID | Constraint | Value | Location | Origin |
