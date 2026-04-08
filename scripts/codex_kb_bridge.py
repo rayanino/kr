@@ -212,7 +212,7 @@ def convert_task_to_findings(
 
 _VERIFY_SEVERITIES = {FindingSeverity.CRITICAL, FindingSeverity.HIGH}
 
-_GEMINI_VERIFY_PROMPT = """\
+_VERIFY_PROMPT = """\
 You are reviewing a finding from an automated code analysis (Codex CLI) of the KR \
 Islamic scholarly library pipeline. Assess whether this finding is accurate.
 
@@ -232,20 +232,30 @@ INSTRUCTIONS:
 4. Then provide a brief explanation (2-3 sentences max).
 """
 
+# Verifier priority: CC first (most important), Gemini second
+_VERIFIERS: list[tuple[str, str]] = [
+    ("claude", "claude_code"),    # CC is primary verifier
+    ("gemini", "gemini_cli"),     # Gemini is secondary
+]
 
-def _find_gemini() -> str | None:
-    """Find the Gemini CLI executable."""
-    return shutil.which("gemini")
+
+def _find_verifier() -> tuple[str, str] | None:
+    """Find the best available CLI verifier. CC first, Gemini second."""
+    for cli_name, label in _VERIFIERS:
+        path = shutil.which(cli_name)
+        if path:
+            return path, label
+    return None
 
 
-def _run_gemini_verify(
-    finding: Finding, gemini_path: str,
+def _run_cli_verify(
+    finding: Finding, cli_path: str, cli_label: str,
 ) -> tuple[VerificationStatus, str]:
-    """Dispatch a single finding to Gemini CLI for verification.
+    """Dispatch a single finding to a CLI verifier (CC or Gemini).
 
-    Returns (status, gemini_response_text).
+    Returns (status, response_text).
     """
-    prompt = _GEMINI_VERIFY_PROMPT.format(
+    prompt = _VERIFY_PROMPT.format(
         title=finding.title,
         severity=finding.severity.value,
         category=finding.category.value,
@@ -255,37 +265,37 @@ def _run_gemini_verify(
 
     try:
         result = subprocess.run(
-            [gemini_path, "-p", prompt],
+            [cli_path, "-p", prompt],
             capture_output=True,
             text=True,
             encoding="utf-8",
-            timeout=120,
+            timeout=180,
             cwd=str(Path(__file__).resolve().parent.parent),
         )
     except subprocess.TimeoutExpired:
-        logger.warning("Gemini CLI timed out verifying %s", finding.finding_id)
-        return VerificationStatus.PRELIMINARY, "gemini timeout"
+        logger.warning("%s timed out verifying %s", cli_label, finding.finding_id)
+        return VerificationStatus.PRELIMINARY, f"{cli_label} timeout"
     except OSError as exc:
-        logger.error("Gemini CLI failed for %s: %s", finding.finding_id, exc)
-        return VerificationStatus.PRELIMINARY, f"gemini error: {exc}"
+        logger.error("%s failed for %s: %s", cli_label, finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"{cli_label} error: {exc}"
 
     # Check return code and stderr before parsing stdout
     if result.returncode != 0:
         stderr_msg = (result.stderr or "").strip()[:500]
         logger.error(
-            "Gemini CLI exited with code %d for %s. stderr: %s",
-            result.returncode, finding.finding_id, stderr_msg,
+            "%s exited with code %d for %s. stderr: %s",
+            cli_label, result.returncode, finding.finding_id, stderr_msg,
         )
-        return VerificationStatus.PRELIMINARY, f"gemini exit code {result.returncode}: {stderr_msg}"
+        return VerificationStatus.PRELIMINARY, f"{cli_label} exit code {result.returncode}: {stderr_msg}"
 
     output = result.stdout.strip()
     if not output:
         stderr_hint = (result.stderr or "").strip()[:200]
         logger.warning(
-            "Gemini CLI returned empty stdout for %s (stderr=%s)",
-            finding.finding_id, stderr_hint,
+            "%s returned empty stdout for %s (stderr=%s)",
+            cli_label, finding.finding_id, stderr_hint,
         )
-        return VerificationStatus.PRELIMINARY, "gemini returned empty output"
+        return VerificationStatus.PRELIMINARY, f"{cli_label} returned empty output"
 
     # Parse verdict — exact match preferred, prefix match with warning
     first_line = output.split("\n")[0].strip().upper()
@@ -295,28 +305,28 @@ def _run_gemini_verify(
         return VerificationStatus.DISPUTED, output
     elif first_line.startswith("AGREE"):
         logger.warning(
-            "Gemini verdict for %s is not exact AGREE: '%s' — treating as CONFIRMED",
-            finding.finding_id, first_line[:80],
+            "%s verdict for %s is not exact AGREE: '%s' — treating as CONFIRMED",
+            cli_label, finding.finding_id, first_line[:80],
         )
         return VerificationStatus.CONFIRMED, output
     elif first_line.startswith("DISAGREE"):
         logger.warning(
-            "Gemini verdict for %s is not exact DISAGREE: '%s' — treating as DISPUTED",
-            finding.finding_id, first_line[:80],
+            "%s verdict for %s is not exact DISAGREE: '%s' — treating as DISPUTED",
+            cli_label, finding.finding_id, first_line[:80],
         )
         return VerificationStatus.DISPUTED, output
     else:
         logger.warning(
-            "Gemini CLI returned unparseable verdict for %s: '%s'",
-            finding.finding_id, first_line[:80],
+            "%s returned unparseable verdict for %s: '%s'",
+            cli_label, finding.finding_id, first_line[:80],
         )
         return VerificationStatus.PRELIMINARY, output
 
 
-def verify_findings_with_gemini(
+def verify_findings(
     findings: list[Finding],
 ) -> dict[str, int]:
-    """Verify HIGH/CRITICAL findings by dispatching Gemini CLI.
+    """Verify HIGH/CRITICAL findings with CC (primary) or Gemini (fallback).
 
     Mutates findings in-place and rewrites findings.jsonl.
     Returns stats: verified, confirmed, disputed, skipped.
@@ -335,10 +345,16 @@ def verify_findings_with_gemini(
         logger.info("No HIGH/CRITICAL PRELIMINARY findings to verify")
         return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
 
-    gemini_path = _find_gemini()
-    if not gemini_path:
-        logger.warning("Gemini CLI not found — skipping verification for %d findings", len(to_verify))
+    verifier = _find_verifier()
+    if not verifier:
+        logger.warning(
+            "No CLI verifier found (tried: %s) — skipping verification for %d findings",
+            ", ".join(name for name, _ in _VERIFIERS), len(to_verify),
+        )
         return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": len(to_verify)}
+
+    cli_path, cli_label = verifier
+    logger.info("Using %s (%s) as verifier for %d findings", cli_label, cli_path, len(to_verify))
 
     confirmed = 0
     disputed = 0
@@ -347,23 +363,23 @@ def verify_findings_with_gemini(
 
     for finding in to_verify:
         logger.info("Verifying %s: %s", finding.finding_id, finding.title[:60])
-        status, response = _run_gemini_verify(finding, gemini_path)
+        status, response = _run_cli_verify(finding, cli_path, cli_label)
 
         if status == VerificationStatus.PRELIMINARY:
             skipped += 1
             continue
 
         finding.verification_status = status
-        finding.verified_by = "gemini_cli"
+        finding.verified_by = cli_label
         finding.verified_at = now
         finding.verification_response = response[:2000]
 
         if status == VerificationStatus.CONFIRMED:
             confirmed += 1
-            logger.info("  → CONFIRMED by Gemini")
+            logger.info("  → CONFIRMED by %s", cli_label)
         else:
             disputed += 1
-            logger.info("  → DISPUTED by Gemini: %s", response[:120])
+            logger.info("  → DISPUTED by %s: %s", cli_label, response[:120])
 
     # Rewrite findings.jsonl with updated verification statuses
     all_findings_raw = read_jsonl(FINDINGS_JSONL, Finding)
@@ -376,8 +392,8 @@ def verify_findings_with_gemini(
 
     total = confirmed + disputed
     logger.info(
-        "Verification complete: %d verified (%d confirmed, %d disputed, %d skipped)",
-        total, confirmed, disputed, skipped,
+        "Verification complete (%s): %d verified (%d confirmed, %d disputed, %d skipped)",
+        cli_label, total, confirmed, disputed, skipped,
     )
     return {"verified": total, "confirmed": confirmed, "disputed": disputed, "skipped": skipped}
 
@@ -484,7 +500,7 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         all_existing = read_jsonl(FINDINGS_JSONL, Finding)
         verify_candidates = [f for f in all_existing if isinstance(f, Finding)]
         if verify_candidates:
-            verify_stats = verify_findings_with_gemini(verify_candidates)
+            verify_stats = verify_findings(verify_candidates)
     except (OSError, subprocess.SubprocessError, ValueError) as exc:
         logger.exception("Gemini verification failed (findings remain PRELIMINARY): %s", exc)
 
