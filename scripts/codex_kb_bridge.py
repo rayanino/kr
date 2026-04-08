@@ -13,7 +13,10 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import shutil
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -30,8 +33,10 @@ from scripts.autonomous_schemas import (
     Finding,
     FindingSeverity,
     ResearchCategory,
+    VerificationStatus,
     append_jsonl,
     read_jsonl,
+    rewrite_jsonl,
 )
 
 try:
@@ -160,6 +165,10 @@ def convert_task_to_findings(
             raw_text_hash=raw_hash,
             prompt_id=None,
             section_heading="",
+            verification_status=VerificationStatus.PRELIMINARY,
+            verified_by=None,
+            verified_at=None,
+            verification_response="",
         ))
 
     # 2. Convert findings strings (unstructured, informational)
@@ -187,10 +196,190 @@ def convert_task_to_findings(
             confidence=0.6,
             raw_text_hash=raw_hash,
             prompt_id=None,
+            verification_status=VerificationStatus.PRELIMINARY,
+            verified_by=None,
+            verified_at=None,
+            verification_response="",
             section_heading="",
         ))
 
     return findings
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Cross-model verification (D-041)
+# ═══════════════════════════════════════════════════════════════════
+
+_VERIFY_SEVERITIES = {FindingSeverity.CRITICAL, FindingSeverity.HIGH}
+
+_GEMINI_VERIFY_PROMPT = """\
+You are reviewing a finding from an automated code analysis (Codex CLI) of the KR \
+Islamic scholarly library pipeline. Assess whether this finding is accurate.
+
+FINDING:
+  Title: {title}
+  Severity: {severity}
+  Category: {category}
+  Affected files: {files}
+  Description: {description}
+
+INSTRUCTIONS:
+1. Read the affected files if they exist in this repository.
+2. Assess whether the finding accurately describes a real issue.
+3. Respond with EXACTLY one of these verdicts on the FIRST LINE:
+   AGREE — the finding is accurate and actionable
+   DISAGREE — the finding is inaccurate, outdated, or not a real issue
+4. Then provide a brief explanation (2-3 sentences max).
+"""
+
+
+def _find_gemini() -> str | None:
+    """Find the Gemini CLI executable."""
+    return shutil.which("gemini")
+
+
+def _run_gemini_verify(
+    finding: Finding, gemini_path: str,
+) -> tuple[VerificationStatus, str]:
+    """Dispatch a single finding to Gemini CLI for verification.
+
+    Returns (status, gemini_response_text).
+    """
+    prompt = _GEMINI_VERIFY_PROMPT.format(
+        title=finding.title,
+        severity=finding.severity.value,
+        category=finding.category.value,
+        files=", ".join(finding.affected_files[:5]) or "(none)",
+        description=finding.description[:1500],
+    )
+
+    try:
+        result = subprocess.run(
+            [gemini_path, "-p", prompt],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=120,
+            cwd=str(Path(__file__).resolve().parent.parent),
+        )
+    except subprocess.TimeoutExpired:
+        logger.warning("Gemini CLI timed out verifying %s", finding.finding_id)
+        return VerificationStatus.PRELIMINARY, "gemini timeout"
+    except OSError as exc:
+        logger.error("Gemini CLI failed for %s: %s", finding.finding_id, exc)
+        return VerificationStatus.PRELIMINARY, f"gemini error: {exc}"
+
+    # Check return code and stderr before parsing stdout
+    if result.returncode != 0:
+        stderr_msg = (result.stderr or "").strip()[:500]
+        logger.error(
+            "Gemini CLI exited with code %d for %s. stderr: %s",
+            result.returncode, finding.finding_id, stderr_msg,
+        )
+        return VerificationStatus.PRELIMINARY, f"gemini exit code {result.returncode}: {stderr_msg}"
+
+    output = result.stdout.strip()
+    if not output:
+        stderr_hint = (result.stderr or "").strip()[:200]
+        logger.warning(
+            "Gemini CLI returned empty stdout for %s (stderr=%s)",
+            finding.finding_id, stderr_hint,
+        )
+        return VerificationStatus.PRELIMINARY, "gemini returned empty output"
+
+    # Parse verdict — exact match preferred, prefix match with warning
+    first_line = output.split("\n")[0].strip().upper()
+    if first_line == "AGREE":
+        return VerificationStatus.CONFIRMED, output
+    elif first_line == "DISAGREE":
+        return VerificationStatus.DISPUTED, output
+    elif first_line.startswith("AGREE"):
+        logger.warning(
+            "Gemini verdict for %s is not exact AGREE: '%s' — treating as CONFIRMED",
+            finding.finding_id, first_line[:80],
+        )
+        return VerificationStatus.CONFIRMED, output
+    elif first_line.startswith("DISAGREE"):
+        logger.warning(
+            "Gemini verdict for %s is not exact DISAGREE: '%s' — treating as DISPUTED",
+            finding.finding_id, first_line[:80],
+        )
+        return VerificationStatus.DISPUTED, output
+    else:
+        logger.warning(
+            "Gemini CLI returned unparseable verdict for %s: '%s'",
+            finding.finding_id, first_line[:80],
+        )
+        return VerificationStatus.PRELIMINARY, output
+
+
+def verify_findings_with_gemini(
+    findings: list[Finding],
+) -> dict[str, int]:
+    """Verify HIGH/CRITICAL findings by dispatching Gemini CLI.
+
+    Mutates findings in-place and rewrites findings.jsonl.
+    Returns stats: verified, confirmed, disputed, skipped.
+
+    INVARIANT: Single-writer discipline on FINDINGS_JSONL. This function
+    reads, modifies in memory, then rewrites. Concurrent callers will cause
+    data loss. The launcher and orchestrator serialize through ingest_codex_results().
+    """
+    to_verify = [
+        f for f in findings
+        if f.severity in _VERIFY_SEVERITIES
+        and f.verification_status == VerificationStatus.PRELIMINARY
+    ]
+
+    if not to_verify:
+        logger.info("No HIGH/CRITICAL PRELIMINARY findings to verify")
+        return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
+
+    gemini_path = _find_gemini()
+    if not gemini_path:
+        logger.warning("Gemini CLI not found — skipping verification for %d findings", len(to_verify))
+        return {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": len(to_verify)}
+
+    confirmed = 0
+    disputed = 0
+    skipped = 0
+    now = datetime.now(timezone.utc).isoformat()
+
+    for finding in to_verify:
+        logger.info("Verifying %s: %s", finding.finding_id, finding.title[:60])
+        status, response = _run_gemini_verify(finding, gemini_path)
+
+        if status == VerificationStatus.PRELIMINARY:
+            skipped += 1
+            continue
+
+        finding.verification_status = status
+        finding.verified_by = "gemini_cli"
+        finding.verified_at = now
+        finding.verification_response = response[:2000]
+
+        if status == VerificationStatus.CONFIRMED:
+            confirmed += 1
+            logger.info("  → CONFIRMED by Gemini")
+        else:
+            disputed += 1
+            logger.info("  → DISPUTED by Gemini: %s", response[:120])
+
+    # Rewrite findings.jsonl with updated verification statuses
+    all_findings_raw = read_jsonl(FINDINGS_JSONL, Finding)
+    all_findings = [f for f in all_findings_raw if isinstance(f, Finding)]
+    verified_map = {f.finding_id: f for f in to_verify if f.verification_status != VerificationStatus.PRELIMINARY}
+    for i, f in enumerate(all_findings):
+        if f.finding_id in verified_map:
+            all_findings[i] = verified_map[f.finding_id]
+    rewrite_jsonl(FINDINGS_JSONL, all_findings)
+
+    total = confirmed + disputed
+    logger.info(
+        "Verification complete: %d verified (%d confirmed, %d disputed, %d skipped)",
+        total, confirmed, disputed, skipped,
+    )
+    return {"verified": total, "confirmed": confirmed, "disputed": disputed, "skipped": skipped}
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -288,6 +477,14 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         findings_created += len(new_in_task)
         logger.info("Ingested %s: %d findings", task_id, len(new_in_task))
 
+    # Verify HIGH/CRITICAL findings with Gemini CLI (D-041 cross-model)
+    verify_stats = {"verified": 0, "confirmed": 0, "disputed": 0, "skipped": 0}
+    if all_new_findings:
+        try:
+            verify_stats = verify_findings_with_gemini(all_new_findings)
+        except (OSError, subprocess.SubprocessError, ValueError) as exc:
+            logger.exception("Gemini verification failed (findings remain PRELIMINARY): %s", exc)
+
     # Cross-reference ALL findings (existing + new).
     # Isolated try/except: cross-ref failure must not block stats or follow-ups.
     contradiction_count = 0
@@ -310,8 +507,10 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
             persist_cross_references(all_findings, related_map, contradictions)
             contradiction_count = len(contradictions)
             logger.info("Cross-referenced %d findings, %d contradictions", len(all_findings), contradiction_count)
+        except (OSError, ValueError) as exc:
+            logger.error("Cross-referencing failed (I/O or data error): %s", exc)
         except Exception as exc:
-            logger.error("Cross-referencing failed (findings persisted without cross-refs): %s", exc)
+            logger.exception("Cross-referencing failed (likely code bug): %s", exc)
 
     # Generate follow-up prompts from new contradictions/gaps.
     # Isolated: prompt generation failure must not block stats.
@@ -331,8 +530,45 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
                     append_jsonl(batch_file, p)
                 followup_count = len(new_prompts)
                 logger.info("Generated %d follow-up prompts", followup_count)
+        except (OSError, ValueError) as exc:
+            logger.error("Follow-up prompt generation failed (I/O or data error): %s", exc)
         except Exception as exc:
-            logger.error("Follow-up prompt generation failed: %s", exc)
+            logger.exception("Follow-up prompt generation failed (likely code bug): %s", exc)
+
+    # Warn if PRELIMINARY findings are blocking follow-ups (chicken-and-egg)
+    if all_new_findings:
+        preliminary_needing_action = [
+            f for f in all_new_findings
+            if f.verification_status == VerificationStatus.PRELIMINARY
+            and f.severity in _VERIFY_SEVERITIES
+        ]
+        if preliminary_needing_action:
+            logger.warning(
+                "⚠ %d HIGH/CRITICAL findings stuck at PRELIMINARY — "
+                "follow-up prompts blocked until Gemini CLI verifies them. "
+                "Run 'python scripts/codex_kb_bridge.py' when Gemini is available.",
+                len(preliminary_needing_action),
+            )
+
+    # Compute KB totals for summary display (avoids 0-stat problem when
+    # orchestrator hook already ingested everything before the launcher's
+    # bridge call)
+    total_findings = 0
+    total_confirmed = 0
+    total_disputed = 0
+    if FINDINGS_JSONL.exists():
+        all_f = read_jsonl(FINDINGS_JSONL, Finding)
+        total_findings = len(all_f)
+        for f in all_f:
+            if isinstance(f, Finding):
+                if f.verification_status == VerificationStatus.CONFIRMED:
+                    total_confirmed += 1
+                elif f.verification_status == VerificationStatus.DISPUTED:
+                    total_disputed += 1
+
+    total_tasks = 0
+    if DIGESTION_LOG_JSONL.exists():
+        total_tasks = len(read_jsonl(DIGESTION_LOG_JSONL, DigestionRecord))
 
     return {
         "tasks_processed": tasks_processed,
@@ -340,6 +576,14 @@ def ingest_codex_results(run_id: str | None = None) -> dict[str, int]:
         "skipped": skipped,
         "contradictions": contradiction_count,
         "followup_prompts": followup_count,
+        "verified": verify_stats.get("verified", 0),
+        "confirmed": verify_stats.get("confirmed", 0),
+        "disputed": verify_stats.get("disputed", 0),
+        # KB totals (cumulative across all runs)
+        "kb_total_tasks": total_tasks,
+        "kb_total_findings": total_findings,
+        "kb_total_confirmed": total_confirmed,
+        "kb_total_disputed": total_disputed,
     }
 
 
@@ -370,6 +614,7 @@ def main() -> None:
     print(f"  Tasks processed:  {stats['tasks_processed']}")
     print(f"  Findings created: {stats['findings_created']}")
     print(f"  Skipped:          {stats['skipped']}")
+    print(f"  Verified:         {stats['verified']} ({stats['confirmed']} confirmed, {stats['disputed']} disputed)")
     print(f"  Contradictions:   {stats['contradictions']}")
     print(f"  Follow-up prompts: {stats['followup_prompts']}")
 

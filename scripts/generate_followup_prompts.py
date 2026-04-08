@@ -31,6 +31,7 @@ from scripts.autonomous_schemas import (
     Finding,
     Priority,
     ResearchCategory,
+    VerificationStatus,
     append_jsonl,
     load_dr_index,
     read_jsonl,
@@ -108,8 +109,16 @@ _FOLLOWUP_TRIGGERS = [
 
 
 def needs_followup(finding: Finding) -> bool:
-    """Check if a finding needs a follow-up DR prompt."""
+    """Check if a finding needs a follow-up DR prompt.
+
+    PRELIMINARY findings are gated: single-model findings must not
+    drive follow-up prompt generation (D-041 / OPS-DEC-006).
+    """
     if finding.resolved:
+        return False
+    if finding.verification_status == VerificationStatus.PRELIMINARY:
+        return False
+    if finding.verification_status == VerificationStatus.DISPUTED:
         return False
     action_lower = finding.action_required.lower()
     return any(trigger in action_lower for trigger in _FOLLOWUP_TRIGGERS)

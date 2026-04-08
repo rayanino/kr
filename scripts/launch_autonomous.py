@@ -84,7 +84,7 @@ def _print_summary(
     dashboard_running: bool,
     errors: list[str],
 ) -> None:
-    """Print final summary."""
+    """Print final summary using KB totals (not per-call deltas)."""
     print()
     print("=" * 50)
     if errors:
@@ -96,10 +96,29 @@ def _print_summary(
         for err in errors:
             print(f"  ERROR: {err}")
         print()
-    print(f"  Tasks processed:   {stats.get('tasks_processed', 0)}")
-    print(f"  Findings created:  {stats.get('findings_created', 0)}")
-    print(f"  Contradictions:    {stats.get('contradictions', 0)}")
-    print(f"  Follow-up prompts: {stats.get('followup_prompts', 0)}")
+
+    # Show KB totals (cumulative) — avoids the 0-stat problem when
+    # the orchestrator hook already ingested before this bridge call
+    kb_tasks = stats.get("kb_total_tasks", 0)
+    kb_findings = stats.get("kb_total_findings", 0)
+    kb_confirmed = stats.get("kb_total_confirmed", 0)
+    kb_disputed = stats.get("kb_total_disputed", 0)
+    kb_preliminary = kb_findings - kb_confirmed - kb_disputed
+
+    # Per-run stats (what this run added)
+    new_tasks = stats.get("tasks_processed", 0)
+    new_findings = stats.get("findings_created", 0)
+
+    print(f"  This run:")
+    print(f"    Tasks ingested:    {new_tasks}")
+    print(f"    Findings created:  {new_findings}")
+    print(f"    Verified:          {stats.get('verified', 0)} ({stats.get('confirmed', 0)} confirmed, {stats.get('disputed', 0)} disputed)")
+    print(f"    Follow-up prompts: {stats.get('followup_prompts', 0)}")
+    print()
+    print(f"  KB totals:")
+    print(f"    Tasks:    {kb_tasks}")
+    print(f"    Findings: {kb_findings} ({kb_confirmed} confirmed, {kb_disputed} disputed, {kb_preliminary} preliminary)")
+
     if dashboard_running:
         print(f"\n  Dashboard: http://localhost:{port}")
         print("  (Refresh to see new findings. Press Ctrl+C to stop.)")
@@ -176,17 +195,17 @@ def main() -> None:
             _run_orchestrator(args.hours, args.dry_run, args.skip_preflight)
         except KeyboardInterrupt:
             logger.info("Orchestrator interrupted by user")
-        except Exception:
+        except Exception as exc:
             logger.exception("Orchestrator failed")
-            errors.append("Orchestrator crashed (see log above)")
+            errors.append(f"Orchestrator crashed: {type(exc).__name__}: {str(exc)[:200]}")
 
     # Run bridge (always — catches anything the orchestrator hook missed)
     logger.info("Running KB bridge...")
     try:
         stats = _run_bridge()
-    except Exception:
+    except Exception as exc:
         logger.exception("Bridge failed")
-        errors.append("Bridge crashed (see log above)")
+        errors.append(f"Bridge crashed: {type(exc).__name__}: {str(exc)[:200]}")
         stats = {}
 
     _print_summary(stats, args.port, dashboard_running, errors)

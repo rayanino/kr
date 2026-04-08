@@ -15,6 +15,7 @@ import os
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
+from collections.abc import Sequence
 from typing import Optional
 
 from pydantic import BaseModel, Field, ValidationError, model_validator
@@ -98,6 +99,14 @@ class FindingSeverity(str, Enum):
     MEDIUM = "medium"
     LOW = "low"
     INFORMATIONAL = "informational"
+
+
+class VerificationStatus(str, Enum):
+    """Cross-model verification state for findings (D-041 compliance)."""
+
+    PRELIMINARY = "preliminary"   # Single-source, not yet verified
+    CONFIRMED = "confirmed"       # Second model agrees
+    DISPUTED = "disputed"         # Second model disagrees
 
 
 class IdeaStatus(str, Enum):
@@ -214,6 +223,20 @@ class Finding(BaseModel):
     )
     section_heading: str = Field(
         "", description="Heading in the DR response this was extracted from"
+    )
+    # Cross-model verification (D-041 compliance)
+    verification_status: VerificationStatus = Field(
+        VerificationStatus.PRELIMINARY,
+        description="Cross-model verification state",
+    )
+    verified_by: Optional[str] = Field(
+        None, description="Which coworker verified (e.g. gemini_cli)"
+    )
+    verified_at: Optional[str] = Field(
+        None, description="ISO 8601 timestamp of verification"
+    )
+    verification_response: str = Field(
+        "", description="Full response text from verifier (training data)"
     )
 
 
@@ -345,6 +368,39 @@ def read_jsonl(path: Path, model_class: type[BaseModel]) -> list[BaseModel]:
                     f"JSONL parse error at {path}:{line_num}: {e}"
                 ) from e
     return records
+
+
+def rewrite_jsonl(path: Path, records: Sequence[BaseModel]) -> None:
+    """Atomically rewrite a JSONL file with updated records.
+
+    Writes to a temp file first, then replaces the original.
+    Retries on PermissionError (Windows NTFS file locking from dashboard reads).
+    """
+    import time
+
+    tmp = path.with_suffix(".jsonl.tmp")
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            for record in records:
+                f.write(record.model_dump_json() + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+    except Exception:
+        # Clean up partial .tmp on write failure
+        if tmp.exists():
+            tmp.unlink(missing_ok=True)
+        raise
+
+    # Retry replace with backoff — Windows NTFS may hold a read lock
+    for attempt in range(5):
+        try:
+            tmp.replace(path)
+            return
+        except PermissionError:
+            if attempt == 4:
+                raise
+            time.sleep(0.2 * (attempt + 1))
+            logger.warning("NTFS lock on %s, retrying (%d/5)", path.name, attempt + 2)
 
 
 def load_dr_index(path: Path) -> dict[str, DRPrompt]:
