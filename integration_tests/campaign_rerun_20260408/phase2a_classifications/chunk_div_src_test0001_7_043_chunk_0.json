@@ -1,0 +1,586 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتابُ الجِهَاد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 22,
+    "text_snippet": "الجهاد: بكسر اليم، أصله- لغة- المشقة، يقال: جا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 23,
+    "end_word": 26,
+    "text_snippet": "ومشروعيته بالكتاب، والسنة، والإجماع.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 3,
+    "start_word": 27,
+    "end_word": 43,
+    "text_snippet": "وقد تكاثرت النصوص في الأمر به، والحث عليه، وال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 4,
+    "start_word": 44,
+    "end_word": 67,
+    "text_snippet": "وهو فرض كفاية، إذا قام به من يكفي، سقط عن البا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 68,
+    "end_word": 74,
+    "text_snippet": "الأول: إذا تقابل الفريقان، تعين يحرم الانصراف.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 75,
+    "end_word": 82,
+    "text_snippet": "الثاني: إذا نزل العدو البلد وحاصرها، تعينت مقا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 83,
+    "end_word": 112,
+    "text_snippet": "الثالث: إذا استنفر الإمام الناس استنفارا عاماً",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 113,
+    "end_word": 120,
+    "text_snippet": "ولقوله صلى الله عليه وسلم: \"وإذا استنفرتم فانف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 121,
+    "end_word": 173,
+    "text_snippet": "قال العلماء: ويطلق الجهاد على مجاهدة النفس وال",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 174,
+    "end_word": 177,
+    "text_snippet": "طبيعة الحرب في الإسلام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 178,
+    "end_word": 199,
+    "text_snippet": "ذهب بعض الغربيين المبشرين: إلى أن الإسلام قام ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 12,
+    "start_word": 200,
+    "end_word": 228,
+    "text_snippet": "والجواب: أن نقول: هذا زعم خاطئ، وهو ناشئ، إما ",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 229,
+    "end_word": 252,
+    "text_snippet": "والحق أنه ناشئ من الأمرين جميعاً، لاًن الدين ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 253,
+    "end_word": 290,
+    "text_snippet": "ومن تتبع نصوص القرآن الكريم والسنة المطهرة، ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 15,
+    "start_word": 291,
+    "end_word": 321,
+    "text_snippet": "اقرأ قوله تعالى: {لا إكْرَاهَ في الدينِ قَدْ تب",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 322,
+    "end_word": 356,
+    "text_snippet": "واقرأ قوله تعالى: {لا ينهَاكُمُ الله عَنِ الَذ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 357,
+    "end_word": 362,
+    "text_snippet": "والآيات الدالة على هذا المعنى كثيرة.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 18,
+    "start_word": 363,
+    "end_word": 377,
+    "text_snippet": "وأما السنة فكل أعمال النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 19,
+    "start_word": 378,
+    "end_word": 407,
+    "text_snippet": "قال صلى الله عليه وسلم في حديث بريده الذي في (",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 408,
+    "end_word": 428,
+    "text_snippet": "ثم قال: \"اغزوا باسم الله في سبيل الله، من كفر ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 429,
+    "end_word": 441,
+    "text_snippet": "ونهى صلى الله عليه وسلم: \" عن قتل النساء والصب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 442,
+    "end_word": 475,
+    "text_snippet": "وقال صلى الله عليه وسلم: \" اخرجوا باسم الله، ت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 476,
+    "end_word": 542,
+    "text_snippet": "وأوصى أبو بكر الصديق يزيد بن أبي سفيان، حين بع",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 24,
+    "start_word": 543,
+    "end_word": 578,
+    "text_snippet": "وقال ابن الأنبارى- عند قوله تعالى: {لا إكْرَاه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 579,
+    "end_word": 600,
+    "text_snippet": "ومن تأمل سيرة النبي صلى الله عليه وسلم، تبين ل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 26,
+    "start_word": 601,
+    "end_word": 632,
+    "text_snippet": "وأما من هادنه فلم يقاتله مادام مقيماً على هدنته",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 27,
+    "start_word": 633,
+    "end_word": 640,
+    "text_snippet": "ولما قدم المدينة، صالح اليهود وأقرهم على دينهم",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 641,
+    "end_word": 669,
+    "text_snippet": "فلما حاربوه، ونقضوا عهده، غزاهم في ديارهم، وكا",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 670,
+    "end_word": 690,
+    "text_snippet": "والمقصود أنه صلى الله عليه وسلم لم يكره أحداً ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 691,
+    "end_word": 738,
+    "text_snippet": "فأكثر أهل الأرض دخلوا في دعوته لما تبين لهم ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 31,
+    "start_word": 739,
+    "end_word": 751,
+    "text_snippet": "بل من هداه الله للإسلام، وشرح صدره، ونور بصيرت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 32,
+    "start_word": 752,
+    "end_word": 767,
+    "text_snippet": "ومن أعمى اللَه قلبه، وختم على سمعه وبصره، فإنه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 33,
+    "start_word": 768,
+    "end_word": 782,
+    "text_snippet": "وكلام العلماء المحققين في هذا الباب كثير، وهو ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 34,
+    "start_word": 783,
+    "end_word": 794,
+    "text_snippet": "ولكن أعداء الإسلام يأبون إلا أن يصفوه بما يشوه",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 795,
+    "end_word": 832,
+    "text_snippet": "وغزواته صلى الله عليه وسلم، التي فتحت القلوب و",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 36,
+    "start_word": 833,
+    "end_word": 843,
+    "text_snippet": "وقد بين ذلك ابن القيم في كتاب زاد المعاد حيث ق",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 844,
+    "end_word": 860,
+    "text_snippet": "فصل: في ترتيب سياق هديه مع الكفار والمنافقين م",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 38,
+    "start_word": 861,
+    "end_word": 969,
+    "text_snippet": "أول ما أوحى إليه ربه تبارك وتعالى أن يقرأ باسم ",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 39,
+    "start_word": 970,
+    "end_word": 1007,
+    "text_snippet": "قلت: ويعلم من المرحلة الأخيرة في القتال وجوب ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1008,
+    "end_word": 1018,
+    "text_snippet": "نسأل الله أن ينصر دينه، وأن يعلي كلمته، إنه قو",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1019,
+    "end_word": 1020,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1021,
+    "end_word": 1088,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ أبى أوْفَى رضي الله عنه أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1089,
+    "end_word": 1272,
+    "text_snippet": "المعنى الإجمالي:\nينهى النبي صلى الله عليه وسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1273,
+    "end_word": 1417,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحين مناسبة الوقت للقت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1418,
+    "end_word": 1419,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1420,
+    "end_word": 1469,
+    "text_snippet": "عَنْ سَهْلِ بْنِ سَعْدٍ رضي الله عنه: أنَّ رَسُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1470,
+    "end_word": 1528,
+    "text_snippet": "الغريب.\nرباط يوم في سبيل الله: الرباط: بكسر ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1529,
+    "end_word": 1697,
+    "text_snippet": "المعنى الإجمالي:\nيبيِّن النبي صلى الله عليه وس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1698,
+    "end_word": 1829,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فضل الرباط في سبيل الل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1830,
+    "end_word": 1831,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1832,
+    "end_word": 1883,
+    "text_snippet": "عَنْ أبي هريرة رضي الله عنه عَنِ النبي صلى الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1884,
+    "end_word": 1981,
+    "text_snippet": "الغريب:\nإلا جهاد: مرفوع، هو وما بعده. وقد جاء ",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1982,
+    "end_word": 2057,
+    "text_snippet": "المعنى الإجمالي:\nضمن الله تعالى والتزم- كرماً ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2058,
+    "end_word": 2140,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جود الله تعالى وكرب، إ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2141,
+    "end_word": 2157,
+    "text_snippet": "وقال الطبري-: إذا كان أصل الباعث هو إعلاء كلم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2158,
+    "end_word": 2159,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2160,
+    "end_word": 2194,
+    "text_snippet": "ولـ (مسلم ⌜1⌝ مَثَلُ المجاهدين في سَبِيل الله- ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2195,
+    "end_word": 2294,
+    "text_snippet": "المعنى الإجمالي:\nبيَّن صلى الله عليه وسلم فضل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2295,
+    "end_word": 2296,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2297,
+    "end_word": 2329,
+    "text_snippet": "عَنْ أبي هُريرةَ رضي الله عنه قالَ: قالَ رَسولُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2330,
+    "end_word": 2344,
+    "text_snippet": "الغريب:\nمَكْلُوم: بفتح الميم وسكون الكاف، اسم ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2345,
+    "end_word": 2422,
+    "text_snippet": "المعنى الإجمالي:\nيُبَينُ النبي صلى الله عليه و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2423,
+    "end_word": 2471,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه فضل الجهاد، وقد كث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2472,
+    "end_word": 2473,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2474,
+    "end_word": 2500,
+    "text_snippet": "عَنْ أبي أيوب الأنصاري رضي الله عنه قالَ: قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2501,
+    "end_word": 2502,
+    "text_snippet": "الحديث السابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2503,
+    "end_word": 2528,
+    "text_snippet": "عَنْ أنس بْنِ مَالِكٍ رضي الله عنه قَالَ: قَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2529,
+    "end_word": 2604,
+    "text_snippet": "المعنى الإجمالي:\nتقدم معنى هذين الحدثين اللذين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2605,
+    "end_word": 2606,
+    "text_snippet": "الحديث الثامن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2607,
+    "end_word": 2642,
+    "text_snippet": "عَنْ أبي قَتَادَة الأنصاري رضي الله عنه قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2643,
+    "end_word": 2644,
+    "text_snippet": "الحديث التاسع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2645,
+    "end_word": 2670,
+    "text_snippet": "عَنْ سَلَمَةَ بْن الأكْوَعِ رضي الله عنه قَالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  }
+]

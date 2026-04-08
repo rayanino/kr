@@ -1,0 +1,322 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَاب دُخول مَكةَ والبيت ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 6,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 39,
+    "text_snippet": "عَنْ أنسِ بْنِ مَالِكٍ رضي الله عنه: أنَّ رَسُولَ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 40,
+    "end_word": 40,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 41,
+    "end_word": 55,
+    "text_snippet": "المغفر: بوزن مِنْبَر، زرد ينسج من حديد على قدر ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 56,
+    "end_word": 74,
+    "text_snippet": "\"ابن خطل\" بالخاء المعجمة والطاء المهملة المفتوح",
+    "scholarly_function": "definition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 6,
+    "start_word": 75,
+    "end_word": 76,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 77,
+    "end_word": 199,
+    "text_snippet": "كان بين النبي صلى الله عليه وسلم وبين كفار قري",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 200,
+    "end_word": 203,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 204,
+    "end_word": 299,
+    "text_snippet": "1- كون النبي صلى الله عليه وسلم دخل مكة غير مح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 300,
+    "end_word": 301,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 302,
+    "end_word": 329,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 330,
+    "end_word": 330,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 13,
+    "start_word": 331,
+    "end_word": 348,
+    "text_snippet": "كداء: بفتح الكاف والمد، اسم للثنية، التي في أعل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 349,
+    "end_word": 355,
+    "text_snippet": "الثنية السفلى: الثَّنِيَّة، هي الطريق بين الجبل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 356,
+    "end_word": 380,
+    "text_snippet": "والمراد بها، الطريق الذي خرج من المحلة المسماة ",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 16,
+    "start_word": 381,
+    "end_word": 382,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 383,
+    "end_word": 437,
+    "text_snippet": "حِج النبي صلى الله عليه وسلم حجة الوداع، فبات ل",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 18,
+    "start_word": 438,
+    "end_word": 485,
+    "text_snippet": "ولعل في مخالفة الطريقين تكثيراً لمواضع العبادة،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 19,
+    "start_word": 486,
+    "end_word": 490,
+    "text_snippet": "الحديث التاسع عشر بعد المائتين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 491,
+    "end_word": 540,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما:\nدَخ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 541,
+    "end_word": 542,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 22,
+    "start_word": 543,
+    "end_word": 682,
+    "text_snippet": "لما فتح الله تبارك وتعالى مكة، وطهر بيته من الأ",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 23,
+    "start_word": 683,
+    "end_word": 686,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 687,
+    "end_word": 719,
+    "text_snippet": "1- استحباب دخول الكعبة المشرفة، والصلاة فيها، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 720,
+    "end_word": 735,
+    "text_snippet": "ولهذا فإن النبي صلى الله عليه وسلم لم يدخلها في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 736,
+    "end_word": 745,
+    "text_snippet": "وهذا هو التحقيق، في أنه لم يدخلها إلا مرة واحدة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 746,
+    "end_word": 747,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 28,
+    "start_word": 748,
+    "end_word": 762,
+    "text_snippet": "الجمهور على جواز صلاة النافلة في الكعبة المشرفة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 763,
+    "end_word": 772,
+    "text_snippet": "وإنما الخلاف في جواز الفرض فيها. وفوق سطحها، وم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 773,
+    "end_word": 783,
+    "text_snippet": "فذهب الإمام أحمد، ومالك في المشهور عنه إلى أنها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 784,
+    "end_word": 808,
+    "text_snippet": "مستدلين بقوله تعالى: {وَحَيْثُ مَا كُنْتُمْ فَوَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 809,
+    "end_word": 843,
+    "text_snippet": "وبما روي عن ابن عمر: أن النبي صلى الله عليه وسل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 844,
+    "end_word": 845,
+    "text_snippet": "رواه الترمذي.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 34,
+    "start_word": 846,
+    "end_word": 858,
+    "text_snippet": "وذهب الإمامان، أبو حنيفة، والشافعي: إلى صحة الف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 859,
+    "end_word": 868,
+    "text_snippet": "ودليلهم على ذلك صلاة النبي صلى الله عليه وسلم ف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 36,
+    "start_word": 869,
+    "end_word": 883,
+    "text_snippet": "وما ثبت في حق النفل، يثبت في حق الفرض بلا فرق إ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 37,
+    "start_word": 884,
+    "end_word": 897,
+    "text_snippet": "ولو سلم استدلالهم بالآية، على عدم صحة الفرض، لك",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 898,
+    "end_word": 912,
+    "text_snippet": "وأما حديث ابن عمر، فلو صح، لكان عاماً للفريضة و",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 913,
+    "end_word": 931,
+    "text_snippet": "وقال البخاري: فيه رجل متروك.\nواستدلوا بحديث \"جُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  }
+]

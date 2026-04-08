@@ -1,0 +1,54 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "وأمره بالأكل وأخبره أنها المانع له من أكلها أنه صلى الله عليه وسلم له اتصال",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل امتناع النبي صلى الله عليه وسلم عن أكلها مع أمره غيره بالأكل",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه ضمير وإحالة على واقعة سابقة في قوله: وأمره بالأكل وأخبره، مما يحتاج إلى السياق السابق لتعيين المشار إليه."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 34,
+    "end_word": 158,
+    "text_snippet": "الأحكام من الحديثين:\n1- النهي عن إتيان المساجد لمن أكل ثوماً، أو بصلاً، أو ك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_qiyas",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "استخراج أحكام الحديثين في النهي عن حضور المسجد لمن له رائحة مؤذية وبيان عللها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 159,
+    "end_word": 235,
+    "text_snippet": "فائدة:\nقد استدل بعض العلماء على إباحة أكل هذه الأشياء، بأن صلاة الجماعة فرض ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational",
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "ذكر استدلال بعض العلماء على الإباحة والجواب عنه مع التمثيل بالسفر في رمضان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

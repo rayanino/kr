@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌باب فضل الحلق وجواز التقصير\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 50,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما أَنَّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 51,
+    "end_word": 77,
+    "text_snippet": "المعنى الإجمالي:\nالحلق والتقصير من مناسك الحج وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 3,
+    "start_word": 78,
+    "end_word": 114,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم دعا للمحلقين ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 115,
+    "end_word": 134,
+    "text_snippet": "هذا ما لم يكن في عمرة التمتع، ويضيق الوقت بحيث ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 135,
+    "end_word": 160,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الحلق أو التقصير.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 161,
+    "end_word": 182,
+    "text_snippet": "وهذا ما لم يكن في عمرة متمتعاً بها إلى الحج، وي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 183,
+    "end_word": 196,
+    "text_snippet": "3- المراد بالحلق استئصال شعر الرأس بأي شي، والت",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "4- المشروع، هو الاكتفاء بالحلق أو التقصير، لا ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 208,
+    "end_word": 228,
+    "text_snippet": "5- استدل بتفضيل الحلق على التقصير، بأنهما نسكان",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 229,
+    "end_word": 243,
+    "text_snippet": "وهذا هو الأصحّ من قولي العلماء، وهو ما ذهب إِلي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  }
+]

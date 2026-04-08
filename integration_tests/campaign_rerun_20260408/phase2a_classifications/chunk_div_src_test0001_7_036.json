@@ -1,0 +1,226 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 163,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن التعريض بالقذف ليس قذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 164,
+    "end_word": 169,
+    "text_snippet": "‌‌بَابُ لحَاق النَّسب ⌜1⌝\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 170,
+    "end_word": 248,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالت: اخْتَصَمَ سَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 249,
+    "end_word": 305,
+    "text_snippet": "الغريب:\nعهد إلي أنه ابنه: يعنى أوصى إلي أنه ابن",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 306,
+    "end_word": 445,
+    "text_snippet": "المعنى الإجمالي:\nكانوا في الجاهلية يضربون على ا",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 5,
+    "start_word": 446,
+    "end_word": 711,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الولد للفراش، بشرط إمك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 712,
+    "end_word": 713,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 714,
+    "end_word": 763,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها: أنَّها قَالَتْ: إن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 764,
+    "end_word": 835,
+    "text_snippet": "الغريب:\nتبْرُق: بضم الراء، تلمع وتضئ.\nأسارير وج",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 836,
+    "end_word": 936,
+    "text_snippet": "المعنى الإجمالي:\nكان زيد بن حارثة أبيض اللون، ",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 937,
+    "end_word": 1082,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- العمل بقول القافة في إلحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 1083,
+    "end_word": 1084,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 1085,
+    "end_word": 1118,
+    "text_snippet": "عَنْ أبي سَعِيدٍ الخُدْري رضي الله عنه قَالَ: ذُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 1119,
+    "end_word": 1137,
+    "text_snippet": "الغريب:\nالعزل: نزع الذكر من الفرج إذا قارب الإن",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 1138,
+    "end_word": 1222,
+    "text_snippet": "المعنى الإجمالي:\nذكر العزل عند رسول الله صلى ال",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 1223,
+    "end_word": 1332,
+    "text_snippet": "ما يستفاد من الحديث:\n1- يأتي حكم العزل والخلاف ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 1333,
+    "end_word": 1334,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 1335,
+    "end_word": 1352,
+    "text_snippet": "عَن جَابِر رضي الله عنه قالَ: كُنَّا نَعْزِلُ وَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1353,
+    "end_word": 1417,
+    "text_snippet": "المعنى الإجمالي:\nيخبر (جابر بن عبد الله) رضي ال",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1418,
+    "end_word": 1603,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الصحابة كانوا يعزلون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1604,
+    "end_word": 1773,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم العزل.\nفذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1774,
+    "end_word": 1775,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1776,
+    "end_word": 1827,
+    "text_snippet": "عَنْ أبي ذرٍّ رضي الله عنه: أنه سَمِعَ رَسُولَ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1828,
+    "end_word": 1832,
+    "text_snippet": "كذا عند (مسلم) وللبخاري، نحوه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1833,
+    "end_word": 1858,
+    "text_snippet": "الغريب:\nوليتبوأ: أي فليتخذ له مباءة، وهي المنزل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1859,
+    "end_word": 2012,
+    "text_snippet": "المعنى الإجمالي:\nفي هذا الحديث وعيد شديد وإنذار",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 26,
+    "start_word": 2013,
+    "end_word": 2199,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على تحريم الان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 2200,
+    "end_word": 2324,
+    "text_snippet": "اختلاف العلماء:\nأجمع علماء السنة: على أن المسلم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  }
+]

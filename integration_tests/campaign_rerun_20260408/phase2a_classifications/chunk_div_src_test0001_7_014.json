@@ -1,0 +1,442 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ أفضَل الصِّيامِ وَغَيرِه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 32,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 33,
+    "end_word": 42,
+    "text_snippet": "ورواه أبو هريرة، وعائشة، وأنس بن مالك رضي الله ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 60,
+    "text_snippet": "ولـ\"مسلم\" عن أبي سعيد الخُدْرِيِّ رضي الله عنه: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 61,
+    "end_word": 212,
+    "text_snippet": "المعنى الإجمالي:\nالشريعة الإسلامية سمحة مُيَسَّر",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 5,
+    "start_word": 213,
+    "end_word": 221,
+    "text_snippet": "اختلاف العلماء:\nاختلفوا في الطعام والشراب المذك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 6,
+    "start_word": 222,
+    "end_word": 229,
+    "text_snippet": "أحدهما: - أنه طعام وشراب حسِّيٌ تمسُّكاً باللفظ.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 230,
+    "end_word": 253,
+    "text_snippet": "والثاني: - أنه ما يفيض على قلبه من لذيذ المناجاة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 254,
+    "end_word": 272,
+    "text_snippet": "ولو كان طعاماً حسِياً لم يكن مواصلاً، ولم يقل: \"",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 273,
+    "end_word": 284,
+    "text_snippet": "واختلفوا في حكم الوصال على ثلاثة أقوال: محرم، وم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 285,
+    "end_word": 306,
+    "text_snippet": "فذهب إلى جوازه مع القدرة، عبد الله بن الزبير وبع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 307,
+    "end_word": 315,
+    "text_snippet": "وذهب إلى تحريمه، الأئمة الثلاثة، أبو حنيفة، ومال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 316,
+    "end_word": 347,
+    "text_snippet": "وذهب إلى التفصيل في ذلك، الإمام أحمد، وإسحاق. وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 348,
+    "end_word": 380,
+    "text_snippet": "استدل المجيزون بأنه صلى الله عليه وسلم واصل بأصح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 14,
+    "start_word": 381,
+    "end_word": 401,
+    "text_snippet": "فنهيهم عنه كنهيهم عن قيام الليل، خشية أن يفرض عل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 402,
+    "end_word": 420,
+    "text_snippet": "فإذا كان المواصل لم يرد التشبه بأهل الكتاب، ولا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 16,
+    "start_word": 421,
+    "end_word": 430,
+    "text_snippet": "واستدل المحرمون بنهيه صلى الله عليه وسلم، والنَّه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 431,
+    "end_word": 479,
+    "text_snippet": "وأما مواصلته بهم، فلم يقصد به التقرير، وإنما قصد",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 480,
+    "end_word": 510,
+    "text_snippet": "وأما قول عائشة: \"نهى عن الوصال رحمة بهم\" فلا يمن",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 19,
+    "start_word": 511,
+    "end_word": 536,
+    "text_snippet": "وأما التفصيل الذي اختاره \"أحمد\" فذكر \"ابن القيم\"",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 20,
+    "start_word": 537,
+    "end_word": 546,
+    "text_snippet": "فهو أعدل الوصال وأسهله، لأنه - في الحقيقة- أخَّر ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 21,
+    "start_word": 547,
+    "end_word": 570,
+    "text_snippet": "والصائم له ـ في اليوم والليلة- أكلة، ولكن الأحسن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 22,
+    "start_word": 571,
+    "end_word": 743,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الوصال.\n2- جوازه للق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 744,
+    "end_word": 873,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَمْرو بْنِ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 874,
+    "end_word": 983,
+    "text_snippet": "المعنى الإجمالي:\nمجمل معنى هذا الحديث: أن النبي ",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 25,
+    "start_word": 984,
+    "end_word": 1161,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- رغبة عبد الله بن عمرو بن ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1162,
+    "end_word": 1207,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بْنِ عَمْرِو بْن ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1208,
+    "end_word": 1280,
+    "text_snippet": "المعنى الإجمالي:\nتقدم ذكر سماحة هذه الشريعة ويسر",
+    "scholarly_function": "narration",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1281,
+    "end_word": 1469,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن صيام يوم وفطر يوم، هو أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1470,
+    "end_word": 1494,
+    "text_snippet": "الحديث الرابع\nعَنْ أبِي هُرَيْرَةَ رضي الله عنه ق",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1495,
+    "end_word": 1609,
+    "text_snippet": "المعنى الإجمالي:\nاشتمل هذا الحديث الشريف على ثلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1610,
+    "end_word": 1738,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب صيام ثلاثة أيام من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1739,
+    "end_word": 1768,
+    "text_snippet": "الحديث الخامس\nعَنْ محمَّد بْنِ عبَّاد بن جَعْفَر ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1769,
+    "end_word": 1798,
+    "text_snippet": "الحديث السادس\nعَنْ أبي هُريرة رضي الله عنه قَالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1799,
+    "end_word": 1879,
+    "text_snippet": "المعنى الإجمالي:\nلما كان يوم الجمعة عيد الأسبوع،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1880,
+    "end_word": 1936,
+    "text_snippet": "ما يؤخذ من الحديثين:\n1- النهى عن صوم يوم الجمعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1937,
+    "end_word": 1984,
+    "text_snippet": "الحديث السابع\nعَنْ أبي عُبَيْدٍ مَوْلَى ابْنِ أزْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1985,
+    "end_word": 2048,
+    "text_snippet": "المعنى الإجمالي:\nعيد الفطر وعيد النحر، هما العيد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 38,
+    "start_word": 2049,
+    "end_word": 2152,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم صوم يَوْمَيْ الفطر و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 2153,
+    "end_word": 2184,
+    "text_snippet": "الحديث الثامن\nعَنْ أبِي سَعِيدٍ الْخُدْرِيِّ رضي ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 2185,
+    "end_word": 2194,
+    "text_snippet": "أخرجه \"مسلم \" بتمامه، وأخرج \"البخاري\" الصوم فقط ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 2195,
+    "end_word": 2208,
+    "text_snippet": "الغريب:\nالاحتباء: هو أن يقعد الرجل على إليتيه وي",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 2209,
+    "end_word": 2238,
+    "text_snippet": "الصماء: هو أن يرد الرجل الكساء من قبل ميمنته على",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 2239,
+    "end_word": 2256,
+    "text_snippet": "المعنى الإجمالي:\nنهى النبي صلى الله عليه وسلم في",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 44,
+    "start_word": 2257,
+    "end_word": 2271,
+    "text_snippet": "فأما اليومان المحرم صومهما، فيوم الفطر، ويوم الن",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 45,
+    "start_word": 2272,
+    "end_word": 2297,
+    "text_snippet": "وأما اللبستان، فاشتمال الثوب الأصم، الذي ليس له ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 46,
+    "start_word": 2298,
+    "end_word": 2306,
+    "text_snippet": "وأما الاحتباء بثوب واحد، فلأنه يخشى معه انكشاف ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 47,
+    "start_word": 2307,
+    "end_word": 2316,
+    "text_snippet": "وأما الصلاتان، فالصلاة بعد صلاة الصبح، والصلاة ب",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 48,
+    "start_word": 2317,
+    "end_word": 2327,
+    "text_snippet": "فإن الوقتين اللذين بعدهما، وقتا عبادة المشركين، ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 49,
+    "start_word": 2328,
+    "end_word": 2372,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن هذه الأشياء المعد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2373,
+    "end_word": 2403,
+    "text_snippet": "الحديث التاسع\nعَنْ أبِي سَعِيدٍ الْخُدْرِيِّ رضي ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2404,
+    "end_word": 2460,
+    "text_snippet": "المعنى الإجمالي:\nالصيام من العبادات البدنية الشا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2461,
+    "end_word": 2475,
+    "text_snippet": "وإبعاده عن النار، يقتضي تقريبه من الجنة، إذ ليس ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2476,
+    "end_word": 2505,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فضل الصيام إبَّانَ الجهاد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2506,
+    "end_word": 2526,
+    "text_snippet": "فإن أضعفه فالمستحب له تركه، لأن الجهاد من المصال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  }
+]

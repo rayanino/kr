@@ -1,0 +1,610 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ الصَّدَاق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 19,
+    "text_snippet": "هو العِوَضُ الذي في النكاح أو بعده، للمرأة. بمقا",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 20,
+    "end_word": 26,
+    "text_snippet": "وهو مشروع فْي الكتاب، والسنة، والإجماع، والقياس.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 3,
+    "start_word": 27,
+    "end_word": 37,
+    "text_snippet": "فأما الكتاب: فقوله تعالى: {وَآتوا النِّسَاءَ صَدُ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 38,
+    "end_word": 48,
+    "text_snippet": "وأما السنة، ففعله، وتقريره، وأمره. كقوله: \"التمس ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 49,
+    "end_word": 55,
+    "text_snippet": "وأجمع العلماء على مشروعيته، لتكاثر النصوص فيه.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 56,
+    "end_word": 67,
+    "text_snippet": "وهو مقتضي القياس، فإنه لابد من الاستباحة بالنكاح،",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 68,
+    "end_word": 88,
+    "text_snippet": "ولم يجعل الشرع حدا لأكثره ولا لأقله، إلا أنه يستح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 89,
+    "end_word": 118,
+    "text_snippet": "ولما رواه الخمسة عن عمر بن الخطاب قال: \"ما أصدق ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 119,
+    "end_word": 129,
+    "text_snippet": "والصالح العام يقتضي تخفيفه، فإن في ذلك مصلحة كبير",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 10,
+    "start_word": 130,
+    "end_word": 152,
+    "text_snippet": "فكم من نساء جلسن بلا أزواج، وكم من شبان، قعدوا بلا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 153,
+    "end_word": 161,
+    "text_snippet": "وجلوس الجنسين بلا زواج، يحملهم على ارتكاب الفواحش",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 162,
+    "end_word": 174,
+    "text_snippet": "وكم من مفاسد وأضرار، تولدت عن هذا السرف، فمنها الا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 175,
+    "end_word": 202,
+    "text_snippet": "وإذا بلغت الحال إلى ما نرى ونسمع، فالذي نعتقد أنه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 203,
+    "end_word": 204,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 205,
+    "end_word": 222,
+    "text_snippet": "عَن أنَس بن مَالِكٍ رَضي الله عَنْة أن النبي صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 223,
+    "end_word": 224,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 17,
+    "start_word": 225,
+    "end_word": 304,
+    "text_snippet": "كانت صفية بنت حُيي، أحد زعماء بنى النضير وكانت زو",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 18,
+    "start_word": 305,
+    "end_word": 308,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 19,
+    "start_word": 309,
+    "end_word": 319,
+    "text_snippet": "1- جواز عتق الرجل أمته، وجعل عتقها صداقاً لها، وتك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 320,
+    "end_word": 337,
+    "text_snippet": "2- أنه لا يشترط لذلك إذنها ولا شهود، ولا ولي، كما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 338,
+    "end_word": 348,
+    "text_snippet": "3- فيه دليل على جواز كون الصداق منفعة دينية أو دن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 349,
+    "end_word": 422,
+    "text_snippet": "4- وفي مثل هذه القصة في زواج النبي صلى الله عليه و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 23,
+    "start_word": 423,
+    "end_word": 460,
+    "text_snippet": "وبهذا تعلم أن هذا التعدد الذي وقع له صلى الله علي",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 461,
+    "end_word": 497,
+    "text_snippet": "ولو استعرضنا قصة زواجه بهن، واحدة واحدة، لوجدنها ",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 25,
+    "start_word": 498,
+    "end_word": 499,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 26,
+    "start_word": 500,
+    "end_word": 506,
+    "text_snippet": "اختلف العلماء في جواز جعل العتق صداقا.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 507,
+    "end_word": 527,
+    "text_snippet": "فذهب الإمام أحمد وإسحاق: إلى جوازه، عملا بقصة زوا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 28,
+    "start_word": 528,
+    "end_word": 544,
+    "text_snippet": "فإذا أعتقها واستبقى شيئا من منافعها، التي هي تحت ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 29,
+    "start_word": 545,
+    "end_word": 565,
+    "text_snippet": "وذهب الأئمة الثلاثة: إلى عدم جواز ذلك. وتأولوا ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 566,
+    "end_word": 593,
+    "text_snippet": "وحمل الحديث على خلاف ظاهره أو جعله خاصا، يحتاج إل",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 594,
+    "end_word": 595,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 596,
+    "end_word": 711,
+    "text_snippet": "عَنْ سَهل بن سَعدٍ الساعِدِي: أن النبي صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 712,
+    "end_word": 713,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 34,
+    "start_word": 714,
+    "end_word": 847,
+    "text_snippet": "خُص النبي صلى الله عليه وسلم بأحكام ليست لغيره.\nمن",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 848,
+    "end_word": 851,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 36,
+    "start_word": 852,
+    "end_word": 865,
+    "text_snippet": "1- جواز عرض المرأة نفسها، أو الرجل ابنته، على رجل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 866,
+    "end_word": 940,
+    "text_snippet": "2- جواز نظر من له رغبة في الزواج إلى المرأة التي ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 941,
+    "end_word": 951,
+    "text_snippet": "3- ولاية الإمام على المرأة التي ليس لها ولي من أقر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 952,
+    "end_word": 961,
+    "text_snippet": "4- أنه لابد من الصداق في النكاح، لأنه أحد العوضين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 40,
+    "start_word": 962,
+    "end_word": 989,
+    "text_snippet": "5- يجوز أن يكون يسيرا جداً للعجز لقوله: \"ولو خاتم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 990,
+    "end_word": 1034,
+    "text_snippet": "6- الأولى ذكر الصداق في العقد ليكون، أقطع للنزاع،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1035,
+    "end_word": 1046,
+    "text_snippet": "7- أن خطبة العقد لا تجب، حيث لم تذكر في هذا الحديث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1047,
+    "end_word": 1066,
+    "text_snippet": "8- أنه يصح أن يكون الصداق منفعة، كتعليم قرآن، أو ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1067,
+    "end_word": 1100,
+    "text_snippet": "ومنع بعضهم إصداق تعليم القرآن، بدعوى الخصوصية لهذ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1101,
+    "end_word": 1108,
+    "text_snippet": "9- أن النكاح ينعقد بكل لفظ دال عليه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1109,
+    "end_word": 1121,
+    "text_snippet": "والدليل على ذلك، ألفاظ الحديث. فقد ورد بلفظ \"زوجت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1122,
+    "end_word": 1131,
+    "text_snippet": "والذين قيدوا العقد بلفظ خاص، يرجحون لفظ التزويج ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1132,
+    "end_word": 1157,
+    "text_snippet": "قال ابن حجر: الذي تحرر مما قدمته أن الذين رووه بل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1158,
+    "end_word": 1176,
+    "text_snippet": "وما دام ورد في ألفاظ الحديث -وهو محتمل- فليس هناك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1177,
+    "end_word": 1198,
+    "text_snippet": "والمحاورة مع الخاطب وألفاظ العقود والفسوخ في جميع ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1199,
+    "end_word": 1205,
+    "text_snippet": "فأي لفظ أدَّى المعنى المراد، فهو صالح.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1206,
+    "end_word": 1218,
+    "text_snippet": "وهو قول الحنفية والمالكية واختيار شيخ الإسلام (اب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1219,
+    "end_word": 1242,
+    "text_snippet": "10- في الحديث حسن خلقه ولطفه صلى الله عليه وسلم، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1243,
+    "end_word": 1290,
+    "text_snippet": "11- قال بعض العلماء: لا دلالة بحديث الكتاب على جو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1291,
+    "end_word": 1292,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1293,
+    "end_word": 1349,
+    "text_snippet": "عَنْ أنَس بن مالِكٍ رضي الله عنه: أنَ رَسُولَ الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1350,
+    "end_word": 1350,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1351,
+    "end_word": 1385,
+    "text_snippet": "ردع: بفتح الراء، ودال مهملة، ثم عين مهملة. وقال ا",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1386,
+    "end_word": 1433,
+    "text_snippet": "ْمَهْيَمْ: بفتح الميم، وسكون الهاء، بعدها ياء مفتو",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1434,
+    "end_word": 1446,
+    "text_snippet": "وزن نواة من ذهب. معيار للذهب معروف لديهم. قالوا: ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1447,
+    "end_word": 1455,
+    "text_snippet": "أولم: فعل أمر، مشتق من الوليمة، وهو طعام الإملاك.",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1456,
+    "end_word": 1457,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1458,
+    "end_word": 1547,
+    "text_snippet": "رأى النبي صلى الله عليه وسلم على (عبد الرحمن بن ع",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1548,
+    "end_word": 1551,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1552,
+    "end_word": 1561,
+    "text_snippet": "1- كراهة التطيب بالزعفران وما يظهر أثره من الطيب،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1562,
+    "end_word": 1573,
+    "text_snippet": "2- تفقد الوالي والقائد لأصحابه، وسؤاله عن أحوالهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1574,
+    "end_word": 1591,
+    "text_snippet": "3- استحباب تخفيف الصداق. فهذا عبد الرحمن بن عوف، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1592,
+    "end_word": 1603,
+    "text_snippet": "4- الإشارة إلى أصل الصداق في النكاح، بناء على مقت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1604,
+    "end_word": 1621,
+    "text_snippet": "5- الدعاء للمتزوج بالبركة. وقد ورد الدعاء للمتزوج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1622,
+    "end_word": 1657,
+    "text_snippet": "6- مشروعية الوليمة من الزوج، وأن لا تقل عن شاة إذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1658,
+    "end_word": 1676,
+    "text_snippet": "7- أن يدعي إليها أقارب الزوجين، والجيران، والفقراء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1677,
+    "end_word": 1696,
+    "text_snippet": "8- قال شيخ الإسلام: أجمع العلماء على جواز عقد الن",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1697,
+    "end_word": 1714,
+    "text_snippet": "9- وقال أيضا: وإذا أصدقها ديناَ كثيرا في ذمته، وهو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1715,
+    "end_word": 1744,
+    "text_snippet": "وما يفعله بعض أصحاب الخيلاء والكبرياء من تكثير ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1745,
+    "end_word": 1768,
+    "text_snippet": "وإن قصد الزوج أن يؤديه، وهو في الغالب لا يطيقه، ف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  }
+]

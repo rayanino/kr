@@ -1,0 +1,151 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 26,
+    "text_snippet": "ويأتي في الحديث الذي بعد هذا، اختلاف العلماء في ذلك، وبيان الراجح منه، إن شا",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "إحالة إلى الحديث التالي وأن فيه ذكر الخلاف وبيان الراجح.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا تمهيد وإحالة إلى ما بعده، وفيه اعتماد على سياق لاحق لبيان الخلاف والراجح."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 27,
+    "end_word": 55,
+    "text_snippet": "9- تحريم \"الورس\"، و\"الزعفران\" وما في معناهما من أنواع الطيب، لكل محرم من ذ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم الورس والزعفران وما في معناهما على المحرم، وحكم تغطية الوجه والقفازين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 56,
+    "end_word": 91,
+    "text_snippet": "11- هذه الفائدة والتي قبلها، لم تكن في سؤال السائل.\nولكن لما ظن النبي صلى ال",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل زيادة النبي صلى الله عليه وسلم في الجواب لبيان العلم عند الحاجة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول: هذه الفائدة والتي قبلها، مما يجعله معتمداً جزئياً على الفوائد السابقة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 92,
+    "end_word": 146,
+    "text_snippet": "12- لهذا اللباس الخاص بالمحرم، حِكَمٌ وأسرار كثيرة.\nمنها: - أن يكون في حال خ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكم لباس الإحرام في الخشوع وترك الترفه وتذكر الموت والإقبال على العبادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 147,
+    "end_word": 184,
+    "text_snippet": "13- قال القاضي عياض: أجمع المسلمون على أن ما ذكر في الحديث لا يلبسه المحرم، ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "نقل الإجماع على منع المحرم من المذكورات والتنبيه بها على ما في معناها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: ما ذكر في الحديث، يحيل إلى حديث سابق غير مذكور داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 185,
+    "end_word": 255,
+    "text_snippet": "14- قال شيخ الإسلام ابن تيمية: وليس للمحرم أن يلبس شيئا مما نهى عنه النبي صل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حكم لبس المحرم للممنوع عند الحاجة، ومقداره، ووجوب الفدية وأنواعها ووقت إخراجها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة في قوله: مما نهى عنه النبي صلى الله عليه وسلم، دون تفصيل المنهيات داخل الوحدة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 256,
+    "end_word": 270,
+    "text_snippet": "فائدة:\nالمراد بالنهي عن لبس المخيط والمحيط، هو اللبس المعتاد. أما ارتداؤه ون",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "تفسير المراد بالنهي عن لبس المخيط والمحيط وأن المنع في اللبس المعتاد دون الارتداء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      7,
+      8,
+      9
+    ],
+    "start_word": 271,
+    "end_word": 366,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قال:\nسَمِعْتُ الن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "نص حديث ابن عباس في لبس الخفين والسراويل عند عدم النعلين والإزار، مع معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 367,
+    "end_word": 433,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الخطبةْ في عرفة لبيان أحكام الحج وآداب المناسك.\n2- أنه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث المستنبطة في الخطبة بعرفة، والتذكير المناسب، ورخصة الخفين والسراويل، ويسر الشريعة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هي فوائد مشتقة من الحديث السابق، وفيها قول: ويأتي الخلاف فيه، وهو إحالة إلى نقاش لاحق."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 434,
+    "end_word": 537,
+    "text_snippet": "اختلاف العلماء، والتوفيق بين الحديثين:\nاختلف العلماء. في حكم المحرم، الذي لا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض الخلاف في الخفين للمحرم العادم للنعلين، مع أدلة الجمهور وأحمد في التوفيق بين الحديثين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

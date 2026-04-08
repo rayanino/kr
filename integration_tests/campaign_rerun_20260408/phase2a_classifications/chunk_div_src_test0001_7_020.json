@@ -1,0 +1,530 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ الطَّواف وأدَبه ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 5,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 6,
+    "end_word": 36,
+    "text_snippet": "عَنْ عُمَرَ رضي الله عنه: أَنَّهُ جَاءَ إلى الحَجَرِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 37,
+    "end_word": 38,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 39,
+    "end_word": 114,
+    "text_snippet": "الأمكنة والأزمنة وغيرها من الأشياء، لا تكون مقد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 115,
+    "end_word": 118,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 119,
+    "end_word": 129,
+    "text_snippet": "1- مشروعيه تقبيل الحجر الأسود للطائفين عندما يحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 130,
+    "end_word": 148,
+    "text_snippet": "2- أن تقبيله ليس لنفعه أو ضرره، وإنما هو عبادة ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 149,
+    "end_word": 190,
+    "text_snippet": "3- أن العبادات توقيفية، فلا يشرع منها إلا ما شرع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 191,
+    "end_word": 203,
+    "text_snippet": "4- تبيين ما يوهم العامة من مشاكل العلم، حتى لا ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 204,
+    "end_word": 219,
+    "text_snippet": "5- أن فعل النبي صلى الله عليه وسلم من سنته المتب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 220,
+    "end_word": 243,
+    "text_snippet": "6- أنه إذا صح عن الشارع عبادة، عمل بها ولو لم تعل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 244,
+    "end_word": 321,
+    "text_snippet": "7- قال شيخ الإسلام: ويستحب للطائف أن يذكر الله ت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 322,
+    "end_word": 323,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 324,
+    "end_word": 375,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاسٍ رضي الله عنهما قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 376,
+    "end_word": 376,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 377,
+    "end_word": 381,
+    "text_snippet": "وَهَنَتهم: بتخفيف الهاء، أي أضعفتهم.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 382,
+    "end_word": 388,
+    "text_snippet": "يثرب: من أسماء المدينة النبوية في الجاهلية.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 389,
+    "end_word": 400,
+    "text_snippet": "أن يرملوا: بضم الميم \"الرَّمَل\" هو الإسراع في ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 401,
+    "end_word": 417,
+    "text_snippet": "الأشواط: بفتح الهمزة، جمع شوط بفتح الشين، وهو ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 418,
+    "end_word": 426,
+    "text_snippet": "الإبقاء عليهم: بكسر الهمزة والمد، الرفق بهم، وال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 427,
+    "end_word": 428,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 429,
+    "end_word": 595,
+    "text_snippet": "جاء النبي صلى الله عليه وسلم سنة ست من الهجرة إل",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 23,
+    "start_word": 596,
+    "end_word": 599,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 600,
+    "end_word": 643,
+    "text_snippet": "1- أن النبي صلى الله عليه وسلم وأصحابه، رملوا في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 644,
+    "end_word": 666,
+    "text_snippet": "2- استحباب الرمل في كل طواف وقع بعد قدوم، سواء أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 667,
+    "end_word": 680,
+    "text_snippet": "3- إظهار القوة والجلد أمام أعداء الدين، إغاظة له",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 681,
+    "end_word": 701,
+    "text_snippet": "4- أن من الحكمة في الرمل الآن تذكر حال سلفنا الص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 702,
+    "end_word": 711,
+    "text_snippet": "5- الرمل مختص بالرجال دون النساء، لأنه مطلوب منه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 712,
+    "end_word": 734,
+    "text_snippet": "6- لو فات الرمل في الثلاثة الأول، فإنه لا يقضيه،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 735,
+    "end_word": 736,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 737,
+    "end_word": 765,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 766,
+    "end_word": 766,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 767,
+    "end_word": 778,
+    "text_snippet": "يَخُبُّ- الخَبَب: نوع من الْعَدْوِ، وقيل، هو الرّ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 779,
+    "end_word": 780,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 781,
+    "end_word": 836,
+    "text_snippet": "كان ابن عمر رضي الله عنهما من الحريصين على تتبع ",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 36,
+    "start_word": 837,
+    "end_word": 840,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 841,
+    "end_word": 853,
+    "text_snippet": "1- استحباب الخبب، وهو الرمل، في الأشواط الثلاثة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 854,
+    "end_word": 877,
+    "text_snippet": "2- المشي في الأربعة الباقية منها، ولو فاته بعض ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 878,
+    "end_word": 912,
+    "text_snippet": "3- الخبب في الأشواط الثلاثة الأول كلها، هو فعل ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 40,
+    "start_word": 913,
+    "end_word": 933,
+    "text_snippet": "4- رمل النبي صلى الله عليه وسلم بعد زوال سببه، ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 934,
+    "end_word": 953,
+    "text_snippet": "5- استلام الحجر الأسود في ابتداء كل طواف، وعند م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 42,
+    "start_word": 954,
+    "end_word": 955,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 956,
+    "end_word": 978,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاسٍ رضي الله عنهما قال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 979,
+    "end_word": 982,
+    "text_snippet": "والمحجن: \"عَصا مَحْنِيَّةُ الرَّأْسِ\".",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 983,
+    "end_word": 983,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 984,
+    "end_word": 994,
+    "text_snippet": "المِحْجَن. بكسر الميم وسكون الحاء المهملة وفتح ا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 995,
+    "end_word": 996,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 48,
+    "start_word": 997,
+    "end_word": 1062,
+    "text_snippet": "طاف النبي صلى الله عليه وسلم في حجة الوداع، وقد ",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1063,
+    "end_word": 1066,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1067,
+    "end_word": 1119,
+    "text_snippet": "1- جواز الطواف راكباً مع العذر لأن المشي أفضل، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1120,
+    "end_word": 1134,
+    "text_snippet": "2- استحباب استلام الركن باليد إن أمكن، وإلا فَبِ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1135,
+    "end_word": 1178,
+    "text_snippet": "3- جاء في مسلم زيادة \"ويقبل المحجن\" وأخرج مسلم ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1179,
+    "end_word": 1190,
+    "text_snippet": "4- إظهار العالم أفعاله مع أقواله لتحصل به القدوة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1191,
+    "end_word": 1246,
+    "text_snippet": "5- قال ابن دقيق العيد: واستدل بالحديث على طهارة ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1247,
+    "end_word": 1287,
+    "text_snippet": "6- قال شيخ الإسلام: والإكثار من الطواف بالبيت من",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1288,
+    "end_word": 1289,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1290,
+    "end_word": 1311,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قال: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1312,
+    "end_word": 1312,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1313,
+    "end_word": 1327,
+    "text_snippet": "اليمانيين: نسبة إلى اليمن تغليباً، كالقمرين، للش",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1328,
+    "end_word": 1337,
+    "text_snippet": "والمراد بهما، الركن اليماني، والركن الشرقي، الذي",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1338,
+    "end_word": 1339,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1340,
+    "end_word": 1422,
+    "text_snippet": "للبيت أربعة أركان، فللركن الشرقي منها فضيلتان:\n1",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1423,
+    "end_word": 1426,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1427,
+    "end_word": 1571,
+    "text_snippet": "1- استحباب استلام الركنين اليمانيين.\nوالمستحب في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1572,
+    "end_word": 1698,
+    "text_snippet": "2- عدم مشروعية استلام غير الركنين اليمانيين من أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  }
+]

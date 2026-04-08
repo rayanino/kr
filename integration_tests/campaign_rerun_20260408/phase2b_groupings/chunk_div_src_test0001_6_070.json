@@ -1,0 +1,115 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 156,
+    "text_snippet": "‌‌بَاب سَفر المَرأة بدُون محْرم\nالحديث الأول\nعَنْ أَبِي هُرَيْرةَ رَضيَ الله عَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "rule_statement"
+    ],
+    "description_arabic": "الحديث في منع سفر المرأة بلا محرم مع بيان معناه الإجمالي وحكمه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 157,
+    "end_word": 207,
+    "text_snippet": "اختلاف العلماء:\nوهي تكفي عن الاستنباطات، لأنها تشتمل عليها:\nهذه خلافات نجمله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "opinion_statement"
+    ],
+    "description_arabic": "الخلاف في حج المرأة بلا محرم وترجيح عدم جواز خروجها لأي سفر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 208,
+    "end_word": 239,
+    "text_snippet": "واختلفوا في الكبيرة، التي لا تميل إليها النفس: هل تسافر بدون محرم، أو لابد من",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم سفر الكبيرة التي لا تُشتهى بلا محرم وترجيح المنع لعموم الحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 240,
+    "end_word": 266,
+    "text_snippet": "واختلفوا هل يكفي أن تكون مع رفقة أمينة، أو تسافر مع امرأة مسلمة ثقة أم لا؟.\nظ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان الخلاف في الاكتفاء بالرفقة المأمونة وترجيح اشتراط المحرم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 267,
+    "end_word": 422,
+    "text_snippet": "وقال شيخ الإسلام ابن تيمية: إذا كانت المرأة من القواعد اللائي لم يحضن، وقد يئ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma"
+    ],
+    "description_arabic": "عرض قول ابن تيمية وأقوال المجيزين والمانعين مع أدلتهم في سفر المرأة الآمن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 423,
+    "end_word": 456,
+    "text_snippet": "واختلفوا في تحديد السفر، تبعاً لاختلاف الأحاديث.\nفمنها \"يوم\" و\" يومان\" و\"ثلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "الخلاف في تحديد مسافة السفر والأخذ بالأقل منها احتياطاً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

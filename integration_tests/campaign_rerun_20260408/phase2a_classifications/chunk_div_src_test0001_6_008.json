@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 127,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن أحب الأعمال إلى الله تع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 128,
+    "end_word": 140,
+    "text_snippet": "فائدة:\nسئل النبي صلى الله عليه وسلم عن المفاضلة ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.52
+  },
+  {
+    "segment_index": 2,
+    "start_word": 141,
+    "end_word": 261,
+    "text_snippet": "وكان صلى الله عليه وسلم يجيب على ذلك بما يناسب ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 262,
+    "end_word": 291,
+    "text_snippet": "الحديث الثاني\nعن عَائشَةَ قالت: لقَدْ كَانَ النبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 292,
+    "end_word": 310,
+    "text_snippet": "قال: المروط، أكسية معلمة تكون من خَزٍّ، وتكون من",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 311,
+    "end_word": 342,
+    "text_snippet": "غريب الحديث:\n1- \"معلمة\": بفتح اللام وتشديدها.\n2-",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 343,
+    "end_word": 385,
+    "text_snippet": "المعنى الإجمالي:\nتذكر عائشة رضي الله عنها، أن نس",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 386,
+    "end_word": 395,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في الأفضل في وقت ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 396,
+    "end_word": 414,
+    "text_snippet": "فذهب الحنفية إلى أن الإسفار فيها أفضل، لحديث \" ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 415,
+    "end_word": 429,
+    "text_snippet": "وذهب الجمهور، ومنهم الأئمة الثلاثة إلى أن التغلي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 430,
+    "end_word": 497,
+    "text_snippet": "وأجابوا عن حديث \" أسفروا بالفجر … إلخ \" بأجوبة ك",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 498,
+    "end_word": 530,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب المبادرة إلى صلاة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 531,
+    "end_word": 576,
+    "text_snippet": "الحديث الثالث\nعن جَابِرِ بْنِ عَبْدِ الله رضي الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 577,
+    "end_word": 627,
+    "text_snippet": "غريب الحديث:\n1- \" الهاجرة \": هي شدة الحر بعد الزو",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 628,
+    "end_word": 668,
+    "text_snippet": "المعنى الإجمالي:\nفي هذا الحديث بيان الأفضل في ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  }
+]

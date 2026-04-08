@@ -1,0 +1,251 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 21,
+    "text_snippet": "صلى الله عليه وسلم: \"عليكم بسنتي وسنة الخلفاء الراشدين المهديين من بعدي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "evidence_ijma"
+    ],
+    "description_arabic": "الاستدلال بالسنة والإجماع على أن المذكور من مواقيت الحج",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «أنه» يعود على موضع مذكور قبل هذا المقتطف وليس مصرحاً به هنا."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 22,
+    "end_word": 229,
+    "text_snippet": "وقد قمت بشهر محرم في عام 1402 هـ من مكة المكرمة إلى هذا الميقات ومعي الشريف",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "وصف ميداني لموضع ذات عرق وحدوده ومسافته والطريق المار به",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتحدث عن «هذا الميقات» و«الميقات المذكور» اعتماداً على تعيين سابق غير موجود في هذا المقتطف."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 230,
+    "end_word": 255,
+    "text_snippet": "ملاحظة: جميع مواقيت الإحرام أودية عظام ولذا فإن الاحتياط أن يحرم الحاج أو المع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاحتياط في الإحرام من ضفة الوادي البعيدة عن مكة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 256,
+    "end_word": 487,
+    "text_snippet": "فائدة:\nجاء في قرار مجلس كبار العلماء رقم 5730 تاريخ 21/10/1399 هـ وهو ما خلا",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "خلاصة قرار هيئة كبار العلماء في إبطال جعل جدة ميقاتاً ووجوب الإحرام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 488,
+    "end_word": 576,
+    "text_snippet": "المعنى الإجمالي:\nلهذا البيت الحرام، التكريم، والتعظيم، والتقديس، والإجلال.\nومن",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "المعنى الإجمالي لحكمة المواقيت وتيسيرها وتعظيم البيت الحرام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 577,
+    "end_word": 594,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جعل هذه الأمكنة المذكورة مواقيت، لا يحل لمن أراد نسكاً ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب الإحرام من المواقيت لمن أراد النسك",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة «هذه الأمكنة المذكورة» تحيل إلى مواقيت سبق ذكرها خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 595,
+    "end_word": 606,
+    "text_snippet": "2- أن ميقات من دون المواقيت من مكانه الذي هو ساكن فيه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ميقات من كان داخل حدود المواقيت هو موضع سكنه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15,
+      16
+    ],
+    "start_word": 607,
+    "end_word": 647,
+    "text_snippet": "3- أن ميقات أهل مكة منها، وهذا في الحج.\nأما العمرة، فلا بد من الخروج إلى الحل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "الفرق بين الحج والعمرة في إحرام أهل مكة والرد على المخالف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 648,
+    "end_word": 709,
+    "text_snippet": "4- يدل قوله: \"ممن أراد الحج والعمرة\" أن من أراد دخول مكة لغير حج أو عمرة، بل ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "حكم دخول مكة لغير النسك وأنه لا يجب له الإحرام ابتداءً",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن إحالة مستقبلية في قوله «ويأتي تحقيقه قريباً» تحتاج إلى سياق لاحق لتفصيل الخلاف."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 710,
+    "end_word": 747,
+    "text_snippet": "رحمة من الله تعالى بخلقه، حيث جعل لكل جهة ميقاتاً يكون في طريق سالكه إلى مكة، ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان الحكمة من تعدد المواقيت ورفع المشقة عن الناس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 748,
+    "end_word": 786,
+    "text_snippet": "6- في تقدير النبي صلى الله عليه وسلم هذه المواقيت وتحديدها، معجزة من معجزاته ال",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "اعتبار تحديد المواقيت من دلائل نبوة النبي صلى الله عليه وسلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 787,
+    "end_word": 812,
+    "text_snippet": "7- تعظيم هذا البيت وتقديسه، إذ جعل له هذا الحمى، الذي لا يتجاوزه من قصده بنسك،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المواقيت من مظاهر تعظيم البيت الحرام وتقديسه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 813,
+    "end_word": 853,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية الإحرام لمن أراد دخول الحرم، سواء أكا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "تحرير محل الإجماع وموضع الخلاف في الإحرام لدخول الحرم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 854,
+    "end_word": 922,
+    "text_snippet": "فذهب الأئمة الثلاثة: أبو حنيفة، ومالك، وأحمد: إلى وجوب الإحرام على من دخله، سوا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "قول الأئمة الثلاثة بوجوب الإحرام على كل داخل مكة وأدلتهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 923,
+    "end_word": 979,
+    "text_snippet": "وذهب الإمام الشافعي في المشهور عنه: إلى جواز الدخول بلا إحرام لمن لم يرد الحج أ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "قول الشافعي ومن وافقه بجواز دخول مكة بلا إحرام لغير النسك ودليله",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

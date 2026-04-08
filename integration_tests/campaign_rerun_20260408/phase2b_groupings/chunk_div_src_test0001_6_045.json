@@ -1,0 +1,197 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 77,
+    "text_snippet": "يكن ليجوز إلغاؤها، لكن إذا صح الجمع في حالة النزول فالعمل به أولى، لقيام دليل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان ترجيح الجمع في النزول وتحديد مواضع الجمع بين الصلوات",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تبدأ الوحدة باستدراك وتعليل متعلقين بنقاش سابق حول الجمع، مما يجعل بعض مرجع الضمائر والسياق السابق غير مذكور داخلها."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4
+    ],
+    "start_word": 78,
+    "end_word": 115,
+    "text_snippet": "‌‌بَابُ قصْر الصَّلاة في السفر\nالقصر: هو للصلوات الرباعية، وهي الظهر، والعصر و",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "تعريف قصر الصلاة وبيان مواضعه وأن سببه السفر فقط",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 116,
+    "end_word": 180,
+    "text_snippet": "عَنْ عَبْدِ الله بْن عُمَرَ رضىَ الله عَنْهُمَا قال: صَحِبْتُ رَسُولَ الله صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عمر في ملازمة النبي والخلفاء قصر الصلاة في السفر وشرح معناه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 181,
+    "end_word": 279,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في القصر: هل هو واجب أو رخصة، يستحب إتيانها؟ ف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض الخلاف في وجوب القصر وذكر أدلة الموجبين والجواب عنها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14,
+      15,
+      16
+    ],
+    "start_word": 280,
+    "end_word": 369,
+    "text_snippet": "أما أدلة الجمهور على عدم وجوب القصر فقوله تعالى: {لَيْسَ عَليكُمْ جُنَاحٌ أن ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "evidence_hadith",
+      "refutation"
+    ],
+    "description_arabic": "أدلة الجمهور على أن القصر رخصة لا واجب والاعتراض عليها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 370,
+    "end_word": 451,
+    "text_snippet": "قلت: الأولى للمسافر أن لايدع القصر، اتباعاً للنبي صلى الله عليه وسلم، وخروجاً",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترجيح عدم ترك القصر وذكر ما نقل عن ابن تيمية في كراهة الإتمام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 452,
+    "end_word": 464,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية قصر الصلاة الرباعية في السفر إلى ركعتين.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى بيان مشروعية قصر الصلاة الرباعية في السفر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 465,
+    "end_word": 479,
+    "text_snippet": "2- أن القصر هو سنة النبي صلى الله عليه وسلم، وسنة خلفائه الراشدين في أسفارهم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الثانية أن القصر سنة النبي والخلفاء الراشدين في السفر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 480,
+    "end_word": 522,
+    "text_snippet": "3- أن القصر عام في سفر الحج والجهاد، وكل سفر طاعة.\nوقد ألحق العلماء الأسفار ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "عموم القصر في أسفار الطاعة وذكر الخلاف في السفر المباح والمعصية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 523,
+    "end_word": 556,
+    "text_snippet": "4- لطف المولى بخلقه، وسماحة هذه الشريعة المحمدية، حيث سهَّل عبادته على خلقه.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "إظهار سماحة الشريعة ولطف الله بتخفيف الصلاة على المسافر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      26,
+      27,
+      28
+    ],
+    "start_word": 557,
+    "end_word": 617,
+    "text_snippet": "5- السفر في هذا الحديث مطلق، لم يقيد بالطويل، والأحسن أن يبقى على إطلاقه فيتر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "إطلاق اسم السفر في القصر ونفي تحديده بمدة أو مسافة معينة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

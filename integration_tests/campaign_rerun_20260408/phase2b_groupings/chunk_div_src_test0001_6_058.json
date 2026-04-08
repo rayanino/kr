@@ -1,0 +1,37 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "فائدة:\nلم يظهر لي مناسبة واضحة لإيراد المؤلف هذا الحديث في كتاب الزكاة. ولعل ذل",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه على وجه إيراد الحديث في كتاب الزكاة مع ذكر احتمال المتابعة لمسلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 24,
+    "end_word": 118,
+    "text_snippet": "أو لعله أراد أن يبينَ أن النبي صلى الله عليه وسلم في آخر أيام رسالته، وبعد ما ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_qiyas",
+      "refutation"
+    ],
+    "description_arabic": "بيان جواز إعطاء المؤلفة من الزكاة عند الحاجة مع الاستدلال والرد على المخالفين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

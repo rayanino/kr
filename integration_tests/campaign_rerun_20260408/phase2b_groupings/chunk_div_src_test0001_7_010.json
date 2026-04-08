@@ -1,0 +1,178 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 126,
+    "text_snippet": "‌‌بَابُ المرُور بَيْن يَدَي المصَلّي\nالحديث الأول\nعَنْ أبي جُهَيْم بنِ الصِّمَّةِ الأنص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "الحديث الأول في الوعيد على المرور بين يدي المصلي مع بيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 127,
+    "end_word": 258,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم المرور بين يدي المصلي، إذا لم يكن له سترة، أو المرور ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "الأحكام المستفادة من الحديث الأول مع تعليل المبالغة في ذكر الأربعين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 259,
+    "end_word": 286,
+    "text_snippet": "5- أما في مكة، فقد قال شيخ الإسلام ابن تيمية: \" لو صلى المصلى في المسجد والناس يط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل قول ابن تيمية في حكم المرور أمام المصلي في المسجد الحرام حال الطواف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11,
+      12
+    ],
+    "start_word": 287,
+    "end_word": 392,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه قَالَ: سَمِعْتُ رَسولَ الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "الحديث الثاني في دفع المار بين يدي المصلي وشرح معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 393,
+    "end_word": 624,
+    "text_snippet": "الأحكام التي في الحديث:\n1- مشروعة السترة للمصلى لِيَقيَ صلاته من النقص أو القطع.\n2",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأحكام الفقهية المستنبطة من حديث السترة ودفع المار بين يدي المصلي",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "توجد إحالات داخلية مثل قوله: ما تقدم، ومفهوم الحديث، وتفصيل بعض الأحكام يعتمد على معرفة نص الحديث السابق ومعنى السترة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 625,
+    "end_word": 808,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بْنِ عَبَّاس ورَضىَ الله عَنْهُمَا قال: أقْبَلْتُ رَاكِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عباس في مرور الأتان أمام الصف مع شرح الغريب وبيان المعنى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 809,
+    "end_word": 927,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن مرور الحمار بين يدي المصلى لا ينقص صلاته ولا يقطعها. ويأت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد المستنبطة من حديث ابن عباس في حكم مرور الحمار وسترة الإمام",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالات إلى خلاف سيأتي وإلى حديث بعد هذا، كما أن بعض الاستدلالات تفهم أكمل مع معرفة الحديث المذكور."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 928,
+    "end_word": 1038,
+    "text_snippet": "الحديث الرابع\nعَنْ عَائِشَةَ رضىَ الله عَنْهَا قالَتْ: كُنْتُ أنامُ بَيْنَ يَدَيْ رَس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "حديث عائشة في نومها بين يدي النبي صلى الله عليه وسلم ودلالته على عدم قطع الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 1039,
+    "end_word": 1142,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز اعتراض النائم بين يدي المصلى إذا كان بحاجة كضيق المكان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأحكام المستفادة من حديث عائشة في اعتراض المرأة والنائم وحركة المصلي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      23,
+      24,
+      25
+    ],
+    "start_word": 1143,
+    "end_word": 1248,
+    "text_snippet": "اختلاف العلماء\naختلف العلماء، في المرأة، والحمار، والكلب الأسود، أتقطع الصلاة أم ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض خلاف العلماء في قطع الصلاة بالمرأة والحمار والكلب الأسود وأدلة الأقوال",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالات إلى أحاديث متقدمة بعبارات مثل الذي تقدم والذي قبله، وفهم الترجيح يكتمل بمعرفة تلك الأحاديث كاملة."
+  }
+]

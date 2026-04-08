@@ -1,0 +1,746 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 31,
+    "text_snippet": "ما يستفاد هن الحديث:\n1- لعق الأصابع، ومثله الإنا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 32,
+    "end_word": 46,
+    "text_snippet": "2- وفيه صون نِعَمِ الله وحفظها، لئلا تقع في مو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 47,
+    "end_word": 48,
+    "text_snippet": "‌‌بَابُ الصَّيْد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 60,
+    "text_snippet": "الصيد: يطلق على المصدر، أي التصيد. ويطلق: على",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 61,
+    "end_word": 72,
+    "text_snippet": "قال ابن فارس: وهو ركوب الشيء رأسه ومُضِيُّه، غ",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 5,
+    "start_word": 73,
+    "end_word": 82,
+    "text_snippet": "واشتقاق الصيد من هذا، وذلك أن يمر مراً لا يعرج",
+    "scholarly_function": "definition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 6,
+    "start_word": 83,
+    "end_word": 95,
+    "text_snippet": "وتعريفه شرعاً: هو اقتناص حيوان حلال متوحش طبع",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 96,
+    "end_word": 102,
+    "text_snippet": "والأصل في إباحة الصيد، الكتاب، والسنة، والإجما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 8,
+    "start_word": 103,
+    "end_word": 119,
+    "text_snippet": "أما الكتاب، فقوله تعالى: {وإذَا حَلَلْتُم فَاص",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 120,
+    "end_word": 127,
+    "text_snippet": "وأما السنة فشهيرة، ومنها الأحاديث الآتية في ال",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 10,
+    "start_word": 128,
+    "end_word": 130,
+    "text_snippet": "وأجمع العلماء عليه.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 131,
+    "end_word": 146,
+    "text_snippet": "وهو من الهوايات المحببة، وكان العرب مولعين به،",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 12,
+    "start_word": 147,
+    "end_word": 172,
+    "text_snippet": "ولكن لا ينبغي جعله مَلْهَاةً، لأن طلبه لهذا ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 173,
+    "end_word": 195,
+    "text_snippet": "وإزهاق نفس الحيوان لغير قصد كله أيضاً، لا يجو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 196,
+    "end_word": 197,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 198,
+    "end_word": 284,
+    "text_snippet": "عَنْ أبى ثَعْلَبَةَ الخُشَنيِّ رضي الله عنه قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 285,
+    "end_word": 285,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 17,
+    "start_word": 286,
+    "end_word": 304,
+    "text_snippet": "الخشني: بضم الخاء المعجمة وفتح الشين، بعدها نو",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 305,
+    "end_word": 319,
+    "text_snippet": "بقوسي: آلة رمي قديمة معروفة، وهي بفتح القاف، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 320,
+    "end_word": 328,
+    "text_snippet": "كلبي المعلم: وهو المدرب على الصيد، وتأتي كيفية",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 329,
+    "end_word": 330,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 331,
+    "end_word": 403,
+    "text_snippet": "ذكر أبو ثعلبة للنبي صلى الله عليه وسلم أنهم مب",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 404,
+    "end_word": 419,
+    "text_snippet": "فأفتاه بأن ما صاده بقوسه فهو حلال، بشرط أن يذك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 420,
+    "end_word": 435,
+    "text_snippet": "وأما ما تصيده الكلاب، فما كان منها معلماً وذكر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 436,
+    "end_word": 450,
+    "text_snippet": "وأما الذي لم يتعلم، فلا يحل صيده إلا أن يجده ا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 451,
+    "end_word": 454,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 26,
+    "start_word": 455,
+    "end_word": 467,
+    "text_snippet": "1- إباحة استعمال أواني الكفار، ومثلها ثيابهم، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 468,
+    "end_word": 489,
+    "text_snippet": "2- هنا تعارض الأصل الذي هو [الأصل في الأشياء ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 28,
+    "start_word": 490,
+    "end_word": 519,
+    "text_snippet": "3- إباحة الصيد بالقوس: وبالكلب المعلم بشرط ذكر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 520,
+    "end_word": 532,
+    "text_snippet": "والصواب: أنه إن تركها سهوا أو جهلا أبيح. وهو ر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 533,
+    "end_word": 566,
+    "text_snippet": "4- ظاهر الحديث حِل أكل ما صيد، سواء أقتله الجا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 567,
+    "end_word": 578,
+    "text_snippet": "أما المشهور من المذهب، فلا يحل إذا مات الصيد ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 579,
+    "end_word": 594,
+    "text_snippet": "5- أن صيد الكلب الذي لم يعَلم، لا يحل إلا إن أ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 595,
+    "end_word": 628,
+    "text_snippet": "6- صفة تعليم الجارح على مذهب الحنابلة، إن كان ",
+    "scholarly_function": "definition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 34,
+    "start_word": 629,
+    "end_word": 646,
+    "text_snippet": "وإن كان ذا مخلب، كالصقر، والبازي، فبشيئين.\n1- ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 35,
+    "start_word": 647,
+    "end_word": 680,
+    "text_snippet": "وبعض العلماء جعل مرد التعليم وتحديده إلى العر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 681,
+    "end_word": 706,
+    "text_snippet": "7- فضل العلم على الجهل، إذ أبيح صيد الكلب المع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 37,
+    "start_word": 707,
+    "end_word": 708,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 709,
+    "end_word": 773,
+    "text_snippet": "عَنْ هَمَّام بْنِ الحارِثِ عَنْ عَدِي بْنِ حاتِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 774,
+    "end_word": 775,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 40,
+    "start_word": 776,
+    "end_word": 885,
+    "text_snippet": "وَحَدِيثُ الشعْبي عنْ عدي نَحْوَهُ، وفِيهِ: \"إ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 886,
+    "end_word": 886,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 42,
+    "start_word": 887,
+    "end_word": 895,
+    "text_snippet": "المعراض: بكسر الميم وسكون العين، وبعد الألف ضا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 896,
+    "end_word": 911,
+    "text_snippet": "قال الشيخ: عصاً رأسها مَحْنية. والذي ذكره أهل ",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 44,
+    "start_word": 912,
+    "end_word": 932,
+    "text_snippet": "فخرق: قال ابن فارس: الخاء والراء والقاف أصل، ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 933,
+    "end_word": 944,
+    "text_snippet": "الشعبي: بفتح الشين وسكون العين، عامر بن شرا حي",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 945,
+    "end_word": 948,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 47,
+    "start_word": 949,
+    "end_word": 980,
+    "text_snippet": "1- فيه دليل على حل ما صاده الكلب ونحوه، كالفهد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 981,
+    "end_word": 1007,
+    "text_snippet": "2- تحريم الصيد الذي اشترك فيه الكلب المعلَّم و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1008,
+    "end_word": 1030,
+    "text_snippet": "3- أنه لابد من التسمية عند إرسال السهم، والمر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1031,
+    "end_word": 1053,
+    "text_snippet": "4- لكون التسمية مشترطة، فإنه لا يحل الصيد الذي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1054,
+    "end_word": 1075,
+    "text_snippet": "5- لكون النية والتعليم مقصودين في الجارح، فإن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1076,
+    "end_word": 1099,
+    "text_snippet": "6- أن ما أدركته من صيد السلاح، أو الجارح حيا، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1100,
+    "end_word": 1129,
+    "text_snippet": "7- إذا جرحت الصيد فوقع في ماء، واشتبه عليك: هل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1130,
+    "end_word": 1145,
+    "text_snippet": "أما إذا غلب على الظن أنه مات من السهم، لكون ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1146,
+    "end_word": 1155,
+    "text_snippet": "وهذا الحكم عام في كل ما اجتمع فيه مبيح وحاظر.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1156,
+    "end_word": 1182,
+    "text_snippet": "8- أن المعراض وغيره من السلاح، إن قتل الصيد بح",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1183,
+    "end_word": 1184,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1185,
+    "end_word": 1233,
+    "text_snippet": "عَنْ سَالِمِ بْنِ عَبْدِ الله بنِ عُمَرَ عَنْ أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1234,
+    "end_word": 1235,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1236,
+    "end_word": 1298,
+    "text_snippet": "الكلب من البهائم الخسيسة القذرة، ولهذا نهى الش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1299,
+    "end_word": 1333,
+    "text_snippet": "فإذا دعت الحاجة إليه لبعض ما فيه من منافع ومصا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1334,
+    "end_word": 1337,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1338,
+    "end_word": 1355,
+    "text_snippet": "1- تحريم اقتناء الكلب، ونقص أجر صاحبه كل يوم ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1356,
+    "end_word": 1405,
+    "text_snippet": "2- ومنع اقتناؤه لما فيه من المفاسد والمضار الك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1406,
+    "end_word": 1424,
+    "text_snippet": "3- أنه يباح اقتناؤه لمصلحة، وذلك بأن يكون لحرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1425,
+    "end_word": 1456,
+    "text_snippet": "4- بهذا تعلم مبلغ ما لدى الغربيين من السفاهة و",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1457,
+    "end_word": 1484,
+    "text_snippet": "والعجب أن مثل هذه العادات والأعمال القبيحة سر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1485,
+    "end_word": 1486,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1487,
+    "end_word": 1605,
+    "text_snippet": "عَنْ رَافِعِ بن خَدِيج قَالَ: كُنَّا معَ رسول ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1606,
+    "end_word": 1606,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1607,
+    "end_word": 1628,
+    "text_snippet": "الحُليفة: بضم الحاء المهملة وفتح اللام، بعدها ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1629,
+    "end_word": 1640,
+    "text_snippet": "تِهَامة: بكسر التاء المثناة، وهي ما تصوب من جب",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1641,
+    "end_word": 1650,
+    "text_snippet": "نَد: بفتح النون، وتشديد الدال، بمعنى: هرب على ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1651,
+    "end_word": 1659,
+    "text_snippet": "فأعياهم: بفتح الهمزة، وسكون العين، بعدها ياء، ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1660,
+    "end_word": 1685,
+    "text_snippet": "أوابد: بفتح الهمزة، بعدها واو، ثم ألف، بعدها ب",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1686,
+    "end_word": 1715,
+    "text_snippet": "مدَى الحبشة: بضم الميم جمع (مدية) مثلث الميم ⌜",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1716,
+    "end_word": 1721,
+    "text_snippet": "أنهر الدم: بمعنى فتح الدم وأساله.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1722,
+    "end_word": 1728,
+    "text_snippet": "ليس السن والظفر: السن والظفر، منصوبان بالاستث",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1729,
+    "end_word": 1742,
+    "text_snippet": "ما يستفاد من الحديث:\nنأتي بفوائد هذا الحديث، م",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1743,
+    "end_word": 1760,
+    "text_snippet": "1- إن من عادة النبي صلى الله عليه وسلم الجميلة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1761,
+    "end_word": 1776,
+    "text_snippet": "فكذا ينبغي للقواد والأمراء، وهكذا ينبغي ملاحظ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1777,
+    "end_word": 1800,
+    "text_snippet": "2- تأديب الإمام لرعيته وجنده فقد أدبهم النبي ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1801,
+    "end_word": 1872,
+    "text_snippet": "3- اختلف في السبب الذي أمر من أجله صلى الله عل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1873,
+    "end_word": 1902,
+    "text_snippet": "4- مشروعية التعزيز بالمال إذا رأى الإمام المصل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1903,
+    "end_word": 1916,
+    "text_snippet": "والقصد من التعزير، الردع، ولعل التعزير بأخذه ي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1917,
+    "end_word": 1954,
+    "text_snippet": "أما المشهور من المذهب، فإنه لا يعزر بالمال وهو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1955,
+    "end_word": 1968,
+    "text_snippet": "5- العدل، لاسيما في موطن جهاد الأعداء والكفار،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1969,
+    "end_word": 1981,
+    "text_snippet": "والنبي صلى الله عليه وسلم قسم بينهم، فجعل مقا",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1982,
+    "end_word": 2005,
+    "text_snippet": "وهذا تقدير قيمة، فليس فيه دليل على أن البعير ي",
+    "scholarly_function": "refutation",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2006,
+    "end_word": 2036,
+    "text_snippet": "6- أن من هرب ولم يمكن إدراكه من الإبل، أو البق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2037,
+    "end_word": 2052,
+    "text_snippet": "7- جواز التذكية بكل ما أنهر الدم وأساله، من حد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2053,
+    "end_word": 2060,
+    "text_snippet": "8- اشتراطْ التسمية، وتقدم أنها تسقط سهواً وجهل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

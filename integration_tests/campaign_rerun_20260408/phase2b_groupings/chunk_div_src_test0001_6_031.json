@@ -1,0 +1,46 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 123,
+    "text_snippet": "‌‌بَاب ما جَاء في الثوم والبصل ونحوهما\nالحديث الأول\nعن جَابِرِ بْنِ عَبْدِ الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "الحديث الأول في النهي عن حضور المسجد لمن أكل الثوم أو البصل مع شرح ألفاظه الغريبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 124,
+    "end_word": 260,
+    "text_snippet": "الحديث الثاني\nعَن جَابِر: أن النبي صلى الله عليه وسلم قَالَ:\n\" مَنْ أكلَ البُص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان معنى الحديث الثاني ووجوب اجتناب المسجد لمن أكل ما له رائحة مؤذية وسبب ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

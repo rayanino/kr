@@ -1,0 +1,115 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "ومجهولة مدة حصوله-\nوهذه من البيعات المجهولة، التي يكثر ضررها وعذرها، فتفضي ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن هذا البيع من البيوع المجهولة المفضية إلى النزاع",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يبدأ بضمير ووصف تابع لما قبله: «ومجهولة مدة حصوله»، فلا يتضح المبيع المذكور تماماً من هذا المقطع وحده."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 14,
+    "end_word": 45,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهى عن هذا البيع على كلا التفسيرين، لأنه إن كان على ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن هذا البيع على التفسيرين مع بيان سبب المنع",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في «هذا البيع» و«على كلا التفسيرين» تعتمد على الحديث والشرح السابقين غير الموجودين هنا."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 46,
+    "end_word": 66,
+    "text_snippet": "2- النص على هذا النوع من البيع، لأنه من بيعات الجاهلية، وإلا فهو عام في كل ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى أن النص على هذا البيع لا يخصص الحكم به وحده",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير «هذا النوع من البيع» يحتاج إلى معرفة البيع المقصود من السياق السابق."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 67,
+    "end_word": 90,
+    "text_snippet": "3- حكمة النهى، أنه من بيع الغرر المفضي إلى الميسر والقمار، وأكل المال بالباطل",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكمة النهي وأن الغرر يفضي إلى القمار وأكل المال بالباطل",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "حكمة النهي مفهومة إجمالاً، لكن مرجع النهي المقصود يعتمد على البيع المذكور قبل هذا الموضع."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 91,
+    "end_word": 329,
+    "text_snippet": "قاعدة في المعاملات المحرمة ملخصة\nمن كلام شيخ الإسلام ابن تيمية\nالأصل في ذلك أ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "قاعدة تحريم أكل المال بالباطل وأن أصلي المعاوضات المحرمة الربا والميسر والغرر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 330,
+    "end_word": 424,
+    "text_snippet": "أما الربا فإنه لما احتاج الناس إلى العرايا أرخص في بيعها بالخرص، ولم يجوز ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تشدد مالك وأهل المدينة وفقهاء الحديث في باب الربا وسد الذرائع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      13,
+      14,
+      15
+    ],
+    "start_word": 425,
+    "end_word": 524,
+    "text_snippet": "وأما الغرر فمن أشد ما قيل فيه قولا أبي حنيفة والشافعي، فإنه يدخل في هذا الاسم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "مقارنة مذاهب الفقهاء في الغرر وترجيح التوسعة عند مالك وقرب أحمد منه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

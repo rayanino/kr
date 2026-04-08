@@ -1,0 +1,810 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ الآذَان والإقامة ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 16,
+    "text_snippet": "الأذان- لغة: الإعلام، قال الله تعالى: {وَأذَاَن ",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 17,
+    "end_word": 25,
+    "text_snippet": "وهو- شرعاً-: الإعلام بدخول وقت الصلاة المفروضة ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 26,
+    "end_word": 83,
+    "text_snippet": "وهو- على اختصاره- مشتمل على مسائل العقيدة، لأن ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 4,
+    "start_word": 84,
+    "end_word": 124,
+    "text_snippet": "وفي القيام به فضل عظيم لما روى البخاري ومسلم عن ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 125,
+    "end_word": 140,
+    "text_snippet": "و\" الأذان \" و \" الإقامة \" كل واحد منهما فرض ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 141,
+    "end_word": 149,
+    "text_snippet": "وهما من شعائر الإسلام الظاهرة. يقاتل أهل بلد ترك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 150,
+    "end_word": 174,
+    "text_snippet": "كان صلى الله عليه وسلم إذا أتى قوماً لا يعرفهم ي",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 8,
+    "start_word": 175,
+    "end_word": 198,
+    "text_snippet": "وقد شُرع في المدينة، حينما استشار النبي صلى الله ",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 199,
+    "end_word": 233,
+    "text_snippet": "فرأى عبد الله بن زيد الأنصاري في المنام من أعلمه ",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 234,
+    "end_word": 235,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 236,
+    "end_word": 250,
+    "text_snippet": "عَنْ أنس بْنِ مَالِك رضي الله عنه قَالَ: أُمِر بلال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 251,
+    "end_word": 252,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 13,
+    "start_word": 253,
+    "end_word": 278,
+    "text_snippet": "1- \"أمر بلال\": مبنى للمجهول. والآمر هو النبي صل",
+    "scholarly_function": "definition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 14,
+    "start_word": 279,
+    "end_word": 294,
+    "text_snippet": "والصحيح أنها تقضيه، لأن الظاهر أن الآمر من له الأ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 15,
+    "start_word": 295,
+    "end_word": 306,
+    "text_snippet": "2- \"أن يشفع الآذان\": يعني، يأتي بألفاظه شفعاً. ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 307,
+    "end_word": 316,
+    "text_snippet": "3- \"ويوتر الإقامة\": يعنى، يأتي بألفاظها وتراً، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 317,
+    "end_word": 318,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 319,
+    "end_word": 335,
+    "text_snippet": "أمر النبي صلى الله عليه وسلم مؤذنه \"بلالاً\" أن ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 19,
+    "start_word": 336,
+    "end_word": 351,
+    "text_snippet": "وهذا عدا (التكبير) فى أوله، فقد ثبت تربيعه و (كلم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 20,
+    "start_word": 352,
+    "end_word": 380,
+    "text_snippet": "كما أمر بلالاً أيضاً أن يوتر الإقامة، لأنها لتنبي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 21,
+    "start_word": 381,
+    "end_word": 382,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 383,
+    "end_word": 388,
+    "text_snippet": "اختلف العلماء في حكم الأذان والإقامة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 23,
+    "start_word": 389,
+    "end_word": 415,
+    "text_snippet": "فذهب الإمام \"أحمد\" وبعض المالكية، وبعض الشافعية،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 416,
+    "end_word": 432,
+    "text_snippet": "ومنها ما في الصحيحين عن مالك بن الحويرث: \" فَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 433,
+    "end_word": 440,
+    "text_snippet": "ولأنه من شعائر الإسلام الظاهرة يقاتل من تركها.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 441,
+    "end_word": 464,
+    "text_snippet": "وقد خص بعض هؤلاء الوجوب بالرجال دون النساء، لما ر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 465,
+    "end_word": 477,
+    "text_snippet": "ولأنه مطلوب منهن خفض الصوت والتستر، وَلسنَ من أهل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 28,
+    "start_word": 478,
+    "end_word": 485,
+    "text_snippet": "وذهبت الحنفية والشافعية إلى أنهما سنتان وليسا بوا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 486,
+    "end_word": 505,
+    "text_snippet": "مستدلين بما صحح كثير من الأئمة من أن النبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 506,
+    "end_word": 529,
+    "text_snippet": "ويعارض ما نقل عن تركه الأذان بما روى البخاري عن ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 31,
+    "start_word": 530,
+    "end_word": 556,
+    "text_snippet": "على أن شيخ الإسلام \" ابن تيمية \" ذكر في \" الاختي",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 32,
+    "start_word": 557,
+    "end_word": 575,
+    "text_snippet": "فالنزاع مع هؤلاء قريب من اللفظي، لأن كثيراً من ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 33,
+    "start_word": 576,
+    "end_word": 589,
+    "text_snippet": "أما من زعم أنه سنة لا إثم على تاركه فقد أخطأ. ا. ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 590,
+    "end_word": 595,
+    "text_snippet": "واختلفوا أيضاً في صفة الأذان والإقامة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 35,
+    "start_word": 596,
+    "end_word": 644,
+    "text_snippet": "فذهب الإمام \" أحمد \" إلى جواز كل ما ورد في صفات ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 645,
+    "end_word": 669,
+    "text_snippet": "والإقامة المشار إليها إحدى عشرة جملة، تكبيرتان، ث",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 670,
+    "end_word": 677,
+    "text_snippet": "والى هذه الصفة، ذهبت الحنفية والشافعية، وجمهور ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 678,
+    "end_word": 702,
+    "text_snippet": "واحتجوا بحديث عبد الله بن زيد في صفة الأذان والإق",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 39,
+    "start_word": 703,
+    "end_word": 731,
+    "text_snippet": "وذهب مالك، وأبو يوسف، وبعض العلماء: إلى تثنية تكب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 40,
+    "start_word": 732,
+    "end_word": 745,
+    "text_snippet": "والأولى الأخذ بالزائد، لأن الزيادة التي لا تنافي،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 41,
+    "start_word": 746,
+    "end_word": 758,
+    "text_snippet": "قال ابن حزم، إنما اخترنا أذان أهل مكة: لأن فيه زي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 42,
+    "start_word": 759,
+    "end_word": 777,
+    "text_snippet": "واختلفوا في ترجيع الأذان، ومعنى \" الترجيع \" أن يق",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 43,
+    "start_word": 778,
+    "end_word": 800,
+    "text_snippet": "فذهبت المالكية والشافعية: إلى استحبابه، وهو عمل أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 801,
+    "end_word": 813,
+    "text_snippet": "وذهبت الحنفية إلى عدم الاستحباب، احتجاجاً بالظاهر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 814,
+    "end_word": 858,
+    "text_snippet": "والإمام \" أحمد \" يجيز الأمرين، ولكنه يختار أذان ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 46,
+    "start_word": 859,
+    "end_word": 864,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 865,
+    "end_word": 894,
+    "text_snippet": "1- وجوب الأذان والإقامة، أخذاً من صيغة الأمر الصا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 48,
+    "start_word": 895,
+    "end_word": 914,
+    "text_snippet": "2- استحباب شفع الأذان وإيتار الإقامة، لأن الوجوب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 915,
+    "end_word": 923,
+    "text_snippet": "3- شدة الاهتمام بالأذان على الإقامة، لكونه نداء ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 50,
+    "start_word": 924,
+    "end_word": 940,
+    "text_snippet": "4- المراد بشفع الأذان ماعدا التكبيرات الأربع في أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 941,
+    "end_word": 958,
+    "text_snippet": "5- المراد بوتر الإقامة ماعدا التكبيرتين في أولها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 959,
+    "end_word": 960,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 961,
+    "end_word": 1039,
+    "text_snippet": "عَنْ أبي جُحَيْفَةَ وَهْبِ بْنِ عَبْدِ الله السُوَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1040,
+    "end_word": 1041,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1042,
+    "end_word": 1057,
+    "text_snippet": "1- \"في قبة من أدَم\": جمع أديم، والأدم، بضم الهمز",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1058,
+    "end_word": 1061,
+    "text_snippet": "2- \"وضوء\": يعني الماء.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1062,
+    "end_word": 1076,
+    "text_snippet": "3- \"حلة\": لا تكون إلا من ثوبين، إزار ورداء أو غي",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1077,
+    "end_word": 1106,
+    "text_snippet": "4- \"فمن ناضح ونائل\": النضح، الرش، والمراد هنا الأ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1107,
+    "end_word": 1122,
+    "text_snippet": "5- \"أتتبع فاه ههنا ههنا\": ظرفا مكان، والمراد يلتف",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1123,
+    "end_word": 1143,
+    "text_snippet": "6- \"عَنَزَة\": رمح قصير، في طرفه حديدة دقيقة الرأس",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1144,
+    "end_word": 1145,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1146,
+    "end_word": 1172,
+    "text_snippet": "كان النبي صلى الله عليه وسلم نازلاً في الأبطح في ",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1173,
+    "end_word": 1198,
+    "text_snippet": "قال أبو جحيفة: فجعلت أتتبع فم بلال، وهو يلتفت يمن",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1199,
+    "end_word": 1211,
+    "text_snippet": "ثم ركزت له رمح قصيرة لتكون سترة له في صلاته، فصلى",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1212,
+    "end_word": 1223,
+    "text_snippet": "ثم لم يزل يصلى الرباعية ركعتين حتى رجع إلى المدين",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1224,
+    "end_word": 1229,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1230,
+    "end_word": 1251,
+    "text_snippet": "1- مشروعية التفات المؤذن يميناً وشمالا عند قوله: ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1252,
+    "end_word": 1263,
+    "text_snippet": "2- مشروعية قصر الرباعية إلى ركعتين في السفر، ويأت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1264,
+    "end_word": 1275,
+    "text_snippet": "3- مشروعية السترة أمام المصلى ولو في مكة، ويأتي إ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1276,
+    "end_word": 1286,
+    "text_snippet": "4- شدة محبة الصحابة للنبي صلى الله عليه وسلم وتبر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1287,
+    "end_word": 1309,
+    "text_snippet": "ولكن لا يلحقه في ذلك العلماء والصالحون، فإن له خص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1310,
+    "end_word": 1319,
+    "text_snippet": "5- ورد في أحاديث كثيرة النهي عن لبس الأحمر للرجال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1320,
+    "end_word": 1335,
+    "text_snippet": "فمنها ما في البخاري (أن النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1336,
+    "end_word": 1342,
+    "text_snippet": "فكيف ذكر هنا، أن عليه حلة حمراء؟",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1343,
+    "end_word": 1382,
+    "text_snippet": "ذكر \" ابن القيم \" في \" الهَدْىِ النبوي \" أي (زاد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1383,
+    "end_word": 1394,
+    "text_snippet": "ورأيت نقلاً عن شيخنا \"عبد الرحمن السعدي \" أنه لبس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1395,
+    "end_word": 1414,
+    "text_snippet": "وعندي أن جمع \" ابن القيم \" أحسن، لأن النهي عن الأ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1415,
+    "end_word": 1456,
+    "text_snippet": "ذكر القاضي عياض أن في الكلام تقديماً وتأخيراً \"فت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1457,
+    "end_word": 1458,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1459,
+    "end_word": 1482,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ عَنْ رَسُولِ الله صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1483,
+    "end_word": 1484,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1485,
+    "end_word": 1521,
+    "text_snippet": "كان للنبي صلى الله عليه وسلم مؤذنان، بلال بن رباح",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1522,
+    "end_word": 1565,
+    "text_snippet": "فكان صلى الله عليه وسلم ينبه أصحابه إلى أن بلالا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1566,
+    "end_word": 1600,
+    "text_snippet": "وهو خاص بها، ولا يجوز فيما عداها أذان قبل دخول ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1601,
+    "end_word": 1606,
+    "text_snippet": "ما يؤخذ من الحديث من أحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1607,
+    "end_word": 1614,
+    "text_snippet": "1- جواز الأذان لصلاة الفجر قبل دخول وقتها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1615,
+    "end_word": 1626,
+    "text_snippet": "2- جواز اتخاذ مؤذنين لمسجد واحد، ويكون لأذان كل م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1627,
+    "end_word": 1638,
+    "text_snippet": "3- جواز اتخاذ المؤذن الأعمى وتقليده لأن ابن أم مك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1639,
+    "end_word": 1656,
+    "text_snippet": "4- وفيه استحباب تنبيه أهل البلد أو المحلة على إرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1657,
+    "end_word": 1664,
+    "text_snippet": "5- اتخاذ مؤذن ثان يؤذن مع طلوع الفجر.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1665,
+    "end_word": 1704,
+    "text_snippet": "6- وفيه استحباب عدم الكَف عن الأكل والشرب لمن أرا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1705,
+    "end_word": 1714,
+    "text_snippet": "7- فيه جواز العمل بخبر الواحد إذا كان ثقة معروفا.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1715,
+    "end_word": 1716,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1717,
+    "end_word": 1740,
+    "text_snippet": "عَنْ أبي سَعِيدٍ الخُدرِي رضي الله عنه قَالَ: قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1741,
+    "end_word": 1742,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1743,
+    "end_word": 1759,
+    "text_snippet": "قال رسول الله صلى الله عليه وسلم: إذا سمعتم المؤذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1760,
+    "end_word": 1787,
+    "text_snippet": "فحينما يكبر فكبروا بعده، وحينما يأتي بالشهادتين، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1788,
+    "end_word": 1793,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1794,
+    "end_word": 1803,
+    "text_snippet": "1- مشروعية إجابة المؤذن بمثل ما يقول. وذلك بإجماع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1804,
+    "end_word": 1817,
+    "text_snippet": "2- أن تكون إجابة المجيب بعد انتهاء المؤذن من الجم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  }
+]

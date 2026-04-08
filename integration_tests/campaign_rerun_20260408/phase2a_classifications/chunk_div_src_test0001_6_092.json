@@ -1,0 +1,162 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 26,
+    "text_snippet": "1- نوع يحتاجون إليه من النفقة في الصحة والمرض ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 27,
+    "end_word": 44,
+    "text_snippet": "2- ونوع تشترك حاجتهم إليه، من عطية، أو نفقة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 45,
+    "end_word": 89,
+    "text_snippet": "وينشأ من بينهما نوع ثالث، وهو أن ينفرد أحده",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 3,
+    "start_word": 90,
+    "end_word": 147,
+    "text_snippet": "ما يؤخذ من الأحاديث:\n1- وجوب العدل بين الأولاد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 148,
+    "end_word": 152,
+    "text_snippet": "‌‌بَابُ هِبَة العمرى\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 153,
+    "end_word": 171,
+    "text_snippet": "عَنْ جَابِرِ بْنِ عَبْدِ الله رَضىَ الله عَنْهُمَا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 172,
+    "end_word": 192,
+    "text_snippet": "وفي لفظ: \"مَنْ اعمِرَ عُمْرَى فَهِي لَهُ وَلِعَقبِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 193,
+    "end_word": 220,
+    "text_snippet": "وقال جابر: إنَّمَا الْعُمْرَى التي أجَازَهَا رَسُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 221,
+    "end_word": 240,
+    "text_snippet": "في لفظ لمسلمِ: \" امسِكُوا عَلَيْكُمْ أموَالَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 241,
+    "end_word": 241,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 242,
+    "end_word": 275,
+    "text_snippet": "العمرى: بضم العين المهملة، وسكون الميم، وألف ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 276,
+    "end_word": 282,
+    "text_snippet": "أعمر: بضم أوله، وكسر الميم. مبنى للمجهول.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 283,
+    "end_word": 284,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 13,
+    "start_word": 285,
+    "end_word": 387,
+    "text_snippet": "العمرى: - ومثلها \" الرقبى \" نوعان من الهبة، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 14,
+    "start_word": 388,
+    "end_word": 405,
+    "text_snippet": "هذا ما لم يصرح الواهب بأنها للموهوب له ما عاش",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 406,
+    "end_word": 424,
+    "text_snippet": "لكن لا يرجع الواهب فيها ولا بعد وفاة الموهوب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 16,
+    "start_word": 425,
+    "end_word": 426,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 427,
+    "end_word": 458,
+    "text_snippet": "العمرى ثلاثة أنواع:\n1- إما أن تؤبد كقوله: لك: ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 459,
+    "end_word": 477,
+    "text_snippet": "3- والنوع الثالث أن يشترط الواهب الرجوع فيها ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 19,
+    "start_word": 478,
+    "end_word": 507,
+    "text_snippet": "ذهب إلى صحة الشرط، جماعة من العلماء، منهم الزه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  }
+]

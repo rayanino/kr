@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 14,
+    "text_snippet": "4- أن عدة المتوفى عنها -غير حامل- أربعة أشهر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 15,
+    "end_word": 37,
+    "text_snippet": "5- يباح لها التزويج، ولو لم تطهر من نفاسها، ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 2,
+    "start_word": 38,
+    "end_word": 67,
+    "text_snippet": "6- قال شيخ الإسلام: والقرآن ليس فيه إيجاب الع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 68,
+    "end_word": 70,
+    "text_snippet": "توفيق بين آيتين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 4,
+    "start_word": 71,
+    "end_word": 90,
+    "text_snippet": "عموم قوله تعالى: {وَأوَلاتُ الأحْمَال أجلهن أن",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 91,
+    "end_word": 117,
+    "text_snippet": "وعموم ِقوله تعالى: {والَذِينَ يُتَوَفَوْنَ منك",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 118,
+    "end_word": 134,
+    "text_snippet": "ولهذا التعارض، ذهب بعض العلماء- وهم قلة- إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 135,
+    "end_word": 144,
+    "text_snippet": "فإن كان حملها أكثر من أربعة أشهر وعشر، اعتدت ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 145,
+    "end_word": 152,
+    "text_snippet": "وإن وضعت قبلهن، اعتدت بالأشهر، خروجا من التعا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 153,
+    "end_word": 196,
+    "text_snippet": "ولكن جمهور العلماء، ومنهم الأئِمة الأربعة، ذو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 197,
+    "end_word": 202,
+    "text_snippet": "وبهذا التخصيص، تجتمع الأدلة، ويزول الإشكال.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 203,
+    "end_word": 217,
+    "text_snippet": "ويقصد هذا التخصيص، أن أكبر حكم العدة، هو العل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 218,
+    "end_word": 218,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 13,
+    "start_word": 219,
+    "end_word": 245,
+    "text_snippet": "سئل شيخ الإسلام ابن تيمية رحمه الله عن رجل تر",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 14,
+    "start_word": 246,
+    "end_word": 272,
+    "text_snippet": "فأجاب: إن النكاح الأول فسد لتعذر النفقة من جه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

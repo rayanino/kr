@@ -1,0 +1,132 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 21,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام رحمه الله تعالى: وأما العزل فقد حرمه طائفة من العلماء،",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكم العزل وذكر أن مذهب الأئمة الأربعة جوازه بإذن المرأة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 22,
+    "end_word": 98,
+    "text_snippet": "فائدة ثانية:\nوقال أيضا: المرأة إذا تزوجت كان زوجها أملك بها من أبويها، وطاع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تقديم طاعة الزوج على طاعة الأبوين في حقوق الزوجية والانتقال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 99,
+    "end_word": 368,
+    "text_snippet": "‌‌بَابُ النّهي عن الخلْوَة بِالأجنبية\nعَنْ عُقْبَةَ بن عَامِر: أنَّ رَسُولَ الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition"
+    ],
+    "description_arabic": "حديث النهي عن الخلوة بالأجنبية وشرح ألفاظه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 369,
+    "end_word": 384,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهي عن الدخول على الأجنبيات والخلوة بهن، سدا لذريعة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج فائدة الحديث في النهي عن الخلوة بالأجنبية سدا للذريعة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 385,
+    "end_word": 418,
+    "text_snippet": "2- أن ذلك عام في الأجانب من أخي الزوج وأقاربه، الذين ليسوا محارم للمرأة. قال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان عموم الحكم في أقارب الزوج غير المحارم مع قيد تحقق الخلوة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة في قوله: أن ذلك عام يعود على الحكم المذكور في الفائدة السابقة عن النهي والخلوة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 419,
+    "end_word": 429,
+    "text_snippet": "3- التحريم -هنا- من باب تحريم الوسائل، والوسائل لها أحكام المقاصد.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير أن النهي هنا من باب تحريم الوسائل التابعة للمقاصد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "لفظ -هنا- يحيل إلى الحكم السابق في الحديث، فيحتاج القارئ لمعرفة أن المقصود تحريم الخلوة والدخول."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 430,
+    "end_word": 439,
+    "text_snippet": "4- الابتعاد عن مواطن الزلل عامة، خشية الوقوع في الشر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحث على اجتناب مواضع الفتنة والزلل اتقاء الوقوع في الشر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 440,
+    "end_word": 471,
+    "text_snippet": "5- قال شيخ الإسلام: كان عمر بن الخطاب يأمر العزاب ألا يسكنوا بين المتأهلين، ",
+    "primary_function": "example",
+    "secondary_functions": [],
+    "description_arabic": "مثال عملي من آثار السلف في سد ذرائع الفتنة بين العزاب والمتأهلين",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا الأثر مفهوم بذاته، لكن وجه إيراده التعليمي الكامل أنه مثال على فائدة الابتعاد عن مواطن الزلل السابقة."
+  }
+]

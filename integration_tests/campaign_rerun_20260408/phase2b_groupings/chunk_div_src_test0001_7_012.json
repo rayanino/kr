@@ -1,0 +1,145 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 274,
+    "text_snippet": "‌‌بَاب في صفة تغسيل الميّت وتشييع الجنازة\nالحديث الأول\nعَنْ أمّ عَطِيةَ الأنصَار",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث أم عطية في صفة غسل الميتة وشرح ألفاظه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 275,
+    "end_word": 546,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب غسل الميت المسلم، وأنه فرض كفاية.\n2- أن المرأة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأحكام والفوائد المستنبطة من حديث غسل بنت النبي صلى الله عليه وسلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 547,
+    "end_word": 733,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قَال: بَيْنَما رَجُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث المحرم الذي مات بعرفة وشرح ألفاظه ومعناه وحكم بقائه على إحرامه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 734,
+    "end_word": 988,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب تغسيل الميت، وأنه فرض كفاية.\n2- جواز اغتسال المحر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "refutation"
+    ],
+    "description_arabic": "الأحكام المستنبطة من حديث المحرم الميت وما فيه من خلاف وترجيح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 989,
+    "end_word": 1110,
+    "text_snippet": "الحديث الثالث\nعَنْ أبي هُريرة رضىَ الله عَنْهُ عَنِ النَّبي صلى الله عليه وسلم",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث الإسراع بالجنازة وبيان حكمته ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 1111,
+    "end_word": 1203,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الإسراع بتجهيز الميت وفي حمله، لكن بغير سرعة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد حديث الإسراع بالجنازة وآدابه والقيود الواردة عليه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      15,
+      16,
+      17
+    ],
+    "start_word": 1204,
+    "end_word": 1273,
+    "text_snippet": "الحديث الرابع\nعَن أم عطيةَ الأنصارية رضي الله عنها قالَتْ: نُهينا عن اتّباع ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث نهي النساء عن اتباع الجنائز وبيان دلالته الإجمالية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 1274,
+    "end_word": 1296,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- نهي النساء عن اتباع الجنائز، وهو عام في اتباعها إلى حي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحكم المستفاد في نهي النساء عن اتباع الجنائز وعموم مواضع الاتباع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

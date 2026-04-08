@@ -1,0 +1,495 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 35,
+    "text_snippet": "‌‌باب النهي عن بيع الثمرة\nقبل بُدُوِّ صلاحها ⌜1⌝\nالحديث الأول\nعَنْ عَبْدِ اللَه بْ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث النهي عن بيع الثمرة قبل ظهور صلاحها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 36,
+    "end_word": 172,
+    "text_snippet": "الحديث الثاني\nعن أنس بن مالك رضي الله عنه: أن رسول الله صلى الله عليه وسلم:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث بيع الثمار حتى تزهي مع شرح الألفاظ وبيان العلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 173,
+    "end_word": 184,
+    "text_snippet": "ما يؤخذ من الحديثين:\n1- النهْيُ عن بيع الثمار قبل بُدُو صلاحها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج حكم النهي عن بيع الثمار قبل بدو صلاحها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 185,
+    "end_word": 192,
+    "text_snippet": "2- النهى يقتضي الفساد، فيكون بيعها غير صحيح.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن النهي يقتضي فساد بيع الثمار قبل صلاحها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 193,
+    "end_word": 211,
+    "text_snippet": "3- جواز بيعها بعد بُدُو صلاحها. وكذلك لو باعها قبل بدو صلاحها بشرط القط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "جواز البيع بعد بدو الصلاح وجوازه قبل ذلك بشرط القطع عند الجمهور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 212,
+    "end_word": 265,
+    "text_snippet": "4- أن دليل الصلاح في ثمر النحل، الاحمرار أو الاصفرار، ولو في بعض الثمرة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "علامات بدو الصلاح في الثمار وتعميم حكم بعضها على باقي النوع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 266,
+    "end_word": 335,
+    "text_snippet": "5- الحكمة في النهى، هو أنها قبل بُدو الصلاح، معرضة لكثر من الآفات. فإذا ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حكمة النهي عن البيع قبل بدو الصلاح وتحريم أكل المال بغير حق",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "start_word": 336,
+    "end_word": 484,
+    "text_snippet": "الحديث الثالث\nعَنْ عَيْدِ الله بن عُمَرَ رضي الله عنهما قَالَ: نَهَى رَسُو",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational",
+      "example"
+    ],
+    "description_arabic": "حديث المزابنة مع تعريفها وشرح معناها وذكر أمثلتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 485,
+    "end_word": 633,
+    "text_snippet": "الاختلاف في معنى المزابنة:\nأجمع العلماء على أن هذه الصورة المذكورة في ال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_rational",
+      "cross_reference"
+    ],
+    "description_arabic": "خلاف الشافعي ومالك في تفسير المزابنة مع ترجيح تفسير مالك",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله: وقد تقدمت الإشارة إليه في [الغريب] ."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      37,
+      38
+    ],
+    "start_word": 634,
+    "end_word": 641,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهى عن المزابنة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج أصل النهي عن المزابنة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 642,
+    "end_word": 648,
+    "text_snippet": "2- تعريفها بهذه الصور، التي توضح أصلها.",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الصور المذكورة تعرف أصل المزابنة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      40,
+      41
+    ],
+    "start_word": 649,
+    "end_word": 693,
+    "text_snippet": "3- أن بيوعاتها فاسدة، لأن النهي يقتضي الفساد.\n4- حكمة النهي عنها، ما فيه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "فساد بيوعات المزابنة وبيان علة النهي عنها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 694,
+    "end_word": 745,
+    "text_snippet": "5- فيه دليل على تحريم بيع الرطب بادر، لعدم العلم بالتساوي ولو تحرى في ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تعميم التحريم إلى بيع الربويات عند الجهل بالتساوي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 746,
+    "end_word": 992,
+    "text_snippet": "الحديث الرابع\nعَن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قال: نَهَى النبي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational",
+      "cross_reference",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث النهي عن المخابرة والمحاقلة والمزابنة وبيع الثمر قبل صلاحه مع شرحها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى شرح لاحق في قوله: وتأتي إن شاء الله تعالى."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 993,
+    "end_word": 1024,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن المخابرة، والمحاقلة، والمزابنة.\n2- استث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "النهي عن هذه البيوع وبيان استثناء العرايا وعلته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1025,
+    "end_word": 1039,
+    "text_snippet": "4- من باب أولى يحرم البيع إذا علم التفاضل بين العوضين، الربويين من جنس ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التحريم بالأولى عند العلم بتفاضل الربويين من جنس واحد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      62
+    ],
+    "start_word": 1040,
+    "end_word": 1049,
+    "text_snippet": "5- النهي عن بيع الثمر قبل بُدو صلاحه، لأمن العاهة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إعادة تقرير النهي عن بيع الثمر قبل بدو صلاحه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعبير لأمن العاهة موجز ويحتاج معرفة أن المراد انتظار زوال خطر الآفة."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74
+    ],
+    "start_word": 1050,
+    "end_word": 1266,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي مَسْعُودٍ الأنصاري رَضىَ الله عَنْهُ: أنً رَسُول ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث تحريم ثمن الكلب ومهر البغي وحلوان الكاهن مع بيان خبثها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      75,
+      76
+    ],
+    "start_word": 1267,
+    "end_word": 1293,
+    "text_snippet": "ما يستفاد من الحديث\n1- النهى عن بيع الكلب، تحريم ثمنه، ولا فرق بين المعل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم بيع الكلب وثمنه وذكر ما يجوز اقتناؤه منه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة مبهمة في قوله: بهذه الأشياء الثلاثة دون بيانها داخل الوحدة."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 1294,
+    "end_word": 1314,
+    "text_snippet": "2- تحريم البغاء وتحريم ما يؤخذ عليه، سواء كان من حُرَةٍ أو أمة، فهو خبيث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم البغاء وأخذ العوض عليه من الحرة والأمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      78
+    ],
+    "start_word": 1315,
+    "end_word": 1335,
+    "text_snippet": "3- تحريم \" الكهانة \" ونحوها من العرافة، والتنجيم، وضرب الحصى، وتحضير الج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم الكهانة وما شابهها وتحريم أخذ الأجرة عليها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 1336,
+    "end_word": 1354,
+    "text_snippet": "4- من هذه المنهيات وغيرها، يعلم أن الشريعة نهى عن كل ما فيه مضرة وما يتر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة عامة في منع المكاسب والمعاملات المشتملة على الضرر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      80,
+      81,
+      82,
+      83
+    ],
+    "start_word": 1355,
+    "end_word": 1414,
+    "text_snippet": "الحديث السادس\nعَنْ رَافِعِ بْن خَديج: أنً رسُولَ اللَه صلى الله عليه وسلم ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث وصف بعض المكاسب بالخبث وبيان اجتنابها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      84,
+      85
+    ],
+    "start_word": 1415,
+    "end_word": 1429,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن ثمن الكلب، ومهر البغي، واجتناب ما يؤدى إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم ثمن الكلب ومهر البغي ووسائل الوقوع فيهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      86
+    ],
+    "start_word": 1430,
+    "end_word": 1442,
+    "text_snippet": "2- النهى عن كسب الحجام، لأنها مهنه زرية، مخلة بالكرامة والشرف، فمكسبها خ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان كراهة كسب الحجام وعلته عند المصنف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      87
+    ],
+    "start_word": 1443,
+    "end_word": 1467,
+    "text_snippet": "3- قال شيخ الإسلام إذا عرف الحرام بعينه لم يؤكل حتما، وإن لم يعرف عينه ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ضابط الأكل من المال المختلط إذا عرفت عين الحرام أو لم تعرف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      88,
+      89
+    ],
+    "start_word": 1468,
+    "end_word": 1501,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في كسب الحجام.\nفذهبت طائفة من العلماء إلى",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ابتداء عرض خلاف العلماء في حكم كسب الحجام",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "الوحدة مبتورة؛ بدأت عرض أحد الأقوال ولم يكتمل باقي الخلاف ولا جوابه أو الترجيح داخل هذا المقتطف."
+  }
+]

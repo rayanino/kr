@@ -1,0 +1,202 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 32,
+    "text_snippet": "وأجابوا عن حديث ابن عمر بأجوبة، أحسنها أنه منس",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 33,
+    "end_word": 63,
+    "text_snippet": "1- أنه أطلق لبس الخفين بلا قطع بـ\"عرفات\"، على ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 64,
+    "end_word": 77,
+    "text_snippet": "2- أن حديث ابن عباس في عرفات وهو وقت الحاجة، و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 78,
+    "end_word": 114,
+    "text_snippet": "3- لم يذكر في حديث ابن عمر السراويل، وذكره في ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 115,
+    "end_word": 124,
+    "text_snippet": "4- أن القطع نسخ تخفيفاً وإصلاحاً عن الإفساد بإت",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 125,
+    "end_word": 130,
+    "text_snippet": "ونظائر هذه التخفيفات كثيرة في الشرع.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 6,
+    "start_word": 131,
+    "end_word": 155,
+    "text_snippet": "قال شيخ الإسلام ابن تيمية: أولاً أمرهم بقطعهما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 156,
+    "end_word": 159,
+    "text_snippet": "‌‌بَابُ التلبيَة\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 160,
+    "end_word": 208,
+    "text_snippet": "َعنْ عَبْدِ الله بْن عُمَرَ رضي الله عنهما: أنّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 209,
+    "end_word": 269,
+    "text_snippet": "الغريب:\nلبيك: مصدر محذوف العامل، جاء على صيغة ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 270,
+    "end_word": 312,
+    "text_snippet": "إن الحمد: بكسر الهمزة وفتحها، والكسر أجود وأشمل",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 11,
+    "start_word": 313,
+    "end_word": 327,
+    "text_snippet": "سعديك، القول في تصريف لفظه، مثل القول في \"لبيك",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 328,
+    "end_word": 349,
+    "text_snippet": "الرغباء: تقال بالمد والقصر، فإن مدت فُتِحَتِ ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 13,
+    "start_word": 350,
+    "end_word": 517,
+    "text_snippet": "المعنى الإجمالي:\nالتلبية: شعار الحج وعنوان الط",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 14,
+    "start_word": 518,
+    "end_word": 542,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية التلبية في الحج و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 543,
+    "end_word": 568,
+    "text_snippet": "2- الأفضل أن تكون بهذه الصيغة فقط للاتِّباع، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 569,
+    "end_word": 636,
+    "text_snippet": "3- أن التلبية شعار الحج كالتكبير شعار الصلاة ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 637,
+    "end_word": 673,
+    "text_snippet": "4- تقدم في المعنى الإجمالي ما تحتويه التلبية من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 18,
+    "start_word": 674,
+    "end_word": 683,
+    "text_snippet": "5- مادامت التلبية شعار الحج، فينبغي رفع الصوت ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 684,
+    "end_word": 692,
+    "text_snippet": "أما المرأة فتخفض صوتها خشية الفتنة بهذه العبادة",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 693,
+    "end_word": 703,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على مشروعية التلب",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 704,
+    "end_word": 711,
+    "text_snippet": "واختلفوا هل هي ركن، أو واجب، أو سنة؟.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 22,
+    "start_word": 712,
+    "end_word": 727,
+    "text_snippet": "فذهب إلى أنها سنة، الإمامان، الشافعي، وأحمد. و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 728,
+    "end_word": 741,
+    "text_snippet": "وذهب مالك وأصحابه، إلى أنها واجبة، يأثم تاركها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 742,
+    "end_word": 789,
+    "text_snippet": "وذهب أبو حنيفة، والثوري، وأهل الظاهر، وعطاء، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  }
+]

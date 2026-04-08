@@ -1,0 +1,138 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 7,
+    "text_snippet": "‌‌بَابُ الدّعاء بعد التشهد الأخير ⌜1⌝\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 8,
+    "end_word": 40,
+    "text_snippet": "نْ أبي هُريرة رضي الله عنه قال: كانَ رَسُولُ الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 41,
+    "end_word": 61,
+    "text_snippet": "وفي لفظ لمسلم \"إذَا تَشَهَّدَ أحَدُكمْ فَلْيَسْتَعِذ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 62,
+    "end_word": 63,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 4,
+    "start_word": 64,
+    "end_word": 152,
+    "text_snippet": "هذه أدعية عظيمة هامة، لأنها طلب الإعادة من أعظم",
+    "scholarly_function": "narration",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 5,
+    "start_word": 153,
+    "end_word": 156,
+    "text_snippet": "الأحكام المأخوذة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 157,
+    "end_word": 307,
+    "text_snippet": "1- استحباب هذا الدعاء عقب التشهد الأخير كما هو ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 308,
+    "end_word": 309,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 310,
+    "end_word": 363,
+    "text_snippet": "عَنْ عبدِ الله بن عَمْرو بن العاص عَنْ أبي بَكْر ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 364,
+    "end_word": 365,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 10,
+    "start_word": 366,
+    "end_word": 481,
+    "text_snippet": "طلب أبو بكر الصديق من النبي صلى الله عليه وسلم أن",
+    "scholarly_function": "narration",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 11,
+    "start_word": 482,
+    "end_word": 485,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 486,
+    "end_word": 705,
+    "text_snippet": "1- استحباب هذا الدعاء في الصلاة.\n2- حسن الدعاء وت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 706,
+    "end_word": 707,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 708,
+    "end_word": 766,
+    "text_snippet": "عَنْ عَاِئشَةَ رضي الله عنها قَالت: مَا صَلَّى النب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 767,
+    "end_word": 768,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 16,
+    "start_word": 769,
+    "end_word": 813,
+    "text_snippet": "سورة \"النصر\" نزلت قبيل وفاة النبي صلى الله عليه و",
+    "scholarly_function": "narration",
+    "confidence": 0.62
+  }
+]

@@ -1,0 +1,286 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 62,
+    "text_snippet": "تتمة:\nعقد النكاح، كبير خطير، وضرره ونفعه عائد على الأسرة كلها. لذا أرى العمل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "التشاور الأسري في عقد النكاح وجعل الرأي الأخير للزوجة بعد تفهيمها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 63,
+    "end_word": 390,
+    "text_snippet": "‌‌بَابُ لا ينكح مطَلقته ثَلاثاً حتى تنكح زوجاً غيره\nعَن عَاِئشَةَ رضي الله ع",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث امرأة رفاعة وشرح ألفاظه وبيان أن المطلقة ثلاثا لا تحل حتى يطأها زوج آخر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 391,
+    "end_word": 414,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن المراد ببَت الطلاق هنا، الطلقة الأخيرة من الثلاث، ك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن البت في الحديث المراد به الطلقة الثالثة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم عبارة «كما تقدم في شرح [الغريب]» إلى الرجوع إلى الشرح السابق داخل هذا الباب."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 415,
+    "end_word": 465,
+    "text_snippet": "2- أنه لا يحل بعد هذا البت المذكور هنا أن ينكحها زوجها، الذي بت طلاقها إلا بع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_ijma"
+    ],
+    "description_arabic": "اشتراط نكاح الزوج الثاني ووطئه لحل المرأة لزوجها الأول",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 466,
+    "end_word": 496,
+    "text_snippet": "3- المراد بالعسيلية، اللذة الحاصلة بتغيب الحشفة ولو لم يحصل إنزال مَني، وعليه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تفسير العسيلة واشتراط الإيلاج والانتشار لتحقق الحل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 497,
+    "end_word": 519,
+    "text_snippet": "5- أنه لا بأس من التصريح بالأشياء التي يستحي منها للحاجة، فقد أقرها النبي صلى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التصريح بما يستحيا منه عند الحاجة الشرعية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 520,
+    "end_word": 535,
+    "text_snippet": "6- حسن خلق النبي صلى الله عليه وسلم، وطيب نفسه. اللهم ارزقنا اتباعه، والإقتدا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استفادة حسن خلق النبي صلى الله عليه وسلم وطيب نفسه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 536,
+    "end_word": 675,
+    "text_snippet": "اختلاف العلماء:\nموضع ذكر هذا الخلاف هو (باب الطلاق) وبما أن المؤلف لم يأت هنا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تمهيد لمسألة وقوع الطلاق الثلاث بلفظ واحد وسبب عرض الخلاف هنا",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 676,
+    "end_word": 859,
+    "text_snippet": "ذهب جمهور العلماء، ومنهم الأئمة الأربعة، وجمهور الصحابة والتابعين: إلى وقوع ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "editorial_note",
+      "evidence_rational",
+      "evidence_ijma"
+    ],
+    "description_arabic": "مذهب الجمهور في وقوع الطلاق الثلاث ثلاثا وأدلتهم من الحديث وعمل الصحابة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "start_word": 860,
+    "end_word": 1089,
+    "text_snippet": "وذهب جماعة من العلماء: إلى أن موقع الطلاق الثلاث بكلمة واحدة، أو بكلمات لم يت",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "editorial_note",
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "قول من يرى أن الطلاق الثلاث بلفظ واحد يقع واحدة وأدلتهم النقلية والقياسية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 1090,
+    "end_word": 1391,
+    "text_snippet": "وأجاب هؤلاء عن أدلة الجمهور بما يأتي.\nأما حديث ركانة، فقد ورد في بعض ألفاظه ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواب القائلين بالواحدة عن أدلة الجمهور في حديث ركانة وحديث عائشة وعمل الصحابة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 1392,
+    "end_word": 1617,
+    "text_snippet": "قال شيخ الإسلام رحمه الله: وإن طلقها ثلاثا في طهر واحد بكلمة واحدة أو كلمات، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "نقل تقسيم ابن تيمية الأقوال الثلاثة في الطلاق الثلاث وترجيحه للقول الثالث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      65,
+      66,
+      67
+    ],
+    "start_word": 1618,
+    "end_word": 1713,
+    "text_snippet": "وقال رحمه الله تعالى في موضع آخر: والفرق ظاهر بين الطلاق والحلف به، وبين النذ",
+    "primary_function": "cross_reference",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "مثال ابن تيمية في الفرق بين النذر المعلق والحلف بالنذر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مثال مقارن من موضع آخر، وتحتاج معرفة وجه ربطه بمسألة الطلاق الثلاث لفهم المقصود الاستدلالي الكامل."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      68,
+      69
+    ],
+    "start_word": 1714,
+    "end_word": 1742,
+    "text_snippet": "هذه خلاصة سقناها في بيان هذه المسألة الشهيرة الطويلة الأطراف.\nوعلى كلا القولين",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "خاتمة المسألة والتنبيه إلى عدم إثارة الفتن في مسائل الخلاف الفرعية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

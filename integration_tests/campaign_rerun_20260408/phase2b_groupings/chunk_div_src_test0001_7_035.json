@@ -1,0 +1,325 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 101,
+    "text_snippet": "‌‌كِتَابُ اللِّعَان\nاللعان: مشتق من اللعن، وهو الطرد والإبعاد.\nفيكون هذا الكت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "description_arabic": "تعريف اللعان لغة وشرعاً وبيان سبب التسمية وأصول مشروعيته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 102,
+    "end_word": 238,
+    "text_snippet": "حكمته التشريعية:\nالأصل أنه من قذف محصنا بالزنا صريحا فعليه إقامة البينة، وهي أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_rational"
+    ],
+    "description_arabic": "حكمة تشريع اللعان وبيان استثنائه من عموم حد القذف مع تعليل ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 239,
+    "end_word": 678,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ فلانَ بنَ فُلانٍ ق",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث اللعان الأول مع شرحه الإجمالي وبيان وقوع اللعان وآثاره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 679,
+    "end_word": 752,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- بيان اللعان وصفته، وهو: أن من قذف زوجه بالزنا ولم يُقِم ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "صفة اللعان وكيف يدرأ الحد عن الزوج وعن الزوجة عند تمام الأيمان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 753,
+    "end_word": 768,
+    "text_snippet": "2- إذا تم اللعان بينهما. بشروطه فُرِّق بينهما فراق مؤبَّدة. لا تحل له، ولو بعد أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم الفرقة المؤبدة بين المتلاعنين بعد تمام اللعان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 769,
+    "end_word": 795,
+    "text_snippet": "3- أن يوعظ كل من الزوجين عند إرادة اليمين، لعله يرجع إن كان كاذبا، وكذلك بعد تم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب وعظ الزوجين قبل اللعان وبعده وعرض التوبة عليهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 796,
+    "end_word": 851,
+    "text_snippet": "4- خالف هذا الباب غيره من أبواب الفقه بمسائل.\nمنها: أنه لابد أن يقرن مع اليمين ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخصائص الفقهية التي يتميز بها باب اللعان عن غيره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 852,
+    "end_word": 860,
+    "text_snippet": "5- البداءة بالرجل في التحليف، كما هو ترتيب الآيات.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "البداءة بالرجل في ألفاظ اللعان موافقة لترتيب الآيات",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 861,
+    "end_word": 875,
+    "text_snippet": "6- أن الزوج لا يرجع بشيء من صداقه بعد الدخول ولو كانت الفرقة من لعان.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم رجوع الزوج بشيء من الصداق بعد الدخول بسبب اللعان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 876,
+    "end_word": 887,
+    "text_snippet": "7- اللعان خاص بين الزوجين، أما غيرهما فيجرى فيه حكم القذف المعروف.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اختصاص حكم اللعان بالزوجين دون سائر صور القذف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 888,
+    "end_word": 900,
+    "text_snippet": "8- كراهة المسائل التي لم تقع والبحث عنها، لاسيما ما فيه أمارة الفاحشة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كراهة السؤال عن الوقائع قبل حصولها خاصة ما يتصل بالفاحشة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 901,
+    "end_word": 953,
+    "text_snippet": "9- قال العلماء: واختصت المرأة بلفظ (الغضب) لعظم الذنب بالنسبة إليها، على تقدير ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تعليل العلماء لاختصاص المرأة بلفظ الغضب دون اللعن في اللعان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 954,
+    "end_word": 966,
+    "text_snippet": "10- قال ابن دقيق العيد: وفي الحديث دليل على إجراء الأحكام على الظاهر.",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "استدلال ابن دقيق العيد بالحديث على الحكم بالظاهر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28
+    ],
+    "start_word": 967,
+    "end_word": 1094,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بن عُمَر َرَضي الله عَنْهُمَا: أن رجلا رَمَى امرَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث نفي الولد باللعان مع شرحه وبيان التفريق ونسبة الولد للأم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      29,
+      30
+    ],
+    "start_word": 1095,
+    "end_word": 1108,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- ثبوت حكم اللعان حينما يرمي الرَّجل زوجه بالزنا وتكذبه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ثبوت مشروعية اللعان إذا قذف الرجل زوجته وكذبته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 1109,
+    "end_word": 1124,
+    "text_snippet": "2- إذا تم اللعان، انتفى الولد الملاعن على نفسه من أبيه، وصار منسوبا إلى أمه فقط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "انتفاء نسب الولد عن الأب وثبوته للأم بعد تمام اللعان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      32
+    ],
+    "start_word": 1125,
+    "end_word": 1139,
+    "text_snippet": "3- الفرقة المؤبدة الدائمة بين المتلاعنين، فلا تحل له بعد تمام اللعان بحال من ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دوام التحريم والفرقة المؤبدة بين الزوجين بعد اللعان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      33
+    ],
+    "start_word": 1140,
+    "end_word": 1174,
+    "text_snippet": "4- إذا تحقق الزوج أن الولد من غيره، فيجب عليه نفيه، واللعان عليه، إن كذبته. لئل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب نفي الولد واللعان عند تحقق الزوج من انتفاء نسبه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      34
+    ],
+    "start_word": 1175,
+    "end_word": 1218,
+    "text_snippet": "5- الأحسن في رعاية النساء التوسط، فلا يكثر الرجل من الوساوس التي لم تبن على قرائ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاعتدال في الغيرة ورعاية النساء بين الوسوسة والتفريط",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 1219,
+    "end_word": 1492,
+    "text_snippet": "الحديث الثالث\nعَنْ أبي هريرة رضي الله عنه قَالَ: جَاءَ رَجُل مِنْ بَني فزارة إلَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث ولد الفزاري وشرح غريبه ومعناه في دفع الشبهة عن اختلاف اللون",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

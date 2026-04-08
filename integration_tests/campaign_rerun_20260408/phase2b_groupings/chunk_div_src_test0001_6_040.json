@@ -1,0 +1,143 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 74,
+    "text_snippet": "وقته ينتهي بطلوع الفجر، وجزم بها في المغنى، وعليها الحنابلة المتأخرون، وقال ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان وقت انتهاء الوتر بعد الفجر مع ذكر الخلاف ودليل الحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 75,
+    "end_word": 143,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالَتْ: كَانَ رَسُولُ الله صلى الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في صلاة الليل بخمس وترًا مع المعنى الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 144,
+    "end_word": 208,
+    "text_snippet": "فائدة:\nاختلفت الروايات عن عائشة في كيفية صلاة النبي صلى الله عليه وسلم.\nفقد ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الجمع بين روايات عائشة المختلفة في عدد ركعات قيام الليل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 209,
+    "end_word": 231,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- أن النبي صلى الله عليه وسلم قد يجعل صلاته في ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استنباط أن قيام الليل قد يكون ثلاث عشرة ركعة دون ركعتي الفجر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 232,
+    "end_word": 248,
+    "text_snippet": "2- وأنه يوتر في بعض الأحيان من صلاته، بخمس ركعات، لا يجلس إلا في آخر ركعة منه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استنباط جواز الإيتار بخمس ركعات لا يجلس إلا في آخرها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 249,
+    "end_word": 294,
+    "text_snippet": "3- أن المراد، بكون صلاة الليل مثنى مثنى في غير الوتر.\nفإنه صلى الله عليه وسل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن التثنية في صلاة الليل مخصوصة بغير الوتر مع أمثلة صفاته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 295,
+    "end_word": 311,
+    "text_snippet": "4- قال شيخ الإسلام ابن تيمية: أفضل الصلاة بعد المكتوبة قيام الليل، وأوكد ذلك ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل تفضيل قيام الليل وبيان تأكد الوتر وركعتي الفجر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 312,
+    "end_word": 341,
+    "text_snippet": "5- وقال بعد أن ذكر وجوه الوتر الواردة في السنة. والصواب أن الإمام إذا فعل شيئ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترجيح متابعة المأموم للإمام في أي وجه مشروع من وجوه الوتر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بضمير وعبارة سابقة: \"وقال بعد أن ذكر وجوه الوتر الواردة في السنة\"، فتفصيل الوجوه المذكورة خارج الوحدة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 342,
+    "end_word": 403,
+    "text_snippet": "6- قال المحاملى: صلاته صلى الله عليه وسلم ستة أنواع:\nأ- ركعة واحدة. ب- ثلاث ر",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر أنواع صفة الوتر عند المحاملي وصورها المختلفة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "العد المذكور هو ستة أنواع، لكن التفصيل الظاهر في هذه القطعة قد يحتاج مراجعة السياق لضبط تمام الأنواع وترتيبها."
+  }
+]

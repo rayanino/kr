@@ -1,0 +1,594 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتَابُ البيوع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 14,
+    "text_snippet": "البيوع: جمع للبيع. والبيع مصدر، والمصادر لا ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 15,
+    "end_word": 37,
+    "text_snippet": "وتعريفه: لغة- أخذ شيء وإعطاء شيء، فقد أخذوه ",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 38,
+    "end_word": 52,
+    "text_snippet": "ولفظ \" البيع\"، يطلق على الشراء أيضاً، فهو من ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 53,
+    "end_word": 62,
+    "text_snippet": "لكن إذا أطلق البائع، فالمتبادر إلى الذهن أنه ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 63,
+    "end_word": 78,
+    "text_snippet": "أما تعريفه شرعا: فهو: مبادلة مال بمال، لقصد ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 79,
+    "end_word": 83,
+    "text_snippet": "وجوازه ثابت بأصول الأدلة الأربعة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 84,
+    "end_word": 89,
+    "text_snippet": "1- الكتاب {وأحَلَّ الله البَيْعَ} .",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 90,
+    "end_word": 103,
+    "text_snippet": "2- والسنة \" البيعان بالخيار ما لم يتفرقا \" و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 104,
+    "end_word": 108,
+    "text_snippet": "3- وأجمع المسلمون على جوازه",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 109,
+    "end_word": 127,
+    "text_snippet": "4- ويقتضيه القياس، لأن الحاجة داعية إليه، فلا",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 128,
+    "end_word": 178,
+    "text_snippet": "أما الصيغة التي ينعقد بها فالصواب في ذلك ما قا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 179,
+    "end_word": 187,
+    "text_snippet": "والناس يختلفون في مخاطبتهم واصطلاحاتهم، تبعا ل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 13,
+    "start_word": 188,
+    "end_word": 197,
+    "text_snippet": "فكل زمان ومكان، له لغته واصطلاحاته، والمراد من",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 198,
+    "end_word": 226,
+    "text_snippet": "وينفعنا في هذه (الأبواب منٍ المعاملات) أن نفهم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 15,
+    "start_word": 227,
+    "end_word": 243,
+    "text_snippet": "أن الأصل في المعاملات، وأنواع التجارات والمكاس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 244,
+    "end_word": 251,
+    "text_snippet": "فهذا أصل عظيم، يستند إليه في المعاملات والعادا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 17,
+    "start_word": 252,
+    "end_word": 278,
+    "text_snippet": "فمن حرم شيئاً من ذلك، فهو مطالب بالدليل، لأنه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 279,
+    "end_word": 287,
+    "text_snippet": "وهي قاعدة مطردة، مبناها العدل والقسط، ومراعاة ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 288,
+    "end_word": 314,
+    "text_snippet": "ولا تخرج المعاملة عن هذا الأصل العظيم، من الإب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 315,
+    "end_word": 324,
+    "text_snippet": "فهذه معاملات- عند تأملها- نجدها تعود إلى ظلم أ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 21,
+    "start_word": 325,
+    "end_word": 335,
+    "text_snippet": "والمعاملات المحرمة ترجع إلى هذه الضوابط وما حر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 22,
+    "start_word": 336,
+    "end_word": 350,
+    "text_snippet": "فإن الشارع الحكيم الرحيم، جاء بكل ما فيه صلاح،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 23,
+    "start_word": 351,
+    "end_word": 361,
+    "text_snippet": "الحاصل: أن المعاملات المحرمة ترجع إلى ضوابط، أ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 24,
+    "start_word": 362,
+    "end_word": 371,
+    "text_snippet": "الأول: الربا بأنواعه الثلاثة، ربا الفضل، وربا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 372,
+    "end_word": 380,
+    "text_snippet": "الثاني: الجهالة والغرر، ويدخل فيها جزئيات كثير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 381,
+    "end_word": 386,
+    "text_snippet": "الثالث: الخداع والتغرير، ويشمل أنواعاً متعددة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 387,
+    "end_word": 397,
+    "text_snippet": "هذا مجملها وسيأتي- إن شاء الله تعالى- تفصيلها ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 398,
+    "end_word": 399,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 400,
+    "end_word": 443,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رَضىَ عنهما عَنْ رس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 444,
+    "end_word": 445,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 446,
+    "end_word": 483,
+    "text_snippet": "وفي معناه من حديث حَكِيم بن حزام قال: قالَ رسُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 484,
+    "end_word": 484,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 33,
+    "start_word": 485,
+    "end_word": 502,
+    "text_snippet": "بالخيار: بكسر الخاء، اسم مصدر \" اختار \" من الا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 503,
+    "end_word": 524,
+    "text_snippet": "البيعان: بتشديد الياء، يعنى البائع والمشتري أط",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 525,
+    "end_word": 543,
+    "text_snippet": "محقت: مبنى للمجهول، معناه: ذهبت وزالت زيادة كس",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 544,
+    "end_word": 545,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 37,
+    "start_word": 546,
+    "end_word": 579,
+    "text_snippet": "لما كان البيع قد يقع بلا تفكر ولا ترو، فيحصل ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 38,
+    "start_word": 580,
+    "end_word": 592,
+    "text_snippet": "فما دام العاقدان في مجلس العقد، فلكل منهما الخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 593,
+    "end_word": 618,
+    "text_snippet": "فإذا افترقا بأبدانهما، افتراقا يتعارف الناس عل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 619,
+    "end_word": 635,
+    "text_snippet": "ثم ذكر النبي صلى الله عليه وسلم شيئا من أسباب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 41,
+    "start_word": 636,
+    "end_word": 655,
+    "text_snippet": "فأسباب البركة والربح والنماء، هي الصدق في المع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 42,
+    "start_word": 656,
+    "end_word": 667,
+    "text_snippet": "وأما اً سباب المحق والخسارة، فهي كَتم العيوب، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 668,
+    "end_word": 706,
+    "text_snippet": "وهى أسباب حقيقية لبركة الدنيا بالزيادة والشهرة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 44,
+    "start_word": 707,
+    "end_word": 710,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 45,
+    "start_word": 711,
+    "end_word": 723,
+    "text_snippet": "1- إثبات خيار المجلس لكل من البائع والمشترى، م",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 46,
+    "start_word": 724,
+    "end_word": 735,
+    "text_snippet": "2- أن مدته من حين العقد إلى أن يتفرقا من مجلس ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 736,
+    "end_word": 744,
+    "text_snippet": "3- أن البيع يلزم بالتفرق بأبدانهما من مجلس الع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 745,
+    "end_word": 771,
+    "text_snippet": "4- أن البائع والمشترى لو اتفقا على إسقاطه بعد ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 49,
+    "start_word": 772,
+    "end_word": 790,
+    "text_snippet": "5- الفرق بين حق الله تعالى ومحض حق الآدمي.\nفما",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 50,
+    "start_word": 791,
+    "end_word": 800,
+    "text_snippet": "وما كان للآدمي، جاز برضاه المعتبر، لأن الحق لا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 51,
+    "start_word": 801,
+    "end_word": 816,
+    "text_snippet": "6- لم يحد الشارع للتفرق حداً، فمرجعه إلى العرف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 817,
+    "end_word": 836,
+    "text_snippet": "فالخروج من البيت الصغير، أو الصعود إلى أعلاه، ",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 837,
+    "end_word": 870,
+    "text_snippet": "7- حرم العلماء التفرق، خشية الفسخ، لما روى أهل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 54,
+    "start_word": 871,
+    "end_word": 893,
+    "text_snippet": "8- أن الصدق في المعاملة وبيان ما في السلعة سب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 55,
+    "start_word": 894,
+    "end_word": 909,
+    "text_snippet": "وهذا شيء محسوس في الدنيا، فإن الذين تنجح تَجار",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 56,
+    "start_word": 910,
+    "end_word": 922,
+    "text_snippet": "ما خسرت تجارة وفلست، إلا بسبب الخيانة. وما عند",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 57,
+    "start_word": 923,
+    "end_word": 924,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 58,
+    "start_word": 925,
+    "end_word": 976,
+    "text_snippet": "اختلف العلماء في ثبوت خيار المجلس:\nفذهب جمهور",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 977,
+    "end_word": 997,
+    "text_snippet": "ودليلهم هذه الأحاديث الصحيحة الصريحة، كحديثي ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 998,
+    "end_word": 1008,
+    "text_snippet": "وذهب أبو حنيفة، ومالك وأكثر أصحابهما إلى عدم ث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1009,
+    "end_word": 1020,
+    "text_snippet": "واعتذروا عن العمل بهذه الأحاديث بأعذار ضعيفة، ",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1021,
+    "end_word": 1024,
+    "text_snippet": "ومن تلك الاعتذارات.\nأولاً:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1025,
+    "end_word": 1033,
+    "text_snippet": "أن الحديث على خلاف عمل أهل المدينة، وعملهم حج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1034,
+    "end_word": 1164,
+    "text_snippet": "وردّ بأن كثيراً من أهل المدينة، يرون الخيار، و",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1165,
+    "end_word": 1174,
+    "text_snippet": "ثانياْ: أن المراد بـ \" المتبايعان \" في الحديث،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1175,
+    "end_word": 1180,
+    "text_snippet": "والمراد، بالخيار، قبول المشترى أو رده.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1181,
+    "end_word": 1252,
+    "text_snippet": "وردَ بأن تسمية السائم بائعا مجاز، والأصل الحقي",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1253,
+    "end_word": 1264,
+    "text_snippet": "ثالثا: أن المراد بالتفرق، تفرق الأقوال بين الب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1265,
+    "end_word": 1293,
+    "text_snippet": "ورد بأنه خلاف الظاهر من الحديث، بل خلاف نص بع",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1294,
+    "end_word": 1305,
+    "text_snippet": "وأيضاً الإيجاب والقبول، لم يحصل بهما افتراق، و",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1306,
+    "end_word": 1325,
+    "text_snippet": "وهذه نماذج من محاولتهم رد الحديث، سقت منها هذه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1326,
+    "end_word": 1330,
+    "text_snippet": "كما قال ابن عبد البر.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.58
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1331,
+    "end_word": 1387,
+    "text_snippet": "وقد بالغ العلماء بالرد عليهم. حتى نقل عن بعضه",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  }
+]

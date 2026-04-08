@@ -1,0 +1,762 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 36,
+    "text_snippet": "1- أن يبين قدر المسلم فيه بمكياله أو ميزانه الشرع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 37,
+    "end_word": 53,
+    "text_snippet": "2- أن يكون مؤجلا، ولابد في الأجل أن يكون معلوما،",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 54,
+    "end_word": 74,
+    "text_snippet": "3- أن يقبض الثمن بمجلس العقد، وهذا مأخوذ من قول",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 3,
+    "start_word": 75,
+    "end_word": 106,
+    "text_snippet": "4- أن يسلم في الذمة لا في الأعيان، وهذا هو الذي ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 107,
+    "end_word": 131,
+    "text_snippet": "وبهذا تبين أن السلم لم يتناوله النهى في قوله \" و",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 132,
+    "end_word": 143,
+    "text_snippet": "وقد شدد فيه بعض الفقهاء بذكر قيود وحدود، ليس علي",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 6,
+    "start_word": 144,
+    "end_word": 147,
+    "text_snippet": "‌‌بَابُ الشروط في البَيْع\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 148,
+    "end_word": 172,
+    "text_snippet": "والأصل في الشروط، الصحة، والتزامها لمن شرطت عليه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 173,
+    "end_word": 304,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رَضِ الله عَنْهَا قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 305,
+    "end_word": 317,
+    "text_snippet": "الغريب:\nكاتبت: مشتقة من الكتب، وهو الجمع، لأن نج",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 318,
+    "end_word": 327,
+    "text_snippet": "أواق: الأوقية أربعون درهماً، وتقدم ضبطها بالعملة ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 328,
+    "end_word": 344,
+    "text_snippet": "وولاؤك لي: الولاء، هو النصرة، لكن خص في الشرع بال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 345,
+    "end_word": 347,
+    "text_snippet": "فما بال: حال.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 348,
+    "end_word": 359,
+    "text_snippet": "في كتاب الله: أي في شرعه الذي كتبه على العباد وحك",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 360,
+    "end_word": 392,
+    "text_snippet": "وإن كان مائة شرط: لم يقصد بالمائة التحديد، وإنما ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 393,
+    "end_word": 426,
+    "text_snippet": "أحق وأوثق: جاءا على صيغة التفضيل وليسا علىٍ بابهما",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 427,
+    "end_word": 441,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث جليل عظيم، لما اشتمل عل",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 17,
+    "start_word": 442,
+    "end_word": 454,
+    "text_snippet": "ولقد أفرده بعض العلماء بالتصنيف، واستخرجوا منه ما",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 18,
+    "start_word": 455,
+    "end_word": 461,
+    "text_snippet": "ونحن نجمل أهم الأحكام التي يدل عليها.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 462,
+    "end_word": 616,
+    "text_snippet": "فملخص القصة، أن أمة لأحد بيوت أهل المدينة يقال له",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 617,
+    "end_word": 722,
+    "text_snippet": "فقام النبي صلى الله عليه وسلم فخطب في الناس فحمد ",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 723,
+    "end_word": 750,
+    "text_snippet": "ما يستفاد من الحديث:\n1- مشروعية مكاتبة العبد، لأن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 751,
+    "end_word": 758,
+    "text_snippet": "قال تعالى: {فَكاتبوهم إنْ عَلِمتُم فيهم خَيْراً} ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 759,
+    "end_word": 786,
+    "text_snippet": "2- أن الكتابة تكون مؤجلة على أقساط يدفعها العبد ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 787,
+    "end_word": 807,
+    "text_snippet": "3- جواز تعجيل تسليم الأقساط المؤجلة لتخليص المكات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 25,
+    "start_word": 808,
+    "end_word": 828,
+    "text_snippet": "4- جاز بيع المكاتب، لأن النبي صلى الله عليه وسلم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 26,
+    "start_word": 829,
+    "end_word": 844,
+    "text_snippet": "وقد منعه بعض العلماء، ويحتاجون إلى جواب عن هذا ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 27,
+    "start_word": 845,
+    "end_word": 853,
+    "text_snippet": "وممن قال بجواز بيعه، الإمام أحمد رحمه الله تعالى\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 854,
+    "end_word": 913,
+    "text_snippet": "5- أن شرط الولاء في البيع باطل، لأن الولاء للمعتق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 914,
+    "end_word": 951,
+    "text_snippet": "6- أخذ العلماء من هذا الحديث أن البائع إذا اشترط ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 952,
+    "end_word": 1099,
+    "text_snippet": "7- أشكل على العلماء إذْنُ النبي صلى الله عليه وسل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1100,
+    "end_word": 1189,
+    "text_snippet": "اعتراض: قد يرد على هذا التخريج فيقال: إذا كان هذا",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1190,
+    "end_word": 1200,
+    "text_snippet": "8- استحباب تبيين الأحكام عند المناسبات، وأن يكون ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1201,
+    "end_word": 1216,
+    "text_snippet": "9- افتتاح الخطب، بحمد الله، والثناء عليه، لتحل به",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1217,
+    "end_word": 1234,
+    "text_snippet": "10- استحباب إتيان الخطيب\" أما بعد\" لأنها تشعر بان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1235,
+    "end_word": 1241,
+    "text_snippet": "11- أنه يراد بكتاب الله، أحكامه وشرعه.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1242,
+    "end_word": 1255,
+    "text_snippet": "12- أن كل شرط لم يأذن الله به فهو باطل مردود، وإن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1256,
+    "end_word": 1266,
+    "text_snippet": "13- ليس المقصود بالمائة الشرط، التحديد فإن زيد عل",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1267,
+    "end_word": 1294,
+    "text_snippet": "وإنما المراد المبالغة والتعظيم كقوله تعالى في حق ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1295,
+    "end_word": 1315,
+    "text_snippet": "14- أن أقضية الله وأحكامه، وشروطه، وحدوده، هي المت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1316,
+    "end_word": 1329,
+    "text_snippet": "15- أن الولاء للمعتق خاصة، فهو لحمة كلحمة النسب، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1330,
+    "end_word": 1347,
+    "text_snippet": "16- أن العتق سبب الولاء بأي طريق كان، سواء أكان ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1348,
+    "end_word": 1379,
+    "text_snippet": "17- أن الشروط التي على خلاف مقتضى العقد، فاسدة بن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1380,
+    "end_word": 1388,
+    "text_snippet": "ملخص من كلام ابن تيمية حول الشروط الصحيحة، والفا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1389,
+    "end_word": 1528,
+    "text_snippet": "ذكر رحمه الله أن الذي يمكن ضبطه منها قولان:\nأحدهم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1529,
+    "end_word": 1580,
+    "text_snippet": "وهؤلاء الفرق الثلاث يخالفون أهل الظاهر ويوسعون ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1581,
+    "end_word": 1605,
+    "text_snippet": "والحجة الثانية أنهم يقيسون جميع الشروط التي تنافي",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1606,
+    "end_word": 1629,
+    "text_snippet": "فيعتبر تغييرها تغييرا لما أوجبه الشرع، بمنزلة تغيي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1630,
+    "end_word": 1716,
+    "text_snippet": "والقول الثاني: أن الأصل في العقود والشروط الجواز ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1717,
+    "end_word": 1762,
+    "text_snippet": "وقد جاء في الكتاب والسنة الأمر بالوفاء بالعهود وا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1763,
+    "end_word": 1798,
+    "text_snippet": "وقد روى أبو داود عن أبي هريرة قال: قال رسول اللَه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1799,
+    "end_word": 1862,
+    "text_snippet": "وهذا المعنى هو الذي يشهد له الكتاب والسنة، وهو حق",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1863,
+    "end_word": 1864,
+    "text_snippet": "الحديث الثاني\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1865,
+    "end_word": 1937,
+    "text_snippet": "عَنْ جَابِرِ بن عَبْدِ الله رضي الله عنهما: أنهُ ك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1938,
+    "end_word": 1956,
+    "text_snippet": "الغريب:\nفأعيا: أعيا الرجل أو البعير، إذا تعب وَكَ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1957,
+    "end_word": 1963,
+    "text_snippet": "أن يسيبه: أن يطلقه، ليذهب على وجهه.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1964,
+    "end_word": 1971,
+    "text_snippet": "حُمْلانه: بضم الحاء وسكون الميم، أي حمله البائع.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1972,
+    "end_word": 1976,
+    "text_snippet": "أتراني: بضم التاء، أي أتظنني.\n",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1977,
+    "end_word": 1989,
+    "text_snippet": "ماكستك: المماكسة: - المكالمة في البيع والشراء، لط",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1990,
+    "end_word": 2090,
+    "text_snippet": "المعنى الإجمالي:\nكان جابر بن عبد الله رضى الله عن",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2091,
+    "end_word": 2153,
+    "text_snippet": "فطمع جابر رضى الله عنه بفضل الله وعلم أن لا نقص ع",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2154,
+    "end_word": 2199,
+    "text_snippet": "فلما\nوصلوا، أتاه بالجمل، وأعطاه النبي صلى الله عل",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2200,
+    "end_word": 2225,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الأحسن للقائد والأمير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2226,
+    "end_word": 2253,
+    "text_snippet": "2- رحمة النبي صلى الله عليه وسلم، ورأفته بأمته.\nف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2254,
+    "end_word": 2284,
+    "text_snippet": "3- معجزة كبرى من معجزاته صلى الله عليه وسلم ناطقة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2285,
+    "end_word": 2291,
+    "text_snippet": "4- جواز البيع والشراء من الإمام لرعيته.\n",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2292,
+    "end_word": 2323,
+    "text_snippet": "5- أن الامتناع على النبي صلى الله عليه وسلم في مث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2324,
+    "end_word": 2367,
+    "text_snippet": "ومثلها قصة بريرة، حين شفع إليها أن ترجع إلى زوجه",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2368,
+    "end_word": 2417,
+    "text_snippet": "6- أخذ من هذا الحديث \" ابن رجب \" رحمه الله، قاعدة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2418,
+    "end_word": 2428,
+    "text_snippet": "7- جواز البيع واستثناء نفع المبيع، إذا كان النفع ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2429,
+    "end_word": 2443,
+    "text_snippet": "وهذه المسألة جزء من القاعدة السابقة. وفى هذا خلاف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2444,
+    "end_word": 2445,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2446,
+    "end_word": 2489,
+    "text_snippet": "اختلف العلماء: - هل يجوز للبائع أن يشترط نفعا مع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2490,
+    "end_word": 2514,
+    "text_snippet": "فذهب الأئمة الثلاثة، أبو حنيفة، ومالك، والشافعي. ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2515,
+    "end_word": 2538,
+    "text_snippet": "وذهب الإمام \" أحمد \" إلى جواز شرط واحد فقط، ووافق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2539,
+    "end_word": 2565,
+    "text_snippet": "وعن الإمام أحمد رواية أخرى: أن البيع صحيح مع الشر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2566,
+    "end_word": 2583,
+    "text_snippet": "واختار هذه الرواية شيخ الإسلام والمسلمين أبو الع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2584,
+    "end_word": 2599,
+    "text_snippet": "ونصرها وأكدها شيخنا العلامة المحقق \" عبد الرحمن ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2600,
+    "end_word": 2612,
+    "text_snippet": "وهذا ما أعتقد صحته، كما يأتي تبيين أدلة العلماء، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2613,
+    "end_word": 2615,
+    "text_snippet": "أدلة المذاهب السابقة:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2616,
+    "end_word": 2686,
+    "text_snippet": "استدل الأئمة الثلاثة على ما ذهبوا إليه، بما رواه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2687,
+    "end_word": 2735,
+    "text_snippet": "وفسروا الشرطين في البيع، والشرط فيه بمثل هذه الشر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2736,
+    "end_word": 2767,
+    "text_snippet": "وأجابوا عن حديث جابر الذي معنا، بأن المبايعة ليس",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2768,
+    "end_word": 2827,
+    "text_snippet": "وأجاب بعضهم إلى أن اختلاف الرواة في ألفاظ حديث ج",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2828,
+    "end_word": 2848,
+    "text_snippet": "أما أدلة الذين يرون جواز اشتراط البائع المنافع ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2849,
+    "end_word": 2874,
+    "text_snippet": "منها: قوله عليه الصلاة والسلام: \" المسلمون عند ش",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2875,
+    "end_word": 2897,
+    "text_snippet": "ومنها: أنه صلى الله عليه وسلم \" نهى عن الثنيا إلا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2898,
+    "end_word": 2914,
+    "text_snippet": "ومنها- حديث جابر، الذي معنا، إذ شرط على النبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 88,
+    "start_word": 2915,
+    "end_word": 2943,
+    "text_snippet": "وليس في هذه الشروط شيء من المحاذير، كالربا، والغ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 89,
+    "start_word": 2944,
+    "end_word": 2984,
+    "text_snippet": "وأجابه عن أدلة المفسدين للعقد مع الشرط، بأن حديث ",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2985,
+    "end_word": 2986,
+    "text_snippet": "اختلاف العلماء:\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2987,
+    "end_word": 3014,
+    "text_snippet": "واختلف العلماء في تفسير الشرطين. وأحسن ما فُسرا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 92,
+    "start_word": 3015,
+    "end_word": 3080,
+    "text_snippet": "فهذا هو المعنى المطابق لمعنى الحديث، وهو نظير الب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 93,
+    "start_word": 3081,
+    "end_word": 3124,
+    "text_snippet": "وأما حديث جابر، فلا يرد عليه أنه قصد به الهبة، لا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 94,
+    "start_word": 3125,
+    "end_word": 3210,
+    "text_snippet": "وأيضاً فإن النبي صلى الله عليه وسلم أقره على شرطه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  }
+]

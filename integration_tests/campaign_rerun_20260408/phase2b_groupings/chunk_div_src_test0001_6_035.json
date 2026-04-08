@@ -1,0 +1,43 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 0,
+    "end_word": 222,
+    "text_snippet": "‌‌بَابُ كَيفية الصَّلَاة على النبي صلى الله عليه وسلم ⌜1⌝\nالحديث الأول\nعَنْ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition"
+    ],
+    "description_arabic": "بيان صيغة الصلاة على النبي صلى الله عليه وسلم مع الحديث وشرحه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 223,
+    "end_word": 265,
+    "text_snippet": "اختلاف العلماء:\nذهب الإمامان، الشافعي، وأحمد، إلى وجوب الصلاة على النبي صلى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "structural_transition"
+    ],
+    "description_arabic": "ذكر قول الشافعي وأحمد بوجوب الصلاة على النبي في التشهد الأخير والاستدلال له",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

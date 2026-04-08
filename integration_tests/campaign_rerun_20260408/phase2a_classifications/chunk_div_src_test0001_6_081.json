@@ -1,0 +1,338 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 20,
+    "text_snippet": "وأما غير العقار، فضرره يسير. يمكن التخلص منه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 1,
+    "start_word": 21,
+    "end_word": 21,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 22,
+    "end_word": 63,
+    "text_snippet": "يرى بعض العلماء- ومنهم الفقهاء المتابعون للمش",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 64,
+    "end_word": 71,
+    "text_snippet": "والشفيع يريد انتزاع الشقص بغير رضا المشترى فحا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 4,
+    "start_word": 72,
+    "end_word": 82,
+    "text_snippet": "واستأنسوا على ذلك بأحاديث ضعيفة كحديث \" الشفعة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 5,
+    "start_word": 83,
+    "end_word": 96,
+    "text_snippet": "والحق أنه يرجع في ذلك إلى العرف في التحديد، وي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 97,
+    "end_word": 98,
+    "text_snippet": "فائدة ثانية:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 99,
+    "end_word": 112,
+    "text_snippet": "يحرم التحيل لإسقاط الشفعة ولإبطال حق مسلم، كما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 113,
+    "end_word": 154,
+    "text_snippet": "وقد يعمد من لا يراعى حدود دينه وحقوق إخوانه، إ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 9,
+    "start_word": 155,
+    "end_word": 171,
+    "text_snippet": "فهذه حيل لا تسقط فيها الشفعة عند الأئمة الأرب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 10,
+    "start_word": 172,
+    "end_word": 222,
+    "text_snippet": "وقال شيخ الإسلام: الاحتيال على إسقاط الشفعة ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 223,
+    "end_word": 224,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 225,
+    "end_word": 236,
+    "text_snippet": "أجمع العلماء على ثبوت الشفعة في العقارات التي ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 237,
+    "end_word": 240,
+    "text_snippet": "واختلفوا فيما سوى ذلك.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 14,
+    "start_word": 241,
+    "end_word": 252,
+    "text_snippet": "فذهب أبو حنيفة وأصحابه، إلى ثبوتها في كل شيء م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 253,
+    "end_word": 266,
+    "text_snippet": "مستدلين على ذلك بصدر الحديث الذي معنا، قضى بالش",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 16,
+    "start_word": 267,
+    "end_word": 285,
+    "text_snippet": "وبما رواه الطحاوى عن جابر قال: \" قضى رسول الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 286,
+    "end_word": 297,
+    "text_snippet": "وعندهم، أن الشفعة جاءت لإزالة الضرر الحاصل بالش",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 18,
+    "start_word": 298,
+    "end_word": 309,
+    "text_snippet": "وبعض العلماء- كالقاضي عياض وابن دقيق العيد- عَ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 310,
+    "end_word": 330,
+    "text_snippet": "وذهب مالك، وأهل المدينة، والشافعي، وأحمد، وإسح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 331,
+    "end_word": 338,
+    "text_snippet": "فإذا وقعت حدوده، وصُرِّفت طرقه، فلا شفعة عندهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 21,
+    "start_word": 339,
+    "end_word": 347,
+    "text_snippet": "وهو مروىُ عن عمر، وعثمان، وعلىّ رضى الله عنهم.",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 22,
+    "start_word": 348,
+    "end_word": 360,
+    "text_snippet": "واستدلوا على ذلك بحديث الباب \" فإذا وقعت الحد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 361,
+    "end_word": 369,
+    "text_snippet": "قال الإمام أحمد: إنه أصح ما روى في الشفعة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 24,
+    "start_word": 370,
+    "end_word": 396,
+    "text_snippet": "وفي البخاري عن جابر \" إنما جعل رسول الله صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 397,
+    "end_word": 424,
+    "text_snippet": "وفي سنن أبي داود عن أبى هريرة قال: قال رسول ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 425,
+    "end_word": 457,
+    "text_snippet": "ولأن الشفعة إنما أثبتها الشارع لإزالة الضرر ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 458,
+    "end_word": 477,
+    "text_snippet": "أما غير العقارات المشتركة، فلا توجد فيها إلا ن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 478,
+    "end_word": 496,
+    "text_snippet": "والجار ليس عنده هذه الأضرار مادام غير مشارك، و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 497,
+    "end_word": 522,
+    "text_snippet": "وذهب بعض العلماء- ومنهم الحنفية- إلى ثبوتها لل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 30,
+    "start_word": 523,
+    "end_word": 545,
+    "text_snippet": "ويستدلون على ذلك بما رواه البخاري عن أبي رافع ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 546,
+    "end_word": 567,
+    "text_snippet": "وبما رواه أبو داود، والنسائي، والترمذى عن سمرة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 568,
+    "end_word": 599,
+    "text_snippet": "وروى أصحاب السنن الأربعة عن جابر قال: قال رسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 600,
+    "end_word": 634,
+    "text_snippet": "وقالوا: إن الضرر الذي قصد الشارع رفعه، هو ضرر ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 635,
+    "end_word": 641,
+    "text_snippet": "وللجار حرمة وحق، حث الله عليهما ورسوله.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 35,
+    "start_word": 642,
+    "end_word": 648,
+    "text_snippet": "فأمر بإكرامه، ونَفَى الإيمان عمن أساء إليه.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 36,
+    "start_word": 649,
+    "end_word": 674,
+    "text_snippet": "فنظر قوم إلى أدلة كل من الفريقين. فرأوا أن كلا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 675,
+    "end_word": 708,
+    "text_snippet": "وقد علموا أن سنة النبي صلى الله عليه وسلم لا ت",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 38,
+    "start_word": 709,
+    "end_word": 717,
+    "text_snippet": "لذا فقد توسطوا بين القولين، وجمعوا بين الدليلي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 39,
+    "start_word": 718,
+    "end_word": 737,
+    "text_snippet": "إن منطوق حديث \" فإذا وقعت الحدود وصرفت الطرق ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 40,
+    "start_word": 738,
+    "end_word": 769,
+    "text_snippet": "وإن منطوق حديث: \" الجار أحق بشفعة جاره، ينتظر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 41,
+    "start_word": 770,
+    "end_word": 800,
+    "text_snippet": "وممن يرى هذا الرأي، علماء البصرة، وفقهاء المحدث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  }
+]

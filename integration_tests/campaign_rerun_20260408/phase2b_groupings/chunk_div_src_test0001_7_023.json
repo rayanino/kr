@@ -1,0 +1,207 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 135,
+    "text_snippet": "‌‌بَابُ الغسْل لِلمُحرم\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ حُنَيْنِ: أنَّ عَبْدَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "الحديث الدال على جواز غسل المحرم رأسه مع بيان لفظ القرنان.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 136,
+    "end_word": 212,
+    "text_snippet": "الغريب:\nالأبواء: بفتح الهمزة وسكون الباء الموحدة ممدوداً، موضع بين مكة والمدينة",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح الألفاظ الغريبة الواردة في الحديث وبيان معانيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 213,
+    "end_word": 399,
+    "text_snippet": "المعنى الإجمالي:\nاختلف عبد الله بن عباس والمسور بن مخرمة رضي الله عنهم، في جوا",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "تلخيص الخلاف في غسل المحرم رأسه ووجه الاستدلال من القصة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 400,
+    "end_word": 420,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز غسل المحرم رأسه، ويستوي فيه أن يكون ترفهاً أو تنظفاً",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الحكم المستفاد بجواز غسل المحرم رأسه على مختلف المقاصد والأحوال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 421,
+    "end_word": 433,
+    "text_snippet": "2- جواز إمرار اليد على شعر الرأس بالغسل إذا لم ينتف شعراً، ويسقطه.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز إمرار اليد على الشعر عند الغسل بشرط ألا ينتف الشعر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 434,
+    "end_word": 452,
+    "text_snippet": "3- في الحديث دليل على جواز المناظرة في مسائل الاجتهاد والاختلاف فيها، والرجوع إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية المناظرة في مسائل الاجتهاد والرجوع إلى أهل العلم عند الخلاف.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 453,
+    "end_word": 466,
+    "text_snippet": "4- قبول خبر الواحد في المسائل الدينية. وأن العمل به سائغ شائع عند الصحابة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات قبول خبر الواحد والعمل به في المسائل الدينية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 467,
+    "end_word": 477,
+    "text_snippet": "5- الرجوع إلى النصوص الشرعية عند الاختلاف، وترك الاجتهاد والقياس عندها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تقديم النصوص الشرعية عند النزاع وترك القياس المخالف لها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 478,
+    "end_word": 489,
+    "text_snippet": "6- جواز السلام على المتطهر في وضوء أو غسل، ومحادثته عند الحاجة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز السلام على المتطهر والكلام معه عند الحاجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 490,
+    "end_word": 500,
+    "text_snippet": "7- استحباب التستر وقت الغسل، فإن خاف من ينظر إليه وجب.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "استحباب التستر حال الغسل، ويجب عند خوف اطلاع الغير.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 501,
+    "end_word": 506,
+    "text_snippet": "8- جواز الاستعانة في الطهارة بالغير.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الاستعانة بالغير في أعمال الطهارة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 507,
+    "end_word": 533,
+    "text_snippet": "9- سؤال ابن عباس أبا أيوب، يفيد أن عنده علماً نقلياً عن غسل المحرم، وأن أبا أي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استفادة أن أبا أيوب كان عنده نقل خاص في كيفية غسل المحرم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 534,
+    "end_word": 561,
+    "text_snippet": "10- قال شيخٍ الإسلام: ويستحب الغسل للإحرام، ولو كانت (المحرمة) نفساء أو حائضاً",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل اختيار شيخ الإسلام في استحباب الغسل للإحرام وجواز التنظيف للمحرم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "نسبة القول إلى «شيخٍ الإسلام» غير معينة داخل هذه الوحدة، فتحتاج معرفة المقصود من السياق الخارجي."
+  }
+]

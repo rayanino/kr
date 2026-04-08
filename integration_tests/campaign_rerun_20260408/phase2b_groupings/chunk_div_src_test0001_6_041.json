@@ -1,0 +1,155 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 52,
+    "text_snippet": "‌‌بَابُ الذكر عَقب الصَّلاة\nللدعاء والاستغفار بعد الصلاة، حِكَمٌ عظيمة، وفوائد جل",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان حِكَم الدعاء والاستغفار والذكر بعد الصلاة ووجه استجابة الدعاء حينئذ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4
+    ],
+    "start_word": 53,
+    "end_word": 144,
+    "text_snippet": "الحديث الأول\nعَنْ ابْن عَبَّاس رضي الله عنهما أنَّ رَفْعَ الصوت بالذِّكْرِ حِين يَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "إثبات رفع الصوت بالذكر بعد الصلاة المفروضة وشرح معنى الحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 145,
+    "end_word": 220,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الذكر بعد الصلاة، لما فيه من الفوائد الجليلة والمتا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الأول في استحباب الذكر والجهر به وبيان فهم ابن عباس للحال",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعتمد بعض الفوائد على معرفة متن الحديث الأول وسياقه، ولا سيما الاحتمالات المتعلقة بحضور ابن عباس."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 221,
+    "end_word": 687,
+    "text_snippet": "الحديث الثاني\nعَنْ وَرَّادٍ مَوْلَى الْمُغِيرةِ بْنِ شُعْبَةَ قال: أمْلَى عَلَىَّ ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث الذكر والدعاء بعد المكتوبة مع شرح غريبه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 688,
+    "end_word": 890,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب هذا الدعاء عقب الصلوات المكتوبات.\n2- اشتمل هذا الد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثاني في استحباب الدعاء بعد الصلاة وما تضمنه من التوحيد والآداب",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفوائد مفهومة إجمالاً، لكن بعض الإشارات مثل هذا الدعاء وهذه الخصال تعود إلى متن الحديث السابق."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 891,
+    "end_word": 1208,
+    "text_snippet": "الحديث الثالث\nعَنْ سُمَىّ مَولى أبى بَكر عَبْدِ الرَّحْمنِ بْنِ الحارثِ بْنِ هِشَام",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث تسبيح الفقراء بعد الصلاة وشرح معناه وسبب وروده",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 1209,
+    "end_word": 1433,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- رغبة الصحابة رضى الله عنهم الشديدة في الخير، وتنافسهم بالأع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثالث في فضل الذكر بعد الصلاة والتنافس في الخيرات وقسمة الرزق",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "توجد إحالات إلى الذكر المذكور في هذا الحديث وإلى بعض الروايات، مما يجعل فهم بعض التفصيلات أكمل بالرجوع إلى متن الحديث."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      15,
+      16
+    ],
+    "start_word": 1434,
+    "end_word": 1598,
+    "text_snippet": "الذكر بعد الصلاة\nوهو فقرات من كلام شيخ الإسلام ابن تيمية، قال رحمه الله تعالى: في",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "rule_statement"
+    ],
+    "description_arabic": "نقول ابن تيمية في أذكار ما بعد الصلاة وفضل الأذكار النبوية على غيرها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 1599,
+    "end_word": 1690,
+    "text_snippet": "والذكر من أفضل العبادات، ولذا قالت عائشة: \" الذكر بعد الانصراف من الصلاة هو مثل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان فضل الذكر بعد الصلاة وأنه غير واجب وآداب الإمام والمأموم بعد السلام",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفتتح الكلام بالواو مع استمرار موضوع كلام ابن تيمية، وفهم نسبته والسياق العام يستفيد من الوحدة السابقة."
+  }
+]

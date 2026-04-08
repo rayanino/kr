@@ -1,0 +1,346 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 37,
+    "text_snippet": "في الواسع من ذلك للبيع والشراء على وجه لا يضيق ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 1,
+    "start_word": 38,
+    "end_word": 40,
+    "text_snippet": "‌‌بَابُ المساقاة والمزارعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 41,
+    "end_word": 47,
+    "text_snippet": "المساقاة: مأخوذة من أهم أعمالها، وهو السقي.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 48,
+    "end_word": 59,
+    "text_snippet": "وهى شرعاً: دفع شجر لمن يسقيه ويعمل عليه، بجز",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 60,
+    "end_word": 75,
+    "text_snippet": "و\" المزارعة \" مأخوذة من الزراعة: وهي دفع أرض ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 76,
+    "end_word": 116,
+    "text_snippet": "و\" المساقاة \" و \" المزارعَة \" من عقود المشارك",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 6,
+    "start_word": 117,
+    "end_word": 135,
+    "text_snippet": "وبهذا يعلم، أنهما أبعد عن الغرر والجهالة، من ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 136,
+    "end_word": 157,
+    "text_snippet": "لا كما قال بعضهم: أنهما على خلاف القياس لظنه",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 158,
+    "end_word": 159,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 160,
+    "end_word": 185,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 186,
+    "end_word": 208,
+    "text_snippet": "الغريب:\nشطر ما يخرج منها: الشطر، يطلق على معا",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 209,
+    "end_word": 321,
+    "text_snippet": "المعنى الإجمالي:\nبلدة \" خيبر \" بلدة زراعية، ك",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 322,
+    "end_word": 405,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جواز المزارعة والمساق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 406,
+    "end_word": 468,
+    "text_snippet": "اختلاف العلماء في المساقاة والمزارعة:\nتقدم أن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 469,
+    "end_word": 475,
+    "text_snippet": "فعمدته في رد النص فيها، مخالفتها للأصول.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 15,
+    "start_word": 476,
+    "end_word": 511,
+    "text_snippet": "وذهب الظاهرية، إلى أنها لا تجوز إلا في النخل ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 512,
+    "end_word": 542,
+    "text_snippet": "وهؤلاء تحرزوا من امتداد الحكم إلى سائر الشجر ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 543,
+    "end_word": 567,
+    "text_snippet": "وذهب الإمام \" أحمد \" إلى جوازها في كل ماله ثم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 568,
+    "end_word": 586,
+    "text_snippet": "وذهب \" مالك \" إلى جوازها في كل ما له أصل ثابت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 19,
+    "start_word": 587,
+    "end_word": 629,
+    "text_snippet": "والحق الذي لأشك فيه أن الحكم شامل لكل ما فيه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 20,
+    "start_word": 630,
+    "end_word": 674,
+    "text_snippet": "وتقدم أن رد النصوص الصحيحة بدعوى مخالفتها للأ",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 675,
+    "end_word": 689,
+    "text_snippet": "واختلفوا في \" المزارعة \" فذهب الأئمة الثلاثة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 690,
+    "end_word": 698,
+    "text_snippet": "ودليلهم على ذلك. أحاديث رويت عن رافع بن خديج.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 23,
+    "start_word": 699,
+    "end_word": 762,
+    "text_snippet": "منها كنا نخابر ⌜1⌝ علي عهد رسول الله صلى الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 763,
+    "end_word": 787,
+    "text_snippet": "وعن ابن عمر قال: [ما كنا نرى بالمزارعة بأسا، ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 788,
+    "end_word": 846,
+    "text_snippet": "ولمسلم عن حنظلة بن قيس قال: سألت رافع بن خديج",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 847,
+    "end_word": 868,
+    "text_snippet": "وكذلك صح عن جابر أن النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 869,
+    "end_word": 910,
+    "text_snippet": "وما روى أحمد ومسلم عن جابر أيضاً قال: [كنا نخ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 911,
+    "end_word": 924,
+    "text_snippet": "فهذه الأحاديث هي حجة الذين يذهبون إلى عدم جوا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 29,
+    "start_word": 925,
+    "end_word": 954,
+    "text_snippet": "وهذه الأحاديث تؤيد أصلهم الذي استندوا عليه في",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 955,
+    "end_word": 967,
+    "text_snippet": "وذهب الإمام أحمد رحمه الله تعالى إلى جوازها و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 968,
+    "end_word": 1097,
+    "text_snippet": "وسبق الإمام أحمد إلى القول بجوازها، طائفةْ من",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1098,
+    "end_word": 1107,
+    "text_snippet": "وتابع الإمام أحمد على جوازها، فقهاءُ الحنابلة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1108,
+    "end_word": 1125,
+    "text_snippet": "وتمسك هؤلاء بمعاملة النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1126,
+    "end_word": 1146,
+    "text_snippet": "ولذا فقد استمرت هذه المعاملة منذ عقدت، حتى أج",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1147,
+    "end_word": 1224,
+    "text_snippet": "أما أحاديث رافع بن خَديج، التي استدل بها الما",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1225,
+    "end_word": 1232,
+    "text_snippet": "فكيف مثل هذا الحكم يخفى عليهم وهم يتعاطونه؟!",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1233,
+    "end_word": 1286,
+    "text_snippet": "وعلى فرض انسجامها وصحة الأخذ بها، فقد أجاب ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1287,
+    "end_word": 1424,
+    "text_snippet": "ولهذا قال شمس الدين \" ابن القيم \": [إن من تأم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1425,
+    "end_word": 1455,
+    "text_snippet": "وقال الليث بن سعد: \" الذي نهى عنه رسول الله ص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1456,
+    "end_word": 1470,
+    "text_snippet": "وقال ابن المنذر: قد جاءت أخبار رافع بعلل تدل ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1471,
+    "end_word": 1495,
+    "text_snippet": "قال الخطابي: إنما صار هؤلاء (أبو حنيفة ومالك ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1496,
+    "end_word": 1503,
+    "text_snippet": "ثم قال الخطابي أيضاً: فالمزارعة على النصف والث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.51
+  }
+]

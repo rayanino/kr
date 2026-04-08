@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 61,
+    "text_snippet": "العلماء: ليس للإبراد في الشريعة تحديد، وبين ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 1,
+    "start_word": 62,
+    "end_word": 77,
+    "text_snippet": "2- أن الحكمة في ذلك، هو طلب راحة المصلى، ليكو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 2,
+    "start_word": 78,
+    "end_word": 91,
+    "text_snippet": "3- أن الحكم يدور مع علته، فمتى وجد الحر في بل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 92,
+    "end_word": 102,
+    "text_snippet": "وأما البلاد الباردة- فلفقدها هذه العلة- لا يست",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 103,
+    "end_word": 134,
+    "text_snippet": "4- ظاهر الحديث، والمفهوم من الحكمة في هذا التأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 135,
+    "end_word": 148,
+    "text_snippet": "5- أنه يشرع للمصلى أن يؤدي الصلاة بعيدا عن كل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 149,
+    "end_word": 149,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 7,
+    "start_word": 150,
+    "end_word": 180,
+    "text_snippet": "قال شيخنا \"عبد الرحمن بن ناصر بن سعدي\" عند كل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 181,
+    "end_word": 195,
+    "text_snippet": "فينبغي للإنسان أن يثبت الأسباب. الغيبية التي ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 9,
+    "start_word": 196,
+    "end_word": 200,
+    "text_snippet": "فمن كذب أحدهما، فقد أخطأ.",
+    "scholarly_function": "refutation",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 10,
+    "start_word": 201,
+    "end_word": 202,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 203,
+    "end_word": 235,
+    "text_snippet": "عَنْ أنَس بْنِ مَالِكٍ رضي الله عنه قَالَ: كنا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 236,
+    "end_word": 237,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 13,
+    "start_word": 238,
+    "end_word": 277,
+    "text_snippet": "كانت عادة النبي صلى الله عليه وسلم أن يصلى بأ",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 14,
+    "start_word": 278,
+    "end_word": 281,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 282,
+    "end_word": 304,
+    "text_snippet": "1- أن وقت صلاة النبي صلى الله عليه وسلم بأصحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 305,
+    "end_word": 321,
+    "text_snippet": "2- جواز السجود على حائل من ثوب غيره عند الحاج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 322,
+    "end_word": 352,
+    "text_snippet": "وبعض العلماء فصل في السجود على الحائل فقال: إ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 353,
+    "end_word": 355,
+    "text_snippet": "التوفيق بين الحديثين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 356,
+    "end_word": 365,
+    "text_snippet": "ظاهر هذين الحديثين المتقدمين التعارض، ولذا حا",
+    "scholarly_function": "refutation",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 20,
+    "start_word": 366,
+    "end_word": 404,
+    "text_snippet": "وأحسن ما قيل في ذلك، ما ذهب إليه الجمهور أن ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 405,
+    "end_word": 420,
+    "text_snippet": "وليس المراد بالإبراد المطلوب، أن تبرد الأرض، ",
+    "scholarly_function": "definition",
+    "confidence": 0.78
+  }
+]

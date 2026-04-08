@@ -1,0 +1,511 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 36,
+    "text_snippet": "ويحتاج استيفاء الكلام عليه إلى مصنف مستقل طويل.\nوهذه نبذة تفتح الباب أمام طالب ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "خاتمة تمهيدية تبين أن الموضوع واسع وأن المذكور نبذة مختصرة للطالب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 37,
+    "end_word": 70,
+    "text_snippet": "فوائد:\nقال القحطاني: كل ما شككت فيه فالورع اجتنابه، والذي شككت فيه هو محل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان القحطاني أن الورع ترك ما وقع فيه الشك والريبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 71,
+    "end_word": 121,
+    "text_snippet": "قال الغزالي: الورع أقسام: ورع الصديقين: وهو ترك ما يتناول لغير نية القوة ع",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تقسيم الغزالي الورع إلى مراتب وبيان حد كل مرتبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 122,
+    "end_word": 192,
+    "text_snippet": "وقال شيخ الإسلام ابن تيميه: الفرق بين الزهد والورع أن الزهد ترك مالا ينفع ف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفرق بين الزهد والورع وبيان حقيقة الزهد عند ابن تيمية وابن القيم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 193,
+    "end_word": 235,
+    "text_snippet": "قال الصنعاني: واعلم أنه يجمع الورع كله قوله صلى الله عليه وسلم \" من حسن إس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جمع معنى الورع في ترك ما لا يعني المسلم من الأقوال والأفعال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 236,
+    "end_word": 332,
+    "text_snippet": "الحديث الثاني\nعَنْ انس بن مَالِكٍ رضيَ الله عَنْة قَالَ: أنفَجْنَا أرنباً بمر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث الأرنب مع شرح مفرداته الغريبة وبيان ألفاظه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 333,
+    "end_word": 347,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه حل الأرنب، وأنها من الطيبات، وعلى حلها أجمعت ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استفادة حل الأرنب وكونها من الطيبات مع حكاية الإجماع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 348,
+    "end_word": 359,
+    "text_snippet": "2- قبول النبي صلى الله عليه وسلم للهدية، قليلة كانت أو كثيرة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات قبول النبي صلى الله عليه وسلم الهدية قليلاً وكثيراً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 360,
+    "end_word": 384,
+    "text_snippet": "3- أن التهادي من أخلاق النبي صلى الله عليه وسلم وهديه، لما فيه من التوادد وا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحث على التهادي بين المؤمنين لما فيه من التوادد والتواصل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      18,
+      19,
+      20
+    ],
+    "start_word": 385,
+    "end_word": 411,
+    "text_snippet": "الحديث الثالث\nعَنْ أسْماء بنْتِ آبي بَكر رضي الله عنهما قالت: نَحَرنا عَلَى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث أسماء في أكل الفرس مع الرواية المصرحة بوقوعه في المدينة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 412,
+    "end_word": 461,
+    "text_snippet": "ما يستفاد من الحديث:\n1- الحديث دليل على حل أكل لحوم الخيل، إذ أكل على عهد ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "الاستدلال بحديث أسماء على حل أكل لحوم الخيل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 462,
+    "end_word": 497,
+    "text_snippet": "2- جاء في بعض الألفاظ \"الذبح\" وفي بعضها \"النحر\" والنحر: هو الضرب بالحديدة ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "بيان الفرق بين الذبح والنحر وسبب إطلاق النحر على الفرس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 498,
+    "end_word": 514,
+    "text_snippet": "3- قولها. \"ونحن في المدينة\" يرد على من قال: إن حلها نسخ بغرض الجهاد، بسبب ",
+    "primary_function": "refutation",
+    "secondary_functions": [],
+    "description_arabic": "الرد على دعوى نسخ حل الخيل بسبب الحاجة إليها في الجهاد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قولها تعود إلى الرواية السابقة عن أسماء، وفهم الرد أكمل بضمها إلى الحديث السابق."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 515,
+    "end_word": 678,
+    "text_snippet": "الحديث الرابع\nعَنْ جَابِرِ بْنِ عَبْدِ الله رضي الله عنه: أنَّ النَبي صلى الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "أحاديث تحريم الحمر الأهلية وإباحة الخيل مع شرح ألفاظها الغريبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 679,
+    "end_word": 769,
+    "text_snippet": "ما يستفاد من هذه الأحاديث الثلاثة:\nشرحنا هذه الأحاديث جميعا لكونها متفقة الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "تلخيص الأحكام المستفادة من أحاديث الحمر الأهلية والخيل والحمر الوحشية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 770,
+    "end_word": 1203,
+    "text_snippet": "اختلاف العلماء:\nذهب أبو حنيفة، ومالك في بعض أقوالهما، إلى تحريم لحوم الخيل،",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_rational",
+      "evidence_hadith",
+      "evidence_qiyas",
+      "refutation",
+      "evidence_ijma",
+      "narration"
+    ],
+    "description_arabic": "عرض الخلاف في أكل لحوم الخيل وأدلة الفريقين والجواب عن أدلة المانعين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "start_word": 1204,
+    "end_word": 1357,
+    "text_snippet": "الحديث السابع\nعَنِ ابْنِ عَبَّاس رضي الله عنهما قَالَ: دَخَلْتُ أنا وَخَالِدُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث الضب في بيت ميمونة مع شرح لفظ المحنوذ والغريب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      71,
+      72
+    ],
+    "start_word": 1358,
+    "end_word": 1423,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على إباحة أكل الضًب من سؤالهم وجوابه: (حرا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات إباحة أكل الضب بدلالة السؤال والجواب وتقرير النبي",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يتضمن استدلالا بضمائر وإحالات على وقائع الحديث السابق، فضم الحديث يزيد اكتمال الفهم."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      73
+    ],
+    "start_word": 1424,
+    "end_word": 1449,
+    "text_snippet": "2- وفيه دليل على أن الكراهة الطبيعية من النبي صلى الله عليه وسلم للشيء لا تح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الكراهة الطبيعية لا تقتضي التحريم الشرعي",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في وفيه يعود إلى الحديث السابق، والمعنى العام واضح لكن تمام الاستدلال يحتاج سياقه."
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      74
+    ],
+    "start_word": 1450,
+    "end_word": 1475,
+    "text_snippet": "3- حسن خلق النبي صلى الله عليه وسلم، إذ لم يعب الطعام. وهذه عادته الكريمة، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حسن خلق النبي صلى الله عليه وسلم في عدم عيب الطعام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      75
+    ],
+    "start_word": 1476,
+    "end_word": 1500,
+    "text_snippet": "4- وفيه أن النفس وما اعتادته، فلا ينبغي إكراهها على أكل ما لم تشتهه ولا تستط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم إكراه النفس على ما لا تشتهيه من الطعام",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاحه بقول وفيه يحيل على الحديث السابق، والحكم مفهوم لكن السياق الحديثي يزيده وضوحا."
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      76,
+      77
+    ],
+    "start_word": 1501,
+    "end_word": 1521,
+    "text_snippet": "الحديث الثامن\nعَنْ عَبدِ الله بن أبي أوفَى قَالَ: غَزَوناَ مَعَ رَسُول الله ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث ابن أبي أوفى في أكل الجراد في الغزوات",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      78,
+      79,
+      80
+    ],
+    "start_word": 1522,
+    "end_word": 1566,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على حِل أكل الجراد. قال النووي رحمه الله تع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "حل أكل الجراد وبيان أن ميتته حلال بأي سبب ماتت",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "start_word": 1567,
+    "end_word": 1723,
+    "text_snippet": "الحديث التاسع\nعَنْ زَهْدَم بْنِ مُضَرِّبٍ الْجَرْمي قالَ: كُنا عِنْدَ أبي مُو",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث أكل الدجاج مع شرح أسماء الرواة والألفاظ الغريبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      88,
+      89
+    ],
+    "start_word": 1724,
+    "end_word": 1738,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه دليل على حل أكل لحم الدجاج لأنه من الطيبات.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الاستدلال بالحديث على حل أكل لحم الدجاج",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة فيه تحيل على الحديث السابق، والحكم واضح لكن وجه الاستدلال يتم بالسياق."
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      90
+    ],
+    "start_word": 1739,
+    "end_word": 1752,
+    "text_snippet": "2- كون أكثر أكلها النجاسة لا يحرمها، وإنما يكون لها حكم الجلالة ⌜1⌝ .",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أكل الدجاج للنجاسة لا يحرمه لكن يجعله في حكم الجلالة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "مصطلح الجلالة اصطلاح فقهي غير مشروح هنا، ويحتاج معرفة خارجية لفهم الحكم كاملا."
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      91,
+      92,
+      93
+    ],
+    "start_word": 1753,
+    "end_word": 1793,
+    "text_snippet": "3- جواز الترف في المأكل والمشرب والملبس، وأن هذا غير مناف للشرع.\nومن تركه- ت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "جواز الترف المباح مع النهي عن اعتياده دائما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      94,
+      95
+    ],
+    "start_word": 1794,
+    "end_word": 1817,
+    "text_snippet": "الحديث العاشر\nعنْ ابْنِ عباس رضي الله عنهما: أنَّ النَّبي صلى الله عليه وسلم",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث لعق اليد بعد الطعام وعدم مسحها قبل ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

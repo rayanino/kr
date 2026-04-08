@@ -1,0 +1,49 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 127,
+    "text_snippet": "2- مشروعية تكبيرة الركوع، وأن يكون في حال الانتقال من القيام إلى الركوع.\n3- ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد فقهية معدودة في تكبيرات الانتقال والتسميع والتحميد والطمأنينة في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 128,
+    "end_word": 157,
+    "text_snippet": "فائدة:\nورد في بعض روايات الحديث \"ربنا لَكَ الحمد\"، وورد في البعض الآخر \"رب",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان أرجحية رواية «ربنا ولَكَ الحمد» وذكر وجه ترجيحها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعتمد الفائدة على معرفة موضع هذا الذكر في الحديث السابق وسياق ألفاظه."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 158,
+    "end_word": 204,
+    "text_snippet": "الحديث السابع\nعَنْ البَرَاء بن عَازِبٍ رضي الله عنهما قال: رَمَقْتُ الصَّلاةَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حديث البراء في تقارب أركان الصلاة في الطول سوى القيام والقعود",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

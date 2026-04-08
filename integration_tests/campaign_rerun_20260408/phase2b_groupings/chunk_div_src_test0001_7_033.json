@@ -1,0 +1,59 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 74,
+    "text_snippet": "‌‌بَابُ تحريم إحداد المَرْأة أكثر من ثلاثة إلا على زوج\nالإحداد: في اللغة: الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان تحريم إحداد المرأة فوق ثلاث إلا على الزوج مع تعريف الإحداد وحكمته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 75,
+    "end_word": 228,
+    "text_snippet": "عَنْ زَينبَ بِنْتِ أم سَلمَةَ قَالَت: تُوُفي حَمِيمٌ لأم حَبيبة، فدَعَتْ بِصُفرَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "الحديث الدال على مدة الإحداد مع شرح ألفاظه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 229,
+    "end_word": 262,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الإحداد على ميت أكثر من ثلاثة أيام، إلا المرأة على",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استخراج حكم الإحداد على غير الزوج وعلى الزوج من الحديث",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا مقطع فوائد مستخرجة من الحديث السابق، وعبارة «ما يؤخذ من الحديث» تحيل إلى الحديث المذكور قبله."
+  }
+]

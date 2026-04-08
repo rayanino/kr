@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌باب وجوب المبيت بمنى ⌜1⌝\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 36,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قال: ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 37,
+    "end_word": 48,
+    "text_snippet": "الغريب:\nسقايته: المراد بها سقاية الحجيج؛ فخدمة ا",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 80,
+    "text_snippet": "فكان لعبد مناف، السقاية.\nفكانوا قبل حفر زمزم يأت",
+    "scholarly_function": "narration",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 4,
+    "start_word": 81,
+    "end_word": 96,
+    "text_snippet": "المعنى الإجمالي:\nالمبيت بـ\"منى\" ليالي التشريق، أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 97,
+    "end_word": 112,
+    "text_snippet": "فإن الإقامة بـ\"منى\" تلك الليالي والأيام، من المر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 6,
+    "start_word": 113,
+    "end_word": 152,
+    "text_snippet": "ولما كانت سقاية الحجيج من القُرَبِ المفضلة، لأنه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 7,
+    "start_word": 153,
+    "end_word": 163,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب المبيت بـ\"منى\" ليالي ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 164,
+    "end_word": 170,
+    "text_snippet": "2- المراد بالمبيت، الإقامة بـ\"منى\" أكثر الليل.",
+    "scholarly_function": "definition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 9,
+    "start_word": 171,
+    "end_word": 197,
+    "text_snippet": "3- الرخصة في ترك المبيت لسقاة الحاج، وألحقوا بهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 198,
+    "end_word": 211,
+    "text_snippet": "4- ما كان عليه أهل مكة في جاهليتهم من إكرام الح",
+    "scholarly_function": "narration",
+    "confidence": 0.62
+  }
+]

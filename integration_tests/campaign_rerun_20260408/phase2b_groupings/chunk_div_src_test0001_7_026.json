@@ -1,0 +1,365 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 140,
+    "text_snippet": "‌‌بَابُ مَا نهى الله عنه من البيوع\nالحديث الأول\nعَنْ أبي سَعِيدٍ الْخُدْرِيِّ رضي ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "الحديث الأول وبيان النهي عن الملامسة والمنابذة وكونهما من بيع الغرر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 141,
+    "end_word": 191,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الملامسة: فسرت بتفاسير، الصحيح منها، م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم بيع الملامسة وتفسيره الصحيح وذكر بعض صوره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 192,
+    "end_word": 226,
+    "text_snippet": "2- النهي عن بيع المنابذة وفسرت أيضاً بتفاسير، الصحيح منها ما ذكر في هذا الح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم بيع المنابذة وتفسيره الصحيح وذكر مثال بيع الحصاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 227,
+    "end_word": 292,
+    "text_snippet": "3- أما جعل اللمس أو النبذ بيعاً، أو يجعل البيع معلقاً باللمس أو النبذ مع معرف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "التفريق بين الصور المجهولة الممنوعة والصور المعلومة التي يصح فيها البيع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 293,
+    "end_word": 365,
+    "text_snippet": "6- استدل بذلك على عدم صحة شراء المجهول وعدم صحة شراء الأعمى فيما طريق العلم ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "الاستدلال على منع شراء المجهول وبيان حكم بيع الغائب وشروط صحته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 366,
+    "end_word": 439,
+    "text_snippet": "8- قال النووي: اعلم أن الملامسة والمنابذة ونحوهما، مما نص عليه، هي داخلة في ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "إدخال هذه البيوع في أصل النهي عن الغرر وربطها بالضابط المتقدم",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم قوله: «مرجعه إلى الضابط الثاني المتقدم» إلى معرفة الضابط المذكور قبل هذا الموضع."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 440,
+    "end_word": 1032,
+    "text_snippet": "الحديث الثاني ⌜1⌝\nعَن أبي هُرَيرةَ رَضىَ الله عَنْهُ: أنً رَسولَ الله صلى الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "الحديثان الثاني والثالث مع شرح ألفاظهما وبيان أنواع البيوع الخمسة المنهي عنها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 1033,
+    "end_word": 1075,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن تلقى القادمين، لبيع سلعتهم، والشراء منهم، قبل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم تلقي القادمين قبل السوق وبيان الحكمة في النهي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 1076,
+    "end_word": 1177,
+    "text_snippet": "3- تحريم البيع على بيع المسلم وهو أن يقول لمن اشترى سلعة بعشرة: عندى مثلها ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_ijma"
+    ],
+    "description_arabic": "تحريم البيع على بيع أخيه والشراء على شرائه وذكر الإجماع في نظيره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 1178,
+    "end_word": 1208,
+    "text_snippet": "4- مثل البيع في التحريم، خطبة النكاح على الخاطب قبله.\nوكذلك الوظائف والأعمال،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إلحاق خطبة النكاح وبعض العقود بالبيع على البيع في التحريم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      23,
+      24,
+      25
+    ],
+    "start_word": 1209,
+    "end_word": 1293,
+    "text_snippet": "5- النهي عن بيع الحاضر للبادي وصفته \" أن يقدم من يريد بيع سلعته من غير أهل ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "opinion_statement"
+    ],
+    "description_arabic": "صفة بيع الحاضر للبادي وحكمه وحكمته وبعض الشروط التي ذكرها العلماء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 1294,
+    "end_word": 1480,
+    "text_snippet": "8- النهى عن تصرية اللبن في ضروع بهيمة الأنعام عند البيع.\n9- تحريم ذلك لما فيه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم التصرية وآثارها وثبوت الخيار ومدته وكيفية الرد بعد الحلب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      33
+    ],
+    "start_word": 1481,
+    "end_word": 1526,
+    "text_snippet": "14- النهى عن النجش، وهو زيادة من لا يريد شراء السلعة في ثمنا، وذلك لنفع البائ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تعريف النجش وبيان تحريمه وأثره في الإثم والخيار",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "start_word": 1527,
+    "end_word": 1631,
+    "text_snippet": "اختلاف العلماء:\nمذهب جمهور العلماء صحة شراء مُتلَفي الركبان، بل حكى عن جميع ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف العلماء في صحة تلقي الركبان وثبوت الخيار والترجيح بين الأقوال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      40,
+      41,
+      42
+    ],
+    "start_word": 1632,
+    "end_word": 1700,
+    "text_snippet": "واختلفوا في صحة بيع من باع على بيع أخيه.\nفذهب الإمام أحمد في المشهور عنه، وال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف الفقهاء في صحة البيع على بيع الأخ والشراء على شرائه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      43,
+      44,
+      45
+    ],
+    "start_word": 1701,
+    "end_word": 1760,
+    "text_snippet": "واختلفوا في صحة بيع الحاضر للبادي.\nفالمشهور في مذهب الإمام أحمد، البطلان بشرط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "خلاف العلماء في صحة بيع الحاضر للبادي وشروط البطلان عند الحنابلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 1761,
+    "end_word": 1960,
+    "text_snippet": "وذهب جمهور العلماء- ومنم الأئمة الثلاثة، مالك، والشافعي، وأحمد: إلى رد صاع من",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_qiyas",
+      "refutation"
+    ],
+    "description_arabic": "خلاف العلماء في رد صاع التمر في المصراة وذكر اعتراضات الحنفية والجواب عنها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 1961,
+    "end_word": 2190,
+    "text_snippet": "فائدتان:\nالأولى: إذا تأملت ما تقدم من \" الاستنباطات\" و \"خلاف العلماء\" وجدت أ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "opinion_statement",
+      "example"
+    ],
+    "description_arabic": "فائدة في الموازنة بين اتباع اللفظ والمعنى مع أمثلة وبيان منهج المؤلف",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى «ما تقدم من الاستنباطات وخلاف العلماء» مما يجعل تمام الاستيعاب متوقفاً على السياق السابق، مع بقاء أصل الفائدة مفهوماً."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 2191,
+    "end_word": 2257,
+    "text_snippet": "الثانية: في تحريم تَلَقِّي الركبان، وبيع الحاضر للبادي يعلم كيف أن الإسلام ير",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "فائدة في تقديم المصلحة العامة على الخاصة في مسائل تلقي الركبان وبيع الحاضر للبادي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 2258,
+    "end_word": 2508,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أن رَسُولَ الله صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "الحديث الرابع وشرح حبل الحبلة وبيان تفسيريه وسبب النهي عنه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

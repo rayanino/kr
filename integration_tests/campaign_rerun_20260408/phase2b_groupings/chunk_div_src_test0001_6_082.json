@@ -1,0 +1,116 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 72,
+    "text_snippet": "الإسلام: وقد تنازع الناس في شفعة الجار على ثلاثة أقوال، أعدلها القول بأنه إ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "ترجيح قول وسط في شفعة الجار ورد ما لا يعضده الدليل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 73,
+    "end_word": 202,
+    "text_snippet": "‌‌بَابُ أحْكام الجوَار ⌜1⌝\nالمؤلف رحمه الله ذكر بعد هذا الحديث المتعلق بـ \" ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان ترتيب الأبواب والأحاديث ومناسبة تقديم باب أحكام الجوار",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 203,
+    "end_word": 510,
+    "text_snippet": "الحديث الأول (2)\nعَن أبي هُرَيرةَ رضىَ الله عَنْهُ: أن رَسولَ الله صلى الله ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "narration",
+      "definition",
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "شرح حديث غرز الخشبة في جدار الجار وبيان حكمه وضوابطه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 511,
+    "end_word": 664,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهْىُ عن منع الجار أن يضع خشبة على جدار جاره، إذا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد المستنبطة من الحديث في حقوق الجار وبذل المنافع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14,
+      15,
+      16
+    ],
+    "start_word": 665,
+    "end_word": 776,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على المنع من وضع خشب الجار على جدار جاره مع وج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_hadith"
+    ],
+    "description_arabic": "ذكر موضع الإجماع ثم مذهب الجمهور في منع الوضع بغير إذن وأدلته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 777,
+    "end_word": 864,
+    "text_snippet": "وذهب الإمام أحمد، وإسحاق وأهل الحديث إلى وجوب بذل الجدار لصاحب الخشب مع حاجة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "مذهب أحمد وأهل الحديث في وجوب بذل الجدار مع أدلته",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج تمام الاستدلال إلى بقية الأدلة المشار إليها بقوله: والدليل على ذلك ما يأتي، إذ المذكور هنا بعض وجوه الاستدلال فقط."
+  }
+]

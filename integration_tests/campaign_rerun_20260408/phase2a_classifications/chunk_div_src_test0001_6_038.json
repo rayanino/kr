@@ -1,0 +1,74 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 25,
+    "text_snippet": "إسلامية، وعرف الناس دين الله وشرائعه، وأقبلوا ",
+    "scholarly_function": "narration",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 1,
+    "start_word": 26,
+    "end_word": 39,
+    "text_snippet": "فلم يبق إلا أن تختم هذه العبادة الجليلة بالاست",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 2,
+    "start_word": 40,
+    "end_word": 58,
+    "text_snippet": "فكان صلى الله عليه وسلم يكثر ذلك في سجوده وركو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 59,
+    "end_word": 69,
+    "text_snippet": "فهذه الكلمات، جمعت تنزيه الله تعالى عن النقائص،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 4,
+    "start_word": 70,
+    "end_word": 83,
+    "text_snippet": "وبعد هذه التوسلات بهذه النعوت الجليلة، يطلب منه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 5,
+    "start_word": 84,
+    "end_word": 236,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- استحباب الإكثار ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 237,
+    "end_word": 321,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام ابن تيمية: وأما دعاء الإ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 322,
+    "end_word": 342,
+    "text_snippet": "مناسب لحاله، أما إذا انصرف إلى الناس فليس موطن ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 8,
+    "start_word": 343,
+    "end_word": 454,
+    "text_snippet": "فائدة أخرى:\nبناء على ما رجح من عدم مشروعية الدع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  }
+]

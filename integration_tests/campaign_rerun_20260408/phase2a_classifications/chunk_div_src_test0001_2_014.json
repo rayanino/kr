@@ -1,0 +1,274 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 27,
+    "text_snippet": "أمورهم. ويعتبرون هذا من المفاخر الجليلة فجاء الإس",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 1,
+    "start_word": 28,
+    "end_word": 29,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 2,
+    "start_word": 30,
+    "end_word": 69,
+    "text_snippet": "اختلف العلماء: هل المبيت واجب، أو مستحب؟.\nفذهب ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 70,
+    "end_word": 84,
+    "text_snippet": "والدليل الثاني: أن النبي صلى الله عليه وسلم بات ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 4,
+    "start_word": 85,
+    "end_word": 111,
+    "text_snippet": "وذهب أبو حنيفة، والحسن: إلى أنه مستحب.\nواختلفوا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 112,
+    "end_word": 117,
+    "text_snippet": "‌‌باب جمع المغرب والعشاء في مزدلفة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 118,
+    "end_word": 119,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 120,
+    "end_word": 152,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 153,
+    "end_word": 197,
+    "text_snippet": "الغريب:\n\"جمع\" بفتح الجيم، وسكون الميم. هي \"مزدلف",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 198,
+    "end_word": 227,
+    "text_snippet": "لم يسبح بينهما: يراد بالتسبيح – هنا - صلاة الناف",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 228,
+    "end_word": 229,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 230,
+    "end_word": 298,
+    "text_snippet": "لما غربت الشمس منٍ يوم عرفة، والنبي صلى الله علي",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 299,
+    "end_word": 314,
+    "text_snippet": "فإن أداء تلك المناسك في وقتها، أفضل من نوافل الع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 13,
+    "start_word": 315,
+    "end_word": 318,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 319,
+    "end_word": 329,
+    "text_snippet": "1- مشروعية جمع التأخير بين المغرب والعشاء في \"مز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 330,
+    "end_word": 364,
+    "text_snippet": "2- الحكمة في هذا - والله أعلم - التخفيف والتيسير",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 16,
+    "start_word": 365,
+    "end_word": 374,
+    "text_snippet": "4- أن يقام لكل صلاة من المغرب والعشاء، إقامة واح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 375,
+    "end_word": 406,
+    "text_snippet": "5- لم يذكر في هذا الحديث، الأذان لهما، وقد صح من",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 18,
+    "start_word": 407,
+    "end_word": 440,
+    "text_snippet": "6- أنه لا يشرع التنفل بين المجموعتين ولا بعدهما،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 441,
+    "end_word": 495,
+    "text_snippet": "7- قال شيخ الإسلام: والسنة أن يبيت بمزدلفة إلى أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 496,
+    "end_word": 497,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 21,
+    "start_word": 498,
+    "end_word": 542,
+    "text_snippet": "اختلف العلماء في سبب الجمع بين المغرب والعشاء في",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 543,
+    "end_word": 554,
+    "text_snippet": "والأولى، اتباع السنة، وهو الجمع لكل حاج، سواء أك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 23,
+    "start_word": 555,
+    "end_word": 597,
+    "text_snippet": "على أنه تقدم لنا أن الصحيح أن السفر لا يقدر بمدة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 24,
+    "start_word": 598,
+    "end_word": 634,
+    "text_snippet": "واختلفوا في الأذان والإقامة لهاتين الصلاتين.\nفذه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 635,
+    "end_word": 648,
+    "text_snippet": "والصحيح ما ذهب إليه الإمامان الشافعي وأحمد وغيرهم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 26,
+    "start_word": 649,
+    "end_word": 692,
+    "text_snippet": "وحجتهم في ذلك ما ذكره جابر بن عبد الله رضي الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 27,
+    "start_word": 693,
+    "end_word": 702,
+    "text_snippet": "أما سبب اختلاف العلماء في الأذان والإقامة، فهو ت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 28,
+    "start_word": 703,
+    "end_word": 718,
+    "text_snippet": "فقد صح عن ابن عباس \"أن النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 719,
+    "end_word": 751,
+    "text_snippet": "وروي عن ابن عمر ثلاث روايات، إحداهن: - أنه جمع ب",
+    "scholarly_function": "narration",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 30,
+    "start_word": 752,
+    "end_word": 761,
+    "text_snippet": "وكلها روايات صحيحة الإسناد، وبعضها في الصحيحين، ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 31,
+    "start_word": 762,
+    "end_word": 779,
+    "text_snippet": "بما أن القضية واحدة فلا يمكن حمل كل رواية على حا",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 32,
+    "start_word": 780,
+    "end_word": 795,
+    "text_snippet": "فالأحسن الأخذ بما تقدم من رواية جابر الذي نقل حج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 33,
+    "start_word": 796,
+    "end_word": 808,
+    "text_snippet": "وتُعَدُّ باقي الروايات مضطربة المتون، فتطرح. وهذا",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  }
+]

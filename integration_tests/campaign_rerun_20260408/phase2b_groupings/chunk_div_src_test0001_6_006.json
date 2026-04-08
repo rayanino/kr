@@ -1,0 +1,135 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 88,
+    "text_snippet": "فَدَعَا بِمَاء فَأتْبَعَهُ إِيَّاه. ولمسلم \" فَأتْبَعَهُ بَوْلَهُ وَلَمْ يَغْسِلْهُ \".\n",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "الحديث مع المعنى الإجمالي في بول الغلام وكيفية تطهيره بالنضح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 89,
+    "end_word": 153,
+    "text_snippet": "اختلاف العلماء:\nيرى طائفة من العلماء أن الذكر والأنثى سواء في الاكتفاء بالنضح، ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض أقوال العلماء في بول الغلام والجارية مع ترجيح التفريق بينهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 154,
+    "end_word": 187,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- نجاسة بول الغلام وإن لم يأكل الطعام لشهوة..\n2- كفاية ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد المستنبطة من حديث بول الغلام في النجاسة والتطهير والأخلاق",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 188,
+    "end_word": 304,
+    "text_snippet": "فائدة: اختلف العلماء في السبب الذي أوجب التفريق بين بول الغلام وبول الجارية، و",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان الحكم المحتملة للتفريق بين بول الغلام والجارية وذكر القول التعبدي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 305,
+    "end_word": 515,
+    "text_snippet": "كيفية تطهير الأرض التي أصابها بول\nعَنْ أنَس بْنِ مَالِكٍ رضي الله عنه قال: جَاء",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث بول الأعرابي مع شرح ألفاظه وبيان معناه الإجمالي في تطهير الأرض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 516,
+    "end_word": 613,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن البول على الأرض يطهر بغمره بالماء، ولا يشترط نقل التر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد والأحكام المستنبطة من حديث الأعرابي في تطهير الأرض والرفق",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      11,
+      12,
+      13
+    ],
+    "start_word": 614,
+    "end_word": 799,
+    "text_snippet": "بيان أحكام الختان والاستحداد وقص الشارب وتقليم الأظافر\nعَن أبيِ هُرَيرة رضي الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث خصال الفطرة الخمس مع شرح معانيها وحكمها الصحية والشرعية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 800,
+    "end_word": 896,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن فطرة الله تعالى تدعو إلى كل خير، وتبعد عن كل شر.\n2- أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "الفوائد المستنبطة من حديث الفطرة والتنبيه إلى عدم حصر خصالها في خمس",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "خاتمة الوحدة تتضمن إحالة مبتورة في قول: قال ابن حجر، إذ لم يكتمل بيان الفوائد بعده داخل هذا المقطع."
+  }
+]

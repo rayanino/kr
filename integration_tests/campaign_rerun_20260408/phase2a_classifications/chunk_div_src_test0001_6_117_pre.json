@@ -1,0 +1,770 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 7,
+    "text_snippet": "ويحتاج استيفاء الكلام عليه إلى مصنف مستقل طويل.\n",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 1,
+    "start_word": 8,
+    "end_word": 24,
+    "text_snippet": "وهذه نبذة تفتح الباب أمام طالب العلم، ليراجع ويت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 2,
+    "start_word": 25,
+    "end_word": 36,
+    "text_snippet": "والله ولي التوفيق، وصلى الله وسلم على نبينا محمد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 37,
+    "end_word": 37,
+    "text_snippet": "فوائد:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 38,
+    "end_word": 70,
+    "text_snippet": "قال القحطاني: كل ما شككت فيه فالورع اجتنابه، وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 71,
+    "end_word": 121,
+    "text_snippet": "قال الغزالي: الورع أقسام: ورع الصديقين: وهو ترك ",
+    "scholarly_function": "definition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 6,
+    "start_word": 122,
+    "end_word": 192,
+    "text_snippet": "وقال شيخ الإسلام ابن تيميه: الفرق بين الزهد وال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 193,
+    "end_word": 235,
+    "text_snippet": "قال الصنعاني: واعلم أنه يجمع الورع كله قوله صلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 8,
+    "start_word": 236,
+    "end_word": 237,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 238,
+    "end_word": 271,
+    "text_snippet": "عَنْ انس بن مَالِكٍ رضيَ الله عَنْة قَالَ: أنفَجْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 272,
+    "end_word": 272,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 273,
+    "end_word": 284,
+    "text_snippet": "أنفجنا أرنباً: بفتح الهمزة وسكون النون وفتح الفا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 285,
+    "end_word": 312,
+    "text_snippet": "بمر الظهران: بفتح الميم والظاء المعجمة، موضع شما",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 313,
+    "end_word": 332,
+    "text_snippet": "فلغبوا: قال الزركشي: بفتح الغين المعجمة، وفي لغة",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 333,
+    "end_word": 336,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 337,
+    "end_word": 347,
+    "text_snippet": "1- فيه حل الأرنب، وأنها من الطيبات، وعلى حلها أج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 348,
+    "end_word": 359,
+    "text_snippet": "2- قبول النبي صلى الله عليه وسلم للهدية، قليلة ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 360,
+    "end_word": 384,
+    "text_snippet": "3- أن التهادي من أخلاق النبي صلى الله عليه وسلم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 18,
+    "start_word": 385,
+    "end_word": 386,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 387,
+    "end_word": 406,
+    "text_snippet": "عَنْ أسْماء بنْتِ آبي بَكر رضي الله عنهما قالت: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 407,
+    "end_word": 411,
+    "text_snippet": "وفي رواية: \"وَنَحْنُ في المَدِينَةِ\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 21,
+    "start_word": 412,
+    "end_word": 415,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 416,
+    "end_word": 461,
+    "text_snippet": "1- الحديث دليل على حل أكل لحوم الخيل، إذ أكل على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 462,
+    "end_word": 497,
+    "text_snippet": "2- جاء في بعض الألفاظ \"الذبح\" وفي بعضها \"النحر\"",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 498,
+    "end_word": 514,
+    "text_snippet": "3- قولها. \"ونحن في المدينة\" يرد على من قال: إن ح",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 25,
+    "start_word": 515,
+    "end_word": 516,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 517,
+    "end_word": 539,
+    "text_snippet": "عَنْ جَابِرِ بْنِ عَبْدِ الله رضي الله عنه: أنَّ ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 540,
+    "end_word": 558,
+    "text_snippet": "ولـ\"مسلم\" وحده قال: أكَلْنَا زَمَنَ خيبر الخيل وَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 559,
+    "end_word": 560,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 561,
+    "end_word": 605,
+    "text_snippet": "عَنْ عبد الله بن أبي أوفَي قَال: أصابتنا مَجَاعَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 606,
+    "end_word": 607,
+    "text_snippet": "الحديث السادس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 608,
+    "end_word": 624,
+    "text_snippet": "عَنْ أبي ثَعْلَبَةَ رضي الله عنه قَالَ: حَرَّمَ ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 32,
+    "start_word": 625,
+    "end_word": 625,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 626,
+    "end_word": 662,
+    "text_snippet": "الحمر الأهلية: بضم الحاء والميم، نسبت إلى الأهل ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 663,
+    "end_word": 678,
+    "text_snippet": "أكفئوا القدور: بهمزة القطع (من أكفأ) الرباعي. وب",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 35,
+    "start_word": 679,
+    "end_word": 684,
+    "text_snippet": "ما يستفاد من هذه الأحاديث الثلاثة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 685,
+    "end_word": 692,
+    "text_snippet": "شرحنا هذه الأحاديث جميعا لكونها متفقة المعاني وه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 37,
+    "start_word": 693,
+    "end_word": 723,
+    "text_snippet": "1- النهي عن لحوم الحمر الأهلية وتحريم كلها.\nقال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 724,
+    "end_word": 743,
+    "text_snippet": "2- أن العلة في تحريمها كونها رجساً نجسة مستخبثة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 39,
+    "start_word": 744,
+    "end_word": 759,
+    "text_snippet": "3- حل لحوم الخيل لأنها مستطابة طيبة، ويأتي- إن ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 40,
+    "start_word": 760,
+    "end_word": 769,
+    "text_snippet": "4- حِلُّ الحمر الوحشية، لأنها من الصيد الطيب، وه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 41,
+    "start_word": 770,
+    "end_word": 771,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 42,
+    "start_word": 772,
+    "end_word": 800,
+    "text_snippet": "ذهب أبو حنيفة، ومالك في بعض أقوالهما، إلى تحريم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 43,
+    "start_word": 801,
+    "end_word": 810,
+    "text_snippet": "1- قوله تعالى: {والخيل وَالبِغَالَ والحَمِيرَ لت",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 811,
+    "end_word": 864,
+    "text_snippet": "ووجه الدلالة من الآية أنها قرنت مع البغال، والحمي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 45,
+    "start_word": 865,
+    "end_word": 885,
+    "text_snippet": "2- ما رواه الطحاوي، وابن حزم عن جابر قال: (نهى ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 886,
+    "end_word": 906,
+    "text_snippet": "وما رواه أصحاب السنن عن خالد بن الوليد: (أن الن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 907,
+    "end_word": 918,
+    "text_snippet": "3- ما بين الخيل والحمر من شبه قوي، يوجب إلحاق ال",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 919,
+    "end_word": 938,
+    "text_snippet": "وذهب الشافعي، وأحمد، والليث، وحماد، وأبو ثور، إل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 939,
+    "end_word": 950,
+    "text_snippet": "واحتجوا بالأحاديث والآثار المتواترة بحلها، فهي د",
+    "scholarly_function": "refutation",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 50,
+    "start_word": 951,
+    "end_word": 966,
+    "text_snippet": "واستدلوا بأنه عمل الصحابة جميعاً، فقد نقل الحل ب",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 51,
+    "start_word": 967,
+    "end_word": 991,
+    "text_snippet": "وأخرج ابن أبي شيبة بسند صحيح على شرط الصحيحين، ",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 52,
+    "start_word": 992,
+    "end_word": 998,
+    "text_snippet": "وأجابوا عن أدلة الحنفية والمالكية بما يأتي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 53,
+    "start_word": 999,
+    "end_word": 1017,
+    "text_snippet": "أما الآية الكريمة فليس فيها دليل، لأنها مكية إجم",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1018,
+    "end_word": 1049,
+    "text_snippet": "وهذه المحاولات في الاستدلال لا تكفى دليلا، لأنا ",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1050,
+    "end_word": 1066,
+    "text_snippet": "وأما دلالة العطف والاقتران، فهي ضعيفة لا يحتج به",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1067,
+    "end_word": 1097,
+    "text_snippet": "وأما الامتنان، فقد ذكر باعتبار الغالب عند العرب ",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1098,
+    "end_word": 1116,
+    "text_snippet": "ولا يلزم أن تذكر نعم الله تعالى في مقام واحد، فل",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1117,
+    "end_word": 1126,
+    "text_snippet": "أما قياس الخيل على الحمر، فلا يلتفت إليه مع النص",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1127,
+    "end_word": 1140,
+    "text_snippet": "وأما الحديث الذي رواه الطحاوى، ففيه عكرمة بن عما",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1141,
+    "end_word": 1145,
+    "text_snippet": "قال الطحاوى: وأهل الحديث يضعفونه.",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1146,
+    "end_word": 1154,
+    "text_snippet": "قال ابن حجر: لاسيما في يحي بن أبي كثير.",
+    "scholarly_function": "refutation",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1155,
+    "end_word": 1166,
+    "text_snippet": "وقال يحي بن سعيد القطان: أحاديثه عن يحي بن أبي ك",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1167,
+    "end_word": 1177,
+    "text_snippet": "وقال البخاري: حديثه عن يحي، مضطرب وكلام أئمة الح",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1178,
+    "end_word": 1203,
+    "text_snippet": "وأما الحديث المنسوب إلى خالد بن الوليد، فقد قال",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1204,
+    "end_word": 1205,
+    "text_snippet": "الحديث السابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1206,
+    "end_word": 1296,
+    "text_snippet": "عَنِ ابْنِ عَبَّاس رضي الله عنهما قَالَ: دَخَلْتُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1297,
+    "end_word": 1303,
+    "text_snippet": "المحنوذ: المشوي بالرضيف (وهي الحجارة المحمَّاة) ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1304,
+    "end_word": 1304,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1305,
+    "end_word": 1320,
+    "text_snippet": "بضب: بفتح الضاد وتشديد الباء. هو دابة فيه شبه با",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1321,
+    "end_word": 1357,
+    "text_snippet": "محنوذ: بفتح الميم وسكون الحاء وضم النون، وبعدها ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1358,
+    "end_word": 1361,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1362,
+    "end_word": 1423,
+    "text_snippet": "1- فيه دليل على إباحة أكل الضًب من سؤالهم وجوابه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1424,
+    "end_word": 1449,
+    "text_snippet": "2- وفيه دليل على أن الكراهة الطبيعية من النبي صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1450,
+    "end_word": 1475,
+    "text_snippet": "3- حسن خلق النبي صلى الله عليه وسلم، إذ لم يعب ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1476,
+    "end_word": 1500,
+    "text_snippet": "4- وفيه أن النفس وما اعتادته، فلا ينبغي إكراهها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1501,
+    "end_word": 1502,
+    "text_snippet": "الحديث الثامن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1503,
+    "end_word": 1521,
+    "text_snippet": "عَنْ عَبدِ الله بن أبي أوفَى قَالَ: غَزَوناَ مَعَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1522,
+    "end_word": 1525,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1526,
+    "end_word": 1539,
+    "text_snippet": "1- فيه دليل على حِل أكل الجراد. قال النووي رحمه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1540,
+    "end_word": 1566,
+    "text_snippet": "2- وهو حلال بأي سبب صار موته، لأن النبي صلى الله",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1567,
+    "end_word": 1568,
+    "text_snippet": "الحديث التاسع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1569,
+    "end_word": 1610,
+    "text_snippet": "عَنْ زَهْدَم بْنِ مُضَرِّبٍ الْجَرْمي قالَ: كُنا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1611,
+    "end_word": 1611,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1612,
+    "end_word": 1656,
+    "text_snippet": "زهدم بن مضرب الجرمي: بصري ثقة [زهدم] بفتح الزاي ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1657,
+    "end_word": 1674,
+    "text_snippet": "تيم الله: بفتح التاء، بعدها ياء، ثم ميم. منسوبة ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1675,
+    "end_word": 1719,
+    "text_snippet": "هلم: بفتح الهاء، بعد لام مضمومة، ثم ميم مشددة. ه",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1720,
+    "end_word": 1723,
+    "text_snippet": "فتلكأ: بمعنى تردد وتوقف.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1724,
+    "end_word": 1727,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1728,
+    "end_word": 1738,
+    "text_snippet": "1- فيه دليل على حل أكل لحم الدجاج لأنه من الطيبا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1739,
+    "end_word": 1752,
+    "text_snippet": "2- كون أكثر أكلها النجاسة لا يحرمها، وإنما يكون ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1753,
+    "end_word": 1764,
+    "text_snippet": "3- جواز الترف في المأكل والمشرب والملبس، وأن هذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1765,
+    "end_word": 1782,
+    "text_snippet": "ومن تركه- تدينا- فليس على حق {قُلْ مَنْ حَرم زِي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1783,
+    "end_word": 1793,
+    "text_snippet": "ولا ينبغي اتخاذ الترف عادة دائمة، لئلا يألفه، فل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1794,
+    "end_word": 1795,
+    "text_snippet": "الحديث العاشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1796,
+    "end_word": 1817,
+    "text_snippet": "عنْ ابْنِ عباس رضي الله عنهما: أنَّ النَّبي صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  }
+]

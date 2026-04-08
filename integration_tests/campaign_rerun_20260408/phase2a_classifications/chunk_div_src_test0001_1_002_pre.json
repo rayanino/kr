@@ -1,0 +1,690 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كتاب الطلاق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 33,
+    "text_snippet": "الطلاق: في اللغة: حل الوثاق. مشتق من الإطلاق، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "وحكمه ثابت في الكتاب، والسنة، والإجماع، والقي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 3,
+    "start_word": 42,
+    "end_word": 49,
+    "text_snippet": "فأما الكتاب فنحو {الطلاقُ مَرتَانِ} وعيرها من ا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 50,
+    "end_word": 69,
+    "text_snippet": "وأما السنة، فقوله صلى الله عليه وسلم: {أبغض ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 70,
+    "end_word": 74,
+    "text_snippet": "والأمة مجمعة عليه، والقياس يقتضيه.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 6,
+    "start_word": 75,
+    "end_word": 88,
+    "text_snippet": "فإذا كان يتم النكاح بالعقد لمصالحه وأغراضه فإن",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 89,
+    "end_word": 111,
+    "text_snippet": "والأصل في الطلاق، الكراهة، للحديث المتقدم، ولأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 112,
+    "end_word": 124,
+    "text_snippet": "لذا فإن الطلاق سبب في إبطال هذه المصالح وإفساد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 9,
+    "start_word": 125,
+    "end_word": 172,
+    "text_snippet": "فمن هنا كرهه الشارع، لكنه عند الحاجة إليه نعمة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 173,
+    "end_word": 207,
+    "text_snippet": "وبهذا تعرف جلال هذا الدين، وسُمُو تشريعاته، وأن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 11,
+    "start_word": 208,
+    "end_word": 239,
+    "text_snippet": "وخلافا للنصارى، الذين لا يبيحون الطلاق، فتكون ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 12,
+    "start_word": 240,
+    "end_word": 267,
+    "text_snippet": "ولو قدم هذا الدين وتشريعاته السمحة إلى الناس ك",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 13,
+    "start_word": 268,
+    "end_word": 269,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 270,
+    "end_word": 325,
+    "text_snippet": "عنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أنَهُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 326,
+    "end_word": 338,
+    "text_snippet": "وفي لفظ \" حَتى تحِيضَ حَيْضَةَ مستقبلة، سوى حيض",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 339,
+    "end_word": 354,
+    "text_snippet": "وفي لفظ: فَحُسِبَتْ مِنْ طَلاقِهَا، وَرَجَعَهَا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 355,
+    "end_word": 356,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 357,
+    "end_word": 384,
+    "text_snippet": "طلق عبد الله بن عمر رضي الله عنهما امرأته وهي ",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 385,
+    "end_word": 448,
+    "text_snippet": "ثم أمره بمراجعْتها وإمساكها حتى تطهر من تلك الح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 20,
+    "start_word": 449,
+    "end_word": 452,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 453,
+    "end_word": 466,
+    "text_snippet": "1- تحريم الطلاق في الحيض، وأنه من الطلاق البِدع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 467,
+    "end_word": 521,
+    "text_snippet": "2- أمره صلى الله عليه وسلم ابن عمر برجعتها، دل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 522,
+    "end_word": 534,
+    "text_snippet": "3- الأمر بإرجاعها إذا طلقها في الحيض، وإمساكها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 535,
+    "end_word": 549,
+    "text_snippet": "4- قوله [قبل أن يمسها] دليل على أنه لا يجوز ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 550,
+    "end_word": 579,
+    "text_snippet": "5- الحكمة في إمساكها حتى تطهر من الحيضة الثانية",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 26,
+    "start_word": 580,
+    "end_word": 594,
+    "text_snippet": "وقال (ابن عبد البر) الرجعة لا تكاد تعلم صحتها ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 595,
+    "end_word": 632,
+    "text_snippet": "وأما الحكمة في المنع من طلاق الحائض، فخشية طول",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 633,
+    "end_word": 647,
+    "text_snippet": "وكل هذا راجع إلى قوله تعالى {فَطَلقوهُن لعدتهن",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 29,
+    "start_word": 648,
+    "end_word": 649,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 30,
+    "start_word": 650,
+    "end_word": 663,
+    "text_snippet": "ذهب جمهور العلماء- ومنهم الأئمة الأربعة رضي ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 664,
+    "end_word": 694,
+    "text_snippet": "ودليلهم على ذلك أمره صلى الله عليه وسلم ابن عمر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 32,
+    "start_word": 695,
+    "end_word": 712,
+    "text_snippet": "وذهب بعض العلماء- ومنهم شيخ الإسلام (ابن تيميه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 33,
+    "start_word": 713,
+    "end_word": 738,
+    "text_snippet": "واستدلوا على ذلك بما رواه أبو داود والنسائي [أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 739,
+    "end_word": 748,
+    "text_snippet": "وهذا الحديث في (مسلم) بدون قوله: [ولم يرها شيئ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 35,
+    "start_word": 749,
+    "end_word": 756,
+    "text_snippet": "وقد استنكر العلماء هذا الحديث، لمخالفته الأحاد",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 757,
+    "end_word": 784,
+    "text_snippet": "وأجاب (ابن القيم) عن أدلة الجمهور بأن الأمر بر",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 785,
+    "end_word": 803,
+    "text_snippet": "وأما الاستدلال بلفظ \" فحسبت من طلاقها\" فليس فيه",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 38,
+    "start_word": 804,
+    "end_word": 828,
+    "text_snippet": "وأطال (ابن القيم) النقاش في هذا الموضع في كتاب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 39,
+    "start_word": 829,
+    "end_word": 830,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 831,
+    "end_word": 965,
+    "text_snippet": "عَنْ فَاطِمَةَ بِنْتِ قيْس: أنً أبَا عَمْرِو بْن ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 966,
+    "end_word": 966,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 42,
+    "start_word": 967,
+    "end_word": 990,
+    "text_snippet": "ألبتة: البت: القطع. قال في (المصباح) (بت الرجل",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 991,
+    "end_word": 1009,
+    "text_snippet": "فسخطته: السخط: ضد الرضا، قال في (مختار الصحاح)",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1010,
+    "end_word": 1026,
+    "text_snippet": "\"أم شريك: بفتح الشين وكسر الراء، بعدها ياء، ثم ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1027,
+    "end_word": 1035,
+    "text_snippet": "يغشاها أصحابي: يراد بغشيانهم، كثرة ترددهم إلا،",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1036,
+    "end_word": 1040,
+    "text_snippet": "فآذنيني: بمد الهمزة، أي أعلميني.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1041,
+    "end_word": 1084,
+    "text_snippet": "فلا يضع عصاه عن عاتقه: العاتق ما بين العنق وال",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1085,
+    "end_word": 1089,
+    "text_snippet": "و\"جهم\" مفتوح الجيم، ساكن الهاء.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1090,
+    "end_word": 1098,
+    "text_snippet": "فصعلوك: بضم الماد، التصعلك، هو الفقر، والصعلوك",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1099,
+    "end_word": 1104,
+    "text_snippet": "انكحي أسامة: بكسر الهمزة، ضبطه المطرزي.",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1105,
+    "end_word": 1106,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1107,
+    "end_word": 1228,
+    "text_snippet": "بَت أبو عمرو بن حفص طلاق زوجته فاطمة بنت قيس.\n",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1229,
+    "end_word": 1263,
+    "text_snippet": "بما أن النصح واجب -لا سيما للمستشير- فإنه لم يُ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1264,
+    "end_word": 1279,
+    "text_snippet": "ولكنها امتثلت أمر النبي صلى الله عليه وسلم، فقب",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1280,
+    "end_word": 1283,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1284,
+    "end_word": 1340,
+    "text_snippet": "1- قوله: \"طلقها ثلاثا\" ليس معناه، تكلم بهن دفع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1341,
+    "end_word": 1356,
+    "text_snippet": "2- أن المطلقة طلاقاً باتا، ليس لها نفقة ولا سك",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1357,
+    "end_word": 1368,
+    "text_snippet": "3- جواز التعريض بخطبة المعتدة البائن، حيث قال:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1369,
+    "end_word": 1381,
+    "text_snippet": "4- ذكر الغائب بما يكره على وجه النصح، ولا يكون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1382,
+    "end_word": 1400,
+    "text_snippet": "5- جواز نكاح غير المكافئ في النسب، إذا رضيت به ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1401,
+    "end_word": 1408,
+    "text_snippet": "6- وجوب النصح لكل أحد لا سيما المستشير.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1409,
+    "end_word": 1415,
+    "text_snippet": "فمن استشارك فقد ائتمنك، وأداء الأمانة واجب.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1416,
+    "end_word": 1424,
+    "text_snippet": "7- تستر المرأة عن الرجال، وابتعادها عن أمكنتهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1425,
+    "end_word": 1463,
+    "text_snippet": "8- ليس في أمرها بالاعتداد في بيت ابن أم مكتوم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1464,
+    "end_word": 1487,
+    "text_snippet": "وكما أمر صلى الله عليه وسلم أم سلمة وميمونة با",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1488,
+    "end_word": 1510,
+    "text_snippet": "حديث حسن في السنن. قال النووي: الصحيح الذي علي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1511,
+    "end_word": 1531,
+    "text_snippet": "ثم استدل بالآية وقال: إن الفتنة مشتركة، كما يخ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1532,
+    "end_word": 1545,
+    "text_snippet": "9- جواز الخطبة على خطبة الغيرِ إذا لم يعلم بال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1546,
+    "end_word": 1561,
+    "text_snippet": "10- أن امتثال أمر النبي صلى الله عليه وسلم خير",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1562,
+    "end_word": 1563,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1564,
+    "end_word": 1573,
+    "text_snippet": "اختلف العلماء هل للبائن نفقة وسكنى، زمن العدة،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1574,
+    "end_word": 1589,
+    "text_snippet": "فذهب الإمام أحمد: إلى أنه ليس لها نفقة، ولا سك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1590,
+    "end_word": 1599,
+    "text_snippet": "وبه قال عطاء، وطاوس، والحسن، وعكرمة، وإسحاق، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1600,
+    "end_word": 1602,
+    "text_snippet": "مستدلين بحديث الباب.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1603,
+    "end_word": 1622,
+    "text_snippet": "وذهب الحنفية إلى أن لها النفقة والسكنى، وهو مر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1623,
+    "end_word": 1634,
+    "text_snippet": "مستدلين بما روى عن عمر: (لا ندع كتاب ربنا لقول",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1635,
+    "end_word": 1652,
+    "text_snippet": "وذهب مالك، والشافعي، إلى أن لها السكنى دون الن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1653,
+    "end_word": 1662,
+    "text_snippet": "مستدلين بقوله تعالى: {أسكنوهن مِنْ حَيثُ سكنتم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1663,
+    "end_word": 1670,
+    "text_snippet": "والصحيح، هو القول الأول، لقوة الدليل وعدم المع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1671,
+    "end_word": 1684,
+    "text_snippet": "فأما القول الثاني فضعيف، لأن هذه الكلمة التي ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1685,
+    "end_word": 1694,
+    "text_snippet": "فقد سئل الإمام أحمد: أيصح هذا عن عمر؟ قال: لا.",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1695,
+    "end_word": 1709,
+    "text_snippet": "وعلى فرض صحتها، فصريح كلام النبي صلى الله عليه",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1710,
+    "end_word": 1727,
+    "text_snippet": "وأما أصحاب القول الثالث، فلا يستقيم لهم الاست",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1728,
+    "end_word": 1740,
+    "text_snippet": "ويوضح ذلك قوله تعالى: {لا تَدري لَعَل الله يحد",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1741,
+    "end_word": 1755,
+    "text_snippet": "وإحداث الأمر، معناه تغيره نحو الزوجة ورغبته في",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  }
+]

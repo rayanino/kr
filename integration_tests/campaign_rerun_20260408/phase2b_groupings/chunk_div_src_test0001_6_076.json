@@ -1,0 +1,475 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 0,
+    "end_word": 176,
+    "text_snippet": "‌‌بَابُ الرِّبا والصَّرْف\nالربا في اللغة: الزيادة، ومنه قوله تعالى: {فإذا أنزلن",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف الربا لغة وشرعًا وبيان أدلة تحريمه ومفاسده",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 177,
+    "end_word": 205,
+    "text_snippet": "أما الصرف: فمادته تدور على التقلب والتغير في الأشياء.\nقال في اللسان: \"الصرف بي",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الصرف لغة واصطلاحًا بأنه بيع الأثمان بعضها ببعض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 206,
+    "end_word": 339,
+    "text_snippet": "الحديث الأول\nعَنْ عُمَرَ بْنِ الْخطَابِ رَضىَ الله عَنْهُ قَالَ: قَالَ رَسُول الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث عمر في اشتراط التقابض في الصرف وبيع المتماثلات الربوية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 340,
+    "end_word": 420,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم بيع الذهب بالفضة أو العكس، وفساده إذا لم يتقابض ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الأول في أحكام التقابض ومجلس العقد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 421,
+    "end_word": 614,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي سَعيد الخُدرِىّ رضي الله عنه: أنَ رَسولَ الله صلى الله عل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أبي سعيد في تحريم ربا الفضل والنسيئة في الذهب والفضة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 615,
+    "end_word": 739,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الذهب بالذهب، أو الفضة بالفضة، سواء أكانت ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثاني في التماثل والتقابض وفساد العقد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 740,
+    "end_word": 899,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على تحريم التفاضل ⌜3⌝ والنساء في جنس واحد من الأجن",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان المجمع عليه في ربا الجنس الواحد وجواز التفاضل مع اختلاف الجنس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 900,
+    "end_word": 958,
+    "text_snippet": "وقد ذهبت الظاهرية إلى أن الربا لا يتعدى هذه الأجناس الستة لنفيهمُ القياس.\nوأما ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض الخلاف في تعدية حكم الربا إلى غير الأجناس الستة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      29,
+      30,
+      31,
+      32
+    ],
+    "start_word": 959,
+    "end_word": 1099,
+    "text_snippet": "فالرواية المشهورة عن الإمام أحمد، في الذهب والفضة كونهما موزوني جنس وفى الأربعة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "قول أحمد والحنفية في علة الربا بالكيل والوزن مع أدلتهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      33,
+      34,
+      35
+    ],
+    "start_word": 1100,
+    "end_word": 1203,
+    "text_snippet": "وذهب الشافعي إلى أن العلة، الطعم والجنس، والعلة في الذهب والفضة، كونهما ثمنين ل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "قول الشافعي ومالك في علة الربا في النقدين والأطعمة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة على دليل حديثي سابق بلفظ مختصر، ومعرفة تفاصيل التعليل عند كل مذهب تعين على تمام الفهم."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      36,
+      37,
+      38,
+      39
+    ],
+    "start_word": 1204,
+    "end_word": 1323,
+    "text_snippet": "وهناك رواية أخرى عن الإمام أحمد هي مذهب الإمام الشافعي في القديم، وقال بها سعيد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "الرواية الأخرى عن أحمد في اشتراط الطعم مع الكيل أو الوزن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      40,
+      41,
+      42,
+      43
+    ],
+    "start_word": 1324,
+    "end_word": 1430,
+    "text_snippet": "تلخيص:\nقال في المغنى: فالحاصل إن ما اجتمع فيه الكيل والوزن والطعم من جنس واحد، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "تلخيص الأقوال والترجيح في الأجناس التي يجري فيها الربا",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      44,
+      45,
+      46,
+      47
+    ],
+    "start_word": 1431,
+    "end_word": 1622,
+    "text_snippet": "الحديث الثالث\nعَن أبي سَعِيدٍ الخُدري رَضىَ الله عَنْهُ قَالَ: جَاءَ بلال إلى الن",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث بلال في تحريم ربا الفضل وبيان طريق الاستبدال المباح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 1623,
+    "end_word": 1820,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم ربا الفضل بالتمر، بأن يباع بعضه ببعض، وأحدهما أكثر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثالث في ربا الفضل والعينة والتورق وأدب المفتي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 1821,
+    "end_word": 1970,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم المسألة العينة، التي تقدم شرحها.\nفذهب الأئ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "قول المانعين من بيع العينة وأدلتهم من الحديث والآثار",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله \"التي تقدم شرحها\" يحيل إلى تعريف سابق لمسألة العينة خارج هذه الوحدة، لكن أصل الحكم وأدلته مذكوران هنا."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      54,
+      55,
+      56
+    ],
+    "start_word": 1971,
+    "end_word": 2083,
+    "text_snippet": "وأجاز الشافعي بيع العينة، أخذاً بعموم ما رواه البخاري ومسلم، عن أبي سعيد، وأبى ه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "قول الشافعي في جواز العينة واستدلاله بعموم حديث بيع التمر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      62
+    ],
+    "start_word": 2084,
+    "end_word": 2227,
+    "text_snippet": "أما [مسألة التورق] التي معناها، أن يشتري السلعة نسيئة لغير قصد الانتفاع بها، وإن",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف التورق وذكر القائلين بجوازه والمانعين منه وتعليلهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      63,
+      64,
+      65,
+      66
+    ],
+    "start_word": 2228,
+    "end_word": 2336,
+    "text_snippet": "والمانعون من \"العينة\" جعلوها من باب الذرائع المحرمة، وجعلوا الحديث من باب المطلق",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational",
+      "cross_reference"
+    ],
+    "description_arabic": "رد الاستدلال على الحيل الشرعية وبيان وجه منع العينة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تعتمد هذه الوحدة على معرفة القول المردود عليه في الوحدات السابقة، وإن كان أصل الرد مذكورًا فيها."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      67,
+      68,
+      69
+    ],
+    "start_word": 2337,
+    "end_word": 2442,
+    "text_snippet": "الحديث الرابع\nعَنْ أبي المِنْهَالِ قال: سَالتُ البَرَاءَ بنَ عازِب وَزَيْدَ بنَ أ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أبي المنهال في اشتراط التقابض في بيع الذهب بالفضة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      70
+    ],
+    "start_word": 2443,
+    "end_word": 2505,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الذهب بالفضة، أو الفضة بالذهب، وهما أو أحده",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الرابع في الصرف وورع السلف في الفتوى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      71,
+      72,
+      73
+    ],
+    "start_word": 2506,
+    "end_word": 2608,
+    "text_snippet": "الحديث الخميس\nعَنْ أبي بَكْرَةَ قَالَ: نَهَى رَسُولُ الله صلى الله عليه وسلم عَنِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أبي بكرة في منع التفاضل في الجنس الواحد وجوازه مع اختلاف الجنس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      74
+    ],
+    "start_word": 2609,
+    "end_word": 2749,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم بيع الذهب بالذهب، والفضة بالفضة، متفاضلين، لاجتماع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الخامس في شروط بيع الأجناس الربوية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83
+    ],
+    "start_word": 2750,
+    "end_word": 2880,
+    "text_snippet": "اختلاف العلماء في (الأوراق البنكية) :\nفي هذه الأزمان الأخيرة، أخذ الناس يتعاملون",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "opinion_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "عرض قولين ضعيفين في الأوراق البنكية وبيان وجه ضعفهِما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      84,
+      85
+    ],
+    "start_word": 2881,
+    "end_word": 2912,
+    "text_snippet": "ومنهم: من يرى أن حكمها، حكم النقدين، يجرى فيها ما يجرى فيهما من الأحكام.\nوهذا له",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "القول بأن الأوراق البنكية تأخذ حكم الذهب والفضة ووجه الاستدلال له",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      86,
+      87,
+      88
+    ],
+    "start_word": 2913,
+    "end_word": 2960,
+    "text_snippet": "وأحسن الأقوال في ذلك وأعدلها وأقربها للصواب، هو أن نجعل حكمها حكم الفلوس.\nفنجرى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "ترجيح إلحاق الأوراق البنكية بالفلوس وإجراء ربا النسيئة دون الفضل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

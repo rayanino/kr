@@ -1,0 +1,90 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 14,
+    "text_snippet": "4- أن عدة المتوفى عنها -غير حامل- أربعة أشهر وعشر للحرة وشهران وخمسة أيام ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مدة عدة المتوفى عنها غير الحامل للحرة والأمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 15,
+    "end_word": 37,
+    "text_snippet": "5- يباح لها التزويج، ولو لم تطهر من نفاسها، لما روت (فأفتاني بأني قد حللت حي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم جواز تزويجها بعد الوضع ولو كانت في النفاس",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل الحديثي مذكور بالإشارة والاقتباس الناقص دون تمام النص، مما ينقص اكتمال الاستدلال."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 38,
+    "end_word": 67,
+    "text_snippet": "6- قال شيخ الإسلام: والقرآن ليس فيه إيجاب العدة بثلاثة قروء إلا على المطلقات",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل قول شيخ الإسلام في قصر عدة ثلاثة قروء على المطلقات",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 68,
+    "end_word": 217,
+    "text_snippet": "توفيق بين آيتين:\nعموم قوله تعالى: {وَأوَلاتُ الأحْمَال أجلهن أنْ يَضَعْنَ حَمْ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "condition_exception",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان الجمع بين آيتي العدة وترجيح تخصيص عدة الحامل بوضع الحمل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 218,
+    "end_word": 272,
+    "text_snippet": "فائدة:\nسئل شيخ الإسلام ابن تيمية رحمه الله عن رجل ترك زوجته ست سنين ولم يترك ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "سؤال وجواب في حكم النكاح عند تعذر النفقة وزواج المرأة بغير الأول",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

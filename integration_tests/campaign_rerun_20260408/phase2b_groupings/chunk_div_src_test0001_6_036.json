@@ -1,0 +1,180 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 43,
+    "text_snippet": "وأصرح من ذلك ما أخرجه الحاكم، وأبو حاتم في صحيحهما: \" كيف نصلى عليك في صلاتنا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "خلاف العلماء في حكم الصلاة على النبي في التشهد الأخير مع دليل القائلين بالسنية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 44,
+    "end_word": 68,
+    "text_snippet": "الأحكام:\n1- وجوب الصلاة على النبي صلى الله عليه وسلم في التشهد الأخير في الصلاة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "وجوب الصلاة على النبي في التشهد الأخير مع تفسير صلاة الله على نبيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 69,
+    "end_word": 90,
+    "text_snippet": "2- أن من حق النبي صلى الله عليه وسلم أن ندعو ونصلى عليه، لأنه لم يصلنا هذا ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حق النبي صلى الله عليه وسلم في الدعاء والصلاة عليه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 91,
+    "end_word": 101,
+    "text_snippet": "3- أنه صلى الله عليه وسلم، علم أصحابه السلام والصلاة عليه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات أن النبي صلى الله عليه وسلم علَّم أصحابه السلام والصلاة عليه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 102,
+    "end_word": 121,
+    "text_snippet": "4- أن من أسباب عُلُوِّ شأن النبي صلى الله عله وسلم. ورفع درجاته، دعاء أمته له ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دعاء الأمة للنبي صلى الله عليه وسلم من أسباب رفع درجته وعلو شأنه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "5- أن السلف كانوا يتهادَوْن مسائل العلم، ويجعلونها تُحَفاً قيمة، وهى أفضل الت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل تهادي السلف لمسائل العلم واعتبارها من أنفس الهدايا",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 136,
+    "end_word": 168,
+    "text_snippet": "6- حميد مجيد: الحمد والمجد إليهما يرجع الكمال كله، فإن الحمد مستلزم للعظمة وا",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "شرح معنى حميد مجيد وارتباط الحمد والمجد بكمال صفات الله",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 169,
+    "end_word": 198,
+    "text_snippet": "7- البركة: النماء والزيادة، والتبريك الدعاء بهما، فبارك على محمد وآله يتضمن س",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف البركة والتبريك وبيان معنى الدعاء بالبركة على محمد وآله",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 199,
+    "end_word": 305,
+    "text_snippet": "فائدة:\nمن المتفق عليه، أن النبي محمداً صلى الله عليه وسلم أفضل الخلق.\nوعند عل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_rational",
+      "definition"
+    ],
+    "description_arabic": "حل إشكال تشبيه الصلاة على محمد بالصلاة على إبراهيم وبيان أحسن الأجوبة فيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 306,
+    "end_word": 520,
+    "text_snippet": "فائدة ثانية:\nقال شيخ الإسلام ابن تيمية في مجموع الفتاوى 22/ 456 الأحاديث التي",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "نقل قول ابن تيمية وابن القيم في اللفظ ثم الرد عليهما بإثبات ثبوته في الصحيحين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 521,
+    "end_word": 696,
+    "text_snippet": "الفائدة الثالثة:\nلما ذكر شيخ الإسلام ابن تيمية الأحاديث والطرق التي وردت في ك",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "ذم جمع ألفاظ الأذكار المأثورة كلها في موضع واحد وبيان أن المشروع التنويع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 16,
+    "text_snippet": "وتطمئن في اعتدالك ⌜1⌝ ثم اسجد حتى تطمئن ساجداً،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 17,
+    "end_word": 34,
+    "text_snippet": "وافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 35,
+    "end_word": 38,
+    "text_snippet": "في الحديث ثلاثة مباحث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 43,
+    "text_snippet": "المبحث الأول: في خلاف العلماء.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 44,
+    "end_word": 78,
+    "text_snippet": "فقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 79,
+    "end_word": 121,
+    "text_snippet": "وذهب الجمهور إلى عدم صحة الصلاة بدون الفاتحة لم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 122,
+    "end_word": 127,
+    "text_snippet": "وأدلة عدم صحة الصلاة بدونها كثيرة.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.61
+  },
+  {
+    "segment_index": 7,
+    "start_word": 128,
+    "end_word": 149,
+    "text_snippet": "وأجابوا عن الآية بأنها جاءت لبيان القرآن في قيام",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 150,
+    "end_word": 183,
+    "text_snippet": "وأجابوا عن الحديث، بأن هذه الرواية مجملة تفسرها ",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 184,
+    "end_word": 211,
+    "text_snippet": "ولابن حبان في حديثه \"واقرأ بأم القرآن ثم اقرأ ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 10,
+    "start_word": 212,
+    "end_word": 223,
+    "text_snippet": "ثم إن بعض العلماء يرى وجوب الفاتحة في الركعة ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 224,
+    "end_word": 267,
+    "text_snippet": "والجمهور يرى وجوبها في كل ركعة، ويدل له قوله: \"ث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 268,
+    "end_word": 277,
+    "text_snippet": "ثم اختلفوا في وجوب الطمأنينة في الاعتدال من الرك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 13,
+    "start_word": 278,
+    "end_word": 282,
+    "text_snippet": "فذهب الحنفية إلى علم وجوبها.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.55
+  },
+  {
+    "segment_index": 14,
+    "start_word": 283,
+    "end_word": 305,
+    "text_snippet": "وذهب الجمهور إلى وجوبها، وحجتهم هذا الحديث الصحي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  }
+]

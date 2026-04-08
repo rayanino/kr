@@ -1,0 +1,511 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 92,
+    "text_snippet": "‌‌بَابُ الصّفُوف\nالحديث الأول\nعن أنَس بْنِ مَالِكٍ رضي الله عنه قَالَْ: قَالَ رَسُ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "الحديث الأول في الأمر بتسوية الصفوف وبيان معناها وآثارها في كمال الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 93,
+    "end_word": 113,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- مشروعية تعديل الصفوف في الصلاة. باعتدال القائمين ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية تعديل الصفوف وكونه باعتدال المصلين على سمت واحد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 114,
+    "end_word": 137,
+    "text_snippet": "2- أن تسويته، سبب في تمام الصلاة فيكون ذلك مستحباً، كما هو مذهب الجمهور، وقيل بوج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الخلاف في حكم تسوية الصفوف بين الاستحباب والوجوب",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم قوله «تسويته» إلى رجوع يسير إلى تسوية الصفوف المذكورة قبل هذا الموضع."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 138,
+    "end_word": 145,
+    "text_snippet": "3- كراهة اعوجاجها، وأن ذلك نقص في الصلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كراهة اعوجاج الصفوف واعتبار ذلك نقصاً في الصلاة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «اعوجاجها» يعود على الصفوف من السياق السابق."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 146,
+    "end_word": 160,
+    "text_snippet": "4- فضل صلاة الجماعة، وذلك لأن الأجر الحاصل من تعديل الصف متسبب عن صلاة الجماعة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استفادة فضل صلاة الجماعة من ارتباط تعديل الصف بها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 161,
+    "end_word": 212,
+    "text_snippet": "5- قيل: إن الحكمة في تسوية الصفوف هي موافقة الملائكة في صفوفهم فقد أخرج مسلم عن جا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان حكمة تسوية الصفوف بأنها موافقة صفوف الملائكة مع الاستدلال بالحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 213,
+    "end_word": 500,
+    "text_snippet": "الحديث الثاني\nعَنِ النُعْمَانِ بْنِ بَشِيرٍ رضي الله عنه، قَالَ: سَمِعْتُ رَسُولَ ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational",
+      "narration"
+    ],
+    "description_arabic": "حديث الوعيد على ترك تسوية الصفوف مع شرح ألفاظه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 501,
+    "end_word": 545,
+    "text_snippet": "الأحكام المأخوذة:\n1- ظاهر الحديث، وجوب تعديل الصفوف، وتحريم تعويجها، للوعيد الشديد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الخلاف في دلالة الحديث الثاني على وجوب تسوية الصفوف أو استحبابها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 546,
+    "end_word": 569,
+    "text_snippet": "2- شدة اهتمامه صلى الله عليه وسلم بإقامة الصفوف، فقد كان يتولى تعديلها بيده الكريمة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اهتمام النبي بإقامة الصفوف ودلالة ذلك على أن تسويتها من وظيفة الإمام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 570,
+    "end_word": 582,
+    "text_snippet": "3- أن الجزاء من جنس العمل، فقد توعد بمخالفة وجوههم مقابل مخالفة صفوفهم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استفادة قاعدة الجزاء من جنس العمل من وعيد مخالفة الصفوف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 583,
+    "end_word": 596,
+    "text_snippet": "4- غضب النبي صلى الله عليه وسلم على اختلاف الصف، فيقتضي الحذر من ذلك.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التحذير من اختلاف الصفوف لما فيه من موجب غضب النبي صلى الله عليه وسلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 597,
+    "end_word": 609,
+    "text_snippet": "5- فيه جوازَ كلامَ الإمام فيما بين الإقامة والصلاة لما يعرض من الحاجة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز كلام الإمام بين الإقامة والصلاة عند الحاجة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 610,
+    "end_word": 872,
+    "text_snippet": "الحديث الثالث\nعن أنَس بنِ مَالِكٍ رضي الله عنه أن جَدَّتَهُ ⌜1⌝ مُلَيْكَةَ دَعَتْ رَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث صلاة النبي في بيت مليكة وبيان هيئة المأمومين ومعانيه الإجمالية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      35,
+      36
+    ],
+    "start_word": 873,
+    "end_word": 945,
+    "text_snippet": "اختلاف العلماء:\nذهب الجمهور إلى صحة مُصَافَة الصبيِّ في صلاتَي الفرض والنافلة، مست",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خلاف العلماء في صحة مصافة الصبي في الفرض والنفل وترجيح قول الجمهور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      37,
+      38
+    ],
+    "start_word": 946,
+    "end_word": 966,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- صحة مصافة الذي لم يبلغ في الصلاة، لأن اليتيم يطلق على من مات",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "صحة مصافة الصبي غير البالغ في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      39
+    ],
+    "start_word": 967,
+    "end_word": 976,
+    "text_snippet": "2- أن الأفضل في موقف المأمومين، أن يكونوا خلف الإمام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل في موقف المأمومين أن يكونوا خلف الإمام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 977,
+    "end_word": 983,
+    "text_snippet": "3- أن موقف المرأة، يكون خلف الرجال.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "موقف المرأة في الصلاة يكون خلف الرجال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      41
+    ],
+    "start_word": 984,
+    "end_word": 1000,
+    "text_snippet": "4- صحة موقف المرأة صفاً واحدا، مادامت واحدة.\nفإن كن أكثر من ذلك، وجب عليهن إقامة ا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "حكم وقوف المرأة وحدها خلف الرجال ووجوب اصطفاف النساء إذا كثرن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 1001,
+    "end_word": 1016,
+    "text_snippet": "5- جواز الاجتماع في النوافل، وإن لم يشرع لها اجتماع، إذ لم يتخذ ذلك عادة مستمرة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الاجتماع في صلاة النافلة إذا لم يتخذ عادة مستمرة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 1017,
+    "end_word": 1030,
+    "text_snippet": "6- جواز الصلاة، لقصد التعليم بها، أو غير ذلك من المقاصد الدينية النافعة المفيدة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الصلاة لأجل التعليم أو لمقاصد دينية نافعة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      44
+    ],
+    "start_word": 1031,
+    "end_word": 1039,
+    "text_snippet": "7- تواضع النبي صلى الله عليه وسلم، وكرم خلقه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إظهار تواضع النبي صلى الله عليه وسلم وكرم خلقه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      45,
+      46
+    ],
+    "start_word": 1040,
+    "end_word": 1082,
+    "text_snippet": "8- استحباب إجابة دعوة الداعي، لاسيما لمن يحصل بإجابته جبر خواطرهم، وتطمين قلوبهم. ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "استحباب إجابة الدعوة مع استثناء وليمة العرس والتنبيه إلى تصحيح النية ومراعاة الأحوال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      47,
+      48,
+      49,
+      50
+    ],
+    "start_word": 1083,
+    "end_word": 1198,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ عبَّاس رضي الله عنهما قال: بِتُّ عِنْدَ خَالَتِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عباس في موقف المأموم الواحد عن يمين الإمام مع بيان معناه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      51,
+      52
+    ],
+    "start_word": 1199,
+    "end_word": 1271,
+    "text_snippet": "اختلاف العلماء:\nالمشهور من مذهب الإمام \" أحمد \" فساد صلاة المأموم، إذا كان واقفاً ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الخلاف في صحة صلاة المأموم إذا وقف عن يسار الإمام مع خلو يمينه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      53,
+      54
+    ],
+    "start_word": 1272,
+    "end_word": 1286,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الأفضل للمأموم أن يقف عن يمين الإمام إذا كان واحداً.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الأفضل للمأموم الواحد أن يقف عن يمين الإمام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      55
+    ],
+    "start_word": 1287,
+    "end_word": 1307,
+    "text_snippet": "2- صحة وقوف المأموم عن يسار الإمام مع خُلُو يمينه، لكون النبي صلى الله عليه وسلم، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صحة وقوف المأموم عن يسار الإمام مع خلو يمينه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 1308,
+    "end_word": 1330,
+    "text_snippet": "3- أن المأموم الواحد إذا وقف عن يسار الإمام فاستدار إلى يمينه يأتي من الخلف، كما و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كيفية انتقال المأموم من يسار الإمام إلى يمينه من خلفه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1331,
+    "end_word": 1341,
+    "text_snippet": "4- أن العمل في الصلاة إذا كان مشروعاً لصحتها، لا يضرها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "العمل المشروع في الصلاة لأجل تصحيحها لا يضرها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1342,
+    "end_word": 1348,
+    "text_snippet": "5- صحة مصَافَة الصبي وحده، مع البالغ.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "صحة مصافة الصبي وحده مع البالغ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1349,
+    "end_word": 1353,
+    "text_snippet": "6- مشروعية صلاة الليل واستحبابها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية صلاة الليل وبيان استحبابها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      60
+    ],
+    "start_word": 1354,
+    "end_word": 1365,
+    "text_snippet": "7- اجتهاد ابن عباس رضي الله عنه، وحرصه على تحصيل العلم وتحقيقه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان اجتهاد ابن عباس وحرصه على تحصيل العلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      61
+    ],
+    "start_word": 1366,
+    "end_word": 1380,
+    "text_snippet": "8- أنه لا يشترط لصحة الإمامة، أن ينوي الإمام قبل الدخول في الصلاة أنه إمام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم اشتراط نية الإمامة قبل الدخول في الصلاة لصحتها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في «أنه» ومرجع الحكم يفهمان من سياق الإمامة والصلاة في الحديث السابق."
+  }
+]

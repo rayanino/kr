@@ -1,0 +1,130 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "فقال: لا أعلم شيئاً يدفعه.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 13,
+    "text_snippet": "وبهذا القول، قال إسحاق، والظاهرية، وانتصر له ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 14,
+    "end_word": 34,
+    "text_snippet": "واستدلوا بهذا الحديث الذي جاء في قصة المخزومية",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 35,
+    "end_word": 51,
+    "text_snippet": "والمعنى الموجود في السارق موجود مثله في جاحد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 52,
+    "end_word": 65,
+    "text_snippet": "والمعُيِرُ مُحْسِن، والجاحد ير يد قطع الإحسان ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 66,
+    "text_snippet": "تنبيه:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 6,
+    "start_word": 67,
+    "end_word": 96,
+    "text_snippet": "بإجماع العلماء أن الغاصب والمختلس والمنتهب لا",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 97,
+    "end_word": 118,
+    "text_snippet": "وإنما لم يقطعوا، لما نقلناه في أول الباب عن ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 8,
+    "start_word": 119,
+    "end_word": 121,
+    "text_snippet": "‌‌بَابُ حد الخمْر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 122,
+    "end_word": 126,
+    "text_snippet": "للخمر- في اللغةَ ثلاثة معان:",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 127,
+    "end_word": 137,
+    "text_snippet": "1- الستر والتغطية، ومنه: اختمرت المرأة إذا غط",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 138,
+    "end_word": 150,
+    "text_snippet": "2- والمخالطة: ومنه قول كثير عزة:\nهنيئا مريئا غ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 12,
+    "start_word": 151,
+    "end_word": 164,
+    "text_snippet": "3- والإدراك، ومنه قولهم: خمرت العجين ⌜1⌝ وهو ",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 165,
+    "end_word": 183,
+    "text_snippet": "فمن هذه المعانيْ الثلاثة أخذ اسم الخمرة، لأنه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 14,
+    "start_word": 184,
+    "end_word": 197,
+    "text_snippet": "وتعريفها- شرعاً: أنها اسم لكل ما خامر العقل و",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 198,
+    "end_word": 204,
+    "text_snippet": "لحديث \"كل مسكر خمر وكل خمر حرام\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  }
+]

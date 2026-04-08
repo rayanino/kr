@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَابُ صدقة الفِطر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 23,
+    "text_snippet": "نسبت إلى \"الفطر\" من باب نسبة المسبب إلى سببه، ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 56,
+    "text_snippet": "منها: - أنها طهرة للصائم. وشكر لله تعالى على أن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 57,
+    "end_word": 98,
+    "text_snippet": "ومنها: - أنها مواساة دين الفقراء والأغنياء، إذا ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 99,
+    "end_word": 132,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بن عُمَرَ رضي الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 133,
+    "end_word": 143,
+    "text_snippet": "قال: فَعدَلَ الناسُ بِهِ نِصْفَ صَاع من بُرٍّ عَلَى",
+    "scholarly_function": "narration",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 6,
+    "start_word": 144,
+    "end_word": 152,
+    "text_snippet": "وفي لفظ: أنْ تؤَدَّى قبْلَ خُرُوج الناس إلَى الصلَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 153,
+    "end_word": 204,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي سَعِد الخدْرِيِّ رضي الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 205,
+    "end_word": 223,
+    "text_snippet": "قال أبو سعيد: أما أنا فَلَا أزَال أخْرجُهُ كَمَا ك",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 224,
+    "end_word": 224,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 10,
+    "start_word": 225,
+    "end_word": 244,
+    "text_snippet": "الأقط: مثلث الهمزة، وهو يعمل من اللبن المخيض يطبخ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 245,
+    "end_word": 248,
+    "text_snippet": "السمراء: يريد بها الحنطة.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 249,
+    "end_word": 250,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 251,
+    "end_word": 361,
+    "text_snippet": "أوجب النبي صلى الله عليه وسلم صدقة الفطر على جميع",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 14,
+    "start_word": 362,
+    "end_word": 375,
+    "text_snippet": "وليحصل بالصدقة الإغناء المطلوب، أمر أن تؤدى إلى ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 15,
+    "start_word": 376,
+    "end_word": 379,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 380,
+    "end_word": 391,
+    "text_snippet": "1- وجوب زكاة \" الفطر \" وهو إجماع المسلمين لقوله:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 392,
+    "end_word": 406,
+    "text_snippet": "2- أن تخرج عن كل مسلم صغير أو كبير، ذكر أو أنثى،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 407,
+    "end_word": 434,
+    "text_snippet": "3- أنها لا تجب عن الجنين، واستحب كثير من العلماء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 435,
+    "end_word": 501,
+    "text_snippet": "4- ظاهر الحديث، تحديد الإخراج من الأشياء المذكور",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 20,
+    "start_word": 502,
+    "end_word": 568,
+    "text_snippet": "5- ظاهر حديث أبي سعيد، أن الواجب صاع، سواء أكان ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 569,
+    "end_word": 572,
+    "text_snippet": "قلت: والأحوط، المذهب الأول.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 573,
+    "end_word": 658,
+    "text_snippet": "6- والأفضل إخراجها فجر يوم العيد قبل الصلاة، وهو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 23,
+    "start_word": 659,
+    "end_word": 777,
+    "text_snippet": "7- وهل يجوز تقديمها قبل صلاة العيد؟.\nذهب أبو حني",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

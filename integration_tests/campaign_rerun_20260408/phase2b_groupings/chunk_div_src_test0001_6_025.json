@@ -1,0 +1,105 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 94,
+    "text_snippet": "‌‌بَابُ تحيَّة المسْجِد ⌜1⌝\nعَنْ أبي قَتَادَةَ الْحَارِثِ بْنِ رَبعِيٍّ الأنصَاري ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث تحية المسجد مع المعنى الإجمالي وبيان مشروعية الركعتين قبل الجلوس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 95,
+    "end_word": 428,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في جواز فعل الصلوات ذوات الأسباب كـ\" تحية المسجد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف العلماء في ذوات الأسباب وقت النهي مع أدلة الترجيح للجواز",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله: وقد تقدم هذا الخلاف في حديث ابن عباس رقم [52]، وبعض الاستدلال مبني على معرفة سابقة بأحاديث النهي."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 429,
+    "end_word": 448,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية تحية المسجد لداخله، وذهب إلى وجوبها الظاهر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم تحية المسجد بين القول بوجوبها والقول باستحبابها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 449,
+    "end_word": 471,
+    "text_snippet": "2- أنها مشروعة لداخل المسجد في كل وقت، ولو كان وقت نَهْي لعموم الحديث. وق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية تحية المسجد في أوقات النهي لعموم الحديث",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: وقد تقدم الخلاف فيها وفي غيرها، من ذوات الأسباب، يحيل إلى نقاش سابق خارج الوحدة."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 472,
+    "end_word": 482,
+    "text_snippet": "3- استحباب الوضوء لداخل المسجد، لئلا تفوته هذه الصلاة المأمور بها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب الوضوء لمن أراد دخول المسجد ليتمكن من التحية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 483,
+    "end_word": 506,
+    "text_snippet": "4- قيد العلماء المسجد الحرام بأن تحيته الطواف. لكن من لم يُرِدِ الطواف أو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "تحية المسجد الحرام بالطواف مع استثناء من لا يريد الطواف أو يشق عليه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

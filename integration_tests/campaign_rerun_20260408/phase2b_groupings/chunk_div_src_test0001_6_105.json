@@ -1,0 +1,48 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 136,
+    "text_snippet": "الحديث الثاني\nعَنِ ابنِ عباس رضي الله عنهما قَال: قال رسول الله صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "الحديث وشرحه في استحباب التسمية والدعاء عند الجماع وبيان بركتهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 137,
+    "end_word": 273,
+    "text_snippet": "تنبيه:\nذكر القاضي عياض: أنه لم يحمل هذا الحديث على العموم في جميع الضرر والوسوس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "condition_exception",
+      "example",
+      "refutation"
+    ],
+    "description_arabic": "عرض الإشكال في عموم نفي ضرر الشيطان والجواب عنه بقاعدة الأسباب والموانع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

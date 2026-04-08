@@ -1,0 +1,242 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 183,
+    "text_snippet": "‌‌بَابُ الجُمعَة\nيوم الجمعة أفضل أيام الأسبوع، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 1,
+    "start_word": 184,
+    "end_word": 203,
+    "text_snippet": "وقد أفرد لها الشيخ \" ابن القيم \" فَصْلاً مطولا ف",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 204,
+    "end_word": 284,
+    "text_snippet": "الحديث الأول\nعَنْ سَهْلِ بن سَعْدٍ السَّاعِدي رضي ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 285,
+    "end_word": 301,
+    "text_snippet": "وفي لفظ: \" فَصَلَّى وَهُوَ عَليْها ثَم كَبَّر عَلَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 302,
+    "end_word": 383,
+    "text_snippet": "غريب الحديث:\n1- تماروا: أي تجادلوا، من أي شيء ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 384,
+    "end_word": 507,
+    "text_snippet": "المعنى الإجمالي:\nتباحث أناس في منبر النبي صلى ال",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 508,
+    "end_word": 631,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تباحث التابعين في العلم، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 632,
+    "end_word": 656,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبدِ الله بْن عُمَرَ رضي الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 657,
+    "end_word": 721,
+    "text_snippet": "المعنى الإجمالي:\nالاجتماع لصلاة الجمعة، مشهد عظي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 9,
+    "start_word": 722,
+    "end_word": 728,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في غسل الجمعة.\n",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 10,
+    "start_word": 729,
+    "end_word": 746,
+    "text_snippet": "فذهب الظاهرية إلى أنه واجب، مستدلين بحديث \" غُسْ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 747,
+    "end_word": 795,
+    "text_snippet": "وذهب الجمهور إلى استحبابه، وأنه غير واجب، مستدلي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 796,
+    "end_word": 806,
+    "text_snippet": "وأجابوا عن الحديث الذي استدل به الظاهرية، بأنه ي",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 13,
+    "start_word": 807,
+    "end_word": 822,
+    "text_snippet": "وأن معنى \" الواجب \" في الحديث، الحق، كما يقول أ",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 823,
+    "end_word": 886,
+    "text_snippet": "أو أن ذلك في أول الإسلام، يوم كان الصحابة يلبسون",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 887,
+    "end_word": 896,
+    "text_snippet": "والحق أن هذه أجوبة غير ناهضة لتأويل الحديث عن ظا",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 897,
+    "end_word": 935,
+    "text_snippet": "ولذا قال \" ابن القيم \" في \" الهدى \": \" ووجوبه أق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 936,
+    "end_word": 976,
+    "text_snippet": "وقال شيخ الإسلام \" ابن تيمية \": \" ويجب الغسل على",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 977,
+    "end_word": 1016,
+    "text_snippet": "فالأولى لمن ذهب إلى الجمعة أن لايدع الغسل، لأنه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1017,
+    "end_word": 1138,
+    "text_snippet": "الأحكام المأخوذة من الحديث:\n1- ظاهر الحديث، وجوب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1139,
+    "end_word": 1175,
+    "text_snippet": "الحديث الثالث\nعَنْ جَابِر بْنِ عَبْدِ الله رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1176,
+    "end_word": 1240,
+    "text_snippet": "المعنى الإجمالي:\nدخل سليك الغطفاني المسجد النبوي",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1241,
+    "end_word": 1257,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء فيمن دخل المسجد و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1258,
+    "end_word": 1281,
+    "text_snippet": "فذهب الشافعي، وأحمد، وأصحاب الحديث إلى أن المشرو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1282,
+    "end_word": 1310,
+    "text_snippet": "وذهب مالك، وأبو حنيفة، إلى أنه يجلس ولا يصلي.\nمس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1311,
+    "end_word": 1332,
+    "text_snippet": "وأجاب المستحبون للصلاة عن الآية بأجوبة:\nمنها: أً",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1333,
+    "end_word": 1390,
+    "text_snippet": "وأجاب أبو حنيفة، ومالك عن حديث الباب بأجوبة واهي",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1391,
+    "end_word": 1481,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية خطبتَي الجمعة، وأن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1482,
+    "end_word": 1506,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بن عُمَرَ رضي الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1507,
+    "end_word": 1526,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم ي",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  }
+]

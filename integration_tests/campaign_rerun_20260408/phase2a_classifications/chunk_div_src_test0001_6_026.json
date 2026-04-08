@@ -1,0 +1,266 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌بَابُ النّهي عَن الكَلام في الصَّلاة ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 38,
+    "text_snippet": "عَنْ زَيد بْنِ أرقَمَ رضي الله عنه قال: \"كُنَا نَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 39,
+    "end_word": 82,
+    "text_snippet": "غريب الحديث:\nقانتين: للقنوت عدة معان، منها: - ال",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 83,
+    "end_word": 124,
+    "text_snippet": "المعنى الإجمالي:\nذكر زيد بن أرقم رضي الله عنه أن",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 125,
+    "end_word": 171,
+    "text_snippet": "ولما كان في الصلاة شغل بمناجاة الله عن الكلام مع",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 172,
+    "end_word": 186,
+    "text_snippet": "اختلاف العلماء:\nأجمع العلماء على بطلان صلاة من ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 187,
+    "end_word": 196,
+    "text_snippet": "واختلفوا في الساهي، والجاهل والمكره، والنائم، وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 197,
+    "end_word": 228,
+    "text_snippet": "فذهب الحنابلة إلى بطلان الصلاة في كل هذا، عملا ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 229,
+    "end_word": 279,
+    "text_snippet": "وذهب الإمامان \" مالك \" و \" الشافعي \" إلى صحة صلا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 280,
+    "end_word": 317,
+    "text_snippet": "وما ذهب إليه الإمامان، مالك، والشافعي، من عدم قط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 318,
+    "end_word": 321,
+    "text_snippet": "وأدلة ذلك قوية واضحة.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 11,
+    "start_word": 322,
+    "end_word": 349,
+    "text_snippet": "منها: حديث \" ذي اليدين \" وكلام النبي صلى الله عل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 350,
+    "end_word": 415,
+    "text_snippet": "وما رواه مسلم عن معاوية بن الحكم: بَيْنَما أنَا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 416,
+    "end_word": 432,
+    "text_snippet": "وحديث: \" عُفِي لأمّتِي عنِ الخَطَأِ والنسْيَانِ و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 433,
+    "end_word": 440,
+    "text_snippet": "وحديث الباب، ونحوه، محمول على العامد العالم بالت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 15,
+    "start_word": 441,
+    "end_word": 450,
+    "text_snippet": "واختلف العلماء في النفخ والنحنحة، والتأوُّه،، وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 451,
+    "end_word": 466,
+    "text_snippet": "فذهب بعضهم- وهو المشهور من مذهب الحنابلة والشافع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 467,
+    "end_word": 510,
+    "text_snippet": "فإن لم ينتظم منه حرفان، أو كان الانتحاب من خشية ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 18,
+    "start_word": 511,
+    "end_word": 544,
+    "text_snippet": "وحكى عدم البطلان رواية عن الإمامين مالك وأحمد. م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 19,
+    "start_word": 545,
+    "end_word": 562,
+    "text_snippet": "وقد نفخ صلى الله عليه وسلم في صلاة الكسوف. وقال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 20,
+    "start_word": 563,
+    "end_word": 569,
+    "text_snippet": "وهذه الأشياء ليست كلاماً، ولا تنافي الصلاة.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 21,
+    "start_word": 570,
+    "end_word": 610,
+    "text_snippet": "ذكر شيخ الإسلام ابن تيمية أن هذا المبحث ينقسم إ",
+    "scholarly_function": "definition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 22,
+    "start_word": 611,
+    "end_word": 633,
+    "text_snippet": "وهذان النوعان من الكلام يدلان على معنى بالوضع وق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 23,
+    "start_word": 634,
+    "end_word": 699,
+    "text_snippet": "أما القسم الثاني في الكلام فهو ماله معنى بالطبع ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 24,
+    "start_word": 700,
+    "end_word": 719,
+    "text_snippet": "قال شيخ الإسلام في \"الاختيارات\": والأظهر أن الص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 25,
+    "start_word": 720,
+    "end_word": 733,
+    "text_snippet": "وفيها من الاستخفاف والتلاعب ما يناقض المقصود من ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 734,
+    "end_word": 742,
+    "text_snippet": "قال ابن المنذر: أجمعوا على أن الضحك يفسد الصلاة.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 743,
+    "end_word": 757,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كان الكلام في الصلاة أول ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 758,
+    "end_word": 782,
+    "text_snippet": "2- تحريم الكلام في الصلاة بعد نزول قوله تعالى: {",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 783,
+    "end_word": 793,
+    "text_snippet": "3- أن الكلام- مع حرمته- مفسد للصلاة، لأن النهي ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 794,
+    "end_word": 815,
+    "text_snippet": "4- أن القنوت المذكور في هذه الآية، مراد به السكوت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 816,
+    "end_word": 838,
+    "text_snippet": "5- أن المعنى الذي حرم من أجله الكلام، هو طلب الإ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 839,
+    "end_word": 850,
+    "text_snippet": "6- صراحة النسخ في مثل هذا الحديث الذي جمع بين ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

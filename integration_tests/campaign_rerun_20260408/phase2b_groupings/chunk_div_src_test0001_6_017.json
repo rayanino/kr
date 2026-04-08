@@ -1,0 +1,745 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 82,
+    "text_snippet": "‌‌بَابُ الإمَامَة\nهذا باب يذكر فيه آداب الإمام والمأموم، وما يجب على كُل منهما، ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان موضوع باب الإمامة ومقاصدها وآداب الإمام والمأموم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 83,
+    "end_word": 228,
+    "text_snippet": "الحديث الأول\nعَنْ أبي هُريرة رضي الله عنه أنَّ النَبيَّ صلى الله عليه وسلم قَالَ:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "النهي عن رفع الرأس قبل الإمام وشرح ألفاظه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 229,
+    "end_word": 317,
+    "text_snippet": "اختلاف العلماء في السبق:\nاتفق العلماء على تحريم مسابقة المأموم للإمام لهذا الوعيد ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma"
+    ],
+    "description_arabic": "خلاف الفقهاء في بطلان صلاة من سبق إمامه والترجيح فيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 318,
+    "end_word": 347,
+    "text_snippet": "الاستنباطات من الحديث:\n1- تحريم رفع الرأس في السجود قبل الإمام والوعيد فيه دليل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم رفع الرأس في السجود قبل الإمام وبيان دلالة الوعيد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 348,
+    "end_word": 384,
+    "text_snippet": "2- يلحق بذلك مسابقة الإمام في كل تنقلات الصلاة وليس ذا من باب القياس وحده فزيادة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إلحاق جميع تنقلات الصلاة بحكم المسابقة وذكر دليل زائد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 385,
+    "end_word": 391,
+    "text_snippet": "3- وجوب متابعة المأموم للإمام في الصلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب متابعة المأموم للإمام في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 392,
+    "end_word": 405,
+    "text_snippet": "4- أن الجزاء من جنس العمل، فحين كان الرفع في الرأس، جوزِيَ بالوعيد بالمسخ.",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الجزاء من جنس العمل في وعيد المسابقة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 406,
+    "end_word": 444,
+    "text_snippet": "5- توعد المسابق بالمسخ إلى صورة الحمار، لما بينه وبين الحمار من المناسبة والشبه ف",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل تشبيه المسابق بالحمار ووجه المناسبة بينهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 445,
+    "end_word": 466,
+    "text_snippet": "6- تدل مسابقة الإمام على الرغبة في استعجال الخروج من الصلاة، وذلك مرض دواؤه أن يت",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "المسابقة تدل على استعجال الخروج من الصلاة وعلاج ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 467,
+    "end_word": 502,
+    "text_snippet": "7- الوعيد بتغيير صورة من يرفع رأسه قبل الإمام إلى صورة حمار أمر ممكن، وهو من المس",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "احتمال حقيقة المسخ أو حمله على تحويل الطبع والبلادة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "start_word": 503,
+    "end_word": 812,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي هريرة رضي الله عنه عَنِ النبي صلى الله عليه وسلم قَال: ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement",
+      "narration"
+    ],
+    "description_arabic": "صفة متابعة المأموم للإمام في التكبير والركوع والسجود والجلوس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 813,
+    "end_word": 982,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في صحة ائتمام المفترض بالمتنفل.\nفذهب المالكية والحنف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "evidence_hadith",
+      "definition",
+      "refutation"
+    ],
+    "description_arabic": "خلاف العلماء في ائتمام المفترض بالمتنفل وأدلة الفريقين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "start_word": 983,
+    "end_word": 1331,
+    "text_snippet": "واختلفوا أيضاً في صلاة المأمومين جلوسا مع القدرة على القيام خلف الإمام العاجز عن ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "refutation",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "خلاف الفقهاء في صلاة المأمومين خلف الإمام القاعد والجمع بين الأحاديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      65,
+      66
+    ],
+    "start_word": 1332,
+    "end_word": 1344,
+    "text_snippet": "ما يؤخذ من الحديثين:\n1- وجوب متابعة المأموم للإمام في الصلاة وتحريم المسابقة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب متابعة الإمام وتحريم المسابقة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      67
+    ],
+    "start_word": 1345,
+    "end_word": 1350,
+    "text_snippet": "2- تحريم مخالفته وبطلان الصلاة بها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم مخالفة الإمام وذكر بطلان الصلاة بها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      68
+    ],
+    "start_word": 1351,
+    "end_word": 1371,
+    "text_snippet": "3- أن الأفضل في المتابعة، أن تقع أعمال المأموم بعد أعمال الإمام مباشرة. قال الفقه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأفضل في المتابعة وقوع فعل المأموم بعد الإمام مباشرة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      69
+    ],
+    "start_word": 1372,
+    "end_word": 1392,
+    "text_snippet": "4- أن الإمام إذا صلى جالسا -لعجزه عن القيام- صلى خلفه المأمون جلوساً ولو كانوا ق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم صلاة المأمومين جلوسا خلف الإمام العاجز عن القيام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      70
+    ],
+    "start_word": 1393,
+    "end_word": 1453,
+    "text_snippet": "5- أن المأموم يقول: \" ربنا لك الحمد \" حينما يقول الإمام: \" سمع الله لمن حمده \".",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر المأموم ربنا لك الحمد وحكم جمع الإمام بين التسميع والتحميد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      71
+    ],
+    "start_word": 1454,
+    "end_word": 1464,
+    "text_snippet": "6- أن من الحكمة في جعل الإمام في الصلاة، الاقتداء والمتابعة.",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان الحكمة من جعل الإمام في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      72
+    ],
+    "start_word": 1465,
+    "end_word": 1470,
+    "text_snippet": "7- جواز الإشارة في الصلاة للحاجة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الإشارة في الصلاة عند الحاجة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      73
+    ],
+    "start_word": 1471,
+    "end_word": 1502,
+    "text_snippet": "8- في الحديث دليل على تأكيد متابعة الإمام، وأنها مقدمة على غيرها من أعمال الصلاة،",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تأكيد المتابعة وتقديمها على بعض أعمال الصلاة عند التعارض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      74,
+      75,
+      76
+    ],
+    "start_word": 1503,
+    "end_word": 1582,
+    "text_snippet": "9- ومنه يؤخذ تَحَتمُ طاعة القادة وولاة الأمر ومراعاة النظام، وعدم المخالفة والانش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "الاستدلال بمتابعة الإمام على طاعة القادة والاجتماع ونبذ التنازع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "start_word": 1583,
+    "end_word": 1710,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ يَزِيدَ الْخَطْمِيِّ الأنْصارِيّ رضي الله عنه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث براء بن عازب في تأخر المأمومين حتى يسجد الإمام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      82,
+      83
+    ],
+    "start_word": 1711,
+    "end_word": 1730,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- صفة متابعة الصحابة للرسول في الصلاة، وأنهم لا ينتقلون من ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان صفة متابعة الصحابة للإمام في السجود",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      84
+    ],
+    "start_word": 1731,
+    "end_word": 1757,
+    "text_snippet": "2- أنه ينبغي أن تكون المتابعة هكذا، فلا تتقدم الإمام، فإنه محرم يبطل الصلاة، ولا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ضابط المتابعة بين التقدم والموافقة والتأخر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      85
+    ],
+    "start_word": 1758,
+    "end_word": 1775,
+    "text_snippet": "3- في الحديث دليل على طول الطمأنينة بعد الركوع، هذا بالنسبة إلى المأموم، أما الإ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بالحديث على طول الطمأنينة بعد الركوع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      86
+    ],
+    "start_word": 1776,
+    "end_word": 1791,
+    "text_snippet": "[تنبيه] الموافقة في أفعال الصلاة وأقوالها للإمام مكروهة، إلا تكبيرة الإحرام، فإنه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "كراهة موافقة الإمام في الأفعال والأقوال إلا تكبيرة الإحرام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      87,
+      88,
+      89,
+      90,
+      91
+    ],
+    "start_word": 1792,
+    "end_word": 1892,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي هُريرةَ رضي الله عنه أنَّ رَسُولَ الله صلى الله عليه وسلم ق",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "مشروعية التأمين وفضيلة موافقة تأمين الملائكة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      92,
+      93,
+      94,
+      95
+    ],
+    "start_word": 1893,
+    "end_word": 1954,
+    "text_snippet": "اختلاف العلماء:\nذهب مالك في إحدى الروايتين عنه، إلى أن التأمين لا يشرع في حق الإ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خلاف العلماء في حكم تأمين الإمام والمأموم والمنفرد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      96,
+      97
+    ],
+    "start_word": 1955,
+    "end_word": 1966,
+    "text_snippet": "ما يؤخذ من الحديث من الأحكام:\n1- مشروعية التأمين للإمام، والمأموم، والمنفرد.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مشروعية التأمين لجميع المصلين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      98
+    ],
+    "start_word": 1967,
+    "end_word": 2019,
+    "text_snippet": "2- أن الملائكة تؤمن على دعاء المصلين. والأظهر أن المراد منهم الذين\nيشهدون تلك ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تأمين الملائكة على دعاء المصلين وبيان المراد بهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      99
+    ],
+    "start_word": 2020,
+    "end_word": 2047,
+    "text_snippet": "3- فضيلة التأمين، وأنه سبب في غفران الذنوب.\nلكن عند محققي العلماء أن التكفير في ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضيلة التأمين وأن تكفيره محمول على صغائر الذنوب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      100
+    ],
+    "start_word": 2048,
+    "end_word": 2058,
+    "text_snippet": "4- أنه ينبغي للداعي والمؤمّن على الدعاء، أن يكون حاضر القلب.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب حضور القلب للداعي والمؤمن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      101
+    ],
+    "start_word": 2059,
+    "end_word": 2080,
+    "text_snippet": "5- استدل البخاري بهذا الحديث على مشروعية جهر الإمام بالتأمين، لأنه علق تأمين المؤ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال على مشروعية جهر الإمام بالتأمين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      102
+    ],
+    "start_word": 2081,
+    "end_word": 2110,
+    "text_snippet": "6- من الأفضل للداعي أن يشابه الملائكة في كل الصفات التي تكون سبباً في الإجابة، كا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب التشبه بالملائكة في أسباب إجابة الدعاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "start_word": 2111,
+    "end_word": 2339,
+    "text_snippet": "الحديث السادس\nعن أبي هريرة رضي الله عنه أنَ رَسُولَ الله صلى الله عليه وسلم قَالَ:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "narration"
+    ],
+    "description_arabic": "الأمر بتخفيف الإمام الصلاة وذم التنفير بالتطويل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116
+    ],
+    "start_word": 2340,
+    "end_word": 2506,
+    "text_snippet": "اختلاف العلماء:\nهناك أحاديث صحيحة تصف صلاة النبي صلى الله عليه وسلم بالطول، بحيث ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "opinion_statement",
+      "evidence_rational",
+      "cross_reference"
+    ],
+    "description_arabic": "الجمع بين أحاديث التطويل وأحاديث التخفيف ورفع التعارض بينها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      117,
+      118
+    ],
+    "start_word": 2507,
+    "end_word": 2517,
+    "text_snippet": "ما يؤخذ من الحديثين:\n1- وجوب تخفيف صلاة الجماعة مع الإئتمام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب تخفيف صلاة الجماعة عند الإمامة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      119
+    ],
+    "start_word": 2518,
+    "end_word": 2529,
+    "text_snippet": "2- غضبه صلى الله عليه وسلم على المثقلين، وعدُّه هذا من الفتنة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "شدة الإنكار على من يثقلون الصلاة على الناس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      120
+    ],
+    "start_word": 2530,
+    "end_word": 2561,
+    "text_snippet": "3- جواز تطويل صلاة المنفرد ما شاء، وقيد بأن لا يخرج الوقت وهو في الصلاة. وذلك كيل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز تطويل المنفرد صلاته بشرط عدم إخراجها عن وقتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      121
+    ],
+    "start_word": 2562,
+    "end_word": 2569,
+    "text_snippet": "4- وجوب مراعاة العاجزين وأصحاب الحاجات في الصلاة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب مراعاة العاجزين وذوي الحاجات في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      122
+    ],
+    "start_word": 2570,
+    "end_word": 2582,
+    "text_snippet": "5- أنه لا بأس بإطالة الصلاة، إذا كان عدد المأمومين ينحصر وآثروا التطويل.",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز إطالة الصلاة إذا رضي المأمومون المحصورون بذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      123
+    ],
+    "start_word": 2583,
+    "end_word": 2605,
+    "text_snippet": "6- أنه ينبغي للإنسان أن يسهل على الناس طريق الخير، ويحببه إليهم، ويرغبهم فيه، لأ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تيسير طريق الخير للناس وترغيبهم فيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,210 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَابُ الغسْل لِلمُحرم\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 114,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ حُنَيْنِ: أنَّ عَبْدَ الله بْن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 115,
+    "end_word": 124,
+    "text_snippet": "وفي رواية: فَقَالَ الْمِسْوَر لابْنِ عَبَّاسٍ: لا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 125,
+    "end_word": 135,
+    "text_snippet": "القرنان: العمودان اللذان تشد فيهما الخشبة، التي ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 136,
+    "end_word": 136,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 5,
+    "start_word": 137,
+    "end_word": 167,
+    "text_snippet": "الأبواء: بفتح الهمزة وسكون الباء الموحدة ممدوداً،",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 168,
+    "end_word": 200,
+    "text_snippet": "القرنان: بفتح القاف تثنية قرن وهما الخشبتان القا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 201,
+    "end_word": 210,
+    "text_snippet": "طأطأه: أي طامنه يعني الثوب ليرى الرسول رأسه من و",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 211,
+    "end_word": 212,
+    "text_snippet": "أماريك: أجادلك.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 213,
+    "end_word": 214,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 10,
+    "start_word": 215,
+    "end_word": 230,
+    "text_snippet": "اختلف عبد الله بن عباس والمسور بن مخرمة رضي الله",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 231,
+    "end_word": 250,
+    "text_snippet": "فذهب المسور إلى المنع، خشية سقوط الشعر من أثر ال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 251,
+    "end_word": 264,
+    "text_snippet": "وذهب ابن عباس إلى الجواز، استصحاباً للأصل، وهو ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 13,
+    "start_word": 265,
+    "end_word": 369,
+    "text_snippet": "فأرسلا عبد الله بن حنين إلى أبي أيوب الأنصاري رض",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 370,
+    "end_word": 399,
+    "text_snippet": "فلما جاء الرسول وأخبرهما بتصويب ما رآه عبد الله ",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 400,
+    "end_word": 403,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 404,
+    "end_word": 420,
+    "text_snippet": "1- جواز غسل المحرم رأسه، ويستوي فيه أن يكون ترفه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 421,
+    "end_word": 433,
+    "text_snippet": "2- جواز إمرار اليد على شعر الرأس بالغسل إذا لم ي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 434,
+    "end_word": 452,
+    "text_snippet": "3- في الحديث دليل على جواز المناظرة في مسائل الا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 453,
+    "end_word": 466,
+    "text_snippet": "4- قبول خبر الواحد في المسائل الدينية. وأن العمل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 467,
+    "end_word": 477,
+    "text_snippet": "5- الرجوع إلى النصوص الشرعية عند الاختلاف، وترك ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 478,
+    "end_word": 489,
+    "text_snippet": "6- جواز السلام على المتطهر في وضوء أو غسل، ومحا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 490,
+    "end_word": 500,
+    "text_snippet": "7- استحباب التستر وقت الغسل، فإن خاف من ينظر إلي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 501,
+    "end_word": 506,
+    "text_snippet": "8- جواز الاستعانة في الطهارة بالغير.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 507,
+    "end_word": 533,
+    "text_snippet": "9- سؤال ابن عباس أبا أيوب، يفيد أن عنده علماً نق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 534,
+    "end_word": 561,
+    "text_snippet": "10- قال شيخٍ الإسلام: ويستحب الغسل للإحرام، ولو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

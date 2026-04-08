@@ -1,0 +1,320 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 97,
+    "text_snippet": "‌‌بَابُ سُجُود السَهْو\nالسهو: هو النسيان، وهو الترك من غير علم، وليس على صاحبه",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف السهو ورفع الحرج عنه وبيان حكم وقوعه من النبي وحِكَمه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 98,
+    "end_word": 122,
+    "text_snippet": "وأسباب السجود له ثلاثة: 1- إما زيادة في الصلاة 2- أو نقص فيها. 3- أو شك.\nوشرع ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان أسباب سجود السهو الثلاث وحكمة مشروعيته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 123,
+    "end_word": 545,
+    "text_snippet": "الحديث الأول\nعَنْ مُحَمَّدِ بْنِ سِيرِينَ عَنْ أبي هرَيرة قَالَ: صَلَّى بَنا رَسو",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث ذي اليدين مع شرح معناه الإجمالي وأحوال السهو في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 546,
+    "end_word": 848,
+    "text_snippet": "خلاف العلماء:\nالشك في الصلاة أحد أسباب سجود السهو:\nروى مسلم عن أبي سعيد أنه صل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_hadith"
+    ],
+    "description_arabic": "خلاف الفقهاء في حكم الشك في الصلاة والبناء على اليقين أو غالب الظن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 849,
+    "end_word": 914,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- جواز السهو من الأنبياء عليهم السلام في أفعالهم ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "أول الأحكام المستنبطة: سهو الأنبياء في الأفعال وحِكَم ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 915,
+    "end_word": 934,
+    "text_snippet": "3- أن الخروج من الصلاة قبل إتمامها- مع ظن أنها تمت- لا يقطعها، بل يجوز البناء عل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم من خرج من الصلاة ظانًّا تمامها ثم بان له النقص",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 935,
+    "end_word": 962,
+    "text_snippet": "4- أن الكلام في صلب الصلاة من الناسي لا يبطلها، خلافاً لمن أبطلها بذلك من العلماء",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن كلام الناسي في أثناء الصلاة لا يبطلها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22,
+      23,
+      24
+    ],
+    "start_word": 963,
+    "end_word": 1021,
+    "text_snippet": "5- صحة بناء ما ترك من الصلاة على أوَّلِهَا، ولو طال الفصل.\nوكذلك لو نسي السجود، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز البناء على الصلاة بعد النقص وطروء أفعال منافية من الناسي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 1022,
+    "end_word": 1040,
+    "text_snippet": "7- وجوب سَجْدَتَي السهْوِ لمن سها في الصلاة، فزاد فيها، أو نقص منها ليجبر به الصل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب سجدتي السهو عند الزيادة أو النقص في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 1041,
+    "end_word": 1062,
+    "text_snippet": "8- أن سجود السهو لا يتعدد، ولو تعددت أسبابه.\nفإن النبي صلى الله عليه وسلم سلَّم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "أن أسباب السهو المتعددة يجبرها سجود واحد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 1063,
+    "end_word": 1103,
+    "text_snippet": "9- أن سجود السهو يكون بعد السلام، إذا سلم المصلى عن نقص في الصلاة وماعداه يكون ق",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تفصيل موضع سجود السهو قبل السلام وبعده مع ذكر المذاهب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 1104,
+    "end_word": 1125,
+    "text_snippet": "10- أن سهو الإمام لاحِقٌ للمأمومين لتمام المتابعة والاقتداء، ولأن ما طرأ على صلاة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "لحوق سهو الإمام بالمأمومين بسبب المتابعة والاقتداء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 1126,
+    "end_word": 1185,
+    "text_snippet": "11- أما التشهد بعد سجدتي السهو فقد قال فيه شيخ الإسلام ابن تيمية: ليس في شيء من ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان عدم مشروعية التشهد بعد سجدتي السهو عند ابن تيمية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34
+    ],
+    "start_word": 1186,
+    "end_word": 1290,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْن بُحَيْنَةَ- وكانَ مِنْ أصْحَاب النبي صلى الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن بحينة في ترك التشهد الأول والسجود قبل السلام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      35,
+      36
+    ],
+    "start_word": 1291,
+    "end_word": 1305,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب سجود السَّهْو لمن سها في الصلاة وترك التشهد الأول.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب سجود السهو بترك التشهد الأول",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 1306,
+    "end_word": 1325,
+    "text_snippet": "2- أن التشهد الأول، ليس بركن، ولو كان ركناً، لما جبر النقص به سجودُ السَّهْوِ ويؤ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن التشهد الأول واجب وليس ركناً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 1326,
+    "end_word": 1344,
+    "text_snippet": "3- أن تعدد السهو يكفي له في سجدتان، فإن النبي صلى الله عليه وسلم ترك -هنا- الجلو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أن تعدد أسباب السهو يجبر بسجدتين فقط",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة داخلية بلفظ -هنا- إلى الحديث السابق في نفس الموضع."
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      39,
+      40,
+      41
+    ],
+    "start_word": 1345,
+    "end_word": 1399,
+    "text_snippet": "4- أهمية متابعة الإمام، حيث أقرهم النبي صلى الله عليه وسلم على متابعته وتركهم ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "أهمية متابعة الإمام ولحوق سهوه بالمأمومين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      42,
+      43
+    ],
+    "start_word": 1400,
+    "end_word": 1421,
+    "text_snippet": "6- أن السجود في مثل هذه الحال، يكون قبل السلام.\n7- أن السلام يلي سَجْدَتي السهو،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "موضع سجود السهو هنا وأن السلام يعقبه بلا تشهد فاصل",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عبارة مثل هذه الحال تشير إلى حالة ترك التشهد الأول المذكورة في الحديث السابق."
+  }
+]

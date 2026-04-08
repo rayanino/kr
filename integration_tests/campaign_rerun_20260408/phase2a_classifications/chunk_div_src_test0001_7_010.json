@@ -1,0 +1,210 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "‌‌بَابُ المرُور بَيْن يَدَي المصَلّي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 6,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 49,
+    "text_snippet": "عَنْ أبي جُهَيْم بنِ الصِّمَّةِ الأنصَارِي رضيَ الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 50,
+    "end_word": 61,
+    "text_snippet": "قال أبو النضر: لا أدْرِي قَالَ أرْبَعِينَ يَوماً ",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 4,
+    "start_word": 62,
+    "end_word": 126,
+    "text_snippet": "لمعنى الإجمالي\nالمصلي واقف بين يدي ربه يناجيه وي",
+    "scholarly_function": "narration",
+    "confidence": 0.63
+  },
+  {
+    "segment_index": 5,
+    "start_word": 127,
+    "end_word": 209,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم المرور بين يدي المص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 210,
+    "end_word": 223,
+    "text_snippet": "فقد كانت العرب تُجْرِى ذَلِك مُجْرَى المثل في كلا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 224,
+    "end_word": 233,
+    "text_snippet": "{إنْ تَسْتَغْفِرْ لهم سبعين مَرَّة فَلَنْ يَغْفِرَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 234,
+    "end_word": 258,
+    "text_snippet": "ولهذا ورد في صحيح ابن حبان، وسنن ابن ماجه، من حد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 259,
+    "end_word": 286,
+    "text_snippet": "5- أما في مكة، فقد قال شيخ الإسلام ابن تيمية: \" ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 287,
+    "end_word": 288,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 289,
+    "end_word": 328,
+    "text_snippet": "عَنْ أبي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 329,
+    "end_word": 392,
+    "text_snippet": "المعنى الإجمالي:\nإذا دخلَ المصلي في صلاته، وقد و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 13,
+    "start_word": 393,
+    "end_word": 624,
+    "text_snippet": "الأحكام التي في الحديث:\n1- مشروعة السترة للمصلى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 625,
+    "end_word": 626,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 627,
+    "end_word": 675,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاس ورَضىَ الله عَنْهُمَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 676,
+    "end_word": 715,
+    "text_snippet": "غريب الحديث:\nالأتَان: أنثى الحمير، وهو بفتح الهم",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 716,
+    "end_word": 808,
+    "text_snippet": "المعنى الإجمالي:\nأخبر عبد الله بن عباس رضي الله ",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 809,
+    "end_word": 927,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن مرور الحمار بين يدي الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 928,
+    "end_word": 929,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 930,
+    "end_word": 961,
+    "text_snippet": "عَنْ عَائِشَةَ رضىَ الله عَنْهَا قالَتْ: كُنْتُ أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 962,
+    "end_word": 1038,
+    "text_snippet": "المعنى الإجمالي:\nكانت عائشة رضى الله عنها إذا أو",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1039,
+    "end_word": 1142,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز اعتراض النائم بين يدي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1143,
+    "end_word": 1144,
+    "text_snippet": "اختلاف العلماء",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1145,
+    "end_word": 1221,
+    "text_snippet": "اختلف العلماء، في المرأة، والحمار، والكلب الأسود",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1222,
+    "end_word": 1248,
+    "text_snippet": "أما المرأة، فلحديث عائشة الذي تقدم.\nوأما الحمار،",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  }
+]

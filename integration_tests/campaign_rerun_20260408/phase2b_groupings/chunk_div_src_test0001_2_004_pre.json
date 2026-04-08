@@ -1,0 +1,188 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 88,
+    "text_snippet": "‌‌باب فضْل صَلاة الجماعَةِ وَوجوبها\nمن سُمُوّ هذه الشريعة: أنها تشرع في كثير م",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "مقدمة في فضل الاجتماع في الشريعة وكون صلاة الجماعة أول مؤتمراتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 89,
+    "end_word": 203,
+    "text_snippet": "الحديث الأول\nعَن عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ رسول الله صلى الله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "definition",
+      "editorial_note"
+    ],
+    "description_arabic": "بيان فضل صلاة الجماعة على صلاة المنفرد مع شرح ألفاظ الحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 204,
+    "end_word": 272,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فيه بيان فضل الصلاة مع الجماعة.\n2- فيه بيان قلة ثواب صل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد المستنبطة من الحديث الأول في فضل الجماعة وصحة صلاة المنفرد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 273,
+    "end_word": 546,
+    "text_snippet": "الحديث الثاني\nعَنْ أبى هريرة رضي الله عنه قَالَ: قَالَ رَسُولُ الله صلى الله عل",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "evidence_hadith",
+      "definition"
+    ],
+    "description_arabic": "حديث أبي هريرة وشرح غريبه وبيان المعنى الإجمالي في فضل الجماعة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 547,
+    "end_word": 654,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم صلاة الجماعة.\nفذهبت طائفة من الحنفية وال",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational",
+      "cross_reference"
+    ],
+    "description_arabic": "عرض أقوال العلماء في حكم صلاة الجماعة وذكر دليل القائلين بالسنية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 655,
+    "end_word": 706,
+    "text_snippet": "أما أدلة من ذهبوا إلى أنها فرض كفاية، فهي أدلة من يرونها فرض عين، وذلك لمشروعي",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "ذكر دليل القائلين بفرض الكفاية ثم مناقشته وإبطاله",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 707,
+    "end_word": 802,
+    "text_snippet": "أما أدلة الموجبين لها على الأعيان، فهي صحيحة صريحة.\nفمنها: حديث أبي هريرة هذا ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "editorial_note",
+      "refutation"
+    ],
+    "description_arabic": "أدلة القائلين بفرض العين والجواب عن أحاديث المفاضلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 803,
+    "end_word": 900,
+    "text_snippet": "أما دليل الغالين في ذلك، وهم من يرون أنها شرط لصحة الصلاة، فهو ما رواه ابن ماج",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "ذكر دليل من اشترط الجماعة للصحة ثم ترجيح عدم دلالته على الشرطية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 901,
+    "end_word": 958,
+    "text_snippet": "بعد أن ذكر \" ابن القيم \" في كتاب الصلاة \" مذاهب العلماء وأدلتهم قال: \" ومن تأ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل ترجيح ابن القيم لفرض صلاة الجماعة في المساجد على الأعيان",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 959,
+    "end_word": 1052,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن صلاة الجماعة فرض عين، على الرجال البالغين.\n2- أن من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفوائد المستنبطة من الحديث الثاني في وجوب الجماعة وآثارها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

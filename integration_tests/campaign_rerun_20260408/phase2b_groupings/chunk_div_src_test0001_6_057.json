@@ -1,0 +1,310 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "3- أن النفساء- وإن حازت الشهادة بموتها في نفاسها- يصلى عليها فلا تأخذ حكم شه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن النفساء شهيدة الأجر لا تأخذ حكم شهيد المعركة في الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "4- علل بعضهم الحكمة في الوقوف وسط المرأة بأنه أستر لها من الناس.",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل الوقوف وسط المرأة في صلاة الجنازة بأنه أستر لها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 29,
+    "end_word": 78,
+    "text_snippet": "فائدة:\nموقف الإمام من الرجل إزاء رأسه، لما روى الترمذي وحسنه \"أن أنساً صَلَّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان موضع وقوف الإمام عند الرجل والمرأة بدليل حديث أنس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 79,
+    "end_word": 105,
+    "text_snippet": "وإذا اجتمع جنائز، فيكفيهن صلاة واحدة.\nفإن كانوا نوعاً واحدا، قدم إلى الأمام ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام ترتيب الجنائز إذا اجتمعت في صلاة واحدة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 106,
+    "end_word": 129,
+    "text_snippet": "والصلاة على الجنازة شفاعة من المصلين للميت.\nفينبغي إخلاص الدعاء، وإحضار القلب",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الحث على الإخلاص وحضور القلب في الدعاء للميت في صلاة الجنازة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 130,
+    "end_word": 425,
+    "text_snippet": "‌‌‌‌باب في تحْريم التسخط بالفعل والقول\nالحديث الأول\nعَنْ أبي ⌜1⌝ مُوسَى- عَبْ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "definition",
+      "evidence_quran"
+    ],
+    "description_arabic": "تحريم التسخط عند المصائب قولاً وفعلاً وبيان معاني ألفاظه وأدلته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 426,
+    "end_word": 545,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم التسخط من أقدار الله المؤلمة، وإظهار ذلك بالنياحة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد الحديث في تحريم التسخط وبيان جواز الحزن والبكاء المشروع",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتضمن عبارة «وللعلماء والعارفين في هذا الباب» إحالة عامة إلى آراء لم تفصل بعد، فالسياق اللاحق يفيد في تمام المراد."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 546,
+    "end_word": 717,
+    "text_snippet": "فائدتان:\nالأولى: الإيمان بالله تعالى، وحسن رجاء العبد بره ومثوبته، ظل ظليل يأ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "أثر الإيمان والرجاء والصبر في تهوين المصائب والوقاية من اليأس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 718,
+    "end_word": 941,
+    "text_snippet": "الثانية: مذهب أهل السنة والجماعة، أن المسلم لا يخرج من دائرة الإسلام بمجرد فع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement",
+      "example"
+    ],
+    "description_arabic": "مذهب أهل السنة في عدم تكفير المسلم بالمعصية وتأويل نصوص الوعيد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "start_word": 942,
+    "end_word": 1161,
+    "text_snippet": "الحديث الثالث\nعَنْ عَائِشَةَ رضي الله عنها قالت: لَمَّا اشتَكَى النَبي صلى الل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث كنيسة الحبشة وبيان خطر البناء على القبور والتصاوير",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 1162,
+    "end_word": 1382,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم البناء على القبور، وأنه من التشبه بالمشركين، ومن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد الحديث في تحريم البناء على القبور والتصوير وبيان شدتهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      37,
+      38,
+      39
+    ],
+    "start_word": 1383,
+    "end_word": 1544,
+    "text_snippet": "الحديث الرابع\nعن عَائشة رضي الله عنها قالت قَالَ رَسول الله صلى الله عليه وسل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث لعن متخذي قبور الأنبياء مساجد وشرح مقصوده في حماية التوحيد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 1545,
+    "end_word": 1737,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي الأكيد، والتحريم الشديد، من اتخاذ القبور مساجد، و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "evidence_hadith"
+    ],
+    "description_arabic": "أحكام اتخاذ القبور مساجد وكونه من وسائل الشرك ومن فعل أهل الكتاب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      47,
+      48,
+      49
+    ],
+    "start_word": 1738,
+    "end_word": 1868,
+    "text_snippet": "الحديث الخامس\nعَنْ أبي هُريرة رضي الله عنه قال: قال رسول الله صلى الله عليه و",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث القيراطين وبيان فضل شهود الجنازة والصلاة عليها حتى الدفن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56
+    ],
+    "start_word": 1869,
+    "end_word": 1973,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الفضل العظيم في الصلاة على الجنازة وتشييعها حتى تدفن. و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "فوائد حديث القيراطين في فضل الصلاة على الجنازة وتشييعها وتفاوت الأجر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      62
+    ],
+    "start_word": 1974,
+    "end_word": 2106,
+    "text_snippet": "زيارة القبور:\nقال شيخ الإسلام ابن تيمية: الزيارة تنقسم إلى قسمين: زيارة شرعي",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "rule_statement"
+    ],
+    "description_arabic": "تقسيم زيارة القبور إلى شرعية وبدعية وبيان ضابط كل منهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

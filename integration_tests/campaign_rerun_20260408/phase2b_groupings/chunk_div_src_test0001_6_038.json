@@ -1,0 +1,69 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 83,
+    "text_snippet": "إسلامية، وعرف الناس دين الله وشرائعه، وأقبلوا عليه راغبين فيه، غير مكرهين",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "ختم العبادة بالاستغفار والتسبيح مع الدعاء الوارد ووجه مناسبة ألفاظه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفتتح بعبارة متصلة بما قبل هذا المقطع في قوله: إسلامية، مما يجعل أول السياق غير مستقل تماماً، لكن الحكم والدليل والشرح داخل الوحدة واضح."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 84,
+    "end_word": 236,
+    "text_snippet": "الأحكام المستنبطة من الحديث:\n1- استحباب الإكثار من هذا الدعاء، في الركوع والسجو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام وفوائد مستنبطة من الحديث في الدعاء وختم العبادات والاستغفار",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الفوائد مبنية على الحديث السابق، وعبارة هذا الدعاء في أول تعدادها تعود إلى دعاء مذكور قبلها."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 237,
+    "end_word": 342,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام ابن تيمية: وأما دعاء الإمام والمأمومين جميعا عقب الصلا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان عدم مشروعية الدعاء الجماعي عقب الصلاة المكتوبة وذكر تعليله",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 343,
+    "end_word": 454,
+    "text_snippet": "فائدة أخرى:\nبناء على ما رجح من عدم مشروعية الدعاء بعد السلام من الصلاة، يظه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "التفريع على منع الدعاء بعد السلام بعدم مشروعية رفع اليدين هناك مع إثباته في مواضع أخرى",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاحه بقوله: بناء على ما رجح يحيل إلى ترجيح سابق، فاستقلاله التام يتوقف على معرفة ذلك الترجيح، وإن كان مقصوده العام مفهوماً."
+  }
+]

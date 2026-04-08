@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "4- جواز التعليم بالفعل، ليكون أبقى في ذهن المتعل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 35,
+    "text_snippet": "5- جواز فعل العبادة لأجل التعليم، وأنه ليس من ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 36,
+    "end_word": 38,
+    "text_snippet": "الحديث الحادي عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 65,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ مَالِكٍ \"ابن بُحَينةَ\" رضيَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 66,
+    "end_word": 84,
+    "text_snippet": "المعنى الإجمالي:\nكانت صلاة النبي صلى الله عليه ",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 5,
+    "start_word": 85,
+    "end_word": 98,
+    "text_snippet": "ولهذا كان إذا سجد فرج بين يديه، ومن شدة التفريج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 6,
+    "start_word": 99,
+    "end_word": 122,
+    "text_snippet": "كل ذلك عنوان النشاط في الصلاة، والرغبة في العب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 7,
+    "start_word": 123,
+    "end_word": 178,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فيه دليل على استحباب هذه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 179,
+    "end_word": 185,
+    "text_snippet": "2- في ذلك حِكَم كثيرة، وفوائد جسيمة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 9,
+    "start_word": 186,
+    "end_word": 207,
+    "text_snippet": "منها: - إظهار النشاط والرغبة في الصلاة.\nومنها: ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 10,
+    "start_word": 208,
+    "end_word": 208,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 11,
+    "start_word": 209,
+    "end_word": 223,
+    "text_snippet": "خص بعض الفقهاء، ومنهم الحنابلة، هذا الحكم بالرج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 224,
+    "end_word": 258,
+    "text_snippet": "ولما روى أبو داود في مراسيله عن يزيد ابن حبيب \"",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,522 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "‌‌بَابُ مَا نهى الله عنه من البيوع\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 49,
+    "text_snippet": "عَنْ أبي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه أن رَسُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 140,
+    "text_snippet": "المعنى الإجمالي:\nنهى النبي صلى الله عليه وسلم عن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 141,
+    "end_word": 191,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النهى عن بيع الملامسة: فس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 192,
+    "end_word": 226,
+    "text_snippet": "2- النهي عن بيع المنابذة وفسرت أيضاً بتفاسير، الص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 5,
+    "start_word": 227,
+    "end_word": 258,
+    "text_snippet": "3- أما جعل اللمس أو النبذ بيعاً، أو يجعل البيع مع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 259,
+    "end_word": 268,
+    "text_snippet": "4- اًن هذين البيعين غير صحيحين، لأن النهى يقتضي ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 269,
+    "end_word": 292,
+    "text_snippet": "5- المراد بالنهى، المبيعات المختلفة: بصفاتها أو ق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 8,
+    "start_word": 293,
+    "end_word": 314,
+    "text_snippet": "6- استدل بذلك على عدم صحة شراء المجهول وعدم صحة ش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 315,
+    "end_word": 365,
+    "text_snippet": "7- وأما البيع الغائب فإنه يصح بيعه إذا كان الوصف ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 366,
+    "end_word": 424,
+    "text_snippet": "8- قال النووي: اعلم أن الملامسة والمنابذة ونحوهما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 425,
+    "end_word": 439,
+    "text_snippet": "9- بهذا تبين أن ما نهى عنه في هذا الحديث، مرجعه إ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 12,
+    "start_word": 440,
+    "end_word": 442,
+    "text_snippet": "الحديث الثاني ⌜1⌝\nعَن أبي هُرَيرةَ رَضىَ الله عَنْ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 13,
+    "start_word": 443,
+    "end_word": 499,
+    "text_snippet": "عَن أبي هُرَيرةَ رَضىَ الله عَنْهُ: أنً رَسولَ الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 500,
+    "end_word": 501,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بنِ عَبَّاس رضي الل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 15,
+    "start_word": 502,
+    "end_word": 539,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ عَبَّاس رضي الله عنهما قال: ن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 540,
+    "end_word": 726,
+    "text_snippet": "الغريب:\nلا تلقوا الركبان: جمع \" راكب \" ويراد تلقى",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 727,
+    "end_word": 1032,
+    "text_snippet": "المعنى الإجمالي:\nفي هذين الحديثين الجليلين، ينهى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1033,
+    "end_word": 1060,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن تلقى القادمين، لبي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1061,
+    "end_word": 1075,
+    "text_snippet": "2- الحكمة في النهي لئلا يخدعوا، فيشترى منهم سلعهم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1076,
+    "end_word": 1157,
+    "text_snippet": "3- تحريم البيع على بيع المسلم وهو أن يقول لمن اش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1158,
+    "end_word": 1177,
+    "text_snippet": "وقد قال ابن عبد البر: أجمع الفقهاء على أنه لا يجو",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1178,
+    "end_word": 1208,
+    "text_snippet": "4- مثل البيع في التحريم، خطبة النكاح على الخاطب ق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1209,
+    "end_word": 1241,
+    "text_snippet": "5- النهي عن بيع الحاضر للبادي وصفته \" أن يقدم من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1242,
+    "end_word": 1271,
+    "text_snippet": "6- والحكمة في النهى، إغلاء السلعة على المقيمين إذ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1272,
+    "end_word": 1293,
+    "text_snippet": "7- قيد بعض العلماء التحريم بشروط، أهمها أن يقدم ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1294,
+    "end_word": 1304,
+    "text_snippet": "8- النهى عن تصرية اللبن في ضروع بهيمة الأنعام عند",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1305,
+    "end_word": 1337,
+    "text_snippet": "9- تحريم ذلك لما فيه من التدليس والتغرير بالمشترى",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1338,
+    "end_word": 1362,
+    "text_snippet": "10- أن البيع صحيح لقوله: \" إن رضيها أمسكها \" ولكن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1363,
+    "end_word": 1371,
+    "text_snippet": "11- أن خياره يمتد ثلاثة أيام، منذ علم التصرية.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1372,
+    "end_word": 1387,
+    "text_snippet": "12- يفيد هذا الحديث، أن كل بيع يقع فيه التدليس فه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1388,
+    "end_word": 1470,
+    "text_snippet": "13- إذا علم التصرية، وردها بعد حلبها، رد معها صاع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1471,
+    "end_word": 1480,
+    "text_snippet": "أما الحادث بعد، فلا يرد عنه شيئاً، لأن الخراج بال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1481,
+    "end_word": 1526,
+    "text_snippet": "14- النهى عن النجش، وهو زيادة من لا يريد شراء الس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1527,
+    "end_word": 1540,
+    "text_snippet": "اختلاف العلماء:\nمذهب جمهور العلماء صحة شراء مُتلَ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1541,
+    "end_word": 1561,
+    "text_snippet": "والدليل على ذلك ما رواه مسلم وغيره \" لا تَلَقوا ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1562,
+    "end_word": 1590,
+    "text_snippet": "كما أن النهي في الحديث لا يعود إلى نفس العقد، ولا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1591,
+    "end_word": 1609,
+    "text_snippet": "واختلفوا في ثبوت الخيار، فذهب الشافعي، وأحمد: إلى",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1610,
+    "end_word": 1622,
+    "text_snippet": "ودليلهم، الحديث المتقدم، ولأن هذا ضرر نزل بالبائع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1623,
+    "end_word": 1631,
+    "text_snippet": "وذهب الحنفية إلى عدم الخيار، والقول الأول هو الص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1632,
+    "end_word": 1659,
+    "text_snippet": "واختلفوا في صحة بيع من باع على بيع أخيه.\nفذهب الإ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1660,
+    "end_word": 1679,
+    "text_snippet": "وذهب الأئمة \" الثلاثة \" إلى صحة البيع لأن النهى ل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1680,
+    "end_word": 1700,
+    "text_snippet": "وما يقال في البيع على البيع، يقال مثله في الشراء ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1701,
+    "end_word": 1740,
+    "text_snippet": "واختلفوا في صحة بيع الحاضر للبادي.\nفالمشهور في مذ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1741,
+    "end_word": 1751,
+    "text_snippet": "فإن اختل شرط منها صح البيع. ودليلهم أن النهى يقتض",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1752,
+    "end_word": 1760,
+    "text_snippet": "وذهب الجمهور إلى صحة البيع مع التحريم، لمخالفته ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1761,
+    "end_word": 1786,
+    "text_snippet": "وذهب جمهور العلماء- ومنم الأئمة الثلاثة، مالك، وا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1787,
+    "end_word": 1797,
+    "text_snippet": "وذهب الحنفية: إلى أنه لا يرد شيئا، وللمشترى اللبن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1798,
+    "end_word": 1812,
+    "text_snippet": "وحاولوا رد نص الحديث بدعوى النسخ بقوله تعالى: {وَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1813,
+    "end_word": 1828,
+    "text_snippet": "وإن فرضنا تأخر الآية عن الحديث، فما فيها حجة، لأن",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1829,
+    "end_word": 1857,
+    "text_snippet": "واعتذارهم الثاني عن الأخذ بالحديث، أنه مخالف لقيا",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1858,
+    "end_word": 1906,
+    "text_snippet": "وما أشبه ذلك من اعتراضات، أجاب عنها العلماء. ويكف",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1907,
+    "end_word": 1930,
+    "text_snippet": "قال الخطابي في (معالم السنن) : والأصل أن الحديث ث",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1931,
+    "end_word": 1960,
+    "text_snippet": "والأصول إنما صارت أصولا لمجيء الشريعة بها وخبر ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1961,
+    "end_word": 1992,
+    "text_snippet": "فائدتان:\nالأولى: إذا تأملت ما تقدم من \" الاستنبا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1993,
+    "end_word": 2041,
+    "text_snippet": "وهذا- كما قال تقي الدين \" ابن دقيق العيد \": دائر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2042,
+    "end_word": 2119,
+    "text_snippet": "على أني لم أذكر إلا قليلا مما لم يدل عليه ظاهر ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2120,
+    "end_word": 2142,
+    "text_snippet": "1- إما تمسك حرفي متقيد باللفظ، كمن جمد على قصر حك",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2143,
+    "end_word": 2180,
+    "text_snippet": "2- وإما ابتعاد عن ظاهر الحديث إلى معنى بعيد، كمن ",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2181,
+    "end_word": 2190,
+    "text_snippet": "وبهذا أرى أني توسطت بين الوجهتين، وسلكت طريقاْ مت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2191,
+    "end_word": 2257,
+    "text_snippet": "الثانية: في تحريم تَلَقِّي الركبان، وبيع الحاضر لل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2258,
+    "end_word": 2259,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2260,
+    "end_word": 2311,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أن رَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2312,
+    "end_word": 2422,
+    "text_snippet": "الغريب:\nحَبَل الحَبَلة: بفتح الحاء والباء فيهما. ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2423,
+    "end_word": 2508,
+    "text_snippet": "المعنى الإجمالي:\nأشهر تفاسير هذا البيع تفسيران ⌜4",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  }
+]

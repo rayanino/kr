@@ -1,0 +1,84 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 39,
+    "text_snippet": "وأما دليل مشهور مذهب الحنابلة، فالاقتصار في الاستدلال بحديث [ولا شرطان ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان دليل مشهور الحنابلة ثم ترجيح الرواية الأخرى لقوة أدلتها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الترجيح مفهوم، لكن تعيين الرواية المشار إليها وسياق الخلاف السابق غير مذكورين داخل الوحدة."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 40,
+    "end_word": 116,
+    "text_snippet": "فائدة:\nالشروط في البيع قسمان. أحدهما: ما هو منفعة في المبيع يستثنيها ال",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم الشروط في البيع إلى موضع خلاف وشروط جائزة لا خلاف فيها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 117,
+    "end_word": 160,
+    "text_snippet": "الحديث الثالث\nعن أبي هُرَيرةَ رضي الله عنه قالَ: نَهَى رَسُولُ الله صلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إيراد الحديث المشتمل على النهي عن صور من المعاملات والخطبة وسؤال الطلاق",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 161,
+    "end_word": 223,
+    "text_snippet": "ما يستفاد من الحديث:\nالكلام على بيع الحاضر للبادي، والنجش، وبيع الرجل ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "استخراج فائدة تحريم الخطبة على خطبة الغير وبيان علته",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاح الوحدة يتضمن إحالة إلى شرح سابق لمسائل أخرى في الحديث، وهذه الإحالة ليست لازمة لفهم حكم الخطبة لكنها تمنع تمام الاستقلال."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 224,
+    "end_word": 300,
+    "text_snippet": "2- تحريم سؤال المرأة زوجها أن يطلق ضرتها، أو توغير صدره عليها، أو الفتن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم طلب المرأة طلاق ضرتها وذكر مفاسد ذلك وآثاره الاجتماعية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

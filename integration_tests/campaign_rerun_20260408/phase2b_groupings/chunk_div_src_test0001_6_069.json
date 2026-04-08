@@ -1,0 +1,56 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 42,
+    "text_snippet": "وفي الحديث: \"أتَانِي جِبْرِيلُ فَأَمَرَنِي أن آمُرَ أَصْحَابِي أَنْ يَرْفَعوا أَصْ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "الاستدلال بحديث التلبية على وجوبها مع تقوية هذا القول وذكر عمل المسلمين به",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 43,
+    "end_word": 140,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام ما خلاصته: النية في الحج والعمرة: لا خلاف بين المسلمين ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "definition"
+    ],
+    "description_arabic": "بيان اشتراط النية في الحج والعمرة وتفصيل نوعي النية والاستدلال على أصلها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 141,
+    "end_word": 203,
+    "text_snippet": "وقال رحمه الله: ولا يكون الرجل محرماً بمجرد ما في قلبه من قصد الحج ونيته فإن ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن نية الحج وحدها لا تجعل المرء محرماً وذكر ما يصير به الإحرام وحكم التجرد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج مرجع الضمير في قوله رحمه الله إلى معرفة أنه شيخ الإسلام المذكور في الوحدة السابقة."
+  }
+]

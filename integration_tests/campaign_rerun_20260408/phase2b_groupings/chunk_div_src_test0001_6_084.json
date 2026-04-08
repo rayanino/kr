@@ -1,0 +1,123 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 45,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم أخبر أن من ظلم قليلا أو كثيراً من الأرض جاء ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان وعيد غصب الأرض وأن الظالم يعاقب يوم القيامة بعذاب شديد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 46,
+    "end_word": 63,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الغصب، لأنه من الظلم الذي حرمه الله على نفسه، وجعل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخراج حكم تحريم الغصب وبيان أنه من الظلم المحرم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 64,
+    "end_word": 74,
+    "text_snippet": "2- أن الظلم حرام، في القليل والكثير، وهنا فائدة ذكر الشبر\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الظلم محرم في قليله وكثيره",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في قوله: وهنا فائدة ذكر الشبر تحتاج إلى سياق الحديث السابق ليتضح وجه الفائدة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 75,
+    "end_word": 94,
+    "text_snippet": "3- أن العقار يكون مغصوبا بوضع اليد، ويكون مستولى عليه. قال القرطبي: ومن الحديث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "إثبات إمكان غصب العقار وأنه من الكبائر كما قرره القرطبي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 95,
+    "end_word": 148,
+    "text_snippet": "4- أن من ملك ظاهر أرض، ملك باطنها إلى تخومها.\nفلا يجوز أن ينقب أحد من تحته، أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن ملك الأرض يشمل باطنها وهواءها وما يترتب على ذلك من الأحكام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 149,
+    "end_word": 210,
+    "text_snippet": "5- قال شيخ الإسلام: إذا اختلط الحرام بالحلال، كالمقبوض غصبا والربا والميسر، فإ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم اختلاط المال الحرام بالحلال وأثره في جواز المعاملة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 211,
+    "end_word": 258,
+    "text_snippet": "6َ وقال أيضاً: المال إذا تعذر معرفة مالكه صرف في مصالح المسلمين عند جماهير الع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم المال الذي تعذر معرفة مالكه وأنه يصرف في مصالح المسلمين",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتاحه بقوله: وقال أيضاً يدل على عطف على كلام سابق، لكن المضمون الفقهي نفسه مفهوم مستقل."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 259,
+    "end_word": 299,
+    "text_snippet": "فائدة:\nقال في المغني: وما كان في الشوارع والطرقات والرحبات بين العمران فليس لأ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم إحياء ما كان من مرافق الطرق والرحبات العامة وجواز الارتفاق بها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

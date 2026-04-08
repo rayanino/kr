@@ -1,0 +1,562 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 44,
+    "text_snippet": "تتمة:\nعقد النكاح، كبير خطير، وضرره ونفعه عائد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 45,
+    "end_word": 51,
+    "text_snippet": "ويكون للزوجة الرأي الأخير بعد تعريفها وتفهيمها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 2,
+    "start_word": 52,
+    "end_word": 62,
+    "text_snippet": "وإذا تم على هذا، فهو أحرى أن يؤدم بين الزوجين ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 3,
+    "start_word": 63,
+    "end_word": 71,
+    "text_snippet": "‌‌بَابُ لا ينكح مطَلقته ثَلاثاً حتى تنكح زوجاً غ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 72,
+    "end_word": 106,
+    "text_snippet": "عَن عَاِئشَةَ رضي الله عنها قَالَت: جَاءتِ امْرَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 107,
+    "end_word": 125,
+    "text_snippet": "فَتَبَسَّمَ رسول الله صلى الله عليه وسلم وَقَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 126,
+    "end_word": 155,
+    "text_snippet": "فَقَالَت: وأبو بَكر عِنْدَه، وخالد بنُ سَعِيدٍ ب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 156,
+    "end_word": 156,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 8,
+    "start_word": 157,
+    "end_word": 180,
+    "text_snippet": "فبت طلاقي: بتشديد التاء المثناة. أصله: القطع، ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 181,
+    "end_word": 190,
+    "text_snippet": "الزبيِر: بفتح الزاي، بعدها باء مكسورة، ثم ياء، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 191,
+    "end_word": 215,
+    "text_snippet": "هُدْبة: بضم الهاء، وإسكان الدال. بعدها موحدة: ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 216,
+    "end_word": 231,
+    "text_snippet": "عسَيلته: بضم العين، وفتح السين. تصغير عسلة، وهي",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 232,
+    "end_word": 233,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 13,
+    "start_word": 234,
+    "end_word": 275,
+    "text_snippet": "جاءت امرأة رفاعة القرظي شاكية حالها إلى النبي ص",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 276,
+    "end_word": 311,
+    "text_snippet": "فتبسم النبي صلى الله عليه وسلم من جهرها وتصريحه",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 15,
+    "start_word": 312,
+    "end_word": 332,
+    "text_snippet": "ولكن النبي صلى الله عليه وسلم أبى عليها ذلك، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 333,
+    "end_word": 390,
+    "text_snippet": "وكان عند النبي صلى الله عليه وسلم أبو بكر، وخال",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 17,
+    "start_word": 391,
+    "end_word": 394,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 18,
+    "start_word": 395,
+    "end_word": 414,
+    "text_snippet": "1- أن المراد ببَت الطلاق هنا، الطلقة الأخيرة من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 19,
+    "start_word": 415,
+    "end_word": 449,
+    "text_snippet": "2- أنه لا يحل بعد هذا البت المذكور هنا أن ينكحه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 450,
+    "end_word": 465,
+    "text_snippet": "قال ابن المنذر: أجمع العلماء على اشتراط الجماع",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 466,
+    "end_word": 486,
+    "text_snippet": "3- المراد بالعسيلية، اللذة الحاصلة بتغيب الحشفة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 22,
+    "start_word": 487,
+    "end_word": 496,
+    "text_snippet": "4- أنه لابد من الانتشار، وإلا لم تحصل اللذة الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 497,
+    "end_word": 519,
+    "text_snippet": "5- أنه لا بأس من التصريح بالأشياء التي يستحي من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 520,
+    "end_word": 535,
+    "text_snippet": "6- حسن خلق النبي صلى الله عليه وسلم، وطيب نفسه.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 25,
+    "start_word": 536,
+    "end_word": 537,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 26,
+    "start_word": 538,
+    "end_word": 561,
+    "text_snippet": "موضع ذكر هذا الخلاف هو (باب الطلاق) وبما أن الم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 562,
+    "end_word": 612,
+    "text_snippet": "فقد اختلف العلماء فيمن أوقع الطلاق الثلاث دفعة ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 613,
+    "end_word": 636,
+    "text_snippet": "اختلف العلماء في ذلك اختلافا طويلا عريضا، وعُذب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 29,
+    "start_word": 637,
+    "end_word": 669,
+    "text_snippet": "وما ذلك إلا لأن القول بوقوعها، هو المشهور من ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 670,
+    "end_word": 675,
+    "text_snippet": "ولكننا -نسوق- هنا- ملخصا فيه الكفاية.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 676,
+    "end_word": 703,
+    "text_snippet": "ذهب جمهور العلماء، ومنهم الأئمة الأربعة، وجمهور",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 32,
+    "start_word": 704,
+    "end_word": 728,
+    "text_snippet": "ودليلهم حديث ركانة بن عبد الله (أنه طلق امرأته ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 729,
+    "end_word": 737,
+    "text_snippet": "قال ركانة: (والله ما أردتُ إلا واحدة) يستحلفه ث",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 34,
+    "start_word": 738,
+    "end_word": 748,
+    "text_snippet": "وهذا الحديث أخرجه الشافعي، وأبو داود، والترمذي ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 35,
+    "start_word": 749,
+    "end_word": 774,
+    "text_snippet": "ووجه الدلالة من الحديث، استحلافه صلى الله عليه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 36,
+    "start_word": 775,
+    "end_word": 790,
+    "text_snippet": "واستدلوا أيضا بما في صحيح البخاري عن عائشة \" أن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 791,
+    "end_word": 799,
+    "text_snippet": "فسئل رسول الله صلى الله عليه وسلم: أتحل للأول؟.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 800,
+    "end_word": 822,
+    "text_snippet": "قال: \" لا، حتى يذوق عسيلتها كما ذاق الأول\" ولو ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 823,
+    "end_word": 847,
+    "text_snippet": "واستدلوا أيضا بعمل الصحابة، ومنهم عمر بن الخطاب",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 40,
+    "start_word": 848,
+    "end_word": 859,
+    "text_snippet": "ولهم أدلة غير ما سقْنَا، ولكن ما ذكرنا، هو الصر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 41,
+    "start_word": 860,
+    "end_word": 888,
+    "text_snippet": "وذهب جماعة من العلماء: إلى أن موقع الطلاق الثلا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 42,
+    "start_word": 889,
+    "end_word": 910,
+    "text_snippet": "فمن الصحابة القائلين بهذا القول، أبو موسى الأشع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 43,
+    "start_word": 911,
+    "end_word": 928,
+    "text_snippet": "ومن التابعين، طاوس، وعطاء، وجابر بن زيد، وغالب ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 44,
+    "start_word": 929,
+    "end_word": 975,
+    "text_snippet": "ومن أرباب المذاهب، داود وأكثر أصحابه، وبعض أصحا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 45,
+    "start_word": 976,
+    "end_word": 1000,
+    "text_snippet": "ومنهم ابن القيم الذي نصرها نصرا مؤزرا في كتابيه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1001,
+    "end_word": 1004,
+    "text_snippet": "واستدل هؤلاء بالنص، والقياس.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1005,
+    "end_word": 1049,
+    "text_snippet": "فأما النص، فما رواه مسلم في صحيحة [أن أبا الصهب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1050,
+    "end_word": 1057,
+    "text_snippet": "فهذا نص صحيح صريح، لا يقبل التأويل والتحويل.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1058,
+    "end_word": 1089,
+    "text_snippet": "وأما القياس، فإن جَمْعَ الثلاث محرم وبدعة، والن",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1090,
+    "end_word": 1096,
+    "text_snippet": "وأجاب هؤلاء عن أدلة الجمهور بما يأتي.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1097,
+    "end_word": 1134,
+    "text_snippet": "أما حديث ركانة، فقد ورد في بعض ألفاظه (أنه طلقه",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1135,
+    "end_word": 1156,
+    "text_snippet": "قال شيخ الإسلام: وحديث ركانة ضعيف عند أئمة الح",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1157,
+    "end_word": 1191,
+    "text_snippet": "وأما حديث عائشة فالاستدلال به غير وجيه، إذ من ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1192,
+    "end_word": 1199,
+    "text_snippet": "وأما الاستدلال بعمل الصحابة، فما أولاهم بالاقتد",
+    "scholarly_function": "refutation",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1200,
+    "end_word": 1263,
+    "text_snippet": "ونحن نقول: إنهم يزيدون عن مائة ألف، وكل هذا الج",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1264,
+    "end_word": 1286,
+    "text_snippet": "فصار جمهور الصحابة ممن قضى نحبه قبل خلافة عمر،",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1287,
+    "end_word": 1301,
+    "text_snippet": "فعلمنا -حينئذ- أن الاستدلال بعمل الصحابة منقوض ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1302,
+    "end_word": 1361,
+    "text_snippet": "وعمل عمر بن الخطاب رضي اللَهْ تعالى عنه حاشاه و",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1362,
+    "end_word": 1391,
+    "text_snippet": "وهذا العمل من عمر رضي الله عنه اجتهاد من اجتهاد",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1392,
+    "end_word": 1461,
+    "text_snippet": "قال شيخ الإسلام رحمه الله: وإن طلقها ثلاثا في ط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1462,
+    "end_word": 1476,
+    "text_snippet": "أحدها: أنه طلاق مباح لازم، وهو قول الشافعي وأحم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1477,
+    "end_word": 1501,
+    "text_snippet": "الثاني: أنه طلاق محرم لازم، وهو. قول مالك وأبي ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1502,
+    "end_word": 1535,
+    "text_snippet": "الثالث: أنه محرم ولا يلزم منه إلا طلقة واحدة، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1536,
+    "end_word": 1617,
+    "text_snippet": "وهذا القول (الثالث) هو الذي يدل عليه الكتاب وال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1618,
+    "end_word": 1634,
+    "text_snippet": "وقال رحمه الله تعالى في موضع آخر: والفرق ظاهر ب",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1635,
+    "end_word": 1676,
+    "text_snippet": "إذا كان الرجل يطلب من الله حاجة فقال: إن شفى ا",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1677,
+    "end_word": 1713,
+    "text_snippet": "وإذا علق النذر على وجه اليمين فقال: إن سافرت مع",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1714,
+    "end_word": 1723,
+    "text_snippet": "هذه خلاصة سقناها في بيان هذه المسألة الشهيرة ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1724,
+    "end_word": 1742,
+    "text_snippet": "وعلى كلا القولين، فالقول به لا يوجب هذه الثورات",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.87
+  }
+]

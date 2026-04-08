@@ -1,0 +1,157 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 63,
+    "text_snippet": "‌‌باَبُ الشفعَة\nالشفعة: بضم الشين وسكون الفاء.\nوالشفع: لغة، الزوج، قسيم الفرد، ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الشفعة لغة وشرعاً وبيان معناها ومشروعيتها إجمالاً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 64,
+    "end_word": 189,
+    "text_snippet": "- وبطبيعة الشراكة والخلطة يحصل أضرار عظيمة ومشاكل جسيمة. وكثير من الخلطاء يب",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "التعليل العقلي لمشروعية الشفعة والرد على من ظنها خلاف القياس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 190,
+    "end_word": 370,
+    "text_snippet": "الحديث الأول\nعَنْ جَابِرِ بن عَبْدِ الله رضي الله عنهما قَالَ. جَعَلَ (3) (وفي ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "evidence_rational",
+      "rule_statement",
+      "condition_exception",
+      "structural_transition"
+    ],
+    "description_arabic": "نص الحديث وشرح ألفاظه وبيان معناه وحكم الشفعة قبل القسمة وسقوطها بعدها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 371,
+    "end_word": 385,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا الحديث أصل في ثبوت الشفعة وهو مستند الإجماع عليها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحديث أصل في إثبات الشفعة وكونه مستند الإجماع فيها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 386,
+    "end_word": 404,
+    "text_snippet": "2- صدر الحديث يشعر بثبوت الشفعة في المنقولات وسياقه يخصها بالعقار، ولكن يتبعه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلالة الحديث على اختصاص الشفعة بالعقار وتبع الشجر والبناء للأرض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 405,
+    "end_word": 436,
+    "text_snippet": "3- تكون الشفعة في العقار المشترك، الذي لم تميز حدوده، ولم تصرف طرقه، لضرر الش",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "ثبوت الشفعة في العقار المشترك قبل تمييز الحدود وسقوطها بعد القسمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 437,
+    "end_word": 460,
+    "text_snippet": "5- بهذا يعلم أنها لا تثبت للجار، لقيام الحدود وتمييزها.\nويأتي الكلام على الشفع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "نفي ثبوت الشفعة للجار مع الإحالة إلى تفصيل مسألة المنفعة المشتركة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى كلام لاحق في مسألة الشفعة مع المنفعة المشتركة بين الجارين."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 461,
+    "end_word": 505,
+    "text_snippet": "6- استدل بعضهم بالحديث: على أن الشفعة لا تكون إلا في العقار الذي تمكن قسمته دو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر استدلال بعضهم على قصر الشفعة على ما يقبل القسمة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعرض قول بعضهم واستدلاله دون ذكر ما سيأتي من الخلاف أو الترجيح."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 506,
+    "end_word": 518,
+    "text_snippet": "7- تثبت الشفعة إزالةً لضرر الشريك، ولذا اختصت بالعقارات لطول مدة الشراكة فيها.",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "الحكمة من الشفعة أنها لدفع ضرر الشريك ولذلك اختصت بالعقار",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

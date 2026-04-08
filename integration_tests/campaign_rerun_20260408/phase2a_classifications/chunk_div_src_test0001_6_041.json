@@ -1,0 +1,146 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 27,
+    "text_snippet": "‌‌بَابُ الذكر عَقب الصَّلاة\nللدعاء والاستغفار بعد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 1,
+    "start_word": 28,
+    "end_word": 52,
+    "text_snippet": "كما أنه دليل على الرغبة في الطاعة وعدم الملل، ل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 53,
+    "end_word": 54,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 55,
+    "end_word": 105,
+    "text_snippet": "عَنْ ابْن عَبَّاس رضي الله عنهما أنَّ رَفْعَ الصو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 106,
+    "end_word": 144,
+    "text_snippet": "المعنى الإجمالي:\nيذكر عبد الله بن عباس رضي الله",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 5,
+    "start_word": 145,
+    "end_word": 220,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الذكر بعد الصلاة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 221,
+    "end_word": 222,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 223,
+    "end_word": 315,
+    "text_snippet": "عَنْ وَرَّادٍ مَوْلَى الْمُغِيرةِ بْنِ شُعْبَةَ قا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 316,
+    "end_word": 458,
+    "text_snippet": "غريب الحديث:\nدبر كل صلاة: بضم الدال أو فتحها مع ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 459,
+    "end_word": 687,
+    "text_snippet": "المعنى الإجمالي:\nكتب معاوية بن أبى سفيان إلى الم",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 10,
+    "start_word": 688,
+    "end_word": 890,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب هذا الدعاء عقب الص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 891,
+    "end_word": 892,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 893,
+    "end_word": 1089,
+    "text_snippet": "عَنْ سُمَىّ مَولى أبى بَكر عَبْدِ الرَّحْمنِ بْنِ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 1090,
+    "end_word": 1208,
+    "text_snippet": "المعنى الإجمالي:\nمعنى هذا الحديث الجليل هو أن فق",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 14,
+    "start_word": 1209,
+    "end_word": 1433,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- رغبة الصحابة رضى الله عنهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 1434,
+    "end_word": 1436,
+    "text_snippet": "الذكر بعد الصلاة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 16,
+    "start_word": 1437,
+    "end_word": 1598,
+    "text_snippet": "وهو فقرات من كلام شيخ الإسلام ابن تيمية، قال رحم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 17,
+    "start_word": 1599,
+    "end_word": 1690,
+    "text_snippet": "والذكر من أفضل العبادات، ولذا قالت عائشة: \" الذك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  }
+]

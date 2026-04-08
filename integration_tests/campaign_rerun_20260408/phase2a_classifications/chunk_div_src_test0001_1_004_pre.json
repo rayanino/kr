@@ -1,0 +1,226 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كتاب الأشربة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 3,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 4,
+    "end_word": 48,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ ",
+    "scholarly_function": "narration",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 73,
+    "text_snippet": "ثلاث وَدِدْتُ أنَّ رَسُولَ الله صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 74,
+    "end_word": 77,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 5,
+    "start_word": 78,
+    "end_word": 120,
+    "text_snippet": "تقدم الكلام عن الخمر، وتعريفه، واختلاف العلماء ف",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 6,
+    "start_word": 121,
+    "end_word": 160,
+    "text_snippet": "1- أن الخمر التي أنزل تحريمها وفهمها الصحابة عند",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 7,
+    "start_word": 161,
+    "end_word": 240,
+    "text_snippet": "2- أن العالم مهما بلغ من العلم، فإنه لا يحيط به،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 8,
+    "start_word": 241,
+    "end_word": 291,
+    "text_snippet": "3- المسألة الأولى توريث الجد مع الإخوة الأشقاء أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 292,
+    "end_word": 314,
+    "text_snippet": "4- الثانية الكلالة ومعناها، الذي يموت، وليس له و",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 315,
+    "end_word": 345,
+    "text_snippet": "ويظهر منها عند التأمل، انتفاء الوالد، لأن الأخت ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 346,
+    "end_word": 370,
+    "text_snippet": "وهذا التفسير للكلالة، وهو تفسير أبي بكر الصديق، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 12,
+    "start_word": 371,
+    "end_word": 437,
+    "text_snippet": "5- الثالثة أبواب من الربا، ولعل هذا من المسائل ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 13,
+    "start_word": 438,
+    "end_word": 439,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 440,
+    "end_word": 459,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها: أنَّ النبي صلى الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 460,
+    "end_word": 466,
+    "text_snippet": "قَالَ رضي الله عنه: البتعُ: نَبِيذُ العَسَلِ.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 467,
+    "end_word": 468,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 469,
+    "end_word": 537,
+    "text_snippet": "سئل النبي صلى الله عليه وسلم عن شرب البتع ⌜1⌝ ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 538,
+    "end_word": 542,
+    "text_snippet": "الحديث الحادي والتسعون بعد الثلاثمائة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 543,
+    "end_word": 580,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 581,
+    "end_word": 582,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 583,
+    "end_word": 677,
+    "text_snippet": "بلغ عمر بن الخطاب رضي الله عنه: أن رجلا أراد الت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 678,
+    "end_word": 681,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 682,
+    "end_word": 695,
+    "text_snippet": "1- تحريم المعاملة بالخمر، ببيع، أو شراء، أو عمل،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 696,
+    "end_word": 710,
+    "text_snippet": "2- تحريم الحيل، فإن الله تعالى لما حرم الخمر، حر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 711,
+    "end_word": 727,
+    "text_snippet": "3- من باعه فقد شابه اليهود الذين- لما حرمت عليم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 728,
+    "end_word": 740,
+    "text_snippet": "4- أن كل محرم ثمنه حرام، لأنه لا يباح التوصل إلي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 27,
+    "start_word": 741,
+    "end_word": 747,
+    "text_snippet": "فالوسائل، لها، أحكام المقاصد، وهي قاعدة نافعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

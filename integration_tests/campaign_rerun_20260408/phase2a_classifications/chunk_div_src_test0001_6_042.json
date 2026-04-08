@@ -1,0 +1,146 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ الخشُوع في الصَّلاةِ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 34,
+    "text_snippet": "الخشوع في الصلاة، هو روحها وَلُبُّهَا ويكثر ثو",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 35,
+    "end_word": 75,
+    "text_snippet": "ولإحضار القلب في الصلاة، أسباب:\nمنها: الاستعاذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 76,
+    "end_word": 91,
+    "text_snippet": "ولذا نهى عن الصلاة حال حضور الطعام، أو مدافعة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 92,
+    "end_word": 107,
+    "text_snippet": "وذهب الجمهور من العلماء إلى صحة صلاة من غلبت ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 108,
+    "end_word": 115,
+    "text_snippet": "وذهب أبو حامد الغزالي، وابن الجوزي، إلى بطلانها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 116,
+    "end_word": 117,
+    "text_snippet": "الحديث ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 7,
+    "start_word": 118,
+    "end_word": 157,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها أنَ النَّبَّي صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 158,
+    "end_word": 159,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 9,
+    "start_word": 160,
+    "end_word": 186,
+    "text_snippet": "1- خميصة لها أعلام: كساء مربع مخطط بألوان مختل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 187,
+    "end_word": 250,
+    "text_snippet": "2- الأنْبِجانيّة: كساء غليظ، ليس له أعلام، وهي ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 251,
+    "end_word": 255,
+    "text_snippet": "3- آنفاً: - يعنى الآن.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 256,
+    "end_word": 257,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 13,
+    "start_word": 258,
+    "end_word": 366,
+    "text_snippet": "أهدى \" أبو جهم \" إلى النبي صلى الله عليه وسلم،",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 367,
+    "end_word": 370,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 15,
+    "start_word": 371,
+    "end_word": 473,
+    "text_snippet": "1- مشروعية الخشوع في الصلاة، وفعل الأسباب الجا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 474,
+    "end_word": 478,
+    "text_snippet": "قال شيخ الإسلام ابن تيمية:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 479,
+    "end_word": 565,
+    "text_snippet": "ولاريب أن الوسواس كلما قل في الصلاة كان أكمل، ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 35,
+    "text_snippet": "‌‌كِتَابُ الأطعمة\nالأصل في الطعام والشراب واللباس، الحل.\nفلا يحرم منها إلا ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان الأصل الكلي في الأطعمة والأشربة واللباس وأن الأصل فيها الحل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "start_word": 36,
+    "end_word": 587,
+    "text_snippet": "الحديث الأول\nعَنِ النُعْمَانِ بْنِ بَشِير رضي الله عنه قَالَ: سَمِعْتُ رَسُولَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement",
+      "evidence_rational",
+      "opinion_statement",
+      "example",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث الحلال والحرام والشبهات مع شرح ألفاظه وبيان معناه وأثره على الورع والقلب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

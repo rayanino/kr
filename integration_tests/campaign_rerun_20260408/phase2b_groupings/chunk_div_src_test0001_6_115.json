@@ -1,0 +1,270 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "‌‌‌‌كِتَابُ القَضَاء\nالقضاء بالمد لغة: إحكام الأمر والفراغ منه. قال تعالى: {فَ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف القضاء لغة وشرعًا مع صدر الباب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 29,
+    "end_word": 104,
+    "text_snippet": "وا لأصل في القضاء ومشروعيته، الكتاب، والسنة، والإجماع، والقياس.\nفأما الكتاب: ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_ijma",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "بيان أدلة مشروعية القضاء من الكتاب والسنة والإجماع والقياس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 105,
+    "end_word": 268,
+    "text_snippet": "قال في (المعنى) : [وفيه فضل عظيم لِمن قَوِىَ على القيام به، وأداء الحق فيه، ول",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "evidence_rational"
+    ],
+    "description_arabic": "فضل القضاء وخطره وحكمته وضرورته في حياة الناس",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "توجد إحالات إلى (المعنى) و(صاحب المغنى) دون تعريف بالمصدرين، لكن الفكرة العامة مكتملة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 269,
+    "end_word": 376,
+    "text_snippet": "الحديث الأول\nعَنْ عائشَةَ رضي الله عنها قَالَت: قَالَ رَسُولُ الله صلى الله علي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث رد المحدثات وبيان معناه الإجمالي وأن الأعمال ترد أو تقبل بحسب الشرع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 377,
+    "end_word": 649,
+    "text_snippet": "ما يستفاد من الحديث:\n1- قال النووي: \" وهذا الحديث قاعدة عظيمة من قواعد الإسلام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث من أحدث في أمرنا هذا ما ليس منه فهو رد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 650,
+    "end_word": 806,
+    "text_snippet": "قال شيخ الإسلام رحمه الله تعالى:\nدعاوى التهم مثل القتل أو قطع الطريق أو السرقة",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقسيم دعاوى التهم إلى ثلاثة أقسام وبيان حكم حبس المتهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24
+    ],
+    "start_word": 807,
+    "end_word": 1116,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قالت: دَخَلَتْ هِنْدُ بِنْت عتْبَةَ ا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث هند في النفقة وما يستفاد منه من أحكام النفقة ومسألة الظفر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 1117,
+    "end_word": 1306,
+    "text_snippet": "الحديث الثالث\nعَنْ أم سَلَمةَ رضي الله عنها: أنَّ رَسُولَ الله صلى الله عليه وسل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث القضاء بالظاهر مع شرح الغريب وبيان المعنى الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 1307,
+    "end_word": 1680,
+    "text_snippet": "ما يستفاد من الحديث\n1- فيه أن النبي صلى الله عليه وسلم لا يعلم الغيب والأمور ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث أم سلمة في الحكم بالظاهر وعدم تغيير حكم القاضي للباطن",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في الفائدة الخامسة سؤال عن التوفيق مع إجماع الأصوليين، ويفهم المقصود غالبًا من داخل الوحدة لكن ذكر ذلك الإجماع يحتاج معرفة أوسع بالسياق الأصولي."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 1681,
+    "end_word": 1854,
+    "text_snippet": "الحديث الرابع\nعَنْ عَبْد الرَّحْمنِ بن أبي بَكْرَةَ قَالَ: كَتَبَ أبي وَكَتَبْتُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث النهي عن الحكم حال الغضب وما يلحق به من الأحوال المشوشة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 1855,
+    "end_word": 2126,
+    "text_snippet": "الحديث الخامس\nعَنْ أبى بَكرْ رضي الله عنه قالَ: قَالَ رَسُول الله صلى الله عليه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أكبر الكبائر مع بيانه الإجمالي وخطر قول الزور وشهادة الزور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 2127,
+    "end_word": 2433,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تقسيم الذنوب إلى كبائر وصغائر، ويدل له أيضاً قوله تعالى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث أكبر الكبائر وبيان خطر الشرك وعقوق الوالدين وشهادة الزور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 2434,
+    "end_word": 2572,
+    "text_snippet": "الحديث السادس\nعَنْ ابْنِ عباس رضي الله عنهما: أنَّ النَّبي صلى الله عليه وسلم قَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث البينة على المدعي واليمين على المدعى عليه مع بيان حكمته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      47,
+      48
+    ],
+    "start_word": 2573,
+    "end_word": 2733,
+    "text_snippet": "ما يستفاد من الحديث:\n1-قال ابن دقيق العيد: (الحديث دليل على أنه لا يجوز الحكم إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث الدعوى واليمين وبيان معنى البينة وقوة يد الحائز",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في آخر الوحدة ضمائر مثل (فهي له) و(فهي لصاحب اليد) ترجع إلى العين الموصوفة وصاحب اليد، وهي مفهومة إجمالًا لكن بعض الأمثلة التفصيلية تحتاج تأملًا في العبارة."
+  }
+]

@@ -1,0 +1,70 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 42,
+    "text_snippet": "والربع، وعلى ما تراضى عليه الشريكان جائزة، إذا كانت الحصص معلومة، والشروط ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان جواز المعاملة المشاعة عند معلومية الحصص وانتفاء الشروط الفاسدة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 43,
+    "end_word": 215,
+    "text_snippet": "ثم قال الخطابي رحمه الله عن حديث رافع في الإجارة بالماذيانات وأقبال الجداو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "توجيه الخطابي للنهي عن المجهول وبيان صحة المزارعة وفساد الشروط الغررية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 216,
+    "end_word": 237,
+    "text_snippet": "وبهذا تبين أن المزارعة والمساقاة، عقدان صحيحان جائزان، وأن القول بجوازهما ه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "خلاصة ترجيح صحة المزارعة والمساقاة وأنه مذهب الجمهور وعمل المسلمين",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم الحكم إجمالاً، لكن عبارة «وبهذا تبين» تحيل على الأدلة السابقة في هذا المقطع."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 238,
+    "end_word": 307,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام:\nالجمهور يقولون: الشركة نوعان: شركة أملاك، وشركة عق",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "تقسيم الشركة إلى أملاك وعقود وبيان أن المضاربة والمساقاة والمزارعة من باب المشاركة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

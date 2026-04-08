@@ -1,0 +1,245 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 51,
+    "text_snippet": "فَرَكعَتَهُ، فَاعتِدَالَهُ بَعدَ رُكُوعِهِ، فسجدتهُ، فَجَلْسَتهُ مَا بينَ التسلِيم ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "evidence_hadith",
+      "cross_reference"
+    ],
+    "description_arabic": "ذكر جزء من الحديث مع التنبيه على دلالته ورد مذهب الحنفية في المسألة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة سابقة بقولِه: وتقدم الكلام عليه، كما أن صدر الحديث مقتطع من سياق أوسع."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 52,
+    "end_word": 236,
+    "text_snippet": "المبحث الثاني: في كيفية الاستدلال بهذا الحديث على الواجبات في الصلاة وغير الوا",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "evidence_ijma"
+    ],
+    "description_arabic": "بيان طريقة الاستدلال بحديث المسيء على وجوب المذكور وعدم وجوب غير المذكور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 237,
+    "end_word": 319,
+    "text_snippet": "ثم إن عارض الوجوب الدالة عليه ألفاظ هذا الحديث أو عدم الوجوب دليل أقوى منه عمل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "قاعدة الترجيح في دلالة الحديث على الوجوب أو عدمه عند وجود معارض أقوى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 320,
+    "end_word": 327,
+    "text_snippet": "المبحث الثالث: في الأحكام المأخوذة من هذا الحديث.\n",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان مبحث الأحكام المستفادة من الحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 328,
+    "end_word": 403,
+    "text_snippet": "1- الأعمال المذكورة في هذا الحديث هي أركان الصلاة، التي لا تسقط سهواً ولا جهلاً",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "الأعمال المذكورة أركان الصلاة مع ذكر ما بقي منها وتعليل قول النووي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 404,
+    "end_word": 417,
+    "text_snippet": "2- أن يفعل ذلك في كل ركعة، ماعدا تكبيرة الإحرام، ففي الأولى دون غيرها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب تكرار هذه الأفعال في كل ركعة إلا تكبيرة الإحرام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 418,
+    "end_word": 444,
+    "text_snippet": "3- دل هذا الحدث على عدم وجوب ما لم يذكر فيه من أعمال الصلاة. لكن بعد الاطلاع ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "دلالة الحديث على عدم وجوب ما لم يذكر فيه بعد استقراء جميع طرقه وألفاظه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قولُه: هذا الحدث يظهر أنه يريد به هذا الحديث، فالإحالة اللفظية ليست في غاية الصراحة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 445,
+    "end_word": 464,
+    "text_snippet": "4- وفيه دليل على وجوب الترتيب بين هذه الأعمال، لأنه ورد بلفظ \" ثم \" ولأنه مقام",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الترتيب بين الأركان لدلالة ثم وكون المقام مقام تعليم",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قولِه: وفيه يعود على الحديث المذكور سابقاً."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 465,
+    "end_word": 486,
+    "text_snippet": "5- أن هذه الأركان للصلاة، لا تسقط لا سهواً ولا جهلاً، بدليل أمر المصلى بالإعادة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأركان لا تسقط سهواً ولا جهلاً لأن النبي أمر المصلي بالإعادة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 487,
+    "end_word": 500,
+    "text_snippet": "6- يدل هذا الحديث على عدم صحة صلاة المسيء، فلولا ذلك لم يؤمر بإعادتها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الحديث يدل على بطلان صلاة المسيء لأنه أمر بإعادتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 501,
+    "end_word": 512,
+    "text_snippet": "7- يدل على أن الجاهل تجزىء منه الصلاة الناقصة، أما العالم فلا.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التفريق بين الجاهل والعالم في حكم الصلاة الناقصة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال مختصر ويحتاج إلى سياق الحديث لفهم وجه التفريق بين الجاهل والعالم."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 513,
+    "end_word": 545,
+    "text_snippet": "8- فيه دليل على مشروعية حسن التعليم والأمر بالمعروف، وأن يكون ذلك بطريق سهلة، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استفادة آداب التعليم والأمر بالمعروف والرفق والتشويق من الحديث",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قولِه: فيه يعود على الحديث السابق."
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 546,
+    "end_word": 569,
+    "text_snippet": "9- وأنه يستحب للمسئول أن يزيد في الجراب إذا اقتضت المصلحة ذلك كأن تكون قرينة ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب زيادة المسؤول في الجواب عند ظهور حاجة السائل إلى مزيد بيان",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ورد في النص لفظ: الجراب، ويظهر أنه اصطلاح أو سبق قلم يحتاج إلى تحقق من السياق أو المصدر."
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 570,
+    "end_word": 586,
+    "text_snippet": "10- أن الاستفتاح، والتعوذ، ورفع اليدين، وجعلهما على الصدر، وهيئات الركوع والسج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن جملة من الهيئات والأذكار في الصلاة مستحبة لا واجبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 587,
+    "end_word": 599,
+    "text_snippet": "11- وفيه أن المعلم يبدأ في تعليمه بالأهم فالأهم، وتقدم الفروض على المستحبات.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "منهج التعليم يبدأ بالأهم فالأهم وتقديم الفرائض على المستحبات",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في قولِه: وفيه يعود على الحديث السابق."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 600,
+    "end_word": 665,
+    "text_snippet": "12- قال الصنعاني: واعلم أن حديث المسيء في صلاته قد اتسع فيه نطاق الكلام، وتجاذ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "تعليل الصنعاني أن النفي في الحديث لنفي الحقيقة لا لنفي الكمال إلا بدليل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

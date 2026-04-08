@@ -1,0 +1,53 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 105,
+    "text_snippet": "وهذه الأحاديث المرخصة في التقديم لما وقع السؤال عنه، إنما قرنت بقول السائل:",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تقييد أحاديث التقديم بحال عدم الشعور وذكر اعتراض الصنعاني على إيجاب الدم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 106,
+    "end_word": 285,
+    "text_snippet": "‌‌باب كيف ترمى جمرة العقبة\nالحديث الأول\nعَنْ عَبْدِ الرحْمَنِ بْنِ يَزِيِدَ النَّخَعِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "صفة رمي جمرة العقبة كما فعل النبي صلى الله عليه وسلم وشرح معناها الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 286,
+    "end_word": 440,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية رمي جمرة العقبة ⌜1⌝ وحدها يوم النحر.\n2- أن يرمي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام وفوائد مستنبطة من حديث رمي جمرة العقبة وآداب هذا النسك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 6,
+    "text_snippet": "‌‌باَب حكم ستر أحد العَاتقين في الصلاة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 7,
+    "end_word": 32,
+    "text_snippet": "عَنْ أبي هُريرة رضي الله عنه قال: قَالَ رَسُولُ الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 33,
+    "end_word": 42,
+    "text_snippet": "المعنى الإجمالي:\nالمطلوب من المصلى أن يكون على أح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 54,
+    "text_snippet": "فقد قال تعالى: {يا بني آدم خُذُوا زِينَتَكُمْ عِنْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 55,
+    "end_word": 87,
+    "text_snippet": "ولذا فإن النبي صلى الله عليه وسلم حثَّ المصلي أن ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 5,
+    "start_word": 88,
+    "end_word": 89,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.56
+  },
+  {
+    "segment_index": 6,
+    "start_word": 90,
+    "end_word": 113,
+    "text_snippet": "ذهب الإمام \" أحمد \" في المشهور عنه، إلى وجوب ستر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 114,
+    "end_word": 130,
+    "text_snippet": "وبعض أصحابه خص ذلك بالفرض دون النافلة، فإن صلى بل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 131,
+    "end_word": 161,
+    "text_snippet": "وذهب الجمهور- ومنهم الأئمة الثلاثة- إلى الاستحباب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 162,
+    "end_word": 162,
+    "text_snippet": "الأحكام:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.64
+  },
+  {
+    "segment_index": 10,
+    "start_word": 163,
+    "end_word": 196,
+    "text_snippet": "1- النهى عن الصلاة بدون ستر العاتق. قال شيخ الإسلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 197,
+    "end_word": 206,
+    "text_snippet": "2- استحباب سترهما أو أحدهما في الصلاة مع وجود الست",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 207,
+    "end_word": 213,
+    "text_snippet": "3- استحباب كون المصلى على هيئة حسنة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "الحديث الثاني عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 28,
+    "text_snippet": "عَنْ أبي مَسْلَمَةَ - سَعِيدِ بْن يَزِيدَ- قال: سأ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 29,
+    "end_word": 66,
+    "text_snippet": "المعنى الإجمالي:\nسأل سعيد بن يزيد أنس بن مالك رضي",
+    "scholarly_function": "narration",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 67,
+    "end_word": 84,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الصلاة في النعلين، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 85,
+    "end_word": 94,
+    "text_snippet": "2- جواز دخول المسجد بهما، بعد تنظيفهما من الأقذار",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 95,
+    "end_word": 106,
+    "text_snippet": "3- أن غلبة الظن في نجاستهما لا تخرجهما عن أصل الط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 107,
+    "end_word": 116,
+    "text_snippet": "فائدة:\nالصلاة في النعال ودخول المسجد فيهما، أصبحت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 7,
+    "start_word": 117,
+    "end_word": 134,
+    "text_snippet": "فسنة النبي صلى الله عليه وسلم صريحة بجواز ذلك بل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 135,
+    "end_word": 159,
+    "text_snippet": "فقد قال صلى الله عليه وسلم فيما رواه أبو داود عن ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 160,
+    "end_word": 204,
+    "text_snippet": "وقال صلى الله عليه وسلم، فيما أخرجه أبو داود أيض",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 205,
+    "end_word": 225,
+    "text_snippet": "أما العامة وبعض المتعصبين من طلبة العلم، فيجادلون",
+    "scholarly_function": "refutation",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 226,
+    "end_word": 239,
+    "text_snippet": "وإذا أوردت عليهم هذه النصوص قالوا: هذا في وقت دون",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 240,
+    "end_word": 251,
+    "text_snippet": "كأن شريعة محمد صلى الله عليه وسلم أتى بعدها من نس",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 13,
+    "start_word": 252,
+    "end_word": 263,
+    "text_snippet": "وما دَرَوْا أنها شريعة الله إلى أن يرث الله الأرض ",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 264,
+    "end_word": 307,
+    "text_snippet": "والمناسب: أن من أراد اتباع السنة في ذلك وفي غيره،",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 308,
+    "end_word": 310,
+    "text_snippet": "الحديث الثالث عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 311,
+    "end_word": 351,
+    "text_snippet": "عَنْ أبي قَتَادَةَ الأنصاري رضي الله عنه: أنَّ رَس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 352,
+    "end_word": 374,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم على",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 18,
+    "start_word": 375,
+    "end_word": 407,
+    "text_snippet": "ولا أدل على أخلاقه الكريمة، من حمله إحدى حفيداته ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 19,
+    "start_word": 408,
+    "end_word": 424,
+    "text_snippet": "اختلاف العلماء:\nأورد \" ابن دقيق العيد \" تأويلات ك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 20,
+    "start_word": 425,
+    "end_word": 439,
+    "text_snippet": "منها دعوى النسخ، ودعوى الخصوصية، ودعوى الضرورة، وغ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 21,
+    "start_word": 440,
+    "end_word": 455,
+    "text_snippet": "وقال القرطبى: وقد اختلف العلماء في تأويل هذا الحد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 456,
+    "end_word": 500,
+    "text_snippet": "وقال النووي -بعد أن ساق هذه التأويلات-: فكل ذلك د",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  }
+]

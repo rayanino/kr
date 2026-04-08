@@ -1,0 +1,306 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَابُ صَلَاةِ العيدَين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 97,
+    "text_snippet": "سمي عيداً لأنه يعود ويتكرر، والأعياد قديمة في ",
+    "scholarly_function": "definition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 2,
+    "start_word": 98,
+    "end_word": 118,
+    "text_snippet": "وتحقق هذه الاجتماعات الإسلامية من المصالح الديني",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 3,
+    "start_word": 119,
+    "end_word": 223,
+    "text_snippet": "قال ابن القيم في الهدى ما خلاصته: كان يصلي العي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 4,
+    "start_word": 224,
+    "end_word": 266,
+    "text_snippet": "قال ابن دقيق العيد لا خلاف في أن صلاة العيدين م",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 5,
+    "start_word": 267,
+    "end_word": 268,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 269,
+    "end_word": 290,
+    "text_snippet": "عَنْ عَبدِ الله بن عُمَرَ رضي الله عنهما قَال: ك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 291,
+    "end_word": 315,
+    "text_snippet": "المعنى الإجمالي:\nكان من عادة النبي صلى الله علي",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 8,
+    "start_word": 316,
+    "end_word": 326,
+    "text_snippet": "ففيه تقديم الصلاة على الخطبتين، وتأتي بقية أحكام",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 327,
+    "end_word": 328,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 329,
+    "end_word": 432,
+    "text_snippet": "عَن البَرَاءِ بن عَازبٍ رضي الله عنهما قَالَ: خَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 433,
+    "end_word": 475,
+    "text_snippet": "غريب الحديث:\nنسك: النسك، الذبح، \" والنسيكة \" ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 476,
+    "end_word": 646,
+    "text_snippet": "المعنى الإجمالي:\nخطب النبي صلى الله عليه وسلم ف",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 647,
+    "end_word": 859,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فيه تقديم الصلاة على الخطب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 860,
+    "end_word": 861,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 862,
+    "end_word": 900,
+    "text_snippet": "عَنْ جُنْدُب بن عَبْدِ الله البجَليِّ رضي الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 901,
+    "end_word": 924,
+    "text_snippet": "الغريب:\nالبجلي: بفتح الباء والجيم منسوب إلى قبيل",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 17,
+    "start_word": 925,
+    "end_word": 1023,
+    "text_snippet": "المعنى الإجمالي:\nابتدأ النبي صلى الله عليه وسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1024,
+    "end_word": 1071,
+    "text_snippet": "خلاف العلماء:\nذهب أبو حنيفة ومالك والثوري إلى أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1072,
+    "end_word": 1073,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1074,
+    "end_word": 1162,
+    "text_snippet": "عَنْ جَابر رضي الله عنه قال: \" شَهِدْتُ مَع رَسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1163,
+    "end_word": 1227,
+    "text_snippet": "الغريب:\nسِطَة النساء: بكسر السين وفتح الطاء المخ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1228,
+    "end_word": 1380,
+    "text_snippet": "المعنى الإِجمالي:\nصلي النبي صلى الله عليه وسلم ب",
+    "scholarly_function": "narration",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1381,
+    "end_word": 1621,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- البداءة بصلاة العيد قبل ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1622,
+    "end_word": 1623,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1624,
+    "end_word": 1677,
+    "text_snippet": "عَنْ أمِّ عَطِيَّة نُسيبة الأنصاريَّة رضي الله ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1678,
+    "end_word": 1736,
+    "text_snippet": "غريب الحديث:\nالعواتق: جمع \" عاتق \" المرأة الشاب",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1737,
+    "end_word": 1844,
+    "text_snippet": "المعنى الإجمالي:\nيوم عيد الفطر ويوم عيد الأضحى ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1845,
+    "end_word": 2087,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم صلاة العيد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 2088,
+    "end_word": 2160,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب صلاة العيد حتى على ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 30,
+    "start_word": 2161,
+    "end_word": 2163,
+    "text_snippet": "التكبير في العيدين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 31,
+    "start_word": 2164,
+    "end_word": 2171,
+    "text_snippet": "وهو ملخص من كلام شيخ الإسلام ابن تيمية.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 32,
+    "start_word": 2172,
+    "end_word": 2204,
+    "text_snippet": "وقته: أصح الأقوال في التكبير الذي عليه جمهور الس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 2205,
+    "end_word": 2405,
+    "text_snippet": "صفته: وصفة التكبير المنقول عن أكثر الصحابة ما رو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 34,
+    "start_word": 2406,
+    "end_word": 2409,
+    "text_snippet": "التكبير عند الأمور الهامة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 35,
+    "start_word": 2410,
+    "end_word": 2483,
+    "text_snippet": "قال رحمه الله: إذا كانت السنة قد جاءت بالتكبير ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 36,
+    "start_word": 2484,
+    "end_word": 2569,
+    "text_snippet": "وهذا كله يبين أن التكبير مشروع في المواضع الكبار",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 2570,
+    "end_word": 2595,
+    "text_snippet": "ولهذا فإني أهيب بجميع المسلمين أن يفزعوا إلى التك",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  }
+]

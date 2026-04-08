@@ -1,0 +1,142 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 14,
+    "text_snippet": "‌‌كِتَابِ الحَجّ\nالحج: لغة، القصد: وشرعاً: القصد إلى البيت الحرام، لأعمال مخص",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عنوان الكتاب مع تعريف الحج لغة وشرعاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 15,
+    "end_word": 64,
+    "text_snippet": "وابتدأ المصنف بـ \"الصلاة\" لأنها أهم أركان الدين بعد الشهادتين.\nوثَنَّى بـ \"الز",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "بيان سبب ترتيب المصنف لأبواب العبادات وتأخير الحج.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 65,
+    "end_word": 75,
+    "text_snippet": "وقد ثبت بالكتاب، والسنة، وإجماع الأمة، فوجوبه معلوم من الدين بالضرورة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات وجوب الحج وكونه معلوماً من الدين بالضرورة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ذُكرت أنواع الأدلة إجمالاً دون نصوصها التفصيلية."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 76,
+    "end_word": 99,
+    "text_snippet": "وفرض سنة تسع من الهجرة، ولم يحج النبي صلى الله عليه وسلم إلا مرة واحدة، سنة ع",
+    "primary_function": "narration",
+    "secondary_functions": [],
+    "description_arabic": "ذكر زمن فرض الحج وعدد حجج النبي صلى الله عليه وسلم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 100,
+    "end_word": 117,
+    "text_snippet": "أما فضله فقد وردت فيه النصوص الكثيرة الصحيحة ومنها \"الحج المبرور ليس له جزاء إ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال على فضل الحج بحديث الحج المبرور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 118,
+    "end_word": 260,
+    "text_snippet": "أما حِكَمُهُ وأسراره، فأكثر من أن تحصى، ولا يوفيها -بياناً- إلا التصانيف المست",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "عرض بعض الحكم الدينية للحج وآثاره التعبدية والروحية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10,
+      11
+    ],
+    "start_word": 261,
+    "end_word": 302,
+    "text_snippet": "أما الثقافية، فقد أمر الله بالسير في الأرض، للاستبصار والاعتبار.\nففيه من معرفة",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان المنافع الثقافية للحج مع الاستئناس بالأمر بالسير في الأرض.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة القرآنية جاءت بالمعنى دون نص الآية، فتحتاج معرفة الموضع القرآني."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 303,
+    "end_word": 481,
+    "text_snippet": "أما الاجتماعية والسياسية، فإن الحج مؤتمر عظيم، يضم وفوداً متنوعة العلوم، مختل",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "شرح المنافع الاجتماعية والسياسية للحج ووحدة المسلمين وآثارها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 482,
+    "end_word": 498,
+    "text_snippet": "ولكن لابد لكمال تحقق أعمال هذا \"المؤتمر\" من لغة موحدة، يتفاهمون بها.\nوأولى الل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "اشتراط لغة موحدة لتمام مقاصد المؤتمر، وترجيح لغة القرآن.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإشارة في \"هذا المؤتمر\" تعود إلى الحج بوصفه مؤتمراً كما تقدم في السياق."
+  }
+]

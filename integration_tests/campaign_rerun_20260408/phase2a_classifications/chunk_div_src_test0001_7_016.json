@@ -1,0 +1,170 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 86,
+    "text_snippet": "ما يؤخذ هن الحديث:\n1-كون النبي صلى الله عليه وس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 87,
+    "end_word": 88,
+    "text_snippet": "‌‌بَاب الاعتِكَاف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 89,
+    "end_word": 121,
+    "text_snippet": "الاعتكاف: في اللغة، لزوم الشيء وحبس النفس عليه،",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "أما حكمه: فقد أجمع العلماء على مشروعيته، وأجمعو",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 136,
+    "end_word": 246,
+    "text_snippet": "وأما حكمته وفائدته: - فقد قال \"ابن القيم \" في \"",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 247,
+    "end_word": 288,
+    "text_snippet": "وذكر عقيب الصيام لمناسبتين:\nالأولى: أن جملة الك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 289,
+    "end_word": 330,
+    "text_snippet": "وقد اشترط الحنفية والمالكية لصحة الاعتكاف، الصي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 331,
+    "end_word": 377,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 378,
+    "end_word": 434,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم ي",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 435,
+    "end_word": 628,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، وأنه من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 629,
+    "end_word": 684,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 685,
+    "end_word": 687,
+    "text_snippet": "الترجيل: تسريح الشعر.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 688,
+    "end_word": 872,
+    "text_snippet": "المعنى الإجمالي:\nاليهود يتشددون في أمر الحائض ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 873,
+    "end_word": 961,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الاعتكاف لا يمنع من تر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 962,
+    "end_word": 1002,
+    "text_snippet": "الحديث الثالث\nعَنْ عُمَرَ بْنِ الْخَطًابِ رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 1003,
+    "end_word": 1047,
+    "text_snippet": "المعنى الإجمالي:\nنذر عمر بن الخطاب في الجاهلية ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 1048,
+    "end_word": 1128,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الوفاء بالنذر، ولو ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 1129,
+    "end_word": 1259,
+    "text_snippet": "الحديث الرابع\nعَنْ صَفِيَّةَ بِنْتِ حُييٍّ رضي ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1260,
+    "end_word": 1316,
+    "text_snippet": "الغريب:\nحُيي: بضم الحاء. هو ابن أخطب اليهودي زع",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1317,
+    "end_word": 1454,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم م",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1455,
+    "end_word": 1675,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، لاسيما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  }
+]

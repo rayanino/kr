@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 50,
+    "text_snippet": "وقته ينتهي بطلوع الفجر، وجزم بها في المغنى، وعل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 51,
+    "end_word": 74,
+    "text_snippet": "وقد روى أبو داود بسنده عن أبي سعيد قال: قال رسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 75,
+    "end_word": 76,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 77,
+    "end_word": 106,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَتْ: كَانَ رَسُو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 107,
+    "end_word": 108,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 5,
+    "start_word": 109,
+    "end_word": 143,
+    "text_snippet": "تصف عائشة رضى الله عنها، صلاة النبي صلى الله علي",
+    "scholarly_function": "narration",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 6,
+    "start_word": 144,
+    "end_word": 144,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 7,
+    "start_word": 145,
+    "end_word": 208,
+    "text_snippet": "اختلفت الروايات عن عائشة في كيفية صلاة النبي صلى",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 8,
+    "start_word": 209,
+    "end_word": 212,
+    "text_snippet": "الأحكام المستنبطة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 213,
+    "end_word": 231,
+    "text_snippet": "1- أن النبي صلى الله عليه وسلم قد يجعل صلاته في ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 232,
+    "end_word": 248,
+    "text_snippet": "2- وأنه يوتر في بعض الأحيان من صلاته، بخمس ركعات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 249,
+    "end_word": 294,
+    "text_snippet": "3- أن المراد، بكون صلاة الليل مثنى مثنى في غير ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 12,
+    "start_word": 295,
+    "end_word": 311,
+    "text_snippet": "4- قال شيخ الإسلام ابن تيمية: أفضل الصلاة بعد ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 312,
+    "end_word": 341,
+    "text_snippet": "5- وقال بعد أن ذكر وجوه الوتر الواردة في السنة. ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 342,
+    "end_word": 403,
+    "text_snippet": "6- قال المحاملى: صلاته صلى الله عليه وسلم ستة أن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  }
+]

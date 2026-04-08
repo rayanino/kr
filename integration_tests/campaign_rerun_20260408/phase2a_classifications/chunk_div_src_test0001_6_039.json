@@ -1,0 +1,154 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ الوِتر\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 40,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضىَ الله عَنْهُمَا قا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 41,
+    "end_word": 48,
+    "text_snippet": "وأنه كان يقول: \"اجْعَلُوا آخِرَ صَلَاتِكُمْ بالل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 86,
+    "text_snippet": "غريب الحديث:\n- \"مثنى مثنى\" تأكيدٌ لفظيٌّ، لا لقص",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 87,
+    "end_word": 108,
+    "text_snippet": "المعنى الإجمالي:\nسأل رجل النبي صلى الله عليه وسل",
+    "scholarly_function": "narration",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 5,
+    "start_word": 109,
+    "end_word": 149,
+    "text_snippet": "فمن حرصه صلى الله عليه وسلم على نفع الناس، ونشر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 6,
+    "start_word": 150,
+    "end_word": 162,
+    "text_snippet": "ولكون الوتر خاتمة صلاة الليل، فالأحسن أن يكون صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 163,
+    "end_word": 192,
+    "text_snippet": "اختلاف العلماء:\nظاهر الحديث يقتضي عدم الزيادة في",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 8,
+    "start_word": 193,
+    "end_word": 247,
+    "text_snippet": "ولكن ورد أن الوتر قد يكون بركعة واحدة ثم يسبقها ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 248,
+    "end_word": 414,
+    "text_snippet": "كما صح عن جماعة من الصحابة أنهم أوتروا بركعة واح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 10,
+    "start_word": 415,
+    "end_word": 438,
+    "text_snippet": "أما الزيادة في صلاة النهار فقد ورد \"أن النبي صلى",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 11,
+    "start_word": 439,
+    "end_word": 501,
+    "text_snippet": "أما أقوال الأئمة في ذلك، فالإمام أحمد أجاز الزياد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 502,
+    "end_word": 634,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- يستدل به على أن صلاة الليل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 635,
+    "end_word": 636,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 637,
+    "end_word": 662,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قالَتْ: مِنْ كُل اللي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 663,
+    "end_word": 688,
+    "text_snippet": "المعنى الإِجمالي:\nيدخل وقت الوتر من الفراغ من صل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 689,
+    "end_word": 702,
+    "text_snippet": "ولكون إيقاعه في آخر الليل أفضل، استقر وتره في ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 703,
+    "end_word": 729,
+    "text_snippet": "الأحكام:\n1- جواز صلاة الوتر في أول الليل، وأوسطه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 730,
+    "end_word": 762,
+    "text_snippet": "اختلاف العلماء:\nاتفق العلماء أن ابتداء وقته بعد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  }
+]

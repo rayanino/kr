@@ -1,0 +1,75 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 0,
+    "end_word": 194,
+    "text_snippet": "‌‌بَابُ حضُور النساء المسْجِد ⌜1⌝\nعَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما عَنِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "الحديث في إذن النساء إلى المسجد مع شرحه وبيان الإنكار على معارضة السنة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 195,
+    "end_word": 255,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الإذن للمرأة بالصلاة في المسجد إذا طلبت ذلك.\n2",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "evidence_hadith"
+    ],
+    "description_arabic": "أحكام خروج المرأة إلى المسجد وشروطه والتفريق بين الصلاة وحضور المواعظ والأعياد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 256,
+    "end_word": 268,
+    "text_snippet": "4- شدة الإنكار على من اعترض على سنة النبي صلى الله عليه وسلم.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان شدة الإنكار على من يعترض على سنة النبي صلى الله عليه وسلم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 269,
+    "end_word": 287,
+    "text_snippet": "5- أنه ينبغي لمن أراد أن يوجه كلام الشارع إلى معنى يراه، أن يكون ذلك بأدب واح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الأدب والاحترام في توجيه كلام الشارع وحسن العبارة عند بيان المعنى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

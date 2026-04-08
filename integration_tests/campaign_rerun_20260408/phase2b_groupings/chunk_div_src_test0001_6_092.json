@@ -1,0 +1,109 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 26,
+    "text_snippet": "1- نوع يحتاجون إليه من النفقة في الصحة والمرض ونحو ذلك، فالعدل فيه أن يعطى ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان العدل في النفقة التابعة لاختلاف حاجة الأولاد في الصحة والمرض",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا تقسيم مرقّم يبدأ بالنوع الأول دون ذكر أصل التقسيم السابق، فالسياق السابق يفيد في فهم المقصود الكامل."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 27,
+    "end_word": 89,
+    "text_snippet": "2- ونوع تشترك حاجتهم إليه، من عطية، أو نفقة، أو تزويج. فهذا لا ريب في تحري",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم ما تشترك فيه حاجات الأولاد، وذكر النوع الثالث المختلف فيه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة إجمالاً، لكن ترقيم الأنواع يفترض تقسيمًا سابقًا، كما أن قول المؤلف في النوع الثالث مختصر ويحتاج سياق الباب لفهم وجه النظر."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 90,
+    "end_word": 147,
+    "text_snippet": "ما يؤخذ من الأحاديث:\n1- وجوب العدل بين الأولاد، وتحريم التفضيل أو التخصيص. ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث في وجوب العدل بين الأولاد وبطلان صور الجور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 148,
+    "end_word": 424,
+    "text_snippet": "‌‌بَابُ هِبَة العمرى\nالحديث الأول\nعَنْ جَابِرِ بْنِ عَبْدِ الله رَضىَ الله عَنْ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "definition",
+      "condition_exception"
+    ],
+    "description_arabic": "حديث العمرى وشرح ألفاظه وبيان حكمها وضابط الشرط والاستثناء فيها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 425,
+    "end_word": 458,
+    "text_snippet": "اختلاف العلماء:\nالعمرى ثلاثة أنواع:\n1- إما أن تؤبد كقوله: لك: لعقبك من بعدك",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تقسيم العمرى إلى أنواع وذكر مذهب الجمهور في النوعين الأولين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 459,
+    "end_word": 507,
+    "text_snippet": "3- والنوع الثالث أن يشترط الواهب الرجوع فيها بعد موت أحدهما. فهل يصح الشرط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض النوع الثالث من العمرى وبيان القائلين بصحة شرط الرجوع ودليلهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

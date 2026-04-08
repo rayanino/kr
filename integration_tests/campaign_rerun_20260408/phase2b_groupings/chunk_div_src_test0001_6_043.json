@@ -1,0 +1,136 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 66,
+    "text_snippet": "والتصديق بأخباره وغير ذلك مما يتباين الناس فيه ويتفاضلون تفاضلا عظيما. ويقو",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان ما يقوي حضور القلب وافتقار العبد إلى الله في عبادته",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفتتح بالواو ويبدو مكملاً لسبب سابق غير مذكور في هذا المقتطف."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 67,
+    "end_word": 126,
+    "text_snippet": "الثاني: زوال العوارض، وهو الاجتهاد في دفع ما يشغل القلب من تفكر الإنسان فيما",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف زوال العوارض وبيان سبب كثرة الوساوس وكيفية تحصيل حضور القلب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 127,
+    "end_word": 202,
+    "text_snippet": "‌‌بَابُ الجَمْع بين الصلاتين في السفر\nلما كان السفر مظنة المشقة، رخص فيه الشا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان مشروعية الجمع للمسافر وأنه رخصة تيسيراً ورفعاً للحرج",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 203,
+    "end_word": 290,
+    "text_snippet": "عَنْ عَبْدِ الله بن عَبَّاس رضي الله عنهما قال: كَان رَسُولُ الله صلى الله عل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عباس في جمع المسافر وشرح معناه الإجمالي ووجه الرخصة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 291,
+    "end_word": 397,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في الجمع. فذهب كثير من الصحابة والتابعين إلى ج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض قول المجيزين للجمع تقديماً وتأخيراً واستدلالهم بحديث معاذ والكلام عليه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يذكر أحاديث أخرى إجمالاً دون إيراد نصوصها كاملة، لكن المقصود العام واضح."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 398,
+    "end_word": 486,
+    "text_snippet": "وذهب أبو حنيفة وصاحباه، والحسن، والنخعي: إلى عدم جواز الجمع. فتأولوا أحاديث ",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "definition"
+    ],
+    "description_arabic": "ذكر قول المانعين من الجمع وتفسيرهم للجمع الصوري ثم الرد عليهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 487,
+    "end_word": 508,
+    "text_snippet": "وذهب ابن حزم، ورواية عن مالك: أنه يجوز جمع التأخير دون التقديم. وأجابوا عن ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر قول ابن حزم ورواية عن مالك في جواز جمع التأخير دون التقديم",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الجواب عن الأحاديث أحيل فيه إلى مقالات سابقة بقوله: بما قاله بعض العلماء من المقال فيها."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 509,
+    "end_word": 537,
+    "text_snippet": "واختلفوا أيضاً في حكم الجمع.\nفذهب الشافعي وأحمد والجمهور، إلى أن السفر سبب ف",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بداية الخلاف في حكم الجمع وذكر قول الجمهور ثم قول مالك في الجملة",
+    "self_containment": "DEPENDENT",
+    "self_containment_notes": "الفقرة الأخيرة مبتورة وتنتهي عند قول: وذهب مالك في المشهور عنه إلى اختصاص الجمع، دون بيان تمام قوله أو وجه الاختصاص."
+  }
+]

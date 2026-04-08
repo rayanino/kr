@@ -1,0 +1,154 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "‌‌بَاب في صفة تغسيل الميّت وتشييع الجنازة\nالحديث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 84,
+    "text_snippet": "عَنْ أمّ عَطِيةَ الأنصَاريَّةِ قَالَتْ: دَخَل عَلَيْنَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 85,
+    "end_word": 156,
+    "text_snippet": "الغريب:\nرأيتن ذلك: بكسر الكاف، لأن المخاطبة أنث",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 157,
+    "end_word": 274,
+    "text_snippet": "المعنى الإجمالي:\nلما توفيت \" زينب \" بنت النبي صل",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 4,
+    "start_word": 275,
+    "end_word": 546,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب غسل الميت المسلم، وأن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 547,
+    "end_word": 548,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَبَّاس رضي ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 6,
+    "start_word": 549,
+    "end_word": 602,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قَال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 603,
+    "end_word": 612,
+    "text_snippet": "قال المصنف رضى الله عنه: الوقص، كسر العنق ⌜1⌝ .",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 8,
+    "start_word": 613,
+    "end_word": 651,
+    "text_snippet": "غريب الحديث:\nوقصته: صرعته فكسرت عنقه.\nلا تحنطوه:",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 652,
+    "end_word": 733,
+    "text_snippet": "المعنى الإِجمالي:\nبينما كان رجل من الصحابة واقفاً",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 10,
+    "start_word": 734,
+    "end_word": 988,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب تغسيل الميت، وأنه فرض ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 989,
+    "end_word": 990,
+    "text_snippet": "الحديث الثالث\nعَنْ أبي هُريرة رضىَ الله عَنْهُ عَن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 12,
+    "start_word": 991,
+    "end_word": 1020,
+    "text_snippet": "عَنْ أبي هُريرة رضىَ الله عَنْهُ عَنِ النَّبي صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 1021,
+    "end_word": 1110,
+    "text_snippet": "المعنى الإجمالي:\nالإنسان من روح وجسد، وفضله وشرفه",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 14,
+    "start_word": 1111,
+    "end_word": 1203,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب الإسراع بتجهيز المي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 1204,
+    "end_word": 1205,
+    "text_snippet": "الحديث الرابع\nعَن أم عطيةَ الأنصارية رضي الله عنه",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 16,
+    "start_word": 1206,
+    "end_word": 1220,
+    "text_snippet": "عَن أم عطيةَ الأنصارية رضي الله عنها قالَتْ: نُهي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 1221,
+    "end_word": 1273,
+    "text_snippet": "المعنى الإجمالي:\nأم عطية الأنصارية من الصحابيات ا",
+    "scholarly_function": "narration",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1274,
+    "end_word": 1296,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- نهي النساء عن اتباع الجنائز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

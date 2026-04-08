@@ -1,0 +1,90 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "قال ابن حجر: \"وهو صحيح الإسناد\".",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم ابن حجر على الإسناد بالصحة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 6,
+    "end_word": 15,
+    "text_snippet": "3- تحريم النميمة بين الناس وأنها من أسباب عذاب القبر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم النميمة وكونها سببا من أسباب عذاب القبر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 16,
+    "end_word": 28,
+    "text_snippet": "4- رحمة النبي صلى الله عليه وسلم بأصحابه وحرصه على إبعاد الشر عنهما.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إظهار رحمة النبي صلى الله عليه وسلم بأصحابه وحرصه عليهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 29,
+    "end_word": 41,
+    "text_snippet": "5- الستر على الذنوب والعيوب. فإنه لم يصرح باسمي صاحبي القبرين، ولعله مقصود.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى مشروعية الستر على الذنوب والعيوب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 42,
+    "end_word": 73,
+    "text_snippet": "6- قوله: \"ما يعذبان في كبير\" أي بسبب ذنب كبير تركه كليهما، فإن ترك النمي",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "شرح معنى قوله ما يعذبان في كبير وبيان وجهه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 74,
+    "end_word": 174,
+    "text_snippet": "فائدة: اختلف العلماء في انتفاع الميت بعمل الحي حينما يجعل الحي ثواب قربته ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض الخلاف في انتفاع الميت بثواب عمل الحي وذكر بعض الأقوال والترجيح",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم بعض الترجيحات إلى معرفة أوسع بالنصوص الواردة في الباب وبسياق نسبة القولين إلى ابن تيمية."
+  }
+]

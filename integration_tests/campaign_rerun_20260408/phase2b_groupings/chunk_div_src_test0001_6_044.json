@@ -1,0 +1,125 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 0,
+    "end_word": 246,
+    "text_snippet": "بوقت الحاجة، وهى إذا جدَّ به السير، واختارها شيخ الإسلام \" ابن تيمية \" وقرى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "خلاف العلماء في الجمع في السفر عند الجد في السير وأدلة الأقوال والرد على المخالف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 247,
+    "end_word": 384,
+    "text_snippet": "فوائد:\nالأولى: ما ذكره المؤلف في الجمع لأجل السفر وهناك أعذار غير السفر تبيح ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان الأعذار غير السفر التي تبيح الجمع كالمطر والمرض والاستحاضة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 385,
+    "end_word": 494,
+    "text_snippet": "الفائدة الثانية:\nأن السفر الذي يباح فيه الجمع، قد اختلف العلماء في تحديده. فج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "الخلاف في تحديد السفر المبيح للجمع وترجيح أن كل ما يسمى سفرا يباح فيه الجمع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      22,
+      23
+    ],
+    "start_word": 495,
+    "end_word": 515,
+    "text_snippet": "الفائدة الثالثة:\nعند جمهور العلماء، أن ترك الجمع أفضل من الجمع، إلا في جَمْعَيْ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن ترك الجمع أفضل عند الجمهور إلا في جمعي عرفة ومزدلفة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 516,
+    "end_word": 530,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز الجمع بين صلاتي الظهر والعصر، وبين صلاتي المغرب وا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى من الحديث وهي جواز الجمع بين الظهر والعصر وبين المغرب والعشاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 531,
+    "end_word": 601,
+    "text_snippet": "2- عموم الحديث يفيد جواز جمع التقديم والتأخير، بين الصلاتين، وقد دلت عليه الأد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "الفائدة الثانية من الحديث وهي دلالته على جمع التقديم والتأخير ومناقشة ظاهر تخصيصه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في آخر الوحدة كلام مبتور يبدأ بقوله: \"فجواز الجمع في هذا الحديث قد علق بصفة لم\" فلا يكتمل الاستدلال داخل هذا المقتطف."
+  }
+]

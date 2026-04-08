@@ -1,0 +1,122 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتَابِ الحَجّ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 14,
+    "text_snippet": "الحج: لغة، القصد: وشرعاً: القصد إلى البيت الح",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 15,
+    "end_word": 64,
+    "text_snippet": "وابتدأ المصنف بـ \"الصلاة\" لأنها أهم أركان الدي",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 3,
+    "start_word": 65,
+    "end_word": 75,
+    "text_snippet": "وقد ثبت بالكتاب، والسنة، وإجماع الأمة، فوجوبه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 4,
+    "start_word": 76,
+    "end_word": 99,
+    "text_snippet": "وفرض سنة تسع من الهجرة، ولم يحج النبي صلى الله",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 5,
+    "start_word": 100,
+    "end_word": 117,
+    "text_snippet": "أما فضله فقد وردت فيه النصوص الكثيرة الصحيحة و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 118,
+    "end_word": 160,
+    "text_snippet": "أما حِكَمُهُ وأسراره، فأكثر من أن تحصى، ولا يو",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 7,
+    "start_word": 161,
+    "end_word": 179,
+    "text_snippet": "فهذا المؤتمر الإسلامي العظيم، وهذا الاجتماع ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 8,
+    "start_word": 180,
+    "end_word": 238,
+    "text_snippet": "أما الدينية، فما يقوم به الحاج من هذه العبادة ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 239,
+    "end_word": 260,
+    "text_snippet": "قد حدا بهم الشوق إلى بيت ربهم، ناسين- في سبيل ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 10,
+    "start_word": 261,
+    "end_word": 270,
+    "text_snippet": "أما الثقافية، فقد أمر الله بالسير في الأرض، لل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 11,
+    "start_word": 271,
+    "end_word": 302,
+    "text_snippet": "ففيه من معرفة أحوال الناس، والاتصال بهم، والتع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 303,
+    "end_word": 481,
+    "text_snippet": "أما الاجتماعية والسياسية، فإن الحج مؤتمر عظيم،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 482,
+    "end_word": 493,
+    "text_snippet": "ولكن لابد لكمال تحقق أعمال هذا \"المؤتمر\" من لغ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 14,
+    "start_word": 494,
+    "end_word": 498,
+    "text_snippet": "وأولى اللغات بذلك \"لغة القرآن\".",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  }
+]

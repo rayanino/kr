@@ -1,0 +1,107 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 54,
+    "text_snippet": "ظاهرة محزنة:\nإذا قارنت حال المسلمين اليوم بهذه النصوص الصحيحة، والآداب العال",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه مؤلم إلى انقلاب القيم وضعف الحياء والعفاف في واقع المسلمين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 55,
+    "end_word": 347,
+    "text_snippet": "‌‌بَاب الفِديَة\nالحديث الأول\nعَنْ عَبْدِ الله بْن مَعْقِلٍ، قال: جَلَسْتُ إلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "cross_reference",
+      "narration",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث فدية الأذى مع شرح ألفاظه وبيان معناه الإجمالي وحكم التخيير فيه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله: وتقدم في الزكاة تحرير الصاع النبوي ومكاييلنا الحاضرة والمقارنة بينهما."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 348,
+    "end_word": 420,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز حلق الشعر للمحرم مع التضرر ببقائه، ويفدي.\n2- تحريم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الأولى في حلق المحرم وفدية الأذى وبيان بعض أحكامها العامة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 421,
+    "end_word": 458,
+    "text_snippet": "5- ظاهر الحديث أن نصف الصاع يخرج، سواء أكان من بر أم غيره.\nوهو مذهب مالك، والش",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "خلاف الفقهاء في مقدار الإطعام وهل نصف الصاع يجزئ من البر وغيره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 459,
+    "end_word": 571,
+    "text_snippet": "6- ظاهر النصوص، نزول الآية بعد فتوى النبي صلى الله عليه وسلم.\nفتكون الآية مؤيد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد أخرى من الحديث في الوحي والرأفة والقياس وسبب النزول وعموم اللفظ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 572,
+    "end_word": 753,
+    "text_snippet": "تحقيق التخيير في الكفارة:\nظاهر الحديث الذي معنا يفيد تقديم الشاة، فإنْ لم يجده",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "editorial_note"
+    ],
+    "description_arabic": "تحقيق مسألة التخيير في كفارة الأذى وجمع الروايات وأقوال العلماء فيها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

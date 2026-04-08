@@ -1,0 +1,98 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 26,
+    "text_snippet": "ويأتي في الحديث الذي بعد هذا، اختلاف العلماء في ذ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 27,
+    "end_word": 55,
+    "text_snippet": "9- تحريم \"الورس\"، و\"الزعفران\" وما في معناهما ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 56,
+    "end_word": 91,
+    "text_snippet": "11- هذه الفائدة والتي قبلها، لم تكن في سؤال السائ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 3,
+    "start_word": 92,
+    "end_word": 146,
+    "text_snippet": "12- لهذا اللباس الخاص بالمحرم، حِكَمٌ وأسرار كثير",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 4,
+    "start_word": 147,
+    "end_word": 184,
+    "text_snippet": "13- قال القاضي عياض: أجمع المسلمون على أن ما ذكر ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 185,
+    "end_word": 255,
+    "text_snippet": "14- قال شيخ الإسلام ابن تيمية: وليس للمحرم أن يلب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 6,
+    "start_word": 256,
+    "end_word": 270,
+    "text_snippet": "فائدة:\nالمراد بالنهي عن لبس المخيط والمحيط، هو ال",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 271,
+    "end_word": 272,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 273,
+    "end_word": 303,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قال:\n",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 304,
+    "end_word": 366,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم يخط",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 367,
+    "end_word": 433,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الخطبةْ في عرفة لبيان أحكام",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 434,
+    "end_word": 537,
+    "text_snippet": "اختلاف العلماء، والتوفيق بين الحديثين:\nاختلف العل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  }
+]

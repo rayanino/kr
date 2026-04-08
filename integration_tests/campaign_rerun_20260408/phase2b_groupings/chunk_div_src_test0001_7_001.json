@@ -1,0 +1,361 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "start_word": 0,
+    "end_word": 124,
+    "text_snippet": "‌‌بَاب الغُسْل مِنَ الجنَابة\nالغسل -بضم الغين- اسم الاغتسال، الذي هو تعميم البد",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_quran",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "تعريف الغسل والجنابة وبيان مشروعية غسل الجنابة وحكمته الشرعية والصحية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 125,
+    "end_word": 361,
+    "text_snippet": "الحديث الأول\nعَنْ أبي هُرَيْرَةَ رضي الله عنه: أن النبي صلى الله عليه وسلم لقيه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "evidence_quran",
+      "narration"
+    ],
+    "description_arabic": "حديث أبي هريرة في أن المؤمن لا ينجس مع شرح ألفاظه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 362,
+    "end_word": 444,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون الجنابة ليست نجاسة تحل البدن.\n2- كون الإنسان لا تنج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث أبي هريرة في طهارة الجنب وجواز تأخير الغسل وتعظيم أهل الفضل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 445,
+    "end_word": 667,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالتْ: كان رَسولُ الله صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "صفة غسل النبي صلى الله عليه وسلم من الجنابة كما روتها عائشة مع شرح الألفاظ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 668,
+    "end_word": 807,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الغسل من الجنابة. سواء أكان ذلك لإنزال المنى أم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث عائشة في صفة الغسل الكامل وأحكامه وما يتعلق به",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "start_word": 808,
+    "end_word": 950,
+    "text_snippet": "الحديث الثالث\nعَنْ مَيْمُونَةَ بنْتِ الْحَارثِ زَوْج النبي صلى الله عليه وسلم أنّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "حديث ميمونة في صفة غسل الجنابة مع شرح مفرداته المشكلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      39,
+      40,
+      41
+    ],
+    "start_word": 951,
+    "end_word": 1167,
+    "text_snippet": "ما يؤخذ من الحديث:\nهذا الحديث نحو الحديث السابق، وفيه فوائد نجملها فيما يلي.\n1",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note"
+    ],
+    "description_arabic": "فوائد حديث ميمونة في تفاصيل الغسل وترتيب أفعاله وأحكامه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يفهم تمام المقارنة في بعض المواضع بالرجوع إلى الحديث السابق المشار إليه بقول: هذا الحديث نحو الحديث السابق."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      42,
+      43,
+      44,
+      45
+    ],
+    "start_word": 1168,
+    "end_word": 1261,
+    "text_snippet": "حكم من ينام جنب\nعَنْ عَبْدِ الله بن عُمَرَ أن عمر بن الخَطَّابِ رضي الله عنه قَا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حكم نوم الجنب قبل الاغتسال واشتراط الوضوء قبل النوم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      46,
+      47
+    ],
+    "start_word": 1262,
+    "end_word": 1303,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز نوم الجنب قبل الغسل إذا توضأ.\n2- أن الكمال أن لا ينا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حكم نوم الجنب وبيان الجواز والكمال والكراهة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      48,
+      49,
+      50,
+      51
+    ],
+    "start_word": 1304,
+    "end_word": 1461,
+    "text_snippet": "حكم احتلام المرأة\nعَنْ أم سَلَمَةَ زَوْج النبي صلى الله عليه وسلم قَالتْ: جَاءَت",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حكم احتلام المرأة وأن الغسل يجب عليها إذا رأت الماء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      52,
+      53
+    ],
+    "start_word": 1462,
+    "end_word": 1592,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن المرأة عليها الغسل حين تحتلم، إذا أنزلت ورأت الماء.\n2",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث احتلام المرأة في الغسل والحياء وآداب السؤال وطلب العلم",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في الفائدة الثانية قوله: كما أشار إلى هذا بقية الحديث، يحيل إلى زيادة غير مذكورة داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "start_word": 1593,
+    "end_word": 1824,
+    "text_snippet": "بيان حكم المني\nعن عَائِشَة قَالَتْ: كنتُ أغْسِل الْجَنَابةَ مَنْ ثَوبِ رَسولِ الل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "narration",
+      "evidence_rational",
+      "refutation"
+    ],
+    "description_arabic": "خلاف العلماء في حكم المني مع أدلة طهارته والجواب عن أدلة النجاسة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      64,
+      65
+    ],
+    "start_word": 1825,
+    "end_word": 1848,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- طهارة المني، وعدم وجوب غسله من البدن والثياب وغيرها.\n2- ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خلاصة حكم المني وأنه طاهر مع استحباب إزالة أثره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72
+    ],
+    "start_word": 1849,
+    "end_word": 1964,
+    "text_snippet": "بيان أن الجماع يوجب الغسل سواء حصل معه إنزال أم لم ينزل\nعَنْ أبى هُريرة رضي ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "بيان أن الإيلاج يوجب الغسل ولو لم يحصل إنزال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 1965,
+    "end_word": 2002,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الغسل من إيلاج الذَّكَرِ في الفرج، وإن لم يحصل إنزال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث وجوب الغسل بالإيلاج وبيان نسخه لحديث الماء من الماء",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى حديث أبي سعيد (الماء من الماء) من غير إيراد لفظه، فمعرفة وجه النسخ تحتاج إلى معرفة الحديث المحال إليه."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "start_word": 2003,
+    "end_word": 2198,
+    "text_snippet": "بيان مقدار الماء الذي يكفي للغسل من الجنابة\nعَنْ أبي جَعْفَر مُحَمَدِ بْنِ عَلِى",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "editorial_note",
+      "narration"
+    ],
+    "description_arabic": "بيان مقدار الماء الكافي لغسل الجنابة من حديث جابر مع توضيح قصته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      80,
+      81
+    ],
+    "start_word": 2199,
+    "end_word": 2288,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الغسل من الجنابة، وذلك بإفاضة الماء على العضو، وسيلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد حديث مقدار الماء في الغسل وبيان كفاية الصاع واستحباب الاقتصاد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في الفائدة الثانية الضمير في قوله: لا يستدل به يعود على الحديث السابق، فالوحدة مفهومة إجمالا لكن المرجع الخارجي يفيد في تمام الفهم."
+  }
+]

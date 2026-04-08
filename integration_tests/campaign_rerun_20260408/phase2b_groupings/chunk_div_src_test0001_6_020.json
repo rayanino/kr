@@ -1,0 +1,169 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 79,
+    "text_snippet": "المعنى الإجمالي:\nيصف البراء بن عازب صلاة النبي صلى الله عليه وسلم، فيذكر أنها ",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "refutation",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان معنى تناسب أركان الصلاة ونفي توهم المساواة التامة بينها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 80,
+    "end_word": 193,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الأفضل أن يكون الركوع والاعتدال منه، والسجود والاعتدال ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث في تساوي الأركان والطمأنينة والرد على قياس فاسد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج في بعض فوائده إلى معرفة الحديث السابق المقصود بعبارة \"من الحديث\"، كما أن الإشارة إلى زيادة البخاري وحديث ثلاثة من الصحابة ليست مذكورة هنا بلفظها."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 194,
+    "end_word": 301,
+    "text_snippet": "فائدة:\nلكون المعهود من صلاة النبي صلى الله عليه وسلم هو تطويل قيام القراءة وقع",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض أقوال الشراح في معنى المناسبة بين أفعال الصلاة مع ترجيح معنى معين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 302,
+    "end_word": 457,
+    "text_snippet": "الحديث الثامن\nعَنْ ثَابِتٍ البناني، عَنْ أنَس بن مَالِك رضي الله عنه قال: إني ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث أنس في إطالة الاعتدال والجلوس مع شرحه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 458,
+    "end_word": 480,
+    "text_snippet": "ما يؤخذ من الحديث:\nفيه دليل على مشروعية تطويل القيام بعد الركوع، وتطويل الجلو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استنباط مشروعية تطويل القيام بعد الركوع والجلوس بعد السجود.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد على الحديث السابق لفهم مرجع الضمير في \"فيه\" وعبارة \"وأنه فعل النبي صلى الله عليه وسلم\"."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 481,
+    "end_word": 573,
+    "text_snippet": "الحديث التاسع\nعَنْ أنَس بن مَالِك رضي الله عنه قَالَ: \" مَا صَليتُ وَرَاءَ إِمَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث خفة صلاة النبي وكمالها مع بيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 574,
+    "end_word": 684,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن يأتي الإمام بالصلاة خفيفة، حتى لا يشق على المصلين، وت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث في تخفيف الإمام وإتمام الصلاة والاقتداء وجواز إمامة المفضول.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تحتاج بعض الفوائد إلى الحديث السابق لفهم المقصود بعبارة \"من الحديث\" ووجه الاستدلال بحديث أنس."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 685,
+    "end_word": 836,
+    "text_snippet": "الحديث العاشر\nعَنْ أبي قِلابَةَ ⌜2⌝ عَبْدِ الله بنِ زَيد الجَرْمِي البَصْري قال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث مالك بن الحويرث في جلسة الاستراحة مع شرح معناه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19,
+      20,
+      21
+    ],
+    "start_word": 837,
+    "end_word": 960,
+    "text_snippet": "اختلاف العلماء\nالجلسة المشار إليها في هذا الحديث هي ما تسمى عند العلماء بـ \" ج",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "تعريف جلسة الاستراحة وذكر الخلاف في استحبابها والترجيح بفعلها عند الحاجة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتوقف عبارة \"الجلسة المشار إليها في هذا الحديث\" على معرفة الحديث السابق، فمرجع الإشارة خارج الوحدة."
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 961,
+    "end_word": 998,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب جلسة الاستراحة، وتقدم أن الصحيح استحبابها للحاجة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث جلسة الاستراحة وموضعها وبيان حكم التكبير والذكر لها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله \"وتقدم أن الصحيح استحبابها للحاجة\"، كما أن عبارة \"من الحديث\" تعتمد على السياق السابق."
+  }
+]

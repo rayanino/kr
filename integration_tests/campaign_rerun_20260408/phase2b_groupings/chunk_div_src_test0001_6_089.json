@@ -1,0 +1,120 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 125,
+    "text_snippet": "غيره أصلح منه وأنفع للموقوف عليهم ففيه عن الإمام أحمد روايتان، أشهرهما المنع،",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement",
+      "editorial_note"
+    ],
+    "description_arabic": "حكم بيع الوقف واستبداله واشتراط إذن الحاكم عند تحقق المصلحة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تبدأ الوحدة بضمير وإحالة على مسألة سابقة في الوقف، مما يجعل أول القيد غير مكتمل دون السياق السابق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 126,
+    "end_word": 282,
+    "text_snippet": "‌‌باَبُ الهِبَة\nالهبة: - بكسر الهاء وتخفيف الباء. وهى- شرعا- تمليك في الحياة ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف الهبة وبيان أنواعها والفروق بينها وحكمها وفوائدها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "start_word": 283,
+    "end_word": 520,
+    "text_snippet": "الحديث الأول\nعَنْ عُمَرَ رضي الله عنه قَالَ: حَمَلْت عَلَى فَرس فِي سَبيلِ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديثا النهي عن العود في الهبة والصدقة مع المعنى الإجمالي ووجه الدلالة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 521,
+    "end_word": 545,
+    "text_snippet": "ما يستفاد من الحديثين:\n1- استحباب الإعانة على الجهاد في سبيل الله، وأن ذلك من ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة الأولى استحباب الإعانة على الجهاد وكونها من الصدقات",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 546,
+    "end_word": 575,
+    "text_snippet": "2- أن عمر تصدت على ذلك المجاهد بالفرس ولم يجعلها وقفا عليه، أو وقفا في سبيل ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الثانية أن العطاء هنا تمليك لا وقف ولذلك جاز البيع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 576,
+    "end_word": 602,
+    "text_snippet": "3- النهى عن شراء الصدقة، لأنها خرجت لله، فلا ينبغي أن تتعلق بها النفس. وشراؤها",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الفائدة الثالثة النهي عن شراء الصدقة وبيان علته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

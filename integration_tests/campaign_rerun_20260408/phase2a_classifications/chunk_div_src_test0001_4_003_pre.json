@@ -1,0 +1,602 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتابُ العِتق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 7,
+    "text_snippet": "العِتق- لغة-: بكسر العين، وسكون القاف.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 8,
+    "end_word": 29,
+    "text_snippet": "قال الأزهري: هو مشتق من قولهم: عَتَق الفرس إذا",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 30,
+    "end_word": 38,
+    "text_snippet": "وشرعاً: تحرير الرقبة وتخليصها من الرق، وتثبيت ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 39,
+    "end_word": 44,
+    "text_snippet": "والأصل فيه، الكتاب، والسنة، وإجماع الأمة.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 5,
+    "start_word": 45,
+    "end_word": 53,
+    "text_snippet": "فأما الكتاب، فمثل قوله تعالى: {فَتَحْرير رَقَبَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 54,
+    "end_word": 91,
+    "text_snippet": "وأما السنة، فكثيرة جداً، ومنها ما في الصحيحين ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 92,
+    "end_word": 99,
+    "text_snippet": "وأجمعت الأمة على صحة العتق وحصول القربة به.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 100,
+    "end_word": 112,
+    "text_snippet": "وهنا مبحثان أحدهما- في فضله، والثاني: - في موقف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 113,
+    "end_word": 145,
+    "text_snippet": "أما فضله، فيكفيك فيه هذا الحديث الصحيح، وما روا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 146,
+    "end_word": 153,
+    "text_snippet": "والأحاديث والآثار الحاثة على العتق والمُرَغبة ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 11,
+    "start_word": 154,
+    "end_word": 196,
+    "text_snippet": "وقد جعله الله تعالى أول الكفارات لما فيه من مَح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 12,
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "فمن أعتق رقبة، فقد فاز بثواب اللهْ، والله عنده ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.57
+  },
+  {
+    "segment_index": 13,
+    "start_word": 208,
+    "end_word": 226,
+    "text_snippet": "المبحث الثاني: نعى بعض أعداء الدين الإسلامي إقر",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 227,
+    "end_word": 248,
+    "text_snippet": "لذا نحب أن نُبين حال الرق في الإسلام وغيره، ونب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 249,
+    "end_word": 345,
+    "text_snippet": "فالإسلام لم يختص بالرق، بل كان منتشرا في جميع أ",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 16,
+    "start_word": 346,
+    "end_word": 354,
+    "text_snippet": "هذا هو الرق بأسبابه وآثاره، وكثرته في غير الإسلا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 17,
+    "start_word": 355,
+    "end_word": 362,
+    "text_snippet": "ولم نأت إلا على القليل من شنائعه عندهم.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 18,
+    "start_word": 363,
+    "end_word": 366,
+    "text_snippet": "فلننظر الرق في الإسلام.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 367,
+    "end_word": 409,
+    "text_snippet": "أولاً: إن الإسلام ضيَّق مورد الرِّق، إذ جعل الن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 20,
+    "start_word": 410,
+    "end_word": 449,
+    "text_snippet": "فهذا هو السبب وحده في الرق، وهو سبب؟ جاء في الن",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 450,
+    "end_word": 466,
+    "text_snippet": "هذا هو سبب الرق في الإسلام، لا النهب، والسلب، و",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 467,
+    "end_word": 487,
+    "text_snippet": "ثانياً: أن الإسلام رفق بالرقيق، وعطف عليه، وتوع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 488,
+    "end_word": 506,
+    "text_snippet": "وقال صلى الله عليه وسلم أيضاً: \"للمملوك طعامه و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 507,
+    "end_word": 550,
+    "text_snippet": "بل إن الإسلام رفع من قدر الرقيق حتى جعلهم إخوا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 551,
+    "end_word": 573,
+    "text_snippet": "ورفع من مقامهم عند مخاطبتهم حتى لا يشعروا بالضّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 574,
+    "end_word": 600,
+    "text_snippet": "كما أن المقياس في الإسلام لكرامة الإنسان في الد",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 601,
+    "end_word": 626,
+    "text_snippet": "وقد بلغ شخصيات من الموالى- لفضل علمهم، وقدرتهم-",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 28,
+    "start_word": 627,
+    "end_word": 642,
+    "text_snippet": "ومع ما رفعه الشارع من مقام المملوك، فإن له تشوف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 29,
+    "start_word": 643,
+    "end_word": 658,
+    "text_snippet": "فقد حث على ذلك، ووعد عليه النجاة من النار، والف",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 30,
+    "start_word": 659,
+    "end_word": 668,
+    "text_snippet": "ثم إنه جعل لتحريرهم عدة أسباب، بعضها قهرية وبع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 31,
+    "start_word": 669,
+    "end_word": 704,
+    "text_snippet": "فمن القهرية، أن من جرح مملوكة عتق عليه.\nفقد جاء",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 705,
+    "end_word": 732,
+    "text_snippet": "ومن أعتقْ نصيبه من مملوك مشترك، عتق نصيب شريكه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 33,
+    "start_word": 733,
+    "end_word": 752,
+    "text_snippet": "ومن ملك ذا رحم مَحْرم عليه عق عليه قهراً حديث \"",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 753,
+    "end_word": 779,
+    "text_snippet": "فهذه أسباب قهرية تُزِيل ملك السيد عن رقيقه خاصة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 780,
+    "end_word": 796,
+    "text_snippet": "ثم إن المشرع- مع حثه على الإعتاق- جعله أول الكف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 797,
+    "end_word": 811,
+    "text_snippet": "فالعتق هو الكفارة الأولى في الوطء في نهار رمضان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 812,
+    "end_word": 815,
+    "text_snippet": "دين العزة والكرامة والمساواة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.64
+  },
+  {
+    "segment_index": 38,
+    "start_word": 816,
+    "end_word": 845,
+    "text_snippet": "فكيف- بعد هذا- يأتي الغربيُّون. المستغربون فيعي",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 39,
+    "start_word": 846,
+    "end_word": 858,
+    "text_snippet": "أفيرفعون رؤوسهم، وهم الذين يعاملون بعض الطبقات ",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 40,
+    "start_word": 859,
+    "end_word": 878,
+    "text_snippet": "فأين مساواة الإسلام مما تفعله أمريكا بالزنوج، ا",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 41,
+    "start_word": 879,
+    "end_word": 895,
+    "text_snippet": "وأين رفق الإسلام وإحسانه، مما يفعله الغرب بأسا",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 896,
+    "end_word": 926,
+    "text_snippet": "وأين دولة الإسلام الرحيمة، التي جعلت الناس على",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 43,
+    "start_word": 927,
+    "end_word": 952,
+    "text_snippet": "بعد هذا، ألم يَأنِ للمصلحين ومُحِبِّي السلام أن ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 44,
+    "start_word": 953,
+    "end_word": 959,
+    "text_snippet": "اللهم انصر دينك، ووفِّق له الدعاة المصلحين.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 45,
+    "start_word": 960,
+    "end_word": 961,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 46,
+    "start_word": 962,
+    "end_word": 1007,
+    "text_snippet": "عن عَبْدِ الله بْنِ عُمَرُ رضي الله عنهما أنَّ ر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1008,
+    "end_word": 1008,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1009,
+    "end_word": 1017,
+    "text_snippet": "شِرْكاً له: بكسر الشين، وسكون الراء: أي جزءاً و",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1018,
+    "end_word": 1030,
+    "text_snippet": "عَدْل: بفتح العين، وسكون الدال: أي من غير زيادة",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1031,
+    "end_word": 1032,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1033,
+    "end_word": 1094,
+    "text_snippet": "للشارع الحكيم الرحيم تشوُّف إلى عتق الرقاب من ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1095,
+    "end_word": 1120,
+    "text_snippet": "فإن كان المعتق موسرا- بحيث يستطيع دفع قيمة نصيب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1121,
+    "end_word": 1143,
+    "text_snippet": "وإن لم يكن موسرا- بحيث لا يملك قيمة نصيب صاحبه-",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1144,
+    "end_word": 1147,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1148,
+    "end_word": 1155,
+    "text_snippet": "1- جواز الاشتراك في العبد والأمة في الملك.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1156,
+    "end_word": 1179,
+    "text_snippet": "2- أن من أعتق نصيبه عتق عليه، وعتق عليه أيضاً ن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1180,
+    "end_word": 1190,
+    "text_snippet": "3- إن لم يكن الشريك المعتق موسراً، فلا يعتق نصي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1191,
+    "end_word": 1200,
+    "text_snippet": "وبعضهم يرى أنه يعتق، وينسعى العبد بالقيمة، ويأت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1201,
+    "end_word": 1215,
+    "text_snippet": "4- أنه إن ملك بعض قيمه نصيب شريكه، عتق عَليه بق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1216,
+    "end_word": 1227,
+    "text_snippet": "5- تشوُفُ الشارع إلى عتق الرقاب، إذ جعل للعتق ه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1228,
+    "end_word": 1229,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1230,
+    "end_word": 1269,
+    "text_snippet": "عَن أبي هُرَيرةَ رضي الله عنه عَنِ النَّبِي صلى ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1270,
+    "end_word": 1273,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1274,
+    "end_word": 1292,
+    "text_snippet": "معنى هذا الحديث تقدم في الذي قبله، إلا أنه زاد ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1293,
+    "end_word": 1315,
+    "text_snippet": "1- أن من أعتق شركا له في عبد، وكان له ما يبلغ ث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1316,
+    "end_word": 1348,
+    "text_snippet": "2- فإن لم يكن له مال، عتق العبد أيضاً- وطُلِبَ ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1349,
+    "end_word": 1365,
+    "text_snippet": "3- ظاهر الحديثين، هذا والذي قبله، الاختلاف في ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1366,
+    "end_word": 1368,
+    "text_snippet": "الجمع بين الحديثين:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1369,
+    "end_word": 1383,
+    "text_snippet": "دل الحديث الأول- في ظاهره- على أن من أعتق نصيبه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1384,
+    "end_word": 1392,
+    "text_snippet": "فإن كان موسراً عتق باقيه- وغرم لشريكه قيمة نصيب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1393,
+    "end_word": 1406,
+    "text_snippet": "وإن كان معسراً لم يعتق نصيب شريكه، وصار العبد، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1407,
+    "end_word": 1432,
+    "text_snippet": "ودل الحديث الثاني على أن المباشر لعتق نصيبه، إن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1433,
+    "end_word": 1448,
+    "text_snippet": "ذهب إلى الأخذ بظاهر الحديث الأول، الأئمة، مالك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1449,
+    "end_word": 1473,
+    "text_snippet": "ودليلهم، ظاهر- الحديث وجعلوا الزيادة في الحديث ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  }
+]

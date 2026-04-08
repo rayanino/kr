@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌باَبُ الشفعَة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 29,
+    "text_snippet": "الشفعة: بضم الشين وسكون الفاء.\nوالشفع: لغة، ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 30,
+    "end_word": 63,
+    "text_snippet": "والشفعة: تطلق على التملك وعلى الحصة المملوكة فتع",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 3,
+    "start_word": 64,
+    "end_word": 125,
+    "text_snippet": "- وبطبيعة الشراكة والخلطة يحصل أضرار عظيمة ومشاك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 4,
+    "start_word": 126,
+    "end_word": 158,
+    "text_snippet": "وبهذا تعلم أنها جاءت على الأصل وفق القياس والحكم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 5,
+    "start_word": 159,
+    "end_word": 175,
+    "text_snippet": "ولم يستحق الشفيع ⌜1⌝ نزع الشقص (2) من يد المشترى",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 6,
+    "start_word": 176,
+    "end_word": 189,
+    "text_snippet": "فحينئذ تكون ثابتة بالسنة، والإجماع، والقياس، خلا",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 7,
+    "start_word": 190,
+    "end_word": 191,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 8,
+    "start_word": 192,
+    "end_word": 224,
+    "text_snippet": "عَنْ جَابِرِ بن عَبْدِ الله رضي الله عنهما قَالَ.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 225,
+    "end_word": 245,
+    "text_snippet": "الغريب:\nوقعت الحدود: عينت. و\" الحدود \" جمع \" حد",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 246,
+    "end_word": 257,
+    "text_snippet": "صرفت الطرق: بضم الصاد وكسر الراء المثقلة، يتخفف.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 258,
+    "end_word": 284,
+    "text_snippet": "المعنى الإجمالي:\nهذه الشريعة الحكيمة جاءت لإحقا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 12,
+    "start_word": 285,
+    "end_word": 303,
+    "text_snippet": "ولهذا فإنه لما كانت الشركة في العقارات يكثر ضرره",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 304,
+    "end_word": 329,
+    "text_snippet": "بمعنى أنه إذا باع ⌜2⌝ أحد الشريكين (2) نصيبه من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 330,
+    "end_word": 344,
+    "text_snippet": "هذا الحق، ثابت للشريك ما لم يكن العقار المشترك ق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 345,
+    "end_word": 370,
+    "text_snippet": "أما بعد معرفة الحدود وتميزها بين النصيبين، وبعد ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 371,
+    "end_word": 385,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا الحديث أصل في ثبوت ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 17,
+    "start_word": 386,
+    "end_word": 404,
+    "text_snippet": "2- صدر الحديث يشعر بثبوت الشفعة في المنقولات وسي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 405,
+    "end_word": 423,
+    "text_snippet": "3- تكون الشفعة في العقار المشترك، الذي لم تميز ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 424,
+    "end_word": 436,
+    "text_snippet": "4- إذا ميزت حدوده، وصرفت طرقه، فلا شفعة لزوال ال",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 437,
+    "end_word": 446,
+    "text_snippet": "5- بهذا يعلم أنها لا تثبت للجار، لقيام الحدود وت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 447,
+    "end_word": 460,
+    "text_snippet": "ويأتي الكلام على الشفعة فيما فيه منفعة مشتركة بي",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 461,
+    "end_word": 505,
+    "text_snippet": "6- استدل بعضهم بالحديث: على أن الشفعة لا تكون إل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 23,
+    "start_word": 506,
+    "end_word": 518,
+    "text_snippet": "7- تثبت الشفعة إزالةً لضرر الشريك، ولذا اختصت با",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  }
+]

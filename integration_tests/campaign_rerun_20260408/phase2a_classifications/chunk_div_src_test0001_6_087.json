@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 10,
+    "text_snippet": "‌‌بَاب في جَواز كراء الأرض بالشيء المعْلوم\nوالن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 11,
+    "end_word": 44,
+    "text_snippet": "الحديث الأول ⌜1⌝\nعَنْ رَافِعِ بْنِ خَدِيج قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 45,
+    "end_word": 107,
+    "text_snippet": "الحديث الثاني\nولـ \" مسلم \" عَنْ حَنْظَلَةَ بْنِ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 108,
+    "end_word": 113,
+    "text_snippet": "الماذيانات: اْلأنهار الكبار. والجدول: النهر الصغ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 114,
+    "end_word": 135,
+    "text_snippet": "الغريب:\nحقلا: بفتح الحاء المهملة، وسكون القاف، ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 136,
+    "end_word": 161,
+    "text_snippet": "الماذيانات: بذال معجمة مكسورة، ثم ياء مثناة، ثم",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 6,
+    "start_word": 162,
+    "end_word": 175,
+    "text_snippet": "أقبال الجداول: بفتْح الهمزة، فقاف فباء. والأقبا",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 176,
+    "end_word": 239,
+    "text_snippet": "المعنى الإجمالي:\nفي هذين الحديثين، بيان وتفصيل ",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 8,
+    "start_word": 240,
+    "end_word": 274,
+    "text_snippet": "فنهاهم النبي صلى الله عليه وسلم عن هذه المعاملة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 275,
+    "end_word": 286,
+    "text_snippet": "فإن كانت جزء منها، فهي شركة مبناها العدل والتسا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 287,
+    "end_word": 296,
+    "text_snippet": "وإن كانت بعوض، فهي إجارة لابد فيها من العلم بال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 297,
+    "end_word": 329,
+    "text_snippet": "وهى جائزة سواء أكانت بالذهب والفضة، أم بالطعام ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 330,
+    "end_word": 344,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جواز إجارة الأرض للزراع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 345,
+    "end_word": 354,
+    "text_snippet": "2- أنه لابد أن تكون الأجرة معلومة، فلا تصح بالم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 355,
+    "end_word": 381,
+    "text_snippet": "3- عموم الحديث يفيد أنه لا بأس أن تكون الأجرة ذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 382,
+    "end_word": 423,
+    "text_snippet": "4- النهى عن إدخال شروط فاسدة فيها: \"ذلك كاشتراط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 424,
+    "end_word": 437,
+    "text_snippet": "فإما أن تكون بأجر معلوم للأرض، وإما أن تكون مزا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 17,
+    "start_word": 438,
+    "end_word": 471,
+    "text_snippet": "5- بهذا يعلم أن جميع أنواعَ الغرر والجهالات وال",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 18,
+    "start_word": 472,
+    "end_word": 484,
+    "text_snippet": "اختلاف العلماء:\nذهب عامة العلماء إلى جواز الإج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 485,
+    "end_word": 489,
+    "text_snippet": "واختلفوا في جوازها في الطعام.\n",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 490,
+    "end_word": 526,
+    "text_snippet": "فإن كان معلوماً غير خارج منها، فذهب إلى جوازها ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 527,
+    "end_word": 535,
+    "text_snippet": "ومنعه الإمام مالك، محتجاً بحديث [فلا يكريها بطع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 536,
+    "end_word": 546,
+    "text_snippet": "وإن كان بجزء مما يخرج منها، فلا يجوز عند الأئمة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 547,
+    "end_word": 559,
+    "text_snippet": "وما نقل عن الإمام أحمد في جوازها، فمحمول على إر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  }
+]

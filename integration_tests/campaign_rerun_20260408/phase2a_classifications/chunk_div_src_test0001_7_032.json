@@ -1,0 +1,170 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ العِدَّة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 29,
+    "text_snippet": "العدة: بكسر العين المهملة مأخوذ من \"العدد\" بفت",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 30,
+    "end_word": 39,
+    "text_snippet": "فأما الكتاب، فمثل قوله تعالى: {والمُطَلقَاتُ يتر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 40,
+    "end_word": 59,
+    "text_snippet": "وأما السنة، فكثيرة جدا، منها ما تقدم، من أمره صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 60,
+    "end_word": 68,
+    "text_snippet": "وأجمع العلماء عليها، استنادا إلى نصوص الكتاب وال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 69,
+    "end_word": 183,
+    "text_snippet": "وقد جعل الله تبارك وتعالى هذه العدة تتربص فيها ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 184,
+    "end_word": 285,
+    "text_snippet": "عَنْ سُبَيِعَة الأسلمية: أنهَا كَانَتْ تَحْتَ سعد ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 286,
+    "end_word": 305,
+    "text_snippet": "وقال ابنُ شِهَاب: وَلا أرى بِأساً أنْ تَتَزوجَ حِي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 306,
+    "end_word": 306,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 307,
+    "end_word": 312,
+    "text_snippet": "سُبَيْعَة: بضم السين، وفتح الباء الموحدة.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 10,
+    "start_word": 313,
+    "end_word": 320,
+    "text_snippet": "فلم تنشب: بفتح الشين، أي لم تمكث طويلا.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 321,
+    "end_word": 333,
+    "text_snippet": "تعلت من نفاسها: بفتح العين وتشديد اللام. معناه، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 334,
+    "end_word": 344,
+    "text_snippet": "بعكك: بفتح الباء الموحدة، ثم عين ساكنة، ثم كافين",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 345,
+    "end_word": 346,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 14,
+    "start_word": 347,
+    "end_word": 388,
+    "text_snippet": "توفي سعد بن خولة عن زوجته سبيعة الأسلمية وهي حام",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 15,
+    "start_word": 389,
+    "end_word": 430,
+    "text_snippet": "فأقسم -على غلبة ظنه- أنه لا يحل لها النكاح حتى ي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 16,
+    "start_word": 431,
+    "end_word": 460,
+    "text_snippet": "فأتت النبي صلى الله عليه وسلم، فسألته عن ذلك، فأ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 17,
+    "start_word": 461,
+    "end_word": 464,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 18,
+    "start_word": 465,
+    "end_word": 471,
+    "text_snippet": "1- وجوب العدة على المتوفى. عنها زوجها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 472,
+    "end_word": 478,
+    "text_snippet": "2- أن عدة الحامل، تنتهي بوضع حملها.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 479,
+    "end_word": 488,
+    "text_snippet": "3- عموم إطلاق الحمل، يشمل ما وضع، وفيه خلق إنسان",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

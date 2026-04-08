@@ -1,0 +1,336 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌بَابُ أفضَل الصِّيامِ وَغَيرِه",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الباب في بيان أفضل الصيام وما يتصل به",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 4,
+    "end_word": 212,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قال: نَهَى رَسُولُ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference",
+      "narration"
+    ],
+    "description_arabic": "النهي عن الوصال وبيان خصوصية النبي صلى الله عليه وسلم فيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 213,
+    "end_word": 272,
+    "text_snippet": "اختلاف العلماء:\nاختلفوا في الطعام والشراب المذكورين على قولين:\nأحدهما: - أنه ط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "الخلاف في معنى الطعام والشراب المذكورين في حديث الوصال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 273,
+    "end_word": 570,
+    "text_snippet": "واختلفوا في حكم الوصال على ثلاثة أقوال: محرم، ومكروه، وجائز مع القدرة.\nفذهب إلى ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_qiyas",
+      "condition_exception",
+      "evidence_rational",
+      "refutation",
+      "rule_statement"
+    ],
+    "description_arabic": "الخلاف في حكم الوصال وأدلته وترجيح جوازه إلى السحر مع أن تركه أولى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 571,
+    "end_word": 743,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الوصال.\n2- جوازه للقادر عليه إلى السحر، وتركه أولى.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث الوصال وأحكامه وحكمته وخصائص النبي صلى الله عليه وسلم فيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 744,
+    "end_word": 983,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَمْرو بْنِ الْعَاص رضي الله عنهما قال: أُخْبِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "الإرشاد إلى الاقتصاد في الصيام والقيام وأن أفضل الصيام صيام داود",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 984,
+    "end_word": 1161,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- رغبة عبد الله بن عمرو بن العاص في الخير وقوتِهِ فيه، إذ أق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث عبد الله بن عمرو في مراعاة القدرة وكراهة صيام الدهر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 1162,
+    "end_word": 1280,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بْنِ عَمْرِو بْن العَاصْ رضي الله عنهما قال:\nقَالَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "بيان أن أحب الصيام والصلاة إلى الله عبادة داود عليه السلام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      28
+    ],
+    "start_word": 1281,
+    "end_word": 1469,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن صيام يوم وفطر يوم، هو أفضل الصيام بما فيه صيام الدهر.\n2",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد صيام داود وقيام الليل على وجه العدل والاقتصاد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      29,
+      30
+    ],
+    "start_word": 1470,
+    "end_word": 1609,
+    "text_snippet": "الحديث الرابع\nعَنْ أبِي هُرَيْرَةَ رضي الله عنه قَالَ:\nأوْصَانِي خليلي بثلاث صيام ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "الوصايا الثلاث لأبي هريرة في الصيام والضحى والوتر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      31
+    ],
+    "start_word": 1610,
+    "end_word": 1738,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب صيام ثلاثة أيام من كل شهر. والأولى أن تكون الثالث ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد وصية أبي هريرة في صيام ثلاثة أيام والضحى والوتر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      32,
+      33,
+      34
+    ],
+    "start_word": 1739,
+    "end_word": 1879,
+    "text_snippet": "الحديث الخامس\nعَنْ محمَّد بْنِ عبَّاد بن جَعْفَر قال:\nسَألتُ جَابِرَ بْنَ عَبْدِ ال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "النهي عن إفراد يوم الجمعة بالصوم وبيان علته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      35
+    ],
+    "start_word": 1880,
+    "end_word": 1936,
+    "text_snippet": "ما يؤخذ من الحديثين:\n1- النهى عن صوم يوم الجمعة.\n2- جواز صومه إذا قرن بصيامٍ قبله",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام صوم يوم الجمعة وحمل النهي فيه على التنزيه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 1937,
+    "end_word": 2048,
+    "text_snippet": "الحديث السابع\nعَنْ أبي عُبَيْدٍ مَوْلَى ابْنِ أزْهَرَ، وَاسْمُهُ سَعْدُ بْنُ عُبيْدِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تحريم صوم يومي الفطر والأضحى وبيان حكمة ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 2049,
+    "end_word": 2152,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم صوم يَوْمَيْ الفطر والأضحى.\n2- أن الصوم فيهما لا ينعق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث العيدين في التحريم وعدم انعقاد الصوم فيهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 2153,
+    "end_word": 2327,
+    "text_snippet": "الحديث الثامن\nعَنْ أبِي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه قَالَ:\nنَهَى رَسُولُ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "cross_reference",
+      "definition",
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "النهي عن صيام العيدين ولبستين وصلاتين مع شرح الغريب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 2328,
+    "end_word": 2372,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- النهي عن هذه الأشياء المعدودة في الحديث.\n2- النهي عن صيام ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام النهي في الحديث وتمييز ما هو للتحريم وما هو للكراهة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      50,
+      51,
+      52
+    ],
+    "start_word": 2373,
+    "end_word": 2475,
+    "text_snippet": "الحديث التاسع\nعَنْ أبِي سَعِيدٍ الْخُدْرِيِّ رضي الله عنه قال: قَالَ رَسُولُ الله ص",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "فضل الصيام في سبيل الله وأنه سبب للبعد عن النار",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      53,
+      54
+    ],
+    "start_word": 2476,
+    "end_word": 2526,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- فضل الصيام إبَّانَ الجهاد في سبيل الله تعالى، وما يترتب علي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "فضل صيام المجاهد مع تقييده بعدم الإضعاف عن الجهاد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

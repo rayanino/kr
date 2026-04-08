@@ -1,0 +1,48 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 0,
+    "end_word": 148,
+    "text_snippet": "الحديث الثاني\nعَنْ أبي هريرة رضي الله عنه قَالَ: قَالَ رسول الله صلى الله عليه ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "rule_statement",
+      "evidence_quran"
+    ],
+    "description_arabic": "الحديث وشرحه الإجمالي في تحريم الجمع بين المرأة وعمتها أو خالتها وبيان تخصيص العموم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 149,
+    "end_word": 261,
+    "text_snippet": "فائدة:\nالجمع بين الأختين، وبين المرأة وعمتها، والمرأة وخالتها، قال ابن المنذر.",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "refutation"
+    ],
+    "description_arabic": "بيان الإجماع على التحريم والاستدلال بالحديث على تخصيص عموم الكتاب والرد على شبهة كونه خبر آحاد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

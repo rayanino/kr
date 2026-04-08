@@ -1,0 +1,1034 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كتاب الزكاة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 9,
+    "text_snippet": "الزكاة- في اللغة، النماء والتطهر بمعنى الزيادة ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 10,
+    "end_word": 43,
+    "text_snippet": "وفي الشرع- حق واجب في مال خاص: - وهو بهيمة الأن",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 44,
+    "end_word": 57,
+    "text_snippet": "وسميت في الشرع زكاة، لوجود المعنى اللغوي فيها، و",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 4,
+    "start_word": 58,
+    "end_word": 70,
+    "text_snippet": "وهي أحد أركان الدين، وقد ثبتت فرضيتها بالكتاب، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 71,
+    "end_word": 87,
+    "text_snippet": "ولوجوبها شروط، أهمها الإسلام، فلا تجب على كافر، ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 88,
+    "end_word": 97,
+    "text_snippet": "وثانيها- ملك النصاب، ويأتي بيان مقداره إن شاء الل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 98,
+    "end_word": 109,
+    "text_snippet": "وثالثها- مُضى الحَول إلا في الخارج من الأرض، فحول",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 110,
+    "end_word": 204,
+    "text_snippet": "وهي من محاسن الإسلام، الذي جاء بالمساواة، والتراح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 205,
+    "end_word": 222,
+    "text_snippet": "أن الإسلام هو دين العدالة الاجتماعية، الذي يكفل ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 223,
+    "end_word": 233,
+    "text_snippet": "وهذا هو المذهب المستقيم الذي به عمارة الكون، وصلا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 11,
+    "start_word": 234,
+    "end_word": 281,
+    "text_snippet": "فلا شيوعية متطرفة، ولا رأسمالية ممسكة شحيحة. وقد ",
+    "scholarly_function": "refutation",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 12,
+    "start_word": 282,
+    "end_word": 316,
+    "text_snippet": "وجاء في صحيح البخاري أن النبي صلى الله عليه وسلم ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 317,
+    "end_word": 318,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 319,
+    "end_word": 415,
+    "text_snippet": "عَنْ عَبْدِ الله بن عباس رضي الله عنهما قالَ: قَال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 15,
+    "start_word": 416,
+    "end_word": 417,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 16,
+    "start_word": 418,
+    "end_word": 611,
+    "text_snippet": "بعث النبي صلى الله عليه وسلم \" معاذ بن جبل \" رضى ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 612,
+    "end_word": 615,
+    "text_snippet": "الأحكام المأخوذة من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 18,
+    "start_word": 616,
+    "end_word": 642,
+    "text_snippet": "1- قوله \" إنك ستأتي قوماً أهل كتاب\" هو توطئة وتمه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 643,
+    "end_word": 652,
+    "text_snippet": "2- الاستعداد بالحجج والعلم، لمجادلة أعداء الدين، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 653,
+    "end_word": 663,
+    "text_snippet": "3- تعلم وتعليم حسن الدعوة إلى الله تعالى، لتكون ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 21,
+    "start_word": 664,
+    "end_word": 670,
+    "text_snippet": "4- الدعوة إلى الله، تكون بالأهم فالأهم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 671,
+    "end_word": 693,
+    "text_snippet": "5- أن أهم شيء هو التوحيد، لأنه الأساس الذي لا تصح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 694,
+    "end_word": 704,
+    "text_snippet": "6- أن الصلوات الخمس تأتي في المرتبة الثانية، لأنها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 705,
+    "end_word": 778,
+    "text_snippet": "7- أن الزكاة تأتى في الدرجة الثالثة. ولم يذكر النب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 779,
+    "end_word": 790,
+    "text_snippet": "8- أنه لا ينتقل من دعوة إلى أخرى، حتى يطاع في الأو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 791,
+    "end_word": 800,
+    "text_snippet": "9- أن الزكاة مواساة، لأنها تؤخذ من الأغنياء لتعطى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 801,
+    "end_word": 827,
+    "text_snippet": "10- أنه لا يحل للساعي أن يأخذ من الجيد العالي، بل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 828,
+    "end_word": 860,
+    "text_snippet": "11- أن يخشى الساعي من ظلم الناس، فإن ظلمهم سبب في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 861,
+    "end_word": 874,
+    "text_snippet": "12- مشروعية بعث الإمام السعاة لجبى الزكاة. وأن الذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 875,
+    "end_word": 885,
+    "text_snippet": "13- في الاقتصار على الصلوات الخمس، دليل على عدم و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 886,
+    "end_word": 894,
+    "text_snippet": "14- جواز صرف الزكاة لصنف واحد من الأصناف الثمانية",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 32,
+    "start_word": 895,
+    "end_word": 932,
+    "text_snippet": "15- قوله \" على فقرائهم \" استدل به على عدم جواز نق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 33,
+    "start_word": 933,
+    "end_word": 958,
+    "text_snippet": "وكان النبي صلى الله عليه وسلم يبعث عماله على الصد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 34,
+    "start_word": 959,
+    "end_word": 983,
+    "text_snippet": "16- ومما يضعف القول بعدم نقلها أن أعيان الأشخاص ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 35,
+    "start_word": 984,
+    "end_word": 985,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 986,
+    "end_word": 1014,
+    "text_snippet": "عَنْ أبى سَعِيدٍ الخُذري رضي الله عنه قَالَ: قالَ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1015,
+    "end_word": 1015,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1016,
+    "end_word": 1030,
+    "text_snippet": "أواق: مفردها أوقية. والأوقية تعادل أربعين درهماً، ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1031,
+    "end_word": 1044,
+    "text_snippet": "ذَوْد: الذود، ليس له مفرد من لفظه، ويطلق على الثل",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1045,
+    "end_word": 1069,
+    "text_snippet": "أوسق: \" الوسق \" بفتح الواو على المشهور. وأصله في ا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1070,
+    "end_word": 1085,
+    "text_snippet": "دون: أقل. وقد بينتها رواية مسلم \"ليس في حب ولا تم",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1086,
+    "end_word": 1087,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1088,
+    "end_word": 1178,
+    "text_snippet": "الزكاة، مواساة بين الأغنياء والفقراء، ولذا فإنها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1179,
+    "end_word": 1182,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1183,
+    "end_word": 1199,
+    "text_snippet": "1- وجوب الزكاة على من عنده الأنصبة المذكورة، أو شي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1200,
+    "end_word": 1230,
+    "text_snippet": "2- عدم وجوبها، على من قصر ماله عن هذه التحديدات. و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1231,
+    "end_word": 1342,
+    "text_snippet": "3- إذا بلغت الفضة مئتى درهم، ففيها ربع عشرها، وإذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1343,
+    "end_word": 1383,
+    "text_snippet": "4- لم يذكر في الحديث الذهب لأن غالب عملتهم الفضة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1384,
+    "end_word": 1434,
+    "text_snippet": "5- الزكاة تجب في الحبوب والثمار التي تكال وتدخر عن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1435,
+    "end_word": 1441,
+    "text_snippet": "بيان مقدار زكاة النقدين\nفي عملتنا الحاضرة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1442,
+    "end_word": 1456,
+    "text_snippet": "نصاب الذهب عشرون مثقالا إسلاميا، والمثقال وثلثا ا",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1457,
+    "end_word": 1469,
+    "text_snippet": "فيكون نصاب الذهب فيهما اثنى عشر جنيها سعودياً أو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1470,
+    "end_word": 1484,
+    "text_snippet": "ونصاب الفضة، مئتا درهم، وبالريال \"الفرنسى\" اثنان ",
+    "scholarly_function": "definition",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1485,
+    "end_word": 1492,
+    "text_snippet": "بيان مقدار زكاة الحبوب والثمار\nفي مكيالنا الحاضر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1493,
+    "end_word": 1507,
+    "text_snippet": "نصاب الحبوب والثمار خمسة أوسق، والوسق ستون صاعاً ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1508,
+    "end_word": 1518,
+    "text_snippet": "والصاع النبوي أقل من الكيلة الحجازية والصاع النجد",
+    "scholarly_function": "definition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1519,
+    "end_word": 1537,
+    "text_snippet": "فيكون مقدار نصاب زكاة الحبوب والثمار بالصاع النجد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1538,
+    "end_word": 1539,
+    "text_snippet": "لحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.67
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1540,
+    "end_word": 1569,
+    "text_snippet": "عَنْ أبي هريرة رضي الله عنه أن رَسولَ الله صلى الل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1570,
+    "end_word": 1571,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1572,
+    "end_word": 1640,
+    "text_snippet": "تقدم أن الزكاة، مبناها على المساواة والعدل، لذا أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1641,
+    "end_word": 1644,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1645,
+    "end_word": 1681,
+    "text_snippet": "1- أن الزكاة لا تجب في العبد الذي للخدمة والفرس ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1682,
+    "end_word": 1700,
+    "text_snippet": "2- أن زكاة الفطر واجبة للعبد مطلقا، سواء أكان للخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1701,
+    "end_word": 1723,
+    "text_snippet": "3- أن كل ما أعد للاستعمال والاقتناء، لا تجب فيه ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1724,
+    "end_word": 1767,
+    "text_snippet": "4- ما تقدم من كون الزكاة لا تجب إلا في المال النام",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1768,
+    "end_word": 1797,
+    "text_snippet": "5- بمثل هذه المقارنات الشرعية بين حق الفقير والغنى",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1798,
+    "end_word": 1799,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1800,
+    "end_word": 1818,
+    "text_snippet": "عَنْ أبي هريرة رضي الله عنه: أنَّ رَسُولَ الله قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1819,
+    "end_word": 1826,
+    "text_snippet": "الجبار: الهدر الذي لاشيء فيه. والعجماء: الدابة ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1827,
+    "end_word": 1827,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1828,
+    "end_word": 1835,
+    "text_snippet": "العَجماء: بفتح العين، وإسكان الجيم، ممدودة- وهى ا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1836,
+    "end_word": 1841,
+    "text_snippet": "سميت\" عجماء \" لأنها لا تتكلم.",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1842,
+    "end_word": 1849,
+    "text_snippet": "المعدن: هو المكان الذي تستخرج منه الجواهر وأمثاله",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1850,
+    "end_word": 1857,
+    "text_snippet": "جبار: بضم الجيم، يعني هدر، لا ضمان فيه.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1858,
+    "end_word": 1872,
+    "text_snippet": "الركاز: بكسر الراء، وتخفيف الكاف، آخره زاى، أي ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1873,
+    "end_word": 1874,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1875,
+    "end_word": 2026,
+    "text_snippet": "يبين النبي صلى الله عليه وسلم الأشياء التي يحصل ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 79,
+    "start_word": 2027,
+    "end_word": 2030,
+    "text_snippet": "ما يؤخذ من الحديث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 80,
+    "start_word": 2031,
+    "end_word": 2106,
+    "text_snippet": "1- أنه لا ضمان في البهيمة إذا لم يكن صاحبها متصرف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 81,
+    "start_word": 2107,
+    "end_word": 2162,
+    "text_snippet": "2- أنه لا ضمان فيما أتلفت بئره أو معدنه إذا لم يك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 82,
+    "start_word": 2163,
+    "end_word": 2176,
+    "text_snippet": "3- أنه يجب إخراج الخمس مما وجد من الكنوز، قليلا ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 83,
+    "start_word": 2177,
+    "end_word": 2213,
+    "text_snippet": "4- خصه بعض العلماء بما عليه علامة كفار، بأن يكون ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 84,
+    "start_word": 2214,
+    "end_word": 2249,
+    "text_snippet": "5- أن يخرج الخمس من حين يجده، كما هو ظاهر الحديث ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 85,
+    "start_word": 2250,
+    "end_word": 2272,
+    "text_snippet": "6- الظاهر من الحديث، أنه يخرج منه لا من قيمته، سو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 86,
+    "start_word": 2273,
+    "end_word": 2380,
+    "text_snippet": "7- بهذه الميزات يعلم أن شبهه بالفيء أقرب من شبهه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 87,
+    "start_word": 2381,
+    "end_word": 2382,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 88,
+    "start_word": 2383,
+    "end_word": 2464,
+    "text_snippet": "عَنْ أبي هُريرةَ رضي الله عنه قالَ: بَعَثَ رَسولُ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 89,
+    "start_word": 2465,
+    "end_word": 2465,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 90,
+    "start_word": 2466,
+    "end_word": 2495,
+    "text_snippet": "ما ينقم إلا أن كان فقيرا فأغناه الله \" ينقم \" بكس",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 91,
+    "start_word": 2496,
+    "end_word": 2533,
+    "text_snippet": "أعتاده: مفرده \"عتاد\" بفتح العين و\" الأعتاد \" آلات",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 92,
+    "start_word": 2534,
+    "end_word": 2548,
+    "text_snippet": "ابن جميل: بالجيم المفتوحة بعدها ميم مكسورة سماه ب",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 93,
+    "start_word": 2549,
+    "end_word": 2550,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 94,
+    "start_word": 2551,
+    "end_word": 2742,
+    "text_snippet": "بعث النبي صلى الله عليه سلم عمر بن الخطاب رضي الل",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 95,
+    "start_word": 2743,
+    "end_word": 2746,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 96,
+    "start_word": 2747,
+    "end_word": 2753,
+    "text_snippet": "1- مشروعية بعث الإمام السعاة لجباية الزكاة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 97,
+    "start_word": 2754,
+    "end_word": 2765,
+    "text_snippet": "2- جواز شكوى من امتنع من الزكاة إلى من يجبره على أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 98,
+    "start_word": 2766,
+    "end_word": 2775,
+    "text_snippet": "ومثله في الشكوى كل ممتنع عن واجب، أو فاعل محرماً.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 99,
+    "start_word": 2776,
+    "end_word": 2784,
+    "text_snippet": "3- قبح من جحد نعمة الله عليه شرعا، وعقلا.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 100,
+    "start_word": 2785,
+    "end_word": 2818,
+    "text_snippet": "4- أن الأشياء الموقوفة في سبيل الله، أو المعدة لل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 101,
+    "start_word": 2819,
+    "end_word": 2828,
+    "text_snippet": "5- جواز جعل الأشياء المنقولة وقفا لله تعالى وفى س",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 102,
+    "start_word": 2829,
+    "end_word": 2846,
+    "text_snippet": "6- أما الاعتذار عن العباس، فيحتمل إفادة جواز تعجي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 103,
+    "start_word": 2847,
+    "end_word": 2853,
+    "text_snippet": "ويبعد أن يمنع العباس الزكاة لغير عذر.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 104,
+    "start_word": 2854,
+    "end_word": 2861,
+    "text_snippet": "7- تعظيم العم، كبير حقه لأنه بمنزلة الأب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 105,
+    "start_word": 2862,
+    "end_word": 2863,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 106,
+    "start_word": 2864,
+    "end_word": 2992,
+    "text_snippet": "عَنْ عَبْدِ الله بن زَيد بن عَاصِمٍ المَازِني رضي ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 107,
+    "start_word": 2993,
+    "end_word": 2993,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 108,
+    "start_word": 2994,
+    "end_word": 3039,
+    "text_snippet": "حنين: واد في طريِق مكة- الطائف- المتجه مع السيل ا",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 109,
+    "start_word": 3040,
+    "end_word": 3069,
+    "text_snippet": "المؤلفة قلوبهم: هم قوة يتألفون على الإسلام، بإعطا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 110,
+    "start_word": 3070,
+    "end_word": 3071,
+    "text_snippet": "عالة: فقراء.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 111,
+    "start_word": 3072,
+    "end_word": 3091,
+    "text_snippet": "أمن: أفعل تفضيل من المنّ: معناه أكثر منة علينا وأع",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 112,
+    "start_word": 3092,
+    "end_word": 3101,
+    "text_snippet": "شعار: هو الثوب الذي يلي الجسد، وهو بكسر السين الم",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 113,
+    "start_word": 3102,
+    "end_word": 3111,
+    "text_snippet": "دثار: هو الثوب الذي فوق الشعار، وهو بكسر الدال ال",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 114,
+    "start_word": 3112,
+    "end_word": 3130,
+    "text_snippet": "أثرة: بفتح الهمزة والثاء، والأثرة الاستئثار بالش",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 115,
+    "start_word": 3131,
+    "end_word": 3136,
+    "text_snippet": "الشَّعْب: اسم لما انفرج بين جبلين.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 116,
+    "start_word": 3137,
+    "end_word": 3138,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 117,
+    "start_word": 3139,
+    "end_word": 3592,
+    "text_snippet": "التقى المسلمون بالمشركين في \"حنين \" فكانت الهزيمة",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 118,
+    "start_word": 3593,
+    "end_word": 3607,
+    "text_snippet": "اللهم ألحقنا بهم ووالدينا ومشايخنا وأقاربنا والمس",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 119,
+    "start_word": 3608,
+    "end_word": 3611,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 120,
+    "start_word": 3612,
+    "end_word": 3621,
+    "text_snippet": "1- إعطاء المؤلفة قلوبهم من الغنيمة، بحسب رأى الإم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 121,
+    "start_word": 3622,
+    "end_word": 3630,
+    "text_snippet": "2- جواز حرمان من وثق بدينه، تبعاً للمصلحة العامة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 122,
+    "start_word": 3631,
+    "end_word": 3656,
+    "text_snippet": "3- أن الرغبة في الأشياء الدنيوية لاتخل بإيمان الر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 123,
+    "start_word": 3657,
+    "end_word": 3664,
+    "text_snippet": "4- مشروعية الموعظة والخطبة في المناسبات وتبيين ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 124,
+    "start_word": 3665,
+    "end_word": 3682,
+    "text_snippet": "5- أن القائد، والأمير، وأصحاب الولايات، لا يتصرفو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 125,
+    "start_word": 3683,
+    "end_word": 3695,
+    "text_snippet": "6- كون النبي صلى الله عليه وسلم رحمة وبركة على ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 126,
+    "start_word": 3696,
+    "end_word": 3719,
+    "text_snippet": "7- ما للأنصار رضي الله عنهم من فضل الإيمان والنصر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 127,
+    "start_word": 3720,
+    "end_word": 3741,
+    "text_snippet": "8- علامة من علامات النبوّة، فإٍن ما ذكره مما سيقع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 128,
+    "start_word": 3742,
+    "end_word": 3757,
+    "text_snippet": "9- أن الصبر الجميل على المصائب، من أسباب ورود ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  }
+]

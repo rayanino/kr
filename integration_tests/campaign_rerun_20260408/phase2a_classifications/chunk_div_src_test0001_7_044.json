@@ -1,0 +1,146 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌كِتابُ العِتق",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 7,
+    "text_snippet": "العِتق- لغة-: بكسر العين، وسكون القاف.",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 2,
+    "start_word": 8,
+    "end_word": 29,
+    "text_snippet": "قال الأزهري: هو مشتق من قولهم: عَتَق الفرس إذا س",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 30,
+    "end_word": 38,
+    "text_snippet": "وشرعاً: تحرير الرقبة وتخليصها من الرق، وتثبيت ال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 39,
+    "end_word": 44,
+    "text_snippet": "والأصل فيه، الكتاب، والسنة، وإجماع الأمة.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.66
+  },
+  {
+    "segment_index": 5,
+    "start_word": 45,
+    "end_word": 53,
+    "text_snippet": "فأما الكتاب، فمثل قوله تعالى: {فَتَحْرير رَقَبَة",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 54,
+    "end_word": 91,
+    "text_snippet": "وأما السنة، فكثيرة جداً، ومنها ما في الصحيحين عن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 92,
+    "end_word": 99,
+    "text_snippet": "وأجمعت الأمة على صحة العتق وحصول القربة به.",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 8,
+    "start_word": 100,
+    "end_word": 112,
+    "text_snippet": "وهنا مبحثان أحدهما- في فضله، والثاني: - في موقف ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 113,
+    "end_word": 145,
+    "text_snippet": "أما فضله، فيكفيك فيه هذا الحديث الصحيح، وما رواه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 146,
+    "end_word": 153,
+    "text_snippet": "والأحاديث والآثار الحاثة على العتق والمُرَغبة فيه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.65
+  },
+  {
+    "segment_index": 11,
+    "start_word": 154,
+    "end_word": 175,
+    "text_snippet": "وقد جعله الله تعالى أول الكفارات لما فيه من مَحْ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 12,
+    "start_word": 176,
+    "end_word": 196,
+    "text_snippet": "وليس إحسان أعظم من فكاك المسلم من غلِّ الرق، وقيد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 13,
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "فمن أعتق رقبة، فقد فاز بثواب اللهْ، والله عنده ح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 14,
+    "start_word": 208,
+    "end_word": 226,
+    "text_snippet": "المبحث الثاني: نعى بعض أعداء الدين الإسلامي إقرا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 15,
+    "start_word": 227,
+    "end_word": 248,
+    "text_snippet": "لذا نحب أن نُبين حال الرق في الإسلام وغيره، ونبي",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 249,
+    "end_word": 259,
+    "text_snippet": "فالإسلام لم يختص بالرق، بل كان منتشرا في جميع أق",
+    "scholarly_function": "narration",
+    "confidence": 0.64
+  },
+  {
+    "segment_index": 17,
+    "start_word": 260,
+    "end_word": 270,
+    "text_snippet": "فهو عند الفرس والروم والبابليين واليونان، وأقره أ",
+    "scholarly_function": "narration",
+    "confidence": 0.61
+  }
+]

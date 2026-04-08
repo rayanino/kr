@@ -1,0 +1,426 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "وهذا ليس من خصائص الإحرام، ولكنه مشروع بحسب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 38,
+    "text_snippet": "قلت: والغسل الذي تجادل فيه ابن عباس والمسور لي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 2,
+    "start_word": 39,
+    "end_word": 45,
+    "text_snippet": "‌‌بَابُ فَسخ الحَج إلى العمْرة\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 46,
+    "end_word": 170,
+    "text_snippet": "عَنْ جَابِرِ بْنِ عَبْدِ الله قالَ: أَهَّلَ النَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 171,
+    "end_word": 407,
+    "text_snippet": "المعنى الإجمالي:\nيصف \"جابر بن عبد الله\" رضي الل",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 5,
+    "start_word": 408,
+    "end_word": 760,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون النبي صلى الله عليه و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 761,
+    "end_word": 767,
+    "text_snippet": "اختلاف العلماء، في فسخ الحج إلى عمرة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 768,
+    "end_word": 793,
+    "text_snippet": "أجمع العلماء على أن الصحابة الذين مع النبي صلى ",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 794,
+    "end_word": 806,
+    "text_snippet": "واختلفوا: هل هذا الفسخ لمن بعدهم أيضاً، أم لهم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 9,
+    "start_word": 807,
+    "end_word": 828,
+    "text_snippet": "فذهب الأئمة الثلاثة، أبو حنيفة، ومالك، والشافعي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 829,
+    "end_word": 844,
+    "text_snippet": "وذهب الإمام أحمد، وأهل الحديث، والظاهرية. ومن ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 845,
+    "end_word": 916,
+    "text_snippet": "استدل الأولون بما رواه أبو داود عن \"أبي ذر\" كان",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 917,
+    "end_word": 951,
+    "text_snippet": "فعند الجمهور أن حديث بلال ناسخ لأحاديث الفسخ، ف",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 13,
+    "start_word": 952,
+    "end_word": 968,
+    "text_snippet": "واستدل الآخرون على فسخ الحج بأحاديث صحيحة جيدة ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 969,
+    "end_word": 1002,
+    "text_snippet": "منها حديث جابر، وسراقة بن مالك، وأبي سعيد الخدر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 1003,
+    "end_word": 1018,
+    "text_snippet": "كل هؤلاء رَوَوْا أحاديث كثيرة ـ وبعضها في الصحي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 1019,
+    "end_word": 1065,
+    "text_snippet": "ولهذا، لما قال سلمة بن شبيب للإمام أحمد: يا أبا",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 1066,
+    "end_word": 1096,
+    "text_snippet": "وقد أورد المصنف رحمه الله تعالى في هذا الكتاب، ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 1097,
+    "end_word": 1139,
+    "text_snippet": "الأول: ما رواه \"مسلم\" عن أبي سعيد الخدري رضي ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1140,
+    "end_word": 1183,
+    "text_snippet": "والثاني: ما رواه \"مسلم\" و\"ابن ماجه\" عن أسماء بن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1184,
+    "end_word": 1208,
+    "text_snippet": "وهذه أحاديث عامة للصحابة ولمن بعدهم، إلى الأبد.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1209,
+    "end_word": 1232,
+    "text_snippet": "وكيف ولما سأل سراقة بن مالك النبي صلى الله عليه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1233,
+    "end_word": 1249,
+    "text_snippet": "وقد وردت هذه الأحاديث في واقعة متأخرة، لم يأت ب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1250,
+    "end_word": 1281,
+    "text_snippet": "بل ورد ما يبعد دعوى النسخ، حين قيل للنبي صلى ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1282,
+    "end_word": 1292,
+    "text_snippet": "أما دعوى الجمهور النسخ، بحديث بلال بن الحارث، ف",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1293,
+    "end_word": 1347,
+    "text_snippet": "لأن الإمام أحمد قال في حديثه: حديث بلال بن الحا",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1348,
+    "end_word": 1366,
+    "text_snippet": "وأما أثر أبي ذر، فهو رَأيٌ له، وقد خالفه غيره ف",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1367,
+    "end_word": 1379,
+    "text_snippet": "وممن اختار الفسخ، شيخ الإسلام \"ابن تيمية\" قدس ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1380,
+    "end_word": 1406,
+    "text_snippet": "وقد أطال \"ابن القيم\" البحث في الموضوع في كتابه ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1407,
+    "end_word": 1414,
+    "text_snippet": "ثم اختلف القائلون بالفسخ: أهو للوجوب أم للاستحب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1415,
+    "end_word": 1444,
+    "text_snippet": "فذهب الإمام أحمد: إلى استحباب الفسخ. قال شيخ ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1445,
+    "end_word": 1468,
+    "text_snippet": "ولعل قصر الإمام \"أحمد\" لأحاديث الأمر بالفسخ مع ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1469,
+    "end_word": 1499,
+    "text_snippet": "وذهب ابن عباس في المفهوم من كلامه: إلى أنه فرض ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1500,
+    "end_word": 1559,
+    "text_snippet": "وذهب \"ابن حزم\" إلى ما ذهب إليه ابن عباس، حيث يق",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1560,
+    "end_word": 1664,
+    "text_snippet": "وذهب ابن القيم إلى هذا الرأي حيث قال في كتابه ز",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1665,
+    "end_word": 1686,
+    "text_snippet": "فهؤلاء، لما رأوا تكاثر الأحاديث في الأمر به، وغ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1687,
+    "end_word": 1770,
+    "text_snippet": "وحديث البراء المشار إليه هو ما أخرجه ابن ماجه، ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1771,
+    "end_word": 1776,
+    "text_snippet": "فهذا وأمثاله، متمسك من أوجبوا الفسخ.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1777,
+    "end_word": 1778,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1779,
+    "end_word": 1809,
+    "text_snippet": "عن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قالَ:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1810,
+    "end_word": 1862,
+    "text_snippet": "المعنى الإجمالي:\nيقول جابر: قدمنا في حجة الوداع",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1863,
+    "end_word": 1872,
+    "text_snippet": "وهذا الحديث، أحد أدلة من يرون فسخ الحج إلى عمرة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1873,
+    "end_word": 1874,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1875,
+    "end_word": 1911,
+    "text_snippet": "عَنْ عَبْدِ اللهِ بْنِ عبَّاسٍ رضي الله عنهما قَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1912,
+    "end_word": 2003,
+    "text_snippet": "المعنى الإجمالي:\nيذكر ابن عباس رضي الله عنهما: ",
+    "scholarly_function": "narration",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 45,
+    "start_word": 2004,
+    "end_word": 2009,
+    "text_snippet": "وهذا من أدلة القائلين بالفسخ أيضاً.",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 46,
+    "start_word": 2010,
+    "end_word": 2011,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 2012,
+    "end_word": 2041,
+    "text_snippet": "عَنْ عُرْوَةَ بْنِ الزُّيَيْرِ قال: سُئِلَ أُسَامَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 48,
+    "start_word": 2042,
+    "end_word": 2047,
+    "text_snippet": "العنق: انبساط السير، و\"النص\" فوق ذلك.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 2048,
+    "end_word": 2066,
+    "text_snippet": "الغريب:\nالعنق والنص: \" العنق\" بفتح العين والنون",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2067,
+    "end_word": 2071,
+    "text_snippet": "الفجوة: بفتح الفاء، المكان المتسع.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2072,
+    "end_word": 2169,
+    "text_snippet": "المعنى الإجمالي:\nكان أسامة بن زيد رضى الله عنه",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2170,
+    "end_word": 2300,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- كون أسامة بن زيد رديف الن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

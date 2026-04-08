@@ -1,0 +1,242 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "6- الذي يفهم من الحلق في هذا الحديث، هو أخذ جم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 32,
+    "text_snippet": "وهو الصحيح الذي يدل عليه الكتاب والسنة من قول ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 2,
+    "start_word": 33,
+    "end_word": 38,
+    "text_snippet": "‌‌باب طواف الإفاضة والوداع\nالحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 39,
+    "end_word": 89,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَتْ: حَجَجْنَا ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 90,
+    "end_word": 106,
+    "text_snippet": "وفي لفظ: قَالَ النَّبِيُّ صلى الله عليه وسلم \"ع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 5,
+    "start_word": 107,
+    "end_word": 107,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 108,
+    "end_word": 128,
+    "text_snippet": "أفضنا يوم النحر: فاض الماء، سال. وسمي طواف الزي",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 129,
+    "end_word": 134,
+    "text_snippet": "أحابستنا: الاستفهام للإنكار والإشفاق مما يتوقع.",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 8,
+    "start_word": 135,
+    "end_word": 215,
+    "text_snippet": "عقري حلقي: بفتح الأول منهما وسكون الثاني، والق",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 216,
+    "end_word": 229,
+    "text_snippet": "فانفري: بكسر الفاء وضمها، والكسر أفصح، وبه جاء ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 230,
+    "end_word": 231,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 11,
+    "start_word": 232,
+    "end_word": 295,
+    "text_snippet": "ذكرت عائشة رضي الله عنها: أنهم حجوا مع النبي صل",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 296,
+    "end_word": 316,
+    "text_snippet": "لأن هذا الطواف ركن لا يتم الحج بدونه، قال صلى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 317,
+    "end_word": 337,
+    "text_snippet": "فأخبروه أنها قد طافت طواف الإفاضة قبل حيضها.\nفق",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 338,
+    "end_word": 341,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 15,
+    "start_word": 342,
+    "end_word": 352,
+    "text_snippet": "1- أن طواف الإفاضة ركن من أركان الحج، لا يسقط ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 353,
+    "end_word": 369,
+    "text_snippet": "2- أن على أمير الحج ورئيس الرفقة ونحوهما انتظار",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 370,
+    "end_word": 384,
+    "text_snippet": "3- أن طواف الوداع غير واجب على الحائض، وأنها تخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 385,
+    "end_word": 386,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 387,
+    "end_word": 408,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عَبَّاسٍ رضي الله عنهما قَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 409,
+    "end_word": 410,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 21,
+    "start_word": 411,
+    "end_word": 491,
+    "text_snippet": "لهذا البيت الشريف تعظيم وتكريم، فهو رمز لعبادة ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 22,
+    "start_word": 492,
+    "end_word": 525,
+    "text_snippet": "وهذا الطواف الأخير، وتلك الوقفة الحزينة بين الر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 23,
+    "start_word": 526,
+    "end_word": 529,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 24,
+    "start_word": 530,
+    "end_word": 578,
+    "text_snippet": "1- وجوب طواف الوداع في حق كل مسافر من مكة، سواء",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 579,
+    "end_word": 588,
+    "text_snippet": "2- أن الحائض ليس عليها طواف للوداع، ولا دم بترك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 589,
+    "end_word": 619,
+    "text_snippet": "3- أن طواف الوداع يكون آخر شئون المسافر، لأن هذ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 620,
+    "end_word": 621,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 28,
+    "start_word": 622,
+    "end_word": 641,
+    "text_snippet": "ذهب مالك إلى استحباب طواف الوداع دون وجوبه على ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 642,
+    "end_word": 669,
+    "text_snippet": "وذهب الجمهور- ومنهم الأئمة الثلاثة - إلى وجوبه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  }
+]

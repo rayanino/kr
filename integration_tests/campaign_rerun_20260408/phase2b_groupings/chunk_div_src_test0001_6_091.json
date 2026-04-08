@@ -1,0 +1,97 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 73,
+    "text_snippet": "وأنه من الجور والظلم، لما فيه من المفاسد، إذ يسبب قطيعة المفضل عليهم لأبي",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "evidence_rational",
+      "narration"
+    ],
+    "description_arabic": "بيان ظلم التفضيل بين الأولاد وذكر مفاسده وزجر النبي عنه ورجوع بشير",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تبدأ الوحدة بضمير في قوله: وأنه، مما يشير إلى حكم مذكور قبل هذا المقطع."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 74,
+    "end_word": 107,
+    "text_snippet": "اختلاف العلماء\nأجمع العلماء على مشروعية التسوية بين الأولاد في الهبة، حتى ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ذكر اتفاق العلماء على مشروعية التسوية بين الأولاد في الهبة وبيان حكمتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 108,
+    "end_word": 168,
+    "text_snippet": "ولكن اختلف العلماء في وجوب المساواة بينهم في الهبة.\nفذهب الإمام أحمد، والبخ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "عرض الخلاف في وجوب المساواة بين الأولاد وترجيح وجوبها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 169,
+    "end_word": 225,
+    "text_snippet": "كما أن ظاهر الحديث، التسوية بين الذكر والأنثى، لقوله لبشير \" سَوِّ بينهم \" ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان الخلاف في كيفية التسوية بين الذكر والأنثى في عطية الأولاد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يعتمد الاستدلال على الحديث السابق في المقطع، ولفظ الحديث المشار إليه غير مذكور كاملاً هنا."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 226,
+    "end_word": 323,
+    "text_snippet": "فائدة:\nذكر وجوِب العدل بين الأولاد في الهبة، وتحريم التخصيص أو التفضيل، ما ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "opinion_statement"
+    ],
+    "description_arabic": "قاعدة العدل بين الأولاد وبيان جواز التفضيل عند وجود سبب معتبر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تنتهي الوحدة بقول ابن تيمية: ثم هنا نوعان، وهو افتتاح لتفصيل لم يرد في هذا المقطع."
+  }
+]

@@ -1,0 +1,418 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 12,
+    "text_snippet": "‌‌بَابُ الهَدْي\nالهدي: ما أُهدي إلى البيت الحرام من ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 13,
+    "end_word": 31,
+    "text_snippet": "ويراد بتقديمه إلى البيت، التوسعة والإحسان إلى جيرا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 2,
+    "start_word": 32,
+    "end_word": 51,
+    "text_snippet": "لأن الصدقة، والإنفاق من أفضل العبادات.\nلاسيما إذا ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 3,
+    "start_word": 52,
+    "end_word": 53,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 54,
+    "end_word": 90,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَت: فَتَلْتُ قَلائِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 91,
+    "end_word": 91,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 92,
+    "end_word": 103,
+    "text_snippet": "القلائد: جمع قلادة، وهي ما يحاط به العنق، وتكون من ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 104,
+    "end_word": 122,
+    "text_snippet": "والمراد هنا، قلائد الهدي، وتوضع على خلاف العادة.\nو",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 123,
+    "end_word": 166,
+    "text_snippet": "أشعرتها: الإشعار، معناه، الإعلام، والعبادات شعائر ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 167,
+    "end_word": 168,
+    "text_snippet": "فتلت: لويت.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 169,
+    "end_word": 170,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 11,
+    "start_word": 171,
+    "end_word": 224,
+    "text_snippet": "كان النبي صلى الله عليه وسلم يعظم البيت العتيق ويق",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 12,
+    "start_word": 225,
+    "end_word": 256,
+    "text_snippet": "وكان إذا بعث بها - وهو مقيم في المدينة - لا يجتنب ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 13,
+    "start_word": 257,
+    "end_word": 260,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 261,
+    "end_word": 425,
+    "text_snippet": "1- استحباب بعث الهدي إلى البيت الحرام من البلاد الب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 426,
+    "end_word": 427,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 428,
+    "end_word": 444,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَت: أهْدَى النَّبِ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 445,
+    "end_word": 446,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 18,
+    "start_word": 447,
+    "end_word": 507,
+    "text_snippet": "أكثر ما كان يهديه النبي صلى الله عليه وسلم إلى البي",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 19,
+    "start_word": 508,
+    "end_word": 511,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 20,
+    "start_word": 512,
+    "end_word": 534,
+    "text_snippet": "1- جواز إهداء الغنم إلى البيت الشريف.\n2- أن الأكثر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 535,
+    "end_word": 536,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 537,
+    "end_word": 578,
+    "text_snippet": "عَنْ أَبِي هُرَيْرَةَ رضي الله عنه: أنَّ النَّبِيِّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 579,
+    "end_word": 579,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 24,
+    "start_word": 580,
+    "end_word": 590,
+    "text_snippet": "بدنة: بفتح الباء والدال، تطلق على الإبل، والبقر، لع",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 591,
+    "end_word": 598,
+    "text_snippet": "والمراد هنا، الناقة المهداة إلى البيت، ليستقيم الجو",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 599,
+    "end_word": 625,
+    "text_snippet": "ويلك: من الويل، وهو الهلاك.\nوهي كلمة تستعمل للتغلي",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 27,
+    "start_word": 626,
+    "end_word": 636,
+    "text_snippet": "ويحك: كلمة يؤتى بها للرحمة، والرثاء لحال المخاطب ال",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 637,
+    "end_word": 644,
+    "text_snippet": "[ويل] و [ويح] ، مصدران، يقدر فاعلهما دائماً.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 645,
+    "end_word": 646,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 30,
+    "start_word": 647,
+    "end_word": 728,
+    "text_snippet": "ما أهدي إلى البيت لا ينتفع منه بشيء مع عدم الحاجة إ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 31,
+    "start_word": 729,
+    "end_word": 732,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 733,
+    "end_word": 803,
+    "text_snippet": "1- تعظيم العرب لِلْهَدْيِ، واحترامه في قلوبهم. ثم جا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 804,
+    "end_word": 805,
+    "text_snippet": "الحديث الرابع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 806,
+    "end_word": 840,
+    "text_snippet": "عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رضي الله عنه قَال: أ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 841,
+    "end_word": 841,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 36,
+    "start_word": 842,
+    "end_word": 860,
+    "text_snippet": "بُذنه: جمع بدنة وتقدم تعريفها وضبطها و\"البدن\" بالجم",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 861,
+    "end_word": 880,
+    "text_snippet": "أجلتها: المفرد \"جُلٌّ\" بضم الجيم، وجمعه \"جِلال\" بكس",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 38,
+    "start_word": 881,
+    "end_word": 913,
+    "text_snippet": "أن لا يعطي الجزار منها شيئا: أي من لحمها عوضاً عن ج",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 914,
+    "end_word": 915,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 40,
+    "start_word": 916,
+    "end_word": 1019,
+    "text_snippet": "قدم النبي صلى الله عليه وسلم مكة في حجة الوداع ومعه",
+    "scholarly_function": "narration",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1020,
+    "end_word": 1023,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1024,
+    "end_word": 1134,
+    "text_snippet": "1- مشروعية الهدي، وأنه من فعل النبي صلى الله عليه و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1135,
+    "end_word": 1136,
+    "text_snippet": "الحديث الخامس",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1137,
+    "end_word": 1162,
+    "text_snippet": "عَنْ زَيَادِ بْنِ جُبَيْرٍ قالَ: رَأَيْتُ ابْنَ عُمَر",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1163,
+    "end_word": 1164,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1165,
+    "end_word": 1242,
+    "text_snippet": "السنة في البقر والغنم وغيرهما – ماعدا الإبل - ذبحها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1243,
+    "end_word": 1246,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1247,
+    "end_word": 1279,
+    "text_snippet": "1- سنة النبي صلى الله عليه وسلم نَحْرُ الإبل قائمة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1280,
+    "end_word": 1293,
+    "text_snippet": "قال سفيان بن عيينة: الصواف – بالتشديد - جمع \"صافة\"",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1294,
+    "end_word": 1347,
+    "text_snippet": "2- كراهة ذبحها باركة، لأن فيه تطويلاً في إزهاق روحه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1348,
+    "end_word": 1377,
+    "text_snippet": "وبمثل هذه الأحكام الرحيمة، والحنان العظيم، يعلم أنه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.74
+  }
+]

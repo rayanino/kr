@@ -1,0 +1,178 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 16,
+    "text_snippet": "وأصرح من ذلك ما أخرجه الحاكم، وأبو حاتم في صحي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 17,
+    "end_word": 43,
+    "text_snippet": "وذهب الإمامان، أبو حنيفة، ومالك، وكثير من العل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 2,
+    "start_word": 44,
+    "end_word": 58,
+    "text_snippet": "الأحكام:\n1- وجوب الصلاة على النبي صلى الله عليه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 59,
+    "end_word": 68,
+    "text_snippet": "قال أبو العالية: صلاة الله على نبيه ثناؤه عليه",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 4,
+    "start_word": 69,
+    "end_word": 90,
+    "text_snippet": "2- أن من حق النبي صلى الله عليه وسلم أن ندعو ون",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 91,
+    "end_word": 101,
+    "text_snippet": "3- أنه صلى الله عليه وسلم، علم أصحابه السلام وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 102,
+    "end_word": 121,
+    "text_snippet": "4- أن من أسباب عُلُوِّ شأن النبي صلى الله عله و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 122,
+    "end_word": 135,
+    "text_snippet": "5- أن السلف كانوا يتهادَوْن مسائل العلم، ويجعلو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 8,
+    "start_word": 136,
+    "end_word": 168,
+    "text_snippet": "6- حميد مجيد: الحمد والمجد إليهما يرجع الكمال ك",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 169,
+    "end_word": 198,
+    "text_snippet": "7- البركة: النماء والزيادة، والتبريك الدعاء بهم",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 199,
+    "end_word": 211,
+    "text_snippet": "فائدة:\nمن المتفق عليه، أن النبي محمداً صلى الله",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 11,
+    "start_word": 212,
+    "end_word": 246,
+    "text_snippet": "وعند علماء البيان أن المشبه أقل رتبةً من المشب",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 247,
+    "end_word": 254,
+    "text_snippet": "حاول الإجابة عن هذا الإشكال، العلماء بعدة أجوبة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 255,
+    "end_word": 273,
+    "text_snippet": "وأحسنها أن آل إبراهيم عليه السلام، هم جميع الأن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 14,
+    "start_word": 274,
+    "end_word": 289,
+    "text_snippet": "فالمعنى أنه يطلب للنبي وآله، صلاة كالصلاة التي ",
+    "scholarly_function": "definition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 15,
+    "start_word": 290,
+    "end_word": 305,
+    "text_snippet": "ومن المعلوم أنها كلها تكون أفضل من الصلاة للنبي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 16,
+    "start_word": 306,
+    "end_word": 373,
+    "text_snippet": "فائدة ثانية:\nقال شيخ الإسلام ابن تيمية في مجموع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 17,
+    "start_word": 374,
+    "end_word": 430,
+    "text_snippet": "وتابعه ابن القيم في كتابه جلاء الأفهام فقال: إن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 431,
+    "end_word": 492,
+    "text_snippet": "ومع جلالة قدر ابن تيمية وتلميذه ابن القيم وكونه",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 493,
+    "end_word": 520,
+    "text_snippet": "وبعد تتبعي لأحاديث كيفية الصلاة على النبي صلى ا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 20,
+    "start_word": 521,
+    "end_word": 586,
+    "text_snippet": "الفائدة الثالثة:\nلما ذكر شيخ الإسلام ابن تيمية ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 587,
+    "end_word": 696,
+    "text_snippet": "وطرد هذه الطريقة أن يذكر التشهد بجميع هذه الألف",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 23,
+    "text_snippet": "فائدة:\nلم يظهر لي مناسبة واضحة لإيراد المؤلف ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 24,
+    "end_word": 49,
+    "text_snippet": "أو لعله أراد أن يبينَ أن النبي صلى الله عليه وس",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 73,
+    "text_snippet": "فيقاس على الغنيمة أن يعطوا من الزكاة خلافا لمن ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 74,
+    "end_word": 95,
+    "text_snippet": "والصحيح، جواز إعطائهم تأليفا لهم إذا دعت الحاج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 96,
+    "end_word": 118,
+    "text_snippet": "وليس عند المسقطين لسهمهم ما يعارضون به فعل الن",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  }
+]

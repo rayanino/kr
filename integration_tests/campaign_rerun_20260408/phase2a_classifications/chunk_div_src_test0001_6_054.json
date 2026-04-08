@@ -1,0 +1,258 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 28,
+    "text_snippet": "وصفة الصلاة عليه أربع تكبيرات، بعد الأولى الفاتح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 29,
+    "end_word": 58,
+    "text_snippet": "قال شيخ الإسلام: الذي ثبت في السنن عن النبي صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 2,
+    "start_word": 59,
+    "end_word": 68,
+    "text_snippet": "وقد ثبت أن المقبور يسأل ويمتحن. وأنه يؤمر بالدعا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 3,
+    "start_word": 69,
+    "end_word": 78,
+    "text_snippet": "‌‌بَابٌ في الصَّلَاة على الغائب وعلى القبر ⌜1⌝\nا",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 79,
+    "end_word": 104,
+    "text_snippet": "عَنْ أبي هُريرة رضي الله عنه قال: نَعَىِ النَّبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 5,
+    "start_word": 105,
+    "end_word": 106,
+    "text_snippet": "الحديث الثاني\nعن جَابر رضي الله عنه أنَّ النَبي ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.52
+  },
+  {
+    "segment_index": 6,
+    "start_word": 107,
+    "end_word": 126,
+    "text_snippet": "عن جَابر رضي الله عنه أنَّ النَبي صلى الله عليه ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 127,
+    "end_word": 135,
+    "text_snippet": "الغريب:\nنعى: نعاه ينعاه بفتح أوله. والنعي: الإخب",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 136,
+    "end_word": 157,
+    "text_snippet": "النجاشي: بفتح النون على المشهور، قال في النهاية",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 158,
+    "end_word": 243,
+    "text_snippet": "المعنى الإجمالي:\nالنجاشي ملك الحبشة له يد كريمة",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 244,
+    "end_word": 251,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في الصلاة على الغ",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.58
+  },
+  {
+    "segment_index": 11,
+    "start_word": 252,
+    "end_word": 272,
+    "text_snippet": "ذهب أبو حنيفة ومالك: إلى أنها لا تشرع. وجوابهم ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 12,
+    "start_word": 273,
+    "end_word": 295,
+    "text_snippet": "وذهب الشافعي وذلك المشهور عند أصحاب الإمام \" أح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 296,
+    "end_word": 324,
+    "text_snippet": "وتوسط شيخ الإسلام \" ابن تيمية \" فقال: إن كان ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 325,
+    "end_word": 356,
+    "text_snippet": "وهو مروي عن الإمام أحمد، وصححه \" ابن القيم \" في",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 15,
+    "start_word": 357,
+    "end_word": 379,
+    "text_snippet": "ونقل شيخ الإسلام \" ابن تيمية \" عن الإمام أحمد أ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 16,
+    "start_word": 380,
+    "end_word": 413,
+    "text_snippet": "وقد رجح هذا التفصيل شيخنا \" عبد الرحمن آل سعدى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 414,
+    "end_word": 428,
+    "text_snippet": "ما يؤخذ من الحديث\n1- مشروعية الصلاة على الميت، ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 429,
+    "end_word": 450,
+    "text_snippet": "2- مشروعية الصلاة على الغائب، وتقدم أن الحديث ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 451,
+    "end_word": 461,
+    "text_snippet": "3- الصلاة على الميتِ في مصلَّى العيد إذا كان الج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 20,
+    "start_word": 462,
+    "end_word": 477,
+    "text_snippet": "4- التكبير في صلاة الجنازة أربع، وتقدم في أول ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 478,
+    "end_word": 484,
+    "text_snippet": "5- فضيلة كثرة المصلين وكونهم ثلاثة صفوف.\nلما رو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 22,
+    "start_word": 485,
+    "end_word": 508,
+    "text_snippet": "لما روى أصحاب السنن أيضا \" ما من مؤمن يموت فيصل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 509,
+    "end_word": 541,
+    "text_snippet": "6- الإخبار بموت الميت للمصلحة في ذلك، من تكثير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 542,
+    "end_word": 558,
+    "text_snippet": "وذلك أنهم يأخذون ينادون عليه في المحلات العالية",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 25,
+    "start_word": 559,
+    "end_word": 560,
+    "text_snippet": "الحديث الثالث\nعن ابنِ عَبَّاس رضي الله عنهما: أن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.55
+  },
+  {
+    "segment_index": 26,
+    "start_word": 561,
+    "end_word": 581,
+    "text_snippet": "عن ابنِ عَبَّاس رضي الله عنهما: أنَّ النَّبيَّ صل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 582,
+    "end_word": 642,
+    "text_snippet": "المعنى الإَجمالي:\nقد جُبلَ النبي صلى الله عليه و",
+    "scholarly_function": "narration",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 28,
+    "start_word": 643,
+    "end_word": 657,
+    "text_snippet": "الأحكام:\n1- مشروعية الصلاة على القبر، ولا يلتفت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 658,
+    "end_word": 712,
+    "text_snippet": "وقيده بعض العلماء، بمدة شهر، وبعضهم حتى يَبْلَى",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 30,
+    "start_word": 713,
+    "end_word": 722,
+    "text_snippet": "2- أن الصلاة على القبر، مثل الصلاة على الميت ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 31,
+    "start_word": 723,
+    "end_word": 756,
+    "text_snippet": "3-َ ما كان عليه صلى الله عليه وسلم من الرحمة وا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  }
+]

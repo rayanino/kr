@@ -1,0 +1,194 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 11,
+    "text_snippet": "وهذا الدم الذي يصيبك، ليس دم حيض، إنما هو دم ع",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 12,
+    "end_word": 32,
+    "text_snippet": "وإذا كان الأمر، كما ذكرت من استمرار خروج الدم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 33,
+    "end_word": 45,
+    "text_snippet": "فإذا انقضت، فاغتسلي واغسلي عنك الدم، ثم صلّى، و",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 46,
+    "end_word": 190,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- الفرق بين دم الاستحاضة وب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 191,
+    "end_word": 193,
+    "text_snippet": "‌‌باب حكم المستحاضة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 5,
+    "start_word": 194,
+    "end_word": 221,
+    "text_snippet": "عَنْ عَائِشَة رضي الله عنها أنَ أمَّ حَبيبَةَ اس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 222,
+    "end_word": 251,
+    "text_snippet": "المعنى الإجمالي:\nأصابت الاستحاضة \" أم حبيبة بن",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 7,
+    "start_word": 252,
+    "end_word": 357,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في غسل المستحاضة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 358,
+    "end_word": 370,
+    "text_snippet": "ما يؤخذ من الحديث:\nوجوب الغسل على المستحاضة عن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 371,
+    "end_word": 374,
+    "text_snippet": "حكم مباشرة المرأة الحائض",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 10,
+    "start_word": 375,
+    "end_word": 376,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 11,
+    "start_word": 377,
+    "end_word": 412,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالتْ: كُنْتُ أغْت",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 413,
+    "end_word": 532,
+    "text_snippet": "المعنى الإجمالي: اشتمل هذا الحديث على ثلاث مسائ",
+    "scholarly_function": "narration",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 13,
+    "start_word": 533,
+    "end_word": 611,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز اغتسال الجنبين من إن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 612,
+    "end_word": 613,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 614,
+    "end_word": 633,
+    "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالتْ: كَانَ رَسُول",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 634,
+    "end_word": 649,
+    "text_snippet": "غريب الحديث:\n\"يتكئ في حجري\" \"يتكئ\" مهموز.\nويجو",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 650,
+    "end_word": 676,
+    "text_snippet": "المعنى الإجمالي:\nذكرت عائشة أن النبي صلى الله ع",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 18,
+    "start_word": 677,
+    "end_word": 709,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز قراءة القرآن في حجر ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 710,
+    "end_word": 716,
+    "text_snippet": "الحائض لا تقضي الصلاة ولكن تقضي الصوم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 20,
+    "start_word": 717,
+    "end_word": 753,
+    "text_snippet": "عَنْ مُعَاذَةَ قالت: سَألْتُ عَائِشَةَ رضي الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 754,
+    "end_word": 779,
+    "text_snippet": "غريب الحديث:\n\"أحرورية أنت\" نسبة إلى بلدة قرب ا",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 780,
+    "end_word": 898,
+    "text_snippet": "المعنى الإجمالي:\nسألت معاذة عائشة عن السبب الذ",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 23,
+    "start_word": 899,
+    "end_word": 977,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الحائض تقضى الصيام ولا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 134,
+    "text_snippet": "‌‌باب فضل الحلق وجواز التقصير\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "الحديث في فضل الحلق على التقصير مع بيان علته واستثناء عمرة التمتع عند ضيق الوقت",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6
+    ],
+    "start_word": 135,
+    "end_word": 182,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الحلق أو التقصير. والصحيح أنَّ أحدهما واجب للحج وا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "مشروعية الحلق أو التقصير ووجوب أحدهما وبيان أن الحلق أفضل إلا في حال متمتع ضاق وقته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 183,
+    "end_word": 196,
+    "text_snippet": "3- المراد بالحلق استئصال شعر الرأس بأي شي، والتقصير الأخذ من أطرافه، بقدر أنملة",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الحلق بأنه استئصال شعر الرأس وتعريف التقصير بأنه الأخذ من أطرافه بقدر أنملة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 197,
+    "end_word": 207,
+    "text_snippet": "4- المشروع، هو الاكتفاء بالحلق أو التقصير، لا الإتيان بهما جميعاً.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "المشروع الاكتفاء بأحد النسكين من الحلق أو التقصير دون الجمع بينهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 208,
+    "end_word": 243,
+    "text_snippet": "5- استدل بتفضيل الحلق على التقصير، بأنهما نسكان من مناسك الحج، وليسا لاستباحة ال",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "تعليل تفضيل الحلق بأن الحلق والتقصير نسكان لا مجرد إباحة محظور مع ترجيح قول الجمهور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

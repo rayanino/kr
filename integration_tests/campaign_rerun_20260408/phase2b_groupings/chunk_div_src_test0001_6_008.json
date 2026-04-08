@@ -1,0 +1,105 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 127,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن أحب الأعمال إلى الله تعالى، الصلاة في أوقاتها، ث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الأولى في ترتيب أفضل الأعمال وبيان بعض ما يستفاد منه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 128,
+    "end_word": 261,
+    "text_snippet": "فائدة:\nسئل النبي صلى الله عليه وسلم عن المفاضلة في الأعمال عدة مرات.\nوكان ",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن تفضيل الأعمال يختلف باختلاف أحوال الأشخاص والأوقات والمصالح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 262,
+    "end_word": 385,
+    "text_snippet": "الحديث الثاني\nعن عَائشَةَ قالت: لقَدْ كَانَ النبي صلى الله عليه وسلم يصلَيِ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في صلاة الفجر بغلس مع شرح ألفاظه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "start_word": 386,
+    "end_word": 497,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء في الأفضل في وقت صلاة الفجر.\nفذهب الحنفية إل",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "خلاف الفقهاء في الأفضل لوقت الفجر وذكر أدلة الفريقين وجواب الجمهور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 498,
+    "end_word": 530,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب المبادرة إلى صلاة الصبح في أول وقتها.\n2- جواز",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد الحديث الثاني في تعجيل الفجر وحكم خروج النساء للمساجد بشروطه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      12,
+      13,
+      14
+    ],
+    "start_word": 531,
+    "end_word": 668,
+    "text_snippet": "الحديث الثالث\nعن جَابِرِ بْنِ عَبْدِ الله رضي الله عنهما قال: كَان النَّبيُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث جابر في أوقات الصلوات الخمس مع شرح غريبه وبيان معناه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

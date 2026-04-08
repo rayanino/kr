@@ -1,0 +1,355 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 75,
+    "text_snippet": "فقد يكون الفطر أفضل منه، إذا كان هناك مشقة، أو كان الفطر يساعد على الجهاد، وا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان الخلاف في الأفضل للمسافر بين الصيام والفطر وذكر أقوال الأئمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 76,
+    "end_word": 113,
+    "text_snippet": "استدل الأئمة الثلاثة بأحاديث:\nمنها ما رواه أبو داود عن سلمة بن المحبق، عن النب",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "دليل الأئمة الثلاثة على تفضيل الصوم لمن لا تلحقه مشقة مع شرح الحمولة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا الدليل مرتبط بالقول السابق للأئمة الثلاثة في تفضيل الصوم للمسافر الذي لا تلحقه مشقة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9
+    ],
+    "start_word": 114,
+    "end_word": 135,
+    "text_snippet": "أما أدلة الحنابلة، فمنها حديث \"ليس من البر الصيام في السفر\" متفق عليه.\nوحديث ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "ذكر أدلة الحنابلة على استحباب الفطر في السفر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الأحاديث المذكورة أدلة لقول الحنابلة السابق في أفضلية الفطر، وذلك السياق خارج هذه الوحدة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 136,
+    "end_word": 186,
+    "text_snippet": "فائدة:\nأما مقدار السفر الذي يباح فيه الفطر وقصر الصلاة، فقد اختلف العلماء في ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement",
+      "cross_reference"
+    ],
+    "description_arabic": "بيان أن حد السفر المبيح للرخص مرده إلى اسم السفر عرفاً لا إلى التحديدات المذكورة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "start_word": 187,
+    "end_word": 359,
+    "text_snippet": "الحديث الخامس\nعَن أنَسِ بْنِ مَالِكٍ رضي الله عنه قال: كُنَّا مَعَ رَسُول الله ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث أنس في صوم السفر وأن المفطرين نالوا الأجر بخدمة الجيش",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 360,
+    "end_word": 380,
+    "text_snippet": "ما يؤخذ من الحديث:\n1-جواز الإفطار والصيام في السفر، لأن النبي صلى الله عليه وس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استنباط جواز الصيام والإفطار في السفر من إقرار النبي صلى الله عليه وسلم",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الإحالة في قوله من الحديث ولأن النبي صلى الله عليه وسلم أقر كلاً تعود إلى الحديث السابق."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 381,
+    "end_word": 407,
+    "text_snippet": "2-ما كان عليه الصحابة رضي الله عنهم من رقة الحال في الدنيا، ومع ذلك لم تمنعهم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان زهد الصحابة وصبرهم على مشاق الجهاد مع قلة ذات اليد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 408,
+    "end_word": 428,
+    "text_snippet": "3-فضل خدمة الإخوان والأهل، وأنها من الدين ومن الرجولة التي سبقنا فيها صفوة هذه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل خدمة الإخوان والأهل وكونها من الدين والرجولة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27
+    ],
+    "start_word": 429,
+    "end_word": 466,
+    "text_snippet": "4-أن الفطر في السفر أفضل لا سيما إذا اقترن بذلك مصلحة من التقوي على الأعداء ون",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ترجيح الفطر في السفر عند وجود مصلحة متعدية كالتقوي على العدو وخدمة الغير",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 467,
+    "end_word": 502,
+    "text_snippet": "5-حث الإسلام على العمل وترك الكسل، فقد جعل للعامل نصيباً كبيراً من الأجر، وفضل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "الحث على العمل وذم من يزعم أن الدين يعوق العمل والتقدم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      30,
+      31,
+      32,
+      33
+    ],
+    "start_word": 503,
+    "end_word": 564,
+    "text_snippet": "الحديث السادس\nعَنْ عَائِشَةَ رضي الله عنها قَالَتْ: كانَ يَكُونُ عَلَيَّ الْصَّ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث عائشة في تأخير قضاء رمضان إلى شعبان مع بيان سبب ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      34,
+      35,
+      36
+    ],
+    "start_word": 565,
+    "end_word": 593,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز تأخير قضاء رمضان إلى شعبان مع العذر.\n2- أن الأفضل ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "جواز تأخير قضاء رمضان إلى شعبان مع العذر واستحباب المبادرة عند عدمه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      37,
+      38,
+      39
+    ],
+    "start_word": 594,
+    "end_word": 622,
+    "text_snippet": "3- أنه لا يجوز تأخير القضاء إلى رمضان التالي.\nواختلف العلماء في وجوب الكفارة م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "حكم تأخير القضاء إلى رمضان آخر والخلاف في الكفارة مع ذكر مذهب الحنابلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 623,
+    "end_word": 634,
+    "text_snippet": "4- حسن عشرة عائشة رضي الله عنها. رزق الله نساءنا القدوة بها.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الإشادة بحسن عشرة عائشة رضي الله عنها واقتداء النساء بها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 635,
+    "end_word": 704,
+    "text_snippet": "الحديث السابع\nعَنْ عَاِئشَةَ رضي الله عنها: أنَّ رَسُوْلَ الله قال:\n\"مَنَ مَاتَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث من مات وعليه صيام وبيان عموم قضاء ديون الميت وأن وليه أولى بذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      47,
+      48,
+      49,
+      50
+    ],
+    "start_word": 705,
+    "end_word": 767,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- ظاهر الحديث وجوب قضاء الصيام عن الميت سواء أكان نذراً، أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "ظاهر الحديث في قضاء الصيام عن الميت وبيان أن الولي هو الوارث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 768,
+    "end_word": 903,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء فيمن مات وعليه صوم هل يقضى عنه؟ على ثلاثة أقوال ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عرض أقوال العلماء الثلاثة في قضاء الصوم عن الميت وترجيح القول بالجواز مطلقاً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      60,
+      61,
+      62,
+      63
+    ],
+    "start_word": 904,
+    "end_word": 957,
+    "text_snippet": "استدل المانعون- مطلقاً- بأدلة.\nمنها: - قوله تعالى: {وَأَنْ لَيْسَ لِلإنْسَانِ إ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "أدلة المانعين من قضاء الصوم عن الميت مطلقاً من القرآن والأثر والمعنى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      64,
+      65,
+      66
+    ],
+    "start_word": 958,
+    "end_word": 1059,
+    "text_snippet": "واستدل المجيزون للقضاء- مطلقاً- بحديث الباب، فإنه عام في الواجب بأصل الشرع وال",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "أدلة المجيزين لقضاء الصوم عن الميت مطلقاً ووجه الجمع بين الأحاديث",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في قوله بحديث الباب وبهذا الحديث إحالة على الحديث السابق في الباب، مما يجعل تمام الاستدلال أوضح بضم الحديث المتقدم."
+  }
+]

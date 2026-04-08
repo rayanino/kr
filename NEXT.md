@@ -52,6 +52,54 @@
 - **DR archives:** ChatGPT DR at `downloads/deep-research-report (19).md`, Claude DR at `downloads/compass_artifact_wf-ae430a21-...md`
 - **Budget:** EUR 0.00 this session (evaluating existing data)
 
+### Session 19 — Campaign Rerun Analysis + CRITICAL FEEDBACK GAP DISCOVERED (2026-04-08)
+
+**Campaign rerun validated all 5 structural fixes. But owner feedback from Session 17 baseline was never consumed — the core excerpting quality problem (grouping granularity) is untouched.**
+
+**Campaign rerun metrics (1,491 excerpts vs 1,283 baseline):**
+- Sub-MV-1 (<25w): 244 → **0** (PERFECT — target met)
+- Pronoun/anaphora flags: 0 → 23 (1.5%) — detector working
+- Content intertwined flags: 0 → 728 (48.8%) — IC-1 detector working, rate reasonable for sharh fiqh
+- Isnad preservation: 16 → 28 — chains kept atomic
+- Self-containment FULL: 68.7% → **85.4%** (+16.7pp)
+- Avg word count: 74.8 → 123.0 (merged sub-viables shifted distribution up)
+- Run time: ~4.4 hours at concurrency=1. 10 chunk failures (8 classify, 2 group). 17 verification_skipped in div_7_006.
+
+**10 Gemini DR Batch 2 responses ingested and synthesized:**
+- All 10 provide actionable taxonomy decisions. 7/10 recommend expanding or separating nodes.
+- Key: nahw/sarf boundary rules, verb derivation vs tense separation, أعمال القلوب expand to 10-12, فهم السلف/إجماع separate, السحر/الكهانة separate, الأسماء والصفات needs 30-35 leaves not 20.
+- Full synthesis: see session 19 conversation log.
+- Archived at: `reference/dr_reviews/batch2_gemini/DR_B2_01` through `DR_B2_10`.
+
+**CRITICAL FINDING — Owner feedback gap:**
+- Owner reviewed 2 excerpts from baseline run (2026-03-31) in `integration_tests/campaign_20260331/taysir/owner_feedback.jsonl`. Both REJECTED with detailed reasoning about grouping granularity being too coarse.
+- **3 consecutive sessions (17, 18, 19) saw the pointer in NEXT.md line 823 and none opened the file.**
+- The campaign rerun produced the rejected excerpt (talaq definition) BYTE-IDENTICAL to the baseline — the 5 Session 18 fixes addressed structural defects, not grouping quality.
+- 13.4% of excerpts (200 `_pre_` chunks) bypass LLM grouping entirely.
+
+**Core systemic issue identified (3 layers):**
+1. **No feedback loop** from owner output-quality reactions back to pipeline behavior. Abstract feedback (questionnaire) has a pipeline. Concrete feedback (output reactions) does not.
+2. **Granularity calibration untested.** FP-9 (anti-overgranulation) + FP-13 (granularity priority #5) push the pipeline toward "keep together." Owner's actual reaction: "too broad — just cutting up book pages." These rules came from F8 about taxonomy trees, got over-applied to excerpting boundaries.
+3. **`_pre_` chunk bypass.** 200 excerpts from small divisions skip LLM grouping — no function-level analysis happens on them.
+
+### Session 19 — Next Steps (CRITICAL PATH)
+
+**Priority order:**
+
+1. **DR on granularity calibration + feedback loop design** (OWNER ACTION: relay to ChatGPT DR or Claude DR)
+   - Core question: "What is the right excerpting granularity for a comparative Islamic scholarly library — one scholarly function per excerpt, or coherent teaching paragraphs — and how should owner feedback on real output systematically feed back into pipeline behavior?"
+   - Must address: FP-9/FP-13 recalibration, `_pre_` chunk bypass, owner rejection trace-back mechanism
+   - Include owner_feedback.jsonl content (both reviews) as concrete examples
+
+2. **Build owner feedback consumption pipeline**
+   - Every session that touches excerpting MUST read `owner_feedback.jsonl` before doing any evaluation or excerpt selection
+   - Owner rejections must trace back to specific pipeline decisions (Phase 1 assembly? Phase 2 grouping? _pre_ bypass?)
+   - This should be a hook, not documentation
+
+3. **structural_section enrichment prompt** — field exists but unpopulated (deferred from Session 18)
+
+4. **Taxonomy tree amendments from Batch 2 DRs** — 10 decisions ready for implementation (2-3 sessions)
+
 ### Session 18 — 5 Fixes IMPLEMENTED + 3-Source Review HARDENED (2026-04-08)
 
 **All 5 Session 17 findings implemented, then independently verified by 3 reviewer agents (code-reviewer + arabic-auditor + architect). 5 additional issues found and fixed in the same session.**
@@ -111,7 +159,9 @@
 ### Next Steps (for next CC session)
   1. ✅ **Campaign evaluation on taysir** — Session 17 COMPLETE. 5 confirmed findings.
   2. ✅ **Implement all 5 fixes** — Session 18 COMPLETE. 7 commits, 991 tests, 3-source review.
-  3. **Campaign re-run** — validate fixes empirically (~€2.93). See Session 18 Next Steps above.
+  3. ✅ **Campaign re-run** — Session 19. All 5 structural fixes validated. But core grouping quality untouched.
+  4. ✅ **Batch 2 DR intake** — Session 19. All 10 Gemini DRs synthesized. 10 taxonomy decisions ready.
+  5. **CRITICAL: DR on granularity + feedback loop** — See Session 19 Next Steps. Owner commissioning.
   4. **Owner relay: Batch 2 DR prompts** — 10 Gemini DR prompts ready in dashboard at localhost:8000 AND at `docs/autonomous-system/dr_relay_queue_batch_2.md`.
   5. **IU-10: A/B test monolithic vs progressive** — ~EUR 10 budget. Validates DR28 empirically.
 

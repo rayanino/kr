@@ -1,0 +1,247 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 25,
+    "text_snippet": "والمشهور من مذهب الإمام أحمد، إلغاء الشرط ولزوم الهبة وتأبيدها.\nوشرط الرجوع ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان المشهور في المذهب في شرط الرجوع وحكم هبة العمرى مدة الحياة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4
+    ],
+    "start_word": 26,
+    "end_word": 98,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- صحة هبة \" العمرى \" وأنها من منح الجاهلية، التي أقرها ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "فوائد العمرى في صحتها ودوامها والخلاف في اشتراط الرجوع وهبة مدة الحياة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة بقول المصنف: فقد تقدم الخلاف في ذلك بين العلماء، فلا يكتمل تفصيل الخلاف داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 99,
+    "end_word": 128,
+    "text_snippet": "4- إن الشروط الفاسدة غير لازمة في العقد، ولو ظنها العاقد لازمة نافعة له. لكن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم الشروط الفاسدة في العقد وثبوت الخيار عند توهم اللزوم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 129,
+    "end_word": 150,
+    "text_snippet": "‌‌باَبُ اللُّقَطَة\nاللُّقَطَة: - بضم اللام وفتح القاف على المشهور. وهي المال ا",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عنوان الباب وتعريف اللقطة وبيان معناها العام",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 151,
+    "end_word": 167,
+    "text_snippet": "1- فقسم تافِه لا تتبعه همة أوساط الناس، كالسَّوط، والرغيف ونحوهما، فهذا يملك ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم اللقطة التافهة التي لا تتبعها همة أوساط الناس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 168,
+    "end_word": 193,
+    "text_snippet": "2- والثاني، ما لا يجوز التقاطه، وهى الأشياء التي تمنع نفسها من صغار السباع لِ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم ما لا يجوز التقاطه من الحيوان الممتنع بنفسه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10
+    ],
+    "start_word": 194,
+    "end_word": 211,
+    "text_snippet": "3- والنوع الثالث ما عدا ذلك، فهذا هو الذي يشرع التقاطه بقصد الحفظ لصاحبه وفي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان النوع الذي يشرع التقاطه بقصد حفظه لصاحبه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "قوله: وفيه الأحكام الآتية يحيل إلى تفصيل لاحق خارج هذه الوحدة، فالأصل العام مفهوم لكن التفصيل مؤخر."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 212,
+    "end_word": 541,
+    "text_snippet": "الحديث الأول\nعَنْ زَيْد بنِ خَالِدٍ الجُهَنيّ رضي الله عنه قَالَ: سُئل رَسُولُ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث اللقطة وشرح غريبه وبيان معناه الإجمالي وأحكام الذهب والإبل والغنم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 542,
+    "end_word": 570,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن من وجد مالا ضائعاْ عن ربه لا يمتنع من حفظ نفسه، ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب أخذ المال الضائع غير الممتنع لحفظه وصيانته",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 571,
+    "end_word": 594,
+    "text_snippet": "2- أن يعرف الواجد وكاءها ووعاءها وجنسها ليميزها عن ماله وليعرف صفاتها فيختبر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب معرفة أوصاف اللقطة لحفظها وتمييز مدعيها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 595,
+    "end_word": 630,
+    "text_snippet": "3- أن يعرفها سنة في مجامع الناس كأبواب المساجد والمحافل والأسواق، وفي مكان وج",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "مواضع تعريف اللقطة سنة وذكر المثال المعاصر للإعلان عنها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 631,
+    "end_word": 682,
+    "text_snippet": "4- إن لم تعرف في مدة العام، جاز له إنفاقها وبقى مستعدا لإعطاء صاحبها عوضها مث",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "حكم اللقطة بعد تمام السنة من جواز إنفاقها وملكها مع ضمان عوضها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 683,
+    "end_word": 741,
+    "text_snippet": "6- إن جاء صاحبها ولو بعد أمد طويل ووصفها. دفعت إليه.\nويكفى وصفها بينة على أنه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم دفع اللقطة لمن وصفها واعتبار الوصف بينة كافية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      29,
+      30
+    ],
+    "start_word": 742,
+    "end_word": 776,
+    "text_snippet": "7- أما ضالة الإبل ونحوها مما يمتنع بقوته أو بعَدْوه أو بطيرانه، فلا يجوز التقا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم ضالة الحيوان الممتنع والمنع من التقاطه إلا عند المهلكة للإنقاذ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      31,
+      32,
+      33
+    ],
+    "start_word": 777,
+    "end_word": 819,
+    "text_snippet": "8- أما الشاة، فالأحسن- بعد أخذها- أن يعمل فيها الأصلح من أكلها مقدرا قيمتها، أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "حكم الشاة الملتقطة والتصرف الأصلح فيها وضمانها لصاحبها إن جاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

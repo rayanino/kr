@@ -1,0 +1,506 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌بَاب استقبال القبْلَة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 100,
+    "text_snippet": "قبلة المسلمين هي الكعبة المشرفة، التي هي عنوان",
+    "scholarly_function": "definition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 2,
+    "start_word": 101,
+    "end_word": 109,
+    "text_snippet": "واستقبال القبلة في الصلاة، ثابت في الكتاب والسن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 110,
+    "end_word": 131,
+    "text_snippet": "وهو شرط للصلاة، لا تصح بدونه إلا عند العجز أو ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 132,
+    "end_word": 133,
+    "text_snippet": "الحديث الأول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 134,
+    "end_word": 162,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 163,
+    "end_word": 183,
+    "text_snippet": "وفي رواية: كَانَ يُوتِرُ عَلى بَعِيرِهِ. ولـ \" مس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 184,
+    "end_word": 185,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 8,
+    "start_word": 186,
+    "end_word": 212,
+    "text_snippet": "1- \"يسبح على ظهر راحلته\": التسبيح هنا، يراد به ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 213,
+    "end_word": 218,
+    "text_snippet": "2- \"المكتوبة\": يعنى الصلوات الخمس المفروضات.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 219,
+    "end_word": 225,
+    "text_snippet": "3- \"الراحلة\": الناقة التي تصلح لأن ترحل.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 226,
+    "end_word": 227,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 12,
+    "start_word": 228,
+    "end_word": 251,
+    "text_snippet": "الغالب في الشريعة أن صلاة الفريضة وصلاة النافلة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 13,
+    "start_word": 252,
+    "end_word": 289,
+    "text_snippet": "ولكنه يوجد بعض الأدلة التي تخص إحداهما بحكم دون ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 14,
+    "start_word": 290,
+    "end_word": 314,
+    "text_snippet": "فكان صلى الله عليه وسلم يصليها في السفر على ظهر",
+    "scholarly_function": "narration",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 15,
+    "start_word": 315,
+    "end_word": 329,
+    "text_snippet": "ولا فرق بين أن تكون نفلا مطلقاً، أو من الرواتب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 16,
+    "start_word": 330,
+    "end_word": 338,
+    "text_snippet": "لهذا كان يصلى على الراحلة آكد النوافل وهو الوتر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 339,
+    "end_word": 360,
+    "text_snippet": "أما الصلوات الخمس المكتوبات فوقوعها قليل لا يشغ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 18,
+    "start_word": 361,
+    "end_word": 362,
+    "text_snippet": "أحكام الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 19,
+    "start_word": 363,
+    "end_word": 378,
+    "text_snippet": "1- جواز صلاة النافلة في السفر على الراحلة وفعل ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 20,
+    "start_word": 379,
+    "end_word": 417,
+    "text_snippet": "2- ذهب الإمام أحمد وأبو ثور إلى استقبال القبلة ح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 418,
+    "end_word": 435,
+    "text_snippet": "3- عدم جواز الفريضة على الراحلة بلا ضرورة. قال ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 436,
+    "end_word": 447,
+    "text_snippet": "أما عند الضرورة من خوف أو سَيْل، فيصح، كما صحت ب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 23,
+    "start_word": 448,
+    "end_word": 455,
+    "text_snippet": "4- أن الإيماء هنا، يقوم مقام الركوع والسجود.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 456,
+    "end_word": 467,
+    "text_snippet": "5- أن قبلة المتنفل على الراحلة، هي الوجهة التي ه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 468,
+    "end_word": 479,
+    "text_snippet": "6- أن الوتر ليس بواجب، حيث صلاه عليه الصلاة والس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 480,
+    "end_word": 488,
+    "text_snippet": "7- أنه كلما احتيجت إلى شيء دخله التيسير والتسهيل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 489,
+    "end_word": 496,
+    "text_snippet": "وهذا من بعض ألطاف الله المتوالية على عباده.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.68
+  },
+  {
+    "segment_index": 28,
+    "start_word": 497,
+    "end_word": 508,
+    "text_snippet": "8- سماحة هذه الشريعة، وترغيب العباد في الازدياد ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 29,
+    "start_word": 509,
+    "end_word": 511,
+    "text_snippet": "ولله الحمد والمنة.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 30,
+    "start_word": 512,
+    "end_word": 532,
+    "text_snippet": "9- ذكر الصنعاني أن ألفاظ هذا الحديث مجموعة من عد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 533,
+    "end_word": 570,
+    "text_snippet": "10- لا يستدل بهذا الحديث على أن الخفض في السجود ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 571,
+    "end_word": 596,
+    "text_snippet": "11- ذهب جمهور العلماء إلى جواز ترك الاستقبال في ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 597,
+    "end_word": 598,
+    "text_snippet": "الحديث الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 34,
+    "start_word": 599,
+    "end_word": 641,
+    "text_snippet": "عَبْد الله بْنِ عُمَرَ رضي الله عنهما قالَ: بَيْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 35,
+    "start_word": 642,
+    "end_word": 643,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 36,
+    "start_word": 644,
+    "end_word": 702,
+    "text_snippet": "تقدم أنه لما هاجر النبي صلى الله عليه وسلم إلى ",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 37,
+    "start_word": 703,
+    "end_word": 720,
+    "text_snippet": "فأنزل الله تعالى: {قَدْ نَرَى تَقَلّبَ وَجْهِكَ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 38,
+    "start_word": 721,
+    "end_word": 770,
+    "text_snippet": "فخرج أحدُ الصحابة إلى مسجد \" قُباء \" بظاهر المد",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 771,
+    "end_word": 787,
+    "text_snippet": "فمن فقههم وسرعة فهمهم وصحته استداروا عن جهة بيت",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 40,
+    "start_word": 788,
+    "end_word": 789,
+    "text_snippet": "أحكام الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 41,
+    "start_word": 790,
+    "end_word": 801,
+    "text_snippet": "1- القبلة: أول الهجرة كانت إلى بيت المقدس، ثم ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 42,
+    "start_word": 802,
+    "end_word": 819,
+    "text_snippet": "2- أن قبلة المسلمين، استقرت على الكعبة المشرفة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 820,
+    "end_word": 842,
+    "text_snippet": "3- أن أفضل البقاع، هو بيت الله، لأن القبلة أقرت ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 44,
+    "start_word": 843,
+    "end_word": 854,
+    "text_snippet": "4- جواز النسخ في الشريعة، خلافا لليهود ومن شايعه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 855,
+    "end_word": 875,
+    "text_snippet": "5- أن من استقبل جهة في الصلاة، ثم تبين له الخطأ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 876,
+    "end_word": 904,
+    "text_snippet": "6- أن الحكم لا يلزم المكلف إلا بعد بلوغه، فإن ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 905,
+    "end_word": 924,
+    "text_snippet": "7- أن خبر الواحد الثقة -إذا حفتْ به قرائن القبول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 925,
+    "end_word": 936,
+    "text_snippet": "8- وفيه أن العمل ولو كثيراً في الصلاة، إذا كان ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 49,
+    "start_word": 937,
+    "end_word": 992,
+    "text_snippet": "9- وفيه دليل على قبول خبر \" الهاتف \" و \" اللاسل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 50,
+    "start_word": 993,
+    "end_word": 1036,
+    "text_snippet": "10- قال الطحاوى: في الحديث دليل على أن من لم يعل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1037,
+    "end_word": 1038,
+    "text_snippet": "الحديث الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1039,
+    "end_word": 1086,
+    "text_snippet": "عَنْ أنس بْنِ سِيرينَ قَالَ: اسْتَقْبَلْنَا أنَسا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1087,
+    "end_word": 1087,
+    "text_snippet": "المفردات:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1088,
+    "end_word": 1098,
+    "text_snippet": "أنس بن سيرين: أخو الإمام الكبير والتابعي الشهير ",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1099,
+    "end_word": 1108,
+    "text_snippet": "عين التمر: بلدة على حدود العراق الغربية، يكثر ف",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1109,
+    "end_word": 1110,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1111,
+    "end_word": 1122,
+    "text_snippet": "قدم أنس بن مالك الشام، ولجلالة قدره وسعة علمه، ا",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1123,
+    "end_word": 1158,
+    "text_snippet": "فذكر الراوي -وهو أحد المستقبلين- أنه رآه يصلى ع",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1159,
+    "end_word": 1162,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1163,
+    "end_word": 1190,
+    "text_snippet": "1- الحديث لم يبين صلاة أنس هذه، أفرض هي، أم نفل؟",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1191,
+    "end_word": 1200,
+    "text_snippet": "2- أن قبلة المصلى على الراحلة، حيث توجهت به راحل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1201,
+    "end_word": 1210,
+    "text_snippet": "3- جواز صلاة النافلة على الراحلة، في السفر، ولو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  }
+]

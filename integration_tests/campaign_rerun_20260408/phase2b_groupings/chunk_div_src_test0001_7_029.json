@@ -1,0 +1,154 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "ونسأل الله تعالى العصمة والهداية، وأن يرينا الحق حقا وارزقنا اتباعه، ويرين",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "دعاء ختامي بطلب العصمة والهداية واتباع الحق واجتناب الباطل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 16,
+    "end_word": 30,
+    "text_snippet": "12- تحريم الحيل، وأنها لا تغير الحقائق، ولو سميت الأشياء بغير أسمائها وأزي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم الحيل وأن تغيير الأسماء لا يبدل الحقائق الشرعية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 31,
+    "end_word": 49,
+    "text_snippet": "13- أن الشرع جاء. بكل ما فيه الخير والحذر من كل ما فيه شر أو رجح شره على خ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير أن الشرع جاء بتحصيل الخير والتحذير من الشر الغالب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 50,
+    "end_word": 80,
+    "text_snippet": "14- أن المحرمات المعدودة في الحديث نماذج لأنواع الخبائث المحرمة، التي يعود ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "بيان أن المحرمات المذكورة أمثلة لأنواع الخبائث ومقصود الحديث منها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى «الحديث» السابق غير الموجود في هذه القطعة، ففهم المقصود التفصيلي بالمحرمات يحتاج إلى السياق السابق."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5,
+      6,
+      7
+    ],
+    "start_word": 81,
+    "end_word": 116,
+    "text_snippet": "‌‌بابُ السَّلَم\nالسلم: - هو السلف، وزنا ومعنى، وسمى سلما، لتسليم رأس المال ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف السلم لغة وشرعا وبيان أنه نوع من البيع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 117,
+    "end_word": 252,
+    "text_snippet": "والأصل في جوازه، الكتاب، والسنة، والإجماعِ، والقياس الصحيح. فأما الكتاب فق",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "evidence_ijma",
+      "evidence_qiyas",
+      "evidence_hadith"
+    ],
+    "description_arabic": "أدلة جواز السلم من الكتاب والإجماع والقياس وبيان مصالحه وشروطه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "وردت إحالة بقوله «حديث الباب الآتي» دون ذكر نص الحديث داخل هذه الوحدة، فدليل السنة مذكور إحالة لا استيفاء."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "start_word": 253,
+    "end_word": 358,
+    "text_snippet": "وقد ظن بعض العلماء خروجه عن القياس، وعدوه من \" باب بيع ما ليس عندك \" المنه",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "condition_exception",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض اعتراض إخراج السلم عن القياس والجواب عنه وبيان الفرق عن بيع ما ليس عندك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16,
+      17,
+      18
+    ],
+    "start_word": 359,
+    "end_word": 506,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بْنِ عَبَّاسِ رَضىَ الله عَنْهُمَا قَالَ: قَدِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "نص حديث السلم مع المعنى الإجمالي وبيان اشتراط ضبط القدر والأجل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 507,
+    "end_word": 582,
+    "text_snippet": "ما يستفاد من الحديث:\nيشترط في السلم ما يشترط في البيع، لأنه أحد أنواعه.\nفلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان الشروط العامة للسلم وما يزيد به على شروط البيع",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "افتتح بقوله «ما يستفاد من الحديث» و«الحديث الذي معنا»، فمصدر هذه الشروط مفهوم من الحديث السابق القريب لا من داخل هذه الوحدة وحدها."
+  }
+]

@@ -1,0 +1,168 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 69,
+    "text_snippet": "‌‌بَاب المسْح عَلى الخفّين\nهذا الباب يذكر فيه شيء من أدلة مشروعية المسح على الخف",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "تمهيد الباب ببيان مشروعية المسح على الخفين والرد على من شذ في إنكاره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 70,
+    "end_word": 171,
+    "text_snippet": "الحديث الأول\nعَنْ المغيرة بن شعبة قال: كُنْتُ مَع النبي صلى الله عليه وسلم في سَف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث المغيرة في المسح على الخفين مع شرح لفظه وبيان معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 172,
+    "end_word": 311,
+    "text_snippet": "اختلاف العلماء:\nشذت الشيعهَ في إنكار المسح على الخفين، وروى أيضاً عن \" مالك \" وب",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "عرض الخلاف في المسح على الخفين وبيان ضعف المخالفين والاستدلال على الجواز",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 312,
+    "end_word": 337,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية المسح على الخفين عند الوضوء، والمسح يكون مرة واحدة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مشروعية المسح على الخفين وصفة المسح على أعلى الخف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 338,
+    "end_word": 353,
+    "text_snippet": "2- اشتراط الطهارة للمسح على الخفين. وذلك بأن تكون الرجلان على طهارة قبل دخولهما ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "اشتراط إدخال الرجلين في الخف على طهارة قبل المسح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 354,
+    "end_word": 358,
+    "text_snippet": "3- استحباب خدمة العلماء والفضلاء.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب خدمة العلماء والفضلاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 359,
+    "end_word": 372,
+    "text_snippet": "4- جاء في بعض روايات هذا الحديث أن ذلك في غزوة تبوك لصلاة الفجر.",
+    "primary_function": "cross_reference",
+    "secondary_functions": [],
+    "description_arabic": "الإشارة إلى رواية تعين زمن الحادثة في غزوة تبوك",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه فائدة إحالية إلى بعض روايات الحديث، ويحتاج الطالب إلى الرجوع لتلك الروايات لمعرفة اللفظ والسياق الكامل."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 373,
+    "end_word": 416,
+    "text_snippet": "الحديث الثاني\nعن حُذَيْفَةَ بْنِ الْيَمَان قال: كَنْتُ مَعَ النبي صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث حذيفة في المسح على الخفين في السفر مع معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 417,
+    "end_word": 457,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية المسح على الخفين في السفر. ومدة المسح على الخفين وا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية المسح في السفر وبيان مدة المسح للمسافر والمقيم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 458,
+    "end_word": 527,
+    "text_snippet": "2- المسح على الخفين بعد الوضوء من البول وثبت المسح على الخفين وعلى العمامة من كل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "أحكام المسح بعد الحدث الأصغر وحكم الحدث الأكبر والجبيرة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

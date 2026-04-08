@@ -1,0 +1,58 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 107,
+    "text_snippet": "‌‌بَابُ وجُوب الطّمَأنينة في الركوع والسجود\nعَنْ أبي هُرَيرةَ رضي الله عنه أنَّ ر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "باب وجوب الطمأنينة مع حديث المسيء في صلاته الدال على ذلك",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 108,
+    "end_word": 164,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث جليل يسميه العلماء \"حديث المسيء في صلاته\" وهو ع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان مكانة الحديث وأنه أصل في معرفة واجبات الصلاة وما لا يجب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 165,
+    "end_word": 305,
+    "text_snippet": "ومجمل هذا الحديث: أن النبي صلى الله عليه وسلم دخل المسجد، فدخل رجل من الصحا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_rational"
+    ],
+    "description_arabic": "تلخيص قصة المسيء وسبب التعليم ثم بيان ما أُمر به من أفعال الصلاة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "ينتهي المقطع أثناء تعداد التعليم النبوي، فشرح الأفعال المذكورة غير مكتمل في هذا الجزء."
+  }
+]

@@ -1,0 +1,179 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 32,
+    "text_snippet": "6- الذي يفهم من الحلق في هذا الحديث، هو أخذ جميع شعر الرأس.\nوهو الصحيح الذي ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان أن المراد بالحلق أخذ جميع شعر الرأس مع ترجيح هذا القول",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة في حكمها، لكنها تعتمد على حديث سابق غير موجود في هذا المقطع في قوله: هذا الحديث."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 33,
+    "end_word": 337,
+    "text_snippet": "‌‌باب طواف الإفاضة والوداع\nالحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها قَالَتْ:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث صفية مع شرح ألفاظه ومعناه وبيان أن الحائض إن كانت أفاضت جاز لها النفر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 338,
+    "end_word": 352,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن طواف الإفاضة ركن من أركان الحج، لا يسقط بحال.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "استخلاص حكم أن طواف الإفاضة ركن لا يسقط بحال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 353,
+    "end_word": 369,
+    "text_snippet": "2- أن على أمير الحج ورئيس الرفقة ونحوهما انتظار من حاضت حتى ينتهي حيضها، وتطو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب انتظار الحائض حتى تطهر وتطوف طواف الحج",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 370,
+    "end_word": 384,
+    "text_snippet": "3- أن طواف الوداع غير واجب على الحائض، وأنها تخرج، وليس عليها فداء، لتركها ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان سقوط طواف الوداع عن الحائض وعدم وجوب الفداء عليها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "start_word": 385,
+    "end_word": 525,
+    "text_snippet": "الحديث الثاني\nعَنْ عَبْدِ الله بْنِ عَبَّاسٍ رضي الله عنهما قَالَ: أُمِر النَّا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث ابن عباس مع معناه وبيان مشروعية طواف الوداع وسقوطه عن الحائض",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      23,
+      24
+    ],
+    "start_word": 526,
+    "end_word": 578,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب طواف الوداع في حق كل مسافر من مكة، سواء كان حاجَّاً",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم وجوب طواف الوداع على الخارج من مكة مع نقل تقرير ابن تيمية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      25
+    ],
+    "start_word": 579,
+    "end_word": 588,
+    "text_snippet": "2- أن الحائض ليس عليها طواف للوداع، ولا دم بتركه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير أن الحائض لا يلزمها طواف الوداع ولا دم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      26
+    ],
+    "start_word": 589,
+    "end_word": 619,
+    "text_snippet": "3- أن طواف الوداع يكون آخر شئون المسافر، لأن هذا معنى الوداع، ومثل شراء بعض ا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن طواف الوداع يكون آخر أعمال المسافر مع استثناء التأخر اليسير",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      27,
+      28,
+      29
+    ],
+    "start_word": 620,
+    "end_word": 669,
+    "text_snippet": "اختلاف العلماء:\nذهب مالك إلى استحباب طواف الوداع دون وجوبه على كل أحد لسقوطه ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "عرض الخلاف في حكم طواف الوداع بين مالك والجمهور",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

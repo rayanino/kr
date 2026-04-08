@@ -1,0 +1,155 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 29,
+    "text_snippet": "5- قال الصنعاني واعلم أن هذا ليس في باب تقديم حق العبد على حق الله تعالى، ",
+    "primary_function": "refutation",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن المقصود صيانة حق الله في العبادة لا تقديم حق العبد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إشارة بضمير \"هذا\" إلى كلام سابق خارج المقطع، مما يمنع تمام استقلاله."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 30,
+    "end_word": 51,
+    "text_snippet": "6- فسر بعضهم الخشوع بأنه مجموع من الخوف والسكون، فهو معنى يقوم في النفس يظه",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف الخشوع بأنه خوف وسكون باطني يظهر أثره على الجوارح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 52,
+    "end_word": 158,
+    "text_snippet": "فائدة:\nقال العلماء: الصلاة مناجاة الله تعالى، فكيف تكون مع الغفلة! وقد أجمع ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "definition"
+    ],
+    "description_arabic": "بيان وجوب حضور القلب في الصلاة وأن العبد لا ينال إلا ما عقل منها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 159,
+    "end_word": 208,
+    "text_snippet": "بَاب أوقات ⌜1⌝ النَّهي\nحظرت الصلاة في أوقات معينة لِحكَمٍ يعلمها الشارع، كالا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "بيان أوقات النهي الثلاثة عن الصلاة والحكمة العامة من المنع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 209,
+    "end_word": 408,
+    "text_snippet": "الحديث الأول\nعن عَبْدِ الله بْنِ عَبَّاس رضي الله عنهما قَال \" شَهدَ عِنْدي رِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "rule_statement"
+    ],
+    "description_arabic": "أحاديث النهي عن الصلاة بعد الصبح وبعد العصر مع شرح معناها وحكمتها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 409,
+    "end_word": 470,
+    "text_snippet": "اختلاف العلماء:\nاختلفت العلماء في الصلاة في هذه الأوقات:\nفذهب جمهور العلماء:",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation"
+    ],
+    "description_arabic": "عرض الخلاف في أصل حكم الصلاة في أوقات النهي والرد على دعوى النسخ",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 471,
+    "end_word": 555,
+    "text_snippet": "ثم اختلفوا: ما هي الصلاة المنهي عنها في هذه الأوقات؟.\nفذهب الحنفية والمالكية ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "بيان الخلاف في الصلوات الداخلة في النهي وترجيح استثناء ذوات الأسباب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      27,
+      28,
+      29
+    ],
+    "start_word": 556,
+    "end_word": 604,
+    "text_snippet": "ثم اختلفوا: هل يبدأ النَّهْيُ في الصبح، من طلوع الفجر الثاني أو صلاة الصبح؟.\n",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "ابتداء الخلاف في وقت بدء النهي بعد الفجر مع ذكر دليل الحنفية",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المسألة بدأت بدليل الحنفية فقط، وبقي تمام عرض الأقوال أو تمام الحديث بعد قوله: \"لا\" خارج هذا المقطع."
+  }
+]

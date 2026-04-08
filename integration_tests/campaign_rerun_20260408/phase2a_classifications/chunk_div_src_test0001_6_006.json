@@ -1,0 +1,130 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 10,
+    "text_snippet": "فَدَعَا بِمَاء فَأتْبَعَهُ إِيَّاه. ولمسلم \" فَأتْبَعَهُ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 11,
+    "end_word": 88,
+    "text_snippet": "المعنى الإجمالي:\nكان الصحابة رضي الله عنهم يأتون ا",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 89,
+    "end_word": 153,
+    "text_snippet": "اختلاف العلماء:\nيرى طائفة من العلماء أن الذكر و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 154,
+    "end_word": 187,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- نجاسة بول الغلام وإن لم يأ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 188,
+    "end_word": 289,
+    "text_snippet": "فائدة: اختلف العلماء في السبب الذي أوجب التفريق ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 5,
+    "start_word": 290,
+    "end_word": 304,
+    "text_snippet": "على أن بعض العلماء جعلوه من المسائل التعبدية، ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 305,
+    "end_word": 310,
+    "text_snippet": "كيفية تطهير الأرض التي أصابها بول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 311,
+    "end_word": 346,
+    "text_snippet": "عَنْ أنَس بْنِ مَالِكٍ رضي الله عنه قال: جَاءَ أعْ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 347,
+    "end_word": 416,
+    "text_snippet": "غريب الحديث:\n1- \"أعرابي\" بفتح الهمزة، نسبة إلى ",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 9,
+    "start_word": 417,
+    "end_word": 515,
+    "text_snippet": "المعنى الإجمالي:\nمن عادة الأعراب، الجفاء والجهل،",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 516,
+    "end_word": 613,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن البول على الأرض يطهر بغ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 614,
+    "end_word": 621,
+    "text_snippet": "بيان أحكام الختان والاستحداد وقص الشارب وتقليم ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 622,
+    "end_word": 648,
+    "text_snippet": "عَن أبيِ هُرَيرة رضي الله عنه قَالَ: سَمِعْتُ رَس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 649,
+    "end_word": 799,
+    "text_snippet": "المعنى الإجمالي: يذكر أبو هريرة أنه سمع النبي صل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 14,
+    "start_word": 800,
+    "end_word": 885,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن فطرة الله تعالى تدعو إل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 886,
+    "end_word": 896,
+    "text_snippet": "6- قال ابن حجر: يتعلق بهذه الخصال فوائد دينية ود",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.52
+  }
+]

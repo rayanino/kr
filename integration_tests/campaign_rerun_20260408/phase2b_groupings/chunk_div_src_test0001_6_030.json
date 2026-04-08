@@ -1,0 +1,89 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 0,
+    "end_word": 87,
+    "text_snippet": "‌‌باَب حكم ستر أحد العَاتقين في الصلاة\nعَنْ أبي هُريرة رضي الله عنه قال: قَالَ رَ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "evidence_quran"
+    ],
+    "description_arabic": "بيان حكم ستر أحد العاتقين في الصلاة مع الحديث وشرح المعنى والاستدلال بالآية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 88,
+    "end_word": 161,
+    "text_snippet": "اختلاف العلماء:\nذهب الإمام \" أحمد \" في المشهور عنه، إلى وجوب ستر أحد العاتقي",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض خلاف الفقهاء في وجوب ستر أحد العاتقين أو استحبابه وذكر مستند كل قول",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10
+    ],
+    "start_word": 162,
+    "end_word": 196,
+    "text_snippet": "الأحكام:\n1- النهى عن الصلاة بدون ستر العاتق. قال شيخ الإسلام ابن تيمية: ستر ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "النهي عن الصلاة بلا ستر العاتق وبيان أن ستره من حقوق الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11
+    ],
+    "start_word": 197,
+    "end_word": 206,
+    "text_snippet": "2- استحباب سترهما أو أحدهما في الصلاة مع وجود السترة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب ستر العاتقين أو أحدهما في الصلاة عند وجود ما يستر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      12
+    ],
+    "start_word": 207,
+    "end_word": 213,
+    "text_snippet": "3- استحباب كون المصلى على هيئة حسنة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "استحباب تهيؤ المصلي في الصلاة على هيئة حسنة وزينة مناسبة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

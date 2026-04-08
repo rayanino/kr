@@ -1,0 +1,108 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 34,
+    "text_snippet": "‌‌بَابُ الخشُوع في الصَّلاةِ\nالخشوع في الصلاة، هو روحها وَلُبُّهَا ويكثر ثوابها ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان معنى الخشوع في الصلاة وأثره في زيادة الثواب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 35,
+    "end_word": 91,
+    "text_snippet": "ولإحضار القلب في الصلاة، أسباب:\nمنها: الاستعاذة من الشيطان، وتدبر قراءة الصلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر أسباب حضور القلب والنهي عما يشغل المصلي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 92,
+    "end_word": 115,
+    "text_snippet": "وذهب الجمهور من العلماء إلى صحة صلاة من غلبت على صلاته الوساوس ولكن مع نقص ثوا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "عرض الخلاف في صحة صلاة الموسوس مع بيان القولين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 116,
+    "end_word": 366,
+    "text_snippet": "الحديث ⌜1⌝\nعَنْ عَائِشَةَ رضي الله عنها أنَ النَّبَّي صلى الله عليه وسلم صَلَّىِ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "الحديث وشرح ألفاظه وبيان معناه الإجمالي في أثر الشواغل على الصلاة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 367,
+    "end_word": 473,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الخشوع في الصلاة، وفعل الأسباب الجالبة له، والاب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفوائد والأحكام المستنبطة من الحديث في الخشوع والهدية والزينة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الفوائد مفهومة إجمالاً، لكن تمام دلالتها واستنباطها يعتمد على الحديث السابق."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 474,
+    "end_word": 565,
+    "text_snippet": "قال شيخ الإسلام ابن تيمية:\nولاريب أن الوسواس كلما قل في الصلاة كان أكمل، والذي",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "كلام ابن تيمية في أسباب تقليل الوسواس وتقوية حضور القلب",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص ينتهي قبل تمام تعداد الأسباب وبيان القسم الثاني من الكلام، لذا فالمعنى غير مكتمل تماماً داخل هذه القطعة."
+  }
+]

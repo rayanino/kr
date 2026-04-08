@@ -1,0 +1,200 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 86,
+    "text_snippet": "ما يؤخذ هن الحديث:\n1-كون النبي صلى الله عليه وسلم يعتكف العشر الوسطى، طلباً ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث في طلب ليلة القدر وصفة المسجد وعمارة المساجد بالطاعة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذا مشتق من حديث سابق غير مذكور في هذه الوحدة، فبعض الإحالات مثل \"هذا الحديث\" تحتاج إلى سياق سابق."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "start_word": 87,
+    "end_word": 246,
+    "text_snippet": "‌‌بَاب الاعتِكَاف\nالاعتكاف: في اللغة، لزوم الشيء وحبس النفس عليه، ومنه قوله ت",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_ijma",
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف الاعتكاف وبيان حكمه الإجماعي وحكمته ومقصوده الأعظم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 247,
+    "end_word": 288,
+    "text_snippet": "وذكر عقيب الصيام لمناسبتين:\nالأولى: أن جملة الكلام على الصيام سيتناول صيام شه",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان مناسبة ذكر الاعتكاف عقب الصيام ووجه اقترانهما",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الضمير في \"وذكر\" يعود على ذكر الاعتكاف في ترتيب المصنف، فيحتاج إلى معرفة أنه تعليل لوضع الباب بعد الصيام."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 289,
+    "end_word": 330,
+    "text_snippet": "وقد اشترط الحنفية والمالكية لصحة الاعتكاف، الصيام. ورد عليهم الصنعاني بأنه لا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "evidence_hadith"
+    ],
+    "description_arabic": "خلاف الفقهاء في اشتراط الصيام للاعتكاف والرد على القائلين بالاشتراط",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7,
+      8
+    ],
+    "start_word": 331,
+    "end_word": 434,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها: أنَّ رَسُولَ اللَه صلى الله عليه وسل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "حديث اعتكاف النبي صلى الله عليه وسلم وشرح معناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9
+    ],
+    "start_word": 435,
+    "end_word": 628,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، وأنه من سنة النبي صلى الله عليه وسلم، ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأحكام والفوائد المستنبطة من حديث اعتكاف العشر الأواخر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه فوائد مبنية على الحديث الأول السابق، وبعض الأدلة الداخلية مثل \"لما أخرج الشيخان\" و\"لقوله تعالى\" مختصرة وتفهم أكمل مع السياق السابق."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      10,
+      11,
+      12
+    ],
+    "start_word": 629,
+    "end_word": 872,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها: أنَّها كَانَتْ ترَجِّلُ النَّبِي صلى",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "rule_statement"
+    ],
+    "description_arabic": "حديث ترجيل الحائض للمعتكف وشرح معناه وأحكامه الإجمالية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 873,
+    "end_word": 961,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- أن الاعتكاف لا يمنع من ترجيل الشعر وغسله وأنواع التنظيف.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فوائد حديث ترجيل الحائض للمعتكف وما يتعلق بخروجه ولمسه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه الأحكام مستنبطة من الحديث الثاني، وبعضها كتعليل منع الحائض من المكث في المسجد يحتاج إلى مستند أوسع من هذه الوحدة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 962,
+    "end_word": 1047,
+    "text_snippet": "الحديث الثالث\nعَنْ عُمَرَ بْنِ الْخَطًابِ رضي الله عنه قال: قُلْتُ: يَا رَسُولَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "حديث نذر عمر للاعتكاف وبيان وجوب الوفاء به",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 1048,
+    "end_word": 1128,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب الوفاء بالنذر، ولو عقد في حال الكفر.\n2- إذا عيَّن ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد حديث نذر الاعتكاف ومسألة الصوم فيه عند اختلاف الروايات",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفقرة الأخيرة تبني الخلاف على اختلاف روايات الحديث المذكور قبلها، لذا فهم الترجيح يكتمل بالرجوع إلى نص الحديث السابق."
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      17,
+      18,
+      19
+    ],
+    "start_word": 1129,
+    "end_word": 1454,
+    "text_snippet": "الحديث الرابع\nعَنْ صَفِيَّةَ بِنْتِ حُييٍّ رضي الله عنها قَالَتْ: كَانَ رَسُوْل ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث صفية في زيارة المعتكف وشرح غريبه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 1455,
+    "end_word": 1675,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الاعتكاف، لاسيما في العشر الأواخر من رمضان.\n2- أ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد حديث صفية في آداب الاعتكاف ودفع التهمة وخواطر الشيطان",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الفوائد مبنية على الحديث الرابع السابق، وبعض عبارات الاستنباط مثل \"وفيه\" و\"ومنه\" تحيل إلى ذلك السياق."
+  }
+]

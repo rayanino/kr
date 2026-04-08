@@ -1,0 +1,807 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 54,
+    "text_snippet": "‌‌كتابُ الحُدُود\nالحدود: جمع (حَد) وأصل الحد، المنع، وهو ما يحجز بين شيئين، ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_rational"
+    ],
+    "description_arabic": "عنوان الباب مع تعريف الحدود لغة واصطلاحا وبيان ثبوتها الشرعي والعقلي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "start_word": 55,
+    "end_word": 165,
+    "text_snippet": "حكمتها التشريعية:\nلها حكم جليلة، ومعان سامية، وأهداف كريمة.\nولذا ينبغي إقامته",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "rule_statement"
+    ],
+    "description_arabic": "بيان الحكم والمصالح الشرعية المترتبة على إقامة الحدود في الأفراد والمجتمع",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 166,
+    "end_word": 247,
+    "text_snippet": "على أن الشارع الرحيم حين شرع الحدود، سبقت رحمته فيها عقابه.\nفعفا عن الصغار، ",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "بيان مظاهر الرحمة في تشريع الحدود من إسقاطها بالشبهات وتشديد شروط ثبوتها",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في قوله: إلى غير ذلك مما هو مذكور في بابه إحالة إلى أبواب لاحقة خارج هذه القطعة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 248,
+    "end_word": 613,
+    "text_snippet": "الحديث الأول\nعَنْ أنس بن مَالِك رضي الله عنه قَالَ: قدِم نَاس مِنْ عكل -أوْ عَر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث العرنيين مع شرح ألفاظه وبيان قصتهم ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      27,
+      28
+    ],
+    "start_word": 614,
+    "end_word": 909,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا العقاب الذي صبه النبي صلى الله عليه وسلم على هؤلاء",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "ترجيح أن عقوبة العرنيين من باب التعزير مع مناقشة الأقوال والاعتراضات",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      29
+    ],
+    "start_word": 910,
+    "end_word": 934,
+    "text_snippet": "2- في الحديث مشروعية التداوي وفعل الأسباب، وأن من العلاج، الرجوع إلى ما ألفته",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية التداوي بالأسباب المناسبة والابتعاد عن البيئات المؤذية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      30
+    ],
+    "start_word": 935,
+    "end_word": 979,
+    "text_snippet": "3- طهارة أبوال الإبل، ووجهته أن التداوي بالنجس والمحرم لا يجوز.\nولو فرض أن ال",
+    "primary_function": "evidence_qiyas",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال على طهارة أبوال الإبل وقياس سائر مأكول اللحم عليها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "start_word": 980,
+    "end_word": 1175,
+    "text_snippet": "الحديث الثاني\nعن عُبَيْد الله بن عُتْبَةَ بن مَسْعُود عَنْ أبي هريرة وَزَيد بنِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث الأعرابي في الزنا مع شرح ألفاظه الأساسية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      38,
+      39
+    ],
+    "start_word": 1176,
+    "end_word": 1201,
+    "text_snippet": "ما يستفاد من الحديث:\n1- جفاء الأعراب، لبعدهم عن العلم والأحكام والآداب، حيث نا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان جفاء الأعراب في العبارة لضعف علمهم بالأحكام والآداب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      40
+    ],
+    "start_word": 1202,
+    "end_word": 1216,
+    "text_snippet": "2- حسن خلق النبي صلى الله عليه وسلم، حيث لم يعنفه على سوء أدبه معه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إظهار حلم النبي صلى الله عليه وسلم وحسن خلقه مع الجافي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      41
+    ],
+    "start_word": 1217,
+    "end_word": 1235,
+    "text_snippet": "3- أن حدَّ الزاني المحصن، الرجم بالحجارة حتى يموت.\nوالمحصن: هو من جامع في نكاح",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حد الزاني المحصن وتعريف الإحصان الموجب للرجم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      42
+    ],
+    "start_word": 1236,
+    "end_word": 1246,
+    "text_snippet": "4- أن حد الزاني الذي لم يحصن، مائة جلدة، وتغريب عام.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حد الزاني غير المحصن من الجلد والتغريب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      43
+    ],
+    "start_word": 1247,
+    "end_word": 1261,
+    "text_snippet": "5- أنه لا يجوز أخذ العِوَض لتعطيل الحدود، وإن أخذت فهو من أكل الأموال بالباطل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تحريم أخذ العوض لإسقاط الحدود واعتباره أكلا للمال بالباطل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      44,
+      45
+    ],
+    "start_word": 1262,
+    "end_word": 1334,
+    "text_snippet": "6- أن من أقدم على محرم، جهلا أو نسيانا، لا يؤدب. بل يعلَّم. فهذا افتدى الحدَّ ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الجاهل والناسي لا يؤدبان مع تقرير قاعدة بطلان التصرف المبني على سبب متوهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      46
+    ],
+    "start_word": 1335,
+    "end_word": 1358,
+    "text_snippet": "8- قال الحافظ ابن حجر: والحق أن الإذن بالتصرف مقيد بالعقود الصحيحة. قال ابن دق",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل تقرير أهل العلم أن التصرف إنما يصح بالعقود الصحيحة دون الفاسدة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      47
+    ],
+    "start_word": 1359,
+    "end_word": 1366,
+    "text_snippet": "9- أنه يجوز التوكيل في إثبات الحدود واستيفائها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التوكيل في إثبات الحدود وفي تنفيذها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      48
+    ],
+    "start_word": 1367,
+    "end_word": 1379,
+    "text_snippet": "10- أن الحدود مرجعها الإمام الأعظم أو نائبه، ولا يجوز لأحد استيفاؤها غيرهم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اختصاص الإمام أو نائبه باستيفاء الحدود دون آحاد الناس",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      49
+    ],
+    "start_word": 1380,
+    "end_word": 1400,
+    "text_snippet": "11- استدل بالحديث أنه يكفى لثبوت الحد وإقامته، الاعتراف مرة واحدة، ويأتي الخلا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر الاستدلال على كفاية اعتراف واحد في ثبوت الحد",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص يذكر أن الخلاف سيأتي لاحقا، فتمام تحرير المسألة مؤجل إلى موضع آخر."
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      50,
+      51
+    ],
+    "start_word": 1401,
+    "end_word": 1473,
+    "text_snippet": "12- قال (ابن القيم) في حكمة جلد الزاني: (وأما الزاني فإنه يزني بجميع بدنه، والت",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان حكمة التفريق بين حد المحصن وغير المحصن بعلة الحال والنعمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      52
+    ],
+    "start_word": 1474,
+    "end_word": 1494,
+    "text_snippet": "14- القسم لتأييد صحة المسائل المهمة.\nوقد أمر الله تعالى نبيه في كتابه أن يقسم ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية القسم لتأكيد المسائل العظيمة المهمة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      53
+    ],
+    "start_word": 1495,
+    "end_word": 1521,
+    "text_snippet": "15- فيه دليل على صحة استفتاء أهل العلم في زمن النبي صلى الله عليه وسلم وفيما ب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز استفتاء أهل العلم وسؤال المفضول مع وجود الأفضل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      54
+    ],
+    "start_word": 1522,
+    "end_word": 1535,
+    "text_snippet": "16- في الحدث، حُسْنُ الأدب مع أهل الفضل والعلم والكبار، وأن ذلك من الفقه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "التنبيه إلى حسن الأدب مع أهل الفضل والعلم وأنه من الفقه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في الحدث تبدو محرفة أو غير واضحة، لكن المعنى العام مفهوم من السياق."
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "start_word": 1536,
+    "end_word": 1689,
+    "text_snippet": "الحديث الثالث\nعَنْ عبيد الله بن عَبْد الله بنِ عتبة بْنِ مسْعُودٍ عن أبي هريرة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "editorial_note"
+    ],
+    "description_arabic": "حديث حد الأمة الزانية مع معناه الإجمالي والتنبيه على بيعها بعد التكرر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      60,
+      61
+    ],
+    "start_word": 1690,
+    "end_word": 1727,
+    "text_snippet": "ما يستفاد من الحديث:\n1- حد الأمة إذا زنت ولم تحصن، الجلد، وهو نصف ما على الحرة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان حد الأمة الزانية وأنه نصف حد الحرة دون تغريب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      62
+    ],
+    "start_word": 1728,
+    "end_word": 1750,
+    "text_snippet": "2- أنه إذا تكرر منها الزنى وحدتْ ولم يردعها الجلد فَلْتُبَع ولو بأرخص ثمن، لأنه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إذا تكرر الزنا من الأمة ولم ترتدع شُرع بيعها ولو برخيص",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      63
+    ],
+    "start_word": 1751,
+    "end_word": 1765,
+    "text_snippet": "3- أن الزنا عيب في الرقيق، فإذا لم يعلم به المشترى فله الخيار في رده.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اعتبار الزنا عيبا في الرقيق يثبت به خيار الرد للمشتري",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      64
+    ],
+    "start_word": 1766,
+    "end_word": 1807,
+    "text_snippet": "4- أن للسيد إقامة الحد في الجلد خاصة على رقيقه.\nأما في القتل والقطع، فإقامته إ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان ما يملكه السيد من إقامة حد الجلد على رقيقه دون غيره",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "start_word": 1808,
+    "end_word": 2122,
+    "text_snippet": "الحديث الرابع\nعَنْ أبي هُرَيرةَ رضي الله عنه: أنَّهُ قَالَ: أتَى رَجل مِن المسلِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference",
+      "narration"
+    ],
+    "description_arabic": "قصة ماعز في الإقرار بالزنا والرجم مع جمع الروايات وشرحها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      72,
+      73
+    ],
+    "start_word": 2123,
+    "end_word": 2149,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الزنا يثبت بالإقرار كما يثبت بالشهادة، ويأتي: هل يك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "إثبات الزنا بالإقرار كما يثبت بالشهادة مع الإشارة إلى خلاف التكرار",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "المسألة يشوبها تعليق على خلاف سيأتي بعد ذلك، فلا يكتمل تحريرها هنا."
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      74
+    ],
+    "start_word": 2150,
+    "end_word": 2163,
+    "text_snippet": "2- أن المجنون لا يعتبر إقراره، ولا يثبت عليه الحد، لأن اشرط الحد التكليف.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إقرار المجنون غير معتبر لأن التكليف شرط في إقامة الحد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      75
+    ],
+    "start_word": 2164,
+    "end_word": 2242,
+    "text_snippet": "3- أنه يجب على القاضي والمفتي، فالتثبت في الأحكام، والسؤال بالتفضيل عما يجب ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب التثبت على القاضي والمفتي واستقصاء ما يغير الحكم في الواقعة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      76
+    ],
+    "start_word": 2243,
+    "end_word": 2256,
+    "text_snippet": "4- أن حد المحصن الزاني رجمه بالحجارة حتى يموت، ولا يحفر له عند الرجم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حد الزاني المحصن الرجم حتى الموت ولا يحفر له",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 32,
+    "segment_indices": [
+      77
+    ],
+    "start_word": 2257,
+    "end_word": 2276,
+    "text_snippet": "5- أنه لا يشرط في إقامة الحد، حضور الإمام أو نائبه.\nوالأولى حضور أحدهما ليؤمن ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "عدم اشتراط حضور الإمام في إقامة الحد مع استحبابه دفعا للحيف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 33,
+    "segment_indices": [
+      78
+    ],
+    "start_word": 2277,
+    "end_word": 2292,
+    "text_snippet": "6- جواز إقامة الحدود في مصلى الجنائز.\nوكانوا في الأول، يجعلون للصلاة على الجنائ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز إقامة الحدود في موضع مصلى الجنائز",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 34,
+    "segment_indices": [
+      79
+    ],
+    "start_word": 2293,
+    "end_word": 2321,
+    "text_snippet": "7- أن الحد كفارة للمعصية التي أقيم الحد لها، وهم إجماع.\nوقد جاء صريحا في قوله ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "إقامة الحد كفارة للذنب بإجماع العلماء مع الاستدلال بالحديث",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 35,
+    "segment_indices": [
+      80
+    ],
+    "start_word": 2322,
+    "end_word": 2332,
+    "text_snippet": "8- وأن إثم المعاصي يسقط بالتوبة النصوح، وهو إجماع المسلمين أيضاً.",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [],
+    "description_arabic": "إجماع المسلمين على سقوط إثم المعاصي بالتوبة النصوح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 36,
+    "segment_indices": [
+      81
+    ],
+    "start_word": 2333,
+    "end_word": 2352,
+    "text_snippet": "9- إعراض الإمام والحاكم عن المقر على نفسه بالزنا، لعله فعل ما لا يوجب الحد، فظ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية إعراض الحاكم عن المقر بالزنا لدرء الحد بالشبهة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 37,
+    "segment_indices": [
+      82
+    ],
+    "start_word": 2353,
+    "end_word": 2377,
+    "text_snippet": "10- هذه المنقبة العظيمة لماعز، رضي الله عنه، إذ جاء بنفسه، غضبا لله تعالى، وتط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان منقبة ماعز في المبادرة إلى التطهر بالحد رغم الإعراض عنه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 38,
+    "segment_indices": [
+      83,
+      84,
+      85,
+      86
+    ],
+    "start_word": 2378,
+    "end_word": 2527,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء: هل يشترط تكرار الإقرار بالزنا أربع مرات، أولا؟",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "refutation",
+      "evidence_rational"
+    ],
+    "description_arabic": "خلاف الفقهاء في اشتراط تكرار الإقرار بالزنا مع أدلة الفريقين والجواب",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 39,
+    "segment_indices": [
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ],
+    "start_word": 2528,
+    "end_word": 2915,
+    "text_snippet": "الحديث السادس\nعن عبد الله بن عمر رضي الله عنهما: أنه قال: إن اليهود جاءوا إلى ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "opinion_statement",
+      "narration"
+    ],
+    "description_arabic": "حديث رجم اليهوديين مع شرح الغريب وبيان المعنى الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 40,
+    "segment_indices": [
+      96,
+      97
+    ],
+    "start_word": 2916,
+    "end_word": 2931,
+    "text_snippet": "ما يستفاد من الحديث:\n1- وجوب حد الذمي إذا زنى، وإقامة الحدود عليهم فيما يعتقدون",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "وجوب إقامة حد الزنا على الذمي فيما يعتقد تحريمه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 41,
+    "segment_indices": [
+      98
+    ],
+    "start_word": 2932,
+    "end_word": 2960,
+    "text_snippet": "2- أن الإحصان ليس من شرطه الإسلام. وهو مذهب الشافعي وأحمد.\nفإذا وطئ الكافر في ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "الإحصان لا يشترط فيه الإسلام عند الشافعي وأحمد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 42,
+    "segment_indices": [
+      99
+    ],
+    "start_word": 2961,
+    "end_word": 3008,
+    "text_snippet": "3- أن شريعتنا حاكمة على غيرها من الشرائع، وناسخة لها.\nولكن النبي صلى الله عليه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حاكمية الشريعة الإسلامية ونسخها لما قبلها مع وجه سؤال التوراة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 43,
+    "segment_indices": [
+      100
+    ],
+    "start_word": 3009,
+    "end_word": 3018,
+    "text_snippet": "4- أن حدَّ المحصن، إذا زنا، الرجم بالحجارة حتى يموت.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "تقرير حد الزاني المحصن وأنه الرجم حتى الموت",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 44,
+    "segment_indices": [
+      101
+    ],
+    "start_word": 3019,
+    "end_word": 3033,
+    "text_snippet": "5- أن اليهود أهل تغيير وتبديل لكتاب الله الذي أنزله عليهم، تبعاً لأهوائهم وأغر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تبديل اليهود لكتاب الله اتباعا للأهواء والمصالح",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 45,
+    "segment_indices": [
+      102
+    ],
+    "start_word": 3034,
+    "end_word": 3041,
+    "text_snippet": "6- أن الكفار مخاطبون بالأحكام الفرعية، ومعاقبون عليها.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الكفار مخاطبون بفروع الشريعة ويعاقبون عليها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 46,
+    "segment_indices": [
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110
+    ],
+    "start_word": 3042,
+    "end_word": 3170,
+    "text_snippet": "الحديث السابع\nعن أبي هريرة رضي الله عنه: أن رسول الله صلى الله عليه وسلم قال: ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "evidence_rational"
+    ],
+    "description_arabic": "حديث فقء عين الناظر بغير إذن مع شرح ألفاظه وبيان معناه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 47,
+    "segment_indices": [
+      111,
+      112
+    ],
+    "start_word": 3171,
+    "end_word": 3187,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الاطلاع على أحوال الناس في منازلهم، والنظر إليهم و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تحريم التطلع إلى أحوال الناس في البيوت والنظر والاستماع إليهم",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 48,
+    "segment_indices": [
+      113,
+      114,
+      115
+    ],
+    "start_word": 3188,
+    "end_word": 3269,
+    "text_snippet": "2- سقوط حرمة من فعل ذلك، وإهدار العضو الذي يطلع به على أحوالهم.\n3- أن لصاحب ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "سقوط حرمة المتجسس وجواز فقء عينه بلا قصاص مع الاستدلال",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

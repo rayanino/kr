@@ -1,0 +1,578 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 24,
+    "text_snippet": "فَقَالَ النَّبي صلى الله عليه وسلم: \"اُطلْبوهُ، و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 25,
+    "end_word": 38,
+    "text_snippet": "الغريب:\nسَلَبَهُ: بفتح السين واللام والباء، وهي ث",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 39,
+    "end_word": 108,
+    "text_snippet": "ما يستفاد من الحديث:\n1- فيه أن من قتل قتيلاً وأقا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 109,
+    "end_word": 122,
+    "text_snippet": "بخلاف الرسل، فإنهم لا يُؤذوْن، لأنهم دعاة سلام وص",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 123,
+    "end_word": 124,
+    "text_snippet": "الحديث العاشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 125,
+    "end_word": 163,
+    "text_snippet": "عَنْ عَبْد الله بْنِ عُمَرَ رضي الله عنهما قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 164,
+    "end_word": 203,
+    "text_snippet": "الغريب:\nسَريَّةً: بفتح السن المهملة، وكسر الراء، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 204,
+    "end_word": 254,
+    "text_snippet": "ما يستفاد من الحديث:\n1- بعث السرايا لإضعاف العدو،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 255,
+    "end_word": 264,
+    "text_snippet": "ويكون النفل من الخمس، وبعضهم يرى أنه من أصل الغن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 265,
+    "end_word": 267,
+    "text_snippet": "الحديث الحادي عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 268,
+    "end_word": 297,
+    "text_snippet": "عَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما عَنْ الن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 298,
+    "end_word": 367,
+    "text_snippet": "المعنى الإجمالي:\nمن ائتمنك على دم، أو عرض، أو سر،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 368,
+    "end_word": 397,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم الغدر بالمهادَن وال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 13,
+    "start_word": 398,
+    "end_word": 428,
+    "text_snippet": "فإن كان بينه وبين الكفار عهد فخاف نَكْثهم، أنذره",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 14,
+    "start_word": 429,
+    "end_word": 473,
+    "text_snippet": "2- ويشمل الغدر المتوعَّد عليه، كل من ائتُمنك على ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 474,
+    "end_word": 484,
+    "text_snippet": "وقد قال النبي صلى الله عليه وسلم \"لا تخن من خانك",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 16,
+    "start_word": 485,
+    "end_word": 487,
+    "text_snippet": "الحديث الثاني عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 488,
+    "end_word": 516,
+    "text_snippet": "عَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما: أنَّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 517,
+    "end_word": 573,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الذي عليه القتل والمقا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 574,
+    "end_word": 596,
+    "text_snippet": "وما لم يقتض الرأي رميَ الكفار بما يهلكهم عامة، كا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 597,
+    "end_word": 599,
+    "text_snippet": "الحديث الثالث عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 600,
+    "end_word": 633,
+    "text_snippet": "عَنْ أنس بْن مالك رضي الله عنه: أنَّ عَبْدَ الرَّح",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 634,
+    "end_word": 682,
+    "text_snippet": "ما يستفاد من الحديث:\n1- يؤخذ من قوله: [فرخص] ما ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 683,
+    "end_word": 685,
+    "text_snippet": "الحديث الرابع عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 686,
+    "end_word": 746,
+    "text_snippet": "عَنْ عُمَرَ بْنِ الخَطَّابِ رضي الله عنه قَالَ: كَا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 25,
+    "start_word": 747,
+    "end_word": 852,
+    "text_snippet": "الغريب\nبني النضير: بفتح النون وكسر الراء المعجمة،",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 853,
+    "end_word": 1026,
+    "text_snippet": "المعنى الإجمالي:\nلما قدم النبي صلى الله عليه وسلم",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1027,
+    "end_word": 1070,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن أموال بنى النضير صارت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1071,
+    "end_word": 1081,
+    "text_snippet": "2- يكون للإمام منه ما يكفيه ويكفي من يمون. والله ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1082,
+    "end_word": 1100,
+    "text_snippet": "3- وأن يتحرى الإمام في صرف الفيء وبيت مال المسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1101,
+    "end_word": 1123,
+    "text_snippet": "4- جواز ادّخار القوت، وأنه لا ينافى التوكل على ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1124,
+    "end_word": 1126,
+    "text_snippet": "الحديث الخامس عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1127,
+    "end_word": 1187,
+    "text_snippet": "عَنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1188,
+    "end_word": 1274,
+    "text_snippet": "الغريب:\nما ضُمِّر: بضم الضاد وكسر الميم المشددة، ",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1275,
+    "end_word": 1364,
+    "text_snippet": "المعنى الإجمالي:\nكان النبي صلى الله عليه وسلم مس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1365,
+    "end_word": 1429,
+    "text_snippet": "ما يستفاد من الحديث:\n1- مشروعية التمرن وتعلم الفن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1430,
+    "end_word": 1464,
+    "text_snippet": "3- لا يتقيد هذا بإجراء الخيل، فكل ما أعان على قتا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1465,
+    "end_word": 1485,
+    "text_snippet": "وألحق شيخ الإسلام (ابن تيميه) بها مسائل العلم، فت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1486,
+    "end_word": 1546,
+    "text_snippet": "4- أن مثل هذه المسابقة من الرياضة المحمودة التي ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1547,
+    "end_word": 1577,
+    "text_snippet": "5- أن يُجعل للمسابقة على الخيل والرمي بالبنادق وغي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1578,
+    "end_word": 1580,
+    "text_snippet": "الحديث السادس عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1581,
+    "end_word": 1618,
+    "text_snippet": "عَن عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قَالَ: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1619,
+    "end_word": 1738,
+    "text_snippet": "ما يستفاد من الحديث:\n1- غزوة (أحد) سنة ثلاث من ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1739,
+    "end_word": 1741,
+    "text_snippet": "الحديث السابع عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1742,
+    "end_word": 1762,
+    "text_snippet": "وَعَنْهُ (يَعْنى ابْنَ عُمَرَ رضي الله عنهما أنَّ ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1763,
+    "end_word": 1803,
+    "text_snippet": "ما يستفاد من الحديث:\n1- النَّفَل: بفتح النون والف",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1804,
+    "end_word": 1831,
+    "text_snippet": "2- أن يجعل للفارس من الغنيمة ثلاثة أسهم، سهم له،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1832,
+    "end_word": 1849,
+    "text_snippet": "3- هذا التقسيم بعد إخراج ما يلحق الغنيمة من رَضْخ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1850,
+    "end_word": 1852,
+    "text_snippet": "الحديث الثامن عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1853,
+    "end_word": 1873,
+    "text_snippet": "وَعَنْهُ أنَّ رَسُولَ الله صلى الله عليه وسلم كانَ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1874,
+    "end_word": 1898,
+    "text_snippet": "ما يستفاد من الحديث:\n1- هذا التنفيل هو غير أسهم ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1899,
+    "end_word": 1919,
+    "text_snippet": "قال ابن دقيق العيد: وفي الحديث دلالة على أن لنظر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1920,
+    "end_word": 1937,
+    "text_snippet": "2- إعطاء بعض الجيش زيادة على أسهمهم أو تخصيص بعض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1938,
+    "end_word": 1970,
+    "text_snippet": "3- أن هذا فعل النبي صلى الله عليه وسلم، فهو دليل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1971,
+    "end_word": 2072,
+    "text_snippet": "4- قال ابن دقيق العيد: وللحديث تعلق بمسائل الإخلا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2073,
+    "end_word": 2151,
+    "text_snippet": "وقال الصنعانيى: وقد أجمع العلماء على جواز الجمع ب",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2152,
+    "end_word": 2154,
+    "text_snippet": "الحديث التاسع عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2155,
+    "end_word": 2174,
+    "text_snippet": "عَن أبى مُوسَى (عَبْدِ الله بْنِ قيْس) عَنِ النبي ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2175,
+    "end_word": 2252,
+    "text_snippet": "المعنى الإجمالي:\nيبين النبي صلى الله عليه وسلم أن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2253,
+    "end_word": 2294,
+    "text_snippet": "ما يستفاد من الحديث:\n1- تحريم الخروج على الأئمة، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2295,
+    "end_word": 2309,
+    "text_snippet": "2- إذا كان محرما في حق من يحدث منهم بعض المنكرات،",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2310,
+    "end_word": 2319,
+    "text_snippet": "3- تحريم إخافة المسلمين بالسلاح وغيره، ولو على وج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2320,
+    "end_word": 2321,
+    "text_snippet": "الحديث العشرون",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2322,
+    "end_word": 2366,
+    "text_snippet": "عَن أبى مُوسَى قَالٍ: سُئِلَ رَسُولُ الله صلى الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2367,
+    "end_word": 2474,
+    "text_snippet": "المعنى الإجمالي:\nسأل رجل النبي صلى الله عليه وسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2475,
+    "end_word": 2527,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الأصل في صلاح الأعمال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2528,
+    "end_word": 2542,
+    "text_snippet": "4- إذا انضم إلى قصد إعلاء كلمة الله قصد المغنم، ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2543,
+    "end_word": 2565,
+    "text_snippet": "قال الطبري: لا يضر، وبذا قال الجمهور، مادام قَصْد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2566,
+    "end_word": 2580,
+    "text_snippet": "قال تعالى: {لَيْسَ عليكم جناح أنْ تَبْتَغُوا فَضْ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2581,
+    "end_word": 2599,
+    "text_snippet": "والصحابة رضي الله عنهم، خرجوا يوم بدر ورغبتهم في ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2600,
+    "end_word": 2613,
+    "text_snippet": "5- مدافعة الأعداء عن الأوطان والحرمات، من القتال ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2614,
+    "end_word": 2626,
+    "text_snippet": "كما قال صلى الله عليه وسلم: \"من قُتِلَ دون ماله ف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  }
+]

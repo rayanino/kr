@@ -1,0 +1,130 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 20,
+    "text_snippet": "وأنه من الجور والظلم، لما فيه من المفاسد، إذ يسبب ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 21,
+    "end_word": 54,
+    "text_snippet": "لما كانت هذه بعض مفاسده قال النبي صلى الله عليه وس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 55,
+    "end_word": 73,
+    "text_snippet": "فما كان من بشير رضى اللَه عنه إلا أن رجع بتلك الصد",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 74,
+    "end_word": 75,
+    "text_snippet": "اختلاف العلماء",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 4,
+    "start_word": 76,
+    "end_word": 107,
+    "text_snippet": "أجمع العلماء على مشروعية التسوية بين الأولاد في ال",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 108,
+    "end_word": 116,
+    "text_snippet": "ولكن اختلف العلماء في وجوب المساواة بينهم في الهبة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 6,
+    "start_word": 117,
+    "end_word": 136,
+    "text_snippet": "فذهب الإمام أحمد، والبخاري، وإسحاق، والثوري، وجماع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 7,
+    "start_word": 137,
+    "end_word": 151,
+    "text_snippet": "وذهب الجمهور إلى أنها مستحبة فقط، وأطالوا الاعتذا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 152,
+    "end_word": 168,
+    "text_snippet": "والحق الذي لاشك فيه، وجوب المساواة، لظاهر الحديث،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 169,
+    "end_word": 200,
+    "text_snippet": "كما أن ظاهر الحديث، التسوية بين الذكر والأنثى، لقو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 201,
+    "end_word": 225,
+    "text_snippet": "وأما المشهور من مذهب الإمام أحمد، فهو أن يقسم بينه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 11,
+    "start_word": 226,
+    "end_word": 226,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 12,
+    "start_word": 227,
+    "end_word": 244,
+    "text_snippet": "ذكر وجوِب العدل بين الأولاد في الهبة، وتحريم التخص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 245,
+    "end_word": 284,
+    "text_snippet": "فإن كان هناك ما يدعو إلى التفضيل أو التخصيص، فلا ب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 285,
+    "end_word": 306,
+    "text_snippet": "وقد أشار إلى ذلك الإمام أحمد بقوله- في تخصيص بعضهم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 15,
+    "start_word": 307,
+    "end_word": 323,
+    "text_snippet": "وقال شيخ الإسلام \" ابن تيمية \": والحديث والآثار تد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  }
+]

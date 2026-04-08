@@ -1,0 +1,69 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 0,
+    "end_word": 266,
+    "text_snippet": "‌‌بَابُ التشهد\nعَنْ عَبْدِ الله بْنِ مَسْعُودٍ رضي الله عنه قال: \"عَلَّمَني رَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration",
+      "definition"
+    ],
+    "description_arabic": "باب التشهد مع نص حديث ابن مسعود وشرح ألفاظه ومعناه الإجمالي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 267,
+    "end_word": 380,
+    "text_snippet": "فائدة:\nورد للتشهد صفات متعددة، ولكن أفضلها وأجملها، تشهد ابن مسعود الذي ساقه ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "بيان أفضل صيغ التشهد وترجيح تشهد ابن مسعود ونقل أقوال أهل العلم فيه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله: تقدم الكلام على التشهد الأوسط في حديث عائشة رقم [80]، وهذه الإحالة ليست لازمة لفهم أصل الفائدة لكن تكمل مسألة وجوب التشهدين."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      17,
+      18
+    ],
+    "start_word": 381,
+    "end_word": 413,
+    "text_snippet": "فائدة ثانية:\nقال السبكي: إن في الصلاة حقا للعباد مع حق الله، وإن من تركها أخل",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تنبيه السبكي إلى اشتمال التشهد على حق العباد بدعاء السلام للمؤمنين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

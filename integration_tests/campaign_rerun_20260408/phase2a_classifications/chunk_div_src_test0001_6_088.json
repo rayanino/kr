@@ -1,0 +1,530 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "‌‌بَابُ الوَقف",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 23,
+    "text_snippet": "قال ابن فارس في [مقاييس اللغة] : الواو والقاف وا",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 33,
+    "text_snippet": "قلت: ومن أصل التمكث يؤخذ الوقف الشرعي فإنه ماكث",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 3,
+    "start_word": 34,
+    "end_word": 57,
+    "text_snippet": "وتعريفه شرعاً: حبس مالكٍ مالَهُ المنتفع به مع بق",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 58,
+    "end_word": 64,
+    "text_snippet": "وحكمه: الاستحباب. وقد ثبت بالسنة، لأحاديث كثيرة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 5,
+    "start_word": 65,
+    "end_word": 89,
+    "text_snippet": "منهاِ حديث أبي هريرة: أن النبي صلى الله عليه وسل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 90,
+    "end_word": 98,
+    "text_snippet": "وإجماع الصدر الأول من الصحابة والتابعين على جواز",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 7,
+    "start_word": 99,
+    "end_word": 116,
+    "text_snippet": "قال الشافعي: ولم يحبس أهل الجاهلية فيما علمته. و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 8,
+    "start_word": 117,
+    "end_word": 142,
+    "text_snippet": "وقال الترمذي: \" لا نعلم بين الصحابة والمتقدمين م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 9,
+    "start_word": 143,
+    "end_word": 153,
+    "text_snippet": "ومثل هذا لا يعطى حكم الوقف من اللزوم والثواب وال",
+    "scholarly_function": "refutation",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 10,
+    "start_word": 154,
+    "end_word": 161,
+    "text_snippet": "وقال أبو حنيفة: لا يلزم، وخالفه جميع أصحابه.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 11,
+    "start_word": 162,
+    "end_word": 183,
+    "text_snippet": "قال جابر بن عبد الله: \" لم يكن أحد من أصحاب رسو",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 12,
+    "start_word": 184,
+    "end_word": 194,
+    "text_snippet": "وبهذا يعلم إجماع القرن المفضل عليه، فلا يلتفت إل",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 13,
+    "start_word": 195,
+    "end_word": 215,
+    "text_snippet": "أما فضله، فهو من أفضل الصدقات التي حث الله عليها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 14,
+    "start_word": 216,
+    "end_word": 230,
+    "text_snippet": "وقد ورد في فضله آثار خاصة، لحديث عمر، وخالد، وعم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 15,
+    "start_word": 231,
+    "end_word": 236,
+    "text_snippet": "وهذه الأحاديث الواردة في أصله وفضله.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 16,
+    "start_word": 237,
+    "end_word": 287,
+    "text_snippet": "وهذا الفضل الجزيل المترتب عليه، هو إذا كان وقفاً",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 17,
+    "start_word": 288,
+    "end_word": 360,
+    "text_snippet": "أما أن يحجر على أولاده وورثته باسم الوقف حتى لا ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 361,
+    "end_word": 385,
+    "text_snippet": "وبهذا يدخل في أبواب الظلم، بدلا من أبواب البر، ل",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.64
+  },
+  {
+    "segment_index": 19,
+    "start_word": 386,
+    "end_word": 423,
+    "text_snippet": "وبما تقدم تعرف الحكمة الجليلة من الوقف، فهو إحسا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 20,
+    "start_word": 424,
+    "end_word": 448,
+    "text_snippet": "وفيه إحسان كبير وبِرّ عظيم للواقف إذ يتصدق بهذه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 449,
+    "end_word": 451,
+    "text_snippet": "الحديث الأول ⌜1⌝",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 22,
+    "start_word": 452,
+    "end_word": 543,
+    "text_snippet": "عَنْ عَبْدِ الله بنٍ عُمَرَ قال: أصاب عُمَرُ أرضا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 544,
+    "end_word": 544,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 545,
+    "end_word": 590,
+    "text_snippet": "أرضا بخيبر: بلاد شمالي المدينة تبعد عنها 160كم ل",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 25,
+    "start_word": 591,
+    "end_word": 595,
+    "text_snippet": "يستأمره: يستشيره في التصرف بها.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 596,
+    "end_word": 604,
+    "text_snippet": "قط: ظرف زمان للماضي، مشدد الطاء، مبنى على الضم:",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 27,
+    "start_word": 605,
+    "end_word": 615,
+    "text_snippet": "أنفس منه: يعني أجود منه، والنفيس: الشيء الكريم ا",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 616,
+    "end_word": 621,
+    "text_snippet": "لا جناح: لا حرج ولا إثم.",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 29,
+    "start_word": 622,
+    "end_word": 643,
+    "text_snippet": "غرِ متمول، غير متأثل: المتمول: اتخاذ المال أخذا ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 30,
+    "start_word": 644,
+    "end_word": 645,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 31,
+    "start_word": 646,
+    "end_word": 840,
+    "text_snippet": "أصاب عمر بن الخطاب رضى الله عنه أرضا بخيبر، قدره",
+    "scholarly_function": "narration",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 841,
+    "end_word": 844,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 845,
+    "end_word": 862,
+    "text_snippet": "1- يؤخذ من قوله: \"إن شئت حبست أصلها وتصدقت بها\" ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 863,
+    "end_word": 906,
+    "text_snippet": "2- يؤخذ من قوله: \"غير أنه لا يباع أصلها ولا يوهب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 35,
+    "start_word": 907,
+    "end_word": 916,
+    "text_snippet": "3- مكان الوقف، وأنه العين التي تبقى بعد الانتفاع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 917,
+    "end_word": 929,
+    "text_snippet": "فأما ما يذهب بالانتفاع به، فهو صدقة، وليس له موض",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 37,
+    "start_word": 930,
+    "end_word": 969,
+    "text_snippet": "4- يؤخذ من قوله: \"فتصدق بها عمر في الفقراء.. الخ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 38,
+    "start_word": 970,
+    "end_word": 999,
+    "text_snippet": "5- يؤخذ من قوله: \" لا جناح على من وليها أن يأكل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1000,
+    "end_word": 1028,
+    "text_snippet": "فمثل هذه الشروط لا بأس بها لأن للواقف فيها منفعة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1029,
+    "end_word": 1060,
+    "text_snippet": "6- في قوله: \" لا جناح على من وليها.. الخ\" جواز أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1061,
+    "end_word": 1070,
+    "text_snippet": "7- فيه فضيلة الوقف، وأنه من الصدقات الجارية والإ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1071,
+    "end_word": 1091,
+    "text_snippet": "8- وفيه أن الأفضل أن يكون من أطيب المال وأنفسه، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1092,
+    "end_word": 1105,
+    "text_snippet": "9- وفيه مشاورة ذوى الفضل. وهم أهل الدين والعلم، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1106,
+    "end_word": 1119,
+    "text_snippet": "10- وفيه أن الواجب على المستشار أن ينصح بما يراه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1120,
+    "end_word": 1131,
+    "text_snippet": "11- وفيه فضيلة الإحسان والبر بذوي الأرحام، فإن ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1132,
+    "end_word": 1162,
+    "text_snippet": "12- يؤخذ من الحديث أن الشروط في الوقف لابد أن تك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1163,
+    "end_word": 1205,
+    "text_snippet": "ونسوق هنا خلاصة ما قاله شيخ الإسلام ابن تيمية في",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1206,
+    "end_word": 1294,
+    "text_snippet": "من اشترط في الوقف أو العتق أو الهبة اً والبيع أو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1295,
+    "end_word": 1317,
+    "text_snippet": "هذا فيه تنازع، لأن قوله آخر الحديث \" كتاب الله أ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1318,
+    "end_word": 1376,
+    "text_snippet": "وقوله: \" من اشترط شرطاً ليس في كتاب الله فهو باط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1377,
+    "end_word": 1437,
+    "text_snippet": "ثم تحدث شيخ الإسلام رحمه الله تعالى عن البدعة، و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1438,
+    "end_word": 1495,
+    "text_snippet": "وعقب على ذلك بقوله: وبالجملة فلا خلاف بين العلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1496,
+    "end_word": 1631,
+    "text_snippet": "ثم قال رحمه الله تعالى: القسم الثالث عمل مباح م",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1632,
+    "end_word": 1633,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1634,
+    "end_word": 1645,
+    "text_snippet": "شذ الإمام أبو حنيفة رحمه الله فأجاز بيع الوقف ور",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1646,
+    "end_word": 1668,
+    "text_snippet": "ومذهبه مخالف لنص الحديث ولذا قال صاحبه أبو يوسف",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1669,
+    "end_word": 1678,
+    "text_snippet": "وقال القرطبي: الرجوع في الوقف مخالف للإجماع فلا ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1679,
+    "end_word": 1700,
+    "text_snippet": "وذهب مالك والشافعي: إلى لزوم الوقف وعدم جوازه وص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1701,
+    "end_word": 1726,
+    "text_snippet": "وذهب الإمام أحمد إلى قول وسط، وهو أنه لا يجوز بي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1727,
+    "end_word": 1777,
+    "text_snippet": "فإن تعطلت منافعه، جاز بيعه واستبداله بغيره. استد",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.56
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1778,
+    "end_word": 1795,
+    "text_snippet": "وشبهه بالهَدْىِ الذي يعطب قبل بلوغه مَحله، فإنه ",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1796,
+    "end_word": 1830,
+    "text_snippet": "قال ابن عقيل رحمة الله: \"الوقف مؤبد، فإذا لم يمك",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1831,
+    "end_word": 1852,
+    "text_snippet": "قال شيخ الإسلام \" ابن تيميهَ \" رحمه الله: \"ومع ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1853,
+    "end_word": 1900,
+    "text_snippet": "وذكر رحمه الله أنه يجوز إبدال الوقف، ولو كان مس",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1901,
+    "end_word": 1916,
+    "text_snippet": "وذكر شيخنا عبد الرحمن آل سعدي رحمه الله أنه إذا ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.62
+  }
+]

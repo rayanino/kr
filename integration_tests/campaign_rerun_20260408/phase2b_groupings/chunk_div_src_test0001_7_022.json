@@ -1,0 +1,230 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 51,
+    "text_snippet": "‌‌بَابُ الهَدْي\nالهدي: ما أُهدي إلى البيت الحرام من الإبل، والبقر، والغنم وغيره",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "تعريف الهدي وبيان مقصوده وفضله من جهة الإحسان والقربة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 52,
+    "end_word": 256,
+    "text_snippet": "الحديث الأول\nعَنْ عَائِشَةَ رضي الله عنها قَالَت: فَتَلْتُ قَلائِدَ هَدْي رَسُولِ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "narration",
+      "rule_statement",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث تقليد الهدي وإشعاره وبيان أن باعثه لا يصير محرماً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 257,
+    "end_word": 425,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب بعث الهدي إلى البيت الحرام من البلاد البعيدة ولو ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الأول في بعث الهدي وتقليده وأحكام المُهْدِي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "start_word": 426,
+    "end_word": 507,
+    "text_snippet": "الحديث الثاني\nعَنْ عَائِشَةَ رضي الله عنها قَالَت: أهْدَى النَّبِيُّ صلى الله عليه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "narration",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث إهداء الغنم وبيان جوازه وأن الإبل أكثر هديه وأعظم نفعاً",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      19,
+      20
+    ],
+    "start_word": 508,
+    "end_word": 534,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز إهداء الغنم إلى البيت الشريف.\n2- أن الأكثر من هديه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الثاني في جواز إهداء الغنم وفضل الإبل",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 535,
+    "end_word": 728,
+    "text_snippet": "الحديث الثالث\nعَنْ أَبِي هُرَيْرَةَ رضي الله عنه: أنَّ النَّبِيِّ صلى الله عليه وس",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "rule_statement",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث ركوب البدنة عند الحاجة مع شرح ألفاظه وبيان حكم الانتفاع بالهدي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      31,
+      32
+    ],
+    "start_word": 729,
+    "end_word": 803,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تعظيم العرب لِلْهَدْيِ، واحترامه في قلوبهم. ثم جاء الإسلام ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الثالث في ركوب الهدي وحلبه بشروط الحاجة وعدم الضرر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة في قوله: وهذا أعدل المذاهب، وفيه تجتمع الأدلة، إذ يحتاج معرفة المذاهب والأدلة السابقة تماماً."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 804,
+    "end_word": 1019,
+    "text_snippet": "الحديث الرابع\nعَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رضي الله عنه قَال: أمَرَنِي النَّبِي ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition",
+      "narration",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث التصدق بلحم الهدي وجلودها والنهي عن جعل شيء منها أجرة للجزار",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في شرح الغريب وردت عبارة: وتقدم تعريفها وضبطها، وهي إحالة على موضع سابق خارج الوحدة."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      41,
+      42
+    ],
+    "start_word": 1020,
+    "end_word": 1134,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- مشروعية الهدي، وأنه من فعل النبي صلى الله عليه وسلم.\n2- ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الرابع في التصدق بالهدي ومنع إعطاء الجزار أجرته منه",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      43,
+      44,
+      45,
+      46
+    ],
+    "start_word": 1135,
+    "end_word": 1242,
+    "text_snippet": "الحديث الخامس\nعَنْ زَيَادِ بْنِ جُبَيْرٍ قالَ: رَأَيْتُ ابْنَ عُمَرَ قَدْ أَتَى عَلَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement",
+      "structural_transition"
+    ],
+    "description_arabic": "حديث نحر الإبل قائمة مع بيان الفرق بين نحر الإبل وذبح غيرها",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "start_word": 1243,
+    "end_word": 1377,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- سنة النبي صلى الله عليه وسلم نَحْرُ الإبل قائمة مقيدة لأنه ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "evidence_rational",
+      "structural_transition"
+    ],
+    "description_arabic": "فوائد الحديث الخامس في صفة نحر الإبل وكراهة نحرها باركة ومظهر الرحمة في الشريعة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة خارجية في قوله: التي سبق ذكرها، كما أن الاستشهاد بقول سفيان يشرح لفظاً قرآنياً مذكوراً سابقاً لا بنصه الكامل هنا."
+  }
+]

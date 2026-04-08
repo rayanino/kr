@@ -1,0 +1,51 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 0,
+    "end_word": 195,
+    "text_snippet": "‌‌بَابُ الإبراد في الظهر من شدّة الحَر\nالحديث الأول\nعَنْ عَبدِ الله بنِ عُمَرَ، ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "example",
+      "rule_statement",
+      "evidence_rational"
+    ],
+    "description_arabic": "الحديث في الإبراد بصلاة الظهر مع شرح ألفاظه وبيان معناه وحكمته وتخصيصه لفضل أول الوقت",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      13,
+      14
+    ],
+    "start_word": 196,
+    "end_word": 214,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب تأخير صلاة الظهر في شدة الحر إلى أن يبرد الوقت",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفائدة المستنبطة وهي استحباب تأخير الظهر عند شدة الحر حتى يبرد الوقت",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "النص الأخير مبتور وينتهي عند \"قال\"، فلا تكتمل العبارة أو ما بعدها من التعليل."
+  }
+]

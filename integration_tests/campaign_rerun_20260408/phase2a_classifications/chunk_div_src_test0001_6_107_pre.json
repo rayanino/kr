@@ -1,0 +1,162 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 21,
+    "text_snippet": "فائدة:\nقال شيخ الإسلام رحمه الله تعالى: وأما العز",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 22,
+    "end_word": 98,
+    "text_snippet": "فائدة ثانية:\nوقال أيضا: المرأة إذا تزوجت كان ز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 99,
+    "end_word": 103,
+    "text_snippet": "‌‌بَابُ النّهي عن الخلْوَة بِالأجنبية",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 3,
+    "start_word": 104,
+    "end_word": 132,
+    "text_snippet": "عَنْ عُقْبَةَ بن عَامِر: أنَّ رَسُولَ الله صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 133,
+    "end_word": 155,
+    "text_snippet": "ولـ (مسلم) عن أبى الطَّاهِرِ عنِ ابن وهْبٍ قَال",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 5,
+    "start_word": 156,
+    "end_word": 156,
+    "text_snippet": "الغريب:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.58
+  },
+  {
+    "segment_index": 6,
+    "start_word": 157,
+    "end_word": 174,
+    "text_snippet": "إياكم: مفعول بفعل مضمر، تقديره، اتقُوا الدخول.",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 175,
+    "end_word": 191,
+    "text_snippet": "وتقدير الكلام: قوا أنفسكم أن تدخلوا على النساء",
+    "scholarly_function": "definition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 8,
+    "start_word": 192,
+    "end_word": 199,
+    "text_snippet": "أرأيت الحمو: يعنى أخبرنا عن حكم خلوة الحمو.",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 9,
+    "start_word": 200,
+    "end_word": 233,
+    "text_snippet": "والحمو: بفتح الحاء وضم الميم وبعدها واو لم يهمز",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 234,
+    "end_word": 257,
+    "text_snippet": "الحمو الموت: شبه (الحمو) بالموت، لما يترتب على ",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 11,
+    "start_word": 258,
+    "end_word": 259,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.56
+  },
+  {
+    "segment_index": 12,
+    "start_word": 260,
+    "end_word": 297,
+    "text_snippet": "يحذر النبي صلى الله عليه وسلم من الدخول على ال",
+    "scholarly_function": "narration",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 13,
+    "start_word": 298,
+    "end_word": 368,
+    "text_snippet": "فقال رجل: أخبرنا يا رسول الله، عن الحمو الذي ه",
+    "scholarly_function": "narration",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 14,
+    "start_word": 369,
+    "end_word": 372,
+    "text_snippet": "ما يستفاد من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 373,
+    "end_word": 384,
+    "text_snippet": "1- النهي عن الدخول على الأجنبيات والخلوة بهن، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 16,
+    "start_word": 385,
+    "end_word": 418,
+    "text_snippet": "2- أن ذلك عام في الأجانب من أخي الزوج وأقاربه،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 419,
+    "end_word": 429,
+    "text_snippet": "3- التحريم -هنا- من باب تحريم الوسائل، والوسائ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 18,
+    "start_word": 430,
+    "end_word": 439,
+    "text_snippet": "4- الابتعاد عن مواطن الزلل عامة، خشية الوقوع ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 440,
+    "end_word": 471,
+    "text_snippet": "5- قال شيخ الإسلام: كان عمر بن الخطاب يأمر الع",
+    "scholarly_function": "example",
+    "confidence": 0.76
+  }
+]

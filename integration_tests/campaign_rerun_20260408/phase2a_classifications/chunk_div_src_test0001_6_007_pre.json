@@ -1,0 +1,66 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 13,
+    "text_snippet": "تحسين الهيئة وتنظيف البدن والاحتياط للطهارة،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 1,
+    "start_word": 14,
+    "end_word": 66,
+    "text_snippet": "7- أن ما يفعله الآن الشبان والشابات من تطويل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 67,
+    "end_word": 68,
+    "text_snippet": "اختلاف العلماء:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 3,
+    "start_word": 69,
+    "end_word": 100,
+    "text_snippet": "اتفقت العلماء على استحباب فعل الأشياء المذكورة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 4,
+    "start_word": 101,
+    "end_word": 122,
+    "text_snippet": "والصحيح من هذه الخلافات، أنه واجب، وأن وجوبه ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 123,
+    "end_word": 131,
+    "text_snippet": "فائدة: الختان الشرعي هو قطع القلفة الساترة لحش",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 132,
+    "end_word": 162,
+    "text_snippet": "ويوجد في البلاد المتوحشة من يسلخون - والعياذ ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 163,
+    "end_word": 168,
+    "text_snippet": "وفقنا الله جميعا لاتباع شرعه الطاهر.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.65
+  }
+]

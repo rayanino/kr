@@ -1,0 +1,596 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 29,
+    "text_snippet": "‌‌‌‌بَاب الفرائض\nجمع (فريضة) بمعنى مفروضة و (المفروض) المقدر، لأن (الفرض) ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان معنى الفرائض لغة وشرعًا.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 30,
+    "end_word": 138,
+    "text_snippet": "والأصل فيها، الكتاب لقوله تعالى: {يوصيِكم الله في أولادِكُمُ} الآيتين.\nوالسن",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "evidence_quran",
+      "cross_reference",
+      "editorial_note"
+    ],
+    "description_arabic": "أدلة علم الفرائض من الكتاب والسنة والإجماع ووجه الحكمة فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى حديث ابن عباس الآتي دون ذكر نصه هنا."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      9,
+      10,
+      11
+    ],
+    "start_word": 139,
+    "end_word": 222,
+    "text_snippet": "بعد قسمة (الحكيم الخبير) يأتي دعاة [التجديد] من المستغربين، ليغيروا حكم الله ",
+    "primary_function": "refutation",
+    "secondary_functions": [],
+    "description_arabic": "رد على دعاوى تغيير أحكام المواريث والطعن في عدلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 223,
+    "end_word": 291,
+    "text_snippet": "وهذا العلم علم شريف جليل.\nوقد حث النبي صلى الله عليه وسلم، على تعلمه وتعليمه",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "editorial_note",
+      "cross_reference"
+    ],
+    "description_arabic": "فضل علم الفرائض والحث على تعلمه وكثرة التصنيف فيه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "فيه إحالة إلى حديث ابن عباس الآتي والآيات الثلاث دون استيفاء نصوصها."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 292,
+    "end_word": 367,
+    "text_snippet": "ونورد هنا مقدمات تتعلق بهذا المقام، لتكمل الفائدة في هذا الكتاب، فيغني عن الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_quran",
+      "evidence_hadith"
+    ],
+    "description_arabic": "أسباب الإرث الثلاثة وحصر التوارث فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "start_word": 368,
+    "end_word": 478,
+    "text_snippet": "وللإرث موانع، إذا وجدت أو وجد شيء منها، امتنع الإرث، وإن وجد سببه، لأن الأشياء",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "cross_reference"
+    ],
+    "description_arabic": "موانع الإرث الثلاثة: القتل والرق واختلاف الدين.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "بيان مانع اختلاف الدين مؤجل إلى حديث أسامة الآتي."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29
+    ],
+    "start_word": 479,
+    "end_word": 596,
+    "text_snippet": "الحديث الأول\nعَنْ عَبْدِ الله بن عَباس رضي الله عنهما عَن الَّنبي صلى الله علي",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "حديث ابن عباس ومعناه الإجمالي في إعطاء الفروض ثم الباقي للعصبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      30,
+      31
+    ],
+    "start_word": 597,
+    "end_word": 663,
+    "text_snippet": "\" خلاصة عن الإرث وكيفيته، مسبقاة من القرآن الكريم، ومن هذا الحديث الجليل \"\nنب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تمهيد لخلاصة مسائل الإرث بالبداءة بأصحاب الفروض ثم العصبات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 664,
+    "end_word": 758,
+    "text_snippet": "1- النصف: ويكون للبنت، ولبنت الابن وإن نزل، لقوله تعالى: {وإن كانت واحدة فلها ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "أصحاب فرض النصف وشروط استحقاقه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      36
+    ],
+    "start_word": 759,
+    "end_word": 797,
+    "text_snippet": "2- الربع: ويكون للزوج مع وجود الفرع الوارث، لقوله تعالى: {فإن كان لهن ولد فلكم",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [],
+    "description_arabic": "بيان أصحاب فرض الربع من الزوج والزوجة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      37
+    ],
+    "start_word": 798,
+    "end_word": 815,
+    "text_snippet": "3- الثمن: للزوجة فأكثر، مع وجود الفرع الوارث، لقوله تعالى: {فإن كان لكم ولد فل",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [],
+    "description_arabic": "بيان استحقاق الزوجة فأكثر لفرض الثمن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "start_word": 816,
+    "end_word": 976,
+    "text_snippet": "4- الثلثان: للبنتين ولبنتي الابن، إذا لم يعصَّبن.\nودليل توريثهما الثلثين، حديث",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_qiyas",
+      "evidence_quran",
+      "evidence_ijma"
+    ],
+    "description_arabic": "أصحاب فرض الثلثين وأدلته من الحديث والقياس والقرآن والإجماع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      43,
+      44,
+      45
+    ],
+    "start_word": 977,
+    "end_word": 1014,
+    "text_snippet": "5- والثلث: فرض الأم مع عدم الفرع الوارث للميت، وعدم الجمع من الإخوة.\nفدليل الشر",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "rule_statement"
+    ],
+    "description_arabic": "فرض الأم في الثلث وشروطه ودليلها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      46,
+      47,
+      48,
+      49
+    ],
+    "start_word": 1015,
+    "end_word": 1090,
+    "text_snippet": "وهو فرض الإخوة لأم، من الاثنين فصاعدا، يستوي ذكرهم وأنثاهم، لقوله تعالى: {وإن ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "evidence_ijma",
+      "narration",
+      "rule_statement"
+    ],
+    "description_arabic": "إرث الإخوة لأم في الثلث وبيان المراد بالآية وبعض شروطهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "في عبارة شروطهم وإرثهم شيء من الاختصار والإجمال يحتاج إلى بسط خارجي."
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "start_word": 1091,
+    "end_word": 1204,
+    "text_snippet": "وهو (أي السدس) فرض ولد الأم الواحد، ذكرا كان أو أنثى بإجماع العلماء لقوله تعا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "evidence_hadith",
+      "evidence_qiyas"
+    ],
+    "description_arabic": "مواضع فرض السدس لولد الأم وبنت الابن والأب والجد.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم بعض التفريعات كقياس الأخت لأب مع الشقيقة إلى معرفة أوسع بأبواب الفرائض."
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      55,
+      56
+    ],
+    "start_word": 1205,
+    "end_word": 1266,
+    "text_snippet": "هذه هي الفروض الستة المذكورة في القرآن الكريم، وهؤلاء هم أصحابها وكيفية أخذهم ",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "خاتمة الفروض الستة وبيان أن الباقي بعد الفروض للعصبة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "start_word": 1267,
+    "end_word": 1340,
+    "text_snippet": "وللتعصيب، جهات بعضها أقرب من بعض، فيرثون الميت بحسب قربهم منه.\nوجهات العصوبة، ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "rule_statement",
+      "example",
+      "condition_exception"
+    ],
+    "description_arabic": "جهات العصوبة وترتيب الأقرب فالأقرب فيها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73
+    ],
+    "start_word": 1341,
+    "end_word": 1472,
+    "text_snippet": "ويحجب الورثة بعضهم بعضا حرماناً ونقصانا.\nفالنقصان يدخل على جميعهم. والحرمان لا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "أحكام الحجب في الفرائض وأنواعه وأمثلته بين الورثة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      74
+    ],
+    "start_word": 1473,
+    "end_word": 1498,
+    "text_snippet": "هذه خلاصة سقناها لبيان المواريث بمناسبة شرح هذا الحديث الجامع، وقد أطال العلماء",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه إلى أن المذكور خلاصة مختصرة من باب المواريث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83
+    ],
+    "start_word": 1499,
+    "end_word": 1685,
+    "text_snippet": "الحديث الثاني\nعن أسامة بن زيد قال: قلت يا رسول الله، أتنزل غدا في دارك بمكة؟\nف",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration",
+      "evidence_rational",
+      "editorial_note"
+    ],
+    "description_arabic": "حديث أسامة في منع التوارث بين المسلم والكافر مع شرح علته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      84,
+      85
+    ],
+    "start_word": 1686,
+    "end_word": 1720,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- جواز بيع بيوت مكة، فقد أقر النبي صلى الله عليه وسلم العق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "فائدة فقهية في جواز بيع بيوت مكة وما يتعلق بدلالتها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      86
+    ],
+    "start_word": 1721,
+    "end_word": 1730,
+    "text_snippet": "2- أن المسلم لا يرث الكافر، ولا الكافر يرث المسلم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "قاعدة منع التوارث بين المسلم والكافر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      87
+    ],
+    "start_word": 1731,
+    "end_word": 1745,
+    "text_snippet": "3- أن الإسلام هو أقوى الروابط، وأن اختلاف الدين، هو السبب في حَل العلاقات والص",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اختلاف الدين يقطع رابطة التوارث لقوة رابطة الإسلام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      88
+    ],
+    "start_word": 1746,
+    "end_word": 1808,
+    "text_snippet": "4- قال النووي كلاما مؤداه أن التوارث بين المسلمين والكفار غير جائز عند جماهير ا",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "ذكر خلاف معاذ وسعيد والجواب عنهما في مسألة التوارث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      89,
+      90,
+      91,
+      92
+    ],
+    "start_word": 1809,
+    "end_word": 1884,
+    "text_snippet": "الحديث الثالث\nعَنْ عَبْدِ الله بن عُمَرَ رضي الله عنهما: أنَّ النبي صلى الله عل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "حديث النهي عن بيع الولاء وهبته وبيان معنى الولاء.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "start_word": 1885,
+    "end_word": 1967,
+    "text_snippet": "ما يستفاد من الحديث:\n1- قال ابن دقيق العيد: الولاء حق ثبت بوصف، وهو الإعتاق، ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "opinion_statement"
+    ],
+    "description_arabic": "فوائد حديث الولاء في منعه من النقل وبطلان بيعه وكونه سبب إرث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      98,
+      99,
+      100,
+      101,
+      102,
+      103
+    ],
+    "start_word": 1968,
+    "end_word": 2238,
+    "text_snippet": "الحديث الرابع\nعَنْ عَاِئشَةَ رضي الله عنها قالت: كانت في بريرةَ ثَلاثُ سنن: خير",
+    "primary_function": "narration",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith",
+      "definition"
+    ],
+    "description_arabic": "حديث بريرة وشرح السنن الثلاث المستفادة منه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      104,
+      105
+    ],
+    "start_word": 2239,
+    "end_word": 2280,
+    "text_snippet": "ما يستفاد من الحديث:\n1- أن الأمة إذا عتقت تحت عبد يكون لها الخيار يين البقاء م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "حكم خيار الأمة إذا عتقت تحت عبد وذكر خلاف من عتقت تحت حر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      106
+    ],
+    "start_word": 2281,
+    "end_word": 2297,
+    "text_snippet": "2- فيه يبان اعتبار الكفاءة في النسب بين الزوجين. وأن في موانع التكافؤ بين الزو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "اعتبار الكفاءة وكون الحرية والرق من موانعها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      107
+    ],
+    "start_word": 2298,
+    "end_word": 2325,
+    "text_snippet": "3- أن الفقر إذا تصدق عليه فأهدى من صدقته إلى من لا تحل له الصدقة، من غنى وغيره",
+    "primary_function": "condition_exception",
+    "secondary_functions": [],
+    "description_arabic": "جواز إهداء الفقير من الصدقة لمن لا تحل له بعد تملكها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      108
+    ],
+    "start_word": 2326,
+    "end_word": 2337,
+    "text_snippet": "4- فيه دليل على سؤال صاحب البيت أهله عن شؤون منزله وأحواله.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "مشروعية سؤال صاحب البيت عن أحوال منزله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      109,
+      110
+    ],
+    "start_word": 2338,
+    "end_word": 2377,
+    "text_snippet": "5- وفيه انحصار الولاء بالمعتق، فلا يكون لغيره، ولا يخرج عن أحقيته بحال.\n6- أنه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "انحصار الولاء بالمعتق وكونه سببًا لإرثه وإرث عصبته.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

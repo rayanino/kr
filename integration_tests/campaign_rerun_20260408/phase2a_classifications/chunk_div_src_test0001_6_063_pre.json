@@ -1,0 +1,210 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 30,
+    "text_snippet": "أما المفصلون وهم الذين يرون القضاء في النذر دون",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 1,
+    "start_word": 31,
+    "end_word": 49,
+    "text_snippet": "ونصر \"ابن القيم\" هذا القول في كتابه \"إعلام المو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 50,
+    "end_word": 93,
+    "text_snippet": "وقال: وتعليل حديث ابن عباس الذي قال فيه: \"لا يص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 94,
+    "end_word": 120,
+    "text_snippet": "وبهذا يظهر اتفاق الروايات في هذا الباب، وهو مقت",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 4,
+    "start_word": 121,
+    "end_word": 132,
+    "text_snippet": "ولهذا شبهه النبي صلى الله عليه وسلم بالدَّيْنِ ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 5,
+    "start_word": 133,
+    "end_word": 169,
+    "text_snippet": "ثم قال أيضاً: وسر الفرق أن النذر التزام المكلف ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 170,
+    "end_word": 181,
+    "text_snippet": "بخلاف واجبات الشرع فإنها على قدر طاقة البدن ا. ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 7,
+    "start_word": 182,
+    "end_word": 182,
+    "text_snippet": "فائدة:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 8,
+    "start_word": 183,
+    "end_word": 195,
+    "text_snippet": "قضاء وَلِيِّه عنه من باب الاستحباب عند جماهير ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 196,
+    "end_word": 212,
+    "text_snippet": "وقالت الحنابلة: إن كان الميت خلف تركة، وجب القضا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 213,
+    "end_word": 214,
+    "text_snippet": "الحديث الثامن",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 215,
+    "end_word": 304,
+    "text_snippet": "عَنْ عَبْدِ الله بِنِ عَبَّاس رضي الله عنهما قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 305,
+    "end_word": 408,
+    "text_snippet": "المعنى الإجمالي:\nوقع في هذا الحديث روايتان، والظ",
+    "scholarly_function": "narration",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 13,
+    "start_word": 409,
+    "end_word": 560,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- عموم الرواية الأولى تفيد أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 14,
+    "start_word": 561,
+    "end_word": 562,
+    "text_snippet": "الحديث التاسع",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 563,
+    "end_word": 588,
+    "text_snippet": "عَنْ سَهْلِ بِنْ سَعْدٍ السَّاعِدِي رضي الله عنه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 589,
+    "end_word": 673,
+    "text_snippet": "المعنى الإجمالي:\nالشارع الحكيم يحث على تمييز الع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 17,
+    "start_word": 674,
+    "end_word": 727,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- استحباب تعجيل الفطر إذا تح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 18,
+    "start_word": 728,
+    "end_word": 738,
+    "text_snippet": "فاٍن تأخير الإفطار عمل به الشيعة، الذين هم إحدى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 19,
+    "start_word": 739,
+    "end_word": 752,
+    "text_snippet": "وليس لهم قدوة في ذلك إلا اليهود، الذين لا يفطرون",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 20,
+    "start_word": 753,
+    "end_word": 754,
+    "text_snippet": "الحديث العاشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 21,
+    "start_word": 755,
+    "end_word": 777,
+    "text_snippet": "عَنْ عُمَرَ بْنِ الْخَطَابِ رضي الله عنه قال:\nقال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 22,
+    "start_word": 778,
+    "end_word": 846,
+    "text_snippet": "المعنى الإجمالي:\nتقدم أن وقت الصيام الشرعي، من ط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 23,
+    "start_word": 847,
+    "end_word": 890,
+    "text_snippet": "ما يؤخذ من الحديث:\n1-استحباب تعجيل الفطر، إذا تح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 24,
+    "start_word": 891,
+    "end_word": 959,
+    "text_snippet": "3-قوله: \" فقد أفطر الصائم \" يحتمل معنيين:\nأ- إما",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 960,
+    "end_word": 993,
+    "text_snippet": "4-ينبني على هذين المعنيين حكم الوصال.\nفإن قلنا: ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.87
+  }
+]
