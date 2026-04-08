@@ -123,9 +123,11 @@ DECONTEXTUALIZATION PREVENTION (critical):
   understood on its own
 - Evidence stays with its ruling ONLY when: (a) syntactically embedded in \
 the same sentence, (b) splitting would break dialogue/refutation integrity, \
-or (c) the evidence is a brief parenthetical (≤15 words). Otherwise, split \
-evidence by type (quran/hadith/ijma/rational) into separate units with \
-relationship links back to the ruling (FP-24).
+(c) the evidence is a brief parenthetical (≤15 words), \
+(d) composite proof where the ruling depends on COMBINING multiple verses, or \
+(e) a hadith explains/restricts/specifies a Quranic verse (they form one unit). \
+Otherwise, split evidence by type (quran/hadith/ijma/rational) into separate \
+units with relationship links back to the ruling (FP-24).
 - A condition and its exception (rule + إلا clause) belong together
 - A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
   selects among competing positions should remain with the alternatives it
@@ -227,8 +229,13 @@ Each evidence unit gets a related_units entry with type "evidence_for" \
 pointing to the ruling unit. A brief enumeration header ("وحكمه ثابت في \
 الكتاب والسنة والإجماع") stays with the ruling unit — it is a general \
 statement, not evidence. Evidence stays with the ruling ONLY when: \
-(a) embedded in the same sentence, (b) ≤15 words and parenthetical, or \
-(c) splitting would break dialogue integrity.
+(a) embedded in the same sentence, (b) ≤15 words and parenthetical, \
+(c) splitting would break dialogue integrity, \
+(d) composite proof (دلالة الاقتران): a ruling derived from the COMBINATION \
+of multiple verses — e.g. deriving minimum pregnancy (6 months) from \
+two verses whose combination establishes the ruling — MUST stay together, or \
+(e) cross-type interdependence: a hadith that explains (مبين), restricts \
+(مقيد), or specifies (مخصص) a Quranic verse forms one unit with that verse.
 - PROOF STRUCTURE: Scholars present proofs in 3 phases: (1) cite the proof, \
 (2) explain it, (3) defend/refute objections. Phases 1+2 belong together \
 (proof + explanation = one unit). Phase 3 (refutations/ردود) MAY be a \
