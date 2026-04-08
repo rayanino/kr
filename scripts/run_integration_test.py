@@ -630,6 +630,7 @@ def run_pipeline(
     backend: str = "api",
     traces_dir: Optional[Path] = None,
     concurrency: int = 1,
+    div_id: Optional[str] = None,
 ) -> int:
     """Execute the full excerpting pipeline and save all artifacts.
 
@@ -930,8 +931,35 @@ def run_pipeline(
     logger.info("Phase 1 produced %d chunks", len(chunks))
     _serialize_chunks(chunks, output_dir)
 
-    # Truncate chunk list for LLM phases if --max-chunks is set.
+    # Filter to a single division if --div-id is set.
     # Phase 1 artifacts (phase1_chunks.json) already serialized above with ALL chunks.
+    if div_id is not None:
+        original_count = len(chunks)
+        all_div_ids = sorted({c.div_id for c in chunks})
+        chunks = [c for c in chunks if c.div_id == div_id]
+        logger.info(
+            "--div-id=%s: filtered to %d of %d chunks",
+            div_id, len(chunks), original_count,
+        )
+        if not chunks:
+            logger.error(
+                "--div-id=%s matched 0 of %d chunks. "
+                "Available div_ids (first 20): %s",
+                div_id, original_count, all_div_ids[:20],
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=[f"--div-id={div_id} matched no chunks"],
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=0,
+                gate_count=0,
+            )
+            return 1
+
+    # Truncate chunk list for LLM phases if --max-chunks is set.
     if max_chunks is not None:
         original_count = len(chunks)
         chunks = chunks[:max_chunks]
@@ -1701,6 +1729,13 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default=1,
         help="Max concurrent LLM calls (default: 1 = sequential)",
     )
+    parser.add_argument(
+        "--div-id",
+        type=str,
+        default=None,
+        help="Filter to a single division ID (e.g. div_src_test0001_1_002_pre). "
+        "Only chunks matching this div_id will be processed in Phases 2-3.",
+    )
     args = parser.parse_args(argv)
 
     # Default output dir with timestamp
@@ -1734,6 +1769,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"Output dir:      {args.output_dir.resolve()}")
     print(f"Mock mode:       {args.mock}")
     print(f"Max chunks:      {args.max_chunks or 'all'}")
+    print(f"Div ID filter:   {args.div_id or 'none'}")
     print(f"Backend:         {args.backend}")
     print(f"Traces:          {args.traces or 'disabled'}")
     print(f"Concurrency:     {args.concurrency}")
@@ -1760,6 +1796,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         backend=args.backend,
         traces_dir=args.traces,
         concurrency=args.concurrency,
+        div_id=args.div_id,
     )
 
 

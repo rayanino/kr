@@ -192,12 +192,14 @@ def _reindex_related_units(
         for rel in unit.related_units:
             new_target = old_to_new.get(rel.target_unit_index)
             if new_target is None:
-                # Target was absorbed — drop the link
-                logger.debug(
+                # Target was absorbed — drop the link. This is a data loss
+                # event for scholarly structure; warn so operators can detect it.
+                logger.warning(
                     "Dropped related_unit link: unit %d → old target %d "
-                    "(absorbed during merge).",
+                    "(absorbed during merge, relationship=%s).",
                     unit.unit_index,
                     rel.target_unit_index,
+                    rel.relationship.value,
                 )
                 continue
             if new_target == unit.unit_index:
@@ -380,8 +382,18 @@ def merge_subviable_units(
         text = assembled_text[char_s:char_e]
         return any(marker in text for marker in _ISNAD_MARKERS)
 
+    # DR40: protect both ends of relationship links from merge.
+    # A unit is protected if it HAS links OR if another unit TARGETS it.
+    linked_targets = {
+        rel.target_unit_index
+        for u in units
+        for rel in u.related_units
+    }
     subviable = [
-        word_count(u) < _MV1_WORD_FLOOR and not _unit_has_isnad(u)
+        word_count(u) < _MV1_WORD_FLOOR
+        and not _unit_has_isnad(u)
+        and not u.related_units  # DR40: units with outgoing links
+        and u.unit_index not in linked_targets  # DR40: units targeted by links
         for u in units
     ]
 

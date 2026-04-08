@@ -52,6 +52,32 @@
 - **DR archives:** ChatGPT DR at `downloads/deep-research-report (19).md`, Claude DR at `downloads/compass_artifact_wf-ae430a21-...md`
 - **Budget:** EUR 0.00 this session (evaluating existing data)
 
+### Session 21 — DR40 Smoke Test + MV-1 Merge Conflict Fix (2026-04-08)
+
+**DR40 split rules work correctly in LLM Phase 2b — but Phase 3 MV-1 merge was destroying them. Fixed.**
+
+**Smoke test findings:**
+- **كتاب الطهارة smoke (7 excerpts):** DR40 companion_definition link emitted correctly on النية definition pair. One inaccurate link target description (MEDIUM — enrichment error, not structural). Evidence splitting NOT triggered (correct — no multi-type evidence in this chapter).
+- **كتاب الطلاق smoke v1 (11 excerpts):** Phase 2b (LLM) correctly split the definition pair (لغة/شرعا) AND evidence types (Quran/Sunnah/Ijma) into separate units with relationship links — EXACTLY matching the owner's rejected output expectations. BUT Phase 3 merge_subviable_units() merged ALL 6 split units (7-20 words each) back into one 172-word mega-excerpt, undoing the LLM's correct work.
+- **Root cause:** MV-1 (25-word floor) treats any unit < 25 words as a fragment to merge. DR40 split rules intentionally produce sub-25-word units (a 7-word Quranic citation is a complete teaching unit when linked to its ruling). MV-1 had no exemption for relationship-linked units.
+
+**Fix applied:**
+- `phase3_deterministic.py` line 385: added `and not u.related_units` exemption alongside existing isnad exemption
+- 2 new regression tests: `test_related_units_preserved_despite_subviable` (definition pair), `test_evidence_split_units_preserved_despite_subviable` (evidence types)
+- Fixed pre-existing pyright errors in test file (missing `Optional` import, `TeachingUnit` import)
+- **1008 tests, 0 failures, 4 xfailed. All pyright clean.**
+
+**Talaq smoke v2 running** with fix applied — expected to produce ~20 excerpts instead of 11.
+
+**Integration test runner:** Added `--div-id` argument to `scripts/run_integration_test.py` for targeting specific divisions without processing the entire package.
+
+**Coworker dispatch prompts prepared** (via /prompt-architect): Gemini CLI (Arabic scholarly accuracy of split rules) + Codex CLI (structural/contract review). Awaiting dispatch.
+
+**Immediate next steps:**
+1. **Analyze talaq v2 smoke results** — verify the 2 owner-rejected excerpts now produce correct granularity
+2. **Dispatch coworkers** — Gemini CLI + Codex CLI prompts ready (optimized via prompt-architect)
+3. **Full campaign rerun** to measure impact on all 1,491 excerpts (after coworker validation)
+
 ### Session 20 — DR40 Granularity Calibration Implementation (2026-04-08)
 
 **All 5 DR40 decisions implemented: SPEC + contracts + prompts + tests. Owner feedback gap CLOSED.**
@@ -70,7 +96,7 @@
 - **Budget:** EUR 0.00 (all deterministic)
 
 **Immediate next steps:**
-1. **Smoke test** the taysir talaq chapter with updated prompts — verify the 2 rejected excerpts now split correctly
+1. ~~**Smoke test** the taysir talaq chapter with updated prompts~~ ✅ Done (Session 21)
 2. **Dispatch coworkers** — Gemini CLI for Arabic scholarly accuracy of split rules, Codex CLI for contract review
 3. **Full campaign rerun** to measure impact on all 1,491 excerpts
 

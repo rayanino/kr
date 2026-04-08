@@ -7,6 +7,8 @@ design decisions DD-S3-1 through DD-S3-9.
 from __future__ import annotations
 
 import logging
+from typing import Optional
+
 import pytest
 
 from engines.excerpting.contracts import (
@@ -18,6 +20,7 @@ from engines.excerpting.contracts import (
     ScholarlyFunction,
     SelfContainmentLevel,
     SplitInfo,
+    TeachingUnit,
 )
 from engines.excerpting.src.phase3_deterministic import (
     _is_bare_micro_unit,
@@ -3703,10 +3706,8 @@ def _make_unit(
     end: int,
     snippet: str,
     func: ScholarlyFunction = ScholarlyFunction.DEFINITION,
-) -> "TeachingUnit":
+) -> TeachingUnit:
     """Helper: create a TeachingUnit for merge tests."""
-    from engines.excerpting.contracts import TeachingUnit
-
     return TeachingUnit(
         unit_index=index,
         segment_indices=[index],
@@ -4011,6 +4012,141 @@ class TestMergeSubviableUnits:
         result = merge_subviable_units(units, text)
         # Isnad preserved as separate unit despite being sub-viable
         assert len(result) == 2
+
+    def test_related_units_preserved_despite_subviable(self) -> None:
+        """Sub-viable units with related_units links must NOT be merged (DR40).
+
+        Regression: talaq chapter definition pair (لغة/شرعا) and evidence
+        splits are intentionally sub-viable. The LLM splits them per FP-24/25,
+        and MV-1 merge must respect the relationship links.
+        Owner rejection 2026-03-31: merged evidence destroyed the comparative
+        taxonomy value the owner needs.
+        """
+        from engines.excerpting.contracts import (
+            RelationshipType,
+            UnitRelationship,
+        )
+
+        # Simulate talaq definition pair: لغة (12 words) + شرعا (20 words)
+        lughawi = "الطلاق في اللغة حل الوثاق مشتق من الإطلاق وهو الترك والإرسال"
+        shari = "وفي الشرع حل عقدة التزويج والتعريف الشرعي فرد من معناه اللغوي العام قال إمام الحرمين هو لفظ جاهلي ورد الشرع بتقريره"
+        viable = " ".join(["والأصل"] + ["في"] * 12 + ["الطلاق"] * 12 + ["الكراهة"])
+        text = f"{lughawi} {shari} {viable}"
+        lughawi_words = len(lughawi.split())  # 12
+        shari_words = len(shari.split())  # 20
+
+        unit_0 = _make_unit(0, 0, lughawi_words - 1, lughawi[:80])
+        unit_0 = unit_0.model_copy(update={
+            "related_units": [
+                UnitRelationship(
+                    target_unit_index=1,
+                    relationship=RelationshipType.COMPANION_DEFINITION,
+                    description="التعريف الشرعي المقابل",
+                )
+            ]
+        })
+        unit_1 = _make_unit(
+            1, lughawi_words, lughawi_words + shari_words - 1, shari[:80]
+        )
+        unit_1 = unit_1.model_copy(update={
+            "related_units": [
+                UnitRelationship(
+                    target_unit_index=0,
+                    relationship=RelationshipType.COMPANION_DEFINITION,
+                    description="التعريف اللغوي المقابل",
+                )
+            ]
+        })
+        unit_2 = _make_unit(
+            2, lughawi_words + shari_words, len(text.split()) - 1, viable[:80]
+        )
+
+        result = merge_subviable_units([unit_0, unit_1, unit_2], text)
+        # Both definition units preserved despite being sub-viable
+        assert len(result) == 3, (
+            f"Expected 3 units (definition pair + viable), got {len(result)}. "
+            f"DR40 related_units exemption not working."
+        )
+        # Relationship links survive
+        assert len(result[0].related_units) == 1
+        assert result[0].related_units[0].relationship == RelationshipType.COMPANION_DEFINITION
+
+    def test_evidence_split_units_preserved_despite_subviable(self) -> None:
+        """Sub-viable evidence units linked to ruling must NOT be merged (DR40).
+
+        Regression: talaq evidence types (Quran 7w, Sunnah 19w, Ijma 18w)
+        were all below MV-1 and got merged back into the ruling, destroying
+        the per-evidence-type granularity the owner needs.
+        """
+        from engines.excerpting.contracts import (
+            RelationshipType,
+            UnitRelationship,
+        )
+
+        ruling = " ".join(["وحكمه"] + ["ثابت"] * 12 + ["في"] * 12 + ["الكتاب"])
+        quran = "فأما الكتاب فنحو الطلاق مرتان وغيرها"  # 7 words
+        sunnah = "وأما السنة فقوله صلى الله عليه وسلم أبغض الحلال إلى الله الطلاق وغيره من فعله وتقريره"  # 16 words
+        text = f"{ruling} {quran} {sunnah}"
+        ruling_words = len(ruling.split())
+
+        unit_ruling = _make_unit(
+            0, 0, ruling_words - 1, ruling[:80],
+            func=ScholarlyFunction.RULE_STATEMENT,
+        )
+        unit_ruling = unit_ruling.model_copy(update={
+            "related_units": [
+                UnitRelationship(
+                    target_unit_index=1,
+                    relationship=RelationshipType.EVIDENCE_FOR,
+                    description="الدليل من القرآن",
+                ),
+                UnitRelationship(
+                    target_unit_index=2,
+                    relationship=RelationshipType.EVIDENCE_FOR,
+                    description="الدليل من السنة",
+                ),
+            ]
+        })
+
+        quran_start = ruling_words
+        quran_words = len(quran.split())
+        unit_quran = _make_unit(
+            1, quran_start, quran_start + quran_words - 1, quran[:80],
+            func=ScholarlyFunction.EVIDENCE_QURAN,
+        )
+        unit_quran = unit_quran.model_copy(update={
+            "related_units": [
+                UnitRelationship(
+                    target_unit_index=0,
+                    relationship=RelationshipType.EVIDENCE_FOR,
+                    description="يدعم حكم ثبوت الطلاق",
+                )
+            ]
+        })
+
+        sunnah_start = quran_start + quran_words
+        sunnah_words = len(sunnah.split())
+        unit_sunnah = _make_unit(
+            2, sunnah_start, sunnah_start + sunnah_words - 1, sunnah[:80],
+            func=ScholarlyFunction.EVIDENCE_HADITH,
+        )
+        unit_sunnah = unit_sunnah.model_copy(update={
+            "related_units": [
+                UnitRelationship(
+                    target_unit_index=0,
+                    relationship=RelationshipType.EVIDENCE_FOR,
+                    description="يدعم حكم ثبوت الطلاق",
+                )
+            ]
+        })
+
+        result = merge_subviable_units(
+            [unit_ruling, unit_quran, unit_sunnah], text,
+        )
+        assert len(result) == 3, (
+            f"Expected 3 units (ruling + quran + sunnah), got {len(result)}. "
+            f"DR40 evidence_for exemption not working."
+        )
 
 
 # ═══════════════════════════════════════════════════════════════════

@@ -1952,11 +1952,17 @@ Context-fill is PROHIBITED when:
 4. The شرعا unit MUST NOT begin with a bare fragment like "وفي الشرع..." — include enough bridging text so the unit is independently comprehensible (C-SC-2). Minimum: repeat the definiendum. Example: acceptable start = "الطلاق في الشرع: حَل عقدة التزويج"; unacceptable start = "وفي الشرع: حَل عقدة التزويج" (leaves reader asking "what in الشرع?").
 5. Both units carry `companion_definition` relationship links (FP-23) to each other.
 
-**Detection signals:** The pair is signaled by markers: في اللغة / لغة followed within the same division by في الشرع / شرعا / اصطلاحا. Not every occurrence of لغة/شرعا triggers this rule — only when both appear in a paired definitional structure for the same term.
+**Detection signals:** The pair is signaled by markers in one of these paired patterns:
+- في اللغة / لغة followed by في الشرع / شرعا (most common in fiqh)
+- لغة followed by اصطلاحا (common in usul al-fiqh and mustalah al-hadith)
+- حقيقة followed by مجازا (common in usul al-fiqh and balagha)
+- شرعا followed by عرفا (when distinguishing shar'i vs customary meaning)
+
+Not every occurrence of these markers triggers this rule — only when both appear in a paired definitional structure for the same term. (Expanded from Gemini CLI review, Session 21.)
 
 **Exemption:** When the linguistic and technical definitions are so intertwined that they share a single sentence with no natural split point, the pair stays as one unit with `secondary_functions: [definition]` and a note in `self_containment_notes` explaining the fusion. This should be rare — most paired definitions have a clear sentence boundary.
 
-(DR40 decision 2; owner rejection 1, 2026-03-31.)
+(DR40 decision 2; owner rejection 1, 2026-03-31. Detection signals expanded Session 21 per Gemini CLI review.)
 
 ### §6.25 — Evidence Type Splitting (EV-SPLIT-1)
 
@@ -1974,10 +1980,12 @@ Context-fill is PROHIBITED when:
 - (a) The evidence is syntactically embedded in the ruling sentence (no sentence boundary between them).
 - (b) The evidence is a brief parenthetical citation (≤15 words) with no independent study value.
 - (c) Splitting would break dialogue/refutation integrity (FP-14).
+- (d) Composite proof (دلالة الاقتران): when a scholar derives a ruling from the *combination* of multiple verses — not independently — splitting per-ayah destroys the argument. Example: deriving minimum pregnancy duration from {وحمله وفصاله ثلاثون شهرا} + {وفصاله في عامين}. (Gemini CLI review, Session 21.)
+- (e) Cross-type interdependence: when a hadith explains (مبين), restricts (مقيد), or specifies (مخصص) a Quranic verse, they form a single argument unit. Example: {مِن بَعْدِ وَصِيَّةٍ} + "لا وصية لوارث" — the hadith specifies the verse's general scope. Splitting would remove the تخصيص context. (Gemini CLI review, Session 21.)
 
 **Self-containment for split evidence units:** Each evidence unit must identify what ruling it supports, either through the relationship link metadata or through sufficient in-text context. An evidence unit that says "فأما الكتاب فنحو..." without identifying *what* is being proven is PARTIAL (C-SC-2 violation). The context_hint field should carry "evidence for [ruling description]."
 
-(DR40 decision 1; owner rejection 2, 2026-03-31. PS-1 amended accordingly.)
+(DR40 decision 1; owner rejection 2, 2026-03-31. PS-1 amended accordingly. Exemptions d-e added Session 21 per Gemini CLI review.)
 
 ---
 
