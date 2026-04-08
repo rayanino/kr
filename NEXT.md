@@ -2,9 +2,23 @@
 
 ---
 
-## IMMEDIATE STATE (updated 2026-04-01)
+## IMMEDIATE STATE (updated 2026-04-08)
 
-### Phase 0 Status: QUESTIONNAIRE DELIVERED
+### Autonomous System: UNIFIED & OPERATIONAL
+
+Session 16 (2026-04-08) connected three disconnected autonomous systems into one launcher:
+- `python scripts/launch_autonomous.py --hours 7` — runs everything
+- See `docs/autonomous-system/SYSTEM_MAP.md` for full architecture
+- First overnight run completed: 3/4 tasks, 10 findings ingested into KB [PRELIMINARY — single Codex source]
+- **Next:** Build auto-verification into the bridge (dispatch Gemini CLI on HIGH+ findings before marking confirmed)
+- **Next:** Fix launcher summary cosmetic (shows 0 when orchestrator hook already ingested)
+- **Next:** Increase val-contracts timeout (15m too short)
+
+### Taysir V2: FAILED (batch timeout, 124/179 consensus)
+
+Taysir v2 run FAILED on 2026-04-01 (batch timeout at 8h, $42.82 spent). 124/179 consensus chunks completed. No `excerpts.jsonl`. See `STALL_REPORT.md`. The `--max-chunks` flag was not passed (operator error, not code bug). CJ-2/CJ-3 questionnaire slots remain blank until taysir completes or is resumed (~$5 for remaining 55 chunks).
+
+### Phase 0 Status: QUESTIONNAIRE DELIVERED (0/40 answered)
 
 The owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md` (~40 interactions, 15-25 hours across multiple sessions). CC does NOT wait idly. Concurrent work continues below.
 
@@ -46,11 +60,15 @@ The owner is filling in `integration_tests/questionnaire/OWNER_QUESTIONNAIRE.md`
 |---------|--------|----------|--------|------|------|
 | ibn_aqil_v1 | COMPLETE | 241 | 3 (2x EX-V-002, 2 chunk failures) | $4.40 | 44 min |
 | ibn_aqil_v3 | COMPLETE | 278 | 6 (5x EX-V-002, 1 chunk failure) | $4.30 | 45 min |
-| taysir | IN PROGRESS | pending | 0 so far | pending | ongoing |
+| ext_39_masala | COMPLETE | 200 | 3 (3x EX-V-002) | $3.27 | 39 min |
+| ext_46_qa | COMPLETE | 277 | 13 (1 chunk failure, 12x EX-V-002) | $4.30 | 46 min |
+| taysir | **FAILED** | 0 | batch_timeout (8h) | $42.82 | 8h |
 
-**Taysir status check:** 509 progress entries (504 done, 0 errors). Phase 2a: 180 classifications. Phase 2b: 179 groupings. Phase 3 enrichment: 145 done. No `excerpts.jsonl` or `SUMMARY.json` yet -- run is still in pipeline. Check `integration_tests/smoke_api_v2/taysir/progress.jsonl` for live status.
+**Taysir failure:** Batch timeout after 8h. 124/179 phase3_consensus chunks completed. No `excerpts.jsonl`. See `integration_tests/smoke_api_v2/taysir/STALL_REPORT.md`. Root cause: `--max-chunks` flag was not passed, so all 184 chunks were processed instead of intended 2. The flag implementation IS correct — operator error.
 
-**When taysir completes:** CC automatically updates SUMMARY.json, fills CJ-2/CJ-3 placeholders, and logs the completion.
+**To resume taysir:** ~55 consensus chunks remaining, ~$5 incremental cost. Requires manual run with `--resume` flag.
+
+**When taysir completes:** CC fills CJ-2/CJ-3 placeholders and logs completion.
 
 **Output location:** `integration_tests/smoke_api_v2/` -- NEVER overwrite or delete this directory.
 
