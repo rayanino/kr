@@ -24,10 +24,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from scripts.autonomous_schemas import (
     Contradiction,
     DRResponse,
-    DRTarget,
     DigestionRecord,
     Finding,
-    FindingSeverity,
     append_jsonl,
     read_jsonl,
 )
@@ -283,6 +281,7 @@ def build_digestion_record(
         section_count=section_count,
         finding_count=len(findings),
         contradiction_count=len(contradictions),
+        digestion_version="2.0",
         status=verdict.lower(),
     )
 

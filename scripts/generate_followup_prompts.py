@@ -15,7 +15,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import logging
 import sys
 from pathlib import Path
@@ -62,16 +61,19 @@ _CATEGORY_PREFERENCE: dict[ResearchCategory, DRTarget] = {
 
 
 def route_provider(
-    original_source_id: str, category: ResearchCategory,
+    original_source: DRTarget | None, category: ResearchCategory,
 ) -> DRTarget:
     """Pick the best provider for a follow-up prompt.
 
-    Prefers category-based routing, but never routes back to the same
-    provider that produced the original finding.
+    Uses category preference but NEVER routes back to the original source
+    (Gemini finding #6: enforce cross-model confirmation).
     """
-    # Parse original source from source_id (e.g., "DR40" doesn't encode provider)
-    # Fall back to category preference
     preferred = _CATEGORY_PREFERENCE.get(category, DRTarget.GEMINI)
+
+    # If preferred == original source, use cross-model route instead
+    if original_source is not None and preferred == original_source:
+        return _CROSSMODEL_ROUTES.get(original_source, DRTarget.CLAUDE)
+
     return preferred
 
 
@@ -104,9 +106,10 @@ def needs_followup(finding: Finding) -> bool:
 
 def finding_to_prompt(
     finding: Finding, batch: str, prompt_counter: int,
+    original_provider: DRTarget | None = None,
 ) -> DRPrompt:
     """Convert a finding into a follow-up DR prompt."""
-    target = route_provider(finding.source_id, finding.category)
+    target = route_provider(original_provider, finding.category)
 
     # Build the prompt text
     context_parts = [
@@ -155,7 +158,9 @@ def finding_to_prompt(
         topic=f"Follow-up: {finding.title[:80]}",
         prompt_text=prompt_text,
         unblocks=f"Resolution of {finding.finding_id}",
+        file_bundle=None,
         estimated_minutes=20,
+        dedup_hash="",
         batch=batch,
     )
 
@@ -221,6 +226,8 @@ def contradiction_to_prompt(
         priority=Priority.HIGH,
         topic=f"Resolve contradiction: {contradiction.topic[:60]}",
         prompt_text="\n".join(parts),
+        file_bundle=None,
+        dedup_hash="",
         unblocks=f"Resolution of {contradiction.contradiction_id}",
         estimated_minutes=25,
         batch=batch,
@@ -269,6 +276,16 @@ def generate_followups(
     findings: list[Finding] = [f for f in findings_raw if isinstance(f, Finding)]
     findings_by_id = {f.finding_id: f for f in findings}
 
+    # Load DR responses to resolve finding -> provider mapping
+    responses_path = FINDINGS_JSONL.parent / "dr_responses.jsonl"
+    dr_provider_map: dict[str, DRTarget] = {}
+    if responses_path.exists():
+        from scripts.autonomous_schemas import DRResponse
+        resp_raw = read_jsonl(responses_path, DRResponse)
+        for r in resp_raw:
+            if isinstance(r, DRResponse):
+                dr_provider_map[r.response_id] = r.source
+
     # Load contradictions
     contras_raw = read_jsonl(CONTRADICTIONS_JSONL, Contradiction)
     contradictions: list[Contradiction] = [
@@ -282,7 +299,8 @@ def generate_followups(
     # From findings needing follow-up
     for f in findings:
         if needs_followup(f):
-            new_prompts.append(finding_to_prompt(f, batch, counter))
+            original_provider = dr_provider_map.get(f.source_id)
+            new_prompts.append(finding_to_prompt(f, batch, counter, original_provider))
             counter += 1
 
     # From unresolved contradictions

@@ -159,7 +159,7 @@ def digest_batch(
             logger.info("Skipping %s — already digested", dr_id)
             continue
 
-        response, findings, verdict = digest_single(
+        _, findings, verdict = digest_single(
             md_file, dr_id, followup_batch=followup_batch,
         )
         results.append((dr_id, verdict, len(findings)))

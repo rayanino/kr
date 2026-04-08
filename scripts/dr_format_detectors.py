@@ -62,13 +62,9 @@ def detect_provider(text: str) -> DetectionResult:
         scores[DRTarget.CLAUDE] += 0.2
         signals[DRTarget.CLAUDE].append("lettered sub-headings")
 
-    # Gemini signals — embedded Arabic with diacritics (tashkeel)
-    arabic_with_diacritics = len(re.findall(
-        r"[\u0600-\u06FF][\u0610-\u065F]", text
-    ))
-    if arabic_with_diacritics > 5:
-        scores[DRTarget.GEMINI] += 0.4
-        signals[DRTarget.GEMINI].append(f"Arabic with diacritics: {arabic_with_diacritics}")
+    # Gemini signals — Arabic diacritics removed as provider signal per Gemini
+    # review finding #3: Claude scholarly DRs also contain heavy tashkeel.
+    # Diacritics are domain-dependent, not provider-dependent.
 
     # Gemini dual-language headings: ### N. English / Arabic
     dual_headings = len(re.findall(
@@ -160,13 +156,31 @@ _RECOMMENDATION_KW = [
     "add", "remove", "fix", "update", "create", "replace",
     "needs to", "required", "ensure", "the engine must",
     "the system should", "the pipeline must",
+    # Arabic scholarly recommendation signals (Gemini finding #8)
+    "\u064a\u062c\u0628 \u0623\u0646",    # يجب أن (must)
+    "\u0646\u0648\u0635\u064a",            # نوصي (we recommend)
+    "\u062a\u0639\u062f\u064a\u0644",      # تعديل (modification needed)
+    "\u0625\u0636\u0627\u0641\u0629",      # إضافة (addition needed)
+    "\u064a\u0646\u0628\u063a\u064a",      # ينبغي (should)
+    "\u064a\u0633\u062a\u062d\u0633\u0646",  # يستحسن (it is better)
+    "\u0627\u0644\u0623\u0648\u0644\u0649", # الأولى (preferable)
+    "\u0627\u0644\u0635\u0648\u0627\u0628", # الصواب (the correct view is)
 ]
 
-_QUESTION_KW = ["?", "\u061F", "unclear whether", "further research", "unknown"]
+_QUESTION_KW = [
+    "?", "\u061F", "unclear whether", "further research", "unknown",
+    "\u0647\u0644",   # هل (is/does — Arabic question particle)
+]
 
 _EVIDENCE_KW = [
     "for example", "e.g.", "such as", "specifically",
     "cite", "according to", "in the text", "the hadith",
+    # Arabic evidence signals
+    "\u062f\u0644\u064a\u0644",    # دليل (evidence/proof)
+    "\u0628\u0631\u0647\u0627\u0646",  # برهان (proof)
+    "\u0642\u0627\u0644",         # قال (he said — citation formula)
+    "\u0631\u0648\u0649",         # روى (he narrated)
+    "\u0630\u0643\u0631",         # ذكر (he mentioned)
 ]
 
 

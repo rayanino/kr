@@ -19,6 +19,7 @@ import hashlib
 import logging
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
@@ -43,12 +44,20 @@ CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
 # Text similarity — Jaccard on word trigrams (no LLM, deterministic)
 # ═══════════════════════════════════════════════════════════════════
 
-_WORD_RE = re.compile(r"[a-zA-Z\u0600-\u06FF]{3,}", re.UNICODE)
+# Gemini review finding #1: include Arabic presentation forms
+_WORD_RE = re.compile(
+    r"[a-zA-Z\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]{3,}",
+    re.UNICODE,
+)
 
 
 def _tokenize(text: str) -> list[str]:
-    """Extract lowercase words (3+ chars, Latin + Arabic)."""
-    return [m.group().lower() for m in _WORD_RE.finditer(text)]
+    """Extract lowercase words (3+ chars, Latin + Arabic + presentation forms).
+
+    NFC-normalizes first to ensure composed diacritics match (Gemini finding #4).
+    """
+    normalized = unicodedata.normalize("NFC", text)
+    return [m.group().lower() for m in _WORD_RE.finditer(normalized)]
 
 
 def _trigrams(tokens: list[str]) -> set[tuple[str, str, str]]:
@@ -99,12 +108,25 @@ def file_overlap(a: Finding, b: Finding) -> float:
 _POSITIVE_SIGNALS = [
     "should", "must", "implement", "add", "create", "enable",
     "recommend", "adopt", "use", "include", "keep",
+    # Arabic scholarly positive signals (Gemini finding #7)
+    "\u064a\u062c\u0628",       # يجب (must/obligatory)
+    "\u064a\u0646\u0628\u063a\u064a",  # ينبغي (should)
+    "\u064a\u062c\u0648\u0632",  # يجوز (permissible)
+    "\u064a\u0633\u062a\u062d\u0628",  # يستحب (recommended)
+    "\u0645\u0634\u0631\u0648\u0639",  # مشروع (legislated/valid)
 ]
 
 _NEGATIVE_SIGNALS = [
     "should not", "must not", "remove", "avoid", "drop",
     "do not", "don't", "unnecessary", "reject", "skip",
     "instead of", "rather than", "not recommended",
+    # Arabic scholarly negative signals (Gemini finding #7)
+    "\u0644\u0627 \u064a\u062c\u0648\u0632",  # لا يجوز (impermissible)
+    "\u064a\u062d\u0631\u0645",  # يحرم (prohibited)
+    "\u064a\u0643\u0631\u0647",  # يكره (disliked)
+    "\u0628\u0627\u0637\u0644",  # باطل (invalid/void)
+    "\u0641\u0627\u0633\u062f",  # فاسد (corrupt/defective)
+    "\u062a\u062c\u0646\u0628",  # تجنب (avoid)
 ]
 
 
@@ -156,20 +178,28 @@ def is_contradictory(a: Finding, b: Finding) -> tuple[bool, str]:
 
 
 def compute_relatedness(
-    a: Finding, b: Finding, min_similarity: float,
+    a: Finding, b: Finding,
+    tg_a: set[tuple[str, str, str]],
+    tg_b: set[tuple[str, str, str]],
 ) -> float:
     """Compute combined relatedness score between two findings.
 
     Weighted combination:
     - spec_sections overlap: 0.4
     - affected_files overlap: 0.3
-    - text similarity: 0.3
+    - text similarity (precomputed trigrams): 0.3
 
-    Returns score 0.0-1.0. Pair is related if score >= min_similarity.
+    Returns score 0.0-1.0.
     """
     spec = spec_overlap(a, b)
     files = file_overlap(a, b)
-    text_sim = text_similarity(a.title + " " + a.description, b.title + " " + b.description)
+    # Use precomputed trigrams (Gemini finding #5: avoid O(n²) recomputation)
+    if not tg_a or not tg_b:
+        text_sim = 0.0
+    else:
+        intersection = len(tg_a & tg_b)
+        union = len(tg_a | tg_b)
+        text_sim = intersection / union if union > 0 else 0.0
     return 0.4 * spec + 0.3 * files + 0.3 * text_sim
 
 
@@ -184,7 +214,12 @@ def cross_reference(
     """
     related_map: dict[str, list[str]] = defaultdict(list)
     contradictions: list[Contradiction] = []
-    seen_contra_pairs: set[tuple[str, str]] = set()
+    seen_contra_pairs: set[str] = set()
+
+    # Precompute trigrams once per finding (Gemini finding #5: O(n) instead of O(n²))
+    trigram_map: dict[str, set[tuple[str, str, str]]] = {}
+    for f in findings:
+        trigram_map[f.finding_id] = _trigrams(_tokenize(f.title + " " + f.description))
 
     n = len(findings)
     pairs_checked = 0
@@ -199,7 +234,9 @@ def cross_reference(
             if a.source_id == b.source_id:
                 continue
 
-            score = compute_relatedness(a, b, min_similarity)
+            score = compute_relatedness(
+                a, b, trigram_map[a.finding_id], trigram_map[b.finding_id],
+            )
             if score < min_similarity:
                 continue
 
@@ -215,7 +252,7 @@ def cross_reference(
                 continue
             is_contra, reason = is_contradictory(a, b)
             if is_contra:
-                pair_key = tuple(sorted([a.finding_id, b.finding_id]))
+                pair_key = ":".join(sorted([a.finding_id, b.finding_id]))
                 if pair_key not in seen_contra_pairs:
                     seen_contra_pairs.add(pair_key)
 
@@ -232,6 +269,8 @@ def cross_reference(
                         dr_id_b=b.source_id,
                         topic=topic,
                         description=reason,
+                        resolution_status="unresolved",
+                        resolution_notes="",
                     ))
 
     logger.info(
