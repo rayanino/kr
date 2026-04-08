@@ -15,6 +15,8 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from scripts.autonomous_schemas import (
+    KB_DIR,
+    PROMPTS_DIR,
     Contradiction,
     DigestionRecord,
     DRPrompt,
@@ -30,9 +32,7 @@ from scripts.autonomous_schemas import (
 
 logger = logging.getLogger(__name__)
 
-# Resolve paths relative to project root
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-KB = PROJECT_ROOT / "overnight_codex" / "autonomous" / "knowledge_base"
+KB = KB_DIR  # alias for backward compatibility within this module
 
 # Startup validation — fail loud if knowledge base is missing
 if not KB.exists():
@@ -80,14 +80,13 @@ def load_all_prompts() -> tuple[list[DRPrompt], list[str]]:
 
     Returns (prompts, errors) for graceful degradation.
     """
-    prompts_dir = KB / "dr_prompts"
-    if not prompts_dir.exists():
-        logger.warning("DR prompts directory not found: %s", prompts_dir)
+    if not PROMPTS_DIR.exists():
+        logger.warning("DR prompts directory not found: %s", PROMPTS_DIR)
         return [], []
 
     all_prompts: list[DRPrompt] = []
     all_errors: list[str] = []
-    for jsonl_file in sorted(prompts_dir.glob("*.jsonl")):
+    for jsonl_file in sorted(PROMPTS_DIR.glob("*.jsonl")):
         records, errors = _safe_read_jsonl(jsonl_file, DRPrompt)
         all_prompts.extend(records)
         all_errors.extend(errors)

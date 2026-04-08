@@ -21,6 +21,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.autonomous_schemas import (
+    DR_RESPONSES_JSONL,
+    FINDINGS_JSONL,
+    KB_DIR,
     DRResponse,
     DRTarget,
     Finding,
@@ -38,11 +41,6 @@ from scripts.dr_format_detectors import (
 )
 
 logger = logging.getLogger(__name__)
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
-RESPONSES_JSONL = KB_DIR / "dr_responses.jsonl"
-FINDINGS_JSONL = KB_DIR / "findings.jsonl"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -233,13 +231,13 @@ def persist_results(
 ) -> None:
     """Write response and findings to JSONL knowledge base."""
     KB_DIR.mkdir(parents=True, exist_ok=True)
-    append_jsonl(RESPONSES_JSONL, response)
+    append_jsonl(DR_RESPONSES_JSONL, response)
     for finding in findings:
         append_jsonl(FINDINGS_JSONL, finding)
 
     logger.info(
         "Persisted: response %s → %s, %d findings → %s",
-        response.response_id, RESPONSES_JSONL,
+        response.response_id, DR_RESPONSES_JSONL,
         len(findings), FINDINGS_JSONL,
     )
 

@@ -26,6 +26,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.autonomous_schemas import (
+    CONTRADICTIONS_JSONL,
+    FINDINGS_JSONL,
     Contradiction,
     Finding,
     FindingSeverity,
@@ -33,11 +35,6 @@ from scripts.autonomous_schemas import (
 )
 
 logger = logging.getLogger(__name__)
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
-FINDINGS_JSONL = KB_DIR / "findings.jsonl"
-CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
 
 # ═══════════════════════════════════════════════════════════════════
 # Text similarity — Jaccard on word trigrams (no LLM, deterministic)
@@ -380,7 +377,7 @@ def main() -> None:
 
     if not args.dry_run:
         persist_cross_references(findings, related_map, contradictions)
-        print(f"\n  Persisted to: {KB_DIR}")
+        print(f"\n  Persisted to: {FINDINGS_JSONL.parent}")
     else:
         print(f"\n  [DRY RUN — no files written]")
 

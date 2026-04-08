@@ -22,6 +22,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.autonomous_schemas import (
+    CONTRADICTIONS_JSONL,
+    FINDINGS_JSONL,
+    PROMPTS_DIR,
     Contradiction,
     DRPrompt,
     DRTarget,
@@ -34,12 +37,6 @@ from scripts.autonomous_schemas import (
 )
 
 logger = logging.getLogger(__name__)
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
-FINDINGS_JSONL = KB_DIR / "findings.jsonl"
-CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
-PROMPTS_DIR = KB_DIR / "dr_prompts"
 
 # ═══════════════════════════════════════════════════════════════════
 # Provider routing — cross-model for independent confirmation
@@ -78,11 +75,22 @@ def route_provider(
 
 
 def route_contradiction(
-    dr_id_a: str, dr_id_b: str, topic: str,
+    dr_id_a: str, dr_id_b: str,
+    provider_map: dict[str, DRTarget],
 ) -> DRTarget:
-    """Pick a third-party provider to resolve a contradiction."""
-    # For contradictions, we want a provider not involved in either side
-    # Since we don't store provider on DR ID, use Gemini as the scholarly tiebreaker
+    """Pick a third-party provider to resolve a contradiction.
+
+    SFH finding #11: avoids providers involved in either side.
+    """
+    involved = {provider_map.get(dr_id_a), provider_map.get(dr_id_b)}
+    all_targets = {DRTarget.CHATGPT, DRTarget.CLAUDE, DRTarget.GEMINI}
+    available = all_targets - involved - {None}
+    if available:
+        # Prefer Gemini for scholarly tiebreaking
+        if DRTarget.GEMINI in available:
+            return DRTarget.GEMINI
+        return available.pop()
+    logger.warning("All providers involved in contradiction %s vs %s", dr_id_a, dr_id_b)
     return DRTarget.GEMINI
 
 
@@ -176,10 +184,12 @@ def contradiction_to_prompt(
     finding_b: Finding | None,
     batch: str,
     prompt_counter: int,
+    provider_map: dict[str, DRTarget] | None = None,
 ) -> DRPrompt:
     """Convert an unresolved contradiction into a resolution prompt."""
     target = route_contradiction(
-        contradiction.dr_id_a, contradiction.dr_id_b, contradiction.topic,
+        contradiction.dr_id_a, contradiction.dr_id_b,
+        provider_map or {},
     )
 
     parts = [
@@ -280,14 +290,19 @@ def generate_followups(
     findings_by_id = {f.finding_id: f for f in findings}
 
     # Load DR responses to resolve finding -> provider mapping
-    responses_path = FINDINGS_JSONL.parent / "dr_responses.jsonl"
+    # SFH finding #6: log when missing — cross-model routing degrades silently
+    from scripts.autonomous_schemas import DR_RESPONSES_JSONL, DRResponse
     dr_provider_map: dict[str, DRTarget] = {}
-    if responses_path.exists():
-        from scripts.autonomous_schemas import DRResponse
-        resp_raw = read_jsonl(responses_path, DRResponse)
+    if DR_RESPONSES_JSONL.exists():
+        resp_raw = read_jsonl(DR_RESPONSES_JSONL, DRResponse)
         for r in resp_raw:
             if isinstance(r, DRResponse):
                 dr_provider_map[r.response_id] = r.source
+    else:
+        logger.warning(
+            "dr_responses.jsonl not found — cross-model routing DISABLED, "
+            "follow-ups will use category preference only (may route back to same provider)"
+        )
 
     # Load contradictions
     contras_raw = read_jsonl(CONTRADICTIONS_JSONL, Contradiction)
@@ -316,7 +331,9 @@ def generate_followups(
             continue
         finding_a = findings_by_id.get(c.finding_id_a)
         finding_b = findings_by_id.get(c.finding_id_b)
-        new_prompts.append(contradiction_to_prompt(c, finding_a, finding_b, batch, counter))
+        new_prompts.append(contradiction_to_prompt(
+            c, finding_a, finding_b, batch, counter, dr_provider_map,
+        ))
         counter += 1
 
     # Dedup against existing

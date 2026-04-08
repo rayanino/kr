@@ -29,6 +29,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.autonomous_schemas import (
+    DIGESTION_LOG_JSONL,
+    FINDINGS_JSONL,
+    KB_DIR,
+    PROMPTS_DIR,
     DRResponse,
     DRTarget,
     DigestionRecord,
@@ -45,11 +49,6 @@ from scripts.generate_followup_prompts import generate_followups
 from scripts.process_dr_response import persist_results, process_response
 
 logger = logging.getLogger(__name__)
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
-FINDINGS_JSONL = KB_DIR / "findings.jsonl"
-DIGESTION_LOG = KB_DIR / "digestion_log.jsonl"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -107,7 +106,7 @@ def digest_single(
 
     # Persist digestion record
     record = build_digestion_record(response, dr_findings, dr_contras, score, verdict)
-    append_jsonl(DIGESTION_LOG, record)
+    append_jsonl(DIGESTION_LOG_JSONL, record)
 
     # Stage 5: Generate follow-up prompts (non-fatal for I/O issues only)
     # Codex finding #5: bare Exception is too broad — narrow to expected failures.
@@ -120,12 +119,10 @@ def digest_single(
         logger.info("  %d follow-up prompts generated", len(followups))
 
         if followups:
-            from scripts.autonomous_schemas import append_jsonl as _append
-            prompts_dir = KB_DIR / "dr_prompts"
-            prompts_dir.mkdir(parents=True, exist_ok=True)
-            batch_file = prompts_dir / f"{followup_batch}.jsonl"
+            PROMPTS_DIR.mkdir(parents=True, exist_ok=True)
+            batch_file = PROMPTS_DIR / f"{followup_batch}.jsonl"
             for p in followups:
-                _append(batch_file, p)
+                append_jsonl(batch_file, p)
             logger.info("  Persisted to %s", batch_file)
     except (OSError, PermissionError) as e:
         logger.warning("Follow-up generation I/O failed (non-fatal): %s", e)
@@ -153,8 +150,8 @@ def digest_batch(
 
     # Check which DRs are already digested
     existing_ids: set[str] = set()
-    if DIGESTION_LOG.exists():
-        records_raw = read_jsonl(DIGESTION_LOG, DigestionRecord)
+    if DIGESTION_LOG_JSONL.exists():
+        records_raw = read_jsonl(DIGESTION_LOG_JSONL, DigestionRecord)
         for r in records_raw:
             if isinstance(r, DigestionRecord):
                 existing_ids.add(r.dr_id)

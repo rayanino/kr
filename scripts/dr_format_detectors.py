@@ -7,8 +7,11 @@ Reference: docs/autonomous-system/reviews/ (8 archived DRs with observed pattern
 """
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import dataclass, field
+
+logger = logging.getLogger(__name__)
 
 from scripts.autonomous_schemas import DRTarget
 
@@ -80,8 +83,18 @@ def detect_provider(text: str) -> DetectionResult:
         scores[DRTarget.GEMINI] += 0.2
         signals[DRTarget.GEMINI].append(f"footnote superscripts: {footnotes}")
 
-    # Pick highest score
+    # Pick highest score (SFH finding #3: warn on zero confidence)
     best = max(scores, key=lambda t: scores[t])
+    if scores[best] == 0.0:
+        logger.warning(
+            "No provider signals detected — classification unreliable. "
+            "Specify --source explicitly for accurate results."
+        )
+        return DetectionResult(
+            provider=best,
+            confidence=0.0,
+            signals=["NO SIGNALS DETECTED"],
+        )
     return DetectionResult(
         provider=best,
         confidence=min(scores[best], 1.0),

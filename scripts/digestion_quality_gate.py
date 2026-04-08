@@ -22,6 +22,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.autonomous_schemas import (
+    CONTRADICTIONS_JSONL,
+    DIGESTION_LOG_JSONL,
+    DR_RESPONSES_JSONL,
+    FINDINGS_JSONL,
     Contradiction,
     DRResponse,
     DigestionRecord,
@@ -31,13 +35,6 @@ from scripts.autonomous_schemas import (
 )
 
 logger = logging.getLogger(__name__)
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
-RESPONSES_JSONL = KB_DIR / "dr_responses.jsonl"
-FINDINGS_JSONL = KB_DIR / "findings.jsonl"
-CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
-DIGESTION_LOG = KB_DIR / "digestion_log.jsonl"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -305,7 +302,7 @@ def main() -> None:
         parser.error("Specify --dr-id DR40 or --all")
 
     # Load all data
-    responses_raw = read_jsonl(RESPONSES_JSONL, DRResponse)
+    responses_raw = read_jsonl(DR_RESPONSES_JSONL, DRResponse)
     responses: list[DRResponse] = [r for r in responses_raw if isinstance(r, DRResponse)]
 
     findings_raw = read_jsonl(FINDINGS_JSONL, Finding)
@@ -318,7 +315,7 @@ def main() -> None:
     if args.dr_id:
         responses = [r for r in responses if r.response_id == args.dr_id]
         if not responses:
-            logger.error("DR response %s not found in %s", args.dr_id, RESPONSES_JSONL)
+            logger.error("DR response %s not found in %s", args.dr_id, DR_RESPONSES_JSONL)
             sys.exit(1)
 
     for response in responses:
@@ -346,7 +343,7 @@ def main() -> None:
             record = build_digestion_record(
                 response, dr_findings, dr_contradictions, score, verdict,
             )
-            append_jsonl(DIGESTION_LOG, record)
+            append_jsonl(DIGESTION_LOG_JSONL, record)
             logger.info("Persisted DigestionRecord for %s", response.response_id)
 
 

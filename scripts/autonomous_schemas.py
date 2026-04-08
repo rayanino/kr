@@ -21,6 +21,15 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 
 logger = logging.getLogger(__name__)
 
+# Centralized KB paths — all modules import from here (Architect finding: was duplicated in 6 files)
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+KB_DIR = PROJECT_DIR / "overnight_codex" / "autonomous" / "knowledge_base"
+FINDINGS_JSONL = KB_DIR / "findings.jsonl"
+DR_RESPONSES_JSONL = KB_DIR / "dr_responses.jsonl"
+CONTRADICTIONS_JSONL = KB_DIR / "contradictions.jsonl"
+DIGESTION_LOG_JSONL = KB_DIR / "digestion_log.jsonl"
+PROMPTS_DIR = KB_DIR / "dr_prompts"
+
 # ═══════════════════════════════════════════════════════════════════
 # Enums
 # ═══════════════════════════════════════════════════════════════════
