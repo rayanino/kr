@@ -36,11 +36,12 @@ PROMPTS_DIR = KB_DIR / "dr_prompts"
 
 
 class DRTarget(str, Enum):
-    """Which Deep Research provider to target."""
+    """Which Deep Research provider or autonomous source to target."""
 
     CHATGPT = "chatgpt_dr"
     CLAUDE = "claude_dr"
     GEMINI = "gemini_dr"
+    CODEX = "codex"
 
 
 class DRPromptStatus(str, Enum):

@@ -42,11 +42,14 @@ logger = logging.getLogger(__name__)
 # Provider routing — cross-model for independent confirmation
 # ═══════════════════════════════════════════════════════════════════
 
-# Route to a different provider than the original source
+# Route to a different provider than the original source.
+# CODEX is never a valid follow-up target (it runs code, not research).
+# Codex findings route to Claude for DR cross-validation.
 _CROSSMODEL_ROUTES: dict[DRTarget, DRTarget] = {
     DRTarget.CHATGPT: DRTarget.CLAUDE,
     DRTarget.CLAUDE: DRTarget.GEMINI,
     DRTarget.GEMINI: DRTarget.CHATGPT,
+    DRTarget.CODEX: DRTarget.CLAUDE,
 }
 
 # Category-based preferred targets (override cross-model when strong signal)

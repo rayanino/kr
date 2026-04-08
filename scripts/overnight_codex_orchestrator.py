@@ -2275,6 +2275,19 @@ def maybe_append_findings() -> None:
         log_decision("Failed to append Codex findings", {"error": str(exc)})
 
 
+def ingest_to_kb(run_id: str) -> None:
+    """Ingest Codex results into the autonomous KB for dashboard visibility."""
+    try:
+        try:
+            from scripts.codex_kb_bridge import ingest_codex_results
+        except ImportError:
+            from codex_kb_bridge import ingest_codex_results
+        stats = ingest_codex_results(run_id)
+        log_decision("Ingested Codex results into KB", stats)
+    except Exception as exc:
+        log_decision("Failed to ingest into KB", {"error": str(exc)})
+
+
 def sync_backlog(run_id: str) -> None:
     """Refresh the canonical backlog from results and legacy queues."""
     try:
@@ -2580,6 +2593,7 @@ def run_overnight(
         write_progress_file(state, manifest)
         sync_backlog(state.run_id)
         maybe_append_findings()
+        ingest_to_kb(state.run_id)
         previous_snapshot = _load_previous_snapshot(state.started_at)
         generate_morning_report(state, manifest, previous_snapshot)
         snapshot_path = _write_run_snapshot(state, manifest)

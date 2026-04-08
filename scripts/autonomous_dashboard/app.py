@@ -41,6 +41,7 @@ def _target_label(target_value: str) -> str:
         "chatgpt_dr": "ChatGPT DR",
         "claude_dr": "Claude DR",
         "gemini_dr": "Gemini DR",
+        "codex": "Codex CLI",
     }
     return labels.get(target_value, target_value)
 
