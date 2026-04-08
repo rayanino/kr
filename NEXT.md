@@ -73,10 +73,19 @@
 
 **Coworker dispatch prompts prepared** (via /prompt-architect): Gemini CLI (Arabic scholarly accuracy of split rules) + Codex CLI (structural/contract review). Awaiting dispatch.
 
-**Immediate next steps:**
-1. **Analyze talaq v2 smoke results** — verify the 2 owner-rejected excerpts now produce correct granularity
-2. **Dispatch coworkers** — Gemini CLI + Codex CLI prompts ready (optimized via prompt-architect)
-3. **Full campaign rerun** to measure impact on all 1,491 excerpts (after coworker validation)
+**Session 21 completion (second commit `baab068ac`):**
+- Talaq v2 confirmed: 20 excerpts (vs 11), evidence types split, 6 relationship links, 0 structural issues
+- Gemini CLI: 1 CONFIRM, 3 AMEND (SPEC §6.24/§6.25 updated), 1 FLAG
+- Codex CLI: 2 ISSUE (inbound-only fixed via linked_targets, chain-remap tracked), 6 PASS
+- Codex-verify: 3 CC reviewers all PASS, 1 HIGH fixed, 2 MEDIUM fixed
+- Prompt exemptions (d) composite proof and (e) cross-type interdependence added to prompts.py
+- **1008 tests, 0 failures, 2 commits: `7493562fa` + `baab068ac`**
+
+**Immediate next steps (Session 22):**
+1. **Incremental evaluation with owner in the loop** — run ONE division at a time via `--div-id`, CC verifies, owner reviews in UI. NOT a full campaign rerun.
+2. **Adapt questionnaire UI for excerpt viewing** — the owner wants to see and evaluate excerpts interactively, not in JSONL files. The questionnaire UI already exists and looks good — extend it for excerpt review.
+3. **Start with the talaq chapter** (`--div-id div_src_test0001_1_002_pre`) — this is the chapter with the 2 owner rejections, the most critical test of whether DR40 + MV-1 fix work together.
+4. **Then pick 2-3 diverse chapters** — one from a different kitab, one with hadith-heavy content, one with cross-madhab debate — to validate the split rules generalize. (after coworker validation)
 
 ### Session 20 — DR40 Granularity Calibration Implementation (2026-04-08)
 
