@@ -435,7 +435,7 @@ Five levels, each with concrete exit criteria. The factory tracks which level ea
 - Hunt yield below 2%
 - The synthetic library has >200 cases for this engine
 - The owner has reviewed output from ≥30 diverse books
-- No silent failure patterns from `SILENT_FAILURES.md` have been triggered in 90 days
+- No silent failure patterns from `reference/SILENT_FAILURES.md` have been triggered in 90 days
 
 **Level 5 does not mean "done."** Hunting continues indefinitely. Level 5 means "confident enough that the owner can read this engine's output and trust it." The hunting continues because models update, edge cases are infinite, and the threat landscape evolves.
 

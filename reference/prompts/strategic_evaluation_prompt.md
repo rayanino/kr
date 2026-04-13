@@ -7,8 +7,8 @@ Copy everything below the line into a new chat in this project.
 Before responding, read these files from the repo:
 
 1. `skills/shared/ENGINE_PROTOCOL.md` — the development process we need to evaluate
-2. `OPEN_PROBLEMS.md` — current status and roadmap
-3. `KNOWLEDGE_INTEGRITY.md` — the 7 corruption threats
+2. `reference/OPEN_PROBLEMS.md` — current status and roadmap
+3. `reference/KNOWLEDGE_INTEGRITY.md` — the 7 corruption threats
 4. `engines/source/CLAUDE.md` — the first engine (concrete example of current state)
 
 Then skim these for context (don't deep-read):

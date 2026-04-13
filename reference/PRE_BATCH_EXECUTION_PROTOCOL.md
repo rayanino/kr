@@ -187,7 +187,7 @@ explicitly. Split into 3 subtasks.
 - Run `check_spec_quality.py` (or read cached output from earlier)
 - For each of the 34 HIGH defects, classify:
   - CORRECTNESS: an implementer would misinterpret this → fix now
-  - STYLE: vague but wouldn't cause wrong code → defer to OPEN_PROBLEMS.md
+  - STYLE: vague but wouldn't cause wrong code → defer to reference/OPEN_PROBLEMS.md
 - List the correctness-affecting defects with proposed fixes
 - Stop. Tell owner: "Triage complete. Say 'continue' for review."
 
@@ -293,7 +293,7 @@ explicitly. Split into 3 subtasks.
 **Subtask 8C — Source engine completion report**
 - Write the completion report:
   - Final statistics
-  - Known limitations (from OPEN_PROBLEMS.md)
+  - Known limitations (from reference/OPEN_PROBLEMS.md)
   - Contract summary (what normalization engine receives)
   - Lessons learned
 - Run 3-round review on the report

@@ -990,7 +990,7 @@ Gap in the defense chain: When the passaging engine's text_layers is wrong AND t
 
 ### §5.3 — Knowledge Integrity Invariant Verification
 
-Each invariant from KNOWLEDGE_INTEGRITY.md is verified against this SPEC.
+Each invariant from reference/KNOWLEDGE_INTEGRITY.md is verified against this SPEC.
 
 **Invariant 1: Frozen sources are immutable.**
 SPEC compliance: The atomization engine never accesses frozen sources. It operates on passage_text from the passaging engine, which is already downstream of the frozen source. No mechanism in this SPEC reads, writes, or modifies frozen source files. ✓ No gap.

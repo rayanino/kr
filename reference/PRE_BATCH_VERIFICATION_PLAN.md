@@ -54,7 +54,7 @@ that predate the 4 fixes. They don't affect runtime behavior but indicate
 ambiguity the implementation may have interpreted differently from intent.
 
 **Action:** Triage — which defects affect correctness vs. which are stylistic.
-Fix correctness-relevant ones. Note the rest in OPEN_PROBLEMS.md for future
+Fix correctness-relevant ones. Note the rest in reference/OPEN_PROBLEMS.md for future
 cleanup.
 
 ### Metadata flow: 22 fields at source→normalization boundary

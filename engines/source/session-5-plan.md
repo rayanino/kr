@@ -19,7 +19,7 @@
 8. `shared/scholar_authority/REQUIREMENTS_source.md`
 9. `shared/human_gate/REQUIREMENTS_source.md`
 10. `shared/validation/REQUIREMENTS_source.md`
-11. `KNOWLEDGE_INTEGRITY.md` Layer 4 (Human Gates — CAN/CANNOT verify lists)
+11. `reference/KNOWLEDGE_INTEGRITY.md` Layer 4 (Human Gates — CAN/CANNOT verify lists)
 
 ## Modules to Build
 

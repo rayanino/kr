@@ -44,8 +44,8 @@
 2. `contracts.py` — Pydantic schemas, enums, all data models
 3. `/NEXT.md` — current task directive
 4. `VALIDATION_PLAN.md` — governs all testing phases post-Session 6
-5. `/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
-6. `/RESULT_PRESERVATION.md` — every API call persists full output; results feed downstream engines
+5. `/reference/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
+6. `/reference/RESULT_PRESERVATION.md` — every API call persists full output; results feed downstream engines
 7. `prompts/inference_v1.py` — validated inference prompt template
 8. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
 

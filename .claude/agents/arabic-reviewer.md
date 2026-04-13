@@ -55,7 +55,7 @@ For code that processes metadata or classifies text:
 
 ### 3. Knowledge Integrity Threats
 
-Cross-reference against KNOWLEDGE_INTEGRITY.md threat model:
+Cross-reference against `reference/KNOWLEDGE_INTEGRITY.md` threat model:
 
 - **T-1 (Silent Text Corruption):** Any diacritic loss, encoding change, or invisible character modification
 - **T-2 (Attribution Error):** Author name confusion (copyist vs author, shared names like ابن حجر)

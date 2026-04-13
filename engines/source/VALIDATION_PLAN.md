@@ -89,7 +89,7 @@ python scripts/phases/run_session6_integration.py
 
 **Script:** `scripts/phases/run_phase_a.py` (to be written by Claude Code)
 
-**Output:** `tests/results/source_engine/phase_a/` — one JSON per book with full extraction results, hashes, and any errors + `PHASE_A_SUMMARY.json`. After review: `PHASE_A_LESSONS.md` documenting bugs found, field distribution patterns, and recommendations for Phase C. Per RESULT_PRESERVATION.md, Phase A results are reusable by the normalization engine for field distribution analysis.
+**Output:** `tests/results/source_engine/phase_a/` — one JSON per book with full extraction results, hashes, and any errors + `PHASE_A_SUMMARY.json`. After review: `PHASE_A_LESSONS.md` documenting bugs found, field distribution patterns, and recommendations for Phase C. Per reference/RESULT_PRESERVATION.md, Phase A results are reusable by the normalization engine for field distribution analysis.
 
 **Success criteria:**
 - 0 crashes (every file either extracts or produces a structured error code)
@@ -126,7 +126,7 @@ python scripts/phases/run_session6_integration.py
 
 **Cost estimate:** 73 books × ~$0.15/book (Step 0 actual) = ~$11. With retries: ~€12. Budget ceiling: €50.
 
-**Output:** `tests/results/source_engine/phase_c/` — per RESULT_PRESERVATION.md protocol:
+**Output:** `tests/results/source_engine/phase_c/` — per reference/RESULT_PRESERVATION.md protocol:
 - Per-book directory with `result.json` (full SourceMetadata), `extraction.json`, `llm_responses/` (raw per-model), `consensus.json`, `ground_truth_comparison.json`
 - `PHASE_C_MANIFEST.json` — reusability index (Step 4 skips successfully processed books)
 - `PHASE_C_SUMMARY.json` — aggregate statistics including edition-group consistency analysis
@@ -151,7 +151,7 @@ python scripts/phases/run_session6_integration.py
 - Stratified by: Shamela category (proportional), estimated era (pre-1000 AH, 1000-1300, post-1300), with/without muhaqiq
 - All Phase C books included (regression check — skipped via manifest if already processed and not needs_rerun)
 
-**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all ~200 books. Phase C's 73 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns. `MASTER_MANIFEST.json` maps every book processed across all phases to its result.
+**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per reference/RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all ~200 books. Phase C's 73 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns. `MASTER_MANIFEST.json` maps every book processed across all phases to its result.
 
 **Review:** Owner reviews targeted subset:
 - All ground truth mismatches
@@ -195,7 +195,7 @@ Updated after every run. Script refuses to start if remaining budget is below es
 4. **Cost log updated before every run.**
 5. **Owner reviews happen in Claude Chat with kr-evaluate.** 3-5 result files per turn.
 6. **Ground truth expanded incrementally.** Phase C adds ~30 entries, Phase D adds more.
-7. **Results are reusable, not disposable.** Phase C/D results are finished products. Later phases skip books already processed. Raw LLM responses saved alongside structured results. See `/RESULT_PRESERVATION.md` for the full protocol.
+7. **Results are reusable, not disposable.** Phase C/D results are finished products. Later phases skip books already processed. Raw LLM responses saved alongside structured results. See `/reference/RESULT_PRESERVATION.md` for the full protocol.
 8. **The 2,519 books are a test sample, not the library.** Processing the full sample is not a validation goal. ~200 diverse books prove reliability. Library population happens after all 7 engines are validated.
 
 ---

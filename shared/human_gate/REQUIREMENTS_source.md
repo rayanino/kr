@@ -2,7 +2,7 @@
 
 **Component:** `shared/human_gate/`
 **Consumer:** Source engine (Session 5), all downstream engines
-**SPEC authority:** `engines/source/SPEC_CORE.md` §5 Layer 2, §7; `KNOWLEDGE_INTEGRITY.md` Layer 4
+**SPEC authority:** `engines/source/SPEC_CORE.md` §5 Layer 2, §7; `reference/KNOWLEDGE_INTEGRITY.md` Layer 4
 
 ---
 
@@ -99,7 +99,7 @@ def resolve(
         - "reject": Reject the inferred value. Source marked as needs_manual_classification.
           The owner can provide a corrected value in the notes field.
         - "unsure": Owner cannot verify. Triggers Layer 3.5 elevated consensus
-          (3+ models must agree). See KNOWLEDGE_INTEGRITY.md Layer 4.
+          (3+ models must agree). See reference/KNOWLEDGE_INTEGRITY.md Layer 4.
     notes : str, optional
         Owner's notes. For "reject", may contain the corrected value.
         For "unsure", records why the owner couldn't verify.
@@ -200,7 +200,7 @@ The interface must present: the inferred metadata with confidence scores, specif
 
 ## What the Owner CAN and CANNOT Verify
 
-From KNOWLEDGE_INTEGRITY.md Layer 4:
+From reference/KNOWLEDGE_INTEGRITY.md Layer 4:
 
 **CAN verify (experiential validation):**
 - Is this the right book? (recognition)
@@ -232,7 +232,7 @@ The normalization engine will need gates for: layer attribution uncertainty, amb
 
 ## Invariants
 
-1. **Human gates are not optional.** No automated process may auto-approve in production mode. Auto-approve is ONLY for build/test (KNOWLEDGE_INTEGRITY.md Invariant 5).
-2. **"Unsure" triggers elevation, not auto-approval.** The owner saying "unsure" never means "accept the default" — it means "I need more evidence" (KNOWLEDGE_INTEGRITY.md Layer 4).
+1. **Human gates are not optional.** No automated process may auto-approve in production mode. Auto-approve is ONLY for build/test (reference/KNOWLEDGE_INTEGRITY.md Invariant 5).
+2. **"Unsure" triggers elevation, not auto-approval.** The owner saying "unsure" never means "accept the default" — it means "I need more evidence" (reference/KNOWLEDGE_INTEGRITY.md Layer 4).
 3. **Every checkpoint is persisted before processing continues.** If the process crashes between checkpoint creation and resolution, the checkpoint exists on disk for recovery.
 4. **Resolved checkpoints are never deleted.** They move to `resolved/` for audit trail.

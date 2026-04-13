@@ -10,7 +10,7 @@ Read first:
 1. .claude/skills/arabic-text/SKILL.md
 2. .claude/skills/knowledge-safety/SKILL.md
 3. .claude/rules/arabic-scholarly-conventions.md when relevant
-4. KNOWLEDGE_INTEGRITY.md
+4. reference/KNOWLEDGE_INTEGRITY.md
 
 Review only for:
 - byte preservation and diacritic safety

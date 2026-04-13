@@ -27,7 +27,7 @@ For each behavioral rule, ask:
 2. The engine's contracts.py — exact field names and types
 3. The upstream engine's output contract — what actually arrives as input
 4. The downstream engine's input contract — what must be produced
-5. `KNOWLEDGE_INTEGRITY.md` — the 7 threats (T1-T7) this engine must defend against
+5. `reference/KNOWLEDGE_INTEGRITY.md` — the 7 threats (T1-T7) this engine must defend against
 
 ## Adversarial Categories
 

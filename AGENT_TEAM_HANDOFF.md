@@ -29,8 +29,8 @@ The source engine is COMPLETE. It took:
 The build produced institutional memory:
 - `reference/ENGINE_BUILD_BLUEPRINT.md` (1,180 lines) — concrete step-by-step build recipe
 - `reference/DECISION_PLAYBOOK.md` (870 lines) — domain decision heuristics as trigger→action pairs
-- `SILENT_FAILURES.md` — 7 patterns where AI produces output that looks correct but isn't
-- `KNOWLEDGE_INTEGRITY.md` — 7 corruption threats with mitigation chains
+- `reference/SILENT_FAILURES.md` — 7 patterns where AI produces output that looks correct but isn't
+- `reference/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats with mitigation chains
 
 ## What Remains
 
@@ -92,7 +92,7 @@ The evaluation phase consumed more sessions than the build phase. And most of wh
 
 ### What Unsupervised AI Gets Wrong
 
-7 silent failure patterns (from SILENT_FAILURES.md):
+7 silent failure patterns (from reference/SILENT_FAILURES.md):
 1. Hollow examples — examples that don't test the rule they claim to illustrate
 2. Circular definitions — rules that reference themselves
 3. Hand-waving technology — naming tools that don't actually work for Arabic
@@ -101,7 +101,7 @@ The evaluation phase consumed more sessions than the build phase. And most of wh
 6. Missing error paths — no defined behavior when things fail
 7. Scope creep — capabilities that belong to a different engine
 
-And 7 knowledge corruption threats (from KNOWLEDGE_INTEGRITY.md):
+And 7 knowledge corruption threats (from reference/KNOWLEDGE_INTEGRITY.md):
 T-1 Silent text corruption, T-2 Attribution error, T-3 Taxonomic misplacement, T-4 Context loss, T-5 Synthesis hallucination, T-6 Metadata poisoning, T-7 Duplication/contradiction
 
 ### What Verification Actually Catches
@@ -168,8 +168,8 @@ The owner wants autonomous speed without sacrificing verification rigor. The que
 - Owner has zero technical background — cannot debug agent failures
 - Arabic text fragility: diacritics, NFC normalization, punctuation cause silent failures
 - SPEC_CORE.md is behavioral authority — agents cannot override it
-- Every API call must persist full output (RESULT_PRESERVATION.md)
-- Human gates cannot be auto-approved (KNOWLEDGE_INTEGRITY.md Invariant 5)
+- Every API call must persist full output (reference/RESULT_PRESERVATION.md)
+- Human gates cannot be auto-approved (reference/KNOWLEDGE_INTEGRITY.md Invariant 5)
 - Errors must fail loudly — no silent defaults (CLAUDE.md Rule 4)
 - The 2,519 books are a TEST SAMPLE, not the library — never frame work as "populating the library"
 </constraints>
@@ -186,8 +186,8 @@ Then read these files IN THIS ORDER before proposing anything:
 1. `NEXT.md` — current state
 2. `reference/ENGINE_BUILD_BLUEPRINT.md` — the proven methodology you're optimizing
 3. `reference/DECISION_PLAYBOOK.md` §1-4 and §8-9 — the domain knowledge that enables autonomy
-4. `SILENT_FAILURES.md` — what autonomous AI gets wrong
-5. `KNOWLEDGE_INTEGRITY.md` — what verification must catch
+4. `reference/SILENT_FAILURES.md` — what autonomous AI gets wrong
+5. `reference/KNOWLEDGE_INTEGRITY.md` — what verification must catch
 6. `.claude/agents/*.md` — all 8 existing agent definitions (scan headers and workflows)
 7. `skills/shared/ENGINE_PROTOCOL.md` — the governing 4-step framework
 

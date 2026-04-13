@@ -960,11 +960,11 @@ When 2+ coworkers disagree on a content quality judgment:
 
 ## Research Artifacts (DO NOT DELETE)
 
-### Diagnostic Reports (repo root)
+### Diagnostic Reports (moved to reference/ and docs/)
 
-- `BOUNDARY_CONVENTION_DIAGNOSTIC.md` -- Claude DR boundary analysis (133 excerpts)
-- `chatgpt-report-diagnostic-analysis.md` -- ChatGPT error patterns
-- `chatgpt-deep-research-opus_vs_gpt.md` -- Opus vs GPT-5.4 model comparison
+- `reference/BOUNDARY_CONVENTION_DIAGNOSTIC.md` -- Claude DR boundary analysis (133 excerpts)
+- `docs/coworker_reports/2026-03-31_adversarial_reviews/chatgpt-report-diagnostic-analysis.md` -- ChatGPT error patterns
+- `docs/coworker_reports/2026-03-31_adversarial_reviews/chatgpt-deep-research-opus_vs_gpt.md` -- Opus vs GPT-5.4 model comparison
 - `chatgpt-deep-research-granuality-synthesis.md` -- Synthesis engine granularity analysis
 - `chatgpt-Adversarial Review of DR-1, DR-2, DR-3.md` -- DR adversarial review
 

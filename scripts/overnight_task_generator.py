@@ -617,7 +617,7 @@ def scan_model_research() -> list[TaskDef]:
 def scan_knowledge_integrity() -> list[TaskDef]:
     """Generate knowledge corruption probes for active engines.
 
-    Targets the 7 threat categories from KNOWLEDGE_INTEGRITY.md:
+    Targets the 7 threat categories from reference/KNOWLEDGE_INTEGRITY.md:
     T-1: Attribution corruption (wrong scholar)
     T-2: Evidence corruption (wrong references)
     T-3: Text corruption (altered primary text)

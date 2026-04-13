@@ -121,7 +121,7 @@ def locked_registry_write(path: Path, lock_path: Path, data: dict, timeout: int 
 - **Purpose:** Checkpoint creation, persistence, retrieval, resolution.
 - **Inputs:** source_id, trigger, detail, context fields.
 - **Outputs:** `HumanGateCheckpoint` (from contracts.py).
-- **SPEC:** §5 Layer 2, KNOWLEDGE_INTEGRITY.md Layer 4.
+- **SPEC:** §5 Layer 2, reference/KNOWLEDGE_INTEGRITY.md Layer 4.
 - **Key logic:** Auto-approve mode for build/test. Persistence in `library/gates/`. Batching by source_id.
 - **Storage:** JSON files in `library/gates/pending/` and `library/gates/resolved/`.
 

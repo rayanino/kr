@@ -218,7 +218,7 @@ Before routing a finding to its classified severity tier, the orchestrator greps
 
 **Path 2 — Mid-review escalation interrupt (LLM-signaled):**
 
-All reviewer prompts (LOW through HIGH) include the instruction: "If during your review you discover that this finding affects author attribution, school classification, self-containment, or any other knowledge-integrity field listed in KNOWLEDGE_INTEGRITY.md threats T-1 through T-4, output the signal `ESCALATION_REQUIRED: <reason>` and stop your review."
+All reviewer prompts (LOW through HIGH) include the instruction: "If during your review you discover that this finding affects author attribution, school classification, self-containment, or any other knowledge-integrity field listed in reference/KNOWLEDGE_INTEGRITY.md threats T-1 through T-4, output the signal `ESCALATION_REQUIRED: <reason>` and stop your review."
 
 When the orchestrator detects `ESCALATION_REQUIRED` in a reviewer's output, it:
 1. Logs the escalation with the reviewer's reasoning

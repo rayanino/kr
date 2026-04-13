@@ -386,7 +386,7 @@ After all excerpts in a batch are processed, the engine computes the batch repor
 
 Every placement undergoes the three-step validation in §4.A.4. No file is left in an inconsistent state — if any step fails, the excerpt is routed to unplaced with the failure recorded.
 
-### 5.2 Threat Prevention (from KNOWLEDGE_INTEGRITY.md)
+### 5.2 Threat Prevention (from reference/KNOWLEDGE_INTEGRITY.md)
 
 **T-1 (Arabic text corruption):** Prevented by the post-write byte-identical check on `primary_text`. The taxonomy engine never modifies `primary_text` — it copies the field verbatim.
 

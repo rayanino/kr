@@ -21,7 +21,7 @@ Steps:
    - Report what you found and whether you changed anything.
 
 6. **Knowledge Integrity Check**
-   - Trace through the 7 threats in KNOWLEDGE_INTEGRITY.md.
+   - Trace through the 7 threats in reference/KNOWLEDGE_INTEGRITY.md.
    - For each threat that applies: verify the mitigation is in place.
    - Report any gaps.
 

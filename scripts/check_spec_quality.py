@@ -5,7 +5,7 @@ This script detects the defects that Claude Chat tends to miss during self-revie
 vague language, missing examples, hand-waving technology references, unbounded
 lists, missing error paths, and untestable rules.
 
-Maps directly to SILENT_FAILURES.md patterns and DEEP_REASONING_PROTOCOL.md
+Maps directly to reference/SILENT_FAILURES.md patterns and DEEP_REASONING_PROTOCOL.md
 Perfection Standard criteria.
 
 Usage:

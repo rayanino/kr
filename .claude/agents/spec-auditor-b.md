@@ -62,7 +62,7 @@ A capability sounds transformative and well-written, but it describes something 
 
 ## The 7 Knowledge Corruption Threats You Check
 
-Read KNOWLEDGE_INTEGRITY.md before auditing. For each threat, verify the SPEC has adequate mitigation:
+Read reference/KNOWLEDGE_INTEGRITY.md before auditing. For each threat, verify the SPEC has adequate mitigation:
 
 ### T-1: Silent Text Corruption
 Does the SPEC protect against encoding issues, normalization bugs, or copy corruption that changes Arabic text? Is there a character-level fidelity mechanism? Does the engine modify primary text (it must NOT)?
@@ -88,7 +88,7 @@ Does the SPEC handle the case where the same content enters through different so
 ## What to Read
 
 1. The SPEC file you are auditing (read every line)
-2. `KNOWLEDGE_INTEGRITY.md` (for T1-T7 definitions and mitigation chains)
+2. `reference/KNOWLEDGE_INTEGRITY.md` (for T1-T7 definitions and mitigation chains)
 3. The upstream engine's SPEC §3 (to understand what input this engine gets)
 4. The downstream engine's SPEC §2 (to understand what output is expected)
 

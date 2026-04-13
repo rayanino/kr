@@ -12,7 +12,7 @@ Read first:
 3. docs/codex/operating-model.md
 4. .kr/ACTIVE.md and .kr/HANDOFF.md
 5. the relevant engine CLAUDE.md when a runtime change touches engine-facing code
-6. KNOWLEDGE_INTEGRITY.md when code touches Arabic text or metadata
+6. reference/KNOWLEDGE_INTEGRITY.md when code touches Arabic text or metadata
 
 Prioritize:
 - wrong behavior against SPEC or local contracts

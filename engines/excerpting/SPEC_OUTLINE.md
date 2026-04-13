@@ -156,7 +156,7 @@ Each intermediate is simpler than its successor. Phase 1 is fully deterministic.
 
 **What it covers:** The formal definition of self-containment — the engine's primary quality criterion. This addresses review finding F2 (cross-referenced §5.1/§5.2/§5.3 that didn't exist).
 
-**Source material:** Old excerpting SPEC §5 (reworked), experiment self-containment evaluations, `KNOWLEDGE_INTEGRITY.md` T-4 (Context Loss).
+**Source material:** Old excerpting SPEC §5 (reworked), experiment self-containment evaluations, `reference/KNOWLEDGE_INTEGRITY.md` T-4 (Context Loss).
 
 **Key content:**
 
@@ -460,7 +460,7 @@ No special handling needed beyond preserving structural markers in Phase 1 assem
 
 **What it covers:** Adding semantic metadata to teaching units to produce ExcerptRecords. Mix of deterministic extraction and LLM inference.
 
-**Source material:** Old excerpting SPEC §4.A.1 Phase 3, old excerpting SPEC metadata fields, `KNOWLEDGE_INTEGRITY.md`.
+**Source material:** Old excerpting SPEC §4.A.1 Phase 3, old excerpting SPEC metadata fields, `reference/KNOWLEDGE_INTEGRITY.md`.
 
 #### §7.1 — Deterministic Metadata Assembly
 
@@ -485,7 +485,7 @@ Model: anthropic/claude-opus-4.6 via OpenRouter. Temperature: 0.
 
 #### §7.3 — Consensus and Human Gates
 
-From `KNOWLEDGE_INTEGRITY.md`:
+From `reference/KNOWLEDGE_INTEGRITY.md`:
 - Multi-model consensus on: self-containment evaluation (Phase 2b), school attribution, author attribution for mixed-layer excerpts
 - Human gate triggers: DEPENDENT self-containment, attribution confidence <0.7, school attribution disagrees between models
 - Gate queue: flagged excerpts written to `library/sources/{source_id}/excerpts/gate_queue.jsonl` for owner review
