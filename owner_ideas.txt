@@ -1,2 +1,0 @@
-IMPORTANT ASPECT OF THE EXCERPT-COLLECTIONS: the expected scope if the library is hundreds/thousands of excerpts per leaf (I actually hope the library goes even beyond this). But let's be realistic: I won't instantly study all these excerpts. Instead, I would go hunting for excerpts introducing 'unique' pieces of knowledge. Which means the excerpts themselves need some for of data analysis, recognition and sorting / grouping. "export1, 9 and 45 belong together and introduce aspect Y", ... NEE BRO DIT IS TOCH HET PUNT VAN GRANULATION????????
-
