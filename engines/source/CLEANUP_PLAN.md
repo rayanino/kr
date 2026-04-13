@@ -72,6 +72,10 @@ Known external breakage surfaces include:
   - `overnight/sprint_manifest.json`
   - `overnight/sprint_write_manifest.json`
   - `overnight/parallel_manifest.json`
+  - `scripts/start_sprint.sh`
+  - `scripts/review_fixes_gemini.sh`
+  - `scripts/creative_verification.py`
+  - `scripts/decompose_spec.py`
 
 ## Active Surface
 
