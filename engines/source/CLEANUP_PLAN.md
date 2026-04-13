@@ -51,12 +51,27 @@ The archived source for the Arabic scholar-name matching rationale is:
 
 Reducing the active `engines/source/` tree to only `README.md` plus the in-engine archive will still break imports and literal path references elsewhere in the repo. Those follow-up fixes are intentionally out of scope here because this task is restricted to `engines/source/`.
 
+Known external breakage surfaces below are representative, not exhaustive. They include direct imports, contract references, skill examples, requirements docs, testing docs, and manifest/config references that currently assume the active `engines/source/` tree still exists.
+
 Known external breakage surfaces include:
 
 - imports from `engines.source.contracts` in `engines/normalization/*`, `shared/human_gate/*`, `shared/scholar_authority/*`, `tools/smoke_test_validation.py`, `scripts/normalization_corpus_sweep.py`, `scripts/run_pipeline.py`, and multiple `scripts/phases/*`
 - imports from `engines.source.src.*` in `scripts/phases/run_phase_a.py`, `scripts/phases/run_phase_c.py`, `scripts/phases/run_session6_integration.py`, `scripts/phases/stress_test_collection.py`, and `scripts/run_pipeline.py`
 - import from `engines.source.prompts.inference_v1` in `scripts/phases/run_phase_c.py`
 - literal path references to `engines/source/tests/`, `engines/source/contracts.py`, `engines/source/SPEC.md`, and `engines/source/src/*` in overnight/task-generation scripts and some repo tests
+- additional doc/config/reference surfaces such as:
+  - `shared/scholar_authority/REQUIREMENTS_source.md`
+  - `shared/human_gate/REQUIREMENTS_source.md`
+  - `shared/validation/REQUIREMENTS_source.md`
+  - `shared/consensus/REQUIREMENTS_source.md`
+  - `.claude/skills/consensus-pattern/SKILL.md`
+  - `reference/TESTING_FRAMEWORK.md`
+  - `reference/PRE_BATCH_VERIFICATION_PLAN.md`
+  - `reference/PRE_BATCH_EXECUTION_PROTOCOL.md`
+  - `overnight/tonight_manifest.json`
+  - `overnight/sprint_manifest.json`
+  - `overnight/sprint_write_manifest.json`
+  - `overnight/parallel_manifest.json`
 
 ## Active Surface
 
@@ -272,6 +287,8 @@ If that glob is too broad for pytest in this repo, use archive-local explicit pa
 ## Anchor Passages Worth Preserving
 
 These are the highest-signal passages that justify the archive-first plan.
+
+These anchors are not a whitelist. The full archived files remain preserved under the archive tree. The anchor section exists to surface the most valuable starting points for future readers, not to limit what survives.
 
 ### Tier A anchors
 
