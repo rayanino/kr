@@ -1,0 +1,4 @@
+{"chunk_id": "div_src_test0001_1_002_pre", "phase": "phase2a", "status": "done", "timestamp": "2026-04-08T14:05:44.375753+00:00"}
+{"chunk_id": "div_src_test0001_1_002_pre", "phase": "phase2b", "status": "done", "timestamp": "2026-04-08T14:06:41.870404+00:00"}
+{"chunk_id": "div_src_test0001_1_002_pre", "phase": "phase3_enrich", "status": "done", "timestamp": "2026-04-08T14:07:35.216973+00:00"}
+{"chunk_id": "div_src_test0001_1_002_pre", "phase": "phase3_consensus", "status": "done", "timestamp": "2026-04-08T14:08:20.141518+00:00"}

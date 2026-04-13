@@ -1,0 +1,610 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 24,
+    "text_snippet": "‌‌كتاب الطلاق\nالطلاق: في اللغة: حل الوثاق. مشتق من الإطلاق، وهو الترك والإرسال.",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعريف الطلاق لغة وبيان اشتقاقه ومعناه اللغوي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": [
+      {
+        "target_unit_index": 1,
+        "relationship": "companion_definition",
+        "description": "تعريف شرعي للطلاق"
+      }
+    ]
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2
+    ],
+    "start_word": 25,
+    "end_word": 33,
+    "text_snippet": "قال إمام. الحرمين: هو لفظ جاهلي ورد الشرع بتقريره.",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "نقل قول إمام الحرمين في أصل لفظ الطلاق واستعماله.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 34,
+    "end_word": 41,
+    "text_snippet": "وحكمه ثابت في الكتاب، والسنة، والإجماع، والقياس الصحيح.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "إثبات أصل مشروعية الطلاق وذكر أصول أدلته إجمالاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": [
+      {
+        "target_unit_index": 3,
+        "relationship": "evidence_for",
+        "description": "دليل الكتاب على مشروعية الطلاق"
+      },
+      {
+        "target_unit_index": 4,
+        "relationship": "evidence_for",
+        "description": "دليل السنة على مشروعية الطلاق"
+      },
+      {
+        "target_unit_index": 5,
+        "relationship": "evidence_for",
+        "description": "دليل الإجماع والقياس على مشروعية الطلاق"
+      }
+    ]
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4
+    ],
+    "start_word": 42,
+    "end_word": 49,
+    "text_snippet": "فأما الكتاب فنحو {الطلاقُ مَرتَانِ} وعيرها من الآيات.",
+    "primary_function": "evidence_quran",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بالقرآن على ثبوت مشروعية الطلاق.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الآية مذكورة على وجه التمثيل دون شرح وجه الدلالة المفصل.",
+    "related_units": [
+      {
+        "target_unit_index": 2,
+        "relationship": "evidence_for",
+        "description": "دليل قرآني للحكم"
+      }
+    ]
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 50,
+    "end_word": 69,
+    "text_snippet": "وأما السنة، فقوله صلى الله عليه وسلم: {أبغض الحلال إلى الله الطلاق} وغيره من ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بالسنة على مشروعية الطلاق.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أشار إلى أحاديث وأفعال أخرى بقوله وغيره من فعله وتقريره دون تفصيل.",
+    "related_units": [
+      {
+        "target_unit_index": 2,
+        "relationship": "evidence_for",
+        "description": "دليل من السنة للحكم"
+      }
+    ]
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 70,
+    "end_word": 88,
+    "text_snippet": "والأمة مجمعة عليه، والقياس يقتضيه.\nفإذا كان يتم النكاح بالعقد لمصالحه وأغراضه ",
+    "primary_function": "evidence_ijma",
+    "secondary_functions": [
+      "evidence_qiyas"
+    ],
+    "description_arabic": "إثبات مشروعية الطلاق بالإجماع والقياس ووجه القياس فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": [
+      {
+        "target_unit_index": 2,
+        "relationship": "evidence_for",
+        "description": "دليل الإجماع والقياس للحكم"
+      }
+    ]
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 89,
+    "end_word": 172,
+    "text_snippet": "والأصل في الطلاق، الكراهة، للحديث المتقدم، ولأنه حَل لِعُرى النكاح، الذي رغَّب ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أن الأصل في الطلاق الكراهة مع تعليل ذلك واستثناء حال الحاجة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال على الحديث المتقدم دون إعادة لفظه، لكنه يوضح المعنى العام للحكم.",
+    "related_units": []
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 173,
+    "end_word": 239,
+    "text_snippet": "وبهذا تعرف جلال هذا الدين، وسُمُو تشريعاته، وأنها الموافقة للعقل الصحيح، والمت",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان محاسن تشريع الطلاق واعتداله بين إفراط الأمم وتفريطها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 240,
+    "end_word": 267,
+    "text_snippet": "ولو قدم هذا الدين وتشريعاته السمحة إلى الناس كما هي، بعيدة عن أكاذيب المفترين، ",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه وعظي على أثر عرض الشريعة صحيحة للناس.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "start_word": 268,
+    "end_word": 448,
+    "text_snippet": "الحديث الأول\nعنْ عَبْدِ الله بنِ عُمَرَ رضي الله عنهما: أنَهُ طَلق امْرَأتهُ وَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "narration"
+    ],
+    "description_arabic": "حديث ابن عمر في طلاق الحائض مع ألفاظه وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      20,
+      21
+    ],
+    "start_word": 449,
+    "end_word": 466,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- تحريم الطلاق في الحيض، وأنه من الطلاق البِدعِي الذي ليس ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان تحريم الطلاق في الحيض وكونه من الطلاق البدعي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 467,
+    "end_word": 521,
+    "text_snippet": "2- أمره صلى الله عليه وسلم ابن عمر برجعتها، دليل على وقوعه.\nووجهته أن الرجعة ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بأمر الرجعة على وقوع طلاق الحائض مع ذكر خلاف العلماء فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      23
+    ],
+    "start_word": 522,
+    "end_word": 534,
+    "text_snippet": "3- الأمر بإرجاعها إذا طلقها في الحيض، وإمساكها حتى تطهر ثم تحيض فتطهر.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان كيفية الرجعة والإمساك بعد طلاق الحائض حتى تطهر ثم تحيض وتطهر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      24
+    ],
+    "start_word": 535,
+    "end_word": 549,
+    "text_snippet": "4- قوله [قبل أن يمسها] دليل على أنه لا يجوز الطلاق في طُهْر جامعَ فيه.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الاستدلال بلفظ الحديث على منع الطلاق في طهر جامعها فيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      25,
+      26
+    ],
+    "start_word": 550,
+    "end_word": 647,
+    "text_snippet": "5- الحكمة في إمساكها حتى تطهر من الحيضة الثانية، هو أن الزوج ربما واقعها في ذلك",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكم منع الطلاق في الحيض والطهر المجامع فيه وعلل ذلك.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحتاج فهم بعض الإشارات إلى استحضار الحديث السابق والآية المذكورة في آخر الكلام.",
+    "related_units": []
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      27,
+      28,
+      29
+    ],
+    "start_word": 648,
+    "end_word": 694,
+    "text_snippet": "اختلاف العلماء:\nذهب جمهور العلماء- ومنهم الأئمة الأربعة رضي الله عنهم: إلى وقو",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "قول الجمهور بوقوع طلاق الحائض وذكر دليلهم من الحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "start_word": 695,
+    "end_word": 828,
+    "text_snippet": "وذهب بعض العلماء- ومنهم شيخ الإسلام (ابن تيميه) وتلميذه (ابن القيم) إلى أن الط",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "editorial_note",
+      "refutation"
+    ],
+    "description_arabic": "عرض قول من لا يوقع طلاق الحائض وأدلته ومناقشتها ثم ترجيح قول الجمهور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "start_word": 829,
+    "end_word": 1279,
+    "text_snippet": "الحديث الثاني\nعَنْ فَاطِمَةَ بِنْتِ قيْس: أنً أبَا عَمْرِو بْن حَفْص طَلقهَا ألب",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "narration"
+    ],
+    "description_arabic": "حديث فاطمة بنت قيس مع شرح غريبه وبيان معناه الإجمالي.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      54,
+      55
+    ],
+    "start_word": 1280,
+    "end_word": 1340,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- قوله: \"طلقها ثلاثا\" ليس معناه، تكلم بهن دفعة واحدة، فهذا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "بيان أن المراد بقول الراوي طلقها ثلاثا ليس جمع الثلاث في دفعة واحدة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اشتمل على إحالة إلى بعض ألفاظ الحديث في مسلم دون سوقها كاملة.",
+    "related_units": []
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      56
+    ],
+    "start_word": 1341,
+    "end_word": 1356,
+    "text_snippet": "2- أن المطلقة طلاقاً باتا، ليس لها نفقة ولا سكنى في عدتها، ما لم تكن حاملا.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم المطلقة البائن في النفقة والسكنى مع استثناء الحامل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      57
+    ],
+    "start_word": 1357,
+    "end_word": 1368,
+    "text_snippet": "3- جواز التعريض بخطبة المعتدة البائن، حيث قال: \" فإذا حللت فآذنيني\".",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز التعريض بخطبة المعتدة البائن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      58
+    ],
+    "start_word": 1369,
+    "end_word": 1381,
+    "text_snippet": "4- ذكر الغائب بما يكره على وجه النصح، ولا يكون- حينئذ- غيبة محرمة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز ذكر الغائب بما يكره إذا كان ذلك على وجه النصيحة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      59
+    ],
+    "start_word": 1382,
+    "end_word": 1400,
+    "text_snippet": "5- جواز نكاح غير المكافئ في النسب، إذا رضيت به الزوجة والأولياء فـ (أسامة) قد م",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز نكاح غير المكافئ نسبا إذا رضي الأطراف بذلك.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      60,
+      61
+    ],
+    "start_word": 1401,
+    "end_word": 1415,
+    "text_snippet": "6- وجوب النصح لكل أحد لا سيما المستشير.\nفمن استشارك فقد ائتمنك، وأداء الأمانة ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational"
+    ],
+    "description_arabic": "وجوب النصح للمستشير وتعليل ذلك بالأمانة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      62
+    ],
+    "start_word": 1416,
+    "end_word": 1424,
+    "text_snippet": "7- تستر المرأة عن الرجال، وابتعادها عن أمكنتهم ومجتمعاتهم.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "الأمر بتستر المرأة وابتعادها عن مخالطة الرجال.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      63
+    ],
+    "start_word": 1425,
+    "end_word": 1531,
+    "text_snippet": "8- ليس في أمرها بالاعتداد في بيت ابن أم مكتوم دليل على جواز نظر المرأة إلى الر",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان تحريم نظر المرأة إلى الأجنبي ومناقشة شبهة حديث ابن أم مكتوم.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      64
+    ],
+    "start_word": 1532,
+    "end_word": 1545,
+    "text_snippet": "9- جواز الخطبة على خطبة الغيرِ إذا لم يعلم بالخاطب، وعلم أنه لم يُجب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "جواز الخطبة على خطبة الغير عند الجهل بالخاطب وعدم الإجابة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      65
+    ],
+    "start_word": 1546,
+    "end_word": 1561,
+    "text_snippet": "10- أن امتثال أمر النبي صلى الله عليه وسلم خير وبركة، سواء أحبه الإنسان أو لا.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "فضل امتثال أمر النبي صلى الله عليه وسلم وأنه سبب الخير والبركة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 28,
+    "segment_indices": [
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "start_word": 1562,
+    "end_word": 1602,
+    "text_snippet": "اختلاف العلماء:\nاختلف العلماء هل للبائن نفقة وسكنى، زمن العدة، أو لا؟\nفذهب الإ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "عرض القول الأول في نفقة البائن وسكناها وأنه لا شيء لها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال في الدليل على حديث الباب دون إعادة نصه.",
+    "related_units": []
+  },
+  {
+    "unit_index": 29,
+    "segment_indices": [
+      71,
+      72
+    ],
+    "start_word": 1603,
+    "end_word": 1634,
+    "text_snippet": "وذهب الحنفية إلى أن لها النفقة والسكنى، وهو مروى عن عمر، وابن مسعود وقال به اب",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "عرض قول الحنفية بإثبات النفقة والسكنى للبائن مع دليلهم.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الدليل المنقول عن عمر محتاج إلى سياق أوسع لبيان وجه الاستدلال.",
+    "related_units": []
+  },
+  {
+    "unit_index": 30,
+    "segment_indices": [
+      73,
+      74
+    ],
+    "start_word": 1635,
+    "end_word": 1662,
+    "text_snippet": "وذهب مالك، والشافعي، إلى أن لها السكنى دون النفقة، وهو مذهب عائشة، وفقهاء المد",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "عرض قول مالك والشافعي بإثبات السكنى دون النفقة للبائن مع دليله.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الآية ذكرت دون بسط وجه تخصيصها أو مناقشة دلالتها.",
+    "related_units": []
+  },
+  {
+    "unit_index": 31,
+    "segment_indices": [
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "start_word": 1663,
+    "end_word": 1755,
+    "text_snippet": "والصحيح، هو القول الأول، لقوة الدليل وعدم المعارض.\nفأما القول الثاني فضعيف، لأ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "evidence_quran",
+      "evidence_rational"
+    ],
+    "description_arabic": "ترجيح القول بعدم نفقة البائن ولا سكنى ورد أدلة المخالفين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  }
+]

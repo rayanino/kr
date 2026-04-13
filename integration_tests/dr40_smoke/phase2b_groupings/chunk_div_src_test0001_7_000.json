@@ -1,0 +1,175 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 9,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام\n\n‌‌كتاب الطهارة\n‌‌النية وأحكامها",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الكتاب والباب المتعلق بالنية وأحكامها",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 10,
+    "end_word": 98,
+    "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \" رضي الله عنه قَال:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "نص الحديث مع شرح صدره وبيان معنى إنما ودلالتها على الحصر",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 99,
+    "end_word": 138,
+    "text_snippet": "2- \" النية \" لغة: القصد. ووقع بالإفراد في أكثر الروايات. قال البيضاوي النية ",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف النية لغة وبيان معناها العام عند أهل اللغة",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "هذه وحدة تعريف لغوي ضمن زوج تعريفات، ويُستحسن ضم التعريف الشرعي المقابل لفهم الاستعمال الفقهي الكامل.",
+    "related_units": [
+      {
+        "target_unit_index": 3,
+        "relationship": "companion_definition",
+        "description": "التعريف الشرعي المقابل للنية"
+      }
+    ]
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 139,
+    "end_word": 190,
+    "text_snippet": "3- \" فمن كانت هجرته … الخ \" مثال يقرر ويوضح القاعدة السابقة.\n4- \" فمن كانت ",
+    "primary_function": "example",
+    "secondary_functions": [
+      "definition"
+    ],
+    "description_arabic": "مثال الهجرة لشرح القاعدة مع بيان الشرط وجوابه",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى القاعدة السابقة في الحديث، وفهم المثال أكمل مع استحضار أصل قاعدة الأعمال بالنيات.",
+    "related_units": []
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "start_word": 191,
+    "end_word": 356,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي القياس الصحيح ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "definition",
+      "structural_transition"
+    ],
+    "description_arabic": "المعنى الإجمالي للحديث وأثر النية في القبول وتمييز العبادات",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13
+    ],
+    "start_word": 357,
+    "end_word": 390,
+    "text_snippet": "وهذا من الأحاديث الجوامع التي يجب الاعتناء بها وتفهمها، فالكتابة القليلة لا تؤتي",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "تنبيه على عظم الحديث وسبب افتتاح البخاري صحيحه به",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 391,
+    "end_word": 455,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكمالا، ونق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن الأعمال تختلف صحة وثوابا وإثما بحسب النيات",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 456,
+    "end_word": 482,
+    "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في استحضارها يفسد على المتعبد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "اشتراط النية في العمل مع النهي عن الغلو في استحضارها",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      16
+    ],
+    "start_word": 483,
+    "end_word": 490,
+    "text_snippet": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.\n",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "محل النية القلب وأن التلفظ بها بدعة",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      17
+    ],
+    "start_word": 491,
+    "end_word": 506,
+    "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا، مادام أن شيئاً من ذلك يفس",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الحذر من الرياء والسمعة لأنهما يفسدان العبادة",
+    "self_containment": "FULL",
+    "self_containment_notes": null,
+    "related_units": []
+  }
+]
