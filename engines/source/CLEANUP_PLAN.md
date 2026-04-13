@@ -105,9 +105,10 @@ Delete only the trivial files below:
 - `engines/source/prompts/README.md` — near-empty placeholder
 - `engines/source/src/.gitkeep` — marker only
 - `engines/source/src/__init__.py` — trivial package marker/docstring only
-- `engines/source/src/_deferred/__init__.py` — trivial package marker/docstring only
+- `engines/source/src/extractors/shamela.py` — obsolete extractor stub with incorrect `info.html` assumptions and no unique reusable knowledge
 - `engines/source/tests/.gitkeep` — marker only
 - `engines/source/tests/__init__.py` — empty package marker
+- `engines/source/tests/test_edge_cases.py` — low-signal boilerplate crash-sweep harness with no unique domain knowledge
 
 ## Archive Manifest
 
@@ -172,6 +173,7 @@ Trust tiers:
 - `engines/source/src/consensus.py` — author/work agreement semantics
 - `engines/source/src/format_detection.py` — format-detection marker logic
 - `engines/source/src/inference_models.py` — archived intermediate inference contract
+- `engines/source/src/_deferred/__init__.py` — deferred-feature to SPEC-section map
 - `engines/source/src/registries/__init__.py` — atomic-registration reference
 - `engines/source/src/text_utils.py` — archived transliteration and text-utility reference
 - `engines/source/src/validation.py` — archived validation-rule reference
@@ -201,7 +203,6 @@ Trust tiers:
 - `engines/source/src/extractors/pdf.py` — deferred stub
 - `engines/source/src/extractors/plain_text.py` — old implementation
 - `engines/source/src/extractors/plaintext.py` — deferred stub
-- `engines/source/src/extractors/shamela.py` — old extractor surface superseded by `shamela_html.py`
 - `engines/source/src/extractors/word.py` — deferred stub
 - `engines/source/src/freezer.py` — old implementation
 - `engines/source/src/gap_analysis.py` — deferred stub
@@ -219,7 +220,6 @@ Trust tiers:
 - `engines/source/tests/test_config.py` — old implementation test
 - `engines/source/tests/test_consensus_integration.py` — old implementation test
 - `engines/source/tests/test_deduplication.py` — old implementation test
-- `engines/source/tests/test_edge_cases.py` — old implementation test
 - `engines/source/tests/test_engine.py` — old implementation test
 - `engines/source/tests/test_error_paths.py` — old implementation test
 - `engines/source/tests/test_logger.py` — old implementation test
@@ -320,9 +320,11 @@ These anchors are not a whitelist. The full archived files remain preserved unde
   - `if "القسم" in label:`
 
 - `engines/source/tests/test_deterministic.py`
+  - `"Arabic text with diacritics passes through byte-for-byte."`
   - `"This exact byte sequence must be preserved — no normalization allowed."`
   - `"Muhaqiq and author are NEVER the same person in fixture 04."`
   - `"Fixture 13: Format B layout extracts title from value inside span."`
+  - `"Diacritics in alfiyyah text are preserved byte-for-byte."`
 
 ### Tier B anchors
 
@@ -352,6 +354,9 @@ These anchors are not a whitelist. The full archived files remain preserved unde
   - `"The validated formula ... uses ONLY the death date"`
   - `"The \"prior sources\" check belongs in trust RE-EVALUATION ... not in initial evaluation."`
 
+- `engines/source/VALIDATION_PLAN.md`
+  - `"Registration atomicity. The rollback logic restores from \`.bak\` if registry JSON is corrupt. What if \`.bak\` is also corrupt? Current code silently fails ... This can lead to empty registries and scholar duplicates."`
+
 - `engines/source/tests/test_registries.py`
   - `"Regression: أحمد محمد شاكر was auto-linked to أحمد بن محمد بن حنبل"`
   - `"Corrupt registry + corrupt .bak → RuntimeError (not silent pass)."`
@@ -359,6 +364,9 @@ These anchors are not a whitelist. The full archived files remain preserved unde
 - `engines/source/tests/test_validation.py`
   - `"sharh + is_multi_layer=false + empty layers → warning, NO auto-correct (BUG-05 fix)."`
   - `"is_multi_layer=True + only matn/tahqiq_note → corrected to False, layers cleared."`
+
+- `engines/source/tests/test_freezer.py`
+  - `"Frozen files must be byte-identical to originals."`
 
 ### Tier C anchors
 
