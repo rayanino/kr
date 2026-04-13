@@ -25,7 +25,7 @@ Comparison of `contracts.py` (schema authority) against SPEC §4.A.5, §4.A.8, �
 
 **contracts.py current:** `resolved: bool`, `resolution: Optional[str]`, `resolved_at: Optional[str]`
 
-**REQUIREMENTS_source.md (SPEC §5 Layer 2 + KNOWLEDGE_INTEGRITY.md Layer 4):** `status: Literal["pending", "approved", "rejected", "unsure", "elevated", "auto_approved"]`, `decision: Optional[str]`, `elevated_result: Optional[dict]`
+**REQUIREMENTS_source.md (SPEC §5 Layer 2 + reference/KNOWLEDGE_INTEGRITY.md Layer 4):** `status: Literal["pending", "approved", "rejected", "unsure", "elevated", "auto_approved"]`, `decision: Optional[str]`, `elevated_result: Optional[dict]`
 
 **Impact:** The `unsure` → `elevated` workflow (Layer 3.5: 3+ model consensus when owner says "unsure") cannot be represented with a boolean `resolved`. The auto-approve mode for build/test also needs distinct representation from owner approval.
 

@@ -68,7 +68,7 @@ When you're unsure whether to fix a subtle edge case or move on to the next phas
 8. Arabic text is fragile. Read `.claude/skills/arabic-text/SKILL.md` before text processing.
 9. Technology first. Check `.claude/skills/technology-survey/SKILL.md` before custom code.
 10. ABD legacy has zero authority (D-019). SPECs define what to build.
-11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `RESULT_PRESERVATION.md`.
+11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `reference/RESULT_PRESERVATION.md`.
 12. Every single action needs to be thoroughly thought-out, reviewed and optimized before being implemented.
 13. **ALL data is future training material.** The endgoal is to train local LLM(s) that live in the library. Every excerpt, API response, evaluation trace, owner feedback entry, coworker report, and metadata record is potential training data. NEVER delete data. Always preserve full outputs with provenance (model, prompt version, timestamp, confidence).
 14. **Every prompt dispatched to any target MUST pass through `/prompt-architect` first.** This applies to ALL dispatches: Codex CLI, Gemini CLI, DR relay prompts, CC subagent prompts, any natural language instruction to any agent. Draft the prompt → run `/prompt-architect` → dispatch the optimized version. The draft is NEVER sent directly. Speed is not a constraint; quality is. Owner ALL-CAPS directive 2026-04-06.

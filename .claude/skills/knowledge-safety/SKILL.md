@@ -1,6 +1,6 @@
 ---
 name: knowledge-safety
-description: Audit any engine output, SPEC section, or code for knowledge integrity risks. Use when implementing processing logic, writing tests, reviewing data models, or any time Arabic text or scholarly metadata is involved. Checks against the 7-threat model in KNOWLEDGE_INTEGRITY.md.
+description: Audit any engine output, SPEC section, or code for knowledge integrity risks. Use when implementing processing logic, writing tests, reviewing data models, or any time Arabic text or scholarly metadata is involved. Checks against the 7-threat model in reference/KNOWLEDGE_INTEGRITY.md.
 ---
 
 # Knowledge Safety Review
@@ -122,5 +122,5 @@ assert input_fields.issubset(output_fields), \
 - Never say "no risks found" without checking every threat.
 - If you're unsure whether a threat applies, assume it does.
 - Always recommend the conservative option — false alarms are cheap, undetected errors are catastrophic.
-- Reference specific KNOWLEDGE_INTEGRITY.md sections in your recommendations.
+- Reference specific reference/KNOWLEDGE_INTEGRITY.md sections in your recommendations.
 - For each threat, suggest at least one CONCRETE test case, not just a review checkbox.

@@ -26,9 +26,9 @@ Before starting any engine, the assigned agent reads:
 
 | File | Why | Who reads |
 |------|-----|-----------|
-| `KNOWLEDGE_INTEGRITY.md` | The 7 corruption threats. Every design decision must be checked against these. | Claude Chat |
-| `RESULT_PRESERVATION.md` | How results feed downstream. Every pipeline run must follow this. | Claude Chat + Claude Code |
-| `SILENT_FAILURES.md` | The 7 patterns that produce output that looks correct but isn't. | Claude Chat |
+| `reference/KNOWLEDGE_INTEGRITY.md` | The 7 corruption threats. Every design decision must be checked against these. | Claude Chat |
+| `reference/RESULT_PRESERVATION.md` | How results feed downstream. Every pipeline run must follow this. | Claude Chat + Claude Code |
+| `reference/SILENT_FAILURES.md` | The 7 patterns that produce output that looks correct but isn't. | Claude Chat |
 | `reference/DECISION_PLAYBOOK.md` | Accumulated domain heuristics (trigger→action pairs). | Claude Chat + Oracle |
 | Previous engine's `LESSONS.md` | What the upstream engine learned. | Claude Chat |
 | Previous engine's output contract | What this engine receives as input. | Claude Chat + Claude Code |
@@ -63,7 +63,7 @@ discovered during normalization engine development instead.
 
 **Who:** Claude Chat (architect). Owner provides domain input when asked.
 **Duration:** 2-4 sessions.
-**Input:** Existing SPEC (if any), upstream contracts, KNOWLEDGE_INTEGRITY.md.
+**Input:** Existing SPEC (if any), upstream contracts, reference/KNOWLEDGE_INTEGRITY.md.
 **Output:** Engine SPEC at architecture-decision depth.
 
 ### 1a. Cold Read and Defect Inventory
@@ -147,8 +147,8 @@ After all comments are resolved and defects fixed:
 **Skill:** `use kr-integrity` — runs a technical audit checking for:
 - Ambiguous rules that two implementers would interpret differently
 - Missing error paths (every processing step needs: what if this fails?)
-- Silent failure patterns from SILENT_FAILURES.md
-- Knowledge corruption paths from KNOWLEDGE_INTEGRITY.md threats T1-T7
+- Silent failure patterns from reference/SILENT_FAILURES.md
+- Knowledge corruption paths from reference/KNOWLEDGE_INTEGRITY.md threats T1-T7
 - Contract alignment with upstream and downstream engines
 
 **Files produced:** Integrity audit report with findings categorized as
@@ -927,9 +927,9 @@ Every engine produces `engines/{engine}/LESSONS.md`:
 ### 5c. Update Institutional Memory
 
 1. Add new trigger→action pairs to `reference/DECISION_PLAYBOOK.md`
-2. Add new silent failure patterns to `SILENT_FAILURES.md` if discovered
-3. Update `KNOWLEDGE_INTEGRITY.md` if new corruption threats emerged
-4. Update `RESULT_PRESERVATION.md` if result structure evolved
+2. Add new silent failure patterns to `reference/SILENT_FAILURES.md` if discovered
+3. Update `reference/KNOWLEDGE_INTEGRITY.md` if new corruption threats emerged
+4. Update `reference/RESULT_PRESERVATION.md` if result structure evolved
 5. Update NEXT.md to point to the next engine
 
 **Self-review (2 rounds):**
@@ -965,7 +965,7 @@ Sessions that updated NEXT.md before ending enabled clean handoffs.
 
 ### Result Preservation
 
-Every pipeline run follows `RESULT_PRESERVATION.md`:
+Every pipeline run follows `reference/RESULT_PRESERVATION.md`:
 
 1. **Save everything:** Raw LLM responses, extraction intermediates,
    full output records, per-field confidence, consensus details,
@@ -1043,7 +1043,7 @@ proceed with best assessment, mark domain-dependent decisions as
 `[OWNER REVIEW PENDING]`, and add cross-provider verification for
 those decisions. This does NOT apply to preference gates (edition
 choice, curriculum decisions), which block until the owner responds
-per KNOWLEDGE_INTEGRITY.md Invariant 5.
+per reference/KNOWLEDGE_INTEGRITY.md Invariant 5.
 
 **Misleading error messages during pipeline runs.** Evidence from
 source engine: BUG-C03 was initially reported as "Command A

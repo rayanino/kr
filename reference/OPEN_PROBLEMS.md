@@ -113,14 +113,14 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 ## Files That Matter
 
 **Your daily files:**
-- `OPEN_PROBLEMS.md` — this file, your roadmap
+- `reference/OPEN_PROBLEMS.md` — this file, your roadmap
 - `skills/shared/ENGINE_PROTOCOL.md` — the process (Step 0 + 4-step per engine)
 - `engines/source/SPEC.md` — the source engine specification
 
 **For the source engine project:**
 - `reference/archive/STEERING.md` — project overview
-- `KNOWLEDGE_INTEGRITY.md` — corruption threats
-- `SILENT_FAILURES.md` — silent failure patterns
+- `reference/KNOWLEDGE_INTEGRITY.md` — corruption threats
+- `reference/SILENT_FAILURES.md` — silent failure patterns
 - `reference/DOMAIN.md` — Islamic studies domain
 - `reference/ENTRY_EXAMPLE.md` — target output quality
 - `reference/DEEP_REASONING_PROTOCOL.md` — quality standard

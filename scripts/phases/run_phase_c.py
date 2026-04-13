@@ -1,7 +1,7 @@
 """Phase C — Targeted LLM Probes on 73 Books.
 
 Runs the FULL source engine pipeline (Steps 1–13) on owner-selected books,
-captures every intermediate artifact per RESULT_PRESERVATION.md, and produces
+captures every intermediate artifact per reference/RESULT_PRESERVATION.md, and produces
 structured results ready for owner review.
 
 Usage:

@@ -368,5 +368,5 @@ The following changes to SPEC_CORE.md should be made during this evaluation sess
 | `engines/source/SPEC_CORE.md` | DONE | ASSUMPTION markers resolved, 1000 AH, consensus pair updated |
 | `engines/source/prompts/inference_v1.py` | DONE (no changes needed) | draft-3 is final |
 | `NEXT.md` | DONE | Rewritten for Step 3 scope with blocking conditions |
-| `OPEN_PROBLEMS.md` | DONE | Steps 0-2 marked complete |
+| `reference/OPEN_PROBLEMS.md` | DONE | Steps 0-2 marked complete |
 | Handoff doc | N/A | NEXT.md + this evaluation serve as handoff |

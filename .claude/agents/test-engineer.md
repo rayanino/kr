@@ -50,14 +50,14 @@ Every tested function must have cases for:
 
 ## Threat Awareness
 
-Before writing tests for any engine, read `KNOWLEDGE_INTEGRITY.md` (at repo root) and identify the 2-3 highest threats for THIS engine. For each identified threat, write at least one test that specifically defends against it.
+Before writing tests for any engine, read `reference/KNOWLEDGE_INTEGRITY.md` and identify the 2-3 highest threats for THIS engine. For each identified threat, write at least one test that specifically defends against it.
 
 For the normalization engine:
 - T-1 (Silent Text Corruption): Write tests that compare diacritics (tashkeel) between source and output character by character. Test that no Unicode normalization is applied. Test ZWNJ preservation.
 - T-2 (Attribution Error): Write tests for layer detection edge cases — bold threshold at exactly 5% and 60%, transition markers inside bold spans, entire-page-bold.
 - T-4 (Context Loss): Write tests for footnote separator boundary values (width 79, 80, 100, 101), orphan footnote references, division tree containment.
 
-For other engines: read the engine's SPEC §1 "Purpose" and KNOWLEDGE_INTEGRITY.md to identify which threats apply.
+For other engines: read the engine's SPEC §1 "Purpose" and `reference/KNOWLEDGE_INTEGRITY.md` to identify which threats apply.
 
 ## Adversarial Test Cases
 

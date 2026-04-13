@@ -212,7 +212,7 @@ Owner in Claude Chat:                    Repo:
 
 **What this proves:** The source engine pipeline handles the full collection correctly at scale. This is the final validation gate. The output also populates `library/` as a side effect — this becomes the normalization engine's input data.
 
-**Output:** Structured results per RESULT_PRESERVATION.md, plus `library/` (registries, frozen sources, metadata.json files, human gate queue).
+**Output:** Structured results per reference/RESULT_PRESERVATION.md, plus `library/` (registries, frozen sources, metadata.json files, human gate queue).
 
 **Review:** Statistical summary only (not per-book). Owner reviews the human gate queue and resolves pending checkpoints.
 

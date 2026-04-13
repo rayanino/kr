@@ -50,7 +50,7 @@ The source engine has 4 steps. Step 0 (tracer bullet) and Step 1 (SPEC hardening
 | `engines/source/SPEC_CORE.md` | ASSUMPTION markers resolved |
 | `engines/source/prompts/inference_v1.py` | Finalized prompt (or `inference_v2_split.py` if split) |
 | `NEXT.md` | Rewritten for Step 3 scope |
-| `OPEN_PROBLEMS.md` | Updated to reflect Steps 0-2 complete |
+| `reference/OPEN_PROBLEMS.md` | Updated to reflect Steps 0-2 complete |
 | Handoff doc per `skills/shared/HANDOFF_PROTOCOL.md` | Context for build prep session |
 
 ---
@@ -216,7 +216,7 @@ Experiential sanity check on recognizable fixtures:
 3. Verify contract boundary holds with real (not mocked) data
 4. Fix any contract mismatches
 5. Document lessons in `engines/source/LESSONS.md`
-6. Update `OPEN_PROBLEMS.md` — source engine complete, normalization engine next
+6. Update `reference/OPEN_PROBLEMS.md` — source engine complete, normalization engine next
 
 **Done when:** Source engine output feeds into normalization stub without errors. Contract boundary verified with real data. Then begin normalization engine Step 1.
 
@@ -275,5 +275,5 @@ Files a future session needs to find:
 | Build prep skill | `skills/kr-build-prep/` |
 | Evaluate skill | `skills/kr-evaluate/` |
 | Shamela format analysis | `reference/SHAMELA_FORMAT_ANALYSIS.md` |
-| Corruption threats | `KNOWLEDGE_INTEGRITY.md` |
-| Project roadmap | `OPEN_PROBLEMS.md` |
+| Corruption threats | `reference/KNOWLEDGE_INTEGRITY.md` |
+| Project roadmap | `reference/OPEN_PROBLEMS.md` |

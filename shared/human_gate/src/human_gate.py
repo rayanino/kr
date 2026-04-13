@@ -1,4 +1,4 @@
-"""Human Gate Checkpoint System — SPEC §5 Layer 2, KNOWLEDGE_INTEGRITY.md Layer 4
+"""Human Gate Checkpoint System — SPEC §5 Layer 2, reference/KNOWLEDGE_INTEGRITY.md Layer 4
 
 Creates, persists, retrieves, and resolves human gate checkpoints.
 Checkpoints are batched per source for owner review.
@@ -13,7 +13,7 @@ Two modes:
   but immediately auto-approved. Uses the SAME code path as real review.
 - auto_approve=False (production): checkpoints stay pending until owner resolves.
 
-Invariants (KNOWLEDGE_INTEGRITY.md):
+Invariants (reference/KNOWLEDGE_INTEGRITY.md):
 1. Human gates are not optional in production.
 2. 'Unsure' triggers elevation, not auto-approval.
 3. Every checkpoint is persisted before processing continues.

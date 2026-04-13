@@ -9,7 +9,7 @@
 **Supersedes:** `reference/archive/abd_code/excerpting/SPEC_old_original.md` (1038 lines, 7-engine architecture — BLOCKED)
 and `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (868 lines, rewrite attempt — BLOCKED, 16 findings)
 
-**Governing documents:** `KNOWLEDGE_INTEGRITY.md`, `SPEC_OUTLINE.md`, `ARCHITECTURE_DECISION.md`
+**Governing documents:** `reference/KNOWLEDGE_INTEGRITY.md`, `SPEC_OUTLINE.md`, `ARCHITECTURE_DECISION.md`
 
 ---
 
@@ -130,7 +130,7 @@ The excerpting engine does NOT:
 
 Every excerpt this engine produces becomes a belief in the owner's mind. A wrong attribution means the owner studies a text believing it was written by the wrong person. A decontextualized refutation means the owner believes a scholar endorses a position he actually rejects. A lost hadith grading means the owner cannot assess the strength of evidence.
 
-The engine defends against the 7 corruption threats defined in `KNOWLEDGE_INTEGRITY.md`:
+The engine defends against the 7 corruption threats defined in `reference/KNOWLEDGE_INTEGRITY.md`:
 - T-1 (Silent text corruption): Offset validation (V-P2-1–5), primary text integrity (V-P3-2)
 - T-2 (Attribution error): Multi-model consensus (§7.3), human gates (EX-G-001, EX-G-003)
 - T-3 (Taxonomic misplacement): Deferred to taxonomy engine; excerpting provides topic keywords only
@@ -407,7 +407,7 @@ Each `ContentUnit` corresponds to one physical page. The excerpting engine reads
 
 ### §2.1.4 — Pre-conditions
 
-The excerpting engine does **not** re-validate the normalization output against its schema. The normalization engine is responsible for producing valid output (Layer 1 self-validation per `KNOWLEDGE_INTEGRITY.md`). The excerpting engine trusts that:
+The excerpting engine does **not** re-validate the normalization output against its schema. The normalization engine is responsible for producing valid output (Layer 1 self-validation per `reference/KNOWLEDGE_INTEGRITY.md`). The excerpting engine trusts that:
 
 1. `manifest.json` conforms to the `NormalizedManifest` schema.
 2. Every line in `content.jsonl` conforms to the `ContentUnit` schema.
@@ -587,7 +587,7 @@ The taxonomy engine MUST handle null/empty values gracefully for all optional/co
 
 ## §3 — Self-Containment Standard
 
-Self-containment is the excerpting engine's primary quality criterion. An excerpt that fails self-containment delivers an incomplete piece of knowledge to the owner — a fragment that looks like a complete teaching but is actually missing its premise, its evidence, or its conclusion. This is T-4 (Context Loss) from `KNOWLEDGE_INTEGRITY.md`: the owner reads something that appears self-sufficient but silently depends on context that was stripped during extraction.
+Self-containment is the excerpting engine's primary quality criterion. An excerpt that fails self-containment delivers an incomplete piece of knowledge to the owner — a fragment that looks like a complete teaching but is actually missing its premise, its evidence, or its conclusion. This is T-4 (Context Loss) from `reference/KNOWLEDGE_INTEGRITY.md`: the owner reads something that appears self-sufficient but silently depends on context that was stripped during extraction.
 
 This section defines the standard formally. It is referenced by Phase 2b (§5.3, which evaluates it), Phase 3 (§7, which repairs `PARTIAL` cases), §6 (domain rules that defend it), and §10 (tests that verify it).
 
@@ -656,7 +656,7 @@ After Phase 3 repair, the level could in principle be upgraded from `PARTIAL` to
 
 Phase 3 action: Flag for human gate review. Write to `gate_queue.jsonl` with the full context (the excerpt, its adjacent teaching units in the same chunk, and the specific criteria that failed). The owner decides: accept with a note, merge with an adjacent excerpt, or reject.
 
-**Gate design:** Per `KNOWLEDGE_INTEGRITY.md` Layer 4, the owner may respond "yes" (accept), "no" (reject), or "I'm not sure" (triggers elevated Layer 3.5 cross-provider verification with 3+ models). A `DEPENDENT` excerpt never auto-promotes to `FULL` — it either stays `DEPENDENT` with an owner-accepted note, gets merged into an adjacent unit, or is rejected.
+**Gate design:** Per `reference/KNOWLEDGE_INTEGRITY.md` Layer 4, the owner may respond "yes" (accept), "no" (reject), or "I'm not sure" (triggers elevated Layer 3.5 cross-provider verification with 3+ models). A `DEPENDENT` excerpt never auto-promotes to `FULL` — it either stays `DEPENDENT` with an owner-accepted note, gets merged into an adjacent unit, or is rejected.
 
 ### §3.4 — Relationship to Domain Rules
 
@@ -2408,7 +2408,7 @@ Not every Phase 3 decision requires cross-provider verification. Consensus is re
 
 When a chunk contains units requiring consensus, Phase 3 issues a **single verification call per chunk** to a different model provider. The call includes only the units needing verification, not all units.
 
-**Verification model:** Configurable. Default: `openai/gpt-5.4` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
+**Verification model:** Configurable. Default: `openai/gpt-5.4` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of reference/KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
 
 **Verification prompt:**
 

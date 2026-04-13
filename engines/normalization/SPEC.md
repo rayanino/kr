@@ -1847,7 +1847,7 @@ Cascade defense analysis:
 - SPEC fix: Add a secondary ordering check: when continuity analysis (§4.B.8) produces `unknown` or low-confidence results for >30% of boundaries in an image-sourced source, log `NORM_ORDERING_UNCERTAIN` (warning) and flag for human review. High rates of continuity uncertainty in image sources may indicate misordered pages.
 Status: SECONDARY ORDERING CHECK ADDED.
 
-### A.3 — KNOWLEDGE_INTEGRITY.md Invariant Verification
+### A.3 — reference/KNOWLEDGE_INTEGRITY.md Invariant Verification
 
 **Invariant 1: Frozen sources are immutable.**
 SPEC guarantee: The normalization engine reads from `library/sources/{source_id}/frozen/` and never writes to it. §4.A.2 specifies "frozen source directory path" as input. The atomic write procedure writes ONLY to `normalized/` and `normalized_tmp_*/` directories. No SPEC rule ever references writing to the frozen directory.

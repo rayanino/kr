@@ -39,11 +39,11 @@ The test: could a developer read this rule and know what to build without guessi
 
 ### Lens 2: Knowledge Corruption Paths
 
-Read `KNOWLEDGE_INTEGRITY.md`. For each of the 7 threats (silent text corruption, attribution error, taxonomic misplacement, context loss, synthesis hallucination, metadata poisoning, duplication), check: does this SPEC section have a mechanism that prevents this threat? If the section doesn't interact with a threat, note that and move on. If it does interact but has no prevention mechanism, that's a defect.
+Read `reference/KNOWLEDGE_INTEGRITY.md`. For each of the 7 threats (silent text corruption, attribution error, taxonomic misplacement, context loss, synthesis hallucination, metadata poisoning, duplication), check: does this SPEC section have a mechanism that prevents this threat? If the section doesn't interact with a threat, note that and move on. If it does interact but has no prevention mechanism, that's a defect.
 
 ### Lens 3: Silent Failure Patterns
 
-Read `SILENT_FAILURES.md`. For each of the 7 patterns, check: could this SPEC section produce output that looks correct but isn't? Pay special attention to: LLM calls that return plausible but wrong answers (no validation), metadata fields that default to a value instead of failing (masking missing data), error recovery that drops data silently.
+Read `reference/SILENT_FAILURES.md`. For each of the 7 patterns, check: could this SPEC section produce output that looks correct but isn't? Pay special attention to: LLM calls that return plausible but wrong answers (no validation), metadata fields that default to a value instead of failing (masking missing data), error recovery that drops data silently.
 
 ### Lens 4: Error Path Completeness
 

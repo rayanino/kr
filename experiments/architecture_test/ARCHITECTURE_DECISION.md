@@ -102,7 +102,7 @@ Three cleanly separated phases:
 **Phase 3 — Metadata Enrichment:**
 - Author attribution, school classification, topic proposal
 - Cross-reference detection, hadith identification
-- Consensus and human gates per KNOWLEDGE_INTEGRITY.md
+- Consensus and human gates per reference/KNOWLEDGE_INTEGRITY.md
 
 ## Empirical Unknowns (Must Test During Excerpting Engine Evaluation)
 

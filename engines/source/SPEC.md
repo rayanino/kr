@@ -1367,7 +1367,7 @@ This appendix documents adversarial scenario testing, error cascade analysis, an
 
 **Residual risk:** MEDIUM. For scholars only present in OpenITI, the corruption is undetectable by automated means. Mitigation: the spot-check list should be expanded over time as the library grows, and periodic full cross-validation sweeps (Layer 3 integrity checks) compare all scholar dates against Wikidata.
 
-### A.3 — KNOWLEDGE_INTEGRITY.md Invariant Verification
+### A.3 — reference/KNOWLEDGE_INTEGRITY.md Invariant Verification
 
 Every invariant verified against every §4.A and §4.B rule:
 

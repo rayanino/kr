@@ -54,7 +54,7 @@ For each missing error path:
 
 ### 3. Corruption Vectors (T1-T7)
 
-For each of the 7 threats from KNOWLEDGE_INTEGRITY.md, verify the SPEC has adequate protection:
+For each of the 7 threats from reference/KNOWLEDGE_INTEGRITY.md, verify the SPEC has adequate protection:
 
 **T-1 (Silent Text Corruption):**
 - Is there a character-level fidelity check comparing output to frozen source?
@@ -130,7 +130,7 @@ For each of the 7 threats from KNOWLEDGE_INTEGRITY.md, verify the SPEC has adequ
 ## What to Read
 
 1. The SPEC being audited (every line)
-2. `KNOWLEDGE_INTEGRITY.md` (for T1-T7 definitions and mitigation chains)
+2. `reference/KNOWLEDGE_INTEGRITY.md` (for T1-T7 definitions and mitigation chains)
 3. The upstream engine's contracts or SPEC §3
 4. The downstream engine's contracts or SPEC §2
 5. The engine's `contracts.py` if it exists

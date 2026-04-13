@@ -30,7 +30,7 @@ Elements I strengthened because they are direct consequences of your goals and p
 - I refused to make the experience sound like a normal study app. I kept the edge visible through concrete effects: seeing bigger-picture relations immediately, knowing what is ruled out before reading, and approaching proofs after the issue is already mapped.
 
 One additional strengthening I applied deliberately:
-- I did not let the answer drift into “better formatting” or “reading comfort” language. I kept it centered on study control, structural clarity, and zero-manhunt entry, which is consistent with the project background where context-loss/self-containment failure is treated as a real threat and primary text is not supposed to be silently altered. ([raw.githubusercontent.com](https://raw.githubusercontent.com/rayanino/kr/master/KNOWLEDGE_INTEGRITY.md))
+- I did not let the answer drift into “better formatting” or “reading comfort” language. I kept it centered on study control, structural clarity, and zero-manhunt entry, which is consistent with the project background where context-loss/self-containment failure is treated as a real threat and primary text is not supposed to be silently altered. ([raw.githubusercontent.com](https://raw.githubusercontent.com/rayanino/kr/master/reference/KNOWLEDGE_INTEGRITY.md))
 
 Remaining owner-specific points I still refused to invent:
 - Your exact memorization technique during the session: silent repetition, oral recitation, self-testing, spaced recall, or something else.

@@ -724,7 +724,7 @@ The synthesizing engine's output is ultimately consumed by the owner. Human revi
 
 **What happens after review:** Approved entries are marked `owner_reviewed: true`. Corrections become permanent constraints. The correction type (factual, attribution, structural) is logged, enabling pattern detection: if the same correction type recurs across 3+ entries, the engine's prompts or processing rules may need adjustment.
 
-### 5.4 Threat Mapping (KNOWLEDGE_INTEGRITY.md)
+### 5.4 Threat Mapping (reference/KNOWLEDGE_INTEGRITY.md)
 
 The synthesizing engine is the pipeline's terminal consumer. Every upstream threat has the potential to surface as an error in the entry — which is an error in Rayane's knowledge. This section maps each threat to its synthesis-specific manifestation and prevention.
 
