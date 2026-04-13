@@ -49,3 +49,14 @@ tests/fixtures/
 *.jpeg
 *.pdf
 *.epub
+results/source_sweep/
+integration_tests/compare_*/
+integration_tests/debug_*/
+integration_tests/smoke_20[0-9][0-9]*/
+integration_tests/smoke_cli_*/
+integration_tests/smoke_fix_*/
+integration_tests/smoke_verify_*/
+integration_tests/smoke_final_*/
+integration_tests/run_*/
+integration_tests/full_run_*/
+experiments/architecture_test/shamela_division_data.json
