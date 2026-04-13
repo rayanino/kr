@@ -39,6 +39,14 @@ engines/source/
 - Only trivial markers and confirmed near-empty files are deleted.
 - This cleanup plan does not touch files outside `engines/source/`.
 
+### Clarification on Arabic name research
+
+There is no tracked file named `engines/source/reference/ARABIC_NAME_RESEARCH.md`.
+
+The archived source for the Arabic scholar-name matching rationale is:
+
+- `engines/source/docs/technology-inventory.md`
+
 ### External breakage note
 
 Reducing the active `engines/source/` tree to only `README.md` plus the in-engine archive will still break imports and literal path references elsewhere in the repo. Those follow-up fixes are intentionally out of scope here because this task is restricted to `engines/source/`.
@@ -333,6 +341,25 @@ These are the highest-signal passages that justify the archive-first plan.
 
 ### Tier C anchors
 
+- `engines/source/contracts.py`
+  - `"This is NOT the LLM identification confidence. Downstream engines must use SourceMetadata.confidence_scores.author"`
+  - `"Fields with confidence < 0.70 → needs_review. Fields with confidence < 0.50 → block metadata write"`
+  - `"This is the ORIGIN of the metadata chain that flows through the entire pipeline."`
+
+- `engines/source/SPEC.md`
+  - `"Muhaqiq (editor) records. Tahqiq editors are scholars in their own right."`
+  - `"Disambiguation handling. The most critical disambiguation case is when two different scholars share a commonly used name."`
+  - `"The recognized muhaqiqs list: شعيب الأرناؤوط، أحمد شاكر، عبد السلام هارون، عبد الله التركي، محمد فؤاد عبد الباقي، عبد القادر الأرناؤوط، محمد ناصر الدين الألباني."`
+
+- `engines/source/SPEC_CORE.md`
+  - `"The source metadata record flows downstream through the entire pipeline — no engine may strip metadata fields (D-023)."`
+  - `"There is NO separate \`info.html\` metadata file — metadata is embedded in the first \`PageText\` div of each \`.htm\` file."`
+  - `"Frozen file immutability. No enrichment may modify \`frozen_hash\`, \`frozen_path\`, \`frozen_file_hashes\`, or any frozen file content."`
+
+- `engines/source/docs/technology-inventory.md`
+  - `"This directly addresses the A3-1 problem: \"النووي\" (1 token: {نووي}) vs \"أبو زكريا يحيى بن شرف النووي\" (5 tokens: {ابو, زكريا, يحيى, شرف, نووي})."`
+  - `"Keep the custom approach. The eval_harness implementation is correct for the domain. Neither PyArabic nor CAMeL Tools solves the actual problem (scholarly name identity matching)."`
+
 - `engines/source/review/DOWNSTREAM_CONTRACT_AUDIT.md`
   - `"Correct both downstream SPECs to read from \`library/sources/{source_id}/metadata.json\`"`
   - `"Do NOT expand the registry — that creates redundancy and staleness risk."`
@@ -353,6 +380,7 @@ These are the highest-signal passages that justify the archive-first plan.
   - `"Compiler vs. author distinction ... identify the ORIGINAL author, not the compiler."`
   - `"Set confidence to 0.50 for any field you are genuinely uncertain about. Do NOT guess"`
   - `"A تعقبات ... is NOT multi-layer"`
+  - `"The output schema section of this file is preserved in full by archiving the entire prompt file, not by the anchor excerpts alone."`
 
 - `engines/source/src/consensus.py`
   - `"Case B: Both say \"new\" → name_sim >= 0.90 AND death dates agree (±10 years or both None) → True"`
