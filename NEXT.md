@@ -1,28 +1,26 @@
-# NEXT -- Repo Cleanup + Owner-Facing Visual Representations
+# NEXT -- Owner-Facing Visual Representations
 
-## CURRENT FRONTIER OVERRIDE — ACTIVE
+## CURRENT FRONTIER — ACTIVE
 
-Excerpting engine builds are paused at the Session 22 checkpoint.
+**Branch:** `clean-start` (the only branch — repo cleaned 2026-04-13)
+**Repo state:** 6,339 tracked files, 18 root files, 1 branch, clean git status
 
-Active work now:
-- repo cleanup and navigation cleanup
-- owner-facing visual representations, including mermaid diagrams and architecture maps
-- documentation reshaping that helps the owner react to system structure and flow
+Repo cleanup is COMPLETE (Session 23). Active work now:
+- owner-facing visual representations: mermaid diagrams, architecture maps, pipeline flow diagrams
+- documentation reshaping that helps the owner inspect system structure and give non-technical reactions
 
 Paused work:
-- excerpting code changes
+- excerpting code changes (frozen at 1008 pass, 0 fail, 4 xfail)
 - new excerpting smoke runs or generalization runs
 - prompt/contract/spec changes tied to excerpting fixes
 
 Excerpting freeze state:
-- frozen branch: `excerpting-foundations-hardening-20260404`
 - frozen test state: `1008` pass, `0` fail, `4` xfail
 - frozen budget state: `EUR 36.70 / 100.00`
-- review artifact still collecting owner feedback: `integration_tests/review_session22/eval_session22_talaq/`
 - exact checkpoint note: `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
 
 Current deliverable:
-- produce a cleaner repo surface and visual representations that let the owner inspect the pipeline, control surfaces, and information flow and then give informed non-technical reactions
+- produce visual representations that let the owner inspect the pipeline, control surfaces, and information flow and then give informed non-technical reactions
 
 ## ARCHIVED EXCERPTING FRONTIER (paused 2026-04-08)
 
