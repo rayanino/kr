@@ -424,7 +424,7 @@ atoms:
     file: constraints/CON-SRC-0004.yaml
   - id: OQ-SRC-0001
     type: question
-    status: draft
+    status: deferred
     title: Level detection ownership
     topic: metadata
     priority: medium
@@ -438,21 +438,21 @@ atoms:
     file: questions/OQ-SRC-0003.yaml
   - id: OQ-SRC-0004
     type: question
-    status: draft
+    status: superseded
     title: Formal replacement for human_gate
     topic: consensus
     priority: high
     file: questions/OQ-SRC-0004.yaml
   - id: OQ-SRC-0005
     type: question
-    status: draft
+    status: deferred
     title: Agent monitoring scope
     topic: agent_ergonomics
     priority: medium
     file: questions/OQ-SRC-0005.yaml
   - id: OQ-SRC-0006
     type: question
-    status: draft
+    status: superseded
     title: Ordering and display semantics for multi-position metadata
     topic: metadata
     priority: high
@@ -464,3 +464,17 @@ atoms:
     topic: agent_ergonomics
     priority: medium
     file: questions/OQ-SRC-0007.yaml
+  - id: DEC-SRC-0011
+    type: decision
+    status: proposed
+    title: Agent self-resolution replaces human_gate
+    topic: consensus
+    priority: high
+    file: decisions/DEC-SRC-0011.yaml
+  - id: DEC-SRC-0012
+    type: decision
+    status: proposed
+    title: Multi-position metadata ordered by confidence
+    topic: metadata
+    priority: high
+    file: decisions/DEC-SRC-0012.yaml

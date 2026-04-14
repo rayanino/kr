@@ -1,6 +1,6 @@
 id: OQ-SRC-0006
 type: question
-status: draft
+status: superseded
 title: Ordering and display semantics for multi-position metadata
 topic: metadata
 priority: high
