@@ -1,0 +1,32 @@
+id: OQ-SRC-0006
+type: question
+status: superseded
+title: Ordering and display semantics for multi-position metadata
+topic: metadata
+layer: questions
+priority: high
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0013; narrowed per contract-architect-review.yaml
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0013
+- DEC-SRC-0007
+- REQ-SRC-0012
+impacts:
+- disputed_metadata
+- contract_shape
+candidates:
+- id: OPT-A
+  label: Preserve input order
+  description: Keep disputed_field.positions in the order they were produced by the contributing agents and show no primary display value.
+  likelihood: possible
+- id: OPT-B
+  label: Sort by confidence
+  description: Order disputed_field.positions by descending confidence and mark the highest-confidence item as the default display position.
+  likelihood: likely
+- id: OPT-C
+  label: Weighted display without reordering
+  description: Preserve position order but add explicit relative weights and primary-display markers alongside the existing confidence values.
+  likelihood: possible

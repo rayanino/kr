@@ -1,0 +1,52 @@
+id: REQ-SRC-0018
+type: requirement
+status: proposed
+title: Freeze and manifest verification
+topic: freezing
+layer: pipeline
+step: freeze_and_manifest
+priority: critical
+confidence: high
+provenance: archive_tier_a
+source: Derived from reference/archive/v1/source_engine/reference/ABD_INTAKE_SPEC.md and archive freezer/integrity behavior, then adapted to the new raw-upload registry boundary on 2026-04-14.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0001
+- DEC-SRC-0014
+impacts:
+- raw_upload_registry
+- frozen_manifest
+behavior:
+  trigger: A raw_upload_record with status=received is promoted into freeze processing.
+  preconditions:
+  - The raw-upload record identifies one readable file or directory.
+  - Freeze processing reads the source bytes or directory members from the submitted artifact without modifying them.
+  postconditions:
+  - A frozen_source record is written with non-null source_id, source_sha256, frozen_blob_path, and freeze_verification_status.
+  - frozen_source.frozen_member_manifest records every frozen member with member_name, member_sha256, member_size_bytes, and member_kind.
+  - raw_upload_record.status is set to frozen when freeze_verification_status="verified".
+  - Exact duplicate detection is evaluated against frozen_source.source_sha256 before later container classification begins.
+  error_conditions:
+  - condition: The frozen copy cannot be re-opened and re-hashed to the same source_sha256 immediately after freeze.
+    action: Abort freezing with SRC-E-FREEZE-VERIFY.
+    severity: fatal
+  - condition: frozen_source.source_sha256 matches an existing admitted source or frozen source candidate.
+    action: Abort freezing with SRC-E-DUPLICATE-INGEST.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm
+  when: freeze and manifest executes
+  then: frozen_source.source_id is non-empty, frozen_source.source_sha256 is a 64-character SHA-256 hex digest, frozen_source.freeze_verification_status="verified", and len(frozen_source.frozen_member_manifest)=1.
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/shamela_real/11_multi_small
+  when: freeze and manifest executes
+  then: frozen_source.freeze_verification_status="verified" and len(frozen_source.frozen_member_manifest)=3.
+  test_type: integration
+- id: AC-3
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once
+  when: freeze and manifest executes again
+  then: Freezing aborts with error_code=SRC-E-DUPLICATE-INGEST.
+  test_type: integration

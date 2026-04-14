@@ -1,0 +1,31 @@
+id: DEC-SRC-0004
+type: decision
+status: proposed
+title: Replace trust algorithm with agent teams
+topic: trust
+layer: architecture
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0009; amended per both coworker reviews
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0009
+- OQ-SRC-0003
+- OQ-SRC-0005
+impacts:
+- trust_resolution
+- agent_orchestration
+rationale: 'Settled here: trust evaluation needs at least two independent verification agents, structured trust_decision output, monitor feedback capture, and a fast-track path for universally recognized foundational texts. Remaining team choreography stays open in OQ-SRC-0003.'
+options:
+- id: OPT-A
+  label: Five-factor weighted algorithm
+  description: Continue trust scoring as a numeric combination of fixed factors.
+  status: rejected
+  rejection_reason: The owner explicitly rejected keeping trust as a weighted algorithm.
+- id: OPT-B
+  label: Minimum two-verifier trust workflow
+  description: Use at least two independent verification agents, structured trust_decision output, monitor feedback, and fast-track verification for universally recognized foundational texts.
+  status: chosen
+  chosen_reason: This matches the owner's trust direction while keeping unresolved team architecture out of the runtime contract.

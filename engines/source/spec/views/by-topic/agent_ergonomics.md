@@ -12,6 +12,8 @@
 
 ### DEC-SRC-0008 — Agent infrastructure is built within source-engine scope first
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -21,6 +23,8 @@
 
 ### DEC-SRC-0009 — Research strategy uses specialized sources
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -30,6 +34,8 @@
 
 ### OF-SRC-0016 — Research must use specialized source channels
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -39,6 +45,8 @@
 
 ### OQ-SRC-0003 — Agent-team architecture design
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: draft
 - Priority: critical
 - Confidence: medium
@@ -50,6 +58,8 @@
 
 ### OQ-SRC-0005 — Agent monitoring scope
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium
@@ -61,6 +71,8 @@
 
 ### OQ-SRC-0007 — Specialized research source inventory
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: draft
 - Priority: medium
 - Confidence: medium
@@ -72,6 +84,8 @@
 
 ### REQ-SRC-0013 — Specialized research agents
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high

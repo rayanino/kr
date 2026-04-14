@@ -1,0 +1,53 @@
+id: REQ-SRC-0026
+type: requirement
+status: proposed
+title: Authoritative work identity and collection linkage output
+topic: identity
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from owner guidance on 2026-04-14 that the source engine must determine exactly which book/source was uploaded and preserve collection linkage explicitly.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0019
+- CON-SRC-0004
+impacts:
+- work_identity
+- collection_matching
+behavior:
+  trigger: Metadata deliberation finalizes source-engine metadata for a source candidate.
+  preconditions:
+  - An intake_dossier exists with work_identity_proposal and collection_match_candidates.
+  - Metadata deliberation has access to the same evidence dossier used for source-work identification.
+  postconditions:
+  - work_output is written with non-null status and at least one evidence-backed position.
+  - work_output.status is one of definitive, disputed, or insufficient_evidence.
+  - A definitive case stores one chosen work position, while a disputed case preserves multiple work positions instead of forcing one bibliographic identity.
+  - collection_match_output records whether the source matches an existing admitted work, an existing edition group, or no current collection match.
+  - title_arabic in SourceMetadata is derived from the chosen or preserved work identity evidence rather than from raw upload naming alone.
+  error_conditions:
+  - condition: Metadata deliberation finalizes SourceMetadata without emitting work_output.
+    action: Abort metadata finalization with SRC-E-WORK-OUTPUT-MISSING.
+    severity: fatal
+  - condition: Metadata deliberation emits a definitive work identity without any evidence-backed work position.
+    action: Abort metadata finalization with SRC-E-WORK-EVIDENCE.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm with one evidence-backed work candidate
+  when: metadata deliberation executes
+  then: work_output.status="definitive", len(work_output.positions)=1, and title_arabic is non-empty.
+  test_type: integration
+- id: AC-2
+  given: A source candidate whose intake dossier contains two evidence-backed work candidates for the same uploaded source
+  when: metadata deliberation executes
+  then: work_output.status="disputed" and len(work_output.positions) is at least 2.
+  test_type: deterministic
+- id: AC-3
+  given: A source candidate whose intake dossier contains no evidence-backed work candidate
+  when: metadata deliberation executes
+  then: work_output.status="insufficient_evidence".
+  test_type: deterministic

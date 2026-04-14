@@ -24,6 +24,8 @@
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -32,6 +34,8 @@
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -40,6 +44,8 @@
 
 ### CON-SRC-0003 — No existing pipeline contract is binding on the rebuild
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -48,6 +54,8 @@
 
 ### OF-SRC-0001 — Collection unchanged for source intake
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -57,6 +65,8 @@
 
 ### OF-SRC-0002 — Drop-and-go intake with optional hints
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -66,6 +76,8 @@
 
 ### OF-SRC-0003 — Minimize owner review load
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -75,6 +87,8 @@
 
 ### OF-SRC-0004 — Author attribution errors are catastrophic
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -84,6 +98,8 @@
 
 ### OF-SRC-0005 — Science hints follow the same cross-validation rule
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -93,6 +109,8 @@
 
 ### OF-SRC-0006 — Science registry must keep growing
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -102,6 +120,8 @@
 
 ### OF-SRC-0007 — Preserve and infer level metadata from content
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: medium
 - Confidence: medium
@@ -111,6 +131,8 @@
 
 ### OF-SRC-0008 — Multi-layer detection ownership is unresolved
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: medium
 - Confidence: low
@@ -120,6 +142,8 @@
 
 ### OF-SRC-0009 — Replace numeric trust scoring with agent teams
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -129,6 +153,8 @@
 
 ### OF-SRC-0010 — Muhaqiq standing is informational only
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -138,6 +164,8 @@
 
 ### OF-SRC-0011 — Agents resolve disagreements without human gate
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -147,6 +175,8 @@
 
 ### OF-SRC-0012 — Hadith classification is the primary benchmark surface
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -156,6 +186,8 @@
 
 ### OF-SRC-0013 — Disagreement may itself be the true answer
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -165,6 +197,8 @@
 
 ### OF-SRC-0014 — Legacy contracts do not cap the rebuild
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -174,6 +208,8 @@
 
 ### OF-SRC-0015 — Build source-engine teams inside the source-engine scope first
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: medium
 - Confidence: high
@@ -183,6 +219,8 @@
 
 ### OF-SRC-0016 — Research must use specialized source channels
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high

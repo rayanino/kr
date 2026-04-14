@@ -7,14 +7,16 @@
 | INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical |
-| REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical |
+| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | proposed | critical |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
-| REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
-| REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
-| REQ-SRC-0021 | requirement | PDF text-layer classification and OCR-primary routing | proposed | critical |
+| REQ-SRC-0017 | requirement | Multipart Shamela container classification | proposed | critical |
+| REQ-SRC-0020 | requirement | Plain text container classification | proposed | medium |
+| REQ-SRC-0021 | requirement | PDF intake analysis and text-layer quality classification | proposed | critical |
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -23,6 +25,8 @@
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -32,6 +36,8 @@
 
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -40,6 +46,8 @@
 
 ### OF-SRC-0001 — Collection unchanged for source intake
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -49,6 +57,8 @@
 
 ### OF-SRC-0002 — Drop-and-go intake with optional hints
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -56,31 +66,30 @@
 - Interview question: How much manual structure should the owner provide at intake time?
 - Owner answer: The owner wants drop-and-go intake. Optional fields such as author or science are allowed as hints only, never as primary data. Matching hints boost confidence; diverging hints trigger investigation.
 
-### REQ-SRC-0001 — Autonomous source acquisition
+### REQ-SRC-0001 — Upload receipt and raw submission registration
 - Type: requirement
+- Layer: pipeline
+- Step: upload_receipt
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, reference/pdf_fixture_observations_2026-04-14.md, and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
-- Trigger: Owner submits a single filesystem path for source intake.
+- Source: Derived from OF-SRC-0002; re-scoped on 2026-04-14 after owner correction that upload, intake analysis, and later source acceptance must be distinct stages.
+- Trigger: The owner submits one filesystem path for source-engine processing.
 - Postconditions:
-  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, source_metadata.source_format, and source_metadata.normalization_route.
-  - .htm or .html file input sets source_metadata.source_format=shamela_html and source_metadata.normalization_route=html_parse_primary.
-  - .pdf file input sets source_metadata.source_format=pdf and routes to REQ-SRC-0021 for pdf_text_layer_status classification while keeping source_metadata.normalization_route=pdf_ocr_primary.
-  - .txt file input sets source_metadata.source_format=plain_text and source_metadata.normalization_route=plain_text_parse.
-  - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
-  - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
+  - A raw_upload_record is written with non-null submission_id, submitted_path, submitted_path_kind, intake_mode, and receipt_timestamp.
+  - raw_upload_record.status is set to received.
+  - Owner hints are preserved as raw_upload_record.owner_hint_payload without being used as primary inference at this step.
+  - No source_id, source_sha256, frozen_blob_path, source_metadata, or normalization_handoff_bundle is emitted at this step.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, source_metadata.registry_entry_id is non-empty, and source_metadata.source_format="shamela_html"..
-  - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
-  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
-  - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
-  - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
-  - AC-6 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When source engine intake executes; Then The request routes to REQ-SRC-0021 and emits source_metadata.source_format="pdf", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.pdf_text_layer_status="corrupt"..
-  - AC-7 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When source engine intake executes; Then The request routes to REQ-SRC-0020 and source_metadata.source_format="plain_text"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When upload receipt executes; Then raw_upload_record.submission_id is non-empty, raw_upload_record.submitted_path_kind="file", raw_upload_record.status="received", and no source_id field exists in the upload-receipt output..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small; When upload receipt executes; Then raw_upload_record.submitted_path_kind="directory" and raw_upload_record.status="received"..
+  - AC-3 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When upload receipt executes; Then Upload receipt aborts with error_code=SRC-E-PATH-NOT-FOUND..
+  - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When upload receipt executes; Then Upload receipt aborts with error_code=SRC-E-EMPTY-FILE..
 
 ### REQ-SRC-0002 — Optional owner hints as cross-validation
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -98,55 +107,61 @@
   - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", inferred_metadata.genre remains "risalah", and source_metadata.hint_comparison_results contains a record with hint_field="genre", hint_value="matn", inferred_value="risalah", and match=false..
   - AC-3 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"; When hint payload validation executes; Then The invalid hint key is rejected with error_code=SRC-E-HINT-FIELD and base inference still runs..
 
-### REQ-SRC-0017 — Multi-volume directory intake
+### REQ-SRC-0017 — Multipart Shamela container classification
 - Type: requirement
+- Layer: pipeline
+- Step: container_classification
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-001
-- Trigger: Owner submits a directory path containing numbered .htm volume files for intake.
+- Source: Added from adversary-review.yaml ADV-001 and tightened on 2026-04-14 to distinguish container classification from freezing and later metadata deliberation.
+- Trigger: Container classification receives a frozen directory candidate whose members include .htm files.
 - Postconditions:
-  - All numbered volume files are frozen under one source_metadata.source_id and one source_metadata.registry_entry_id.
-  - source_metadata.volume_count equals the number of frozen numbered volume files and is at least 2.
-  - source_metadata.source_sha256 stores the composite hash of the numbered volume files.
-  - source_metadata.frozen_blob_path points to the immutable frozen directory for the shared source_id.
-  - When non-numbered .htm files are present, interactive intake prompts for supplementary inclusion and non-interactive intake auto-skips those files while recording supplementary_file_decision.
+  - container_classification.container_type is set to shamela_multi_volume_html when the manifest contains at least two numbered .htm members.
+  - container_classification.container_type is set to multipart_with_supplementary when the manifest contains one or more numbered .htm members plus supplementary non-numbered .htm members.
+  - container_classification.volume_manifest preserves numbered HTML members in integer-stem order.
+  - container_classification.supplementary_members preserves non-numbered HTML members separately from numbered volumes.
+  - container_classification.normalization_route is set to html_parse_primary.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake executes; Then All .htm volumes are frozen under one source_metadata.source_id, source_metadata.volume_count=3, and exactly one source_metadata.registry_entry_id is written..
-  - AC-2 [deterministic] Given A directory containing only non-numbered .htm files; When intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-DIRECTORY..
-  - AC-3 [deterministic] Given A directory containing 001.htm, 002.htm, and appendix.htm while interaction is unavailable; When intake executes; Then source_metadata.volume_count=2 and supplementary_file_decision.mode="auto_skip"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When container classification executes; Then container_classification.container_type="shamela_multi_volume_html", len(container_classification.volume_manifest)=3, and container_classification.normalization_route="html_parse_primary"..
+  - AC-2 [deterministic] Given A frozen directory manifest containing only appendix.htm and introduction.htm; When container classification executes; Then Classification aborts with error_code=SRC-E-EMPTY-DIRECTORY..
+  - AC-3 [deterministic] Given A frozen directory manifest containing 001.htm and المقدمة.htm; When container classification executes; Then container_classification.container_type="multipart_with_supplementary", container_classification.volume_manifest[0].member_name="001.htm", and container_classification.supplementary_members[0].member_name="المقدمة.htm"..
 
-### REQ-SRC-0020 — Plain text source intake
+### REQ-SRC-0020 — Plain text container classification
 - Type: requirement
+- Layer: pipeline
+- Step: container_classification
 - Status: proposed
 - Priority: medium
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-011
-- Trigger: Owner submits a .txt file path.
+- Source: Added from adversary-review.yaml ADV-011 and narrowed on 2026-04-14 so plain-text handling is classified and routed here, while later text interpretation belongs to later steps.
+- Trigger: Container classification receives a frozen single-file candidate whose suffix is .txt.
 - Postconditions:
-  - source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id are written from the submitted file bytes.
-  - source_metadata.title_arabic equals the first non-empty line of the file.
-  - The full file content, including the title line, is passed to metadata inference as plain_text_content.
-  - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
+  - container_classification.container_type is set to plain_text.
+  - container_classification.normalization_route is set to plain_text_parse.
+  - container_classification.text_encoding is set to utf-8.
+  - intake analysis may later use the first non-empty line as title evidence, but that evidence is not finalized at this step.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..
+  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When container classification executes; Then container_classification.container_type="plain_text", container_classification.normalization_route="plain_text_parse", and container_classification.text_encoding="utf-8"..
 
-### REQ-SRC-0021 — PDF text-layer classification and OCR-primary routing
+### REQ-SRC-0021 — PDF intake analysis and text-layer quality classification
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that PDFs should normalize through OCR even when a text layer exists
-- Trigger: A .pdf file is submitted for intake.
+- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner correction that PDF text-layer judgment belongs to intake analysis and must use text quality, not text presence alone.
+- Trigger: Intake analysis runs on a frozen source candidate whose container_type is pdf.
 - Postconditions:
-  - source_metadata.source_format is set to pdf.
-  - source_metadata.page_count_physical is set from the PDF page count.
-  - source_metadata.normalization_route is set to pdf_ocr_primary for every PDF.
-  - source_metadata.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
-  - source_metadata.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
-  - source_metadata.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
+  - intake_dossier.source_format is set to pdf.
+  - intake_dossier.declared_vs_observed_counts.physical_page_count is set from the PDF page count.
+  - intake_dossier.normalization_route is set to pdf_ocr_primary.
+  - intake_dossier.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
+  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
+  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="absent", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=398..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="corrupt", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=13..
-  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="clean", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=1..
-  - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When PDF format detection runs; Then Intake aborts with error_code=SRC-E-PDF-CORRUPT..
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="absent", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=398..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="corrupt", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=13..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1..
+  - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When intake analysis executes; Then Intake analysis aborts with error_code=SRC-E-PDF-CORRUPT..

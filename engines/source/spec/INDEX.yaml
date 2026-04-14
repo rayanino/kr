@@ -1,480 +1,529 @@
-schema_version: "1.0"
+schema_version: '1.0'
 engine: source
-updated: "2026-04-14"
+updated: '2026-04-14'
 atoms:
-  - id: OF-SRC-0001
-    type: feedback
-    status: confirmed
-    title: Collection unchanged for source intake
-    topic: acquisition
-    priority: high
-    file: owner-feedback/OF-SRC-0001.yaml
-  - id: OF-SRC-0002
-    type: feedback
-    status: confirmed
-    title: Drop-and-go intake with optional hints
-    topic: acquisition
-    priority: critical
-    file: owner-feedback/OF-SRC-0002.yaml
-  - id: OF-SRC-0003
-    type: feedback
-    status: confirmed
-    title: Minimize owner review load
-    topic: trust
-    priority: critical
-    file: owner-feedback/OF-SRC-0003.yaml
-  - id: OF-SRC-0004
-    type: feedback
-    status: confirmed
-    title: Author attribution errors are catastrophic
-    topic: metadata
-    priority: critical
-    file: owner-feedback/OF-SRC-0004.yaml
-  - id: OF-SRC-0005
-    type: feedback
-    status: confirmed
-    title: Science hints follow the same cross-validation rule
-    topic: metadata
-    priority: high
-    file: owner-feedback/OF-SRC-0005.yaml
-  - id: OF-SRC-0006
-    type: feedback
-    status: confirmed
-    title: Science registry must keep growing
-    topic: metadata
-    priority: high
-    file: owner-feedback/OF-SRC-0006.yaml
-  - id: OF-SRC-0007
-    type: feedback
-    status: confirmed
-    title: Preserve and infer level metadata from content
-    topic: metadata
-    priority: medium
-    file: owner-feedback/OF-SRC-0007.yaml
-  - id: OF-SRC-0008
-    type: feedback
-    status: confirmed
-    title: Multi-layer detection ownership is unresolved
-    topic: metadata
-    priority: medium
-    file: owner-feedback/OF-SRC-0008.yaml
-  - id: OF-SRC-0009
-    type: feedback
-    status: confirmed
-    title: Replace numeric trust scoring with agent teams
-    topic: trust
-    priority: critical
-    file: owner-feedback/OF-SRC-0009.yaml
-  - id: OF-SRC-0010
-    type: feedback
-    status: confirmed
-    title: Muhaqiq standing is informational only
-    topic: trust
-    priority: high
-    file: owner-feedback/OF-SRC-0010.yaml
-  - id: OF-SRC-0011
-    type: feedback
-    status: confirmed
-    title: Agents resolve disagreements without human gate
-    topic: consensus
-    priority: critical
-    file: owner-feedback/OF-SRC-0011.yaml
-  - id: OF-SRC-0012
-    type: feedback
-    status: confirmed
-    title: Hadith classification is the primary benchmark surface
-    topic: metadata
-    priority: high
-    file: owner-feedback/OF-SRC-0012.yaml
-  - id: OF-SRC-0013
-    type: feedback
-    status: confirmed
-    title: Disagreement may itself be the true answer
-    topic: consensus
-    priority: high
-    file: owner-feedback/OF-SRC-0013.yaml
-  - id: OF-SRC-0014
-    type: feedback
-    status: confirmed
-    title: Legacy contracts do not cap the rebuild
-    topic: handoff
-    priority: critical
-    file: owner-feedback/OF-SRC-0014.yaml
-  - id: OF-SRC-0015
-    type: feedback
-    status: confirmed
-    title: Build source-engine teams inside the source-engine scope first
-    topic: handoff
-    priority: medium
-    file: owner-feedback/OF-SRC-0015.yaml
-  - id: OF-SRC-0016
-    type: feedback
-    status: confirmed
-    title: Research must use specialized source channels
-    topic: agent_ergonomics
-    priority: high
-    file: owner-feedback/OF-SRC-0016.yaml
-  - id: REQ-SRC-0001
-    type: requirement
-    status: proposed
-    title: Autonomous source acquisition
-    topic: acquisition
-    priority: critical
-    file: requirements/REQ-SRC-0001.yaml
-  - id: REQ-SRC-0002
-    type: requirement
-    status: proposed
-    title: Optional owner hints as cross-validation
-    topic: acquisition
-    priority: high
-    file: requirements/REQ-SRC-0002.yaml
-  - id: REQ-SRC-0003
-    type: requirement
-    status: proposed
-    title: Minimal owner review load
-    topic: trust
-    priority: critical
-    file: requirements/REQ-SRC-0003.yaml
-  - id: REQ-SRC-0004
-    type: requirement
-    status: proposed
-    title: Multi-model consensus for author attribution
-    topic: metadata
-    priority: critical
-    file: requirements/REQ-SRC-0004.yaml
-  - id: REQ-SRC-0005
-    type: requirement
-    status: proposed
-    title: Optional science hint
-    topic: metadata
-    priority: medium
-    file: requirements/REQ-SRC-0005.yaml
-  - id: REQ-SRC-0006
-    type: requirement
-    status: proposed
-    title: Growable science registry
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0006.yaml
-  - id: REQ-SRC-0007
-    type: requirement
-    status: proposed
-    title: Level field preservation across handoff
-    topic: metadata
-    priority: medium
-    file: requirements/REQ-SRC-0007.yaml
-  - id: REQ-SRC-0008
-    type: requirement
-    status: proposed
-    title: Agent-team trust evaluation
-    topic: trust
-    priority: critical
-    file: requirements/REQ-SRC-0008.yaml
-  - id: REQ-SRC-0009
-    type: requirement
-    status: proposed
-    title: Agent self-resolution of disagreements
-    topic: consensus
-    priority: critical
-    file: requirements/REQ-SRC-0009.yaml
-  - id: REQ-SRC-0010
-    type: requirement
-    status: proposed
-    title: Graduated muhaqiq standing
-    topic: metadata
-    priority: medium
-    file: requirements/REQ-SRC-0010.yaml
-  - id: REQ-SRC-0011
-    type: requirement
-    status: proposed
-    title: Fine-grained hadith classification
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0011.yaml
-  - id: REQ-SRC-0012
-    type: requirement
-    status: proposed
-    title: Multi-position metadata for disputed fields
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0012.yaml
-  - id: REQ-SRC-0013
-    type: requirement
-    status: proposed
-    title: Specialized research agents
-    topic: agent_ergonomics
-    priority: high
-    file: requirements/REQ-SRC-0013.yaml
-  - id: REQ-SRC-0014
-    type: requirement
-    status: proposed
-    title: Copyist and author disambiguation
-    topic: metadata
-    priority: critical
-    file: requirements/REQ-SRC-0014.yaml
-  - id: REQ-SRC-0015
-    type: requirement
-    status: proposed
-    title: Honorific-aware name matching
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0015.yaml
-  - id: REQ-SRC-0016
-    type: requirement
-    status: proposed
-    title: Multi-science assignment
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0016.yaml
-  - id: REQ-SRC-0017
-    type: requirement
-    status: proposed
-    title: Multi-volume directory intake
-    topic: acquisition
-    priority: critical
-    file: requirements/REQ-SRC-0017.yaml
-  - id: REQ-SRC-0020
-    type: requirement
-    status: proposed
-    title: Plain text source intake
-    topic: acquisition
-    priority: medium
-    file: requirements/REQ-SRC-0020.yaml
-  - id: REQ-SRC-0021
-    type: requirement
-    status: proposed
-    title: PDF format detection and routing
-    topic: acquisition
-    priority: critical
-    file: requirements/REQ-SRC-0021.yaml
-  - id: REQ-SRC-0022
-    type: requirement
-    status: proposed
-    title: Arabic OCR quality assessment
-    topic: trust
-    priority: critical
-    file: requirements/REQ-SRC-0022.yaml
-  - id: REQ-SRC-0023
-    type: requirement
-    status: proposed
-    title: Diacritics preservation from OCR
-    topic: metadata
-    priority: critical
-    file: requirements/REQ-SRC-0023.yaml
-  - id: REQ-SRC-0024
-    type: requirement
-    status: proposed
-    title: PDF page layout detection
-    topic: metadata
-    priority: high
-    file: requirements/REQ-SRC-0024.yaml
-  - id: INV-SRC-0001
-    type: invariant
-    status: proposed
-    title: Owner hints never bias inference
-    topic: acquisition
-    priority: critical
-    file: invariants/INV-SRC-0001.yaml
-  - id: INV-SRC-0002
-    type: invariant
-    status: proposed
-    title: Author attribution role separation is mandatory
-    topic: metadata
-    priority: critical
-    file: invariants/INV-SRC-0002.yaml
-  - id: INV-SRC-0003
-    type: invariant
-    status: proposed
-    title: Library never refuses knowledge
-    topic: metadata
-    priority: critical
-    file: invariants/INV-SRC-0003.yaml
-  - id: INV-SRC-0004
-    type: invariant
-    status: proposed
-    title: Truth-seeking over consensus-forcing
-    topic: consensus
-    priority: high
-    file: invariants/INV-SRC-0004.yaml
-  - id: INV-SRC-0005
-    type: invariant
-    status: proposed
-    title: Muhaqiq never gates trust decisions
-    topic: trust
-    priority: high
-    file: invariants/INV-SRC-0005.yaml
-  - id: INV-SRC-0006
-    type: invariant
-    status: proposed
-    title: Isnad atomic preservation
-    topic: metadata
-    priority: high
-    file: invariants/INV-SRC-0006.yaml
-  - id: INV-SRC-0007
-    type: invariant
-    status: proposed
-    title: Scholar registry minimum population
-    topic: metadata
-    priority: critical
-    file: invariants/INV-SRC-0007.yaml
-  - id: INV-SRC-0008
-    type: invariant
-    status: proposed
-    title: OCR output is never silently trusted
-    topic: trust
-    priority: critical
-    file: invariants/INV-SRC-0008.yaml
-  - id: DEC-SRC-0001
-    type: decision
-    status: proposed
-    title: Owner hints are cross-validation, not primary data
-    topic: acquisition
-    priority: critical
-    file: decisions/DEC-SRC-0001.yaml
-  - id: DEC-SRC-0002
-    type: decision
-    status: proposed
-    title: Science scope uses dynamic registry
-    topic: metadata
-    priority: high
-    file: decisions/DEC-SRC-0002.yaml
-  - id: DEC-SRC-0003
-    type: decision
-    status: deferred
-    title: Level detection strategy
-    topic: metadata
-    priority: medium
-    file: decisions/DEC-SRC-0003.yaml
-  - id: DEC-SRC-0004
-    type: decision
-    status: proposed
-    title: Replace trust algorithm with agent teams
-    topic: trust
-    priority: critical
-    file: decisions/DEC-SRC-0004.yaml
-  - id: DEC-SRC-0005
-    type: decision
-    status: proposed
-    title: Muhaqiq standing is metadata only
-    topic: trust
-    priority: high
-    file: decisions/DEC-SRC-0005.yaml
-  - id: DEC-SRC-0006
-    type: decision
-    status: proposed
-    title: Agents resolve disagreements autonomously
-    topic: consensus
-    priority: critical
-    file: decisions/DEC-SRC-0006.yaml
-  - id: DEC-SRC-0007
-    type: decision
-    status: proposed
-    title: Disputed metadata as multi-position evidence
-    topic: metadata
-    priority: high
-    file: decisions/DEC-SRC-0007.yaml
-  - id: DEC-SRC-0008
-    type: decision
-    status: proposed
-    title: Agent infrastructure is built within source-engine scope first
-    topic: agent_ergonomics
-    priority: medium
-    file: decisions/DEC-SRC-0008.yaml
-  - id: DEC-SRC-0009
-    type: decision
-    status: proposed
-    title: Research strategy uses specialized sources
-    topic: agent_ergonomics
-    priority: high
-    file: decisions/DEC-SRC-0009.yaml
-  - id: DEC-SRC-0010
-    type: decision
-    status: proposed
-    title: Source hints multi-layer routing and normalization confirms it
-    topic: metadata
-    priority: medium
-    file: decisions/DEC-SRC-0010.yaml
-  - id: CON-SRC-0001
-    type: constraint
-    status: confirmed
-    title: Shamela HTML and PDF are production formats
-    topic: acquisition
-    priority: high
-    file: constraints/CON-SRC-0001.yaml
-  - id: CON-SRC-0002
-    type: constraint
-    status: confirmed
-    title: Hadith literature dominates source-engine benchmark quality
-    topic: metadata
-    priority: high
-    file: constraints/CON-SRC-0002.yaml
-  - id: CON-SRC-0003
-    type: constraint
-    status: confirmed
-    title: No existing pipeline contract is binding on the rebuild
-    topic: handoff
-    priority: critical
-    file: constraints/CON-SRC-0003.yaml
-  - id: CON-SRC-0004
-    type: constraint
-    status: proposed
-    title: Complete SourceMetadata output schema
-    topic: handoff
-    priority: critical
-    file: constraints/CON-SRC-0004.yaml
-  - id: OQ-SRC-0001
-    type: question
-    status: deferred
-    title: Level detection ownership
-    topic: metadata
-    priority: medium
-    file: questions/OQ-SRC-0001.yaml
-  - id: OQ-SRC-0003
-    type: question
-    status: draft
-    title: Agent-team architecture design
-    topic: agent_ergonomics
-    priority: critical
-    file: questions/OQ-SRC-0003.yaml
-  - id: OQ-SRC-0004
-    type: question
-    status: superseded
-    title: Formal replacement for human_gate
-    topic: consensus
-    priority: high
-    file: questions/OQ-SRC-0004.yaml
-  - id: OQ-SRC-0005
-    type: question
-    status: deferred
-    title: Agent monitoring scope
-    topic: agent_ergonomics
-    priority: medium
-    file: questions/OQ-SRC-0005.yaml
-  - id: OQ-SRC-0006
-    type: question
-    status: superseded
-    title: Ordering and display semantics for multi-position metadata
-    topic: metadata
-    priority: high
-    file: questions/OQ-SRC-0006.yaml
-  - id: OQ-SRC-0007
-    type: question
-    status: draft
-    title: Specialized research source inventory
-    topic: agent_ergonomics
-    priority: medium
-    file: questions/OQ-SRC-0007.yaml
-  - id: DEC-SRC-0011
-    type: decision
-    status: proposed
-    title: Agent self-resolution replaces human_gate
-    topic: consensus
-    priority: high
-    file: decisions/DEC-SRC-0011.yaml
-  - id: DEC-SRC-0012
-    type: decision
-    status: proposed
-    title: Multi-position metadata ordered by confidence
-    topic: metadata
-    priority: high
-    file: decisions/DEC-SRC-0012.yaml
+- id: OF-SRC-0001
+  type: feedback
+  status: confirmed
+  title: Collection unchanged for source intake
+  topic: acquisition
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0001.yaml
+- id: OF-SRC-0002
+  type: feedback
+  status: confirmed
+  title: Drop-and-go intake with optional hints
+  topic: acquisition
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0002.yaml
+- id: OF-SRC-0003
+  type: feedback
+  status: confirmed
+  title: Minimize owner review load
+  topic: trust
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0003.yaml
+- id: OF-SRC-0004
+  type: feedback
+  status: confirmed
+  title: Author attribution errors are catastrophic
+  topic: metadata
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0004.yaml
+- id: OF-SRC-0005
+  type: feedback
+  status: confirmed
+  title: Science hints follow the same cross-validation rule
+  topic: metadata
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0005.yaml
+- id: OF-SRC-0006
+  type: feedback
+  status: confirmed
+  title: Science registry must keep growing
+  topic: metadata
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0006.yaml
+- id: OF-SRC-0007
+  type: feedback
+  status: confirmed
+  title: Preserve and infer level metadata from content
+  topic: metadata
+  priority: medium
+  file: 60-evidence/owner-feedback/OF-SRC-0007.yaml
+- id: OF-SRC-0008
+  type: feedback
+  status: confirmed
+  title: Multi-layer detection ownership is unresolved
+  topic: metadata
+  priority: medium
+  file: 60-evidence/owner-feedback/OF-SRC-0008.yaml
+- id: OF-SRC-0009
+  type: feedback
+  status: confirmed
+  title: Replace numeric trust scoring with agent teams
+  topic: trust
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0009.yaml
+- id: OF-SRC-0010
+  type: feedback
+  status: confirmed
+  title: Muhaqiq standing is informational only
+  topic: trust
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0010.yaml
+- id: OF-SRC-0011
+  type: feedback
+  status: confirmed
+  title: Agents resolve disagreements without human gate
+  topic: consensus
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0011.yaml
+- id: OF-SRC-0012
+  type: feedback
+  status: confirmed
+  title: Hadith classification is the primary benchmark surface
+  topic: metadata
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0012.yaml
+- id: OF-SRC-0013
+  type: feedback
+  status: confirmed
+  title: Disagreement may itself be the true answer
+  topic: consensus
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0013.yaml
+- id: OF-SRC-0014
+  type: feedback
+  status: confirmed
+  title: Legacy contracts do not cap the rebuild
+  topic: handoff
+  priority: critical
+  file: 60-evidence/owner-feedback/OF-SRC-0014.yaml
+- id: OF-SRC-0015
+  type: feedback
+  status: confirmed
+  title: Build source-engine teams inside the source-engine scope first
+  topic: handoff
+  priority: medium
+  file: 60-evidence/owner-feedback/OF-SRC-0015.yaml
+- id: OF-SRC-0016
+  type: feedback
+  status: confirmed
+  title: Research must use specialized source channels
+  topic: agent_ergonomics
+  priority: high
+  file: 60-evidence/owner-feedback/OF-SRC-0016.yaml
+- id: REQ-SRC-0001
+  type: requirement
+  status: proposed
+  title: Upload receipt and raw submission registration
+  topic: acquisition
+  priority: critical
+  file: 10-pipeline/10-upload-receipt/REQ-SRC-0001.yaml
+- id: REQ-SRC-0002
+  type: requirement
+  status: proposed
+  title: Optional owner hints as cross-validation
+  topic: acquisition
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0002.yaml
+- id: REQ-SRC-0003
+  type: requirement
+  status: proposed
+  title: Metadata deliberation stays owner-light
+  topic: trust
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0003.yaml
+- id: REQ-SRC-0004
+  type: requirement
+  status: proposed
+  title: Multi-model consensus for author attribution
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0004.yaml
+- id: REQ-SRC-0005
+  type: requirement
+  status: proposed
+  title: Optional science hint
+  topic: metadata
+  priority: medium
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0005.yaml
+- id: REQ-SRC-0006
+  type: requirement
+  status: proposed
+  title: Growable science registry without owner gate
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0006.yaml
+- id: REQ-SRC-0007
+  type: requirement
+  status: proposed
+  title: Level field preservation across source-engine handoff
+  topic: metadata
+  priority: medium
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0007.yaml
+- id: REQ-SRC-0008
+  type: requirement
+  status: proposed
+  title: Agent-team trust evaluation
+  topic: trust
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0008.yaml
+- id: REQ-SRC-0009
+  type: requirement
+  status: proposed
+  title: Agent self-resolution of disagreements
+  topic: consensus
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0009.yaml
+- id: REQ-SRC-0010
+  type: requirement
+  status: proposed
+  title: Graduated muhaqiq standing
+  topic: metadata
+  priority: medium
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0010.yaml
+- id: REQ-SRC-0011
+  type: requirement
+  status: proposed
+  title: Fine-grained hadith classification
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0011.yaml
+- id: REQ-SRC-0012
+  type: requirement
+  status: proposed
+  title: Multi-position metadata for disputed fields
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0012.yaml
+- id: REQ-SRC-0013
+  type: requirement
+  status: proposed
+  title: Specialized research agents
+  topic: agent_ergonomics
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0013.yaml
+- id: REQ-SRC-0014
+  type: requirement
+  status: proposed
+  title: Copyist and author disambiguation
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0014.yaml
+- id: REQ-SRC-0015
+  type: requirement
+  status: proposed
+  title: Honorific-aware name matching
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0015.yaml
+- id: REQ-SRC-0016
+  type: requirement
+  status: proposed
+  title: Multi-science assignment
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0016.yaml
+- id: REQ-SRC-0017
+  type: requirement
+  status: proposed
+  title: Multipart Shamela container classification
+  topic: acquisition
+  priority: critical
+  file: 10-pipeline/30-container-classification/REQ-SRC-0017.yaml
+- id: REQ-SRC-0018
+  type: requirement
+  status: proposed
+  title: Freeze and manifest verification
+  topic: freezing
+  priority: critical
+  file: 10-pipeline/20-freeze-and-manifest/REQ-SRC-0018.yaml
+- id: REQ-SRC-0019
+  type: requirement
+  status: proposed
+  title: Intake dossier and source-work identification
+  topic: identity
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0019.yaml
+- id: REQ-SRC-0020
+  type: requirement
+  status: proposed
+  title: Plain text container classification
+  topic: acquisition
+  priority: medium
+  file: 10-pipeline/30-container-classification/REQ-SRC-0020.yaml
+- id: REQ-SRC-0021
+  type: requirement
+  status: proposed
+  title: PDF intake analysis and text-layer quality classification
+  topic: acquisition
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0021.yaml
+- id: REQ-SRC-0022
+  type: requirement
+  status: proposed
+  title: PDF handoff preserves intake verdicts
+  topic: trust
+  priority: critical
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0022.yaml
+- id: REQ-SRC-0023
+  type: requirement
+  status: proposed
+  title: PDF text-layer evidence is diagnostic only
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0023.yaml
+- id: REQ-SRC-0024
+  type: requirement
+  status: proposed
+  title: PDF page-geometry hints for normalization
+  topic: metadata
+  priority: high
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0024.yaml
+- id: REQ-SRC-0025
+  type: requirement
+  status: proposed
+  title: Two-stage source admission and normalization handoff packaging
+  topic: handoff
+  priority: critical
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0025.yaml
+- id: REQ-SRC-0026
+  type: requirement
+  status: proposed
+  title: Authoritative work identity and collection linkage output
+  topic: identity
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0026.yaml
+- id: INV-SRC-0001
+  type: invariant
+  status: proposed
+  title: Owner hints never bias inference
+  topic: acquisition
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0001.yaml
+- id: INV-SRC-0002
+  type: invariant
+  status: proposed
+  title: Author attribution role separation is mandatory
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0002.yaml
+- id: INV-SRC-0003
+  type: invariant
+  status: proposed
+  title: Library never refuses knowledge
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0003.yaml
+- id: INV-SRC-0004
+  type: invariant
+  status: proposed
+  title: Truth-seeking over consensus-forcing
+  topic: consensus
+  priority: high
+  file: 40-quality/invariants/INV-SRC-0004.yaml
+- id: INV-SRC-0005
+  type: invariant
+  status: proposed
+  title: Muhaqiq never gates trust decisions
+  topic: trust
+  priority: high
+  file: 40-quality/invariants/INV-SRC-0005.yaml
+- id: INV-SRC-0006
+  type: invariant
+  status: proposed
+  title: Isnad atomic preservation
+  topic: metadata
+  priority: high
+  file: 40-quality/invariants/INV-SRC-0006.yaml
+- id: INV-SRC-0007
+  type: invariant
+  status: proposed
+  title: Scholar registry minimum population
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0007.yaml
+- id: INV-SRC-0008
+  type: invariant
+  status: proposed
+  title: PDF-derived text is never silently trusted at source handoff
+  topic: trust
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0008.yaml
+- id: DEC-SRC-0001
+  type: decision
+  status: proposed
+  title: Owner hints are cross-validation, not primary data
+  topic: acquisition
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0001.yaml
+- id: DEC-SRC-0002
+  type: decision
+  status: proposed
+  title: Science scope uses dynamic registry
+  topic: metadata
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0002.yaml
+- id: DEC-SRC-0003
+  type: decision
+  status: deferred
+  title: Level detection strategy
+  topic: metadata
+  priority: medium
+  file: 30-architecture/decisions/DEC-SRC-0003.yaml
+- id: DEC-SRC-0004
+  type: decision
+  status: proposed
+  title: Replace trust algorithm with agent teams
+  topic: trust
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0004.yaml
+- id: DEC-SRC-0005
+  type: decision
+  status: proposed
+  title: Muhaqiq standing is metadata only
+  topic: trust
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0005.yaml
+- id: DEC-SRC-0006
+  type: decision
+  status: proposed
+  title: Agents resolve disagreements autonomously
+  topic: consensus
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0006.yaml
+- id: DEC-SRC-0007
+  type: decision
+  status: proposed
+  title: Disputed metadata as multi-position evidence
+  topic: metadata
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0007.yaml
+- id: DEC-SRC-0008
+  type: decision
+  status: proposed
+  title: Agent infrastructure is built within source-engine scope first
+  topic: agent_ergonomics
+  priority: medium
+  file: 30-architecture/decisions/DEC-SRC-0008.yaml
+- id: DEC-SRC-0009
+  type: decision
+  status: proposed
+  title: Research strategy uses specialized sources
+  topic: agent_ergonomics
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0009.yaml
+- id: DEC-SRC-0010
+  type: decision
+  status: proposed
+  title: Source hints multi-layer routing and normalization confirms it
+  topic: metadata
+  priority: medium
+  file: 30-architecture/decisions/DEC-SRC-0010.yaml
+- id: DEC-SRC-0011
+  type: decision
+  status: proposed
+  title: Agent self-resolution replaces human_gate
+  topic: consensus
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0011.yaml
+- id: DEC-SRC-0012
+  type: decision
+  status: proposed
+  title: Multi-position metadata ordered by confidence
+  topic: metadata
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0012.yaml
+- id: DEC-SRC-0014
+  type: decision
+  status: proposed
+  title: Separate raw-upload tracking from official source admission
+  topic: handoff
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0014.yaml
+- id: DEC-SRC-0015
+  type: decision
+  status: proposed
+  title: Normalization consumes a bridge input model, not raw SourceMetadata
+  topic: handoff
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0015.yaml
+- id: CON-SRC-0001
+  type: constraint
+  status: confirmed
+  title: Shamela HTML and PDF are production formats
+  topic: acquisition
+  priority: high
+  file: 20-contracts/constraints/CON-SRC-0001.yaml
+- id: CON-SRC-0002
+  type: constraint
+  status: confirmed
+  title: Hadith literature dominates source-engine benchmark quality
+  topic: metadata
+  priority: high
+  file: 20-contracts/constraints/CON-SRC-0002.yaml
+- id: CON-SRC-0003
+  type: constraint
+  status: confirmed
+  title: No existing pipeline contract is binding on the rebuild
+  topic: handoff
+  priority: critical
+  file: 20-contracts/constraints/CON-SRC-0003.yaml
+- id: CON-SRC-0004
+  type: constraint
+  status: proposed
+  title: Complete SourceMetadata output schema
+  topic: handoff
+  priority: critical
+  file: 20-contracts/constraints/CON-SRC-0004.yaml
+- id: CON-SRC-0005
+  type: constraint
+  status: proposed
+  title: Normalization handoff bundle includes a bridge input contract
+  topic: handoff
+  priority: high
+  file: 20-contracts/constraints/CON-SRC-0005.yaml
+- id: OQ-SRC-0001
+  type: question
+  status: deferred
+  title: Level detection ownership
+  topic: metadata
+  priority: medium
+  file: 50-questions/OQ-SRC-0001.yaml
+- id: OQ-SRC-0003
+  type: question
+  status: draft
+  title: Agent-team architecture design
+  topic: agent_ergonomics
+  priority: critical
+  file: 50-questions/OQ-SRC-0003.yaml
+- id: OQ-SRC-0004
+  type: question
+  status: superseded
+  title: Formal replacement for human_gate
+  topic: consensus
+  priority: high
+  file: 50-questions/OQ-SRC-0004.yaml
+- id: OQ-SRC-0005
+  type: question
+  status: deferred
+  title: Agent monitoring scope
+  topic: agent_ergonomics
+  priority: medium
+  file: 50-questions/OQ-SRC-0005.yaml
+- id: OQ-SRC-0006
+  type: question
+  status: superseded
+  title: Ordering and display semantics for multi-position metadata
+  topic: metadata
+  priority: high
+  file: 50-questions/OQ-SRC-0006.yaml
+- id: OQ-SRC-0007
+  type: question
+  status: draft
+  title: Specialized research source inventory
+  topic: agent_ergonomics
+  priority: medium
+  file: 50-questions/OQ-SRC-0007.yaml

@@ -1,0 +1,38 @@
+id: CON-SRC-0005
+type: constraint
+status: proposed
+title: Normalization handoff bundle includes a bridge input contract
+topic: handoff
+layer: contracts
+priority: high
+confidence: high
+provenance: coworker_review
+source: Added on 2026-04-14 after contract review found that SourceMetadata alone no longer defines a runnable source→normalization boundary in the live repo.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0004
+- DEC-SRC-0015
+impacts:
+- normalization_boundary
+- handoff_bundle
+rule:
+  statement: Every source-engine accepted source must emit a NormalizationHandoffBundle containing non-null SourceMetadata, NormalizationInput, FrozenMemberManifest, completeness_status, and integrity_status.
+  implication: The source engine keeps SourceMetadata as its own contract while still providing a concrete normalization-facing bridge object with the field names and source-format mapping needed by the current normalization runtime.
+  violation_severity: high
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm after source-engine acceptance
+  when: normalization handoff packaging executes
+  then: the emitted bundle contains non-null SourceMetadata, NormalizationInput, and FrozenMemberManifest objects.
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/waraqat_usul/waraqat.pdf after source-engine acceptance
+  when: normalization handoff packaging executes
+  then: NormalizationInput.source_format_legacy="pdf_scanned" while SourceMetadata.source_format="pdf" and SourceMetadata.pdf_text_layer_status="corrupt".
+  test_type: integration
+- id: AC-3
+  given: A temporary PDF generated during the test run with one clean embedded text page
+  when: normalization handoff packaging executes
+  then: NormalizationInput.source_format_legacy="pdf_text" while SourceMetadata.source_format="pdf" and SourceMetadata.pdf_text_layer_status="clean".
+  test_type: deterministic

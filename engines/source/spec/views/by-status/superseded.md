@@ -7,6 +7,8 @@
 
 ### OQ-SRC-0004 — Formal replacement for human_gate
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: superseded
 - Priority: high
 - Confidence: medium
@@ -18,6 +20,8 @@
 
 ### OQ-SRC-0006 — Ordering and display semantics for multi-position metadata
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: superseded
 - Priority: high
 - Confidence: medium

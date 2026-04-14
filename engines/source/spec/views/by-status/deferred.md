@@ -8,6 +8,8 @@
 
 ### DEC-SRC-0003 — Level detection strategy
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium
@@ -16,6 +18,8 @@
 
 ### OQ-SRC-0001 — Level detection ownership
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium
@@ -27,6 +31,8 @@
 
 ### OQ-SRC-0005 — Agent monitoring scope
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium

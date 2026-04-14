@@ -1,0 +1,23 @@
+id: OF-SRC-0007
+type: feedback
+status: confirmed
+title: Preserve and infer level metadata from content
+topic: metadata
+layer: evidence
+priority: medium
+confidence: medium
+provenance: owner_interview
+source: Owner interview batch 2 question 3
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on: []
+impacts:
+- level_metadata
+- taxonomy_readiness
+batch: batch_2
+question: Is level metadata useful, and how should it be inferred?
+answer: The level field is valuable. The owner recommends detecting it from content analysis rather than relying only on book-level metadata, but the final engine ownership is still unresolved.
+decomposed_into:
+- REQ-SRC-0007
+- DEC-SRC-0003
+- OQ-SRC-0001

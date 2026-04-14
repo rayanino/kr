@@ -1,0 +1,32 @@
+id: INV-SRC-0007
+type: invariant
+status: proposed
+title: Scholar registry minimum population
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Added from adversary-review.yaml ADV-004
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on: []
+impacts:
+- scholar_authority
+- pre_run_validation
+rationale: v1 FM-4 showed that a sparse scholar registry collapses trust and attribution quality, so minimum population is a pre-run safety gate rather than an advisory target.
+rule:
+  statement: scholar_authority.count must be at least 50 before the first pipeline run begins.
+  implication: pre_run_validation blocks pipeline start with pre_run_blocker=scholar_registry_minimum_population whenever scholar_authority.count is less than 50.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: Pipeline pre-run validation with scholar_authority.count=50
+  when: validation runs
+  then: pipeline_start_allowed=true.
+  test_type: deterministic
+- id: AC-2
+  given: Pipeline pre-run validation with scholar_authority.count=49
+  when: validation runs
+  then: pipeline_start_allowed=false and pre_run_blocker="scholar_registry_minimum_population".
+  test_type: deterministic

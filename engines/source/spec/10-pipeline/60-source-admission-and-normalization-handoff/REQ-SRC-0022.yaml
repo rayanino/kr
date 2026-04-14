@@ -1,0 +1,55 @@
+id: REQ-SRC-0022
+type: requirement
+status: proposed
+title: PDF handoff preserves intake verdicts
+topic: trust
+layer: pipeline
+step: source_admission_and_normalization_handoff
+priority: critical
+confidence: high
+provenance: domain_inference
+source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 so the handoff step propagates intake-analysis verdicts without performing normalization itself.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0021
+- REQ-SRC-0025
+- CON-SRC-0004
+- CON-SRC-0005
+impacts:
+- normalization_handoff
+- downstream_handoff
+behavior:
+  trigger: Source admission and normalization handoff finalize a source whose intake dossier source_format is pdf.
+  preconditions:
+  - REQ-SRC-0021 has already written intake_dossier.pdf_text_layer_status and intake_dossier.declared_vs_observed_counts.physical_page_count.
+  - The source engine has not emitted normalized text for the PDF.
+  postconditions:
+  - SourceMetadata.normalization_route is set to pdf_ocr_primary.
+  - SourceMetadata.pdf_text_layer_status and SourceMetadata.page_count_physical are copied from the intake dossier.
+  - NormalizationInput.source_format_legacy is set from SourceMetadata.source_format and SourceMetadata.pdf_text_layer_status according to the bridge contract.
+  - The normalization_handoff_bundle preserves the intake dossier evidence needed to explain the PDF verdict downstream.
+  - The source engine emits no normalized_text field for a PDF handoff.
+  error_conditions:
+  - condition: SourceMetadata.source_format=pdf but SourceMetadata.pdf_text_layer_status is missing from the handoff package.
+    action: Abort handoff packaging with SRC-E-PDF-STATUS-MISSING.
+    severity: fatal
+  - condition: SourceMetadata.source_format=pdf but SourceMetadata.normalization_route is not pdf_ocr_primary.
+    action: Abort handoff packaging with SRC-E-PDF-ROUTE.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf
+  when: normalization handoff packaging executes
+  then: SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="absent", SourceMetadata.page_count_physical=398, NormalizationInput.source_format_legacy="pdf_scanned", and normalization_handoff_bundle contains no normalized_text field.
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/waraqat_usul/waraqat.pdf
+  when: normalization handoff packaging executes
+  then: SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="corrupt", SourceMetadata.page_count_physical=13, NormalizationInput.source_format_legacy="pdf_scanned", and normalization_handoff_bundle contains no normalized_text field.
+  test_type: integration
+- id: AC-3
+  given: A temporary PDF generated during the test run with one Arabic page containing clean embedded text
+  when: normalization handoff packaging executes
+  then: SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="clean", NormalizationInput.source_format_legacy="pdf_text", and normalization_handoff_bundle contains no normalized_text field.
+  test_type: deterministic

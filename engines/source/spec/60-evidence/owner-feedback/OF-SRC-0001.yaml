@@ -1,0 +1,21 @@
+id: OF-SRC-0001
+type: feedback
+status: confirmed
+title: Collection unchanged for source intake
+topic: acquisition
+layer: evidence
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 1 question 1
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on: []
+impacts:
+- production_collection
+- supported_formats
+batch: batch_1
+question: What changed about the source collection and intake formats?
+answer: Collection unchanged. The source engine still targets the same ~2,519 Shamela HTML books, with no new production sources added.
+decomposed_into:
+- CON-SRC-0001

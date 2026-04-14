@@ -3,6 +3,7 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | CON-SRC-0004 | constraint | Complete SourceMetadata output schema | proposed | critical |
+| CON-SRC-0005 | constraint | Normalization handoff bundle includes a bridge input contract | proposed | high |
 | DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | proposed | critical |
 | DEC-SRC-0002 | decision | Science scope uses dynamic registry | proposed | high |
 | DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | proposed | critical |
@@ -14,6 +15,8 @@
 | DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | proposed | medium |
 | DEC-SRC-0011 | decision | Agent self-resolution replaces human_gate | proposed | high |
 | DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
+| DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | proposed | critical |
+| DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high |
 | INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical |
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
@@ -22,13 +25,13 @@
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
 | INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
 | INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | proposed | critical |
-| REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical |
+| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | proposed | critical |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
-| REQ-SRC-0003 | requirement | Minimal owner review load | proposed | critical |
+| REQ-SRC-0003 | requirement | Metadata deliberation stays owner-light | proposed | critical |
 | REQ-SRC-0004 | requirement | Multi-model consensus for author attribution | proposed | critical |
 | REQ-SRC-0005 | requirement | Optional science hint | proposed | medium |
-| REQ-SRC-0006 | requirement | Growable science registry | proposed | high |
-| REQ-SRC-0007 | requirement | Level field preservation across handoff | proposed | medium |
+| REQ-SRC-0006 | requirement | Growable science registry without owner gate | proposed | high |
+| REQ-SRC-0007 | requirement | Level field preservation across source-engine handoff | proposed | medium |
 | REQ-SRC-0008 | requirement | Agent-team trust evaluation | proposed | critical |
 | REQ-SRC-0009 | requirement | Agent self-resolution of disagreements | proposed | critical |
 | REQ-SRC-0010 | requirement | Graduated muhaqiq standing | proposed | medium |
@@ -38,23 +41,41 @@
 | REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical |
 | REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high |
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
-| REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
-| REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
-| REQ-SRC-0021 | requirement | PDF text-layer classification and OCR-primary routing | proposed | critical |
-| REQ-SRC-0022 | requirement | PDF normalization route defaults to OCR-primary | proposed | critical |
+| REQ-SRC-0017 | requirement | Multipart Shamela container classification | proposed | critical |
+| REQ-SRC-0018 | requirement | Freeze and manifest verification | proposed | critical |
+| REQ-SRC-0019 | requirement | Intake dossier and source-work identification | proposed | critical |
+| REQ-SRC-0020 | requirement | Plain text container classification | proposed | medium |
+| REQ-SRC-0021 | requirement | PDF intake analysis and text-layer quality classification | proposed | critical |
+| REQ-SRC-0022 | requirement | PDF handoff preserves intake verdicts | proposed | critical |
 | REQ-SRC-0023 | requirement | PDF text-layer evidence is diagnostic only | proposed | critical |
 | REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | proposed | high |
+| REQ-SRC-0025 | requirement | Two-stage source admission and normalization handoff packaging | proposed | critical |
+| REQ-SRC-0026 | requirement | Authoritative work identity and collection linkage output | proposed | critical |
 
 ### CON-SRC-0004 — Complete SourceMetadata output schema
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-002; amended per reference/pdf_fixture_observations_2026-04-14.md and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
-- Rule: Every successful intake emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, volume_count, and intake_timestamp; author_output must always contain status and positions.
+- Source: Added from adversary-review.yaml ADV-002; amended per reference/pdf_fixture_observations_2026-04-14.md, owner guidance on 2026-04-14 about exact source/work identification and staged source admission, and the architecture decision that normalization owns text extraction.
+- Rule: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, and intake_timestamp; author_output must always contain status and positions.
+
+### CON-SRC-0005 — Normalization handoff bundle includes a bridge input contract
+- Type: constraint
+- Layer: contracts
+- Step: n/a
+- Status: proposed
+- Priority: high
+- Confidence: high
+- Source: Added on 2026-04-14 after contract review found that SourceMetadata alone no longer defines a runnable source→normalization boundary in the live repo.
+- Rule: Every source-engine accepted source must emit a NormalizationHandoffBundle containing non-null SourceMetadata, NormalizationInput, FrozenMemberManifest, completeness_status, and integrity_status.
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -64,6 +85,8 @@
 
 ### DEC-SRC-0002 — Science scope uses dynamic registry
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -73,6 +96,8 @@
 
 ### DEC-SRC-0004 — Replace trust algorithm with agent teams
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -82,6 +107,8 @@
 
 ### DEC-SRC-0005 — Muhaqiq standing is metadata only
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -91,6 +118,8 @@
 
 ### DEC-SRC-0006 — Agents resolve disagreements autonomously
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -100,6 +129,8 @@
 
 ### DEC-SRC-0007 — Disputed metadata as multi-position evidence
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -109,6 +140,8 @@
 
 ### DEC-SRC-0008 — Agent infrastructure is built within source-engine scope first
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -118,6 +151,8 @@
 
 ### DEC-SRC-0009 — Research strategy uses specialized sources
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -127,6 +162,8 @@
 
 ### DEC-SRC-0010 — Source hints multi-layer routing and normalization confirms it
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -136,6 +173,8 @@
 
 ### DEC-SRC-0011 — Agent self-resolution replaces human_gate
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -145,6 +184,8 @@
 
 ### DEC-SRC-0012 — Multi-position metadata ordered by confidence
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -152,8 +193,32 @@
 - Chosen option: OPT-B — Sort by confidence descending with primary marker
 - Decision rationale: Confidence ordering gives downstream engines a natural default (positions[0]) while preserving all scholarly positions. The owner's principle is truth-seeking — all positions stay, but the most-evidenced one is first.
 
+### DEC-SRC-0014 — Separate raw-upload tracking from official source admission
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that uploaded artifacts must not pollute the official source collection before source-engine acceptance.
+- Chosen option: OPT-B — Two registries with staged admission
+- Decision rationale: This preserves full upload traceability without polluting the official source collection before the source engine genuinely accepts the source.
+
+### DEC-SRC-0015 — Normalization consumes a bridge input model, not raw SourceMetadata
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: proposed
+- Priority: high
+- Confidence: high
+- Source: Added on 2026-04-14 after contract-auditor review found that the redesigned SourceMetadata surface no longer matches the live normalization boundary.
+- Chosen option: OPT-B — Emit a NormalizationInput bridge inside the handoff bundle
+- Decision rationale: This preserves source-engine clarity while giving normalization a concrete boundary contract that can evolve independently later.
+
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -162,6 +227,8 @@
 
 ### INV-SRC-0002 — Author attribution role separation is mandatory
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -170,14 +237,18 @@
 
 ### INV-SRC-0003 — Library never refuses knowledge
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0006
-- Rule: No source is rejected solely because its science label is absent from science_registry.
+- Source: Derived from OF-SRC-0006 and broadened on 2026-04-14 after owner clarification that only structurally invalid uploads should be blocked from the official source flow.
+- Rule: No structurally valid source is rejected solely because its science label is absent from science_registry, because its metadata remains disputed, or because its completeness or integrity verdict carries non-fatal flags.
 
 ### INV-SRC-0004 — Truth-seeking over consensus-forcing
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -186,6 +257,8 @@
 
 ### INV-SRC-0005 — Muhaqiq never gates trust decisions
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -194,6 +267,8 @@
 
 ### INV-SRC-0006 — Isnad atomic preservation
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -202,6 +277,8 @@
 
 ### INV-SRC-0007 — Scholar registry minimum population
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -210,37 +287,38 @@
 
 ### INV-SRC-0008 — PDF-derived text is never silently trusted at source handoff
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
 - Rule: No PDF-derived text may be treated as normalized source text by the source engine; every PDF handoff must carry source_metadata.pdf_text_layer_status and source_metadata.normalization_route=pdf_ocr_primary.
 
-### REQ-SRC-0001 — Autonomous source acquisition
+### REQ-SRC-0001 — Upload receipt and raw submission registration
 - Type: requirement
+- Layer: pipeline
+- Step: upload_receipt
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, reference/pdf_fixture_observations_2026-04-14.md, and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
-- Trigger: Owner submits a single filesystem path for source intake.
+- Source: Derived from OF-SRC-0002; re-scoped on 2026-04-14 after owner correction that upload, intake analysis, and later source acceptance must be distinct stages.
+- Trigger: The owner submits one filesystem path for source-engine processing.
 - Postconditions:
-  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, source_metadata.source_format, and source_metadata.normalization_route.
-  - .htm or .html file input sets source_metadata.source_format=shamela_html and source_metadata.normalization_route=html_parse_primary.
-  - .pdf file input sets source_metadata.source_format=pdf and routes to REQ-SRC-0021 for pdf_text_layer_status classification while keeping source_metadata.normalization_route=pdf_ocr_primary.
-  - .txt file input sets source_metadata.source_format=plain_text and source_metadata.normalization_route=plain_text_parse.
-  - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
-  - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
+  - A raw_upload_record is written with non-null submission_id, submitted_path, submitted_path_kind, intake_mode, and receipt_timestamp.
+  - raw_upload_record.status is set to received.
+  - Owner hints are preserved as raw_upload_record.owner_hint_payload without being used as primary inference at this step.
+  - No source_id, source_sha256, frozen_blob_path, source_metadata, or normalization_handoff_bundle is emitted at this step.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, source_metadata.registry_entry_id is non-empty, and source_metadata.source_format="shamela_html"..
-  - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
-  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
-  - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
-  - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
-  - AC-6 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When source engine intake executes; Then The request routes to REQ-SRC-0021 and emits source_metadata.source_format="pdf", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.pdf_text_layer_status="corrupt"..
-  - AC-7 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When source engine intake executes; Then The request routes to REQ-SRC-0020 and source_metadata.source_format="plain_text"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When upload receipt executes; Then raw_upload_record.submission_id is non-empty, raw_upload_record.submitted_path_kind="file", raw_upload_record.status="received", and no source_id field exists in the upload-receipt output..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small; When upload receipt executes; Then raw_upload_record.submitted_path_kind="directory" and raw_upload_record.status="received"..
+  - AC-3 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When upload receipt executes; Then Upload receipt aborts with error_code=SRC-E-PATH-NOT-FOUND..
+  - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When upload receipt executes; Then Upload receipt aborts with error_code=SRC-E-EMPTY-FILE..
 
 ### REQ-SRC-0002 — Optional owner hints as cross-validation
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -258,24 +336,29 @@
   - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", inferred_metadata.genre remains "risalah", and source_metadata.hint_comparison_results contains a record with hint_field="genre", hint_value="matn", inferred_value="risalah", and match=false..
   - AC-3 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"; When hint payload validation executes; Then The invalid hint key is rejected with error_code=SRC-E-HINT-FIELD and base inference still runs..
 
-### REQ-SRC-0003 — Minimal owner review load
+### REQ-SRC-0003 — Metadata deliberation stays owner-light
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0003; amended per contract-architect-review.yaml
-- Trigger: Metadata inference reaches a case that cannot be finalized automatically.
+- Source: Derived from OF-SRC-0003 and tightened on 2026-04-14 to align with the owner rule that metadata should resolve autonomously without human gates.
+- Trigger: Metadata deliberation reaches a case that cannot be finalized as one definitive metadata value.
 - Postconditions:
-  - Cases with evidence-backed automatic resolution do not create owner_review_case records.
-  - Routed cases write owner_review_case with fields route_reason, target_field, evidence_summary, and candidate_positions.
-  - Owner review is never requested for reasons outside the approved route_reason taxonomy.
+  - Metadata cases with evidence-backed automatic resolution do not create owner_review_case records.
+  - Zero-author-evidence cases emit author_output.status="insufficient_evidence" rather than opening owner review.
+  - Genuine metadata disputes emit the multi-position or insufficient-evidence output required by the relevant metadata contract rather than opening owner review.
+  - owner_review_case is not used for metadata finalization inside the source engine.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/06_usul/book.htm; When source metadata resolution completes; Then No owner_review_case is written..
-  - AC-2 [deterministic] Given A Shamela HTML source whose metadata card, title, and colophon contain no author signal; When source metadata resolution completes; Then owner_review_case.route_reason="zero_author_evidence" and owner_review_case.target_field="author_name"..
-  - AC-3 [integration] Given A source classified as mustalah_al_hadith while science_registry lacks that entry; When science classification completes; Then owner_review_case.route_reason="new_science_not_in_registry" and owner_review_case.target_field="science_scope"..
+  - AC-2 [deterministic] Given A Shamela HTML source whose metadata card, title, and colophon contain no author signal; When source metadata resolution completes; Then author_output.status="insufficient_evidence" and no owner_review_case is written..
+  - AC-3 [deterministic] Given A source with two evidence-backed science positions that remain genuinely disputed after internal resolution; When science classification completes; Then the output preserves the dispute and no owner_review_case is written..
 
 ### REQ-SRC-0004 — Multi-model consensus for author attribution
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -295,6 +378,8 @@
 
 ### REQ-SRC-0005 — Optional science hint
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -308,40 +393,46 @@
   - AC-1 [deterministic] Given tests/fixtures/shamela_real/04_hadith/book.htm with owner_hint_payload.science_scope=["hadith"]; When science-hint comparison executes; Then inferred_metadata.science_scope remains ["hadith"] and science_scope_confidence increases..
   - AC-2 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm with owner_hint_payload.science_scope=["tafsir"]; When science-hint comparison executes; Then hint_investigation.field="science_scope", hint_investigation.hint_value=["tafsir"], and inferred_metadata.science_scope remains ["hadith", "fiqh"]..
 
-### REQ-SRC-0006 — Growable science registry
+### REQ-SRC-0006 — Growable science registry without owner gate
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0006; amended per both coworker reviews
+- Source: Derived from OF-SRC-0006; amended on 2026-04-14 to align with the owner rule that metadata should not depend on human gates.
 - Trigger: Science classification yields a science label not present in science_registry.
 - Postconditions:
   - Existing science labels classify normally without registry expansion.
-  - New science labels write registry_expansion_request with candidate_science and status=pending_owner_confirmation.
-  - Owner confirmation adds the new science and updates registry_expansion_request.status=confirmed.
-  - Owner decline or defer keeps intake accepted and stores source_metadata.pending_science_label with registry_expansion_request.status set to declined or deferred.
+  - New science labels write registry_expansion_request with candidate_science and status=autonomous_review_pending.
+  - Autonomous verification may resolve the candidate science as accepted_new_label, merged_into_existing_label, or insufficient_evidence.
+  - Source admission remains accepted while the science expansion workflow is pending or disputed.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When science classification executes; Then inferred_metadata.science_scope=["fiqh"] and no registry_expansion_request is written..
-  - AC-2 [integration] Given A source whose inferred_metadata.science_scope=["mustalah_al_hadith"] while science_registry lacks that label; When science classification executes; Then registry_expansion_request.candidate_science="mustalah_al_hadith" and registry_expansion_request.status="pending_owner_confirmation"..
-  - AC-3 [deterministic] Given A pending registry_expansion_request for mustalah_al_hadith that the owner declines; When registry expansion handling executes; Then registry_expansion_request.status="declined", source_metadata.pending_science_label="mustalah_al_hadith", and source admission remains accepted..
+  - AC-2 [integration] Given A source whose inferred_metadata.science_scope=["mustalah_al_hadith"] while science_registry lacks that label; When science classification executes; Then registry_expansion_request.candidate_science="mustalah_al_hadith" and registry_expansion_request.status="autonomous_review_pending"..
+  - AC-3 [deterministic] Given A pending registry_expansion_request for mustalah_al_hadith that autonomous review cannot yet settle; When registry expansion handling executes; Then registry_expansion_request.status="insufficient_evidence" and source admission remains accepted_with_flags..
 
-### REQ-SRC-0007 — Level field preservation across handoff
+### REQ-SRC-0007 — Level field preservation across source-engine handoff
 - Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
 - Status: proposed
 - Priority: medium
 - Confidence: medium
-- Source: Derived from OF-SRC-0007; narrowed per contract-architect-review.yaml
-- Trigger: The source engine serializes source metadata for downstream handoff.
+- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself.
+- Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
 - Postconditions:
   - The handoff payload always includes the level key.
   - A populated level value is passed through unchanged.
   - An unknown level is serialized as null rather than omitted.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with source_metadata.level="intermediate"; When source-to-normalization handoff serialization executes; Then The serialized payload contains level="intermediate"..
-  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with source_metadata.level=null; When source-to-normalization handoff serialization executes; Then The serialized payload contains the key level with value null..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate"..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null..
 
 ### REQ-SRC-0008 — Agent-team trust evaluation
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -359,6 +450,8 @@
 
 ### REQ-SRC-0009 — Agent self-resolution of disagreements
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -377,6 +470,8 @@
 
 ### REQ-SRC-0010 — Graduated muhaqiq standing
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -393,6 +488,8 @@
 
 ### REQ-SRC-0011 — Fine-grained hadith classification
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -408,6 +505,8 @@
 
 ### REQ-SRC-0012 — Multi-position metadata for disputed fields
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -423,6 +522,8 @@
 
 ### REQ-SRC-0013 — Specialized research agents
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -439,6 +540,8 @@
 
 ### REQ-SRC-0014 — Copyist and author disambiguation
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -456,6 +559,8 @@
 
 ### REQ-SRC-0015 — Honorific-aware name matching
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -471,6 +576,8 @@
 
 ### REQ-SRC-0016 — Multi-science assignment
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -482,104 +589,197 @@
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm; When science classification executes; Then science_scope=["hadith", "fiqh"] and science_scope[0]="hadith"..
 
-### REQ-SRC-0017 — Multi-volume directory intake
+### REQ-SRC-0017 — Multipart Shamela container classification
 - Type: requirement
+- Layer: pipeline
+- Step: container_classification
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-001
-- Trigger: Owner submits a directory path containing numbered .htm volume files for intake.
+- Source: Added from adversary-review.yaml ADV-001 and tightened on 2026-04-14 to distinguish container classification from freezing and later metadata deliberation.
+- Trigger: Container classification receives a frozen directory candidate whose members include .htm files.
 - Postconditions:
-  - All numbered volume files are frozen under one source_metadata.source_id and one source_metadata.registry_entry_id.
-  - source_metadata.volume_count equals the number of frozen numbered volume files and is at least 2.
-  - source_metadata.source_sha256 stores the composite hash of the numbered volume files.
-  - source_metadata.frozen_blob_path points to the immutable frozen directory for the shared source_id.
-  - When non-numbered .htm files are present, interactive intake prompts for supplementary inclusion and non-interactive intake auto-skips those files while recording supplementary_file_decision.
+  - container_classification.container_type is set to shamela_multi_volume_html when the manifest contains at least two numbered .htm members.
+  - container_classification.container_type is set to multipart_with_supplementary when the manifest contains one or more numbered .htm members plus supplementary non-numbered .htm members.
+  - container_classification.volume_manifest preserves numbered HTML members in integer-stem order.
+  - container_classification.supplementary_members preserves non-numbered HTML members separately from numbered volumes.
+  - container_classification.normalization_route is set to html_parse_primary.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake executes; Then All .htm volumes are frozen under one source_metadata.source_id, source_metadata.volume_count=3, and exactly one source_metadata.registry_entry_id is written..
-  - AC-2 [deterministic] Given A directory containing only non-numbered .htm files; When intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-DIRECTORY..
-  - AC-3 [deterministic] Given A directory containing 001.htm, 002.htm, and appendix.htm while interaction is unavailable; When intake executes; Then source_metadata.volume_count=2 and supplementary_file_decision.mode="auto_skip"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When container classification executes; Then container_classification.container_type="shamela_multi_volume_html", len(container_classification.volume_manifest)=3, and container_classification.normalization_route="html_parse_primary"..
+  - AC-2 [deterministic] Given A frozen directory manifest containing only appendix.htm and introduction.htm; When container classification executes; Then Classification aborts with error_code=SRC-E-EMPTY-DIRECTORY..
+  - AC-3 [deterministic] Given A frozen directory manifest containing 001.htm and المقدمة.htm; When container classification executes; Then container_classification.container_type="multipart_with_supplementary", container_classification.volume_manifest[0].member_name="001.htm", and container_classification.supplementary_members[0].member_name="المقدمة.htm"..
 
-### REQ-SRC-0020 — Plain text source intake
+### REQ-SRC-0018 — Freeze and manifest verification
 - Type: requirement
+- Layer: pipeline
+- Step: freeze_and_manifest
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from reference/archive/v1/source_engine/reference/ABD_INTAKE_SPEC.md and archive freezer/integrity behavior, then adapted to the new raw-upload registry boundary on 2026-04-14.
+- Trigger: A raw_upload_record with status=received is promoted into freeze processing.
+- Postconditions:
+  - A frozen_source record is written with non-null source_id, source_sha256, frozen_blob_path, and freeze_verification_status.
+  - frozen_source.frozen_member_manifest records every frozen member with member_name, member_sha256, member_size_bytes, and member_kind.
+  - raw_upload_record.status is set to frozen when freeze_verification_status="verified".
+  - Exact duplicate detection is evaluated against frozen_source.source_sha256 before later container classification begins.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When freeze and manifest executes; Then frozen_source.source_id is non-empty, frozen_source.source_sha256 is a 64-character SHA-256 hex digest, frozen_source.freeze_verification_status="verified", and len(frozen_source.frozen_member_manifest)=1..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small; When freeze and manifest executes; Then frozen_source.freeze_verification_status="verified" and len(frozen_source.frozen_member_manifest)=3..
+  - AC-3 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When freeze and manifest executes again; Then Freezing aborts with error_code=SRC-E-DUPLICATE-INGEST..
+
+### REQ-SRC-0019 — Intake dossier and source-work identification
+- Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner correction on 2026-04-14 that source intake must thoroughly analyze what was uploaded, determine exact source/work identity, inspect completeness, and avoid leaving these gaps to later implementation.
+- Trigger: Intake analysis receives a frozen, container-classified source candidate.
+- Postconditions:
+  - An intake_dossier is written with non-null dossier_id, title_evidence, work_identity_proposal, completeness_status, integrity_status, and collection_match_candidates.
+  - work_identity_proposal.candidates preserves one or more evidence-backed candidate work identities without declaring them authoritative yet.
+  - completeness_status is one of complete, partial, mixed, or indeterminate.
+  - integrity_status is one of sound, suspicious, or corrupt.
+  - declared_vs_observed_counts preserves any count comparison evidence used by completeness analysis.
+  - Metadata deliberation consumes the intake_dossier rather than re-reading raw upload state directly.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When intake analysis executes; Then intake_dossier.dossier_id is non-empty, len(intake_dossier.title_evidence) is at least 1, len(intake_dossier.work_identity_proposal.candidates) is at least 1, and intake_dossier.integrity_status is one of {sound, suspicious, corrupt}..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake analysis executes; Then intake_dossier.declared_vs_observed_counts.observed_volume_count=3 and intake_dossier.completeness_status is one of {complete, indeterminate}..
+  - AC-3 [deterministic] Given A frozen source candidate whose title page and file naming indicate "الجزء الثاني" with no companion parts present; When intake analysis executes; Then intake_dossier.completeness_status="partial" and intake_dossier.partiality_reasons includes "single_part_without_companion_parts"..
+
+### REQ-SRC-0020 — Plain text container classification
+- Type: requirement
+- Layer: pipeline
+- Step: container_classification
 - Status: proposed
 - Priority: medium
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-011
-- Trigger: Owner submits a .txt file path.
+- Source: Added from adversary-review.yaml ADV-011 and narrowed on 2026-04-14 so plain-text handling is classified and routed here, while later text interpretation belongs to later steps.
+- Trigger: Container classification receives a frozen single-file candidate whose suffix is .txt.
 - Postconditions:
-  - source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id are written from the submitted file bytes.
-  - source_metadata.title_arabic equals the first non-empty line of the file.
-  - The full file content, including the title line, is passed to metadata inference as plain_text_content.
-  - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
+  - container_classification.container_type is set to plain_text.
+  - container_classification.normalization_route is set to plain_text_parse.
+  - container_classification.text_encoding is set to utf-8.
+  - intake analysis may later use the first non-empty line as title evidence, but that evidence is not finalized at this step.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..
+  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When container classification executes; Then container_classification.container_type="plain_text", container_classification.normalization_route="plain_text_parse", and container_classification.text_encoding="utf-8"..
 
-### REQ-SRC-0021 — PDF text-layer classification and OCR-primary routing
+### REQ-SRC-0021 — PDF intake analysis and text-layer quality classification
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that PDFs should normalize through OCR even when a text layer exists
-- Trigger: A .pdf file is submitted for intake.
+- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner correction that PDF text-layer judgment belongs to intake analysis and must use text quality, not text presence alone.
+- Trigger: Intake analysis runs on a frozen source candidate whose container_type is pdf.
 - Postconditions:
-  - source_metadata.source_format is set to pdf.
-  - source_metadata.page_count_physical is set from the PDF page count.
-  - source_metadata.normalization_route is set to pdf_ocr_primary for every PDF.
-  - source_metadata.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
-  - source_metadata.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
-  - source_metadata.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
+  - intake_dossier.source_format is set to pdf.
+  - intake_dossier.declared_vs_observed_counts.physical_page_count is set from the PDF page count.
+  - intake_dossier.normalization_route is set to pdf_ocr_primary.
+  - intake_dossier.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
+  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
+  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="absent", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=398..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="corrupt", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=13..
-  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="clean", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=1..
-  - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When PDF format detection runs; Then Intake aborts with error_code=SRC-E-PDF-CORRUPT..
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="absent", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=398..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="corrupt", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=13..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1..
+  - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When intake analysis executes; Then Intake analysis aborts with error_code=SRC-E-PDF-CORRUPT..
 
-### REQ-SRC-0022 — PDF normalization route defaults to OCR-primary
+### REQ-SRC-0022 — PDF handoff preserves intake verdicts
 - Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from reference/pdf_fixture_observations_2026-04-14.md and owner cross-validation on 2026-04-14 that normalization, not source, owns PDF-to-text conversion
-- Trigger: A successful PDF SourceMetadata record is emitted.
+- Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 so the handoff step propagates intake-analysis verdicts without performing normalization itself.
+- Trigger: Source admission and normalization handoff finalize a source whose intake dossier source_format is pdf.
 - Postconditions:
-  - source_metadata.normalization_route is set to pdf_ocr_primary.
-  - The source-engine handoff for a PDF contains source_metadata.page_count_physical and source_metadata.pdf_text_layer_status.
+  - SourceMetadata.normalization_route is set to pdf_ocr_primary.
+  - SourceMetadata.pdf_text_layer_status and SourceMetadata.page_count_physical are copied from the intake dossier.
+  - NormalizationInput.source_format_legacy is set from SourceMetadata.source_format and SourceMetadata.pdf_text_layer_status according to the bridge contract.
+  - The normalization_handoff_bundle preserves the intake dossier evidence needed to explain the PDF verdict downstream.
   - The source engine emits no normalized_text field for a PDF handoff.
-  - source_metadata.pdf_text_layer_status=clean is preserved only as auxiliary evidence for normalization review and does not skip OCR-primary routing.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="absent", source_metadata.page_count_physical=398, and the handoff contains no normalized_text field..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="corrupt", source_metadata.page_count_physical=13, and the handoff contains no normalized_text field..
-  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing clean embedded text; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When normalization handoff packaging executes; Then SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="absent", SourceMetadata.page_count_physical=398, NormalizationInput.source_format_legacy="pdf_scanned", and normalization_handoff_bundle contains no normalized_text field..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When normalization handoff packaging executes; Then SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="corrupt", SourceMetadata.page_count_physical=13, NormalizationInput.source_format_legacy="pdf_scanned", and normalization_handoff_bundle contains no normalized_text field..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing clean embedded text; When normalization handoff packaging executes; Then SourceMetadata.normalization_route="pdf_ocr_primary", SourceMetadata.pdf_text_layer_status="clean", NormalizationInput.source_format_legacy="pdf_text", and normalization_handoff_bundle contains no normalized_text field..
 
 ### REQ-SRC-0023 — PDF text-layer evidence is diagnostic only
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md, .claude/skills/arabic-text/SKILL.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 - Trigger: The source engine records sampled direct-extraction evidence from a PDF for text-layer classification.
 - Postconditions:
-  - Sampled direct-extraction evidence preserves the literal extracted string and its physical page number.
+  - intake_dossier.pdf_text_evidence preserves the literal extracted string and its physical page number.
   - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to sampled direct-extraction evidence.
   - Sampled direct-extraction evidence is diagnostic only and is never emitted as normalized handoff text by the source engine.
-  - The presence of diacritics inside sampled direct-extraction evidence does not override source_metadata.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
+  - The presence of diacritics inside sampled direct-extraction evidence does not override intake_dossier.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/waraqat_usul/waraqat.pdf; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and source_metadata.pdf_text_layer_status="corrupt"..
-  - AC-2 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", source_metadata.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
+  - AC-1 [deterministic] Given tests/fixtures/waraqat_usul/waraqat.pdf; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and intake_dossier.pdf_text_layer_status="corrupt"..
+  - AC-2 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", intake_dossier.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
 
 ### REQ-SRC-0024 — PDF page-geometry hints for normalization
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: high
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 after confirming that source-engine PDF handling must stay metadata-first and normalization-owned for text extraction
 - Trigger: A PDF source is being processed.
 - Postconditions:
-  - source_metadata.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
-  - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when source_metadata.page_layout_hint=marginal_notes.
-  - layout_analysis.reading_order_hint is set to rtl_columns when source_metadata.page_layout_hint=dual_column.
-  - source_metadata.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
+  - intake_dossier.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
+  - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when intake_dossier.page_layout_hint=marginal_notes.
+  - layout_analysis.reading_order_hint is set to rtl_columns when intake_dossier.page_layout_hint=dual_column.
+  - intake_dossier.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout_hint="marginal_notes"..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout_hint="single_column"..
+  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then intake_dossier.page_layout_hint="marginal_notes"..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then intake_dossier.page_layout_hint="single_column"..
+
+### REQ-SRC-0025 — Two-stage source admission and normalization handoff packaging
+- Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that raw uploads must not pollute the official source collection and that structurally valid but partial sources may still proceed with explicit flags.
+- Trigger: Source-engine finalization runs after metadata deliberation completes for a source candidate.
+- Postconditions:
+  - raw_upload_record.status is set to source_engine_accepted or rejected_at_source based on the source-engine result.
+  - The official source_collection is written only when the source engine completes successfully.
+  - Structurally valid sources with completeness_status in {partial, mixed, indeterminate} may still enter the source_collection with explicit admission_reason and preserved flags.
+  - Structurally invalid uploads do not create source_collection records.
+  - normalization_handoff_bundle is written for every source_engine_accepted source and contains SourceMetadata, NormalizationInput, FrozenMemberManifest, and preserved intake_dossier completeness and integrity verdicts.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after successful metadata deliberation; When source admission and normalization handoff packaging execute; Then raw_upload_record.status="source_engine_accepted", exactly one source_collection record is written, and normalization_handoff_bundle.SourceMetadata.registry_entry_id is non-empty..
+  - AC-2 [deterministic] Given A structurally valid upload whose intake_dossier.completeness_status="partial"; When source admission and normalization handoff packaging execute; Then one source_collection record is written with admission_reason="accepted_with_flags" and the handoff preserves completeness_status="partial"..
+  - AC-3 [deterministic] Given A raw upload rejected earlier with error_code=SRC-E-EMPTY-FILE; When source admission and normalization handoff packaging would otherwise execute; Then no source_collection record is written for that submission..
+
+### REQ-SRC-0026 — Authoritative work identity and collection linkage output
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that the source engine must determine exactly which book/source was uploaded and preserve collection linkage explicitly.
+- Trigger: Metadata deliberation finalizes source-engine metadata for a source candidate.
+- Postconditions:
+  - work_output is written with non-null status and at least one evidence-backed position.
+  - work_output.status is one of definitive, disputed, or insufficient_evidence.
+  - A definitive case stores one chosen work position, while a disputed case preserves multiple work positions instead of forcing one bibliographic identity.
+  - collection_match_output records whether the source matches an existing admitted work, an existing edition group, or no current collection match.
+  - title_arabic in SourceMetadata is derived from the chosen or preserved work identity evidence rather than from raw upload naming alone.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with one evidence-backed work candidate; When metadata deliberation executes; Then work_output.status="definitive", len(work_output.positions)=1, and title_arabic is non-empty..
+  - AC-2 [deterministic] Given A source candidate whose intake dossier contains two evidence-backed work candidates for the same uploaded source; When metadata deliberation executes; Then work_output.status="disputed" and len(work_output.positions) is at least 2..
+  - AC-3 [deterministic] Given A source candidate whose intake dossier contains no evidence-backed work candidate; When metadata deliberation executes; Then work_output.status="insufficient_evidence"..

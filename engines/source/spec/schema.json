@@ -49,6 +49,7 @@
         "status",
         "title",
         "topic",
+        "layer",
         "priority",
         "confidence",
         "provenance",
@@ -103,6 +104,28 @@
             "validation",
             "enrichment",
             "agent_ergonomics"
+          ]
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "pipeline",
+            "contracts",
+            "architecture",
+            "quality",
+            "questions",
+            "evidence"
+          ]
+        },
+        "step": {
+          "type": "string",
+          "enum": [
+            "upload_receipt",
+            "freeze_and_manifest",
+            "container_classification",
+            "intake_analysis",
+            "metadata_deliberation",
+            "source_admission_and_normalization_handoff"
           ]
         },
         "priority": {

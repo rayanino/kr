@@ -1,0 +1,34 @@
+id: DEC-SRC-0014
+type: decision
+status: proposed
+title: Separate raw-upload tracking from official source admission
+topic: handoff
+layer: architecture
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from owner guidance on 2026-04-14 that uploaded artifacts must not pollute the official source collection before source-engine acceptance.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0001
+- REQ-SRC-0025
+impacts:
+- registry_model
+- source_admission
+options:
+- id: OPT-A
+  label: One registry with lifecycle states
+  description: Track raw uploads and admitted sources inside one registry using status transitions only.
+  status: rejected
+  rejection_reason: This blurs uploaded artifacts with officially accepted sources and makes it easier for rejected or provisional uploads to pollute the collection.
+- id: OPT-B
+  label: Two registries with staged admission
+  description: Track every submission in a raw-upload registry and write the official source collection only after source-engine acceptance succeeds.
+  status: chosen
+  chosen_reason: This preserves full upload traceability without polluting the official source collection before the source engine genuinely accepts the source.
+- id: OPT-C
+  label: Admitted sources only
+  description: Track only fully accepted sources and discard rejected or provisional upload records.
+  status: rejected
+  rejection_reason: The owner wants rigorous intake and traceability, so rejected and provisional uploads must still be preserved outside the official source collection.

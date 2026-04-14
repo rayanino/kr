@@ -1,0 +1,61 @@
+id: REQ-SRC-0001
+type: requirement
+status: proposed
+title: Upload receipt and raw submission registration
+topic: acquisition
+layer: pipeline
+step: upload_receipt
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0002; re-scoped on 2026-04-14 after owner correction that upload, intake analysis, and later source acceptance must be distinct stages.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0002
+- DEC-SRC-0014
+impacts:
+- raw_upload_registry
+- intake_entrypoint
+behavior:
+  trigger: The owner submits one filesystem path for source-engine processing.
+  preconditions:
+  - The submitted path exists as one filesystem artifact.
+  - The submitted path can be opened for basic filesystem inspection.
+  - Upload receipt performs no freezing, container parsing, metadata inference, or normalization work.
+  postconditions:
+  - A raw_upload_record is written with non-null submission_id, submitted_path, submitted_path_kind, intake_mode, and receipt_timestamp.
+  - raw_upload_record.status is set to received.
+  - Owner hints are preserved as raw_upload_record.owner_hint_payload without being used as primary inference at this step.
+  - No source_id, source_sha256, frozen_blob_path, source_metadata, or normalization_handoff_bundle is emitted at this step.
+  error_conditions:
+  - condition: The submitted path does not exist.
+    action: Abort upload receipt with SRC-E-PATH-NOT-FOUND.
+    severity: fatal
+  - condition: The submitted path exists but cannot be read.
+    action: Abort upload receipt with SRC-E-PATH-UNREADABLE.
+    severity: fatal
+  - condition: The submitted file has zero bytes or the submitted directory contains no members.
+    action: Abort upload receipt with SRC-E-EMPTY-FILE.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm
+  when: upload receipt executes
+  then: raw_upload_record.submission_id is non-empty, raw_upload_record.submitted_path_kind="file", raw_upload_record.status="received", and no source_id field exists in the upload-receipt output.
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/shamela_real/11_multi_small
+  when: upload receipt executes
+  then: raw_upload_record.submitted_path_kind="directory" and raw_upload_record.status="received".
+  test_type: integration
+- id: AC-3
+  given: Missing path tests/fixtures/shamela_real/does_not_exist/book.htm
+  when: upload receipt executes
+  then: Upload receipt aborts with error_code=SRC-E-PATH-NOT-FOUND.
+  test_type: deterministic
+- id: AC-4
+  given: A 0-byte HTML file at a valid temporary intake path
+  when: upload receipt executes
+  then: Upload receipt aborts with error_code=SRC-E-EMPTY-FILE.
+  test_type: deterministic

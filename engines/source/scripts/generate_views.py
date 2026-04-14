@@ -54,6 +54,8 @@ def summarize_atom(atom: LoadedAtom) -> list[str]:
     lines = [
         f"### {atom.atom_id} — {as_string(data.get('title'))}",
         f"- Type: {as_string(data.get('type'))}",
+        f"- Layer: {as_string(data.get('layer'))}",
+        f"- Step: {as_string(data.get('step')) or 'n/a'}",
         f"- Status: {as_string(data.get('status'))}",
         f"- Priority: {as_string(data.get('priority'))}",
         f"- Confidence: {as_string(data.get('confidence'))}",
@@ -134,6 +136,8 @@ def build_readme(root: Path, atoms: list[LoadedAtom]) -> str:
         [
             atom.atom_id,
             as_string(atom.data.get("type")),
+            as_string(atom.data.get("layer")),
+            as_string(atom.data.get("step")) or "—",
             as_string(atom.data.get("title")),
             as_string(atom.data.get("status")),
             as_string(atom.data.get("priority")),
@@ -160,7 +164,7 @@ def build_readme(root: Path, atoms: list[LoadedAtom]) -> str:
         "",
         "## Atom Index",
         markdown_table(
-            ["ID", "Type", "Title", "Status", "Priority", "Topic", "File"],
+            ["ID", "Type", "Layer", "Step", "Title", "Status", "Priority", "Topic", "File"],
             atom_rows,
         ),
     ]
@@ -212,15 +216,25 @@ def generate_views(root: Path | None = None) -> None:
     views_root = spec_root(base_root) / "views"
     by_topic_root = views_root / "by-topic"
     by_status_root = views_root / "by-status"
+    by_layer_root = views_root / "by-layer"
+    by_step_root = views_root / "by-step"
 
     clear_markdown_files(by_topic_root)
     clear_markdown_files(by_status_root)
+    clear_markdown_files(by_layer_root)
+    clear_markdown_files(by_step_root)
 
     by_topic: dict[str, list[LoadedAtom]] = defaultdict(list)
     by_status: dict[str, list[LoadedAtom]] = defaultdict(list)
+    by_layer: dict[str, list[LoadedAtom]] = defaultdict(list)
+    by_step: dict[str, list[LoadedAtom]] = defaultdict(list)
     for atom in atoms:
         by_topic[as_string(atom.data.get("topic"))].append(atom)
         by_status[as_string(atom.data.get("status"))].append(atom)
+        by_layer[as_string(atom.data.get("layer"))].append(atom)
+        step = as_string(atom.data.get("step"))
+        if step:
+            by_step[step].append(atom)
 
     write_markdown(views_root / "README.md", build_readme(base_root, atoms))
     for topic, topic_atoms in sorted(by_topic.items()):
@@ -232,6 +246,16 @@ def generate_views(root: Path | None = None) -> None:
         write_markdown(
             by_status_root / f"{status}.md",
             build_group_view(status, "Source Spec Atoms by Status", status_atoms),
+        )
+    for layer, layer_atoms in sorted(by_layer.items()):
+        write_markdown(
+            by_layer_root / f"{layer}.md",
+            build_group_view(layer, "Source Spec Atoms by Layer", layer_atoms),
+        )
+    for step, step_atoms in sorted(by_step.items()):
+        write_markdown(
+            by_step_root / f"{step}.md",
+            build_group_view(step, "Source Spec Atoms by Step", step_atoms),
         )
 
 
@@ -248,4 +272,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

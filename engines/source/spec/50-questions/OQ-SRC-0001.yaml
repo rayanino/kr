@@ -1,0 +1,30 @@
+id: OQ-SRC-0001
+type: question
+status: deferred
+title: Level detection ownership
+topic: metadata
+layer: questions
+priority: medium
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0007
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0007
+impacts:
+- level_metadata
+- source_normalization_boundary
+candidates:
+- id: OPT-A
+  label: Source metadata only
+  description: Infer level from title cards and shallow source metadata inside the source engine.
+  likelihood: unlikely
+- id: OPT-B
+  label: Downstream content analysis
+  description: Compute level after content analysis has richer evidence about difficulty and pedagogy.
+  likelihood: likely
+- id: OPT-C
+  label: Dual inference with reconciliation
+  description: Let source emit a provisional level signal while a downstream stage confirms or corrects it.
+  likelihood: possible

@@ -26,8 +26,10 @@ def test_generate_views_populates_markdown_outputs() -> None:
     assert (VIEWS_ROOT / "README.md").exists()
     assert (VIEWS_ROOT / "by-topic" / "acquisition.md").exists()
     assert (VIEWS_ROOT / "by-status" / "proposed.md").exists()
+    assert (VIEWS_ROOT / "by-layer" / "pipeline.md").exists()
+    assert (VIEWS_ROOT / "by-step" / "upload_receipt.md").exists()
 
     overview = (VIEWS_ROOT / "README.md").read_text(encoding="utf-8")
     assert "Source Spec Atom Overview" in overview
     assert "REQ-SRC-0001" in overview
-
+    assert "Layer" in overview

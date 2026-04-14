@@ -1,0 +1,39 @@
+id: REQ-SRC-0020
+type: requirement
+status: proposed
+title: Plain text container classification
+topic: acquisition
+layer: pipeline
+step: container_classification
+priority: medium
+confidence: high
+provenance: coworker_review
+source: Added from adversary-review.yaml ADV-011 and narrowed on 2026-04-14 so plain-text handling is classified and routed here, while later text interpretation belongs to later steps.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0018
+- CON-SRC-0001
+impacts:
+- container_classification
+- normalization_routing
+behavior:
+  trigger: Container classification receives a frozen single-file candidate whose suffix is .txt.
+  preconditions:
+  - The frozen candidate manifest contains exactly one member.
+  - The .txt bytes decode as UTF-8 without repair.
+  postconditions:
+  - container_classification.container_type is set to plain_text.
+  - container_classification.normalization_route is set to plain_text_parse.
+  - container_classification.text_encoding is set to utf-8.
+  - intake analysis may later use the first non-empty line as title evidence, but that evidence is not finalized at this step.
+  error_conditions:
+  - condition: The frozen .txt bytes cannot be decoded as UTF-8 without repair.
+    action: Abort classification with SRC-E-ENCODING.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/alfiyyah_versified/alfiyyah.txt
+  when: container classification executes
+  then: container_classification.container_type="plain_text", container_classification.normalization_route="plain_text_parse", and container_classification.text_encoding="utf-8".
+  test_type: integration

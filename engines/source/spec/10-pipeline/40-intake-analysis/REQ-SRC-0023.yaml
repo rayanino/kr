@@ -1,0 +1,48 @@
+id: REQ-SRC-0023
+type: requirement
+status: proposed
+title: PDF text-layer evidence is diagnostic only
+topic: metadata
+layer: pipeline
+step: intake_analysis
+priority: critical
+confidence: high
+provenance: domain_inference
+source: Added from reference/pdf_fixture_observations_2026-04-14.md, .claude/skills/arabic-text/SKILL.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0021
+- CON-SRC-0004
+impacts:
+- pdf_text_evidence
+- downstream_provenance
+behavior:
+  trigger: The source engine records sampled direct-extraction evidence from a PDF for text-layer classification.
+  preconditions:
+  - intake_dossier.source_format=pdf.
+  - At least one representative PDF page yielded extractable visible text during REQ-SRC-0021 classification.
+  - The sampled text evidence is stored before any downstream normalization work begins.
+  postconditions:
+  - intake_dossier.pdf_text_evidence preserves the literal extracted string and its physical page number.
+  - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to sampled direct-extraction evidence.
+  - Sampled direct-extraction evidence is diagnostic only and is never emitted as normalized handoff text by the source engine.
+  - The presence of diacritics inside sampled direct-extraction evidence does not override intake_dossier.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
+  error_conditions:
+  - condition: Sampled direct-extraction evidence is modified before its page-number provenance is recorded.
+    action: Abort intake with SRC-E-PDF-TEXT-EVIDENCE-MUTATED.
+    severity: fatal
+  - condition: Sampled direct-extraction evidence used to derive source_metadata.pdf_text_layer_status is dropped from the handoff record.
+    action: Abort intake with SRC-E-PDF-TEXT-EVIDENCE-DROPPED.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/waraqat_usul/waraqat.pdf
+  when: sampled direct-extraction evidence is recorded
+  then: One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and intake_dossier.pdf_text_layer_status="corrupt".
+  test_type: deterministic
+- id: AC-2
+  given: A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text
+  when: sampled direct-extraction evidence is recorded
+  then: One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", intake_dossier.pdf_text_layer_status="clean", and the handoff contains no normalized_text field.
+  test_type: deterministic

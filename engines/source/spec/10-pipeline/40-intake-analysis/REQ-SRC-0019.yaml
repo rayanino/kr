@@ -1,0 +1,58 @@
+id: REQ-SRC-0019
+type: requirement
+status: proposed
+title: Intake dossier and source-work identification
+topic: identity
+layer: pipeline
+step: intake_analysis
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from owner correction on 2026-04-14 that source intake must thoroughly analyze what was uploaded, determine exact source/work identity, inspect completeness, and avoid leaving these gaps to later implementation.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0018
+- REQ-SRC-0017
+- REQ-SRC-0020
+- REQ-SRC-0021
+impacts:
+- intake_dossier
+- work_identity
+- collection_matching
+behavior:
+  trigger: Intake analysis receives a frozen, container-classified source candidate.
+  preconditions:
+  - A raw_upload_record and frozen_source record exist for the same candidate.
+  - container_classification has completed.
+  - One intake-analysis team runs with fixed subroles for source-work identification, completeness analysis, integrity analysis, and collection matching.
+  postconditions:
+  - An intake_dossier is written with non-null dossier_id, title_evidence, work_identity_proposal, completeness_status, integrity_status, and collection_match_candidates.
+  - work_identity_proposal.candidates preserves one or more evidence-backed candidate work identities without declaring them authoritative yet.
+  - completeness_status is one of complete, partial, mixed, or indeterminate.
+  - integrity_status is one of sound, suspicious, or corrupt.
+  - declared_vs_observed_counts preserves any count comparison evidence used by completeness analysis.
+  - Metadata deliberation consumes the intake_dossier rather than re-reading raw upload state directly.
+  error_conditions:
+  - condition: One or more required intake-analysis subroles fail to emit an evidence-backed result for the candidate.
+    action: Abort intake analysis with SRC-E-INTAKE-TEAM-INCOMPLETE.
+    severity: blocking
+  - condition: Intake analysis drops completeness or integrity findings while still emitting a dossier.
+    action: Abort intake analysis with SRC-E-INTAKE-DOSSIER-INCOMPLETE.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm
+  when: intake analysis executes
+  then: intake_dossier.dossier_id is non-empty, len(intake_dossier.title_evidence) is at least 1, len(intake_dossier.work_identity_proposal.candidates) is at least 1, and intake_dossier.integrity_status is one of {sound, suspicious, corrupt}.
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/shamela_real/11_multi_small
+  when: intake analysis executes
+  then: intake_dossier.declared_vs_observed_counts.observed_volume_count=3 and intake_dossier.completeness_status is one of {complete, indeterminate}.
+  test_type: integration
+- id: AC-3
+  given: A frozen source candidate whose title page and file naming indicate "الجزء الثاني" with no companion parts present
+  when: intake analysis executes
+  then: intake_dossier.completeness_status="partial" and intake_dossier.partiality_reasons includes "single_part_without_companion_parts".
+  test_type: deterministic

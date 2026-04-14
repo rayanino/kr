@@ -1,0 +1,28 @@
+id: DEC-SRC-0002
+type: decision
+status: proposed
+title: Science scope uses dynamic registry
+topic: metadata
+layer: architecture
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0006; amended per domain-validator-review.yaml
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0006
+impacts:
+- science_registry
+- collection_growth
+options:
+- id: OPT-A
+  label: Fixed enum
+  description: Restrict science classification to one value from a closed predefined enumeration.
+  status: rejected
+  rejection_reason: The owner rejected any design that cuts off knowledge because a science is not present yet.
+- id: OPT-B
+  label: Growable ordered science list
+  description: Allow registry expansion when new sciences appear and let one source carry an ordered science_scope list by dominance.
+  status: chosen
+  chosen_reason: This preserves intake breadth, supports cross-science books such as ahadith al-ahkam, and keeps expansion approval at the registry layer.

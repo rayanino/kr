@@ -9,17 +9,30 @@
 
 ## Current State
 
-68 spec atoms in `engines/source/spec/`, all validating (`validate_spec.py` exits 0).
+75 spec atoms in `engines/source/spec/`, all validating (`validate_spec.py` exits 0).
 
 | Status | Count |
 |--------|-------|
 | confirmed | 19 (all 16 OF atoms + 3 CON atoms) |
-| proposed | 42 (need owner gate to confirm) |
+| proposed | 49 (includes the new front-of-pipeline redesign atoms) |
 | deferred | 3 (OQ-SRC-0001, OQ-SRC-0005, DEC-SRC-0003) |
 | superseded | 2 (OQ-SRC-0004, OQ-SRC-0006) |
 | draft | 2 (OQ-SRC-0003, OQ-SRC-0007 — awaiting DR results) |
 
-**Atom types:** 22 REQ, 8 INV, 12 DEC, 4 CON, 6 OQ, 16 OF
+**Atom types:** 26 REQ, 8 INV, 14 DEC, 5 CON, 6 OQ, 16 OF
+
+The spec now uses a numbered, behavior-first layout:
+
+- `00-vision/`
+- `01-vocabulary/`
+- `10-pipeline/`
+- `20-contracts/`
+- `30-architecture/`
+- `40-quality/`
+- `50-questions/`
+- `60-evidence/`
+
+Normative YAML atoms live under behavior/layer folders. `views/` remains generated and non-canonical.
 
 ## What Was Accomplished
 
@@ -47,18 +60,18 @@ When DRs return, incorporate findings into atoms:
 
 ## What Went Wrong — Errors to Avoid
 
-### ERROR 1: PDF atoms written without examining real data
-The 5 PDF atoms (REQ-SRC-0021 through 0024, INV-SRC-0008) were written from abstract knowledge. When I finally examined the actual PDFs in `tests/fixtures/`, I found:
+### ERROR 1: PDF atoms were originally written without examining real data
+The 5 PDF atoms (REQ-SRC-0021 through 0024, INV-SRC-0008) were originally written from abstract knowledge. The empirical fix is now in place, and the remaining lesson is to keep future PDF changes grounded in real fixtures. The observed realities were:
 
 - **`waraqat_usul/waraqat.pdf`** (13 pages): Has a text layer but it's CORRUPT. Broken ligatures, scrambled Arabic. `منت الورقات إلماـ احلرمني` should be `متن الورقات للإمام الحرمين`. The text layer looks extractable but produces garbage.
 - **`ibn_aqil_alfiyyah/vol6.pdf`** (398 pages): Pure scanned images, ZERO text layer. This is the dominant case for classical Islamic scholarly PDFs.
 
 **What this means for the PDF atoms:**
-- REQ-SRC-0021 assumes a binary "scanned vs text-embedded" split. WRONG. There are THREE cases: (a) pure scan with no text layer (common), (b) corrupt text layer that looks extractable but is garbage (tricky), (c) clean text layer (rare for classical texts).
-- The format detection logic (`if extracted text is <10% of page area → scanned`) is WRONG. Waraqat has a text layer covering the whole page, but it's garbage. Need a text QUALITY check, not just text PRESENCE check.
-- REQ-SRC-0023 (diacritics from OCR) missed that PDF text extraction ITSELF can mangle diacritics even when a text layer exists.
+- The PDF model must preserve three cases: absent text layer, corrupt text layer, and clean text layer.
+- PDF text-layer sampling is allowed only as intake-time diagnostic evidence, not as normalization work.
+- OCR-primary normalization remains the default handoff route for PDFs.
 
-**Action needed:** Rewrite REQ-SRC-0021 with a three-case model. Add text quality validation. Run PyMuPDF on both fixtures to calibrate the detection logic empirically.
+**Remaining action:** Keep future PDF amendments calibrated against fixtures and any newly supplied owner PDFs before changing the routing logic again.
 
 ### ERROR 2: Insufficient empirical grounding throughout
 More broadly, many atoms were designed from principles rather than from examining real data. The Shamela HTML atoms were better grounded (v1 archive had extensive empirical data from 2,519 books), but the PDF atoms and the agent-team atoms are theory-heavy. Before building, the implementer should examine actual inputs.
@@ -131,12 +144,15 @@ These came from the owner interviews. Do not override them:
 | File | Purpose |
 |------|---------|
 | `engines/source/CLAUDE.md` | Engine-local agent instructions |
-| `engines/source/spec/INDEX.yaml` | Atom registry (68 entries) |
+| `engines/source/spec/INDEX.yaml` | Atom registry (75 entries) |
 | `engines/source/spec/schema.json` | JSON Schema for atom validation |
 | `engines/source/scripts/validate_spec.py` | Schema + consistency validator |
 | `engines/source/scripts/generate_views.py` | YAML → Markdown view generator |
 | `engines/source/scripts/spec_common.py` | Shared utilities for spec scripts |
-| `engines/source/spec/reviews/` | 3 completed reviews (contract-architect, domain-validator, adversary) |
+| `engines/source/spec/10-pipeline/` | Canonical ordered source-engine steps |
+| `engines/source/spec/20-contracts/` | Contract surfaces for upload, dossier, metadata, and handoff |
+| `engines/source/spec/30-architecture/` | Registry and agent-team decisions |
+| `engines/source/spec/60-evidence/reviews/` | Review evidence (contract-architect, domain-validator, adversary) |
 | `.claude/agents/spec-*.md` | 6 spec team agent definitions |
 | `tests/fixtures/waraqat_usul/waraqat.pdf` | PDF fixture: corrupt text layer, 13 pages |
 | `tests/fixtures/ibn_aqil_alfiyyah/vol6-9.pdf` | PDF fixture: pure scans, ~400 pages each |

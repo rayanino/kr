@@ -36,10 +36,12 @@ def index_path(root: Path | None = None) -> Path:
 def discover_atom_files(root: Path | None = None) -> list[Path]:
     spec_dir = spec_root(root)
     files: list[Path] = []
-    for child in sorted(spec_dir.iterdir()):
-        if not child.is_dir() or child.name in {"views", "reviews", "interview"}:
+    for path in sorted(spec_dir.rglob("*.yaml")):
+        if path.name == "INDEX.yaml":
             continue
-        files.extend(sorted(child.glob("*.yaml")))
+        if any(part in {"views", "reviews", "interview"} for part in path.parts):
+            continue
+        files.append(path)
     return files
 
 
@@ -63,4 +65,3 @@ def load_atoms(root: Path | None = None) -> list[LoadedAtom]:
 
 def relative_spec_path(path: Path, root: Path | None = None) -> str:
     return path.relative_to(spec_root(root)).as_posix()
-

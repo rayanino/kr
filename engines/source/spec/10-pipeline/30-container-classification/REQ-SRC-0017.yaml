@@ -1,0 +1,54 @@
+id: REQ-SRC-0017
+type: requirement
+status: proposed
+title: Multipart Shamela container classification
+topic: acquisition
+layer: pipeline
+step: container_classification
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Added from adversary-review.yaml ADV-001 and tightened on 2026-04-14 to distinguish container classification from freezing and later metadata deliberation.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0018
+- CON-SRC-0001
+impacts:
+- container_classification
+- normalization_routing
+behavior:
+  trigger: Container classification receives a frozen directory candidate whose members include .htm files.
+  preconditions:
+  - A frozen_member_manifest exists for the candidate directory.
+  - Member ordering is computed from the frozen member names, not from later parsed content.
+  - Numbered HTML members are identified by ASCII-digit filename stems.
+  postconditions:
+  - container_classification.container_type is set to shamela_multi_volume_html when the manifest contains at least two numbered .htm members.
+  - container_classification.container_type is set to multipart_with_supplementary when the manifest contains one or more numbered .htm members plus supplementary non-numbered .htm members.
+  - container_classification.volume_manifest preserves numbered HTML members in integer-stem order.
+  - container_classification.supplementary_members preserves non-numbered HTML members separately from numbered volumes.
+  - container_classification.normalization_route is set to html_parse_primary.
+  error_conditions:
+  - condition: The frozen directory contains no numbered .htm members.
+    action: Abort classification with SRC-E-EMPTY-DIRECTORY.
+    severity: fatal
+  - condition: The frozen directory mixes numbered and non-numbered .htm members but supplementary handling is not recorded.
+    action: Abort classification with SRC-E-SUPPLEMENTARY-UNRECORDED.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/11_multi_small
+  when: container classification executes
+  then: container_classification.container_type="shamela_multi_volume_html", len(container_classification.volume_manifest)=3, and container_classification.normalization_route="html_parse_primary".
+  test_type: integration
+- id: AC-2
+  given: A frozen directory manifest containing only appendix.htm and introduction.htm
+  when: container classification executes
+  then: Classification aborts with error_code=SRC-E-EMPTY-DIRECTORY.
+  test_type: deterministic
+- id: AC-3
+  given: A frozen directory manifest containing 001.htm and المقدمة.htm
+  when: container classification executes
+  then: container_classification.container_type="multipart_with_supplementary", container_classification.volume_manifest[0].member_name="001.htm", and container_classification.supplementary_members[0].member_name="المقدمة.htm".
+  test_type: deterministic

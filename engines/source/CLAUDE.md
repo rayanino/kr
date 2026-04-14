@@ -15,12 +15,15 @@ The source engine is in spec discovery. No production code exists yet. The previ
 |------|------|
 | `spec/INDEX.yaml` | Machine-readable registry of all spec atoms |
 | `spec/schema.json` | JSON Schema validating all atom YAML files |
-| `spec/requirements/*.yaml` | Behavioral requirements (structured YAML, not prose) |
-| `spec/invariants/*.yaml` | Invariant rules |
-| `spec/decisions/*.yaml` | Architectural decisions with options and rationale |
-| `spec/constraints/*.yaml` | Hard limits from domain/upstream/downstream |
-| `spec/questions/*.yaml` | Open questions awaiting resolution |
-| `spec/owner-feedback/*.yaml` | Structured owner responses (one topic per atom) |
+| `spec/README.md` | Canonical reader order for the source spec |
+| `spec/00-vision/` | Purpose, scope, non-goals, and success criteria |
+| `spec/01-vocabulary/` | Canonical terms and naming rules |
+| `spec/10-pipeline/` | Ordered source-engine steps with collocated normative atoms |
+| `spec/20-contracts/` | Output, dossier, registry, and handoff contract surfaces |
+| `spec/30-architecture/` | Registry model, agent-team structure, and state decisions |
+| `spec/40-quality/` | Cross-cutting invariants and quality rules |
+| `spec/50-questions/` | Unresolved blockers only |
+| `spec/60-evidence/` | Owner feedback, archive findings, coworker reviews, and DR evidence (non-normative) |
 
 **There is no SPEC.md.** The specification is the collection of YAML atoms in `spec/`. Agents consume individual atoms, never a monolithic document.
 
@@ -36,6 +39,21 @@ Six agents handle all spec work. No single agent produces AND reviews atoms.
 | Domain Validator | `.claude/agents/spec-domain-validator.md` | Arabic/scholarly accuracy review (dispatch to Gemini CLI) |
 | Contract Architect | `.claude/agents/spec-contract-architect.md` | Structural consistency, testability (dispatch to Codex CLI) |
 | Team Adversary | `.claude/agents/spec-team-adversary.md` | Finds contradictions, gaps, edge cases |
+
+## Spec Format: Numbered Behavior-First Spec
+
+The source spec uses a numbered reader spine. Engineers should understand the system in this order:
+
+1. vision
+2. vocabulary
+3. pipeline
+4. contracts
+5. architecture
+6. quality
+7. open questions
+8. evidence
+
+Generated views are overlays for inspection. They are not canonical.
 
 ## Spec Format: Specs-as-Data
 
@@ -69,10 +87,17 @@ python engines/source/scripts/generate_views.py     # Generate human-readable Ma
 ## Required Reading (ordered)
 
 1. This file
-2. `spec/INDEX.yaml` — current atom inventory
-3. Root `CLAUDE.md` + `AGENTS.md` — project governance
-4. `reference/KNOWLEDGE_INTEGRITY.md` — 7-threat model
-5. Archive `ARCHIVE_INDEX.md` — what's recoverable from v1
+2. `spec/README.md`
+3. `spec/00-vision/README.md`
+4. `spec/01-vocabulary/README.md`
+5. `spec/10-pipeline/README.md`
+6. `spec/20-contracts/README.md`
+7. `spec/30-architecture/README.md`
+8. `spec/40-quality/README.md`
+9. `spec/INDEX.yaml` — current atom inventory
+10. Root `CLAUDE.md` + `AGENTS.md` — project governance
+11. `reference/KNOWLEDGE_INTEGRITY.md` — 7-threat model
+12. Archive `ARCHIVE_INDEX.md` — what's recoverable from v1
 
 ## Owner Design Principles (from Session 1 interviews)
 

@@ -1,0 +1,22 @@
+id: OF-SRC-0012
+type: feedback
+status: confirmed
+title: Hadith classification is the primary benchmark surface
+topic: metadata
+layer: evidence
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 3 question 4
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on: []
+impacts:
+- hadith_classification
+- benchmark_weighting
+batch: batch_3
+question: Which part of the collection should dominate source-engine quality evaluation?
+answer: Hadith is the owner's main focus and represents 48.7% of the collection. Fine-grained classification within hadith literature is therefore very important.
+decomposed_into:
+- REQ-SRC-0011
+- CON-SRC-0002

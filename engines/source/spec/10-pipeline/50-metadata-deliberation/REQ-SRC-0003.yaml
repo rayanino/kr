@@ -1,0 +1,49 @@
+id: REQ-SRC-0003
+type: requirement
+status: proposed
+title: Metadata deliberation stays owner-light
+topic: trust
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0003 and tightened on 2026-04-14 to align with the owner rule that metadata should resolve autonomously without human gates.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0003
+- REQ-SRC-0009
+impacts:
+- owner_queue
+- autonomous_decision_rate
+behavior:
+  trigger: Metadata deliberation reaches a case that cannot be finalized as one definitive metadata value.
+  preconditions:
+  - Metadata deliberation and internal disagreement handling have completed.
+  - Structured disputed and insufficient-evidence outputs are available for the target metadata field.
+  postconditions:
+  - Metadata cases with evidence-backed automatic resolution do not create owner_review_case records.
+  - Zero-author-evidence cases emit author_output.status="insufficient_evidence" rather than opening owner review.
+  - Genuine metadata disputes emit the multi-position or insufficient-evidence output required by the relevant metadata contract rather than opening owner review.
+  - owner_review_case is not used for metadata finalization inside the source engine.
+  error_conditions:
+  - condition: Metadata deliberation routes a metadata field to owner_review_case.
+    action: Abort metadata finalization with SRC-E-METADATA-OWNER-GATE.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/06_usul/book.htm
+  when: source metadata resolution completes
+  then: No owner_review_case is written.
+  test_type: integration
+- id: AC-2
+  given: A Shamela HTML source whose metadata card, title, and colophon contain no author signal
+  when: source metadata resolution completes
+  then: author_output.status="insufficient_evidence" and no owner_review_case is written.
+  test_type: deterministic
+- id: AC-3
+  given: A source with two evidence-backed science positions that remain genuinely disputed after internal resolution
+  when: science classification completes
+  then: the output preserves the dispute and no owner_review_case is written.
+  test_type: deterministic

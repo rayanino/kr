@@ -22,8 +22,8 @@
 | OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
 | REQ-SRC-0004 | requirement | Multi-model consensus for author attribution | proposed | critical |
 | REQ-SRC-0005 | requirement | Optional science hint | proposed | medium |
-| REQ-SRC-0006 | requirement | Growable science registry | proposed | high |
-| REQ-SRC-0007 | requirement | Level field preservation across handoff | proposed | medium |
+| REQ-SRC-0006 | requirement | Growable science registry without owner gate | proposed | high |
+| REQ-SRC-0007 | requirement | Level field preservation across source-engine handoff | proposed | medium |
 | REQ-SRC-0010 | requirement | Graduated muhaqiq standing | proposed | medium |
 | REQ-SRC-0011 | requirement | Fine-grained hadith classification | proposed | high |
 | REQ-SRC-0012 | requirement | Multi-position metadata for disputed fields | proposed | high |
@@ -35,6 +35,8 @@
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
+- Layer: contracts
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -43,6 +45,8 @@
 
 ### DEC-SRC-0002 — Science scope uses dynamic registry
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -52,6 +56,8 @@
 
 ### DEC-SRC-0003 — Level detection strategy
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium
@@ -60,6 +66,8 @@
 
 ### DEC-SRC-0007 — Disputed metadata as multi-position evidence
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -69,6 +77,8 @@
 
 ### DEC-SRC-0010 — Source hints multi-layer routing and normalization confirms it
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -78,6 +88,8 @@
 
 ### DEC-SRC-0012 — Multi-position metadata ordered by confidence
 - Type: decision
+- Layer: architecture
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -87,6 +99,8 @@
 
 ### INV-SRC-0002 — Author attribution role separation is mandatory
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -95,14 +109,18 @@
 
 ### INV-SRC-0003 — Library never refuses knowledge
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0006
-- Rule: No source is rejected solely because its science label is absent from science_registry.
+- Source: Derived from OF-SRC-0006 and broadened on 2026-04-14 after owner clarification that only structurally invalid uploads should be blocked from the official source flow.
+- Rule: No structurally valid source is rejected solely because its science label is absent from science_registry, because its metadata remains disputed, or because its completeness or integrity verdict carries non-fatal flags.
 
 ### INV-SRC-0006 — Isnad atomic preservation
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -111,6 +129,8 @@
 
 ### INV-SRC-0007 — Scholar registry minimum population
 - Type: invariant
+- Layer: quality
+- Step: n/a
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -119,6 +139,8 @@
 
 ### OF-SRC-0004 — Author attribution errors are catastrophic
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: critical
 - Confidence: high
@@ -128,6 +150,8 @@
 
 ### OF-SRC-0005 — Science hints follow the same cross-validation rule
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -137,6 +161,8 @@
 
 ### OF-SRC-0006 — Science registry must keep growing
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -146,6 +172,8 @@
 
 ### OF-SRC-0007 — Preserve and infer level metadata from content
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: medium
 - Confidence: medium
@@ -155,6 +183,8 @@
 
 ### OF-SRC-0008 — Multi-layer detection ownership is unresolved
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: medium
 - Confidence: low
@@ -164,6 +194,8 @@
 
 ### OF-SRC-0012 — Hadith classification is the primary benchmark surface
 - Type: feedback
+- Layer: evidence
+- Step: n/a
 - Status: confirmed
 - Priority: high
 - Confidence: high
@@ -173,6 +205,8 @@
 
 ### OQ-SRC-0001 — Level detection ownership
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: deferred
 - Priority: medium
 - Confidence: medium
@@ -184,6 +218,8 @@
 
 ### OQ-SRC-0006 — Ordering and display semantics for multi-position metadata
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: superseded
 - Priority: high
 - Confidence: medium
@@ -195,6 +231,8 @@
 
 ### REQ-SRC-0004 — Multi-model consensus for author attribution
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -214,6 +252,8 @@
 
 ### REQ-SRC-0005 — Optional science hint
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -227,40 +267,46 @@
   - AC-1 [deterministic] Given tests/fixtures/shamela_real/04_hadith/book.htm with owner_hint_payload.science_scope=["hadith"]; When science-hint comparison executes; Then inferred_metadata.science_scope remains ["hadith"] and science_scope_confidence increases..
   - AC-2 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm with owner_hint_payload.science_scope=["tafsir"]; When science-hint comparison executes; Then hint_investigation.field="science_scope", hint_investigation.hint_value=["tafsir"], and inferred_metadata.science_scope remains ["hadith", "fiqh"]..
 
-### REQ-SRC-0006 — Growable science registry
+### REQ-SRC-0006 — Growable science registry without owner gate
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0006; amended per both coworker reviews
+- Source: Derived from OF-SRC-0006; amended on 2026-04-14 to align with the owner rule that metadata should not depend on human gates.
 - Trigger: Science classification yields a science label not present in science_registry.
 - Postconditions:
   - Existing science labels classify normally without registry expansion.
-  - New science labels write registry_expansion_request with candidate_science and status=pending_owner_confirmation.
-  - Owner confirmation adds the new science and updates registry_expansion_request.status=confirmed.
-  - Owner decline or defer keeps intake accepted and stores source_metadata.pending_science_label with registry_expansion_request.status set to declined or deferred.
+  - New science labels write registry_expansion_request with candidate_science and status=autonomous_review_pending.
+  - Autonomous verification may resolve the candidate science as accepted_new_label, merged_into_existing_label, or insufficient_evidence.
+  - Source admission remains accepted while the science expansion workflow is pending or disputed.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When science classification executes; Then inferred_metadata.science_scope=["fiqh"] and no registry_expansion_request is written..
-  - AC-2 [integration] Given A source whose inferred_metadata.science_scope=["mustalah_al_hadith"] while science_registry lacks that label; When science classification executes; Then registry_expansion_request.candidate_science="mustalah_al_hadith" and registry_expansion_request.status="pending_owner_confirmation"..
-  - AC-3 [deterministic] Given A pending registry_expansion_request for mustalah_al_hadith that the owner declines; When registry expansion handling executes; Then registry_expansion_request.status="declined", source_metadata.pending_science_label="mustalah_al_hadith", and source admission remains accepted..
+  - AC-2 [integration] Given A source whose inferred_metadata.science_scope=["mustalah_al_hadith"] while science_registry lacks that label; When science classification executes; Then registry_expansion_request.candidate_science="mustalah_al_hadith" and registry_expansion_request.status="autonomous_review_pending"..
+  - AC-3 [deterministic] Given A pending registry_expansion_request for mustalah_al_hadith that autonomous review cannot yet settle; When registry expansion handling executes; Then registry_expansion_request.status="insufficient_evidence" and source admission remains accepted_with_flags..
 
-### REQ-SRC-0007 — Level field preservation across handoff
+### REQ-SRC-0007 — Level field preservation across source-engine handoff
 - Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
 - Status: proposed
 - Priority: medium
 - Confidence: medium
-- Source: Derived from OF-SRC-0007; narrowed per contract-architect-review.yaml
-- Trigger: The source engine serializes source metadata for downstream handoff.
+- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself.
+- Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
 - Postconditions:
   - The handoff payload always includes the level key.
   - A populated level value is passed through unchanged.
   - An unknown level is serialized as null rather than omitted.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with source_metadata.level="intermediate"; When source-to-normalization handoff serialization executes; Then The serialized payload contains level="intermediate"..
-  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with source_metadata.level=null; When source-to-normalization handoff serialization executes; Then The serialized payload contains the key level with value null..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate"..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null..
 
 ### REQ-SRC-0010 — Graduated muhaqiq standing
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: medium
 - Confidence: high
@@ -277,6 +323,8 @@
 
 ### REQ-SRC-0011 — Fine-grained hadith classification
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -292,6 +340,8 @@
 
 ### REQ-SRC-0012 — Multi-position metadata for disputed fields
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -307,6 +357,8 @@
 
 ### REQ-SRC-0014 — Copyist and author disambiguation
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: critical
 - Confidence: high
@@ -324,6 +376,8 @@
 
 ### REQ-SRC-0015 — Honorific-aware name matching
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -339,6 +393,8 @@
 
 ### REQ-SRC-0016 — Multi-science assignment
 - Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
 - Status: proposed
 - Priority: high
 - Confidence: high
@@ -352,32 +408,36 @@
 
 ### REQ-SRC-0023 — PDF text-layer evidence is diagnostic only
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md, .claude/skills/arabic-text/SKILL.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 - Trigger: The source engine records sampled direct-extraction evidence from a PDF for text-layer classification.
 - Postconditions:
-  - Sampled direct-extraction evidence preserves the literal extracted string and its physical page number.
+  - intake_dossier.pdf_text_evidence preserves the literal extracted string and its physical page number.
   - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to sampled direct-extraction evidence.
   - Sampled direct-extraction evidence is diagnostic only and is never emitted as normalized handoff text by the source engine.
-  - The presence of diacritics inside sampled direct-extraction evidence does not override source_metadata.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
+  - The presence of diacritics inside sampled direct-extraction evidence does not override intake_dossier.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/waraqat_usul/waraqat.pdf; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and source_metadata.pdf_text_layer_status="corrupt"..
-  - AC-2 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", source_metadata.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
+  - AC-1 [deterministic] Given tests/fixtures/waraqat_usul/waraqat.pdf; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and intake_dossier.pdf_text_layer_status="corrupt"..
+  - AC-2 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", intake_dossier.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
 
 ### REQ-SRC-0024 — PDF page-geometry hints for normalization
 - Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
 - Status: proposed
 - Priority: high
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 after confirming that source-engine PDF handling must stay metadata-first and normalization-owned for text extraction
 - Trigger: A PDF source is being processed.
 - Postconditions:
-  - source_metadata.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
-  - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when source_metadata.page_layout_hint=marginal_notes.
-  - layout_analysis.reading_order_hint is set to rtl_columns when source_metadata.page_layout_hint=dual_column.
-  - source_metadata.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
+  - intake_dossier.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
+  - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when intake_dossier.page_layout_hint=marginal_notes.
+  - layout_analysis.reading_order_hint is set to rtl_columns when intake_dossier.page_layout_hint=dual_column.
+  - intake_dossier.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout_hint="marginal_notes"..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout_hint="single_column"..
+  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then intake_dossier.page_layout_hint="marginal_notes"..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then intake_dossier.page_layout_hint="single_column"..

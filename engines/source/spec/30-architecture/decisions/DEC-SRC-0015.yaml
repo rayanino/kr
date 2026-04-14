@@ -1,0 +1,33 @@
+id: DEC-SRC-0015
+type: decision
+status: proposed
+title: Normalization consumes a bridge input model, not raw SourceMetadata
+topic: handoff
+layer: architecture
+priority: high
+confidence: high
+provenance: coworker_review
+source: Added on 2026-04-14 after contract-auditor review found that the redesigned SourceMetadata surface no longer matches the live normalization boundary.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0004
+impacts:
+- normalization_boundary
+- contracts_derivation
+options:
+- id: OPT-A
+  label: Redefine SourceMetadata as the normalization input
+  description: Force SourceMetadata itself to use the downstream-facing field names and legacy source-format enum.
+  status: rejected
+  rejection_reason: This makes the source-owned contract subordinate to the current normalization implementation and weakens the rebuild boundary.
+- id: OPT-B
+  label: Emit a NormalizationInput bridge inside the handoff bundle
+  description: Keep SourceMetadata source-owned and emit a separate normalization-facing bridge model for the current normalization runtime.
+  status: chosen
+  chosen_reason: This preserves source-engine clarity while giving normalization a concrete boundary contract that can evolve independently later.
+- id: OPT-C
+  label: Require normalization to consume SourceMetadata immediately
+  description: Keep no bridge and force normalization to adopt the new SourceMetadata shape now.
+  status: rejected
+  rejection_reason: This leaves the current repo boundary undefined and breaks the live normalization surface before the bridge contract exists.

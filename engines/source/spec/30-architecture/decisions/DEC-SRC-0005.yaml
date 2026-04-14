@@ -1,0 +1,29 @@
+id: DEC-SRC-0005
+type: decision
+status: proposed
+title: Muhaqiq standing is metadata only
+topic: trust
+layer: architecture
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0010; amended per domain-validator-review.yaml
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0010
+impacts:
+- muhaqiq_metadata
+- trust_separation
+- parsing_confidence
+options:
+- id: OPT-A
+  label: Muhaqiq score gates trust tier
+  description: Use muhaqiq standing as an accept-or-reject signal for the source.
+  status: rejected
+  rejection_reason: The owner explicitly said muhaqiq standing must never trigger rejection.
+- id: OPT-B
+  label: Metadata plus parsing-confidence signal
+  description: Record muhaqiq standing as metadata and let it influence downstream parsing_confidence without changing trust_decision acceptance or rejection.
+  status: chosen
+  chosen_reason: This keeps the owner's non-rejection rule intact while preserving the structural risk signal Gemini flagged for normalization.

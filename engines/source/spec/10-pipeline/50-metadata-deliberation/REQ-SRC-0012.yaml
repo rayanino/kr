@@ -1,0 +1,44 @@
+id: REQ-SRC-0012
+type: requirement
+status: proposed
+title: Multi-position metadata for disputed fields
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0013
+- INV-SRC-0004
+- DEC-SRC-0007
+impacts:
+- disputed_metadata
+- evidence_preservation
+behavior:
+  trigger: The engine encounters a metadata field with genuine scholarly disagreement.
+  preconditions:
+  - At least two positions have non-empty evidence lists.
+  - The field supports a positions array rather than a single scalar value.
+  postconditions:
+  - disputed_field.positions is an array of objects with keys position, evidence, confidence, and source_agents.
+  - Every positions item has confidence between 0.0 and 1.0 and a non-empty evidence list.
+  - The engine never forces one canonical value when disputed_field.positions contains two or more evidence-backed items.
+  error_conditions:
+  - condition: The field implementation accepts only one scalar value.
+    action: Block finalization until the field stores a positions array.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: A disputed authorship case with supported positions "ابن القيم" and "ابن تيمية"
+  when: metadata finalization executes
+  then: disputed_field.positions contains two objects and each object includes position, evidence, confidence, and source_agents.
+  test_type: integration
+- id: AC-2
+  given: A disputed metadata field with two evidence-backed positions
+  when: metadata finalization executes
+  then: Every disputed_field.positions[*].confidence is between 0.0 and 1.0 and every disputed_field.positions[*].evidence list is non-empty.
+  test_type: deterministic

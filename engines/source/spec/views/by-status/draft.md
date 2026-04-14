@@ -7,6 +7,8 @@
 
 ### OQ-SRC-0003 — Agent-team architecture design
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: draft
 - Priority: critical
 - Confidence: medium
@@ -18,6 +20,8 @@
 
 ### OQ-SRC-0007 — Specialized research source inventory
 - Type: question
+- Layer: questions
+- Step: n/a
 - Status: draft
 - Priority: medium
 - Confidence: medium
