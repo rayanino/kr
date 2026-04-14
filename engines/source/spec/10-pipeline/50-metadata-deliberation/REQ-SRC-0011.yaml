@@ -8,7 +8,7 @@ step: metadata_deliberation
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0012; amended per both coworker reviews
+source: Derived from OF-SRC-0012; amended per both coworker reviews and domain-validator-review-2 (DV-001, DV-016) which found 6 missing hadith subgenres and clarified genre/subgenre orthogonality.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
@@ -20,7 +20,8 @@ impacts:
 behavior:
   trigger: A source is identified as hadith literature or adjacent hadith scholarship.
   preconditions:
-  - hadith_subgenre uses the controlled vocabulary musannaf, musnad, sunan, jami, juz, tabaqat_rijal, and hadith_commentary.
+  - "hadith_subgenre uses the controlled vocabulary: musannaf, musnad, sunan, jami, juz, tabaqat_rijal, hadith_commentary, mujam, mustadrak, mustakhraj, arbain, takhrij, and atraf."
+  - "hadith_subgenre applies when science_scope includes hadith regardless of genre. A sharh on a hadith collection gets genre=sharh AND hadith_subgenre=hadith_commentary. Genre and hadith_subgenre are orthogonal axes."
   - The source has enough metadata or content evidence to distinguish among the controlled values.
   postconditions:
   - hadith_subgenre is written for every hadith or hadith-adjacent source.

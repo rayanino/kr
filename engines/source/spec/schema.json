@@ -153,7 +153,8 @@
             "owner_interview",
             "coworker_review",
             "domain_inference",
-            "pipeline_constraint"
+            "pipeline_constraint",
+            "deep_research"
           ]
         },
         "source": {

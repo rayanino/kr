@@ -1,0 +1,55 @@
+id: CON-SRC-0006
+type: constraint
+status: proposed
+title: Per-book processing cost and time ceiling
+topic: trust
+layer: contracts
+priority: high
+confidence: medium
+provenance: coworker_review
+source: "adversary-review-2 ADV2-010 (no atom specifies timeout or cost ceiling for agent operations)"
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- DEC-SRC-0013
+- REQ-SRC-0028
+impacts:
+- resource_management
+- processing_budget
+rationale: >-
+  Agent-based deliberation (author consensus, genre classification, metadata
+  enrichment) can enter unbounded loops on difficult sources. Without a ceiling,
+  a single ambiguous book can block the pipeline and consume disproportionate API
+  budget. The 300-second wall-clock default and cost ceiling are initial values
+  requiring empirical calibration against the 97-PDF + Shamela collection. Both
+  thresholds must be registered in CONSTRAINT_REGISTRY.md once calibrated.
+rule:
+  statement: >-
+    Every source candidate has a maximum wall-clock processing time of 300 seconds
+    and a maximum per-book API cost ceiling (initial default EUR 0.50). When either
+    ceiling is reached, processing halts gracefully, the book is flagged with
+    processing_timeout or processing_budget_exceeded in study_quality_risk_flags,
+    and it is routed through the risk gate rather than consuming unbounded resources.
+    Partial results obtained before the ceiling are preserved, not discarded.
+  implication: >-
+    Unbounded agent deliberation on a single difficult book can block the pipeline
+    and exhaust API budget. The ceiling ensures graceful degradation. Exact
+    thresholds (300s, EUR 0.50) require empirical calibration against real corpus
+    data and must be registered in CONSTRAINT_REGISTRY.md with calibration status.
+  violation_severity: high
+acceptance_criteria:
+- id: AC-1
+  given: "A source whose metadata deliberation exceeds 300 seconds wall-clock time"
+  when: the time ceiling is reached during processing
+  then: "processing halts, study_quality_risk_flags includes processing_timeout, partial results are preserved in the source dossier, and the source routes to the risk gate."
+  test_type: integration
+- id: AC-2
+  given: "A source processed in 45 seconds with EUR 0.08 API cost"
+  when: processing completes normally
+  then: "No timeout or budget flags are set. study_quality_risk_flags does not contain processing_timeout or processing_budget_exceeded."
+  test_type: deterministic
+- id: AC-3
+  given: "A source whose cumulative API cost reaches the per-book ceiling during metadata deliberation"
+  when: the cost ceiling is reached
+  then: "processing halts, study_quality_risk_flags includes processing_budget_exceeded, partial results are preserved, and the source routes to the risk gate."
+  test_type: integration

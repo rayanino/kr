@@ -1,0 +1,56 @@
+id: REQ-SRC-0037
+type: requirement
+status: proposed
+title: Integrity analysis of frozen source candidate
+topic: identity
+layer: pipeline
+step: intake_analysis
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Decomposed from REQ-SRC-0019 per contract-architect review finding that 4 sub-analyses in one atom is untestable.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0018
+- REQ-SRC-0017
+impacts:
+- integrity_analysis
+- study_quality_assessment
+rationale: >-
+  REQ-SRC-0019 packed work-identity, completeness, integrity, and collection-matching
+  into a single atom with 10 postconditions. Integrity analysis is independently
+  testable: it inspects structural soundness, encoding health, and content-level signals
+  (e.g. transmission formula presence) to flag risks before metadata deliberation.
+behavior:
+  trigger: Intake analysis assesses structural integrity of a frozen, container-classified source candidate.
+  preconditions:
+  - A raw_upload_record and frozen_source record exist for the candidate.
+  - container_classification has completed (REQ-SRC-0017 or REQ-SRC-0020).
+  postconditions:
+  - "integrity_status is written as one of: sound, suspicious, corrupt."
+  - "study_quality_risk_flags is a list preserving every uncertainty that could materially affect study quality (e.g. encoding_anomaly, truncated_content, missing_basmala, garbled_diacritics)."
+  - "contains_isnad_chains is a boolean set to true when transmission formulas (per INV-SRC-0006) are detected in the source text."
+  error_conditions:
+  - condition: Integrity check encounters unreadable or unparseable content in the frozen source.
+    action: Set integrity_status=suspicious and append unreadable_content to study_quality_risk_flags.
+    severity: warning
+  - condition: Integrity check detects byte-level corruption (invalid UTF-8 sequences, null bytes in text regions).
+    action: Set integrity_status=corrupt and abort further intake analysis with SRC-E-INTEGRITY-CORRUPT.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: "tests/fixtures/shamela_real/03_fiqh/book.htm (well-formed Shamela HTML)"
+  when: integrity analysis executes
+  then: "integrity_status=sound, study_quality_risk_flags is empty."
+  test_type: integration
+- id: AC-2
+  given: "A frozen PDF source with embedded null bytes and invalid UTF-8 sequences in text layer"
+  when: integrity analysis executes
+  then: "integrity_status=corrupt, SRC-E-INTEGRITY-CORRUPT error is raised."
+  test_type: deterministic
+- id: AC-3
+  given: "A hadith fixture containing transmission formulas (حدثنا، أخبرنا، سمعت)"
+  when: integrity analysis executes
+  then: "contains_isnad_chains=true."
+  test_type: deterministic

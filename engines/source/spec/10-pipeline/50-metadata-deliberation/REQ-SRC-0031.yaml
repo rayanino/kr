@@ -1,0 +1,54 @@
+id: REQ-SRC-0031
+type: requirement
+status: proposed
+title: Multi-layer hint detection
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Added after contract-architect review found is_multi_layer is mandatory in CON-SRC-0004 but no requirement atom produces it. Implements DEC-SRC-0010 OPT-C (source hints, normalization confirms). Domain-validator review added genre-based auto-hint for tafsir and hadith.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0004
+- DEC-SRC-0010
+- REQ-SRC-0019
+- REQ-SRC-0030
+impacts:
+- multi_layer_detection
+- normalization_routing
+behavior:
+  trigger: Metadata deliberation processes a source whose intake dossier and genre classification are available.
+  preconditions:
+  - intake_dossier.title_evidence is available.
+  - source_metadata.genre has been classified.
+  postconditions:
+  - source_metadata.is_multi_layer is set to true or false and is never null.
+  - is_multi_layer=true when title contains any keyword in the multi-layer keyword set or when genre implies structural multi-layer content.
+  - "The multi-layer keyword set includes: شرح, حاشية, تعليق, تقريرات, نكت."
+  - "Genre-based auto-hint: genre in {tafsir, hadith_collection, sharh, hashiyah} sets is_multi_layer=true regardless of title keywords, because these genres are structurally multi-layer by definition."
+  - source_metadata.multi_layer_evidence records which signals drove the hint (keyword matches, genre-based auto-hint, or format-specific signals).
+  - is_multi_layer is a source-engine hint, not an authoritative verdict. Normalization confirms or overrides from actual text structure per DEC-SRC-0010.
+  - When no title keywords match and genre does not imply multi-layer, is_multi_layer is set to false.
+  error_conditions:
+  - condition: Title evidence and genre are both unavailable.
+    action: Set is_multi_layer=false and emit warning SRC-W-MULTILAYER-NO-EVIDENCE.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/11_multi_small with title "همع الهوامع في شرح جمع الجوامع"
+  when: multi-layer detection runs
+  then: source_metadata.is_multi_layer=true and multi_layer_evidence includes keyword "شرح".
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm with genre=risalah and no multi-layer keywords in title
+  when: multi-layer detection runs
+  then: source_metadata.is_multi_layer=false.
+  test_type: integration
+- id: AC-3
+  given: A source with genre=tafsir and no multi-layer keywords in title
+  when: multi-layer detection runs
+  then: source_metadata.is_multi_layer=true and multi_layer_evidence includes "genre_auto_hint".
+  test_type: deterministic

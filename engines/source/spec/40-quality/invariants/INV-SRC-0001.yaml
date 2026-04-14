@@ -26,4 +26,4 @@ acceptance_criteria:
   given: tests/fixtures/shamela_real/06_usul/book.htm processed once with owner_hint_payload.author_name="النووي" and once without hints
   when: base inference completes for both runs
   then: inferred_metadata.author_name, inferred_metadata.genre, and inferred_metadata.science_scope are identical across both runs and hint_comparison_audit.stage="post_inference".
-  test_type: deterministic
+  test_type: integration

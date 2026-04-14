@@ -8,7 +8,7 @@ step: metadata_deliberation
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0016; amended per contract-architect-review.yaml
+source: Derived from OF-SRC-0016; amended per contract-architect-review.yaml and Gemini DR on Islamic scholarly metadata verification sources (2026-04-14) which provides a concrete curated inventory per source_type category.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
@@ -23,6 +23,8 @@ behavior:
   preconditions:
   - research_task.source_type is limited to general_web, scholarly_database, manuscript_catalog, islamic_reference, and library_catalog.
   - research_task.field declares the target metadata field before dispatch.
+  - "Curated source inventory per category (from Gemini DR): scholarly_database includes Shamela API, OpenITI corpus, Usul.ai, Al-Manhal; manuscript_catalog includes Suleymaniye Library, Dar al-Kutub al-Misriyya, Chester Beatty Library, Princeton/Qatar Digital Library; islamic_reference includes Dorar.net REST API, ISNAD Database, IslamWeb.net; library_catalog includes Al-Furqan Portal, KSU Digital Library, WorldCat, Brill BABO; general_web includes Ahl al-Hadith forums, SifatuSafwa, publisher sites."
+  - "Priority access modalities: Dorar.net via REST API (documented Postman endpoints), Shamela via TypeScript wrapper, OpenITI via GitHub/Zenodo data dumps, ISNAD Database via Mendeley GraphML, remaining sources via web scraping."
   postconditions:
   - High-impact fields author, genre, science_scope, and death_date use at least two distinct research_task.source_type values.
   - Every dispatch writes verification_log with field, source_types, source_count, and completed_at.

@@ -32,7 +32,7 @@ behavior:
     action: Abort author finalization with SRC-E-AUTHOR-AGENT-COUNT.
     severity: fatal
   - condition: Two or more independent agents return no evidence-backed author position.
-    action: Set author_output.status=insufficient_evidence and route the case with owner_review_case.route_reason=zero_author_evidence.
+    action: Set author_output.status=insufficient_evidence with author_output.positions as an empty array. Add zero_author_evidence to study_quality_risk_flags for evaluation by the owner-submission risk gate (REQ-SRC-0027). Do not create an owner_review_case directly from metadata deliberation.
     severity: blocking
 acceptance_criteria:
 - id: AC-1
@@ -46,14 +46,14 @@ acceptance_criteria:
   then: author_output.status="disputed" and len(author_output.positions) is at least 2.
   test_type: integration
 - id: AC-3
-  given: Candidate authors "أحمد بن تيمية الحراني" (death_hijri=728) and "أحمد بن تيمية" (death_hijri=652) with evidence mentioning الحراني
+  given: Candidate authors "أحمد بن عبد الحليم بن تيمية الحراني" (death_hijri=728) and "عبد السلام بن عبد الله بن تيمية" (death_hijri=652) with evidence mentioning الحراني and post-700H content
   when: author attribution executes
   then: The selected position matches death_hijri=728 and nisba_tokens contains "الحراني".
   test_type: deterministic
 - id: AC-4
   given: A source whose metadata card, title, and colophon provide no author evidence
   when: author attribution executes with two independent agents
-  then: author_output.status="insufficient_evidence" and owner_review_case.route_reason="zero_author_evidence".
+  then: author_output.status="insufficient_evidence" and study_quality_risk_flags includes "zero_author_evidence".
   test_type: integration
 - id: AC-5
   given: An author position whose death_hijri=676 is inferred by exactly one independent attribution agent

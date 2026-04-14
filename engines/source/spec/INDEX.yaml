@@ -508,7 +508,7 @@ atoms:
   file: 50-questions/OQ-SRC-0001.yaml
 - id: OQ-SRC-0003
   type: question
-  status: draft
+  status: superseded
   title: Agent-team architecture design
   topic: agent_ergonomics
   priority: critical
@@ -536,8 +536,106 @@ atoms:
   file: 50-questions/OQ-SRC-0006.yaml
 - id: OQ-SRC-0007
   type: question
-  status: draft
+  status: superseded
   title: Specialized research source inventory
   topic: agent_ergonomics
   priority: medium
   file: 50-questions/OQ-SRC-0007.yaml
+- id: INV-SRC-0009
+  type: invariant
+  status: proposed
+  title: Zero knowledge loss in all source-engine output
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0009.yaml
+- id: DEC-SRC-0013
+  type: decision
+  status: proposed
+  title: Deliberation cell architecture with deterministic orchestrator
+  topic: agent_ergonomics
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0013.yaml
+- id: REQ-SRC-0028
+  type: requirement
+  status: proposed
+  title: Case complexity assessment and deliberation routing
+  topic: agent_ergonomics
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0028.yaml
+- id: REQ-SRC-0029
+  type: requirement
+  status: proposed
+  title: Monitor feedback with non-recursive constraint
+  topic: agent_ergonomics
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0029.yaml
+- id: REQ-SRC-0030
+  type: requirement
+  status: proposed
+  title: Genre classification
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0030.yaml
+- id: REQ-SRC-0031
+  type: requirement
+  status: proposed
+  title: Multi-layer hint detection
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0031.yaml
+- id: REQ-SRC-0032
+  type: requirement
+  status: proposed
+  title: Structural format classification
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0032.yaml
+- id: REQ-SRC-0033
+  type: requirement
+  status: proposed
+  title: Volume count and intake timestamp derivation
+  topic: handoff
+  priority: high
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0033.yaml
+- id: REQ-SRC-0034
+  type: requirement
+  status: proposed
+  title: Compiler-as-muhaqiq detection
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0034.yaml
+- id: REQ-SRC-0035
+  type: requirement
+  status: proposed
+  title: Display metadata for teaching units
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0035.yaml
+- id: REQ-SRC-0036
+  type: requirement
+  status: proposed
+  title: Completeness analysis
+  topic: identity
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0036.yaml
+- id: REQ-SRC-0037
+  type: requirement
+  status: proposed
+  title: Integrity analysis
+  topic: identity
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0037.yaml
+- id: CON-SRC-0006
+  type: constraint
+  status: proposed
+  title: Per-book processing cost and time ceiling
+  topic: trust
+  priority: high
+  file: 20-contracts/constraints/CON-SRC-0006.yaml
+- id: CON-SRC-0007
+  type: constraint
+  status: proposed
+  title: Source type extensibility
+  topic: acquisition
+  priority: high
+  file: 20-contracts/constraints/CON-SRC-0007.yaml

@@ -8,13 +8,13 @@ step: metadata_deliberation
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0009; amended per both coworker reviews and adversary-review.yaml ADV-003
+source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
 - OF-SRC-0009
 - DEC-SRC-0004
-- OQ-SRC-0003
+- DEC-SRC-0013
 - OQ-SRC-0005
 impacts:
 - trust_resolution
@@ -23,11 +23,13 @@ behavior:
   trigger: The engine must emit a trust_decision for a source or metadata claim.
   preconditions:
   - At least two independent verification agents are available for the case.
-  - fast_track eligibility requires scholar_authority[author_canonical_id].authority_level >= "primary", genre in {matn, sharh, hadith_collection, tafsir}, and author_death_hijri is not null.
+  - "fast_track eligibility requires scholar_authority[author_canonical_id].authority_level >= primary, genre in {matn, sharh, hadith_collection, tafsir, tabaqat, fatawa}, and author_death_hijri is not null."
   - Any case that fails one or more fast_track predicates must use trust_path=full_deliberation.
   - Full agent-team composition beyond the minimum verifier set remains blocked on OQ-SRC-0003.
   postconditions:
   - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
+  - trust_decision.decision is one of verified, needs_review, or disputed.
+  - trust_decision.decision=disputed is set when independent trust verifiers produce evidence-backed competing trust assessments that do not converge after the disagreement protocol. In this case trust_decision.positions preserves both assessments with evidence and confidence, ordered by confidence descending.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
   - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
   error_conditions:

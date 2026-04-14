@@ -15,8 +15,8 @@ impacts:
 - boundary_operations
 - hadith_integrity
 rule:
-  statement: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
-  implication: Any boundary operation touching an isnad must keep the full chain in one unit and may annotate it with isnad_atomic=true.
+  statement: "Transmission formulas حدثنا, ثنا, نا, أخبرنا, أنبأنا, سمعت, قرأت على, أجاز لي, and ناولني mark isnad chains that must remain in one atomic unit across processing boundaries."
+  implication: "Any boundary operation touching an isnad must keep the full chain in one unit and may annotate it with isnad_atomic=true. The source engine detects isnad presence and writes intake_dossier.contains_isnad_chains=true to signal downstream engines."
   violation_severity: high
 acceptance_criteria:
 - id: AC-1

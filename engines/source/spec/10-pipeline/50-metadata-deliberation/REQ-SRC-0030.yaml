@@ -1,0 +1,50 @@
+id: REQ-SRC-0030
+type: requirement
+status: proposed
+title: Genre classification
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Added after contract-architect review found genre is mandatory in CON-SRC-0004 but no requirement atom produces it. Genre is referenced as a precondition by REQ-SRC-0002 and REQ-SRC-0008 but was never formally specified.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0004
+- REQ-SRC-0019
+- DEC-SRC-0013
+impacts:
+- genre_classification
+- downstream_routing
+behavior:
+  trigger: Metadata deliberation processes a source candidate whose intake dossier is available.
+  preconditions:
+  - intake_dossier.title_evidence and work_identity_proposal are available.
+  - At least two independent verification agents participate in genre classification.
+  postconditions:
+  - source_metadata.genre is set to one of matn, sharh, hashiyah, risalah, hadith_collection, tafsir, fatawa, tabaqat, mujam, nazm, mukhtasar, or other.
+  - When genre classification is disputed between agents and both positions are evidence-backed, genre is set to the majority or higher-confidence position as a scalar and a genre_dispute record preserves the competing positions with evidence.
+  - genre_dispute is optional and only written when genuine disagreement exists.
+  - Genre classification uses title keywords, structural signals from the intake dossier, and content sampling when title evidence is ambiguous.
+  error_conditions:
+  - condition: No genre can be assigned even as a best-effort classification.
+    action: Set genre=other and emit warning SRC-W-GENRE-UNKNOWN.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm with title containing "أحكام"
+  when: genre classification runs
+  then: source_metadata.genre="risalah".
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/shamela_real/11_multi_small with title "همع الهوامع في شرح جمع الجوامع"
+  when: genre classification runs
+  then: source_metadata.genre="sharh".
+  test_type: integration
+- id: AC-3
+  given: A source where one agent classifies genre=sharh and another classifies genre=hashiyah, both with evidence
+  when: genre classification runs
+  then: source_metadata.genre is set to the higher-confidence position and genre_dispute preserves both positions.
+  test_type: deterministic

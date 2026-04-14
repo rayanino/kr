@@ -1,0 +1,37 @@
+id: DEC-SRC-0013
+type: decision
+status: proposed
+title: Deliberation cell architecture with deterministic orchestrator
+topic: agent_ergonomics
+layer: architecture
+priority: critical
+confidence: high
+provenance: deep_research
+source: ChatGPT DR report on agent-team architecture (2026-04-14). Resolves OQ-SRC-0003. The DR evaluated fixed roles, dynamic composition, and hierarchical escalation, recommending dynamic composition with fixed minimums under a deterministic orchestrator.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OQ-SRC-0003
+- OF-SRC-0009
+- DEC-SRC-0004
+- DEC-SRC-0006
+impacts:
+- agent_orchestration
+- trust_workflow
+- metadata_deliberation
+options:
+- id: OPT-A
+  label: LLM supervisor agent
+  description: A single LLM agent acts as supervisor, deciding which agents to invoke and when to stop.
+  status: rejected
+  rejection_reason: Single point of failure. The supervisor's content judgments would override the independence of verification agents. The spec explicitly rejects supervisor-veto architecture.
+- id: OPT-B
+  label: Deterministic orchestrator with deliberation cells
+  description: A non-LLM workflow executor orchestrates deliberation cells. Each cell handles one metadata field or trust evaluation. The orchestrator enforces spec rules (agent counts, round limits, evidence shapes) but makes no content decisions. Agent team composition is dynamic based on case complexity, with fixed minimums (2 independent verification reasoners for high-impact fields).
+  status: chosen
+  chosen_reason: Smallest system that enforces independence, produces evidence-traceable outputs, guarantees bounded disagreement loops, supports fast-track without bypassing logging, and produces always-valid output shapes. Deterministic orchestration avoids the LLM supervisor single-point-of-failure problem while maintaining the agent team's deliberative power.
+- id: OPT-C
+  label: Fully dynamic agent composition
+  description: No fixed roles at all. Agents are assembled ad hoc per case.
+  status: rejected
+  rejection_reason: Without fixed minimums, high-impact fields could be decided by a single agent. The spec requires minimum 2 independent verifiers for author attribution and trust evaluation.

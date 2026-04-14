@@ -1,13 +1,13 @@
 id: OQ-SRC-0007
 type: question
-status: draft
+status: superseded
 title: Specialized research source inventory
 topic: agent_ergonomics
 layer: questions
 priority: medium
-confidence: medium
+confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0016
+source: Derived from OF-SRC-0016. Resolved by Gemini DR on Islamic scholarly metadata verification sources (2026-04-14). OPT-B (curated scholarly inventory) chosen. Concrete inventory formalized in amendments to REQ-SRC-0013 and DEC-SRC-0009.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:

@@ -19,7 +19,7 @@ impacts:
 behavior:
   trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
   preconditions:
-  - Role markers are mapped as author={ألفه, صنفه}, copyist={كتبه, نسخه}, and editor={المحقق, تحقيق}.
+  - "Role markers are mapped as: author={ألفه, صنفه, جمعه, أملاه}, copyist={كتبه, نسخه, نقله}, editor={المحقق, تحقيق, اعتنى به}, annotator={علق عليه, خرج أحاديثه}."
   - Metadata card fields and colophon strings are both available to the attribution parser when present.
   - The no-marker fallback applies only when neither the metadata card nor the colophon contains an explicit author, copyist, or editor role marker.
   postconditions:
@@ -27,8 +27,9 @@ behavior:
   - copyist_name is populated only from copyist markers.
   - editor_name is populated only from editor markers.
   - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.
+  - "When the same name appears in both author and editor roles AND supporting evidence confirms both roles are intentional (self-tahqiq, author's own critical edition), resolution_state is set to confirmed_dual_role instead of attribution_role_conflict."
   error_conditions:
-  - condition: The same name is assigned to multiple roles without distinct supporting markers.
+  - condition: The same name is assigned to multiple roles without distinct supporting markers and without confirmed_dual_role evidence.
     action: Write attribution_role_conflict and preserve the raw role-bearing strings.
     severity: blocking
 acceptance_criteria:

@@ -1,0 +1,41 @@
+id: INV-SRC-0009
+type: invariant
+status: proposed
+title: Zero knowledge loss in all source-engine output
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Owner directive 2026-04-14. The library NEVER hides, compresses, or simplifies knowledge. Full exhaustiveness and extensiveness in all output. This is a project-wide core rule that applies to every engine and every agent.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- OF-SRC-0004
+- INV-SRC-0004
+- DEC-SRC-0007
+impacts:
+- metadata_output
+- dispute_presentation
+- evidence_preservation
+- downstream_engines
+rule:
+  statement: Every source-engine output preserves the full evidence chain, all considered positions, all reasoning, and all uncertainty. No metadata field, dispute, risk, or finding is hidden, compressed, or simplified in the output. When multiple positions exist, all positions are preserved with their evidence and confidence. When a most-likely resolution exists, it is highlighted but the alternatives are never removed.
+  implication: Any source-engine output that presents a single answer where multiple evidence-backed positions were considered, that drops evidence used during deliberation, or that simplifies uncertainty into a binary pass/fail without preserving the underlying reasoning violates this invariant. This applies to all output surfaces including SourceMetadata, intake_dossier, trust_decision, monitor_feedback, and the normalization handoff bundle.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: A disputed authorship case resolved as genuine_scholarly_dispute with two evidence-backed positions
+  when: SourceMetadata is finalized
+  then: author_output.positions preserves both positions with evidence, confidence, and source_agents. The higher-confidence position is positions[0] but the lower-confidence position is NOT removed.
+  test_type: deterministic
+- id: AC-2
+  given: A genre classification where agents considered sharh and hashiyah before agreeing on sharh
+  when: SourceMetadata is finalized
+  then: If genre_dispute was written during deliberation, it is preserved in the output alongside the final genre value.
+  test_type: deterministic
+- id: AC-3
+  given: An intake dossier with multiple study_quality_risk_flags
+  when: Source admission runs
+  then: All risk flags are preserved in the handoff bundle, not just the blocking ones.
+  test_type: deterministic

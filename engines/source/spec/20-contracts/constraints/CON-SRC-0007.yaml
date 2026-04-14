@@ -1,0 +1,50 @@
+id: CON-SRC-0007
+type: constraint
+status: proposed
+title: Source type extensibility
+topic: acquisition
+layer: contracts
+priority: high
+confidence: high
+provenance: owner_interview
+source: "Owner interview 2026-04-14 identifying YouTube transcripts as the third most valuable source type after Shamela and PDF, requiring the architecture to accommodate new formats without restructuring"
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0001
+impacts:
+- format_routing
+- pipeline_extensibility
+rationale: >-
+  The owner confirmed that YouTube lecture transcripts are a near-term future source
+  type. The container classification step must be designed as a pluggable classifier
+  registry so that adding a new format is an additive change (register a new
+  classifier) rather than a modification to existing code paths. Current formats are
+  shamela_html, pdf, and plain_text.
+rule:
+  statement: >-
+    The container classification step (step 30) must be designed so that adding a new
+    source format requires only registering a new classifier and normalization route,
+    without modifying existing classifiers or restructuring the pipeline. Current
+    formats are shamela_html, pdf, and plain_text. Future formats include but are
+    not limited to lecture_transcript. Container classification routes each format
+    to normalization via a configurable normalization_route field on the
+    classification output, not via hardcoded format-specific branching.
+  implication: >-
+    Any container classification implementation that hardcodes format handling into a
+    monolithic function rather than a pluggable classifier registry violates this
+    constraint. The test is whether a hypothetical lecture_transcript format can be
+    added by writing one new classifier file and one registry entry, with zero
+    modifications to existing classifier code or pipeline routing logic.
+  violation_severity: medium
+acceptance_criteria:
+- id: AC-1
+  given: "A hypothetical lecture_transcript classifier added to the container classification registry"
+  when: the classifier is registered without modifying any existing code
+  then: "REQ-SRC-0017 (container classification), REQ-SRC-0020 (shamela classification), and REQ-SRC-0021 (intake analysis) require zero code changes to accommodate the new format."
+  test_type: deterministic
+- id: AC-2
+  given: "A source classified as shamela_html by the container classification step"
+  when: classification output is produced
+  then: "The output includes a normalization_route field with a configurable value, not a hardcoded format-specific dispatch path."
+  test_type: deterministic

@@ -1,0 +1,60 @@
+id: REQ-SRC-0036
+type: requirement
+status: proposed
+title: Completeness analysis of frozen source candidate
+topic: identity
+layer: pipeline
+step: intake_analysis
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Decomposed from REQ-SRC-0019 per contract-architect review finding that 4 sub-analyses in one atom is untestable.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0018
+- REQ-SRC-0017
+- REQ-SRC-0019
+impacts:
+- completeness_analysis
+- study_quality_assessment
+rationale: >-
+  REQ-SRC-0019 packed work-identity, completeness, integrity, and collection-matching
+  into a single atom with 10 postconditions. Completeness analysis is independently
+  testable: it inspects volume counts, part indicators, and cross-volume dependencies
+  to determine whether the uploaded material is a self-contained study unit.
+behavior:
+  trigger: Intake analysis assesses completeness of a frozen, container-classified source candidate.
+  preconditions:
+  - A raw_upload_record and frozen_source record exist for the candidate.
+  - container_classification has completed (REQ-SRC-0017 or REQ-SRC-0020).
+  - work_identity_proposal from REQ-SRC-0019 is available for the candidate.
+  postconditions:
+  - "completeness_status is written as one of: complete, partial, mixed, indeterminate."
+  - "self_containment_assessment is written as one of: self_contained, partially_self_contained, context_dependent."
+  - "cross_volume_dependency_assessment records whether missing volumes are: non_material, material, unknown."
+  - "parent_work_presence_model records whether the uploaded material appears to be part of a larger work, and which volumes are present or missing when that can be inferred."
+  - "declared_vs_observed_counts preserves any count comparison evidence (e.g. declared_volume_count vs observed_volume_count) used by completeness analysis."
+  error_conditions:
+  - condition: Completeness analysis cannot determine status from available evidence.
+    action: Set completeness_status=indeterminate and log reason.
+    severity: warning
+  - condition: Volume count comparison produces contradictory signals (declared > 0 but observed = 0).
+    action: Set completeness_status=indeterminate and append contradiction to study_quality_risk_flags via REQ-SRC-0037.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: "tests/fixtures/shamela_real/11_multi_small (3-volume directory)"
+  when: completeness analysis executes
+  then: "declared_vs_observed_counts.observed_volume_count=3 and completeness_status is one of {complete, indeterminate}."
+  test_type: integration
+- id: AC-2
+  given: "A frozen source candidate whose title page and file naming indicate 'الجزء الثاني' with no companion parts present"
+  when: completeness analysis executes
+  then: "completeness_status=partial, self_containment_assessment is not self_contained, partiality_reasons includes single_part_without_companion_parts."
+  test_type: deterministic
+- id: AC-3
+  given: "A single-file Shamela book with no volume indicators (e.g. tests/fixtures/shamela_real/03_fiqh/book.htm)"
+  when: completeness analysis executes
+  then: "completeness_status=complete, self_containment_assessment=self_contained, cross_volume_dependency_assessment=non_material."
+  test_type: integration

@@ -22,7 +22,7 @@ impacts:
 behavior:
   trigger: Science classification yields a science label not present in science_registry.
   preconditions:
-  - science_registry is pre-populated with nahw, sarf, balagha, fiqh, usul_al_fiqh, hadith, tafsir, aqidah, tasawwuf, sirah, tarikh, and adab.
+  - "science_registry is pre-populated with: nahw, sarf, balagha, fiqh, usul_al_fiqh, hadith, mustalah_al_hadith, tafsir, aqidah, tasawwuf, sirah, tarikh, adab, and mantiq."
   - inferred_metadata.science_scope has been produced for the source.
   - Specialized research agents are available for science verification.
   postconditions:

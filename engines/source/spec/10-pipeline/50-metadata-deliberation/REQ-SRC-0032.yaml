@@ -1,0 +1,53 @@
+id: REQ-SRC-0032
+type: requirement
+status: proposed
+title: Structural format classification
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: coworker_review
+source: Added after contract-architect review found structural_format is mandatory in CON-SRC-0004 but no requirement atom produces it.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- CON-SRC-0004
+- REQ-SRC-0030
+- REQ-SRC-0019
+impacts:
+- structural_classification
+- downstream_processing
+behavior:
+  trigger: Metadata deliberation processes a source whose genre classification and intake dossier are available.
+  preconditions:
+  - source_metadata.genre has been classified.
+  - intake_dossier.title_evidence is available.
+  postconditions:
+  - source_metadata.structural_format is set to one of prose, commentary, verse, reference_entries, qa_format, tabular, or mixed.
+  - "prose is the default for genres: risalah, fatawa, matn, mukhtasar."
+  - "commentary is set when genre in {sharh, hashiyah} or when is_multi_layer=true with interleaved base text and authorial explanation."
+  - "verse is set when genre=nazm or when the text structure is predominantly metered poetry."
+  - "reference_entries is set when genre in {mujam, tabaqat} or when the text is organized as alphabetical or biographical entries."
+  - "qa_format is set when the text follows a question-and-answer structure."
+  - structural_format may be overridden by content-level signals from the intake dossier when title and genre signals are insufficient.
+  error_conditions:
+  - condition: No structural format can be determined from genre, title, or content signals.
+    action: Set structural_format=prose as the safe default and emit warning SRC-W-STRUCTURAL-FORMAT-DEFAULT.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: tests/fixtures/shamela_real/11_multi_small with genre=sharh
+  when: structural format classification runs
+  then: source_metadata.structural_format="commentary".
+  test_type: integration
+- id: AC-2
+  given: tests/fixtures/alfiyyah_versified/alfiyyah.txt with genre=nazm
+  when: structural format classification runs
+  then: source_metadata.structural_format="verse".
+  test_type: integration
+- id: AC-3
+  given: tests/fixtures/shamela_real/03_fiqh/book.htm with genre=risalah
+  when: structural format classification runs
+  then: source_metadata.structural_format="prose".
+  test_type: integration

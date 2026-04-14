@@ -1,0 +1,51 @@
+id: REQ-SRC-0034
+type: requirement
+status: proposed
+title: Compiler-as-muhaqiq detection
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: coworker_review
+source: "adversary-review-2 ADV2-002 (compiler/muhaqiq role inversion gap); v1 LESSONS.md ERR-02 (Shamela lists source authors in author field while actual compiler is in muhaqiq field)"
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0014
+- REQ-SRC-0004
+- INV-SRC-0002
+impacts:
+- author_attribution
+- compiler_detection
+rationale: >-
+  Shamela metadata cards frequently list classical source authors in the author field
+  while placing the actual compiler (modern scholar who assembled the collection) in
+  the muhaqiq field. This is a role inversion, not a tahqiq relationship. The temporal
+  gap between classical source authors and a contemporary muhaqiq is the primary
+  detection signal. v1 encountered this as ERR-02 and had no systematic detection.
+behavior:
+  trigger: Attribution parsing identifies both author and muhaqiq from metadata card or colophon.
+  preconditions:
+  - author_name and editor_name fields have been populated from metadata card, title page, or colophon evidence.
+  - death_hijri estimates are available for at least one of the identified parties when extractable.
+  postconditions:
+  - "When muhaqiq death_hijri > 1300 (or no death date available) AND all listed authors have death_hijri < 1000, the source is flagged as compiler_muhaqiq_inversion_candidate."
+  - "When temporal distance between the earliest listed author death_hijri and the muhaqiq death_hijri exceeds 300 Hijri years, the source is flagged as compiler_muhaqiq_inversion_candidate."
+  - "Flagged cases add compiler_muhaqiq_inversion to study_quality_risk_flags array on the source dossier."
+  - "The flag routes to the disagreement resolver for evidence-based role correction, where the resolver determines whether the muhaqiq is actually the compiler and the listed authors are the sources being compiled."
+  error_conditions:
+  - condition: death_hijri unavailable for both author and muhaqiq, making temporal comparison impossible.
+    action: "Emit warning SRC-W-NO-DATES-FOR-ROLE-CHECK. Do not flag compiler_muhaqiq_inversion. Pass through roles as given."
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: "A Shamela source like السراج المنير with classical source authors (death_hijri < 1000) and a contemporary muhaqiq (death_hijri > 1300 or no death date)"
+  when: metadata deliberation runs attribution parsing
+  then: "compiler_muhaqiq_inversion is present in study_quality_risk_flags and the source is routed to the disagreement resolver."
+  test_type: integration
+- id: AC-2
+  given: "A normal sharh with a single classical author (death_hijri=676) and a contemporary tahqiq editor (death_hijri=1420) where the metadata card correctly identifies the author as author and the editor as muhaqiq"
+  when: metadata deliberation runs attribution parsing
+  then: "compiler_muhaqiq_inversion is flagged (temporal gap exceeds 300 years), routing to the disagreement resolver. The resolver examines evidence and confirms the roles are correct (genuine tahqiq, not compilation), removing the flag."
+  test_type: integration

@@ -1,0 +1,54 @@
+id: REQ-SRC-0029
+type: requirement
+status: proposed
+title: Monitor feedback with non-recursive constraint
+topic: agent_ergonomics
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: deep_research
+source: ChatGPT DR report on agent-team architecture (2026-04-14). Defines monitor feedback as a structured non-recursive observation record. The monitor audits and scores but never triggers in-run reruns.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- DEC-SRC-0013
+- REQ-SRC-0008
+- REQ-SRC-0013
+impacts:
+- monitor_feedback
+- process_improvement
+behavior:
+  trigger: A deliberation cell completes processing for any metadata field or trust evaluation.
+  preconditions:
+  - The deliberation cell has produced a final output (definitive, disputed, or insufficient_evidence).
+  - The monitor agent has read access to the evidence pack, research findings, and verification outputs.
+  postconditions:
+  - A monitor_feedback record is written with non-null case_id, source_id, field, trust_path, and completed_at.
+  - monitor_feedback.evidence_coverage records whether high-impact fields used at least 2 distinct source_type values.
+  - monitor_feedback.independence_check records whether verification reasoners had distinct agent_id values and did not read each other's outputs before emitting.
+  - monitor_feedback.uncertainty_flags records whether multi-position output was emitted, whether OCR-unreliable sources contributed, and whether confidence ordering was applied.
+  - monitor_feedback.spec_violations records any blocking or fatal violations detected during the run.
+  - monitor_feedback.suggested_policy_updates records non-blocking improvement suggestions as structured entries.
+  - The monitor CANNOT trigger a rerun of the same case. Reruns happen only when a requirement's error condition mandates it.
+  - monitor_feedback is written even for fast_track cases.
+  error_conditions:
+  - condition: Monitor feedback is not written after a deliberation cell completes.
+    action: Emit warning SRC-W-MONITOR-MISSING and continue. The case output remains valid.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: A fast_track trust evaluation that completes successfully
+  when: monitor feedback runs
+  then: monitor_feedback.trust_path="fast_track" and monitor_feedback.case_id is non-null.
+  test_type: integration
+- id: AC-2
+  given: A standard author attribution where one research source_type was used for a high-impact field
+  when: monitor feedback runs
+  then: monitor_feedback.evidence_coverage.meets_minimum=false and monitor_feedback.spec_violations includes SRC-E-INCOMPLETE-RESEARCH.
+  test_type: deterministic
+- id: AC-3
+  given: A completed deliberation cell where the monitor emits a suggested_policy_update
+  when: the same case is checked for reruns
+  then: No rerun is triggered by the monitor's suggestion. The suggestion is stored as a future policy ticket only.
+  test_type: deterministic

@@ -1,13 +1,13 @@
 id: OQ-SRC-0003
 type: question
-status: draft
+status: superseded
 title: Agent-team architecture design
 topic: agent_ergonomics
 layer: questions
 priority: critical
-confidence: medium
+confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0009
+source: Derived from OF-SRC-0009. Resolved by ChatGPT DR on agent-team architecture (2026-04-14). Answer formalized in DEC-SRC-0013, REQ-SRC-0028, REQ-SRC-0029.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
