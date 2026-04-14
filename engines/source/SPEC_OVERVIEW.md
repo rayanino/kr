@@ -205,7 +205,9 @@ After the source engine finishes, the library has a **SourceMetadata** record wi
 | **Genre** | sharh, matn, risalah, hadith_collection, ... | Yes |
 | **Science(s)** | [nahw, sarf] (ordered by dominance) | Yes (may be empty for non-scholarly) |
 | **Multi-layer?** | Yes (sharh with embedded matn) | Yes |
-| **Trust decision** | verified / needs-review (from agent team) | Yes |
+| **Structural format** | prose / commentary / verse / reference_entries / ... | Yes |
+| **Trust decision** | verified / needs-review / disputed (from agent team) | Yes |
+| **Display card** | Author blurb, source significance, scholarly context (Arabic) | Yes |
 | **Completeness** | complete / partial / mixed / indeterminate | Yes |
 | **Integrity** | sound / suspicious / corrupt | Yes |
 | **Source format** | shamela_html / pdf / plain_text | Yes |
@@ -219,38 +221,60 @@ After the source engine finishes, the library has a **SourceMetadata** record wi
 ## What the Spec Currently Covers vs. What's Still Open
 
 ```mermaid
-pie title Spec Coverage (81 atoms)
+pie title Spec Coverage (91 atoms)
     "Confirmed" : 19
-    "Proposed (ready for review)" : 51
-    "Draft (awaiting research)" : 2
+    "Proposed (ready for review)" : 65
     "Deferred" : 3
-    "Superseded (resolved)" : 2
+    "Superseded (resolved)" : 4
 ```
 
-### Covered and solid:
+### Covered and solid (all proposed or confirmed):
 - Upload receipt and registration
 - Freeze and duplicate detection
 - Container classification (Shamela HTML, PDF, plain text)
-- PDF text-layer quality assessment
+- PDF text-layer quality assessment (OCR-primary default)
 - Author attribution (multi-agent, with dispute handling)
-- Genre and science classification
-- Hadith sub-genre classification
-- Trust evaluation (agent teams, not numeric scores)
-- Multi-layer detection hints
-- Owner hints as cross-validation
-- Risk gate for study-quality threats
-- Normalization handoff bundle
+- Genre and science classification (12 genres, 14 sciences)
+- Structural format classification (prose, commentary, verse, reference_entries, ...)
+- Hadith sub-genre classification (13 sub-types including mu'jam, mustadrak, arba'in)
+- Multi-layer detection (title keywords + genre-based auto-hint)
+- Trust evaluation (agent teams with 3-path routing: fast-track / standard / degraded-evidence)
+- Agent-team architecture (deterministic orchestrator, deliberation cells, 3-round disagreement protocol)
+- Monitor feedback (non-recursive, structured observations)
+- Research agents with curated source inventory (Shamela API, OpenITI, Usul.ai, Dorar.net, ...)
+- Owner hints as cross-validation (post-inference only)
+- Risk gate with enumerated study-quality risk flags (gate-blocking vs informational)
+- Compiler-as-muhaqiq detection (v1 ERR-02 fix)
+- Display metadata for teaching units (author blurb, source significance)
+- Completeness analysis (separated from intake dossier)
+- Integrity analysis (separated from intake dossier)
+- Zero Knowledge Loss invariant (NEVER hide/compress/simplify knowledge)
+- Per-book cost/time ceiling
+- Source type extensibility (future YouTube transcripts)
+- Normalization handoff bundle with bridge contract
 
-### Still open (awaiting research):
-- **How exactly do agent teams work?** Fixed roles vs. dynamic? (DR dispatched to ChatGPT)
-- **What specific scholarly databases do research agents use?** (DR dispatched to Gemini)
+### Resolved (from this session):
+- Agent-team architecture → deterministic orchestrator with deliberation cells (ChatGPT DR)
+- Research source inventory → curated 16+ scholarly databases (Gemini DR)
+- Multi-position metadata ordering → confidence-descending with positions[0] as primary
 
-### Deferred (needs decision later):
+### Deferred (implementation-time decisions):
 - **Who decides the "level"** (beginner/intermediate/advanced)? Source engine or downstream?
 - **Should monitor agents stay inside source engine** or become shared pipeline observers?
 
+### Awaiting DR results (dispatched):
+- **Claude DR:** Comprehensive spec audit — finding what all reviewers missed
+- **Gemini DR:** Display metadata design — source card structure for teaching units
+
 ---
 
-## Questions Where Your Input Matters
+## Core Principle: Zero Knowledge Loss (INV-SRC-0009)
 
-These are marked with ❓ in the sections above. See the companion discussion document.
+The library NEVER hides, compresses, or simplifies knowledge. Every output preserves the full evidence chain, all considered positions, all reasoning, and all uncertainty.
+
+- When authors are disputed, ALL positions are shown with evidence
+- When genre is uncertain, the reasoning is preserved alongside the final classification  
+- When risks exist, ALL risks are visible — not just the blocking ones
+- When agents disagree, the full deliberation trace is preserved
+
+This applies to every field, every output, every engine.

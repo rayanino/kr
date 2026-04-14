@@ -632,6 +632,13 @@ atoms:
   topic: trust
   priority: high
   file: 20-contracts/constraints/CON-SRC-0006.yaml
+- id: DEC-SRC-0017
+  type: decision
+  status: proposed
+  title: NFKC normalization allowed at PDF extraction boundary
+  topic: acquisition
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0017.yaml
 - id: CON-SRC-0007
   type: constraint
   status: proposed

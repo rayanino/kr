@@ -23,7 +23,8 @@ behavior:
   trigger: The engine must emit a trust_decision for a source or metadata claim.
   preconditions:
   - At least two independent verification agents are available for the case.
-  - "fast_track eligibility requires scholar_authority[author_canonical_id].authority_level >= primary, genre in {matn, sharh, hadith_collection, tafsir, tabaqat, fatawa}, and author_death_hijri is not null."
+  - "authority_level is an ordered classification: primary > reference > modern_compilation. fast_track requires authority_level in {primary, reference}."
+  - "fast_track eligibility requires scholar_authority[author_canonical_id].authority_level in {primary, reference}, genre in {matn, sharh, hadith_collection, tafsir, tabaqat, fatawa}, and author_death_hijri is not null."
   - Any case that fails one or more fast_track predicates must use trust_path=full_deliberation.
   - Full agent-team composition beyond the minimum verifier set remains blocked on OQ-SRC-0003.
   postconditions:

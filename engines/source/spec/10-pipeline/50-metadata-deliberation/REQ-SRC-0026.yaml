@@ -21,6 +21,7 @@ behavior:
   trigger: Metadata deliberation finalizes source-engine metadata for a source candidate.
   preconditions:
   - An intake_dossier exists with work_identity_proposal and collection_match_candidates.
+  - "work_output.positions are derived from work_identity_proposal.candidates (from REQ-SRC-0019) plus any additional evidence discovered during metadata deliberation. Intake candidates are starting evidence, not final positions."
   - Metadata deliberation has access to the same evidence dossier used for source-work identification.
   postconditions:
   - work_output is written with non-null status and at least one evidence-backed position.

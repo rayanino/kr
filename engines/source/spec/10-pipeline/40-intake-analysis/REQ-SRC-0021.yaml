@@ -8,7 +8,7 @@ step: intake_analysis
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner correction that PDF text-layer judgment belongs to intake analysis and must use text quality, not text presence alone.
+source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, owner correction on text quality, and pdf_collection_characterization_2026-04-14.md which found 10/10 sampled PDFs use Unicode Presentation Forms (not scans), recoverable via NFKC normalization.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
@@ -28,10 +28,12 @@ behavior:
   postconditions:
   - intake_dossier.source_format is set to pdf.
   - intake_dossier.declared_vs_observed_counts.physical_page_count is set from the PDF page count.
-  - intake_dossier.normalization_route is set to pdf_ocr_primary.
   - intake_dossier.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
-  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
-  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
+  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable even after NFKC normalization.
+  - intake_dossier.pdf_text_layer_status is set to presentation_forms when sampled pages yield text in Unicode Presentation Forms (U+FB50-FDFF, U+FE70-FEFF) that becomes intelligible standard Arabic after NFKC normalization.
+  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text already in standard Arabic (U+0600-06FF) that is intelligible without normalization.
+  - "intake_dossier.normalization_route is set to pdf_ocr_primary when pdf_text_layer_status in {absent, corrupt}. intake_dossier.normalization_route is set to pdf_text_primary when pdf_text_layer_status in {presentation_forms, clean}."
+  - "intake_dossier.pdf_text_encoding records the detected Unicode block profile: standard_arabic, presentation_forms, or mixed. This signals normalization whether NFKC is needed at the extraction boundary."
   error_conditions:
   - condition: The frozen PDF cannot be opened or parsed during intake analysis.
     action: Abort intake analysis with SRC-E-PDF-CORRUPT.

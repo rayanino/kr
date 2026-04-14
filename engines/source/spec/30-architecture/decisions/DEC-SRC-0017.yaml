@@ -1,0 +1,30 @@
+id: DEC-SRC-0017
+type: decision
+status: proposed
+title: NFKC normalization allowed at PDF extraction boundary
+topic: acquisition
+layer: architecture
+priority: critical
+confidence: high
+provenance: deep_research
+source: Empirical finding from pdf_collection_characterization_2026-04-14.md. 10/10 sampled PDFs store Arabic text in Unicode Presentation Forms (U+FB50-FEFF), not standard Arabic (U+0600-06FF). NFKC normalization deterministically recovers standard Arabic from Presentation Forms without altering scholarly content.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0021
+- INV-SRC-0008
+impacts:
+- pdf_text_extraction
+- normalization_routing
+- arabic_text_handling
+options:
+- id: OPT-A
+  label: Treat Presentation Forms as corrupt and route to OCR
+  description: Classify Presentation Forms text as unusable and send all such PDFs through OCR. Preserves the never-normalize rule at the cost of slower, more expensive, and potentially lower-quality extraction.
+  status: rejected
+  rejection_reason: Empirical testing confirmed NFKC produces higher-quality text than OCR for these PDFs. Routing to OCR when clean text is available is wasteful and may introduce OCR errors that do not exist in the source text.
+- id: OPT-B
+  label: Allow NFKC at PDF extraction boundary only
+  description: "NFKC normalization is allowed and mandatory at the PDF text extraction boundary when Presentation Forms are detected. This is distinguished from the project-wide 'never normalize scholarly text' rule (Critical Rule #8) because: (a) Presentation Forms are rendering artifacts from Word-to-PDF conversion, not scholarly text features, (b) NFKC recovers the original characters deterministically without loss, (c) without NFKC no downstream Arabic processing works. The normalization happens at extraction BEFORE text enters the scholarly text domain."
+  status: chosen
+  chosen_reason: Grounded in empirical evidence from 10 real PDFs. NFKC is not altering scholarly content — it is recovering actual characters from rendering-layer artifacts. The distinction between rendering normalization and content normalization is clear and documentable.
