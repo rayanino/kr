@@ -18,7 +18,9 @@ Flow:
 
 - identify likely source/work candidates
 - inspect completeness and partiality
+- inspect self-containment and missing-context dependency
 - inspect integrity and corruption signs
+- collect study-quality risk flags
 - generate collection-match candidates
 
 Recorded metadata:
@@ -30,9 +32,13 @@ Recorded metadata:
 - `declared_vs_observed_counts`
 - `completeness_status`
 - `partiality_reasons`
+- `self_containment_assessment`
+- `cross_volume_dependency_assessment`
 - `integrity_status`
 - `integrity_findings`
+- `study_quality_risk_flags`
 - `collection_match_candidates`
+- `parent_work_presence_model`
 - `pdf_text_layer_status`
 - `pdf_text_evidence`
 - `page_layout_hint`
@@ -45,6 +51,7 @@ Decision gates:
 
 - structurally invalid uploads stop here
 - readable but partial or suspicious uploads proceed with flags
+- any uncertainty that could materially affect study quality must be surfaced for the later owner-submission-risk gate
 
 Outputs and handoff:
 

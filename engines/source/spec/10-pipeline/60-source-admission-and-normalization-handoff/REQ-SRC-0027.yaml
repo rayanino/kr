@@ -1,0 +1,52 @@
+id: REQ-SRC-0027
+type: requirement
+status: proposed
+title: Owner-submission risk gate for study-quality threats
+topic: handoff
+layer: pipeline
+step: source_admission_and_normalization_handoff
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before official admission or downstream work proceeds.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0019
+- REQ-SRC-0025
+- DEC-SRC-0016
+impacts:
+- owner_submission_risk_gate
+- source_collection
+- normalization_handoff
+behavior:
+  trigger: Source-engine finalization evaluates whether the candidate carries any uncertainty that could materially affect study quality.
+  preconditions:
+  - An intake_dossier exists.
+  - Metadata deliberation has completed.
+  - study_quality_risk_flags may be emitted from intake analysis or metadata deliberation.
+  postconditions:
+  - When study_quality_risk_flags is empty, no owner_submission_risk_case is written and normal source admission may continue.
+  - When study_quality_risk_flags is non-empty, owner_submission_risk_case is written with owner_ack_required=true.
+  - A live owner_submission_risk_case blocks official source_collection admission and blocks normalization_handoff_bundle emission until the owner acknowledges or annotates the case.
+  - The source engine may still preserve provisional analysis outputs for review while the gate remains open.
+  error_conditions:
+  - condition: A live owner_submission_risk_case exists but the source is written into source_collection or handed off to normalization.
+    action: Abort finalization with SRC-E-SUBMISSION-RISK-BYPASS.
+    severity: fatal
+acceptance_criteria:
+- id: AC-1
+  given: A source candidate whose intake_dossier.study_quality_risk_flags is empty
+  when: the owner-submission risk gate executes
+  then: no owner_submission_risk_case is written.
+  test_type: deterministic
+- id: AC-2
+  given: A source candidate identified as one volume of a larger work with material dependency on missing volumes
+  when: the owner-submission risk gate executes
+  then: owner_submission_risk_case.owner_ack_required=true, source_collection admission is blocked, and normalization handoff is blocked.
+  test_type: deterministic
+- id: AC-3
+  given: A readable but suspicious source whose trust or integrity uncertainty could materially mislead study
+  when: the owner-submission risk gate executes
+  then: owner_submission_risk_case.risk_flags is non-empty and owner_submission_risk_case.gate_status="awaiting_owner_ack".
+  test_type: deterministic

@@ -16,12 +16,14 @@ Inputs and artifacts:
 
 Flow:
 
+- evaluate owner-submission risk
 - apply source-engine acceptance rules
 - write official source-collection record
 - emit normalization handoff bundle
 
 Recorded metadata:
 
+- `owner_submission_risk_case`
 - `admission_state`
 - `admission_reason`
 - `normalization_handoff_bundle`
@@ -34,6 +36,7 @@ Decision gates:
 
 - only structurally invalid uploads are blocked from source-engine acceptance
 - official registration happens only after source-engine completion
+- any uncertainty that could materially affect study quality opens owner_submission_risk_case and blocks official admission plus downstream progression until owner acknowledgment
 
 Outputs and handoff:
 

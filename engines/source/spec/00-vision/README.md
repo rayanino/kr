@@ -14,6 +14,7 @@ Core ownership:
 - Analyze what was uploaded as a source candidate.
 - Deliberate source metadata and admission inside the source-engine boundary.
 - Package a downstream normalization handoff without doing normalization itself.
+- Protect the owner from materially misleading submissions before deeper pipeline work begins.
 
 Explicit non-ownership:
 
@@ -25,6 +26,7 @@ Explicit non-ownership:
 Clarification:
 
 - The source engine may sample already-present PDF text layers for diagnostic intake analysis. That diagnostic sampling is allowed because it measures container integrity and routing risk. It is not normalization extraction and must never be emitted as normalized text.
+- The source engine may block progression for owner-submission risk even when metadata disagreements remain autonomous. That gate exists to catch likely owner submission mistakes, not to outsource metadata reasoning to the owner.
 
 Success criteria:
 

@@ -19,8 +19,12 @@ Core fields:
 - `declared_vs_observed_counts`
 - `completeness_status`
 - `partiality_reasons`
+- `self_containment_assessment`
+- `cross_volume_dependency_assessment`
 - `integrity_status`
 - `integrity_findings`
+- `study_quality_risk_flags`
+- `parent_work_presence_model`
 - `pdf_text_layer_status`
 - `pdf_text_evidence`
 - `page_layout_hint`

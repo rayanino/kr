@@ -22,6 +22,7 @@ Status progression:
 
 - `received`
 - `frozen`
+- `awaiting_owner_ack`
 - `source_engine_accepted`
 - `rejected_at_source`
 

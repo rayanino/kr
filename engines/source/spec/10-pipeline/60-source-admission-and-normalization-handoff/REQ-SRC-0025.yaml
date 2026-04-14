@@ -17,6 +17,8 @@ depends_on:
 - CON-SRC-0005
 - DEC-SRC-0014
 - DEC-SRC-0015
+- DEC-SRC-0016
+- REQ-SRC-0027
 impacts:
 - raw_upload_registry
 - source_collection
@@ -29,11 +31,11 @@ behavior:
   - An intake_dossier exists.
   - Metadata deliberation has produced the SourceMetadata values required by CON-SRC-0004.
   postconditions:
-  - raw_upload_record.status is set to source_engine_accepted or rejected_at_source based on the source-engine result.
-  - The official source_collection is written only when the source engine completes successfully.
+  - raw_upload_record.status is set to awaiting_owner_ack, source_engine_accepted, or rejected_at_source based on the source-engine result and any live owner_submission_risk_case.
+  - The official source_collection is written only when the source engine completes successfully and no live owner_submission_risk_case remains unacknowledged.
   - Structurally valid sources with completeness_status in {partial, mixed, indeterminate} may still enter the source_collection with explicit admission_reason and preserved flags.
   - Structurally invalid uploads do not create source_collection records.
-  - normalization_handoff_bundle is written for every source_engine_accepted source and contains SourceMetadata, NormalizationInput, FrozenMemberManifest, and preserved intake_dossier completeness and integrity verdicts.
+  - normalization_handoff_bundle is written only for source_engine_accepted sources whose owner_submission_risk_case is absent or acknowledged, and contains SourceMetadata, NormalizationInput, FrozenMemberManifest, and preserved intake_dossier completeness and integrity verdicts.
   error_conditions:
   - condition: A source_collection record is written before source-engine finalization completes.
     action: Abort admission with SRC-E-PREMATURE-ADMISSION.
@@ -56,4 +58,9 @@ acceptance_criteria:
   given: A raw upload rejected earlier with error_code=SRC-E-EMPTY-FILE
   when: source admission and normalization handoff packaging would otherwise execute
   then: no source_collection record is written for that submission.
+  test_type: deterministic
+- id: AC-4
+  given: A source candidate with a live owner_submission_risk_case awaiting acknowledgment
+  when: source admission and normalization handoff packaging execute
+  then: raw_upload_record.status="awaiting_owner_ack", no source_collection record is written, and no normalization_handoff_bundle is emitted.
   test_type: deterministic

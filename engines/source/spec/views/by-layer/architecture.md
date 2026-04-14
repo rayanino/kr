@@ -16,6 +16,7 @@
 | DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
 | DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | proposed | critical |
 | DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high |
+| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | proposed | critical |
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
@@ -169,3 +170,14 @@
 - Source: Added on 2026-04-14 after contract-auditor review found that the redesigned SourceMetadata surface no longer matches the live normalization boundary.
 - Chosen option: OPT-B — Emit a NormalizationInput bridge inside the handoff bundle
 - Decision rationale: This preserves source-engine clarity while giving normalization a concrete boundary contract that can evolve independently later.
+
+### DEC-SRC-0016 — Owner-submission risk gate blocks admission and downstream progression
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before valuable downstream work proceeds.
+- Chosen option: OPT-B — Emit provisional output and block progression
+- Decision rationale: This preserves pipeline-quality analysis while protecting the collection and downstream work from materially risky owner submissions.

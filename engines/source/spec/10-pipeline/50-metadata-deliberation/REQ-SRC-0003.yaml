@@ -27,6 +27,7 @@ behavior:
   - Zero-author-evidence cases emit author_output.status="insufficient_evidence" rather than opening owner review.
   - Genuine metadata disputes emit the multi-position or insufficient-evidence output required by the relevant metadata contract rather than opening owner review.
   - owner_review_case is not used for metadata finalization inside the source engine.
+  - This rule does not prohibit the later owner_submission_risk_gate, because that gate addresses mistaken or materially risky submissions rather than metadata disagreement.
   error_conditions:
   - condition: Metadata deliberation routes a metadata field to owner_review_case.
     action: Abort metadata finalization with SRC-E-METADATA-OWNER-GATE.

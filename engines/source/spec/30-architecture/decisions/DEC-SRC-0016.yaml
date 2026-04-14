@@ -1,0 +1,34 @@
+id: DEC-SRC-0016
+type: decision
+status: proposed
+title: Owner-submission risk gate blocks admission and downstream progression
+topic: handoff
+layer: architecture
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before valuable downstream work proceeds.
+created: '2026-04-14'
+updated: '2026-04-14'
+depends_on:
+- REQ-SRC-0019
+- REQ-SRC-0025
+impacts:
+- submission_risk_gating
+- source_admission
+options:
+- id: OPT-A
+  label: Continue automatically with flags
+  description: Record study-quality risk flags but continue to official admission and normalization without owner acknowledgment.
+  status: rejected
+  rejection_reason: This still risks wasting work on a mistaken submission and can pollute the official collection before the owner corrects the input.
+- id: OPT-B
+  label: Emit provisional output and block progression
+  description: Let the source engine finish its own analysis, emit a risk case plus provisional outputs, and block official admission and normalization until owner acknowledgment is recorded.
+  status: chosen
+  chosen_reason: This preserves pipeline-quality analysis while protecting the collection and downstream work from materially risky owner submissions.
+- id: OPT-C
+  label: Block before source-engine analysis completes
+  description: Stop as soon as any risk appears, before metadata deliberation finishes.
+  status: rejected
+  rejection_reason: This withholds useful analysis from the owner and leaves the source engine with too little evidence to explain what is risky.

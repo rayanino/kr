@@ -17,6 +17,7 @@
 | DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
 | DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | proposed | critical |
 | DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high |
+| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | proposed | critical |
 | INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical |
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
@@ -51,6 +52,7 @@
 | REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | proposed | high |
 | REQ-SRC-0025 | requirement | Two-stage source admission and normalization handoff packaging | proposed | critical |
 | REQ-SRC-0026 | requirement | Authoritative work identity and collection linkage output | proposed | critical |
+| REQ-SRC-0027 | requirement | Owner-submission risk gate for study-quality threats | proposed | critical |
 
 ### CON-SRC-0004 — Complete SourceMetadata output schema
 - Type: constraint
@@ -215,6 +217,17 @@
 - Chosen option: OPT-B — Emit a NormalizationInput bridge inside the handoff bundle
 - Decision rationale: This preserves source-engine clarity while giving normalization a concrete boundary contract that can evolve independently later.
 
+### DEC-SRC-0016 — Owner-submission risk gate blocks admission and downstream progression
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before valuable downstream work proceeds.
+- Chosen option: OPT-B — Emit provisional output and block progression
+- Decision rationale: This preserves pipeline-quality analysis while protecting the collection and downstream work from materially risky owner submissions.
+
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
 - Layer: quality
@@ -350,6 +363,7 @@
   - Zero-author-evidence cases emit author_output.status="insufficient_evidence" rather than opening owner review.
   - Genuine metadata disputes emit the multi-position or insufficient-evidence output required by the relevant metadata contract rather than opening owner review.
   - owner_review_case is not used for metadata finalization inside the source engine.
+  - This rule does not prohibit the later owner_submission_risk_gate, because that gate addresses mistaken or materially risky submissions rather than metadata disagreement.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/06_usul/book.htm; When source metadata resolution completes; Then No owner_review_case is written..
   - AC-2 [deterministic] Given A Shamela HTML source whose metadata card, title, and colophon contain no author signal; When source metadata resolution completes; Then author_output.status="insufficient_evidence" and no owner_review_case is written..
@@ -641,13 +655,18 @@
   - An intake_dossier is written with non-null dossier_id, title_evidence, work_identity_proposal, completeness_status, integrity_status, and collection_match_candidates.
   - work_identity_proposal.candidates preserves one or more evidence-backed candidate work identities without declaring them authoritative yet.
   - completeness_status is one of complete, partial, mixed, or indeterminate.
+  - self_containment_assessment is one of self_contained, partially_self_contained, or context_dependent.
+  - cross_volume_dependency_assessment records whether missing volumes are non_material, material, or unknown to study quality.
   - integrity_status is one of sound, suspicious, or corrupt.
+  - study_quality_risk_flags preserves every uncertainty that could materially affect study quality.
+  - parent_work_presence_model preserves whether the uploaded material appears to be part of a larger work and which volumes are currently present or missing when that can be inferred.
   - declared_vs_observed_counts preserves any count comparison evidence used by completeness analysis.
   - Metadata deliberation consumes the intake_dossier rather than re-reading raw upload state directly.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When intake analysis executes; Then intake_dossier.dossier_id is non-empty, len(intake_dossier.title_evidence) is at least 1, len(intake_dossier.work_identity_proposal.candidates) is at least 1, and intake_dossier.integrity_status is one of {sound, suspicious, corrupt}..
   - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake analysis executes; Then intake_dossier.declared_vs_observed_counts.observed_volume_count=3 and intake_dossier.completeness_status is one of {complete, indeterminate}..
-  - AC-3 [deterministic] Given A frozen source candidate whose title page and file naming indicate "الجزء الثاني" with no companion parts present; When intake analysis executes; Then intake_dossier.completeness_status="partial" and intake_dossier.partiality_reasons includes "single_part_without_companion_parts"..
+  - AC-3 [deterministic] Given A frozen source candidate whose title page and file naming indicate "الجزء الثاني" with no companion parts present; When intake analysis executes; Then intake_dossier.completeness_status="partial", intake_dossier.self_containment_assessment is not "self_contained", and intake_dossier.partiality_reasons includes "single_part_without_companion_parts"..
+  - AC-4 [deterministic] Given A frozen source candidate that begins mid-commentary, ends mid-chapter, or contains references whose resolution depends materially on missing volumes; When intake analysis executes; Then intake_dossier.study_quality_risk_flags is non-empty and intake_dossier.cross_volume_dependency_assessment is one of {material, unknown}..
 
 ### REQ-SRC-0020 — Plain text container classification
 - Type: requirement
@@ -754,15 +773,16 @@
 - Source: Derived from owner guidance on 2026-04-14 that raw uploads must not pollute the official source collection and that structurally valid but partial sources may still proceed with explicit flags.
 - Trigger: Source-engine finalization runs after metadata deliberation completes for a source candidate.
 - Postconditions:
-  - raw_upload_record.status is set to source_engine_accepted or rejected_at_source based on the source-engine result.
-  - The official source_collection is written only when the source engine completes successfully.
+  - raw_upload_record.status is set to awaiting_owner_ack, source_engine_accepted, or rejected_at_source based on the source-engine result and any live owner_submission_risk_case.
+  - The official source_collection is written only when the source engine completes successfully and no live owner_submission_risk_case remains unacknowledged.
   - Structurally valid sources with completeness_status in {partial, mixed, indeterminate} may still enter the source_collection with explicit admission_reason and preserved flags.
   - Structurally invalid uploads do not create source_collection records.
-  - normalization_handoff_bundle is written for every source_engine_accepted source and contains SourceMetadata, NormalizationInput, FrozenMemberManifest, and preserved intake_dossier completeness and integrity verdicts.
+  - normalization_handoff_bundle is written only for source_engine_accepted sources whose owner_submission_risk_case is absent or acknowledged, and contains SourceMetadata, NormalizationInput, FrozenMemberManifest, and preserved intake_dossier completeness and integrity verdicts.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after successful metadata deliberation; When source admission and normalization handoff packaging execute; Then raw_upload_record.status="source_engine_accepted", exactly one source_collection record is written, and normalization_handoff_bundle.SourceMetadata.registry_entry_id is non-empty..
   - AC-2 [deterministic] Given A structurally valid upload whose intake_dossier.completeness_status="partial"; When source admission and normalization handoff packaging execute; Then one source_collection record is written with admission_reason="accepted_with_flags" and the handoff preserves completeness_status="partial"..
   - AC-3 [deterministic] Given A raw upload rejected earlier with error_code=SRC-E-EMPTY-FILE; When source admission and normalization handoff packaging would otherwise execute; Then no source_collection record is written for that submission..
+  - AC-4 [deterministic] Given A source candidate with a live owner_submission_risk_case awaiting acknowledgment; When source admission and normalization handoff packaging execute; Then raw_upload_record.status="awaiting_owner_ack", no source_collection record is written, and no normalization_handoff_bundle is emitted..
 
 ### REQ-SRC-0026 — Authoritative work identity and collection linkage output
 - Type: requirement
@@ -778,8 +798,29 @@
   - work_output.status is one of definitive, disputed, or insufficient_evidence.
   - A definitive case stores one chosen work position, while a disputed case preserves multiple work positions instead of forcing one bibliographic identity.
   - collection_match_output records whether the source matches an existing admitted work, an existing edition group, or no current collection match.
+  - When the source appears to be one present part of a larger work, collection_match_output records parent_work_id plus present_volumes and missing_volumes when that can be inferred.
   - title_arabic in SourceMetadata is derived from the chosen or preserved work identity evidence rather than from raw upload naming alone.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with one evidence-backed work candidate; When metadata deliberation executes; Then work_output.status="definitive", len(work_output.positions)=1, and title_arabic is non-empty..
   - AC-2 [deterministic] Given A source candidate whose intake dossier contains two evidence-backed work candidates for the same uploaded source; When metadata deliberation executes; Then work_output.status="disputed" and len(work_output.positions) is at least 2..
   - AC-3 [deterministic] Given A source candidate whose intake dossier contains no evidence-backed work candidate; When metadata deliberation executes; Then work_output.status="insufficient_evidence"..
+  - AC-4 [deterministic] Given A source candidate identified as volume 2 of a larger work with only volume 2 currently present; When metadata deliberation executes; Then collection_match_output.parent_work_id is non-null, collection_match_output.present_volumes includes "2", and collection_match_output.missing_volumes is non-empty..
+
+### REQ-SRC-0027 — Owner-submission risk gate for study-quality threats
+- Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before official admission or downstream work proceeds.
+- Trigger: Source-engine finalization evaluates whether the candidate carries any uncertainty that could materially affect study quality.
+- Postconditions:
+  - When study_quality_risk_flags is empty, no owner_submission_risk_case is written and normal source admission may continue.
+  - When study_quality_risk_flags is non-empty, owner_submission_risk_case is written with owner_ack_required=true.
+  - A live owner_submission_risk_case blocks official source_collection admission and blocks normalization_handoff_bundle emission until the owner acknowledges or annotates the case.
+  - The source engine may still preserve provisional analysis outputs for review while the gate remains open.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A source candidate whose intake_dossier.study_quality_risk_flags is empty; When the owner-submission risk gate executes; Then no owner_submission_risk_case is written..
+  - AC-2 [deterministic] Given A source candidate identified as one volume of a larger work with material dependency on missing volumes; When the owner-submission risk gate executes; Then owner_submission_risk_case.owner_ack_required=true, source_collection admission is blocked, and normalization handoff is blocked..
+  - AC-3 [deterministic] Given A readable but suspicious source whose trust or integrity uncertainty could materially mislead study; When the owner-submission risk gate executes; Then owner_submission_risk_case.risk_flags is non-empty and owner_submission_risk_case.gate_status="awaiting_owner_ack"..

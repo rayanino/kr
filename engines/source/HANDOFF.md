@@ -9,17 +9,17 @@
 
 ## Current State
 
-75 spec atoms in `engines/source/spec/`, all validating (`validate_spec.py` exits 0).
+77 spec atoms in `engines/source/spec/`, all validating (`validate_spec.py` exits 0).
 
 | Status | Count |
 |--------|-------|
 | confirmed | 19 (all 16 OF atoms + 3 CON atoms) |
-| proposed | 49 (includes the new front-of-pipeline redesign atoms) |
+| proposed | 51 (includes the new front-of-pipeline redesign atoms and owner-submission risk gating) |
 | deferred | 3 (OQ-SRC-0001, OQ-SRC-0005, DEC-SRC-0003) |
 | superseded | 2 (OQ-SRC-0004, OQ-SRC-0006) |
 | draft | 2 (OQ-SRC-0003, OQ-SRC-0007 — awaiting DR results) |
 
-**Atom types:** 26 REQ, 8 INV, 14 DEC, 5 CON, 6 OQ, 16 OF
+**Atom types:** 27 REQ, 8 INV, 15 DEC, 5 CON, 6 OQ, 16 OF
 
 The spec now uses a numbered, behavior-first layout:
 
@@ -33,6 +33,7 @@ The spec now uses a numbered, behavior-first layout:
 - `60-evidence/`
 
 Normative YAML atoms live under behavior/layer folders. `views/` remains generated and non-canonical.
+The source-engine boundary also now includes an explicit `owner_submission_risk_gate` for any uncertainty that could materially affect study quality, distinct from metadata-disagreement resolution.
 
 ## What Was Accomplished
 
@@ -144,7 +145,7 @@ These came from the owner interviews. Do not override them:
 | File | Purpose |
 |------|---------|
 | `engines/source/CLAUDE.md` | Engine-local agent instructions |
-| `engines/source/spec/INDEX.yaml` | Atom registry (75 entries) |
+| `engines/source/spec/INDEX.yaml` | Atom registry (77 entries) |
 | `engines/source/spec/schema.json` | JSON Schema for atom validation |
 | `engines/source/scripts/validate_spec.py` | Schema + consistency validator |
 | `engines/source/scripts/generate_views.py` | YAML → Markdown view generator |

@@ -3,17 +3,17 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 75 |
+| Total atoms | 77 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
 | constraint | 5 |
-| decision | 14 |
+| decision | 15 |
 | feedback | 16 |
 | invariant | 8 |
 | question | 6 |
-| requirement | 26 |
+| requirement | 27 |
 
 ## By Status
 | Status | Count |
@@ -21,7 +21,7 @@
 | confirmed | 19 |
 | deferred | 3 |
 | draft | 2 |
-| proposed | 49 |
+| proposed | 51 |
 | superseded | 2 |
 
 ## By Topic
@@ -31,7 +31,7 @@
 | agent_ergonomics | 7 |
 | consensus | 7 |
 | freezing | 1 |
-| handoff | 8 |
+| handoff | 10 |
 | identity | 2 |
 | metadata | 30 |
 | trust | 10 |
@@ -58,6 +58,7 @@
 | DEC-SRC-0012 | decision | architecture | — | Multi-position metadata ordered by confidence | proposed | high | metadata | 30-architecture/decisions/DEC-SRC-0012.yaml |
 | DEC-SRC-0014 | decision | architecture | — | Separate raw-upload tracking from official source admission | proposed | critical | handoff | 30-architecture/decisions/DEC-SRC-0014.yaml |
 | DEC-SRC-0015 | decision | architecture | — | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high | handoff | 30-architecture/decisions/DEC-SRC-0015.yaml |
+| DEC-SRC-0016 | decision | architecture | — | Owner-submission risk gate blocks admission and downstream progression | proposed | critical | handoff | 30-architecture/decisions/DEC-SRC-0016.yaml |
 | INV-SRC-0001 | invariant | quality | — | Owner hints never bias inference | proposed | critical | acquisition | 40-quality/invariants/INV-SRC-0001.yaml |
 | INV-SRC-0002 | invariant | quality | — | Author attribution role separation is mandatory | proposed | critical | metadata | 40-quality/invariants/INV-SRC-0002.yaml |
 | INV-SRC-0003 | invariant | quality | — | Library never refuses knowledge | proposed | critical | metadata | 40-quality/invariants/INV-SRC-0003.yaml |
@@ -114,3 +115,4 @@
 | REQ-SRC-0024 | requirement | pipeline | intake_analysis | PDF page-geometry hints for normalization | proposed | high | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0024.yaml |
 | REQ-SRC-0025 | requirement | pipeline | source_admission_and_normalization_handoff | Two-stage source admission and normalization handoff packaging | proposed | critical | handoff | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0025.yaml |
 | REQ-SRC-0026 | requirement | pipeline | metadata_deliberation | Authoritative work identity and collection linkage output | proposed | critical | identity | 10-pipeline/50-metadata-deliberation/REQ-SRC-0026.yaml |
+| REQ-SRC-0027 | requirement | pipeline | source_admission_and_normalization_handoff | Owner-submission risk gate for study-quality threats | proposed | critical | handoff | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0027.yaml |

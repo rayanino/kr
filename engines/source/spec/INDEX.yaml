@@ -296,6 +296,13 @@ atoms:
   topic: identity
   priority: critical
   file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0026.yaml
+- id: REQ-SRC-0027
+  type: requirement
+  status: proposed
+  title: Owner-submission risk gate for study-quality threats
+  topic: handoff
+  priority: critical
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0027.yaml
 - id: INV-SRC-0001
   type: invariant
   status: proposed
@@ -450,6 +457,13 @@ atoms:
   topic: handoff
   priority: high
   file: 30-architecture/decisions/DEC-SRC-0015.yaml
+- id: DEC-SRC-0016
+  type: decision
+  status: proposed
+  title: Owner-submission risk gate blocks admission and downstream progression
+  topic: handoff
+  priority: critical
+  file: 30-architecture/decisions/DEC-SRC-0016.yaml
 - id: CON-SRC-0001
   type: constraint
   status: confirmed
