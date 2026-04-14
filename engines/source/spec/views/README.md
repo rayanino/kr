@@ -3,17 +3,17 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 57 |
+| Total atoms | 61 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
-| constraint | 3 |
+| constraint | 4 |
 | decision | 10 |
 | feedback | 16 |
-| invariant | 6 |
+| invariant | 7 |
 | question | 6 |
-| requirement | 16 |
+| requirement | 18 |
 
 ## By Status
 | Status | Count |
@@ -21,16 +21,16 @@
 | confirmed | 19 |
 | deferred | 1 |
 | draft | 6 |
-| proposed | 31 |
+| proposed | 35 |
 
 ## By Topic
 | Topic | Count |
 | --- | --- |
-| acquisition | 7 |
+| acquisition | 9 |
 | agent_ergonomics | 7 |
 | consensus | 6 |
-| handoff | 3 |
-| metadata | 26 |
+| handoff | 4 |
+| metadata | 27 |
 | trust | 8 |
 
 ## Atom Index
@@ -39,6 +39,7 @@
 | CON-SRC-0001 | constraint | Shamela HTML is the only production format | confirmed | high | acquisition | constraints/CON-SRC-0001.yaml |
 | CON-SRC-0002 | constraint | Hadith literature dominates source-engine benchmark quality | confirmed | high | metadata | constraints/CON-SRC-0002.yaml |
 | CON-SRC-0003 | constraint | No existing pipeline contract is binding on the rebuild | confirmed | critical | handoff | constraints/CON-SRC-0003.yaml |
+| CON-SRC-0004 | constraint | Complete SourceMetadata output schema | proposed | critical | handoff | constraints/CON-SRC-0004.yaml |
 | DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | proposed | critical | acquisition | decisions/DEC-SRC-0001.yaml |
 | DEC-SRC-0002 | decision | Science scope uses dynamic registry | proposed | high | metadata | decisions/DEC-SRC-0002.yaml |
 | DEC-SRC-0003 | decision | Level detection strategy | deferred | medium | metadata | decisions/DEC-SRC-0003.yaml |
@@ -55,6 +56,7 @@
 | INV-SRC-0004 | invariant | Truth-seeking over consensus-forcing | proposed | high | consensus | invariants/INV-SRC-0004.yaml |
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high | trust | invariants/INV-SRC-0005.yaml |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high | metadata | invariants/INV-SRC-0006.yaml |
+| INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical | metadata | invariants/INV-SRC-0007.yaml |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high | acquisition | owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical | acquisition | owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical | trust | owner-feedback/OF-SRC-0003.yaml |
@@ -93,3 +95,5 @@
 | REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical | metadata | requirements/REQ-SRC-0014.yaml |
 | REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high | metadata | requirements/REQ-SRC-0015.yaml |
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high | metadata | requirements/REQ-SRC-0016.yaml |
+| REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical | acquisition | requirements/REQ-SRC-0017.yaml |
+| REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium | acquisition | requirements/REQ-SRC-0020.yaml |

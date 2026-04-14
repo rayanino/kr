@@ -6,13 +6,14 @@ topic: acquisition
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-007
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0002
   - INV-SRC-0001
   - DEC-SRC-0001
+  - CON-SRC-0004
 impacts:
   - confidence_resolution
   - owner_hint_audit
@@ -26,6 +27,7 @@ behavior:
     - Matching author_name hints may increase author_identification_confidence without changing inferred_metadata.author_name.
     - Matching genre hints may increase genre_confidence without changing inferred_metadata.genre.
     - Matching science_scope hints may increase science_scope_confidence without changing inferred_metadata.science_scope.
+    - source_metadata.hint_comparison_results appends one record per compared hint with fields hint_field, hint_value, inferred_value, match, and confidence_delta.
     - Hint contradictions write hint_investigation with fields field, hint_value, inferred_value, status, and opened_reason.
   error_conditions:
     - condition: owner_hint_payload contains a key outside author_name, science_scope, or genre.
@@ -38,12 +40,12 @@ acceptance_criteria:
   - id: AC-1
     given: tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"
     when: post-inference hint comparison executes
-    then: inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم" and author_identification_confidence increases.
+    then: inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم", author_identification_confidence increases, and source_metadata.hint_comparison_results contains a record with hint_field="author_name", hint_value="عبد الله بن إبراهيم الزاحم", inferred_value="عبد الله بن إبراهيم الزاحم", and match=true.
     test_type: deterministic
   - id: AC-2
     given: tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"
     when: post-inference hint comparison executes
-    then: hint_investigation.field="genre", hint_investigation.hint_value="matn", and inferred_metadata.genre remains "risalah".
+    then: hint_investigation.field="genre", hint_investigation.hint_value="matn", inferred_metadata.genre remains "risalah", and source_metadata.hint_comparison_results contains a record with hint_field="genre", hint_value="matn", inferred_value="risalah", and match=false.
     test_type: integration
   - id: AC-3
     given: tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"

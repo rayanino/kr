@@ -10,6 +10,7 @@
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
+| INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
 | OF-SRC-0004 | feedback | Author attribution errors are catastrophic | confirmed | critical |
 | OF-SRC-0005 | feedback | Science hints follow the same cross-validation rule | confirmed | high |
 | OF-SRC-0006 | feedback | Science registry must keep growing | confirmed | high |
@@ -96,6 +97,14 @@
 - Source: Added from domain-validator-review.yaml
 - Rule: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
 
+### INV-SRC-0007 — Scholar registry minimum population
+- Type: invariant
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-004
+- Rule: scholar_authority.count must be at least 50 before the first pipeline run begins.
+
 ### OF-SRC-0004 — Author attribution errors are catastrophic
 - Type: feedback
 - Status: confirmed
@@ -177,17 +186,19 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0004; amended per both coworker reviews
+- Source: Derived from OF-SRC-0004; amended per both coworker reviews and adversary-review.yaml ADV-009
 - Trigger: The source engine must assign or preserve author attribution for a source.
 - Postconditions:
   - author_output.status is one of definitive, disputed, or insufficient_evidence.
-  - Each author_output.positions item contains position, display_name, death_hijri, nisba_tokens, evidence, confidence, and source_agent.
+  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, and source_agent.
   - A definitive case stores one chosen position, while a disputed case preserves multiple positions instead of forcing a single author.
+  - Any death_hijri value supported by only one independent agent is stored with death_hijri_verification=single_model_unverified until a second independent agent confirms the same year.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm and two independent attribution agents; When author attribution executes; Then author_output.status="definitive" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم"..
   - AC-2 [integration] Given A disputed authorship case with two evidence-backed candidates for the same source; When author attribution executes; Then author_output.status="disputed" and len(author_output.positions) is at least 2..
   - AC-3 [deterministic] Given Candidate authors "أحمد بن تيمية الحراني" (death_hijri=728) and "أحمد بن تيمية" (death_hijri=652) with evidence mentioning الحراني; When author attribution executes; Then The selected position matches death_hijri=728 and nisba_tokens contains "الحراني"..
   - AC-4 [integration] Given A source whose metadata card, title, and colophon provide no author evidence; When author attribution executes with two independent agents; Then author_output.status="insufficient_evidence" and owner_review_case.route_reason="zero_author_evidence"..
+  - AC-5 [deterministic] Given An author position whose death_hijri=676 is inferred by exactly one independent attribution agent; When author attribution executes; Then author_output.positions[0].death_hijri=676, author_output.positions[0].death_hijri_verification="single_model_unverified", and the death date remains pending confirmation from a second independent agent..
 
 ### REQ-SRC-0005 — Optional science hint
 - Type: requirement
@@ -287,35 +298,39 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
-- Trigger: Attribution parsing reads a metadata card or colophon with role-bearing name signals.
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006
+- Trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
 - Postconditions:
   - author_name is populated only from author markers.
   - copyist_name is populated only from copyist markers.
   - editor_name is populated only from editor markers.
+  - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.
 - Acceptance criteria:
   - AC-1 [deterministic] Given Colophon text "كتبه الفقير العبد عبد الله بن محمد"; When attribution parsing executes; Then copyist_name="عبد الله بن محمد" and author_name remains null..
   - AC-2 [deterministic] Given Metadata card text "ألفه محمد بن عبد الوهاب"; When attribution parsing executes; Then author_name="محمد بن عبد الوهاب"..
+  - AC-3 [deterministic] Given Metadata card author field "ابن قدامة" with no colophon role markers; When attribution parsing executes; Then author_name="ابن قدامة"..
 
 ### REQ-SRC-0015 — Honorific-aware name matching
 - Type: requirement
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010
 - Trigger: Attribution matching compares two Arabic scholar names.
 - Postconditions:
-  - canonical_match_name excludes honorific tokens.
+  - canonical_match_name excludes stripped honorific tokens and any stripped leading kunya segment.
   - display_name preserves the original honorific-bearing form from the source record.
 - Acceptance criteria:
   - AC-1 [deterministic] Given Name forms "الإمام النووي" and "النووي"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="النووي" while display_name preserves the original source form..
+  - AC-2 [deterministic] Given Name forms "القاضي عياض" and "عياض"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="عياض" while display_name preserves the original source form..
+  - AC-3 [deterministic] Given Name forms "أبو محمد ابن قدامة" and "ابن قدامة"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="ابن قدامة" while display_name preserves the original source form..
 
 ### REQ-SRC-0016 — Multi-science assignment
 - Type: requirement
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-008
 - Trigger: Science classification detects evidence for more than one science.
 - Postconditions:
   - science_scope preserves all supported sciences in dominance order.

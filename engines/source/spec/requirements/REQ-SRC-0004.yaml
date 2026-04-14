@@ -6,7 +6,7 @@ topic: metadata
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0004; amended per both coworker reviews
+source: Derived from OF-SRC-0004; amended per both coworker reviews and adversary-review.yaml ADV-009
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -22,8 +22,9 @@ behavior:
     - At least two attribution agents are independent, meaning agent_id differs, execution_id differs, and neither agent reads the other's final output before emitting its own result.
   postconditions:
     - author_output.status is one of definitive, disputed, or insufficient_evidence.
-    - Each author_output.positions item contains position, display_name, death_hijri, nisba_tokens, evidence, confidence, and source_agent.
+    - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, and source_agent.
     - A definitive case stores one chosen position, while a disputed case preserves multiple positions instead of forcing a single author.
+    - Any death_hijri value supported by only one independent agent is stored with death_hijri_verification=single_model_unverified until a second independent agent confirms the same year.
   error_conditions:
     - condition: Fewer than two independent attribution agents are available.
       action: Abort author finalization with SRC-E-AUTHOR-AGENT-COUNT.
@@ -52,3 +53,8 @@ acceptance_criteria:
     when: author attribution executes with two independent agents
     then: author_output.status="insufficient_evidence" and owner_review_case.route_reason="zero_author_evidence".
     test_type: integration
+  - id: AC-5
+    given: An author position whose death_hijri=676 is inferred by exactly one independent attribution agent
+    when: author attribution executes
+    then: author_output.positions[0].death_hijri=676, author_output.positions[0].death_hijri_verification="single_model_unverified", and the death date remains pending confirmation from a second independent agent.
+    test_type: deterministic

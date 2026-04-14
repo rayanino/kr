@@ -9,6 +9,8 @@
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical |
 | REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
+| REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
+| REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
 
 ### CON-SRC-0001 — Shamela HTML is the only production format
 - Type: constraint
@@ -58,16 +60,16 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-001
 - Trigger: Owner submits a single filesystem path for source intake.
 - Postconditions:
-  - source_metadata.source_sha256 is computed from the submitted file bytes.
-  - source_metadata.frozen_blob_path points to the immutable frozen copy of the submitted bytes.
-  - source_metadata.registry_entry_id is written and linked to source_metadata.source_sha256.
+  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id.
+  - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
+  - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
   - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
-  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then Intake aborts with error_code=SRC-E-DIRECTORY-INPUT..
+  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
   - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
   - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
 
@@ -76,15 +78,49 @@
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-007
 - Trigger: The owner submits optional intake hints together with a source path.
 - Postconditions:
   - owner_hint_payload values are stored separately from inferred_metadata values.
   - Matching author_name hints may increase author_identification_confidence without changing inferred_metadata.author_name.
   - Matching genre hints may increase genre_confidence without changing inferred_metadata.genre.
   - Matching science_scope hints may increase science_scope_confidence without changing inferred_metadata.science_scope.
+  - source_metadata.hint_comparison_results appends one record per compared hint with fields hint_field, hint_value, inferred_value, match, and confidence_delta.
   - Hint contradictions write hint_investigation with fields field, hint_value, inferred_value, status, and opened_reason.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"; When post-inference hint comparison executes; Then inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم" and author_identification_confidence increases..
-  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", and inferred_metadata.genre remains "risalah"..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"; When post-inference hint comparison executes; Then inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم", author_identification_confidence increases, and source_metadata.hint_comparison_results contains a record with hint_field="author_name", hint_value="عبد الله بن إبراهيم الزاحم", inferred_value="عبد الله بن إبراهيم الزاحم", and match=true..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", inferred_metadata.genre remains "risalah", and source_metadata.hint_comparison_results contains a record with hint_field="genre", hint_value="matn", inferred_value="risalah", and match=false..
   - AC-3 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"; When hint payload validation executes; Then The invalid hint key is rejected with error_code=SRC-E-HINT-FIELD and base inference still runs..
+
+### REQ-SRC-0017 — Multi-volume directory intake
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-001
+- Trigger: Owner submits a directory path containing numbered .htm volume files for intake.
+- Postconditions:
+  - All numbered volume files are frozen under one source_metadata.source_id and one source_metadata.registry_entry_id.
+  - source_metadata.volume_count equals the number of frozen numbered volume files and is at least 2.
+  - source_metadata.source_sha256 stores the composite hash of the numbered volume files.
+  - source_metadata.frozen_blob_path points to the immutable frozen directory for the shared source_id.
+  - When non-numbered .htm files are present, interactive intake prompts for supplementary inclusion and non-interactive intake auto-skips those files while recording supplementary_file_decision.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake executes; Then All .htm volumes are frozen under one source_metadata.source_id, source_metadata.volume_count=3, and exactly one source_metadata.registry_entry_id is written..
+  - AC-2 [deterministic] Given A directory containing only non-numbered .htm files; When intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-DIRECTORY..
+  - AC-3 [deterministic] Given A directory containing 001.htm, 002.htm, and appendix.htm while interaction is unavailable; When intake executes; Then source_metadata.volume_count=2 and supplementary_file_decision.mode="auto_skip"..
+
+### REQ-SRC-0020 — Plain text source intake
+- Type: requirement
+- Status: proposed
+- Priority: medium
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-011
+- Trigger: Owner submits a .txt file path.
+- Postconditions:
+  - source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id are written from the submitted file bytes.
+  - source_metadata.title_arabic equals the first non-empty line of the file.
+  - The full file content, including the title line, is passed to metadata inference as plain_text_content.
+  - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..

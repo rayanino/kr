@@ -6,7 +6,7 @@ topic: consensus
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml
+source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml and adversary-review.yaml ADV-005, ADV-012
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -21,15 +21,17 @@ behavior:
   trigger: Independent agents disagree about a metadata field.
   preconditions:
     - disagreement_case records the field name, competing positions, and evidence traces.
+    - disagreement_case.max_resolution_rounds=3.
     - The formal disagreement-module architecture remains unresolved in OQ-SRC-0004.
   postconditions:
     - disagreement_case.resolution_state is set to resolved_error or genuine_scholarly_dispute.
     - resolved_error writes one corrected value and structured failure_analysis for the losing agent.
     - genuine_scholarly_dispute delegates the field to the REQ-SRC-0012 multi-position schema.
+    - When disagreement_case.round_count reaches 3 without convergence on resolved_error, disagreement_case.resolution_state defaults to genuine_scholarly_dispute and emits REQ-SRC-0012 output.
   error_conditions:
-    - condition: The workflow cannot determine whether the case is resolved_error or genuine_scholarly_dispute.
-      action: Block finalization and hand the case to the future formal disagreement module.
-      severity: blocking
+    - condition: The formal disagreement module from OQ-SRC-0004 is unavailable when the workflow reaches the unresolved blocking branch.
+      action: Set disagreement_case.resolution_state=genuine_scholarly_dispute and emit the REQ-SRC-0012 positions array.
+      severity: warning
 acceptance_criteria:
   - id: AC-1
     given: A disagreement where one agent treats "إعداد" as author evidence and another agent corrects it to compiler evidence
@@ -45,4 +47,9 @@ acceptance_criteria:
     given: A resolved_error case with one losing agent
     when: disagreement resolution finalizes
     then: failure_analysis.agent_id is recorded and linked to disagreement_case.case_id.
+    test_type: deterministic
+  - id: AC-4
+    given: A disagreement that remains unresolved after disagreement_case.round_count=3
+    when: disagreement resolution executes
+    then: disagreement_case.resolution_state="genuine_scholarly_dispute" and the output field uses the REQ-SRC-0012 positions array.
     test_type: deterministic

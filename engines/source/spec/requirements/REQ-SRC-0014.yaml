@@ -6,7 +6,7 @@ topic: metadata
 priority: critical
 confidence: high
 provenance: coworker_review
-source: Added from domain-validator-review.yaml
+source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -15,14 +15,16 @@ impacts:
   - author_attribution
   - colophon_parsing
 behavior:
-  trigger: Attribution parsing reads a metadata card or colophon with role-bearing name signals.
+  trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
   preconditions:
     - Role markers are mapped as author={ألفه, صنفه}, copyist={كتبه, نسخه}, and editor={المحقق, تحقيق}.
     - Metadata card fields and colophon strings are both available to the attribution parser when present.
+    - The no-marker fallback applies only when neither the metadata card nor the colophon contains an explicit author, copyist, or editor role marker.
   postconditions:
     - author_name is populated only from author markers.
     - copyist_name is populated only from copyist markers.
     - editor_name is populated only from editor markers.
+    - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.
   error_conditions:
     - condition: The same name is assigned to multiple roles without distinct supporting markers.
       action: Write attribution_role_conflict and preserve the raw role-bearing strings.
@@ -37,4 +39,9 @@ acceptance_criteria:
     given: Metadata card text "ألفه محمد بن عبد الوهاب"
     when: attribution parsing executes
     then: author_name="محمد بن عبد الوهاب".
+    test_type: deterministic
+  - id: AC-3
+    given: Metadata card author field "ابن قدامة" with no colophon role markers
+    when: attribution parsing executes
+    then: author_name="ابن قدامة".
     test_type: deterministic

@@ -226,6 +226,20 @@ atoms:
     topic: metadata
     priority: high
     file: requirements/REQ-SRC-0016.yaml
+  - id: REQ-SRC-0017
+    type: requirement
+    status: proposed
+    title: Multi-volume directory intake
+    topic: acquisition
+    priority: critical
+    file: requirements/REQ-SRC-0017.yaml
+  - id: REQ-SRC-0020
+    type: requirement
+    status: proposed
+    title: Plain text source intake
+    topic: acquisition
+    priority: medium
+    file: requirements/REQ-SRC-0020.yaml
   - id: INV-SRC-0001
     type: invariant
     status: proposed
@@ -268,6 +282,13 @@ atoms:
     topic: metadata
     priority: high
     file: invariants/INV-SRC-0006.yaml
+  - id: INV-SRC-0007
+    type: invariant
+    status: proposed
+    title: Scholar registry minimum population
+    topic: metadata
+    priority: critical
+    file: invariants/INV-SRC-0007.yaml
   - id: DEC-SRC-0001
     type: decision
     status: proposed
@@ -359,6 +380,13 @@ atoms:
     topic: handoff
     priority: critical
     file: constraints/CON-SRC-0003.yaml
+  - id: CON-SRC-0004
+    type: constraint
+    status: proposed
+    title: Complete SourceMetadata output schema
+    topic: handoff
+    priority: critical
+    file: constraints/CON-SRC-0004.yaml
   - id: OQ-SRC-0001
     type: question
     status: draft

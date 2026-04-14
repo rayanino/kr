@@ -6,7 +6,7 @@ topic: metadata
 priority: high
 confidence: high
 provenance: coworker_review
-source: Added from domain-validator-review.yaml
+source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-008
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -19,6 +19,7 @@ behavior:
   trigger: Science classification detects evidence for more than one science.
   preconditions:
     - science_scope is an ordered list, not a scalar field.
+    - Dominance means the science that would be the book's primary Shamela category if forced to choose exactly one category.
     - The first item in science_scope is the dominant science for the source.
   postconditions:
     - science_scope preserves all supported sciences in dominance order.

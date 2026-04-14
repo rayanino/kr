@@ -85,13 +85,14 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009; amended per both coworker reviews
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews and adversary-review.yaml ADV-003
 - Trigger: The engine must emit a trust_decision for a source or metadata claim.
 - Postconditions:
   - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
-  - Universally recognized classical foundational texts may use trust_path=fast_track instead of full deliberation.
+  - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/13_format_b/book.htm with definitive author attribution and no conflicting evidence; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/05_tafsir/book.htm with definitive author attribution, scholar_authority[author_canonical_id].authority_level="primary", and author_death_hijri=774; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
   - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When trust evaluation executes; Then trust_decision includes decision, trust_path, supporting_agents, and evidence_summary, and at least one monitor_feedback record is written..
   - AC-3 [deterministic] Given A trust evaluation run with only one verification agent available; When trust evaluation executes; Then Finalization aborts with error_code=SRC-E-TRUST-AGENT-COUNT..
+  - AC-4 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with genre="risalah" or author_death_hijri=null; When trust evaluation executes; Then trust_decision.trust_path="full_deliberation"..

@@ -1,0 +1,50 @@
+id: REQ-SRC-0020
+type: requirement
+status: proposed
+title: Plain text source intake
+topic: acquisition
+priority: medium
+confidence: high
+provenance: coworker_review
+source: Added from adversary-review.yaml ADV-011
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - CON-SRC-0001
+  - CON-SRC-0004
+impacts:
+  - source_metadata
+  - metadata_inference
+behavior:
+  trigger: Owner submits a .txt file path.
+  preconditions:
+    - The path resolves to a readable file whose suffix is .txt.
+    - The file is non-empty and decodes as UTF-8 without repair.
+    - The file contains at least one non-empty line, and the first non-empty line becomes source_metadata.title_arabic without normalization.
+  postconditions:
+    - source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id are written from the submitted file bytes.
+    - source_metadata.title_arabic equals the first non-empty line of the file.
+    - The full file content, including the title line, is passed to metadata inference as plain_text_content.
+    - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
+  error_conditions:
+    - condition: The submitted path does not exist.
+      action: Abort intake with SRC-E-PATH-NOT-FOUND.
+      severity: fatal
+    - condition: The submitted path exists but cannot be read.
+      action: Abort intake with SRC-E-PATH-UNREADABLE.
+      severity: fatal
+    - condition: The submitted .txt file has zero bytes.
+      action: Abort intake with SRC-E-EMPTY-FILE.
+      severity: fatal
+    - condition: The submitted .txt file cannot be decoded as UTF-8 without repair.
+      action: Abort intake with SRC-E-ENCODING.
+      severity: fatal
+    - condition: The submitted .txt file produces a source_metadata.source_sha256 that already exists in the source registry.
+      action: Abort intake with SRC-E-DUPLICATE-INGEST.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: tests/fixtures/alfiyyah_versified/alfiyyah.txt
+    when: intake executes
+    then: source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف".
+    test_type: integration

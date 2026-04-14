@@ -2,6 +2,7 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
+| CON-SRC-0004 | constraint | Complete SourceMetadata output schema | proposed | critical |
 | DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | proposed | critical |
 | DEC-SRC-0002 | decision | Science scope uses dynamic registry | proposed | high |
 | DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | proposed | critical |
@@ -17,6 +18,7 @@
 | INV-SRC-0004 | invariant | Truth-seeking over consensus-forcing | proposed | high |
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
+| INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
 | REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
 | REQ-SRC-0003 | requirement | Minimal owner review load | proposed | critical |
@@ -33,6 +35,16 @@
 | REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical |
 | REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high |
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
+| REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
+| REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
+
+### CON-SRC-0004 — Complete SourceMetadata output schema
+- Type: constraint
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-002
+- Rule: Every successful intake emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, volume_count, and intake_timestamp; author_output must always contain status and positions.
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
@@ -163,21 +175,29 @@
 - Source: Added from domain-validator-review.yaml
 - Rule: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
 
+### INV-SRC-0007 — Scholar registry minimum population
+- Type: invariant
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-004
+- Rule: scholar_authority.count must be at least 50 before the first pipeline run begins.
+
 ### REQ-SRC-0001 — Autonomous source acquisition
 - Type: requirement
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-001
 - Trigger: Owner submits a single filesystem path for source intake.
 - Postconditions:
-  - source_metadata.source_sha256 is computed from the submitted file bytes.
-  - source_metadata.frozen_blob_path points to the immutable frozen copy of the submitted bytes.
-  - source_metadata.registry_entry_id is written and linked to source_metadata.source_sha256.
+  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id.
+  - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
+  - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
   - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
-  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then Intake aborts with error_code=SRC-E-DIRECTORY-INPUT..
+  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
   - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
   - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
 
@@ -186,17 +206,18 @@
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-007
 - Trigger: The owner submits optional intake hints together with a source path.
 - Postconditions:
   - owner_hint_payload values are stored separately from inferred_metadata values.
   - Matching author_name hints may increase author_identification_confidence without changing inferred_metadata.author_name.
   - Matching genre hints may increase genre_confidence without changing inferred_metadata.genre.
   - Matching science_scope hints may increase science_scope_confidence without changing inferred_metadata.science_scope.
+  - source_metadata.hint_comparison_results appends one record per compared hint with fields hint_field, hint_value, inferred_value, match, and confidence_delta.
   - Hint contradictions write hint_investigation with fields field, hint_value, inferred_value, status, and opened_reason.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"; When post-inference hint comparison executes; Then inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم" and author_identification_confidence increases..
-  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", and inferred_metadata.genre remains "risalah"..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"; When post-inference hint comparison executes; Then inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم", author_identification_confidence increases, and source_metadata.hint_comparison_results contains a record with hint_field="author_name", hint_value="عبد الله بن إبراهيم الزاحم", inferred_value="عبد الله بن إبراهيم الزاحم", and match=true..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", inferred_metadata.genre remains "risalah", and source_metadata.hint_comparison_results contains a record with hint_field="genre", hint_value="matn", inferred_value="risalah", and match=false..
   - AC-3 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"; When hint payload validation executes; Then The invalid hint key is rejected with error_code=SRC-E-HINT-FIELD and base inference still runs..
 
 ### REQ-SRC-0003 — Minimal owner review load
@@ -220,17 +241,19 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0004; amended per both coworker reviews
+- Source: Derived from OF-SRC-0004; amended per both coworker reviews and adversary-review.yaml ADV-009
 - Trigger: The source engine must assign or preserve author attribution for a source.
 - Postconditions:
   - author_output.status is one of definitive, disputed, or insufficient_evidence.
-  - Each author_output.positions item contains position, display_name, death_hijri, nisba_tokens, evidence, confidence, and source_agent.
+  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, and source_agent.
   - A definitive case stores one chosen position, while a disputed case preserves multiple positions instead of forcing a single author.
+  - Any death_hijri value supported by only one independent agent is stored with death_hijri_verification=single_model_unverified until a second independent agent confirms the same year.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm and two independent attribution agents; When author attribution executes; Then author_output.status="definitive" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم"..
   - AC-2 [integration] Given A disputed authorship case with two evidence-backed candidates for the same source; When author attribution executes; Then author_output.status="disputed" and len(author_output.positions) is at least 2..
   - AC-3 [deterministic] Given Candidate authors "أحمد بن تيمية الحراني" (death_hijri=728) and "أحمد بن تيمية" (death_hijri=652) with evidence mentioning الحراني; When author attribution executes; Then The selected position matches death_hijri=728 and nisba_tokens contains "الحراني"..
   - AC-4 [integration] Given A source whose metadata card, title, and colophon provide no author evidence; When author attribution executes with two independent agents; Then author_output.status="insufficient_evidence" and owner_review_case.route_reason="zero_author_evidence"..
+  - AC-5 [deterministic] Given An author position whose death_hijri=676 is inferred by exactly one independent attribution agent; When author attribution executes; Then author_output.positions[0].death_hijri=676, author_output.positions[0].death_hijri_verification="single_model_unverified", and the death date remains pending confirmation from a second independent agent..
 
 ### REQ-SRC-0005 — Optional science hint
 - Type: requirement
@@ -284,32 +307,35 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009; amended per both coworker reviews
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews and adversary-review.yaml ADV-003
 - Trigger: The engine must emit a trust_decision for a source or metadata claim.
 - Postconditions:
   - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
-  - Universally recognized classical foundational texts may use trust_path=fast_track instead of full deliberation.
+  - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/13_format_b/book.htm with definitive author attribution and no conflicting evidence; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/05_tafsir/book.htm with definitive author attribution, scholar_authority[author_canonical_id].authority_level="primary", and author_death_hijri=774; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
   - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When trust evaluation executes; Then trust_decision includes decision, trust_path, supporting_agents, and evidence_summary, and at least one monitor_feedback record is written..
   - AC-3 [deterministic] Given A trust evaluation run with only one verification agent available; When trust evaluation executes; Then Finalization aborts with error_code=SRC-E-TRUST-AGENT-COUNT..
+  - AC-4 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with genre="risalah" or author_death_hijri=null; When trust evaluation executes; Then trust_decision.trust_path="full_deliberation"..
 
 ### REQ-SRC-0009 — Agent self-resolution of disagreements
 - Type: requirement
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml
+- Source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml and adversary-review.yaml ADV-005, ADV-012
 - Trigger: Independent agents disagree about a metadata field.
 - Postconditions:
   - disagreement_case.resolution_state is set to resolved_error or genuine_scholarly_dispute.
   - resolved_error writes one corrected value and structured failure_analysis for the losing agent.
   - genuine_scholarly_dispute delegates the field to the REQ-SRC-0012 multi-position schema.
+  - When disagreement_case.round_count reaches 3 without convergence on resolved_error, disagreement_case.resolution_state defaults to genuine_scholarly_dispute and emits REQ-SRC-0012 output.
 - Acceptance criteria:
   - AC-1 [integration] Given A disagreement where one agent treats "إعداد" as author evidence and another agent corrects it to compiler evidence; When disagreement resolution executes; Then disagreement_case.resolution_state="resolved_error" and the corrected metadata field is stored as a single resolved value..
   - AC-2 [integration] Given A disputed authorship case with two evidence-backed positions from independent agents; When disagreement resolution executes; Then disagreement_case.resolution_state="genuine_scholarly_dispute" and the output field uses the REQ-SRC-0012 positions array..
   - AC-3 [deterministic] Given A resolved_error case with one losing agent; When disagreement resolution finalizes; Then failure_analysis.agent_id is recorded and linked to disagreement_case.case_id..
+  - AC-4 [deterministic] Given A disagreement that remains unresolved after disagreement_case.round_count=3; When disagreement resolution executes; Then disagreement_case.resolution_state="genuine_scholarly_dispute" and the output field uses the REQ-SRC-0012 positions array..
 
 ### REQ-SRC-0010 — Graduated muhaqiq standing
 - Type: requirement
@@ -378,38 +404,75 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
-- Trigger: Attribution parsing reads a metadata card or colophon with role-bearing name signals.
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006
+- Trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
 - Postconditions:
   - author_name is populated only from author markers.
   - copyist_name is populated only from copyist markers.
   - editor_name is populated only from editor markers.
+  - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.
 - Acceptance criteria:
   - AC-1 [deterministic] Given Colophon text "كتبه الفقير العبد عبد الله بن محمد"; When attribution parsing executes; Then copyist_name="عبد الله بن محمد" and author_name remains null..
   - AC-2 [deterministic] Given Metadata card text "ألفه محمد بن عبد الوهاب"; When attribution parsing executes; Then author_name="محمد بن عبد الوهاب"..
+  - AC-3 [deterministic] Given Metadata card author field "ابن قدامة" with no colophon role markers; When attribution parsing executes; Then author_name="ابن قدامة"..
 
 ### REQ-SRC-0015 — Honorific-aware name matching
 - Type: requirement
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010
 - Trigger: Attribution matching compares two Arabic scholar names.
 - Postconditions:
-  - canonical_match_name excludes honorific tokens.
+  - canonical_match_name excludes stripped honorific tokens and any stripped leading kunya segment.
   - display_name preserves the original honorific-bearing form from the source record.
 - Acceptance criteria:
   - AC-1 [deterministic] Given Name forms "الإمام النووي" and "النووي"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="النووي" while display_name preserves the original source form..
+  - AC-2 [deterministic] Given Name forms "القاضي عياض" and "عياض"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="عياض" while display_name preserves the original source form..
+  - AC-3 [deterministic] Given Name forms "أبو محمد ابن قدامة" and "ابن قدامة"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="ابن قدامة" while display_name preserves the original source form..
 
 ### REQ-SRC-0016 — Multi-science assignment
 - Type: requirement
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Added from domain-validator-review.yaml
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-008
 - Trigger: Science classification detects evidence for more than one science.
 - Postconditions:
   - science_scope preserves all supported sciences in dominance order.
   - The dominant science remains science_scope[0].
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm; When science classification executes; Then science_scope=["hadith", "fiqh"] and science_scope[0]="hadith"..
+
+### REQ-SRC-0017 — Multi-volume directory intake
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-001
+- Trigger: Owner submits a directory path containing numbered .htm volume files for intake.
+- Postconditions:
+  - All numbered volume files are frozen under one source_metadata.source_id and one source_metadata.registry_entry_id.
+  - source_metadata.volume_count equals the number of frozen numbered volume files and is at least 2.
+  - source_metadata.source_sha256 stores the composite hash of the numbered volume files.
+  - source_metadata.frozen_blob_path points to the immutable frozen directory for the shared source_id.
+  - When non-numbered .htm files are present, interactive intake prompts for supplementary inclusion and non-interactive intake auto-skips those files while recording supplementary_file_decision.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small; When intake executes; Then All .htm volumes are frozen under one source_metadata.source_id, source_metadata.volume_count=3, and exactly one source_metadata.registry_entry_id is written..
+  - AC-2 [deterministic] Given A directory containing only non-numbered .htm files; When intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-DIRECTORY..
+  - AC-3 [deterministic] Given A directory containing 001.htm, 002.htm, and appendix.htm while interaction is unavailable; When intake executes; Then source_metadata.volume_count=2 and supplementary_file_decision.mode="auto_skip"..
+
+### REQ-SRC-0020 — Plain text source intake
+- Type: requirement
+- Status: proposed
+- Priority: medium
+- Confidence: high
+- Source: Added from adversary-review.yaml ADV-011
+- Trigger: Owner submits a .txt file path.
+- Postconditions:
+  - source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id are written from the submitted file bytes.
+  - source_metadata.title_arabic equals the first non-empty line of the file.
+  - The full file content, including the title line, is passed to metadata inference as plain_text_content.
+  - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..
