@@ -1,0 +1,109 @@
+# Adversary Review - Source Engine Spec Atoms
+# Reviewer: spec-team-adversary (Claude Opus 4.6, manual after agent path failure)
+# Date: 2026-04-14
+# Atoms reviewed: 57 (16 OF, 16 REQ, 6 INV, 10 DEC, 3 CON, 6 OQ)
+# Prior reviews consumed: contract-architect-review.yaml, domain-validator-review.yaml
+
+findings:
+  - id: ADV-001
+    attack_vector: gap
+    severity: critical
+    atoms_affected: [REQ-SRC-0001]
+    description: "REQ-SRC-0001 only accepts single files, not directories. But v1 handled multi-volume Shamela books as directories of numbered .htm files (001.htm, 002.htm). The 2,519-book collection includes multi-volume works. No atom specifies directory intake."
+    exploit_scenario: "Owner drops a multi-volume Shamela directory (e.g., sharh_ibn_aqil/ with 4 volumes). Engine rejects with SRC-E-DIRECTORY-INPUT. Owner cannot intake ~15% of the collection."
+    proposed_fix: "Add REQ-SRC-0017 for directory intake: detect numbered .htm files, process as multi-volume, freeze all volumes under one source_id."
+
+  - id: ADV-002
+    attack_vector: gap
+    severity: critical
+    atoms_affected: [REQ-SRC-0001, REQ-SRC-0004]
+    description: "No atom defines the SourceMetadata output schema. REQ-SRC-0001 names individual fields (source_sha256, frozen_blob_path, registry_entry_id) and REQ-SRC-0004 names author_output fields. But there is no atom that defines the COMPLETE output record the source engine produces."
+    exploit_scenario: "Two build agents implement different subsets of SourceMetadata fields. When integrated, the output is inconsistent — some books have fields others lack."
+    proposed_fix: "Add REQ-SRC-0018 or CON-SRC-0004 defining the full SourceMetadata schema with all mandatory and optional fields."
+
+  - id: ADV-003
+    attack_vector: ambiguity
+    severity: high
+    atoms_affected: [REQ-SRC-0008, DEC-SRC-0004]
+    description: "'Universally recognized classical foundational texts' that qualify for trust fast-track is never defined. Which texts? Which scholars? What criteria?"
+    exploit_scenario: "Build agent A fast-tracks only Sahih Bukhari. Build agent B fast-tracks any book by any scholar with death_hijri < 500. Vastly different trust behavior."
+    proposed_fix: "Define fast-track criteria: e.g., author in scholar_authority registry with authority_level=foundational, or death_hijri < 1000 AND genre in {matn, hadith_collection} AND author_standing > 0.85."
+
+  - id: ADV-004
+    attack_vector: v1_replay
+    severity: high
+    atoms_affected: [REQ-SRC-0006]
+    description: "FM-4 (scholar registry sparseness) caused 70% gate abort rate in v1. REQ-SRC-0006 pre-populates 12 sciences, but does NOT address the SCHOLAR registry. If scholar_authority is empty at pipeline start, agent-team trust evaluation (REQ-SRC-0008) will have no context for author standing."
+    exploit_scenario: "Engine runs on 2,519 books with empty scholar_authority. Every author lookup returns 'unknown'. Trust decisions are blind. FM-4 repeats."
+    proposed_fix: "Add REQ-SRC-0019 or INV-SRC-0007: scholar_authority registry must be pre-populated with at least the top 100 classical scholars before first pipeline run."
+
+  - id: ADV-005
+    attack_vector: agent_failure
+    severity: high
+    atoms_affected: [REQ-SRC-0009, REQ-SRC-0008]
+    description: "No timeout or iteration limit on agent disagreement resolution. REQ-SRC-0009 says agents resolve, but what if they loop? Agent A says 'author is X', Agent B says 'author is Y', failure analysis says both are right — back to start."
+    exploit_scenario: "Two agents loop on a genuinely ambiguous case. Each 'failure analysis' produces a new argument. Pipeline stalls on one book forever."
+    proposed_fix: "Add max_resolution_rounds (e.g., 3) to REQ-SRC-0009 behavior. After max rounds without resolution_state, treat as genuine_scholarly_dispute by default."
+
+  - id: ADV-006
+    attack_vector: edge_case
+    severity: high
+    atoms_affected: [REQ-SRC-0014, INV-SRC-0002]
+    description: "The copyist/author disambiguation assumes clear markers (كتبه vs ألفه). But many Shamela books have NO colophon — the metadata card lists an author, and that's it. The atom doesn't specify what happens when there are no role markers at all."
+    exploit_scenario: "Book has metadata card author field but no colophon. REQ-SRC-0014 preconditions require 'role markers present'. Behavior is undefined for the 80%+ of books that lack explicit role markers."
+    proposed_fix: "Add behavior for no-marker case: metadata card author field is treated as author_name by default when no conflicting role markers exist."
+
+  - id: ADV-007
+    attack_vector: gap
+    severity: medium
+    atoms_affected: [REQ-SRC-0002, REQ-SRC-0005]
+    description: "Owner hints are compared post-inference, but no atom says what happens with the RESULT of that comparison. Confidence boost is mentioned, but: is it stored? In which field? Does it affect downstream decisions?"
+    exploit_scenario: "Agent implements hint comparison, records 'match' in logs, but never writes it to any persisted field. The cross-validation signal is lost."
+    proposed_fix: "Define hint_comparison_result as a persisted field in SourceMetadata: {hint_field, hint_value, inferred_value, match: bool, confidence_delta}."
+
+  - id: ADV-008
+    attack_vector: ambiguity
+    severity: medium
+    atoms_affected: [REQ-SRC-0016, DEC-SRC-0002]
+    description: "Multi-science assignment says science_scope is ordered by dominance. But 'dominance' is undefined. Word count? Chapter count? Subject matter depth?"
+    exploit_scenario: "Book on أحاديث الأحكام. Agent A says [hadith, fiqh] because most chapters are hadith. Agent B says [fiqh, hadith] because the purpose is fiqh extraction. No way to adjudicate."
+    proposed_fix: "Define dominance as: the science that would be the book's Shamela category if forced to choose one. Primary = what the book IS, secondary = what it touches."
+
+  - id: ADV-009
+    attack_vector: v1_replay
+    severity: medium
+    atoms_affected: [REQ-SRC-0010]
+    description: "FM-5 (death date hallucination) was a v1 bug where single-model inference produced dates 2-6 years off. REQ-SRC-0010 defines muhaqiq standing levels but no atom explicitly requires multi-model verification for death_date fields."
+    exploit_scenario: "Agent team correctly identifies the author but a single model hallucinates the death date. No atom prevents single-model death dates."
+    proposed_fix: "Add to REQ-SRC-0004 or INV-SRC-0002: death_date_hijri requires the same multi-agent consensus as author attribution."
+
+  - id: ADV-010
+    attack_vector: gap
+    severity: medium
+    atoms_affected: [REQ-SRC-0015]
+    description: "Honorific stripping for name matching lists 5 honorifics but the Arabic scholarly tradition has many more: حجة الإسلام, القاضي, المحقق, أبو (when used as kunya prefix). Incomplete list means partial matching."
+    exploit_scenario: "Author referenced as 'القاضي عياض' in one source and 'عياض' in another. القاضي not in strip list. Name matching fails."
+    proposed_fix: "Reference .claude/rules/arabic-scholarly-conventions.md honorific list (which includes القاضي, حجة الإسلام, المحقق) and make the strip list extensible."
+
+  - id: ADV-011
+    attack_vector: gap
+    severity: medium
+    atoms_affected: []
+    description: "No atom covers plain text intake. CON-SRC-0001 says plain text is 'supported as worst-case test format' but no REQ defines what happens when a .txt file is submitted. v1 had a plain text extractor."
+    exploit_scenario: "Owner submits a plain text file. Engine has no format detection for .txt, falls through to SRC-E-FORMAT because it looks for Shamela HTML markers."
+    proposed_fix: "Add REQ-SRC-0020 for plain text intake: detect .txt extension, extract title from first line, pass entire content to LLM inference."
+
+  - id: ADV-012
+    attack_vector: contradiction
+    severity: low
+    atoms_affected: [REQ-SRC-0003, REQ-SRC-0009]
+    description: "REQ-SRC-0003 says only genuinely unresolvable cases reach the owner. REQ-SRC-0009 says agents resolve disagreements autonomously. But REQ-SRC-0009 error_condition routes to 'future formal disagreement module' — which doesn't exist yet. In practice, unresolvable cases have nowhere to go."
+    exploit_scenario: "Agent disagreement hits the blocking error condition. No module exists to handle it. Pipeline stalls."
+    proposed_fix: "Interim behavior for OQ-SRC-0004 unresolved: when formal module doesn't exist, default to genuine_scholarly_dispute (multi-position output)."
+
+summary:
+  total_findings: 12
+  by_severity: {critical: 2, high: 4, medium: 5, low: 1}
+  by_vector: {gap: 5, ambiguity: 2, v1_replay: 2, edge_case: 1, agent_failure: 1, contradiction: 1}
+  critical_findings_requiring_new_atoms: [ADV-001, ADV-002]
+  v1_failures_not_yet_prevented: [FM-4_scholar_sparseness, FM-5_death_date_hallucination]
