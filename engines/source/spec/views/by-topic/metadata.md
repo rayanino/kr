@@ -29,6 +29,8 @@
 | REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical |
 | REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high |
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
+| REQ-SRC-0023 | requirement | Diacritics preservation from OCR | proposed | critical |
+| REQ-SRC-0024 | requirement | PDF page layout detection | proposed | high |
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
@@ -69,9 +71,9 @@
 - Status: proposed
 - Priority: medium
 - Confidence: high
-- Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml
+- Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
 - Chosen option: OPT-C — Source hints, normalization confirms
-- Decision rationale: This gives source enough responsibility to route early without pretending title evidence is authoritative on its own.
+- Decision rationale: This gives source enough responsibility to route early across both Shamela and PDF without pretending format-specific hint evidence is authoritative on its own.
 
 ### INV-SRC-0002 — Author attribution role separation is mandatory
 - Type: invariant
@@ -337,3 +339,33 @@
   - The dominant science remains science_scope[0].
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm; When science classification executes; Then science_scope=["hadith", "fiqh"] and science_scope[0]="hadith"..
+
+### REQ-SRC-0023 — Diacritics preservation from OCR
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: medium
+- Source: Added from the 2026-04-14 PDF format directive and .claude/rules/arabic-scholarly-conventions.md
+- Trigger: OCR produces Arabic text from a scanned source.
+- Postconditions:
+  - OCR output preserves diacritical code points in the ranges U+064B-U+0653, U+0656-U+065F, and U+0670 whenever they are detected in the source scan.
+  - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to OCR output.
+  - source_metadata.diacritic_fidelity is recorded as preserved_diacritic_count divided by expected_diacritic_count when expected_diacritic_count > 0, else 1.0.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A scanned OCR test page containing the text "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"; When OCR extracts Arabic text; Then The OCR output preserves the detected diacritics and applies no Unicode normalization..
+  - AC-2 [deterministic] Given OCR output compared against a scanned source page with known diacritics; When diacritic assessment runs; Then source_metadata.diacritic_fidelity equals preserved_diacritic_count divided by expected_diacritic_count..
+
+### REQ-SRC-0024 — PDF page layout detection
+- Type: requirement
+- Status: proposed
+- Priority: high
+- Confidence: medium
+- Source: Added from the 2026-04-14 PDF format directive and PDF layout constraints in the task context
+- Trigger: A PDF source is being processed.
+- Postconditions:
+  - source_metadata.page_layout is set to single_column, dual_column, marginal_notes, or mixed.
+  - layout_analysis.main_text_stream and layout_analysis.marginal_text_stream are identified separately when source_metadata.page_layout=marginal_notes.
+  - layout_analysis.reading_order is set to rtl_columns when source_metadata.page_layout=dual_column.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout="marginal_notes"..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout="single_column"..

@@ -1,0 +1,52 @@
+id: REQ-SRC-0021
+type: requirement
+status: proposed
+title: PDF format detection and routing
+topic: acquisition
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10 and the 2026-04-14 PDF format directive
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - CON-SRC-0001
+  - CON-SRC-0004
+impacts:
+  - source_metadata
+  - text_extraction_routing
+behavior:
+  trigger: A .pdf file is submitted for intake.
+  preconditions:
+    - The file opens as a valid PDF without parse error.
+    - The PDF has at least 1 physical page.
+    - extracted_text_area_ratio is computed as extracted_text_area divided by total_page_area across sampled pages.
+  postconditions:
+    - source_metadata.source_format is set to pdf_scanned when extracted_text_area_ratio < 0.10.
+    - source_metadata.source_format is set to pdf_text_embedded when extracted_text_area_ratio >= 0.10.
+    - source_metadata.text_extraction_method is set to direct_text_extraction when source_metadata.source_format=pdf_text_embedded.
+    - OCR routing is triggered when source_metadata.source_format=pdf_scanned.
+    - source_metadata.page_count_physical is set from the PDF page count.
+  error_conditions:
+    - condition: The PDF file cannot be opened or parsed.
+      action: Abort intake with SRC-E-PDF-CORRUPT.
+      severity: fatal
+    - condition: The PDF has 0 pages.
+      action: Abort intake with SRC-E-EMPTY-FILE.
+      severity: fatal
+acceptance_criteria:
+  - id: AC-1
+    given: tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf
+    when: PDF format detection runs
+    then: source_metadata.source_format="pdf_scanned" and source_metadata.page_count_physical=398.
+    test_type: integration
+  - id: AC-2
+    given: tests/fixtures/waraqat_usul/waraqat.pdf
+    when: PDF format detection runs
+    then: source_metadata.source_format="pdf_text_embedded", source_metadata.text_extraction_method="direct_text_extraction", and source_metadata.page_count_physical=13.
+    test_type: integration
+  - id: AC-3
+    given: A corrupted or password-protected PDF at a valid temporary intake path
+    when: PDF format detection runs
+    then: Intake aborts with error_code=SRC-E-PDF-CORRUPT.
+    test_type: deterministic

@@ -1,0 +1,51 @@
+id: REQ-SRC-0022
+type: requirement
+status: proposed
+title: Arabic OCR quality assessment
+topic: trust
+priority: critical
+confidence: medium
+provenance: domain_inference
+source: Added from the 2026-04-14 PDF format directive and OCR-quality constraints in the task context
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - REQ-SRC-0021
+  - CON-SRC-0004
+impacts:
+  - ocr_quality
+  - text_fidelity
+behavior:
+  trigger: A pdf_scanned source has been OCR-processed.
+  preconditions:
+    - Raw OCR output exists for every physical page.
+    - An Arabic character ratio check has been applied to every physical page.
+    - scan_quality is set to high when median_page_dpi >= 300 and blurred_page_ratio <= 0.10, medium when median_page_dpi is between 200 and 299 inclusive or blurred_page_ratio is between 0.11 and 0.30 inclusive, and low when median_page_dpi < 200 or blurred_page_ratio > 0.30.
+  postconditions:
+    - source_metadata.ocr_confidence is set to a 0.0-1.0 aggregate across counted pages.
+    - source_metadata.scan_quality is set to high, medium, or low.
+    - ocr_assessment.page_scores preserves one ocr_confidence value per physical page for downstream use.
+    - ocr_assessment.low_fidelity_pages lists pages whose page-level ocr_confidence is below 0.5.
+  error_conditions:
+    - condition: OCR produces an Arabic character ratio below 0.30 on a page expected to be Arabic.
+      action: Flag the page as ocr_failed with SRC-W-OCR-LOW-ARABIC.
+      severity: warning
+    - condition: source_metadata.ocr_confidence is below 0.30 across counted pages.
+      action: Flag the entire source as ocr_unreliable with SRC-W-OCR-UNRELIABLE.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A 300+ DPI Arabic scholarly scan with clear print on every counted page
+    when: OCR quality assessment runs
+    then: source_metadata.ocr_confidence > 0.8 and source_metadata.scan_quality="high".
+    test_type: deterministic
+  - id: AC-2
+    given: A blurry low-resolution Arabic scholarly scan with median_page_dpi below 200
+    when: OCR quality assessment runs
+    then: source_metadata.ocr_confidence < 0.5 and source_metadata.scan_quality="low".
+    test_type: deterministic
+  - id: AC-3
+    given: A decorative title page with no Arabic text in a pdf_scanned source
+    when: OCR quality assessment runs
+    then: The page is flagged with warning_code=SRC-W-OCR-LOW-ARABIC and excluded from the counted-page aggregate.
+    test_type: deterministic

@@ -19,6 +19,7 @@
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
 | INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
+| INV-SRC-0008 | invariant | OCR output is never silently trusted | proposed | critical |
 | REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
 | REQ-SRC-0003 | requirement | Minimal owner review load | proposed | critical |
@@ -37,13 +38,17 @@
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
 | REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
 | REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
+| REQ-SRC-0021 | requirement | PDF format detection and routing | proposed | critical |
+| REQ-SRC-0022 | requirement | Arabic OCR quality assessment | proposed | critical |
+| REQ-SRC-0023 | requirement | Diacritics preservation from OCR | proposed | critical |
+| REQ-SRC-0024 | requirement | PDF page layout detection | proposed | high |
 
 ### CON-SRC-0004 — Complete SourceMetadata output schema
 - Type: constraint
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-002
+- Source: Added from adversary-review.yaml ADV-002; amended per 2026-04-14 PDF format directive
 - Rule: Every successful intake emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, volume_count, and intake_timestamp; author_output must always contain status and positions.
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
@@ -123,9 +128,9 @@
 - Status: proposed
 - Priority: medium
 - Confidence: high
-- Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml
+- Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
 - Chosen option: OPT-C — Source hints, normalization confirms
-- Decision rationale: This gives source enough responsibility to route early without pretending title evidence is authoritative on its own.
+- Decision rationale: This gives source enough responsibility to route early across both Shamela and PDF without pretending format-specific hint evidence is authoritative on its own.
 
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
@@ -183,23 +188,36 @@
 - Source: Added from adversary-review.yaml ADV-004
 - Rule: scholar_authority.count must be at least 50 before the first pipeline run begins.
 
+### INV-SRC-0008 — OCR output is never silently trusted
+- Type: invariant
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Added from the 2026-04-14 PDF format directive
+- Rule: OCR-extracted text must always carry its source_metadata.ocr_confidence score, and downstream text_fidelity for OCR-derived sources must be bounded by that score.
+
 ### REQ-SRC-0001 — Autonomous source acquisition
 - Type: requirement
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-001
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, and 2026-04-14 PDF format directive
 - Trigger: Owner submits a single filesystem path for source intake.
 - Postconditions:
-  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, and source_metadata.registry_entry_id.
+  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, and source_metadata.source_format.
+  - .htm or .html file input sets source_metadata.source_format=shamela_html.
+  - .pdf file input sets source_metadata.source_format=pdf_scanned when extracted_text_area_ratio < 0.10 and sets source_metadata.source_format=pdf_text_embedded when extracted_text_area_ratio >= 0.10.
+  - .txt file input sets source_metadata.source_format=plain_text.
   - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
   - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_id is non-empty, source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, source_metadata.registry_entry_id is non-empty, and source_metadata.source_format="shamela_html"..
   - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
   - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
   - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
   - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
+  - AC-6 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When source engine intake executes; Then The request routes to REQ-SRC-0021 and source_metadata.source_format="pdf_text_embedded"..
+  - AC-7 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When source engine intake executes; Then The request routes to REQ-SRC-0020 and source_metadata.source_format="plain_text"..
 
 ### REQ-SRC-0002 — Optional owner hints as cross-validation
 - Type: requirement
@@ -476,3 +494,68 @@
   - source_metadata.source_sha256 is computed from the submitted .txt file bytes.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..
+
+### REQ-SRC-0021 — PDF format detection and routing
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: high
+- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10 and the 2026-04-14 PDF format directive
+- Trigger: A .pdf file is submitted for intake.
+- Postconditions:
+  - source_metadata.source_format is set to pdf_scanned when extracted_text_area_ratio < 0.10.
+  - source_metadata.source_format is set to pdf_text_embedded when extracted_text_area_ratio >= 0.10.
+  - source_metadata.text_extraction_method is set to direct_text_extraction when source_metadata.source_format=pdf_text_embedded.
+  - OCR routing is triggered when source_metadata.source_format=pdf_scanned.
+  - source_metadata.page_count_physical is set from the PDF page count.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf_scanned" and source_metadata.page_count_physical=398..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf_text_embedded", source_metadata.text_extraction_method="direct_text_extraction", and source_metadata.page_count_physical=13..
+  - AC-3 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When PDF format detection runs; Then Intake aborts with error_code=SRC-E-PDF-CORRUPT..
+
+### REQ-SRC-0022 — Arabic OCR quality assessment
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: medium
+- Source: Added from the 2026-04-14 PDF format directive and OCR-quality constraints in the task context
+- Trigger: A pdf_scanned source has been OCR-processed.
+- Postconditions:
+  - source_metadata.ocr_confidence is set to a 0.0-1.0 aggregate across counted pages.
+  - source_metadata.scan_quality is set to high, medium, or low.
+  - ocr_assessment.page_scores preserves one ocr_confidence value per physical page for downstream use.
+  - ocr_assessment.low_fidelity_pages lists pages whose page-level ocr_confidence is below 0.5.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A 300+ DPI Arabic scholarly scan with clear print on every counted page; When OCR quality assessment runs; Then source_metadata.ocr_confidence > 0.8 and source_metadata.scan_quality="high"..
+  - AC-2 [deterministic] Given A blurry low-resolution Arabic scholarly scan with median_page_dpi below 200; When OCR quality assessment runs; Then source_metadata.ocr_confidence < 0.5 and source_metadata.scan_quality="low"..
+  - AC-3 [deterministic] Given A decorative title page with no Arabic text in a pdf_scanned source; When OCR quality assessment runs; Then The page is flagged with warning_code=SRC-W-OCR-LOW-ARABIC and excluded from the counted-page aggregate..
+
+### REQ-SRC-0023 — Diacritics preservation from OCR
+- Type: requirement
+- Status: proposed
+- Priority: critical
+- Confidence: medium
+- Source: Added from the 2026-04-14 PDF format directive and .claude/rules/arabic-scholarly-conventions.md
+- Trigger: OCR produces Arabic text from a scanned source.
+- Postconditions:
+  - OCR output preserves diacritical code points in the ranges U+064B-U+0653, U+0656-U+065F, and U+0670 whenever they are detected in the source scan.
+  - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to OCR output.
+  - source_metadata.diacritic_fidelity is recorded as preserved_diacritic_count divided by expected_diacritic_count when expected_diacritic_count > 0, else 1.0.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A scanned OCR test page containing the text "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"; When OCR extracts Arabic text; Then The OCR output preserves the detected diacritics and applies no Unicode normalization..
+  - AC-2 [deterministic] Given OCR output compared against a scanned source page with known diacritics; When diacritic assessment runs; Then source_metadata.diacritic_fidelity equals preserved_diacritic_count divided by expected_diacritic_count..
+
+### REQ-SRC-0024 — PDF page layout detection
+- Type: requirement
+- Status: proposed
+- Priority: high
+- Confidence: medium
+- Source: Added from the 2026-04-14 PDF format directive and PDF layout constraints in the task context
+- Trigger: A PDF source is being processed.
+- Postconditions:
+  - source_metadata.page_layout is set to single_column, dual_column, marginal_notes, or mixed.
+  - layout_analysis.main_text_stream and layout_analysis.marginal_text_stream are identified separately when source_metadata.page_layout=marginal_notes.
+  - layout_analysis.reading_order is set to rtl_columns when source_metadata.page_layout=dual_column.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout="marginal_notes"..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout="single_column"..

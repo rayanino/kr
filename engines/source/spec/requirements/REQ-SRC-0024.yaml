@@ -1,0 +1,41 @@
+id: REQ-SRC-0024
+type: requirement
+status: proposed
+title: PDF page layout detection
+topic: metadata
+priority: high
+confidence: medium
+provenance: domain_inference
+source: Added from the 2026-04-14 PDF format directive and PDF layout constraints in the task context
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - REQ-SRC-0021
+  - CON-SRC-0004
+impacts:
+  - layout_analysis
+  - reading_order
+behavior:
+  trigger: A PDF source is being processed.
+  preconditions:
+    - PDF pages are available for layout analysis.
+    - Layout analysis measures text-block positions on each physical page.
+  postconditions:
+    - source_metadata.page_layout is set to single_column, dual_column, marginal_notes, or mixed.
+    - layout_analysis.main_text_stream and layout_analysis.marginal_text_stream are identified separately when source_metadata.page_layout=marginal_notes.
+    - layout_analysis.reading_order is set to rtl_columns when source_metadata.page_layout=dual_column.
+  error_conditions:
+    - condition: Layout detection cannot determine page structure.
+      action: Set source_metadata.page_layout=single_column and emit warning_code=SRC-W-LAYOUT-UNKNOWN.
+      severity: warning
+acceptance_criteria:
+  - id: AC-1
+    given: A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text
+    when: layout detection runs
+    then: source_metadata.page_layout="marginal_notes".
+    test_type: deterministic
+  - id: AC-2
+    given: tests/fixtures/waraqat_usul/waraqat.pdf
+    when: layout detection runs
+    then: source_metadata.page_layout="single_column".
+    test_type: integration

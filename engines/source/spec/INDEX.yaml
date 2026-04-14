@@ -240,6 +240,34 @@ atoms:
     topic: acquisition
     priority: medium
     file: requirements/REQ-SRC-0020.yaml
+  - id: REQ-SRC-0021
+    type: requirement
+    status: proposed
+    title: PDF format detection and routing
+    topic: acquisition
+    priority: critical
+    file: requirements/REQ-SRC-0021.yaml
+  - id: REQ-SRC-0022
+    type: requirement
+    status: proposed
+    title: Arabic OCR quality assessment
+    topic: trust
+    priority: critical
+    file: requirements/REQ-SRC-0022.yaml
+  - id: REQ-SRC-0023
+    type: requirement
+    status: proposed
+    title: Diacritics preservation from OCR
+    topic: metadata
+    priority: critical
+    file: requirements/REQ-SRC-0023.yaml
+  - id: REQ-SRC-0024
+    type: requirement
+    status: proposed
+    title: PDF page layout detection
+    topic: metadata
+    priority: high
+    file: requirements/REQ-SRC-0024.yaml
   - id: INV-SRC-0001
     type: invariant
     status: proposed
@@ -289,6 +317,13 @@ atoms:
     topic: metadata
     priority: critical
     file: invariants/INV-SRC-0007.yaml
+  - id: INV-SRC-0008
+    type: invariant
+    status: proposed
+    title: OCR output is never silently trusted
+    topic: trust
+    priority: critical
+    file: invariants/INV-SRC-0008.yaml
   - id: DEC-SRC-0001
     type: decision
     status: proposed
@@ -362,7 +397,7 @@ atoms:
   - id: CON-SRC-0001
     type: constraint
     status: confirmed
-    title: Shamela HTML is the only production format
+    title: Shamela HTML and PDF are production formats
     topic: acquisition
     priority: high
     file: constraints/CON-SRC-0001.yaml

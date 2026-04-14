@@ -6,7 +6,7 @@ topic: handoff
 priority: critical
 confidence: high
 provenance: coworker_review
-source: Added from adversary-review.yaml ADV-002
+source: Added from adversary-review.yaml ADV-002; amended per 2026-04-14 PDF format directive
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on: []
@@ -15,11 +15,16 @@ impacts:
   - downstream_contracts
 rule:
   statement: Every successful intake emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, volume_count, and intake_timestamp; author_output must always contain status and positions.
-  implication: Any successful intake missing one mandatory field, emitting null for one mandatory field, or naming a conflicting SourceMetadata shape violates the handoff contract; optional fields may appear as muhaqiq_output, death_date_hijri, level, edition_info, publisher, text_fidelity, and hint_comparison_results.
+  implication: Any successful intake missing one mandatory field, emitting null for one mandatory field, or naming a conflicting SourceMetadata shape violates the handoff contract; optional fields may appear as muhaqiq_output, death_date_hijri, level, edition_info, publisher, text_fidelity, hint_comparison_results, source_format in {shamela_html, pdf_scanned, pdf_text_embedded, plain_text}, ocr_confidence in [0.0, 1.0], scan_quality in {high, medium, low}, text_extraction_method in {html_parsing, ocr_tesseract, ocr_specialist, direct_text_extraction, ocr_no_diacritics}, page_layout in {single_column, dual_column, marginal_notes, mixed}, page_count_physical, and diacritic_fidelity in [0.0, 1.0].
   violation_severity: critical
 acceptance_criteria:
   - id: AC-1
     given: Any successfully intaken source
     when: intake completes
     then: The emitted SourceMetadata record contains all mandatory fields with non-null values, author_output.status is non-null, and author_output.positions is present.
+    test_type: integration
+  - id: AC-2
+    given: tests/fixtures/waraqat_usul/waraqat.pdf
+    when: PDF intake completes
+    then: The emitted SourceMetadata record may include source_format, text_extraction_method, page_layout, and page_count_physical without violating the output contract.
     test_type: integration

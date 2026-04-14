@@ -1,0 +1,26 @@
+id: INV-SRC-0008
+type: invariant
+status: proposed
+title: OCR output is never silently trusted
+topic: trust
+priority: critical
+confidence: high
+provenance: domain_inference
+source: Added from the 2026-04-14 PDF format directive
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - REQ-SRC-0022
+impacts:
+  - ocr_quality
+  - downstream_confidence_propagation
+rule:
+  statement: OCR-extracted text must always carry its source_metadata.ocr_confidence score, and downstream text_fidelity for OCR-derived sources must be bounded by that score.
+  implication: Every OCR-derived content unit forwarded to normalization propagates ocr_confidence, and no OCR-derived text may be treated as equivalent to a digitally-authored text source without checking that propagated confidence.
+  violation_severity: critical
+acceptance_criteria:
+  - id: AC-1
+    given: Any OCR-processed source
+    when: SourceMetadata is finalized
+    then: source_metadata.ocr_confidence is non-null and text_fidelity is less than or equal to source_metadata.ocr_confidence.
+    test_type: integration

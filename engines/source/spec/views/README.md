@@ -3,7 +3,7 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 61 |
+| Total atoms | 66 |
 
 ## By Type
 | Type | Count |
@@ -11,9 +11,9 @@
 | constraint | 4 |
 | decision | 10 |
 | feedback | 16 |
-| invariant | 7 |
+| invariant | 8 |
 | question | 6 |
-| requirement | 18 |
+| requirement | 22 |
 
 ## By Status
 | Status | Count |
@@ -21,22 +21,22 @@
 | confirmed | 19 |
 | deferred | 1 |
 | draft | 6 |
-| proposed | 35 |
+| proposed | 40 |
 
 ## By Topic
 | Topic | Count |
 | --- | --- |
-| acquisition | 9 |
+| acquisition | 10 |
 | agent_ergonomics | 7 |
 | consensus | 6 |
 | handoff | 4 |
-| metadata | 27 |
-| trust | 8 |
+| metadata | 29 |
+| trust | 10 |
 
 ## Atom Index
 | ID | Type | Title | Status | Priority | Topic | File |
 | --- | --- | --- | --- | --- | --- | --- |
-| CON-SRC-0001 | constraint | Shamela HTML is the only production format | confirmed | high | acquisition | constraints/CON-SRC-0001.yaml |
+| CON-SRC-0001 | constraint | Shamela HTML and PDF are production formats | confirmed | high | acquisition | constraints/CON-SRC-0001.yaml |
 | CON-SRC-0002 | constraint | Hadith literature dominates source-engine benchmark quality | confirmed | high | metadata | constraints/CON-SRC-0002.yaml |
 | CON-SRC-0003 | constraint | No existing pipeline contract is binding on the rebuild | confirmed | critical | handoff | constraints/CON-SRC-0003.yaml |
 | CON-SRC-0004 | constraint | Complete SourceMetadata output schema | proposed | critical | handoff | constraints/CON-SRC-0004.yaml |
@@ -57,6 +57,7 @@
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high | trust | invariants/INV-SRC-0005.yaml |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high | metadata | invariants/INV-SRC-0006.yaml |
 | INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical | metadata | invariants/INV-SRC-0007.yaml |
+| INV-SRC-0008 | invariant | OCR output is never silently trusted | proposed | critical | trust | invariants/INV-SRC-0008.yaml |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high | acquisition | owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical | acquisition | owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical | trust | owner-feedback/OF-SRC-0003.yaml |
@@ -97,3 +98,7 @@
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high | metadata | requirements/REQ-SRC-0016.yaml |
 | REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical | acquisition | requirements/REQ-SRC-0017.yaml |
 | REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium | acquisition | requirements/REQ-SRC-0020.yaml |
+| REQ-SRC-0021 | requirement | PDF format detection and routing | proposed | critical | acquisition | requirements/REQ-SRC-0021.yaml |
+| REQ-SRC-0022 | requirement | Arabic OCR quality assessment | proposed | critical | trust | requirements/REQ-SRC-0022.yaml |
+| REQ-SRC-0023 | requirement | Diacritics preservation from OCR | proposed | critical | metadata | requirements/REQ-SRC-0023.yaml |
+| REQ-SRC-0024 | requirement | PDF page layout detection | proposed | high | metadata | requirements/REQ-SRC-0024.yaml |

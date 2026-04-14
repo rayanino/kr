@@ -2,7 +2,7 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| CON-SRC-0001 | constraint | Shamela HTML is the only production format | confirmed | high |
+| CON-SRC-0001 | constraint | Shamela HTML and PDF are production formats | confirmed | high |
 | CON-SRC-0002 | constraint | Hadith literature dominates source-engine benchmark quality | confirmed | high |
 | CON-SRC-0003 | constraint | No existing pipeline contract is binding on the rebuild | confirmed | critical |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high |
@@ -22,13 +22,13 @@
 | OF-SRC-0015 | feedback | Build source-engine teams inside the source-engine scope first | confirmed | medium |
 | OF-SRC-0016 | feedback | Research must use specialized source channels | confirmed | high |
 
-### CON-SRC-0001 — Shamela HTML is the only production format
+### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
 - Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0001
-- Rule: The production collection is the existing Shamela HTML library, and no other format is in production scope for source intake.
+- Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10 and 2026-04-14 PDF format directive
+- Rule: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint

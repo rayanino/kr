@@ -6,7 +6,7 @@ topic: metadata
 priority: medium
 confidence: high
 provenance: coworker_review
-source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml
+source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -27,6 +27,6 @@ options:
     rejection_reason: This throws away useful early routing signals that source already has in titles and metadata cards.
   - id: OPT-C
     label: Source hints, normalization confirms
-    description: Source emits multi-layer hints from title keywords such as شرح, حاشية, تعليق, and تقريرات, while normalization confirms the final layer structure from the text.
+    description: Source emits multi-layer hints from title keywords such as شرح, حاشية, تعليق, and تقريرات plus format-specific evidence, while normalization confirms the final layer structure from the text; Shamela relies on title and metadata-card cues, and PDF relies on font-size shifts, indentation patterns, and visual separation.
     status: chosen
-    chosen_reason: This gives source enough responsibility to route early without pretending title evidence is authoritative on its own.
+    chosen_reason: This gives source enough responsibility to route early across both Shamela and PDF without pretending format-specific hint evidence is authoritative on its own.

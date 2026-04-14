@@ -1,12 +1,12 @@
 id: CON-SRC-0001
 type: constraint
 status: confirmed
-title: Shamela HTML is the only production format
+title: Shamela HTML and PDF are production formats
 topic: acquisition
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0001
+source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10 and 2026-04-14 PDF format directive
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -15,16 +15,26 @@ impacts:
   - format_detection
   - intake_scope
 rule:
-  statement: The production collection is the existing Shamela HTML library, and no other format is in production scope for source intake.
-  implication: Non-Shamela fixtures may be used only for stress testing and must not silently expand production format scope.
+  statement: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
+  implication: Build-time format routing must accept source_format values shamela_html, pdf_scanned, and pdf_text_embedded as production inputs, and may accept plain_text only for minimal-metadata testing without narrowing PDF or Shamela support.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
     given: tests/fixtures/shamela_real/03_fiqh/book.htm
     when: intake format detection executes
-    then: source_format="shamela_html".
+    then: source_format="shamela_html" and production_scope=true.
     test_type: integration
   - id: AC-2
+    given: tests/fixtures/waraqat_usul/waraqat.pdf
+    when: intake format detection executes
+    then: source_format="pdf_text_embedded" and production_scope=true.
+    test_type: integration
+  - id: AC-3
+    given: tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf
+    when: intake format detection executes
+    then: source_format="pdf_scanned" and production_scope=true.
+    test_type: integration
+  - id: AC-4
     given: tests/fixtures/alfiyyah_versified/alfiyyah.txt
     when: non-production source testing executes
     then: source_format="plain_text" and production_scope=false.

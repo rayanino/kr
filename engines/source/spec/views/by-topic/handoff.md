@@ -20,7 +20,7 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-002
+- Source: Added from adversary-review.yaml ADV-002; amended per 2026-04-14 PDF format directive
 - Rule: Every successful intake emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, volume_count, and intake_timestamp; author_output must always contain status and positions.
 
 ### OF-SRC-0014 — Legacy contracts do not cap the rebuild

@@ -1,0 +1,41 @@
+id: REQ-SRC-0023
+type: requirement
+status: proposed
+title: Diacritics preservation from OCR
+topic: metadata
+priority: critical
+confidence: medium
+provenance: domain_inference
+source: Added from the 2026-04-14 PDF format directive and .claude/rules/arabic-scholarly-conventions.md
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - REQ-SRC-0022
+  - CON-SRC-0004
+impacts:
+  - ocr_text_integrity
+  - quranic_text_preservation
+behavior:
+  trigger: OCR produces Arabic text from a scanned source.
+  preconditions:
+    - OCR output is emitted as UTF-8 Arabic text.
+    - The OCR engine declares whether Arabic diacritics are supported.
+  postconditions:
+    - OCR output preserves diacritical code points in the ranges U+064B-U+0653, U+0656-U+065F, and U+0670 whenever they are detected in the source scan.
+    - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to OCR output.
+    - source_metadata.diacritic_fidelity is recorded as preserved_diacritic_count divided by expected_diacritic_count when expected_diacritic_count > 0, else 1.0.
+  error_conditions:
+    - condition: The OCR engine does not support Arabic diacritics.
+      action: Record source_metadata.text_extraction_method=ocr_no_diacritics and source_metadata.diacritic_fidelity=0.0.
+      severity: warning
+acceptance_criteria:
+  - id: AC-1
+    given: A scanned OCR test page containing the text "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+    when: OCR extracts Arabic text
+    then: The OCR output preserves the detected diacritics and applies no Unicode normalization.
+    test_type: deterministic
+  - id: AC-2
+    given: OCR output compared against a scanned source page with known diacritics
+    when: diacritic assessment runs
+    then: source_metadata.diacritic_fidelity equals preserved_diacritic_count divided by expected_diacritic_count.
+    test_type: deterministic
