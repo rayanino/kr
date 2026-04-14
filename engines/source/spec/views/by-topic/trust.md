@@ -5,13 +5,13 @@
 | DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | proposed | critical |
 | DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | proposed | high |
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high |
-| INV-SRC-0008 | invariant | OCR output is never silently trusted | proposed | critical |
+| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | proposed | critical |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical |
 | OF-SRC-0009 | feedback | Replace numeric trust scoring with agent teams | confirmed | critical |
 | OF-SRC-0010 | feedback | Muhaqiq standing is informational only | confirmed | high |
 | REQ-SRC-0003 | requirement | Minimal owner review load | proposed | critical |
 | REQ-SRC-0008 | requirement | Agent-team trust evaluation | proposed | critical |
-| REQ-SRC-0022 | requirement | Arabic OCR quality assessment | proposed | critical |
+| REQ-SRC-0022 | requirement | PDF normalization route defaults to OCR-primary | proposed | critical |
 
 ### DEC-SRC-0004 — Replace trust algorithm with agent teams
 - Type: decision
@@ -39,13 +39,13 @@
 - Source: Derived from OF-SRC-0010
 - Rule: Muhaqiq standing may annotate parsing confidence, but it may never reject a source or block trust_decision finalization.
 
-### INV-SRC-0008 — OCR output is never silently trusted
+### INV-SRC-0008 — PDF-derived text is never silently trusted at source handoff
 - Type: invariant
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Added from the 2026-04-14 PDF format directive
-- Rule: OCR-extracted text must always carry its source_metadata.ocr_confidence score, and downstream text_fidelity for OCR-derived sources must be bounded by that score.
+- Source: Added from reference/pdf_fixture_observations_2026-04-14.md and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
+- Rule: No PDF-derived text may be treated as normalized source text by the source engine; every PDF handoff must carry source_metadata.pdf_text_layer_status and source_metadata.normalization_route=pdf_ocr_primary.
 
 ### OF-SRC-0003 — Minimize owner review load
 - Type: feedback
@@ -107,19 +107,19 @@
   - AC-3 [deterministic] Given A trust evaluation run with only one verification agent available; When trust evaluation executes; Then Finalization aborts with error_code=SRC-E-TRUST-AGENT-COUNT..
   - AC-4 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with genre="risalah" or author_death_hijri=null; When trust evaluation executes; Then trust_decision.trust_path="full_deliberation"..
 
-### REQ-SRC-0022 — Arabic OCR quality assessment
+### REQ-SRC-0022 — PDF normalization route defaults to OCR-primary
 - Type: requirement
 - Status: proposed
 - Priority: critical
-- Confidence: medium
-- Source: Added from the 2026-04-14 PDF format directive and OCR-quality constraints in the task context
-- Trigger: A pdf_scanned source has been OCR-processed.
+- Confidence: high
+- Source: Added from reference/pdf_fixture_observations_2026-04-14.md and owner cross-validation on 2026-04-14 that normalization, not source, owns PDF-to-text conversion
+- Trigger: A successful PDF SourceMetadata record is emitted.
 - Postconditions:
-  - source_metadata.ocr_confidence is set to a 0.0-1.0 aggregate across counted pages.
-  - source_metadata.scan_quality is set to high, medium, or low.
-  - ocr_assessment.page_scores preserves one ocr_confidence value per physical page for downstream use.
-  - ocr_assessment.low_fidelity_pages lists pages whose page-level ocr_confidence is below 0.5.
+  - source_metadata.normalization_route is set to pdf_ocr_primary.
+  - The source-engine handoff for a PDF contains source_metadata.page_count_physical and source_metadata.pdf_text_layer_status.
+  - The source engine emits no normalized_text field for a PDF handoff.
+  - source_metadata.pdf_text_layer_status=clean is preserved only as auxiliary evidence for normalization review and does not skip OCR-primary routing.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A 300+ DPI Arabic scholarly scan with clear print on every counted page; When OCR quality assessment runs; Then source_metadata.ocr_confidence > 0.8 and source_metadata.scan_quality="high"..
-  - AC-2 [deterministic] Given A blurry low-resolution Arabic scholarly scan with median_page_dpi below 200; When OCR quality assessment runs; Then source_metadata.ocr_confidence < 0.5 and source_metadata.scan_quality="low"..
-  - AC-3 [deterministic] Given A decorative title page with no Arabic text in a pdf_scanned source; When OCR quality assessment runs; Then The page is flagged with warning_code=SRC-W-OCR-LOW-ARABIC and excluded from the counted-page aggregate..
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="absent", source_metadata.page_count_physical=398, and the handoff contains no normalized_text field..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="corrupt", source_metadata.page_count_physical=13, and the handoff contains no normalized_text field..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing clean embedded text; When the SourceMetadata handoff is finalized; Then source_metadata.normalization_route="pdf_ocr_primary", source_metadata.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..

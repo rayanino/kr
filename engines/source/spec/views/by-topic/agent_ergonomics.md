@@ -6,7 +6,7 @@
 | DEC-SRC-0009 | decision | Research strategy uses specialized sources | proposed | high |
 | OF-SRC-0016 | feedback | Research must use specialized source channels | confirmed | high |
 | OQ-SRC-0003 | question | Agent-team architecture design | draft | critical |
-| OQ-SRC-0005 | question | Agent monitoring scope | draft | medium |
+| OQ-SRC-0005 | question | Agent monitoring scope | deferred | medium |
 | OQ-SRC-0007 | question | Specialized research source inventory | draft | medium |
 | REQ-SRC-0013 | requirement | Specialized research agents | proposed | high |
 
@@ -50,7 +50,7 @@
 
 ### OQ-SRC-0005 — Agent monitoring scope
 - Type: question
-- Status: draft
+- Status: deferred
 - Priority: medium
 - Confidence: medium
 - Source: Derived from OF-SRC-0009; narrowed per contract-architect-review.yaml

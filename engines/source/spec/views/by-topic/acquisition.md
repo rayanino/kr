@@ -11,14 +11,14 @@
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
 | REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical |
 | REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium |
-| REQ-SRC-0021 | requirement | PDF format detection and routing | proposed | critical |
+| REQ-SRC-0021 | requirement | PDF text-layer classification and OCR-primary routing | proposed | critical |
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
 - Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10 and 2026-04-14 PDF format directive
+- Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 - Rule: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
@@ -61,13 +61,13 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, and 2026-04-14 PDF format directive
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, reference/pdf_fixture_observations_2026-04-14.md, and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
 - Trigger: Owner submits a single filesystem path for source intake.
 - Postconditions:
-  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, and source_metadata.source_format.
-  - .htm or .html file input sets source_metadata.source_format=shamela_html.
-  - .pdf file input sets source_metadata.source_format=pdf_scanned when extracted_text_area_ratio < 0.10 and sets source_metadata.source_format=pdf_text_embedded when extracted_text_area_ratio >= 0.10.
-  - .txt file input sets source_metadata.source_format=plain_text.
+  - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, source_metadata.source_format, and source_metadata.normalization_route.
+  - .htm or .html file input sets source_metadata.source_format=shamela_html and source_metadata.normalization_route=html_parse_primary.
+  - .pdf file input sets source_metadata.source_format=pdf and routes to REQ-SRC-0021 for pdf_text_layer_status classification while keeping source_metadata.normalization_route=pdf_ocr_primary.
+  - .txt file input sets source_metadata.source_format=plain_text and source_metadata.normalization_route=plain_text_parse.
   - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
   - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
 - Acceptance criteria:
@@ -76,7 +76,7 @@
   - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then The request routes to REQ-SRC-0017 and does not emit error_code=SRC-E-DIRECTORY-INPUT..
   - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
   - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
-  - AC-6 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When source engine intake executes; Then The request routes to REQ-SRC-0021 and source_metadata.source_format="pdf_text_embedded"..
+  - AC-6 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When source engine intake executes; Then The request routes to REQ-SRC-0021 and emits source_metadata.source_format="pdf", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.pdf_text_layer_status="corrupt"..
   - AC-7 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When source engine intake executes; Then The request routes to REQ-SRC-0020 and source_metadata.source_format="plain_text"..
 
 ### REQ-SRC-0002 — Optional owner hints as cross-validation
@@ -131,20 +131,22 @@
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt; When intake executes; Then source_metadata.title_arabic="متن الفية ابن مالك فى علم النحو والصرف"..
 
-### REQ-SRC-0021 — PDF format detection and routing
+### REQ-SRC-0021 — PDF text-layer classification and OCR-primary routing
 - Type: requirement
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10 and the 2026-04-14 PDF format directive
+- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that PDFs should normalize through OCR even when a text layer exists
 - Trigger: A .pdf file is submitted for intake.
 - Postconditions:
-  - source_metadata.source_format is set to pdf_scanned when extracted_text_area_ratio < 0.10.
-  - source_metadata.source_format is set to pdf_text_embedded when extracted_text_area_ratio >= 0.10.
-  - source_metadata.text_extraction_method is set to direct_text_extraction when source_metadata.source_format=pdf_text_embedded.
-  - OCR routing is triggered when source_metadata.source_format=pdf_scanned.
+  - source_metadata.source_format is set to pdf.
   - source_metadata.page_count_physical is set from the PDF page count.
+  - source_metadata.normalization_route is set to pdf_ocr_primary for every PDF.
+  - source_metadata.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
+  - source_metadata.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
+  - source_metadata.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf_scanned" and source_metadata.page_count_physical=398..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf_text_embedded", source_metadata.text_extraction_method="direct_text_extraction", and source_metadata.page_count_physical=13..
-  - AC-3 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When PDF format detection runs; Then Intake aborts with error_code=SRC-E-PDF-CORRUPT..
+  - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="absent", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=398..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="corrupt", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=13..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When PDF format detection runs; Then source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="clean", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=1..
+  - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When PDF format detection runs; Then Intake aborts with error_code=SRC-E-PDF-CORRUPT..

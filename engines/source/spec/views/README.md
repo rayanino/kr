@@ -3,13 +3,13 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 66 |
+| Total atoms | 68 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
 | constraint | 4 |
-| decision | 10 |
+| decision | 12 |
 | feedback | 16 |
 | invariant | 8 |
 | question | 6 |
@@ -19,18 +19,19 @@
 | Status | Count |
 | --- | --- |
 | confirmed | 19 |
-| deferred | 1 |
-| draft | 6 |
-| proposed | 40 |
+| deferred | 3 |
+| draft | 2 |
+| proposed | 42 |
+| superseded | 2 |
 
 ## By Topic
 | Topic | Count |
 | --- | --- |
 | acquisition | 10 |
 | agent_ergonomics | 7 |
-| consensus | 6 |
+| consensus | 7 |
 | handoff | 4 |
-| metadata | 29 |
+| metadata | 30 |
 | trust | 10 |
 
 ## Atom Index
@@ -50,6 +51,8 @@
 | DEC-SRC-0008 | decision | Agent infrastructure is built within source-engine scope first | proposed | medium | agent_ergonomics | decisions/DEC-SRC-0008.yaml |
 | DEC-SRC-0009 | decision | Research strategy uses specialized sources | proposed | high | agent_ergonomics | decisions/DEC-SRC-0009.yaml |
 | DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | proposed | medium | metadata | decisions/DEC-SRC-0010.yaml |
+| DEC-SRC-0011 | decision | Agent self-resolution replaces human_gate | proposed | high | consensus | decisions/DEC-SRC-0011.yaml |
+| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high | metadata | decisions/DEC-SRC-0012.yaml |
 | INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical | acquisition | invariants/INV-SRC-0001.yaml |
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical | metadata | invariants/INV-SRC-0002.yaml |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical | metadata | invariants/INV-SRC-0003.yaml |
@@ -57,7 +60,7 @@
 | INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high | trust | invariants/INV-SRC-0005.yaml |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high | metadata | invariants/INV-SRC-0006.yaml |
 | INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical | metadata | invariants/INV-SRC-0007.yaml |
-| INV-SRC-0008 | invariant | OCR output is never silently trusted | proposed | critical | trust | invariants/INV-SRC-0008.yaml |
+| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | proposed | critical | trust | invariants/INV-SRC-0008.yaml |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high | acquisition | owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical | acquisition | owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical | trust | owner-feedback/OF-SRC-0003.yaml |
@@ -74,11 +77,11 @@
 | OF-SRC-0014 | feedback | Legacy contracts do not cap the rebuild | confirmed | critical | handoff | owner-feedback/OF-SRC-0014.yaml |
 | OF-SRC-0015 | feedback | Build source-engine teams inside the source-engine scope first | confirmed | medium | handoff | owner-feedback/OF-SRC-0015.yaml |
 | OF-SRC-0016 | feedback | Research must use specialized source channels | confirmed | high | agent_ergonomics | owner-feedback/OF-SRC-0016.yaml |
-| OQ-SRC-0001 | question | Level detection ownership | draft | medium | metadata | questions/OQ-SRC-0001.yaml |
+| OQ-SRC-0001 | question | Level detection ownership | deferred | medium | metadata | questions/OQ-SRC-0001.yaml |
 | OQ-SRC-0003 | question | Agent-team architecture design | draft | critical | agent_ergonomics | questions/OQ-SRC-0003.yaml |
-| OQ-SRC-0004 | question | Formal replacement for human_gate | draft | high | consensus | questions/OQ-SRC-0004.yaml |
-| OQ-SRC-0005 | question | Agent monitoring scope | draft | medium | agent_ergonomics | questions/OQ-SRC-0005.yaml |
-| OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | draft | high | metadata | questions/OQ-SRC-0006.yaml |
+| OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high | consensus | questions/OQ-SRC-0004.yaml |
+| OQ-SRC-0005 | question | Agent monitoring scope | deferred | medium | agent_ergonomics | questions/OQ-SRC-0005.yaml |
+| OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high | metadata | questions/OQ-SRC-0006.yaml |
 | OQ-SRC-0007 | question | Specialized research source inventory | draft | medium | agent_ergonomics | questions/OQ-SRC-0007.yaml |
 | REQ-SRC-0001 | requirement | Autonomous source acquisition | proposed | critical | acquisition | requirements/REQ-SRC-0001.yaml |
 | REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high | acquisition | requirements/REQ-SRC-0002.yaml |
@@ -98,7 +101,7 @@
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high | metadata | requirements/REQ-SRC-0016.yaml |
 | REQ-SRC-0017 | requirement | Multi-volume directory intake | proposed | critical | acquisition | requirements/REQ-SRC-0017.yaml |
 | REQ-SRC-0020 | requirement | Plain text source intake | proposed | medium | acquisition | requirements/REQ-SRC-0020.yaml |
-| REQ-SRC-0021 | requirement | PDF format detection and routing | proposed | critical | acquisition | requirements/REQ-SRC-0021.yaml |
-| REQ-SRC-0022 | requirement | Arabic OCR quality assessment | proposed | critical | trust | requirements/REQ-SRC-0022.yaml |
-| REQ-SRC-0023 | requirement | Diacritics preservation from OCR | proposed | critical | metadata | requirements/REQ-SRC-0023.yaml |
-| REQ-SRC-0024 | requirement | PDF page layout detection | proposed | high | metadata | requirements/REQ-SRC-0024.yaml |
+| REQ-SRC-0021 | requirement | PDF text-layer classification and OCR-primary routing | proposed | critical | acquisition | requirements/REQ-SRC-0021.yaml |
+| REQ-SRC-0022 | requirement | PDF normalization route defaults to OCR-primary | proposed | critical | trust | requirements/REQ-SRC-0022.yaml |
+| REQ-SRC-0023 | requirement | PDF text-layer evidence is diagnostic only | proposed | critical | metadata | requirements/REQ-SRC-0023.yaml |
+| REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | proposed | high | metadata | requirements/REQ-SRC-0024.yaml |

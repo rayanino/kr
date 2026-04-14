@@ -27,7 +27,7 @@
 - Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10 and 2026-04-14 PDF format directive
+- Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 - Rule: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality

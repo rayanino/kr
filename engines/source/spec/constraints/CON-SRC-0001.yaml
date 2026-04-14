@@ -6,7 +6,7 @@ topic: acquisition
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10 and 2026-04-14 PDF format directive
+source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -16,7 +16,7 @@ impacts:
   - intake_scope
 rule:
   statement: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
-  implication: Build-time format routing must accept source_format values shamela_html, pdf_scanned, and pdf_text_embedded as production inputs, and may accept plain_text only for minimal-metadata testing without narrowing PDF or Shamela support.
+  implication: Build-time format routing must accept source_format values shamela_html and pdf as production inputs, must preserve pdf_text_layer_status for PDFs, and may accept plain_text only for minimal-metadata testing without narrowing PDF or Shamela support.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
@@ -27,12 +27,12 @@ acceptance_criteria:
   - id: AC-2
     given: tests/fixtures/waraqat_usul/waraqat.pdf
     when: intake format detection executes
-    then: source_format="pdf_text_embedded" and production_scope=true.
+    then: source_format="pdf", pdf_text_layer_status="corrupt", and production_scope=true.
     test_type: integration
   - id: AC-3
     given: tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf
     when: intake format detection executes
-    then: source_format="pdf_scanned" and production_scope=true.
+    then: source_format="pdf", pdf_text_layer_status="absent", and production_scope=true.
     test_type: integration
   - id: AC-4
     given: tests/fixtures/alfiyyah_versified/alfiyyah.txt

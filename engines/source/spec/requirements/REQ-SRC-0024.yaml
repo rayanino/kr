@@ -1,12 +1,12 @@
 id: REQ-SRC-0024
 type: requirement
 status: proposed
-title: PDF page layout detection
+title: PDF page-geometry hints for normalization
 topic: metadata
 priority: high
-confidence: medium
+confidence: high
 provenance: domain_inference
-source: Added from the 2026-04-14 PDF format directive and PDF layout constraints in the task context
+source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 after confirming that source-engine PDF handling must stay metadata-first and normalization-owned for text extraction
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -19,23 +19,24 @@ behavior:
   trigger: A PDF source is being processed.
   preconditions:
     - PDF pages are available for layout analysis.
-    - Layout analysis measures text-block positions on each physical page.
+    - Intake-time layout analysis uses page geometry such as text-layer boxes, image-region boxes, or other non-normalized page-region detection.
   postconditions:
-    - source_metadata.page_layout is set to single_column, dual_column, marginal_notes, or mixed.
-    - layout_analysis.main_text_stream and layout_analysis.marginal_text_stream are identified separately when source_metadata.page_layout=marginal_notes.
-    - layout_analysis.reading_order is set to rtl_columns when source_metadata.page_layout=dual_column.
+    - source_metadata.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
+    - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when source_metadata.page_layout_hint=marginal_notes.
+    - layout_analysis.reading_order_hint is set to rtl_columns when source_metadata.page_layout_hint=dual_column.
+    - source_metadata.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
   error_conditions:
     - condition: Layout detection cannot determine page structure.
-      action: Set source_metadata.page_layout=single_column and emit warning_code=SRC-W-LAYOUT-UNKNOWN.
+      action: Leave source_metadata.page_layout_hint unset and emit warning_code=SRC-W-LAYOUT-HINT-UNKNOWN.
       severity: warning
 acceptance_criteria:
   - id: AC-1
     given: A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text
     when: layout detection runs
-    then: source_metadata.page_layout="marginal_notes".
+    then: source_metadata.page_layout_hint="marginal_notes".
     test_type: deterministic
   - id: AC-2
     given: tests/fixtures/waraqat_usul/waraqat.pdf
     when: layout detection runs
-    then: source_metadata.page_layout="single_column".
+    then: source_metadata.page_layout_hint="single_column".
     test_type: integration

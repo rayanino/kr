@@ -7,6 +7,7 @@
 | DEC-SRC-0003 | decision | Level detection strategy | deferred | medium |
 | DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | proposed | high |
 | DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | proposed | medium |
+| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
@@ -17,8 +18,8 @@
 | OF-SRC-0007 | feedback | Preserve and infer level metadata from content | confirmed | medium |
 | OF-SRC-0008 | feedback | Multi-layer detection ownership is unresolved | confirmed | medium |
 | OF-SRC-0012 | feedback | Hadith classification is the primary benchmark surface | confirmed | high |
-| OQ-SRC-0001 | question | Level detection ownership | draft | medium |
-| OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | draft | high |
+| OQ-SRC-0001 | question | Level detection ownership | deferred | medium |
+| OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
 | REQ-SRC-0004 | requirement | Multi-model consensus for author attribution | proposed | critical |
 | REQ-SRC-0005 | requirement | Optional science hint | proposed | medium |
 | REQ-SRC-0006 | requirement | Growable science registry | proposed | high |
@@ -29,8 +30,8 @@
 | REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical |
 | REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high |
 | REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
-| REQ-SRC-0023 | requirement | Diacritics preservation from OCR | proposed | critical |
-| REQ-SRC-0024 | requirement | PDF page layout detection | proposed | high |
+| REQ-SRC-0023 | requirement | PDF text-layer evidence is diagnostic only | proposed | critical |
+| REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | proposed | high |
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
@@ -74,6 +75,15 @@
 - Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
 - Chosen option: OPT-C — Source hints, normalization confirms
 - Decision rationale: This gives source enough responsibility to route early across both Shamela and PDF without pretending format-specific hint evidence is authoritative on its own.
+
+### DEC-SRC-0012 — Multi-position metadata ordered by confidence
+- Type: decision
+- Status: proposed
+- Priority: high
+- Confidence: high
+- Source: Resolves OQ-SRC-0006; builds on DEC-SRC-0007 and REQ-SRC-0012
+- Chosen option: OPT-B — Sort by confidence descending with primary marker
+- Decision rationale: Confidence ordering gives downstream engines a natural default (positions[0]) while preserving all scholarly positions. The owner's principle is truth-seeking — all positions stay, but the most-evidenced one is first.
 
 ### INV-SRC-0002 — Author attribution role separation is mandatory
 - Type: invariant
@@ -163,7 +173,7 @@
 
 ### OQ-SRC-0001 — Level detection ownership
 - Type: question
-- Status: draft
+- Status: deferred
 - Priority: medium
 - Confidence: medium
 - Source: Derived from OF-SRC-0007
@@ -174,7 +184,7 @@
 
 ### OQ-SRC-0006 — Ordering and display semantics for multi-position metadata
 - Type: question
-- Status: draft
+- Status: superseded
 - Priority: high
 - Confidence: medium
 - Source: Derived from OF-SRC-0013; narrowed per contract-architect-review.yaml
@@ -340,32 +350,34 @@
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/10_no_author/book.htm; When science classification executes; Then science_scope=["hadith", "fiqh"] and science_scope[0]="hadith"..
 
-### REQ-SRC-0023 — Diacritics preservation from OCR
+### REQ-SRC-0023 — PDF text-layer evidence is diagnostic only
 - Type: requirement
 - Status: proposed
 - Priority: critical
-- Confidence: medium
-- Source: Added from the 2026-04-14 PDF format directive and .claude/rules/arabic-scholarly-conventions.md
-- Trigger: OCR produces Arabic text from a scanned source.
+- Confidence: high
+- Source: Added from reference/pdf_fixture_observations_2026-04-14.md, .claude/skills/arabic-text/SKILL.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
+- Trigger: The source engine records sampled direct-extraction evidence from a PDF for text-layer classification.
 - Postconditions:
-  - OCR output preserves diacritical code points in the ranges U+064B-U+0653, U+0656-U+065F, and U+0670 whenever they are detected in the source scan.
-  - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to OCR output.
-  - source_metadata.diacritic_fidelity is recorded as preserved_diacritic_count divided by expected_diacritic_count when expected_diacritic_count > 0, else 1.0.
+  - Sampled direct-extraction evidence preserves the literal extracted string and its physical page number.
+  - No Unicode normalization in {NFC, NFD, NFKC, NFKD} is applied to sampled direct-extraction evidence.
+  - Sampled direct-extraction evidence is diagnostic only and is never emitted as normalized handoff text by the source engine.
+  - The presence of diacritics inside sampled direct-extraction evidence does not override source_metadata.pdf_text_layer_status="corrupt" when the text-layer assessment rejects the text as unusable.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A scanned OCR test page containing the text "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"; When OCR extracts Arabic text; Then The OCR output preserves the detected diacritics and applies no Unicode normalization..
-  - AC-2 [deterministic] Given OCR output compared against a scanned source page with known diacritics; When diacritic assessment runs; Then source_metadata.diacritic_fidelity equals preserved_diacritic_count divided by expected_diacritic_count..
+  - AC-1 [deterministic] Given tests/fixtures/waraqat_usul/waraqat.pdf; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "منت الورقات إلماـ احلرمني أيب ادلعايل اجلويين" with its physical page number and source_metadata.pdf_text_layer_status="corrupt"..
+  - AC-2 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When sampled direct-extraction evidence is recorded; Then One preserved sampled string equals "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", source_metadata.pdf_text_layer_status="clean", and the handoff contains no normalized_text field..
 
-### REQ-SRC-0024 — PDF page layout detection
+### REQ-SRC-0024 — PDF page-geometry hints for normalization
 - Type: requirement
 - Status: proposed
 - Priority: high
-- Confidence: medium
-- Source: Added from the 2026-04-14 PDF format directive and PDF layout constraints in the task context
+- Confidence: high
+- Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 after confirming that source-engine PDF handling must stay metadata-first and normalization-owned for text extraction
 - Trigger: A PDF source is being processed.
 - Postconditions:
-  - source_metadata.page_layout is set to single_column, dual_column, marginal_notes, or mixed.
-  - layout_analysis.main_text_stream and layout_analysis.marginal_text_stream are identified separately when source_metadata.page_layout=marginal_notes.
-  - layout_analysis.reading_order is set to rtl_columns when source_metadata.page_layout=dual_column.
+  - source_metadata.page_layout_hint is set to single_column, dual_column, marginal_notes, or mixed when the intake-time geometry is sufficient.
+  - layout_analysis.main_text_stream_hint and layout_analysis.marginal_text_stream_hint are identified separately when source_metadata.page_layout_hint=marginal_notes.
+  - layout_analysis.reading_order_hint is set to rtl_columns when source_metadata.page_layout_hint=dual_column.
+  - source_metadata.page_layout_hint remains optional and non-authoritative until normalization confirms page layout on extracted text.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout="marginal_notes"..
-  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout="single_column"..
+  - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then source_metadata.page_layout_hint="marginal_notes"..
+  - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then source_metadata.page_layout_hint="single_column"..

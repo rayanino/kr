@@ -3,10 +3,11 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | DEC-SRC-0006 | decision | Agents resolve disagreements autonomously | proposed | critical |
+| DEC-SRC-0011 | decision | Agent self-resolution replaces human_gate | proposed | high |
 | INV-SRC-0004 | invariant | Truth-seeking over consensus-forcing | proposed | high |
 | OF-SRC-0011 | feedback | Agents resolve disagreements without human gate | confirmed | critical |
 | OF-SRC-0013 | feedback | Disagreement may itself be the true answer | confirmed | high |
-| OQ-SRC-0004 | question | Formal replacement for human_gate | draft | high |
+| OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high |
 | REQ-SRC-0009 | requirement | Agent self-resolution of disagreements | proposed | critical |
 
 ### DEC-SRC-0006 — Agents resolve disagreements autonomously
@@ -17,6 +18,15 @@
 - Source: Derived from OF-SRC-0011
 - Chosen option: OPT-B — Agent self-resolution with failure analysis
 - Decision rationale: This matches the owner's desire for autonomous resolution plus system learning.
+
+### DEC-SRC-0011 — Agent self-resolution replaces human_gate
+- Type: decision
+- Status: proposed
+- Priority: high
+- Confidence: high
+- Source: Resolves OQ-SRC-0004; derived from OF-SRC-0011 and REQ-SRC-0009
+- Chosen option: OPT-B — REQ-SRC-0009 pipeline with multi-position fallback
+- Decision rationale: Owner said agents resolve everything. REQ-SRC-0009 already specifies the resolution flow, terminal states, failure analysis, and fallback. Adding a separate module creates unnecessary indirection.
 
 ### INV-SRC-0004 — Truth-seeking over consensus-forcing
 - Type: invariant
@@ -46,7 +56,7 @@
 
 ### OQ-SRC-0004 — Formal replacement for human_gate
 - Type: question
-- Status: draft
+- Status: superseded
 - Priority: high
 - Confidence: medium
 - Source: Derived from OF-SRC-0011

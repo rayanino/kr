@@ -6,7 +6,7 @@ topic: acquisition
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, and 2026-04-14 PDF format directive
+source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml, adversary-review.yaml ADV-001, reference/pdf_fixture_observations_2026-04-14.md, and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -27,10 +27,10 @@ behavior:
     - File input is non-empty and decodes or parses as its routed single-file intake format before freezing.
     - Directory input is routed to REQ-SRC-0017 before freeze-time hashing.
   postconditions:
-    - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, and source_metadata.source_format.
-    - .htm or .html file input sets source_metadata.source_format=shamela_html.
-    - .pdf file input sets source_metadata.source_format=pdf_scanned when extracted_text_area_ratio < 0.10 and sets source_metadata.source_format=pdf_text_embedded when extracted_text_area_ratio >= 0.10.
-    - .txt file input sets source_metadata.source_format=plain_text.
+    - File input writes source_metadata.source_id, source_metadata.source_sha256, source_metadata.frozen_blob_path, source_metadata.registry_entry_id, source_metadata.source_format, and source_metadata.normalization_route.
+    - .htm or .html file input sets source_metadata.source_format=shamela_html and source_metadata.normalization_route=html_parse_primary.
+    - .pdf file input sets source_metadata.source_format=pdf and routes to REQ-SRC-0021 for pdf_text_layer_status classification while keeping source_metadata.normalization_route=pdf_ocr_primary.
+    - .txt file input sets source_metadata.source_format=plain_text and source_metadata.normalization_route=plain_text_parse.
     - Directory input routes to REQ-SRC-0017 and never emits SRC-E-DIRECTORY-INPUT.
     - The written source_metadata.source_sha256 is linked to source_metadata.registry_entry_id for duplicate detection.
   error_conditions:
@@ -84,7 +84,7 @@ acceptance_criteria:
   - id: AC-6
     given: tests/fixtures/waraqat_usul/waraqat.pdf
     when: source engine intake executes
-    then: The request routes to REQ-SRC-0021 and source_metadata.source_format="pdf_text_embedded".
+    then: The request routes to REQ-SRC-0021 and emits source_metadata.source_format="pdf", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.pdf_text_layer_status="corrupt".
     test_type: integration
   - id: AC-7
     given: tests/fixtures/alfiyyah_versified/alfiyyah.txt

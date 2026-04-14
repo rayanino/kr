@@ -1,12 +1,12 @@
 id: REQ-SRC-0021
 type: requirement
 status: proposed
-title: PDF format detection and routing
+title: PDF text-layer classification and OCR-primary routing
 topic: acquisition
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10 and the 2026-04-14 PDF format directive
+source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that PDFs should normalize through OCR even when a text layer exists
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -14,19 +14,21 @@ depends_on:
   - CON-SRC-0004
 impacts:
   - source_metadata
-  - text_extraction_routing
+  - normalization_routing
 behavior:
   trigger: A .pdf file is submitted for intake.
   preconditions:
     - The file opens as a valid PDF without parse error.
     - The PDF has at least 1 physical page.
-    - extracted_text_area_ratio is computed as extracted_text_area divided by total_page_area across sampled pages.
+    - Direct text extraction is sampled on representative physical pages before the SourceMetadata record is finalized.
+    - The text-layer assessment checks intelligibility on sampled pages and does not rely only on extracted-text presence, extracted-text area, Arabic-character ratio, or raw diacritic count.
   postconditions:
-    - source_metadata.source_format is set to pdf_scanned when extracted_text_area_ratio < 0.10.
-    - source_metadata.source_format is set to pdf_text_embedded when extracted_text_area_ratio >= 0.10.
-    - source_metadata.text_extraction_method is set to direct_text_extraction when source_metadata.source_format=pdf_text_embedded.
-    - OCR routing is triggered when source_metadata.source_format=pdf_scanned.
+    - source_metadata.source_format is set to pdf.
     - source_metadata.page_count_physical is set from the PDF page count.
+    - source_metadata.normalization_route is set to pdf_ocr_primary for every PDF.
+    - source_metadata.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
+    - source_metadata.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
+    - source_metadata.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
   error_conditions:
     - condition: The PDF file cannot be opened or parsed.
       action: Abort intake with SRC-E-PDF-CORRUPT.
@@ -38,14 +40,19 @@ acceptance_criteria:
   - id: AC-1
     given: tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf
     when: PDF format detection runs
-    then: source_metadata.source_format="pdf_scanned" and source_metadata.page_count_physical=398.
+    then: source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="absent", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=398.
     test_type: integration
   - id: AC-2
     given: tests/fixtures/waraqat_usul/waraqat.pdf
     when: PDF format detection runs
-    then: source_metadata.source_format="pdf_text_embedded", source_metadata.text_extraction_method="direct_text_extraction", and source_metadata.page_count_physical=13.
+    then: source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="corrupt", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=13.
     test_type: integration
   - id: AC-3
+    given: A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text
+    when: PDF format detection runs
+    then: source_metadata.source_format="pdf", source_metadata.pdf_text_layer_status="clean", source_metadata.normalization_route="pdf_ocr_primary", and source_metadata.page_count_physical=1.
+    test_type: deterministic
+  - id: AC-4
     given: A corrupted or password-protected PDF at a valid temporary intake path
     when: PDF format detection runs
     then: Intake aborts with error_code=SRC-E-PDF-CORRUPT.
