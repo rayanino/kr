@@ -6,7 +6,7 @@ topic: metadata
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0012
+source: Derived from OF-SRC-0012; amended per both coworker reviews
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -16,26 +16,30 @@ impacts:
   - hadith_classification
   - benchmark_weighting
 behavior:
-  trigger: A source is identified as hadith literature or closely adjacent hadith scholarship.
+  trigger: A source is identified as hadith literature or adjacent hadith scholarship.
   preconditions:
-    - The source has enough metadata or content evidence to distinguish hadith sub-genres.
-    - A hadith-specific classification vocabulary is available.
+    - hadith_subgenre uses the controlled vocabulary musannaf, musnad, sunan, jami, juz, tabaqat_rijal, and hadith_commentary.
+    - The source has enough metadata or content evidence to distinguish among the controlled values.
   postconditions:
-    - Hadith works are classified into fine-grained sub-genres rather than a single bucket.
-    - The resulting sub-genre is preserved for downstream taxonomy and evaluation.
+    - hadith_subgenre is written for every hadith or hadith-adjacent source.
+    - Ambiguous cases preserve candidate_subgenres instead of collapsing to generic hadith_collection.
   error_conditions:
-    - condition: The source is hadith-related but the sub-genre remains ambiguous.
-      action: Record the ambiguity explicitly instead of collapsing to generic hadith_collection.
+    - condition: The source is hadith-related but no controlled subgenre can be selected.
+      action: Write candidate_subgenres and set hadith_subgenre=null.
       severity: warning
 acceptance_criteria:
   - id: AC-1
-    given: A hadith collection and a hadith commentary.
-    when: Hadith classification runs.
-    then: The two books are assigned different sub-genres.
+    given: tests/fixtures/shamela_real/04_hadith/book.htm
+    when: hadith classification executes
+    then: hadith_subgenre="juz".
     test_type: integration
   - id: AC-2
-    given: A narrator-biography work.
-    when: Hadith classification runs.
-    then: The work is classified distinctly from a hadith collection.
-    test_type: integration
-
+    given: A tabaqat/rijal work about hadith narrators
+    when: hadith classification executes
+    then: hadith_subgenre="tabaqat_rijal" and not "hadith_commentary".
+    test_type: deterministic
+  - id: AC-3
+    given: One collection organized by companion narrator names and one collection organized by fiqh chapters
+    when: hadith classification executes
+    then: The first source receives hadith_subgenre="musnad" and the second receives hadith_subgenre="sunan".
+    test_type: deterministic

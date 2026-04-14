@@ -6,7 +6,7 @@ topic: agent_ergonomics
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0016
+source: Derived from OF-SRC-0016; amended per both coworker reviews
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -22,7 +22,7 @@ options:
     status: rejected
     rejection_reason: The owner explicitly said research must be more accurate than generic web search.
   - id: OPT-B
-    label: Dedicated agents per source type
-    description: Split research across source-specific channels such as general web, scholarly databases, catalogs, and reference sites.
+    label: Canonical specialized source categories
+    description: Route verification through general_web, scholarly_database, manuscript_catalog, islamic_reference, and library_catalog categories, while leaving the concrete site inventory to OQ-SRC-0007.
     status: chosen
-    chosen_reason: This matches the owner's request for specialized research capability and better evidence quality.
+    chosen_reason: This gives REQ-SRC-0013 a stable source-type taxonomy without overcommitting the exact inventory list.

@@ -22,6 +22,5 @@ def test_validate_spec_succeeds_for_source_spec_tree() -> None:
     output = result.stdout + result.stderr
 
     assert result.returncode == 0, output
-    assert "Total atoms: 53" in output
+    assert "Total atoms: 57" in output
     assert "Validation errors: 0" in output
-

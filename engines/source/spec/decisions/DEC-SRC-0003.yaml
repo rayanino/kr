@@ -6,27 +6,27 @@ topic: metadata
 priority: medium
 confidence: medium
 provenance: owner_interview
-source: Derived from OF-SRC-0007
+source: Derived from OF-SRC-0007; amended per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0007
   - OQ-SRC-0001
+  - REQ-SRC-0007
 impacts:
   - level_metadata
   - source_normalization_boundary
+rationale: REQ-SRC-0007 now fixes only level-field preservation. Choosing who computes level remains an implementation-readiness blocker until OQ-SRC-0001 is resolved.
 options:
   - id: OPT-A
     label: Source engine from book metadata
-    description: Infer level from title cards and metadata signals inside the source engine.
+    description: Infer level from title cards and shallow metadata inside the source engine.
     status: deferred
   - id: OPT-B
     label: Downstream content analysis
-    description: Infer level from richer content analysis after the source handoff.
+    description: Infer level after richer content analysis in a later stage.
     status: deferred
   - id: OPT-C
-    label: Both with reconciliation
+    label: Dual inference with reconciliation
     description: Emit a provisional source signal and reconcile it against downstream content analysis.
     status: deferred
-rationale: Owner preference points toward content analysis, but the architectural owner of level inference remains unresolved.
-

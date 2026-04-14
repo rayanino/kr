@@ -6,23 +6,23 @@ topic: consensus
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0013
+source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0013
   - DEC-SRC-0007
+  - REQ-SRC-0012
 impacts:
   - disputed_metadata
   - evidence_preservation
 rule:
-  statement: When the real answer is that scholars disagree, the engine must record disagreement as the result.
-  implication: The engine never collapses genuine scholarly dispute into a forced single value just to achieve consensus.
+  statement: A metadata field qualifies as genuine scholarly dispute only when at least two independent agents provide evidence-backed positions for that field.
+  implication: Qualified disputes must be emitted through the REQ-SRC-0012 positions array instead of a forced single value.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
-    given: A fixture with a known disputed author.
-    when: Metadata finalization runs.
-    then: The result is a multi-position output instead of a forced single author.
+    given: A disputed authorship case with two independent agents and two non-empty evidence lists
+    when: metadata finalization executes
+    then: The output field is serialized through disputed_field.positions instead of a single scalar author value.
     test_type: integration
-

@@ -6,31 +6,43 @@ topic: trust
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0009
+source: Derived from OF-SRC-0009; amended per both coworker reviews
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0009
+  - DEC-SRC-0004
   - OQ-SRC-0003
+  - OQ-SRC-0005
 impacts:
   - trust_resolution
   - monitor_feedback
 behavior:
-  trigger: The engine needs a trust evaluation for a source or metadata claim.
+  trigger: The engine must emit a trust_decision for a source or metadata claim.
   preconditions:
-    - Research and reasoning agents are available for the claim.
-    - Supervisory review roles are defined for the trust workflow.
+    - At least two independent verification agents are available for the case.
+    - Full agent-team composition beyond the minimum verifier set remains blocked on OQ-SRC-0003.
   postconditions:
-    - Trust is determined by agent-team deliberation rather than a weighted numeric algorithm.
-    - Monitor agents emit process-improvement feedback for the run.
+    - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
+    - Every run writes monitor_feedback records even when the case follows the fast_track path.
+    - Universally recognized classical foundational texts may use trust_path=fast_track instead of full deliberation.
   error_conditions:
-    - condition: The trust workflow cannot assemble the required agent roles.
-      action: Block final trust determination and record which roles are missing.
+    - condition: Fewer than two independent verification agents are available.
+      action: Abort trust finalization with SRC-E-TRUST-AGENT-COUNT.
       severity: blocking
 acceptance_criteria:
   - id: AC-1
-    given: The 13 source fixtures require trust evaluation.
-    when: The trust workflow runs.
-    then: The agent team reaches a trust decision for every fixture.
+    given: tests/fixtures/shamela_real/13_format_b/book.htm with definitive author attribution and no conflicting evidence
+    when: trust evaluation executes
+    then: trust_decision.trust_path="fast_track" and trust_decision.decision="verified".
     test_type: integration
-
+  - id: AC-2
+    given: tests/fixtures/shamela_real/03_fiqh/book.htm
+    when: trust evaluation executes
+    then: trust_decision includes decision, trust_path, supporting_agents, and evidence_summary, and at least one monitor_feedback record is written.
+    test_type: integration
+  - id: AC-3
+    given: A trust evaluation run with only one verification agent available
+    when: trust evaluation executes
+    then: Finalization aborts with error_code=SRC-E-TRUST-AGENT-COUNT.
+    test_type: deterministic

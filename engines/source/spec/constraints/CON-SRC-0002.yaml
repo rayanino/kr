@@ -6,7 +6,7 @@ topic: metadata
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0012
+source: Derived from OF-SRC-0012; amended per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -15,13 +15,12 @@ impacts:
   - benchmark_design
   - hadith_classification
 rule:
-  statement: Because 48.7 percent of the collection is hadith literature, hadith classification accuracy is a primary benchmark domain.
-  implication: Evaluation plans must weight hadith sub-genre accuracy heavily enough to reflect collection reality.
+  statement: At least 40 percent of source-engine benchmark fixtures must be hadith literature or hadith-adjacent works.
+  implication: Any benchmark suite below the 40 percent hadith floor is invalid for evaluating source-engine metadata quality.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
-    given: A source-engine benchmark suite.
-    when: Evaluation weights are assigned.
-    then: Hadith-focused cases receive benchmark weight proportional to their dominance in the collection.
+    given: A source-engine benchmark suite containing 20 fixtures
+    when: evaluation planning executes
+    then: At least 8 fixtures are labeled as hadith literature or hadith-adjacent.
     test_type: deterministic
-

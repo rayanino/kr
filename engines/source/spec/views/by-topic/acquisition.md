@@ -16,7 +16,7 @@
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0001
-- Rule: The production collection is the existing ~2,519 Shamela HTML books, and no other format is currently in production scope.
+- Rule: The production collection is the existing Shamela HTML library, and no other format is in production scope for source intake.
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
@@ -32,8 +32,8 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002 and OF-SRC-0005
-- Rule: Agent inference must complete before any owner hint is compared against the result.
+- Source: Derived from OF-SRC-0002 and OF-SRC-0005; amended per contract-architect-review.yaml
+- Rule: Hint comparison may inspect only inferred_metadata.author_name, inferred_metadata.genre, and inferred_metadata.science_scope after base inference finishes.
 
 ### OF-SRC-0001 — Collection unchanged for source intake
 - Type: feedback
@@ -58,27 +58,33 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0002
-- Trigger: Owner provides a single file path for source intake.
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Trigger: Owner submits a single filesystem path for source intake.
 - Postconditions:
-  - SourceMetadata is created for the book.
-  - The source bytes are frozen with a SHA-256 digest.
-  - The book is registered for downstream handoff.
+  - source_metadata.source_sha256 is computed from the submitted file bytes.
+  - source_metadata.frozen_blob_path points to the immutable frozen copy of the submitted bytes.
+  - source_metadata.registry_entry_id is written and linked to source_metadata.source_sha256.
 - Acceptance criteria:
-  - AC-1 [integration] Given A valid Shamela HTML file is provided.; When The source engine runs intake.; Then SourceMetadata, freezing, and source registration complete without owner intervention..
-  - AC-2 [deterministic] Given A file that is not valid for production intake is provided.; When The source engine validates the input.; Then Intake aborts with the specific error code for the detected failure mode..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When source engine intake executes; Then source_metadata.source_sha256 is a 64-character SHA-256 hex digest, source_metadata.frozen_blob_path is non-empty, and source_metadata.registry_entry_id is non-empty..
+  - AC-2 [deterministic] Given Missing path tests/fixtures/shamela_real/does_not_exist/book.htm; When source engine intake executes; Then Intake aborts with error_code=SRC-E-PATH-NOT-FOUND..
+  - AC-3 [deterministic] Given Directory path tests/fixtures/shamela_real/11_multi_small; When source engine intake executes; Then Intake aborts with error_code=SRC-E-DIRECTORY-INPUT..
+  - AC-4 [deterministic] Given A 0-byte HTML file at a valid temporary intake path; When source engine intake executes; Then Intake aborts with error_code=SRC-E-EMPTY-FILE..
+  - AC-5 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after the same file has already been frozen once; When source engine intake executes again; Then Intake aborts with error_code=SRC-E-DUPLICATE-INGEST..
 
 ### REQ-SRC-0002 — Optional owner hints as cross-validation
 - Type: requirement
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0002
-- Trigger: The owner provides optional hints such as author or science at intake time.
+- Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml
+- Trigger: The owner submits optional intake hints together with a source path.
 - Postconditions:
-  - Every provided hint is compared against the agent output after inference.
-  - Matching hints increase recorded confidence.
-  - Mismatching hints trigger an automated investigation record.
+  - owner_hint_payload values are stored separately from inferred_metadata values.
+  - Matching author_name hints may increase author_identification_confidence without changing inferred_metadata.author_name.
+  - Matching genre hints may increase genre_confidence without changing inferred_metadata.genre.
+  - Matching science_scope hints may increase science_scope_confidence without changing inferred_metadata.science_scope.
+  - Hint contradictions write hint_investigation with fields field, hint_value, inferred_value, status, and opened_reason.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given A hint matches the inferred field.; When Cross-validation runs after inference.; Then The confidence boost is recorded without changing the inferred value..
-  - AC-2 [integration] Given A hint contradicts the inferred field.; When Cross-validation runs after inference.; Then Investigation is triggered and both the hint and inference are preserved..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.author_name="عبد الله بن إبراهيم الزاحم"; When post-inference hint comparison executes; Then inferred_metadata.author_name remains "عبد الله بن إبراهيم الزاحم" and author_identification_confidence increases..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with owner_hint_payload.genre="matn"; When post-inference hint comparison executes; Then hint_investigation.field="genre", hint_investigation.hint_value="matn", and inferred_metadata.genre remains "risalah"..
+  - AC-3 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with owner_hint_payload.publisher="دار الفكر"; When hint payload validation executes; Then The invalid hint key is rejected with error_code=SRC-E-HINT-FIELD and base inference still runs..

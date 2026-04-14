@@ -15,13 +15,12 @@ impacts:
   - legacy_boundary
   - source_rebuild_scope
 rule:
-  statement: The rebuilt source engine designs from first principles and is not capped by archived or legacy cross-engine contracts.
-  implication: Archived material may inform the rebuild, but no legacy contract can block a better source-engine design.
+  statement: Archived and legacy source-engine contracts are reference material only and cannot overrule the current atom set.
+  implication: When a legacy contract conflicts with a current atom, the current atom governs implementation and review.
   violation_severity: critical
 acceptance_criteria:
   - id: AC-1
-    given: A legacy contract conflicts with the new source-engine atom set.
-    when: Implementation planning or review occurs.
-    then: The new source-engine atom set wins and the legacy contract is treated as reference only.
+    given: A legacy contract that restricts science_scope to one value
+    when: source-engine planning or review executes
+    then: DEC-SRC-0002 and REQ-SRC-0016 remain authoritative and the legacy contract is marked reference-only.
     test_type: deterministic
-

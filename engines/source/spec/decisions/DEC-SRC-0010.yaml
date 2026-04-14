@@ -1,0 +1,32 @@
+id: DEC-SRC-0010
+type: decision
+status: proposed
+title: Source hints multi-layer routing and normalization confirms it
+topic: metadata
+priority: medium
+confidence: high
+provenance: coworker_review
+source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0008
+impacts:
+  - layer_detection
+  - source_normalization_boundary
+options:
+  - id: OPT-A
+    label: Source detects and routes
+    description: Source engine fully owns multi-layer detection from title and metadata signals alone.
+    status: rejected
+    rejection_reason: Title signals are useful early but not authoritative enough for full confirmation.
+  - id: OPT-B
+    label: Normalization detects from text
+    description: Normalization ignores source hints and owns all multi-layer detection from text structure.
+    status: rejected
+    rejection_reason: This throws away useful early routing signals that source already has in titles and metadata cards.
+  - id: OPT-C
+    label: Source hints, normalization confirms
+    description: Source emits multi-layer hints from title keywords such as شرح, حاشية, تعليق, and تقريرات, while normalization confirms the final layer structure from the text.
+    status: chosen
+    chosen_reason: This gives source enough responsibility to route early without pretending title evidence is authoritative on its own.

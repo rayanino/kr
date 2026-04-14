@@ -16,18 +16,18 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009
-- Chosen option: OPT-B — Agent-team deliberation with supervisors
-- Decision rationale: This matches the owner's desired architecture for ambiguity reduction and process supervision.
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews
+- Chosen option: OPT-B — Minimum two-verifier trust workflow
+- Decision rationale: This matches the owner's trust direction while keeping unresolved team architecture out of the runtime contract.
 
 ### DEC-SRC-0005 — Muhaqiq standing is metadata only
 - Type: decision
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0010
-- Chosen option: OPT-B — Informational metadata with graduated levels
-- Decision rationale: This preserves useful editorial context while keeping trust decisions focused on the text and evidence.
+- Source: Derived from OF-SRC-0010; amended per domain-validator-review.yaml
+- Chosen option: OPT-B — Metadata plus parsing-confidence signal
+- Decision rationale: This keeps the owner's non-rejection rule intact while preserving the structural risk signal Gemini flagged for normalization.
 
 ### INV-SRC-0005 — Muhaqiq never gates trust decisions
 - Type: invariant
@@ -35,7 +35,7 @@
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0010
-- Rule: Muhaqiq standing is informational metadata and never a trust gate for keeping or rejecting a text.
+- Rule: Muhaqiq standing may annotate parsing confidence, but it may never reject a source or block trust_decision finalization.
 
 ### OF-SRC-0003 — Minimize owner review load
 - Type: feedback
@@ -69,23 +69,29 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0003
-- Trigger: The source engine completes metadata inference for a book.
+- Source: Derived from OF-SRC-0003; amended per contract-architect-review.yaml
+- Trigger: Metadata inference reaches a case that cannot be finalized automatically.
 - Postconditions:
-  - The system auto-decides clear metadata cases aggressively.
-  - Only genuinely unresolvable cases are routed to the owner.
+  - Cases with evidence-backed automatic resolution do not create owner_review_case records.
+  - Routed cases write owner_review_case with fields route_reason, target_field, evidence_summary, and candidate_positions.
+  - Owner review is never requested for reasons outside the approved route_reason taxonomy.
 - Acceptance criteria:
-  - AC-1 [integration] Given The 13 source fixtures have clear ground truth.; When The source engine runs full metadata inference.; Then Zero owner reviews are triggered for those fixtures..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/06_usul/book.htm; When source metadata resolution completes; Then No owner_review_case is written..
+  - AC-2 [deterministic] Given A Shamela HTML source whose metadata card, title, and colophon contain no author signal; When source metadata resolution completes; Then owner_review_case.route_reason="zero_author_evidence" and owner_review_case.target_field="author_name"..
+  - AC-3 [integration] Given A source classified as mustalah_al_hadith while science_registry lacks that entry; When science classification completes; Then owner_review_case.route_reason="new_science_not_in_registry" and owner_review_case.target_field="science_scope"..
 
 ### REQ-SRC-0008 — Agent-team trust evaluation
 - Type: requirement
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009
-- Trigger: The engine needs a trust evaluation for a source or metadata claim.
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews
+- Trigger: The engine must emit a trust_decision for a source or metadata claim.
 - Postconditions:
-  - Trust is determined by agent-team deliberation rather than a weighted numeric algorithm.
-  - Monitor agents emit process-improvement feedback for the run.
+  - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
+  - Every run writes monitor_feedback records even when the case follows the fast_track path.
+  - Universally recognized classical foundational texts may use trust_path=fast_track instead of full deliberation.
 - Acceptance criteria:
-  - AC-1 [integration] Given The 13 source fixtures require trust evaluation.; When The trust workflow runs.; Then The agent team reaches a trust decision for every fixture..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/13_format_b/book.htm with definitive author attribution and no conflicting evidence; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When trust evaluation executes; Then trust_decision includes decision, trust_path, supporting_agents, and evidence_summary, and at least one monitor_feedback record is written..
+  - AC-3 [deterministic] Given A trust evaluation run with only one verification agent available; When trust evaluation executes; Then Finalization aborts with error_code=SRC-E-TRUST-AGENT-COUNT..

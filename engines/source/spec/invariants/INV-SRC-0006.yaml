@@ -1,0 +1,25 @@
+id: INV-SRC-0006
+type: invariant
+status: proposed
+title: Isnad atomic preservation
+topic: metadata
+priority: high
+confidence: high
+provenance: coworker_review
+source: Added from domain-validator-review.yaml
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - boundary_operations
+  - hadith_integrity
+rule:
+  statement: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
+  implication: Any boundary operation touching an isnad must keep the full chain in one unit and may annotate it with isnad_atomic=true.
+  violation_severity: high
+acceptance_criteria:
+  - id: AC-1
+    given: Text containing "حدثنا أحمد بن حنبل قال حدثنا..."
+    when: any text boundary operation executes
+    then: The full isnad string remains inside one unit and that unit is marked isnad_atomic=true.
+    test_type: deterministic

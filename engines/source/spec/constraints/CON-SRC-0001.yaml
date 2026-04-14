@@ -15,18 +15,17 @@ impacts:
   - format_detection
   - intake_scope
 rule:
-  statement: The production collection is the existing ~2,519 Shamela HTML books, and no other format is currently in production scope.
-  implication: Plain text may remain a worst-case test format, but production intake rules are calibrated first for Shamela HTML.
+  statement: The production collection is the existing Shamela HTML library, and no other format is in production scope for source intake.
+  implication: Non-Shamela fixtures may be used only for stress testing and must not silently expand production format scope.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
-    given: A production book from the active collection.
-    when: Intake format detection runs.
-    then: The source is recognized as Shamela HTML rather than a generic fallback format.
+    given: tests/fixtures/shamela_real/03_fiqh/book.htm
+    when: intake format detection executes
+    then: source_format="shamela_html".
     test_type: integration
   - id: AC-2
-    given: A plain-text stress-test fixture.
-    when: Non-production testing runs.
-    then: The fixture is treated as a worst-case test input rather than a production format expansion.
+    given: tests/fixtures/alfiyyah_versified/alfiyyah.txt
+    when: non-production source testing executes
+    then: source_format="plain_text" and production_scope=false.
     test_type: deterministic
-

@@ -17,5 +17,4 @@ batch: batch_2
 question: Should multi-layer detection happen in source or normalization?
 answer: The owner is unsure. He thinks source-level hints that route normalization may be better, but explicitly said he is not confident about the final boundary.
 decomposed_into:
-  - OQ-SRC-0002
-
+  - DEC-SRC-0010

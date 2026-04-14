@@ -16,13 +16,12 @@ impacts:
   - muhaqiq_metadata
   - trust_separation
 rule:
-  statement: Muhaqiq standing is informational metadata and never a trust gate for keeping or rejecting a text.
-  implication: Unknown or low-standing muhaqiqs may be annotated, but the text remains eligible for intake and evaluation.
+  statement: Muhaqiq standing may annotate parsing confidence, but it may never reject a source or block trust_decision finalization.
+  implication: Unknown or low muhaqiq standing leaves source admission intact while trust_decision still completes.
   violation_severity: high
 acceptance_criteria:
   - id: AC-1
-    given: A book with an unknown muhaqiq.
-    when: Muhaqiq assessment runs.
-    then: The book is not rejected and the standing is recorded as unknown.
+    given: A source with muhaqiq_assessment.standing_level="unknown"
+    when: trust evaluation executes
+    then: trust_decision is still emitted and source admission is not rejected.
     test_type: deterministic
-

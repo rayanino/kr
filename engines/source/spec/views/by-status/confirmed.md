@@ -28,15 +28,15 @@
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0001
-- Rule: The production collection is the existing ~2,519 Shamela HTML books, and no other format is currently in production scope.
+- Rule: The production collection is the existing Shamela HTML library, and no other format is in production scope for source intake.
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
 - Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0012
-- Rule: Because 48.7 percent of the collection is hadith literature, hadith classification accuracy is a primary benchmark domain.
+- Source: Derived from OF-SRC-0012; amended per contract-architect-review.yaml
+- Rule: At least 40 percent of source-engine benchmark fixtures must be hadith literature or hadith-adjacent works.
 
 ### CON-SRC-0003 — No existing pipeline contract is binding on the rebuild
 - Type: constraint
@@ -44,7 +44,7 @@
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0014
-- Rule: The rebuilt source engine designs from first principles and is not capped by archived or legacy cross-engine contracts.
+- Rule: Archived and legacy source-engine contracts are reference material only and cannot overrule the current atom set.
 
 ### OF-SRC-0001 — Collection unchanged for source intake
 - Type: feedback

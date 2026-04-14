@@ -1,0 +1,35 @@
+id: REQ-SRC-0016
+type: requirement
+status: proposed
+title: Multi-science assignment
+topic: metadata
+priority: high
+confidence: high
+provenance: coworker_review
+source: Added from domain-validator-review.yaml
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - DEC-SRC-0002
+  - REQ-SRC-0006
+impacts:
+  - science_scope
+  - cross_science_metadata
+behavior:
+  trigger: Science classification detects evidence for more than one science.
+  preconditions:
+    - science_scope is an ordered list, not a scalar field.
+    - The first item in science_scope is the dominant science for the source.
+  postconditions:
+    - science_scope preserves all supported sciences in dominance order.
+    - The dominant science remains science_scope[0].
+  error_conditions:
+    - condition: The implementation supports only one science value.
+      action: Block finalization with SRC-E-SINGLE-SCIENCE-CONTRACT.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: tests/fixtures/shamela_real/10_no_author/book.htm
+    when: science classification executes
+    then: science_scope=["hadith", "fiqh"] and science_scope[0]="hadith".
+    test_type: integration

@@ -6,7 +6,7 @@ topic: metadata
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0006
+source: Derived from OF-SRC-0006; amended per both coworker reviews
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -17,27 +17,32 @@ impacts:
   - science_registry
   - classification_gate
 behavior:
-  trigger: A source maps to a science that is not yet in the registry.
+  trigger: Science classification yields a science label not present in science_registry.
   preconditions:
-    - The engine has inferred a candidate science or cluster of related sciences.
-    - No current registry entry covers the inferred science.
+    - science_registry is pre-populated with nahw, sarf, balagha, fiqh, usul_al_fiqh, hadith, tafsir, aqidah, tasawwuf, sirah, tarikh, and adab.
+    - inferred_metadata.science_scope has been produced for the source.
   postconditions:
-    - The owner is asked only to confirm the registry expansion.
-    - The new science is added with a base tree if confirmed.
-    - The source remains eligible for intake regardless of the expansion decision.
+    - Existing science labels classify normally without registry expansion.
+    - New science labels write registry_expansion_request with candidate_science and status=pending_owner_confirmation.
+    - Owner confirmation adds the new science and updates registry_expansion_request.status=confirmed.
+    - Owner decline or defer keeps intake accepted and stores source_metadata.pending_science_label with registry_expansion_request.status set to declined or deferred.
   error_conditions:
-    - condition: The inferred science is missing from the registry.
-      action: Route only the registry-expansion confirmation to the owner rather than rejecting the source.
+    - condition: Registry write fails after owner confirmation.
+      action: Keep the source admitted, set registry_expansion_request.status=write_failed, and preserve source_metadata.pending_science_label.
       severity: blocking
 acceptance_criteria:
   - id: AC-1
-    given: A book maps to an existing science.
-    when: Science classification runs.
-    then: The book is classified normally without a registry-expansion prompt.
+    given: tests/fixtures/shamela_real/03_fiqh/book.htm
+    when: science classification executes
+    then: inferred_metadata.science_scope=["fiqh"] and no registry_expansion_request is written.
     test_type: integration
   - id: AC-2
-    given: A book maps to a new science.
-    when: Science classification runs.
-    then: The owner is prompted to confirm registry expansion and the science is added on confirmation.
+    given: A source whose inferred_metadata.science_scope=["mustalah_al_hadith"] while science_registry lacks that label
+    when: science classification executes
+    then: registry_expansion_request.candidate_science="mustalah_al_hadith" and registry_expansion_request.status="pending_owner_confirmation".
     test_type: integration
-
+  - id: AC-3
+    given: A pending registry_expansion_request for mustalah_al_hadith that the owner declines
+    when: registry expansion handling executes
+    then: registry_expansion_request.status="declined", source_metadata.pending_science_label="mustalah_al_hadith", and source admission remains accepted.
+    test_type: deterministic

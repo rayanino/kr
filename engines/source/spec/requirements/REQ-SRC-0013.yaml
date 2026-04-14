@@ -6,7 +6,7 @@ topic: agent_ergonomics
 priority: high
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0016
+source: Derived from OF-SRC-0016; amended per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
@@ -19,18 +19,29 @@ impacts:
 behavior:
   trigger: The engine dispatches research work for metadata verification.
   preconditions:
-    - The verification task declares which evidence channels are relevant.
-    - Specialized research agents or source adapters are available.
+    - research_task.source_type is limited to general_web, scholarly_database, manuscript_catalog, islamic_reference, and library_catalog.
+    - research_task.field declares the target metadata field before dispatch.
   postconditions:
-    - Research is routed through dedicated source channels such as general web, scholarly databases, manuscript catalogs, and Islamic reference sites.
-    - At least two distinct source types contribute to high-impact verification tasks.
+    - High-impact fields author, genre, science_scope, and death_date use at least two distinct research_task.source_type values.
+    - Every dispatch writes verification_log with field, source_types, source_count, and completed_at.
+    - Non-high-impact fields may use fewer than two source types.
   error_conditions:
-    - condition: Research dispatch falls back to a single generic search channel for a high-impact verification task.
-      action: Mark the verification incomplete and require specialized-source rerun.
+    - condition: A high-impact field is verified through only one source_type.
+      action: Mark verification_log.status=incomplete_specialized_sources and rerun with additional source types.
       severity: blocking
 acceptance_criteria:
   - id: AC-1
-    given: An author-verification task.
-    when: Research dispatch runs.
-    then: The task uses at least two different research source types.
+    given: tests/fixtures/shamela_real/08_death_date/book.htm with research_task.field="death_date"
+    when: research dispatch executes
+    then: verification_log.field="death_date" and len(verification_log.source_types) is at least 2.
     test_type: integration
+  - id: AC-2
+    given: tests/fixtures/shamela_real/04_hadith/book.htm with research_task.field="author"
+    when: research dispatch executes
+    then: verification_log.source_types is a subset of {general_web, scholarly_database, manuscript_catalog, islamic_reference, library_catalog}.
+    test_type: deterministic
+  - id: AC-3
+    given: A research task with field="author" and only source_type=general_web available
+    when: research dispatch executes
+    then: verification_log.status="incomplete_specialized_sources".
+    test_type: deterministic

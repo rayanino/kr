@@ -6,25 +6,26 @@ topic: agent_ergonomics
 priority: medium
 confidence: medium
 provenance: owner_interview
-source: Derived from OF-SRC-0009
+source: Derived from OF-SRC-0009; narrowed per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0009
+  - DEC-SRC-0004
+  - REQ-SRC-0008
 impacts:
   - monitor_feedback
   - runtime_coverage
 candidates:
   - id: OPT-A
     label: Source-engine monitors
-    description: Keep monitoring inside the source engine only while the trust workflow is being defined.
+    description: Keep monitor agents inside the source engine only while the trust workflow is still local.
     likelihood: possible
   - id: OPT-B
     label: Pipeline-wide monitors
-    description: Design monitor agents as reusable pipeline-wide observers from the start.
+    description: Promote monitor agents into reusable pipeline observers once source-engine trust logic stabilizes.
     likelihood: likely
   - id: OPT-C
     label: Per-book monitors
-    description: Attach a monitor agent to each book-level workflow independently.
+    description: Attach a monitor agent to each individual book workflow with no shared monitoring layer.
     likelihood: unlikely
-

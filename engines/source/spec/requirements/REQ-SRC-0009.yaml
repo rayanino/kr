@@ -6,37 +6,43 @@ topic: consensus
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0011
+source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0011
   - DEC-SRC-0006
   - OQ-SRC-0004
+  - REQ-SRC-0012
 impacts:
   - disagreement_resolution
   - learning_feedback
 behavior:
   trigger: Independent agents disagree about a metadata field.
   preconditions:
-    - The disagreement is represented explicitly in the case state.
-    - The disagreeing agents can access their own evidence traces.
+    - disagreement_case records the field name, competing positions, and evidence traces.
+    - The formal disagreement-module architecture remains unresolved in OQ-SRC-0004.
   postconditions:
-    - Agents resolve the disagreement autonomously without owner intervention.
-    - The failing or losing agent emits structured failure analysis for system improvement.
+    - disagreement_case.resolution_state is set to resolved_error or genuine_scholarly_dispute.
+    - resolved_error writes one corrected value and structured failure_analysis for the losing agent.
+    - genuine_scholarly_dispute delegates the field to the REQ-SRC-0012 multi-position schema.
   error_conditions:
-    - condition: Autonomous resolution cannot determine whether the disagreement reflects real scholarly dispute or agent error.
-      action: Escalate to the formal disagreement module rather than the owner.
+    - condition: The workflow cannot determine whether the case is resolved_error or genuine_scholarly_dispute.
+      action: Block finalization and hand the case to the future formal disagreement module.
       severity: blocking
 acceptance_criteria:
   - id: AC-1
-    given: A simulated metadata disagreement.
-    when: The disagreement workflow runs.
-    then: The agents resolve the case without owner intervention.
+    given: A disagreement where one agent treats "إعداد" as author evidence and another agent corrects it to compiler evidence
+    when: disagreement resolution executes
+    then: disagreement_case.resolution_state="resolved_error" and the corrected metadata field is stored as a single resolved value.
     test_type: integration
   - id: AC-2
-    given: An agent loses or retracts its position in disagreement review.
-    when: Resolution completes.
-    then: That agent produces structured failure analysis linked to the case.
+    given: A disputed authorship case with two evidence-backed positions from independent agents
+    when: disagreement resolution executes
+    then: disagreement_case.resolution_state="genuine_scholarly_dispute" and the output field uses the REQ-SRC-0012 positions array.
+    test_type: integration
+  - id: AC-3
+    given: A resolved_error case with one losing agent
+    when: disagreement resolution finalizes
+    then: failure_analysis.agent_id is recorded and linked to disagreement_case.case_id.
     test_type: deterministic
-

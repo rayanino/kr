@@ -16,13 +16,12 @@ impacts:
   - science_registry
   - intake_admission
 rule:
-  statement: No book is rejected solely because its science is absent from the current registry.
-  implication: Unknown sciences trigger registry-expansion handling rather than source rejection.
+  statement: No source is rejected solely because its science label is absent from science_registry.
+  implication: Unknown sciences trigger registry_expansion_request handling while source admission remains accepted.
   violation_severity: critical
 acceptance_criteria:
   - id: AC-1
-    given: A book maps to a science not currently in the registry.
-    when: Science classification runs.
-    then: The owner is prompted for expansion and the book is not rejected.
+    given: A source classified as mustalah_al_hadith while science_registry lacks that label
+    when: science classification executes
+    then: source admission remains accepted and registry_expansion_request.status="pending_owner_confirmation".
     test_type: integration
-

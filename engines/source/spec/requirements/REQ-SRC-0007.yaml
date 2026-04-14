@@ -1,41 +1,40 @@
 id: REQ-SRC-0007
 type: requirement
-status: deferred
-title: Level detection from content
+status: proposed
+title: Level field preservation across handoff
 topic: metadata
 priority: medium
 confidence: medium
 provenance: owner_interview
-source: Derived from OF-SRC-0007
+source: Derived from OF-SRC-0007; narrowed per contract-architect-review.yaml
 created: "2026-04-14"
 updated: "2026-04-14"
 depends_on:
   - OF-SRC-0007
-  - OQ-SRC-0001
 impacts:
   - level_metadata
-  - taxonomy_preparation
+  - source_normalization_boundary
 behavior:
-  trigger: The source engine needs to preserve or infer a difficulty level for a book.
+  trigger: The source engine serializes source metadata for downstream handoff.
   preconditions:
-    - The source metadata contract includes a level field.
-    - Content analysis outputs or an equivalent downstream signal are available for the final design.
+    - The handoff schema defines a nullable level field.
+    - Any populated level value has already been written before serialization.
   postconditions:
-    - The level field is preserved in the source contract.
-    - The final detection owner is decided through OQ-SRC-0001 rather than silently guessed in code.
+    - The handoff payload always includes the level key.
+    - A populated level value is passed through unchanged.
+    - An unknown level is serialized as null rather than omitted.
   error_conditions:
-    - condition: The level-detection owner is unresolved at implementation time.
-      action: Preserve the field and record the unresolved design dependency instead of fabricating a detector.
-      severity: warning
+    - condition: The handoff payload omits the level key.
+      action: Reject serialization with SRC-E-LEVEL-FIELD-MISSING.
+      severity: blocking
 acceptance_criteria:
   - id: AC-1
-    given: A level value is supplied by a later analysis stage.
-    when: Source metadata is handed forward.
-    then: The level field survives handoff unchanged.
+    given: tests/fixtures/shamela_real/06_usul/book.htm with source_metadata.level="intermediate"
+    when: source-to-normalization handoff serialization executes
+    then: The serialized payload contains level="intermediate".
     test_type: deterministic
   - id: AC-2
-    given: The architecture still has not resolved who computes level.
-    when: The spec is reviewed for implementation readiness.
-    then: The blocker is recorded against OQ-SRC-0001 instead of being silently implemented.
+    given: tests/fixtures/shamela_real/12_multi_muq/001.htm with source_metadata.level=null
+    when: source-to-normalization handoff serialization executes
+    then: The serialized payload contains the key level with value null.
     test_type: deterministic
-

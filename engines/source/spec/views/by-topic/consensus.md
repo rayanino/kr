@@ -23,8 +23,8 @@
 - Status: proposed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0013
-- Rule: When the real answer is that scholars disagree, the engine must record disagreement as the result.
+- Source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
+- Rule: A metadata field qualifies as genuine scholarly dispute only when at least two independent agents provide evidence-backed positions for that field.
 
 ### OF-SRC-0011 — Agents resolve disagreements without human gate
 - Type: feedback
@@ -60,11 +60,13 @@
 - Status: proposed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0011
+- Source: Derived from OF-SRC-0011; amended per contract-architect-review.yaml
 - Trigger: Independent agents disagree about a metadata field.
 - Postconditions:
-  - Agents resolve the disagreement autonomously without owner intervention.
-  - The failing or losing agent emits structured failure analysis for system improvement.
+  - disagreement_case.resolution_state is set to resolved_error or genuine_scholarly_dispute.
+  - resolved_error writes one corrected value and structured failure_analysis for the losing agent.
+  - genuine_scholarly_dispute delegates the field to the REQ-SRC-0012 multi-position schema.
 - Acceptance criteria:
-  - AC-1 [integration] Given A simulated metadata disagreement.; When The disagreement workflow runs.; Then The agents resolve the case without owner intervention..
-  - AC-2 [deterministic] Given An agent loses or retracts its position in disagreement review.; When Resolution completes.; Then That agent produces structured failure analysis linked to the case..
+  - AC-1 [integration] Given A disagreement where one agent treats "إعداد" as author evidence and another agent corrects it to compiler evidence; When disagreement resolution executes; Then disagreement_case.resolution_state="resolved_error" and the corrected metadata field is stored as a single resolved value..
+  - AC-2 [integration] Given A disputed authorship case with two evidence-backed positions from independent agents; When disagreement resolution executes; Then disagreement_case.resolution_state="genuine_scholarly_dispute" and the output field uses the REQ-SRC-0012 positions array..
+  - AC-3 [deterministic] Given A resolved_error case with one losing agent; When disagreement resolution finalizes; Then failure_analysis.agent_id is recorded and linked to disagreement_case.case_id..

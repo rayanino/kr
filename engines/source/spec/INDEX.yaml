@@ -158,8 +158,8 @@ atoms:
     file: requirements/REQ-SRC-0006.yaml
   - id: REQ-SRC-0007
     type: requirement
-    status: deferred
-    title: Level detection from content
+    status: proposed
+    title: Level field preservation across handoff
     topic: metadata
     priority: medium
     file: requirements/REQ-SRC-0007.yaml
@@ -205,6 +205,27 @@ atoms:
     topic: agent_ergonomics
     priority: high
     file: requirements/REQ-SRC-0013.yaml
+  - id: REQ-SRC-0014
+    type: requirement
+    status: proposed
+    title: Copyist and author disambiguation
+    topic: metadata
+    priority: critical
+    file: requirements/REQ-SRC-0014.yaml
+  - id: REQ-SRC-0015
+    type: requirement
+    status: proposed
+    title: Honorific-aware name matching
+    topic: metadata
+    priority: high
+    file: requirements/REQ-SRC-0015.yaml
+  - id: REQ-SRC-0016
+    type: requirement
+    status: proposed
+    title: Multi-science assignment
+    topic: metadata
+    priority: high
+    file: requirements/REQ-SRC-0016.yaml
   - id: INV-SRC-0001
     type: invariant
     status: proposed
@@ -215,7 +236,7 @@ atoms:
   - id: INV-SRC-0002
     type: invariant
     status: proposed
-    title: Author attribution is the number one quality metric
+    title: Author attribution role separation is mandatory
     topic: metadata
     priority: critical
     file: invariants/INV-SRC-0002.yaml
@@ -240,6 +261,13 @@ atoms:
     topic: trust
     priority: high
     file: invariants/INV-SRC-0005.yaml
+  - id: INV-SRC-0006
+    type: invariant
+    status: proposed
+    title: Isnad atomic preservation
+    topic: metadata
+    priority: high
+    file: invariants/INV-SRC-0006.yaml
   - id: DEC-SRC-0001
     type: decision
     status: proposed
@@ -303,6 +331,13 @@ atoms:
     topic: agent_ergonomics
     priority: high
     file: decisions/DEC-SRC-0009.yaml
+  - id: DEC-SRC-0010
+    type: decision
+    status: proposed
+    title: Source hints multi-layer routing and normalization confirms it
+    topic: metadata
+    priority: medium
+    file: decisions/DEC-SRC-0010.yaml
   - id: CON-SRC-0001
     type: constraint
     status: confirmed
@@ -331,13 +366,6 @@ atoms:
     topic: metadata
     priority: medium
     file: questions/OQ-SRC-0001.yaml
-  - id: OQ-SRC-0002
-    type: question
-    status: draft
-    title: Multi-layer detection responsibility
-    topic: metadata
-    priority: medium
-    file: questions/OQ-SRC-0002.yaml
   - id: OQ-SRC-0003
     type: question
     status: draft
@@ -362,7 +390,7 @@ atoms:
   - id: OQ-SRC-0006
     type: question
     status: draft
-    title: Multi-position metadata representation
+    title: Ordering and display semantics for multi-position metadata
     topic: metadata
     priority: high
     file: questions/OQ-SRC-0006.yaml

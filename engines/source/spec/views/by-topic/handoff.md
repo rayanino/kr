@@ -12,7 +12,7 @@
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0014
-- Rule: The rebuilt source engine designs from first principles and is not capped by archived or legacy cross-engine contracts.
+- Rule: Archived and legacy source-engine contracts are reference material only and cannot overrule the current atom set.
 
 ### OF-SRC-0014 — Legacy contracts do not cap the rebuild
 - Type: feedback

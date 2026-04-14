@@ -1,0 +1,34 @@
+id: REQ-SRC-0015
+type: requirement
+status: proposed
+title: Honorific-aware name matching
+topic: metadata
+priority: high
+confidence: high
+provenance: coworker_review
+source: Added from domain-validator-review.yaml
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - REQ-SRC-0004
+impacts:
+  - author_matching
+  - canonical_names
+behavior:
+  trigger: Attribution matching compares two Arabic scholar names.
+  preconditions:
+    - Matching strips honorific tokens الشيخ, الإمام, الحافظ, العلامة, شيخ الإسلام from the comparison key.
+    - Stored display names preserve any honorifics that appear in the source.
+  postconditions:
+    - canonical_match_name excludes honorific tokens.
+    - display_name preserves the original honorific-bearing form from the source record.
+  error_conditions:
+    - condition: A name string contains only honorific tokens and no base name.
+      action: Reject canonical matching with SRC-E-HONORIFIC-ONLY-NAME.
+      severity: warning
+acceptance_criteria:
+  - id: AC-1
+    given: Name forms "الإمام النووي" and "النووي"
+    when: author-name matching executes
+    then: Both names resolve to the same canonical_match_name="النووي" while display_name preserves the original source form.
+    test_type: deterministic
