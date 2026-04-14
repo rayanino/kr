@@ -41,5 +41,6 @@ pytest-asyncio>=0.21
 filelock>=3.0
 
 # ── Utilities ──
+jsonschema>=4.0
 PyYAML>=6.0
 python-dotenv>=1.0

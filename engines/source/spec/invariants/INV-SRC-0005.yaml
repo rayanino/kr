@@ -1,0 +1,28 @@
+id: INV-SRC-0005
+type: invariant
+status: proposed
+title: Muhaqiq never gates trust decisions
+topic: trust
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0010
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0010
+  - DEC-SRC-0005
+impacts:
+  - muhaqiq_metadata
+  - trust_separation
+rule:
+  statement: Muhaqiq standing is informational metadata and never a trust gate for keeping or rejecting a text.
+  implication: Unknown or low-standing muhaqiqs may be annotated, but the text remains eligible for intake and evaluation.
+  violation_severity: high
+acceptance_criteria:
+  - id: AC-1
+    given: A book with an unknown muhaqiq.
+    when: Muhaqiq assessment runs.
+    then: The book is not rejected and the standing is recorded as unknown.
+    test_type: deterministic
+

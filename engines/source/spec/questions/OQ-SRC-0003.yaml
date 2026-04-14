@@ -1,0 +1,30 @@
+id: OQ-SRC-0003
+type: question
+status: draft
+title: Agent-team architecture design
+topic: agent_ergonomics
+priority: critical
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0009
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0009
+impacts:
+  - trust_workflow
+  - agent_orchestration
+candidates:
+  - id: OPT-A
+    label: Fixed roles
+    description: Use stable researcher, reasoner, and supervisor roles for every trust investigation.
+    likelihood: likely
+  - id: OPT-B
+    label: Dynamic composition
+    description: Assemble teams per task based on source type, metadata field, and uncertainty pattern.
+    likelihood: possible
+  - id: OPT-C
+    label: Hierarchical escalation
+    description: Start with a smaller team and escalate to supervisors only when disagreement persists.
+    likelihood: possible
+

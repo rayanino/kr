@@ -1,0 +1,30 @@
+id: OQ-SRC-0005
+type: question
+status: draft
+title: Agent monitoring scope
+topic: agent_ergonomics
+priority: medium
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0009
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0009
+impacts:
+  - monitor_feedback
+  - runtime_coverage
+candidates:
+  - id: OPT-A
+    label: Source-engine monitors
+    description: Keep monitoring inside the source engine only while the trust workflow is being defined.
+    likelihood: possible
+  - id: OPT-B
+    label: Pipeline-wide monitors
+    description: Design monitor agents as reusable pipeline-wide observers from the start.
+    likelihood: likely
+  - id: OPT-C
+    label: Per-book monitors
+    description: Attach a monitor agent to each book-level workflow independently.
+    likelihood: unlikely
+

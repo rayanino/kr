@@ -1,0 +1,35 @@
+id: REQ-SRC-0003
+type: requirement
+status: proposed
+title: Minimal owner review load
+topic: trust
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0003
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0003
+impacts:
+  - owner_queue
+  - autonomous_decision_rate
+behavior:
+  trigger: The source engine completes metadata inference for a book.
+  preconditions:
+    - The inference pipeline has produced a candidate result.
+    - Internal disagreement resolution has been attempted.
+  postconditions:
+    - The system auto-decides clear metadata cases aggressively.
+    - Only genuinely unresolvable cases are routed to the owner.
+  error_conditions:
+    - condition: The system cannot reduce a disagreement to a bounded unresolved case.
+      action: Route the case to the owner with explicit evidence instead of broad review.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: The 13 source fixtures have clear ground truth.
+    when: The source engine runs full metadata inference.
+    then: Zero owner reviews are triggered for those fixtures.
+    test_type: integration
+

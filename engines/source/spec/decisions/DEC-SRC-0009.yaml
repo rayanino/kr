@@ -1,0 +1,28 @@
+id: DEC-SRC-0009
+type: decision
+status: proposed
+title: Research strategy uses specialized sources
+topic: agent_ergonomics
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0016
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0016
+  - OQ-SRC-0007
+impacts:
+  - research_dispatch
+  - source_inventory
+options:
+  - id: OPT-A
+    label: Generic web search
+    description: Use one broad web-search workflow for all source verification tasks.
+    status: rejected
+    rejection_reason: The owner explicitly said research must be more accurate than generic web search.
+  - id: OPT-B
+    label: Dedicated agents per source type
+    description: Split research across source-specific channels such as general web, scholarly databases, catalogs, and reference sites.
+    status: chosen
+    chosen_reason: This matches the owner's request for specialized research capability and better evidence quality.

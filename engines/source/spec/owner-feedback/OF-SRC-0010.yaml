@@ -1,0 +1,23 @@
+id: OF-SRC-0010
+type: feedback
+status: confirmed
+title: Muhaqiq standing is informational only
+topic: trust
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 3 question 2
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - muhaqiq_metadata
+  - trust_separation
+batch: batch_3
+question: How should muhaqiq reputation affect source evaluation?
+answer: Muhaqiq standing is metadata only. Unknown muhaqiqs should be flagged, and standing can be graduated from unknown to elite, but it must never cause the text to be discarded.
+decomposed_into:
+  - REQ-SRC-0010
+  - INV-SRC-0005
+  - DEC-SRC-0005
+

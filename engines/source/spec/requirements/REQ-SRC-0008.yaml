@@ -1,0 +1,36 @@
+id: REQ-SRC-0008
+type: requirement
+status: proposed
+title: Agent-team trust evaluation
+topic: trust
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0009
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0009
+  - OQ-SRC-0003
+impacts:
+  - trust_resolution
+  - monitor_feedback
+behavior:
+  trigger: The engine needs a trust evaluation for a source or metadata claim.
+  preconditions:
+    - Research and reasoning agents are available for the claim.
+    - Supervisory review roles are defined for the trust workflow.
+  postconditions:
+    - Trust is determined by agent-team deliberation rather than a weighted numeric algorithm.
+    - Monitor agents emit process-improvement feedback for the run.
+  error_conditions:
+    - condition: The trust workflow cannot assemble the required agent roles.
+      action: Block final trust determination and record which roles are missing.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: The 13 source fixtures require trust evaluation.
+    when: The trust workflow runs.
+    then: The agent team reaches a trust decision for every fixture.
+    test_type: integration
+

@@ -1,0 +1,28 @@
+id: DEC-SRC-0002
+type: decision
+status: proposed
+title: Science scope uses dynamic registry
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0006
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0006
+impacts:
+  - science_registry
+  - collection_growth
+options:
+  - id: OPT-A
+    label: Fixed enum
+    description: Restrict science classification to a closed predefined enumeration.
+    status: rejected
+    rejection_reason: The owner explicitly rejected any design that cuts off knowledge because a science is not present yet.
+  - id: OPT-B
+    label: Growable registry with owner confirmation
+    description: Allow the registry to expand when new sciences appear, with owner confirmation on the expansion itself.
+    status: chosen
+    chosen_reason: This preserves intake breadth while keeping science-tree expansion human-approved.
+

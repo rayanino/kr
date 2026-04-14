@@ -1,0 +1,42 @@
+id: REQ-SRC-0009
+type: requirement
+status: proposed
+title: Agent self-resolution of disagreements
+topic: consensus
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0011
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0011
+  - DEC-SRC-0006
+  - OQ-SRC-0004
+impacts:
+  - disagreement_resolution
+  - learning_feedback
+behavior:
+  trigger: Independent agents disagree about a metadata field.
+  preconditions:
+    - The disagreement is represented explicitly in the case state.
+    - The disagreeing agents can access their own evidence traces.
+  postconditions:
+    - Agents resolve the disagreement autonomously without owner intervention.
+    - The failing or losing agent emits structured failure analysis for system improvement.
+  error_conditions:
+    - condition: Autonomous resolution cannot determine whether the disagreement reflects real scholarly dispute or agent error.
+      action: Escalate to the formal disagreement module rather than the owner.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A simulated metadata disagreement.
+    when: The disagreement workflow runs.
+    then: The agents resolve the case without owner intervention.
+    test_type: integration
+  - id: AC-2
+    given: An agent loses or retracts its position in disagreement review.
+    when: Resolution completes.
+    then: That agent produces structured failure analysis linked to the case.
+    test_type: deterministic
+

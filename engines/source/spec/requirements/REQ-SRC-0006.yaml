@@ -1,0 +1,43 @@
+id: REQ-SRC-0006
+type: requirement
+status: proposed
+title: Growable science registry
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0006
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0006
+  - INV-SRC-0003
+  - DEC-SRC-0002
+impacts:
+  - science_registry
+  - classification_gate
+behavior:
+  trigger: A source maps to a science that is not yet in the registry.
+  preconditions:
+    - The engine has inferred a candidate science or cluster of related sciences.
+    - No current registry entry covers the inferred science.
+  postconditions:
+    - The owner is asked only to confirm the registry expansion.
+    - The new science is added with a base tree if confirmed.
+    - The source remains eligible for intake regardless of the expansion decision.
+  error_conditions:
+    - condition: The inferred science is missing from the registry.
+      action: Route only the registry-expansion confirmation to the owner rather than rejecting the source.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A book maps to an existing science.
+    when: Science classification runs.
+    then: The book is classified normally without a registry-expansion prompt.
+    test_type: integration
+  - id: AC-2
+    given: A book maps to a new science.
+    when: Science classification runs.
+    then: The owner is prompted to confirm registry expansion and the science is added on confirmation.
+    test_type: integration
+

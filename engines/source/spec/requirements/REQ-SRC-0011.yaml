@@ -1,0 +1,41 @@
+id: REQ-SRC-0011
+type: requirement
+status: proposed
+title: Fine-grained hadith classification
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0012
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0012
+  - CON-SRC-0002
+impacts:
+  - hadith_classification
+  - benchmark_weighting
+behavior:
+  trigger: A source is identified as hadith literature or closely adjacent hadith scholarship.
+  preconditions:
+    - The source has enough metadata or content evidence to distinguish hadith sub-genres.
+    - A hadith-specific classification vocabulary is available.
+  postconditions:
+    - Hadith works are classified into fine-grained sub-genres rather than a single bucket.
+    - The resulting sub-genre is preserved for downstream taxonomy and evaluation.
+  error_conditions:
+    - condition: The source is hadith-related but the sub-genre remains ambiguous.
+      action: Record the ambiguity explicitly instead of collapsing to generic hadith_collection.
+      severity: warning
+acceptance_criteria:
+  - id: AC-1
+    given: A hadith collection and a hadith commentary.
+    when: Hadith classification runs.
+    then: The two books are assigned different sub-genres.
+    test_type: integration
+  - id: AC-2
+    given: A narrator-biography work.
+    when: Hadith classification runs.
+    then: The work is classified distinctly from a hadith collection.
+    test_type: integration
+

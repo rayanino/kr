@@ -1,0 +1,30 @@
+id: OQ-SRC-0006
+type: question
+status: draft
+title: Multi-position metadata representation
+topic: metadata
+priority: high
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0013
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0013
+impacts:
+  - disputed_metadata
+  - contract_shape
+candidates:
+  - id: OPT-A
+    label: Position array
+    description: Store every disputed field as an array of position, evidence, and confidence records.
+    likelihood: likely
+  - id: OPT-B
+    label: Primary plus alternatives
+    description: Keep one primary value plus a side channel of alternatives and evidence.
+    likelihood: unlikely
+  - id: OPT-C
+    label: Weighted positions
+    description: Store multiple positions with explicit relative weighting in addition to evidence.
+    likelihood: possible
+

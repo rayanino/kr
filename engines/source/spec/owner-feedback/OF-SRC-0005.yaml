@@ -1,0 +1,22 @@
+id: OF-SRC-0005
+type: feedback
+status: confirmed
+title: Science hints follow the same cross-validation rule
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 2 question 1
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - science_scope
+  - confidence_resolution
+batch: batch_2
+question: Should a science hint influence source inference?
+answer: Science hints are optional and follow the same pattern as author hints. They never bias inference and are used only as post-inference cross-validation.
+decomposed_into:
+  - REQ-SRC-0005
+  - INV-SRC-0001
+

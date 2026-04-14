@@ -1,0 +1,22 @@
+id: OF-SRC-0016
+type: feedback
+status: confirmed
+title: Research must use specialized source channels
+topic: agent_ergonomics
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 4 question 4
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - research_dispatch
+  - source_inventory
+batch: batch_4
+question: What kind of research capability does the source engine need?
+answer: Research should be much more accurate than generic web search. Dedicated agents should cover general web, specific scholarly sources, and well-defined reference databases.
+decomposed_into:
+  - REQ-SRC-0013
+  - DEC-SRC-0009
+  - OQ-SRC-0007

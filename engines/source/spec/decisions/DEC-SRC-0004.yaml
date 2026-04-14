@@ -1,0 +1,29 @@
+id: DEC-SRC-0004
+type: decision
+status: proposed
+title: Replace trust algorithm with agent teams
+topic: trust
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0009
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0009
+  - OQ-SRC-0003
+impacts:
+  - trust_resolution
+  - agent_orchestration
+options:
+  - id: OPT-A
+    label: Five-factor weighted algorithm
+    description: Continue trust scoring as a numeric combination of fixed factors.
+    status: rejected
+    rejection_reason: The owner explicitly said to rethink the whole trust approach rather than keep a weighted algorithm.
+  - id: OPT-B
+    label: Agent-team deliberation with supervisors
+    description: Use coordinated researchers, reasoners, and supervisors to reach trust decisions.
+    status: chosen
+    chosen_reason: This matches the owner's desired architecture for ambiguity reduction and process supervision.
+

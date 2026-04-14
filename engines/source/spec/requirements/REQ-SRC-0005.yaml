@@ -1,0 +1,42 @@
+id: REQ-SRC-0005
+type: requirement
+status: proposed
+title: Optional science hint
+topic: metadata
+priority: medium
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0005
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0005
+  - INV-SRC-0001
+impacts:
+  - science_scope
+  - confidence_resolution
+behavior:
+  trigger: The owner provides an optional science hint during intake.
+  preconditions:
+    - Base science inference has completed for the source.
+    - The hint is preserved as supplemental metadata.
+  postconditions:
+    - The science hint is used only for post-inference cross-validation.
+    - A matching hint increases confidence.
+    - A conflicting hint opens investigation without overriding inference.
+  error_conditions:
+    - condition: A science hint conflicts with the inferred science result.
+      action: Preserve both positions and launch autonomous investigation.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A science hint matches the inferred science.
+    when: Cross-validation runs.
+    then: Confidence increases and the inferred value remains unchanged.
+    test_type: deterministic
+  - id: AC-2
+    given: A science hint contradicts the inferred science.
+    when: Cross-validation runs.
+    then: Investigation starts and the hint never overrides the inference.
+    test_type: integration
+

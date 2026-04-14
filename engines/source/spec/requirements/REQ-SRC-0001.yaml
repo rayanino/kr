@@ -1,0 +1,45 @@
+id: REQ-SRC-0001
+type: requirement
+status: proposed
+title: Autonomous source acquisition
+topic: acquisition
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0002
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0002
+  - CON-SRC-0001
+impacts:
+  - source_metadata
+  - freezing_pipeline
+behavior:
+  trigger: Owner provides a single file path for source intake.
+  preconditions:
+    - The file exists at the provided path.
+    - The file decodes as UTF-8 without repair.
+  postconditions:
+    - SourceMetadata is created for the book.
+    - The source bytes are frozen with a SHA-256 digest.
+    - The book is registered for downstream handoff.
+  error_conditions:
+    - condition: The file cannot be decoded as UTF-8.
+      action: Abort intake with SRC-E-ENCODING.
+      severity: fatal
+    - condition: The file is not a supported Shamela HTML source.
+      action: Abort intake with SRC-E-FORMAT.
+      severity: fatal
+acceptance_criteria:
+  - id: AC-1
+    given: A valid Shamela HTML file is provided.
+    when: The source engine runs intake.
+    then: SourceMetadata, freezing, and source registration complete without owner intervention.
+    test_type: integration
+  - id: AC-2
+    given: A file that is not valid for production intake is provided.
+    when: The source engine validates the input.
+    then: Intake aborts with the specific error code for the detected failure mode.
+    test_type: deterministic
+

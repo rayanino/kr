@@ -1,0 +1,29 @@
+id: INV-SRC-0001
+type: invariant
+status: proposed
+title: Owner hints never bias inference
+topic: acquisition
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0002 and OF-SRC-0005
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0002
+  - OF-SRC-0005
+  - DEC-SRC-0001
+impacts:
+  - inference_order
+  - hint_handling
+rule:
+  statement: Agent inference must complete before any owner hint is compared against the result.
+  implication: Hints are post-inference cross-validation signals only and never act as primary metadata input.
+  violation_severity: critical
+acceptance_criteria:
+  - id: AC-1
+    given: The same file is processed once with hints and once without hints.
+    when: Base inference completes for both runs.
+    then: The base inference output is identical before cross-validation.
+    test_type: deterministic
+

@@ -1,0 +1,29 @@
+id: OQ-SRC-0007
+type: question
+status: draft
+title: Specialized research source inventory
+topic: agent_ergonomics
+priority: medium
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0016
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0016
+impacts:
+  - research_dispatch
+  - source_inventory
+candidates:
+  - id: OPT-A
+    label: Web plus Usul.ai
+    description: Start with general web research and one strong Islamic reference site as a minimal inventory.
+    likelihood: possible
+  - id: OPT-B
+    label: Curated scholarly inventory
+    description: Maintain a curated list of scholarly databases, catalogs, and reference sites per verification task.
+    likelihood: likely
+  - id: OPT-C
+    label: Dynamic discovery
+    description: Let agents discover their own sources at runtime without a fixed inventory.
+    likelihood: unlikely

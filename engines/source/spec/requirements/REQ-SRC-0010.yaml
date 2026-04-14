@@ -1,0 +1,43 @@
+id: REQ-SRC-0010
+type: requirement
+status: proposed
+title: Graduated muhaqiq standing
+topic: metadata
+priority: medium
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0010
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0010
+  - INV-SRC-0005
+  - DEC-SRC-0005
+impacts:
+  - muhaqiq_metadata
+  - edition_annotation
+behavior:
+  trigger: The engine researches the muhaqiq for an edition.
+  preconditions:
+    - A muhaqiq name or null value is extracted from the source.
+    - Research channels for muhaqiq standing are available.
+  postconditions:
+    - Muhaqiq standing is recorded as informational metadata using graduated levels.
+    - Unknown muhaqiqs are explicitly flagged.
+    - Muhaqiq standing never rejects or downgrades the source text itself.
+  error_conditions:
+    - condition: The muhaqiq cannot be identified with confidence.
+      action: Record standing as unknown and preserve the text for intake.
+      severity: warning
+acceptance_criteria:
+  - id: AC-1
+    given: A muhaqiq with no reliable external footprint.
+    when: Muhaqiq standing is assessed.
+    then: The standing is recorded as unknown.
+    test_type: deterministic
+  - id: AC-2
+    given: A muhaqiq with some verified scholarly footprint.
+    when: Muhaqiq standing is assessed.
+    then: The standing is recorded as barely_known or higher.
+    test_type: integration
+

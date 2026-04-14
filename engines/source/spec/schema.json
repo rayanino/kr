@@ -1,0 +1,549 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kr.local/engines/source/spec/schema.json",
+  "title": "KR Source Engine Spec Atom",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "oneOf": [
+    {
+      "$ref": "#/$defs/requirementAtom"
+    },
+    {
+      "$ref": "#/$defs/invariantAtom"
+    },
+    {
+      "$ref": "#/$defs/decisionAtom"
+    },
+    {
+      "$ref": "#/$defs/constraintAtom"
+    },
+    {
+      "$ref": "#/$defs/questionAtom"
+    },
+    {
+      "$ref": "#/$defs/feedbackAtom"
+    }
+  ],
+  "$defs": {
+    "severity": {
+      "type": "string",
+      "enum": [
+        "fatal",
+        "blocking",
+        "warning"
+      ]
+    },
+    "violationSeverity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium"
+      ]
+    },
+    "commonAtom": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "status",
+        "title",
+        "topic",
+        "priority",
+        "confidence",
+        "provenance",
+        "source",
+        "created",
+        "updated",
+        "depends_on",
+        "impacts"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(REQ|INV|DEC|CON|OQ|OF)-SRC-[0-9]{4}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "requirement",
+            "invariant",
+            "decision",
+            "constraint",
+            "question",
+            "feedback"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "proposed",
+            "confirmed",
+            "rejected",
+            "superseded",
+            "deferred"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topic": {
+          "type": "string",
+          "enum": [
+            "acquisition",
+            "identity",
+            "metadata",
+            "freezing",
+            "trust",
+            "consensus",
+            "dedup",
+            "handoff",
+            "validation",
+            "enrichment",
+            "agent_ergonomics"
+          ]
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "provenance": {
+          "type": "string",
+          "enum": [
+            "archive_tier_a",
+            "archive_tier_b",
+            "owner_interview",
+            "coworker_review",
+            "domain_inference",
+            "pipeline_constraint"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "created": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "impacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "archive_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "file",
+              "finding"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "finding": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "errorCondition": {
+      "type": "object",
+      "required": [
+        "condition",
+        "action",
+        "severity"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        }
+      },
+      "additionalProperties": false
+    },
+    "acceptanceCriterion": {
+      "type": "object",
+      "required": [
+        "id",
+        "given",
+        "when",
+        "then",
+        "test_type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "given": {
+          "type": "string",
+          "minLength": 1
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "then": {
+          "type": "string",
+          "minLength": 1
+        },
+        "test_type": {
+          "type": "string",
+          "enum": [
+            "deterministic",
+            "llm_dependent",
+            "integration"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "behavior": {
+      "type": "object",
+      "required": [
+        "trigger",
+        "preconditions",
+        "postconditions",
+        "error_conditions"
+      ],
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "error_conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/errorCondition"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": [
+        "statement",
+        "implication",
+        "violation_severity"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implication": {
+          "type": "string",
+          "minLength": 1
+        },
+        "violation_severity": {
+          "$ref": "#/$defs/violationSeverity"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionOption": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "description",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "chosen",
+            "rejected",
+            "deferred"
+          ]
+        },
+        "chosen_reason": {
+          "type": "string"
+        },
+        "rejection_reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "questionCandidate": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "description",
+        "likelihood"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "likelihood": {
+          "type": "string",
+          "enum": [
+            "likely",
+            "possible",
+            "unlikely"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "requirementAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "behavior",
+            "acceptance_criteria"
+          ],
+          "properties": {
+            "type": {
+              "const": "requirement"
+            },
+            "behavior": {
+              "$ref": "#/$defs/behavior"
+            },
+            "acceptance_criteria": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/acceptanceCriterion"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "invariantAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "rule",
+            "acceptance_criteria"
+          ],
+          "properties": {
+            "type": {
+              "const": "invariant"
+            },
+            "rule": {
+              "$ref": "#/$defs/rule"
+            },
+            "acceptance_criteria": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/acceptanceCriterion"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "decisionAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "options"
+          ],
+          "properties": {
+            "type": {
+              "const": "decision"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/decisionOption"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "constraintAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "rule",
+            "acceptance_criteria"
+          ],
+          "properties": {
+            "type": {
+              "const": "constraint"
+            },
+            "rule": {
+              "$ref": "#/$defs/rule"
+            },
+            "acceptance_criteria": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/acceptanceCriterion"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "questionAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "candidates"
+          ],
+          "properties": {
+            "type": {
+              "const": "question"
+            },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/questionCandidate"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "feedbackAtom": {
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/commonAtom"
+        },
+        {
+          "type": "object",
+          "required": [
+            "batch",
+            "question",
+            "answer",
+            "decomposed_into"
+          ],
+          "properties": {
+            "type": {
+              "const": "feedback"
+            },
+            "batch": {
+              "type": "string",
+              "minLength": 1
+            },
+            "question": {
+              "type": "string",
+              "minLength": 1
+            },
+            "answer": {
+              "type": "string",
+              "minLength": 1
+            },
+            "decomposed_into": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

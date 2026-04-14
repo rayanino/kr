@@ -1,0 +1,24 @@
+id: OF-SRC-0013
+type: feedback
+status: confirmed
+title: Disagreement may itself be the true answer
+topic: consensus
+priority: high
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 4 question 1
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - disputed_metadata
+  - evidence_preservation
+batch: batch_4
+question: What counts as successful resolution when scholars disagree?
+answer: Resolution does not mean forcing one entity. If scholars genuinely disagree, the engine should record every supported position with evidence because the goal is truth-seeking, not consensus-forcing.
+decomposed_into:
+  - REQ-SRC-0012
+  - INV-SRC-0004
+  - DEC-SRC-0007
+  - OQ-SRC-0006
+

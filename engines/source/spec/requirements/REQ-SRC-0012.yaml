@@ -1,0 +1,38 @@
+id: REQ-SRC-0012
+type: requirement
+status: proposed
+title: Multi-position metadata for disputed fields
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0013
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0013
+  - INV-SRC-0004
+  - DEC-SRC-0007
+  - OQ-SRC-0006
+impacts:
+  - disputed_metadata
+  - evidence_preservation
+behavior:
+  trigger: The engine encounters a metadata field with genuine scholarly disagreement.
+  preconditions:
+    - Multiple positions can be grounded in evidence.
+    - The field supports structured disagreement representation.
+  postconditions:
+    - The field stores an array of supported positions with evidence and confidence.
+    - The engine does not force a single canonical value when disagreement is real.
+  error_conditions:
+    - condition: The field implementation accepts only a single value.
+      action: Block finalization until the field can preserve multiple supported positions.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A book with disputed authorship.
+    when: Metadata finalization runs.
+    then: Both supported author positions are recorded with evidence.
+    test_type: integration
+

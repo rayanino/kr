@@ -1,0 +1,28 @@
+id: INV-SRC-0004
+type: invariant
+status: proposed
+title: Truth-seeking over consensus-forcing
+topic: consensus
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0013
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0013
+  - DEC-SRC-0007
+impacts:
+  - disputed_metadata
+  - evidence_preservation
+rule:
+  statement: When the real answer is that scholars disagree, the engine must record disagreement as the result.
+  implication: The engine never collapses genuine scholarly dispute into a forced single value just to achieve consensus.
+  violation_severity: high
+acceptance_criteria:
+  - id: AC-1
+    given: A fixture with a known disputed author.
+    when: Metadata finalization runs.
+    then: The result is a multi-position output instead of a forced single author.
+    test_type: integration
+

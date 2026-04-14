@@ -1,0 +1,30 @@
+id: OQ-SRC-0004
+type: question
+status: draft
+title: Formal replacement for human_gate
+topic: consensus
+priority: high
+confidence: medium
+provenance: owner_interview
+source: Derived from OF-SRC-0011
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0011
+impacts:
+  - disagreement_resolution
+  - escalation_design
+candidates:
+  - id: OPT-A
+    label: Agent-gate module
+    description: Replace human_gate with a dedicated agent-gate module that formalizes autonomous disagreement resolution.
+    likelihood: likely
+  - id: OPT-B
+    label: Confidence threshold resolver
+    description: Use confidence thresholds and automatic retries until a bounded resolution criterion is reached.
+    likelihood: possible
+  - id: OPT-C
+    label: Supervisor veto
+    description: Give a supervisor agent final veto power over unresolved metadata disputes.
+    likelihood: possible
+

@@ -1,0 +1,21 @@
+id: OF-SRC-0003
+type: feedback
+status: confirmed
+title: Minimize owner review load
+topic: trust
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 1 question 3
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - owner_queue
+  - autonomous_resolution
+batch: batch_1
+question: How often should the owner review metadata decisions?
+answer: The owner wants as few reviews as possible. The system should auto-decide aggressively and only send genuinely unresolvable cases to the owner.
+decomposed_into:
+  - REQ-SRC-0003
+

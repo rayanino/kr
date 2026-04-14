@@ -1,0 +1,27 @@
+id: INV-SRC-0002
+type: invariant
+status: proposed
+title: Author attribution is the number one quality metric
+topic: metadata
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0004
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0004
+impacts:
+  - quality_ranking
+  - author_attribution
+rule:
+  statement: Attribution accuracy outranks every other source-engine quality trade-off.
+  implication: Any design or implementation shortcut that lowers attribution accuracy must be rejected.
+  violation_severity: critical
+acceptance_criteria:
+  - id: AC-1
+    given: The 13 source fixtures with known authors.
+    when: Attribution evaluation runs.
+    then: All fixtures return the correct author.
+    test_type: integration
+

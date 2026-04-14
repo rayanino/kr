@@ -1,0 +1,27 @@
+id: CON-SRC-0002
+type: constraint
+status: confirmed
+title: Hadith literature dominates source-engine benchmark quality
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0012
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0012
+impacts:
+  - benchmark_design
+  - hadith_classification
+rule:
+  statement: Because 48.7 percent of the collection is hadith literature, hadith classification accuracy is a primary benchmark domain.
+  implication: Evaluation plans must weight hadith sub-genre accuracy heavily enough to reflect collection reality.
+  violation_severity: high
+acceptance_criteria:
+  - id: AC-1
+    given: A source-engine benchmark suite.
+    when: Evaluation weights are assigned.
+    then: Hadith-focused cases receive benchmark weight proportional to their dominance in the collection.
+    test_type: deterministic
+

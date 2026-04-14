@@ -1,0 +1,21 @@
+id: OF-SRC-0015
+type: feedback
+status: confirmed
+title: Build source-engine teams inside the source-engine scope first
+topic: handoff
+priority: medium
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 4 question 3
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - source_scope
+  - future_shared_components
+batch: batch_4
+question: Where should the first agent infrastructure land?
+answer: The immediate focus is the source engine. The best spec, build, and agent-team design should be created inside source-engine scope first, while reusable questions can be lifted later when downstream engines are built.
+decomposed_into:
+  - DEC-SRC-0008
+

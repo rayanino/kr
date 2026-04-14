@@ -1,0 +1,27 @@
+id: DEC-SRC-0008
+type: decision
+status: proposed
+title: Agent infrastructure is built within source-engine scope first
+topic: agent_ergonomics
+priority: medium
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0015
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0015
+impacts:
+  - source_scope
+  - future_shared_components
+options:
+  - id: OPT-A
+    label: Build within source engine scope first
+    description: Define the initial agent infrastructure inside the source engine before extracting shared components.
+    status: chosen
+    chosen_reason: The owner explicitly prioritized building the best possible source-engine scope first.
+  - id: OPT-B
+    label: Shared pipeline component now
+    description: Build the agent infrastructure immediately as a cross-engine shared component.
+    status: deferred
+

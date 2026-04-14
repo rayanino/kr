@@ -1,0 +1,24 @@
+id: OF-SRC-0009
+type: feedback
+status: confirmed
+title: Replace numeric trust scoring with agent teams
+topic: trust
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Owner interview batch 3 question 1
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on: []
+impacts:
+  - trust_resolution
+  - agent_orchestration
+batch: batch_3
+question: How should trust evaluation work?
+answer: Trust evaluation should be rebuilt around agent teams rather than numeric factors. Two web researchers and two reasoners work under supervisors, supervisors deliberate, and monitor agents provide process-improvement feedback.
+decomposed_into:
+  - REQ-SRC-0008
+  - DEC-SRC-0004
+  - OQ-SRC-0003
+  - OQ-SRC-0005
+

@@ -1,0 +1,29 @@
+id: DEC-SRC-0007
+type: decision
+status: proposed
+title: Disputed metadata as multi-position evidence
+topic: metadata
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0013
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0013
+  - OQ-SRC-0006
+impacts:
+  - disputed_metadata
+  - evidence_preservation
+options:
+  - id: OPT-A
+    label: Force single value
+    description: Resolve disputed fields to one final canonical metadata value.
+    status: rejected
+    rejection_reason: The owner said resolving disagreement does not mean resolving to one entity when the truth is that scholars disagree.
+  - id: OPT-B
+    label: Record all positions with evidence
+    description: Preserve every supported position together with its evidence and confidence.
+    status: chosen
+    chosen_reason: This preserves the truth structure the owner asked for and avoids fake certainty.
+

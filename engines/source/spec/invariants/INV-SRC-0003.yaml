@@ -1,0 +1,28 @@
+id: INV-SRC-0003
+type: invariant
+status: proposed
+title: Library never refuses knowledge
+topic: metadata
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0006
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0006
+  - DEC-SRC-0002
+impacts:
+  - science_registry
+  - intake_admission
+rule:
+  statement: No book is rejected solely because its science is absent from the current registry.
+  implication: Unknown sciences trigger registry-expansion handling rather than source rejection.
+  violation_severity: critical
+acceptance_criteria:
+  - id: AC-1
+    given: A book maps to a science not currently in the registry.
+    when: Science classification runs.
+    then: The owner is prompted for expansion and the book is not rejected.
+    test_type: integration
+

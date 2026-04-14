@@ -1,0 +1,27 @@
+id: CON-SRC-0003
+type: constraint
+status: confirmed
+title: No existing pipeline contract is binding on the rebuild
+topic: handoff
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0014
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0014
+impacts:
+  - legacy_boundary
+  - source_rebuild_scope
+rule:
+  statement: The rebuilt source engine designs from first principles and is not capped by archived or legacy cross-engine contracts.
+  implication: Archived material may inform the rebuild, but no legacy contract can block a better source-engine design.
+  violation_severity: critical
+acceptance_criteria:
+  - id: AC-1
+    given: A legacy contract conflicts with the new source-engine atom set.
+    when: Implementation planning or review occurs.
+    then: The new source-engine atom set wins and the legacy contract is treated as reference only.
+    test_type: deterministic
+

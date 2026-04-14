@@ -1,0 +1,43 @@
+id: REQ-SRC-0002
+type: requirement
+status: proposed
+title: Optional owner hints as cross-validation
+topic: acquisition
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0002
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0002
+  - INV-SRC-0001
+  - DEC-SRC-0001
+impacts:
+  - confidence_resolution
+  - owner_hint_audit
+behavior:
+  trigger: The owner provides optional hints such as author or science at intake time.
+  preconditions:
+    - Base source inference has completed for the file.
+    - Hint values are attached as optional metadata fields.
+  postconditions:
+    - Every provided hint is compared against the agent output after inference.
+    - Matching hints increase recorded confidence.
+    - Mismatching hints trigger an automated investigation record.
+  error_conditions:
+    - condition: A hint contradicts the inferred metadata field.
+      action: Open an autonomous investigation and preserve both positions.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: A hint matches the inferred field.
+    when: Cross-validation runs after inference.
+    then: The confidence boost is recorded without changing the inferred value.
+    test_type: deterministic
+  - id: AC-2
+    given: A hint contradicts the inferred field.
+    when: Cross-validation runs after inference.
+    then: Investigation is triggered and both the hint and inference are preserved.
+    test_type: integration
+

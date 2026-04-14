@@ -1,0 +1,36 @@
+id: REQ-SRC-0013
+type: requirement
+status: proposed
+title: Specialized research agents
+topic: agent_ergonomics
+priority: high
+confidence: high
+provenance: owner_interview
+source: Derived from OF-SRC-0016
+created: "2026-04-14"
+updated: "2026-04-14"
+depends_on:
+  - OF-SRC-0016
+  - DEC-SRC-0009
+  - OQ-SRC-0007
+impacts:
+  - research_dispatch
+  - evidence_quality
+behavior:
+  trigger: The engine dispatches research work for metadata verification.
+  preconditions:
+    - The verification task declares which evidence channels are relevant.
+    - Specialized research agents or source adapters are available.
+  postconditions:
+    - Research is routed through dedicated source channels such as general web, scholarly databases, manuscript catalogs, and Islamic reference sites.
+    - At least two distinct source types contribute to high-impact verification tasks.
+  error_conditions:
+    - condition: Research dispatch falls back to a single generic search channel for a high-impact verification task.
+      action: Mark the verification incomplete and require specialized-source rerun.
+      severity: blocking
+acceptance_criteria:
+  - id: AC-1
+    given: An author-verification task.
+    when: Research dispatch runs.
+    then: The task uses at least two different research source types.
+    test_type: integration
