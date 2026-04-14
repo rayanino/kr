@@ -1,0 +1,86 @@
+- atom_id: REQ-SRC-0011
+  verdict: AMEND
+  confidence: high
+  detail: "The requirement misses the specific structural hadith sub-genres that determine processing (musannaf, musnad, sunan, jami', juz'). It also uses 'narrator-biography work' instead of the domain term 'tabaqat/rijal'."
+  evidence: "Domain glossary lists musannaf, musnad, sunan, jami', juz' as critical sub-types of hadith_collection."
+  amendment: "Add AC-3: 'given: A collection organized by narrator (musnad) vs by topic (sunan). when: Hadith classification runs. then: The specific structural sub-genre (musnad, sunan, etc.) is recorded.' Also replace 'narrator-biography' with 'tabaqat/rijal'."
+
+- atom_id: REQ-SRC-0012
+  verdict: CONFIRM
+  confidence: high
+  detail: "Correctly handles disputed authorship (e.g., Ibn Qayyim vs Ibn Taymiyyah) by preserving all supported positions."
+  evidence: "Matches the owner principle 'Truth-seeking, not consensus-forcing. Disputed metadata IS valid output.'"
+
+- atom_id: DEC-SRC-0002
+  verdict: AMEND
+  confidence: high
+  detail: "The atom assumes a book maps to a single science, but Islamic texts often span multiple sciences (e.g., ahadith al-ahkam)."
+  evidence: "Cross-Science Processing Rule 2: 'Some texts span multiple sciences... Assign science_scope as a list, ordered by dominance.'"
+  amendment: "Update chosen option to explicitly state that the registry supports assigning a list of sciences to a single source, ordered by dominance, rather than a single science enum."
+
+- atom_id: INV-SRC-0002
+  verdict: AMEND
+  confidence: high
+  detail: "Lacks rules for distinguishing between author (مؤلف), copyist (ناسخ), and critical editor (محقق), which is the most common failure mode in Arabic attribution."
+  evidence: "Arabic scholarly conventions: 'The name after كتبه is the COPYIST, not the author... Confusing these corrupts author attribution.'"
+  amendment: "Add a rule implication: 'Author attribution must strictly differentiate between copyists (كتبه/نسخه), editors (محقق), and authors (ألفه/صنفه) in colophons and metadata.'"
+
+- atom_id: REQ-SRC-0004
+  verdict: AMEND
+  confidence: high
+  detail: "The consensus model doesn't account for Arabic naming complexity (ism, nasab, kunya, laqab, nisba) which is necessary for resolving author identity."
+  evidence: "Domain glossary: 'Multiple scholars share names... Always disambiguate using death date (الحفيد = d.728H, الجد = d.652H).'"
+  amendment: "Add AC-3: 'given: Two candidate authors with similar names. when: Attribution runs. then: Agents disambiguate using death date (wafat) and nisba rather than simple string matching.'"
+
+- atom_id: DEC-SRC-0004
+  verdict: FLAG
+  confidence: medium
+  detail: "Agent teams might overthink or hallucinate distrust on foundational classical mutun. Classical works by universally recognized major scholars should bypass heavy deliberation."
+  evidence: "Foundational texts (matn) are highly authoritative. Evaluating trust for universally accepted works via agent debate is inefficient and risks AI contrarianism."
+
+- atom_id: DEC-SRC-0005
+  verdict: FLAG
+  confidence: medium
+  detail: "Treating muhaqiq standing purely as informational metadata ignores that a very poor edition actively damages downstream extraction (e.g., missing isnads, poor formatting). It SHOULD affect confidence in structural parsing."
+  evidence: "Domain conventions: 'بلغ مقابلة بأصله' indicates a critical edition. An edition without scholarly apparatus is less structurally reliable."
+
+- atom_id: OQ-SRC-0002
+  verdict: AMEND
+  confidence: high
+  detail: "Source engine MUST provide the initial multi-layer routing hint because it has access to the title genre signals (شرح, حاشية)."
+  evidence: "Glossary specifies: 'Title contains شرح, حاشية, تعليق, تقريرات + name of another text' as the primary signal for multi-layer."
+  amendment: "Resolve to OPT-C (Source hints, normalization confirms) and specify that source engine uses title keyword patterns to emit this hint."
+
+- atom_id: REQ-SRC-0010
+  verdict: CONFIRM
+  confidence: high
+  detail: "Graduated levels (unknown to elite) are appropriate for muhaqiqs, as many have no digital footprint but their work is still present in Shamela."
+  evidence: "Fits the 'Library never refuses knowledge' invariant and accurately reflects the reality of Arabic publishing."
+
+- atom_id: REQ-SRC-0006
+  verdict: AMEND
+  confidence: high
+  detail: "The growable registry needs to be pre-populated with the core 11-12 Islamic sciences to avoid unnecessary expansion prompts for standard texts."
+  evidence: "Islamic Sciences Classification lists specific core sciences: nahw, sarf, balagha, fiqh, usul_al_fiqh, hadith, tafsir, aqidah, tasawwuf, sirah, tarikh, adab."
+  amendment: "Add a precondition: 'The registry is pre-populated with the canonical 12 Islamic and instrumental sciences.'"
+
+DOMAIN GAPS:
+- Anonymous classical works (no author attribution possible).
+- Collective works or compilations (جمع وترتيب) where the compiler is distinct from the original authors.
+- Abridgments (mukhtasar) handling where the original author and the abridger are distinct entities.
+- Colophon parsing rules: No atom covers the critical distinction between copyist (كتبه) and author (ألفه) which is a major source of attribution errors.
+- Persian/Ottoman works in Arabic script within the Shamela collection.
+
+TERMINOLOGY ISSUES:
+- "narrator-biography work" in REQ-SRC-0011 is not the correct domain term; it should be `tabaqat` or `rijal`.
+- Lack of precise domain terminology (matn, sharh, hashiyah) in the atoms discussing multi-layer detection.
+
+CONVENTION VIOLATIONS:
+- Failing to account for stripping honorifics (الشيخ، الإمام، الحافظ) before matching author names, while preserving them in storage.
+- No invariant ensures transmission formulas (حدثنا, أخبرنا) are treated as atomic isnad units.
+
+RECOMMENDED NEW ATOMS:
+- REQ-SRC-0014: Copyist/Author Disambiguation (Strict differentiation between copyists and authors during attribution).
+- REQ-SRC-0015: Base Name Extraction (Strip honorifics during matching but preserve in metadata).
+- REQ-SRC-0016: Multi-Science Assignment (Allow source to be tagged with primary and secondary science).
+- INV-SRC-0006: Isnad Preservation (Transmission formulas indicate atomic units that must never be split).

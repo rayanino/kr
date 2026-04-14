@@ -37,7 +37,7 @@ def discover_atom_files(root: Path | None = None) -> list[Path]:
     spec_dir = spec_root(root)
     files: list[Path] = []
     for child in sorted(spec_dir.iterdir()):
-        if not child.is_dir() or child.name == "views":
+        if not child.is_dir() or child.name in {"views", "reviews", "interview"}:
             continue
         files.extend(sorted(child.glob("*.yaml")))
     return files

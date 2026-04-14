@@ -1,0 +1,240 @@
+scope:
+  reviewed_atoms: 37
+  skipped_atoms:
+    - "owner-feedback/* (16 interview atoms skipped per request)"
+reviews:
+  - atom_id: REQ-SRC-0001
+    verdict: AMEND
+    confidence: high
+    detail: "The file-path trigger is concrete enough, but the postconditions are descriptive rather than assertive and the error surface omits nonexistent-path, unreadable-path, directory, empty-file, and duplicate-intake cases."
+    amendment: "Replace the prose postconditions with exact output assertions for the intake artifact (for example `source_metadata.source_sha256`, `frozen_blob_path`, and `handoff_registration_id`) and enumerate missing-path, unreadable-file, directory, empty-file, and duplicate-digest failure codes."
+    test_generatable: false
+  - atom_id: REQ-SRC-0002
+    verdict: AMEND
+    confidence: high
+    detail: "The atom states the hint policy clearly, but it never defines the hint payload, the exact confidence field that changes, or the shape of the investigation record opened on mismatch."
+    amendment: "Define the accepted hint fields, require that hinted values are stored separately from inferred values, name the confidence field(s) that may change, and specify the exact audit/investigation record written on contradiction."
+    test_generatable: false
+  - atom_id: REQ-SRC-0003
+    verdict: AMEND
+    confidence: medium
+    detail: "Terms such as 'clear metadata cases aggressively' and 'genuinely unresolvable' are not operationalized, so a build agent cannot know which cases must auto-resolve versus reach the owner."
+    amendment: "Define explicit owner-routing criteria, a bounded unresolved-case taxonomy, and the exact owner-escalation artifact so the review-load target can be tested without interpretation."
+    test_generatable: false
+  - atom_id: REQ-SRC-0004
+    verdict: FLAG
+    confidence: high
+    detail: "This requirement depends on two 'independent' attribution agents but never defines independence, the author-output schema, or the insufficient-evidence path, so the core attribution contract is still prose-shaped."
+    test_generatable: false
+  - atom_id: REQ-SRC-0005
+    verdict: AMEND
+    confidence: high
+    detail: "This is structurally parallel to REQ-SRC-0002 and has the same gaps: no exact science-hint payload, no named confidence field, and no defined investigation artifact."
+    amendment: "Mirror REQ-SRC-0002 with a concrete science-hint schema, exact preserved fields, explicit confidence-write behavior, and a structured contradiction record."
+    test_generatable: false
+  - atom_id: REQ-SRC-0006
+    verdict: FLAG
+    confidence: high
+    detail: "The normal 'new science discovered' branch is modeled as an error condition, and the atom never says what metadata is emitted when the owner declines or defers expansion even though intake must continue."
+    test_generatable: false
+  - atom_id: REQ-SRC-0007
+    verdict: AMEND
+    confidence: medium
+    detail: "The atom usefully prevents silent invention of a level detector, but it mixes runtime handoff behavior with spec-governance behavior and still depends on an unresolved architecture question."
+    amendment: "Split this into a concrete handoff-preservation contract for the `level` field and a separate readiness/blocker rule tied to OQ-SRC-0001 or DEC-SRC-0003."
+    test_generatable: false
+  - atom_id: REQ-SRC-0008
+    verdict: FLAG
+    confidence: high
+    detail: "The atom requires an agent-team trust workflow, but the minimum roles, trust-decision output shape, and monitor-feedback schema are all undefined while the team architecture is still open in OQ-SRC-0003."
+    test_generatable: false
+  - atom_id: REQ-SRC-0009
+    verdict: FLAG
+    confidence: high
+    detail: "The requirement assumes a formal disagreement module exists, but OQ-SRC-0004 leaves that module unresolved and the atom does not define terminal states for 'resolved error' versus 'real scholarly dispute'."
+    test_generatable: false
+  - atom_id: REQ-SRC-0010
+    verdict: FLAG
+    confidence: high
+    detail: "The contract references 'graduated levels' and uses `barely_known` in an acceptance criterion, but the standing enum, evidence thresholds, and stored fields are never defined."
+    test_generatable: false
+  - atom_id: REQ-SRC-0011
+    verdict: FLAG
+    confidence: high
+    detail: "The atom requires fine-grained hadith sub-genres without defining a controlled vocabulary, so an implementation could satisfy it with arbitrary labels that remain structurally unreviewable."
+    test_generatable: true
+  - atom_id: REQ-SRC-0012
+    verdict: AMEND
+    confidence: high
+    detail: "The multi-position principle is sound, but the position-object schema and field-level rules are incomplete, and the atom partially pre-answers OQ-SRC-0006 while still depending on it."
+    amendment: "Resolve or narrow OQ-SRC-0006, then define the exact position-object fields, cardinality rules, evidence shape, and confidence semantics for disputed metadata fields."
+    test_generatable: true
+  - atom_id: REQ-SRC-0013
+    verdict: AMEND
+    confidence: high
+    detail: "The atom chooses specialized research dispatch, but 'high-impact' is undefined, source-type taxonomy is implicit, and completion output is not named even though the acceptance criterion depends on it."
+    amendment: "Define a `research_task` contract with enumerated `source_type` values, a rule for what counts as high-impact verification, and an explicit verification log proving that two distinct source types were used."
+    test_generatable: true
+
+  - atom_id: INV-SRC-0001
+    verdict: AMEND
+    confidence: high
+    detail: "The invariant intent is clear, but 'base inference output' is too broad because the atom never states which fields are compared before versus after cross-validation side effects."
+    amendment: "Define the comparison surface as the core inferred metadata fields only, and require an audit marker showing that hint comparison happened strictly after base inference completion."
+    test_generatable: true
+  - atom_id: INV-SRC-0002
+    verdict: FLAG
+    confidence: high
+    detail: "This is a priority statement rather than a programmatically checkable invariant: AC-1 measures attribution accuracy, but it does not verify that attribution outranks other trade-offs in design or execution."
+    test_generatable: true
+  - atom_id: INV-SRC-0003
+    verdict: CONFIRM
+    confidence: high
+    detail: "The rejection guard is precise, the implication states the exact fallback behavior, and the acceptance criterion directly checks that unknown sciences do not block intake."
+    test_generatable: true
+  - atom_id: INV-SRC-0004
+    verdict: AMEND
+    confidence: medium
+    detail: "The invariant captures the right principle, but 'when the real answer is that scholars disagree' still needs a concrete evidentiary threshold before an implementation can know when multi-position output is mandatory."
+    amendment: "Define the minimum dispute-qualification rule, such as two evidence-backed positions from independent verification, and bind the invariant to the exact multi-position schema from REQ-SRC-0012."
+    test_generatable: true
+  - atom_id: INV-SRC-0005
+    verdict: CONFIRM
+    confidence: high
+    detail: "The statement is precise, the implication is actionable, and the acceptance criterion directly verifies that unknown muhaqiq standing does not gate intake."
+    test_generatable: true
+
+  - atom_id: DEC-SRC-0001
+    verdict: CONFIRM
+    confidence: high
+    detail: "The decision is structurally complete and cleanly fixes the hint-order rule without conflicting dependencies."
+    test_generatable: false
+  - atom_id: DEC-SRC-0002
+    verdict: CONFIRM
+    confidence: high
+    detail: "The decision clearly rejects a closed science enum and aligns with the intake-preservation invariant for unknown sciences."
+    test_generatable: false
+  - atom_id: DEC-SRC-0003
+    verdict: CONFIRM
+    confidence: medium
+    detail: "The atom correctly records an unresolved architectural choice and keeps all options deferred, but downstream requirements must continue treating it as a blocker rather than a solved contract."
+    test_generatable: false
+  - atom_id: DEC-SRC-0004
+    verdict: AMEND
+    confidence: medium
+    detail: "The direction away from numeric trust scoring is clear, but the chosen option still leaves the minimum team composition and resolution protocol too implicit for REQ-SRC-0008."
+    amendment: "Record the minimum required roles or explicitly narrow the remaining unknowns to OQ-SRC-0003 so the trust requirement has a stable architectural base."
+    test_generatable: false
+  - atom_id: DEC-SRC-0005
+    verdict: CONFIRM
+    confidence: high
+    detail: "The atom cleanly separates muhaqiq metadata from trust gating and aligns with INV-SRC-0005 and REQ-SRC-0010."
+    test_generatable: false
+  - atom_id: DEC-SRC-0006
+    verdict: CONFIRM
+    confidence: high
+    detail: "The principle of autonomous disagreement resolution is clear; only the concrete module shape remains open elsewhere."
+    test_generatable: false
+  - atom_id: DEC-SRC-0007
+    verdict: AMEND
+    confidence: medium
+    detail: "The choice to preserve all supported positions is clear, but this decision already implies array-based multi-position storage while OQ-SRC-0006 still treats representation as open."
+    amendment: "Narrow OQ-SRC-0006 to the remaining schema details or mark the position-array representation as resolved in this decision."
+    test_generatable: false
+  - atom_id: DEC-SRC-0008
+    verdict: CONFIRM
+    confidence: high
+    detail: "The scope decision is structurally sound and does not block implementation work inside the source engine."
+    test_generatable: false
+  - atom_id: DEC-SRC-0009
+    verdict: AMEND
+    confidence: medium
+    detail: "The move toward specialized research channels is clear, but the decision still lacks a canonical source-type taxonomy or minimum inventory that REQ-SRC-0013 can bind to."
+    amendment: "Define the canonical source-type categories here or explicitly defer only the inventory list to OQ-SRC-0007."
+    test_generatable: false
+
+  - atom_id: CON-SRC-0001
+    verdict: CONFIRM
+    confidence: high
+    detail: "The production-format boundary is explicit and the acceptance criteria cleanly separate production Shamela HTML from non-production stress-test inputs."
+    test_generatable: true
+  - atom_id: CON-SRC-0002
+    verdict: AMEND
+    confidence: medium
+    detail: "The benchmark-weighting direction is correct, but 'proportional to dominance' is not an enforceable rule because it never defines a minimum weight or formula."
+    amendment: "Replace 'proportional' with a measurable benchmark-weight rule, such as a minimum hadith-case share or explicit weight floor tied to the 48.7 percent figure."
+    test_generatable: false
+  - atom_id: CON-SRC-0003
+    verdict: CONFIRM
+    confidence: high
+    detail: "The precedence rule over legacy contracts is explicit and directly usable during planning and review."
+    test_generatable: true
+
+  - atom_id: OQ-SRC-0001
+    verdict: CONFIRM
+    confidence: medium
+    detail: "This is a well-bounded open question with a likely direction, and it correctly exposes level-detection ownership as unresolved."
+    test_generatable: false
+  - atom_id: OQ-SRC-0002
+    verdict: CONFIRM
+    confidence: medium
+    detail: "The question is structurally sound and usefully exposes that multi-layer detection still lacks a binding requirement or decision."
+    test_generatable: false
+  - atom_id: OQ-SRC-0003
+    verdict: CONFIRM
+    confidence: medium
+    detail: "The architecture options are bounded and meaningful, and the atom correctly remains open."
+    test_generatable: false
+  - atom_id: OQ-SRC-0004
+    verdict: CONFIRM
+    confidence: medium
+    detail: "The question cleanly captures the missing replacement for `human_gate`, which is now a direct implementation dependency for disagreement handling."
+    test_generatable: false
+  - atom_id: OQ-SRC-0005
+    verdict: AMEND
+    confidence: medium
+    detail: "The monitor-scope question is valid, but current requirements already emit monitor feedback without depending on this unresolved atom."
+    amendment: "Add explicit dependencies from the trust-monitoring atoms or narrow this question to the part of monitoring scope that is still genuinely open."
+    test_generatable: false
+  - atom_id: OQ-SRC-0006
+    verdict: AMEND
+    confidence: high
+    detail: "The candidate set is useful, but REQ-SRC-0012 and DEC-SRC-0007 already constrain the contract to multi-position storage, so the question is broader than the remaining uncertainty."
+    amendment: "Re-scope the question to element schema, ordering, weighting, and primary-display semantics instead of whether multiple positions exist at all."
+    test_generatable: false
+  - atom_id: OQ-SRC-0007
+    verdict: CONFIRM
+    confidence: medium
+    detail: "The open question is well framed and correctly leaves the specialized-source inventory unresolved without forcing generic-search fallback."
+    test_generatable: false
+summary:
+  "INPUTS NOT COVERED":
+    - "Duplicate-intake scenarios where the same frozen digest or source identity is submitted more than once."
+    - "Sources with commentary or multi-layer structure; OQ-SRC-0002 exists, but no requirement currently handles that input path."
+    - "Author-attribution cases with insufficient evidence, anonymous works, or irreducible ambiguity despite having two agents available."
+    - "Owner-declined or owner-deferred science-registry expansion after a new science is inferred."
+    - "Unreadable, missing, directory, or empty-path intake requests are implied but not fully contracted."
+  "OUTPUTS NOT PRODUCED":
+    - "A concrete `SourceMetadata` field schema for intake output."
+    - "A named frozen-artifact contract beyond 'bytes are frozen with a SHA-256 digest'."
+    - "A concrete handoff-registration payload for downstream normalization."
+    - "A concrete trust-decision schema and monitor-feedback schema."
+    - "A concrete disagreement-module output for autonomous resolution versus genuine scholarly dispute."
+    - "A concrete registry-expansion request/result payload for new sciences."
+  "ERROR PATHS NOT SPECIFIED":
+    - "Nonexistent or unreadable file paths during intake."
+    - "Duplicate source submission or repeated frozen digest."
+    - "Insufficient author evidence even when the required number of agents is available."
+    - "Registry-expansion decline, timeout, or write failure for new sciences."
+    - "Research-source unavailability or partial-source failure inside REQ-SRC-0013."
+    - "Trust-workflow disagreement when agent roles exist but cannot converge."
+  "DEPENDENCY GAPS":
+    - "No broken `depends_on` references and no circular dependencies were found."
+    - "REQ-SRC-0007 and DEC-SRC-0003 depend on unresolved OQ-SRC-0001 but still describe partial runtime behavior."
+    - "REQ-SRC-0008 depends on OQ-SRC-0003 while also requiring monitor feedback without depending on OQ-SRC-0005."
+    - "REQ-SRC-0009 depends on OQ-SRC-0004, but the escalation target it needs is still unspecified."
+    - "REQ-SRC-0013 depends on OQ-SRC-0007, and DEC-SRC-0009 does not yet fix the source-type taxonomy that requirement needs."
+    - "OQ-SRC-0002 exposes a real multi-layer boundary gap, but no current requirement or decision consumes it."
+  "CONTRADICTIONS":
+    - "REQ-SRC-0012 and DEC-SRC-0007 already commit the contract to multi-position storage, while OQ-SRC-0006 still frames representation choice as open."
+  "TESTABILITY": "15 of 31 acceptance criteria are directly testable."
