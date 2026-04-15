@@ -102,12 +102,14 @@ These OVERRIDE specific Claude Code default behaviors that conflict with KR:
 
 ## Thinking Depth (OVERRIDES default brevity)
 
-Always apply maximum thinking depth. Quality over speed, always.
+Always apply maximum thinking depth. Quality over speed, always. Compliance requires observable evidence, not self-reported confidence.
 
+- Before edits: state what you plan to change, what risks exist, and what you will check after. This is not optional overhead — it is proof of thinking.
 - Reasoning loops before committing: what could go wrong? Do assumptions match code?
 - Self-check: "Would a reviewer flag this?"
 - Before treating ANY numeric value as a hard constraint, trace its origin per constraint-origin-trace.md.
 - Never claim a test passes without showing actual command output. Reasoning is NOT a substitute for execution.
+- Before any completion claim: list commands run, evidence gathered, and assumptions cleared.
 
 ## Error Handling (OVERRIDES "don't add error handling for impossible scenarios")
 
@@ -159,7 +161,8 @@ Git: new commits over amending. Never skip hooks. Never force-push main/master.
 
 # Session Discipline
 
-Follow AGENTS.md session start sequence, then check owner feedback files before task work.
+Follow AGENTS.md session start sequence, then check owner feedback files before task work. If the startup sequence was not completed, do not begin implementation. If owner feedback files were not checked, the session is non-compliant.
+
 One engine per session. `/smart-compact` at ~60%. Hand off at ~80%.
 After compaction: re-read engine CLAUDE.md, SPEC section, NEXT.md.
 
