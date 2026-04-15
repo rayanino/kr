@@ -8,7 +8,7 @@ step: metadata_deliberation
 priority: critical
 confidence: high
 provenance: coworker_review
-source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006
+source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006 and Claude DR spec audit 2026-04-15 which identified إعداد as a distinct role (neither author nor editor).
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
@@ -19,11 +19,15 @@ impacts:
 behavior:
   trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
   preconditions:
-  - "Role markers are mapped as: author={ألفه, صنفه, جمعه, أملاه}, copyist={كتبه, نسخه, نقله}, editor={المحقق, تحقيق, اعتنى به}, annotator={علق عليه, خرج أحاديثه}."
+  - "Role markers are mapped as: author={ألفه, صنفه, أملاه}, compiler={جمعه, جمع وترتيب}, preparer={إعداد}, copyist={كتبه, نسخه, نقله}, editor={المحقق, تحقيق, اعتنى به}, annotator={علق عليه, خرج أحاديثه}, supervisor={إشراف, مراجعة}."
+  - "إعداد (preparation) is a distinct role: the preparer organized and arranged existing material for publication but did not create original content or establish text from manuscripts. Institutional إعداد credits (e.g., إعداد مركز الدراسات والبحوث) are common."
+  - "جمعه (compilation) is distinct from تأليف (authorship): the compiler collected and arranged from multiple sources but may not have composed original content."
   - Metadata card fields and colophon strings are both available to the attribution parser when present.
   - The no-marker fallback applies only when neither the metadata card nor the colophon contains an explicit author, copyist, or editor role marker.
   postconditions:
   - author_name is populated only from author markers.
+  - compiler_name is populated only from compiler markers.
+  - preparer_name is populated only from preparer markers.
   - copyist_name is populated only from copyist markers.
   - editor_name is populated only from editor markers.
   - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.

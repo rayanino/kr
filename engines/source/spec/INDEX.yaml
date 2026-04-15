@@ -646,3 +646,24 @@ atoms:
   topic: acquisition
   priority: high
   file: 20-contracts/constraints/CON-SRC-0007.yaml
+- id: REQ-SRC-0038
+  type: requirement
+  status: proposed
+  title: Composite work (majmu') detection and decomposition
+  topic: identity
+  priority: critical
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0038.yaml
+- id: REQ-SRC-0039
+  type: requirement
+  status: proposed
+  title: Work-to-work relationship modeling
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0039.yaml
+- id: REQ-SRC-0040
+  type: requirement
+  status: proposed
+  title: Attribution confidence levels with scholarly terminology
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0040.yaml

@@ -1,0 +1,77 @@
+id: REQ-SRC-0039
+type: requirement
+status: proposed
+title: Work-to-work relationship modeling
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: deep_research
+source: Claude DR spec audit 2026-04-15 finding that Islamic texts are fundamentally relational with mukhtasar-sharh-hashiyah
+  chains up to 5 levels deep. Neither Shamela nor WorldCat models chain relationships. The source engine must capture typed
+  links between derivative works and their base texts.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0026
+- REQ-SRC-0030
+- DEC-SRC-0010
+impacts:
+- work_identity
+- derivative_chains
+- layer_structure
+rationale: 'When the source engine identifies a sharh, it must record what it is a sharh on. Without this, downstream engines
+  cannot resolve multi-layer text structures, cannot link related teaching units across works, and cannot present the matn-sharh-hashiyah
+  hierarchy that is fundamental to Islamic scholarly pedagogy. Example chains: Alfiyyat Ibn Malik (matn) -> Sharh Ibn ''Aqil
+  (sharh) -> Hashiyat al-Khudari (hashiyah) -> Ta''liqat (layer 3). Each link is typed and directional.'
+behavior:
+  trigger: Metadata deliberation identifies a source whose genre implies a derivative relationship (sharh, hashiyah, mukhtasar,
+    nazm, taliqa, taqrirat).
+  preconditions:
+  - source_metadata.genre has been classified by REQ-SRC-0030.
+  - work_identity_proposal is available from intake analysis (REQ-SRC-0019).
+  postconditions:
+  - 'work_relationships is a list of typed links where each entry contains: relationship_type (one of is_commentary_on, is_supercommentary_on,
+    is_abridgement_of, is_versification_of, has_part, is_part_of), target_work_title (string), target_work_author (string
+    or null), and confidence (one of high, medium, low).'
+  - 'For genre=sharh: at least one entry with relationship_type=is_commentary_on identifying the matn it comments on.'
+  - 'For genre=hashiyah: at least one entry with relationship_type=is_supercommentary_on identifying the sharh it glosses.'
+  - 'For genre=mukhtasar: at least one entry with relationship_type=is_abridgement_of identifying the original work.'
+  - 'For genre=nazm: at least one entry with relationship_type=is_versification_of identifying the prose original.'
+  - When the target work cannot be identified from title, content, or metadata evidence, target_work_title is set to the best
+    available partial evidence (e.g. extracted from the source's own title) and confidence=low.
+  - 'For works where the matn is embedded in the commentary text, matn_embedding_style is recorded as one of: interlinear
+    (matn lines alternate with sharh paragraphs), separated (matn in one block, sharh in another), marginal (matn in margin,
+    sharh in body), or mazj (matn words woven into sharh sentences).'
+  - work_relationships is an empty list for standalone works (genre=matn, genre=risalah, genre=hadith_collection, genre=fatawa,
+    or any genre with no derivative relationship).
+  error_conditions:
+  - condition: Genre implies a derivative relationship (sharh, hashiyah, mukhtasar, nazm) but no target work can be identified
+      from any available evidence.
+    action: Record a relationship entry with target_work_title="unknown", target_work_author=null, confidence=low, and append
+      unresolved_derivative_target to study_quality_risk_flags.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: A source titled "فتح الباري شرح صحيح البخاري" with genre=sharh
+  when: work-to-work relationship modeling runs
+  then: work_relationships contains an entry with relationship_type="is_commentary_on", target_work_title contains "صحيح البخاري",
+    confidence is high or medium.
+  test_type: integration
+- id: AC-2
+  given: A source titled "حاشية ابن القيم على سنن أبي داود" with genre=hashiyah
+  when: work-to-work relationship modeling runs
+  then: work_relationships contains an entry with relationship_type="is_supercommentary_on", target_work_title contains "سنن
+    أبي داود".
+  test_type: integration
+- id: AC-3
+  given: A standalone risalah ("أحكام الاضطباع والرمل في الطواف") with genre=risalah
+  when: work-to-work relationship modeling runs
+  then: work_relationships is an empty list.
+  test_type: deterministic
+- id: AC-4
+  given: A source titled "شرح ابن عقيل على ألفية ابن مالك" with genre=sharh and interlinear matn embedding
+  when: work-to-work relationship modeling runs
+  then: work_relationships contains is_commentary_on with target_work_title containing "ألفية ابن مالك" AND matn_embedding_style="interlinear".
+  test_type: integration

@@ -1,0 +1,72 @@
+id: REQ-SRC-0038
+type: requirement
+status: proposed
+title: Composite work (majmu‘) detection and decomposition
+topic: identity
+layer: pipeline
+step: intake_analysis
+priority: critical
+confidence: high
+provenance: deep_research
+source: Claude DR spec audit 2026-04-15 finding that majmu' collections (e.g. 37-volume compilations containing hundreds of
+  independent risalahs) demand whole-part decomposition. Both Shamela and OpenITI treat the entire majmu' as a single entry.
+  The source engine must detect and decompose.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0019
+- REQ-SRC-0017
+- CON-SRC-0004
+impacts:
+- work_identity
+- collection_matching
+- downstream_processing
+rationale: Collections like majmu' fatawa Ibn Taymiyyah (37 volumes, hundreds of independent risalahs), majmu' rasa'il Ibn
+  Rajab (30+ risalahs), and majmu' fatawa al-'Uthaymin are not single works. Each constituent risalah has its own author context,
+  topic, and science scope. Treating the collection as atomic causes downstream engines to misclassify genre, misattribute
+  content, and produce incoherent teaching units. Detection at intake prevents this corruption from propagating.
+behavior:
+  trigger: Intake analysis examines a source candidate whose title, structure, or volume count suggests it is a composite
+    collection (majmu').
+  preconditions:
+  - container_classification has completed (REQ-SRC-0017 or REQ-SRC-0020).
+  - Title evidence and structural signals (volume count, table of contents if available) are accessible from the frozen source.
+  postconditions:
+  - 'intake_dossier.composite_work_type is set to one of: majmu, possible, or null.'
+  - When title evidence contains keywords indicating a composite collection (e.g. مجموع, فتاوى as collection title, رسائل
+    as collection title) or structural signals indicate a composite work (high volume count with heterogeneous internal titles),
+    composite_work_type is set to majmu.
+  - 'For detected majmu'' works, intake_dossier.sub_work_inventory is a list where each entry contains: sub_title (string),
+    volume_number (int or null), page_start (int or null), page_end (int or null), and detection_method (one of toc_entry,
+    volume_boundary, structural_signal).'
+  - The source engine creates a parent work record for the collection AND preserves sub_work_inventory for downstream engines
+    to use during passaging and atomization.
+  - Sub-work detection is best-effort from structural signals (table of contents, volume boundaries, internal bismillah/hamdala
+    patterns). Complete decomposition may require normalization engine assistance.
+  - Non-composite works have composite_work_type set to null and sub_work_inventory as an empty list.
+  error_conditions:
+  - condition: Composite detection signals are ambiguous (e.g. title contains \u0631\u0633\u0627\u0626\u0644 but volume count
+      is 1 and no internal sub-work boundaries are detectable).
+    action: Set composite_work_type=possible and log ambiguity to study_quality_risk_flags with entry ambiguous_composite_detection.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: A source with title "مجموع فتاوى ابن تيمية" spanning 37 volumes
+  when: intake analysis runs composite detection
+  then: composite_work_type="majmu", sub_work_inventory is non-empty, each entry has sub_title and detection_method.
+  test_type: integration
+- id: AC-2
+  given: A standard single-author monograph ("أحكام الاضطباع والرمل في الطواف") with 1 volume
+  when: intake analysis runs composite detection
+  then: composite_work_type=null, sub_work_inventory is an empty list.
+  test_type: deterministic
+- id: AC-3
+  given: A source titled "رسائل ابن رجب" with 1 volume but internal structural boundaries between distinct treatises
+  when: intake analysis runs composite detection
+  then: composite_work_type="majmu" (detected via structural_signal), sub_work_inventory contains entries with detection_method="structural_signal".
+  test_type: integration
+- id: AC-4
+  given: A source titled "رسائل" with 1 volume and no detectable internal sub-work boundaries
+  when: intake analysis runs composite detection
+  then: composite_work_type="possible", study_quality_risk_flags includes "ambiguous_composite_detection".
+  test_type: deterministic

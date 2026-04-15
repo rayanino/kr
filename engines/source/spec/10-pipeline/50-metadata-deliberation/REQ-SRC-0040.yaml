@@ -1,0 +1,76 @@
+id: REQ-SRC-0040
+type: requirement
+status: proposed
+title: Attribution confidence levels with scholarly terminology
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: deep_research
+source: Claude DR spec audit 2026-04-15 finding that anonymous and pseudepigraphic works need confidence-level attribution
+  beyond REQ-SRC-0004's three statuses (definitive/disputed/insufficient_evidence). The Islamic scholarly tradition has precise
+  terminology for attribution confidence that the spec must model.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0004
+- INV-SRC-0009
+- REQ-SRC-0035
+impacts:
+- author_attribution
+- display_card
+- knowledge_integrity
+rationale: 'REQ-SRC-0004 defines author_output.status as definitive, disputed, or insufficient_evidence. This trichotomy cannot
+  express: (a) pseudepigraphic works where evidence suggests the named author did NOT write the text, (b) anonymous works
+  where the author is genuinely unknown but temporal/geographic evidence exists, or (c) collective works with multiple contributors.
+  These distinctions are standard in Islamic manuscript studies and carry specific Arabic terminology that the display card
+  (REQ-SRC-0035) must present.'
+behavior:
+  trigger: Author attribution finalizes (REQ-SRC-0004 completes) and the output must express the confidence level using Islamic
+    scholarly terminology.
+  preconditions:
+  - author_output has been produced by REQ-SRC-0004 with status and positions.
+  - Evidence from metadata cards, colophons, and content analysis is available.
+  postconditions:
+  - 'author_output.attribution_confidence is set to one of: confirmed (مؤكد — authorship established beyond reasonable doubt),
+    disputed (منسوب إلى — attributed but scholarly disagreement exists), anonymous (مجهول المؤلف — truly unknown author),
+    pseudepigraphic (منحول — falsely attributed, evidence the named author did not write it), or collective (جماعي — multiple
+    contributors, no single primary author).'
+  - For anonymous works, author_output preserves whatever temporal or geographic evidence exists (e.g. era, region, school
+    affiliation) in author_output.anonymous_evidence as a free-text string.
+  - For pseudepigraphic works, author_output preserves both the attributed_author (the false claimant) and false_attribution_evidence
+    (the evidence against authenticity) per INV-SRC-0009.
+  - For collective works, author_output.positions lists all identifiable contributors with their roles.
+  - author_output.attribution_confidence_ar stores the Arabic scholarly term corresponding to the classification for display
+    purposes.
+  - attribution_confidence feeds into display_card dispute_panel generation (REQ-SRC-0035).
+  error_conditions:
+  - condition: Attribution confidence level cannot be determined from available evidence (e.g. contradictory signals about
+      whether a work is pseudepigraphic or merely disputed).
+    action: Set attribution_confidence=disputed as the safe default and append indeterminate_attribution_confidence to study_quality_risk_flags.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: صحيح البخاري with author_output.status=definitive and unambiguous authorship
+  when: attribution confidence classification runs
+  then: attribution_confidence="confirmed", attribution_confidence_ar="مؤكد".
+  test_type: deterministic
+- id: AC-2
+  given: A work attributed to al-Ghazali with scholarly evidence that the real author is a later imitator
+  when: attribution confidence classification runs
+  then: attribution_confidence="pseudepigraphic", attribution_confidence_ar="منحول", attributed_author field preserved, false_attribution_evidence
+    is non-empty.
+  test_type: integration
+- id: AC-3
+  given: A truly anonymous work with only temporal evidence "مجهول - من أهل القرن السابع الهجري"
+  when: attribution confidence classification runs
+  then: attribution_confidence="anonymous", attribution_confidence_ar="مجهول المؤلف", anonymous_evidence contains temporal
+    era reference.
+  test_type: integration
+- id: AC-4
+  given: الموسوعة الفقهية الكويتية with multiple contributing scholars and no single primary author
+  when: attribution confidence classification runs
+  then: attribution_confidence="collective", attribution_confidence_ar="جماعي", author_output.positions lists identifiable
+    contributors.
+  test_type: integration
