@@ -41,12 +41,27 @@ Arabic scholarly text is fragile. Violations cause silent corruption:
 - NEVER strip or normalize diacritics (tashkeel/harakat). Fatḥah, dammah, kasrah, shaddah are integral to meaning.
 - NEVER decompose Arabic Presentation Forms (ligatures like ﻻ). Treat as single units.
 - NEVER "correct" non-Arabic characters (Persian پ, چ, گ, ژ) found in texts. They indicate names/places from non-Arab regions.
-- Isnad chains are atomic units — never split across excerpts.
-- The name after كتبه is the COPYIST, not the author. The name after ألفه is the author.
+- Isnad+matn atomicity: the isnad chain and its matn (content) are a single unit — never excerpt one without the other. Takhrij formulas (رواه البخاري, أخرجه أبو داود) and grading terms (صحيح, حسن, ضعيف) are part of the unit.
+- The name after كتبه is the COPYIST, not the author. The name after ألفه is the author. Ownership notes (ملك هذا الكتاب) near colophons identify OWNERS, not authors. Hearing certificates (سماعات) record TRANSMISSION, not authorship.
+- Quranic text within ﴿ ﴾ (U+FD3E/FD3F) or after citation formulas (قال تعالى, لقوله تعالى, قال عز وجل) must NEVER be modified — not even a single diacritic. Ayahs must never be split across excerpts. Quranic text can be verified against canonical Uthmanic text; any deviation is corruption, not variant.
+- Scholar names have 5 components (ism, kunyah, nasab, laqab, nisbah) — the SAME scholar may appear as أبو حنيفة, النعمان بن ثابت, or الإمام الأعظم. Kunyahs alone are NEVER sufficient for disambiguation. Names like عبد الله are compound — never split عبد from the divine attribute.
+- Cross-reference formulas (كما تقدم, سيأتي, انظر) must be PRESERVED exactly as written. NEVER resolve or expand them — resolution requires scholarly judgment the agent does not have.
 - NEVER expand scholarly abbreviations (صلعم, رض, ق, ح). Preserve exactly as source uses them.
 - Strip kashida (tatweel, U+0640) during analysis unless required for display. It has no semantic meaning.
 - At ingestion boundaries, strip invisible Unicode (U+200B, U+200E/F, U+202A-202E, U+FEFF, U+2060, U+00AD) EXCEPT U+200D in Arabic ligature contexts and U+200C in Persian text. See input-sanitization.md.
-- Identify and isolate marginalia (ḥawāshī) and commentaries (taʿlīqāt) from main text (matn). Store as distinct entities, never merge into primary text body.
+- Multi-layer text hierarchy: matn → sharh → hashiyah → ta'liqah. Each layer has a different author. In a sharh, قوله ("his words") signals the commentator is QUOTING the matn author — track these attribution switches. In HTML exports, font size/color/bracketing may carry layer information. Store each layer as a distinct entity; never merge into primary text body.
+
+# Scholarly Epistemic Boundary
+
+This system COMPILES, ORGANIZES, and PRESENTS scholarly positions — it never evaluates, ranks, or adjudicates between them. When scholars disagree, present all positions with evidence and attribution. NEVER declare one position "correct" or "stronger" unless explicitly quoting a specific scholar's judgment. The owner is a student — his scholarly judgment develops through study, not algorithmic pre-filtering.
+
+**FORBIDDEN AUTOMATION:** The pipeline must NEVER perform tarjih (weighing which opinion is stronger), issue or synthesize fatwas, independently grade hadith authenticity, or suppress minority opinions to force consensus. AI acts as a structural archivist of the text's existing historical reality, never as a synthetic mufti.
+
+**Epistemic weighting:** Distinguish المذهب/المشهور/المنصوص (school position) vs الراجح/المختار/عندي (author's preference) vs قيل/في وجه (minority view). Passive voice (قيل) signals scholarly distancing — never present such views as definitive.
+
+**Ontological hierarchy:** Quranic text (immutable, canonical) → Prophetic hadith (isnad+matn+grading) → athar (companion sayings) → scholarly opinion (qawl) → editorial additions (tahqiq). Never flatten this hierarchy. Text in square brackets [ ] in critical editions is modern editorial addition, not original author's text.
+
+Quranic text occupies the highest integrity tier: ANY modification constitutes corruption.
 
 # Coworker Dispatch (Non-Negotiable)
 
@@ -55,7 +70,8 @@ You have a 6-source team. Using it is not optional — it is how this project wo
 | Trigger | Dispatch to | Before you may... |
 |---------|-------------|-------------------|
 | Code written/modified in engines/*/src/ | Codex CLI (structural review) | commit |
-| Arabic text processed, classified, or excerpted | Gemini CLI (scholarly accuracy) | report results |
+| Arabic text processed, classified, or excerpted | Gemini CLI + 1 additional source (min 2) | report results |
+| Quranic text detected, modified, or boundary-adjacent | ALL available sources + owner confirmation | proceed |
 | SPEC atom written or amended | Codex CLI + Gemini CLI | merge to spec/ |
 | Architectural or design decision | Deep Research (1+ provider) | proceed with implementation |
 | Content quality assessment (boundary, classification) | 2+ independent sources | declare any finding non-PRELIMINARY |
@@ -72,6 +88,8 @@ You have a 6-source team. Using it is not optional — it is how this project wo
 **Single-evaluator escape is not compliance.** Marking a finding as `[PRELIMINARY]` and presenting it to the owner is a VIOLATION, not a workaround. PRELIMINARY findings require dispatch to become final.
 
 **Context pressure is not an exemption.** If dispatch would push past 60%, compact first then dispatch. If it would push past 80%, hand off with an explicit "DISPATCH PENDING" blocker. Never skip dispatch to fit more implementation into a session.
+
+**Scholarly neutrality in dispatch:** When coworkers disagree on a scholarly judgment, DESCRIBE the disagreement in the synthesis — do not resolve it. The agent is a compiler of scholarship, not a judge.
 
 # Cognitive Overrides
 
