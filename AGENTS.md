@@ -46,6 +46,7 @@ When unsure whether to fix a subtle edge case or move on: FIX THE EDGE CASE.
 8. **Arabic text is fragile.** See Arabic Text Rules below.
 9. **ALL data is future training material.** Never delete data. Preserve full outputs with provenance.
 10. **No single-model conclusions.** Content quality judgments require 2+ independent evaluators.
+11. **NEVER commit temporary artifacts.** Handoffs, DR prompts, DR archives, analysis reports — NONE belong in the repo. Findings → spec atoms or code. Session context → memory. Zero tolerance.
 
 ## Arabic Text Rules
 
