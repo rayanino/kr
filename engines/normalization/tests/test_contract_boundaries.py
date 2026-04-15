@@ -15,23 +15,15 @@ import pytest
 
 from engines.normalization.contracts import (
     ContentFlags,
-    ContentUnit,
     DivisionNode,
     HeadingConfidence,
     HeadingDetectionMethod,
     LayerMapEntry,
     LayerType,
-    NormalizedManifest,
-    NormalizedPackage,
-    PhysicalPage,
     QualityReport,
-    StructuralFormat,
-    TextFidelity,
-    TextFidelityLevel,
-    TextFidelitySummary,
-    TextLayerSegment,
 )
-from engines.normalization.src.dispatcher import normalize_source
+from engines.normalization.src.dispatcher import normalize_handoff_bundle, normalize_source
+from engines.source.contracts import NormalizationHandoffBundle, NormalizationInput
 from engines.normalization.tests.conftest import (
     FIXTURES_REAL,
     _make_content_unit,
@@ -64,6 +56,58 @@ class TestSourceToNormBoundary:
         pkg = normalize_source(txt, meta)
         assert "plain_text" in pkg.manifest.normalizer_id.lower()
 
+    def test_handoff_bundle_routes_html_via_bridge(self) -> None:
+        path = FIXTURES_REAL / "01_nahw_simple"
+        htm = list(path.glob("*.htm"))[0]
+        meta = _make_source_metadata(source_format="shamela_html")
+        bundle = NormalizationHandoffBundle(
+            source_metadata=meta,
+            normalization_input=NormalizationInput(
+                source_id=meta.source_id,
+                source_format_legacy="shamela_html",
+                frozen_path=str(htm),
+                frozen_hash="abc123",
+                page_count=None,
+                volume_count=1,
+                title_arabic=meta.title_arabic,
+                author=None,
+                work_id=meta.work_id,
+                structural_format=meta.structural_format,
+                is_multi_layer=meta.is_multi_layer,
+                genre=meta.genre,
+                text_fidelity=meta.text_fidelity,
+                trust_tier=meta.trust_tier,
+            ),
+        )
+        pkg = normalize_handoff_bundle(bundle)
+        assert "shamela" in pkg.manifest.normalizer_id.lower()
+
+    def test_handoff_bundle_routes_plain_text_via_bridge(self, tmp_path: Path) -> None:
+        txt = tmp_path / "test.txt"
+        txt.write_text("بسم الله الرحمن الرحيم\n\nالحمد لله", encoding="utf-8")
+        meta = _make_source_metadata(source_format="plain_text")
+        bundle = NormalizationHandoffBundle(
+            source_metadata=meta,
+            normalization_input=NormalizationInput(
+                source_id=meta.source_id,
+                source_format_legacy="plain_text",
+                frozen_path=str(txt),
+                frozen_hash="abc123",
+                page_count=None,
+                volume_count=1,
+                title_arabic=meta.title_arabic,
+                author=None,
+                work_id=meta.work_id,
+                structural_format=meta.structural_format,
+                is_multi_layer=meta.is_multi_layer,
+                genre=meta.genre,
+                text_fidelity=meta.text_fidelity,
+                trust_tier=meta.trust_tier,
+            ),
+        )
+        pkg = normalize_handoff_bundle(bundle)
+        assert "plain_text" in pkg.manifest.normalizer_id.lower()
+
     def test_unsupported_format_raises(self, tmp_path: Path) -> None:
         """Unsupported source_format raises clear error."""
         txt = tmp_path / "test.pdf"
@@ -72,6 +116,35 @@ class TestSourceToNormBoundary:
         meta = _make_source_metadata(source_format="pdf_text")
         with pytest.raises(Exception):
             normalize_source(txt, meta)
+
+    def test_handoff_bundle_routes_pdf_through_registered_fail_loud_path(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        pdf = tmp_path / "test.pdf"
+        pdf.write_text("dummy", encoding="utf-8")
+        meta = _make_source_metadata(source_format="pdf_text")
+        bundle = NormalizationHandoffBundle(
+            source_metadata=meta,
+            normalization_input=NormalizationInput(
+                source_id=meta.source_id,
+                source_format_legacy="pdf_text",
+                frozen_path=str(pdf),
+                frozen_hash="abc123",
+                page_count=None,
+                volume_count=1,
+                title_arabic=meta.title_arabic,
+                author=None,
+                work_id=meta.work_id,
+                structural_format=meta.structural_format,
+                is_multi_layer=meta.is_multi_layer,
+                genre=meta.genre,
+                text_fidelity=meta.text_fidelity,
+                trust_tier=meta.trust_tier,
+            ),
+        )
+        with pytest.raises(Exception):
+            normalize_handoff_bundle(bundle)
 
     def test_source_id_preserved_in_output(self) -> None:
         """source_id from SourceMetadata appears in NormalizedManifest (D-023)."""
@@ -238,6 +311,6 @@ class TestContractModelEdgeCases:
         entry = LayerMapEntry(
             layer_type=LayerType.SHARH,
             author_canonical_id=None,
-            confidence=1.0,
+            confidence=0.95,
         )
         assert entry.author_canonical_id is None

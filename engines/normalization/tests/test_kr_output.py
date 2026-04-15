@@ -20,6 +20,7 @@ Test categories (from SPEC §10):
 from __future__ import annotations
 
 import json
+import logging
 
 import pytest
 from pathlib import Path
@@ -37,6 +38,7 @@ from engines.normalization.tests.conftest import (
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 GOLD_DIR = Path(__file__).parent / "gold_baselines"
+logger = logging.getLogger(__name__)
 
 
 # ============================================================
@@ -139,11 +141,13 @@ class TestDispatcher:
         assert SourceFormat.SHAMELA_HTML in _NORMALIZER_REGISTRY
         assert _NORMALIZER_REGISTRY[SourceFormat.SHAMELA_HTML] is ShamelaNormalizer
 
-    def test_unknown_format_raises_error(self):
+    def test_unknown_format_raises_error(self, tmp_path: Path):
         """Unregistered source_format raises NORM_UNKNOWN_SOURCE_FORMAT."""
         meta = _make_source_metadata(source_format="pdf_text")
+        dummy_pdf = tmp_path / "dummy.pdf"
+        dummy_pdf.write_text("dummy", encoding="utf-8")
         with pytest.raises(NormalizationError) as exc_info:
-            normalize_source(Path("/dummy"), meta)
+            normalize_source(dummy_pdf, meta)
         assert exc_info.value.code == NormErrorCode.UNKNOWN_SOURCE_FORMAT
 
 
