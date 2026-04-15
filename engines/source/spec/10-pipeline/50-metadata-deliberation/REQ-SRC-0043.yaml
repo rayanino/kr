@@ -1,0 +1,59 @@
+id: REQ-SRC-0043
+type: requirement
+status: proposed
+title: New scholar registration in authority registry
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: coworker_review
+source: "Adversary-attribution review ADV-ATT-008 finding that no atom specifies how a newly discovered author enters the scholar_authority registry."
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0004
+- REQ-SRC-0015
+- INV-SRC-0007
+impacts:
+- scholar_authority
+- trust_evaluation
+- registry_growth
+rationale: >-
+  The pipeline processes books by authors who may not yet exist in
+  scholar_authority. Without a defined registration path, these authors
+  either silently fail scholar profile lookup (REQ-SRC-0042) or get
+  ad-hoc entries with no status tracking. This atom defines the
+  provisional-to-confirmed lifecycle for new scholar entries.
+behavior:
+  trigger: Attribution identifies an author not present in scholar_authority.
+  preconditions:
+  - "author_output has a canonical identity (display_name and at least one of death_hijri or nisba_tokens) that does not match any existing scholar_authority entry by canonical_id or name+death_hijri lookup."
+  postconditions:
+  - "A provisional scholar_authority entry is created with status=provisional, containing: canonical_id (auto-assigned), display_name, full_name_lineage (best available from source evidence), death_hijri (if known, otherwise null), primary_science (inferred from source science_scope), authority_level=unknown, and source_book_ids listing the book that triggered creation."
+  - "Provisional entries are usable by downstream processing (REQ-SRC-0042 scholar profile lookup returns them) but are flagged in trust evaluation: trust fast-track (REQ-SRC-0015) is NOT eligible for sources attributed to provisional scholars."
+  - "When a second distinct book by the same provisional scholar enters the pipeline and its evidence is consistent with the existing entry (display_name overlap and death_hijri match or both null), the entry is promoted to status=confirmed and authority_level is re-evaluated from unknown."
+  - "The entry records evidence_sources as an array of objects each containing book_id, evidence_type (metadata_card, title_page, colophon, agent_inference), and the raw evidence string."
+  error_conditions:
+  - condition: "The new scholar's display_name matches an existing scholar_authority entry but death_hijri differs by more than 50 years or one is null and the other is populated."
+    action: "Create a separate entry with a unique canonical_id. Add a disambiguation_note to both entries referencing the other. Log the near-collision for future human review."
+    severity: warning
+  - condition: "The new scholar's identity evidence is too weak (display_name only, no death_hijri, no nisba_tokens)."
+    action: "Create the provisional entry but set evidence_quality=minimal. Add weak_author_identity to study_quality_risk_flags on the source."
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: "A book attributed to a minor modern scholar not in scholar_authority with display_name and death_hijri available"
+  when: new scholar registration executes
+  then: "scholar_authority gains a new entry with status=provisional, authority_level=unknown, source_book_ids containing the current book_id, and trust fast-track is blocked for this source"
+  test_type: deterministic
+- id: AC-2
+  given: "A second book by the same provisional scholar arrives with consistent evidence (same display_name, same death_hijri)"
+  when: attribution completes and matches the provisional entry
+  then: "The existing provisional entry is promoted to status=confirmed, source_book_ids contains both book_ids, and authority_level is re-evaluated"
+  test_type: integration
+- id: AC-3
+  given: "A new scholar with display_name matching existing entry ابن تيمية (death_hijri=728) but new evidence shows death_hijri=652"
+  when: new scholar registration executes
+  then: "A separate scholar_authority entry is created with its own canonical_id, both entries have disambiguation_note referencing the other"
+  test_type: deterministic

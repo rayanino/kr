@@ -1,51 +1,98 @@
 id: REQ-SRC-0015
 type: requirement
 status: proposed
-title: Honorific-aware name matching
+title: Scholar identity matching and name resolution
 topic: metadata
 layer: pipeline
 step: metadata_deliberation
-priority: high
+priority: critical
 confidence: high
 provenance: coworker_review
-source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010
+source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010, adversary-attribution review (ADV-ATT-001/002/006/012), domain-attribution review (laqab-as-primary, nisba, sahib convention, death date tolerance, female scholars), and contract-attribution review (display_name precedence).
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-15'
 depends_on:
 - REQ-SRC-0004
+- REQ-SRC-0039
 impacts:
 - author_matching
 - canonical_names
-rationale: Honorific stripping follows the authoritative repo list in .claude/rules/arabic-scholarly-conventions.md so the comparison key and displayed name stay synchronized as new scholarly titles are added.
+- scholar_disambiguation
+rationale: >-
+  Scholar identity matching is the highest-risk metadata operation. V1 found
+  100% of consensus disagreements involved author names. The matching system
+  must handle Arabic naming complexity (kunya, nasab, nisba, laqab, honorifics),
+  absent death dates (v1 extraction was 0% on death dates), name collisions
+  between distinct scholars, institutional authorship, female scholars, and
+  laqab-as-primary-name patterns — all without false merges or false splits.
 behavior:
-  trigger: Attribution matching compares two Arabic scholar names.
+  trigger: Attribution matching compares two Arabic scholar names or resolves a scholar identity.
   preconditions:
   - "Matching strips leading honorific tokens from the comparison key: الشيخ, الإمام, العلامة, الحافظ, شيخ الإسلام, حجة الإسلام, القاضي, المحقق, المحدث, الفقيه, المفسر, المقرئ, الأصولي, المؤرخ."
   - "Compound honorifics (شيخ المفسرين, شيخ المحدثين, إمام الحرمين, خاتم الحفاظ) are stripped as atomic multi-token units, not word-by-word."
-  - Matching strips a leading kunya segment of the form أبو + next_token only when at least one additional name token remains after the kunya.
+  - "Kunya stripping: أبو/أم + next_token stripped only when at least one additional non-laqab name token remains. Exception: kunya-only scholars (أبو هريرة, أبو بكر الصديق, أبو حنيفة) are recognized from a known-scholars list and their kunya+laqab combination is preserved as an atomic canonical_match_name."
+  - "Patronymic connector بنت is recognized alongside بن/ابن for female scholars (e.g., كريمة بنت أحمد المروزية)."
+  - "Entity type: each name is classified as entity_type=person or entity_type=institution. Institutional names (لجنة الإفتاء, هيئة كبار العلماء, مجمع الفقه الإسلامي) skip structured name decomposition and use the full institutional name as canonical_match_name."
   - Stored display names preserve any honorifics that appear in the source.
   postconditions:
   - canonical_match_name excludes stripped honorific tokens and any stripped leading kunya segment.
   - display_name preserves the original honorific-bearing form from the source record.
-  - "Name-equivalence matching: two names refer to the same scholar when death_hijri matches exactly AND the shorter name's tokens are a subset of the longer name's tokens after honorific/kunya stripping. This handles kunya-vs-nasab length differences (e.g., 'محمد بن إدريس الشافعي' vs 'الشافعي' with matching death_hijri=204)."
-  - "Agents must output both a free-form display_name and a structured name decomposition with ism, nasab, kunya, laqab, nisba, and death_hijri fields. Matching operates on the structured fields."
+  - "display_name selection rule: when multiple sources provide different valid forms, display_name defaults to the shortest commonly recognized form (الشهرة). full_name_lineage always stores the longest unabridged form. Disagreement on display_name form (not identity) is NOT a substantive disagreement and must not trigger disagreement resolution."
+  - "Structured name decomposition: agents output ism, nasab, kunya, laqab, nisba, death_hijri, and laqab_is_primary_identifier (boolean). When laqab_is_primary_identifier=true (e.g., سيبويه, الجاحظ, المبرد, البخاري, النووي), matching treats the laqab as the primary match key."
+  - "Name-equivalence with death dates: two names refer to the same scholar when death_hijri values match within a tolerance of ±5 Hijri years AND the shorter name's tokens are a strict subset of the longer name's tokens after stripping."
+  - "Name-equivalence without death dates: when death_hijri is null for BOTH names, strict token-subset matching alone is sufficient to declare equivalence, provided the shorter name's tokens are a strict subset of the longer name's tokens. This prevents cosmetic name-form differences from triggering disagreement resolution."
+  - "Disambiguation when canonical_match_name is identical and death_hijri is absent for both: the system MUST use secondary signals — science_scope of the work, specialized nisba tokens (المفسر vs المقرئ), and content-derived evidence. When no signal disambiguates, emit SRC-W-AMBIGUOUS-SCHOLAR-IDENTITY and set author_output.status=agent_disagreement with both candidates as positions."
+  - "The صاحب convention: 'صاحب [work_title]' (e.g., صاحب فتح الباري = Ibn Hajar, صاحب المغني = Ibn Qudama) is resolved via work-to-author lookup using REQ-SRC-0039 work_relationships, not name decomposition. This is a downstream citation resolution pattern; at the source-engine level it applies only when the صاحب formula appears in the metadata card or colophon attribution."
   error_conditions:
-  - condition: A name string contains only honorific tokens and no base name.
+  - condition: A name string contains only honorific tokens and no base name, and is not a recognized kunya-only scholar.
     action: Reject canonical matching with SRC-E-HONORIFIC-ONLY-NAME.
+    severity: warning
+  - condition: Two distinct scholars have identical canonical_match_name and no secondary signal disambiguates them.
+    action: Emit SRC-W-AMBIGUOUS-SCHOLAR-IDENTITY and preserve both candidates in author_output.positions.
     severity: warning
 acceptance_criteria:
 - id: AC-1
-  given: Name forms "الإمام النووي" and "النووي"
+  given: Name forms "الإمام النووي" and "النووي" with death_hijri=676 for both
   when: author-name matching executes
-  then: Both names resolve to the same canonical_match_name="النووي" while display_name preserves the original source form.
+  then: Both resolve to the same scholar. display_name preserves original form.
   test_type: deterministic
 - id: AC-2
-  given: Name forms "القاضي عياض" and "عياض"
+  given: Name forms "أبو محمد ابن قدامة" and "ابن قدامة" with death_hijri=620 for both
   when: author-name matching executes
-  then: Both names resolve to the same canonical_match_name="عياض" while display_name preserves the original source form.
+  then: Both resolve to the same scholar via token-subset + death_hijri match.
   test_type: deterministic
 - id: AC-3
-  given: Name forms "أبو محمد ابن قدامة" and "ابن قدامة"
+  given: Name forms "يحيى بن شرف النووي" (death_hijri=null) and "النووي" (death_hijri=null)
   when: author-name matching executes
-  then: Both names resolve to the same canonical_match_name="ابن قدامة" while display_name preserves the original source form.
+  then: Both resolve to the same scholar via strict token-subset matching without death_hijri (null-null case).
+  test_type: deterministic
+- id: AC-4
+  given: Name forms "ابن كثير" (death_hijri=null) from a tafsir source and "ابن كثير" (death_hijri=null) from a qira'at source
+  when: author-name matching executes
+  then: The system uses science_scope to disambiguate. SRC-W-AMBIGUOUS-SCHOLAR-IDENTITY is emitted if science_scope is unavailable.
+  test_type: deterministic
+- id: AC-5
+  given: Name "سيبويه" with laqab_is_primary_identifier=true and name "عمرو بن عثمان بن قنبر" with death_hijri=180 for both
+  when: author-name matching executes
+  then: Both resolve to the same scholar because laqab_is_primary_identifier allows laqab-to-ism matching.
+  test_type: deterministic
+- id: AC-6
+  given: Name "أبو هريرة" (recognized kunya-only scholar)
+  when: kunya stripping executes
+  then: canonical_match_name="أبو هريرة" preserved as atomic unit. Kunya is NOT stripped.
+  test_type: deterministic
+- id: AC-7
+  given: Name "لجنة الإفتاء الدائمة" with entity_type=institution
+  when: name matching executes
+  then: entity_type=institution, canonical_match_name="لجنة الإفتاء الدائمة", no structured decomposition attempted.
+  test_type: deterministic
+- id: AC-8
+  given: Name "كريمة بنت أحمد المروزية"
+  when: name decomposition executes
+  then: بنت is recognized as patronymic connector, nasab correctly parsed.
+  test_type: deterministic
+- id: AC-9
+  given: Death dates 256 and 252 for the same scholar البخاري from different databases
+  when: death date comparison executes
+  then: Dates match within ±5 year tolerance. Scholar is NOT split into two records.
   test_type: deterministic

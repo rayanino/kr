@@ -9,7 +9,7 @@ confidence: high
 provenance: owner_interview
 source: Derived from OF-SRC-0004; amended per domain-validator-review.yaml
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-15'
 depends_on:
 - OF-SRC-0004
 - REQ-SRC-0014
@@ -18,8 +18,8 @@ impacts:
 - role_assignment
 rationale: Attribution accuracy remains the top source-engine quality metric, so the role boundaries feeding author attribution must be mechanically enforceable.
 rule:
-  statement: Author attribution must map author markers to author_name, copyist markers to copyist_name, and editor markers to editor_name without cross-populating those fields.
-  implication: Names following ألفه or صنفه may populate author_name, names following كتبه or نسخه may populate copyist_name, and names following المحقق or تحقيق may populate editor_name.
+  statement: No marker from one role set may populate a field belonging to another role set. The 7 role sets defined by REQ-SRC-0014 are author, compiler, preparer, copyist, editor, annotator, and supervisor.
+  implication: "Role-to-field mapping is exhaustive and exclusive: author markers (ألفه, صنفه, أملاه, وضعه) populate author_name only; compiler markers (جمعه, جمع وترتيب, رتبه) populate compiler_name only; preparer markers (إعداد) populate preparer_name only; copyist markers (كتبه, نسخه, نقله) populate copyist_name only; editor markers (المحقق, تحقيق, اعتنى به) populate editor_name only; annotator markers (علق عليه, خرج أحاديثه) populate annotator_name only; supervisor markers (إشراف, مراجعة) populate supervisor_name only. A name extracted via a marker in role set X must never appear in a field belonging to role set Y."
   violation_severity: critical
 acceptance_criteria:
 - id: AC-1
@@ -31,4 +31,24 @@ acceptance_criteria:
   given: Colophon text "كتبه عبد الله بن محمد"
   when: author attribution executes
   then: copyist_name="عبد الله بن محمد" and author_name remains null.
+  test_type: deterministic
+- id: AC-3
+  given: Metadata card text "جمعه وترتيب محمد بن صالح"
+  when: author attribution executes
+  then: compiler_name="محمد بن صالح" and author_name remains null and editor_name remains null.
+  test_type: deterministic
+- id: AC-4
+  given: Metadata card text "إعداد مركز الدراسات والبحوث"
+  when: author attribution executes
+  then: preparer_name="مركز الدراسات والبحوث" and author_name remains null and compiler_name remains null.
+  test_type: deterministic
+- id: AC-5
+  given: Metadata card text "علق عليه أحمد بن عبد الرحمن"
+  when: author attribution executes
+  then: annotator_name="أحمد بن عبد الرحمن" and editor_name remains null.
+  test_type: deterministic
+- id: AC-6
+  given: Metadata card text "مراجعة الشيخ عبد العزيز"
+  when: author attribution executes
+  then: supervisor_name="عبد العزيز" and editor_name remains null.
   test_type: deterministic

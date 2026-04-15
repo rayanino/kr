@@ -8,7 +8,7 @@ step: metadata_deliberation
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0004; amended per both coworker reviews and adversary-review.yaml ADV-009
+source: Derived from OF-SRC-0004; amended per coworker reviews, adversary-review ADV-009, and author-attribution review (ADV-ATT-005/007/011/012). Status values renamed to avoid collision with REQ-SRC-0040 scholarly terminology. Death date verification enum completed. Co-authorship status added. Correlated hallucination guard for modern scholars.
 created: '2026-04-14'
 updated: '2026-04-14'
 depends_on:
@@ -23,27 +23,28 @@ behavior:
   - Candidate author evidence has been collected from metadata cards, titles, and colophons.
   - At least two attribution agents are independent, meaning agent_id differs, execution_id differs, and neither agent reads the other's final output before emitting its own result.
   postconditions:
-  - author_output.status is one of definitive, disputed, or insufficient_evidence.
-  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, and source_agent.
-  - A definitive case stores one chosen position, while a disputed case preserves multiple positions instead of forcing a single author.
-  - Any death_hijri value supported by only one independent agent is stored with death_hijri_verification=single_model_unverified until a second independent agent confirms the same year.
+  - "author_output.status is one of: agent_consensus (agents agree on one author), agent_disagreement (agents disagree — multiple positions preserved), agent_no_evidence (no evidence-backed position from any agent), or co_authored (multiple authors genuinely co-wrote the work, indicated by conjunctive markers like و between names or تأليف X و Y)."
+  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, source_agent, and entity_type (person or institution).
+  - An agent_consensus case stores one chosen position. An agent_disagreement case preserves all evidence-backed positions. A co_authored case lists all co-authors as non-competing positions.
+  - "death_hijri_verification enum: single_model_unverified (one agent only), multi_agent_agreed (two+ agents agree), database_verified (confirmed from structured database like Dorar.net or OpenITI), colophon_extracted (directly from source colophon text)."
+  - "Correlated hallucination guard: for scholars with death_hijri > 1300, two-LLM agreement alone is insufficient. Death dates for modern scholars MUST be verified against at least one structured database (Dorar.net API, OpenITI, Shamela metadata). When no database confirms, death_hijri_verification is set to consensus_unverified (a level between single_model_unverified and database_verified)."
   error_conditions:
   - condition: Fewer than two independent attribution agents are available.
     action: Abort author finalization with SRC-E-AUTHOR-AGENT-COUNT.
     severity: fatal
   - condition: Two or more independent agents return no evidence-backed author position.
-    action: Set author_output.status=insufficient_evidence with author_output.positions as an empty array. Add zero_author_evidence to study_quality_risk_flags for evaluation by the owner-submission risk gate (REQ-SRC-0027). Do not create an owner_review_case directly from metadata deliberation.
+    action: Set author_output.status=agent_no_evidence with author_output.positions as an empty array. Add zero_author_evidence to study_quality_risk_flags for evaluation by the owner-submission risk gate (REQ-SRC-0027). Do not create an owner_review_case directly from metadata deliberation.
     severity: blocking
 acceptance_criteria:
 - id: AC-1
   given: tests/fixtures/shamela_real/03_fiqh/book.htm and two independent attribution agents
   when: author attribution executes
-  then: author_output.status="definitive" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم".
+  then: author_output.status="agent_consensus" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم".
   test_type: integration
 - id: AC-2
   given: A disputed authorship case with two evidence-backed candidates for the same source
   when: author attribution executes
-  then: author_output.status="disputed" and len(author_output.positions) is at least 2.
+  then: author_output.status="agent_disagreement" and len(author_output.positions) is at least 2.
   test_type: integration
 - id: AC-3
   given: Candidate authors "أحمد بن عبد الحليم بن تيمية الحراني" (death_hijri=728) and "عبد السلام بن عبد الله بن تيمية" (death_hijri=652) with evidence mentioning الحراني and post-700H content
@@ -53,7 +54,7 @@ acceptance_criteria:
 - id: AC-4
   given: A source whose metadata card, title, and colophon provide no author evidence
   when: author attribution executes with two independent agents
-  then: author_output.status="insufficient_evidence" and study_quality_risk_flags includes "zero_author_evidence".
+  then: author_output.status="agent_no_evidence" and study_quality_risk_flags includes "zero_author_evidence".
   test_type: integration
 - id: AC-5
   given: An author position whose death_hijri=676 is inferred by exactly one independent attribution agent

@@ -45,8 +45,8 @@ behavior:
     patterns). Complete decomposition may require normalization engine assistance.
   - Non-composite works have composite_work_type set to null and sub_work_inventory as an empty list.
   error_conditions:
-  - condition: Composite detection signals are ambiguous (e.g. title contains \u0631\u0633\u0627\u0626\u0644 but volume count
-      is 1 and no internal sub-work boundaries are detectable).
+  - condition: Composite detection signals are ambiguous (e.g. title contains رسائل but volume count is 1 and no internal
+      sub-work boundaries are detectable).
     action: Set composite_work_type=possible and log ambiguity to study_quality_risk_flags with entry ambiguous_composite_detection.
     severity: warning
 acceptance_criteria:

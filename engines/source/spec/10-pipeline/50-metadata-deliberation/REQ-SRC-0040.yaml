@@ -34,9 +34,8 @@ behavior:
   - Evidence from metadata cards, colophons, and content analysis is available.
   postconditions:
   - 'author_output.attribution_confidence is set to one of: confirmed (مؤكد — authorship established beyond reasonable doubt),
-    disputed (منسوب إلى — attributed but scholarly disagreement exists), anonymous (مجهول المؤلف — truly unknown author),
-    pseudepigraphic (منحول — falsely attributed, evidence the named author did not write it), or collective (جماعي — multiple
-    contributors, no single primary author).'
+    disputed (مختلف في نسبته — scholarly disagreement on attribution; secondary display term منسوب إلى meaning "attributed to" may be used in display_card when the dispute involves only the attribution target), anonymous (مجهول المؤلف — truly unknown author),
+    pseudepigraphic (منحول — falsely attributed, evidence the named author did not write it), or collective (جماعي — institutional or committee works with no named primary author; genuine co-authorship by named individuals using تأليف X و Y is handled by REQ-SRC-0004 co_authored status, not by collective).'
   - For anonymous works, author_output preserves whatever temporal or geographic evidence exists (e.g. era, region, school
     affiliation) in author_output.anonymous_evidence as a free-text string.
   - For pseudepigraphic works, author_output preserves both the attributed_author (the false claimant) and false_attribution_evidence
@@ -69,8 +68,9 @@ acceptance_criteria:
     era reference.
   test_type: integration
 - id: AC-4
-  given: الموسوعة الفقهية الكويتية with multiple contributing scholars and no single primary author
+  given: الموسوعة الفقهية الكويتية with multiple contributing scholars, no single primary author, and institutional sponsorship
   when: attribution confidence classification runs
   then: attribution_confidence="collective", attribution_confidence_ar="جماعي", author_output.positions lists identifiable
-    contributors.
+    contributors. Note that a work like "تأليف أحمد بن علي و محمد بن خالد" would NOT be collective but rather co_authored
+    per REQ-SRC-0004.
   test_type: integration

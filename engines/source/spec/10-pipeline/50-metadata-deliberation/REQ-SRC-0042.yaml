@@ -1,0 +1,61 @@
+id: REQ-SRC-0042
+type: requirement
+status: proposed
+title: Scholar profile lookup for display card
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: high
+confidence: high
+provenance: coworker_review
+source: "Contract-attribution review finding that REQ-SRC-0035 display card depends on madhab, scholarly_title, and full_name_lineage as deterministic fields, but no atom produces them. This atom fills that gap."
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0004
+- REQ-SRC-0013
+- REQ-SRC-0035
+impacts:
+- display_card
+- scholar_profile
+- teaching_unit_context
+rationale: >-
+  REQ-SRC-0035 declares nine deterministic display card fields (display_name,
+  full_name_lineage, death_date_display, madhab, etc.) but no upstream atom
+  specifies how those fields are retrieved. Without this atom, display card
+  generation has no defined data source for scholar-level metadata and would
+  silently fall back to LLM synthesis for fields that should be deterministic.
+behavior:
+  trigger: Author attribution has produced an agent_consensus or agent_disagreement result with at least one evidence-backed position.
+  preconditions:
+  - "author_output.positions has at least one entry with a canonical identity (display_name and at least one of death_hijri or nisba_tokens populated)."
+  postconditions:
+  - "For each author position, a scholar_profile record is retrieved or synthesized containing: full_name_lineage (ism, nasab, kunya, laqab, nisba in the longest unabridged form available), scholarly_title (highest consensus-agreed honorific), madhab (legal or theological school), primary_science (main field of scholarship), era_description (century or generation label)."
+  - "Deterministic lookup order: (1) scholar_authority registry match by canonical_id or name+death_hijri, (2) structured databases (OpenITI metadata, Shamela author records, Dorar.net API), (3) agent synthesis from textual evidence in the source itself."
+  - "When scholar_authority has a matching entry, all available fields are extracted deterministically without LLM involvement."
+  - "When no registry match exists and no structured database match is found, agent synthesis produces the profile from available evidence in author_output.positions and source text. Agent-synthesized profiles are tagged with profile_source=agent_synthesis."
+  - "death_gregorian is computed from death_hijri using standard Hijri-Gregorian conversion at display-card generation time (REQ-SRC-0035), not stored as a separate authoritative field in scholar_profile."
+  - "scholar_profile is attached to the corresponding author_output.positions entry and consumed by REQ-SRC-0035 for display_card generation."
+  error_conditions:
+  - condition: No scholar profile can be retrieved from any lookup tier and agent synthesis produces insufficient evidence.
+    action: "Set scholar_profile.status=unavailable with scholar_profile.unavailable_reason describing which tiers were attempted. Display card (REQ-SRC-0035) falls back to partial status for scholar-dependent fields."
+    severity: warning
+  - condition: Scholar authority registry match returns conflicting data compared to structured database lookup.
+    action: "Prefer scholar_authority registry value. Log the conflict in scholar_profile.data_conflicts with both values and their sources for future reconciliation."
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: "Author attribution returns agent_consensus for البخاري (death_hijri=256) and scholar_authority registry contains a matching entry"
+  when: scholar profile lookup executes
+  then: "scholar_profile.scholarly_title contains one of [امير المؤمنين في الحديث, الامام], scholar_profile.madhab is populated, scholar_profile.primary_science=hadith, scholar_profile.profile_source=scholar_authority"
+  test_type: deterministic
+- id: AC-2
+  given: "Author attribution returns agent_consensus for a minor modern scholar not present in scholar_authority or any structured database"
+  when: scholar profile lookup executes
+  then: "scholar_profile is produced via agent synthesis, scholar_profile.profile_source=agent_synthesis, and fields are populated from source text evidence where available"
+  test_type: integration
+- id: AC-3
+  given: "Author attribution returns agent_consensus with death_hijri=256 for a scholar in scholar_authority"
+  when: display card generation (REQ-SRC-0035) consumes the scholar_profile
+  then: "display_card.death_date_display contains both 256 (Hijri) and approximately 870 (Gregorian), computed at display time from death_hijri"
+  test_type: deterministic

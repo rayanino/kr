@@ -1,6 +1,6 @@
 schema_version: '1.0'
 engine: source
-updated: '2026-04-14'
+updated: '2026-04-15'
 atoms:
 - id: OF-SRC-0001
   type: feedback
@@ -674,3 +674,17 @@ atoms:
   topic: metadata
   priority: high
   file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0040.yaml
+- id: REQ-SRC-0042
+  type: requirement
+  status: proposed
+  title: Scholar profile lookup for display card
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0042.yaml
+- id: REQ-SRC-0043
+  type: requirement
+  status: proposed
+  title: New scholar registration in authority registry
+  topic: metadata
+  priority: high
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0043.yaml
