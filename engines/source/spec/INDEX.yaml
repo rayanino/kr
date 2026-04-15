@@ -646,6 +646,13 @@ atoms:
   topic: acquisition
   priority: high
   file: 20-contracts/constraints/CON-SRC-0007.yaml
+- id: REQ-SRC-0041
+  type: requirement
+  status: proposed
+  title: Format-agnostic multi-volume folder classification
+  topic: acquisition
+  priority: critical
+  file: 10-pipeline/30-container-classification/REQ-SRC-0041.yaml
 - id: REQ-SRC-0038
   type: requirement
   status: proposed

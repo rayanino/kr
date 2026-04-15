@@ -1,0 +1,55 @@
+id: REQ-SRC-0041
+type: requirement
+status: proposed
+title: Format-agnostic multi-volume folder classification
+topic: acquisition
+layer: pipeline
+step: container_classification
+priority: critical
+confidence: high
+provenance: owner_interview
+source: Owner correction 2026-04-15 that multi-volume handling should be format-agnostic. Single file = single volume, folder with files = multi-volume, regardless of format. PDF and plain text multi-volume folders were not covered by REQ-SRC-0017 (Shamela-only) or REQ-SRC-0020/0021 (single-file only).
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0018
+- CON-SRC-0001
+- CON-SRC-0007
+impacts:
+- container_classification
+- normalization_routing
+- volume_detection
+behavior:
+  trigger: Container classification receives a frozen directory candidate whose members are not .htm files.
+  preconditions:
+  - A frozen_member_manifest exists for the candidate directory.
+  - The directory contains files of a consistent format.
+  postconditions:
+  - "A folder containing multiple .pdf files is classified as container_type=pdf_multi_volume. volume_manifest preserves the PDF files in filename order. normalization_route=pdf_ocr_primary or pdf_text_primary based on per-file text-layer assessment in REQ-SRC-0021."
+  - "A folder containing multiple .txt files is classified as container_type=plain_text_multi_volume. volume_manifest preserves the text files in filename order. normalization_route=plain_text_parse."
+  - "A folder containing mixed file formats is classified as container_type=mixed_format_directory with a warning. Each member's format is recorded individually."
+  - "The format-agnostic principle: single file submission = single-volume source. Folder submission = multi-volume source. The format of the files inside determines the processing route, but the folder-as-multi-volume pattern is universal across all formats."
+  - "Concatenated multi-volume PDFs (single PDF with internal volume boundaries marked by ToC entries) are detected at intake analysis (REQ-SRC-0019/REQ-SRC-0038), not at container classification. Container classification sees them as a single PDF file."
+  error_conditions:
+  - condition: A folder contains zero recognizable source files.
+    action: Abort classification with SRC-E-EMPTY-DIRECTORY.
+    severity: fatal
+  - condition: A folder contains files of inconsistent formats without a clear majority.
+    action: Classify as mixed_format_directory and emit warning SRC-W-MIXED-FORMAT.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: A frozen directory containing 3 PDF files named vol1.pdf, vol2.pdf, vol3.pdf
+  when: container classification executes
+  then: container_type="pdf_multi_volume" and len(volume_manifest)=3 and volume_manifest is ordered by filename.
+  test_type: deterministic
+- id: AC-2
+  given: A frozen directory containing 2 .txt files
+  when: container classification executes
+  then: container_type="plain_text_multi_volume" and normalization_route="plain_text_parse".
+  test_type: deterministic
+- id: AC-3
+  given: A single PDF file submitted (not a folder)
+  when: container classification executes
+  then: container_type="pdf" (single-volume, not pdf_multi_volume).
+  test_type: deterministic
