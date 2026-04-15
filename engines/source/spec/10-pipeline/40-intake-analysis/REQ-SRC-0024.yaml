@@ -1,6 +1,6 @@
 id: REQ-SRC-0024
 type: requirement
-status: proposed
+status: confirmed
 title: PDF page-geometry hints for normalization
 topic: metadata
 layer: pipeline

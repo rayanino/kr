@@ -1,6 +1,6 @@
 id: REQ-SRC-0008
 type: requirement
-status: proposed
+status: confirmed
 title: Agent-team trust evaluation
 topic: trust
 layer: pipeline

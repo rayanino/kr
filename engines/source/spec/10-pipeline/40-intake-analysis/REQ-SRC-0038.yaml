@@ -1,6 +1,6 @@
 id: REQ-SRC-0038
 type: requirement
-status: proposed
+status: confirmed
 title: Composite work (majmu‘) detection and decomposition
 topic: identity
 layer: pipeline

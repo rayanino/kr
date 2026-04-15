@@ -1,0 +1,152 @@
+id: REQ-SRC-0044
+type: requirement
+status: confirmed
+title: Edition-group and holding reconciliation on source admission
+topic: dedup
+layer: pipeline
+step: source_admission_and_normalization_handoff
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15). The DR identifies that
+  the spec needs a reconciliation mechanism in step 60 (admission) that runs
+  whenever a new source is accepted. This mechanism creates or updates
+  EditionGroup and EditionHolding entities based on work_output and
+  collection_match_output from metadata deliberation, enabling progressive
+  completeness, duplicate handling, and supersession without mutating sources.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0025
+- REQ-SRC-0026
+- REQ-SRC-0036
+- DEC-SRC-0018
+- DEC-SRC-0019
+- INV-SRC-0010
+impacts:
+- edition_holding_lifecycle
+- collection_completeness
+- downstream_processing
+rationale: >-
+  REQ-SRC-0025 governs source admission into the source_collection. REQ-SRC-0026
+  produces work_output and collection_match_output. REQ-SRC-0036 produces
+  completeness signals. This atom governs what happens AFTER admission to maintain
+  the library's evolving understanding of its holdings. Without this reconciliation,
+  each admitted source exists in isolation and the library cannot track progressive
+  completeness across multiple submissions.
+behavior:
+  trigger: >-
+    A source is admitted into the source_collection (REQ-SRC-0025 completes
+    successfully with status=source_engine_accepted).
+  preconditions:
+  - work_output exists with at least one evidence-backed position (from REQ-SRC-0026).
+  - collection_match_output exists (from REQ-SRC-0026).
+  - completeness analysis results exist (from REQ-SRC-0036).
+  - The source has a valid source_collection record.
+  postconditions:
+  - >-
+    If collection_match_output.matched_edition_group_id exists with high confidence,
+    attach the new source's volume slice(s) to the matching EditionHolding's
+    VolumeHolding(s). Update VolumeHolding presence_state accordingly.
+  - >-
+    If no matching edition group exists or confidence is insufficient, create a new
+    EditionGroup and EditionHolding from the source's work_output and completeness
+    signals.
+  - >-
+    If the new source's edition fingerprint conflicts with the existing holding's
+    edition fingerprint on a shared volume, do NOT silently merge. Either create a
+    separate EditionHolding (DEC-SRC-0019) or set the conflicted VolumeHolding to
+    presence_state=conflict.
+  - >-
+    EditionHolding completeness_state is recomputed after every attachment
+    (INV-SRC-0010).
+  - >-
+    When a volume slot already has a present_primary source and a new source claims
+    the same volume of the same edition, attach the new source as present_alternate,
+    not as a replacement.
+  - >-
+    All reconciliation decisions (attach, create, conflict) are logged with evidence
+    and confidence for auditability (INV-SRC-0009).
+  error_conditions:
+  - condition: >-
+      Reconciliation would attach a source to a holding but the edition fingerprint
+      comparison produces contradictory signals (e.g. same publisher but different
+      muhaqqiq with high confidence in both).
+    action: >-
+      Do not attach. Create a separate EditionHolding and emit a
+      study_quality_risk_flag with risk_type=edition_mismatch_on_reconciliation.
+    severity: warning
+  - condition: >-
+      Reconciliation cannot determine any work match for the admitted source
+      (work_output.status=insufficient_evidence).
+    action: >-
+      Create a standalone EditionGroup and EditionHolding with
+      completeness_state=indeterminate. Log as unresolved_work_identity.
+    severity: warning
+  - condition: >-
+      The source claims multiple volumes but volume numbering is ambiguous
+      (e.g. two files both labeled 'volume 1' with different content).
+    action: >-
+      Attach both as present_alternate for the same volume number and emit a
+      study_quality_risk_flag with risk_type=ambiguous_volume_numbering.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    Volume 1 of a 3-volume work is already admitted with an EditionHolding
+    (completeness_state=active_partial, expected_volume_count=3). A new source is admitted
+    containing volumes 2 and 3 with matching edition fingerprint.
+  when: Reconciliation executes after source admission.
+  then: >-
+    The existing EditionHolding gains VolumeHolding entries for volumes 2 and 3
+    with presence_state=present_primary, and completeness_state transitions from
+    active_partial to active_complete.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A complete EditionHolding exists for a work. A new source is admitted containing
+    volume 5 of the same work but from a different edition (different muhaqqiq,
+    different publisher).
+  when: Reconciliation executes after source admission.
+  then: >-
+    A new EditionGroup and EditionHolding are created for the second edition,
+    with only volume 5 present (completeness_state=active_partial). The original
+    EditionHolding is unchanged.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    An EditionHolding exists with volume 1 present_primary. A new source is admitted
+    claiming the same volume 1 of the same edition with matching fingerprint.
+  when: Reconciliation executes after source admission.
+  then: >-
+    The new source is attached as present_alternate for volume 1. The existing
+    present_primary source remains primary. No data is overwritten.
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    No existing work or edition matches exist in the collection. A new source is
+    admitted with work_output.status=definitive.
+  when: Reconciliation executes after source admission.
+  then: >-
+    A new EditionGroup and EditionHolding are created from the work_output and
+    completeness signals. The source's volume slices are attached as present_primary.
+  test_type: deterministic
+- id: AC-5
+  given: >-
+    A source admitted with work_output.status=insufficient_evidence (no evidence-backed
+    work identity could be determined).
+  when: Reconciliation executes after source admission.
+  then: >-
+    A standalone EditionGroup and EditionHolding are created with
+    completeness_state=indeterminate. Log entry includes unresolved_work_identity.
+  test_type: deterministic
+- id: AC-6
+  given: >-
+    A source with two files both labeled 'volume 1' containing different content,
+    admitted to an existing EditionHolding.
+  when: Reconciliation executes after source admission.
+  then: >-
+    Both files are attached as present_alternate for volume 1. A
+    study_quality_risk_flag with risk_type=ambiguous_volume_numbering is emitted.
+  test_type: deterministic

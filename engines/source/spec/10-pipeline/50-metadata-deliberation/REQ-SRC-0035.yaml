@@ -1,6 +1,6 @@
 id: REQ-SRC-0035
 type: requirement
-status: proposed
+status: confirmed
 title: Display metadata for teaching units (source card)
 topic: metadata
 layer: pipeline

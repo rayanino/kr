@@ -1,6 +1,6 @@
 id: REQ-SRC-0002
 type: requirement
-status: proposed
+status: confirmed
 title: Optional owner hints as cross-validation
 topic: acquisition
 layer: pipeline

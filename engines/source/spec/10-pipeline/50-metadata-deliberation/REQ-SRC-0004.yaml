@@ -1,6 +1,6 @@
 id: REQ-SRC-0004
 type: requirement
-status: proposed
+status: confirmed
 title: Multi-model consensus for author attribution
 topic: metadata
 layer: pipeline

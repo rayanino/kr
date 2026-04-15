@@ -1,6 +1,6 @@
 id: REQ-SRC-0032
 type: requirement
-status: proposed
+status: confirmed
 title: Structural format classification
 topic: metadata
 layer: pipeline

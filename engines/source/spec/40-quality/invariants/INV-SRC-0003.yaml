@@ -1,6 +1,6 @@
 id: INV-SRC-0003
 type: invariant
-status: proposed
+status: confirmed
 title: Library never refuses knowledge
 topic: metadata
 layer: quality

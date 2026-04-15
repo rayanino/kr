@@ -1,6 +1,6 @@
 id: REQ-SRC-0012
 type: requirement
-status: proposed
+status: confirmed
 title: Multi-position metadata for disputed fields
 topic: metadata
 layer: pipeline

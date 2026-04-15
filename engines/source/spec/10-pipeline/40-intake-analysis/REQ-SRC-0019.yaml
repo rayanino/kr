@@ -1,6 +1,6 @@
 id: REQ-SRC-0019
 type: requirement
-status: proposed
+status: confirmed
 title: Source-work identification and collection matching
 topic: identity
 layer: pipeline

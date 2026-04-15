@@ -1,6 +1,6 @@
 id: REQ-SRC-0034
 type: requirement
-status: proposed
+status: confirmed
 title: Compiler-as-muhaqiq detection
 topic: metadata
 layer: pipeline

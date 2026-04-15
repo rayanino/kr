@@ -1,6 +1,6 @@
 id: REQ-SRC-0011
 type: requirement
-status: proposed
+status: confirmed
 title: Fine-grained hadith classification
 topic: metadata
 layer: pipeline

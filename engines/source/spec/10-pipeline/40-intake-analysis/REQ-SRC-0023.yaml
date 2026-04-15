@@ -1,6 +1,6 @@
 id: REQ-SRC-0023
 type: requirement
-status: proposed
+status: confirmed
 title: PDF text-layer evidence is diagnostic only
 topic: metadata
 layer: pipeline

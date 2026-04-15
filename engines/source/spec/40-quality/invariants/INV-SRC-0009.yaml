@@ -1,6 +1,6 @@
 id: INV-SRC-0009
 type: invariant
-status: proposed
+status: confirmed
 title: Zero knowledge loss in all source-engine output
 topic: metadata
 layer: quality

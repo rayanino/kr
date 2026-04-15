@@ -1,6 +1,6 @@
 id: REQ-SRC-0027
 type: requirement
-status: proposed
+status: confirmed
 title: Owner-submission risk gate for study-quality threats
 topic: handoff
 layer: pipeline
@@ -25,7 +25,7 @@ behavior:
   - An intake_dossier exists.
   - Metadata deliberation has completed.
   - study_quality_risk_flags may be emitted from intake analysis or metadata deliberation.
-  - "study_quality_risk_flag controlled vocabulary with severity: gate_blocking={partial_with_material_dependency, corrupt_integrity, zero_author_evidence, format_unreadable, compiler_muhaqiq_inversion}; informational_only={partial_without_material_dependency, suspicious_integrity, single_model_death_date, degraded_ocr_evidence, disputed_authorship, disputed_genre}."
+  - "study_quality_risk_flag controlled vocabulary with severity: gate_blocking={partial_with_material_dependency, corrupt_integrity, zero_author_evidence, format_unreadable, compiler_muhaqiq_inversion}; informational_only={partial_without_material_dependency, suspicious_integrity, single_model_death_date, degraded_ocr_evidence, disputed_authorship, disputed_genre, edition_mismatch_on_reconciliation, ambiguous_volume_numbering, unresolved_edition_preference, supersession_blocked_by_completeness}."
   - "Only gate_blocking flags trigger owner_submission_risk_case. Informational flags are preserved in the output per INV-SRC-0009 (zero knowledge loss) but do not block admission."
   postconditions:
   - When study_quality_risk_flags is empty, no owner_submission_risk_case is written and normal source admission may continue.

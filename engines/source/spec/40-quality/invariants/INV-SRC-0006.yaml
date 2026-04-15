@@ -1,6 +1,6 @@
 id: INV-SRC-0006
 type: invariant
-status: proposed
+status: confirmed
 title: Isnad atomic preservation
 topic: metadata
 layer: quality

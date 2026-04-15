@@ -1,0 +1,67 @@
+id: DEC-SRC-0018
+type: decision
+status: confirmed
+title: Sources are immutable; collection entries evolve
+topic: dedup
+layer: architecture
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15). FRBR/IFLA LRM separates
+  abstract content from concrete carriers. Fedora/DSpace repositories keep immutable
+  versions and expose 'latest' pointers without deleting history. KR's existing
+  invariant (frozen sources are immutable) and INV-SRC-0003 (library never refuses
+  knowledge) together require that collection membership evolves without mutating
+  the carrier layer. The DR identifies this as the structural resolution to
+  incremental volumes, supersession, and mixed-edition handling.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0018
+- INV-SRC-0003
+- INV-SRC-0009
+- DEC-SRC-0014
+impacts:
+- collection_model
+- edition_holding_lifecycle
+- supersession_policy
+- source_admission
+options:
+- id: OPT-A
+  label: Merge sources into combined logical source on admission
+  description: >-
+    When a new volume of an existing work arrives, merge it with previously
+    admitted sources into a single combined source record. Update the original
+    source record in place.
+  status: rejected
+  rejection_reason: >-
+    Violates Critical Rule 1 (frozen sources are immutable) and INV-SRC-0009
+    (zero knowledge loss). In-place mutation destroys the audit trail of when
+    each artifact was admitted and what it originally contained.
+- id: OPT-B
+  label: Attach immutable sources to evolving collection entries (holdings)
+  description: >-
+    Sources remain immutable carriers. A new 'EditionHolding' entity tracks what
+    the library holds for a specific edition group. When a new source arrives, it
+    is attached to an EditionHolding as a volume-level link. The holding's
+    completeness state evolves; the sources never change. This mirrors
+    FRBR Item-level modeling and DSpace's version-history pattern.
+  status: chosen
+  chosen_reason: >-
+    Satisfies immutability (sources untouched), INV-SRC-0003 (nothing refused),
+    INV-SRC-0009 (all evidence preserved), and enables progressive completeness
+    tracking. The 'attach not merge' principle is the minimum mechanism that
+    handles all six DR edge cases (incremental volumes, duplicate editions,
+    mixed editions, supersession, partial-of-complete, composite evolution).
+- id: OPT-C
+  label: Track collection evolution outside source engine
+  description: >-
+    Keep the source engine unaware of holdings; push all collection-evolution
+    logic to a downstream orchestrator or the scholar interface.
+  status: rejected
+  rejection_reason: >-
+    The source engine already performs collection matching (REQ-SRC-0026) and
+    completeness analysis (REQ-SRC-0036). Splitting holding creation to a
+    separate system duplicates matching logic and creates inconsistency risk.
+    The DR confirms that reconciliation belongs in step 60 (admission).

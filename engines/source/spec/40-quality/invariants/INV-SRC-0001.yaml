@@ -1,6 +1,6 @@
 id: INV-SRC-0001
 type: invariant
-status: proposed
+status: confirmed
 title: Owner hints never bias inference
 topic: acquisition
 layer: quality

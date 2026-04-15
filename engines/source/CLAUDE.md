@@ -1,13 +1,15 @@
 # Source Engine — محرك المصادر
 
-**Phase:** Specification Discovery (pre-build)
+**Phase:** Specification FROZEN — Ready for Build
 **Branch:** `clean-start`
 
 ## Current State
 
-The source engine is in spec discovery. No production code exists yet. The previous implementation was archived to `reference/archive/v1/source_engine/` (reference-only, non-authoritative).
+The source engine spec is **frozen** (Session 3, 2026-04-15). 104 atoms, 97 confirmed, 3 deferred, 0 proposed. No production code exists yet. The previous implementation was archived to `reference/archive/v1/source_engine/` (reference-only, non-authoritative).
 
-**Spec infrastructure:** Being created by Codex (schema.json, validate_spec.py, generate_views.py, initial atoms).
+**Spec status:** 104 YAML atoms validated against `spec/schema.json`. Freeze gate complete across all 7 areas: vision, vocabulary, pipeline (steps 10-60), contracts, architecture, quality, questions. Contract architect review completed with all CRITICAL and HIGH findings resolved.
+
+**3 deferred atoms (non-blocking):** DEC-SRC-0003 (level detection strategy), OQ-SRC-0001 (level detection ownership), OQ-SRC-0005 (agent monitoring scope). These can be resolved during build as design decisions emerge.
 
 ## Authoritative Files
 

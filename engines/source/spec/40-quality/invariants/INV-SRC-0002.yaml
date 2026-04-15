@@ -1,6 +1,6 @@
 id: INV-SRC-0002
 type: invariant
-status: proposed
+status: confirmed
 title: Author attribution role separation is mandatory
 topic: metadata
 layer: quality

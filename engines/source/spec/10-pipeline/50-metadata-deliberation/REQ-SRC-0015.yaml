@@ -1,6 +1,6 @@
 id: REQ-SRC-0015
 type: requirement
-status: proposed
+status: confirmed
 title: Scholar identity matching and name resolution
 topic: metadata
 layer: pipeline

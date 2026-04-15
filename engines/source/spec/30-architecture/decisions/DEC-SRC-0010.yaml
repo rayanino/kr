@@ -1,6 +1,6 @@
 id: DEC-SRC-0010
 type: decision
-status: proposed
+status: confirmed
 title: Source hints multi-layer routing and normalization confirms it
 topic: metadata
 layer: architecture

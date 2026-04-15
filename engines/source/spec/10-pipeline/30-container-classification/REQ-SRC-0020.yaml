@@ -1,6 +1,6 @@
 id: REQ-SRC-0020
 type: requirement
-status: proposed
+status: confirmed
 title: Plain text container classification
 topic: acquisition
 layer: pipeline

@@ -1,6 +1,6 @@
 id: REQ-SRC-0029
 type: requirement
-status: proposed
+status: confirmed
 title: Monitor feedback with non-recursive constraint
 topic: agent_ergonomics
 layer: pipeline

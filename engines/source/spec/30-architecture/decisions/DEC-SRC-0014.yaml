@@ -1,6 +1,6 @@
 id: DEC-SRC-0014
 type: decision
-status: proposed
+status: confirmed
 title: Separate raw-upload tracking from official source admission
 topic: handoff
 layer: architecture

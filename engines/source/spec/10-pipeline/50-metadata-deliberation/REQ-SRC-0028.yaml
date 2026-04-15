@@ -1,6 +1,6 @@
 id: REQ-SRC-0028
 type: requirement
-status: proposed
+status: confirmed
 title: Case complexity assessment and deliberation routing
 topic: agent_ergonomics
 layer: pipeline

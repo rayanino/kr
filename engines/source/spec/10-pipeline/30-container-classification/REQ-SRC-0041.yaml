@@ -1,6 +1,6 @@
 id: REQ-SRC-0041
 type: requirement
-status: proposed
+status: confirmed
 title: Format-agnostic multi-volume folder classification
 topic: acquisition
 layer: pipeline

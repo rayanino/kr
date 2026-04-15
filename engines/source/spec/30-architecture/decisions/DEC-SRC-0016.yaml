@@ -1,6 +1,6 @@
 id: DEC-SRC-0016
 type: decision
-status: proposed
+status: confirmed
 title: Owner-submission risk gate blocks admission and downstream progression
 topic: handoff
 layer: architecture

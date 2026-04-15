@@ -1,6 +1,6 @@
 id: REQ-SRC-0030
 type: requirement
-status: proposed
+status: confirmed
 title: Genre classification
 topic: metadata
 layer: pipeline

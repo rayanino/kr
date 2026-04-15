@@ -1,6 +1,6 @@
 id: DEC-SRC-0011
 type: decision
-status: proposed
+status: confirmed
 title: Agent self-resolution replaces human_gate
 topic: consensus
 layer: architecture

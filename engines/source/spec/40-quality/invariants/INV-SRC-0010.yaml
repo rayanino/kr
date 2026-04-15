@@ -1,0 +1,59 @@
+id: INV-SRC-0010
+type: invariant
+status: confirmed
+title: Holding-level completeness is computed, not asserted
+topic: dedup
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15). The DR identifies that
+  source-level completeness_status (per uploaded artifact) and holding-level
+  completeness (what the library holds for an edition group) are distinct signals.
+  Source-level completeness is immutable history about each source. Holding-level
+  completeness must be recomputed whenever a volume is added or removed from a
+  holding. Stamping 'complete' on a source and treating it as library-wide truth
+  produces stale data as the collection evolves.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- DEC-SRC-0018
+- REQ-SRC-0036
+- INV-SRC-0009
+impacts:
+- edition_holding_lifecycle
+- completeness_tracking
+- downstream_processing_eligibility
+rule:
+  statement: >-
+    EditionHolding completeness_state is always derived from the current set of
+    attached VolumeHoldings, never stored as a static assertion. When a volume
+    is attached, detached, superseded, or has its presence_state changed, the
+    holding's completeness_state is recomputed. Source-level completeness_status
+    (from REQ-SRC-0036) remains immutable and records what was true about each
+    individual source at intake time. The two completeness signals are never
+    conflated.
+  implication: >-
+    A holding that reports completeness_state=complete when a VolumeHolding has
+    been detached or superseded violates this invariant. A source whose
+    completeness_status is modified after intake violates source immutability
+    (Critical Rule 1). Any code that reads source-level completeness and treats
+    it as library-level completeness produces stale, incorrect results.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: An EditionHolding with 3 VolumeHoldings, all present_primary, expected_volume_count=3
+  when: One VolumeHolding transitions to presence_state=missing
+  then: EditionHolding.completeness_state is recomputed to active_partial.
+  test_type: deterministic
+- id: AC-2
+  given: A source with completeness_status=partial admitted to an EditionHolding that already has other volumes
+  when: The holding becomes complete after this source's volumes are attached
+  then: The source's own completeness_status remains partial while the holding's completeness_state is complete.
+  test_type: deterministic
+- id: AC-3
+  given: An EditionHolding with completeness_state=complete
+  when: A new source is attached that causes an edition fingerprint conflict on one volume
+  then: The holding's completeness_state is recomputed, and the conflicted volume's presence_state is conflict, not present_primary.
+  test_type: deterministic

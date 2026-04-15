@@ -1,6 +1,6 @@
 id: INV-SRC-0005
 type: invariant
-status: proposed
+status: confirmed
 title: Muhaqiq never gates trust decisions
 topic: trust
 layer: quality

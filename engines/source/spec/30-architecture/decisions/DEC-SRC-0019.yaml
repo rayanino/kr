@@ -1,0 +1,61 @@
+id: DEC-SRC-0019
+type: decision
+status: confirmed
+title: Mixed-edition volumes never silently produce a coherent edition holding
+topic: dedup
+layer: architecture
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15), Edge Case 3.
+  Silent mixing of editions is dangerous in Islamic scholarly study because
+  citations, page numbers, and tahqiq notes differ by edition. Mixing breaks
+  scholarly reliability. The DR recommends either two separate holdings or
+  one holding explicitly marked as ActiveMixed with a study-quality warning.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- DEC-SRC-0018
+- INV-SRC-0009
+- REQ-SRC-0027
+impacts:
+- edition_holding_lifecycle
+- study_quality_risk_flags
+- collection_coherence
+options:
+- id: OPT-A
+  label: Silently merge mixed-edition volumes into one holding
+  description: >-
+    When volume 1 is from edition A and volume 2 is from edition B, combine
+    them into a single edition holding and present them as one coherent set.
+  status: rejected
+  rejection_reason: >-
+    Violates scholarly integrity. Citations, page references, and tahqiq notes
+    differ by edition. A student citing 'volume 2, page 134' from a different
+    edition than volume 1 produces invalid scholarly references. This is a
+    knowledge corruption risk the owner explicitly rejects.
+- id: OPT-B
+  label: Separate mixed editions into distinct holdings with explicit warning
+  description: >-
+    When edition fingerprints differ across volumes, create (or maintain)
+    separate EditionHoldings per edition. If the owner needs a readable
+    complete set, optionally create a derived ReadingSetHolding marked
+    coherence_state=mixed and emit a study_quality_risk_flag. The mixed
+    holding is never treated as a scholarly edition.
+  status: chosen
+  chosen_reason: >-
+    Preserves scholarly reliability by keeping edition-coherent holdings separate.
+    INV-SRC-0003 (never refuse knowledge) is respected because both editions
+    are admitted. INV-SRC-0009 (zero knowledge loss) is respected because the
+    mixing evidence is preserved, not hidden. The ActiveMixed state provides
+    usability without false coherence claims.
+- id: OPT-C
+  label: Reject mixed-edition submissions
+  description: >-
+    Block admission when volumes from different editions are detected.
+  status: rejected
+  rejection_reason: >-
+    Violates INV-SRC-0003 (library never refuses knowledge). The owner may
+    genuinely have mixed editions and should be able to use them with
+    appropriate warnings.

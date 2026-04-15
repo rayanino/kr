@@ -1,6 +1,6 @@
 id: REQ-SRC-0025
 type: requirement
-status: proposed
+status: confirmed
 title: Two-stage source admission and normalization handoff packaging
 topic: handoff
 layer: pipeline
@@ -23,6 +23,7 @@ impacts:
 - raw_upload_registry
 - source_collection
 - normalization_handoff
+- edition_holding_reconciliation
 behavior:
   trigger: Source-engine finalization runs after metadata deliberation completes for a source candidate.
   preconditions:
