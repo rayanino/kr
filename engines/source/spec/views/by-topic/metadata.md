@@ -3,15 +3,16 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | CON-SRC-0002 | constraint | Hadith literature dominates source-engine benchmark quality | confirmed | high |
-| DEC-SRC-0002 | decision | Science scope uses dynamic registry | proposed | high |
+| DEC-SRC-0002 | decision | Science scope uses dynamic registry | confirmed | high |
 | DEC-SRC-0003 | decision | Level detection strategy | deferred | medium |
-| DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | proposed | high |
-| DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | proposed | medium |
-| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
-| INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
-| INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
-| INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
-| INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
+| DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | confirmed | high |
+| DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | confirmed | medium |
+| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | confirmed | high |
+| INV-SRC-0002 | invariant | Author attribution role separation is mandatory | confirmed | critical |
+| INV-SRC-0003 | invariant | Library never refuses knowledge | confirmed | critical |
+| INV-SRC-0006 | invariant | Isnad atomic preservation | confirmed | high |
+| INV-SRC-0007 | invariant | Scholar registry minimum population | confirmed | critical |
+| INV-SRC-0009 | invariant | Zero knowledge loss in all source-engine output | confirmed | critical |
 | OF-SRC-0004 | feedback | Author attribution errors are catastrophic | confirmed | critical |
 | OF-SRC-0005 | feedback | Science hints follow the same cross-validation rule | confirmed | high |
 | OF-SRC-0006 | feedback | Science registry must keep growing | confirmed | high |
@@ -20,18 +21,27 @@
 | OF-SRC-0012 | feedback | Hadith classification is the primary benchmark surface | confirmed | high |
 | OQ-SRC-0001 | question | Level detection ownership | deferred | medium |
 | OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
-| REQ-SRC-0004 | requirement | Multi-model consensus for author attribution | proposed | critical |
-| REQ-SRC-0005 | requirement | Optional science hint | proposed | medium |
-| REQ-SRC-0006 | requirement | Growable science registry without owner gate | proposed | high |
-| REQ-SRC-0007 | requirement | Level field preservation across source-engine handoff | proposed | medium |
-| REQ-SRC-0010 | requirement | Graduated muhaqiq standing | proposed | medium |
-| REQ-SRC-0011 | requirement | Fine-grained hadith classification | proposed | high |
-| REQ-SRC-0012 | requirement | Multi-position metadata for disputed fields | proposed | high |
-| REQ-SRC-0014 | requirement | Copyist and author disambiguation | proposed | critical |
-| REQ-SRC-0015 | requirement | Honorific-aware name matching | proposed | high |
-| REQ-SRC-0016 | requirement | Multi-science assignment | proposed | high |
-| REQ-SRC-0023 | requirement | PDF text-layer evidence is diagnostic only | proposed | critical |
-| REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | proposed | high |
+| REQ-SRC-0004 | requirement | Multi-model consensus for author attribution | confirmed | critical |
+| REQ-SRC-0005 | requirement | Optional science hint | confirmed | medium |
+| REQ-SRC-0006 | requirement | Growable science registry without owner gate | confirmed | high |
+| REQ-SRC-0007 | requirement | Level field preservation across source-engine handoff | confirmed | medium |
+| REQ-SRC-0010 | requirement | Graduated muhaqiq standing | confirmed | medium |
+| REQ-SRC-0011 | requirement | Fine-grained hadith classification | confirmed | high |
+| REQ-SRC-0012 | requirement | Multi-position metadata for disputed fields | confirmed | high |
+| REQ-SRC-0014 | requirement | Copyist and author disambiguation | confirmed | critical |
+| REQ-SRC-0015 | requirement | Scholar identity matching and name resolution | confirmed | critical |
+| REQ-SRC-0016 | requirement | Multi-science assignment | confirmed | high |
+| REQ-SRC-0023 | requirement | PDF text-layer evidence is diagnostic only | confirmed | critical |
+| REQ-SRC-0024 | requirement | PDF page-geometry hints for normalization | confirmed | high |
+| REQ-SRC-0030 | requirement | Genre classification | confirmed | critical |
+| REQ-SRC-0031 | requirement | Multi-layer hint detection | confirmed | critical |
+| REQ-SRC-0032 | requirement | Structural format classification | confirmed | critical |
+| REQ-SRC-0034 | requirement | Compiler-as-muhaqiq detection | confirmed | critical |
+| REQ-SRC-0035 | requirement | Display metadata for teaching units (source card) | confirmed | high |
+| REQ-SRC-0039 | requirement | Work-to-work relationship modeling | confirmed | high |
+| REQ-SRC-0040 | requirement | Attribution confidence levels with scholarly terminology | confirmed | high |
+| REQ-SRC-0042 | requirement | Scholar profile lookup for display card | confirmed | high |
+| REQ-SRC-0043 | requirement | New scholar registration in authority registry | confirmed | high |
 
 ### CON-SRC-0002 — Hadith literature dominates source-engine benchmark quality
 - Type: constraint
@@ -47,7 +57,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0006; amended per domain-validator-review.yaml
@@ -68,7 +78,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
@@ -79,7 +89,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
@@ -90,7 +100,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Resolves OQ-SRC-0006; builds on DEC-SRC-0007 and REQ-SRC-0012
@@ -101,17 +111,17 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0004; amended per domain-validator-review.yaml
-- Rule: Author attribution must map author markers to author_name, copyist markers to copyist_name, and editor markers to editor_name without cross-populating those fields.
+- Rule: No marker from one role set may populate a field belonging to another role set. The 7 role sets defined by REQ-SRC-0014 are author, compiler, preparer, copyist, editor, annotator, and supervisor.
 
 ### INV-SRC-0003 — Library never refuses knowledge
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0006 and broadened on 2026-04-14 after owner clarification that only structurally invalid uploads should be blocked from the official source flow.
@@ -121,21 +131,31 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added from domain-validator-review.yaml
-- Rule: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
+- Rule: Transmission formulas حدثنا, ثنا, نا, أخبرنا, أنبأنا, سمعت, قرأت على, أجاز لي, and ناولني mark isnad chains that must remain in one atomic unit across processing boundaries.
 
 ### INV-SRC-0007 — Scholar registry minimum population
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from adversary-review.yaml ADV-004
 - Rule: scholar_authority.count must be at least 50 before the first pipeline run begins.
+
+### INV-SRC-0009 — Zero knowledge loss in all source-engine output
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Owner directive 2026-04-14. The library NEVER hides, compresses, or simplifies knowledge. Full exhaustiveness and extensiveness in all output. This is a project-wide core rule that applies to every engine and every agent.
+- Rule: Every source-engine output preserves the full evidence chain, all considered positions, all reasoning, and all uncertainty. No metadata field, dispute, risk, or finding is hidden, compressed, or simplified in the output. When multiple positions exist, all positions are preserved with their evidence and confidence. When a most-likely resolution exists, it is highlighted but the alternatives are never removed.
 
 ### OF-SRC-0004 — Author attribution errors are catastrophic
 - Type: feedback
@@ -233,28 +253,29 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0004; amended per both coworker reviews and adversary-review.yaml ADV-009
+- Source: Derived from OF-SRC-0004; amended per coworker reviews, adversary-review ADV-009, and author-attribution review (ADV-ATT-005/007/011/012). Status values renamed to avoid collision with REQ-SRC-0040 scholarly terminology. Death date verification enum completed. Co-authorship status added. Correlated hallucination guard for modern scholars.
 - Trigger: The source engine must assign or preserve author attribution for a source.
 - Postconditions:
-  - author_output.status is one of definitive, disputed, or insufficient_evidence.
-  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, and source_agent.
-  - A definitive case stores one chosen position, while a disputed case preserves multiple positions instead of forcing a single author.
-  - Any death_hijri value supported by only one independent agent is stored with death_hijri_verification=single_model_unverified until a second independent agent confirms the same year.
+  - author_output.status is one of: agent_consensus (agents agree on one author), agent_disagreement (agents disagree — multiple positions preserved), agent_no_evidence (no evidence-backed position from any agent), or co_authored (multiple authors genuinely co-wrote the work, indicated by conjunctive markers like و between names or تأليف X و Y).
+  - Each author_output.positions item contains position, display_name, death_hijri, death_hijri_verification, nisba_tokens, evidence, confidence, source_agent, and entity_type (person or institution).
+  - An agent_consensus case stores one chosen position. An agent_disagreement case preserves all evidence-backed positions. A co_authored case lists all co-authors as non-competing positions.
+  - death_hijri_verification enum: single_model_unverified (one agent only), multi_agent_agreed (two+ agents agree), database_verified (confirmed from structured database like Dorar.net or OpenITI), colophon_extracted (directly from source colophon text).
+  - Correlated hallucination guard: for scholars with death_hijri > 1300, two-LLM agreement alone is insufficient. Death dates for modern scholars MUST be verified against at least one structured database (Dorar.net API, OpenITI, Shamela metadata). When no database confirms, death_hijri_verification is set to consensus_unverified (a level between single_model_unverified and database_verified).
 - Acceptance criteria:
-  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm and two independent attribution agents; When author attribution executes; Then author_output.status="definitive" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم"..
-  - AC-2 [integration] Given A disputed authorship case with two evidence-backed candidates for the same source; When author attribution executes; Then author_output.status="disputed" and len(author_output.positions) is at least 2..
-  - AC-3 [deterministic] Given Candidate authors "أحمد بن تيمية الحراني" (death_hijri=728) and "أحمد بن تيمية" (death_hijri=652) with evidence mentioning الحراني; When author attribution executes; Then The selected position matches death_hijri=728 and nisba_tokens contains "الحراني"..
-  - AC-4 [integration] Given A source whose metadata card, title, and colophon provide no author evidence; When author attribution executes with two independent agents; Then author_output.status="insufficient_evidence" and owner_review_case.route_reason="zero_author_evidence"..
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm and two independent attribution agents; When author attribution executes; Then author_output.status="agent_consensus" and author_output.positions[0].position="عبد الله بن إبراهيم الزاحم"..
+  - AC-2 [integration] Given A disputed authorship case with two evidence-backed candidates for the same source; When author attribution executes; Then author_output.status="agent_disagreement" and len(author_output.positions) is at least 2..
+  - AC-3 [deterministic] Given Candidate authors "أحمد بن عبد الحليم بن تيمية الحراني" (death_hijri=728) and "عبد السلام بن عبد الله بن تيمية" (death_hijri=652) with evidence mentioning الحراني and post-700H content; When author attribution executes; Then The selected position matches death_hijri=728 and nisba_tokens contains "الحراني"..
+  - AC-4 [integration] Given A source whose metadata card, title, and colophon provide no author evidence; When author attribution executes with two independent agents; Then author_output.status="agent_no_evidence" and study_quality_risk_flags includes "zero_author_evidence"..
   - AC-5 [deterministic] Given An author position whose death_hijri=676 is inferred by exactly one independent attribution agent; When author attribution executes; Then author_output.positions[0].death_hijri=676, author_output.positions[0].death_hijri_verification="single_model_unverified", and the death date remains pending confirmation from a second independent agent..
 
 ### REQ-SRC-0005 — Optional science hint
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Derived from OF-SRC-0005; amended per contract-architect-review.yaml
@@ -271,7 +292,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0006; amended on 2026-04-14 to align with the owner rule that metadata should not depend on human gates.
@@ -290,7 +311,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: source_admission_and_normalization_handoff
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: medium
 - Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself.
@@ -307,7 +328,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Derived from OF-SRC-0010; amended per both coworker reviews
@@ -325,10 +346,10 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0012; amended per both coworker reviews
+- Source: Derived from OF-SRC-0012; amended per both coworker reviews and domain-validator-review-2 (DV-001, DV-016) which found 6 missing hadith subgenres and clarified genre/subgenre orthogonality.
 - Trigger: A source is identified as hadith literature or adjacent hadith scholarship.
 - Postconditions:
   - hadith_subgenre is written for every hadith or hadith-adjacent source.
@@ -342,7 +363,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
@@ -359,43 +380,58 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006 and Claude DR spec audit 2026-04-15 which identified إعداد as a distinct role (neither author nor editor).
 - Trigger: Attribution parsing reads a metadata card or colophon with or without role-bearing name signals.
 - Postconditions:
   - author_name is populated only from author markers.
+  - compiler_name is populated only from compiler markers.
+  - preparer_name is populated only from preparer markers.
   - copyist_name is populated only from copyist markers.
   - editor_name is populated only from editor markers.
   - When no explicit role markers appear in metadata or colophon, metadata_card.author is assigned to author_name by default.
+  - confirmed_dual_role mechanical criteria: the same name in both author and editor roles is set to confirmed_dual_role (not attribution_role_conflict) when at least one of: (a) title page explicitly states تأليف وتحقيق or a combined formula, (b) temporal impossibility of being different people (same death_hijri for both roles), (c) research agent confirms the scholar is known to self-edit their own works.
 - Acceptance criteria:
   - AC-1 [deterministic] Given Colophon text "كتبه الفقير العبد عبد الله بن محمد"; When attribution parsing executes; Then copyist_name="عبد الله بن محمد" and author_name remains null..
   - AC-2 [deterministic] Given Metadata card text "ألفه محمد بن عبد الوهاب"; When attribution parsing executes; Then author_name="محمد بن عبد الوهاب"..
   - AC-3 [deterministic] Given Metadata card author field "ابن قدامة" with no colophon role markers; When attribution parsing executes; Then author_name="ابن قدامة"..
 
-### REQ-SRC-0015 — Honorific-aware name matching
+### REQ-SRC-0015 — Scholar identity matching and name resolution
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
-- Priority: high
+- Status: confirmed
+- Priority: critical
 - Confidence: high
-- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010
-- Trigger: Attribution matching compares two Arabic scholar names.
+- Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-010, adversary-attribution review (ADV-ATT-001/002/006/012), domain-attribution review (laqab-as-primary, nisba, sahib convention, death date tolerance, female scholars), and contract-attribution review (display_name precedence).
+- Trigger: Attribution matching compares two Arabic scholar names or resolves a scholar identity.
 - Postconditions:
   - canonical_match_name excludes stripped honorific tokens and any stripped leading kunya segment.
   - display_name preserves the original honorific-bearing form from the source record.
+  - display_name selection rule: when multiple sources provide different valid forms, display_name defaults to the shortest commonly recognized form (الشهرة). full_name_lineage always stores the longest unabridged form. Disagreement on display_name form (not identity) is NOT a substantive disagreement and must not trigger disagreement resolution.
+  - Structured name decomposition: agents output ism, nasab, kunya, laqab, nisba, death_hijri, and laqab_is_primary_identifier (boolean). When laqab_is_primary_identifier=true (e.g., سيبويه, الجاحظ, المبرد, البخاري, النووي), matching treats the laqab as the primary match key.
+  - Name-equivalence with death dates: two names refer to the same scholar when death_hijri values match within a tolerance of ±5 Hijri years AND the shorter name's tokens are a strict subset of the longer name's tokens after stripping.
+  - Name-equivalence without death dates: when death_hijri is null for BOTH names, strict token-subset matching alone is sufficient to declare equivalence, provided the shorter name's tokens are a strict subset of the longer name's tokens. This prevents cosmetic name-form differences from triggering disagreement resolution.
+  - Disambiguation when canonical_match_name is identical and death_hijri is absent for both: the system MUST use secondary signals — science_scope of the work, specialized nisba tokens (المفسر vs المقرئ), and content-derived evidence. When no signal disambiguates, emit SRC-W-AMBIGUOUS-SCHOLAR-IDENTITY and set author_output.status=agent_disagreement with both candidates as positions.
+  - The صاحب convention: 'صاحب [work_title]' (e.g., صاحب فتح الباري = Ibn Hajar, صاحب المغني = Ibn Qudama) is resolved via work-to-author lookup using REQ-SRC-0039 work_relationships, not name decomposition. This is a downstream citation resolution pattern; at the source-engine level it applies only when the صاحب formula appears in the metadata card or colophon attribution.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given Name forms "الإمام النووي" and "النووي"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="النووي" while display_name preserves the original source form..
-  - AC-2 [deterministic] Given Name forms "القاضي عياض" and "عياض"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="عياض" while display_name preserves the original source form..
-  - AC-3 [deterministic] Given Name forms "أبو محمد ابن قدامة" and "ابن قدامة"; When author-name matching executes; Then Both names resolve to the same canonical_match_name="ابن قدامة" while display_name preserves the original source form..
+  - AC-1 [deterministic] Given Name forms "الإمام النووي" and "النووي" with death_hijri=676 for both; When author-name matching executes; Then Both resolve to the same scholar. display_name preserves original form..
+  - AC-2 [deterministic] Given Name forms "أبو محمد ابن قدامة" and "ابن قدامة" with death_hijri=620 for both; When author-name matching executes; Then Both resolve to the same scholar via token-subset + death_hijri match..
+  - AC-3 [deterministic] Given Name forms "يحيى بن شرف النووي" (death_hijri=null) and "النووي" (death_hijri=null); When author-name matching executes; Then Both resolve to the same scholar via strict token-subset matching without death_hijri (null-null case)..
+  - AC-4 [deterministic] Given Name forms "ابن كثير" (death_hijri=null) from a tafsir source and "ابن كثير" (death_hijri=null) from a qira'at source; When author-name matching executes; Then The system uses science_scope to disambiguate. SRC-W-AMBIGUOUS-SCHOLAR-IDENTITY is emitted if science_scope is unavailable..
+  - AC-5 [deterministic] Given Name "سيبويه" with laqab_is_primary_identifier=true and name "عمرو بن عثمان بن قنبر" with death_hijri=180 for both; When author-name matching executes; Then Both resolve to the same scholar because laqab_is_primary_identifier allows laqab-to-ism matching..
+  - AC-6 [deterministic] Given Name "أبو هريرة" (recognized kunya-only scholar); When kunya stripping executes; Then canonical_match_name="أبو هريرة" preserved as atomic unit. Kunya is NOT stripped..
+  - AC-7 [deterministic] Given Name "لجنة الإفتاء الدائمة" with entity_type=institution; When name matching executes; Then entity_type=institution, canonical_match_name="لجنة الإفتاء الدائمة", no structured decomposition attempted..
+  - AC-8 [deterministic] Given Name "كريمة بنت أحمد المروزية"; When name decomposition executes; Then بنت is recognized as patronymic connector, nasab correctly parsed..
+  - AC-9 [deterministic] Given Death dates 256 and 252 for the same scholar البخاري from different databases; When death date comparison executes; Then Dates match within ±5 year tolerance. Scholar is NOT split into two records..
 
 ### REQ-SRC-0016 — Multi-science assignment
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-008
@@ -410,7 +446,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: intake_analysis
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md, .claude/skills/arabic-text/SKILL.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
@@ -428,7 +464,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: intake_analysis
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 after confirming that source-engine PDF handling must stay metadata-first and normalization-owned for text extraction
@@ -441,3 +477,193 @@
 - Acceptance criteria:
   - AC-1 [deterministic] Given A PDF page with visible حاشية blocks in the outer margin alongside the main sharh text; When layout detection runs; Then intake_dossier.page_layout_hint="marginal_notes"..
   - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When layout detection runs; Then intake_dossier.page_layout_hint="single_column"..
+
+### REQ-SRC-0030 — Genre classification
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Added after contract-architect review found genre is mandatory in CON-SRC-0004 but no requirement atom produces it. Genre is referenced as a precondition by REQ-SRC-0002 and REQ-SRC-0008 but was never formally specified.
+- Trigger: Metadata deliberation processes a source candidate whose intake dossier is available.
+- Postconditions:
+  - source_metadata.genre is set to one of matn, sharh, hashiyah, risalah, hadith_collection, tafsir, fatawa, tabaqat, mujam, nazm, mukhtasar, or other.
+  - When genre classification is disputed between agents and both positions are evidence-backed, genre is set to the majority or higher-confidence position as a scalar and a genre_dispute record preserves the competing positions with evidence.
+  - genre_dispute is optional and only written when genuine disagreement exists.
+  - Genre classification uses title keywords, structural signals from the intake dossier, and content sampling when title evidence is ambiguous.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with title containing "أحكام"; When genre classification runs; Then source_metadata.genre="risalah"..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small with title "همع الهوامع في شرح جمع الجوامع"; When genre classification runs; Then source_metadata.genre="sharh"..
+  - AC-3 [deterministic] Given A source where one agent classifies genre=sharh and another classifies genre=hashiyah, both with evidence; When genre classification runs; Then source_metadata.genre is set to the higher-confidence position and genre_dispute preserves both positions..
+
+### REQ-SRC-0031 — Multi-layer hint detection
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Added after contract-architect review found is_multi_layer is mandatory in CON-SRC-0004 but no requirement atom produces it. Implements DEC-SRC-0010 OPT-C (source hints, normalization confirms). Domain-validator review added genre-based auto-hint for tafsir and hadith.
+- Trigger: Metadata deliberation processes a source whose intake dossier and genre classification are available.
+- Postconditions:
+  - source_metadata.is_multi_layer is set to true or false and is never null.
+  - is_multi_layer=true when title contains any keyword in the multi-layer keyword set or when genre implies structural multi-layer content.
+  - The multi-layer keyword set includes: شرح, حاشية, تعليق, تقريرات, نكت.
+  - Genre-based auto-hint: genre in {tafsir, hadith_collection, sharh, hashiyah} sets is_multi_layer=true regardless of title keywords, because these genres are structurally multi-layer by definition.
+  - source_metadata.multi_layer_evidence records which signals drove the hint (keyword matches, genre-based auto-hint, or format-specific signals).
+  - is_multi_layer is a source-engine hint, not an authoritative verdict. Normalization confirms or overrides from actual text structure per DEC-SRC-0010.
+  - When no title keywords match and genre does not imply multi-layer, is_multi_layer is set to false.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small with title "همع الهوامع في شرح جمع الجوامع"; When multi-layer detection runs; Then source_metadata.is_multi_layer=true and multi_layer_evidence includes keyword "شرح"..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with genre=risalah and no multi-layer keywords in title; When multi-layer detection runs; Then source_metadata.is_multi_layer=false..
+  - AC-3 [deterministic] Given A source with genre=tafsir and no multi-layer keywords in title; When multi-layer detection runs; Then source_metadata.is_multi_layer=true and multi_layer_evidence includes "genre_auto_hint"..
+
+### REQ-SRC-0032 — Structural format classification
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Added after contract-architect review found structural_format is mandatory in CON-SRC-0004 but no requirement atom produces it.
+- Trigger: Metadata deliberation processes a source whose genre classification and intake dossier are available.
+- Postconditions:
+  - source_metadata.structural_format is set to one of prose, commentary, verse, reference_entries, qa_format, tabular, or mixed.
+  - prose is the default for genres: risalah, fatawa, matn, mukhtasar.
+  - commentary is set when genre in {sharh, hashiyah} or when is_multi_layer=true with interleaved base text and authorial explanation.
+  - verse is set when genre=nazm or when the text structure is predominantly metered poetry.
+  - reference_entries is set when genre in {mujam, tabaqat} or when the text is organized as alphabetical or biographical entries.
+  - qa_format is set when the text follows a question-and-answer structure.
+  - structural_format may be overridden by content-level signals from the intake dossier when title and genre signals are insufficient.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/11_multi_small with genre=sharh; When structural format classification runs; Then source_metadata.structural_format="commentary"..
+  - AC-2 [integration] Given tests/fixtures/alfiyyah_versified/alfiyyah.txt with genre=nazm; When structural format classification runs; Then source_metadata.structural_format="verse"..
+  - AC-3 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm with genre=risalah; When structural format classification runs; Then source_metadata.structural_format="prose"..
+
+### REQ-SRC-0034 — Compiler-as-muhaqiq detection
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: adversary-review-2 ADV2-002 (compiler/muhaqiq role inversion gap); v1 LESSONS.md ERR-02 (Shamela lists source authors in author field while actual compiler is in muhaqiq field)
+- Trigger: Attribution parsing identifies both author and muhaqiq from metadata card or colophon.
+- Postconditions:
+  - When muhaqiq death_hijri > 1300 (or no death date available) AND all listed authors have death_hijri < 1000, the source is flagged as compiler_muhaqiq_inversion_candidate.
+  - When temporal distance between the earliest listed author death_hijri and the muhaqiq death_hijri exceeds 300 Hijri years, the source is flagged as compiler_muhaqiq_inversion_candidate.
+  - Flagged cases add compiler_muhaqiq_inversion to study_quality_risk_flags array on the source dossier.
+  - The flag routes to the disagreement resolver for evidence-based role correction, where the resolver determines whether the muhaqiq is actually the compiler and the listed authors are the sources being compiled.
+- Acceptance criteria:
+  - AC-1 [integration] Given A Shamela source like السراج المنير with classical source authors (death_hijri < 1000) and a contemporary muhaqiq (death_hijri > 1300 or no death date); When metadata deliberation runs attribution parsing; Then compiler_muhaqiq_inversion is present in study_quality_risk_flags and the source is routed to the disagreement resolver..
+  - AC-2 [integration] Given A normal sharh with a single classical author (death_hijri=676) and a contemporary tahqiq editor (death_hijri=1420) where the metadata card correctly identifies the author as author and the editor as muhaqiq; When metadata deliberation runs attribution parsing; Then compiler_muhaqiq_inversion is flagged (temporal gap exceeds 300 years), routing to the disagreement resolver. The resolver examines evidence and confirms the roles are correct (genuine tahqiq, not compilation), removing the flag..
+
+### REQ-SRC-0035 — Display metadata for teaching units (source card)
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Owner interview 2026-04-14 + Gemini DR on display metadata design (2026-04-14). The DR grounds the source card (بطاقة المصدر) in the Islamic scholarly tradition: the Eight Heads (الرؤوس الثمانية) of classical muqaddimat and the Ten Principles (المبادئ العشرة) of foundational sciences.
+- Trigger: Metadata deliberation completes for a source candidate with confirmed or disputed author attribution and genre classification.
+- Postconditions:
+  - source_metadata.display_card is written with 13 structured fields organized in two progressive disclosure tiers.
+  - Quick-Glance tier (always visible): display_name (الاسم الشائع — the name the scholar is best known by), scholarly_title (اللقب العلمي — highest consensus-agreed honorific as a visual badge), death_date_display (سنة الوفاة — Hijri primary with Gregorian secondary), madhab (المذهب — methodological school tag), book_title (عنوان الكتاب), science_and_genre (التصنيف العلمي — with educational tooltips on technical terms), author_blurb_short (نبذة مختصرة — 1-2 sentence truncated blurb), and layer_tree_short (شجرة الكتاب — visual nesting for multi-layer works showing where the reader is).
+  - Deep-Dive tier (expanded on interaction): full_name_lineage (البطاقة الشخصية الكاملة — ism, nasab, kunya, laqab, nisba unabridged), author_blurb_full (نبذة عن المؤلف — dynamically tailored to scholar type per Gemini DR), book_significance (أهمية الكتاب / الثمرة — why the author wrote it, what gap it fills, its rank), edition_metadata (بيانات الطبعة — muhaqqiq, publisher, year, city), dispute_panel (مؤشر التوثيق — visible only when authorship or attribution is disputed, showing all positions with evidence), and verification_sources (مصادر التوثيق — which databases and catalogs verified the metadata).
+  - Deterministic extraction fields (from databases, never LLM-generated): display_name, full_name_lineage, death_date_display, book_title, science_and_genre, edition_metadata, layer_tree, verification_sources. Note: madhab and scholarly_title are registry-first fields — populated from scholar_authority registry when available, from agent research evidence when no registry entry exists, or null with reason in partial_reasons when neither source provides data.
+  - LLM agent synthesis fields (generated by agent teams from research evidence): author_blurb, book_significance, dispute_panel summary. These must cite their evidence sources and are subject to multi-model review.
+  - author_blurb is dynamically tailored to scholar type: hadith scholars emphasize rihlah and hifz; fiqh scholars emphasize rank within madhab; polymaths emphasize breadth and synthesis; modern scholars emphasize institutional role and contemporary impact; unknown authors state what is known with transparent uncertainty.
+  - All display_card content is in Arabic and preserves full evidence chains per INV-SRC-0009.
+- Acceptance criteria:
+  - AC-1 [integration] Given A source identified as صحيح البخاري with author الإمام البخاري (death_hijri=256); When display metadata generation executes; Then display_card.display_name contains البخاري, display_card.scholarly_title contains أمير المؤمنين في الحديث or الإمام, display_card.death_date_display contains both 256 and 870, display_card.author_blurb mentions rihlah and hifz..
+  - AC-2 [integration] Given A multi-layer source فتح الباري شرح صحيح البخاري by ابن حجر العسقلاني; When display metadata generation executes; Then display_card.layer_tree_short shows nested structure with صحيح البخاري as matn and فتح الباري as sharh, with a reading position indicator..
+  - AC-3 [integration] Given A modern risalah الدروس المهمة لعامة الأمة by الشيخ ابن باز; When display metadata generation executes; Then display_card.author_blurb mentions institutional role (المفتي العام or equivalent) and display_card.book_significance describes it as an introductory text for beginners..
+  - AC-4 [deterministic] Given A source with author_output.status=insufficient_evidence; When display metadata generation executes; Then display_card.status=partial, deterministic fields are populated, author_blurb is null with reason in partial_reasons..
+
+### REQ-SRC-0039 — Work-to-work relationship modeling
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Claude DR spec audit 2026-04-15 finding that Islamic texts are fundamentally relational with mukhtasar-sharh-hashiyah chains up to 5 levels deep. Neither Shamela nor WorldCat models chain relationships. The source engine must capture typed links between derivative works and their base texts.
+- Trigger: Metadata deliberation identifies a source whose genre implies a derivative relationship (sharh, hashiyah, mukhtasar, nazm, taliqa, taqrirat).
+- Postconditions:
+  - work_relationships is a list of typed links where each entry contains: relationship_type (one of is_commentary_on, is_supercommentary_on, is_abridgement_of, is_versification_of, has_part, is_part_of), target_work_title (string), target_work_author (string or null), and confidence (one of high, medium, low).
+  - For genre=sharh: at least one entry with relationship_type=is_commentary_on identifying the matn it comments on.
+  - For genre=hashiyah: at least one entry with relationship_type=is_supercommentary_on identifying the sharh it glosses.
+  - For genre=mukhtasar: at least one entry with relationship_type=is_abridgement_of identifying the original work.
+  - For genre=nazm: at least one entry with relationship_type=is_versification_of identifying the prose original.
+  - When the target work cannot be identified from title, content, or metadata evidence, target_work_title is set to the best available partial evidence (e.g. extracted from the source's own title) and confidence=low.
+  - For works where the matn is embedded in the commentary text, matn_embedding_style is recorded as one of: interlinear (matn lines alternate with sharh paragraphs), separated (matn in one block, sharh in another), marginal (matn in margin, sharh in body), or mazj (matn words woven into sharh sentences).
+  - work_relationships is an empty list for standalone works (genre=matn, genre=risalah, genre=hadith_collection, genre=fatawa, or any genre with no derivative relationship).
+- Acceptance criteria:
+  - AC-1 [integration] Given A source titled "فتح الباري شرح صحيح البخاري" with genre=sharh; When work-to-work relationship modeling runs; Then work_relationships contains an entry with relationship_type="is_commentary_on", target_work_title contains "صحيح البخاري", confidence is high or medium..
+  - AC-2 [integration] Given A source titled "حاشية ابن القيم على سنن أبي داود" with genre=hashiyah; When work-to-work relationship modeling runs; Then work_relationships contains an entry with relationship_type="is_supercommentary_on", target_work_title contains "سنن أبي داود"..
+  - AC-3 [deterministic] Given A standalone risalah ("أحكام الاضطباع والرمل في الطواف") with genre=risalah; When work-to-work relationship modeling runs; Then work_relationships is an empty list..
+  - AC-4 [integration] Given A source titled "شرح ابن عقيل على ألفية ابن مالك" with genre=sharh and interlinear matn embedding; When work-to-work relationship modeling runs; Then work_relationships contains is_commentary_on with target_work_title containing "ألفية ابن مالك" AND matn_embedding_style="interlinear"..
+
+### REQ-SRC-0040 — Attribution confidence levels with scholarly terminology
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Claude DR spec audit 2026-04-15 finding that anonymous and pseudepigraphic works need confidence-level attribution beyond REQ-SRC-0004's three statuses (definitive/disputed/insufficient_evidence). The Islamic scholarly tradition has precise terminology for attribution confidence that the spec must model.
+- Trigger: Author attribution finalizes (REQ-SRC-0004 completes) and the output must express the confidence level using Islamic scholarly terminology.
+- Postconditions:
+  - author_output.attribution_confidence is set to one of: confirmed (مؤكد — authorship established beyond reasonable doubt), disputed (مختلف في نسبته — scholarly disagreement on attribution; secondary display term منسوب إلى meaning "attributed to" may be used in display_card when the dispute involves only the attribution target), anonymous (مجهول المؤلف — truly unknown author), pseudepigraphic (منحول — falsely attributed, evidence the named author did not write it), or collective (جماعي — institutional or committee works with no named primary author; genuine co-authorship by named individuals using تأليف X و Y is handled by REQ-SRC-0004 co_authored status, not by collective).
+  - For anonymous works, author_output preserves whatever temporal or geographic evidence exists (e.g. era, region, school affiliation) in author_output.anonymous_evidence as a free-text string.
+  - For pseudepigraphic works, author_output preserves both the attributed_author (the false claimant) and false_attribution_evidence (the evidence against authenticity) per INV-SRC-0009.
+  - For collective works, author_output.positions lists all identifiable contributors with their roles.
+  - author_output.attribution_confidence_ar stores the Arabic scholarly term corresponding to the classification for display purposes.
+  - attribution_confidence feeds into display_card dispute_panel generation (REQ-SRC-0035).
+- Acceptance criteria:
+  - AC-1 [deterministic] Given صحيح البخاري with author_output.status=definitive and unambiguous authorship; When attribution confidence classification runs; Then attribution_confidence="confirmed", attribution_confidence_ar="مؤكد"..
+  - AC-2 [integration] Given A work attributed to al-Ghazali with scholarly evidence that the real author is a later imitator; When attribution confidence classification runs; Then attribution_confidence="pseudepigraphic", attribution_confidence_ar="منحول", attributed_author field preserved, false_attribution_evidence is non-empty..
+  - AC-3 [integration] Given A truly anonymous work with only temporal evidence "مجهول - من أهل القرن السابع الهجري"; When attribution confidence classification runs; Then attribution_confidence="anonymous", attribution_confidence_ar="مجهول المؤلف", anonymous_evidence contains temporal era reference..
+  - AC-4 [integration] Given الموسوعة الفقهية الكويتية with multiple contributing scholars, no single primary author, and institutional sponsorship; When attribution confidence classification runs; Then attribution_confidence="collective", attribution_confidence_ar="جماعي", author_output.positions lists identifiable contributors. Note that a work like "تأليف أحمد بن علي و محمد بن خالد" would NOT be collective but rather co_authored per REQ-SRC-0004..
+
+### REQ-SRC-0042 — Scholar profile lookup for display card
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Contract-attribution review finding that REQ-SRC-0035 display card depends on madhab, scholarly_title, and full_name_lineage as deterministic fields, but no atom produces them. This atom fills that gap.
+- Trigger: Author attribution has produced an agent_consensus or agent_disagreement result with at least one evidence-backed position.
+- Postconditions:
+  - For each author position, a scholar_profile record is retrieved or synthesized containing: full_name_lineage (ism, nasab, kunya, laqab, nisba in the longest unabridged form available), scholarly_title (highest consensus-agreed honorific), madhab (legal or theological school), primary_science (main field of scholarship), era_description (century or generation label).
+  - Deterministic lookup order: (1) scholar_authority registry match by canonical_id or name+death_hijri, (2) structured databases (OpenITI metadata, Shamela author records, Dorar.net API), (3) agent synthesis from textual evidence in the source itself.
+  - When scholar_authority has a matching entry, all available fields are extracted deterministically without LLM involvement.
+  - When no registry match exists and no structured database match is found, agent synthesis produces the profile from available evidence in author_output.positions and source text. Agent-synthesized profiles are tagged with profile_source=agent_synthesis.
+  - death_gregorian is computed from death_hijri using standard Hijri-Gregorian conversion at display-card generation time (REQ-SRC-0035), not stored as a separate authoritative field in scholar_profile.
+  - scholar_profile is attached to the corresponding author_output.positions entry and consumed by REQ-SRC-0035 for display_card generation.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given Author attribution returns agent_consensus for البخاري (death_hijri=256) and scholar_authority registry contains a matching entry; When scholar profile lookup executes; Then scholar_profile.scholarly_title contains one of [امير المؤمنين في الحديث, الامام], scholar_profile.madhab is populated, scholar_profile.primary_science=hadith, scholar_profile.profile_source=scholar_authority.
+  - AC-2 [integration] Given Author attribution returns agent_consensus for a minor modern scholar not present in scholar_authority or any structured database; When scholar profile lookup executes; Then scholar_profile is produced via agent synthesis, scholar_profile.profile_source=agent_synthesis, and fields are populated from source text evidence where available.
+  - AC-3 [deterministic] Given Author attribution returns agent_consensus with death_hijri=256 for a scholar in scholar_authority; When display card generation (REQ-SRC-0035) consumes the scholar_profile; Then display_card.death_date_display contains both 256 (Hijri) and approximately 870 (Gregorian), computed at display time from death_hijri.
+
+### REQ-SRC-0043 — New scholar registration in authority registry
+- Type: requirement
+- Layer: pipeline
+- Step: metadata_deliberation
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Adversary-attribution review ADV-ATT-008 finding that no atom specifies how a newly discovered author enters the scholar_authority registry.
+- Trigger: Attribution identifies an author not present in scholar_authority.
+- Postconditions:
+  - A provisional scholar_authority entry is created with status=provisional, containing: canonical_id (auto-assigned), display_name, full_name_lineage (best available from source evidence), death_hijri (if known, otherwise null), primary_science (inferred from source science_scope), authority_level=unknown, and source_book_ids listing the book that triggered creation.
+  - Provisional entries are usable by downstream processing (REQ-SRC-0042 scholar profile lookup returns them) but are flagged in trust evaluation: trust fast-track (REQ-SRC-0015) is NOT eligible for sources attributed to provisional scholars.
+  - When a second distinct book by the same provisional scholar enters the pipeline and its evidence is consistent with the existing entry (display_name overlap and death_hijri match or both null), the entry is promoted to status=confirmed and authority_level is re-evaluated from unknown.
+  - The entry records evidence_sources as an array of objects each containing book_id, evidence_type (metadata_card, title_page, colophon, agent_inference), and the raw evidence string.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A book attributed to a minor modern scholar not in scholar_authority with display_name and death_hijri available; When new scholar registration executes; Then scholar_authority gains a new entry with status=provisional, authority_level=unknown, source_book_ids containing the current book_id, and trust fast-track is blocked for this source.
+  - AC-2 [integration] Given A second book by the same provisional scholar arrives with consistent evidence (same display_name, same death_hijri); When attribution completes and matches the provisional entry; Then The existing provisional entry is promoted to status=confirmed, source_book_ids contains both book_ids, and authority_level is re-evaluated.
+  - AC-3 [deterministic] Given A new scholar with display_name matching existing entry ابن تيمية (death_hijri=728) but new evidence shows death_hijri=652; When new scholar registration executes; Then A separate scholar_authority entry is created with its own canonical_id, both entries have disambiguation_note referencing the other.

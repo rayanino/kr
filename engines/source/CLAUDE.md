@@ -79,6 +79,29 @@ Three guarantees that prevent spec drift during build phase:
 2. **Coverage reports:** Build agents output a map: `{atom_id: {ac_id: {file, line, test}}}`. Validation checks completeness.
 3. **Spec-linked tests:** Tests tagged with `@pytest.mark.spec("REQ-SRC-0001", "AC-1")`. Failures identify exact spec violations.
 
+## Build Phase
+
+The spec is frozen and ready for implementation. No production code exists yet.
+
+**Pipeline steps in order:** upload_receipt → freeze_and_manifest → container_classification → intake_analysis → metadata_deliberation → source_admission_and_normalization_handoff
+
+**Implementation approach:**
+- Each atom's `behavior` field defines trigger/preconditions/postconditions/error_conditions — implement these directly.
+- Each atom's `acceptance_criteria` define the test cases in given/when/then format — implement as pytest with `@pytest.mark.spec("REQ-SRC-XXXX", "AC-N")`.
+- `depends_on` in each atom defines what must be implemented first.
+- Start with steps 10-20 (upload receipt + freeze) as a tracer bullet — they're the simplest and validate the build infrastructure.
+- Read `spec/views/by-step/` for human-readable summaries per pipeline step.
+
+**Code layout:** `engines/source/src/` for implementation, `engines/source/tests/` for tests, `engines/source/contracts.py` for Pydantic data models.
+
+**Key contracts to implement first (from atoms):**
+- `RawUploadRecord` (REQ-SRC-0001)
+- `FrozenSource` + `FrozenMemberManifest` (REQ-SRC-0018)
+- `ContainerClassification` (REQ-SRC-0017/0020/0041)
+- `IntakeDossier` (REQ-SRC-0019)
+- `SourceMetadata` (CON-SRC-0004)
+- `EditionGroup` / `EditionHolding` / `VolumeHolding` (DEC-SRC-0018, REQ-SRC-0044)
+
 ## Commands
 
 ```bash

@@ -2,22 +2,33 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | proposed | critical |
-| DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | proposed | high |
-| INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high |
-| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | proposed | critical |
+| CON-SRC-0006 | constraint | Per-book processing cost and time ceiling | confirmed | high |
+| DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | confirmed | critical |
+| DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | confirmed | high |
+| INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | confirmed | high |
+| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | confirmed | critical |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical |
 | OF-SRC-0009 | feedback | Replace numeric trust scoring with agent teams | confirmed | critical |
 | OF-SRC-0010 | feedback | Muhaqiq standing is informational only | confirmed | high |
-| REQ-SRC-0003 | requirement | Metadata deliberation stays owner-light | proposed | critical |
-| REQ-SRC-0008 | requirement | Agent-team trust evaluation | proposed | critical |
-| REQ-SRC-0022 | requirement | PDF handoff preserves intake verdicts | proposed | critical |
+| REQ-SRC-0003 | requirement | Metadata deliberation stays owner-light | confirmed | critical |
+| REQ-SRC-0008 | requirement | Agent-team trust evaluation | confirmed | critical |
+| REQ-SRC-0022 | requirement | PDF handoff preserves intake verdicts | confirmed | critical |
+
+### CON-SRC-0006 — Per-book processing cost and time ceiling
+- Type: constraint
+- Layer: contracts
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: medium
+- Source: adversary-review-2 ADV2-010 (no atom specifies timeout or cost ceiling for agent operations)
+- Rule: Every source candidate has a maximum wall-clock processing time of 300 seconds and a maximum per-book API cost ceiling (initial default EUR 0.50). When either ceiling is reached, processing halts gracefully, the book is flagged with processing_timeout or processing_budget_exceeded in study_quality_risk_flags, and it is routed through the risk gate rather than consuming unbounded resources. Partial results obtained before the ceiling are preserved, not discarded.
 
 ### DEC-SRC-0004 — Replace trust algorithm with agent teams
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0009; amended per both coworker reviews
@@ -28,7 +39,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0010; amended per domain-validator-review.yaml
@@ -39,7 +50,7 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0010
@@ -49,7 +60,7 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
@@ -92,7 +103,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0003 and tightened on 2026-04-14 to align with the owner rule that metadata should resolve autonomously without human gates.
@@ -112,13 +123,15 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009; amended per both coworker reviews and adversary-review.yaml ADV-003
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array.
 - Trigger: The engine must emit a trust_decision for a source or metadata claim.
 - Postconditions:
   - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
+  - trust_decision.decision is one of verified, needs_review, or disputed.
+  - trust_decision.decision=disputed is set when independent trust verifiers produce evidence-backed competing trust assessments that do not converge after the disagreement protocol. In this case trust_decision.positions preserves both assessments with evidence and confidence, ordered by confidence descending.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
   - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
 - Acceptance criteria:
@@ -131,7 +144,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: source_admission_and_normalization_handoff
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and revised on 2026-04-14 so the handoff step propagates intake-analysis verdicts without performing normalization itself.

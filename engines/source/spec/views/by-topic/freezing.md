@@ -2,13 +2,13 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| REQ-SRC-0018 | requirement | Freeze and manifest verification | proposed | critical |
+| REQ-SRC-0018 | requirement | Freeze and manifest verification | confirmed | critical |
 
 ### REQ-SRC-0018 — Freeze and manifest verification
 - Type: requirement
 - Layer: pipeline
 - Step: freeze_and_manifest
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from reference/archive/v1/source_engine/reference/ABD_INTAKE_SPEC.md and archive freezer/integrity behavior, then adapted to the new raw-upload registry boundary on 2026-04-14.

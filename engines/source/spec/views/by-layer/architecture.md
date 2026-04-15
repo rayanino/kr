@@ -2,27 +2,32 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | proposed | critical |
-| DEC-SRC-0002 | decision | Science scope uses dynamic registry | proposed | high |
+| DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | confirmed | critical |
+| DEC-SRC-0002 | decision | Science scope uses dynamic registry | confirmed | high |
 | DEC-SRC-0003 | decision | Level detection strategy | deferred | medium |
-| DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | proposed | critical |
-| DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | proposed | high |
-| DEC-SRC-0006 | decision | Agents resolve disagreements autonomously | proposed | critical |
-| DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | proposed | high |
-| DEC-SRC-0008 | decision | Agent infrastructure is built within source-engine scope first | proposed | medium |
-| DEC-SRC-0009 | decision | Research strategy uses specialized sources | proposed | high |
-| DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | proposed | medium |
-| DEC-SRC-0011 | decision | Agent self-resolution replaces human_gate | proposed | high |
-| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | proposed | high |
-| DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | proposed | critical |
-| DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high |
-| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | proposed | critical |
+| DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | confirmed | critical |
+| DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | confirmed | high |
+| DEC-SRC-0006 | decision | Agents resolve disagreements autonomously | confirmed | critical |
+| DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | confirmed | high |
+| DEC-SRC-0008 | decision | Agent infrastructure is built within source-engine scope first | confirmed | medium |
+| DEC-SRC-0009 | decision | Research strategy uses specialized sources | confirmed | high |
+| DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | confirmed | medium |
+| DEC-SRC-0011 | decision | Agent self-resolution replaces human_gate | confirmed | high |
+| DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | confirmed | high |
+| DEC-SRC-0013 | decision | Deliberation cell architecture with deterministic orchestrator | confirmed | critical |
+| DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | confirmed | critical |
+| DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | confirmed | high |
+| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | confirmed | critical |
+| DEC-SRC-0017 | decision | NFKC normalization allowed at PDF extraction boundary | confirmed | critical |
+| DEC-SRC-0018 | decision | Sources are immutable; collection entries evolve | confirmed | critical |
+| DEC-SRC-0019 | decision | Mixed-edition volumes never silently produce a coherent edition holding | confirmed | critical |
+| DEC-SRC-0020 | decision | Supersession is pointer-based, not deletion-based | confirmed | critical |
 
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002
@@ -33,7 +38,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0006; amended per domain-validator-review.yaml
@@ -54,7 +59,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0009; amended per both coworker reviews
@@ -65,7 +70,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0010; amended per domain-validator-review.yaml
@@ -76,7 +81,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0011
@@ -87,7 +92,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
@@ -98,7 +103,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Derived from OF-SRC-0015
@@ -109,18 +114,18 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
-- Source: Derived from OF-SRC-0016; amended per both coworker reviews
+- Source: Derived from OF-SRC-0016; amended per both coworker reviews and Gemini DR on Islamic scholarly metadata verification sources (2026-04-14) which resolved OQ-SRC-0007 with a concrete curated inventory.
 - Chosen option: OPT-B — Canonical specialized source categories
-- Decision rationale: This gives REQ-SRC-0013 a stable source-type taxonomy without overcommitting the exact inventory list.
+- Decision rationale: This gives REQ-SRC-0013 a stable source-type taxonomy. The concrete inventory was resolved by Gemini DR (OQ-SRC-0007 superseded). Key sources per category are now curated in REQ-SRC-0013 preconditions with access modalities documented.
 
 ### DEC-SRC-0010 — Source hints multi-layer routing and normalization confirms it
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Resolved from OQ-SRC-0002 per domain-validator-review.yaml; amended per 2026-04-14 PDF format directive
@@ -131,7 +136,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Resolves OQ-SRC-0004; derived from OF-SRC-0011 and REQ-SRC-0009
@@ -142,18 +147,29 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Resolves OQ-SRC-0006; builds on DEC-SRC-0007 and REQ-SRC-0012
 - Chosen option: OPT-B — Sort by confidence descending with primary marker
 - Decision rationale: Confidence ordering gives downstream engines a natural default (positions[0]) while preserving all scholarly positions. The owner's principle is truth-seeking — all positions stay, but the most-evidenced one is first.
 
+### DEC-SRC-0013 — Deliberation cell architecture with deterministic orchestrator
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: ChatGPT DR report on agent-team architecture (2026-04-14). Resolves OQ-SRC-0003. The DR evaluated fixed roles, dynamic composition, and hierarchical escalation, recommending dynamic composition with fixed minimums under a deterministic orchestrator.
+- Chosen option: OPT-B — Deterministic orchestrator with deliberation cells
+- Decision rationale: Smallest system that enforces independence, produces evidence-traceable outputs, guarantees bounded disagreement loops, supports fast-track without bypassing logging, and produces always-valid output shapes. Deterministic orchestration avoids the LLM supervisor single-point-of-failure problem while maintaining the agent team's deliberative power.
+
 ### DEC-SRC-0014 — Separate raw-upload tracking from official source admission
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that uploaded artifacts must not pollute the official source collection before source-engine acceptance.
@@ -164,7 +180,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added on 2026-04-14 after contract-auditor review found that the redesigned SourceMetadata surface no longer matches the live normalization boundary.
@@ -175,9 +191,53 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before valuable downstream work proceeds.
 - Chosen option: OPT-B — Emit provisional output and block progression
 - Decision rationale: This preserves pipeline-quality analysis while protecting the collection and downstream work from materially risky owner submissions.
+
+### DEC-SRC-0017 — NFKC normalization allowed at PDF extraction boundary
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Empirical finding from pdf_collection_characterization_2026-04-14.md. 10/10 sampled PDFs store Arabic text in Unicode Presentation Forms (U+FB50-FEFF), not standard Arabic (U+0600-06FF). NFKC normalization deterministically recovers standard Arabic from Presentation Forms without altering scholarly content.
+- Chosen option: OPT-B — Allow NFKC at PDF extraction boundary only
+- Decision rationale: Grounded in empirical evidence from 10 real PDFs. NFKC is not altering scholarly content — it is recovering actual characters from rendering-layer artifacts. The distinction between rendering normalization and content normalization is clear and documentable.
+
+### DEC-SRC-0018 — Sources are immutable; collection entries evolve
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: ChatGPT DR on collection-evolution model (2026-04-15). FRBR/IFLA LRM separates abstract content from concrete carriers. Fedora/DSpace repositories keep immutable versions and expose 'latest' pointers without deleting history. KR's existing invariant (frozen sources are immutable) and INV-SRC-0003 (library never refuses knowledge) together require that collection membership evolves without mutating the carrier layer. The DR identifies this as the structural resolution to incremental volumes, supersession, and mixed-edition handling.
+- Chosen option: OPT-B — Attach immutable sources to evolving collection entries (holdings)
+- Decision rationale: Satisfies immutability (sources untouched), INV-SRC-0003 (nothing refused), INV-SRC-0009 (all evidence preserved), and enables progressive completeness tracking. The 'attach not merge' principle is the minimum mechanism that handles all six DR edge cases (incremental volumes, duplicate editions, mixed editions, supersession, partial-of-complete, composite evolution).
+
+### DEC-SRC-0019 — Mixed-edition volumes never silently produce a coherent edition holding
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: ChatGPT DR on collection-evolution model (2026-04-15), Edge Case 3. Silent mixing of editions is dangerous in Islamic scholarly study because citations, page numbers, and tahqiq notes differ by edition. Mixing breaks scholarly reliability. The DR recommends either two separate holdings or one holding explicitly marked as ActiveMixed with a study-quality warning.
+- Chosen option: OPT-B — Separate mixed editions into distinct holdings with explicit warning
+- Decision rationale: Preserves scholarly reliability by keeping edition-coherent holdings separate. INV-SRC-0003 (never refuse knowledge) is respected because both editions are admitted. INV-SRC-0009 (zero knowledge loss) is respected because the mixing evidence is preserved, not hidden. The ActiveMixed state provides usability without false coherence claims.
+
+### DEC-SRC-0020 — Supersession is pointer-based, not deletion-based
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: ChatGPT DR on collection-evolution model (2026-04-15), Edge Case 4. Fedora API specification requires resource versioning via the Memento protocol where an Original Resource can have multiple immutable Mementos listed in a TimeMap. DSpace's item-level versioning treats each version as a separate item with a base identifier pointing to the most recent version while older versions remain accessible and citable. Both models align with KR's immutability and zero-knowledge-loss invariants.
+- Chosen option: OPT-B — Pointer-based supersession with configurable regeneration policy
+- Decision rationale: Preserves full history (Fedora/Memento model), enables DSpace-style 'only most recent in search, older still accessible', and avoids compute explosion by making regeneration conditional on actual text-quality impact. Satisfies all three governing invariants (immutability, never-refuse, zero-loss) simultaneously.

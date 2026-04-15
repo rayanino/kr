@@ -3,15 +3,16 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | CON-SRC-0003 | constraint | No existing pipeline contract is binding on the rebuild | confirmed | critical |
-| CON-SRC-0004 | constraint | Complete SourceMetadata output schema | proposed | critical |
-| CON-SRC-0005 | constraint | Normalization handoff bundle includes a bridge input contract | proposed | high |
-| DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | proposed | critical |
-| DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | proposed | high |
-| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | proposed | critical |
+| CON-SRC-0004 | constraint | Complete SourceMetadata output schema | confirmed | critical |
+| CON-SRC-0005 | constraint | Normalization handoff bundle includes a bridge input contract | confirmed | high |
+| DEC-SRC-0014 | decision | Separate raw-upload tracking from official source admission | confirmed | critical |
+| DEC-SRC-0015 | decision | Normalization consumes a bridge input model, not raw SourceMetadata | confirmed | high |
+| DEC-SRC-0016 | decision | Owner-submission risk gate blocks admission and downstream progression | confirmed | critical |
 | OF-SRC-0014 | feedback | Legacy contracts do not cap the rebuild | confirmed | critical |
 | OF-SRC-0015 | feedback | Build source-engine teams inside the source-engine scope first | confirmed | medium |
-| REQ-SRC-0025 | requirement | Two-stage source admission and normalization handoff packaging | proposed | critical |
-| REQ-SRC-0027 | requirement | Owner-submission risk gate for study-quality threats | proposed | critical |
+| REQ-SRC-0025 | requirement | Two-stage source admission and normalization handoff packaging | confirmed | critical |
+| REQ-SRC-0027 | requirement | Owner-submission risk gate for study-quality threats | confirmed | critical |
+| REQ-SRC-0033 | requirement | Volume count and intake timestamp derivation | confirmed | high |
 
 ### CON-SRC-0003 — No existing pipeline contract is binding on the rebuild
 - Type: constraint
@@ -27,17 +28,17 @@
 - Type: constraint
 - Layer: contracts
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from adversary-review.yaml ADV-002; amended per reference/pdf_fixture_observations_2026-04-14.md, owner guidance on 2026-04-14 about exact source/work identification and staged source admission, and the architecture decision that normalization owns text extraction.
-- Rule: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, and intake_timestamp; author_output must always contain status and positions.
+- Rule: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, and intake_timestamp; author_output must always contain status (one of agent_consensus, agent_disagreement, agent_no_evidence, co_authored) and positions.
 
 ### CON-SRC-0005 — Normalization handoff bundle includes a bridge input contract
 - Type: constraint
 - Layer: contracts
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added on 2026-04-14 after contract review found that SourceMetadata alone no longer defines a runnable source→normalization boundary in the live repo.
@@ -47,7 +48,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that uploaded artifacts must not pollute the official source collection before source-engine acceptance.
@@ -58,7 +59,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added on 2026-04-14 after contract-auditor review found that the redesigned SourceMetadata surface no longer matches the live normalization boundary.
@@ -69,7 +70,7 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before valuable downstream work proceeds.
@@ -102,7 +103,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: source_admission_and_normalization_handoff
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that raw uploads must not pollute the official source collection and that structurally valid but partial sources may still proceed with explicit flags.
@@ -123,7 +124,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: source_admission_and_normalization_handoff
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before official admission or downstream work proceeds.
@@ -137,3 +138,20 @@
   - AC-1 [deterministic] Given A source candidate whose intake_dossier.study_quality_risk_flags is empty; When the owner-submission risk gate executes; Then no owner_submission_risk_case is written..
   - AC-2 [deterministic] Given A source candidate identified as one volume of a larger work with material dependency on missing volumes; When the owner-submission risk gate executes; Then owner_submission_risk_case.owner_ack_required=true, source_collection admission is blocked, and normalization handoff is blocked..
   - AC-3 [deterministic] Given A readable but suspicious source whose trust or integrity uncertainty could materially mislead study; When the owner-submission risk gate executes; Then owner_submission_risk_case.risk_flags is non-empty and owner_submission_risk_case.gate_status="awaiting_owner_ack"..
+
+### REQ-SRC-0033 — Volume count and intake timestamp derivation
+- Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Added after contract-architect review found volume_count and intake_timestamp are mandatory in CON-SRC-0004 but no requirement atom produces them.
+- Trigger: Source admission finalizes the SourceMetadata record for an accepted source.
+- Postconditions:
+  - source_metadata.volume_count is set to the observed volume count from intake_dossier.declared_vs_observed_counts.observed_volume_count for multi-volume sources, or 1 for single-file sources.
+  - source_metadata.intake_timestamp is set to the UTC ISO 8601 timestamp at the moment SourceMetadata finalization completes.
+  - source_metadata.registry_entry_id is assigned as a unique identifier linking this SourceMetadata to its entry in the official source_collection registry.
+- Acceptance criteria:
+  - AC-1 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm after source-engine acceptance; When SourceMetadata finalization runs; Then source_metadata.volume_count=1 and source_metadata.intake_timestamp is a valid ISO 8601 UTC timestamp..
+  - AC-2 [integration] Given tests/fixtures/shamela_real/11_multi_small after source-engine acceptance; When SourceMetadata finalization runs; Then source_metadata.volume_count=3 and source_metadata.registry_entry_id is non-empty..
