@@ -33,7 +33,7 @@ This is a deeply personal religious tool processing classical Arabic Islamic sch
 Arabic scholarly text is fragile. Violations cause silent corruption:
 
 - NEVER use `.lower()`, `.upper()`, `.strip()`, `.replace()` on Arabic strings without checking context.
-- NEVER use `\d` for ASCII digits — Python `\d` matches Arabic-Indic (٠-٩). Use `[0-9]`.
+- For ASCII-only digit matching, use `[0-9]` not `\d` — Python `\d` matches Arabic-Indic (٠-٩). If the intent IS to match all digit forms in source text, use explicit Unicode ranges and add fixtures with Arabic-Indic digits.
 - NEVER use `\b` for Arabic word boundaries — Arabic clitics don't create `\b` boundaries.
 - NEVER apply Unicode normalization (NFC/NFD/NFKC/NFKD) to scholarly text. Preserve byte-for-byte.
 - NEVER normalize Taa Marbuta (ة→ه). Destroys meaning: صلاة (prayer) vs صلاه (he prayed it).
@@ -47,7 +47,8 @@ Arabic scholarly text is fragile. Violations cause silent corruption:
 - Scholar names have 5 components (ism, kunyah, nasab, laqab, nisbah) — the SAME scholar may appear as أبو حنيفة, النعمان بن ثابت, or الإمام الأعظم. Kunyahs alone are NEVER sufficient for disambiguation. Names like عبد الله are compound — never split عبد from the divine attribute.
 - Cross-reference formulas (كما تقدم, سيأتي, انظر) must be PRESERVED exactly as written. NEVER resolve or expand them — resolution requires scholarly judgment the agent does not have.
 - NEVER expand scholarly abbreviations (صلعم, رض, ق, ح). Preserve exactly as source uses them.
-- Strip kashida (tatweel, U+0640) during analysis unless required for display. It has no semantic meaning.
+- **Text strata (non-negotiable):** `frozen_source_bytes` (immutable) → `primary_text` (byte-identical to source after decoding) → `analysis_key` (derived, allowed to strip tatweel/invisibles for matching). Stripping/normalization ONLY affects derived fields, NEVER primary_text or frozen_source.
+- Strip kashida (tatweel, U+0640) in `analysis_key` only, never in `primary_text`. It has no semantic meaning but must be preserved in stored text.
 - At ingestion boundaries, strip invisible Unicode (U+200B, U+200E/F, U+202A-202E, U+FEFF, U+2060, U+00AD) EXCEPT U+200D in Arabic ligature contexts and U+200C in Persian text. See input-sanitization.md.
 - Multi-layer text hierarchy: matn → sharh → hashiyah → ta'liqah. Each layer has a different author. In a sharh, قوله ("his words") signals the commentator is QUOTING the matn author — track these attribution switches. In HTML exports, font size/color/bracketing may carry layer information. Store each layer as a distinct entity; never merge into primary text body.
 
@@ -89,6 +90,10 @@ You have a 6-source team. Using it is not optional — it is how this project wo
 
 **Context pressure is not an exemption.** If dispatch would push past 60%, compact first then dispatch. If it would push past 80%, hand off with an explicit "DISPATCH PENDING" blocker. Never skip dispatch to fit more implementation into a session.
 
+**Dispatch closure:** Gates are satisfied for the commit-candidate diff, not every intermediate edit. Codex dispatches for gate satisfaction must be review-only (no auto-apply). One review on the final diff is sufficient. If Codex proposes further changes: accept and do one final confirm review, OR reject with rationale + regression test. Non-blocking issues found during dispatch go to TODO, not another review cycle.
+
+**When dispatch is impossible in-session** (tool blocked, permissions unavailable, context ceiling): dispatch compliance supersedes "keep executing." Stop implementation and produce a handoff with: current diff summary, draft coworker prompts, what decisions are blocked, and what must not proceed until dispatch completes.
+
 **Scholarly neutrality in dispatch:** When coworkers disagree on a scholarly judgment, DESCRIBE the disagreement in the synthesis — do not resolve it. The agent is a compiler of scholarship, not a judge.
 
 # Cognitive Overrides
@@ -110,7 +115,7 @@ Error handling is MANDATORY at every real boundary: I/O, network, APIs, user inp
 
 ## Scope (OVERRIDES "don't add features beyond what was asked")
 
-Fix adjacent broken code. When modifying shared concepts (enum, status), grep ALL consumers before and after.
+Fix adjacent broken code — but only when there is a failing test, a violated invariant (D-023, text integrity), or an explicitly documented defect. Record and defer speculative fixes. When modifying shared concepts (enum, status), grep ALL consumers before and after.
 
 ## Type Safety (OVERRIDES "don't add type annotations to code you didn't change")
 
@@ -138,7 +143,7 @@ Data persistence files (API responses, test results, traces) are always necessar
 - No premature stopping. Push through to verified solutions.
 - FIX THE EDGE CASE when unsure.
 - For destructive/irreversible actions: inform rather than ask. State what and why; owner can object.
-- Propose commits when work is verified. Destructive git ops (force push, reset, branch delete) require explicit confirmation.
+- Propose commits when work is verified. A commit to master/main is a human-gated shared-state action — obtain explicit owner confirmation before committing to trunk. Destructive git ops (force push, reset, branch delete) require explicit confirmation.
 
 # Using Tools
 
