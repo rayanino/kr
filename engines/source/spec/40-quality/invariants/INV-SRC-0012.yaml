@@ -1,0 +1,61 @@
+id: INV-SRC-0012
+type: invariant
+status: confirmed
+title: Non-applicable genres require level null
+topic: metadata
+layer: quality
+priority: high
+confidence: high
+provenance: deep_research
+source: 'dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-2)'
+created: '2026-04-16'
+updated: '2026-04-16'
+depends_on:
+- DEC-SRC-0003
+impacts:
+- level_metadata
+rationale: >-
+  ChatGPT Deep Research dr-chatgpt-level-detection-20260416 (risk r5)
+  identified that mushaf copies, hadith collections, rijal dictionaries, and
+  purely archival majmu' compilations resist the
+  mubtadi/mutawassit/mutaqaddim trichotomy. These genres are organized around
+  transmission, reference, or compilation rather than graduated pedagogical
+  exposition, so forcing any level label onto them creates false scholarly
+  authority and misleads the owner about how to approach the text.
+rule:
+  statement: >-
+    For genres where the reading-level concept does not apply — mushaf,
+    hadith_collection, rijal_dictionary, and majmu — the source engine MUST
+    serialize SourceMetadata.level as null regardless of any owner override
+    attempt. Forcing a reading-level label onto these genres creates false
+    scholarly authority because their organizing principle is transmission,
+    reference, or compilation, not graduated pedagogical exposition.
+  implication: >-
+    Violation means the library has attached a pedagogical-level label to a
+    text whose scholarly form does not support that dimension. A mushaf labeled
+    'beginner', a hadith_collection labeled 'advanced', a rijal_dictionary
+    labeled 'intermediate', or a majmu labeled 'specialist' misrepresents the
+    work's scholarly character and corrupts downstream synthesis, search, and
+    owner-facing displays.
+  violation_severity: high
+acceptance_criteria:
+- id: AC-1
+  given: A source with SourceMetadata.genre="mushaf" submitted with owner_level_override="beginner"
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  test_type: deterministic
+- id: AC-2
+  given: tests/fixtures/shamela_real/04_hadith/book.htm classified as SourceMetadata.genre="hadith_collection" and submitted with owner_level_override="advanced"
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  test_type: deterministic
+- id: AC-3
+  given: A source classified as SourceMetadata.genre="rijal_dictionary" (for example a tabaqat-style narrator dictionary) submitted with owner_level_override="intermediate"
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  test_type: deterministic
+- id: AC-4
+  given: A source whose intake dossier sets composite_work_type="majmu" (for example "مجموع فتاوى ابن تيمية") with SourceMetadata.genre="majmu" submitted with owner_level_override="specialist"
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  test_type: deterministic

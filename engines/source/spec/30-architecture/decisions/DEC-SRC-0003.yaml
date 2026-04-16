@@ -1,15 +1,15 @@
 id: DEC-SRC-0003
 type: decision
-status: deferred
+status: confirmed
 title: Level detection strategy
 topic: metadata
 layer: architecture
 priority: medium
-confidence: medium
-provenance: owner_interview
-source: Derived from OF-SRC-0007; amended per contract-architect-review.yaml
+confidence: high
+provenance: deep_research
+source: 'dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-6)'
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-16'
 depends_on:
 - OF-SRC-0007
 - OQ-SRC-0001
@@ -17,17 +17,59 @@ depends_on:
 impacts:
 - level_metadata
 - source_normalization_boundary
-rationale: REQ-SRC-0007 now fixes only level-field preservation. Choosing who computes level remains an implementation-readiness blocker until OQ-SRC-0001 is resolved.
+rationale: >-
+  Resolved on 2026-04-16 by ChatGPT Deep Research (dr-chatgpt-level-detection-20260416).
+  Option B is chosen: reading-level is a downstream, content-based decision, and
+  authoritative ownership sits in the synthesis engine. The source engine
+  preserves evidence but does NOT populate SourceMetadata.level except via
+  explicit owner override at intake. Level must be science-conditioned and
+  layer-conditioned (fiqh/usul/nahw/hadith/tafsir AND matn/sharh/hashiyah)
+  before any mubtadi/mutawassit/mutaqaddim label is assigned, and it is stored
+  as a history of assessments with provenance, never as a silently overwritten
+  scalar. See DR paragraphs p16, p17, p18, p19, p20, p21, p46.
 options:
 - id: OPT-A
   label: Source engine from book metadata
   description: Infer level from title cards and shallow metadata inside the source engine.
-  status: deferred
+  status: rejected
+  rejection_reason: >-
+    Title tokens systematically lie. DR p2 (Ibn Khaldun's critique of excessive
+    abbreviation — a book called mukhtasar may be harder than a fuller exposition
+    when it presupposes prior formation), DR p9 (three recurring failure modes:
+    edition drift, series/volume mismatch, title-token false positives such as
+    al-Wasit/al-Mukhtasar/al-Taysir/al-Mubassat encoding marketing not
+    difficulty), and DR r2 (abridgement title trap — a mukhtasar can be the
+    hardest work because it is maximally compressed) together establish that
+    source metadata alone cannot own the level field without silent
+    corruption.
 - id: OPT-B
   label: Downstream content analysis
   description: Infer level after richer content analysis in a later stage.
-  status: deferred
+  status: chosen
+  chosen_reason: >-
+    DR p16 headline recommendation: level inference is downstream and
+    content-based, authoritative ownership sits in the synthesis engine, source
+    engine preserves evidence but does NOT populate level except via rare owner
+    override. DR p17 (the book's own discourse — definitions, audience markers,
+    gloss rate, commentary layer — is the most authoritative signal). DR p18
+    (the nullable SourceMetadata.level already models 'unknown' cleanly, so
+    OPT-B creates no schema mismatch). DR p19 (synthesis is the first place a
+    book can be seen as distributed pedagogical units, the least distortive
+    place to attach a late-bound owner-facing judgment). DR p20 (in a personal
+    scholarly library, wrong visible level is more harmful than a temporarily
+    unknown level). DR p21 (three-stage cascade — science, then layer, then
+    level — is mandatory). DR p46 ties these together: late, content-derived,
+    science-conditioned, with strong provenance and no silent overwrite.
 - id: OPT-C
   label: Dual inference with reconciliation
   description: Emit a provisional source signal and reconcile it against downstream content analysis.
-  status: deferred
+  status: rejected
+  rejection_reason: >-
+    The nullable SourceMetadata.level schema already supports 'unknown' per DR
+    p20, so faking early certainty adds no value. In a personal scholarly
+    library, a provisional shallow-metadata guess that downstream analysis
+    later overturns is worse than honest uncertainty: it plants an incorrect
+    label that the owner may internalize before correction, and every
+    reconciliation carries the failure modes of OPT-A (title-token lies,
+    edition drift, series-volume mismatch). OPT-C multiplies surface area for
+    silent level corruption without reducing uncertainty.

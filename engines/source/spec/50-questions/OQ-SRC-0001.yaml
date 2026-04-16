@@ -1,20 +1,27 @@
 id: OQ-SRC-0001
 type: question
-status: deferred
+status: superseded
 title: Level detection ownership
 topic: metadata
 layer: questions
 priority: medium
-confidence: medium
-provenance: owner_interview
-source: Derived from OF-SRC-0007
+confidence: high
+provenance: deep_research
+source: 'dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-7)'
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-16'
 depends_on:
 - OF-SRC-0007
 impacts:
 - level_metadata
 - source_normalization_boundary
+rationale: >-
+  Resolved by DEC-SRC-0003 on 2026-04-16 per ChatGPT Deep Research
+  (dr-chatgpt-level-detection-20260416). Ownership answer: the synthesis engine
+  owns authoritative level classification. The source engine preserves evidence
+  and honors owner-override but does not infer level. The candidate set below
+  is preserved as historical record of the alternatives that were considered
+  before the DR-backed decision was taken.
 candidates:
 - id: OPT-A
   label: Source metadata only

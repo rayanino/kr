@@ -730,3 +730,31 @@ atoms:
   topic: dedup
   priority: critical
   file: 40-quality/invariants/INV-SRC-0010.yaml
+- id: INV-SRC-0011
+  type: invariant
+  status: confirmed
+  title: Source engine must not infer level from shallow metadata
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0011.yaml
+- id: INV-SRC-0012
+  type: invariant
+  status: confirmed
+  title: Non-applicable genres require level null
+  topic: metadata
+  priority: high
+  file: 40-quality/invariants/INV-SRC-0012.yaml
+- id: REQ-SRC-0046
+  type: requirement
+  status: confirmed
+  title: Evidence preservation for downstream level inference
+  topic: handoff
+  priority: critical
+  file: 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0046.yaml
+- id: REQ-SRC-0047
+  type: requirement
+  status: confirmed
+  title: Owner override pathway for level at intake
+  topic: metadata
+  priority: medium
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0047.yaml

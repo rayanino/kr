@@ -11,7 +11,7 @@ decision: DEC-SRC-0003
 source_feedback: OF-SRC-0007
 twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416  # awaiting owner relay of the Claude DR
 status: integrated
-cross_check_status: pending_twin_dr
+cross_check_status: cc_verifications_complete_pending_twin_dr
 
 # ===== HEADLINE =====
 
@@ -598,6 +598,228 @@ external_citations:
   - "OSMAN Arabic readability formula (p14)"
   - "AARI Jordanian school curriculum readability (p14)"
 
+# ===== VERIFICATION RESULTS =====
+# Independent verifications of the DR findings + the claim that nothing in the
+# source engine currently computes level. Completed 2026-04-16 before any atom
+# closure was committed. Each verification's raw output is preserved in the
+# session transcript.
+
+verification_results:
+
+  explore_codebase_audit:
+    dispatched: '2026-04-16'
+    agent: Explore (very thorough)
+    purpose: >-
+      Verify that no production code path in engines/source/src/ infers
+      SourceMetadata.level from title tokens, series cues, publisher metadata,
+      or any shallow bibliographic signal.
+    verdict: CLEAN
+    key_findings:
+      - "Zero grep hits for Arabic level tokens (مختصر، تيسير، وسيط، مبسط، مبتدئ، متوسط، متقدم) in engines/source/src/"
+      - "Zero grep hits for English level tokens (mukhtasar, taysir, wasit, mubassat, lil-mubtadi'in, beginner, intermediate, advanced, specialist) in production code"
+      - "No _infer_level() function exists. Five sibling _infer_* functions (genre, multi_layer, structural_format, hadith_subgenre, work_relationships) all explicitly exclude level"
+      - "No TODO/FIXME/XXX/HACK/PLACEHOLDER in production code hinting at planned level inference"
+      - "tests/fixtures/GROUND_TRUTH.json has pre-populated level values but is NOT imported by any production path (only referenced in reference/archive/v1/)"
+      - "MetadataDeliberationInput is only instantiated in test code — never in production pipeline.py"
+    logged_for_followup:
+      - "The MetadataDeliberationInput-never-constructed-in-production observation means test coverage of the metadata_deliberation step is structural-only, not end-to-end. Not a blocker for DR integration, but worth a follow-up investigation of the production pipeline wiring."
+    opt_b_compatibility: CONFIRMED
+    binding: >-
+      INV-SRC-0011 (no-title-token-inference invariant) is empirically grounded.
+      The rule encodes what the code already does; the invariant prevents
+      regression rather than mandating a new behavior.
+
+  researcher_scholarly_verification:
+    dispatched: '2026-04-16'
+    agent: researcher
+    purpose: >-
+      Cross-verify the ChatGPT DR's scholarly claims against primary and
+      secondary Islamic-studies sources plus published Arabic NLP literature.
+      Deep Research models can fabricate confident citations; this check
+      separates solid claims from fragile ones.
+    verdict_distribution:
+      verified: 6
+      partially_verified: 3
+      unverified: 1
+      disputed: 0
+    consequential_claims:
+      - claim: "1_ibn_khaldun_mukhtasar_critique_tadarruj"
+        verdict: VERIFIED
+        confidence: HIGH
+        sharpening: >-
+          Ibn Khaldun's critique is specifically that mukhtasar works present
+          "ultimate findings" before the student has formed the mental habitus
+          (malakah) to receive them. Phrasing should be "premature compression
+          of conclusions" or "premature presentation of conclusions before
+          malakah formation," not merely "excessive abbreviation."
+        citation: "Muqaddimah Book VI, Chapter 6"
+      - claim: "3_ajurrumiyyah_beginner_commentary_self_positioning"
+        verdict: UNVERIFIED
+        confidence: LOW
+        note: >-
+          General pattern is real (100+ commentaries of varying complexity)
+          but specific preface self-positioning claim requires primary-text
+          access (al-Kafrawi, al-Ashmawi, or al-Tuhfa al-Saniyya preface).
+          OPT-B does not uniquely depend on this claim — #1 and #6 carry the
+          argument.
+      - claim: "6_mukhtasar_functions_as_scaffold_and_can_be_harder"
+        verdict: VERIFIED
+        confidence: HIGH
+        sharpening: >-
+          Mukhtasar Khalil (Khalil b. Ishaq al-Jundi, d. 776/1374) is the
+          definitive counterexample — 348+ manuscripts and sharhs exist
+          because the matn is structurally opaque without a teacher. This is
+          stronger than "can be harder": the mukhtasar genre is pedagogically
+          engineered to require a sharh. The "title tokens lie" invariant in
+          INV-SRC-0011 has structural grounding, not merely probabilistic.
+        citation: "Wikipedia + Sifatusafwa catalog + secondary Maliki fiqh scholarship"
+    other_claims:
+      - claim: "2_ibn_abi_zayd_al_risala_for_children"
+        verdict: PARTIALLY_VERIFIED
+        confidence: HIGH
+        correction: >-
+          DR overstated. al-Risala addresses BOTH "the young who want to
+          teach that, and the adults who need it" per Ibn Abi Zayd's own
+          stated audience. Not exclusively a children's book. Corrected in
+          post_verification_corrections below.
+      - claim: "4_matn_sharh_hashiyah_ladder_real_structural_feature"
+        verdict: VERIFIED
+        confidence: HIGH
+        sharpening: >-
+          The ladder is 4-5 tier, not 3-tier. Full native hierarchy:
+          matn → sharh → hashiya → taʿliqa/taqrir → takmila. The DR (and
+          my paragraph-4 entry) mentioned only the first three. Taʿliqa
+          and takmila are separate genres in the tradition.
+      - claim: "5_classical_pedagogy_internal_signals_over_title_based"
+        verdict: PARTIALLY_VERIFIED
+        confidence: MEDIUM
+        correction: >-
+          "Title-based classification" is anachronistic — classical scholars
+          didn't systematically reject titles; they relied on reading capacity
+          and internal comprehension signals because no systematic title
+          metadata existed at the scale modern NLP faces. Corrected below.
+      - claim: "7_hadith_science_conditional_difficulty"
+        verdict: VERIFIED
+        confidence: HIGH
+      - claim: "8_barec_19_levels_high_iaa"
+        verdict: VERIFIED
+        confidence: HIGH
+        nuance: >-
+          "High IAA" refers to Quadratic Weighted Kappa (QWK 81.3–81.8%,
+          tolerates ±1 level). Exact-match IAA on 19 levels is only 61.4%
+          (kindergarten) to 72.4% (school). Matters for synthesis-engine
+          confidence calibration — humans disagree often on fine-grained
+          level boundaries.
+        citation: "Elmadani et al., 2025, ACL Findings; arXiv:2502.13520"
+      - claim: "9_farasa_cameltools_arabert_production_quality"
+        verdict: VERIFIED
+        confidence: HIGH
+      - claim: "10_osman_aari_not_validated_on_turath"
+        verdict: VERIFIED
+        confidence: HIGH
+    impact_on_opt_b_decision: >-
+      OPT-B architectural recommendation STANDS. Claim #1 is strongly verified
+      (primary source: Muqaddimah Book VI Ch 6). Claim #6 is solidly verified
+      (Mukhtasar Khalil). Claim #3 being unverified does not damage OPT-B because
+      the argument rests on #1 and #6, not on al-Ajurrumiyyah preface evidence.
+      The 4 nuance corrections below do not change any atom's binding rule; they
+      only sharpen evidence file language and future citation accuracy.
+
+post_verification_corrections:
+  # Corrections applied to evidence-file phrasing after the researcher's
+  # cross-check. Original DR text (sections[].paragraphs[].claim) is preserved
+  # verbatim as historical record; these corrections layer on top.
+
+  - paragraph_id: p2_ibn_khaldun_tadarruj
+    correction_type: sharpening
+    corrected_claim: >-
+      Ibn Khaldun's Muqaddimah (Book VI, Chapter 6) critiques mukhtasar works
+      for presenting "ultimate findings" before the student has formed the
+      mental habitus (malakah) to receive them. He advocates tadarruj — a
+      graduated scaffolded exposition — as the pedagogically sound alternative.
+      Modern studies consistently reconstruct his pedagogy this way. The
+      consequence relevant to KR: a book called mukhtasar may be harder than
+      a fuller exposition because it presupposes the prior formation (malakah)
+      that scaffolded works explicitly build.
+    original_weakness: >-
+      Original claim phrased as "critique of excessive abbreviation" — correct
+      but misses the precision that Ibn Khaldun's argument is about premature
+      compression of conclusions before the learner's habitus is formed.
+    note: >-
+      The atoms DEC-SRC-0003 and INV-SRC-0011 already capture this via
+      "presupposes prior formation" language. No atom edit required.
+
+  - paragraph_id: p3_internal_textual_signals
+    correction_type: factual_correction
+    corrected_claim: >-
+      Strongest traditional signals are INTERNAL: author-declared audience
+      markers in muqaddimah. Examples: explicit phrases indicating beginners,
+      children, first introductions, or clarification for students already
+      studying a science. Ibn Abi Zayd al-Qayrawani's al-Risala was
+      pedagogically functional for BOTH "the young who want to teach that,
+      and the adults who need it" (per Ibn Abi Zayd's own stated audience),
+      not exclusively a children's book as the DR originally framed it.
+      Al-Ajurrumiyyah commentaries of varying complexity are documented
+      (100+ extant), but the specific claim that a preface self-positions as
+      beginner-facing because earlier commentaries were too difficult is
+      UNVERIFIED at the preface-text level and should be treated as an
+      illustrative pattern rather than a cited authority.
+    original_weakness: >-
+      Original claim overstated al-Risala's audience (children only, not
+      adults) and cited al-Ajurrumiyyah commentary self-positioning without
+      primary-text verification.
+    note: No atom references al-Risala or al-Ajurrumiyyah by name. No atom edit required.
+
+  - paragraph_id: p4_structural_cues
+    correction_type: sharpening
+    corrected_claim: >-
+      Beginner-facing works unpack terminology, explain citations, define
+      technical vocabulary, reduce unresolved objections/branching cases/cross-
+      book dependencies. Advanced works assume prior study, multiply
+      references, engage disagreement literature, write as gloss on technical
+      base text. The native scholarly hierarchy is 4–5 tier:
+      matn → sharh → hashiya → taʿliqa/taqrir → takmila. Matn compresses,
+      sharh explicates, hashiya clarifies remaining difficulty, taʿliqa
+      extracts lecture-style oral clarifications, and takmila continues or
+      supplements an earlier work. The DR mentioned only the first three tiers.
+    original_weakness: Omitted taʿliqa/taqrir and takmila tiers.
+    note: >-
+      No atom prescribes exactly the ladder depth; synthesis engine spec
+      (when written) should use the 4–5 tier language.
+
+  - paragraph_id: p5_science_relative
+    correction_type: sharpening
+    corrected_claim: >-
+      Difficulty is science-relative and genre-relative, not absolute. Short
+      usul text can be more demanding than longer sira. Hadith collection with
+      dense isnad and little explanatory prose is advanced for general readers
+      but foundational inside hadith transmission culture. The broader point
+      is not that classical scholars "rejected title-based classification"
+      (an anachronism — no systematic title metadata existed at the scale
+      modern NLP faces) but that they relied on reading capacity and internal
+      comprehension signals rather than assuming title difficulty is fixed.
+    original_weakness: >-
+      Paragraph 2 carried "NOT title-based classification" framing which
+      projects a modern NLP distinction back onto classical scholars.
+    note: No atom uses the phrase "title-based classification." No atom edit required.
+
+  - paragraph_id: p13_tooling_maturity_barec
+    correction_type: nuance
+    corrected_claim: >-
+      BAREC (Balanced Arabic Readability Evaluation Corpus) has 19 levels with
+      inter-annotator agreement measured by Quadratic Weighted Kappa at
+      81.3–81.8% ("substantial") and ACC±1 at 94.6%. However, exact-match IAA
+      on the 19-level scale is only 61.4% (kindergarten band) to 72.4%
+      (school band). "High IAA" in the BAREC literature refers to QWK, which
+      tolerates ±1 level disagreement; on fine-grained exact level, humans
+      frequently disagree.
+    original_weakness: >-
+      Original claim said "high inter-annotator agreement" without noting
+      the distinction between QWK (tolerant) and exact-match (strict).
+    note: >-
+      Relevant for synthesis-engine confidence calibration. No source-engine
+      atom cites BAREC. No atom edit required.
+
 # ===== INTEGRATION VERIFICATION =====
 
 integration_verification:
@@ -606,3 +828,6 @@ integration_verification:
   paragraphs_with_implementation_target: 46
   paragraphs_unused: 0
   coverage_verified: true
+  verification_complete: explore_clean_researcher_6v_3pv_1uv_0d
+  claude_dr_convergence: pending_owner_relay
+  atom_commit: pending_reviewer_wave
