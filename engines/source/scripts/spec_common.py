@@ -39,7 +39,10 @@ def discover_atom_files(root: Path | None = None) -> list[Path]:
     for path in sorted(spec_dir.rglob("*.yaml")):
         if path.name == "INDEX.yaml":
             continue
-        if any(part in {"views", "reviews", "interview"} for part in path.parts):
+        if any(
+            part in {"views", "reviews", "interview", "dr-prompts", "dr-reports"}
+            for part in path.parts
+        ):
             continue
         files.append(path)
     return files

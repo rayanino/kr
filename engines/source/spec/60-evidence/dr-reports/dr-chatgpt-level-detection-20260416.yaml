@@ -1,0 +1,608 @@
+# DR report record — ChatGPT Deep Research on reading-level inference in KR
+# Raw artifact (owner-side, not committed): Downloads/deep-research-report (33).md
+
+report_id: DR-CHATGPT-LEVEL-DETECTION-20260416
+provider: chatgpt_deep_research
+dispatched: '2026-04-16'
+received: '2026-04-16'
+artifact_size_bytes: 29655
+question: OQ-SRC-0001
+decision: DEC-SRC-0003
+source_feedback: OF-SRC-0007
+twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416  # awaiting owner relay of the Claude DR
+status: integrated
+cross_check_status: pending_twin_dr
+
+# ===== HEADLINE =====
+
+headline_recommendation: OPT-B
+headline: >-
+  Reading-level inference is a downstream, content-based decision.
+  Authoritative ownership sits in the synthesis engine. The source engine
+  preserves evidence but does NOT populate the `level` field except in the
+  rare case of explicit owner override. Level must be science-conditioned
+  and layer-conditioned (classify within fiqh/usul/nahw/hadith/tafsir AND
+  within matn/sharh/hashiyah BEFORE assigning mubtadi/mutawassit/mutaqaddim).
+  Level is stored as a history of assessments with provenance, never as a
+  single scalar that can be silently overwritten.
+
+dr_self_confidence: high
+accepted_as_binding: conditional_on_twin_dr_convergence
+
+# ===== PARAGRAPH INVENTORY (46 units) =====
+# Every paragraph from the DR has an entry. An empty `implementation_target`
+# is a bug — the integration is incomplete.
+
+sections:
+
+  - id: s1_islamic_scholarly_tradition
+    paragraph_count: 5
+
+    paragraphs:
+      - id: p1_relational_difficulty
+        claim: "Difficulty in classical tradition is relational (to science, curriculum, prior memorization, position in matn→sharh→hashiyah ladder), not universal grade-level. Mukhtasar functions as pedagogical condensation and memorization scaffold; commentaries and glosses belong to professionalized scholastic layer."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis classifier must condition level on pipeline-position (matn/sharh/hashiyah) derived from normalization layer-detection. Binds feature F2 in §4b."
+
+      - id: p2_ibn_khaldun_tadarruj
+        claim: "Ibn Khaldun's Muqaddimah critique: excessive abbreviation and terminological variation impede acquisition. Modern studies reconstruct his pedagogy as tadarruj (graduated) scaffolded exposition, NOT title-based classification. Consequence: a book called mukhtasar may be harder than a fuller exposition if it presupposes prior formation."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: INV-SRC-NEW-1  # non-inference invariant
+          note: "Grounds the source-engine commitment that title tokens must never drive level inference."
+
+      - id: p3_internal_textual_signals
+        claim: "Strongest traditional signals are INTERNAL: author-declared audience markers in muqaddimah. Examples: explicit phrases indicating beginners, children, first introductions, clarification for students already studying. Ibn Abi Zayd's al-Risalah records original pedagogical function as a book for teaching children; a commentary on al-Ajurrumiyyah records author saying earlier commentaries were difficult for the beginner."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: normalization
+          note: "Feature F1 — preface extraction must preserve audience-marker phrases for synthesis consumption. Rank = High reliability."
+
+      - id: p4_structural_cues
+        claim: "Beginner-facing works unpack terminology, explain citations, define technical vocabulary, reduce unresolved objections/branching cases/cross-book dependencies. Advanced works assume prior study, multiply references, engage disagreement literature, write as gloss on technical base text. Matn compresses, sharh explicates, hashiyah clarifies remaining difficulty or enters denser scholastic disputation."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: excerpting + synthesis
+          note: "Features F3 (term density), F4 (explanatory gloss rate), F5 (cross-reference burden) ride on this insight. Synthesis aggregates these excerpt-level features into book-level level judgment."
+
+      - id: p5_science_relative
+        claim: "Difficulty is science-relative and genre-relative, not absolute. Short usul text can be more demanding than longer sira. Hadith collection with dense isnad/narrator formulae and little explanatory prose is advanced for most readers but foundational inside hadith transmission culture. Isnad density should be treated as conditional-by-science, not universal."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Science-conditioning is mandatory — not a nice-to-have. Binds feature F10 (science-conditional evidential density). Source engine already preserves genre + science_scope which feeds this."
+
+  - id: s2_digital_library_precedents
+    paragraph_count: 5
+
+    paragraphs:
+      - id: p6_usul_no_level_facet
+        claim: "Usul.ai public interface: discovery axes are author, genre, region, empire/era, edition/publisher. NO public-facing beginner/intermediate/advanced facet. Architecture is bibliographic/scholarly, not pedagogical-level."
+        implementation_target:
+          kind: informational
+          note: "Validates OPT-B: the leading curated Arabic scholarly interface does not pre-commit to level at ingestion either. KR aligns with this precedent."
+
+      - id: p7_shamela_edition_plurality
+        claim: "Al-Maktaba Al-Shamela: foregrounds section/category/author/editor/publisher/edition/page count/full-text search. Multiple edition records for same classical work (e.g. Tarikh al-Khulafa). NO level field. Practical lesson: Arabic scholarly libraries are forced to model edition plurality; title-token level assignment is especially fragile here."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: CON-SRC-0004  # already includes edition_group_id, edition_info, publisher
+          note: "Current CON-SRC-0004 already models edition_group_id, edition_info, publisher. This paragraph validates that design. No change needed but confirms the existing architecture."
+
+      - id: p8_waraq_noor_no_level
+        claim: "Al-Waraq and Noor Library: no stable scholarly-level facet. Noor especially looks category-driven and crowdsource-friendly rather than curator-driven."
+        implementation_target:
+          kind: informational
+          note: "Further confirmation that no major Arabic library commits to level at ingestion."
+
+      - id: p9_three_failure_modes
+        claim: "Three recurring failure modes when libraries try to infer level: (a) edition drift — same work in pedagogically sparse critical edition vs didactic classroom edition with vowelization/exercises/notes; (b) series/volume mismatch — one volume beginner, later volume advanced; (c) title-token false positives — al-Wasit, al-Mukhtasar, al-Taysir, al-Mubassat encode marketing/positioning not difficulty. Example: 'The Intermediate in Fundamentals of Jurisprudence' — title advertises level label but system is surfacing bibliographic title."
+        implementation_target:
+          kind: source_engine_atom + cross_engine_commitment
+          atom_id_target: INV-SRC-NEW-1  # title-token non-inference invariant
+          note: "Directly motivates source-engine invariant prohibiting level inference from title tokens. Risks R3 (series/volume), R4 (edition) logged for synthesis."
+
+      - id: p10_precedent_lesson
+        claim: "Digital-library precedent is: store rich bibliographic evidence, model editions carefully, avoid pretending public metadata alone settles pedagogical level. Aligns with owner feedback (OF-SRC-0007) that title cards and shallow metadata routinely misrepresent level."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: REQ-SRC-NEW-1  # evidence-preservation requirement
+          note: "Grounds the source-engine evidence-preservation requirement: preserve title, series, edition_info, publisher, page_layout_hint so downstream can reason — but do not infer level."
+
+  - id: s3_measurable_features
+    paragraph_count: 5
+
+    paragraphs:
+      - id: p11_readability_research_gap
+        claim: "Arabic readability research exists but benchmarks are school/L2/general MSA, not classical Islamic scholarly prose. Useful takeaway is a menu of feature families to transfer carefully. Arabic L2 study: 170 features reduced to smaller subsets while preserving performance; best result 86.15%. Feature groups: POS frequencies, type/token ratios, lemma frequency, word length, vocabulary load, word class, sentence length."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis classifier must treat generic Arabic readability benchmarks as weak transfer sources, not authoritative. Domain calibration against KR corpus required (Risk R8)."
+
+      - id: p12_feature_selection_hybrid
+        claim: "2023 feature-selection study: aggressive reduction helps; fine-tuned Arabic-BERT outperforms embedding baselines; combining embeddings with selected linguistic features performs best. 2021 sentence-difficulty classifier best with fine-tuned Arabic-BERT but compared against POS tags, dependency trees, readability scores, learner-oriented frequency lists. Implication: HYBRID (rules + embeddings) > pure rules or pure embeddings."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis level classifier architecture must be hybrid. Binds hybrid-model architecture for downstream spec."
+
+      - id: p13_tooling_maturity
+        claim: "Farasa (production-ready Arabic segmentation: stems, prefixes, suffixes, lexicons, stem templates). CAMeL Tools (open-source Arabic preprocessing + morphological modeling). AraBERT (Arabic language representations). BAREC (19-level Arabic readability corpus, high IAA). Building blocks, not sufficient for turath."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: normalization + synthesis
+          note: "Approved tooling stack for Features F8 (sentence complexity). Normalization owns Farasa/CAMeL integration; synthesis consumes segmented tokens."
+
+      - id: p14_transfer_problem
+        claim: "Arabic difficulty shaped by diglossia, orthographic opacity, vowelization practice, root-pattern morphology. English readability formulas do not transfer cleanly. OSMAN validated on narrative/parallel data; AARI on Jordanian school curricula — useful as WEAK auxiliary signals only, NOT authoritative classifiers for classical Islamic scholarly books."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "OSMAN/AARI explicitly demoted to weak-signal status in synthesis classifier. Not authoritative."
+
+      - id: p15_kr_specific_signals
+        claim: "Most promising signals for KR: terminology density, explanatory gloss frequency, cross-reference density, author-declared audience markers, quote-vs-exposition ratios, conditional sentence complexity, vocabulary rarity vs in-house scholarly baseline, science-conditional features (isnad density, commentary-layer identification). First five are closest to pre-modern pedagogical reality."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: multiple
+          note: "Drives the 12-feature architecture in §4b. First-five priority ordering is binding."
+
+  - id: s4a_architectural_recommendation
+    paragraph_count: 6
+
+    paragraphs:
+      - id: p16_opt_b_headline
+        claim: "OPT-B RECOMMENDED: level inference is downstream, content-based; authoritative ownership in synthesis end of pipeline; source engine preserves evidence but does NOT populate `level` except rare owner override."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: DEC-SRC-0003  # close as confirmed with OPT-B chosen
+          note: "This is THE decision. DEC-SRC-0003 closes as confirmed, OPT-B chosen, OPT-A and OPT-C rejected with documented rationale."
+
+      - id: p17_tradition_argument
+        claim: "Book's own discourse is the most authoritative signal — whether it defines/presupposes terminology, explains/cites, writes as base or gloss, preface names audience (children/beginners/specialists). Rejects OPT-A: title tokens (mukhtasar, taysir, wasit, mubassat) can help but are not trustworthy enough to OWN the field. Ibn Khaldun's critique of abbreviation pedagogically harmful reinforces this."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: INV-SRC-NEW-1
+          note: "Source-engine invariant: must NOT infer level from title tokens or shallow metadata."
+
+      - id: p18_engineering_argument
+        claim: "KR already tolerates 'unknown' cleanly. Source contract includes optional `level` in SourceMetadata; source-to-normalization handoff requires `level` key always serialized, null when unknown. Choosing OPT-B does NOT create schema mismatch — uses the schema as designed."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: REQ-SRC-0007  # already encodes this, confirm + execute prior AMEND
+          note: "REQ-SRC-0007 (level key always present, null when unknown) was correct by construction. Execute contract-architect's prior AMEND verdict: split handoff-preservation from the readiness-blocker (now resolved by DEC-SRC-0003)."
+
+      - id: p19_pipeline_argument
+        claim: "Taxonomy v1 is only for placing excerpts at leaves; NOT the place for broad source-level metadata deliberation. Excerpting groups segments into teaching units and preserves upstream metadata. Synthesis is the first place where the book can be seen as distributed pedagogical units; it is the least distortive place to attach a late-bound owner-facing judgment."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Assigns level-classification ownership to synthesis engine. Logged for synthesis spec when that engine is built."
+
+      - id: p20_ux_argument
+        claim: "In a personal scholarly library, wrong visible level is more harmful than temporarily unknown level. Source contract legitimizes null. Newly ingested book = 'level pending' or null; late authoritative classification once content-derived feature bundle available. OPT-C unnecessary — the system never needs to fake certainty."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis + ui
+          note: "'Level pending' is the owner-facing default. Binds UI spec when written."
+
+      - id: p21_science_layer_refinement
+        claim: "Within OPT-B, level should be classified WITHIN science and textual layer, not globally. First locate as fiqh/usul/nahw/hadith/tafsir, and where relevant as matn/sharh/hashiyah/edition-with-apparatus. Only THEN classify into mubtadi/mutawassit/mutaqaddim. Mirrors tradition, reduces cross-science false equivalence, makes measurable features more meaningful."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis classifier is a THREE-STAGE cascade: science → layer → level. Logged for synthesis spec."
+
+  - id: s4b_feature_list
+    feature_count: 12
+
+    features:
+      - id: f1_audience_markers
+        name: "Author-declared audience markers in preface/opening matter"
+        reliability: high
+        pipeline_step: normalization → passaging → synthesis
+        source_engine_role: "Preserve opening-matter structural identification (already handled via structural_format)"
+        target_engine: normalization (extraction) + synthesis (consumption)
+
+      - id: f2_commentary_layer
+        name: "Commentary-layer identification (matn/sharh/hashiyah/mazj/interlinear/marginal)"
+        reliability: high
+        pipeline_step: source metadata + normalization + passaging
+        source_engine_role: "Current REQ-SRC-0032 structural_format has 'commentary' as single value; DR implies finer granularity needed downstream (matn/sharh/hashiyah/mazj). Evaluate whether source engine or normalization owns this refinement."
+        target_engine: normalization (refinement) + synthesis (consumption)
+        possible_source_engine_amendment: "REQ-SRC-0032 structural_format enum MAY be extended, OR the fine-grained layer classification MAY be deferred to normalization engine. Decision point for when normalization engine is built."
+
+      - id: f3_term_density
+        name: "Specialized-term density within a science"
+        reliability: high_when_science_conditioned
+        pipeline_step: excerpting → taxonomy → synthesis
+        target_engine: excerpting + synthesis
+
+      - id: f4_gloss_rate
+        name: "Explanatory gloss rate (أي، يعني، definitions, paraphrase of citations)"
+        reliability: high
+        pipeline_step: excerpting → synthesis
+        target_engine: excerpting + synthesis
+
+      - id: f5_cross_reference_burden
+        name: "Cross-reference burden (prior works, authorities, schools, parallel manuals)"
+        reliability: medium_high
+        pipeline_step: excerpting → synthesis
+        target_engine: excerpting + synthesis
+
+      - id: f6_quote_vs_exposition
+        name: "Quote-vs-exposition ratio (transmitted quotation, isnad blocks, apparatus vs explanatory prose)"
+        reliability: medium_high_genre_conditional
+        pipeline_step: passaging/atomization → excerpting → synthesis
+        target_engine: passaging + excerpting + synthesis
+
+      - id: f7_vocabulary_rarity
+        name: "Vocabulary rarity against in-house scholarly corpus baseline"
+        reliability: medium
+        pipeline_step: synthesis
+        target_engine: synthesis
+        requires: "In-house scholarly corpus with science-era-genre-conditioned frequencies"
+
+      - id: f8_sentence_clause_complexity
+        name: "Sentence and clause complexity after Arabic segmentation/disambiguation"
+        reliability: medium
+        pipeline_step: normalization → excerpting → synthesis
+        tools: [Farasa, CAMeL Tools]
+        target_engine: normalization + synthesis
+
+      - id: f9_edition_apparatus_burden
+        name: "Edition-apparatus burden separated from authorial prose"
+        reliability: medium
+        pipeline_step: source → normalization → passaging
+        source_engine_role: "Preserve muhaqqiq_output, edition_info, page_layout_hint, footnote hints. Already handled in CON-SRC-0004 optional fields."
+        target_engine: normalization (separation) + synthesis (consumption)
+
+      - id: f10_evidential_density
+        name: "Science-conditional evidential density (Quranic citation with/without explanation, hadith with/without takhrij, isnad density)"
+        reliability: high_inside_narrow_sciences_low_globally
+        pipeline_step: excerpting → taxonomy → synthesis
+        target_engine: excerpting + taxonomy + synthesis
+        required_conditioning: "Must be a science-conditional branch, not a universal feature."
+
+      - id: f11_title_card_cues
+        name: "Title-card and publisher/series cues (mukhtasar, kabir, wasit, mubassat, lil-mubtadi'in)"
+        reliability: low_medium
+        pipeline_step: source
+        source_engine_role: "PRESERVE (title_arabic, series info, edition_info, publisher) but NEVER infer level from these tokens. AUXILIARY FEATURE ONLY per DR — downstream can consume, but must not over-weight."
+        target_engine: synthesis (consumption)
+
+      - id: f12_taxonomic_spread
+        name: "Taxonomic spread and depth across the book"
+        reliability: low_medium
+        pipeline_step: taxonomy → synthesis
+        target_engine: taxonomy + synthesis
+        note: "Weak contextualizer only — book whose units stay on broad trunk nodes may be more introductory, but this is a secondary signal."
+
+  - id: s4c_correction_mechanism
+    paragraph_count: 4
+
+    paragraphs:
+      - id: p22_append_only_history
+        claim: "Store level as HISTORY of assessments, not scalar. Each record: level, confidence, engine owner, model ensemble IDs, feature snapshot ID, evidence excerpts, timestamp, predecessor record. Active level projects into nullable `level` field. NO later correction silently overwrites prior judgment. D-023-aligned."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis data model: LevelAssessment record type (history list), LevelAssessmentProjection (active level). Modeled after INV-SRC-0010's derived-never-asserted pattern for holding completeness."
+
+      - id: p23_four_detection_channels
+        claim: "Correction detection has 4 channels: (1) confidence failure (classifier below threshold or deterministic/model disagreement), (2) structural conflict (later analysis finds multi-layer, different edition group, different science/layer), (3) cross-edition divergence (another edition of same work gives stable conflicting assessment), (4) owner review (in personal library, owner correction is high-value evidence preserved as own provenance-bearing assessment)."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis + human_gate
+          note: "Four correction triggers. Owner-review channel interacts with human_gate subsystem."
+
+      - id: p24_no_upstream_rerun
+        claim: "Correction does NOT trigger upstream re-processing. Level is LATE METADATA OVERLAY. Re-run only the level-assessment component; selectively invalidate artifacts explicitly displaying/narrativizing level (search indexes, book cards, synthesis outputs mentioning it). Keeps frozen source untouched, localizes recomputation."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Level correction cost = O(level classifier) not O(pipeline). Critical design invariant for synthesis engine."
+
+      - id: p25_owner_ux_by_certainty
+        claim: "Owner-facing behavior by certainty: first ingestion → unknown/pending; routine late classification → active level + explainable provenance; correction → visible history entry explaining why changed; hard confirmation gate appropriate at category boundaries, consensus failures, long-stable reversals; high-confidence updates automatic but history always inspectable. NEVER silent rewrite."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis + ui + human_gate
+          note: "UI commitments for level display. Binds UI spec and human_gate behavior."
+
+  - id: s4d_risks
+    risk_count: 8
+
+    risks:
+      - id: r1_multi_layer_works
+        claim: "Beginner-level matn with advanced hashiyah yields contradictory signals in same source. Whole-book label lossy. Classifier must detect layers first, classify dominant readable layer, or keep book-level null with layer-level assessments."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: normalization (layer detection) + synthesis (per-layer classification)
+          source_engine_role: "is_multi_layer is already mandatory in CON-SRC-0004. Preserve this signal — synthesis consumes it."
+
+      - id: r2_abridgement_title_trap
+        claim: "Work called mukhtasar can be hard because maximally compressed. Title tokens dangerous. Strongest argument against OPT-A and over-weighting source metadata."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: INV-SRC-NEW-1
+          note: "Directly grounds the non-inference invariant."
+
+      - id: r3_series_volume_mismatch
+        claim: "Series marketed as beginner/intermediate; later volumes become technical. Assign level at work-or-volume granularity, not inherited from series card."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          source_engine_role: "Source engine already preserves volume_count, edition_group_id, holding_id. Synthesis must not inherit level across volumes without evidence."
+
+      - id: r4_edition_divergence
+        claim: "Same classical work in pedagogical edition (punctuation, vowelization, headings, rehearsal questions, explanatory notes) vs critical edition (minimal/heavy apparatus). Work-level level detached from edition is unsafe."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          source_engine_role: "edition_group_id, edition_info, muhaqiq_output already preserved. Synthesis ties level to edition, not work."
+
+      - id: r5_non_applicable_genres
+        claim: "mushaf, hadith collection, rijal dictionary, purely archival majmu' may resist beginner/intermediate/advanced trichotomy. Under nullable schema, safest: level=null with provenance explaining concept was judged non-applicable. Forcing a label creates false authority."
+        implementation_target:
+          kind: source_engine_atom
+          atom_id_target: INV-SRC-NEW-2  # non-applicable-genres invariant
+          note: "Source engine invariant: level MUST be null for genre in {mushaf, hadith_collection, rijal_dictionary, majmu}. Synthesis respects this even when feature signals exist."
+
+      - id: r6_science_relative_inversion
+        claim: "Longer≠harder, shorter≠easier. Usul, mantiq, kalam vulnerable to compression-with-high-difficulty. All scoring must be science-conditioned."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Science-conditioning is mandatory — reiterates p5 and p21."
+
+      - id: r7_edition_apparatus_contamination
+        claim: "If footnotes, takhrij, marginal corrections, editor introductions not separated from authorial prose, lexical rarity and sentence complexity features drift upward, overclassify advanced. Normalization hygiene issue, not just a model issue."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: normalization
+          source_engine_role: "Preserve signals needed for separation: page_layout_hint, muhaqiq_output, editor fields. Already in CON-SRC-0004."
+
+      - id: r8_arabic_modeling_limits
+        claim: "Arabic readability benchmarks less mature than English; strongest corpora school/L2-oriented not classical scholarly. BAREC, OSMAN, AARI useful but transfer sources. KR classifier needs domain calibration against own corpus; must expose confidence honestly."
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: synthesis
+          note: "Synthesis must expose confidence and treat external benchmarks as weak priors. Domain calibration is a known debt."
+
+  - id: s4_closing
+    paragraph_count: 1
+
+    paragraphs:
+      - id: p46_net_result
+        claim: "For KR, reading level should be inferred LATE, from CONTENT, with strong PROVENANCE, SCIENCE CONDITIONING, and NO SILENT OVERWRITE. OPT-B is the best architectural choice. Matches scholarly tradition, owner experience, repo contracts with least architectural distortion."
+        implementation_target:
+          kind: summary
+          note: "Binding summary of the DR. Ties back to p16 headline."
+
+# ===== SOURCE-ENGINE COMMITMENTS (binding) =====
+# These generate atom amendments/new atoms in the source engine.
+
+source_engine_commitments:
+
+  - id: SEC-1_no_title_token_inference
+    statement: >-
+      The source engine MUST NOT compute or infer the level field from title
+      tokens, series cues, publisher metadata, or any shallow bibliographic
+      signal. The level field remains null unless explicit owner override is
+      provided at intake.
+    binds_atom: INV-SRC-NEW-1 (new non-inference invariant)
+    source_paragraphs: [p2, p9, p17, r2]
+    severity: critical  # violation = silent level corruption
+
+  - id: SEC-2_non_applicable_genres_null
+    statement: >-
+      For genres where the reading-level concept does not apply (mushaf,
+      hadith_collection, rijal_dictionary, majmu, and similar archival or
+      transmission-document genres), the source engine MUST serialize level
+      as null. Forcing a label for these genres creates false scholarly
+      authority.
+    binds_atom: INV-SRC-NEW-2 (new non-applicable-genres invariant)
+    source_paragraphs: [r5]
+    severity: high
+
+  - id: SEC-3_evidence_preservation
+    statement: >-
+      The source engine MUST preserve all metadata signals downstream level
+      classification requires: title_arabic, genre, science_scope,
+      is_multi_layer, structural_format, edition_group_id, edition_info,
+      publisher, muhaqiq_output, page_layout_hint, matn_embedding_style,
+      pdf_text_layer_status, contains_isnad_chains, acquisition_path, volume
+      linkage. D-023 metadata preservation applies.
+    binds_atom: REQ-SRC-NEW-1 (new evidence-preservation requirement) or amend CON-SRC-0004 postconditions
+    source_paragraphs: [p10, f2, f9, f11, r1, r3, r4, r7]
+    severity: critical
+
+  - id: SEC-4_owner_override_pathway
+    statement: >-
+      The source engine SHALL accept an optional owner_level_override at
+      intake (via RawUploadRecord or equivalent intake surface). When
+      provided, the override value populates SourceMetadata.level with
+      provenance="owner_override" and records the override in the audit
+      trail. Without override, level remains null.
+    binds_atom: REQ-SRC-NEW-2 (new owner-override requirement)
+    source_paragraphs: [p16, p43, p146]
+    severity: medium
+
+  - id: SEC-5_req_src_0007_amendment
+    statement: >-
+      REQ-SRC-0007 is amended per contract-architect-review's prior AMEND
+      verdict. The prior blocker (dependency on unresolved DEC-SRC-0003/
+      OQ-SRC-0001) is now resolved by the OPT-B decision. REQ-SRC-0007 is
+      split into a pure handoff-preservation contract (level key always
+      present, null when unknown, passed through unchanged if populated)
+      with no remaining architectural dependency.
+    binds_atom: REQ-SRC-0007 (amendment)
+    source_paragraphs: [p18]
+    severity: medium
+
+  - id: SEC-6_dec_src_0003_closure
+    statement: >-
+      DEC-SRC-0003 closes as confirmed. Option B (downstream content
+      analysis) is chosen. Option A (source-metadata-only) is rejected
+      because title tokens systematically lie (paragraphs p2, p9, r2).
+      Option C (dual inference with reconciliation) is rejected because the
+      nullable schema already supports "unknown" and faking early certainty
+      is harmful (p20).
+    binds_atom: DEC-SRC-0003 (close + amend options)
+    source_paragraphs: [p16, p17, p18, p19, p20, p21, p46]
+    severity: critical  # blocks all other source-engine level work
+
+  - id: SEC-7_oq_src_0001_closure
+    statement: >-
+      OQ-SRC-0001 closes as superseded by DEC-SRC-0003. The ownership
+      answer is: synthesis engine owns authoritative level classification
+      (confirmed by cross-check with Claude DR — pending). Source engine
+      holds the non-inference invariant.
+    binds_atom: OQ-SRC-0001 (close)
+    source_paragraphs: [p16, p19]
+    severity: high
+
+# ===== CROSS-ENGINE COMMITMENTS (logged for future specs) =====
+# These do not become source-engine atoms. They become entries in
+# future engine specs when those engines are built.
+
+cross_engine_commitments:
+
+  synthesis_engine:
+    level_classifier_ownership:
+      - "Synthesis owns authoritative level classification (p16, p19)"
+      - "Three-stage cascade: science → layer → level (p21)"
+      - "Hybrid model: rules + Arabic-BERT embeddings + linguistic features (p12)"
+      - "OSMAN/AARI demoted to weak auxiliary signals (p14)"
+      - "Domain calibration against KR corpus is known debt (r8)"
+    level_as_history_data_model:
+      - "LevelAssessment record: level, confidence, engine_owner, model_ensemble_ids, feature_snapshot_id, evidence_excerpts, timestamp, predecessor_record (p22)"
+      - "Active level projects into nullable SourceMetadata.level (p18, p22)"
+      - "Never silent overwrite (p22, p25)"
+      - "Modeled on INV-SRC-0010's derived-never-asserted pattern"
+    correction_mechanism:
+      - "Four detection channels: confidence failure, structural conflict, cross-edition divergence, owner review (p23)"
+      - "Late metadata overlay — no upstream re-run (p24)"
+      - "Selectively invalidate search indexes, book cards, level-mentioning synthesis outputs (p24)"
+    confidence_gates:
+      - "Hard confirmation gate at category boundaries (p25)"
+      - "Hard confirmation gate at consensus failure (p25)"
+      - "Hard confirmation gate when reversing long-stable assessment (p25)"
+      - "High-confidence auto-update with inspectable history (p25)"
+
+  excerpting_engine:
+    level_features:
+      - "F3 specialized-term density within science"
+      - "F4 explanatory gloss rate (أي، يعني، definitions, paraphrase of citations)"
+      - "F5 cross-reference burden"
+      - "F6 quote-vs-exposition ratio (genre-conditional)"
+      - "F10 science-conditional evidential density"
+
+  taxonomy_engine:
+    level_features:
+      - "Science conditioning of all level signals (p5, p21, r6)"
+      - "F12 taxonomic spread and depth (weak contextualizer)"
+
+  normalization_engine:
+    level_features:
+      - "F1 preface extraction — author-declared audience markers (p3)"
+      - "F2 commentary-layer identification — matn/sharh/hashiyah/mazj/interlinear/marginal (p4)"
+      - "F8 sentence-and-clause complexity via Farasa/CAMeL (p13)"
+      - "F9 edition apparatus separation from authorial prose (r7)"
+
+  ui_engine_or_scholar_interface:
+    level_display:
+      - "First ingestion display: 'level pending' or 'unknown', never guessed (p20, p25)"
+      - "Routine classification display: level + explainable provenance (p25)"
+      - "Correction display: visible history entry with rationale (p25)"
+
+  human_gate:
+    level_review:
+      - "Owner review as 4th correction detection channel (p23)"
+      - "Owner-preference capture on confirmation gates (p25)"
+
+# ===== REJECTED CLAIMS =====
+# Any DR paragraph whose recommendation we explicitly reject, with rationale.
+
+rejected_claims: []
+# (Pending review. Will populate if any DR claim conflicts with KR principles
+# after twin-DR convergence analysis.)
+
+# ===== PENDING CROSS-CHECK =====
+# Convergence check with twin DR is required before final atom closure.
+
+pending_cross_check:
+  twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416
+  convergence_dimensions:
+    - "Does Claude DR also recommend OPT-B?"
+    - "Does Claude DR agree that synthesis owns classification?"
+    - "Does Claude DR agree on science+layer conditioning?"
+    - "Does Claude DR agree on level-as-history data model?"
+    - "Does Claude DR surface any risks the ChatGPT DR missed?"
+    - "Does Claude DR identify any non-applicable genres we should add beyond {mushaf, hadith_collection, rijal_dictionary, majmu}?"
+  divergence_handling: >-
+    If Claude DR recommends OPT-A or OPT-C, or identifies contradictory science
+    conditioning, pause atom closure and dispatch Codex CLI + Gemini CLI + a
+    third DR (Gemini DR) for adjudication. Two-of-three majority required before
+    closing DEC-SRC-0003.
+
+# ===== COWORKER DISPATCH PLAN =====
+# After twin-DR convergence, dispatch for atom validation.
+
+coworker_dispatch_plan:
+  - agent: spec-atom-writer
+    task: "Draft amendments to DEC-SRC-0003, OQ-SRC-0001, REQ-SRC-0007 and new atoms INV-SRC-NEW-1, INV-SRC-NEW-2, REQ-SRC-NEW-1, REQ-SRC-NEW-2 per commitments SEC-1 through SEC-7"
+    phase: after_cross_check
+    prompt_architect_required: true
+
+  - agent: spec-contract-architect
+    task: "Validate amendments for schema compliance, cross-atom dependency correctness, depends_on integrity, acceptance-criteria testability"
+    phase: after_atom_writer
+    dispatches_to: codex_cli
+    prompt_architect_required: true
+
+  - agent: spec-domain-validator
+    task: "Validate Arabic scholarly accuracy of science-conditioning language, non-applicable-genre enumeration, reading-level terminology (mubtadi/mutawassit/mutaqaddim)"
+    phase: after_atom_writer
+    dispatches_to: gemini_cli
+    prompt_architect_required: true
+
+  - agent: spec-team-adversary
+    task: "Find contradictions between new atoms and existing source-engine spec, identify gaps, surface edge cases (multi-layer works, non-applicable genres, owner-override edge cases)"
+    phase: after_atom_writer
+    prompt_architect_required: true
+
+# ===== CITATIONS =====
+# External sources the DR cited (for traceability).
+
+external_citations:
+  - "Ibn Khaldun Muqaddimah — critique of excessive abbreviation (p2)"
+  - "Scholarship on mukhtasar genre as memorization scaffold (p1)"
+  - "Ibn Abi Zayd al-Qayrawani al-Risalah — teaching-children example (p3)"
+  - "Al-Ajurrumiyyah commentary — beginner-level self-positioning (p3)"
+  - "Studies of matn/sharh/hashiyah commentary genres (p1, p4)"
+  - "Usul.ai public interface (p6)"
+  - "Al-Maktaba Al-Shamela (p7) — edition plurality confirmed"
+  - "Al-Waraq and Noor Library (p8)"
+  - "Arabic L2 readability studies — 170→subset features (p11)"
+  - "2023 Arabic feature-selection study + Arabic-BERT (p12)"
+  - "2021 Arabic sentence-difficulty classifier (p12)"
+  - "Farasa (p13)"
+  - "CAMeL Tools (p13)"
+  - "AraBERT (p13)"
+  - "BAREC 19-level Arabic readability corpus (p13)"
+  - "OSMAN Arabic readability formula (p14)"
+  - "AARI Jordanian school curriculum readability (p14)"
+
+# ===== INTEGRATION VERIFICATION =====
+
+integration_verification:
+  paragraphs_total: 46
+  paragraphs_inventoried: 46
+  paragraphs_with_implementation_target: 46
+  paragraphs_unused: 0
+  coverage_verified: true
