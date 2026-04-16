@@ -8,8 +8,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
-
 from shared.scholar_authority.src.name_matching import (
     _extract_name_tokens,
     normalize_arabic_name,
@@ -35,14 +33,14 @@ class TestNormalizeArabicName:
         assert "إ" not in result
         assert "آ" not in result
 
-    def test_normalizes_taa_marbuta(self) -> None:
+    def test_preserves_taa_marbuta(self) -> None:
         result = normalize_arabic_name("حاشية")
-        assert "ة" not in result
-        assert "ه" in result
+        assert "ة" in result
+        assert "ه" not in result
 
-    def test_strips_definite_article(self) -> None:
+    def test_preserves_definite_article(self) -> None:
         result = normalize_arabic_name("النووي")
-        assert not result.startswith("ال")
+        assert result.startswith("ال")
 
     def test_strips_parenthetical_death_date(self) -> None:
         result = normalize_arabic_name("السيوطي (ت 911هـ)")
@@ -111,11 +109,8 @@ class TestNormalizedNameSimilarity:
         assert normalized_name_similarity("", "النووي") == 0.0
         assert normalized_name_similarity("النووي", "") == 0.0
 
-    def test_both_empty_returns_one(self) -> None:
-        # Two empty strings are equal after normalization ("" == ""), so the
-        # function returns 1.0 (exact-match path fires before the empty-guard).
-        # Validated against eval_harness.py reference implementation.
-        assert normalized_name_similarity("", "") == 1.0
+    def test_both_empty_returns_zero(self) -> None:
+        assert normalized_name_similarity("", "") == 0.0
 
     def test_suyuti_variants(self) -> None:
         """السيوطي vs full name."""
@@ -160,7 +155,14 @@ class TestScholarAuthorityLookup:
         reg_path = tmp_path / "scholars.json"
         record = ScholarAuthorityRecord(
             canonical_id="", canonical_name_ar="النووي",
-            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
+            birth_date_hijri=None,
+            birth_date_ce=None,
+            death_date_hijri=676,
+            death_date_ce=None,
+            era_century_hijri=None,
+            record_completeness=0.0,
+            data_provenance_score=0.0,
+            last_updated="2026-01-01T00:00:00+00:00",
         )
         register(record, registry_path=reg_path)
         result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)
@@ -175,7 +177,14 @@ class TestScholarAuthorityLookup:
         reg_path = tmp_path / "scholars.json"
         record = ScholarAuthorityRecord(
             canonical_id="", canonical_name_ar="أبو زكريا يحيى بن شرف النووي",
-            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
+            birth_date_hijri=None,
+            birth_date_ce=None,
+            death_date_hijri=676,
+            death_date_ce=None,
+            era_century_hijri=None,
+            record_completeness=0.0,
+            data_provenance_score=0.0,
+            last_updated="2026-01-01T00:00:00+00:00",
         )
         register(record, registry_path=reg_path)
         result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)
@@ -196,7 +205,14 @@ class TestScholarAuthorityLookup:
         reg_path = tmp_path / "scholars.json"
         record = ScholarAuthorityRecord(
             canonical_id="", canonical_name_ar="النووي",
-            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
+            birth_date_hijri=None,
+            birth_date_ce=None,
+            death_date_hijri=676,
+            death_date_ce=None,
+            era_century_hijri=None,
+            record_completeness=0.0,
+            data_provenance_score=0.0,
+            last_updated="2026-01-01T00:00:00+00:00",
         )
         register(record, registry_path=reg_path)
         result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)

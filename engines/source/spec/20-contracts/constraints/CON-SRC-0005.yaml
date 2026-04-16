@@ -1,6 +1,6 @@
 id: CON-SRC-0005
 type: constraint
-status: proposed
+status: confirmed
 title: Normalization handoff bundle includes a bridge input contract
 topic: handoff
 layer: contracts

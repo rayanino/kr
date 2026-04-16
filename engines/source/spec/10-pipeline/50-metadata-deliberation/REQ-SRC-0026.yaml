@@ -1,6 +1,6 @@
 id: REQ-SRC-0026
 type: requirement
-status: proposed
+status: confirmed
 title: Authoritative work identity and collection linkage output
 topic: identity
 layer: pipeline
@@ -10,7 +10,7 @@ confidence: high
 provenance: owner_interview
 source: Derived from owner guidance on 2026-04-14 that the source engine must determine exactly which book/source was uploaded and preserve collection linkage explicitly.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-15'
 depends_on:
 - REQ-SRC-0019
 - CON-SRC-0004
@@ -28,7 +28,11 @@ behavior:
   - work_output.status is one of definitive, disputed, or insufficient_evidence.
   - A definitive case stores one chosen work position, while a disputed case preserves multiple work positions instead of forcing one bibliographic identity.
   - collection_match_output records whether the source matches an existing admitted work, an existing edition group, or no current collection match.
+  - "collection_match_output.match_status is one of: same_work_same_edition, same_work_new_edition, duplicate_same_edition_volume, conflict_mixed_edition, new_work, unknown. This disambiguates the kind of collection match, not just its presence."
+  - "collection_match_output.candidate_match_ids are structured as evidence-backed candidates with confidence (aligned with INV-SRC-0009 zero knowledge loss)."
+  - "collection_match_output.matched_edition_group_id is the resolved best-match edition group identifier derived from candidate_match_ids when a single candidate has high confidence, or null when no high-confidence match exists. This field is consumed by reconciliation (REQ-SRC-0044)."
   - When the source appears to be one present part of a larger work, collection_match_output records parent_work_id plus present_volumes and missing_volumes when that can be inferred.
+  - "present_volumes and missing_volumes are tied to the edition holding view (DEC-SRC-0018), not only the single source view. This enables holding-level completeness computation (INV-SRC-0010)."
   - title_arabic in SourceMetadata is derived from the chosen or preserved work identity evidence rather than from raw upload naming alone.
   error_conditions:
   - condition: Metadata deliberation finalizes SourceMetadata without emitting work_output.
@@ -57,4 +61,14 @@ acceptance_criteria:
   given: A source candidate identified as volume 2 of a larger work with only volume 2 currently present
   when: metadata deliberation executes
   then: collection_match_output.parent_work_id is non-null, collection_match_output.present_volumes includes "2", and collection_match_output.missing_volumes is non-empty.
+  test_type: deterministic
+- id: AC-5
+  given: A source candidate that matches an existing admitted work but from a different muhaqqiq (different edition)
+  when: metadata deliberation executes
+  then: collection_match_output.match_status="same_work_new_edition" and collection_match_output.matched_edition_group_id either differs from the existing edition or is null.
+  test_type: deterministic
+- id: AC-6
+  given: A source candidate that is volume 5 of an already-complete work from the same edition
+  when: metadata deliberation executes
+  then: collection_match_output.match_status="duplicate_same_edition_volume" and collection_match_output.candidate_match_ids includes the existing edition holding with confidence.
   test_type: deterministic

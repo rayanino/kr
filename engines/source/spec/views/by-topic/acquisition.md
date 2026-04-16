@@ -3,15 +3,18 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | CON-SRC-0001 | constraint | Shamela HTML and PDF are production formats | confirmed | high |
-| DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | proposed | critical |
-| INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical |
+| CON-SRC-0007 | constraint | Source type extensibility | confirmed | high |
+| DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | confirmed | critical |
+| DEC-SRC-0017 | decision | NFKC normalization allowed at PDF extraction boundary | confirmed | critical |
+| INV-SRC-0001 | invariant | Owner hints never bias inference | confirmed | critical |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical |
-| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | proposed | critical |
-| REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | proposed | high |
-| REQ-SRC-0017 | requirement | Multipart Shamela container classification | proposed | critical |
-| REQ-SRC-0020 | requirement | Plain text container classification | proposed | medium |
-| REQ-SRC-0021 | requirement | PDF intake analysis and text-layer quality classification | proposed | critical |
+| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | confirmed | critical |
+| REQ-SRC-0002 | requirement | Optional owner hints as cross-validation | confirmed | high |
+| REQ-SRC-0017 | requirement | Multipart Shamela container classification | confirmed | critical |
+| REQ-SRC-0020 | requirement | Plain text container classification | confirmed | medium |
+| REQ-SRC-0021 | requirement | PDF intake analysis and text-layer quality classification | confirmed | critical |
+| REQ-SRC-0041 | requirement | Format-agnostic multi-volume folder classification | confirmed | critical |
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
@@ -23,22 +26,43 @@
 - Source: Derived from OF-SRC-0001; amended per OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner cross-validation on 2026-04-14 that normalization owns PDF-to-text conversion
 - Rule: Production source intake must support Shamela HTML and PDF inputs, while plain text remains a minimal-metadata test format rather than a production collection format.
 
+### CON-SRC-0007 — Source type extensibility
+- Type: constraint
+- Layer: contracts
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Owner interview 2026-04-14 identifying YouTube transcripts as the third most valuable source type after Shamela and PDF, requiring the architecture to accommodate new formats without restructuring
+- Rule: The container classification step (step 30) must be designed so that adding a new source format requires only registering a new classifier and normalization route, without modifying existing classifiers or restructuring the pipeline. Current formats are shamela_html, pdf, and plain_text. Future formats include but are not limited to lecture_transcript. Container classification routes each format to normalization via a configurable normalization_route field on the classification output, not via hardcoded format-specific branching.
+
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002
 - Chosen option: OPT-B — Hints as cross-validation signals
 - Decision rationale: This matches the owner's drop-and-go workflow and preserves inference independence.
 
+### DEC-SRC-0017 — NFKC normalization allowed at PDF extraction boundary
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Empirical finding from pdf_collection_characterization_2026-04-14.md. 10/10 sampled PDFs store Arabic text in Unicode Presentation Forms (U+FB50-FEFF), not standard Arabic (U+0600-06FF). NFKC normalization deterministically recovers standard Arabic from Presentation Forms without altering scholarly content.
+- Chosen option: OPT-B — Allow NFKC at PDF extraction boundary only
+- Decision rationale: Grounded in empirical evidence from 10 real PDFs. NFKC is not altering scholarly content — it is recovering actual characters from rendering-layer artifacts. The distinction between rendering normalization and content normalization is clear and documentable.
+
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002 and OF-SRC-0005; amended per contract-architect-review.yaml
@@ -70,7 +94,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: upload_receipt
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002; re-scoped on 2026-04-14 after owner correction that upload, intake analysis, and later source acceptance must be distinct stages.
@@ -90,7 +114,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: metadata_deliberation
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0002; amended per contract-architect-review.yaml and adversary-review.yaml ADV-007
@@ -111,7 +135,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: container_classification
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from adversary-review.yaml ADV-001 and tightened on 2026-04-14 to distinguish container classification from freezing and later metadata deliberation.
@@ -131,7 +155,7 @@
 - Type: requirement
 - Layer: pipeline
 - Step: container_classification
-- Status: proposed
+- Status: confirmed
 - Priority: medium
 - Confidence: high
 - Source: Added from adversary-review.yaml ADV-011 and narrowed on 2026-04-14 so plain-text handling is classified and routed here, while later text interpretation belongs to later steps.
@@ -148,20 +172,42 @@
 - Type: requirement
 - Layer: pipeline
 - Step: intake_analysis
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, and owner correction that PDF text-layer judgment belongs to intake analysis and must use text quality, not text presence alone.
+- Source: Derived from OWNER_SANITY_CHECK_ANSWERS.md Q10, reference/pdf_fixture_observations_2026-04-14.md, owner correction on text quality, and pdf_collection_characterization_2026-04-14.md which found 10/10 sampled PDFs use Unicode Presentation Forms (not scans), recoverable via NFKC normalization.
 - Trigger: Intake analysis runs on a frozen source candidate whose container_type is pdf.
 - Postconditions:
   - intake_dossier.source_format is set to pdf.
   - intake_dossier.declared_vs_observed_counts.physical_page_count is set from the PDF page count.
-  - intake_dossier.normalization_route is set to pdf_ocr_primary.
   - intake_dossier.pdf_text_layer_status is set to absent when sampled content pages yield no extractable visible text.
-  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable.
-  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text and the text-layer assessment accepts that text as intelligible.
+  - intake_dossier.pdf_text_layer_status is set to corrupt when sampled pages yield extractable text but the text-layer assessment rejects that text as unusable even after NFKC normalization.
+  - intake_dossier.pdf_text_layer_status is set to presentation_forms when sampled pages yield text in Unicode Presentation Forms (U+FB50-FDFF, U+FE70-FEFF) that becomes intelligible standard Arabic after NFKC normalization.
+  - intake_dossier.pdf_text_layer_status is set to clean when sampled pages yield extractable text already in standard Arabic (U+0600-06FF) that is intelligible without normalization.
+  - intake_dossier.normalization_route is set to pdf_ocr_primary when pdf_text_layer_status in {absent, corrupt}. intake_dossier.normalization_route is set to pdf_text_primary when pdf_text_layer_status in {presentation_forms, clean}.
+  - intake_dossier.pdf_text_encoding records the detected Unicode block profile: standard_arabic, presentation_forms, or mixed. This signals normalization whether NFKC is needed at the extraction boundary.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/ibn_aqil_alfiyyah/vol6.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="absent", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=398..
   - AC-2 [integration] Given tests/fixtures/waraqat_usul/waraqat.pdf; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="corrupt", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=13..
-  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1..
+  - AC-3 [deterministic] Given A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text; When intake analysis executes; Then intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_text_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1..
   - AC-4 [deterministic] Given A corrupted or password-protected PDF at a valid temporary intake path; When intake analysis executes; Then Intake analysis aborts with error_code=SRC-E-PDF-CORRUPT..
+
+### REQ-SRC-0041 — Format-agnostic multi-volume folder classification
+- Type: requirement
+- Layer: pipeline
+- Step: container_classification
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Owner correction 2026-04-15 that multi-volume handling should be format-agnostic. Single file = single volume, folder with files = multi-volume, regardless of format. PDF and plain text multi-volume folders were not covered by REQ-SRC-0017 (Shamela-only) or REQ-SRC-0020/0021 (single-file only).
+- Trigger: Container classification receives a frozen directory candidate whose members are not .htm files.
+- Postconditions:
+  - A folder containing multiple .pdf files is classified as container_type=pdf_multi_volume. volume_manifest preserves the PDF files in filename order. normalization_route=pdf_ocr_primary or pdf_text_primary based on per-file text-layer assessment in REQ-SRC-0021.
+  - A folder containing multiple .txt files is classified as container_type=plain_text_multi_volume. volume_manifest preserves the text files in filename order. normalization_route=plain_text_parse.
+  - A folder containing mixed file formats is classified as container_type=mixed_format_directory with a warning. Each member's format is recorded individually.
+  - The format-agnostic principle: single file submission = single-volume source. Folder submission = multi-volume source. The format of the files inside determines the processing route, but the folder-as-multi-volume pattern is universal across all formats.
+  - Concatenated multi-volume PDFs (single PDF with internal volume boundaries marked by ToC entries) are detected at intake analysis (REQ-SRC-0019/REQ-SRC-0038), not at container classification. Container classification sees them as a single PDF file.
+- Acceptance criteria:
+  - AC-1 [deterministic] Given A frozen directory containing 3 PDF files named vol1.pdf, vol2.pdf, vol3.pdf; When container classification executes; Then container_type="pdf_multi_volume" and len(volume_manifest)=3 and volume_manifest is ordered by filename..
+  - AC-2 [deterministic] Given A frozen directory containing 2 .txt files; When container classification executes; Then container_type="plain_text_multi_volume" and normalization_route="plain_text_parse"..
+  - AC-3 [deterministic] Given A single PDF file submitted (not a folder); When container classification executes; Then container_type="pdf" (single-volume, not pdf_multi_volume)..

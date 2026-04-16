@@ -1,6 +1,6 @@
 id: DEC-SRC-0015
 type: decision
-status: proposed
+status: confirmed
 title: Normalization consumes a bridge input model, not raw SourceMetadata
 topic: handoff
 layer: architecture

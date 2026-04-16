@@ -1,6 +1,6 @@
 id: REQ-SRC-0021
 type: requirement
-status: proposed
+status: confirmed
 title: PDF intake analysis and text-layer quality classification
 topic: acquisition
 layer: pipeline
@@ -55,7 +55,7 @@ acceptance_criteria:
 - id: AC-3
   given: A temporary PDF generated during the test run with one Arabic page containing the literal string "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" as embedded text
   when: intake analysis executes
-  then: intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_ocr_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1.
+  then: intake_dossier.source_format="pdf", intake_dossier.pdf_text_layer_status="clean", intake_dossier.normalization_route="pdf_text_primary", and intake_dossier.declared_vs_observed_counts.physical_page_count=1.
   test_type: deterministic
 - id: AC-4
   given: A corrupted or password-protected PDF at a valid temporary intake path

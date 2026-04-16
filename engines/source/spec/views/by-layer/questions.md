@@ -3,11 +3,11 @@
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
 | OQ-SRC-0001 | question | Level detection ownership | deferred | medium |
-| OQ-SRC-0003 | question | Agent-team architecture design | draft | critical |
+| OQ-SRC-0003 | question | Agent-team architecture design | superseded | critical |
 | OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high |
 | OQ-SRC-0005 | question | Agent monitoring scope | deferred | medium |
 | OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
-| OQ-SRC-0007 | question | Specialized research source inventory | draft | medium |
+| OQ-SRC-0007 | question | Specialized research source inventory | superseded | medium |
 
 ### OQ-SRC-0001 — Level detection ownership
 - Type: question
@@ -26,10 +26,10 @@
 - Type: question
 - Layer: questions
 - Step: n/a
-- Status: draft
+- Status: superseded
 - Priority: critical
-- Confidence: medium
-- Source: Derived from OF-SRC-0009
+- Confidence: high
+- Source: Derived from OF-SRC-0009. Resolved by ChatGPT DR on agent-team architecture (2026-04-14). Answer formalized in DEC-SRC-0013, REQ-SRC-0028, REQ-SRC-0029.
 - Candidates:
   - OPT-A: Fixed roles (likely)
   - OPT-B: Dynamic composition (possible)
@@ -78,10 +78,10 @@
 - Type: question
 - Layer: questions
 - Step: n/a
-- Status: draft
+- Status: superseded
 - Priority: medium
-- Confidence: medium
-- Source: Derived from OF-SRC-0016
+- Confidence: high
+- Source: Derived from OF-SRC-0016. Resolved by Gemini DR on Islamic scholarly metadata verification sources (2026-04-14). OPT-B (curated scholarly inventory) chosen. Concrete inventory formalized in amendments to REQ-SRC-0013 and DEC-SRC-0009.
 - Candidates:
   - OPT-A: Web plus Usul.ai (possible)
   - OPT-B: Curated scholarly inventory (likely)

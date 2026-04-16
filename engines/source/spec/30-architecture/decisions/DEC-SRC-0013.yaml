@@ -1,6 +1,6 @@
 id: DEC-SRC-0013
 type: decision
-status: proposed
+status: confirmed
 title: Deliberation cell architecture with deterministic orchestrator
 topic: agent_ergonomics
 layer: architecture

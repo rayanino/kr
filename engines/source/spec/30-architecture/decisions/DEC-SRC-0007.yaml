@@ -1,6 +1,6 @@
 id: DEC-SRC-0007
 type: decision
-status: proposed
+status: confirmed
 title: Disputed metadata as multi-position evidence
 topic: metadata
 layer: architecture

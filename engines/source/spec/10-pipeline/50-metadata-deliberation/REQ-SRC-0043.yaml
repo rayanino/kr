@@ -1,6 +1,6 @@
 id: REQ-SRC-0043
 type: requirement
-status: proposed
+status: confirmed
 title: New scholar registration in authority registry
 topic: metadata
 layer: pipeline

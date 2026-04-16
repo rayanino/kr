@@ -16,9 +16,14 @@ from pathlib import Path
 from engines.normalization.contracts import NormalizedPackage
 from engines.normalization.src.errors import NormalizationError, NormErrorCode
 from engines.normalization.src.normalizers.base import BaseNormalizer
+from engines.normalization.src.normalizers.pdf_deferred import DeferredPdfNormalizer
 from engines.normalization.src.normalizers.plain_text import PlainTextNormalizer
 from engines.normalization.src.normalizers.shamela import ShamelaNormalizer
-from engines.source.contracts import SourceFormat, SourceMetadata
+from engines.source.contracts import (
+    NormalizationHandoffBundle,
+    SourceFormat,
+    SourceMetadata,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +31,8 @@ logger = logging.getLogger(__name__)
 _NORMALIZER_REGISTRY: dict[SourceFormat, type[BaseNormalizer]] = {
     SourceFormat.SHAMELA_HTML: ShamelaNormalizer,
     SourceFormat.PLAIN_TEXT: PlainTextNormalizer,
+    SourceFormat.PDF_TEXT: DeferredPdfNormalizer,
+    SourceFormat.PDF_SCANNED: DeferredPdfNormalizer,
 }
 
 
@@ -60,6 +67,16 @@ def normalize_source(
     normalizer = normalizer_cls()
     normalizer.validate_input(frozen_path, metadata)
     return normalizer.normalize(frozen_path, metadata)
+
+
+def normalize_handoff_bundle(bundle: NormalizationHandoffBundle) -> NormalizedPackage:
+    """Consume the source-engine bridge bundle at the real normalization boundary."""
+    metadata = bundle.source_metadata.model_copy(deep=True)
+    metadata.source_format = _legacy_source_format_to_source_format(
+        bundle.normalization_input.source_format_legacy
+    )
+    frozen_path = Path(bundle.normalization_input.frozen_path)
+    return normalize_source(frozen_path, metadata)
 
 
 def normalize_and_write(
@@ -118,3 +135,12 @@ def register_normalizer(
     No Phase 2 code changes. No schema changes.
     """
     _NORMALIZER_REGISTRY[source_format] = normalizer_cls
+
+
+def _legacy_source_format_to_source_format(source_format_legacy: str) -> SourceFormat:
+    return {
+        "shamela_html": SourceFormat.SHAMELA_HTML,
+        "plain_text": SourceFormat.PLAIN_TEXT,
+        "pdf_text": SourceFormat.PDF_TEXT,
+        "pdf_scanned": SourceFormat.PDF_SCANNED,
+    }[source_format_legacy]

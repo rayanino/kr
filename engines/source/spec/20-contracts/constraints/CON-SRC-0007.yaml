@@ -1,6 +1,6 @@
 id: CON-SRC-0007
 type: constraint
-status: proposed
+status: confirmed
 title: Source type extensibility
 topic: acquisition
 layer: contracts

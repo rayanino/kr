@@ -1,6 +1,6 @@
 id: REQ-SRC-0036
 type: requirement
-status: proposed
+status: confirmed
 title: Completeness analysis of frozen source candidate
 topic: identity
 layer: pipeline
@@ -10,7 +10,7 @@ confidence: high
 provenance: coworker_review
 source: Decomposed from REQ-SRC-0019 per contract-architect review finding that 4 sub-analyses in one atom is untestable.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-15'
 depends_on:
 - REQ-SRC-0018
 - REQ-SRC-0017
@@ -35,6 +35,7 @@ behavior:
   - "cross_volume_dependency_assessment records whether missing volumes are: non_material, material, unknown."
   - "parent_work_presence_model records whether the uploaded material appears to be part of a larger work, and which volumes are present or missing when that can be inferred."
   - "declared_vs_observed_counts preserves any count comparison evidence (e.g. declared_volume_count vs observed_volume_count) used by completeness analysis."
+  - "holding_completeness_delta is an optional SourceMetadata field (CON-SRC-0004) that records what new volume coverage this source would add to a matching EditionHolding, if any. This is computed from comparing the source's volume_coverage against the existing holding's VolumeHolding states. If no matching holding exists, holding_completeness_delta is null. This field enables INV-SRC-0010 (computed holding completeness) by providing the incremental contribution signal."
   error_conditions:
   - condition: Completeness analysis cannot determine status from available evidence.
     action: Set completeness_status=indeterminate and log reason.

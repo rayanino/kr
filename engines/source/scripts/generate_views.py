@@ -236,6 +236,9 @@ def generate_views(root: Path | None = None) -> None:
         if step:
             by_step[step].append(atom)
 
+    for expected_status in ("confirmed", "deferred", "proposed", "superseded"):
+        by_status.setdefault(expected_status, [])
+
     write_markdown(views_root / "README.md", build_readme(base_root, atoms))
     for topic, topic_atoms in sorted(by_topic.items()):
         write_markdown(

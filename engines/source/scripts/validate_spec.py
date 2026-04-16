@@ -6,10 +6,11 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker, ValidationError
+from jsonschema.protocols import Validator
 
 from spec_common import (
     LoadedAtom,
@@ -68,13 +69,13 @@ def format_error_path(error: ValidationError) -> str:
 
 def validate_atoms(
     root: Path,
-    validator: Draft202012Validator,
+    validator: Validator,
 ) -> tuple[list[LoadedAtom], list[str]]:
     errors: list[str] = []
     validated_atoms: list[LoadedAtom] = []
     for atom in load_atoms(root):
         atom_errors = sorted(
-            validator.iter_errors(atom.data),
+            validator.iter_errors(cast(dict[str, Any], atom.data)),
             key=lambda item: list(item.path),
         )
         if atom_errors:
@@ -201,4 +202,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

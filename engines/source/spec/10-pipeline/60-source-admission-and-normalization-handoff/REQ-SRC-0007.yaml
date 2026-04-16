@@ -1,6 +1,6 @@
 id: REQ-SRC-0007
 type: requirement
-status: proposed
+status: confirmed
 title: Level field preservation across source-engine handoff
 topic: metadata
 layer: pipeline

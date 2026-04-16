@@ -2,13 +2,13 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | proposed | critical |
+| REQ-SRC-0001 | requirement | Upload receipt and raw submission registration | confirmed | critical |
 
 ### REQ-SRC-0001 — Upload receipt and raw submission registration
 - Type: requirement
 - Layer: pipeline
 - Step: upload_receipt
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002; re-scoped on 2026-04-14 after owner correction that upload, intake analysis, and later source acceptance must be distinct stages.

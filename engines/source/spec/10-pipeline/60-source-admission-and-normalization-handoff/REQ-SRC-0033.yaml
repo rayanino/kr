@@ -1,6 +1,6 @@
 id: REQ-SRC-0033
 type: requirement
-status: proposed
+status: confirmed
 title: Volume count and intake timestamp derivation
 topic: handoff
 layer: pipeline

@@ -1,6 +1,6 @@
 id: REQ-SRC-0003
 type: requirement
-status: proposed
+status: confirmed
 title: Metadata deliberation stays owner-light
 topic: trust
 layer: pipeline

@@ -1,6 +1,6 @@
 id: DEC-SRC-0008
 type: decision
-status: proposed
+status: confirmed
 title: Agent infrastructure is built within source-engine scope first
 topic: agent_ergonomics
 layer: architecture

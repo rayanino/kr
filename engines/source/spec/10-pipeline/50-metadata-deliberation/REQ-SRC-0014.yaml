@@ -1,6 +1,6 @@
 id: REQ-SRC-0014
 type: requirement
-status: proposed
+status: confirmed
 title: Copyist and author disambiguation
 topic: metadata
 layer: pipeline

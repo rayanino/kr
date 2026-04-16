@@ -17,6 +17,14 @@ Canonical terms:
 - `study_quality_risk_flag`: any uncertainty that could materially affect study quality.
 - `owner_submission_risk_gate`: a source-engine gate for likely mistaken, incomplete, misleading, or risky submissions from the owner. This is distinct from metadata disagreement handling.
 - `normalization handoff bundle`: the package emitted by the source engine for normalization to consume.
+- `edition_group`: the bibliographic realization of a work as produced by a specific publisher and muhaqqiq. Formalizes the existing `matched_edition_group_id` concept. An edition group has an expected volume count and an edition fingerprint (publisher + muhaqqiq + distinguishing signals).
+- `edition_holding`: the library's official record of what it holds for a specific edition group. This is the mutable entity that tracks progressive completeness as volumes arrive. An edition holding has a lifecycle state (draft, active_partial, active_complete, active_mixed, superseded, archived) and a coherence state. Sources attach to holdings; holdings evolve; sources remain immutable.
+- `volume_holding`: the presence state of a specific volume within an edition holding. Values: missing, present_primary, present_alternate, conflict.
+- `supersession`: a typed relationship between edition holdings where a newer or higher-quality holding replaces an older one as the preferred source for downstream processing. Supersession is pointer-based: the old holding retains its sources and downstream artifacts but is hidden from default discovery.
+- `preferred_edition`: a pointer from a work to the edition holding that is the default for downstream processing and UI presentation.
+- `reconciliation`: the process that runs on every source admission to create or update EditionGroup and EditionHolding entities based on work_output and collection_match_output from metadata deliberation.
+- `edition_fingerprint`: the combination of publisher, muhaqqiq, and distinguishing signals (e.g., edition number, publication year) that uniquely identifies an edition group. Two sources share an edition fingerprint when their publisher and muhaqqiq match with high confidence.
+- `coherence_state`: the edition-consistency assessment of an edition holding. Values: coherent (all volumes from same edition), mixed (volumes from different editions), unknown.
 
 Naming rules:
 

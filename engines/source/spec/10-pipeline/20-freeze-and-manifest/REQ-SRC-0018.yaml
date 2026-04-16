@@ -1,6 +1,6 @@
 id: REQ-SRC-0018
 type: requirement
-status: proposed
+status: confirmed
 title: Freeze and manifest verification
 topic: freezing
 layer: pipeline

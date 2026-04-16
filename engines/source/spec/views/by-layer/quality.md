@@ -2,20 +2,22 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| INV-SRC-0001 | invariant | Owner hints never bias inference | proposed | critical |
-| INV-SRC-0002 | invariant | Author attribution role separation is mandatory | proposed | critical |
-| INV-SRC-0003 | invariant | Library never refuses knowledge | proposed | critical |
-| INV-SRC-0004 | invariant | Truth-seeking over consensus-forcing | proposed | high |
-| INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | proposed | high |
-| INV-SRC-0006 | invariant | Isnad atomic preservation | proposed | high |
-| INV-SRC-0007 | invariant | Scholar registry minimum population | proposed | critical |
-| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | proposed | critical |
+| INV-SRC-0001 | invariant | Owner hints never bias inference | confirmed | critical |
+| INV-SRC-0002 | invariant | Author attribution role separation is mandatory | confirmed | critical |
+| INV-SRC-0003 | invariant | Library never refuses knowledge | confirmed | critical |
+| INV-SRC-0004 | invariant | Truth-seeking over consensus-forcing | confirmed | high |
+| INV-SRC-0005 | invariant | Muhaqiq never gates trust decisions | confirmed | high |
+| INV-SRC-0006 | invariant | Isnad atomic preservation | confirmed | high |
+| INV-SRC-0007 | invariant | Scholar registry minimum population | confirmed | critical |
+| INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | confirmed | critical |
+| INV-SRC-0009 | invariant | Zero knowledge loss in all source-engine output | confirmed | critical |
+| INV-SRC-0010 | invariant | Holding-level completeness is computed, not asserted | confirmed | critical |
 
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0002 and OF-SRC-0005; amended per contract-architect-review.yaml
@@ -25,17 +27,17 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0004; amended per domain-validator-review.yaml
-- Rule: Author attribution must map author markers to author_name, copyist markers to copyist_name, and editor markers to editor_name without cross-populating those fields.
+- Rule: No marker from one role set may populate a field belonging to another role set. The 7 role sets defined by REQ-SRC-0014 are author, compiler, preparer, copyist, editor, annotator, and supervisor.
 
 ### INV-SRC-0003 — Library never refuses knowledge
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Derived from OF-SRC-0006 and broadened on 2026-04-14 after owner clarification that only structurally invalid uploads should be blocked from the official source flow.
@@ -45,7 +47,7 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0013; amended per contract-architect-review.yaml
@@ -55,7 +57,7 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Derived from OF-SRC-0010
@@ -65,17 +67,17 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: high
 - Confidence: high
 - Source: Added from domain-validator-review.yaml
-- Rule: Transmission formulas حدثنا, أخبرنا, سمعت, and أجاز لي mark isnad chains that must remain in one atomic unit across processing boundaries.
+- Rule: Transmission formulas حدثنا, ثنا, نا, أخبرنا, أنبأنا, سمعت, قرأت على, أجاز لي, and ناولني mark isnad chains that must remain in one atomic unit across processing boundaries.
 
 ### INV-SRC-0007 — Scholar registry minimum population
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from adversary-review.yaml ADV-004
@@ -85,8 +87,28 @@
 - Type: invariant
 - Layer: quality
 - Step: n/a
-- Status: proposed
+- Status: confirmed
 - Priority: critical
 - Confidence: high
 - Source: Added from reference/pdf_fixture_observations_2026-04-14.md and the 2026-04-14 architecture decision that normalization owns PDF-to-text conversion
 - Rule: No PDF-derived text may be treated as normalized source text by the source engine; every PDF handoff must carry source_metadata.pdf_text_layer_status and source_metadata.normalization_route=pdf_ocr_primary.
+
+### INV-SRC-0009 — Zero knowledge loss in all source-engine output
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Owner directive 2026-04-14. The library NEVER hides, compresses, or simplifies knowledge. Full exhaustiveness and extensiveness in all output. This is a project-wide core rule that applies to every engine and every agent.
+- Rule: Every source-engine output preserves the full evidence chain, all considered positions, all reasoning, and all uncertainty. No metadata field, dispute, risk, or finding is hidden, compressed, or simplified in the output. When multiple positions exist, all positions are preserved with their evidence and confidence. When a most-likely resolution exists, it is highlighted but the alternatives are never removed.
+
+### INV-SRC-0010 — Holding-level completeness is computed, not asserted
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: ChatGPT DR on collection-evolution model (2026-04-15). The DR identifies that source-level completeness_status (per uploaded artifact) and holding-level completeness (what the library holds for an edition group) are distinct signals. Source-level completeness is immutable history about each source. Holding-level completeness must be recomputed whenever a volume is added or removed from a holding. Stamping 'complete' on a source and treating it as library-wide truth produces stale data as the collection evolves.
+- Rule: EditionHolding completeness_state is always derived from the current set of attached VolumeHoldings, never stored as a static assertion. When a volume is attached, detached, superseded, or has its presence_state changed, the holding's completeness_state is recomputed. Source-level completeness_status (from REQ-SRC-0036) remains immutable and records what was true about each individual source at intake time. The two completeness signals are never conflated.

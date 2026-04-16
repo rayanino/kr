@@ -1,6 +1,6 @@
 id: REQ-SRC-0005
 type: requirement
-status: proposed
+status: confirmed
 title: Optional science hint
 topic: metadata
 layer: pipeline

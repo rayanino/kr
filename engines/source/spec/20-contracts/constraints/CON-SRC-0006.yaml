@@ -1,6 +1,6 @@
 id: CON-SRC-0006
 type: constraint
-status: proposed
+status: confirmed
 title: Per-book processing cost and time ceiling
 topic: trust
 layer: contracts

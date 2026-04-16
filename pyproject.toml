@@ -1,6 +1,9 @@
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 addopts = "--import-mode=importlib"
+markers = [
+    "spec(requirement_id, acceptance_id): link tests to source spec atoms",
+]
 
 [tool.ruff]
 line-length = 88

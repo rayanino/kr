@@ -1,6 +1,6 @@
 id: DEC-SRC-0004
 type: decision
-status: proposed
+status: confirmed
 title: Replace trust algorithm with agent teams
 topic: trust
 layer: architecture

@@ -1,6 +1,6 @@
 id: REQ-SRC-0031
 type: requirement
-status: proposed
+status: confirmed
 title: Multi-layer hint detection
 topic: metadata
 layer: pipeline

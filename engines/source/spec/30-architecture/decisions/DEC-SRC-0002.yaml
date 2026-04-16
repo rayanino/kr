@@ -1,6 +1,6 @@
 id: DEC-SRC-0002
 type: decision
-status: proposed
+status: confirmed
 title: Science scope uses dynamic registry
 topic: metadata
 layer: architecture

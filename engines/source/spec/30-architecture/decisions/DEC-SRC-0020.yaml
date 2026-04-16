@@ -1,0 +1,68 @@
+id: DEC-SRC-0020
+type: decision
+status: confirmed
+title: Supersession is pointer-based, not deletion-based
+topic: dedup
+layer: architecture
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15), Edge Case 4.
+  Fedora API specification requires resource versioning via the Memento protocol
+  where an Original Resource can have multiple immutable Mementos listed in a
+  TimeMap. DSpace's item-level versioning treats each version as a separate item
+  with a base identifier pointing to the most recent version while older versions
+  remain accessible and citable. Both models align with KR's immutability and
+  zero-knowledge-loss invariants.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- DEC-SRC-0018
+- INV-SRC-0003
+- INV-SRC-0009
+impacts:
+- supersession_policy
+- downstream_regeneration
+- edition_holding_lifecycle
+options:
+- id: OPT-A
+  label: Delete old edition and regenerate all downstream artifacts
+  description: >-
+    When a better edition arrives, delete the old EditionHolding and all
+    downstream teaching units, then regenerate from the new edition.
+  status: rejected
+  rejection_reason: >-
+    Violates Critical Rule 1 (frozen sources are immutable), INV-SRC-0003
+    (library never refuses knowledge), and INV-SRC-0009 (zero knowledge loss).
+    Deletion destroys provenance history and invalidates any external citations
+    to the old edition's teaching units.
+- id: OPT-B
+  label: Pointer-based supersession with configurable regeneration policy
+  description: >-
+    Admit the new source normally without deleting anything. Set
+    superseded_by pointers on the old holding and preferred_rank=primary on
+    the new holding. Old teaching units remain addressable by ID but hidden
+    from default discovery. Downstream regeneration is governed by a per-holding
+    supersession_policy knob with values regen_required (for works where text
+    quality materially affects atomization like hadith corpora) and
+    regen_optional (for works where differences are mostly footnotes and
+    the core matn is stable).
+  status: chosen
+  chosen_reason: >-
+    Preserves full history (Fedora/Memento model), enables DSpace-style
+    'only most recent in search, older still accessible', and avoids compute
+    explosion by making regeneration conditional on actual text-quality impact.
+    Satisfies all three governing invariants (immutability, never-refuse,
+    zero-loss) simultaneously.
+- id: OPT-C
+  label: Keep both editions as equal alternatives without preference
+  description: >-
+    Admit the new source but make no preference determination. Both editions
+    are treated equally for downstream processing.
+  status: rejected
+  rejection_reason: >-
+    Fails to solve the original problem: the owner submitted a better edition
+    specifically because the old one has quality issues. Not expressing
+    preference wastes the quality signal and forces downstream engines to
+    redundantly process both editions.

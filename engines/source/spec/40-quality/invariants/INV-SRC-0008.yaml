@@ -1,6 +1,6 @@
 id: INV-SRC-0008
 type: invariant
-status: proposed
+status: confirmed
 title: PDF-derived text is never silently trusted at source handoff
 topic: trust
 layer: quality

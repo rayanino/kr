@@ -85,9 +85,6 @@ def should_run_integration(paths: Sequence[str]) -> bool:
 
 
 def find_bash() -> str | None:
-    found = shutil.which("bash")
-    if found:
-        return found
     candidates = [
         Path("C:/Program Files/Git/bin/bash.exe"),
         Path("C:/Program Files/Git/usr/bin/bash.exe"),
@@ -95,7 +92,15 @@ def find_bash() -> str | None:
     for candidate in candidates:
         if candidate.exists():
             return str(candidate)
+    found = shutil.which("bash")
+    if found:
+        return found
     return None
+
+
+def to_bash_path(path: Path) -> str:
+    """Render a Windows path in a form Git Bash can execute reliably."""
+    return path.resolve().as_posix()
 
 
 def find_pyright() -> list[str] | None:
@@ -153,12 +158,12 @@ def run_hook_script(script_name: str, file_path: str) -> tuple[bool, str]:
     if not bash:
         return False, "bash not found for hook execution"
     env = {
-        "CLAUDE_PROJECT_DIR": str(PROJECT_DIR),
-        "CLAUDE_TOOL_FILE_PATH": str((PROJECT_DIR / file_path).resolve()),
+        "CLAUDE_PROJECT_DIR": to_bash_path(PROJECT_DIR),
+        "CLAUDE_TOOL_FILE_PATH": to_bash_path(PROJECT_DIR / file_path),
     }
     return run_command(
         f"{script_name} -> {file_path}",
-        [bash, str(script_path)],
+        [bash, to_bash_path(script_path)],
         timeout=120,
         env=env,
     )

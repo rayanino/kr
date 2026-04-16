@@ -1,6 +1,6 @@
 id: DEC-SRC-0012
 type: decision
-status: proposed
+status: confirmed
 title: Multi-position metadata ordered by confidence
 topic: metadata
 layer: architecture

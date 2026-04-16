@@ -1,6 +1,6 @@
 id: REQ-SRC-0001
 type: requirement
-status: proposed
+status: confirmed
 title: Upload receipt and raw submission registration
 topic: acquisition
 layer: pipeline

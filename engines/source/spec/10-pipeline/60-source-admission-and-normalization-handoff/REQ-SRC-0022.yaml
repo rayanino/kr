@@ -1,6 +1,6 @@
 id: REQ-SRC-0022
 type: requirement
-status: proposed
+status: confirmed
 title: PDF handoff preserves intake verdicts
 topic: trust
 layer: pipeline

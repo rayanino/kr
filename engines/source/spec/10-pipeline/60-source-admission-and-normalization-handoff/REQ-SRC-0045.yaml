@@ -1,0 +1,105 @@
+id: REQ-SRC-0045
+type: requirement
+status: confirmed
+title: Supersession signal emission on source admission
+topic: dedup
+layer: pipeline
+step: source_admission_and_normalization_handoff
+priority: high
+confidence: high
+provenance: deep_research
+source: >-
+  ChatGPT DR on collection-evolution model (2026-04-15), Edge Case 4.
+  When a better edition of an already-held work arrives, the source engine must
+  emit supersession signals so downstream engines know which holding is preferred.
+  This implements the pointer-based supersession model from DEC-SRC-0020.
+created: '2026-04-15'
+updated: '2026-04-15'
+depends_on:
+- REQ-SRC-0044
+- DEC-SRC-0020
+- INV-SRC-0009
+impacts:
+- supersession_policy
+- downstream_regeneration
+- preferred_edition_tracking
+rationale: >-
+  Supersession is a cross-engine concern but the source engine must produce the
+  signals. Without supersession signals, downstream engines have no way to know
+  that a newly admitted edition should be preferred over an older one, and no way
+  to decide whether to regenerate teaching units.
+behavior:
+  trigger: >-
+    Reconciliation (REQ-SRC-0044) determines that a newly admitted source
+    represents a potentially superior edition of an already-held work.
+  preconditions:
+  - An existing EditionHolding exists for the same work.
+  - The new source belongs to a different edition group than the existing holding.
+  - >-
+    Quality comparison evidence exists (text quality signals from intake analysis,
+    edition reputation signals from metadata deliberation, or owner hints).
+  postconditions:
+  - >-
+    If the new edition is judged superior by the deliberation agents,
+    new_holding.preferred_rank is set to primary and
+    old_holding.superseded_by is set to new_holding.holding_id.
+  - old_holding.holding_state transitions to superseded.
+  - >-
+    old_holding's sources and downstream artifacts remain addressable by ID.
+    Nothing is deleted or overwritten.
+  - >-
+    new_holding.supersession_policy is set based on the nature of the quality
+    difference. For works where text quality materially affects atomization
+    (e.g. hadith corpora where OCR errors destroy isnad parsing),
+    supersession_policy=regen_required. For works where differences are mostly
+    footnotes and the core matn is stable, supersession_policy=regen_optional.
+  - >-
+    If agents cannot determine which edition is superior, no supersession is
+    applied. Both holdings remain active. A study_quality_risk_flag is emitted
+    with risk_type=unresolved_edition_preference.
+  error_conditions:
+  - condition: >-
+      Supersession would mark the only complete holding as superseded by an
+      incomplete new holding.
+    action: >-
+      Do not apply supersession. Emit advisory flag supersession_blocked_by_completeness.
+      The incomplete new holding is admitted normally but not preferred.
+    severity: warning
+  - condition: >-
+      Supersession determination requires quality comparison but no quality
+      signals are available from either intake analysis or metadata deliberation.
+    action: >-
+      Skip supersession determination. Both holdings remain active with no
+      preference. Log as insufficient_quality_evidence_for_supersession.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A complete EditionHolding for a hadith work exists with text_fidelity=low_ocr.
+    A new source is admitted as a different edition of the same work with
+    text_fidelity=high_verified, also complete.
+  when: Supersession signal emission executes.
+  then: >-
+    old_holding.superseded_by=new_holding_id, old_holding.holding_state=superseded,
+    new_holding.preferred_rank=primary, new_holding.supersession_policy=regen_required.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A complete EditionHolding exists. A new source is admitted as a partial holding
+    of a potentially better edition (only 1 of 5 volumes).
+  when: Supersession signal emission evaluates.
+  then: >-
+    No supersession is applied. The new EditionHolding is created with
+    completeness_state=active_partial and no preferred_rank. Advisory flag
+    supersession_blocked_by_completeness is emitted.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    Two editions of the same work exist. No quality comparison evidence is available
+    (text_fidelity signals are identical, no owner hints exist, no edition reputation
+    signals differ).
+  when: Supersession signal emission evaluates.
+  then: >-
+    Neither holding is superseded. Both remain active. A study_quality_risk_flag
+    with risk_type=unresolved_edition_preference is emitted.
+  test_type: deterministic

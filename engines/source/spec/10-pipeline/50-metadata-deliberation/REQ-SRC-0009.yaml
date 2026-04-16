@@ -1,6 +1,6 @@
 id: REQ-SRC-0009
 type: requirement
-status: proposed
+status: confirmed
 title: Agent self-resolution of disagreements
 topic: consensus
 layer: pipeline

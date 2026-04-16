@@ -1,6 +1,6 @@
 id: INV-SRC-0004
 type: invariant
-status: proposed
+status: confirmed
 title: Truth-seeking over consensus-forcing
 topic: consensus
 layer: quality
