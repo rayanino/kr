@@ -1,26 +1,30 @@
-# NEXT -- Owner-Facing Visual Representations
+# NEXT — Source Engine Build (Active Frontier)
 
 ## CURRENT FRONTIER — ACTIVE
 
-**Branch:** `clean-start` (the only branch — repo cleaned 2026-04-13)
-**Repo state:** 6,339 tracked files, 18 root files, 1 branch, clean git status
+**Branch:** `main`
+**Authority:** shared — both Claude Code and Codex CLI commit directly per `ACTIVE_AUTHORITY.md`
+**Canonical engine state:** `engines/source/CLAUDE.md`
 
-Repo cleanup is COMPLETE (Session 23). Active work now:
-- owner-facing visual representations: mermaid diagrams, architecture maps, pipeline flow diagrams
-- documentation reshaping that helps the owner inspect system structure and give non-technical reactions
+The source engine build is active. Spec frozen 2026-04-15 (104 atoms, 97 confirmed, 3 deferred). Tracer bullet through steps 10–60 implemented. **115 source tests pass, 0 fail. Pyright clean on all source files.**
 
-Paused work:
-- excerpting code changes (frozen at 1008 pass, 0 fail, 4 xfail)
-- new excerpting smoke runs or generalization runs
-- prompt/contract/spec changes tied to excerpting fixes
+**Recent build activity:**
+- `6efbfee45` test(source): drop unused dossier bindings in pipeline admission tests (CC, 2026-04-16)
+- `91d22de85` feat(source): add composite intake and deterministic metadata fallbacks (Codex, 2026-04-16)
+- `e0326c3e1` fix(source): harden scholar matching and deliberation persistence
+- `efc023ad9` test(source): harden error taxonomy + deterministic test coverage (106 pass)
+- `744a1c3cd` feat(source): build source pipeline and harden step-50 handoff
 
-Excerpting freeze state:
-- frozen test state: `1008` pass, `0` fail, `4` xfail
-- frozen budget state: `EUR 36.70 / 100.00`
-- exact checkpoint note: `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
+**Pipeline steps implemented:** upload_receipt → freeze_and_manifest → container_classification → intake_analysis → metadata_deliberation → source_admission_and_normalization_handoff.
 
-Current deliverable:
-- produce visual representations that let the owner inspect the pipeline, control surfaces, and information flow and then give informed non-technical reactions
+**What's needed next (priority order):**
+1. **Close the 3 deferred SPEC atoms** — DEC-SRC-0003 (level detection strategy), OQ-SRC-0001 (level detection ownership), OQ-SRC-0005 (agent monitoring scope). Dispatch DR on each; session-start hook reports dispatch counter at 194h overdue.
+2. **Plan Phase 5 (agent layer)** — per memory `source_engine_build_session.md`, agent-based scholar matching needs a DR question drafted and relayed. Run through `/prompt-architect` before dispatch.
+3. **Prune MCP inventory** — current load is ≥9 servers against the ≤5 cap in `context-management.md`. Remove duplicates (`plugin_context7` vs `claude_ai_Context7`), resolve `memory` vs `claude-mem` overlap, drop `Google_Drive` and reassess `exa` vs `tavily`. Reclaims context budget for SPEC rules, Arabic handling, D-023 semantics.
+
+**Paused work (preserved checkpoints):**
+- **Excerpting:** frozen at 1008 pass, 0 fail, 4 xfail. Budget EUR 36.70 / 100.00. Checkpoint: `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`. Do not resume until source engine reaches Phase 5 readiness.
+- **Owner-facing visual representations** (mermaid diagrams, architecture maps): next-next focus after source engine solidifies. Do not start until deferred SPEC atoms are closed.
 
 ## ARCHIVED EXCERPTING FRONTIER (paused 2026-04-08)
 
