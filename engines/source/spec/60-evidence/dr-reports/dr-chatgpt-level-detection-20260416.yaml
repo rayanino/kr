@@ -820,6 +820,277 @@ post_verification_corrections:
       Relevant for synthesis-engine confidence calibration. No source-engine
       atom cites BAREC. No atom edit required.
 
+# ===== REVIEWER WAVE FINDINGS =====
+# After commit f26997c4c (7-atom integration), 4 parallel reviewers ran:
+# R1 spec-contract-architect (Codex CLI structural), R2 spec-domain-validator
+# (Gemini CLI Arabic scholarly), R3 spec-team-adversary (pre-mortem), and
+# a separate Gemini CLI source-commit review on recent Codex-authored code.
+# Combined verdict: NEEDS_REWORK. Raw reviewer transcripts are in session logs.
+
+reviewer_findings:
+
+  r1_spec_contract_architect:
+    dispatched: '2026-04-16'
+    method: CC agent dispatches to Codex CLI for cross-provider structural review
+    verdict: NEEDS_AMENDMENT
+    atom_verdicts:
+      DEC-SRC-0003: PASS
+      OQ-SRC-0001: PASS
+      REQ-SRC-0007: AMEND
+      INV-SRC-0011: AMEND
+      INV-SRC-0012: FLAG
+      REQ-SRC-0046: AMEND
+      REQ-SRC-0047: FLAG
+    key_findings:
+      - "Genre-at-intake ordering hole: REQ-SRC-0047 preconditions allow pending genre; error_conditions presume genre known. No atom defines deferred-validation surface."
+      - "INV-SRC-0012 vs REQ-SRC-0047 error-raise site mismatch: silent on whether SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE fires at intake or at deliberation resolution. Could raise twice."
+      - "REQ-SRC-0007 AC-3 override passthrough needs precondition that REQ-SRC-0047 validation already passed."
+      - "WorkLevel enum is not pinned to any atom. Appears in REQ-SRC-0047 error_conditions but CON-SRC-0004 does not define it. Should create CON-SRC-0011 or extend CON-SRC-0004."
+      - "Error code SRC-E-EVIDENCE-DROPPED overlaps SRC-E-PDF-TEXT-EVIDENCE-DROPPED scope. Rename to SRC-E-HANDOFF-EVIDENCE-DROPPED."
+      - "SRC-E-LEVEL-OVERRIDE-INVALID severity fatal may be wrong — a typo rejects entire upload. Consider blocking (proceed with level=null)."
+      - "Missing SRC-E-LEVEL-INFERENCE-FORBIDDEN for INV-SRC-0011 enforcement; missing SRC-E-LEVEL-OVERRIDE-GENRE-UNRESOLVED for genre=null post-deliberation."
+      - "REQ-SRC-0046 missing depends_on: REQ-SRC-0036 (edition resolution), DEC-SRC-0018 (holding)."
+      - "REQ-SRC-0047 missing depends_on: REQ-SRC-0030 (metadata deliberation), CON-SRC-0004."
+    implementation_gap:
+      acs_failing_today: 10
+      acs_passing_today: 7
+      total_new_or_amended_acs: 17
+      summary: >-
+        Dominated by (a) extending NormalizationInput/Bundle shape for
+        REQ-SRC-0046 (~200 lines) and (b) wiring owner-override pathway from
+        intake through admission. 6 of the 14 evidence signals are currently
+        dropped at admission._build_handoff_bundle.
+    stale_doc_flagged: >-
+      engines/source/CLAUDE.md still says "no production code exists yet" —
+      stale since 2026-04-15 spec freeze. Substantial code now exists in
+      engines/source/src/ and engines/source/contracts.py.
+
+  r2_spec_domain_validator:
+    dispatched: '2026-04-16'
+    method: CC agent dispatches to Gemini CLI for Arabic scholarly review
+    verdict: NEEDS_AMENDMENT
+    atom_verdicts:
+      DEC-SRC-0003: AMEND
+      OQ-SRC-0001: PASS
+      REQ-SRC-0007: AMEND
+      INV-SRC-0011: AMEND
+      INV-SRC-0012: FLAG
+      REQ-SRC-0046: PASS
+      REQ-SRC-0047: AMEND
+    key_findings:
+      - "WorkLevel enum terminology is classically wrong. 'mutaqaddim' means 'earlier scholar' (temporal precedence), NOT 'pedagogically advanced'. The tradition's term for the completion tier is منتهي (muntahi), not متقدم (mutaqaddim)."
+      - "'specialist' has no classical anchor. متخصص is post-1900 CE university terminology, not turath. If 4 tiers kept, use mutakhassis with a note that tier-4 is a modern analytical overlay. If 3 tiers, use {mubtadi, mutawassit, muntahi}."
+      - "Non-applicable genre list in INV-SRC-0012 is under-inclusive. Missing: mujam (lexicon), fihris/thabat (catalog/transmission-register), tabaqat (biographical classes), tarajim (individual biographies), fatawa (fatwa collections), awrad/adhkar (litanies), amali (dictation notebooks), ijazat (transmission certificates)."
+      - "hadith_collection conflates pedagogically graduated works (al-Arbaʿūn al-Nawawīyya, Bulūgh al-Marām — level IS applicable) with non-graduated transmission corpora (Ṣaḥīḥ al-Bukhārī, Musnad Aḥmad — level is not). Forcing level=null on the 40-hadith genre strips a pedagogical signal the tradition itself encodes in author muqaddimahs."
+      - "Ibn Khaldun phrasing in DEC-SRC-0003 OPT-A rejection and INV-SRC-0011 rationale should propagate the researcher's corrected phrasing: 'premature compression of conclusions before malakah formation (Muqaddimah Book VI, Chapter 6)' — not 'critique of excessive abbreviation'."
+      - "'Three-stage cascade' phrasing in DEC-SRC-0003 is an engineering frame. Classical organization is فن → نوع/طبقة → مرتبة (fann → nawʿ/genre-layer → martaba/learner-stage). Substance is tradition-faithful; wording is anachronistic."
+      - "'Title tokens systematically lie' (INV-SRC-0011 rationale) overstates. Classical scholars didn't face systematic title-token corpora. Soften to 'insufficient signals for level across the full KR corpus because of edition drift, series/volume mismatch, and genre-neutralizing titles'."
+      - "owner_override provenance label is engineering-minimal. In tahqiq practice, editorial provenance is named (muhaqiq initials, date, rationale). Enrich to {provenance, owner_identity_token, iso_timestamp, optional_rationale_text}."
+      - "Transliteration inconsistency: mukhtasar vs mukhtaṣar; rijal vs rijāl; shamela vs shāmila. Choose ALA-LC or IJMES convention and apply uniformly."
+
+  r3_spec_team_adversary:
+    dispatched: '2026-04-16'
+    method: Pre-mortem adversary — assume October 2026 synthesis-build fails against these atoms; work backward
+    verdict: NEEDS_REWORK  # strongest negative verdict from any reviewer
+    blockers:
+      - id: C1
+        severity: BLOCKER
+        title: Genre-enum / non-applicable-set mismatch
+        description: >-
+          REQ-SRC-0030 genre enum is {matn, sharh, hashiyah, risalah, hadith_collection,
+          tafsir, fatawa, tabaqat, mujam, nazm, mukhtasar, other}. INV-SRC-0012 and
+          REQ-SRC-0047 branch on {mushaf, hadith_collection, rijal_dictionary, majmu}.
+          Three of the four non-applicable values (mushaf, rijal_dictionary, majmu) are
+          NOT in the genre enum. A conformant classifier can NEVER produce those values.
+          INV-SRC-0012 ACs 1, 3, 4 and REQ-SRC-0047 AC-3 are structurally untriggerable.
+          Real Mushafs, rijal dictionaries, and majmu compilations bypass the guard
+          entirely and get level accepted.
+        fix: >-
+          Amend REQ-SRC-0030 postconditions to add mushaf, rijal_dictionary, majmu to
+          the genre enum, and route composite_work_type=majmu → genre=majmu OR key
+          INV-SRC-0012/REQ-SRC-0047 off composite_work_type for the majmu case.
+      - id: T1
+        severity: BLOCKER
+        title: Deferred-validation surface undefined
+        description: >-
+          REQ-SRC-0047 preconditions explicitly allow 'override validation deferred
+          to the genre-resolved point when genre is not yet known at the intake surface',
+          but no atom names where the pending override is stored, when the re-check
+          runs, or who fires the delayed SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE.
+        fix: >-
+          Create new atom REQ-SRC-0048 specifying the deferred-validation handoff:
+          intake_dossier.pending_level_override staging + post-deliberation re-validation
+          at end of REQ-SRC-0030 before admission.
+    high_findings:
+      - id: C2
+        severity: HIGH
+        title: INV-SRC-0012 vs REQ-SRC-0047 semantic contradiction
+        description: >-
+          INV-SRC-0012 says 'level=null, override silently ignored'. REQ-SRC-0047
+          says 'fatal error, reject'. One serializes null and continues; the other
+          aborts. INV-SRC-0012 AC-2 tries to do both (raise error AND null level)
+          which is impossible if severity=fatal aborts the stage.
+        fix: Pick one semantic. Recommended blocking (not fatal) — book admitted with level=null.
+      - id: S4
+        severity: HIGH
+        title: REQ-SRC-0046 fatal condition would fire on every happy-path Shamela intake
+        description: >-
+          REQ-SRC-0046 declares edition_info absent → fatal SRC-E-EVIDENCE-DROPPED.
+          But upstream REQ-SRC-0037 does not obligate writing edition_info=null for
+          Shamela sources (no edition apparatus). Every clean Shamela intake hits
+          the fatal condition.
+        fix: Obligate upstream producers to always emit null-keys per D-023; otherwise the fatal fires on every happy path.
+      - id: X4
+        severity: HIGH
+        title: Non-applicable override fatal rejection breaks "level pending" UX
+        description: >-
+          REQ-SRC-0047 fatal rejection on non-applicable genre aborts admission —
+          the book never reaches UI. This contradicts DR p20/p25 commitment to
+          'level pending / unknown' UX for newly ingested books.
+        fix: Downgrade REQ-SRC-0047 non-applicable rejection from fatal to blocking; keep SRC-E-LEVEL-OVERRIDE-INVALID fatal.
+      - id: S1
+        severity: HIGH
+        title: No atom makes level_provenance="owner_override" sticky
+        description: >-
+          Synthesis's later content-derived classification could silently overwrite
+          the owner's override. Violates DR p22 'never silent overwrite'.
+        fix: Add postcondition in REQ-SRC-0047 requiring level_provenance to be sticky against content-derived wins.
+      - id: T2
+        severity: HIGH
+        title: genre_dispute not in REQ-SRC-0046 serialized set
+        description: >-
+          REQ-SRC-0030 AC-3 emits genre_dispute when agents disagree. REQ-SRC-0046
+          serializes only the winning scalar genre, so if a losing vote was
+          hadith_collection the non-applicable signal is invisible downstream.
+        fix: Add genre_dispute to REQ-SRC-0046 serialized-evidence set with same null-when-absent discipline.
+      - id: N1
+        severity: HIGH
+        title: Empty-string owner_level_override triggers fatal INVALID error
+        description: >-
+          REQ-SRC-0047 error_condition only fires on values outside the WorkLevel
+          enum — an empty string is outside the enum → fatal → book rejected.
+          Owner UIs routinely submit empty-string for "not set".
+        fix: Distinguish absent / empty / invalid owner_level_override. Treat absent/empty as no-override (level=null); fatal only on genuinely invalid values.
+      - id: N3
+        severity: HIGH
+        title: Nested Optional serialization shape unspecified
+        description: >-
+          REQ-SRC-0046 requires muhaqiq_output (nested ScholarReference) key present
+          with value null when absent. Pydantic exclude_none=False and
+          model_dump(mode="json") behavior for nested optionals is implementation-
+          dependent — two compliant interpretations emit different payloads.
+        fix: Atom must fix the exact serialized shape.
+    overall_verdict: NEEDS_REWORK
+
+  gemini_cli_source_code_review:
+    dispatched: '2026-04-16'
+    method: Bash gemini --approval-mode plan -p, on the 6 Codex-authored source-engine commits from 2026-04-14 through 2026-04-16
+    scope: NOT the 7 DR-1 integration atoms — reviews recent production code for Arabic scholarly accuracy
+    verdict: FIX_REQUIRED (separate work track from DR-1 integration)
+    commits_all_flagged: true
+    findings:
+      - severity: CRITICAL
+        title: Loss of composite work metadata at admission boundary
+        file: engines/source/src/admission.py:110-128
+        issue: >-
+          _finalize_metadata does not map composite_work_type, sub_work_inventory,
+          or contains_isnad_chains into the finalized SourceMetadata. D-023
+          metadata preservation violated at the admission boundary.
+        commit: 91d22de85
+      - severity: HIGH
+        title: Test suite enforces forbidden Taa Marbuta folding
+        file: tests/test_deterministic.py:29
+        issue: >-
+          Test case ("ابن تيمية", "ابن تيميه") locks in ة→ه fold. The underlying
+          eval_harness.normalize_arabic_name function folds Taa Marbuta — a
+          forbidden operation per Arabic scholarly rules (صلاة "prayer" vs
+          صلاه "he prayed it" have different meanings). Active scholarly
+          corruption risk wherever normalize_arabic_name is called.
+        commit: efc023ad9
+      - severity: HIGH
+        title: Deterministic fallbacks silently guess
+        file: engines/source/src/deliberation.py:269, 285
+        issue: >-
+          _infer_genre defaults to Genre.OTHER; _infer_structural_format defaults
+          to StructuralFormat.PROSE when classification fails. Violates KR's
+          "errors must fail loudly" rule. Should raise SourceEngineError or flag
+          as UNKNOWN.
+        commit: 91d22de85
+      - severity: HIGH
+        title: Incomplete hadith subgenre taxonomy
+        file: engines/source/src/deliberation.py:294-325
+        issue: >-
+          _infer_hadith_subgenre missing: صحيح، مصنف، موطأ، أمالي، فوائد، مشيخة،
+          عوالي، مسلسلات، مراسيل. Unmatched genres silently return None.
+        commit: 357c1ec05
+      - severity: MEDIUM
+        title: Undocumented .replace() on Arabic text
+        files:
+          - engines/source/src/pipeline.py:307
+          - engines/source/src/deliberation.py:361
+        issue: >-
+          simplified = "".join(...).replace("أ", "ا") strips hamza; title.strip(" -–,:،")
+          punctuation cleanup. Needs docstring justification per Arabic safety rules.
+        commits: [744a1c3cd, e0326c3e1]
+      - severity: MEDIUM
+        title: ASCII "content" in test fixture where real Arabic required
+        file: tests/test_error_paths.py:67
+        commit: efc023ad9
+      - severity: MEDIUM
+        title: PyMuPDF insert_text produces unshaped Arabic
+        file: engines/source/tests/test_step_60_admission.py:140
+        issue: Need arabic_reshaper + bidi.algorithm or pre-compiled PDF fixture.
+        commit: 6efbfee45
+    cross_cutting_pattern: >-
+      Codex CLI over-optimizes for happy-path automated testing using synthetic
+      Arabic + English stand-ins, and adds string normalization functions to
+      boost test match rates at the cost of semantic destruction.
+
+combined_verdict_across_all_reviewers: NEEDS_REWORK
+primary_blockers_for_implementation:
+  - "R3 C1: Genre enum mismatch (3/4 non-applicable values unreachable)"
+  - "R3 T1: Deferred-validation surface undefined"
+  - "Gemini CRITICAL: Composite metadata loss at admission boundary"
+  - "Gemini HIGH: Taa Marbuta fold enforced by test (active corruption risk)"
+
+amendment_plan_synthesized:
+  track_a_atom_amendments:
+    new_atoms:
+      - "REQ-SRC-0048: deferred-validation handoff protocol (fixes T1)"
+      - "CON-SRC-0011 (or CON-SRC-0004 extension): WorkLevel enum anchor with corrected classical terminology"
+    atom_amendments:
+      REQ-SRC-0030: Add mushaf, rijal_dictionary, majmu to genre enum (fixes C1).
+      INV-SRC-0012: >-
+        Pick one semantic (blocking not fatal); expand non-applicable genre list;
+        split hadith_collection into pedagogical vs reference; make error-raise
+        site ordering explicit.
+      REQ-SRC-0047: >-
+        Downgrade non-applicable rejection from fatal to blocking; add
+        pending_level_override staging postcondition; distinguish absent/empty/invalid
+        override values; enrich audit-trail fields; add missing depends_on.
+      REQ-SRC-0046: >-
+        Require upstream producers to emit all keys as null when absent; fix nested
+        Optional serialization spec; add genre_dispute to serialized set; add AC
+        for contains_isnad_chains; parameterize 16-field AC; add missing depends_on.
+      REQ-SRC-0007: Add precondition that owner_level_override has passed REQ-SRC-0047 validation.
+      INV-SRC-0011: >-
+        Consistent transliteration; soften "systematically lie" to "insufficient";
+        propagate malakah-formation Ibn Khaldun phrasing; add positive-assertion AC.
+      DEC-SRC-0003: >-
+        Update OPT-A rejection with malakah-formation language; reframe "three-stage
+        cascade" as fann → nawʿ/layer → martaba.
+  track_b_code_fixes:
+    - "Rename ErrorCode.EVIDENCE_DROPPED → HANDOFF_EVIDENCE_DROPPED in contracts.py"
+    - "Add LEVEL_INFERENCE_FORBIDDEN, LEVEL_OVERRIDE_INVALID, LEVEL_OVERRIDE_NONAPPLICABLE, LEVEL_OVERRIDE_GENRE_UNRESOLVED"
+    - "Fix Taa Marbuta test + underlying eval_harness.normalize_arabic_name function"
+    - "Replace silent defaults in _infer_genre/_infer_structural_format with fail-loud path"
+    - "Expand _infer_hadith_subgenre keyword map with missing classical subgenres"
+    - "Map composite_work_type, sub_work_inventory, contains_isnad_chains through _finalize_metadata"
+    - "Document Arabic .replace/.strip usage with scholarly justification"
+    - "Replace ASCII test content + synthetic PDF Arabic with real fixtures"
+  track_c_doc:
+    - "Update engines/source/CLAUDE.md: remove stale 'no production code exists yet' line"
+
 # ===== INTEGRATION VERIFICATION =====
 
 integration_verification:
@@ -828,6 +1099,7 @@ integration_verification:
   paragraphs_with_implementation_target: 46
   paragraphs_unused: 0
   coverage_verified: true
-  verification_complete: explore_clean_researcher_6v_3pv_1uv_0d
-  claude_dr_convergence: pending_owner_relay
-  atom_commit: pending_reviewer_wave
+  verification_complete: explore_clean_researcher_6v_3pv_1uv_0d_r1_amend_r2_amend_r3_rework_gemini_critical
+  claude_dr_convergence: AWAITING_DEEP_ANALYSIS  # arrived 2026-04-16, owner flagged as "extremely thorough"
+  atom_commit_status: f26997c4c_committed_but_reviewers_flagged_needs_rework
+  amendment_pass_status: queued_for_next_session
