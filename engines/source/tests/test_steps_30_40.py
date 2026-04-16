@@ -338,3 +338,45 @@ def test_intake_analysis_detects_additional_transmission_formula(
     dossier = source_pipeline.intake_analysis(source_id)
 
     assert dossier.contains_isnad_chains is True
+
+
+@pytest.mark.spec("REQ-SRC-0038", "AC-1")
+def test_intake_analysis_detects_majmu_from_title_and_multiple_volumes(
+    source_pipeline: SourcePipeline,
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "majmu"
+    root.mkdir()
+    html_template = (
+        "<html><head><title>مجموع فتاوى ابن تيمية - جـ {vol}</title></head>"
+        "<body><span class='title'>رسالة في الطهارة</span>"
+        "<span class='title'>رسالة في الصلاة</span></body></html>"
+    )
+    (root / "001.htm").write_text(html_template.format(vol="١"), encoding="utf-8")
+    (root / "002.htm").write_text(html_template.format(vol="٢"), encoding="utf-8")
+    source_id = _freeze_fixture(source_pipeline, root)
+    source_pipeline.classify_container(source_id)
+
+    dossier = source_pipeline.intake_analysis(source_id)
+
+    assert dossier.composite_work_type == "majmu"
+    assert dossier.sub_work_inventory
+
+
+@pytest.mark.spec("REQ-SRC-0038", "AC-4")
+def test_intake_analysis_marks_ambiguous_single_volume_rasail_as_possible(
+    source_pipeline: SourcePipeline,
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "rasail.htm"
+    path.write_text(
+        "<html><head><title>رسائل</title></head><body>نص متصل بلا حدود داخلية واضحة</body></html>",
+        encoding="utf-8",
+    )
+    source_id = _freeze_fixture(source_pipeline, path)
+    source_pipeline.classify_container(source_id)
+
+    dossier = source_pipeline.intake_analysis(source_id)
+
+    assert dossier.composite_work_type == "possible"
+    assert "ambiguous_composite_detection" in dossier.study_quality_risk_flags

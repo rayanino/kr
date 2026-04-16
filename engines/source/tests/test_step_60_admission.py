@@ -733,6 +733,35 @@ def test_pipeline_admission_rejects_tampered_deliberation_payload_even_when_frag
     assert exc.value.error_code == ErrorCode.DELIBERATION_NOT_PERSISTED
 
 
+def test_pipeline_admission_persists_edition_state(
+    source_pipeline: SourcePipeline,
+) -> None:
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    source_pipeline.store.save_deliberation_result(deliberation_result)
+    source_pipeline.store.save_case_complexity_record(deliberation_result.case_complexity_record)
+    for record in deliberation_result.monitor_feedback:
+        source_pipeline.store.save_monitor_feedback(record)
+
+    result = source_pipeline.source_admission_and_normalization_handoff(
+        source_id=frozen.source_id,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+
+    stored_groups = source_pipeline.store.get_edition_groups()
+    stored_holdings = source_pipeline.store.get_edition_holdings()
+
+    assert result.edition_groups
+    assert result.edition_holdings
+    assert stored_groups
+    assert stored_holdings
+
+
 def test_pdf_handoff_preserves_clean_text_route(source_pipeline: SourcePipeline, tmp_path: Path) -> None:
     pdf_path = tmp_path / "clean.pdf"
     _write_pdf(pdf_path, "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ")

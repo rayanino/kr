@@ -10,6 +10,8 @@ from engines.source.contracts import (
     CaseComplexityRecord,
     ContainerClassification,
     DisagreementCaseRecord,
+    EditionGroup,
+    EditionHolding,
     FrozenSource,
     IntakeDossier,
     MetadataDeliberationResult,
@@ -38,6 +40,8 @@ class SourceStore:
         self.monitor_feedback_path = workspace_root / "monitor_feedback.json"
         self.disagreement_cases_path = workspace_root / "disagreement_cases.json"
         self.deliberation_results_path = workspace_root / "deliberation_results.json"
+        self.edition_groups_path = workspace_root / "edition_groups.json"
+        self.edition_holdings_path = workspace_root / "edition_holdings.json"
         self.frozen_root = workspace_root / "frozen"
         self.workspace_root.mkdir(parents=True, exist_ok=True)
         self.frozen_root.mkdir(parents=True, exist_ok=True)
@@ -142,6 +146,12 @@ class SourceStore:
             if record.source_metadata.source_id == source_id
         ]
 
+    def get_edition_groups(self) -> list[EditionGroup]:
+        return self._load_models(self.edition_groups_path, EditionGroup)
+
+    def get_edition_holdings(self) -> list[EditionHolding]:
+        return self._load_models(self.edition_holdings_path, EditionHolding)
+
     def find_frozen_by_sha(self, source_sha256: str) -> FrozenSource | None:
         for record in self._load_models(self.frozen_sources_path, FrozenSource):
             if record.source_sha256 == source_sha256:
@@ -235,6 +245,12 @@ class SourceStore:
         records = [item for item in records if item.case_complexity_record.case_id != case_id]
         records.append(record)
         self._write_models(self.deliberation_results_path, records)
+
+    def save_edition_groups(self, records: Sequence[EditionGroup]) -> None:
+        self._write_models(self.edition_groups_path, records)
+
+    def save_edition_holdings(self, records: Sequence[EditionHolding]) -> None:
+        self._write_models(self.edition_holdings_path, records)
 
     def update_raw_upload(self, record: RawUploadRecord) -> None:
         records = self._load_models(self.raw_uploads_path, RawUploadRecord)

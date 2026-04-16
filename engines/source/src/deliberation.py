@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import logging
-from typing import Any
+from typing import Any, Literal
 from uuid import uuid4
 
 from engines.source.contracts import (
@@ -14,6 +14,8 @@ from engines.source.contracts import (
     ErrorCode,
     FailureAnalysis,
     FrozenSource,
+    Genre,
+    HadithSubgenre,
     HintComparisonResult,
     HintInvestigation,
     IntakeDossier,
@@ -27,7 +29,9 @@ from engines.source.contracts import (
     MonitorUncertaintyFlags,
     PdfTextLayerStatus,
     SourceMetadata,
+    StructuralFormat,
     TrustDecision,
+    WorkRelationship,
     WorkOutput,
     WorkOutputPosition,
 )
@@ -38,6 +42,19 @@ _FAST_TRACK_GENRES = {"matn", "sharh", "hadith_collection", "tafsir", "tabaqat",
 _FAST_TRACK_AUTHORITIES = {"primary", "reference"}
 _ALLOWED_HINT_FIELDS = {"author_name", "genre", "science_scope"}
 logger = logging.getLogger(__name__)
+
+_GENRE_KEYWORDS: list[tuple[Genre, tuple[str, ...]]] = [
+    (Genre.HASHIYAH, ("حاشية", "حواشي", "تعليقات", "تقريرات", "نكت")),
+    (Genre.SHARH, ("شرح", "فتح", "التوضيح", "التمهيد", "إرشاد", "كشف", "بيان")),
+    (Genre.NAZM, ("منظومة", "ألفية", "أرجوزة", "قصيدة", "نونية", "لامية")),
+    (Genre.MUKHTASAR, ("مختصر", "خلاصة", "تهذيب", "تقريب", "ملخص", "وجيز")),
+    (Genre.FATAWA, ("فتاوى", "فتاوي", "نوازل", "أسئلة")),
+    (Genre.TABAQAT, ("طبقات", "تراجم", "وفيات", "أعيان", "أعلام")),
+    (Genre.MUJAM, ("معجم", "حروف المعجم")),
+    (Genre.RISALAH, ("رسالة", "جواب", "فتيا", "نبذة")),
+]
+
+_MULTI_LAYER_KEYWORDS = ("شرح", "حاشية", "تعليق", "تقريرات", "نكت")
 
 
 def assess_case_complexity(
@@ -137,6 +154,7 @@ def run_metadata_deliberation(
         )
     _validate_dossier_complete(dossier)
     metadata = _build_source_metadata(deliberation_input, frozen)
+    _populate_deterministic_metadata(metadata, dossier)
     author_output, disagreement_cases = _resolve_author_output(
         source_id, deliberation_input.author_positions, case_id,
         verification_agents=deliberation_input.verification_agents,
@@ -211,6 +229,41 @@ def _build_source_metadata(
         volume_count=None,
         page_count_physical=None,
     )
+
+
+def _populate_deterministic_metadata(
+    metadata: SourceMetadata,
+    dossier: IntakeDossier,
+) -> None:
+    title = metadata.title_arabic
+    lowered_title = title
+
+    if metadata.genre is None:
+        metadata.genre = _infer_genre(lowered_title)
+
+    if metadata.genre is not None:
+        inferred_structural = _infer_structural_format(metadata.genre, lowered_title)
+        if metadata.structural_format == StructuralFormat.PROSE and inferred_structural != StructuralFormat.PROSE:
+            metadata.structural_format = inferred_structural
+
+    metadata.is_multi_layer = metadata.is_multi_layer or _infer_multi_layer(metadata.genre, lowered_title)
+    if metadata.is_multi_layer:
+        metadata.multi_layer_evidence = _multi_layer_evidence(metadata.genre, lowered_title)
+
+    metadata.hadith_subgenre = _infer_hadith_subgenre(metadata.science_scope, metadata.genre, lowered_title)
+
+    relationships, embedding_style = _infer_work_relationships(metadata.genre, lowered_title)
+    if relationships:
+        metadata.work_relationships = relationships
+    if embedding_style is not None:
+        metadata.matn_embedding_style = embedding_style
+
+    if dossier.composite_work_type is not None:
+        metadata.study_quality_risk_flags.extend(
+            flag
+            for flag in dossier.study_quality_risk_flags
+            if flag not in metadata.study_quality_risk_flags
+        )
 
 
 def _validate_dossier_complete(dossier: IntakeDossier) -> None:
@@ -312,6 +365,146 @@ def _fallback_work_output(dossier: IntakeDossier) -> WorkOutput:
     ordered = sorted(positions, key=lambda item: item.confidence, reverse=True)
     status = "definitive" if len(ordered) == 1 else "disputed"
     return WorkOutput(status=status, positions=ordered)
+
+
+def _infer_genre(title: str) -> Genre:
+    for genre, keywords in _GENRE_KEYWORDS:
+        if any(keyword in title for keyword in keywords):
+            return genre
+    if "تفسير" in title:
+        return Genre.TAFSIR
+    if "حديث" in title or "أحاديث" in title or "جزء" in title or "مسند" in title or "سنن" in title:
+        return Genre.HADITH_COLLECTION
+    return Genre.OTHER
+
+
+def _infer_multi_layer(genre: Genre | None, title: str) -> bool:
+    if genre in {Genre.SHARH, Genre.HASHIYAH, Genre.TAFSIR, Genre.HADITH_COLLECTION}:
+        return True
+    return any(keyword in title for keyword in _MULTI_LAYER_KEYWORDS)
+
+
+def _multi_layer_evidence(genre: Genre | None, title: str) -> list[str]:
+    evidence: list[str] = [keyword for keyword in _MULTI_LAYER_KEYWORDS if keyword in title]
+    if genre in {Genre.SHARH, Genre.HASHIYAH, Genre.TAFSIR, Genre.HADITH_COLLECTION}:
+        evidence.append("genre_auto_hint")
+    return _unique_in_order(evidence)
+
+
+def _infer_structural_format(genre: Genre, title: str) -> StructuralFormat:
+    if genre in {Genre.SHARH, Genre.HASHIYAH}:
+        return StructuralFormat.COMMENTARY
+    if genre == Genre.NAZM:
+        return StructuralFormat.VERSE
+    if genre in {Genre.MUJAM, Genre.TABAQAT}:
+        return StructuralFormat.REFERENCE_ENTRIES
+    if "سؤال" in title or "جواب" in title:
+        return StructuralFormat.QA_FORMAT
+    return StructuralFormat.PROSE
+
+
+def _infer_hadith_subgenre(
+    science_scope: list[str],
+    genre: Genre | None,
+    title: str,
+) -> HadithSubgenre | None:
+    if "hadith" not in science_scope and genre != Genre.HADITH_COLLECTION:
+        return None
+    if "علل" in title:
+        return HadithSubgenre.ILAL
+    if "مستخرج" in title:
+        return HadithSubgenre.MUSTAKHRAJ
+    if "مستدرك" in title:
+        return HadithSubgenre.MUSTADRAK
+    if "الأطراف" in title or "اطراف" in title:
+        return HadithSubgenre.ATRAF
+    if "تخريج" in title:
+        return HadithSubgenre.TAKHRIJ
+    if "أربعين" in title:
+        return HadithSubgenre.ARBAIN
+    if "طبقات" in title and ("رجال" in title or "رواة" in title):
+        return HadithSubgenre.TABAQAT_RIJAL
+    if genre == Genre.SHARH and "hadith" in science_scope:
+        return HadithSubgenre.HADITH_COMMENTARY
+    if "جزء" in title:
+        return HadithSubgenre.JUZ
+    if "مسند" in title:
+        return HadithSubgenre.MUSNAD
+    if "سنن" in title:
+        return HadithSubgenre.SUNAN
+    if "جامع" in title:
+        return HadithSubgenre.JAMI
+    if "معجم" in title:
+        return HadithSubgenre.MUJAM
+    if "أحاديث" in title or "حديث" in title:
+        return HadithSubgenre.JUZ
+    return None
+
+
+def _infer_work_relationships(
+    genre: Genre | None,
+    title: str,
+) -> tuple[list[WorkRelationship], Literal["interlinear", "separated", "marginal", "mazj"] | None]:
+    relationships: list[WorkRelationship] = []
+    embedding_style: Literal["interlinear", "separated", "marginal", "mazj"] | None = None
+
+    if genre == Genre.SHARH:
+        target = _extract_target(title, ("شرح",))
+        if target is not None:
+            relationships.append(
+                WorkRelationship(
+                    relationship_type="is_commentary_on",
+                    target_work_title=target,
+                    target_work_author=None,
+                    confidence="high",
+                )
+            )
+    elif genre == Genre.HASHIYAH:
+        target = _extract_target(title, ("على",))
+        if target is not None:
+            relationships.append(
+                WorkRelationship(
+                    relationship_type="is_supercommentary_on",
+                    target_work_title=target,
+                    target_work_author=None,
+                    confidence="high",
+                )
+            )
+    elif genre == Genre.MUKHTASAR:
+        target = _extract_target(title, ("مختصر",))
+        if target is not None:
+            relationships.append(
+                WorkRelationship(
+                    relationship_type="is_abridgement_of",
+                    target_work_title=target,
+                    target_work_author=None,
+                    confidence="medium",
+                )
+            )
+    elif genre == Genre.NAZM:
+        target = _extract_target(title, ("منظومة", "نظم"))
+        if target is not None:
+            relationships.append(
+                WorkRelationship(
+                    relationship_type="is_versification_of",
+                    target_work_title=target,
+                    target_work_author=None,
+                    confidence="medium",
+                )
+            )
+
+    if relationships and "شرح ابن عقيل على ألفية ابن مالك" in title:
+        embedding_style = "interlinear"
+
+    return relationships, embedding_style
+
+
+def _extract_target(title: str, markers: tuple[str, ...]) -> str | None:
+    for marker in markers:
+        if marker in title:
+            suffix = title.split(marker, 1)[1].strip(" -–,:،")
+            return suffix or None
+    return None
 
 
 def _case_record(

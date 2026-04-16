@@ -8,6 +8,7 @@ import shutil
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Literal
 from uuid import uuid4
 
 from bs4 import BeautifulSoup
@@ -38,6 +39,7 @@ from engines.source.contracts import (
     RawUploadRecord,
     RawUploadStatus,
     SelfContainmentAssessment,
+    SubWorkInventoryEntry,
     SourceFormat,
     SourcePathKind,
     TitleEvidence,
@@ -56,6 +58,7 @@ _ISNAD_PATTERN = re.compile(
     r"(?<![\u0600-\u06FF])(?:حدثنا|اخبرنا|انبانا|سمعت|قرات\s+(?:على|علي)|اجاز لي|ناولني)(?![\u0600-\u06FF])"
 )
 _MOJIBAKE_MARKERS = ("ط£", "ط§", "ط®")
+_COMPOSITE_TITLE_KEYWORDS = ("مجموع", "رسائل")
 logger = logging.getLogger(__name__)
 
 
@@ -163,13 +166,17 @@ class SourcePipeline:
         self._validate_persisted_deliberation_result(source_id, deliberation_result)
         frozen = self.store.get_frozen_source(source_id)
         dossier = self.store.get_intake_dossier(source_id)
-        return admit_source_and_build_handoff(
+        result = admit_source_and_build_handoff(
             store=self.store,
             frozen=frozen,
             dossier=dossier,
             deliberation_result=deliberation_result,
             owner_acknowledged=owner_acknowledged,
         )
+        self.store.save_edition_groups(result.edition_groups)
+        self.store.save_edition_holdings(result.edition_holdings)
+        return result
+        return result
 
     def _validate_persisted_deliberation_result(
         self,
@@ -371,6 +378,11 @@ class SourcePipeline:
         title = self._extract_title(primary_path)
         content = self._read_text(primary_path)
         observed_volumes = len(classification.volume_manifest) or 1
+        composite_work_type, sub_work_inventory, composite_flags = self._detect_composite_work(
+            title=title,
+            content=content,
+            observed_volumes=observed_volumes,
+        )
         return IntakeDossier(
             dossier_id=f"dossier_{uuid4().hex[:8]}",
             source_id=frozen.source_id,
@@ -390,12 +402,14 @@ class SourcePipeline:
             self_containment_assessment=SelfContainmentAssessment.SELF_CONTAINED,
             cross_volume_dependency_assessment=CrossVolumeDependencyAssessment.NON_MATERIAL,
             integrity_status=IntegrityStatus.SOUND,
-            study_quality_risk_flags=[],
+            study_quality_risk_flags=composite_flags,
             parent_work_presence_model=ParentWorkPresenceModel(
                 appears_part_of_larger_work=observed_volumes > 1,
                 present_volumes=[item.volume_number for item in classification.volume_manifest if item.volume_number is not None],
             ),
             contains_isnad_chains=self._contains_isnad(content),
+            composite_work_type=composite_work_type,
+            sub_work_inventory=sub_work_inventory,
         )
 
     def _build_mixed_format_dossier(
@@ -451,6 +465,50 @@ class SourcePipeline:
             char for char in flattened if not unicodedata.combining(char)
         ).replace("أ", "ا").replace("إ", "ا").replace("آ", "ا").replace("ى", "ي")
         return bool(_ISNAD_PATTERN.search(simplified))
+
+    def _detect_composite_work(
+        self,
+        title: str,
+        content: str,
+        observed_volumes: int,
+    ) -> tuple[Literal["majmu", "possible"] | None, list[SubWorkInventoryEntry], list[str]]:
+        soup = BeautifulSoup(content, "html.parser")
+        title_texts = [
+            node.get_text(" ", strip=True)
+            for node in soup.select(".title")
+            if node.get_text(" ", strip=True)
+        ]
+        candidate_titles = [
+            text for text in title_texts
+            if len(text) >= 6 and text not in {title, "مقدمة", "توطئة"}
+        ]
+
+        if any(keyword in title for keyword in _COMPOSITE_TITLE_KEYWORDS):
+            if observed_volumes > 1 or len(candidate_titles) >= 2:
+                inventory = [
+                    SubWorkInventoryEntry(
+                        sub_title=text,
+                        volume_number=None,
+                        page_start=None,
+                        page_end=None,
+                        detection_method="structural_signal",
+                    )
+                    for text in _unique_preserve_order(candidate_titles[:10])
+                ]
+                if not inventory:
+                    inventory = [
+                        SubWorkInventoryEntry(
+                            sub_title=title,
+                            volume_number=None,
+                            page_start=None,
+                            page_end=None,
+                            detection_method="structural_signal",
+                        )
+                    ]
+                return "majmu", inventory, []
+            return "possible", [], ["ambiguous_composite_detection"]
+
+        return None, [], []
 
     def _aggregate_pdf_inspections(
         self,
@@ -564,3 +622,14 @@ class SourcePipeline:
 
     def _utc_now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
+
+
+def _unique_preserve_order(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        ordered.append(value)
+    return ordered

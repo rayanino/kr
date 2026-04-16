@@ -700,6 +700,99 @@ def test_metadata_deliberation_getters_return_latest_run_only(
     assert source_pipeline.store.get_case_complexity_history(source_id)[1].case_id == second_result.case_complexity_record.case_id
 
 
+def test_metadata_deliberation_inferrs_sharh_metadata_from_real_fixture(
+    source_pipeline: SourcePipeline,
+) -> None:
+    source_id = source_pipeline.freeze_and_manifest(
+        source_pipeline.upload_receipt(
+            FIXTURES_ROOT / "shamela_real" / "11_multi_small"
+        ).submission_id
+    ).source_id
+    source_pipeline.classify_container(source_id)
+    dossier = source_pipeline.intake_analysis(source_id)
+    request = _base_request(source_id=source_id)
+    request.title_arabic = dossier.title_evidence[0].title_text
+    request.science_scope = ["nahw"]
+    request.genre = None
+    request.structural_format = StructuralFormat.PROSE
+    request.author_positions = [
+        AuthorOutputPosition(
+            position="عبد الرحمن بن أبي بكر جلال الدين السيوطي",
+            display_name="السيوطي",
+            evidence=["metadata_card"],
+            confidence=0.9,
+            source_agent="agent_a",
+            death_hijri=911,
+        ),
+        AuthorOutputPosition(
+            position="عبد الرحمن بن أبي بكر جلال الدين السيوطي",
+            display_name="السيوطي",
+            evidence=["title_page"],
+            confidence=0.88,
+            source_agent="agent_b",
+            death_hijri=911,
+        ),
+    ]
+    request.author_death_hijri = 911
+
+    result = source_pipeline.metadata_deliberation(
+        source_id=source_id,
+        deliberation_input=request,
+    )
+
+    assert result.source_metadata.genre == Genre.SHARH
+    assert result.source_metadata.is_multi_layer is True
+    assert "شرح" in result.source_metadata.multi_layer_evidence
+    assert result.source_metadata.structural_format == StructuralFormat.COMMENTARY
+    assert result.source_metadata.work_relationships
+    assert result.source_metadata.work_relationships[0].relationship_type == "is_commentary_on"
+    assert "جمع الجوامع" in result.source_metadata.work_relationships[0].target_work_title
+
+
+def test_metadata_deliberation_inferrs_hadith_subgenre_from_real_fixture(
+    source_pipeline: SourcePipeline,
+) -> None:
+    source_id = source_pipeline.freeze_and_manifest(
+        source_pipeline.upload_receipt(
+            FIXTURES_ROOT / "shamela_real" / "04_hadith" / "book.htm"
+        ).submission_id
+    ).source_id
+    source_pipeline.classify_container(source_id)
+    dossier = source_pipeline.intake_analysis(source_id)
+    request = _base_request(source_id=source_id)
+    request.title_arabic = "جزء فيه من أحاديث الإمام أيوب السختياني"
+    request.science_scope = ["hadith"]
+    request.genre = Genre.HADITH_COLLECTION
+    request.structural_format = StructuralFormat.PROSE
+    request.author_positions = [
+        AuthorOutputPosition(
+            position="إسماعيل بن إسحاق القاضي",
+            display_name="القاضي إسماعيل",
+            evidence=["metadata_card"],
+            confidence=0.9,
+            source_agent="agent_a",
+            death_hijri=282,
+        ),
+        AuthorOutputPosition(
+            position="إسماعيل بن إسحاق القاضي",
+            display_name="القاضي إسماعيل",
+            evidence=["title_page"],
+            confidence=0.88,
+            source_agent="agent_b",
+            death_hijri=282,
+        ),
+    ]
+    request.author_death_hijri = 282
+
+    result = source_pipeline.metadata_deliberation(
+        source_id=source_id,
+        deliberation_input=request,
+    )
+
+    assert result.source_metadata.hadith_subgenre is not None
+    assert result.source_metadata.hadith_subgenre.value == "juz"
+
+
 def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
     source_pipeline: SourcePipeline,
 ) -> None:
