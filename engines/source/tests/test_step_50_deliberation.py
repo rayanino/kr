@@ -8,6 +8,7 @@ from engines.source.contracts import (
     AuthorOutputPosition,
     ErrorCode,
     Genre,
+    HadithSubgenre,
     IntakeDossier,
     MetadataDeliberationInput,
     SourceMetadata,
@@ -20,6 +21,7 @@ from engines.source.contracts import (
 )
 from engines.source.src.deliberation import (
     _fallback_work_output,
+    _infer_hadith_subgenre,
     assess_case_complexity,
     compare_owner_hints,
     deliberate_author_output,
@@ -833,3 +835,36 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
     assert result.case_complexity_record.case_complexity == "degraded_evidence"
     assert result.monitor_feedback[0].evidence_coverage.meets_minimum is False
     assert ErrorCode.INCOMPLETE_RESEARCH in result.monitor_feedback[0].spec_violations
+
+
+@pytest.mark.parametrize(
+    "title,science_scope,genre,expected",
+    [
+        ("كتاب الفقه", ["fiqh"], Genre.MATN, None),
+        ("علل الترمذي الكبير", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.ILAL),
+        ("المستخرج لأبي عوانة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUSTAKHRAJ),
+        ("المستدرك على الصحيحين", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUSTADRAK),
+        ("كتاب الأطراف للمزي", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.ATRAF),
+        ("اطراف الصحيحين للواسطي", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.ATRAF),
+        ("تخريج أحاديث الإحياء للعراقي", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TAKHRIJ),
+        ("الأربعين النووية", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.ARBAIN),
+        ("طبقات رجال الحديث", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TABAQAT_RIJAL),
+        ("طبقات رواة الحديث", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TABAQAT_RIJAL),
+        ("شرح صحيح البخاري", ["hadith"], Genre.SHARH, HadithSubgenre.HADITH_COMMENTARY),
+        ("جزء فيه من حديث الإمام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
+        ("مسند الإمام أحمد", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUSNAD),
+        ("سنن أبي داود", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SUNAN),
+        ("الجامع الصغير", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JAMI),
+        ("المعجم الكبير للطبراني", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUJAM),
+        ("أحاديث متفرقة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
+        ("حديث الجمعة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
+        ("كتاب الأذكار", ["hadith"], Genre.MATN, None),
+    ],
+)
+def test_infer_hadith_subgenre_arabic_keyword_mapping(
+    title: str,
+    science_scope: list[str],
+    genre: Genre,
+    expected: HadithSubgenre | None,
+) -> None:
+    assert _infer_hadith_subgenre(science_scope, genre, title) == expected
