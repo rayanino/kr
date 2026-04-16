@@ -740,7 +740,7 @@ def test_pipeline_admission_persists_edition_state(
         source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
     )
     source_pipeline.classify_container(frozen.source_id)
-    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    source_pipeline.intake_analysis(frozen.source_id)
     deliberation_result = _accepted_deliberation_result(frozen.source_id)
     source_pipeline.store.save_deliberation_result(deliberation_result)
     source_pipeline.store.save_case_complexity_record(deliberation_result.case_complexity_record)

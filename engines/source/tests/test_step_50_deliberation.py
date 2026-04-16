@@ -758,7 +758,7 @@ def test_metadata_deliberation_inferrs_hadith_subgenre_from_real_fixture(
         ).submission_id
     ).source_id
     source_pipeline.classify_container(source_id)
-    dossier = source_pipeline.intake_analysis(source_id)
+    source_pipeline.intake_analysis(source_id)
     request = _base_request(source_id=source_id)
     request.title_arabic = "جزء فيه من أحاديث الإمام أيوب السختياني"
     request.science_scope = ["hadith"]
