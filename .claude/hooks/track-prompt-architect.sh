@@ -10,12 +10,17 @@ set -euo pipefail
 # Read tool input from stdin
 input=$(cat)
 
-# Check if the Skill tool was "prompt-architect"
+# Check if the Skill tool was "prompt-architect" (accepts plugin-namespaced forms
+# like "prompt-architect:prompt-architect" and any "<namespace>:prompt-architect").
 SKILL_NAME=$(echo "$input" | jq -r '.tool_input.skill // ""' 2>/dev/null)
 
-if [ "$SKILL_NAME" != "prompt-architect" ]; then
-    exit 0
-fi
+case "$SKILL_NAME" in
+    prompt-architect|*:prompt-architect)
+        ;;
+    *)
+        exit 0
+        ;;
+esac
 
 # Record the invocation
 STATE_DIR="$CLAUDE_PROJECT_DIR/.kr/runtime"
