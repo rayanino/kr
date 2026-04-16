@@ -6,23 +6,23 @@
 # KR Handoff
 
 ## Current session purpose
-Pause excerpting engine builds at the Session 22 checkpoint and redirect the next serious sessions to repo cleanup plus owner-facing visual representations.
+Source engine build is active. Resume from the DR-1 dispatch in flight on 2026-04-16. The stop-hook quality gate loop is closed (115/115 tests pass, pyright clean, tree clean, remote current through `173ddec82`).
 
 ## Current state
-- Active frontier now lives in `.kr/ACTIVE.md`
-- Exact excerpting freeze state is recorded in `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
-- The owner may continue reviewing Session 22 excerpts; review collection remains live at `integration_tests/review_session22/eval_session22_talaq/owner_feedback.jsonl`
+- Active frontier: source engine build (see `.kr/ACTIVE.md` and `NEXT.md`)
+- DR-1 in flight: level detection (OQ-SRC-0001 + DEC-SRC-0003), relayed to ChatGPT DR + Claude DR
+- DR-2 queued but deferred until DR-1 returns (monitor placement may depend on DR-1 recommendation)
+- Repo pollution cleanup in progress: MCP planning docs removed, Context7 plugin duplicate disabled; session-snapshot handoffs to be removed next
+- Excerpting frozen at Session 22 checkpoint (1008 pass / 0 fail / 4 xfail, EUR 36.70 / 100.00)
 
 ## Current resume point
-1. **For cleanup/visual sessions:** start from `.kr/ACTIVE.md` and `NEXT.md`
-2. Keep excerpting implementation paused while cleanup/visual work is active
-3. When returning to excerpting, start from `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`
+1. Check for DR-1 results. When they arrive, synthesize findings into a SPEC amendment for `DEC-SRC-0003` (chosen option + rationale) and resolve `OQ-SRC-0001` (open → answered).
+2. After DR-1 closes, draft DR-2 (OQ-SRC-0005 agent monitoring scope) via `/prompt-architect` informed by DR-1 outcome.
+3. Continue source engine build; do not resume excerpting work until source engine Phase 5 readiness is reached.
 
 ## Suggested branch discipline
-- Keep `excerpting-foundations-hardening-20260404` as the frozen excerpting checkpoint
-- Do cleanup/visual work on a separate branch such as `repo-cleanup-visual-maps-20260408`
+- Continue direct commits to `main` per `ACTIVE_AUTHORITY.md` shared-authority model.
+- Excerpting work would resume on the frozen `excerpting-foundations-hardening-20260404` branch if reactivated.
 
 ## Historical note
-The earlier foundations-hardening kickoff and session-2 handoff context remains archived in:
-- `reference/handoffs/excerpting_foundations_session3_kickoff_2026-04-04.md`
-- `reference/handoffs/excerpting_foundations_claude_hardening_takeover_2026-04-04.md`
+Archived hardening/handoff context lives in `reference/archive/handoffs/` and `reference/archive/sessions/`. Do not create new handoff snapshot files at the repo top level — per Rule 17 (no-repo-pollution), handoff state lives here in `.kr/HANDOFF.md` (short, current) or in the agent's memory system, not as disposable snapshot docs.
