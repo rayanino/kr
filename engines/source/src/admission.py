@@ -415,9 +415,30 @@ def _fingerprints_conflict(
 ) -> bool:
     publisher = incoming_info.get("publisher")
     muhaqqiq = incoming_info.get("muhaqqiq")
-    publisher_conflict = existing.publisher is not None and publisher is not None and existing.publisher != publisher
-    muhaqqiq_conflict = existing.muhaqqiq is not None and muhaqqiq is not None and existing.muhaqqiq != muhaqqiq
-    return publisher_conflict or muhaqqiq_conflict
+    incoming_signals_raw = incoming_info.get("distinguishing_signals")
+    incoming_signals = (
+        incoming_signals_raw
+        if isinstance(incoming_signals_raw, list)
+        and all(isinstance(item, str) for item in incoming_signals_raw)
+        else None
+    )
+
+    publisher_conflict = (existing.publisher is not None and publisher is None) or (
+        existing.publisher is not None
+        and publisher is not None
+        and existing.publisher != publisher
+    )
+    muhaqqiq_conflict = (existing.muhaqqiq is not None and muhaqqiq is None) or (
+        existing.muhaqqiq is not None
+        and muhaqqiq is not None
+        and existing.muhaqqiq != muhaqqiq
+    )
+    signals_conflict = (bool(existing.distinguishing_signals) and incoming_signals is None) or (
+        bool(existing.distinguishing_signals)
+        and incoming_signals is not None
+        and set(existing.distinguishing_signals) != set(incoming_signals)
+    )
+    return publisher_conflict or muhaqqiq_conflict or signals_conflict
 
 
 def _validate_pdf_handoff(source_metadata: SourceMetadata) -> None:

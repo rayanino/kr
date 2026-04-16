@@ -7,15 +7,13 @@ All tests use real Arabic scholarly names.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 from engines.source.contracts import ScholarAuthorityRecord
 from shared.scholar_authority.src.scholar_authority import (
-    ScholarMatchResult,
-    ScholarUpdateResult,
     compute_scholar_match_score,
-    get_all,
     lookup,
     register,
     update,
@@ -25,13 +23,19 @@ from shared.scholar_authority.src.scholar_authority import (
 
 def _make_record(**kwargs: object) -> ScholarAuthorityRecord:
     """Helper to create a ScholarAuthorityRecord with sensible defaults."""
-    defaults = {
+    defaults: dict[str, Any] = {
         "canonical_id": "",
         "canonical_name_ar": "النووي",
+        "birth_date_hijri": None,
+        "birth_date_ce": None,
+        "death_date_ce": None,
+        "era_century_hijri": None,
+        "record_completeness": 0.0,
+        "data_provenance_score": 0.0,
         "last_updated": "2026-01-01T00:00:00+00:00",
     }
     defaults.update(kwargs)
-    return ScholarAuthorityRecord(**defaults)
+    return ScholarAuthorityRecord.model_validate(defaults)
 
 
 class TestLookup:

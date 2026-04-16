@@ -184,24 +184,15 @@ def test_empty_string_normalize_returns_empty() -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_name_with_tatweel_documents_current_behavior() -> None:
-    """SPEC §4: tatweel ـ (U+0640) embedded in tokens — known normalizer gap.
-
-    Tatweel is used decoratively in some manuscripts and by OCR engines.
-    The current diacritics set covers U+064B–U+065F and U+0670; it does NOT
-    include U+0640 (tatweel).  Names with tatweel therefore tokenize
-    differently from their clean equivalents, causing similarity 0.0.
-
-    This test documents the limitation so future fixes can be verified by
-    changing the assertion to `score == 1.0`.
-    """
+def test_name_with_tatweel_is_ignored_for_matching() -> None:
+    """Tatweel is decorative and should not affect scholar-name matching."""
     # Arrange
     with_tatweel = "ابـن تيـمية"      # ـ (U+0640) inside both tokens
     without_tatweel = "ابن تيمية"
     # Act
     score = normalized_name_similarity(with_tatweel, without_tatweel)
-    # Assert — tatweel not stripped → tokens differ → no match (known gap)
-    assert score < 1.0
+    # Assert — tatweel stripped from the derived comparison key
+    assert score == 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -230,20 +221,19 @@ def test_hamza_variants_normalize_to_same() -> None:
     assert score_above_vs_below == 1.0
 
 
-def test_taa_marbuta_and_ha_equivalent() -> None:
-    """SPEC §4: 'عائشة' vs 'عائشه' — taa marbuta ة and ha ه are interchangeable.
+def test_taa_marbuta_and_ha_are_not_treated_as_exact_equivalents() -> None:
+    """KR safety: 'عائشة' vs 'عائشه' must not collapse to an exact identity match.
 
-    Some copyists write ha (ه) in word-final position instead of taa marbuta
-    (ة).  The normalizer maps ة→ه, so both forms reduce to 'عايشه' and trigger
-    the exact-match path (score 1.0).
+    Taa marbuta is not normalized into ha for authoritative scholar matching.
     """
     # Arrange
     with_taa_marbuta = "عائشة"
     with_ha = "عائشه"
     # Act
     score = normalized_name_similarity(with_taa_marbuta, with_ha)
-    # Assert
-    assert score == 1.0
+    # Assert — similarity may still be non-zero later via safer heuristics,
+    # but it must not be treated as an exact equivalence.
+    assert score < 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -291,7 +281,7 @@ def test_compound_name_vs_split_triggers_substring_fallback() -> None:
     """SPEC §4: 'عبدالله' (compound) vs 'عبد الله' (space-separated) — fallback.
 
     The compound form is one token {عبدالله}; the split form tokenizes to
-    {عبد, له} after ال-stripping on 'الله'.  No exact token overlap exists.
+    {عبد, الله}. No exact token overlap exists.
     The substring fallback detects 'عبد' ⊂ 'عبدالله' (len ≥ 3) and returns 0.4.
     This is below the auto-match threshold (0.85) but above zero, correctly
     flagging the match for human review.

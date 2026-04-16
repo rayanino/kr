@@ -8,14 +8,18 @@ from engines.source.contracts import (
     AuthorOutputPosition,
     ErrorCode,
     Genre,
+    IntakeDossier,
     MetadataDeliberationInput,
     SourceMetadata,
     SourceFormat,
     StructuralFormat,
     TextFidelity,
     TrustTier,
+    WorkIdentityCandidate,
+    WorkIdentityProposal,
 )
 from engines.source.src.deliberation import (
+    _fallback_work_output,
     assess_case_complexity,
     compare_owner_hints,
     deliberate_author_output,
@@ -600,6 +604,35 @@ def test_metadata_deliberation_derives_work_id_from_definitive_work_output(
     assert result.source_metadata.work_output is not None
     assert result.source_metadata.work_output.positions
     assert result.source_metadata.work_id == result.source_metadata.work_output.positions[0].work_id
+
+
+def test_fallback_work_output_preserves_multiple_candidates_as_disputed() -> None:
+    dossier = IntakeDossier(
+        dossier_id="dos_test",
+        work_identity_proposal=WorkIdentityProposal(
+            candidates=[
+                WorkIdentityCandidate(
+                    canonical_title_arabic="العمل الأول",
+                    work_id="wrk_1",
+                    evidence=["title_page"],
+                    confidence=0.72,
+                    source_agent="agent_a",
+                ),
+                WorkIdentityCandidate(
+                    canonical_title_arabic="العمل الثاني",
+                    work_id="wrk_2",
+                    evidence=["metadata_card"],
+                    confidence=0.68,
+                    source_agent="agent_b",
+                ),
+            ]
+        ),
+    )
+
+    result = _fallback_work_output(dossier)
+
+    assert result.status == "disputed"
+    assert len(result.positions) == 2
 
 
 def test_metadata_deliberation_getters_return_latest_run_only(

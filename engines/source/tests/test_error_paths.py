@@ -6,6 +6,7 @@ error_conditions field. Organized by pipeline step.
 """
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from unittest.mock import patch
 
@@ -45,6 +46,9 @@ from engines.source.src.deliberation import (
 from engines.source.src.errors import SourceEngineError
 from engines.source.src.pipeline import SourcePipeline
 from engines.source.tests.conftest import FIXTURES_ROOT
+
+
+logger = logging.getLogger(__name__)
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -550,6 +554,7 @@ def _freeze_fixture(pipeline: SourcePipeline, fixture_path: str) -> FrozenSource
 
 def _persist_deliberation(pipeline: SourcePipeline, delib: MetadataDeliberationResult) -> None:
     """Persist step-50 artifacts so step 60 validation passes."""
+    pipeline.store.save_deliberation_result(delib)
     pipeline.store.save_case_complexity_record(delib.case_complexity_record)
     for fb in delib.monitor_feedback:
         pipeline.store.save_monitor_feedback(fb)

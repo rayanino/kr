@@ -475,6 +475,61 @@ def test_reconciliation_creates_new_holding_when_fingerprint_conflicts(source_pi
     assert len(result.edition_holdings) == 2
 
 
+def test_reconciliation_does_not_merge_when_existing_publisher_is_known_and_incoming_is_null(
+    source_pipeline: SourcePipeline,
+) -> None:
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    deliberation_result.source_metadata.work_id = "wrk_fiqh"
+    deliberation_result.source_metadata.collection_match_output = CollectionMatchOutput(
+        matched_edition_group_id="edg_fiqh"
+    )
+    deliberation_result.source_metadata.edition_info = {
+        "publisher": None,
+        "muhaqqiq": "محقق ثابت",
+    }
+
+    existing_group = EditionGroup(
+        edition_group_id="edg_fiqh",
+        work_id="wrk_fiqh",
+        edition_fingerprint=EditionFingerprint(
+            publisher="ناشر معلوم",
+            muhaqqiq="محقق ثابت",
+        ),
+        expected_volume_count=1,
+    )
+    existing_holding = EditionHolding(
+        holding_id="hold_fiqh",
+        edition_group_id="edg_fiqh",
+        holding_state="active_complete",
+        coherence_state="coherent",
+        expected_volume_count=1,
+        volume_holdings=[
+            VolumeHolding(
+                volume_number=1,
+                presence_state="present_primary",
+                source_ids=["src_old"],
+            )
+        ],
+    )
+
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+        edition_groups=[existing_group],
+        edition_holdings=[existing_holding],
+    )
+
+    assert len(result.edition_holdings) == 2
+
+
 @pytest.mark.spec("REQ-SRC-0045", "AC-1")
 def test_supersession_marks_old_holding_when_better_complete_edition_arrives(source_pipeline: SourcePipeline) -> None:
     frozen = _frozen_from_pipeline(source_pipeline, FIXTURES_ROOT / "shamela_real" / "04_hadith" / "book.htm")
@@ -645,6 +700,33 @@ def test_pipeline_admission_rejects_unpersisted_deliberation_result(source_pipel
         source_pipeline.source_admission_and_normalization_handoff(
             source_id=frozen.source_id,
             deliberation_result=_accepted_deliberation_result(frozen.source_id),
+            owner_acknowledged=True,
+        )
+
+    assert exc.value.error_code == ErrorCode.DELIBERATION_NOT_PERSISTED
+
+
+def test_pipeline_admission_rejects_tampered_deliberation_payload_even_when_fragments_exist(
+    source_pipeline: SourcePipeline,
+) -> None:
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    source_pipeline.intake_analysis(frozen.source_id)
+
+    persisted = _accepted_deliberation_result(frozen.source_id)
+    source_pipeline.store.save_case_complexity_record(persisted.case_complexity_record)
+    for record in persisted.monitor_feedback:
+        source_pipeline.store.save_monitor_feedback(record)
+
+    tampered = _accepted_deliberation_result(frozen.source_id)
+    tampered.source_metadata.title_arabic = "عنوان معدل"
+
+    with pytest.raises(SourceEngineError) as exc:
+        source_pipeline.source_admission_and_normalization_handoff(
+            source_id=frozen.source_id,
+            deliberation_result=tampered,
             owner_acknowledged=True,
         )
 
@@ -1251,6 +1333,8 @@ def test_holding_state_recomputes_when_volume_count_changes() -> None:
         source_id="src_new_vol",
         source_format=SourceFormat.SHAMELA_HTML,
         declared_vs_observed_counts=DeclaredVsObservedCounts(
+            physical_page_count=None,
+            declared_volume_count=None,
             observed_volume_count=1,
         ),
     )

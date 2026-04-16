@@ -146,6 +146,7 @@ class SourcePipeline:
             dossier=dossier,
             deliberation_input=deliberation_input,
         )
+        self.store.save_deliberation_result(result)
         self.store.save_case_complexity_record(result.case_complexity_record)
         for record in result.monitor_feedback:
             self.store.save_monitor_feedback(record)
@@ -181,18 +182,15 @@ class SourcePipeline:
                 f"deliberation result source_id={deliberation_result.source_metadata.source_id} does not match pipeline source_id={source_id}",
             )
         try:
-            stored_case = self.store.get_case_complexity_record(source_id)
+            stored_result = self.store.get_deliberation_result_by_case_id(
+                deliberation_result.case_complexity_record.case_id or ""
+            )
         except KeyError as exc:
             raise SourceEngineError(
                 ErrorCode.DELIBERATION_NOT_PERSISTED,
                 f"no persisted step-50 artifact set exists for source_id={source_id}",
             ) from exc
-        stored_feedback = self.store.get_monitor_feedback(source_id)
-        if (
-            stored_case.case_id != deliberation_result.case_complexity_record.case_id
-            or not stored_feedback
-            or any(record.case_id != stored_case.case_id for record in stored_feedback)
-        ):
+        if stored_result.model_dump(mode="json") != deliberation_result.model_dump(mode="json"):
             raise SourceEngineError(
                 ErrorCode.DELIBERATION_NOT_PERSISTED,
                 f"no persisted step-50 artifact set matches case_id={deliberation_result.case_complexity_record.case_id}",

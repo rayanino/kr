@@ -12,6 +12,7 @@ from engines.source.contracts import (
     DisagreementCaseRecord,
     FrozenSource,
     IntakeDossier,
+    MetadataDeliberationResult,
     MonitorFeedbackRecord,
     NormalizationHandoffBundle,
     OwnerSubmissionRiskCase,
@@ -36,6 +37,7 @@ class SourceStore:
         self.case_complexity_records_path = workspace_root / "case_complexity_records.json"
         self.monitor_feedback_path = workspace_root / "monitor_feedback.json"
         self.disagreement_cases_path = workspace_root / "disagreement_cases.json"
+        self.deliberation_results_path = workspace_root / "deliberation_results.json"
         self.frozen_root = workspace_root / "frozen"
         self.workspace_root.mkdir(parents=True, exist_ok=True)
         self.frozen_root.mkdir(parents=True, exist_ok=True)
@@ -119,6 +121,25 @@ class SourceStore:
             record
             for record in self._load_models(self.disagreement_cases_path, DisagreementCaseRecord)
             if record.source_id == source_id and record.case_id == latest_case_id
+        ]
+
+    def get_deliberation_result(self, source_id: str) -> MetadataDeliberationResult:
+        history = self.get_deliberation_history(source_id)
+        if history:
+            return history[-1]
+        raise KeyError(source_id)
+
+    def get_deliberation_result_by_case_id(self, case_id: str) -> MetadataDeliberationResult:
+        for record in self._load_models(self.deliberation_results_path, MetadataDeliberationResult):
+            if record.case_complexity_record.case_id == case_id:
+                return record
+        raise KeyError(case_id)
+
+    def get_deliberation_history(self, source_id: str) -> list[MetadataDeliberationResult]:
+        return [
+            record
+            for record in self._load_models(self.deliberation_results_path, MetadataDeliberationResult)
+            if record.source_metadata.source_id == source_id
         ]
 
     def find_frozen_by_sha(self, source_sha256: str) -> FrozenSource | None:
@@ -207,6 +228,13 @@ class SourceStore:
         records = [item for item in records if item.case_id != record.case_id]
         records.append(record)
         self._write_models(self.disagreement_cases_path, records)
+
+    def save_deliberation_result(self, record: MetadataDeliberationResult) -> None:
+        records = self._load_models(self.deliberation_results_path, MetadataDeliberationResult)
+        case_id = record.case_complexity_record.case_id
+        records = [item for item in records if item.case_complexity_record.case_id != case_id]
+        records.append(record)
+        self._write_models(self.deliberation_results_path, records)
 
     def update_raw_upload(self, record: RawUploadRecord) -> None:
         records = self._load_models(self.raw_uploads_path, RawUploadRecord)

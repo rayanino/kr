@@ -131,7 +131,9 @@ class StructuralFormat(str, Enum):
     VERSE = "verse"
     QA_FORMAT = "qa_format"
     TABULAR_KHILAF = "tabular_khilaf"
+    TABULAR = "tabular"
     DICTIONARY = "dictionary"
+    REFERENCE_ENTRIES = "reference_entries"
     COMMENTARY = "commentary"
     MIXED = "mixed"
 
@@ -156,7 +158,33 @@ class Genre(str, Enum):
     ADAB = "adab"
     RIHLAH = "rihlah"
     USUL_AL_FIQH = "usul_al_fiqh"
+    AMALI = "amali"
+    THABAT = "thabat"
+    BARNAMAJ = "barnamaj"
+    MASHYAKHAH = "mashyakhah"
+    FAHRASAH = "fahrasah"
+    WASIYYAH = "wasiyyah"
+    JUZ = "juz"
+    RADD = "radd"
+    MUNAZARAH = "munazarah"
     OTHER = "other"
+
+
+class HadithSubgenre(str, Enum):
+    MUSANNAF = "musannaf"
+    MUSNAD = "musnad"
+    SUNAN = "sunan"
+    JAMI = "jami"
+    JUZ = "juz"
+    TABAQAT_RIJAL = "tabaqat_rijal"
+    HADITH_COMMENTARY = "hadith_commentary"
+    MUJAM = "mujam"
+    MUSTADRAK = "mustadrak"
+    MUSTAKHRAJ = "mustakhraj"
+    ARBAIN = "arbain"
+    TAKHRIJ = "takhrij"
+    ATRAF = "atraf"
+    ILAL = "ilal"
 
 
 class AttributionStatus(str, Enum):
@@ -323,6 +351,15 @@ class ScholarAuthorityRecord(BaseModel):
 
     canonical_id: str
     canonical_name_ar: str = Field(min_length=1)
+    status: Literal[
+        "provisional",
+        "confirmed",
+        "merged_into",
+        "split_disputed",
+        "deprecated",
+    ] = "confirmed"
+    display_name: Optional[str] = None
+    full_name_lineage: Optional[str] = None
     known_as: list[str] = Field(default_factory=list)
     name_variants: list[str] = Field(default_factory=list)
     kunya: Optional[str] = None
@@ -341,6 +378,8 @@ class ScholarAuthorityRecord(BaseModel):
     teachers: list[str] = Field(default_factory=list)
     students: list[str] = Field(default_factory=list)
     known_works: list[str] = Field(default_factory=list)
+    primary_science: Optional[str] = None
+    source_book_ids: list[str] = Field(default_factory=list)
     scholarly_standing: Optional[str] = None
     methodology_notes: Optional[str] = None
     methodological_stance: Optional[str] = None
@@ -349,6 +388,10 @@ class ScholarAuthorityRecord(BaseModel):
     record_completeness: float = Field(0.0, ge=0.0, le=1.0)
     data_provenance_score: float = Field(0.0, ge=0.0, le=1.0)
     record_sources: list[str] = Field(default_factory=list)
+    evidence_sources: list[ScholarEvidenceSource] = Field(default_factory=list)
+    external_anchor_references: list[ExternalAnchorReference] = Field(default_factory=list)
+    evidence_quality: Optional[str] = None
+    merged_into: Optional[str] = None
     revision_history: list[MetadataHistoryEntry] = Field(default_factory=list)
     last_updated: str
     genealogy_metadata: Optional[dict[str, Any]] = None
@@ -442,7 +485,7 @@ class CollectionMatchOutput(BaseModel):
     parent_work_id: Optional[str] = None
     present_volumes: list[int] = Field(default_factory=list)
     missing_volumes: list[int] = Field(default_factory=list)
-    candidate_match_ids: list[str] = Field(default_factory=list)
+    candidate_match_ids: list[CollectionMatchCandidate] = Field(default_factory=list)
     evidence_summary: Optional[str] = None
 
 
@@ -525,9 +568,70 @@ class HintInvestigation(BaseModel):
     opened_reason: str
 
 
+class CollectionMatchCandidate(BaseModel):
+    candidate_id: str
+    confidence: float = Field(ge=0.0, le=1.0)
+    evidence: list[str] = Field(default_factory=list)
+
+
+class ScholarProfileSource(str, Enum):
+    SCHOLAR_AUTHORITY = "scholar_authority"
+    STRUCTURED_DATABASE = "structured_database"
+    AGENT_SYNTHESIS = "agent_synthesis"
+    UNAVAILABLE = "unavailable"
+
+
+class ScholarEvidenceSource(BaseModel):
+    book_id: str
+    evidence_type: str
+    raw_evidence: str
+
+
+class ExternalAnchorReference(BaseModel):
+    source: str
+    identifier: str
+    retrieval_date: str
+    confidence: float = Field(ge=0.0, le=1.0)
+
+
+class ScholarProfile(BaseModel):
+    full_name_lineage: Optional[str] = None
+    scholarly_title: Optional[str] = None
+    madhab: Optional[str] = None
+    primary_science: Optional[str] = None
+    era_description: Optional[str] = None
+    profile_source: ScholarProfileSource = ScholarProfileSource.UNAVAILABLE
+    status: str = "available"
+    unavailable_reason: Optional[str] = None
+    data_conflicts: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class WorkRelationship(BaseModel):
+    relationship_type: Literal[
+        "is_commentary_on",
+        "is_supercommentary_on",
+        "is_abridgement_of",
+        "is_versification_of",
+        "has_part",
+        "is_part_of",
+        "is_lecture_notes_of",
+    ]
+    target_work_title: str
+    target_work_author: Optional[str] = None
+    confidence: Literal["high", "medium", "low"]
+
+
 class AuthorOutputPosition(BaseModel):
     position: str
     display_name: str
+    canonical_id: Optional[str] = None
+    canonical_match_name: Optional[str] = None
+    full_name_lineage: Optional[str] = None
+    ism: Optional[str] = None
+    nasab_tokens: list[str] = Field(default_factory=list)
+    kunya: Optional[str] = None
+    laqab_tokens: list[str] = Field(default_factory=list)
+    laqab_is_primary_identifier: bool = False
     death_hijri: Optional[int] = Field(default=None, ge=0)
     death_hijri_verification: Optional[str] = None
     nisba_tokens: list[str] = Field(default_factory=list)
@@ -536,6 +640,7 @@ class AuthorOutputPosition(BaseModel):
     source_agent: str
     source_agents: list[str] = Field(default_factory=list)
     entity_type: Literal["person", "institution"] = "person"
+    scholar_profile: Optional[ScholarProfile] = None
 
     @model_validator(mode="after")
     def sync_source_agents(self) -> "AuthorOutputPosition":
@@ -771,8 +876,13 @@ class SourceMetadata(BaseModel):
     author: Optional[ScholarReference] = None
     science_scope: list[str] = Field(default_factory=list)
     genre: Optional[Genre] = None
+    hadith_subgenre: Optional[HadithSubgenre] = None
+    candidate_subgenres: list[HadithSubgenre] = Field(default_factory=list)
+    genre_dispute: list[str] = Field(default_factory=list)
     authority_level: Optional[AuthorityLevel] = None
     is_multi_layer: bool = False
+    multi_layer_evidence: list[str] = Field(default_factory=list)
+    matn_embedding_style: Optional[Literal["interlinear", "separated", "marginal", "mazj"]] = None
     text_layers: list[TextLayer] = Field(default_factory=list)
     trust_tier: TrustTier = TrustTier.VERIFIED
     trust_score: float = Field(default=0.0, ge=0.0, le=1.0)
@@ -805,7 +915,7 @@ class SourceMetadata(BaseModel):
     hint_investigation: list[HintInvestigation] = Field(default_factory=list)
     admission_reason: Optional[str] = None
     display_card: Optional[DisplayCard] = None
-    work_relationships: list[dict[str, Any]] = Field(default_factory=list)
+    work_relationships: list[WorkRelationship] = Field(default_factory=list)
     study_quality_risk_flags: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")

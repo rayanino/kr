@@ -309,7 +309,9 @@ def _fallback_work_output(dossier: IntakeDossier) -> WorkOutput:
         )
         for candidate in dossier.work_identity_proposal.candidates
     ]
-    return WorkOutput(status="definitive", positions=positions)
+    ordered = sorted(positions, key=lambda item: item.confidence, reverse=True)
+    status = "definitive" if len(ordered) == 1 else "disputed"
+    return WorkOutput(status=status, positions=ordered)
 
 
 def _case_record(
