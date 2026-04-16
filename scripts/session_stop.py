@@ -119,7 +119,12 @@ def get_pending_decisions(project_dir: Path) -> list[str]:
 
 
 def get_plan_file(project_dir: Path) -> str | None:
-    """Find the active plan file if one exists."""
+    """Find the active plan file if one exists.
+
+    Only scans the top level of ``.claude/plans/``. Paused or archived
+    plans should live under ``.claude/plans/archived/`` so they do not
+    masquerade as the current frontier.
+    """
     plans_dir = project_dir / ".claude" / "plans"
     if not plans_dir.exists():
         return None
