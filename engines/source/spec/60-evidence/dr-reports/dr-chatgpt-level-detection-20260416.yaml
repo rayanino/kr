@@ -984,112 +984,359 @@ reviewer_findings:
 
   gemini_cli_source_code_review:
     dispatched: '2026-04-16'
-    method: Bash gemini --approval-mode plan -p, on the 6 Codex-authored source-engine commits from 2026-04-14 through 2026-04-16
+    method: >-
+      Two Gemini CLI runs were completed against the same prompt. Run A was
+      an automated bash dispatch (gemini --approval-mode plan -p) which hit
+      gemini-3.1-pro-preview 429 rate limits and retried. Run B was an
+      owner-initiated manual invocation with clean output. Output varied
+      stochastically between the two runs — both caught real issues; neither
+      was a superset of the other. Findings below are the MERGED SET across
+      both runs, with provenance noted per finding.
     scope: NOT the 7 DR-1 integration atoms — reviews recent production code for Arabic scholarly accuracy
     verdict: FIX_REQUIRED (separate work track from DR-1 integration)
-    commits_all_flagged: true
+    stochasticity_note: >-
+      Gemini CLI returns different findings on repeat runs of the same prompt.
+      Critical/High findings showed ~60% overlap between Run A and Run B;
+      the remaining ~40% were unique to one run or the other. For future
+      Arabic scholarly reviews via Gemini CLI, dispatching 2+ runs and
+      merging captures more ground than any single run. Verdict divergence
+      on e0326c3e1 and 6efbfee45 (Run A flagged both; Run B passed both)
+      means next session must verify the flagged findings independently
+      before acting on them.
+    authoritative_run: >-
+      Run B (owner's clean manual invocation) is treated as authoritative
+      for verdicts where the two runs disagree, because Run A suffered from
+      429-retry noise that may have polluted its output. Next session should
+      verify any Run-A-only finding by direct code inspection before
+      amending.
+
+    per_commit_verdicts:
+      744a1c3cd:
+        verdict: FLAG
+        rationale: Undocumented .replace() on isnads; pipeline silently drops upstream metadata fields at handoff.
+        both_runs_agree: true
+      efc023ad9:
+        verdict: FLAG
+        rationale: Test fixtures use synthetic placeholder Arabic (كتاب الاختبار) rather than real scholarly text.
+        both_runs_agree: true
+      e0326c3e1:
+        verdict: PASS
+        rationale: >-
+          Per Run B — scholar matching correctly preserves Taa Marbuta and applies
+          safe, documented alef/hamza normalization. Run A had flagged this commit,
+          but Run B's direct inspection of shared/scholar_authority/src/name_matching.py
+          established the code is clean. Run A was likely confused by 429-retry noise.
+        run_divergence: "Run A FLAG → Run B PASS. Next session: verify by direct inspection of name_matching.py before trusting the PASS verdict."
+      91d22de85:
+        verdict: FLAG
+        rationale: Deterministic fallbacks silently guess metadata values (Genre.OTHER, structural mutations) instead of failing loudly.
+        both_runs_agree: true
+      6efbfee45:
+        verdict: PASS
+        rationale: >-
+          Per Run B — unused test variable removal was a safe cleanup without
+          logic degradation. Run A had flagged synthetic PDF Arabic generation
+          in this commit's neighbor file test_step_60_admission.py, but that
+          finding is about a different commit's artifact.
+        run_divergence: "Run A FLAG → Run B PASS. The Run A finding about PyMuPDF unshaped Arabic is a separate issue affecting test_step_60_admission.py fixtures, not the 6efbfee45 cleanup itself."
+      357c1ec05:
+        verdict: FLAG
+        rationale: Incomplete hadith subgenre mapping misses صحيح, مصنف, موطأ which risks misrouting prominent texts.
+        both_runs_agree: true
+
     findings:
+
       - severity: CRITICAL
-        title: Loss of composite work metadata at admission boundary
-        file: engines/source/src/admission.py:110-128
+        title: Pipeline silently drops upstream IntakeDossier fields at handoff
+        file: engines/source/src/admission.py
+        line_range:
+          run_b: "247-257 (_build_handoff_bundle)"
+          run_a: "110-128 (_finalize_metadata)"
         issue: >-
-          _finalize_metadata does not map composite_work_type, sub_work_inventory,
-          or contains_isnad_chains into the finalized SourceMetadata. D-023
-          metadata preservation violated at the admission boundary.
+          Missing from SourceMetadata schema AND from _build_handoff_bundle:
+          contains_isnad_chains, sub_work_inventory, composite_work_type.
+          D-023 metadata preservation violated. Both runs agree the fields
+          are dropped; they differ only on which function-entry point they
+          cite. Next session should verify against current HEAD.
+        commits: [744a1c3cd, 91d22de85]
+        principle_violated: "5 (D-023 metadata preservation)"
+        recommendation: >-
+          Add contains_isnad_chains, sub_work_inventory, and composite_work_type
+          to SourceMetadata and NormalizationHandoffBundle. Explicitly map them
+          in _finalize_metadata and _build_handoff_bundle.
+        provenance: both_runs
+
+      - severity: CRITICAL
+        title: Deterministic fallbacks silently overwrite missing metadata
+        file: engines/source/src/deliberation.py
+        line_range:
+          run_b: "175-184 (_populate_deterministic_metadata)"
+          run_a: "269, 285 (_infer_genre, _infer_structural_format)"
+        issue: >-
+          Silent overwrites map unknown titles to Genre.OTHER and silently
+          mutate structural formats. In a scholarly archive, silent defaults
+          are integrity failures — they propagate wrong classifications
+          downstream without any audit trail.
         commit: 91d22de85
-      - severity: HIGH
-        title: Test suite enforces forbidden Taa Marbuta folding
-        file: tests/test_deterministic.py:29
+        principle_violated: "6 (Deterministic fallbacks must not silently default)"
+        recommendation: >-
+          Remove the silent overwrites. If metadata.genre cannot be
+          confidently inferred, raise a SourceEngineError (or flag as
+          UNKNOWN with explicit provenance) to halt the pipeline. Same for
+          structural_format.
+        severity_escalation: >-
+          Run A classified this as HIGH; Run B escalated to CRITICAL.
+          Aligned with KR's "errors fail loudly" rule (CLAUDE.md Critical
+          Rule #4), CRITICAL is correct.
+        provenance: both_runs
+
+      - severity: CRITICAL
+        title: Colophon-role verification gap — copyist vs author conflation
+        file: architectural (cross-atom)
         issue: >-
-          Test case ("ابن تيمية", "ابن تيميه") locks in ة→ه fold. The underlying
-          eval_harness.normalize_arabic_name function folds Taa Marbuta — a
-          forbidden operation per Arabic scholarly rules (صلاة "prayer" vs
-          صلاه "he prayed it" have different meanings). Active scholarly
-          corruption risk wherever normalize_arabic_name is called.
-        commit: efc023ad9
-      - severity: HIGH
-        title: Deterministic fallbacks silently guess
-        file: engines/source/src/deliberation.py:269, 285
-        issue: >-
-          _infer_genre defaults to Genre.OTHER; _infer_structural_format defaults
-          to StructuralFormat.PROSE when classification fails. Violates KR's
-          "errors must fail loudly" rule. Should raise SourceEngineError or flag
-          as UNKNOWN.
-        commit: 91d22de85
-      - severity: HIGH
-        title: Incomplete hadith subgenre taxonomy
-        file: engines/source/src/deliberation.py:294-325
-        issue: >-
-          _infer_hadith_subgenre missing: صحيح، مصنف، موطأ، أمالي، فوائد، مشيخة،
-          عوالي، مسلسلات، مراسيل. Unmatched genres silently return None.
-        commit: 357c1ec05
-      - severity: MEDIUM
-        title: Undocumented .replace() on Arabic text
-        files:
-          - engines/source/src/pipeline.py:307
-          - engines/source/src/deliberation.py:361
-        issue: >-
-          simplified = "".join(...).replace("أ", "ا") strips hamza; title.strip(" -–,:،")
-          punctuation cleanup. Needs docstring justification per Arabic safety rules.
+          The engine blindly trusts upstream AuthorOutputPosition attribution
+          without verifying colophon roles. Classical conventions distinguish
+          the name after كتبه (copyist/nasikh) from the name after ألفه or
+          صنفه (author/muallif). If upstream agents conflate the two, the
+          pipeline currently possesses NO architectural defense to catch
+          this. Per CLAUDE.md and arabic-scholarly-conventions.md, this is
+          a #1-rank integrity failure — author misattribution is listed as
+          the most dangerous class of error in the project.
         commits: [744a1c3cd, e0326c3e1]
-      - severity: MEDIUM
-        title: ASCII "content" in test fixture where real Arabic required
-        file: tests/test_error_paths.py:67
+        principle_violated: "CLAUDE.md Critical Rule — zero-tolerance for attribution errors; arabic-scholarly-conventions.md copyist/author distinction"
+        recommendation: >-
+          Introduce an architectural defense (new INV-SRC-XXXX or
+          REQ-SRC-XXXX) requiring the source engine to verify colophon-role
+          attribution against detected colophon markers (كتبه, ألفه, صنفه,
+          نسخه, etc.) before accepting an AuthorOutputPosition. This is
+          scope for the amendment pass Track A.
+        provenance: run_b_only
+        next_session_action: VERIFY and convert into a new atom.
+
+      - severity: HIGH
+        title: Incomplete classical hadith taxonomy mapping
+        file: engines/source/src/deliberation.py
+        line_range:
+          run_b: "315-342 (_infer_hadith_subgenre)"
+          run_a: "294-325 (_infer_hadith_subgenre)"
+        issue: >-
+          Missing primary subgenres. Run A and Run B each named a slightly
+          different subset of missing terms; the MERGED missing set is:
+          صحيح, مصنف, موطأ, مراسيل, مسلسلات, عوالي, أمالي, فوائد, مشيخة.
+        commit: 357c1ec05
+        principle_violated: "4 (Hadith subgenre exhaustiveness)"
+        recommendation: >-
+          Add keyword branches in _infer_hadith_subgenre for the missing
+          classical subgenres. Add test coverage asserting proper routing
+          for each (e.g., صحيح البخاري → sahih; مصنف عبد الرزاق → musannaf;
+          موطأ مالك → muwatta). Returning None for prominent classical
+          works is a silent misclassification.
+        provenance: both_runs
+
+      - severity: HIGH
+        title: Undocumented Python .replace() on Arabic scholarly text
+        file: engines/source/src/pipeline.py
+        line_range:
+          run_b: "328-330 (_contains_isnad)"
+          run_a: "307 (_contains_isnad)"
+        issue: >-
+          .replace("أ", "ا").replace("إ", "ا").replace("آ", "ا").replace("ى", "ي")
+          chain normalizes alef/hamza/alif maqsura forms. The intent appears
+          benign (regex-robust isnad detection on a local boolean-check
+          variable, not mutation of primary text), but no docstring documents
+          this. Per arabic-text rules, any .replace() on Arabic strings
+          requires an inline comment documenting the contextual justification.
+        commit: 744a1c3cd
+        principle_violated: "1 (Zero use of Python str methods without documented justification)"
+        recommendation: >-
+          Add an inline comment: "# safe: normalized copy used ONLY for
+          regex isnad detection; primary text is not mutated." If the
+          pattern is used elsewhere, extract to a named helper with
+          docstring explaining scope.
+        provenance: both_runs
+
+      - severity: HIGH
+        title: "Taa Marbuta fold locked into tests/test_deterministic.py (Run A only — VERIFY)"
+        file: "tests/test_deterministic.py:29 (Run A finding)"
+        issue: >-
+          Run A reported a test case ("ابن تيمية", "ابن تيميه") at line 29
+          that asserts Taa Marbuta folding (ة→ه). Run B did NOT surface
+          this. Run B's PASS verdict on e0326c3e1 established that
+          shared/scholar_authority/src/name_matching.py is clean. Those are
+          different files. Next session must read tests/test_deterministic.py
+          directly to confirm whether the fold test exists and whether the
+          function it tests (eval_harness.normalize_arabic_name per Run A)
+          actually folds Taa Marbuta.
         commit: efc023ad9
+        principle_violated: "1 (Zero Taa Marbuta fold)"
+        provenance: run_a_only
+        next_session_action: VERIFY by reading tests/test_deterministic.py:29 and eval_harness.normalize_arabic_name. If Run A was right, fix the fold as part of Track B. If Run A hallucinated (possible given 429 retry noise), close this finding.
+
       - severity: MEDIUM
-        title: PyMuPDF insert_text produces unshaped Arabic
+        title: Synthetic placeholder Arabic in test fixtures
+        file: engines/source/tests/test_error_paths.py
+        line_range:
+          run_b: "134-149 (_base_request)"
+          run_a: "67"
+        issue: >-
+          Run B's specific finding: placeholder values كتاب الاختبار
+          ("book of the test") and مؤلف الاختبار ("author of the test")
+          are valid Arabic syntactically but are synthetic scholarly
+          placeholders — NOT real scholarly text. Per testing.md, all tests
+          must use real Arabic from tests/fixtures/. Run A's finding was
+          about ASCII "content" at line 67. Both are the same class of
+          violation. This is a GPT-family blind spot that the domain
+          reviewer caught.
+        commit: efc023ad9
+        principle_violated: "7 (Test fixtures must use real Arabic)"
+        recommendation: >-
+          Replace placeholders with titles and authors from
+          tests/fixtures/shamela_real/ (e.g., رسالة في أصول الفقه from
+          06_usul; real author names from genuine fixtures).
+        provenance: both_runs (different line numbers, same class)
+
+      - severity: MEDIUM
+        title: "lowered_title = title — Latin-script-casing hallucination in Arabic pipeline (Run B only)"
+        file: engines/source/src/deliberation.py
+        issue: >-
+          A no-op variable declaration lowered_title = title in the
+          deliberation module. The NAME (lowered_title) reveals the author
+          applied Latin-script casing concepts to an Arabic-only scholarly
+          pipeline. Even though the assignment is effectively a copy (no
+          .lower() is called), the variable's existence is a lingering
+          artifact of misapplied linguistic assumption — exactly the kind
+          of pattern that predicts future bugs when a contributor adds
+          .lower() to match the variable name. GPT-family reviewers would
+          see "harmless no-op" and move on; a domain-aware reviewer sees
+          the architectural hallucination.
+        commit: unspecified (exists in multiple recent Codex commits)
+        principle_violated: "CLAUDE.md — Arabic text handling"
+        recommendation: >-
+          Remove the variable entirely (inline the usage); or rename it to
+          title_normalized with a docstring explaining any normalization
+          (if none, just delete). Audit the codebase for similar "lowered_X"
+          / "cased_X" identifiers.
+        provenance: run_b_only
+
+      - severity: MEDIUM
+        title: PyMuPDF insert_text produces unshaped Arabic in test fixture (Run A only)
         file: engines/source/tests/test_step_60_admission.py:140
-        issue: Need arabic_reshaper + bidi.algorithm or pre-compiled PDF fixture.
+        issue: >-
+          Run A reported that synthetic PDF generation via PyMuPDF does not
+          shape Arabic — text layer is disconnected (glyphs out of order,
+          no ligatures). Run B did not surface this. If the fixture is
+          used, downstream tests against it will see corrupted PDF text.
         commit: 6efbfee45
-    cross_cutting_pattern: >-
-      Codex CLI over-optimizes for happy-path automated testing using synthetic
-      Arabic + English stand-ins, and adds string normalization functions to
-      boost test match rates at the cost of semantic destruction.
+        principle_violated: "7 (Test fixtures must be real Arabic)"
+        recommendation: >-
+          Either pre-shape with arabic_reshaper + bidi.algorithm before
+          insert_text, or use a pre-compiled PDF fixture containing
+          correctly-shaped Arabic text.
+        provenance: run_a_only
+        next_session_action: VERIFY by inspecting tests/test_step_60_admission.py:140.
+
+    cross_cutting_patterns:
+      - >-
+        "Safe" operations with blind spots: code applies operations that
+        look safe in isolation (e.g. isnad detection, genre keyword mapping)
+        but the implementation reveals a lack of native Arabic linguistic
+        awareness — artifacts like lowered_title, undocumented .replace
+        chains, synthetic placeholder Arabic. The pipeline works but leaks
+        "was written by a non-Arabic-native model" signals.
+      - >-
+        The engine blindly trusts upstream AuthorOutputPosition attribution
+        without verifying colophon roles (كتبه vs ألفه). A #1-rank integrity
+        failure mode has no architectural defense. This is NEW territory
+        surfaced by Run B that needs a new atom.
+      - >-
+        Codex CLI over-optimizes for happy-path testing with synthetic
+        Arabic + English stand-ins (Run A observation). String normalization
+        added to boost test match rates at cost of semantic destruction.
+
+    gaps_gpt_reviewers_would_miss:
+      - "lowered_title assignment: GPT sees harmless no-op; domain-aware reviewer sees Latin-script-casing hallucination applied to Arabic-only pipeline."
+      - "Synthetic Arabic: GPT sees valid Arabic syntax; domain-aware reviewer sees synthetic placeholder that violates real-fixture testing rule."
+      - "Silent defaults: GPT praises Genre.OTHER as defensive engineering; domain-aware reviewer sees integrity failure hiding unknowns."
+      - "Undocumented .replace() chains: GPT overlooks because only a local boolean-check variable is affected; domain-aware reviewer enforces documentation rule regardless of scope."
+      - "Colophon roles: GPT trusts upstream attribution; domain-aware reviewer demands architectural defense against copyist/author conflation — the #1-rank integrity failure."
 
 combined_verdict_across_all_reviewers: NEEDS_REWORK
 primary_blockers_for_implementation:
   - "R3 C1: Genre enum mismatch (3/4 non-applicable values unreachable)"
   - "R3 T1: Deferred-validation surface undefined"
-  - "Gemini CRITICAL: Composite metadata loss at admission boundary"
-  - "Gemini HIGH: Taa Marbuta fold enforced by test (active corruption risk)"
+  - "Gemini CRITICAL (Run B): Pipeline silently drops upstream IntakeDossier fields at handoff (composite_work_type, sub_work_inventory, contains_isnad_chains)"
+  - "Gemini CRITICAL (Run B, Run A escalated): Deterministic fallbacks silently overwrite missing metadata (Genre.OTHER, StructuralFormat.PROSE)"
+  - "Gemini CRITICAL (Run B only, VERIFY): Colophon-role verification gap — no architectural defense against copyist/author conflation (#1-rank integrity failure per CLAUDE.md)"
+  - "Gemini HIGH (Run A only, VERIFY): Taa Marbuta fold enforced by tests/test_deterministic.py:29 test case"
 
 amendment_plan_synthesized:
   track_a_atom_amendments:
     new_atoms:
-      - "REQ-SRC-0048: deferred-validation handoff protocol (fixes T1)"
-      - "CON-SRC-0011 (or CON-SRC-0004 extension): WorkLevel enum anchor with corrected classical terminology"
+      - "REQ-SRC-0048: deferred-validation handoff protocol (fixes R3 T1)"
+      - "CON-SRC-0011 (or CON-SRC-0004 extension): WorkLevel enum anchor with corrected classical terminology (mutaqaddim → muntahi, or contract to 3 tiers)"
+      - "INV-SRC-NEW (colophon defense): Source engine MUST verify colophon-role attribution (كتبه copyist vs ألفه/صنفه author) before accepting AuthorOutputPosition. Grounded in arabic-scholarly-conventions.md + Gemini CLI Run B cross-cutting finding. VERIFY by reading current admission flow before atom design — confirm no existing verification exists."
     atom_amendments:
-      REQ-SRC-0030: Add mushaf, rijal_dictionary, majmu to genre enum (fixes C1).
+      REQ-SRC-0030: Add mushaf, rijal_dictionary, majmu to genre enum (fixes C1). Route composite_work_type=majmu → genre=majmu.
       INV-SRC-0012: >-
-        Pick one semantic (blocking not fatal); expand non-applicable genre list;
-        split hadith_collection into pedagogical vs reference; make error-raise
-        site ordering explicit.
+        Pick one semantic (blocking not fatal); expand non-applicable genre list
+        (add mujam, fihris, thabat, tabaqat, tarajim, fatawa, awrad, amali,
+        ijazat); split hadith_collection into pedagogical vs reference; make
+        error-raise site ordering explicit (intake if genre known, post-
+        deliberation if genre was pending).
       REQ-SRC-0047: >-
         Downgrade non-applicable rejection from fatal to blocking; add
         pending_level_override staging postcondition; distinguish absent/empty/invalid
-        override values; enrich audit-trail fields; add missing depends_on.
+        override values; enrich audit-trail fields ({provenance,
+        owner_identity_token, iso_timestamp, optional_rationale_text}); add
+        missing depends_on (REQ-SRC-0030, CON-SRC-0004); add level_provenance
+        stickiness (prevent silent overwrite by synthesis).
       REQ-SRC-0046: >-
-        Require upstream producers to emit all keys as null when absent; fix nested
-        Optional serialization spec; add genre_dispute to serialized set; add AC
-        for contains_isnad_chains; parameterize 16-field AC; add missing depends_on.
+        Require upstream producers to emit all keys as null when absent; fix
+        nested Optional serialization spec (exact muhaqiq_output shape); add
+        genre_dispute to serialized set; add AC for contains_isnad_chains
+        passthrough; parameterize 16-field AC; add missing depends_on
+        (REQ-SRC-0036, DEC-SRC-0018).
       REQ-SRC-0007: Add precondition that owner_level_override has passed REQ-SRC-0047 validation.
       INV-SRC-0011: >-
-        Consistent transliteration; soften "systematically lie" to "insufficient";
-        propagate malakah-formation Ibn Khaldun phrasing; add positive-assertion AC.
+        Consistent transliteration (ALA-LC or IJMES convention applied
+        uniformly); soften "systematically lie" to "insufficient"; propagate
+        malakah-formation Ibn Khaldun phrasing (Muqaddimah Book VI Ch 6);
+        add positive-assertion AC (call-counter or provenance-absence check).
       DEC-SRC-0003: >-
-        Update OPT-A rejection with malakah-formation language; reframe "three-stage
-        cascade" as fann → nawʿ/layer → martaba.
+        Update OPT-A rejection with malakah-formation language; reframe
+        "three-stage cascade" as "fann → nawʿ/layer → martaba" (classical
+        organization per Ibn Khaldun Muqaddimah Book VI). Fix mutaqaddim →
+        muntahi in rationale prose if WorkLevel enum is renamed.
   track_b_code_fixes:
-    - "Rename ErrorCode.EVIDENCE_DROPPED → HANDOFF_EVIDENCE_DROPPED in contracts.py"
-    - "Add LEVEL_INFERENCE_FORBIDDEN, LEVEL_OVERRIDE_INVALID, LEVEL_OVERRIDE_NONAPPLICABLE, LEVEL_OVERRIDE_GENRE_UNRESOLVED"
-    - "Fix Taa Marbuta test + underlying eval_harness.normalize_arabic_name function"
-    - "Replace silent defaults in _infer_genre/_infer_structural_format with fail-loud path"
-    - "Expand _infer_hadith_subgenre keyword map with missing classical subgenres"
-    - "Map composite_work_type, sub_work_inventory, contains_isnad_chains through _finalize_metadata"
-    - "Document Arabic .replace/.strip usage with scholarly justification"
-    - "Replace ASCII test content + synthetic PDF Arabic with real fixtures"
+    error_code_changes:
+      - "Rename ErrorCode.EVIDENCE_DROPPED → HANDOFF_EVIDENCE_DROPPED in contracts.py (disambiguate from existing PDF-TEXT-EVIDENCE-DROPPED)"
+      - "Add LEVEL_INFERENCE_FORBIDDEN (for INV-SRC-0011 enforcement)"
+      - "Add LEVEL_OVERRIDE_INVALID (consider severity blocking not fatal)"
+      - "Add LEVEL_OVERRIDE_NONAPPLICABLE (blocking semantics)"
+      - "Add LEVEL_OVERRIDE_GENRE_UNRESOLVED (for genre=null post-deliberation)"
+    metadata_plumbing:
+      - "Add composite_work_type, sub_work_inventory, contains_isnad_chains to SourceMetadata schema and NormalizationHandoffBundle (contracts.py)"
+      - "Explicitly map the above in _finalize_metadata AND _build_handoff_bundle in admission.py"
+    fail_loud_fixes:
+      - "Replace silent defaults in _infer_genre (deliberation.py:269 or equivalent) with raise SourceEngineError when genre cannot be confidently inferred"
+      - "Replace silent defaults in _infer_structural_format (deliberation.py:285 or equivalent) similarly"
+    hadith_taxonomy:
+      - "Expand _infer_hadith_subgenre keyword map with the merged missing subgenres: صحيح, مصنف, موطأ, مراسيل, مسلسلات, عوالي, أمالي, فوائد, مشيخة"
+      - "Add test coverage asserting routing for each new subgenre (e.g., صحيح البخاري → sahih; مصنف عبد الرزاق → musannaf; موطأ مالك → muwatta)"
+    arabic_safety:
+      - "Document the .replace() chain in pipeline.py _contains_isnad with inline comment: # safe: normalized copy used only for regex isnad detection; primary text is not mutated"
+      - "Document .strip() uses in deliberation.py _extract_target similarly"
+      - "REMOVE lowered_title = title no-op variable in deliberation.py (Latin-script-casing hallucination applied to Arabic-only pipeline — GPT-family artifact)"
+    test_fixtures:
+      - "Replace synthetic placeholder Arabic (كتاب الاختبار, مؤلف الاختبار) in tests/test_error_paths.py _base_request with real fixture values from tests/fixtures/shamela_real/"
+      - "Replace ASCII test content in tests/test_error_paths.py:67 with real Arabic"
+      - "VERIFY and fix Taa Marbuta fold in tests/test_deterministic.py:29 (Run A finding — next session must confirm by direct file inspection before acting)"
+      - "VERIFY and fix PyMuPDF unshaped Arabic in tests/test_step_60_admission.py:140 (Run A finding — use arabic_reshaper + bidi.algorithm or pre-compiled PDF fixture)"
   track_c_doc:
-    - "Update engines/source/CLAUDE.md: remove stale 'no production code exists yet' line"
+    - "Update engines/source/CLAUDE.md: remove stale 'no production code exists yet' line — substantial code now exists in engines/source/src/ and engines/source/contracts.py"
+  track_d_architectural:
+    - "Investigate the colophon-role verification gap surfaced by Gemini CLI Run B. Determine whether an architectural defense should be a new INV (must verify) or REQ (must implement). This is the #1-rank integrity failure per CLAUDE.md's zero-tolerance-for-attribution-errors rule."
+    - "Investigate MetadataDeliberationInput production wiring gap (Explore agent follow-up). If metadata_deliberation step is not reachable from production pipeline.py, that's a separate production-readiness blocker."
 
 # ===== INTEGRATION VERIFICATION =====
 

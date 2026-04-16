@@ -30,13 +30,13 @@ Canonical engine state: `engines/source/CLAUDE.md`
   - R1 spec-contract-architect (via Codex CLI): NEEDS_AMENDMENT — genre-enum gap, WorkLevel not pinned to an atom, error-code overlap, 10 of 17 ACs fail today.
   - R2 spec-domain-validator (via Gemini CLI): NEEDS_AMENDMENT — WorkLevel terminology wrong (mutaqaddim ≠ advanced; specialist has no classical anchor); non-applicable genre list under-inclusive; hadith_collection conflates pedagogical vs reference.
   - R3 spec-team-adversary (pre-mortem): **NEEDS_REWORK** — 2 BLOCKERS (genre enum mismatch makes 3/4 non-applicable values unreachable; deferred-validation surface undefined), plus 5 HIGH findings.
-  - Gemini CLI source-commit review: CRITICAL + 3 HIGH + 3 MEDIUM on recent Codex commits. Taa Marbuta fold enforced in tests (active scholarly corruption risk).
+  - Gemini CLI source-commit review: TWO runs (automated bash + owner manual). Merged findings: 3 CRITICAL (composite metadata loss at handoff; deterministic fallbacks silently overwriting; **colophon-role verification gap — no architectural defense against copyist/author conflation, the #1-rank integrity failure per CLAUDE.md**), 2 HIGH (incomplete hadith taxonomy; undocumented .replace chain), 2 MEDIUM (synthetic placeholder Arabic; lowered_title Latin-script hallucination). Run A also flagged Taa Marbuta fold in tests/test_deterministic.py:29 and unshaped PDF Arabic — both VERIFY-before-acting because Run B didn't surface them. Full merged findings in the DR evidence file's `gemini_cli_source_code_review` section.
 
 ### Claude DR twin — ARRIVED, NOT YET INTEGRATED
 
 Claude DR on the same level-detection question is in. Owner flagged it as "extremely thorough" and flagged that the previous session's context was too full to absorb it. This is the primary task for the next session.
 
-Location: Claude chat Deep Research artifact (owner to provide path or paste). Previous ChatGPT DR was at `Downloads/deep-research-report (33).md` — Claude DR may be at a compass_artifact_wf-*.md file path or similar.
+Location: `C:\Users\Rayane\Downloads\compass_artifact_wf-93f303b5-e843-4c0b-99cb-7f4024d62b06_text_markdown (1).md`. The previous ChatGPT DR was at `Downloads/deep-research-report (33).md` (already integrated in commit f26997c4c). This Claude DR file is the twin to cross-check convergence against.
 
 Integration pattern to follow (mirror what was done for ChatGPT DR):
 1. Read the full Claude DR
@@ -49,10 +49,11 @@ Integration pattern to follow (mirror what was done for ChatGPT DR):
 
 1. **Read Claude DR completely and produce 46-equivalent paragraph inventory.**
 2. **Convergence check vs ChatGPT DR.** If Claude DR also recommends OPT-B and agrees on science+layer conditioning, proceed. If it recommends OPT-A or OPT-C, halt and dispatch adjudication (Codex + Gemini + possibly a third DR).
-3. **Execute the amendment pass (Track A + Track B + Track C).** The synthesized plan is in the DR evidence file under `amendment_plan_synthesized`. Key items:
-   - **Track A (atom amendments):** 2 new atoms (REQ-SRC-0048 deferred-validation, CON-SRC-0011 WorkLevel enum) + 7 existing atom amendments covering all R1/R2/R3 findings
-   - **Track B (code fixes):** contracts.py ErrorCode changes, fix Taa Marbuta fold, replace silent defaults, expand hadith subgenre map, plumb composite_work_type/sub_work_inventory/contains_isnad_chains through _finalize_metadata
+3. **Execute the amendment pass (Track A + Track B + Track C + Track D).** The synthesized plan is in the DR evidence file under `amendment_plan_synthesized`. Key items:
+   - **Track A (atom amendments):** 3 new atoms (REQ-SRC-0048 deferred-validation, CON-SRC-0011 WorkLevel enum, plus an INV-SRC-NEW for colophon-role verification) + 7 existing atom amendments covering all R1/R2/R3 findings
+   - **Track B (code fixes):** contracts.py ErrorCode changes, plumb composite_work_type/sub_work_inventory/contains_isnad_chains through admission, replace silent defaults with fail-loud, expand _infer_hadith_subgenre with missing classical subgenres, remove the `lowered_title = title` Latin-script hallucination, document .replace chains, replace synthetic placeholder Arabic in tests, VERIFY-then-fix Taa Marbuta test + PyMuPDF Arabic (Run A-only findings)
    - **Track C (doc):** fix stale `engines/source/CLAUDE.md` "no production code exists yet" line
+   - **Track D (architectural investigation):** colophon-role verification gap (is there currently NO architectural defense against كتبه/ألفه conflation?) + MetadataDeliberationInput production-pipeline-wiring gap (Explore agent followup)
 4. **Re-dispatch reviewer wave on amended atoms** before declaring amendment pass complete.
 5. **Then** (only then) close OQ-SRC-0005 via DR-2 on agent monitoring scope.
 
