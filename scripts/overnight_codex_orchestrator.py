@@ -138,7 +138,7 @@ Absolute rules:
 - Never run git commit, git push, git rebase, git reset, or git checkout.
 - Never invent roadmap work or architecture ownership.
 - Use only local repo evidence and local commands. No web work.
-- Ignore NEXT.md, AGENT_TEAM_HANDOFF.md, integration handoff docs, and unrelated planning files unless the task explicitly names them.
+- Ignore NEXT.md, integration handoff docs, and unrelated planning files unless the task explicitly names them.
 - Prefer reading only the files named by the task and their directly adjacent tests or helpers.
 - Final response must be valid JSON matching the provided schema.
 """
@@ -154,7 +154,7 @@ Absolute rules:
 - Never run git commit, git push, git rebase, git reset, or git checkout.
 - Never edit engine SPEC.md files or planning documents.
 - Prefer regression tests and local bug fixes over broader refactors.
-- Ignore NEXT.md, AGENT_TEAM_HANDOFF.md, integration handoff docs, and unrelated planning files unless the task explicitly names them.
+- Ignore NEXT.md, integration handoff docs, and unrelated planning files unless the task explicitly names them.
 - Prefer reading only the files named by the task and their directly adjacent tests or helpers.
 - Do not attempt to launch long integration runs; the orchestrator will perform post-change validation outside your sandbox.
 - Final response must be valid JSON matching the provided schema.
@@ -921,7 +921,7 @@ def build_prompt(task: CodexTaskDef) -> str:
         "Boundaries:\n"
         f"- {'Read-only inspection only.' if task.write_policy == 'readonly' else 'Only bounded local code/test changes needed for this task.'}\n"
         "- You are a low-authority employee, not the architect or roadmap owner.\n"
-        "- Ignore NEXT.md, AGENT_TEAM_HANDOFF.md, docs/superpowers/, overnight/, overnight_codex/, and .claude unless the task explicitly names them.\n"
+        "- Ignore NEXT.md, docs/superpowers/, overnight/, overnight_codex/, and .claude unless the task explicitly names them.\n"
         "- Never use this prompt or the orchestrator itself as evidence unless the task explicitly targets it.\n"
         "- Never run git commit/push/rebase/reset/checkout.\n"
         "- Do not spend time trying to bootstrap Python or launch long integration runs inside your sandbox; inspect code/tests locally and let the orchestrator perform host-side validation.\n\n"
