@@ -688,7 +688,15 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
             confidence=0.51,
             source_agent="agent_a",
             death_hijri=None,
-        )
+        ),
+        AuthorOutputPosition(
+            position="مؤلف مجهول",
+            display_name="مؤلف مجهول",
+            evidence=["title_page"],
+            confidence=0.48,
+            source_agent="agent_b",
+            death_hijri=None,
+        ),
     ]
 
     result = source_pipeline.metadata_deliberation(

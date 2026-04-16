@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import os
 import re
 import shutil
 import unicodedata
@@ -40,6 +41,7 @@ from engines.source.contracts import (
     SourceFormat,
     SourcePathKind,
     TitleEvidence,
+    WarningCode,
     WorkIdentityCandidate,
     WorkIdentityProposal,
 )
@@ -91,7 +93,7 @@ class SourcePipeline:
         frozen_blob_path = self._freeze_source(source_path, source_id)
         frozen_manifest = self._build_manifest(Path(frozen_blob_path))
         if self._hash_manifest(frozen_manifest) != source_sha256:
-            raise SourceEngineError(ErrorCode.INTEGRITY_CORRUPT, source_path.as_posix())
+            raise SourceEngineError(ErrorCode.FREEZE_VERIFY, source_path.as_posix())
         frozen = FrozenSource(
             source_id=source_id,
             source_sha256=source_sha256,
@@ -248,7 +250,7 @@ class SourcePipeline:
                 )
                 for item in ordered
             ],
-            warnings=["mixed_format_directory"],
+            warnings=[WarningCode.MIXED_FORMAT],
         )
 
     def _classify_html_directory(
@@ -431,16 +433,17 @@ class SourcePipeline:
         return path.stem
 
     def _read_text(self, path: Path) -> str:
+        """Read text file with encoding detection per REQ-SRC-0020."""
         raw = path.read_bytes()
         try:
             return raw.decode("utf-8")
         except UnicodeDecodeError:
             best = from_bytes(raw).best()
             if best is None or best.encoding is None:
-                raise SourceEngineError(ErrorCode.INTEGRITY_CORRUPT, path.as_posix())
+                raise SourceEngineError(ErrorCode.ENCODING, path.as_posix())
             decoded = str(best)
             if any(marker in decoded for marker in _MOJIBAKE_MARKERS):
-                raise SourceEngineError(ErrorCode.INTEGRITY_CORRUPT, path.as_posix())
+                raise SourceEngineError(ErrorCode.ENCODING, path.as_posix())
             return decoded
 
     def _contains_isnad(self, content: str) -> bool:
@@ -519,8 +522,11 @@ class SourcePipeline:
         }[suffix]
 
     def _validate_receipt_input(self, path: Path) -> None:
+        """Validate submitted path per REQ-SRC-0001 error_conditions."""
         if not path.exists():
             raise SourceEngineError(ErrorCode.PATH_NOT_FOUND, path.as_posix())
+        if not os.access(path, os.R_OK):
+            raise SourceEngineError(ErrorCode.PATH_UNREADABLE, path.as_posix())
         if path.is_file() and path.stat().st_size == 0:
             raise SourceEngineError(ErrorCode.EMPTY_FILE, path.as_posix())
 

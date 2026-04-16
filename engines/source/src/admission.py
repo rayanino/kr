@@ -79,7 +79,7 @@ def admit_source_and_build_handoff(
         edition_groups=edition_groups or [],
         edition_holdings=edition_holdings or [],
     )
-    apply_supersession(groups, holdings, finalized)
+    apply_supersession(groups, holdings, finalized, dossier.completeness_status)
     return SourceAdmissionResult(raw_upload, [finalized], bundle, None, groups, holdings)
 
 
@@ -134,7 +134,12 @@ def apply_supersession(
     edition_groups: list[EditionGroup],
     edition_holdings: list[EditionHolding],
     source_metadata: SourceMetadata,
+    completeness_status: CompletenessStatus | None = None,
 ) -> None:
+    """Apply supersession per REQ-SRC-0045.
+
+    Guard: partial new holdings must NOT supersede complete old ones.
+    """
     if source_metadata.work_id is None:
         return
     candidate_groups = {group.edition_group_id for group in edition_groups if group.work_id == source_metadata.work_id}
@@ -146,6 +151,15 @@ def apply_supersession(
         return
     superiority_evidence = (source_metadata.edition_info or {}).get("superiority_evidence")
     if superiority_evidence is None:
+        return
+    # REQ-SRC-0045 error_condition: do not supersede a complete holding
+    # with a partial new source. The source's own completeness is the ground
+    # truth, not the holding state (which may be optimistically set).
+    if completeness_status is not None and completeness_status != CompletenessStatus.COMPLETE:
+        logger.warning(
+            "supersession_blocked_by_completeness: source completeness=%s, skipping supersession",
+            completeness_status,
+        )
         return
     primary.preferred_rank = "primary"
     primary.supersession_policy = "regen_required" if source_metadata.genre == "hadith_collection" else "regen_optional"
@@ -176,8 +190,10 @@ def _finalize_metadata(
     frozen: FrozenSource,
     dossier: IntakeDossier,
 ) -> SourceMetadata:
+    """Finalize metadata per REQ-SRC-0025, REQ-SRC-0033."""
     finalized = source_metadata.model_copy(deep=True)
     _validate_mandatory_metadata(finalized)
+    _validate_volume_count(dossier)
     finalized.registry_entry_id = f"reg_{uuid4().hex[:8]}"
     finalized.source_sha256 = frozen.source_sha256
     finalized.frozen_blob_path = frozen.frozen_blob_path
@@ -207,6 +223,9 @@ def _build_handoff_bundle(
     frozen: FrozenSource,
     disagreement_cases: list[DisagreementCaseRecord],
 ) -> NormalizationHandoffBundle:
+    """Build handoff per REQ-SRC-0025, REQ-SRC-0022, REQ-SRC-0007."""
+    _validate_pdf_handoff(source_metadata)
+    _validate_level_field(source_metadata)
     return NormalizationHandoffBundle(
         source_metadata=source_metadata,
         normalization_input=_build_normalization_input(source_metadata),
@@ -240,9 +259,10 @@ def _build_normalization_input(source_metadata: SourceMetadata) -> Normalization
 
 
 def _source_metadata_route(dossier: IntakeDossier) -> NormalizationRoute:
-    return dossier.normalization_route or (
-        NormalizationRoute.PDF_OCR_PRIMARY if dossier.source_format == SourceFormat.PDF else NormalizationRoute.HTML_PARSE_PRIMARY
-    )
+    """Derive route per REQ-SRC-0022: all PDFs use pdf_ocr_primary at handoff."""
+    if dossier.source_format == SourceFormat.PDF:
+        return NormalizationRoute.PDF_OCR_PRIMARY
+    return dossier.normalization_route or NormalizationRoute.HTML_PARSE_PRIMARY
 
 
 def _legacy_source_format(source_metadata: SourceMetadata) -> str:
@@ -303,13 +323,27 @@ def _new_holding(
     source_id: str,
     source_metadata: SourceMetadata,
 ) -> EditionHolding:
+    """Create a new holding.  REQ-SRC-0044 AC-5: indeterminate work identity."""
+    if (
+        source_metadata.work_output is not None
+        and source_metadata.work_output.status == "insufficient_evidence"
+    ):
+        state: Literal[
+            "active_complete", "active_partial", "indeterminate"
+        ] = "indeterminate"
+        logger.warning(
+            "unresolved_work_identity: source_id=%s, creating indeterminate holding",
+            source_metadata.source_id,
+        )
+    else:
+        state = _holding_state(
+            dossier.declared_vs_observed_counts.observed_volume_count or 1,
+            source_metadata.volume_count or 1,
+        )
     return EditionHolding(
         holding_id=f"hold_{uuid4().hex[:8]}",
         edition_group_id=group.edition_group_id,
-        holding_state=_holding_state(
-            dossier.declared_vs_observed_counts.observed_volume_count or 1,
-            source_metadata.volume_count or 1,
-        ),
+        holding_state=state,
         coherence_state="coherent",
         expected_volume_count=source_metadata.volume_count,
         volume_holdings=_volume_holdings(
@@ -384,6 +418,47 @@ def _fingerprints_conflict(
     publisher_conflict = existing.publisher is not None and publisher is not None and existing.publisher != publisher
     muhaqqiq_conflict = existing.muhaqqiq is not None and muhaqqiq is not None and existing.muhaqqiq != muhaqqiq
     return publisher_conflict or muhaqqiq_conflict
+
+
+def _validate_pdf_handoff(source_metadata: SourceMetadata) -> None:
+    """Guard per REQ-SRC-0022: PDF handoff must include text layer status and correct route."""
+    is_pdf = source_metadata.source_format in {
+        SourceFormat.PDF, SourceFormat.PDF_TEXT, SourceFormat.PDF_SCANNED, SourceFormat.PDF_MULTI_VOLUME,
+    }
+    if not is_pdf:
+        return
+    if source_metadata.pdf_text_layer_status is None:
+        raise SourceEngineError(
+            ErrorCode.PDF_STATUS_MISSING,
+            f"source_format={source_metadata.source_format.value} but pdf_text_layer_status is missing",
+        )
+    if source_metadata.normalization_route != NormalizationRoute.PDF_OCR_PRIMARY:
+        raise SourceEngineError(
+            ErrorCode.PDF_ROUTE,
+            f"source_format={source_metadata.source_format.value} requires pdf_ocr_primary route, got {source_metadata.normalization_route}",
+        )
+
+
+def _validate_level_field(source_metadata: SourceMetadata) -> None:
+    """Guard per REQ-SRC-0007: level key must be present (even if null)."""
+    payload = source_metadata.model_dump(mode="json")
+    if "level" not in payload:
+        raise SourceEngineError(
+            ErrorCode.LEVEL_FIELD_MISSING,
+            "handoff payload omits the level key",
+        )
+
+
+def _validate_volume_count(dossier: IntakeDossier) -> None:
+    """Guard per REQ-SRC-0033: multi-volume must have observed_volume_count."""
+    observed = dossier.declared_vs_observed_counts.observed_volume_count
+    if observed is not None and observed > 1:
+        return
+    if observed is None and dossier.declared_vs_observed_counts.declared_volume_count is not None:
+        raise SourceEngineError(
+            ErrorCode.VOLUME_COUNT_MISSING,
+            "multi-volume source has null observed_volume_count",
+        )
 
 
 def _unresolved_disputes(disagreement_cases: list[DisagreementCaseRecord]) -> list[dict[str, object]]:

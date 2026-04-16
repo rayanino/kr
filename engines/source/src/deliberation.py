@@ -128,14 +128,19 @@ def run_metadata_deliberation(
     dossier: IntakeDossier,
     deliberation_input: MetadataDeliberationInput,
 ) -> MetadataDeliberationResult:
+    """Orchestrate step 50 per REQ-SRC-0028, REQ-SRC-0004, REQ-SRC-0026."""
     case_id = _new_case_id()
     if deliberation_input.source_id != source_id:
         raise SourceEngineError(
             ErrorCode.SOURCE_ID_MISMATCH,
             f"metadata deliberation input source_id={deliberation_input.source_id} does not match pipeline source_id={source_id}",
         )
+    _validate_dossier_complete(dossier)
     metadata = _build_source_metadata(deliberation_input, frozen)
-    author_output, disagreement_cases = _resolve_author_output(source_id, deliberation_input.author_positions, case_id)
+    author_output, disagreement_cases = _resolve_author_output(
+        source_id, deliberation_input.author_positions, case_id,
+        verification_agents=deliberation_input.verification_agents,
+    )
     metadata.author_output = author_output
     metadata = compare_owner_hints(metadata, deliberation_input.owner_hint_payload)
     metadata.trust_decision = evaluate_trust_decision(
@@ -146,6 +151,7 @@ def run_metadata_deliberation(
         verification_agents=deliberation_input.verification_agents,
     )
     metadata.work_output = deliberation_input.work_output or _fallback_work_output(dossier)
+    _validate_work_output(metadata.work_output)
     metadata.collection_match_output = deliberation_input.collection_match_output or dossier.collection_match_candidates
     metadata.work_id = _derive_work_id(metadata.work_output, metadata.work_id)
     complexity = assess_case_complexity(
@@ -207,11 +213,43 @@ def _build_source_metadata(
     )
 
 
+def _validate_dossier_complete(dossier: IntakeDossier) -> None:
+    """Guard per REQ-SRC-0028: dossier must be complete for deliberation."""
+    if dossier.completeness_status is None or dossier.integrity_status is None:
+        raise SourceEngineError(
+            ErrorCode.DOSSIER_INCOMPLETE,
+            "intake dossier lacks completeness_status or integrity_status",
+        )
+
+
+def _validate_work_output(work_output: WorkOutput) -> None:
+    """Guard per REQ-SRC-0026: work_output must exist and be evidence-backed."""
+    if work_output is None:
+        raise SourceEngineError(
+            ErrorCode.WORK_OUTPUT_MISSING,
+            "metadata finalization completed without emitting work_output",
+        )
+    if work_output.status == "definitive" and not work_output.positions:
+        raise SourceEngineError(
+            ErrorCode.WORK_EVIDENCE,
+            "definitive work_output has no evidence-backed positions",
+        )
+
+
 def _resolve_author_output(
     source_id: str,
     positions: list[AuthorOutputPosition],
     case_id: str,
+    *,
+    verification_agents: list[str] | None = None,
 ) -> tuple[AuthorOutput, list[DisagreementCaseRecord]]:
+    if verification_agents is not None:
+        distinct_agents = {p.source_agent for p in positions if p.source_agent}
+        if len(distinct_agents) < 2:
+            raise SourceEngineError(
+                ErrorCode.AUTHOR_AGENT_COUNT,
+                f"author attribution requires >= 2 independent agents, got {len(distinct_agents)}",
+            )
     ordered = _ordered_positions(positions)
     if not ordered:
         return AuthorOutput(status="agent_no_evidence", positions=[]), []
