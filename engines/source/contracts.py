@@ -195,10 +195,61 @@ class AttributionStatus(str, Enum):
 
 
 class WorkLevel(str, Enum):
-    BEGINNER = "beginner"
-    INTERMEDIATE = "intermediate"
-    ADVANCED = "advanced"
-    SPECIALIST = "specialist"
+    """Classical pedagogical-level vocabulary per CON-SRC-0011.
+
+    The three-tier ladder mubtadiʾ → mutawassiṭ → muntahī is the classical
+    tradition's own vocabulary for learner progression. The historiographic
+    term ``mutaqaddim`` is REJECTED (category error — it denotes chronological
+    priority among scholars, not pedagogical level).
+    """
+
+    MUBTADI = "mubtadiʾ"
+    MUTAWASSIT = "mutawassiṭ"
+    MUNTAHI = "muntahī"
+
+
+class LevelStatus(str, Enum):
+    """Processing-state enum for SourceMetadata per CON-SRC-0004 middle-path.
+
+    The source engine emits only ``pending_taxonomy``, ``non_applicable_reference``,
+    or ``assigned``; ``unprocessable_error`` is reserved for downstream engines
+    after an attempted level determination concludes the text cannot be leveled.
+    """
+
+    PENDING_TAXONOMY = "pending_taxonomy"
+    NON_APPLICABLE_REFERENCE = "non_applicable_reference"
+    UNPROCESSABLE_ERROR = "unprocessable_error"
+    ASSIGNED = "assigned"
+
+
+class LevelProvenance(str, Enum):
+    """Origin-tracking for an assigned ``level`` per ADV-012 stickiness.
+
+    Populated IFF ``level`` is non-null. Prevents a downstream engine from
+    silently overwriting an owner-asserted level.
+    """
+
+    OWNER_OVERRIDE = "owner_override"
+    TAXONOMY_ENGINE = "taxonomy_engine"
+    SYNTHESIS_ENGINE = "synthesis_engine"
+
+
+# CON-SRC-0004 invariant 3 non-applicable genre set. Stored as strings, not
+# Genre enum members, because Phase 5b item 4 still has to reconcile 4-of-7
+# genres that are not yet in the Genre enum (finding ADV-001: mushaf,
+# rijal_dictionary, majmu, biographical_dictionary are unreachable; fatwa_compilation
+# and lexicon are name-mismatched against Genre.FATAWA / Genre.MUJAM).
+NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
+    {
+        "mushaf",
+        "hadith_collection",
+        "rijal_dictionary",
+        "majmu",
+        "biographical_dictionary",
+        "fatwa_compilation",
+        "lexicon",
+    }
+)
 
 
 class ProcessingStatus(str, Enum):
@@ -773,7 +824,9 @@ class MetadataDeliberationInput(BaseModel):
     work_id: Optional[str] = None
     work_output: Optional[WorkOutput] = None
     collection_match_output: Optional[CollectionMatchOutput] = None
-    level: Optional[WorkLevel | str] = None
+    level: Optional[WorkLevel] = None
+    level_status: Optional[LevelStatus] = None
+    level_provenance: Optional[LevelProvenance] = None
     edition_info: Optional[dict[str, Any]] = None
     publisher: Optional[str] = None
     author_positions: list[AuthorOutputPosition] = Field(default_factory=list)
@@ -908,7 +961,9 @@ class SourceMetadata(BaseModel):
     page_layout_hint: Optional[PageLayoutHint] = None
     muhaqiq_output: Optional[MuhaqiqAssessment] = None
     death_date_hijri: Optional[int] = Field(default=None, ge=0)
-    level: Optional[WorkLevel | str] = None
+    level: Optional[WorkLevel] = None
+    level_status: LevelStatus
+    level_provenance: Optional[LevelProvenance] = None
     edition_info: Optional[dict[str, Any]] = None
     publisher: Optional[str] = None
     hint_comparison_results: list[HintComparisonResult] = Field(default_factory=list)
@@ -924,6 +979,51 @@ class SourceMetadata(BaseModel):
             self.source_sha256 = self.frozen_hash
         if self.frozen_blob_path is None:
             self.frozen_blob_path = self.frozen_path
+        return self
+
+    @model_validator(mode="after")
+    def enforce_level_invariants(self) -> "SourceMetadata":
+        # CON-SRC-0004 invariant 1: level_status == "assigned" IFF level non-null.
+        if self.level_status == LevelStatus.ASSIGNED and self.level is None:
+            raise ValueError(
+                "CON-SRC-0004 invariant 1 violation: level_status='assigned' "
+                "requires level to be non-null"
+            )
+        # CON-SRC-0004 invariant 2: non-assigned level_status IMPLIES level is null.
+        if self.level_status != LevelStatus.ASSIGNED and self.level is not None:
+            raise ValueError(
+                "CON-SRC-0004 invariant 2 violation: level_status="
+                f"'{self.level_status.value}' requires level to be null, "
+                f"got level='{self.level.value if isinstance(self.level, WorkLevel) else self.level}'"
+            )
+        # CON-SRC-0004 invariant 3: non_applicable_reference IMPLIES genre in
+        # the seven-value non-applicable set.
+        if self.level_status == LevelStatus.NON_APPLICABLE_REFERENCE:
+            genre_value = self.genre.value if self.genre is not None else None
+            if genre_value not in NON_APPLICABLE_GENRE_VALUES:
+                raise ValueError(
+                    "CON-SRC-0004 invariant 3 violation: level_status="
+                    "'non_applicable_reference' requires genre in "
+                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)}, got genre="
+                    f"'{genre_value}'"
+                )
+        # CON-SRC-0004 invariant 4 (level_status non-null) is enforced by the
+        # field declaration: ``level_status: LevelStatus`` has no default.
+
+        # ADV-012 stickiness: level_provenance tracks who assigned the level,
+        # so it is non-null IFF level is non-null. Prevents a downstream
+        # engine from silently overwriting an owner-asserted level.
+        if self.level is not None and self.level_provenance is None:
+            raise ValueError(
+                "ADV-012 stickiness violation: level is populated but "
+                "level_provenance is null — provenance must be set whenever "
+                "level is set"
+            )
+        if self.level is None and self.level_provenance is not None:
+            raise ValueError(
+                "ADV-012 stickiness violation: level is null but "
+                f"level_provenance='{self.level_provenance.value}' is set"
+            )
         return self
 
 

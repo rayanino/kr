@@ -5,7 +5,7 @@ tools: Read, Grep, Glob, Bash
 model: opus
 effort: high
 color: red
-maxTurns: 25
+maxTurns: 50
 skills:
   - domain-glossary
   - knowledge-safety

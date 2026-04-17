@@ -10,6 +10,7 @@ from engines.source.contracts import (
     Genre,
     HadithSubgenre,
     IntakeDossier,
+    LevelStatus,
     MetadataDeliberationInput,
     SourceMetadata,
     SourceFormat,
@@ -83,6 +84,7 @@ def _base_metadata() -> SourceMetadata:
         volume_count=None,
         page_count_physical=None,
         death_date_hijri=None,
+        level_status=LevelStatus.PENDING_TAXONOMY,
     )
 
 

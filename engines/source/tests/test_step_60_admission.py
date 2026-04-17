@@ -20,6 +20,8 @@ from engines.source.contracts import (
     FrozenSource,
     Genre,
     IntegrityStatus,
+    LevelProvenance,
+    LevelStatus,
     MetadataDeliberationResult,
     MonitorEvidenceCoverage,
     MonitorFeedbackRecord,
@@ -34,6 +36,7 @@ from engines.source.contracts import (
     TrustDecision,
     TrustTier,
     VolumeHolding,
+    WorkLevel,
     WorkOutput,
 )
 from engines.source.src.errors import SourceEngineError
@@ -54,7 +57,19 @@ def _accepted_metadata(
     source_format: SourceFormat = SourceFormat.SHAMELA_HTML,
     structural_format: StructuralFormat = StructuralFormat.PROSE,
     text_fidelity: TextFidelity = TextFidelity.HIGH,
+    level_override: WorkLevel | None = None,
 ) -> SourceMetadata:
+    # Cross-field invariants (CON-SRC-0004) require (level, level_status,
+    # level_provenance) to be set as a triple at construction time — setting
+    # them one-by-one after the fact trips validate_assignment.
+    if level_override is None:
+        level = None
+        level_status = LevelStatus.PENDING_TAXONOMY
+        level_provenance: LevelProvenance | None = None
+    else:
+        level = level_override
+        level_status = LevelStatus.ASSIGNED
+        level_provenance = LevelProvenance.OWNER_OVERRIDE
     return SourceMetadata(
         source_id=source_id,
         title_arabic="كتاب الاختبار",
@@ -92,7 +107,9 @@ def _accepted_metadata(
             supporting_agents=["agent_a", "agent_b"],
             evidence_summary="test",
         ),
-        level=None,
+        level=level,
+        level_status=level_status,
+        level_provenance=level_provenance,
         page_count=None,
         volume_count=None,
         page_count_physical=None,
@@ -100,9 +117,13 @@ def _accepted_metadata(
     )
 
 
-def _accepted_deliberation_result(source_id: str) -> MetadataDeliberationResult:
+def _accepted_deliberation_result(
+    source_id: str,
+    *,
+    level_override: WorkLevel | None = None,
+) -> MetadataDeliberationResult:
     return MetadataDeliberationResult(
-        source_metadata=_accepted_metadata(source_id),
+        source_metadata=_accepted_metadata(source_id, level_override=level_override),
         case_complexity_record=CaseComplexityRecord(
             case_id=f"case_{source_id}",
             source_id=source_id,
@@ -306,8 +327,9 @@ def test_handoff_preserves_populated_level(source_pipeline: SourcePipeline) -> N
     frozen = _frozen_from_pipeline(source_pipeline, FIXTURES_ROOT / "shamela_real" / "06_usul" / "book.htm")
     source_pipeline.classify_container(frozen.source_id)
     dossier = source_pipeline.intake_analysis(frozen.source_id)
-    deliberation_result = _accepted_deliberation_result(frozen.source_id)
-    deliberation_result.source_metadata.level = "intermediate"
+    deliberation_result = _accepted_deliberation_result(
+        frozen.source_id, level_override=WorkLevel.MUTAWASSIT
+    )
 
     result = admit_source_and_build_handoff(
         store=source_pipeline.store,
@@ -319,7 +341,9 @@ def test_handoff_preserves_populated_level(source_pipeline: SourcePipeline) -> N
 
     bundle = result.handoff_bundle
     assert bundle is not None
-    assert bundle.source_metadata.level == "intermediate"
+    assert bundle.source_metadata.level is WorkLevel.MUTAWASSIT
+    assert bundle.source_metadata.level_status is LevelStatus.ASSIGNED
+    assert bundle.source_metadata.level_provenance is LevelProvenance.OWNER_OVERRIDE
 
 
 @pytest.mark.spec("REQ-SRC-0007", "AC-2")
@@ -328,7 +352,6 @@ def test_handoff_preserves_null_level(source_pipeline: SourcePipeline) -> None:
     source_pipeline.classify_container(frozen.source_id)
     dossier = source_pipeline.intake_analysis(frozen.source_id)
     deliberation_result = _accepted_deliberation_result(frozen.source_id)
-    deliberation_result.source_metadata.level = None
 
     result = admit_source_and_build_handoff(
         store=source_pipeline.store,
@@ -340,8 +363,11 @@ def test_handoff_preserves_null_level(source_pipeline: SourcePipeline) -> None:
 
     bundle = result.handoff_bundle
     assert bundle is not None
-    assert "level" in bundle.source_metadata.model_dump(mode="json")
+    dumped = bundle.source_metadata.model_dump(mode="json")
+    assert "level" in dumped
     assert bundle.source_metadata.level is None
+    assert bundle.source_metadata.level_status is LevelStatus.PENDING_TAXONOMY
+    assert bundle.source_metadata.level_provenance is None
 
 
 @pytest.mark.spec("REQ-SRC-0044", "AC-1")

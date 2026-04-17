@@ -6,6 +6,7 @@ from typing import Any, Literal
 from uuid import uuid4
 
 from engines.source.contracts import (
+    NON_APPLICABLE_GENRE_VALUES,
     AuthorityLevel,
     AuthorOutput,
     AuthorOutputPosition,
@@ -20,6 +21,8 @@ from engines.source.contracts import (
     HintInvestigation,
     IntakeDossier,
     IntegrityStatus,
+    LevelProvenance,
+    LevelStatus,
     MetadataDeliberationInput,
     MetadataDeliberationResult,
     MonitorEvidenceCoverage,
@@ -31,6 +34,7 @@ from engines.source.contracts import (
     SourceMetadata,
     StructuralFormat,
     TrustDecision,
+    WorkLevel,
     WorkRelationship,
     WorkOutput,
     WorkOutputPosition,
@@ -195,10 +199,36 @@ def run_metadata_deliberation(
     )
 
 
+def _resolve_level_fields(
+    deliberation_input: MetadataDeliberationInput,
+) -> tuple[WorkLevel | None, LevelStatus, LevelProvenance | None]:
+    # Pass-through: caller already computed the triple.
+    if deliberation_input.level_status is not None:
+        return (
+            deliberation_input.level,
+            deliberation_input.level_status,
+            deliberation_input.level_provenance,
+        )
+    # Owner override accepted upstream (REQ-SRC-0047 populated level).
+    if deliberation_input.level is not None:
+        return (
+            deliberation_input.level,
+            LevelStatus.ASSIGNED,
+            LevelProvenance.OWNER_OVERRIDE,
+        )
+    # Non-applicable genre — text has no pedagogical level (CON-SRC-0004 inv 3).
+    genre = deliberation_input.genre
+    if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
+        return (None, LevelStatus.NON_APPLICABLE_REFERENCE, None)
+    # Leveled genre (or genre not yet known) — defer to taxonomy.
+    return (None, LevelStatus.PENDING_TAXONOMY, None)
+
+
 def _build_source_metadata(
     deliberation_input: MetadataDeliberationInput,
     frozen: FrozenSource,
 ) -> SourceMetadata:
+    level, level_status, level_provenance = _resolve_level_fields(deliberation_input)
     return SourceMetadata(
         source_id=frozen.source_id,
         title_arabic=deliberation_input.title_arabic,
@@ -222,7 +252,9 @@ def _build_source_metadata(
         trust_tier=deliberation_input.trust_tier,
         trust_score=deliberation_input.trust_score,
         death_date_hijri=deliberation_input.author_death_hijri,
-        level=deliberation_input.level,
+        level=level,
+        level_status=level_status,
+        level_provenance=level_provenance,
         edition_info=deliberation_input.edition_info,
         publisher=deliberation_input.publisher,
         page_count=None,

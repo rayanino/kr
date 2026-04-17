@@ -5,6 +5,7 @@ from engines.source.contracts import (
     Genre,
     InferredFieldConfidence,
     HadithSubgenre,
+    LevelStatus,
     ScholarProfile,
     ScholarProfileSource,
     ScholarReference,
@@ -81,6 +82,7 @@ def test_source_contracts_support_normalization_boundary_defaults() -> None:
         volume_count=None,
         page_count_physical=None,
         death_date_hijri=None,
+        level_status=LevelStatus.PENDING_TAXONOMY,
     )
 
     assert metadata.source_format is SourceFormat.SHAMELA_HTML
@@ -110,6 +112,7 @@ def test_source_contracts_expose_additive_step_50_metadata_surfaces() -> None:
         volume_count=None,
         page_count_physical=None,
         death_date_hijri=None,
+        level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
         hadith_subgenre=HadithSubgenre.JAMI,
         candidate_subgenres=[HadithSubgenre.SUNAN],
         genre_dispute=["sharh", "hadith_collection"],
