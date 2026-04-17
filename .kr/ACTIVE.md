@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5a amendment pass committed 2026-04-17 as **paper-reconciled** per 4-of-4 reviewer-wave consensus; **Phase 5b is the frontier — 15 ordered work items defined**
+Status: active — Phase 5b items 1 + 3 closed with test-run evidence 2026-04-17 (commits `62647cb2b`, `386685819`); **13 Phase 5b work items remain**
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -149,9 +149,9 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 **Verdict:** Phase 5a is structurally paper-reconciled. Phase 5b is required.
 
 ### Phase 5b work items (ordered)
-1. Align `engines/source/contracts.py`: WorkLevel enum values to Arabic (mubtadiʾ/mutawassiṭ/muntahī); add `level_status` field with 4-value enum; add `level_provenance` field.
-2. Rewrite English-value ACs in INV-SRC-0011 (AC-3), REQ-SRC-0007 (AC-1/AC-3/AC-5), INV-SRC-0012 (AC-1-4) to use CON-SRC-0011 enum.
-3. Fix transliteration errors: `muta'akhirūn` → `mutaʾakhkhirūn` (CON-SRC-0011); `wāsiṭ` → `wasīṭ` (INV-SRC-0011:30).
+1. ~~Align `engines/source/contracts.py`: WorkLevel enum values to Arabic (mubtadiʾ/mutawassiṭ/muntahī); add `level_status` field with 4-value enum; add `level_provenance` field.~~ **DONE 2026-04-17 (commit `62647cb2b`)**. pyright 0 errors across 6 live-code files; pytest 134/134 pass (from 75p/59f baseline — the paper-reconciliation gap made visible). Production code in `src/deliberation.py` now computes the (level, level_status, level_provenance) triple. ADV-012 stickiness enforced IFF-style via `model_validator`. Mandatory `level_status` field (no default); 4 cross-field invariants raise `ValueError` citing the CON-SRC-0004 invariant number on violation. See commit body for detail.
+2. Rewrite English-value ACs in INV-SRC-0011 (AC-3), REQ-SRC-0007 (AC-1/AC-3/AC-5), INV-SRC-0012 (AC-1-4) to use CON-SRC-0011 enum. **Unblocked by item 1.** Note: INV-SRC-0012 AC-4 uses `owner_level_override="specialist"` which no longer exists in the 3-tier enum; preserving test intent (non-applicable-genre rejection) requires replacing "specialist" with a valid enum value (suggest `muntahī`), not a mechanical string-for-string swap.
+3. ~~Fix transliteration errors: `muta'akhirūn` → `mutaʾakhkhirūn` (CON-SRC-0011); `wāsiṭ` → `wasīṭ` (INV-SRC-0011:30).~~ **DONE 2026-04-17 (commit `386685819`)**. ALA-LC apostrophe → right-half-ring (U+02BE) + geminate khkh; `wāsiṭ`/`wasīṭ` category fix per Gemini Run B finding. Spec views regenerated (picks up Phase 5a atom drift).
 4. Amend REQ-SRC-0030 genre enum to cover non-applicable set; reconcile non-applicable list across CON-SRC-0004/REQ-SRC-0047/INV-SRC-0012 to a single canonical source; sub-classify hadith_collection (remove unconditionally-non-applicable placement).
 5. Break 4 depends_on cycles (DEC↔REQ-SRC-0007, CON-SRC-0004↔CON-SRC-0011, INV-SRC-0011↔CON-SRC-0011, CON-SRC-0011↔REQ-SRC-0047) by re-orienting to producer-before-consumer only.
 6. Create REQ-SRC-0048 for deferred validation surface (pending-override queue, re-validation trigger, genre_dispute tie-break).
@@ -204,6 +204,10 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 ## Session commits (2026-04-17) — pending
 - (queued) docs(source): record Claude DR twin on level detection + cross-reference ChatGPT DR + Run-A verification outcomes (DIVERGENT — adjudication dispatched)
 - (queued) docs(source): Phase 5a amendments — 3-0 OPT-B adjudication + Gemini DR middle-path level_status enum + CON-SRC-0011 WorkLevel + malakah-formation rationale
+
+## Session commits (2026-04-17, Phase 5b items 1 + 3)
+- `62647cb2b` feat(source): Phase 5b item 1 — Arabic WorkLevel, level_status, provenance
+- `386685819` fix(source): Phase 5b item 3 — ALA-LC transliteration corrections in spec
 
 ## Relevant decisions
 - OPS-DEC-001 through OPS-DEC-006 (still in force)
