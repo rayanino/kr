@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1 + 3 closed with test-run evidence 2026-04-17 (commits `62647cb2b`, `386685819`); **13 Phase 5b work items remain**
+Status: active — Phase 5b items 1, 2, 3, 15 closed with test-run evidence 2026-04-17 (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `f965aec7b`); **11 Phase 5b work items remain**
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -150,7 +150,7 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 
 ### Phase 5b work items (ordered)
 1. ~~Align `engines/source/contracts.py`: WorkLevel enum values to Arabic (mubtadiʾ/mutawassiṭ/muntahī); add `level_status` field with 4-value enum; add `level_provenance` field.~~ **DONE 2026-04-17 (commit `62647cb2b`)**. pyright 0 errors across 6 live-code files; pytest 134/134 pass (from 75p/59f baseline — the paper-reconciliation gap made visible). Production code in `src/deliberation.py` now computes the (level, level_status, level_provenance) triple. ADV-012 stickiness enforced IFF-style via `model_validator`. Mandatory `level_status` field (no default); 4 cross-field invariants raise `ValueError` citing the CON-SRC-0004 invariant number on violation. See commit body for detail.
-2. Rewrite English-value ACs in INV-SRC-0011 (AC-3), REQ-SRC-0007 (AC-1/AC-3/AC-5), INV-SRC-0012 (AC-1-4) to use CON-SRC-0011 enum. **Unblocked by item 1.** Note: INV-SRC-0012 AC-4 uses `owner_level_override="specialist"` which no longer exists in the 3-tier enum; preserving test intent (non-applicable-genre rejection) requires replacing "specialist" with a valid enum value (suggest `muntahī`), not a mechanical string-for-string swap.
+2. ~~Rewrite English-value ACs in INV-SRC-0011 (AC-3), REQ-SRC-0007 (AC-1/AC-3/AC-5), INV-SRC-0012 (AC-1-4) to use CON-SRC-0011 enum.~~ **DONE 2026-04-17 (commit `ec8d82ca4`)**. All 8 AC rewrites landed: INV-SRC-0011 AC-3 → mutawassiṭ; REQ-SRC-0007 AC-1 → mutawassiṭ, AC-3 → muntahī, AC-5 → mubtadiʾ (cross-field invariant violation); INV-SRC-0012 AC-1 → mubtadiʾ, AC-2 → muntahī, AC-3 → mutawassiṭ, AC-4 → muntahī (semantic replacement for "specialist"; 3-tier enum has no 4th tier). INV-SRC-0012 rationale also aligned with CON-SRC-0011 corrected enum (removed stale mutaqaddim reference). Gates clean: validate_spec.py 0 errors on 109 atoms, generate_views.py clean regeneration, pytest 134 passed (unchanged baseline).
 3. ~~Fix transliteration errors: `muta'akhirūn` → `mutaʾakhkhirūn` (CON-SRC-0011); `wāsiṭ` → `wasīṭ` (INV-SRC-0011:30).~~ **DONE 2026-04-17 (commit `386685819`)**. ALA-LC apostrophe → right-half-ring (U+02BE) + geminate khkh; `wāsiṭ`/`wasīṭ` category fix per Gemini Run B finding. Spec views regenerated (picks up Phase 5a atom drift).
 4. Amend REQ-SRC-0030 genre enum to cover non-applicable set; reconcile non-applicable list across CON-SRC-0004/REQ-SRC-0047/INV-SRC-0012 to a single canonical source; sub-classify hadith_collection (remove unconditionally-non-applicable placement).
 5. Break 4 depends_on cycles (DEC↔REQ-SRC-0007, CON-SRC-0004↔CON-SRC-0011, INV-SRC-0011↔CON-SRC-0011, CON-SRC-0011↔REQ-SRC-0047) by re-orienting to producer-before-consumer only.
@@ -163,7 +163,7 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 12. Fix INDEX.yaml stale status (OQ-SRC-0001 → superseded; recount deferred/superseded).
 13. Add severity taxonomy definition (fatal = unrecoverable data corruption; blocking = recoverable rejection; warning = advisory).
 14. Add REQ-SRC-0046 AC-7 for depth-2 nested optional serialization (positions[0].death_date).
-15. Write spec-linked tests that exercise `level_status`, the Arabic enum values, and the new error codes BEFORE declaring Phase 5b closure.
+15. ~~Write spec-linked tests that exercise `level_status`, the Arabic enum values, and the new error codes BEFORE declaring Phase 5b closure.~~ **DONE 2026-04-17 (commit `f965aec7b`)**. New `engines/source/tests/test_work_level_and_status.py` contains 22 passing tests + 1 documented skip, tagged `@pytest.mark.spec(atom_id, ac_id)` across CON-SRC-0011 AC-1..AC-6, CON-SRC-0004 invariants 1..4, ADV-012 stickiness (both directions), INV-SRC-0011 AC-1..AC-4, INV-SRC-0012 AC-2 (AC-1/AC-3/AC-4 skipped pending item 4 Genre enum expansion), REQ-SRC-0007 AC-3..AC-5. Item 15 required a small production-code change: `_resolve_level_fields` previously accepted override+non-applicable-genre silently (spec violation vs INV-SRC-0012); added `ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE = "SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE"` and corresponding `SourceEngineError` raise at override boundary. Gates: validate_spec.py 0 errors, pyright 0 errors across prod+new tests, pytest 156 passed / 1 skipped (up from 134).
 
 Phase 5b should end with a second reviewer wave to verify closure, with explicit test-run evidence this time (not just `validate_spec.py` passing).
 
@@ -208,6 +208,10 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 ## Session commits (2026-04-17, Phase 5b items 1 + 3)
 - `62647cb2b` feat(source): Phase 5b item 1 — Arabic WorkLevel, level_status, provenance
 - `386685819` fix(source): Phase 5b item 3 — ALA-LC transliteration corrections in spec
+
+## Session commits (2026-04-17, Phase 5b items 2 + 15)
+- `ec8d82ca4` fix(source): Phase 5b item 2 — Arabic WorkLevel enum in acceptance criteria
+- `f965aec7b` test(source): Phase 5b item 15 — spec-linked tests for level triple (156 pass)
 
 ## Relevant decisions
 - OPS-DEC-001 through OPS-DEC-006 (still in force)
