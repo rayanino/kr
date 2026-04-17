@@ -1,0 +1,132 @@
+id: CON-SRC-0011
+type: constraint
+status: confirmed
+title: WorkLevel enum — classical pedagogical-level vocabulary
+topic: metadata
+layer: contracts
+priority: high
+confidence: high
+provenance: deep_research
+source: >-
+  Established on 2026-04-17 following the 3-of-3 unanimous OPT-B
+  adjudication on DEC-SRC-0003. The enum values derive from Gemini
+  CLI run 2 classical-defensibility review (R2 finding) which
+  identified that the ChatGPT DR amendment set used `mutaqaddim` as
+  the "advanced" level value — incorrect classical usage. Mutaqaddim
+  (متقدم) denotes chronological priority (an earlier-generation
+  scholar relative to a later one), NOT pedagogical advancement. The
+  correct classical pedagogical ladder is mubtadiʾ (beginner) →
+  mutawassiṭ (intermediate) → muntahī (terminal / advanced),
+  documented in al-Zarnūjī's Taʿlīm al-Mutaʿallim, Ibn Khaldūn's
+  Muqaddima Book VI (faṣl fī wajh al-ṣawāb fī taʿlīm al-ʿulūm), and
+  the standard curriculum language of Dār al-Muṣṭafā and al-
+  Qarawiyyīn ḥadīth tracks. See .kr/runtime/
+  adjudication_gemini_cli_run1_20260417.md (R2 terminology finding)
+  and run2_20260417.md (independent confirmation).
+created: '2026-04-17'
+updated: '2026-04-17'
+depends_on:
+- DEC-SRC-0003
+- INV-SRC-0011
+- CON-SRC-0004
+- REQ-SRC-0047
+impacts:
+- level_metadata
+- owner_override_validation
+- downstream_level_inference
+rationale: >-
+  The SourceMetadata.level field is populated from one of two
+  sources: (a) an owner_level_override supplied at intake, validated
+  by REQ-SRC-0047 against this enum; or (b) a downstream authoritative
+  write by the taxonomy engine after content analysis. Both pathways
+  MUST use the same enum vocabulary, and that vocabulary MUST be
+  classically defensible — the owner is a non-technical Muslim
+  student building his personal scholarly library, and label
+  terminology that misaligns with classical pedagogy corrupts his
+  ability to place the text in his own study progression. The
+  three-tier ladder mubtadiʾ → mutawassiṭ → muntahī is the classical
+  tradition's own vocabulary for learner progression: mubtadiʾ is
+  the student before malakah formation begins; mutawassiṭ is the
+  student consolidating foundational texts while crossing into the
+  sharḥ literature; muntahī is the student who has completed the
+  structured curriculum of a given fann and can engage ḥāshiya-level
+  commentary and independent reading. The rejected alternative term
+  mutaqaddim is NOT a pedagogical term but a historiographic one
+  (describing earlier-generation scholars vs muta'akhirūn later-
+  generation scholars). Using mutaqaddim as a learner-level label is
+  a category error that R2 Gemini CLI review flagged as corrupting
+  both the owner's mental model and downstream taxonomy queries.
+rule:
+  statement: >-
+    The WorkLevel enum is the canonical vocabulary for the
+    SourceMetadata.level field and any downstream field that stores
+    an authoritative pedagogical-level assignment. It has exactly
+    three permitted values: "mubtadiʾ" (beginner / pre-malakah
+    student), "mutawassiṭ" (intermediate / foundational-malakah
+    student), and "muntahī" (terminal / curriculum-completing
+    student). No other string values are valid for a SourceMetadata
+    .level assignment. The historiographic term "mutaqaddim" and its
+    counterpart "muta'akhirūn" are REJECTED as WorkLevel values —
+    they denote chronological / generational priority among scholars,
+    not pedagogical level.
+  implication: >-
+    Any SourceMetadata record whose level field contains a string
+    not in {mubtadiʾ, mutawassiṭ, muntahī} (when level is non-null)
+    violates the WorkLevel contract. Violations corrupt owner
+    override validation (REQ-SRC-0047) and downstream taxonomy
+    queries, and propagate a category-error between historiographic
+    and pedagogical vocabularies into the library's metadata. In
+    particular, accepting "mutaqaddim" as a level value would silently
+    teach the owner to conflate chronological earlier-scholar status
+    with pedagogical beginner status — a T-2 knowledge-integrity
+    corruption vector.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A SourceMetadata record with level="mubtadiʾ"
+  when: the enum validator inspects the record
+  then: >-
+    The record is accepted as valid with respect to CON-SRC-0011.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A SourceMetadata record with level="mutawassiṭ"
+  when: the enum validator inspects the record
+  then: >-
+    The record is accepted as valid with respect to CON-SRC-0011.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    A SourceMetadata record with level="muntahī"
+  when: the enum validator inspects the record
+  then: >-
+    The record is accepted as valid with respect to CON-SRC-0011.
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    A SourceMetadata record with level="mutaqaddim" (historiographic
+    term, not a pedagogical-level value)
+  when: the enum validator inspects the record
+  then: >-
+    The record is rejected as invalid with respect to CON-SRC-0011
+    and the rejection message explicitly cites the historiographic-
+    vs-pedagogical category error.
+  test_type: deterministic
+- id: AC-5
+  given: >-
+    A SourceMetadata record with level="advanced" (English string,
+    not a classical Arabic enum value)
+  when: the enum validator inspects the record
+  then: >-
+    The record is rejected as invalid with respect to CON-SRC-0011.
+  test_type: deterministic
+- id: AC-6
+  given: >-
+    A SourceMetadata record with level=null
+  when: the enum validator inspects the record
+  then: >-
+    The record is accepted with respect to CON-SRC-0011 (null is a
+    valid state; the WorkLevel enum only governs non-null level
+    values).
+  test_type: deterministic

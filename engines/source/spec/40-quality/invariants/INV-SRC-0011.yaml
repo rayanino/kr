@@ -7,52 +7,104 @@ layer: quality
 priority: critical
 confidence: high
 provenance: deep_research
-source: 'dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-1)'
+source: >-
+  Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml
+  SEC-1. Hardened on 2026-04-17 by the 3-of-3 unanimous adjudication
+  (Codex CLI architectural-fit, Gemini CLI runs 1 and 2 classical-
+  defensibility at 6-0 branch win counts, Gemini DR T-2 threat model)
+  that closed DEC-SRC-0003 on OPT-B. Acceptance criterion AC-4 (positive
+  assertion that level_status is still populated when level is null) is
+  added to complement the null-assertion clauses in AC-1 and AC-2.
 created: '2026-04-16'
-updated: '2026-04-16'
+updated: '2026-04-17'
 depends_on:
 - DEC-SRC-0003
 - CON-SRC-0004
+- CON-SRC-0011
 impacts:
 - level_metadata
 - source_normalization_boundary
 rationale: >-
-  ChatGPT Deep Research dr-chatgpt-level-detection-20260416 (paragraphs p2, p9,
-  p17, and risk r2) established that title tokens such as mukhtasar, wasit,
-  taysir, mubassat, kabir, and lil-mubtadi'in encode marketing and positioning
-  rather than difficulty. Ibn Khaldun's critique of abbreviation (p2) and the
-  abridgement-title trap (r2) together establish that a work called mukhtasar
-  may be harder than a fuller exposition when it presupposes prior formation.
-  Treating shallow bibliographic signals as authoritative for level therefore
-  corrupts the scholarly library's reading-level metadata at the earliest
-  pipeline stage.
+  ChatGPT Deep Research dr-chatgpt-level-detection-20260416 (paragraphs p2,
+  p9, p17, and risk r2) established that title tokens such as mukhtaṣar,
+  wāsiṭ, taysīr, mubassaṭ, kabīr, and lil-mubtadiʾīn are insufficient
+  signals for pedagogical level — they encode marketing, publisher
+  positioning, and author intent rather than reliable difficulty. Ibn
+  Khaldūn's critique of abbreviation (Muqaddima Book VI, faṣl fī wajh
+  al-ṣawāb fī taʿlīm al-ʿulūm, Rosenthal translation vol. 3 pp. 292–294;
+  ChatGPT DR p2) and the abridgement-title trap (DR risk r2) together
+  establish that a work called mukhtaṣar may be harder than a fuller
+  exposition when it presupposes prior malakah formation. Gemini CLI
+  classical-defensibility runs (both 6-0 for OPT-B) confirm: Ibn Khaldūn's
+  tadarruj ties level to internal structural density; al-Zarnūjī's
+  tawaqquf (Taʿlīm al-Mutaʿallim Chapter IV) mandates withholding
+  judgment until authoritative internal evidence is gathered; al-Fihrist
+  of Ibn al-Nadīm and Kashf al-Ẓunūn of Ḥājjī Khalīfa systematically
+  refuse provisional pedagogical difficulty tags. Treating shallow
+  bibliographic signals as authoritative for level therefore corrupts
+  the scholarly library's reading-level metadata at the earliest
+  pipeline stage. Separately, the source engine's `level_status`
+  emission (CON-SRC-0004 middle-path) is NOT a level inference — it is
+  a processing-state label that communicates whether level is pending
+  taxonomy determination or genre-identified as non-applicable, and its
+  emission is explicitly permitted by this invariant.
 rule:
   statement: >-
     The source engine MUST NOT compute or infer the level field of
-    SourceMetadata from title tokens, series cues, publisher metadata, or any
-    shallow bibliographic signal. The level field remains null unless an
-    explicit owner_level_override is provided at intake.
+    SourceMetadata from title tokens, series cues, publisher metadata,
+    or any shallow bibliographic signal. The level field remains null
+    unless an explicit owner_level_override is provided at intake. This
+    invariant does NOT restrict the `level_status` field (CON-SRC-0004),
+    which is a processing-state enum — not a pedagogical-level
+    inference — and whose emission is governed by CON-SRC-0004 alone.
   implication: >-
     Violation means the source engine has usurped the synthesis engine's
-    ownership of level classification (per DEC-SRC-0003) and silently asserted
-    a reading-level judgment not earned from content analysis. The resulting
-    level value would be marked with source-engine provenance while encoding
-    nothing more than a title-token guess, producing false scholarly authority
-    in the owner's library.
+    ownership of level classification (per DEC-SRC-0003) and silently
+    asserted a reading-level judgment not earned from content analysis.
+    The resulting level value would be marked with source-engine
+    provenance while encoding nothing more than a title-token guess,
+    producing false scholarly authority in the owner's library — the
+    T-2 failure mode the Gemini DR threat-model adjudication pre-
+    mortemed at severity 9/10 and likelihood 8/10 for OPT-C.
   violation_severity: critical
 acceptance_criteria:
 - id: AC-1
-  given: tests/fixtures/shamela_real/03_fiqh/book.htm (title "أحكام الاضطباع والرمل في الطواف") processed with no owner_level_override and no explicit level value supplied upstream
+  given: >-
+    tests/fixtures/shamela_real/03_fiqh/book.htm (title "أحكام الاضطباع
+    والرمل في الطواف") processed with no owner_level_override and no
+    explicit level value supplied upstream
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null.
   test_type: deterministic
 - id: AC-2
-  given: A source whose title_arabic contains the token "مختصر" (for example "مختصر خليل" or a variant containing "mukhtasar") with no owner_level_override
+  given: >-
+    A source whose title_arabic contains the token "مختصر" (for example
+    "مختصر خليل" or a variant containing "mukhtaṣar") with no
+    owner_level_override
   when: the source engine emits SourceMetadata
-  then: SourceMetadata.level is null and no level inference is attempted from the title token.
+  then: >-
+    SourceMetadata.level is null and no level inference is attempted
+    from the title token.
   test_type: deterministic
 - id: AC-3
-  given: tests/fixtures/shamela_real/06_usul/book.htm submitted with owner_level_override="intermediate"
+  given: >-
+    tests/fixtures/shamela_real/06_usul/book.htm submitted with
+    owner_level_override="intermediate"
   when: the source engine emits SourceMetadata
-  then: SourceMetadata.level="intermediate" (the override value, not a value inferred from shallow metadata).
+  then: >-
+    SourceMetadata.level="intermediate" (the override value, not a
+    value inferred from shallow metadata).
   test_type: deterministic
+- id: AC-4
+  given: >-
+    A source for which the source engine emits SourceMetadata.level=null
+    under the prohibition above
+  when: the source engine emits the SourceMetadata record
+  then: >-
+    SourceMetadata.level_status is non-null and populated with a value
+    in {pending_taxonomy, non_applicable_reference} per CON-SRC-0004
+    middle-path, confirming that level-field nullity does not imply
+    metadata absence or processing failure — the prohibition on shallow-
+    signal level inference does NOT extend to the processing-state
+    enum.
+  test_type: integration

@@ -9,9 +9,9 @@ artifact_size_bytes: 29655
 question: OQ-SRC-0001
 decision: DEC-SRC-0003
 source_feedback: OF-SRC-0007
-twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416  # awaiting owner relay of the Claude DR
-status: integrated
-cross_check_status: cc_verifications_complete_pending_twin_dr
+twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416  # arrived 2026-04-16, integrated 2026-04-17
+status: adjudicated_opt_b_with_middle_path
+cross_check_status: adjudicated_3_of_3_opt_b_with_middle_path_amendment
 
 # ===== HEADLINE =====
 
@@ -27,7 +27,7 @@ headline: >-
   single scalar that can be silently overwritten.
 
 dr_self_confidence: high
-accepted_as_binding: conditional_on_twin_dr_convergence
+accepted_as_binding: binding_opt_b_with_middle_path  # was conditional_on_adjudication; 3-0 unanimous OPT-B from Codex CLI + Gemini CLI ×2 + Gemini DR on 2026-04-17; Gemini DR's additional level_status enum middle-path amendment ADOPTED in Phase 5a
 
 # ===== PARAGRAPH INVENTORY (46 units) =====
 # Every paragraph from the DR has an entry. An empty `implementation_target`
@@ -537,18 +537,119 @@ rejected_claims: []
 
 pending_cross_check:
   twin_dr: DR-CLAUDE-LEVEL-DETECTION-20260416
+  twin_dr_verdict: OPT-C_asymmetric_recommended_divergent
+  twin_dr_evidence_file: engines/source/spec/60-evidence/dr-reports/dr-claude-level-detection-20260416.yaml
+  analyzed: '2026-04-17'
+
+  # Answers to the originally-posed convergence questions (populated when Claude DR was integrated)
   convergence_dimensions:
-    - "Does Claude DR also recommend OPT-B?"
-    - "Does Claude DR agree that synthesis owns classification?"
-    - "Does Claude DR agree on science+layer conditioning?"
-    - "Does Claude DR agree on level-as-history data model?"
-    - "Does Claude DR surface any risks the ChatGPT DR missed?"
-    - "Does Claude DR identify any non-applicable genres we should add beyond {mushaf, hadith_collection, rijal_dictionary, majmu}?"
+    - question: "Does Claude DR also recommend OPT-B?"
+      answer: NO_recommends_OPT-C_asymmetric
+      severity: critical
+      note: >-
+        Claude DR explicitly rejects pure OPT-B as "silent; wasteful of cheap
+        honest signals" (s4_why_pure_opt_b_wastes_signal). Recommends OPT-C
+        asymmetric: source emits level_candidate with confidence=low;
+        taxonomy emits level_authoritative; both persist.
+
+    - question: "Does Claude DR agree that synthesis owns classification?"
+      answer: NO_claude_assigns_to_taxonomy
+      severity: high
+      note: >-
+        Claude DR explicitly disqualifies synthesis: "synthesis is too
+        late — it composes ACROSS sources and should CONSUME level, not
+        produce it" (s5.p9). Assigns authoritative ownership to taxonomy
+        engine because "fann placement and level computation are inseparable."
+
+    - question: "Does Claude DR agree on science+layer conditioning?"
+      answer: YES_via_matn_sharh_hashiya_ladder
+      severity: n/a
+      note: >-
+        Claude DR uses 4-stage ladder framing (matn→sharḥ→ḥāshiya→taqrīr)
+        instead of ChatGPT DR's 3-stage cascade (science→layer→level).
+        Presentation differs; substance identical — both require conditioning
+        on madhhab ladder + fann before emitting level.
+
+    - question: "Does Claude DR agree on level-as-history data model?"
+      answer: YES_append_only_level_assessments
+      severity: n/a
+      note: >-
+        Claude DR s7_correction_mechanism.p12 proposes append-only
+        level_assessments list with {stage, value, confidence, provenance,
+        models, timestamp, reconciliation} per entry. Schema differs
+        slightly from ChatGPT DR's LevelAssessment ({engine_owner,
+        model_ensemble_ids, feature_snapshot_id}) but semantic is identical.
+
+    - question: "Does Claude DR surface any risks the ChatGPT DR missed?"
+      answer: YES_three_new_risk_dimensions
+      severity: medium
+      note: >-
+        (1) Abridgements pitched DOWN (inverse of mukhtaṣar paradox): e.g.,
+        al-Taqrīrāt al-Sadīda beginner-facing but title sounds advanced.
+        (2) Audience-specialized works: children's catechisms, women's fiqh
+        primers, qāḍī judicial manuals — difficulty not on curriculum-ladder
+        axis; requires complementary intended_audience field.
+        (3) Front-loaded vs back-loaded difficulty: Jamʿ al-Jawāmiʿ-type
+        variance across chapters — suggests level_curve output beyond
+        scalar level.
+
+    - question: "Does Claude DR identify any non-applicable genres beyond {mushaf, hadith_collection, rijal_dictionary, majmu}?"
+      answer: YES_expanded_list_but_includes_one_doubtful_entry
+      severity: low
+      note: >-
+        Claude DR r6 expands list to include Qurʾān muṣḥaf, Arabic lexicons
+        (Lisān al-ʿArab, Qāmūs al-Muḥīṭ), hadith jāmiʿ compilations, fatwā
+        compilations, biographical dictionaries (tarājim, ṭabaqāt). Also
+        introduces distinction between `reference` (consulted) and
+        `inapplicable` (ladder doesn't apply at all). FLAGGED: Ṣaḥīḥ
+        al-Bukhārī classification as reference/inapplicable may be over-broad
+        (Bukhārī is both a reference AND a core teaching text). Gemini CLI
+        domain-validator must verify before inclusion.
+
+  # Additional convergence dimensions identified during analysis
+  additional_dimensions_analyzed:
+    - dimension: multi_layer_works_per_work_level
+      answer: CONVERGE
+      note: >-
+        Both DRs propose per-constituent level with container carrying
+        composite marker. Claude DR names the canonical Nasafiyya +
+        Taftāzānī + Khayālī printing.
+
+    - dimension: correction_mechanism
+      answer: CONVERGE
+      note: >-
+        Both DRs propose 4-trigger correction with no-upstream-rerun
+        semantics. Claude DR's (c) re-ingestion trigger more explicit than
+        ChatGPT DR's "structural conflict" channel.
+
+  # Full 8-dimension convergence table is in the Claude DR evidence file
+  # at convergence_with_chatgpt_dr. Summary: 6 CONVERGE + 2 DIVERGE.
+  convergence_summary:
+    total_dimensions_compared: 8
+    converge_count: 6
+    diverge_count: 2
+    diverge_dimensions:
+      - source_engine_role  # null-unless-override vs low-confidence-candidate-emission
+      - authoritative_downstream_owner  # synthesis vs taxonomy
+
   divergence_handling: >-
-    If Claude DR recommends OPT-A or OPT-C, or identifies contradictory science
-    conditioning, pause atom closure and dispatch Codex CLI + Gemini CLI + a
-    third DR (Gemini DR) for adjudication. Two-of-three majority required before
-    closing DEC-SRC-0003.
+    Because Claude DR recommends OPT-C (rejected in DEC-SRC-0003) AND assigns
+    ownership to a different engine (taxonomy vs committed synthesis
+    assignment), the 2 divergent dimensions are architectural, not
+    cosmetic. The 6 convergent dimensions remain sound regardless of
+    adjudication outcome. Adjudication dispatched to:
+      - Codex CLI (architectural fit against committed atoms)
+      - Gemini CLI (classical scholarly defensibility, 2 runs per
+        ACTIVE.md stochasticity rule)
+      - Gemini DR (tie-breaker with file bundle, T-2 false scholarly
+        authority framing)
+    Two-of-three majority rule. 1-1-1 escalates to owner via non-technical
+    preference question.
+
+  adjudication_coworkers:
+    - codex_cli_architectural_fit
+    - gemini_cli_scholarly_defensibility_2_runs
+    - gemini_dr_tiebreaker_with_file_bundle
 
 # ===== COWORKER DISPATCH PLAN =====
 # After twin-DR convergence, dispatch for atom validation.
@@ -1156,8 +1257,9 @@ reviewer_findings:
         provenance: both_runs
 
       - severity: HIGH
-        title: "Taa Marbuta fold locked into tests/test_deterministic.py (Run A only — VERIFY)"
-        file: "tests/test_deterministic.py:29 (Run A finding)"
+        title: "Taa Marbuta fold locked into tests/test_deterministic.py (Run A only — VERIFIED 2026-04-17 as FALSE POSITIVE)"
+        file_claimed: "engines/source/tests/test_deterministic.py:29 (Run A finding — PATH WRONG)"
+        file_actual: "tests/test_deterministic.py:33 (repo root, NOT engines/source/tests/)"
         issue: >-
           Run A reported a test case ("ابن تيمية", "ابن تيميه") at line 29
           that asserts Taa Marbuta folding (ة→ه). Run B did NOT surface
@@ -1171,6 +1273,26 @@ reviewer_findings:
         principle_violated: "1 (Zero Taa Marbuta fold)"
         provenance: run_a_only
         next_session_action: VERIFY by reading tests/test_deterministic.py:29 and eval_harness.normalize_arabic_name. If Run A was right, fix the fold as part of Track B. If Run A hallucinated (possible given 429 retry noise), close this finding.
+
+        verification_outcome_20260417:
+          verdict: FALSE_POSITIVE_INCORRECT_PATH_AND_DEFENSIBLE_SEMANTIC
+          path_correction: >-
+            File is at repo-root tests/test_deterministic.py, NOT under
+            engines/source/tests/. Line 33 (not 29) contains the actual
+            test case: ("ابن تيمية", "ابن تيميه"), "# taa marbuta → haa".
+          semantic_assessment: >-
+            The function being tested is normalize_arabic_name (imported
+            from eval_harness in tests/) — a legacy SCHOLAR-NAME MATCHING
+            normalization, not source-engine text processing. AGENTS.md's
+            "NEVER normalize Taa Marbuta" rule applies to scholarly TEXT
+            preservation (e.g., صلاة vs صلاه distinction in Quranic/hadith
+            text). Name-matching normalization legitimately folds ة→ه for
+            duplicate detection — parallel to the documented honorific-
+            stripping pattern "strip for matching, preserve in display"
+            (AGENTS.md scholarly-conventions section).
+          code_action: no_fix_required
+          evidence_action: record as INCORRECT_PATH_AND_DEFENSIBLE_IN_SCOPE
+          verified_by: cc_plan_mode_direct_inspection_20260417
 
       - severity: MEDIUM
         title: Synthetic placeholder Arabic in test fixtures
@@ -1219,8 +1341,9 @@ reviewer_findings:
         provenance: run_b_only
 
       - severity: MEDIUM
-        title: PyMuPDF insert_text produces unshaped Arabic in test fixture (Run A only)
-        file: engines/source/tests/test_step_60_admission.py:140
+        title: PyMuPDF insert_text produces unshaped Arabic in test fixture (Run A only — VERIFIED 2026-04-17 as VALID)
+        file_claimed: engines/source/tests/test_step_60_admission.py:140 (line wrong)
+        file_actual: engines/source/tests/test_step_60_admission.py:155-163 (_write_pdf helper) invoked at line 767 with Arabic Bismillah
         issue: >-
           Run A reported that synthetic PDF generation via PyMuPDF does not
           shape Arabic — text layer is disconnected (glyphs out of order,
@@ -1234,6 +1357,29 @@ reviewer_findings:
           correctly-shaped Arabic text.
         provenance: run_a_only
         next_session_action: VERIFY by inspecting tests/test_step_60_admission.py:140.
+
+        verification_outcome_20260417:
+          verdict: VALID_SEMANTIC_LINE_NUMBER_WRONG
+          path_correction: >-
+            Line 140 as claimed is actually a MonitorSuggestedPolicyUpdate
+            code reference, not PDF generation. The actual _write_pdf helper
+            is at lines 155-163. The helper is invoked with Arabic text at
+            exactly one site: line 767, with Arabic Bismillah string
+            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" (full diacritics).
+          semantic_assessment: >-
+            PyMuPDF's page.insert_text() does NOT shape Arabic by default —
+            it renders left-to-right in isolated form. Round-tripping Arabic
+            through this helper produces disconnected glyphs that the PDF
+            text layer extractor will then read back as garbage. The
+            downstream fixture at line 767 depends on clean Bismillah text,
+            so this IS a real bug.
+          code_action: fix_deferred_to_post_adjudication_track_b
+          fix_options:
+            - "arabic_reshaper.reshape(text) + bidi.algorithm.get_display(...) before insert_text (preferred)"
+            - "Pre-compiled PDF fixture committed under tests/fixtures/source_engine/pdfs/"
+            - "Use a PyMuPDF Arabic-shaping wrapper (if available in PyMuPDF ≥ 1.24)"
+          evidence_action: record as VERIFIED_SEMANTIC_LINE_WRONG
+          verified_by: cc_plan_mode_direct_inspection_20260417
 
     cross_cutting_patterns:
       - >-
@@ -1347,6 +1493,30 @@ integration_verification:
   paragraphs_unused: 0
   coverage_verified: true
   verification_complete: explore_clean_researcher_6v_3pv_1uv_0d_r1_amend_r2_amend_r3_rework_gemini_critical
-  claude_dr_convergence: AWAITING_DEEP_ANALYSIS  # arrived 2026-04-16, owner flagged as "extremely thorough"
-  atom_commit_status: f26997c4c_committed_but_reviewers_flagged_needs_rework
-  amendment_pass_status: queued_for_next_session
+  claude_dr_convergence: DIVERGENT_ON_SOURCE_ROLE_AND_OWNERSHIP  # analyzed 2026-04-17; 6 CONVERGE + 2 DIVERGE of 8 dimensions
+  atom_commit_status: f26997c4c_original_plus_phase_5a_amendments_20260417
+  amendment_pass_status: phase_5a_executed  # was halted_pending_adjudication
+  adjudication_dispatched: '2026-04-17'
+  adjudication_coworkers:
+    - codex_cli_architectural_fit
+    - gemini_cli_scholarly_defensibility_2_runs
+    - gemini_dr_tiebreaker_with_file_bundle
+  adjudication_completed: '2026-04-17'
+  adjudication_final_verdict: OPT-B_unanimous_3_of_3_plus_gemini_dr_middle_path_amendment
+  phase_5a_amendments:
+    decided_by_cc: '2026-04-17'
+    plan_file: C:\Users\Rayane\.claude\plans\agile-tinkering-gizmo.md
+    middle_path_decision: ADOPTED
+    atoms_amended:
+      - DEC-SRC-0003
+      - INV-SRC-0011
+      - REQ-SRC-0007
+      - REQ-SRC-0046
+      - REQ-SRC-0047
+      - CON-SRC-0004
+    atoms_created:
+      - CON-SRC-0011
+    index_yaml_updates:
+      - DEC-SRC-0003_status_corrected_deferred_to_confirmed
+      - CON-SRC-0011_registered
+      - top_level_updated_date_bumped_to_20260417

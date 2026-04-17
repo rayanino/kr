@@ -1,0 +1,1647 @@
+# DR report record — Claude Deep Research on reading-level inference in KR
+# Raw artifact (owner-side, not committed): Downloads/compass_artifact_wf-93f303b5-...md
+# This is the TWIN cross-check for DR-CHATGPT-LEVEL-DETECTION-20260416.
+# Verdict: DIVERGENT. Adjudication required before DEC-SRC-0003 is finalized.
+
+report_id: DR-CLAUDE-LEVEL-DETECTION-20260416
+provider: claude_deep_research
+dispatched: '2026-04-16'
+received: '2026-04-16'
+artifact_size_bytes: ~19500  # ~19.5KB markdown
+question: OQ-SRC-0001
+decision: DEC-SRC-0003
+source_feedback: OF-SRC-0007
+twin_dr: DR-CHATGPT-LEVEL-DETECTION-20260416
+status: divergent_pending_adjudication
+cross_check_status: divergence_found_adjudication_required
+
+# ===== HEADLINE =====
+
+headline_recommendation: OPT-C-asymmetric
+headline: >-
+  OPT-C, asymmetric — a provisional source-side signal, an authoritative
+  taxonomy-side inference, and a preserved disagreement record. The source
+  engine should emit a low-confidence candidate level from title cards and
+  publisher metadata at the metadata_deliberation step, carrying explicit
+  provenance and a confidence=low tag. The authoritative level should be
+  computed in the TAXONOMY engine (NOT synthesis), where the pipeline has
+  structural, lexical, and citation-level evidence tracking the signals the
+  Islamic scholarly tradition itself uses to distinguish matn from sharḥ
+  from ḥāshiya. The two values never overwrite each other — they co-exist
+  under D-023 as a versioned level record, and when they disagree, the
+  disagreement is itself published metadata, consistent with the project's
+  "disputed metadata IS valid output" rule.
+
+dr_self_confidence: high
+accepted_as_binding: no_pending_adjudication
+
+# ===== CONVERGENCE / DIVERGENCE WITH TWIN (ChatGPT DR) =====
+# This is the critical output of this record. The 8 dimensions below
+# determine whether DEC-SRC-0003 (closed OPT-B in commit f26997c4c) stands
+# or must be reversed.
+
+convergence_with_chatgpt_dr:
+  verdict: DIVERGENT_ON_SOURCE_ROLE_AND_AUTHORITATIVE_OWNER
+  converge_count: 6
+  diverge_count: 2
+  dimensions:
+
+    - dimension: source_engine_role
+      chatgpt_position: >-
+        Source engine MUST NOT populate SourceMetadata.level except via
+        explicit owner override. Level remains null at admission (p16-p20;
+        INV-SRC-0011 committed).
+      claude_position: >-
+        Source engine MUST emit level_candidate with confidence=low from
+        title_tokens | publisher_series | container_shape. The source signal
+        is honest about its uncertainty and bootstraps the UI during
+        admission-to-taxonomy latency (s5_opt_c_architecture.p8).
+      status: DIVERGE
+      severity: critical
+      rationale: >-
+        Committed INV-SRC-0011 forbids the exact inference Claude DR
+        requires. Reversing this is a decision reversal, not an amendment.
+      direct_contradiction: INV-SRC-0011 rule statement
+
+    - dimension: authoritative_downstream_owner
+      chatgpt_position: >-
+        Synthesis engine owns authoritative level classification. Synthesis
+        is the first place a book can be seen as distributed pedagogical
+        units (p19). Three-stage cascade: science → layer → level.
+      claude_position: >-
+        Taxonomy engine owns authoritative level. Taxonomy already places
+        the book in the science tree (fann/madhhab/curriculum branch);
+        knowing where in the curriculum a book sits is inseparable from
+        knowing its level. Synthesis is too late — it composes ACROSS
+        sources and should CONSUME level, not produce it (s5.p9).
+      status: DIVERGE
+      severity: high
+      rationale: >-
+        Both positions coherent; a design judgment call. Claude DR cites
+        synthesis's cross-source composition as disqualifying; ChatGPT DR
+        cites synthesis's distributed-unit visibility as qualifying.
+      direct_contradiction: DEC-SRC-0003 rationale + cross_engine_commitments.synthesis_engine
+
+    - dimension: level_as_history_data_model
+      chatgpt_position: >-
+        Level stored as history of LevelAssessment records with
+        {level, confidence, engine_owner, model_ensemble_ids,
+        feature_snapshot_id, evidence_excerpts, timestamp,
+        predecessor_record}. Active level projects into nullable field.
+        NEVER silent overwrite (p22, p25).
+      claude_position: >-
+        level_assessments = append-only list with per-stage entries
+        {stage, value, confidence, provenance, models, timestamp,
+        reconciliation}. Displayed level is projection (most recent
+        high-confidence wins; ties → disputed). NEVER overwrite
+        (s7_correction_mechanism.p12-p15).
+      status: CONVERGE
+      severity: n/a
+      rationale: >-
+        Both DRs converge on the append-only data model. Schema differences
+        are minor; core semantic (no overwrite, provenance mandatory,
+        owner-visible history) is identical.
+
+    - dimension: science_layer_ladder_conditioning
+      chatgpt_position: >-
+        Science-conditioning MANDATORY. Three-stage cascade: first locate
+        as fiqh/usul/nahw/hadith/tafsir + matn/sharh/hashiyah/edition-with-
+        apparatus, THEN classify into mubtadi/mutawassit/mutaqaddim (p21).
+      claude_position: >-
+        matn→sharḥ→ḥāshiya→taqrīr ladder (with takmila for continuations)
+        corresponds to beginner→intermediate→advanced→expert-critical.
+        Isnad density treated as conditional-by-science, not universal
+        (p4_tradition + f2_isnad). Depth in the stack correlates with
+        difficulty; tradition exposes this via textual behavior.
+      status: CONVERGE
+      severity: n/a
+      rationale: >-
+        Both DRs agree the classical ladder is the organizing axis.
+        ChatGPT DR uses a 3-stage cascade framing; Claude DR uses a 4-stage
+        ladder framing. The cascade/ladder distinction is presentation, not
+        substance — both require the same conditioning.
+
+    - dimension: title_tokens_unreliable
+      chatgpt_position: >-
+        Title tokens (mukhtasar, wasit, taysir, mubassat, kabir,
+        lil-mubtadi'in) encode marketing/positioning, NOT difficulty.
+        Ibn Khaldun critique of abbreviation + three recurring failure
+        modes (edition drift, series/volume mismatch, title-token false
+        positives) justify rejecting OPT-A (p2, p9, p17, r2).
+      claude_position: >-
+        Title tokens are the LEAST reliable signal. Canonical
+        counter-example: Mukhtaṣar Khalīl (d. 776/1374) — name promises
+        brevity but Maliki tradition treats as most authoritative text.
+        Parallel: Mukhtaṣar al-Muzanī (advanced Shāfiʿī), al-Mughnī (Ibn
+        Qudāma) despite humble author-voice. Ibn Khaldun's chapter on
+        teaching (Muqaddima Book VI) + al-Zarnūjī Taʿlīm al-Mutaʿallim
+        underline that level is function of student readiness + book's
+        internal density, not title (s3_why_opt_a_fails.p4-p5).
+      status: CONVERGE
+      severity: n/a
+      rationale: >-
+        Both DRs reach the same conclusion via overlapping evidence.
+        Both cite Ibn Khaldun; both cite the mukhtaṣar paradox; both name
+        specific counter-example works.
+
+    - dimension: non_applicable_genres_null
+      chatgpt_position: >-
+        For mushaf, hadith_collection, rijal_dictionary, majmu, and similar
+        archival/transmission genres, level MUST be null. Forcing a label
+        creates false scholarly authority (SEC-2, INV-SRC-0012).
+      claude_position: >-
+        Controlled vocabulary MUST include `reference` and `inapplicable`
+        as first-class values. Taxonomy detects by discipline
+        (lugha / hadith-jāmiʿ / tarājim / muṣḥaf) and suppresses the
+        beginner-advanced axis. Scope expanded beyond ChatGPT DR: Qurʾān
+        muṣḥaf, Lisān al-ʿArab, Qāmūs al-Muḥīṭ, Ṣaḥīḥ al-Bukhārī, fatwā
+        compilations, biographical dictionaries (s8_risks.r6).
+      status: CONVERGE_CLAUDE_EXPANDS
+      severity: low
+      rationale: >-
+        Both agree on the null-for-non-applicable principle. Claude DR
+        expands the list. Adding entries to INV-SRC-0012's list is an
+        amendment, not a reversal.
+      note: >-
+        Claude DR's inclusion of Ṣaḥīḥ al-Bukhārī as "reference/inapplicable"
+        is flagged for Gemini CLI domain verification — Bukhārī is both a
+        hadith collection AND a core teaching text read cover-to-cover in
+        many curricula. Reference-only classification may be over-broad.
+
+    - dimension: multi_layer_works_per_work_level
+      chatgpt_position: >-
+        is_multi_layer mandatory in CON-SRC-0004. Classifier must detect
+        layers first, classify dominant readable layer, or keep book-level
+        null with layer-level assessments (r1).
+      claude_position: >-
+        A printing of Sharḥ al-ʿAqāʾid al-Nasafiyya with al-Taftāzānī's
+        commentary and al-Khayālī's ḥāshiya on same page is three works at
+        three levels co-bound. Level emitted per CONSTITUENT WORK inside
+        container, enumerated via REQ-SRC-0017/0020/0041. Container itself
+        carries `level: composite` (s8_risks.r1).
+      status: CONVERGE
+      severity: n/a
+      rationale: >-
+        Both DRs identify the same problem and reach the same
+        per-constituent solution. Claude DR names a specific canonical
+        multi-layer printing (Nasafiyya + Taftāzānī + Khayālī).
+
+    - dimension: correction_mechanism
+      chatgpt_position: >-
+        Four detection channels: confidence failure, structural conflict,
+        cross-edition divergence, owner review (p23). Late metadata overlay
+        — no upstream re-run (p24). Selectively invalidate search indexes,
+        book cards, level-mentioning synthesis outputs.
+      claude_position: >-
+        Four triggers: (a) downstream disagreement with taxonomy features
+        contradicting source candidate by >1 level, (b) owner flag via UI
+        one-click, (c) re-ingestion of new EditionHolding, (d) model-version
+        bump with corpus-wide re-scoring. No upstream re-run; level is
+        metadata overlay indexed against work ID, not level
+        (s7_correction_mechanism.p13-p14).
+      status: CONVERGE
+      severity: n/a
+      rationale: >-
+        Both DRs arrive at 4-trigger correction with no-upstream-rerun
+        semantics. Channel framing differs slightly (confidence failure
+        vs downstream disagreement > 1 level), but the intent is identical.
+
+# ===== PARAGRAPH INVENTORY (37 units) =====
+# Every paragraph from the Claude DR has an entry. Implementation targets
+# are marked as `conditional_on_opt_c` where they would only activate if
+# OPT-C wins adjudication.
+
+sections:
+
+  - id: s1_opening
+    paragraph_count: 1
+
+    paragraphs:
+      - id: p1_headline_opt_c_asymmetric
+        claim: >-
+          OPT-C asymmetric — source engine emits low-confidence level_candidate
+          at metadata_deliberation (provenance + confidence=low). Authoritative
+          level computed in TAXONOMY engine. Two values persist under D-023 as
+          versioned level record. Disagreement published as metadata.
+        implementation_target:
+          kind: conditional_on_opt_c
+          atom_id_target: DEC-SRC-0003  # reversal if OPT-C wins
+          note: >-
+            If OPT-C wins adjudication, this paragraph binds the reversal
+            of DEC-SRC-0003 + INV-SRC-0011. If OPT-B wins, this claim is
+            recorded as the rejected dissenting position.
+        divergence_flag: true
+        convergence_partner: p16_opt_b_headline  # ChatGPT DR
+
+  - id: s2_repo_anchors
+    paragraph_count: 2
+
+    paragraphs:
+      - id: p2_four_atoms_frame_decision
+        claim: >-
+          Four atoms frame the decision: OQ-SRC-0001 (deferred, ranks OPT-A
+          unlikely, OPT-B likely, OPT-C possible); DEC-SRC-0003 (deferred,
+          REQ-SRC-0007 fixes level-field preservation, ownership still open);
+          OF-SRC-0007 (confirmed, owner recommends content-based detection
+          over book-level metadata, engine ownership unresolved);
+          engines/source/CLAUDE.md (spec frozen with pipeline steps upload_receipt
+          → freeze_and_manifest → container_classification → intake_analysis
+          → metadata_deliberation → source_admission_and_normalization_handoff,
+          governance: Agent-first-owner-validates, Truth-seeking-not-consensus-
+          forcing, No-binding-downstream-contracts). Root CLAUDE.md / AGENTS.md
+          add: frozen sources, primary text never modified, D-023 metadata
+          forward-flow, fail-loud errors, multi-model consensus (D-041).
+        implementation_target:
+          kind: informational
+          note: >-
+            Correctly cites the committed spec state as of 2026-04-16.
+            Note: Claude DR dates from before f26997c4c (commit that closed
+            DEC-SRC-0003 OPT-B); its reading "ownership still open" was
+            correct at dispatch time.
+        divergence_flag: false
+        convergence_partner: none
+
+      - id: p3_error_ceiling_forces_asymmetric_design
+        claim: >-
+          Consumer of level field (taxonomy placement, excerpt suggestion,
+          curriculum-aware search) is downstream. Cost of mislabeling = wrong
+          belief in owner's mind (library's prime directive). Error-tolerance
+          ceiling + Agent-first-owner-validates principle forces a design
+          where pipeline can BOTH commit best-available value early AND
+          correct without rewriting history.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            This is the architectural premise motivating OPT-C over pure
+            OPT-B. If ChatGPT DR's "null is not a commitment; wrong visible
+            level is worse" argument (p20) wins adjudication, this premise
+            is rejected. If Claude DR's "null trains owner to ignore field"
+            argument wins, this premise is binding.
+        divergence_flag: true
+        convergence_partner: p20_ux_argument  # ChatGPT DR takes opposite position
+
+  - id: s3_why_opt_a_fails
+    paragraph_count: 2
+
+    paragraphs:
+      - id: p4_classical_ladder_matn_sharh_hashiya
+        claim: >-
+          Classical Islamic book culture organized texts into 4-stage ladder:
+          matn → sharḥ → ḥāshiya → taqrīr (with takmila for continuations).
+          Corresponds roughly to beginner → intermediate → advanced →
+          expert-critical. Matn = memorizable primer ("general understanding
+          of the topic", Daily Sabah synthesis of UC Berkeley Hashiya and
+          Islamic Intellectual History conference 2012). Sharḥ has 3 subtypes:
+          phrase-clarification, conceptual exposition, advanced argumentation
+          (Harun Saleh, malikifiqhqa.com). Ḥāshiya characteristically critiques
+          the sharḥ (Maverd, 2015). Working ladders: Shāfiʿī Safīnat al-Najāh
+          → Matn Abī Shujāʿ (Ibn Qāsim sharḥ, Bājūrī ḥāshiya) → Minhāj al-
+          Ṭālibīn → Tuḥfat al-Muḥtāj. Hanafī Tumurtāshī Tanwīr al-Abṣār →
+          Ḥaṣkafī al-Durr al-Mukhtār → Ibn ʿĀbidīn Radd al-Muḥtār
+          (SeekersGuidance 2024-2025). Depth in stack correlates with difficulty.
+          Tradition exposes this via TEXTUAL BEHAVIOR (isnād density,
+          technical-term density, cross-reference assumptions, absence of
+          glosses, debate-and-evidence argumentation), NOT titles.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy  # DIVERGES from ChatGPT's synthesis assignment
+          note: >-
+            Strong convergence with ChatGPT DR p1_relational_difficulty and
+            p21_science_layer_refinement. Claude DR adds explicit curricular
+            ladders per madhhab — useful calibration reference for taxonomy.
+            DIVERGES on which engine owns the classification.
+        divergence_flag: true
+        convergence_partner: p1_relational_difficulty  # ChatGPT DR
+
+      - id: p5_mukhtasar_khalil_paradox
+        claim: >-
+          Title tokens LEAST reliable. Canonical counter-example:
+          Mukhtaṣar Khalīl ibn Isḥāq al-Jundī (d. 776/1374) — name promises
+          brevity but every Mālikī curriculum guide warns "pregnant in meaning
+          and difficult in expression... invariably studied with commentary"
+          (islamclass.wordpress.com, 2014 Mālikī curriculum). Al-Ḥaṭṭāb
+          (d. 954 AH) and al-Dardīr (d. 1201 AH) treat as school's MOST
+          AUTHORITATIVE text, approached only after al-ʿAshmāwiyya, al-Risāla
+          Ibn Abī Zayd, al-Murshid al-Muʿīn. Parallel failures:
+          Mukhtaṣar al-Qudūrī (intro Hanafī) vs Mukhtaṣar al-Muzanī (advanced
+          Shāfiʿī); al-ʿUmda Ibn Qudāma (intro Hanbalī) but al-Muqniʿ ascends,
+          al-Mughnī is specialist-level. Al-Minhāj al-Nawawī carries humble
+          "path" token but sits intermediate-advanced. Title tokens produce
+          SYSTEMATIC false readings Islamic students know about and that
+          OPT-A would encode as metadata. Ibn Khaldūn Muqaddima Book VI
+          (Rosenthal 1958) + al-Zarnūjī Taʿlīm al-Mutaʿallim: appropriate
+          level is function of student readiness + book's internal density,
+          NOT title. Dajani, Procedia Social and Behavioral Sciences 192,
+          2015, 308-312.
+        implementation_target:
+          kind: conditional_on_opt_c
+          atom_id_target: INV-SRC-0011  # reversal-amendment if OPT-C wins
+          note: >-
+            Strongly convergent with ChatGPT DR p17_tradition_argument and
+            r2_abridgement_title_trap. Both DRs reject OPT-A for the same
+            reason. The DIVERGENCE is that Claude DR treats these signals as
+            usable-with-low-confidence while ChatGPT DR treats them as
+            unusable-for-authoritative-commitment.
+        divergence_flag: false
+        convergence_partner: p17_tradition_argument  # ChatGPT DR
+
+  - id: s4_why_pure_opt_b_wastes_signal
+    paragraph_count: 2
+
+    paragraphs:
+      - id: p6_opt_b_silent_not_wrong
+        claim: >-
+          Weakness of OPT-B is not that it is wrong but that it is SILENT.
+          metadata_deliberation already reads title cards, publisher
+          metadata, series names, container manifest; runs multi-model
+          consensus on author/edition/volume. Discarding weak title signal
+          and waiting for taxonomy means during admission-to-taxonomy
+          latency library displays empty field or null. Owner (per CLAUDE.md)
+          is student with "minimum Islamic knowledge" who trusts library.
+          Showing no level on newly admitted books silently trains him to
+          ignore field. Worse: freshly admitted = unknown looks IDENTICAL
+          to unprocessable = unknown.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            Direct argument AGAINST the committed OPT-B position. ChatGPT
+            DR p20 takes the opposite stance: "wrong visible level is more
+            harmful than temporarily unknown level." Both arguments are
+            coherent; adjudication must resolve which owner-experience
+            risk is higher.
+        divergence_flag: true
+        convergence_partner: p20_ux_argument  # ChatGPT DR opposite position
+
+      - id: p7_cheap_useful_evidence_beyond_titles
+        claim: >-
+          Source engine has useful evidence beyond title tokens. Publisher
+          highly informative in Islamic-studies: Dār al-Minhāj and Dār Ibn
+          Ḥazm curriculum-aligned editions, al-Risāla standard-reference
+          pressings, Sifatusafwa Ribāṭ-Ḥaḍramī aligned printings, Dār al-Fikr
+          reference multi-volumes (al-Raqmiyyāt 2016 digital-corpora
+          overview; alminhaj.com catalog). Container shape informative:
+          single-volume pocket edition with full ḥarakāt and sharḥ on same
+          page = teaching edition; multi-volume reference with critical
+          apparatus ≠ teaching edition. These cheap features + title tokens
+          emit hypothesis wrong often enough to need correction but right
+          often enough to INITIALIZE the level field better than null —
+          PROVIDED pipeline treats it as hypothesis, not truth.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            Enumerates the specific signals that would feed level_candidate
+            if OPT-C wins: publisher_series (Dār al-Minhāj/Ibn Ḥazm/al-
+            Risāla/Sifatusafwa/Dār al-Fikr curricular alignment) + container
+            shape (single-vol pocket with ḥarakāt vs multi-vol critical).
+            If OPT-B wins, these same signals remain preserved in
+            SourceMetadata but do NOT drive level inference.
+        divergence_flag: true
+        convergence_partner: none
+
+  - id: s5_opt_c_architecture
+    paragraph_count: 4
+
+    paragraphs:
+      - id: p8_source_engine_level_candidate_contract
+        claim: >-
+          Source engine at metadata_deliberation step emits level_candidate
+          field inside SourceMetadata with values from controlled vocabulary
+          {beginner, intermediate, advanced, reference, inapplicable, unknown}
+          + confidence (always ≤ low for this signal) + source
+          {title_tokens | publisher_series | container_shape} +
+          features_observed: [...]. Runs through D-041 multi-model consensus.
+          NEVER labels a book at high confidence from source stage. If
+          signals contradict (title says "mukhtaṣar" but publisher series is
+          reference encyclopedia), field emitted as `disputed` with both
+          hypotheses preserved.
+        implementation_target:
+          kind: conditional_on_opt_c
+          atom_id_target: CON-SRC-0004 + CON-SRC-0011-new  # if OPT-C wins
+          note: >-
+            If OPT-C wins, CON-SRC-0004 gains level_candidate field (with
+            new CON-SRC-0011 defining its controlled vocab + confidence
+            cap + disputed semantics). INV-SRC-0011 must be reversed to
+            allow — indeed require — this emission.
+        divergence_flag: true
+        convergence_partner: none
+
+      - id: p9_taxonomy_authoritative_owner
+        claim: >-
+          Taxonomy engine computes level_authoritative AFTER passaging
+          (structural tree available), atomization (unit counts available),
+          excerpting (teaching units tagged). Taxonomy is correct owner
+          because already places book in science tree (fann / madhhab /
+          curriculum branch); knowing where in the curriculum a book sits
+          is inseparable from knowing its level. SYNTHESIS IS TOO LATE —
+          composes ACROSS sources, should CONSUME level not produce it.
+          Normalization and passaging too early — below semantic layer
+          where audience markers and specialized-term density live.
+          Taxonomy emits level_authoritative with own confidence + feature
+          vector + reconciliation verdict against source candidate.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy  # DIVERGES from ChatGPT DR synthesis assignment
+          note: >-
+            CORE DIVERGENCE: ChatGPT DR assigns ownership to synthesis
+            ("the first place a book can be seen as distributed pedagogical
+            units"). Claude DR assigns to taxonomy ("fann placement and
+            level are inseparable"). Both arguments coherent. Adjudication
+            must resolve.
+        divergence_flag: true
+        convergence_partner: p19_pipeline_argument  # ChatGPT DR — opposite engine
+
+      - id: p10_reconciliation_rule_both_persist
+        claim: >-
+          Reconciliation rule: both fields persist. Library view displays
+          level_authoritative when present with confidence ≥ medium, falls
+          back to level_candidate otherwise, surfaces VISIBLE DISAGREEMENT
+          MARKER when they disagree — a small flag, not a silent overwrite.
+          Satisfies D-023 (history preserved) + Truth-seeking-not-consensus-
+          forcing design principle. Frozen-source rule untouched — primary
+          text unchanged, only metadata dossier gains fields.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            The reconciliation semantic (both persist, fallback when
+            authoritative missing, visible disagreement marker) is the UI/UX
+            commitment that distinguishes OPT-C from naive early-commit
+            OPT-A. If OPT-C wins, this paragraph binds a new atom for the
+            reconciliation display rule.
+        divergence_flag: true
+        convergence_partner: none
+
+      - id: p11_four_defensibility_counts
+        claim: >-
+          Architecture survives skeptic's cross-examination on 4 counts:
+          (1) doesn't let source engine's weakest features become owner's
+          belief; (2) doesn't waste them either — they bootstrap UI + become
+          training signal for taxonomy-stage classifier once pipeline has
+          labeled enough books; (3) every inference auditable (provenance,
+          features_observed, model_consensus_record mandatory per D-041 +
+          D-023); (4) respects spec's own likelihood ordering — OPT-B
+          "likely" and OPT-A "unlikely" in OQ-SRC-0001; OPT-C-with-asymmetric-
+          weighting is OPT-B + disciplined honest use of weak signal the
+          pipeline sees anyway.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            Frames OPT-C as "OPT-B-plus-discipline" rather than as a distinct
+            third option. Counterpoint to ChatGPT DR's OPT-C rejection
+            rationale that OPT-C "multiplies surface area for silent level
+            corruption." The dispute centers on whether confidence=low is
+            protection against T-6 (metadata poisoning) + secondary T-3
+            (taxonomic misplacement) + T-2 (attribution error treated as
+            categorical attribution) — or whether it becomes a vector for
+            them. Framing corrected 2026-04-17: KNOWLEDGE_INTEGRITY.md T-2
+            is specifically "Attribution Error", not "false scholarly
+            authority" as a general concept. Level-metadata threat profile
+            is primarily T-6 with T-3/T-2 secondary.
+        divergence_flag: true
+        convergence_partner: none
+
+  - id: s6_feature_ranking
+    unit_count: 12  # 11 features + 1 BAREC caveat
+
+    features:
+      - id: f1_depth_in_stack_text_reuse
+        name: Depth in the matn→sharḥ→ḥāshiya→taqrīr stack (موقع الكتاب من شجرة الشروح)
+        mechanism: >-
+          Text-reuse analysis. KITAB's passim algorithm (Smith/Cordell/Mullen
+          2015; applied to OpenITI by Savant/Romanov/Miller). Long aligned
+          passages from known matn Y in work X interleaved with original
+          prose → X is functionally a sharḥ of Y.
+        reliability: high
+        stage: taxonomy
+        tool: passim + KITAB aggregated alignment dataset
+        classical_ranking: 1  # single most reliable tradition-grounded signal
+
+      - id: f2_isnad_density
+        name: Isnād density (كثافة الأسانيد)
+        mechanism: >-
+          Ratio of isnād tokens to body tokens. Ryan Muther's @ISB@/@ISE@
+          isnād classifier (KITAB Subgenre classification 2022-2024). High
+          density → ḥadīth or transmission work; level not on
+          beginner-advanced scale but discipline-specific category (riwāya).
+        reliability: high
+        stage: excerpting
+        stage_note: >-
+          Excerpting respects AGENTS.md rule "isnād chains kept as atomic
+          units."
+        tool: Muther's isnād classifier + simple ratio
+        classical_ranking: 2
+
+      - id: f3_specialized_term_density
+        name: Specialized-term density against a classical glossary (كثافة اصطلاحات الفن)
+        mechanism: >-
+          Match tokens against lexical inventory of al-Jurjānī's
+          al-Taʿrīfāt (d. 816 AH), al-Tahānawī's Kashshāf Iṣṭilāḥāt al-Funūn
+          (18th c.), Mawsūʿa Fiqhiyya Kuwaytiyya. Work using fann terminology
+          without gloss = advanced. Work defining wuḍūʾ and ṭahāra = beginner.
+        reliability: medium_high
+        stage: atomization (taxonomy refines against fann)
+        tool: dictionary lookup + CAMeL Tools lemmatizer (Obeid et al., LREC 2020)
+        classical_ranking: 3
+
+      - id: f4_muqaddima_audience_markers
+        name: Muqaddima audience markers (قرائن الجمهور في المقدمة)
+        mechanism: >-
+          Regex + small classifier over first ~200 tokens after hamdala.
+          Explicit phrases: هذا مختصر للمبتدئين / رتبته للمتوسطين /
+          جمعته للمحققين / لا يخفى على المنتهي. AGENTS.md rule already
+          codified: everything before أما بعد is formulaic preamble;
+          everything after until first chapter heading is the author's
+          muqaddimah.
+        reliability: high_when_present_sparse_overall
+        stage: passaging (structural tree marks muqaddimah boundary)
+        tool: regex + CAMeLBERT-CA classifier (Inoue/Alhafni/Baimukan/Bouamor/Habash WANLP 2021)
+        classical_ranking: 4
+
+      - id: f5_vocabulary_rarity_classical_baseline
+        name: Vocabulary rarity against OpenITI/CAMeLBERT-CA classical frequency baseline
+        mechanism: >-
+          Tokens below median frequency rank in CAMeL Arabic Frequency Lists
+          Classical-Arabic split (Khalifa/Inoue/Alhafni/Baimukan/Bouamor/
+          Habash 2021; ~17.3B-token pretraining baseline, CA subset).
+          RIGHT baseline for turāth (not modern-news-derived).
+        reliability: medium_high
+        stage: taxonomy (whole-book token distribution)
+        tool: CAMeL frequency lists
+        classical_ranking: 5
+
+      - id: f6_citation_explanation_mode
+        name: Explanation-mode of Qurʾān/ḥadīth citations
+        mechanism: >-
+          For every Qurʾānic verse detected (exact match against mushaf
+          corpus) or ḥadīth detected (passim alignment against Ṣiḥāḥ
+          al-Sitta + Muwaṭṭaʾ, KITAB methodology), classify whether
+          following 1-3 sentences constitute explanation (lexical gloss,
+          asbāb al-nuzūl, legal extraction) or bare citation. Work citing
+          without explanation assumes reader met citation before → advanced.
+        reliability: medium
+        stage: excerpting
+        tool: regex + classifier
+        classical_ranking: 6
+
+      - id: f7_cross_reference_density
+        name: Cross-reference density (كثافة الإحالات)
+        mechanism: >-
+          Occurrences of أحلت تفصيله على... / سبق لنا في كتاب... /
+          كما فصّلناه في... / انظر / راجع. High density presumes reader
+          familiar with author's corpus or school's standard references →
+          advanced.
+        reliability: medium
+        stage: passaging (preserves cross-reference formulas per AGENTS.md)
+        tool: regex
+        classical_ranking: 7
+
+      - id: f8_evidential_verb_density
+        name: Evidential verb density (قال، روى، أخبرنا، حدثنا، نقل، ذكر)
+        mechanism: >-
+          Trivial regex, already used in KITAB's isnād detection.
+          Correlates with ḥadīth/tarājim genres rather than with
+          beginner-advanced axis per se. Useful as discipline prior.
+        reliability: medium_as_genre_low_as_level_alone
+        stage: atomization
+        tool: regex
+        classical_ranking: 8
+
+      - id: f9_footnote_gloss_density_by_edition
+        name: Footnote/gloss density as preserved by the edition
+        mechanism: >-
+          If editor added hāmish with lexical explanations, edition pitched
+          lower level than same text printed bare. Feature describes the
+          EDITION's target audience, not the work's.
+        reliability: medium
+        stage: source (visible in container shape)
+        tool: structural tagging
+        note: >-
+          Per AGENTS.md these must be tagged layer_type: editorial and
+          attributed to the muḥaqqiq not the author.
+        classical_ranking: 9
+
+      - id: f10_sentence_morphological_complexity_osman
+        name: Sentence and morphological complexity, OSMAN-style
+        mechanism: >-
+          OSMAN (El-Haj & Rayson, LREC 2016) and successors are diacritization-
+          and syllable-sensitive. Marginal signal but validated on UN-parallel
+          MSA not turāth; drop low.
+        reliability: low_on_classical_text
+        stage: normalization
+        tool: OSMAN jar + CAMeL Tools morphological analyzer
+        note: Research-only for this corpus.
+        classical_ranking: 10
+
+      - id: f11_title_tokens_publisher_series
+        name: Title tokens (مختصر، كبير، سلم، نخبة، عمدة، منهاج) + publisher series metadata
+        mechanism: >-
+          THIS IS THE SOURCE-ENGINE HYPOTHESIS. Tradition warns these mislead
+          (Mukhtaṣar Khalīl, al-Mughnī, etc.).
+        reliability: low
+        stage: source (metadata_deliberation)
+        source_engine_role: >-
+          CLAUDE DR POSITION: emit as level_candidate with confidence=low,
+          NEVER as authoritative. CHATGPT DR POSITION (committed): preserve
+          these signals as features but NEVER drive level inference from them.
+        tool: token list + publisher lookup
+        classical_ranking: 11
+        divergence_flag: true
+        convergence_partner: f11_title_card_cues  # ChatGPT DR
+
+      - id: f12_barec_caveat
+        name: BAREC — strongest Arabic readability corpus, but domain-gap caveat
+        claim: >-
+          BAREC (Elmadani/Habash/Taha-Thomure, Findings of ACL 2025;
+          barec.camel-lab.com) — 69,441 sentences across 19 levels, 81.8%
+          quadratic-weighted κ inter-annotator agreement — is the STRONGEST
+          Arabic readability resource in existence but was built chiefly
+          from curricular, news, and literary materials, NOT classical
+          turāth. It is a feature engine, not an out-of-the-box label
+          source: use its sentence-level scores as one input among the 11
+          features above, but never as the level itself. Gap between BAREC's
+          training distribution and the classical-Islamic-scholarship
+          distribution is the single biggest caveat any future KR-specific
+          level classifier must address. Realistic path: fine-tune
+          CAMeLBERT-CA (classical-Arabic variant in CAMeLBERT family) on
+          a KR-specific labeled subset.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy (classifier training path)
+          note: >-
+            Convergent with ChatGPT DR p13_tooling_maturity and p14_transfer_problem
+            (OSMAN/AARI demoted to weak-signal). Claude DR names BAREC
+            specifically and gives the CAMeLBERT-CA fine-tuning path.
+
+  - id: s7_correction_mechanism
+    paragraph_count: 4
+
+    paragraphs:
+      - id: p12_append_only_level_assessments
+        claim: >-
+          Correction is a first-class pipeline event, not a mutation. Level
+          record = append-only list of assessments. Example entry: {stage,
+          value, confidence, provenance, models, timestamp,
+          reconciliation (optional)}. Displayed level = projection from list
+          (most recent high-confidence wins; ties surface as `disputed`),
+          not a mutable field. Keeps D-023 literal (no upstream value
+          deleted/overwritten; every stage adds its view). Keeps
+          frozen-source rule literal (none of this touches primary text).
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: multiple (source + taxonomy + display)
+          note: >-
+            STRONG convergence with ChatGPT DR p22_append_only_history.
+            Both DRs propose the same data-model pattern. Minor schema
+            differences: ChatGPT DR's LevelAssessment has engine_owner +
+            model_ensemble_ids + feature_snapshot_id; Claude DR's entry has
+            stage + provenance + models + reconciliation. Substantively
+            identical intent.
+        divergence_flag: false
+        convergence_partner: p22_append_only_history  # ChatGPT DR
+
+      - id: p13_four_correction_triggers
+        claim: >-
+          Triggers for new assessment: (a) downstream disagreement —
+          taxonomy features contradict source candidate by >1 level on
+          3-level scale → reconciliation automatic, new entry appended;
+          (b) owner flag — library UI exposes one-click "this feels wrong"
+          → creates stage: owner.flag entry with owner's note → triggers
+          owner-validates gate (CLAUDE.md principle 1) + re-inference
+          subagent dispatch; (c) re-ingestion — new edition of same work
+          (new EditionHolding per CON-SRC-0004) → level re-inferred for
+          that edition specifically; work-level level updated if and only
+          if editions agree; (d) model-version bump — when taxonomy
+          classifier retrained, existing books re-scored as batch, every
+          change flipping displayed level appends new assessment entry.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy + human_gate + UI
+          note: >-
+            Convergent with ChatGPT DR p23_four_detection_channels. Both
+            DRs propose 4 triggers. Claude DR's (c) re-ingestion trigger
+            makes the edition-specific re-inference more explicit than
+            ChatGPT DR's "structural conflict" channel. Both intentionally
+            preserve immutability.
+        divergence_flag: false
+        convergence_partner: p23_four_detection_channels  # ChatGPT DR
+
+      - id: p14_no_upstream_rerun_on_correction
+        claim: >-
+          Re-processing on correction NOT mandatory. Level field is metadata;
+          downstream artifacts (passages, atoms, excerpts, taxonomy
+          placements) indexed against work ID, not level. Level change
+          invalidates caches that depend on level (e.g., level-filtered
+          search indexes) but does NOT force passaging or atomization to
+          re-run. Taxonomy placements that were DERIVED from a level (rare —
+          placements should be derived from fann/madhhab/author, not
+          difficulty) are marked dirty and re-computed.
+          scripts/verify_metadata_flow.py already enforces D-023 pass-through
+          checks across such boundaries.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy
+          note: >-
+            Convergent with ChatGPT DR p24_no_upstream_rerun. Both DRs
+            insist correction is O(level classifier) not O(pipeline).
+        divergence_flag: false
+        convergence_partner: p24_no_upstream_rerun  # ChatGPT DR
+
+      - id: p15_owner_ux_provenance_pill
+        claim: >-
+          UI renders current consensus value with small provenance pill:
+          "advanced — taxonomy, high confidence, disagrees with source hint."
+          Clicking pill expands full assessment history. Silent rewrites
+          structurally impossible (list is append-only). Two stages disagree
+          at equal confidence → field shown as `disputed` (matches
+          Truth-seeking-not-consensus-forcing principle). One-click flag
+          opens human-gate flow (critical rule 5) WITHOUT ever asking owner
+          to name DEC or OPT atom (AGENTS.md communication rule).
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: UI + human_gate
+          note: >-
+            Convergent with ChatGPT DR p25_owner_ux_by_certainty. Claude DR
+            adds the explicit provenance-pill UI pattern. Claude DR also
+            explicitly names the disagreement display (which ChatGPT DR's
+            UI commitment s implies but doesn't spell out).
+        divergence_flag: false
+        convergence_partner: p25_owner_ux_by_certainty  # ChatGPT DR
+
+  - id: s8_risks
+    paragraph_count: 9
+
+    risks:
+      - id: r1_multi_layer_works
+        claim: >-
+          A printing of Sharḥ al-ʿAqāʾid al-Nasafiyya with al-Taftāzānī's
+          commentary and al-Khayālī's ḥāshiya on same page is three works
+          at three levels co-bound. Single level label on container = category
+          error. Level field emitted per CONSTITUENT WORK inside container
+          using source engine container classification (REQ-SRC-0017/0020/0041)
+          to enumerate constituents; taxonomy engine levels each
+          independently. Container itself carries `level: composite` rather
+          than averaged value.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: source (constituent enumeration) + taxonomy (per-constituent)
+          source_engine_role: >-
+            is_multi_layer already mandatory in CON-SRC-0004. composite_work_type
+            + sub_work_inventory fields needed for per-constituent enumeration
+            (already flagged as metadata-plumbing gap by Gemini Run B).
+          note: >-
+            Convergent with ChatGPT DR r1_multi_layer_works. Both DRs propose
+            per-constituent level. Claude DR names the canonical Nasafiyya +
+            Taftāzānī + Khayālī printing as the paradigmatic example.
+
+      - id: r2_mukhtasar_paradox_test_fixture
+        claim: >-
+          Mukhtaṣar Khalīl, Mukhtaṣar al-Muzanī, Mukhtaṣar al-Ṭaḥāwī and
+          similar expose systematic failure of title-token inference.
+          Architecture tolerates by flagging source: title_tokens with
+          confidence: low and letting content-based features correct it.
+          Recommended test fixture: Mukhtaṣar Khalīl — if pipeline emits
+          `beginner` at source, flags `low confidence`, and taxonomy overrides
+          to `advanced` with high confidence citing term-density and
+          cross-reference-to-Mudawwana features, architecture is working as
+          designed.
+        implementation_target:
+          kind: conditional_on_opt_c + cross_engine_commitment
+          engine: source + taxonomy (reconciliation flow)
+          note: >-
+            Convergent with ChatGPT DR r2_abridgement_title_trap on the
+            evidence, divergent on the prescription. ChatGPT DR cites r2 as
+            reason to reject OPT-A entirely. Claude DR cites r2 as the
+            paradigmatic reconciliation scenario — exactly why confidence
+            markers + downstream correction are needed. Same evidence,
+            opposite prescription.
+
+      - id: r3_abridgements_pitched_down
+        claim: >-
+          Inverse problem: al-Taqrīrāt al-Sadīda of al-Kāf (modern beginner-
+          facing work whose title reads advanced); Fatḥ al-Qarīb al-Mujīb
+          (introductory sharḥ whose title carries "fatḥ", an advanced-sounding
+          token). Same correction mechanism applies in opposite direction.
+          Title tokens must NEVER commit high confidence.
+        implementation_target:
+          kind: conditional_on_opt_c
+          note: >-
+            Extends the mukhtaṣar-paradox argument to the symmetric case.
+            No direct ChatGPT DR paragraph addresses this inverse failure
+            mode — Claude DR surfaces a new risk dimension. Flag for
+            adjudicator consideration.
+
+      - id: r4_series_vs_volume_mismatch
+        claim: >-
+          Multi-volume Mawsūʿa Fiqhiyya not uniformly one level — early
+          volumes on ʿibādāt often more introductory than later volumes on
+          qaḍāʾ. Level field emitted at EditionHolding/VolumeHolding
+          granularity (DEC-SRC-0018, REQ-SRC-0044) rather than at
+          EditionGroup level. Library view aggregates per user query.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: source + taxonomy
+          source_engine_role: >-
+            Granularity commitment is source-engine responsibility: holding_id
+            and volume_count already preserved; per-volume level emission
+            requires taxonomy to respect volume boundary in output.
+          note: >-
+            Convergent with ChatGPT DR r3_series_volume_mismatch. Same prescription:
+            granularity = volume, not series.
+
+      - id: r5_edition_level_divergence
+        claim: >-
+          Same Arabic text (e.g., Matn Abī Shujāʿ) published bare, with
+          Ibn Qāsim's sharḥ, with Bājūrī's ḥāshiya, or as a ḥarakāt-full
+          teaching edition. Each edition has a DIFFERENT effective level
+          because level is a property of the READING EXPERIENCE, not of
+          the abstract work. Work record holds work-level level derived
+          from bare-text features; each edition appends edition-specific
+          assessment that can differ. Users search editions; discovery
+          respects both.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: source (edition distinction) + taxonomy (per-edition level)
+          note: >-
+            Convergent with ChatGPT DR r4_edition_divergence. Claude DR adds
+            the specific example (Matn Abī Shujāʿ across its editions) and
+            the "reading experience" framing. Both propose per-edition level.
+
+      - id: r6_works_where_level_inapplicable
+        claim: >-
+          Qurʾān muṣḥaf, Lisān al-ʿArab, al-Qāmūs al-Muḥīṭ, Ṣaḥīḥ al-Bukhārī,
+          fatwā compilations, biographical dictionaries. Controlled
+          vocabulary MUST include `reference` and `inapplicable` as
+          first-class values. Taxonomy engine detects by discipline
+          (lugha / ḥadīth-jāmiʿ / tarājim / muṣḥaf) and suppresses
+          beginner-advanced axis. Forcing numeric level = most common
+          real-world mislabeling in Arabic digital libraries; absence of
+          level exposure in OpenITI, Shamela, al-Warraq probably reflects
+          that reality (al-Raqmiyyāt, Digital Islamic Corpora, 2016; OpenITI
+          YAML metadata schema at kitab-project.org/docs/openITI).
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: source (non-applicable genre enum) + taxonomy (discipline-based suppression)
+          note: >-
+            Convergent with ChatGPT DR r5_non_applicable_genres and SEC-2.
+            Claude DR EXPANDS the list (Qurʾān muṣḥaf, dictionaries, hadith
+            jāmiʿ, fatwā compilations, biographical dictionaries) and
+            introduces `reference` AND `inapplicable` as distinct first-class
+            values.
+        flagged_for_domain_review: true
+        flag_reason: >-
+          Claude DR classifies Ṣaḥīḥ al-Bukhārī as "reference/inapplicable."
+          Bukhārī is both a hadith collection AND a core teaching text read
+          cover-to-cover in many curricula (Dār al-Muṣṭafā; al-Qarawiyyīn
+          ḥadīth track). Gemini CLI domain-validator must verify whether
+          reference-only classification is defensible or over-broad.
+
+      - id: r7_audience_specialized_works
+        claim: >-
+          Children's catechisms (ʿaqīdat al-ṣibyān), women's fiqh primers
+          (Bughyat al-Mustarshidīn subset), judicial manuals for qāḍīs
+          (Tabṣirat al-Ḥukkām). Difficulty not on same axis as curriculum
+          ladder. Solution: complementary intended_audience field with
+          values {general | mubtadiʾ | women | youth | qāḍī | scholar}
+          co-existing with level, both filling into taxonomy placement.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: source (new field) + taxonomy (placement inputs)
+          source_engine_role: >-
+            New intended_audience field in SourceMetadata. Controlled
+            vocabulary listed. Extracted from muqaddimah audience markers
+            (F4) and from container-shape cues (children's editions have
+            distinctive typography).
+          note: >-
+            NOT addressed in ChatGPT DR. New risk dimension Claude DR
+            surfaces — genuinely orthogonal problem (audience specialization
+            ≠ difficulty on curriculum ladder). Flag for adjudicator
+            consideration — is this a new atom or deferred to taxonomy build?
+
+      - id: r8_front_vs_back_loaded_difficulty
+        claim: >-
+          Dense muqaddima followed by easy body (Jamʿ al-Jawāmiʿ famously)
+          or reverse. Whole-book scalar level = lossy summary. Excerpting
+          engine already emits per-teaching-unit features; taxonomy engine
+          should report level (scalar) + level_curve (per-chapter scores)
+          so UI can surface variation. Progressive enhancement, not blocker.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy + UI
+          note: >-
+            NOT addressed in ChatGPT DR. Claude DR proposes two-part output:
+            scalar level + level_curve. Progressive enhancement framing means
+            not MVP-blocking. Flag for taxonomy-engine spec when that engine
+            is built.
+
+      - id: r9_model_drift_training_data_leakage
+        claim: >-
+          CAMeLBERT-CA, BAREC, and any future KR-trained classifier will
+          drift as the library grows. level_assessments list already carries
+          model hashes; corpus-wide re-scoring run on model bump is the
+          institutional answer. Per critical rule 13 of root CLAUDE.md,
+          every assessment feeds back as future training data, so the
+          system improves with use rather than calcifying around a snapshot.
+        implementation_target:
+          kind: cross_engine_commitment
+          engine: taxonomy (retraining cadence) + MLOps infrastructure
+          note: >-
+            Aligns with Critical Rule 13 (all data is future training
+            material). Both DRs implicit on this, Claude DR makes it
+            explicit. No atom-level action — bind to taxonomy-engine spec
+            when built.
+
+  - id: s9_closing
+    paragraph_count: 1
+
+    paragraphs:
+      - id: p16_net_result_emit_the_hint
+        claim: >-
+          Architectural choice narrower than it looks. 7-engine pipeline
+          already routes every book past source engine's weak metadata and
+          through taxonomy engine's rich semantics. Only real question:
+          whether weak signal is allowed to pretend to be strong (OPT-A),
+          thrown away (pure OPT-B), or emitted with honesty about its
+          confidence and corrected downstream (OPT-C). Tradition's own
+          distinction between matn and ḥāshiya, failure mode Mukhtaṣar
+          Khalīl has taught Mālikī students for 6 centuries, OF-SRC-0007,
+          CLAUDE.md + AGENTS.md rules all point to same answer. "Emit the
+          hint. Label it as a hint. Let the content speak. Record every
+          view. Never overwrite. The level field is ready to be written
+          the moment the pipeline is built; it is ready to be corrected
+          the moment it is wrong; and at no point does any engine pretend
+          to know more than it does."
+        implementation_target:
+          kind: summary
+          note: >-
+            Binding summary of the Claude DR. Directly opposes ChatGPT DR
+            p46_net_result: ChatGPT DR says "OPT-B is the best architectural
+            choice... late, content-derived, science-conditioned, with
+            strong provenance and no silent overwrite." Claude DR says
+            OPT-C-asymmetric is the best choice — same late-content-
+            derived-science-conditioned-provenanced-no-overwrite semantics
+            PLUS an honest low-confidence source hint.
+
+# ===== SOURCE-ENGINE COMMITMENTS (CONDITIONAL ON OPT-C WIN) =====
+# These do NOT activate unless adjudication verdict is OPT-C. If OPT-B wins,
+# the committed SEC-1 through SEC-7 in the ChatGPT DR evidence file stand;
+# the commitments below become the rejected dissenting position.
+
+source_engine_commitments_conditional:
+
+  - id: SEC-CLAUDE-1_emit_level_candidate
+    statement: >-
+      Source engine at metadata_deliberation MUST emit a level_candidate
+      field inside SourceMetadata. Controlled vocabulary:
+      {beginner, intermediate, advanced, reference, inapplicable, unknown}.
+      Confidence field MUST be capped at `low` for source-stage emissions.
+      Source (provenance) field MUST be one of
+      {title_tokens, publisher_series, container_shape, composite}.
+      features_observed field MUST list specific features that contributed.
+      Runs through D-041 multi-model consensus on two models minimum.
+    binds_atom: CON-SRC-0004 extension + new CON-SRC-0011 (enum anchor)
+    conflict_with_committed: INV-SRC-0011 (must be reversed)
+    source_paragraphs: [p8, p11, f11]
+    severity: critical
+
+  - id: SEC-CLAUDE-2_confidence_cap
+    statement: >-
+      Source engine MUST NOT emit confidence > low from shallow signals
+      (title_tokens, publisher_series, container_shape). A source-stage
+      emission at confidence >= medium is a violation of the asymmetric
+      architecture and must raise LEVEL_CANDIDATE_OVERCONFIDENT
+      (violation_severity: critical).
+    binds_atom: INV-SRC-0011 reversal/renaming (INV-SRC-0011-candidate-emission)
+    source_paragraphs: [p8, p11]
+    severity: critical
+
+  - id: SEC-CLAUDE-3_disputed_emission
+    statement: >-
+      If signals contradict (e.g., title = "mukhtaṣar" but publisher
+      series is reference encyclopedia), source engine MUST emit
+      level_candidate with value=`disputed` and both sub-hypotheses
+      preserved in evidence. Aligns with "disputed metadata IS valid
+      output" axiom.
+    binds_atom: new atom for disputed-emission semantics
+    source_paragraphs: [p8, p10]
+    severity: high
+
+  - id: SEC-CLAUDE-4_evidence_preservation
+    statement: >-
+      Source engine MUST preserve all metadata signals downstream level
+      classification requires (title_arabic, genre, science_scope,
+      is_multi_layer, structural_format, edition_group_id, edition_info,
+      publisher, muhaqiq_output, page_layout_hint, matn_embedding_style,
+      pdf_text_layer_status, contains_isnad_chains, acquisition_path,
+      volume linkage). D-023 preservation applies.
+    binds_atom: CON-SRC-0004 postcondition strengthening
+    conflict_with_committed: CONVERGES with ChatGPT DR SEC-3 — NO conflict
+    source_paragraphs: [p7, f1-f11]
+    severity: critical
+    note: >-
+      CONVERGENT with ChatGPT DR SEC-3. Present in both DRs regardless
+      of adjudication outcome. Already partially addressed by Gemini Run B
+      metadata-plumbing finding (composite_work_type, sub_work_inventory,
+      contains_isnad_chains missing at handoff).
+
+  - id: SEC-CLAUDE-5_owner_flag_as_assessment_entry
+    statement: >-
+      Owner flag via library UI MUST create a level_assessments entry with
+      stage: owner.flag carrying the owner's note, triggering the
+      owner-validates gate (CLAUDE.md principle 1) and a re-inference
+      subagent dispatch. Owner flag is a first-class correction trigger
+      equal to downstream disagreement, re-ingestion, and model-version bump.
+    binds_atom: new atom for owner-flag semantics
+    source_paragraphs: [p13, p15]
+    severity: medium
+
+  - id: SEC-CLAUDE-6_non_applicable_genres_expanded
+    statement: >-
+      Expand non-applicable genre list beyond ChatGPT DR's
+      {mushaf, hadith_collection, rijal_dictionary, majmu}. Add: Qurʾān
+      muṣḥaf (if distinct from mushaf), Arabic lexicon dictionaries
+      (Lisān al-ʿArab, Qāmūs al-Muḥīṭ), hadith jāmiʿ compilations, fatwā
+      compilations, biographical dictionaries (tarājim, ṭabaqāt).
+      Controlled vocabulary must distinguish `reference` (consulted, not
+      read cover-to-cover) from `inapplicable` (ladder-of-difficulty
+      doesn't apply at all).
+    binds_atom: INV-SRC-0012 amendment + CON-SRC-0011 enum extension
+    conflict_with_committed: CONVERGES with ChatGPT DR SEC-2 with expansion
+    source_paragraphs: [r6]
+    severity: low
+    note: >-
+      VERIFY with Gemini CLI: Ṣaḥīḥ al-Bukhārī classification as
+      `reference/inapplicable` may be over-broad.
+
+  - id: SEC-CLAUDE-7_reconciliation_output_surface
+    statement: >-
+      Library view MUST surface level_authoritative when present at
+      confidence >= medium, fall back to level_candidate when not, and
+      display visible disagreement marker when level_candidate and
+      level_authoritative disagree. No silent overwrite. No implicit
+      precedence rule hidden inside display logic.
+    binds_atom: new atom for UI reconciliation rule (UI engine)
+    source_paragraphs: [p10, p15]
+    severity: medium
+
+# ===== CROSS-ENGINE COMMITMENTS =====
+# These apply regardless of OPT-B / OPT-C outcome where they converge with
+# ChatGPT DR. DIVERGENCES are flagged.
+
+cross_engine_commitments:
+
+  taxonomy_engine:
+    ownership:
+      - "Taxonomy owns level_authoritative (p9). DIVERGENT from ChatGPT DR (synthesis)."
+      - "Science-tree placement and level computation are inseparable (p9)."
+      - "Taxonomy outputs: level (scalar) + level_curve (per-chapter) + reconciliation_verdict (vs source candidate)."
+    feature_set:
+      - "f1 depth-in-stack (passim text-reuse against OpenITI matn-sharh-hashiya graph) — RANK 1"
+      - "f2 isnād density (conditional-by-science via riwāya detection)"
+      - "f3 specialized-term density (al-Jurjānī Taʿrīfāt, al-Tahānawī Kashshāf)"
+      - "f5 vocabulary rarity (CAMeLBERT-CA classical baseline, not modern MSA)"
+      - "f12 BAREC fine-tuning path for KR-specific classifier"
+    divergence_from_chatgpt_dr: >-
+      ChatGPT DR assigned ownership to synthesis. Adjudication determines
+      which engine owns authoritative level.
+
+  synthesis_engine:
+    role_under_opt_c: >-
+      CONSUMES level; does NOT produce it. Uses level as input feature for
+      cross-source synthesis (e.g., "this excerpt from advanced work X
+      on same topic as beginner excerpt from work Y").
+    divergence_from_chatgpt_dr: >-
+      ChatGPT DR assigns authoritative level PRODUCTION to synthesis
+      engine. Claude DR explicitly disqualifies synthesis as the owner.
+
+  excerpting_engine:
+    role: >-
+      Feature extraction: f3 term density, f4 muqaddima audience markers
+      (already in excerpts via pre-hamdala structural boundary), f6
+      citation-explanation mode, f7 cross-reference density, f8 evidential
+      verb density. Respect AGENTS.md isnād-atomic-units rule.
+    convergence_with_chatgpt_dr: >-
+      CONVERGES with ChatGPT DR excerpting_engine.level_features.
+
+  normalization_engine:
+    role: >-
+      f1 layer detection (matn/sharh/hashiya/mazj/interlinear/marginal)
+      via page geometry + typographic cues; f4 muqaddima boundary
+      detection (before أما بعد); f9 edition apparatus separation
+      (footnote/gloss vs author prose); f10 sentence-morphological
+      complexity (OSMAN + CAMeL Tools, low reliability on turāth —
+      research-only).
+    convergence_with_chatgpt_dr: >-
+      CONVERGES with ChatGPT DR normalization_engine.level_features.
+
+  ui_engine:
+    role: >-
+      Provenance pill rendering: "advanced — taxonomy, high confidence,
+      disagrees with source hint." Click expands assessment history
+      drawer. Disagreement flag when confidence-equal conflict.
+      "level pending" display for unknown/null.
+    convergence_with_chatgpt_dr: >-
+      CONVERGES with ChatGPT DR ui_engine_or_scholar_interface.level_display
+      on the no-silent-overwrite + provenance-visibility + history-audit
+      commitments. ADDS explicit provenance-pill UI pattern.
+
+  human_gate:
+    role: >-
+      Owner-flag as first-class assessment entry. Re-inference subagent
+      dispatch gated by owner validation. Non-technical owner questions
+      per AGENTS.md communication rule (no DEC-SRC-NNNN, no OPT-X).
+    convergence_with_chatgpt_dr: >-
+      CONVERGES with ChatGPT DR human_gate.level_review.
+
+# ===== REJECTED / FLAGGED CLAIMS =====
+# Claude DR paragraphs whose claims require verification before being
+# treated as binding.
+
+rejected_claims: []
+
+flagged_claims:
+
+  - paragraph: r6_works_where_level_inapplicable
+    claim_snippet: >-
+      "Ṣaḥīḥ al-Bukhārī ... biographical dictionaries" classified as
+      reference/inapplicable.
+    flag_reason: >-
+      Ṣaḥīḥ al-Bukhārī is both a hadith collection AND a core teaching text
+      read cover-to-cover in many curricula (Dār al-Muṣṭafā; al-Qarawiyyīn
+      ḥadīth track; SeekersGuidance and Darul Qasim both have book-length
+      Bukhārī sessions). Reference-only classification may be over-broad —
+      the work has both a reference role (lookup for hadith) and a
+      teaching role (progressive study of the abwāb).
+    verification_dispatch: gemini_cli_domain_validator
+    verification_question: >-
+      "Should Ṣaḥīḥ al-Bukhārī be classified as reference/inapplicable for
+      reading-level purposes, or does it admit a level assessment based on
+      how it is TAUGHT (with guidance of a teacher, progressively through
+      the abwāb)?"
+    resolution_if_over_broad: >-
+      Amend SEC-CLAUDE-6 non-applicable list to exclude Ṣaḥīḥ al-Bukhārī
+      and Ṣaḥīḥ Muslim; classify them as hadith_collection_reference or
+      hadith_collection_pedagogical per Gemini Run B refinement.
+
+  - paragraph: f10_sentence_morphological_complexity_osman
+    claim_snippet: >-
+      OSMAN is "diacritization- and syllable-sensitive" and validated on
+      UN-parallel MSA, therefore "flagged as research-only for this corpus."
+    flag_reason: >-
+      Claim may be overgeneralized. OSMAN is a formula; its sensitivity to
+      diacritization is computational, not training-data-dependent. The
+      domain-mismatch concern applies to the VALIDATION (UN-parallel MSA)
+      not to the formula itself. A classical-Arabic calibration run would
+      validate or invalidate OSMAN for turāth without needing to "demote
+      to research-only."
+    verification_dispatch: technology_survey_skill
+    resolution: >-
+      Keep OSMAN at low-reliability classical-Arabic tier pending calibration
+      run. Do not preemptively demote to research-only without empirical test.
+
+# ===== PENDING ADJUDICATION =====
+# Dispatch plan for the 3-adjudicator architecture decision.
+
+pending_adjudication:
+  trigger: OPT-C_recommended_by_claude_dr_contradicts_committed_opt_b
+  majority_rule: two_of_three
+  escalation_on_tie: owner_preference_via_non_technical_question
+
+  adjudicators:
+
+    - id: codex_cli_architectural_fit
+      coworker: codex_cli
+      repo_access: yes_local
+      prompt_architect_required: true
+      prompt_architect_invoked: true  # 2026-04-17, Tree-of-Thought + CARE hybrid applied
+      dispatched: '2026-04-17'
+      returned: '2026-04-17'
+      bundle_files:
+        - engines/source/spec/30-architecture/decisions/DEC-SRC-0003.yaml
+        - engines/source/spec/40-quality/invariants/INV-SRC-0011.yaml
+        - engines/source/spec/10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0007.yaml
+        - engines/source/spec/20-contracts/constraints/CON-SRC-0004.yaml  # actual path confirmed by Codex preflight
+        - engines/source/spec/60-evidence/owner-feedback/OF-SRC-0007.yaml
+        - engines/source/spec/60-evidence/dr-reports/dr-chatgpt-level-detection-20260416.yaml
+        - engines/source/spec/60-evidence/dr-reports/dr-claude-level-detection-20260416.yaml
+        - engines/source/contracts.py  # line 860, 911
+        - engines/source/src/admission.py  # line 220, 463
+      focused_ask: >-
+        "Given the nullable level schema, the D-023 preservation rule, and
+        the 'disputed metadata IS valid output' axiom, which option
+        minimizes contract surface area while matching KR's architectural
+        principles? Specifically, does Claude DR's level_candidate +
+        level_authoritative dual-field pattern add justified value over
+        ChatGPT DR's null-until-synthesis single-field pattern?"
+      verdict: OPT-B
+      confidence: high
+      preflight_reading_complete: true
+      preflight_reading_verified:
+        cited_files_with_line_anchors:
+          - CLAUDE.md:59
+          - reference/KNOWLEDGE_INTEGRITY.md:192
+          - spec/30-architecture/decisions/DEC-SRC-0003.yaml:20
+          - spec/40-quality/invariants/INV-SRC-0011.yaml:29
+          - spec/10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0007.yaml:29
+          - spec/20-contracts/constraints/CON-SRC-0004.yaml:19
+          - spec/60-evidence/owner-feedback/OF-SRC-0007.yaml:1
+          - spec/60-evidence/dr-reports/dr-chatgpt-level-detection-20260416.yaml:157
+          - spec/60-evidence/dr-reports/dr-claude-level-detection-20260416.yaml:405
+          - engines/source/contracts.py:860
+          - engines/source/src/admission.py:220
+      key_rationales:
+        - >-
+          Spec + implementation already center single-nullable-level pattern
+          with fail-loud preservation semantics, not dual-track assessment.
+          Consistent across DEC-SRC-0003:22, INV-SRC-0011:31,
+          REQ-SRC-0007:32, contracts.py:911, admission.py:463.
+        - >-
+          OPT-C does not preserve new evidence — it promotes a shallow
+          heuristic into first-class contract surface. The evidence OPT-C
+          would use (title, publisher, container shape) is ALREADY preserved
+          under D-023 via REQ-SRC-0046:22. level_candidate therefore adds a
+          derived judgment, not an otherwise-lost datum.
+        - >-
+          Blast radius is large. Claude DR's proposal expands beyond "two
+          optional fields" into new candidate record, new controlled values
+          (reference, inapplicable, unknown, disputed), confidence caps,
+          provenance/source fields, reconciliation semantics, UI precedence
+          rules. Cross-engine contract expansion for marginal architectural
+          gain.
+        - >-
+          Ownership shift to taxonomy is scope expansion, not simplification.
+          Lower-coupling split is: source preserves evidence, downstream
+          derives level from richer content, later engines own owner-facing
+          judgments. Moving authoritative ownership into taxonomy couples
+          book-level pedagogical metadata to the placement engine.
+        - >-
+          D-023 and "disputed metadata is valid output" do NOT require
+          source-side candidate emission. They require preserving evidence
+          and preserving real downstream disagreements without silent
+          overwrite. OPT-B satisfies both with less distortion and less
+          contract surface.
+      output_format_deviation: >-
+        Codex returned prose instead of the requested strict YAML schema.
+        Substance is unambiguous; verdict clearly OPT-B with line-anchored
+        citations. Schema adherence is aspirational for complex
+        reasoning tasks.
+      status: complete
+      vote_tally_contribution: 1_of_3_opt_b
+
+    - id: gemini_cli_scholarly_defensibility
+      coworker: gemini_cli
+      repo_access: yes_local
+      prompt_architect_required: true
+      prompt_architect_invoked: true  # 2026-04-17, Tree-of-Thought + TIDD-EC hybrid applied
+      runs_count: 2  # per ACTIVE.md stochasticity rule — merge findings
+      bundle_files: same_as_codex_cli
+      focused_ask: >-
+        "From Ibn Khaldūn's Muqaddima Book VI (faṣl fī wajh al-ṣawāb fī
+        taʿlīm al-ʿulūm), al-Zarnūjī's Taʿlīm al-Mutaʿallim, and the
+        matn→sharḥ→ḥāshiya ladder, is there a classically defensible role
+        for an early system to emit a LOW-CONFIDENCE reading-level
+        candidate from title + publisher? Is `confidence=low`
+        philosophically distinct from assertion, or does a visible label —
+        regardless of confidence annotation — constitute an assertion in
+        the reader's mind?"
+      additional_domain_task: >-
+        Verify flagged_claims[0] (Ṣaḥīḥ al-Bukhārī classification) and
+        flagged_claims[1] (OSMAN demotion).
+
+      run_1:
+        dispatched: '2026-04-17'
+        returned: '2026-04-17'
+        verdict: OPT-B
+        confidence: high
+        branch_win_count:
+          opt_b: 6
+          opt_c: 0
+          ambiguous: 0
+        preflight_reading_complete: false  # 7 of 9 files read
+        preflight_reading_missing:
+          - .claude/rules/arabic-scholarly-conventions.md
+          - reference/KNOWLEDGE_INTEGRITY.md
+        source_accessibility:
+          direct_access:
+            - al_muqaddimah
+            - talim_al_mutaallim
+            - al_risala_shafi
+            - al_mustasfa
+          secondary_access:
+            - al_fihrist_ibn_nadim
+            - kashf_al_zunun
+            - al_risala_al_mustatrafa
+            - hadiyyat_al_arifin
+        fabricated_citations: none_detected
+        key_classical_rationales:
+          q1_ibn_khaldun: >-
+            al-Muqaddimah (المقدمة) Book VI, faṣl fī wajh al-ṣawāb fī taʿlīm
+            al-ʿulūm (Rosenthal trans. vol. 3, pp. 292-294). Tadarruj
+            (graduated teaching) requires level to emerge from internal
+            structural density and pedagogical progression. Ibn Khaldūn
+            severely criticizes reliance on abridgments (mukhtaṣarāt),
+            noting they confuse the beginner by presenting dense ultimate
+            findings before the student develops malakah. An external
+            shallow signal cannot capture the book's internal reality and
+            risks disrupting the prescribed tadarruj. Supports OPT-B.
+          q2_zarnuji: >-
+            Taʿlīm al-Mutaʿallim (تعليم المتعلم طريق التعلم) Chapter IV:
+            al-Zarnūjī explicitly mandates a two-month period of tawaqquf
+            (withholding judgment) to evaluate suitability of teacher,
+            partner, and subject — the exact opposite of "probabilistic
+            guess early, correct later." Supports OPT-B.
+          q3_mukhtasar_paradox: >-
+            When muḥaddithūn evaluated ḥadīth with conflicting transmission
+            paths, they did NOT emit preliminary "weak ṣaḥīḥ" grades. They
+            practiced tawaqquf while preserving the isnāds. Emitting a weak
+            pedagogical signal from a misleading title violates this
+            tradition of withholding ḥukm until evidence is conclusive.
+            ChatGPT DR's reading wins. Supports OPT-B.
+          q4_fihris_precedent: >-
+            al-Fihrist (الفهرست) of Ibn al-Nadīm and Kashf al-Ẓunūn (كشف
+            الظنون) of Ḥājjī Khalīfa meticulously record structural
+            attributes (author, madhhab, volume count, sharḥ vs matn) but
+            SYSTEMATICALLY AVOID provisional pedagogical difficulty tags.
+            The tradition preferred preserving verifiable bibliographic
+            evidence rather than provisional assertions. Supports OPT-B.
+          q5_tasnif_tawaqquf: >-
+            Dominant pattern in classical taṣnīf/taqsīm is tawaqquf.
+            Supports OPT-B.
+          q6_zann_vs_assertion_CRUX: >-
+            Theoretical distinction between ẓann (probable opinion) and
+            qaṭʿ (certain knowledge) is preserved in al-Shāfiʿī's al-Risāla
+            (الرسالة) and al-Ghazālī's al-Mustaṣfā (المستصفى). BUT: in
+            operational reality (ʿamaliy), a ẓannī ruling is legally
+            binding and acted upon AS IF CERTAIN. For the typical mustaftī,
+            a muftī's ẓannī fatwā flattens entirely into a definitive
+            assertion. Consequently, UI labels like `confidence=low` WILL
+            BE IGNORED IN PRACTICE. OPT-C's epistemological modesty is
+            philosophically thin when tested against typical user
+            behavior. Supports OPT-B.
+        flagged_claim_verdicts:
+          bukhari_classification:
+            verdict: OVERBROAD
+            recommended_classification: pedagogical_and_reference
+            rationale: >-
+              Ṣaḥīḥ al-Bukhārī (صحيح البخاري) is simultaneously reference
+              AND advanced pedagogical text. Taught cover-to-cover at
+              Dār al-Muṣṭafā (دار المصطفى) and al-Qarawiyyīn (القرويين)
+              ḥadīth tracks as graduated capstone — internalizing chapter
+              headings (tarājim/abwāb) which contain profound
+              jurisprudential derivations.
+          osman_demotion:
+            verdict: OVERGENERALIZED
+            recommendation: retain_at_low_reliability_pending_classical_calibration
+            rationale: >-
+              OSMAN formula operates on syllable counts, word lengths,
+              morphological complexity — structural characteristics valid
+              for turāth. Problem is calibration thresholds (tuned on
+              modern MSA), not algorithm itself. Calibration run would
+              validate or invalidate without demotion.
+        status: complete
+        vote_tally_contribution: 0.5_of_3_opt_b  # merged with Run 2 for 1.0
+
+      run_2:
+        dispatched: '2026-04-17'
+        returned: '2026-04-17'
+        verdict: OPT-B
+        confidence: high
+        branch_win_count:
+          opt_b: 6
+          opt_c: 0
+          ambiguous: 0
+        independent_from_run_1: true
+        output_file: .kr/runtime/adjudication_gemini_cli_run2_20260417.md
+        distinct_concepts_surfaced:
+          - >-
+            muhaddithun i'tibar phase analogy — source engine as muʿjam
+            preserving raw sanad metadata, not emitting preliminary hasan
+            grading (Q3 hadith criticism analogy, independent framing from
+            Run 1)
+          - >-
+            sunnah amaliyyah of fihris-writers as "bibliographic restraint" —
+            their silence is epistemological discipline, not missing feature
+            (Q4)
+          - >-
+            qarain / tarjih / murajjih usuli framing — OPT-C forces premature
+            tarjih on weak qara'in (Q5)
+          - >-
+            mujtahid-to-ammi transmission operationally erases epistemological
+            modesty; `confidence=low` is "vector by which false scholarly
+            authority is planted" (Q6 phrasing stronger than Run 1)
+          - >-
+            niyyah and himmah damage from false pedagogical starts (Q2
+            Zarnuji framing independent from Run 1's two-month tawaqquf)
+        status: complete
+        vote_tally_contribution: 0.5_of_1_gemini_cli_merged_vote
+
+      merged_gemini_cli_verdict: OPT-B  # Run 1 OPT-B (6-0) + Run 2 OPT-B (6-0) converge
+      merged_gemini_cli_confidence: high
+      merged_gemini_cli_vote_tally_contribution: 1_of_3_opt_b
+
+    - id: gemini_dr_t_2_threat_model
+      coworker: gemini_dr
+      repo_access: no_required_file_bundle
+      prompt_architect_required: true
+      prompt_architect_invoked: true  # 2026-04-17, Devil's-Advocate + Pre-Mortem + CAI-Critique-Revise hybrid
+      dispatched: '2026-04-17'
+      returned: '2026-04-17'
+      bundle_file: Downloads/KR_GEMINI_DR_BUNDLE_2026-04-17.md  # single-file upload (9 sections)
+      focused_ask: >-
+        "Adjudicate OPT-B vs OPT-C against KR's knowledge-integrity axioms.
+        Primary threat framing corrected 2026-04-17: T-6 (Metadata Poisoning)
+        + T-3 (Taxonomic Misplacement) + tangential T-2. Devil's Advocate
+        steelmanning OPT-C required to defeat prior-vote anchoring. Pre-mortem
+        scenarios per option with severity+likelihood scales. Middle-path
+        analysis on OPT-B + separate level_status enum alternative."
+      verdict: OPT-B
+      confidence: high
+      output_file: .kr/runtime/adjudication_gemini_dr_20260417.md
+      devils_advocate_preamble_executed: true  # steelmanned OPT-C before evaluating
+      key_findings:
+        q1_t_2_definitional: >-
+          T-2 trigger is "presentation-as-fact framing combined with user
+          vulnerability." A visible level label with confidence=low IS a
+          T-2 violation because the user lacks domain expertise to calibrate
+          trust to confidence sliders.
+        q2_zann_tag_operational_hedge: INEFFECTIVE
+        q2_crux_framing: >-
+          User is structurally the mustafti (petitioner). System acts as
+          the mufti. Just as the traditional "Allāhu Aʿlam" hedge does NOT
+          dilute the binding nature of a fatwa for the mustafti, a UI
+          `confidence=low` tag provides zero protection against the
+          internalization of false knowledge.
+        q3_shallow_signal_reliability_empirical:
+          publisher_series_reliability: 3  # on 0-10 scale
+          container_shape_reliability: 2
+          title_tokens_reliability: 2
+          overall_shallow_signal_reliability: 2
+          publisher_madhhab_bias_risk: 8
+        q3_empirical_publisher_evidence: >-
+          Gemini DR used browsing capability to verify publisher catalogs:
+          Dār al-Minhāj publishes Ihya Ulum Ad-Deen (advanced) + children's
+          series Ages 0-2/3-5/6-8. Dār Ibn Ḥazm publishes Tashil li-Maʿani
+          Mukhtasar Khalil (advanced Maliki fiqh) + dual language children's
+          literature. Sifatusafwa: advanced morphology + Arabic for Beginners
+          primary school Levels 1-6. Dār al-Fikr: 9-volume Sahih al-Bukhari +
+          Early Grade (1-3) schoolbooks. CONCLUSION: top-tier publishers
+          monetize across the ENTIRE spectrum; level inference from publisher
+          is statistically dangerous.
+        q3_container_shape_counter_evidence: >-
+          Advanced treatises (Mukhtasar al-Allamah Khalil, Sahih al-Bukhari)
+          are frequently printed in vinyl flexi-cover pocket editions for
+          scholarly memorization/travel. Salawat of Shaykh Salih al-Ja'fari
+          and Imam al-Nawawi works produced in pocket editions for advanced
+          spiritual/academic retreats. Container shape is nearly random
+          relative to level.
+        q4_ui_reconciliation_defense: COGNITIVELY_DISASTROUS
+        q4_no_shaykh_context: >-
+          In classical Islamic knowledge transmission, encountering ambiguous
+          text necessitates consulting a shaykh. KR has no shaykh. User is
+          left to resolve algorithmic disputes independently. Per dual-process
+          theory, user defaults to System 1 heuristic processing and anchors
+          to the word "beginner" regardless of disagreement marker.
+          Transparency transfers epistemological responsibility onto a user
+          uniquely unqualified to bear it.
+        q4_confirmation_bias_risk: 9  # on 0-10 scale
+        q5_null_as_assertion: PARTIAL_T_2_RISK
+        q5_opt_c_disambiguation: OVERKILL
+        q5_middle_path_recommendation: >-
+          MAINTAIN OPT-B's strict prohibition on shallow-signal level_candidate
+          emission. AMEND CON-SRC-0004 to include a distinct `level_status`
+          enumerator with values {pending_taxonomy, unprocessable_error,
+          non_applicable_reference}. This separates the CLASSIFICATION VALUE
+          (level, stays null) from the PROCESSING STATE (level_status,
+          communicates context to user). Prevents null from being read as
+          assertion without injecting fabricated confidence guesses.
+        q6_cross_provider_bias_prediction: >-
+          Expected: OpenAI-trained models → OPT-C (product velocity, always
+          show something). Anthropic-trained models → OPT-B (epistemic
+          humility, prefer null to guess).
+        q6_cross_provider_bias_observed: >-
+          Empirical INVERSION: OpenAI's Codex voted OPT-B; Anthropic's Claude
+          DR voted OPT-C. The specific context of Islamic scholarship
+          overrode baseline corporate training biases.
+        q6_gemini_self_assessment: >-
+          Gemini's training distribution weights rigorous factual grounding,
+          high-stakes domain accuracy (medical/legal/religious), minimization
+          of hallucination. Natural lean: epistemic conservatism (prefer
+          absence of data over probabilistic fabrication). Aligned with OPT-B
+          but independently derived from T-2 analysis, not from bias.
+        q7_reversal_cost_framing: CORRECTNESS_WEIGHT_NOT_COMMITTED_WEIGHT
+        premortem_opt_b:
+          severity: 6
+          likelihood: 4
+          scenario: >-
+            Taxonomy backlog leaves advanced text at null for months. User
+            misinterprets persistent null as "no prerequisites," attempts
+            to extract rulings without foundation. Heavily mitigated by
+            adopting the level_status middle path.
+        premortem_opt_c:
+          severity: 9
+          likelihood: 8
+          scenario: >-
+            System ingests pocket-sized Mukhtasar al-Muzani. Heuristics emit
+            level_candidate=beginner with confidence=low. User sees
+            "Beginner" prominently, ignores confidence tag (System 1), studies
+            text, internalizes skewed rigid context-free version of Islamic
+            jurisprudence.
+        t_2_risk_per_option:
+          opt_b_t_2_risk: 3
+          opt_c_t_2_risk: 9
+        scenario_prediction: A_3_0_opt_b  # decisive verdict
+        escalation_to_owner: NO
+        status: complete
+        vote_tally_contribution: 1_of_3_opt_b_plus_middle_path_amendment
+
+  # ===== FINAL ADJUDICATION TALLY =====
+
+  adjudication_tally:
+    total_adjudicators: 3
+    opt_b_votes: 3
+    opt_c_votes: 0
+    no_majority: 0
+    final_verdict: OPT-B
+    verdict_unanimity: true
+    confidence: high_across_all_three
+    two_of_three_threshold: exceeded  # 3 of 3 actual
+    escalation_to_owner: not_required
+    middle_path_amendment_proposed_by: gemini_dr
+    middle_path_requires_new_session_evaluation: true
+    middle_path_summary: >-
+      Maintain OPT-B strict prohibition AND amend CON-SRC-0004 to add
+      `level_status` enum {pending_taxonomy, unprocessable_error,
+      non_applicable_reference}. Separates classification value (null) from
+      processing state (disambiguated). Neutralizes the null-conflation
+      T-2 risk Claude DR flagged without adopting OPT-C's shallow-signal
+      emission.
+    deferred_to_new_session:
+      - synthesize_three_verdicts_and_commit_final_decision_in_dr_evidence_files
+      - evaluate_gemini_dr_middle_path_level_status_enum_proposal
+      - execute_phase_5a_opt_b_amendment_pass
+      - decide_whether_to_add_level_status_enum_to_CON_SRC_0004_amendment
+
+# (Old gemini_dr_tiebreaker stub removed — fully superseded by
+# gemini_dr_t_2_threat_model adjudicator record above with complete verdict.)
+
+# ===== INTEGRATION VERIFICATION =====
+
+integration_verification:
+  paragraphs_total: 37  # 1 + 2 + 2 + 2 + 4 + 12 + 4 + 9 + 1
+  paragraphs_inventoried: 37
+  paragraphs_with_implementation_target: 37
+  paragraphs_unused: 0
+  coverage_verified: true
+  convergence_verdict: DIVERGENT_ON_SOURCE_ROLE_AND_AUTHORITATIVE_OWNER
+  convergence_dimension_counts:
+    converge: 6
+    diverge: 2
+    total: 8
+  adjudication_required: true
+  adjudication_dispatches_queued:
+    - codex_cli_architectural_fit
+    - gemini_cli_scholarly_defensibility_2_runs
+    - gemini_dr_tiebreaker_with_file_bundle
+  amendment_pass_status: halted_pending_adjudication
+  accepted_as_binding: no_pending_adjudication_verdict
+
+# ===== EXTERNAL CITATIONS =====
+# External sources the Claude DR cited.
+
+external_citations:
+  - "Ibn Khaldūn, Muqaddima, Book VI, faṣl fī wajh al-ṣawāb fī taʿlīm al-ʿulūm (Rosenthal translation, 1958)"
+  - "Dajani, The Ideal Education in Ibn Khaldun's Muqaddimah, Procedia Social and Behavioral Sciences 192, 2015, 308-312"
+  - "Al-Zarnūjī, Taʿlīm al-Mutaʿallim"
+  - "Daily Sabah synthesis of UC Berkeley Hashiya and Islamic Intellectual History conference, 2012"
+  - "Harun Saleh, How Are Islamic Texts Classified?, malikifiqhqa.com"
+  - "Maverd, Matn, Sharh, Hashiya, Taliqa, and Takmila in Islamic Intellectual History, 2015"
+  - "SeekersGuidance curriculum, 2024-2025 course catalog"
+  - "islamclass.wordpress.com, 2014 Mālikī curriculum"
+  - "Smith/Cordell/Mullen 2015, passim text-reuse algorithm"
+  - "KITAB project at kitab-project.org; OpenITI corpus"
+  - "Savant/Romanov/Miller, passim applied to OpenITI"
+  - "Muther, @ISB@/@ISE@ isnād classifier (KITAB Subgenre classification, 2022-2024)"
+  - "Obeid et al., CAMeL Tools, LREC 2020"
+  - "Inoue/Alhafni/Baimukan/Bouamor/Habash, CAMeLBERT-CA, WANLP 2021"
+  - "Khalifa/Inoue/Alhafni/Baimukan/Bouamor/Habash, CAMeL Arabic Frequency Lists (Classical-Arabic split), 2021"
+  - "El-Haj & Rayson, OSMAN: A Novel Arabic Readability Metric, LREC 2016"
+  - "Elmadani/Habash/Taha-Thomure, BAREC: A Large and Balanced Corpus for Fine-grained Arabic Readability Assessment, Findings of ACL 2025 (barec.camel-lab.com)"
+  - "Al-Jurjānī, al-Taʿrīfāt (d. 816 AH)"
+  - "Al-Tahānawī, Kashshāf Iṣṭilāḥāt al-Funūn (18th c.)"
+  - "Mawsūʿa Fiqhiyya Kuwaytiyya"
+  - "al-Raqmiyyāt, Digital Islamic Corpora, 2016"
+  - "OpenITI YAML metadata schema, kitab-project.org/docs/openITI"
+
+# ===== CROSS-REFERENCE TO TWIN DR =====
+
+twin_dr_cross_reference:
+  twin_id: DR-CHATGPT-LEVEL-DETECTION-20260416
+  twin_status: committed_as_atoms_in_f26997c4c
+  twin_reviewer_verdict: NEEDS_REWORK  # per twin file combined_verdict_across_all_reviewers
+  twin_accepted_as_binding_status: was_conditional_on_twin_dr_convergence_now_conditional_on_adjudication
+  convergence_summary: >-
+    6 of 8 architectural dimensions CONVERGE (level-as-history, science-ladder
+    conditioning, title-tokens-unreliable, non-applicable-genres-null with
+    Claude DR expansion, multi-layer per-constituent, correction mechanism).
+    2 dimensions DIVERGE fundamentally: (a) source engine role — null-unless-
+    override vs low-confidence-candidate-emission, (b) authoritative
+    downstream owner — synthesis vs taxonomy. The 2 divergences block
+    DEC-SRC-0003 finalization; they do not invalidate the convergent 6.

@@ -7,27 +7,178 @@ layer: contracts
 priority: critical
 confidence: high
 provenance: coworker_review
-source: Added from adversary-review.yaml ADV-002; amended per reference/pdf_fixture_observations_2026-04-14.md, owner guidance on 2026-04-14 about exact source/work identification and staged source admission, and the architecture decision that normalization owns text extraction.
+source: >-
+  Added from adversary-review.yaml ADV-002; amended per reference/
+  pdf_fixture_observations_2026-04-14.md, owner guidance on
+  2026-04-14 about exact source/work identification and staged
+  source admission, and the architecture decision that normalization
+  owns text extraction. Further amended on 2026-04-17 after the
+  3-of-3 unanimous OPT-B adjudication on DEC-SRC-0003: (a) added
+  the mandatory `level_status` enum field per Gemini DR's middle-
+  path proposal, which closes the null-conflation gap that Claude
+  DR correctly identified without adopting OPT-C's shallow-signal
+  level emission; (b) level_status provenance is the source engine
+  at admission time, with values pending_taxonomy or
+  non_applicable_reference, extended by downstream engines to
+  assigned or unprocessable_error. See .kr/runtime/
+  adjudication_gemini_dr_20260417.md sections q5 and
+  final_recommendation.
 created: '2026-04-14'
-updated: '2026-04-15'
+updated: '2026-04-17'
 depends_on:
 - REQ-SRC-0014
 - REQ-SRC-0004
+- CON-SRC-0011
 impacts:
 - source_metadata
 - downstream_contracts
+- level_status
 rule:
-  statement: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, and intake_timestamp; author_output must always contain status (one of agent_consensus, agent_disagreement, agent_no_evidence, co_authored) and positions.
-  implication: Any source-engine accepted source missing one mandatory field, emitting null for one mandatory field, or naming a conflicting SourceMetadata shape violates the handoff contract; author_output.status values are agent_consensus, agent_disagreement, agent_no_evidence, or co_authored (renamed from definitive/disputed/insufficient_evidence to avoid collision with REQ-SRC-0040 scholarly terminology); each author_output.positions entry may include entity_type in {person, institution}; optional fields may appear as muhaqiq_output, compiler_name, preparer_name, copyist_name, annotator_name, supervisor_name, death_date_hijri, level, edition_info, publisher, text_fidelity, hint_comparison_results, attribution_confidence in {confirmed, disputed, anonymous, pseudepigraphic, collective}, work_relationships (list of typed links with relationship_type, target_work_title, target_work_author, confidence), composite_work_type in {majmu, null}, display_card (source card with progressive disclosure tiers), source_format in {shamela_html, pdf, plain_text}, normalization_route in {html_parse_primary, pdf_ocr_primary, pdf_text_primary, plain_text_parse}, pdf_text_layer_status in {absent, corrupt, presentation_forms, clean}, pdf_text_encoding in {standard_arabic, presentation_forms, mixed}, page_count_physical, page_layout_hint in {single_column, dual_column, marginal_notes, mixed}, matn_embedding_style in {interlinear, separated, marginal, mazj, null}, admission_reason in {accepted_clean, accepted_with_flags}, edition_group_id (resolved or best-guess link to the EditionGroup this source belongs to), holding_id (link to the EditionHolding this source's volumes are attached to), volume_coverage (list of volume numbers or ranges actually present in this source, distinct from volume_count which is the observed count), supersession_candidates (list of holdings this source may supersede, each with evidence and confidence), preferred_rank in {primary, alternate, superseded, null} (informational signal for downstream orchestration), and holding_completeness_delta (what new volume coverage this source adds to a matching EditionHolding, null when no match exists; produced by REQ-SRC-0036).
+  statement: >-
+    Every source-engine accepted source emits one SourceMetadata
+    record with non-null mandatory fields source_id, source_sha256,
+    frozen_blob_path, registry_entry_id, title_arabic, author_output,
+    work_output, genre, science_scope, is_multi_layer,
+    structural_format, trust_decision, completeness_status,
+    integrity_status, volume_count, intake_timestamp, AND
+    level_status. The author_output field must always contain status
+    (one of agent_consensus, agent_disagreement, agent_no_evidence,
+    co_authored) and positions. The level_status field must always
+    contain one of the four enum values defined below.
+  implication: >-
+    Any source-engine accepted source missing one mandatory field,
+    emitting null for one mandatory field, or naming a conflicting
+    SourceMetadata shape violates the handoff contract; author_output
+    .status values are agent_consensus, agent_disagreement,
+    agent_no_evidence, or co_authored (renamed from definitive /
+    disputed / insufficient_evidence to avoid collision with
+    REQ-SRC-0040 scholarly terminology); each author_output.positions
+    entry may include entity_type in {person, institution}.
+    level_status is an enum with exactly four values: pending_taxonomy
+    (admitted, level determination deferred to the taxonomy engine),
+    non_applicable_reference (admitted, genre signals the text has no
+    pedagogical level — the genre set is mushaf, hadith_collection,
+    rijal_dictionary, majmu, biographical_dictionary,
+    fatwa_compilation, lexicon), unprocessable_error (terminal state
+    where a downstream engine has concluded that level cannot be
+    assigned even with further work), and assigned (level is non-
+    null and has been authoritatively written by a downstream
+    engine or by a valid owner_level_override per REQ-SRC-0047).
+    The source engine at admission time emits ONLY pending_taxonomy
+    or non_applicable_reference (plus assigned when an accepted
+    owner_level_override populated level at intake); the values
+    unprocessable_error and assigned-from-downstream are reserved
+    for downstream engines. Cross-field invariants are mandatory:
+    (1) level_status == "assigned" IFF level is non-null; (2)
+    level_status in {pending_taxonomy, non_applicable_reference,
+    unprocessable_error} IMPLIES level is null; (3) level_status ==
+    "non_applicable_reference" IMPLIES genre is in the non-
+    applicable set above; (4) level_status is NEVER null and NEVER
+    inferred from shallow bibliographic signals (it is a processing-
+    state label, not a pedagogical-level inference governed by
+    INV-SRC-0011). Optional fields may appear as muhaqiq_output,
+    compiler_name, preparer_name, copyist_name, annotator_name,
+    supervisor_name, death_date_hijri, level, edition_info,
+    publisher, text_fidelity, hint_comparison_results,
+    attribution_confidence in {confirmed, disputed, anonymous,
+    pseudepigraphic, collective}, work_relationships (list of typed
+    links with relationship_type, target_work_title,
+    target_work_author, confidence), composite_work_type in {majmu,
+    null}, display_card (source card with progressive disclosure
+    tiers), source_format in {shamela_html, pdf, plain_text},
+    normalization_route in {html_parse_primary, pdf_ocr_primary,
+    pdf_text_primary, plain_text_parse}, pdf_text_layer_status in
+    {absent, corrupt, presentation_forms, clean}, pdf_text_encoding
+    in {standard_arabic, presentation_forms, mixed},
+    page_count_physical, page_layout_hint in {single_column,
+    dual_column, marginal_notes, mixed}, matn_embedding_style in
+    {interlinear, separated, marginal, mazj, null}, admission_reason
+    in {accepted_clean, accepted_with_flags}, edition_group_id
+    (resolved or best-guess link to the EditionGroup this source
+    belongs to), holding_id (link to the EditionHolding this source's
+    volumes are attached to), volume_coverage (list of volume
+    numbers or ranges actually present in this source, distinct from
+    volume_count which is the observed count), supersession_candidates
+    (list of holdings this source may supersede, each with evidence
+    and confidence), preferred_rank in {primary, alternate,
+    superseded, null} (informational signal for downstream
+    orchestration), and holding_completeness_delta (what new volume
+    coverage this source adds to a matching EditionHolding, null
+    when no match exists; produced by REQ-SRC-0036).
   violation_severity: critical
 acceptance_criteria:
 - id: AC-1
   given: Any source_engine_accepted source
   when: source admission and handoff packaging complete
-  then: The emitted SourceMetadata record contains all mandatory fields with non-null values, author_output.status is one of {agent_consensus, agent_disagreement, agent_no_evidence, co_authored}, author_output.positions is present, and work_output is non-null.
+  then: >-
+    The emitted SourceMetadata record contains all mandatory fields
+    with non-null values, author_output.status is one of
+    {agent_consensus, agent_disagreement, agent_no_evidence,
+    co_authored}, author_output.positions is present, work_output is
+    non-null, and level_status is non-null with a value in
+    {pending_taxonomy, non_applicable_reference, unprocessable_error,
+    assigned}.
   test_type: integration
 - id: AC-2
   given: tests/fixtures/waraqat_usul/waraqat.pdf
   when: source admission and handoff packaging complete
-  then: The emitted SourceMetadata record may include source_format="pdf", normalization_route="pdf_ocr_primary", pdf_text_layer_status="corrupt", page_layout_hint, page_count_physical=13, completeness_status, and integrity_status without violating the output contract.
+  then: >-
+    The emitted SourceMetadata record may include
+    source_format="pdf", normalization_route="pdf_ocr_primary",
+    pdf_text_layer_status="corrupt", page_layout_hint,
+    page_count_physical=13, completeness_status, and
+    integrity_status without violating the output contract.
   test_type: integration
+- id: AC-3
+  given: >-
+    A source_engine_accepted source with genre="mushaf" and no
+    owner_level_override at intake
+  when: source admission and handoff packaging complete
+  then: >-
+    SourceMetadata.level is null AND SourceMetadata.level_status ==
+    "non_applicable_reference" (cross-field invariants 2 and 3 both
+    hold).
+  test_type: integration
+- id: AC-4
+  given: >-
+    A source_engine_accepted source with genre="sharh" (a leveled
+    genre NOT in the non-applicable set) and no owner_level_override
+    at intake
+  when: source admission and handoff packaging complete
+  then: >-
+    SourceMetadata.level is null AND SourceMetadata.level_status ==
+    "pending_taxonomy" (cross-field invariant 2 holds).
+  test_type: integration
+- id: AC-5
+  given: >-
+    A source_engine_accepted source with genre="sharh" and a valid
+    owner_level_override="mutawassiṭ" accepted at intake per
+    REQ-SRC-0047
+  when: source admission and handoff packaging complete
+  then: >-
+    SourceMetadata.level == "mutawassiṭ" AND SourceMetadata
+    .level_status == "assigned" (cross-field invariant 1 holds).
+  test_type: integration
+- id: AC-6
+  given: >-
+    Any source_engine_accepted SourceMetadata record emitted by the
+    source engine at admission time
+  when: the contract validator inspects the emission
+  then: >-
+    level_status is one of {pending_taxonomy,
+    non_applicable_reference, assigned} — the source engine NEVER
+    emits level_status == "unprocessable_error" at admission (that
+    value is reserved for downstream engines after attempted
+    determination).
+  test_type: integration
+- id: AC-7
+  given: >-
+    A malformed SourceMetadata record where level="mutawassiṭ" but
+    level_status="pending_taxonomy" (cross-field invariant 1
+    violation)
+  when: the contract validator inspects the record
+  then: >-
+    The record is rejected as invalid with respect to CON-SRC-0004
+    and the rejection message identifies the specific cross-field
+    invariant violated.
+  test_type: deterministic

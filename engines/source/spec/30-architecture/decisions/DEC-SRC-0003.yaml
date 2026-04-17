@@ -7,9 +7,22 @@ layer: architecture
 priority: medium
 confidence: high
 provenance: deep_research
-source: 'dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-6)'
+source: >-
+  Initial closure on 2026-04-16 by ChatGPT Deep Research
+  (dr-chatgpt-level-detection-20260416.yaml SEC-6). Hardened on 2026-04-17
+  by a 3-of-3 unanimous adjudication after Claude DR
+  (dr-claude-level-detection-20260416.yaml) recommended OPT-C-asymmetric:
+  Codex CLI (architectural fit, .kr/runtime/adjudication_codex_20260417.md),
+  Gemini CLI runs 1 and 2 (classical scholarly defensibility, 6-0 branch
+  win counts, .kr/runtime/adjudication_gemini_cli_run1_20260417.md and
+  run2_20260417.md), and Gemini DR (T-2 threat model tie-breaker,
+  .kr/runtime/adjudication_gemini_dr_20260417.md) all voted OPT-B with
+  high confidence. Gemini DR additionally proposed a middle-path
+  `level_status` enumerator amendment to CON-SRC-0004 to close the
+  null-conflation gap Claude DR correctly identified — that amendment is
+  adopted on 2026-04-17 and is orthogonal to this decision.
 created: '2026-04-14'
-updated: '2026-04-16'
+updated: '2026-04-17'
 depends_on:
 - OF-SRC-0007
 - OQ-SRC-0001
@@ -18,58 +31,113 @@ impacts:
 - level_metadata
 - source_normalization_boundary
 rationale: >-
-  Resolved on 2026-04-16 by ChatGPT Deep Research (dr-chatgpt-level-detection-20260416).
-  Option B is chosen: reading-level is a downstream, content-based decision, and
-  authoritative ownership sits in the synthesis engine. The source engine
-  preserves evidence but does NOT populate SourceMetadata.level except via
-  explicit owner override at intake. Level must be science-conditioned and
-  layer-conditioned (fiqh/usul/nahw/hadith/tafsir AND matn/sharh/hashiyah)
-  before any mubtadi/mutawassit/mutaqaddim label is assigned, and it is stored
-  as a history of assessments with provenance, never as a silently overwritten
-  scalar. See DR paragraphs p16, p17, p18, p19, p20, p21, p46.
+  Option B is chosen: reading-level is a downstream, content-based decision
+  that can only be determined once the book's internal pedagogical
+  structure (malakah formation, matn/sharḥ/ḥāshiya layer, tadarruj
+  progression) is visible. Authoritative ownership sits in the synthesis
+  engine. The source engine preserves evidence but does NOT populate
+  SourceMetadata.level except via explicit owner override at intake.
+  Classical bibliographic tradition (al-Fihrist of Ibn al-Nadīm, Kashf
+  al-Ẓunūn of Ḥājjī Khalīfa) systematically records structural attributes
+  (fann, author, death date, volume count, layer type) and SYSTEMATICALLY
+  AVOIDS provisional pedagogical difficulty tags — their silence is an
+  epistemological discipline, not a missing feature. Level assignment
+  follows the three-stage cascade fann → nawʿ/layer → martaba (science,
+  then genre/layer, then level) and is stored as a history of assessments
+  with provenance, never as a silently overwritten scalar. See ChatGPT DR
+  paragraphs p16–p21 and p46; Gemini CLI run 1 and run 2 classical-
+  defensibility analyses (both 6-0 for OPT-B); Gemini DR T-2 threat model
+  verdict (OPT-B T-2 risk 3/10 vs OPT-C 9/10).
 options:
 - id: OPT-A
   label: Source engine from book metadata
   description: Infer level from title cards and shallow metadata inside the source engine.
   status: rejected
   rejection_reason: >-
-    Title tokens systematically lie. DR p2 (Ibn Khaldun's critique of excessive
-    abbreviation — a book called mukhtasar may be harder than a fuller exposition
-    when it presupposes prior formation), DR p9 (three recurring failure modes:
-    edition drift, series/volume mismatch, title-token false positives such as
-    al-Wasit/al-Mukhtasar/al-Taysir/al-Mubassat encoding marketing not
-    difficulty), and DR r2 (abridgement title trap — a mukhtasar can be the
-    hardest work because it is maximally compressed) together establish that
-    source metadata alone cannot own the level field without silent
-    corruption.
+    Title tokens are insufficient signals for pedagogical level and
+    systematically mislead when used as authoritative. ChatGPT DR p2 cites
+    Ibn Khaldūn's critique of excessive abbreviation: a book called
+    mukhtaṣar may be harder than a fuller exposition when it presupposes
+    prior malakah formation. DR p9 documents three recurring failure modes
+    — edition drift, series/volume mismatch, title-token false positives
+    (al-Wasīṭ / al-Mukhtaṣar / al-Taysīr / al-Mubassaṭ encoding marketing
+    rather than difficulty). DR risk r2 (the abridgement title trap — a
+    mukhtaṣar is often maximally compressed and therefore MORE difficult,
+    not less). Gemini CLI run 1 and run 2 classical analyses
+    independently confirm: Ibn Khaldūn's Muqaddima Book VI (faṣl fī wajh
+    al-ṣawāb fī taʿlīm al-ʿulūm) ties level to the internal connective
+    tissue of the text and the student's malakah formation, not to
+    external shallow signals. Al-Zarnūjī's Taʿlīm al-Mutaʿallim Chapter
+    IV mandates tawaqquf (withholding judgment) before committing a
+    student to a text. The muḥaddithūn's practice during iʿtibār
+    (preserving weak asānīd as raw metadata without premature ḥukm) is
+    the operationally correct precedent. Source metadata alone cannot own
+    the level field without silent corruption.
 - id: OPT-B
   label: Downstream content analysis
   description: Infer level after richer content analysis in a later stage.
   status: chosen
   chosen_reason: >-
-    DR p16 headline recommendation: level inference is downstream and
-    content-based, authoritative ownership sits in the synthesis engine, source
-    engine preserves evidence but does NOT populate level except via rare owner
-    override. DR p17 (the book's own discourse — definitions, audience markers,
-    gloss rate, commentary layer — is the most authoritative signal). DR p18
-    (the nullable SourceMetadata.level already models 'unknown' cleanly, so
-    OPT-B creates no schema mismatch). DR p19 (synthesis is the first place a
-    book can be seen as distributed pedagogical units, the least distortive
-    place to attach a late-bound owner-facing judgment). DR p20 (in a personal
-    scholarly library, wrong visible level is more harmful than a temporarily
-    unknown level). DR p21 (three-stage cascade — science, then layer, then
-    level — is mandatory). DR p46 ties these together: late, content-derived,
-    science-conditioned, with strong provenance and no silent overwrite.
+    OPT-B is the only architecture that structurally aligns with the
+    rigor of the turāth. ChatGPT DR p16 headline: level inference is
+    downstream and content-based, authoritative ownership sits in the
+    synthesis engine, source engine preserves evidence but does NOT
+    populate level except via rare owner override. ChatGPT DR p17: the
+    book's own discourse — definitions, audience markers, gloss rate,
+    commentary layer — is the most authoritative signal. ChatGPT DR p18:
+    the nullable SourceMetadata.level already models "unknown" cleanly,
+    so OPT-B creates no schema mismatch. ChatGPT DR p19: synthesis is
+    the first place a book can be seen as distributed pedagogical units
+    — the least distortive place to attach a late-bound owner-facing
+    judgment. ChatGPT DR p20: in a personal scholarly library, wrong
+    visible level is more harmful than a temporarily unknown level.
+    ChatGPT DR p21: the three-stage cascade fann → nawʿ/layer → martaba
+    (science → genre/layer → level) is mandatory. Gemini CLI classical
+    analyses (runs 1 and 2) reinforce: Ibn Khaldūn's tadarruj requires
+    level to emerge from internal structural density, al-Zarnūjī's
+    tawaqquf forbids premature commitment, al-Fihrist and Kashf al-Ẓunūn
+    systematically refuse provisional pedagogical tags. Gemini DR T-2
+    threat model verdict: OPT-B residual T-2 risk (3/10) stems only from
+    the null-conflation ambiguity, which the middle-path `level_status`
+    enum on CON-SRC-0004 entirely mitigates. The source engine remains a
+    pure preserver of raw structural and bibliographic evidence, leaving
+    the authoritative pedagogical ḥukm to the downstream engines capable
+    of examining the matn itself.
 - id: OPT-C
   label: Dual inference with reconciliation
   description: Emit a provisional source signal and reconcile it against downstream content analysis.
   status: rejected
   rejection_reason: >-
-    The nullable SourceMetadata.level schema already supports 'unknown' per DR
-    p20, so faking early certainty adds no value. In a personal scholarly
-    library, a provisional shallow-metadata guess that downstream analysis
-    later overturns is worse than honest uncertainty: it plants an incorrect
-    label that the owner may internalize before correction, and every
-    reconciliation carries the failure modes of OPT-A (title-token lies,
-    edition drift, series-volume mismatch). OPT-C multiplies surface area for
-    silent level corruption without reducing uncertainty.
+    OPT-C multiplies surface area for silent level corruption without
+    reducing uncertainty. ChatGPT DR p20: in a personal scholarly
+    library, a provisional shallow-metadata guess that downstream
+    analysis later overturns is worse than honest uncertainty — it
+    plants an incorrect label that the owner may internalize before
+    correction, and every reconciliation carries the failure modes of
+    OPT-A (title-token lies, edition drift, series-volume mismatch).
+    Gemini DR (T-2 threat model tie-breaker) scored OPT-C T-2 risk at
+    9/10 (vs OPT-B at 3/10) on five independent dimensions: (1) a
+    visible `confidence: low` tag is a direct T-2 violation because the
+    non-technical mustaftī processes visible labels as declarative
+    statements regardless of hedges; (2) the classical ẓann/qaṭʿ
+    distinction — preserved in al-Shāfiʿī's al-Risāla and al-Ghazālī's
+    al-Mustaṣfā — exists exclusively within the mujtahid's domain, and
+    operationally a ẓannī ruling is binding on the mustaftī precisely
+    like a qaṭʿī one; (3) publisher_series reliability measured at 3/10
+    against empirical Arabic publishing catalog data (Dār al-Minhāj,
+    Dār Ibn Ḥazm, Sifatusafwa, Dār al-Fikr all publish across the full
+    spectrum from children's curricula to advanced multi-volume critical
+    editions); (4) publisher-madhhab bias risk at 8/10 (Gulf-aligned
+    publishers index Salafi/Hanbali catalogs; Maghribi publishers index
+    Maliki/Ashʿari catalogs — a shallow-signal engine propagates this
+    geopolitical bias as objective metadata); (5) UI reconciliation
+    defense confirmation-bias risk at 9/10 (a non-technical owner
+    without a shaykh defaults to System 1 heuristic processing and
+    anchors on the first label shown). Gemini CLI runs 1 and 2 (both
+    6-0 OPT-B) confirm: emitting a provisional signal violates the
+    muḥaddithūn's iʿtibār discipline (they preserved weak asānīd as
+    metadata without premature ḥukm) and contradicts Ibn Khaldūn's
+    warning that title-token signals cannot capture malakah. The
+    nullable SourceMetadata.level schema already supports "unknown"
+    cleanly, and the middle-path `level_status` enumerator disambiguates
+    the null state without requiring fabricated confidence guesses.
