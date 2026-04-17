@@ -10,9 +10,21 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — DR-1 adjudication RESOLVED 3-0 OPT-B with Gemini DR middle-path amendment; Phase 5a amendment pass executed 2026-04-17; reviewer wave pending
+Status: active — Phase 5a amendment pass committed 2026-04-17 as **paper-reconciled** per 4-of-4 reviewer-wave consensus; **Phase 5b is the frontier — 15 ordered work items defined**
 
-## Current frontier — DR-1 (reading-level) integration, POST-PHASE-5A
+## ⟶ FRESH-SESSION START HERE (Phase 5b)
+
+A new session starting on this frontier should:
+1. Read this file end-to-end (you are here).
+2. Read the four reviewer outputs in `.kr/runtime/` (listed below under "Active DR dispatches") — they are the evidence base for every Phase 5b work item.
+3. Read `engines/source/CLAUDE.md` (engine-specific state). The line "no production code exists yet" is stale; ignore.
+4. Read `engines/source/spec/INDEX.yaml` for atom inventory.
+5. Jump to the **"Phase 5b work items (ordered)"** section below and execute in the listed dependency order. Item 1 (contracts.py alignment) unblocks item 2 (AC rewrites). Items 3, 12, 13 are independent and can be done any time. Items 5, 6, 7 are architectural and should land together.
+6. End Phase 5b with a second 4-reviewer wave. Gate closure on test-run evidence (pytest output), not just `validate_spec.py` passing. This is the lesson Phase 5a's paper-reconciliation teaches.
+
+Key memories for context: `project_source_engine_phase_5b_pending.md`, `feedback_multi_evaluator_catches_paper_reconciliation.md`, `feedback_gemini_2run_independence_catches_unique.md`.
+
+## Current frontier — DR-1 (reading-level) integration, Phase 5b pending
 
 The source engine build is active. Spec frozen 2026-04-15 (108 atoms after commit f26997c4c; 102 confirmed, 1 deferred, 5 superseded). Tracer bullet through pipeline steps 10–60 implemented. Substantial Codex-authored code in engines/source/src/ and engines/source/contracts.py (so the engines/source/CLAUDE.md line "no production code exists yet" is stale and should be fixed during amendment).
 
@@ -134,7 +146,9 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 - INDEX.yaml stale counts (Codex CAF-5): OQ-SRC-0001 deferred in INDEX but superseded in atom file.
 - Severity taxonomy missing (Codex S7): schema enum `{fatal, blocking, warning}` has no operational definition anywhere.
 
-**Verdict:** Phase 5a is structurally paper-reconciled. Phase 5b is required to (work items, ordered by dependency):
+**Verdict:** Phase 5a is structurally paper-reconciled. Phase 5b is required.
+
+### Phase 5b work items (ordered)
 1. Align `engines/source/contracts.py`: WorkLevel enum values to Arabic (mubtadiʾ/mutawassiṭ/muntahī); add `level_status` field with 4-value enum; add `level_provenance` field.
 2. Rewrite English-value ACs in INV-SRC-0011 (AC-3), REQ-SRC-0007 (AC-1/AC-3/AC-5), INV-SRC-0012 (AC-1-4) to use CON-SRC-0011 enum.
 3. Fix transliteration errors: `muta'akhirūn` → `mutaʾakhkhirūn` (CON-SRC-0011); `wāsiṭ` → `wasīṭ` (INV-SRC-0011:30).
