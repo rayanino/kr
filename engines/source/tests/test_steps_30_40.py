@@ -22,6 +22,14 @@ def _freeze_fixture(source_pipeline: SourcePipeline, path: Path) -> str:
 
 
 def _write_pdf(path: Path, text: str | None = None) -> None:
+    """Write a PDF with optional Arabic text via PyMuPDF insert_text + Arial.
+
+    Arabic extracts as visual-order presentation forms (U+FE70-FEFF) due to
+    Arial's ToUnicode CMap, not byte-identical logical order. Tests tolerate
+    this via `pdf_text_layer_status in {"clean", "presentation_forms"}`.
+    arabic_reshaper + python-bidi produce the same extraction class; see
+    Phase 5a Track B investigation (2026-04-17).
+    """
     doc = fitz.open()
     page = doc.new_page()
     if text is not None:
