@@ -211,6 +211,21 @@ def _resolve_level_fields(
         )
     # Owner override accepted upstream (REQ-SRC-0047 populated level).
     if deliberation_input.level is not None:
+        # INV-SRC-0012: non-applicable genres reject any level override. The
+        # text's scholarly form (mushaf / hadith_collection / rijal_dictionary /
+        # majmu / biographical_dictionary / fatwa_compilation / lexicon) is
+        # organized around transmission, reference, or compilation — not the
+        # classical pedagogical ladder — so a level label corrupts it.
+        genre = deliberation_input.genre
+        if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
+            raise SourceEngineError(
+                ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
+                f"owner_level_override='{deliberation_input.level.value}' "
+                f"rejected: genre='{genre.value}' is in the non-applicable set "
+                f"{sorted(NON_APPLICABLE_GENRE_VALUES)} per INV-SRC-0012; "
+                "these genres MUST serialize level as null regardless of any "
+                "override attempt",
+            )
         return (
             deliberation_input.level,
             LevelStatus.ASSIGNED,
