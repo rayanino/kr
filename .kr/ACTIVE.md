@@ -93,8 +93,43 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 
 ### Active DR dispatches
 
-- **DR-1 (level detection)** — adjudication complete 3-0 OPT-B + middle-path; Phase 5a executed. **Phase 5a reviewer wave IN FLIGHT** (2026-04-17): Codex CLI (structural), Gemini CLI runs A+B (scholarly accuracy, independent 2-run protocol), CC subagent `spec-team-adversary` (adversarial pre-mortem). All four dispatches passed through `/prompt-architect`. Log entries in `.kr/runtime/dispatch_log.jsonl`. Adversary output target: `.kr/runtime/adversary_phase5a_20260417.md`.
-- **DR-2 (agent monitoring scope)** — still deferred until reviewer wave closes + orthogonal amendments clear.
+- **DR-1 (level detection)** — adjudication complete 3-0 OPT-B + middle-path; Phase 5a "executed" but reviewer wave shows it is structurally paper-reconciled, not operationally closed. **Phase 5a reviewer wave 3 of 4 back** (2026-04-17): Codex CLI (structural, BLOCKER_PRESENT, 4 BLOCKERS + 7 AMEND), Gemini CLI Run A (scholarly accuracy, AMEND_REQUIRED, 1 BLOCKER + 1 HIGH + 4 AMEND), CC adversary (adversarial, BLOCKER_PRESENT, 3 BLOCKERS + 9 HIGH + 1 MEDIUM). Gemini CLI Run B still in flight. Outputs in `.kr/runtime/structural_audit_codex_cli_20260417.md`, `domain_validation_gemini_cli_run_A_20260417.md`, `adversary_phase5a_20260417.md`. Phase 5b amendment pass is the next step after Run B returns.
+- **DR-2 (agent monitoring scope)** — still deferred until Phase 5b closes.
+
+### Phase 5a reviewer wave — consolidated findings (3 of 4 evaluators)
+
+**3-of-3 confirmed BLOCKERS** (structural + content):
+1. **English WorkLevel enum leakage** (Gemini DVF-1 = Codex CAF-3 = Adversary ADV-002). INV-SRC-0011 AC-3, REQ-SRC-0007 AC-1/AC-3/AC-5, INV-SRC-0012 AC-1-4 use English values rejected by CON-SRC-0011. `engines/source/contracts.py:197-201` still defines `WorkLevel = {BEGINNER, INTERMEDIATE, ADVANCED, SPECIALIST}`, and `SourceMetadata` (line 860+) has NO `level_status` field. Code never followed the spec.
+2. **Non-applicable genre set divergent and unreachable** (Adversary ADV-001, verified by direct inspection). CON-SRC-0004 and REQ-SRC-0047 list 7 values; INV-SRC-0012 lists 4; REQ-SRC-0030 canonical genre enum contains only `hadith_collection` cleanly. 4 of 7 values (mushaf, rijal_dictionary, majmu, biographical_dictionary) are structurally unreachable; 2 are naming-mismatched (fatwa_compilation vs fatawa; lexicon vs mujam). Invariant 3 is untriggerable for 4/7 values.
+
+**2-of-3 confirmed** (pending Run B):
+3. **Ownership inconsistency** (Codex CAF-2 = Adversary ADV-003). DEC-SRC-0003 names synthesis as authoritative owner; CON-SRC-0004 pending_taxonomy binds to taxonomy. Generic "a downstream engine" paper-reconciles without resolving.
+4. **Pedagogical hadith_collection conflation** (Gemini DVF-2 = Adversary ADV-009). al-Arbaʿīn al-Nawawī, Bulūgh al-Marām, ʿUmdat al-Aḥkām are pedagogically graduated; unconditional non-applicable placement corrupts library.
+
+**Unique BLOCKERS from single evaluator (structural, verifiable)**:
+5. **Depends-on DAG broken** (Codex CAF-1): 4 cycles in the amendment set's depends_on graph (DEC↔REQ-SRC-0007, CON-SRC-0004↔CON-SRC-0011, INV-SRC-0011↔CON-SRC-0011, CON-SRC-0011↔REQ-SRC-0047). Breaks scoped injection.
+6. **Deferred-validation surface undefined + REQ-SRC-0048 nonexistent** (Adversary ADV-005). Claimed resolution per ACTIVE.md; REQ-SRC-0048 atom does not exist.
+7. **Prior R1 blockers paper-reconciled, not closed** (Codex CAF-6). Tests still pass because they assert the pre-Phase-5a surface; `level_status` never exercised.
+
+**Unique HIGH findings from single evaluator (structural, verifiable)**:
+- Nested-Optional depth-2 gap (Adversary ADV-011): positions[0].death_date unexercised.
+- Shamela happy-path aborts with SRC-E-EVIDENCE-DROPPED (Adversary ADV-010): REQ-SRC-0037 doesn't mandate null-key emission for absent edition_info.
+- level_provenance missing; owner override non-sticky (Adversary ADV-012).
+- Pre-Phase-5a migration path undefined (Adversary ADV-013).
+- ALA-LC `muta'akhirūn` → `mutaʾakhkhirūn` transliteration AMEND (Gemini C1).
+- INDEX.yaml stale counts (Codex CAF-5): OQ-SRC-0001 deferred in INDEX but superseded in atom file.
+- Severity taxonomy missing (Codex S7): schema enum `{fatal, blocking, warning}` has no operational definition anywhere.
+
+**Verdict:** Phase 5a is structurally paper-reconciled. Phase 5b is required to:
+1. Align `engines/source/contracts.py` (WorkLevel enum values + add `level_status` field + add `level_provenance` field).
+2. Rewrite English-value ACs in 4 atoms to use CON-SRC-0011 enum.
+3. Amend REQ-SRC-0030 genre enum to cover non-applicable set, reconcile non-applicable list across 3 atoms, sub-classify hadith_collection.
+4. Break 4 depends_on cycles.
+5. Create REQ-SRC-0048 for deferred validation surface.
+6. Resolve ownership story (synthesis vs taxonomy).
+7. Add migration path for pre-Phase-5a sources.
+8. Fix Shamela happy-path abort.
+9. Write spec-linked tests that exercise `level_status` and new error codes before declaring closure.
 
 ### Paused work
 - Excerpting: frozen at 1008 pass / 0 fail / 4 xfail, budget EUR 36.70 / 100.00. Checkpoint: `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`. Do NOT resume until source engine reaches Phase 5 agent-layer readiness.
