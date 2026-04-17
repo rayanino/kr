@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- |
 | DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | confirmed | critical |
 | DEC-SRC-0002 | decision | Science scope uses dynamic registry | confirmed | high |
-| DEC-SRC-0003 | decision | Level detection strategy | deferred | medium |
+| DEC-SRC-0003 | decision | Level detection strategy | confirmed | medium |
 | DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | confirmed | critical |
 | DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | confirmed | high |
 | DEC-SRC-0006 | decision | Agents resolve disagreements autonomously | confirmed | critical |
@@ -49,11 +49,12 @@
 - Type: decision
 - Layer: architecture
 - Step: n/a
-- Status: deferred
+- Status: confirmed
 - Priority: medium
-- Confidence: medium
-- Source: Derived from OF-SRC-0007; amended per contract-architect-review.yaml
-- Chosen option: Decision deferred
+- Confidence: high
+- Source: Initial closure on 2026-04-16 by ChatGPT Deep Research (dr-chatgpt-level-detection-20260416.yaml SEC-6). Hardened on 2026-04-17 by a 3-of-3 unanimous adjudication after Claude DR (dr-claude-level-detection-20260416.yaml) recommended OPT-C-asymmetric: Codex CLI (architectural fit, .kr/runtime/adjudication_codex_20260417.md), Gemini CLI runs 1 and 2 (classical scholarly defensibility, 6-0 branch win counts, .kr/runtime/adjudication_gemini_cli_run1_20260417.md and run2_20260417.md), and Gemini DR (T-2 threat model tie-breaker, .kr/runtime/adjudication_gemini_dr_20260417.md) all voted OPT-B with high confidence. Gemini DR additionally proposed a middle-path `level_status` enumerator amendment to CON-SRC-0004 to close the null-conflation gap Claude DR correctly identified — that amendment is adopted on 2026-04-17 and is orthogonal to this decision.
+- Chosen option: OPT-B — Downstream content analysis
+- Decision rationale: OPT-B is the only architecture that structurally aligns with the rigor of the turāth. ChatGPT DR p16 headline: level inference is downstream and content-based, authoritative ownership sits in the synthesis engine, source engine preserves evidence but does NOT populate level except via rare owner override. ChatGPT DR p17: the book's own discourse — definitions, audience markers, gloss rate, commentary layer — is the most authoritative signal. ChatGPT DR p18: the nullable SourceMetadata.level already models "unknown" cleanly, so OPT-B creates no schema mismatch. ChatGPT DR p19: synthesis is the first place a book can be seen as distributed pedagogical units — the least distortive place to attach a late-bound owner-facing judgment. ChatGPT DR p20: in a personal scholarly library, wrong visible level is more harmful than a temporarily unknown level. ChatGPT DR p21: the three-stage cascade fann → nawʿ/layer → martaba (science → genre/layer → level) is mandatory. Gemini CLI classical analyses (runs 1 and 2) reinforce: Ibn Khaldūn's tadarruj requires level to emerge from internal structural density, al-Zarnūjī's tawaqquf forbids premature commitment, al-Fihrist and Kashf al-Ẓunūn systematically refuse provisional pedagogical tags. Gemini DR T-2 threat model verdict: OPT-B residual T-2 risk (3/10) stems only from the null-conflation ambiguity, which the middle-path `level_status` enum on CON-SRC-0004 entirely mitigates. The source engine remains a pure preserver of raw structural and bibliographic evidence, leaving the authoritative pedagogical ḥukm to the downstream engines capable of examining the matn itself.
 
 ### DEC-SRC-0004 — Replace trust algorithm with agent teams
 - Type: decision

@@ -2,7 +2,7 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
-| OQ-SRC-0001 | question | Level detection ownership | deferred | medium |
+| OQ-SRC-0001 | question | Level detection ownership | superseded | medium |
 | OQ-SRC-0003 | question | Agent-team architecture design | superseded | critical |
 | OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high |
 | OQ-SRC-0005 | question | Agent monitoring scope | deferred | medium |
@@ -13,10 +13,10 @@
 - Type: question
 - Layer: questions
 - Step: n/a
-- Status: deferred
+- Status: superseded
 - Priority: medium
-- Confidence: medium
-- Source: Derived from OF-SRC-0007
+- Confidence: high
+- Source: dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-7)
 - Candidates:
   - OPT-A: Source metadata only (unlikely)
   - OPT-B: Downstream content analysis (likely)

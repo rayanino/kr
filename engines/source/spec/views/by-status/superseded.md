@@ -2,10 +2,24 @@
 
 | ID | Type | Title | Status | Priority |
 | --- | --- | --- | --- | --- |
+| OQ-SRC-0001 | question | Level detection ownership | superseded | medium |
 | OQ-SRC-0003 | question | Agent-team architecture design | superseded | critical |
 | OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high |
 | OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
 | OQ-SRC-0007 | question | Specialized research source inventory | superseded | medium |
+
+### OQ-SRC-0001 — Level detection ownership
+- Type: question
+- Layer: questions
+- Step: n/a
+- Status: superseded
+- Priority: medium
+- Confidence: high
+- Source: dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-7)
+- Candidates:
+  - OPT-A: Source metadata only (unlikely)
+  - OPT-B: Downstream content analysis (likely)
+  - OPT-C: Dual inference with reconciliation (possible)
 
 ### OQ-SRC-0003 — Agent-team architecture design
 - Type: question

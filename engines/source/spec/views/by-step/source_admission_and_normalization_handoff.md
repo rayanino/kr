@@ -9,6 +9,7 @@
 | REQ-SRC-0033 | requirement | Volume count and intake timestamp derivation | confirmed | high |
 | REQ-SRC-0044 | requirement | Edition-group and holding reconciliation on source admission | confirmed | critical |
 | REQ-SRC-0045 | requirement | Supersession signal emission on source admission | confirmed | high |
+| REQ-SRC-0046 | requirement | Evidence preservation for downstream level inference | confirmed | critical |
 
 ### REQ-SRC-0007 — Level field preservation across source-engine handoff
 - Type: requirement
@@ -16,16 +17,22 @@
 - Step: source_admission_and_normalization_handoff
 - Status: confirmed
 - Priority: medium
-- Confidence: medium
-- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself.
+- Confidence: high
+- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself. Amended on 2026-04-16 per dr-chatgpt-level-detection-20260416.yaml (SEC-5). Further amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR): (a) explicit precondition that owner_level_override passed the CON-SRC-0011 enum-value whitelist before reaching handoff packaging; (b) new level_status (CON-SRC-0004 middle-path) must serialize alongside level — preservation contract extends to both fields.
 - Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
 - Postconditions:
   - The handoff payload always includes the level key.
+  - The handoff payload always includes the level_status key with a non-null enum value.
   - A populated level value is passed through unchanged.
-  - An unknown level is serialized as null rather than omitted.
+  - An unknown level is serialized as null rather than omitted, paired with a non-null level_status.
+  - A level value populated via owner_level_override is passed through unchanged with the same string value received at intake, paired with level_status="assigned".
+  - The level_status value is passed through unchanged — handoff packaging never rewrites, defaults, or reinterprets it.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate"..
-  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate" and level_status="assigned" (populated via valid owner_level_override); When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate" and level_status="assigned", both unchanged from the upstream emission..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null and level_status="pending_taxonomy"; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null AND the key level_status with value "pending_taxonomy", both present and neither omitted..
+  - AC-3 [deterministic] Given A source whose SourceMetadata.level was populated via owner_level_override="advanced" at intake (validated against CON-SRC-0011 WorkLevel whitelist per REQ-SRC-0047 AC-1), with level_status="assigned"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="advanced" with the override value unchanged and level_status="assigned" unchanged..
+  - AC-4 [deterministic] Given A source with genre="mushaf" (non-applicable per INV-SRC-0012), SourceMetadata.level=null, level_status="non_applicable_reference"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level=null and level_status="non_applicable_reference"..
+  - AC-5 [deterministic] Given A handoff packaging path that would have emitted level="beginner" with level_status="pending_taxonomy" (cross-field invariant violation); When handoff packaging executes; Then Packaging is rejected with SRC-E-LEVEL-STATUS-INVARIANT-VIOLATION and no partial bundle is emitted..
 
 ### REQ-SRC-0022 — PDF handoff preserves intake verdicts
 - Type: requirement
@@ -147,3 +154,40 @@
   - AC-1 [deterministic] Given A complete EditionHolding for a hadith work exists with text_fidelity=low_ocr. A new source is admitted as a different edition of the same work with text_fidelity=high_verified, also complete.; When Supersession signal emission executes.; Then old_holding.superseded_by=new_holding_id, old_holding.holding_state=superseded, new_holding.preferred_rank=primary, new_holding.supersession_policy=regen_required..
   - AC-2 [deterministic] Given A complete EditionHolding exists. A new source is admitted as a partial holding of a potentially better edition (only 1 of 5 volumes).; When Supersession signal emission evaluates.; Then No supersession is applied. The new EditionHolding is created with completeness_state=active_partial and no preferred_rank. Advisory flag supersession_blocked_by_completeness is emitted..
   - AC-3 [deterministic] Given Two editions of the same work exist. No quality comparison evidence is available (text_fidelity signals are identical, no owner hints exist, no edition reputation signals differ).; When Supersession signal emission evaluates.; Then Neither holding is superseded. Both remain active. A study_quality_risk_flag with risk_type=unresolved_edition_preference is emitted..
+
+### REQ-SRC-0046 — Evidence preservation for downstream level inference
+- Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-3. Amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR) and the R1/R2 reviewer wave: (a) nested Optional serialization rule added — when a preserved signal carries a nested structured field (e.g. muhaqiq_output, work_relationships, display_card), the nested object MUST itself honor D-023 and serialize absent sub-fields as explicit nulls rather than omitting keys; (b) genre_dispute signal added as required-preserved per R1 finding that disputed-genre payloads currently drop the secondary positions; (c) dedicated acceptance criteria now exercise the two signals most historically dropped at handoff (contains_isnad_chains and genre_dispute); (d) depends_on corrected to include DEC-SRC-0003 and INV-SRC-0011 because the evidence-preservation contract is the mechanism that makes the downstream content-only level classification (OPT-B) possible.
+- Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
+- Postconditions:
+  - D-023 metadata preservation — the governing rule — applies to every signal listed below AND recursively to every nested structured field within those signals. Absent top-level signals serialize as null-valued keys; absent sub-fields inside nested structures (e.g., muhaqiq_output.death_date, work_relationships[i].target_work_author) likewise serialize as null-valued keys, never omitted.
+  - The required-preserved signal set is {title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_group_id, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, holding_id, genre_dispute} on SourceMetadata and {contains_isnad_chains} on the intake_dossier surface — 16 signals total. Any change to this set must amend this atom's postconditions and acceptance_criteria in lock-step.
+  - SourceMetadata.title_arabic is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.genre is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.science_scope is serialized in the handoff payload with the exact list populated upstream.
+  - SourceMetadata.is_multi_layer is serialized in the handoff payload with the exact boolean populated upstream.
+  - SourceMetadata.structural_format is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.edition_group_id is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.edition_info is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (edition_label, edition_year, imprint_city, tahqiq_version) honors the same rule.
+  - SourceMetadata.publisher is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.muhaqiq_output is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (name, status, positions, death_date, attribution_confidence) honors the same rule.
+  - SourceMetadata.page_layout_hint is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.matn_embedding_style is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.pdf_text_layer_status is serialized in the handoff payload; when not populated (non-PDF source) the key is present with value null.
+  - SourceMetadata.volume_count is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.holding_id is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.genre_dispute is serialized in the handoff payload with recursive D-023 preservation; when not populated (no disputed secondary genre) the key is present with value null; when populated, each alternate-genre position (genre_candidate, supporting_evidence, confidence) honors the same rule.
+  - intake_dossier.contains_isnad_chains is propagated into the normalization handoff bundle unchanged; when not populated the key is present with value null.
+  - No evidence signal listed above is omitted from the payload — absent values serialize as null per D-023 metadata preservation, at every structural depth.
+- Acceptance criteria:
+  - AC-1 [integration] Given A fully populated intake for tests/fixtures/shamela_real/06_usul/book.htm with title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_group_id, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, holding_id, genre_dispute, and intake_dossier.contains_isnad_chains all populated; When source admission and normalization handoff packaging executes; Then The serialized payload contains every signal from the 16-signal required-preserved set with the exact values populated upstream, no signal is omitted, and every nested sub-field is either populated with its exact value or serialized as null..
+  - AC-2 [deterministic] Given A source whose muhaqiq_output is legitimately absent (for example a Shamela source without a critical-edition muhaqqiq); When source admission and normalization handoff packaging executes; Then The serialized payload contains the key muhaqiq_output with value null (not omitted)..
+  - AC-3 [deterministic] Given A handoff packaging path that would have dropped the edition_info key entirely from the serialized payload; When handoff packaging executes; Then The packaging is aborted with SRC-E-EVIDENCE-DROPPED and no partial bundle is emitted..
+  - AC-4 [integration] Given A source whose metadata deliberation produced genre_dispute populated with two alternate-genre positions (genre_candidate_1 + supporting_evidence_1 + confidence_1; genre_candidate_2 + supporting_evidence_2 + confidence_2); When source admission and normalization handoff packaging executes; Then The serialized payload contains the key genre_dispute with both alternate positions preserved intact — neither the top-level genre_dispute key nor any nested sub-field (genre_candidate, supporting_evidence, confidence) is omitted..
+  - AC-5 [integration] Given A source whose intake_dossier.contains_isnad_chains was populated true during intake analysis (for example, a hadith collection processed through REQ-SRC-0019); When source admission and normalization handoff packaging executes; Then The serialized handoff bundle contains intake_dossier.contains_isnad_chains=true, propagated unchanged from the intake_dossier surface..
+  - AC-6 [deterministic] Given A handoff packaging path that would have serialized muhaqiq_output as a nested object with its `death_date` sub-field KEY absent (rather than set to null) because the upstream deliberation did not populate it; When handoff packaging executes; Then The packaging is aborted with SRC-E-EVIDENCE-DROPPED-NESTED identifying muhaqiq_output.death_date as the omitted sub-field and no partial bundle is emitted..

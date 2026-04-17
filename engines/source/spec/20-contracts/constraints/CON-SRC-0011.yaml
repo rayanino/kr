@@ -52,7 +52,7 @@ rationale: >-
   structured curriculum of a given fann and can engage ḥāshiya-level
   commentary and independent reading. The rejected alternative term
   mutaqaddim is NOT a pedagogical term but a historiographic one
-  (describing earlier-generation scholars vs muta'akhirūn later-
+  (describing earlier-generation scholars vs mutaʾakhkhirūn later-
   generation scholars). Using mutaqaddim as a learner-level label is
   a category error that R2 Gemini CLI review flagged as corrupting
   both the owner's mental model and downstream taxonomy queries.
@@ -66,7 +66,7 @@ rule:
     student), and "muntahī" (terminal / curriculum-completing
     student). No other string values are valid for a SourceMetadata
     .level assignment. The historiographic term "mutaqaddim" and its
-    counterpart "muta'akhirūn" are REJECTED as WorkLevel values —
+    counterpart "mutaʾakhkhirūn" are REJECTED as WorkLevel values —
     they denote chronological / generational priority among scholars,
     not pedagogical level.
   implication: >-

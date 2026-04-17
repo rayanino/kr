@@ -9,8 +9,10 @@
 | CON-SRC-0005 | constraint | Normalization handoff bundle includes a bridge input contract | confirmed | high |
 | CON-SRC-0006 | constraint | Per-book processing cost and time ceiling | confirmed | high |
 | CON-SRC-0007 | constraint | Source type extensibility | confirmed | high |
+| CON-SRC-0011 | constraint | WorkLevel enum — classical pedagogical-level vocabulary | confirmed | high |
 | DEC-SRC-0001 | decision | Owner hints are cross-validation, not primary data | confirmed | critical |
 | DEC-SRC-0002 | decision | Science scope uses dynamic registry | confirmed | high |
+| DEC-SRC-0003 | decision | Level detection strategy | confirmed | medium |
 | DEC-SRC-0004 | decision | Replace trust algorithm with agent teams | confirmed | critical |
 | DEC-SRC-0005 | decision | Muhaqiq standing is metadata only | confirmed | high |
 | DEC-SRC-0006 | decision | Agents resolve disagreements autonomously | confirmed | critical |
@@ -38,6 +40,8 @@
 | INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | confirmed | critical |
 | INV-SRC-0009 | invariant | Zero knowledge loss in all source-engine output | confirmed | critical |
 | INV-SRC-0010 | invariant | Holding-level completeness is computed, not asserted | confirmed | critical |
+| INV-SRC-0011 | invariant | Source engine must not infer level from shallow metadata | confirmed | critical |
+| INV-SRC-0012 | invariant | Non-applicable genres require level null | confirmed | high |
 | OF-SRC-0001 | feedback | Collection unchanged for source intake | confirmed | high |
 | OF-SRC-0002 | feedback | Drop-and-go intake with optional hints | confirmed | critical |
 | OF-SRC-0003 | feedback | Minimize owner review load | confirmed | critical |
@@ -99,6 +103,8 @@
 | REQ-SRC-0043 | requirement | New scholar registration in authority registry | confirmed | high |
 | REQ-SRC-0044 | requirement | Edition-group and holding reconciliation on source admission | confirmed | critical |
 | REQ-SRC-0045 | requirement | Supersession signal emission on source admission | confirmed | high |
+| REQ-SRC-0046 | requirement | Evidence preservation for downstream level inference | confirmed | critical |
+| REQ-SRC-0047 | requirement | Owner override pathway for level at intake | confirmed | medium |
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
@@ -137,8 +143,8 @@
 - Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Added from adversary-review.yaml ADV-002; amended per reference/pdf_fixture_observations_2026-04-14.md, owner guidance on 2026-04-14 about exact source/work identification and staged source admission, and the architecture decision that normalization owns text extraction.
-- Rule: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, and intake_timestamp; author_output must always contain status (one of agent_consensus, agent_disagreement, agent_no_evidence, co_authored) and positions.
+- Source: Added from adversary-review.yaml ADV-002; amended per reference/ pdf_fixture_observations_2026-04-14.md, owner guidance on 2026-04-14 about exact source/work identification and staged source admission, and the architecture decision that normalization owns text extraction. Further amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication on DEC-SRC-0003: (a) added the mandatory `level_status` enum field per Gemini DR's middle- path proposal, which closes the null-conflation gap that Claude DR correctly identified without adopting OPT-C's shallow-signal level emission; (b) level_status provenance is the source engine at admission time, with values pending_taxonomy or non_applicable_reference, extended by downstream engines to assigned or unprocessable_error. See .kr/runtime/ adjudication_gemini_dr_20260417.md sections q5 and final_recommendation.
+- Rule: Every source-engine accepted source emits one SourceMetadata record with non-null mandatory fields source_id, source_sha256, frozen_blob_path, registry_entry_id, title_arabic, author_output, work_output, genre, science_scope, is_multi_layer, structural_format, trust_decision, completeness_status, integrity_status, volume_count, intake_timestamp, AND level_status. The author_output field must always contain status (one of agent_consensus, agent_disagreement, agent_no_evidence, co_authored) and positions. The level_status field must always contain one of the four enum values defined below.
 
 ### CON-SRC-0005 — Normalization handoff bundle includes a bridge input contract
 - Type: constraint
@@ -170,6 +176,16 @@
 - Source: Owner interview 2026-04-14 identifying YouTube transcripts as the third most valuable source type after Shamela and PDF, requiring the architecture to accommodate new formats without restructuring
 - Rule: The container classification step (step 30) must be designed so that adding a new source format requires only registering a new classifier and normalization route, without modifying existing classifiers or restructuring the pipeline. Current formats are shamela_html, pdf, and plain_text. Future formats include but are not limited to lecture_transcript. Container classification routes each format to normalization via a configurable normalization_route field on the classification output, not via hardcoded format-specific branching.
 
+### CON-SRC-0011 — WorkLevel enum — classical pedagogical-level vocabulary
+- Type: constraint
+- Layer: contracts
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Established on 2026-04-17 following the 3-of-3 unanimous OPT-B adjudication on DEC-SRC-0003. The enum values derive from Gemini CLI run 2 classical-defensibility review (R2 finding) which identified that the ChatGPT DR amendment set used `mutaqaddim` as the "advanced" level value — incorrect classical usage. Mutaqaddim (متقدم) denotes chronological priority (an earlier-generation scholar relative to a later one), NOT pedagogical advancement. The correct classical pedagogical ladder is mubtadiʾ (beginner) → mutawassiṭ (intermediate) → muntahī (terminal / advanced), documented in al-Zarnūjī's Taʿlīm al-Mutaʿallim, Ibn Khaldūn's Muqaddima Book VI (faṣl fī wajh al-ṣawāb fī taʿlīm al-ʿulūm), and the standard curriculum language of Dār al-Muṣṭafā and al- Qarawiyyīn ḥadīth tracks. See .kr/runtime/ adjudication_gemini_cli_run1_20260417.md (R2 terminology finding) and run2_20260417.md (independent confirmation).
+- Rule: The WorkLevel enum is the canonical vocabulary for the SourceMetadata.level field and any downstream field that stores an authoritative pedagogical-level assignment. It has exactly three permitted values: "mubtadiʾ" (beginner / pre-malakah student), "mutawassiṭ" (intermediate / foundational-malakah student), and "muntahī" (terminal / curriculum-completing student). No other string values are valid for a SourceMetadata .level assignment. The historiographic term "mutaqaddim" and its counterpart "mutaʾakhkhirūn" are REJECTED as WorkLevel values — they denote chronological / generational priority among scholars, not pedagogical level.
+
 ### DEC-SRC-0001 — Owner hints are cross-validation, not primary data
 - Type: decision
 - Layer: architecture
@@ -191,6 +207,17 @@
 - Source: Derived from OF-SRC-0006; amended per domain-validator-review.yaml
 - Chosen option: OPT-B — Growable ordered science list
 - Decision rationale: This preserves intake breadth, supports cross-science books such as ahadith al-ahkam, and keeps expansion approval at the registry layer.
+
+### DEC-SRC-0003 — Level detection strategy
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: medium
+- Confidence: high
+- Source: Initial closure on 2026-04-16 by ChatGPT Deep Research (dr-chatgpt-level-detection-20260416.yaml SEC-6). Hardened on 2026-04-17 by a 3-of-3 unanimous adjudication after Claude DR (dr-claude-level-detection-20260416.yaml) recommended OPT-C-asymmetric: Codex CLI (architectural fit, .kr/runtime/adjudication_codex_20260417.md), Gemini CLI runs 1 and 2 (classical scholarly defensibility, 6-0 branch win counts, .kr/runtime/adjudication_gemini_cli_run1_20260417.md and run2_20260417.md), and Gemini DR (T-2 threat model tie-breaker, .kr/runtime/adjudication_gemini_dr_20260417.md) all voted OPT-B with high confidence. Gemini DR additionally proposed a middle-path `level_status` enumerator amendment to CON-SRC-0004 to close the null-conflation gap Claude DR correctly identified — that amendment is adopted on 2026-04-17 and is orthogonal to this decision.
+- Chosen option: OPT-B — Downstream content analysis
+- Decision rationale: OPT-B is the only architecture that structurally aligns with the rigor of the turāth. ChatGPT DR p16 headline: level inference is downstream and content-based, authoritative ownership sits in the synthesis engine, source engine preserves evidence but does NOT populate level except via rare owner override. ChatGPT DR p17: the book's own discourse — definitions, audience markers, gloss rate, commentary layer — is the most authoritative signal. ChatGPT DR p18: the nullable SourceMetadata.level already models "unknown" cleanly, so OPT-B creates no schema mismatch. ChatGPT DR p19: synthesis is the first place a book can be seen as distributed pedagogical units — the least distortive place to attach a late-bound owner-facing judgment. ChatGPT DR p20: in a personal scholarly library, wrong visible level is more harmful than a temporarily unknown level. ChatGPT DR p21: the three-stage cascade fann → nawʿ/layer → martaba (science → genre/layer → level) is mandatory. Gemini CLI classical analyses (runs 1 and 2) reinforce: Ibn Khaldūn's tadarruj requires level to emerge from internal structural density, al-Zarnūjī's tawaqquf forbids premature commitment, al-Fihrist and Kashf al-Ẓunūn systematically refuse provisional pedagogical tags. Gemini DR T-2 threat model verdict: OPT-B residual T-2 risk (3/10) stems only from the null-conflation ambiguity, which the middle-path `level_status` enum on CON-SRC-0004 entirely mitigates. The source engine remains a pure preserver of raw structural and bibliographic evidence, leaving the authoritative pedagogical ḥukm to the downstream engines capable of examining the matn itself.
 
 ### DEC-SRC-0004 — Replace trust algorithm with agent teams
 - Type: decision
@@ -478,6 +505,26 @@
 - Confidence: high
 - Source: ChatGPT DR on collection-evolution model (2026-04-15). The DR identifies that source-level completeness_status (per uploaded artifact) and holding-level completeness (what the library holds for an edition group) are distinct signals. Source-level completeness is immutable history about each source. Holding-level completeness must be recomputed whenever a volume is added or removed from a holding. Stamping 'complete' on a source and treating it as library-wide truth produces stale data as the collection evolves.
 - Rule: EditionHolding completeness_state is always derived from the current set of attached VolumeHoldings, never stored as a static assertion. When a volume is attached, detached, superseded, or has its presence_state changed, the holding's completeness_state is recomputed. Source-level completeness_status (from REQ-SRC-0036) remains immutable and records what was true about each individual source at intake time. The two completeness signals are never conflated.
+
+### INV-SRC-0011 — Source engine must not infer level from shallow metadata
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-1. Hardened on 2026-04-17 by the 3-of-3 unanimous adjudication (Codex CLI architectural-fit, Gemini CLI runs 1 and 2 classical- defensibility at 6-0 branch win counts, Gemini DR T-2 threat model) that closed DEC-SRC-0003 on OPT-B. Acceptance criterion AC-4 (positive assertion that level_status is still populated when level is null) is added to complement the null-assertion clauses in AC-1 and AC-2.
+- Rule: The source engine MUST NOT compute or infer the level field of SourceMetadata from title tokens, series cues, publisher metadata, or any shallow bibliographic signal. The level field remains null unless an explicit owner_level_override is provided at intake. This invariant does NOT restrict the `level_status` field (CON-SRC-0004), which is a processing-state enum — not a pedagogical-level inference — and whose emission is governed by CON-SRC-0004 alone.
+
+### INV-SRC-0012 — Non-applicable genres require level null
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-2)
+- Rule: For genres where the reading-level concept does not apply — mushaf, hadith_collection, rijal_dictionary, and majmu — the source engine MUST serialize SourceMetadata.level as null regardless of any owner override attempt. Forcing a reading-level label onto these genres creates false scholarly authority because their organizing principle is transmission, reference, or compilation, not graduated pedagogical exposition.
 
 ### OF-SRC-0001 — Collection unchanged for source intake
 - Type: feedback
@@ -780,16 +827,22 @@
 - Step: source_admission_and_normalization_handoff
 - Status: confirmed
 - Priority: medium
-- Confidence: medium
-- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself.
+- Confidence: high
+- Source: Derived from OF-SRC-0007; moved to step 60 on 2026-04-14 because the rule governs handoff packaging rather than metadata deliberation itself. Amended on 2026-04-16 per dr-chatgpt-level-detection-20260416.yaml (SEC-5). Further amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR): (a) explicit precondition that owner_level_override passed the CON-SRC-0011 enum-value whitelist before reaching handoff packaging; (b) new level_status (CON-SRC-0004 middle-path) must serialize alongside level — preservation contract extends to both fields.
 - Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
 - Postconditions:
   - The handoff payload always includes the level key.
+  - The handoff payload always includes the level_status key with a non-null enum value.
   - A populated level value is passed through unchanged.
-  - An unknown level is serialized as null rather than omitted.
+  - An unknown level is serialized as null rather than omitted, paired with a non-null level_status.
+  - A level value populated via owner_level_override is passed through unchanged with the same string value received at intake, paired with level_status="assigned".
+  - The level_status value is passed through unchanged — handoff packaging never rewrites, defaults, or reinterprets it.
 - Acceptance criteria:
-  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate"..
-  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null..
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm with SourceMetadata.level="intermediate" and level_status="assigned" (populated via valid owner_level_override); When source-to-normalization handoff packaging executes; Then The serialized payload contains level="intermediate" and level_status="assigned", both unchanged from the upstream emission..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/12_multi_muq/001.htm with SourceMetadata.level=null and level_status="pending_taxonomy"; When source-to-normalization handoff packaging executes; Then The serialized payload contains the key level with value null AND the key level_status with value "pending_taxonomy", both present and neither omitted..
+  - AC-3 [deterministic] Given A source whose SourceMetadata.level was populated via owner_level_override="advanced" at intake (validated against CON-SRC-0011 WorkLevel whitelist per REQ-SRC-0047 AC-1), with level_status="assigned"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level="advanced" with the override value unchanged and level_status="assigned" unchanged..
+  - AC-4 [deterministic] Given A source with genre="mushaf" (non-applicable per INV-SRC-0012), SourceMetadata.level=null, level_status="non_applicable_reference"; When source-to-normalization handoff packaging executes; Then The serialized payload contains level=null and level_status="non_applicable_reference"..
+  - AC-5 [deterministic] Given A handoff packaging path that would have emitted level="beginner" with level_status="pending_taxonomy" (cross-field invariant violation); When handoff packaging executes; Then Packaging is rejected with SRC-E-LEVEL-STATUS-INVARIANT-VIOLATION and no partial bundle is emitted..
 
 ### REQ-SRC-0008 — Agent-team trust evaluation
 - Type: requirement
@@ -1573,3 +1626,61 @@
   - AC-1 [deterministic] Given A complete EditionHolding for a hadith work exists with text_fidelity=low_ocr. A new source is admitted as a different edition of the same work with text_fidelity=high_verified, also complete.; When Supersession signal emission executes.; Then old_holding.superseded_by=new_holding_id, old_holding.holding_state=superseded, new_holding.preferred_rank=primary, new_holding.supersession_policy=regen_required..
   - AC-2 [deterministic] Given A complete EditionHolding exists. A new source is admitted as a partial holding of a potentially better edition (only 1 of 5 volumes).; When Supersession signal emission evaluates.; Then No supersession is applied. The new EditionHolding is created with completeness_state=active_partial and no preferred_rank. Advisory flag supersession_blocked_by_completeness is emitted..
   - AC-3 [deterministic] Given Two editions of the same work exist. No quality comparison evidence is available (text_fidelity signals are identical, no owner hints exist, no edition reputation signals differ).; When Supersession signal emission evaluates.; Then Neither holding is superseded. Both remain active. A study_quality_risk_flag with risk_type=unresolved_edition_preference is emitted..
+
+### REQ-SRC-0046 — Evidence preservation for downstream level inference
+- Type: requirement
+- Layer: pipeline
+- Step: source_admission_and_normalization_handoff
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-3. Amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR) and the R1/R2 reviewer wave: (a) nested Optional serialization rule added — when a preserved signal carries a nested structured field (e.g. muhaqiq_output, work_relationships, display_card), the nested object MUST itself honor D-023 and serialize absent sub-fields as explicit nulls rather than omitting keys; (b) genre_dispute signal added as required-preserved per R1 finding that disputed-genre payloads currently drop the secondary positions; (c) dedicated acceptance criteria now exercise the two signals most historically dropped at handoff (contains_isnad_chains and genre_dispute); (d) depends_on corrected to include DEC-SRC-0003 and INV-SRC-0011 because the evidence-preservation contract is the mechanism that makes the downstream content-only level classification (OPT-B) possible.
+- Trigger: The source engine packages SourceMetadata for the normalization handoff bundle.
+- Postconditions:
+  - D-023 metadata preservation — the governing rule — applies to every signal listed below AND recursively to every nested structured field within those signals. Absent top-level signals serialize as null-valued keys; absent sub-fields inside nested structures (e.g., muhaqiq_output.death_date, work_relationships[i].target_work_author) likewise serialize as null-valued keys, never omitted.
+  - The required-preserved signal set is {title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_group_id, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, holding_id, genre_dispute} on SourceMetadata and {contains_isnad_chains} on the intake_dossier surface — 16 signals total. Any change to this set must amend this atom's postconditions and acceptance_criteria in lock-step.
+  - SourceMetadata.title_arabic is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.genre is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.science_scope is serialized in the handoff payload with the exact list populated upstream.
+  - SourceMetadata.is_multi_layer is serialized in the handoff payload with the exact boolean populated upstream.
+  - SourceMetadata.structural_format is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.edition_group_id is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.edition_info is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (edition_label, edition_year, imprint_city, tahqiq_version) honors the same rule.
+  - SourceMetadata.publisher is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.muhaqiq_output is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (name, status, positions, death_date, attribution_confidence) honors the same rule.
+  - SourceMetadata.page_layout_hint is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.matn_embedding_style is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.pdf_text_layer_status is serialized in the handoff payload; when not populated (non-PDF source) the key is present with value null.
+  - SourceMetadata.volume_count is serialized in the handoff payload with the exact value populated upstream.
+  - SourceMetadata.holding_id is serialized in the handoff payload; when not populated the key is present with value null.
+  - SourceMetadata.genre_dispute is serialized in the handoff payload with recursive D-023 preservation; when not populated (no disputed secondary genre) the key is present with value null; when populated, each alternate-genre position (genre_candidate, supporting_evidence, confidence) honors the same rule.
+  - intake_dossier.contains_isnad_chains is propagated into the normalization handoff bundle unchanged; when not populated the key is present with value null.
+  - No evidence signal listed above is omitted from the payload — absent values serialize as null per D-023 metadata preservation, at every structural depth.
+- Acceptance criteria:
+  - AC-1 [integration] Given A fully populated intake for tests/fixtures/shamela_real/06_usul/book.htm with title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_group_id, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, holding_id, genre_dispute, and intake_dossier.contains_isnad_chains all populated; When source admission and normalization handoff packaging executes; Then The serialized payload contains every signal from the 16-signal required-preserved set with the exact values populated upstream, no signal is omitted, and every nested sub-field is either populated with its exact value or serialized as null..
+  - AC-2 [deterministic] Given A source whose muhaqiq_output is legitimately absent (for example a Shamela source without a critical-edition muhaqqiq); When source admission and normalization handoff packaging executes; Then The serialized payload contains the key muhaqiq_output with value null (not omitted)..
+  - AC-3 [deterministic] Given A handoff packaging path that would have dropped the edition_info key entirely from the serialized payload; When handoff packaging executes; Then The packaging is aborted with SRC-E-EVIDENCE-DROPPED and no partial bundle is emitted..
+  - AC-4 [integration] Given A source whose metadata deliberation produced genre_dispute populated with two alternate-genre positions (genre_candidate_1 + supporting_evidence_1 + confidence_1; genre_candidate_2 + supporting_evidence_2 + confidence_2); When source admission and normalization handoff packaging executes; Then The serialized payload contains the key genre_dispute with both alternate positions preserved intact — neither the top-level genre_dispute key nor any nested sub-field (genre_candidate, supporting_evidence, confidence) is omitted..
+  - AC-5 [integration] Given A source whose intake_dossier.contains_isnad_chains was populated true during intake analysis (for example, a hadith collection processed through REQ-SRC-0019); When source admission and normalization handoff packaging executes; Then The serialized handoff bundle contains intake_dossier.contains_isnad_chains=true, propagated unchanged from the intake_dossier surface..
+  - AC-6 [deterministic] Given A handoff packaging path that would have serialized muhaqiq_output as a nested object with its `death_date` sub-field KEY absent (rather than set to null) because the upstream deliberation did not populate it; When handoff packaging executes; Then The packaging is aborted with SRC-E-EVIDENCE-DROPPED-NESTED identifying muhaqiq_output.death_date as the omitted sub-field and no partial bundle is emitted..
+
+### REQ-SRC-0047 — Owner override pathway for level at intake
+- Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
+- Status: confirmed
+- Priority: medium
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-4. Amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR): (a) error severity downgraded fatal → blocking per reviewer finding that an invalid override should reject the override but not terminate intake (intake proceeds with level=null, level_status=pending_taxonomy); (b) three distinct error conditions now distinguish absent vs empty vs invalid override values (previously conflated); (c) audit-trail entry structure enriched to include the raw override token, the validation verdict, and the enum-value whitelist that was applied; (d) integrates with the CON-SRC-0004 middle-path level_status field.
+- Trigger: The owner supplies an optional level override on a RawUploadRecord or equivalent intake surface when admitting a new source.
+- Postconditions:
+  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules (pending_taxonomy for leveled genres, non_applicable_reference for non-applicable genres per INV-SRC-0012).
+  - When owner_level_override is present AND the value passes the CON-SRC-0011 enum whitelist AND the genre is not in the INV-SRC-0012 non-applicable set, SourceMetadata.level is populated with the exact enum value and level_status is set to "assigned".
+  - An audit-trail entry is written with provenance="owner_override", the raw override token received at intake, the validation verdict (accepted | rejected_invalid | rejected_nonapplicable | rejected_empty), the CON-SRC-0011 whitelist that was applied (enumerated snapshot), and an ISO 8601 timestamp of when the override was evaluated.
+  - The override value, when accepted, survives through source admission and normalization handoff packaging unchanged (per REQ-SRC-0007 AC-3).
+- Acceptance criteria:
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm (genre="matn" or "sharh") submitted with owner_level_override="mutawassiṭ"; When intake analysis processes the raw upload; Then SourceMetadata.level="mutawassiṭ", SourceMetadata.level_status= "assigned", an audit-trail entry is recorded with provenance="owner_override", raw_token="mutawassiṭ", verdict="accepted", whitelist_applied=["mubtadiʾ", "mutawassiṭ", "muntahī"], and a non-null ISO 8601 timestamp, and the override survives normalization handoff unchanged..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm submitted with owner_level_override="expert" (not a CON-SRC-0011 WorkLevel enum value); When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-INVALID, SourceMetadata.level remains null, SourceMetadata.level_status= "pending_taxonomy", intake_analysis continues, and an audit-trail entry records raw_token="expert" and verdict="rejected_invalid"..
+  - AC-3 [deterministic] Given A source with SourceMetadata.genre="mushaf" submitted with owner_level_override="mubtadiʾ"; When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE, SourceMetadata.level remains null, SourceMetadata.level_status= "non_applicable_reference", intake_analysis continues, and an audit-trail entry records verdict="rejected_nonapplicable"..
+  - AC-4 [deterministic] Given A source submitted with owner_level_override="" (empty string) or owner_level_override="   " (whitespace only); When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-EMPTY, SourceMetadata.level remains null, SourceMetadata.level_status= "pending_taxonomy" (or "non_applicable_reference" per genre), and an audit-trail entry records verdict="rejected_empty"..
+  - AC-5 [deterministic] Given A source submitted with no owner_level_override field present at all on the intake payload; When intake analysis processes the raw upload; Then No audit-trail entry is written for override evaluation, SourceMetadata.level remains null, SourceMetadata.level_status is set per standard source-engine rules (pending_taxonomy for leveled genres, non_applicable_reference for non-applicable genres), and intake_analysis completes without error..

@@ -9,6 +9,7 @@
 | REQ-SRC-0036 | requirement | Completeness analysis of frozen source candidate | confirmed | critical |
 | REQ-SRC-0037 | requirement | Integrity analysis of frozen source candidate | confirmed | critical |
 | REQ-SRC-0038 | requirement | Composite work (majmu‘) detection and decomposition | confirmed | critical |
+| REQ-SRC-0047 | requirement | Owner override pathway for level at intake | confirmed | medium |
 
 ### REQ-SRC-0019 — Source-work identification and collection matching
 - Type: requirement
@@ -149,3 +150,24 @@
   - AC-2 [deterministic] Given A standard single-author monograph ("أحكام الاضطباع والرمل في الطواف") with 1 volume; When intake analysis runs composite detection; Then composite_work_type=null, sub_work_inventory is an empty list..
   - AC-3 [integration] Given A source titled "رسائل ابن رجب" with 1 volume but internal structural boundaries between distinct treatises; When intake analysis runs composite detection; Then composite_work_type="majmu" (detected via structural_signal), sub_work_inventory contains entries with detection_method="structural_signal"..
   - AC-4 [deterministic] Given A source titled "رسائل" with 1 volume and no detectable internal sub-work boundaries; When intake analysis runs composite detection; Then composite_work_type="possible", study_quality_risk_flags includes "ambiguous_composite_detection"..
+
+### REQ-SRC-0047 — Owner override pathway for level at intake
+- Type: requirement
+- Layer: pipeline
+- Step: intake_analysis
+- Status: confirmed
+- Priority: medium
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-4. Amended on 2026-04-17 after the 3-of-3 unanimous OPT-B adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR): (a) error severity downgraded fatal → blocking per reviewer finding that an invalid override should reject the override but not terminate intake (intake proceeds with level=null, level_status=pending_taxonomy); (b) three distinct error conditions now distinguish absent vs empty vs invalid override values (previously conflated); (c) audit-trail entry structure enriched to include the raw override token, the validation verdict, and the enum-value whitelist that was applied; (d) integrates with the CON-SRC-0004 middle-path level_status field.
+- Trigger: The owner supplies an optional level override on a RawUploadRecord or equivalent intake surface when admitting a new source.
+- Postconditions:
+  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules (pending_taxonomy for leveled genres, non_applicable_reference for non-applicable genres per INV-SRC-0012).
+  - When owner_level_override is present AND the value passes the CON-SRC-0011 enum whitelist AND the genre is not in the INV-SRC-0012 non-applicable set, SourceMetadata.level is populated with the exact enum value and level_status is set to "assigned".
+  - An audit-trail entry is written with provenance="owner_override", the raw override token received at intake, the validation verdict (accepted | rejected_invalid | rejected_nonapplicable | rejected_empty), the CON-SRC-0011 whitelist that was applied (enumerated snapshot), and an ISO 8601 timestamp of when the override was evaluated.
+  - The override value, when accepted, survives through source admission and normalization handoff packaging unchanged (per REQ-SRC-0007 AC-3).
+- Acceptance criteria:
+  - AC-1 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm (genre="matn" or "sharh") submitted with owner_level_override="mutawassiṭ"; When intake analysis processes the raw upload; Then SourceMetadata.level="mutawassiṭ", SourceMetadata.level_status= "assigned", an audit-trail entry is recorded with provenance="owner_override", raw_token="mutawassiṭ", verdict="accepted", whitelist_applied=["mubtadiʾ", "mutawassiṭ", "muntahī"], and a non-null ISO 8601 timestamp, and the override survives normalization handoff unchanged..
+  - AC-2 [deterministic] Given tests/fixtures/shamela_real/06_usul/book.htm submitted with owner_level_override="expert" (not a CON-SRC-0011 WorkLevel enum value); When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-INVALID, SourceMetadata.level remains null, SourceMetadata.level_status= "pending_taxonomy", intake_analysis continues, and an audit-trail entry records raw_token="expert" and verdict="rejected_invalid"..
+  - AC-3 [deterministic] Given A source with SourceMetadata.genre="mushaf" submitted with owner_level_override="mubtadiʾ"; When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE, SourceMetadata.level remains null, SourceMetadata.level_status= "non_applicable_reference", intake_analysis continues, and an audit-trail entry records verdict="rejected_nonapplicable"..
+  - AC-4 [deterministic] Given A source submitted with owner_level_override="" (empty string) or owner_level_override="   " (whitespace only); When intake analysis processes the raw upload; Then The override is rejected with SRC-E-LEVEL-OVERRIDE-EMPTY, SourceMetadata.level remains null, SourceMetadata.level_status= "pending_taxonomy" (or "non_applicable_reference" per genre), and an audit-trail entry records verdict="rejected_empty"..
+  - AC-5 [deterministic] Given A source submitted with no owner_level_override field present at all on the intake payload; When intake analysis processes the raw upload; Then No audit-trail entry is written for override evaluation, SourceMetadata.level remains null, SourceMetadata.level_status is set per standard source-engine rules (pending_taxonomy for leveled genres, non_applicable_reference for non-applicable genres), and intake_analysis completes without error..

@@ -3,24 +3,24 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 104 |
+| Total atoms | 109 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
-| constraint | 7 |
+| constraint | 8 |
 | decision | 20 |
 | feedback | 16 |
-| invariant | 10 |
+| invariant | 12 |
 | question | 6 |
-| requirement | 45 |
+| requirement | 47 |
 
 ## By Status
 | Status | Count |
 | --- | --- |
-| confirmed | 97 |
-| deferred | 3 |
-| superseded | 4 |
+| confirmed | 103 |
+| deferred | 1 |
+| superseded | 5 |
 
 ## By Topic
 | Topic | Count |
@@ -30,9 +30,9 @@
 | consensus | 7 |
 | dedup | 6 |
 | freezing | 1 |
-| handoff | 11 |
+| handoff | 12 |
 | identity | 5 |
-| metadata | 40 |
+| metadata | 44 |
 | trust | 11 |
 
 ## Atom Index
@@ -45,9 +45,10 @@
 | CON-SRC-0005 | constraint | contracts | — | Normalization handoff bundle includes a bridge input contract | confirmed | high | handoff | 20-contracts/constraints/CON-SRC-0005.yaml |
 | CON-SRC-0006 | constraint | contracts | — | Per-book processing cost and time ceiling | confirmed | high | trust | 20-contracts/constraints/CON-SRC-0006.yaml |
 | CON-SRC-0007 | constraint | contracts | — | Source type extensibility | confirmed | high | acquisition | 20-contracts/constraints/CON-SRC-0007.yaml |
+| CON-SRC-0011 | constraint | contracts | — | WorkLevel enum — classical pedagogical-level vocabulary | confirmed | high | metadata | 20-contracts/constraints/CON-SRC-0011.yaml |
 | DEC-SRC-0001 | decision | architecture | — | Owner hints are cross-validation, not primary data | confirmed | critical | acquisition | 30-architecture/decisions/DEC-SRC-0001.yaml |
 | DEC-SRC-0002 | decision | architecture | — | Science scope uses dynamic registry | confirmed | high | metadata | 30-architecture/decisions/DEC-SRC-0002.yaml |
-| DEC-SRC-0003 | decision | architecture | — | Level detection strategy | deferred | medium | metadata | 30-architecture/decisions/DEC-SRC-0003.yaml |
+| DEC-SRC-0003 | decision | architecture | — | Level detection strategy | confirmed | medium | metadata | 30-architecture/decisions/DEC-SRC-0003.yaml |
 | DEC-SRC-0004 | decision | architecture | — | Replace trust algorithm with agent teams | confirmed | critical | trust | 30-architecture/decisions/DEC-SRC-0004.yaml |
 | DEC-SRC-0005 | decision | architecture | — | Muhaqiq standing is metadata only | confirmed | high | trust | 30-architecture/decisions/DEC-SRC-0005.yaml |
 | DEC-SRC-0006 | decision | architecture | — | Agents resolve disagreements autonomously | confirmed | critical | consensus | 30-architecture/decisions/DEC-SRC-0006.yaml |
@@ -75,6 +76,8 @@
 | INV-SRC-0008 | invariant | quality | — | PDF-derived text is never silently trusted at source handoff | confirmed | critical | trust | 40-quality/invariants/INV-SRC-0008.yaml |
 | INV-SRC-0009 | invariant | quality | — | Zero knowledge loss in all source-engine output | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0009.yaml |
 | INV-SRC-0010 | invariant | quality | — | Holding-level completeness is computed, not asserted | confirmed | critical | dedup | 40-quality/invariants/INV-SRC-0010.yaml |
+| INV-SRC-0011 | invariant | quality | — | Source engine must not infer level from shallow metadata | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0011.yaml |
+| INV-SRC-0012 | invariant | quality | — | Non-applicable genres require level null | confirmed | high | metadata | 40-quality/invariants/INV-SRC-0012.yaml |
 | OF-SRC-0001 | feedback | evidence | — | Collection unchanged for source intake | confirmed | high | acquisition | 60-evidence/owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | evidence | — | Drop-and-go intake with optional hints | confirmed | critical | acquisition | 60-evidence/owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | evidence | — | Minimize owner review load | confirmed | critical | trust | 60-evidence/owner-feedback/OF-SRC-0003.yaml |
@@ -91,7 +94,7 @@
 | OF-SRC-0014 | feedback | evidence | — | Legacy contracts do not cap the rebuild | confirmed | critical | handoff | 60-evidence/owner-feedback/OF-SRC-0014.yaml |
 | OF-SRC-0015 | feedback | evidence | — | Build source-engine teams inside the source-engine scope first | confirmed | medium | handoff | 60-evidence/owner-feedback/OF-SRC-0015.yaml |
 | OF-SRC-0016 | feedback | evidence | — | Research must use specialized source channels | confirmed | high | agent_ergonomics | 60-evidence/owner-feedback/OF-SRC-0016.yaml |
-| OQ-SRC-0001 | question | questions | — | Level detection ownership | deferred | medium | metadata | 50-questions/OQ-SRC-0001.yaml |
+| OQ-SRC-0001 | question | questions | — | Level detection ownership | superseded | medium | metadata | 50-questions/OQ-SRC-0001.yaml |
 | OQ-SRC-0003 | question | questions | — | Agent-team architecture design | superseded | critical | agent_ergonomics | 50-questions/OQ-SRC-0003.yaml |
 | OQ-SRC-0004 | question | questions | — | Formal replacement for human_gate | superseded | high | consensus | 50-questions/OQ-SRC-0004.yaml |
 | OQ-SRC-0005 | question | questions | — | Agent monitoring scope | deferred | medium | agent_ergonomics | 50-questions/OQ-SRC-0005.yaml |
@@ -142,3 +145,5 @@
 | REQ-SRC-0043 | requirement | pipeline | metadata_deliberation | New scholar registration in authority registry | confirmed | high | metadata | 10-pipeline/50-metadata-deliberation/REQ-SRC-0043.yaml |
 | REQ-SRC-0044 | requirement | pipeline | source_admission_and_normalization_handoff | Edition-group and holding reconciliation on source admission | confirmed | critical | dedup | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0044.yaml |
 | REQ-SRC-0045 | requirement | pipeline | source_admission_and_normalization_handoff | Supersession signal emission on source admission | confirmed | high | dedup | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0045.yaml |
+| REQ-SRC-0046 | requirement | pipeline | source_admission_and_normalization_handoff | Evidence preservation for downstream level inference | confirmed | critical | handoff | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0046.yaml |
+| REQ-SRC-0047 | requirement | pipeline | intake_analysis | Owner override pathway for level at intake | confirmed | medium | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0047.yaml |

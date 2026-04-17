@@ -12,6 +12,8 @@
 | INV-SRC-0008 | invariant | PDF-derived text is never silently trusted at source handoff | confirmed | critical |
 | INV-SRC-0009 | invariant | Zero knowledge loss in all source-engine output | confirmed | critical |
 | INV-SRC-0010 | invariant | Holding-level completeness is computed, not asserted | confirmed | critical |
+| INV-SRC-0011 | invariant | Source engine must not infer level from shallow metadata | confirmed | critical |
+| INV-SRC-0012 | invariant | Non-applicable genres require level null | confirmed | high |
 
 ### INV-SRC-0001 — Owner hints never bias inference
 - Type: invariant
@@ -112,3 +114,23 @@
 - Confidence: high
 - Source: ChatGPT DR on collection-evolution model (2026-04-15). The DR identifies that source-level completeness_status (per uploaded artifact) and holding-level completeness (what the library holds for an edition group) are distinct signals. Source-level completeness is immutable history about each source. Holding-level completeness must be recomputed whenever a volume is added or removed from a holding. Stamping 'complete' on a source and treating it as library-wide truth produces stale data as the collection evolves.
 - Rule: EditionHolding completeness_state is always derived from the current set of attached VolumeHoldings, never stored as a static assertion. When a volume is attached, detached, superseded, or has its presence_state changed, the holding's completeness_state is recomputed. Source-level completeness_status (from REQ-SRC-0036) remains immutable and records what was true about each individual source at intake time. The two completeness signals are never conflated.
+
+### INV-SRC-0011 — Source engine must not infer level from shallow metadata
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: critical
+- Confidence: high
+- Source: Initial formulation on 2026-04-16 from dr-chatgpt-level-detection-20260416.yaml SEC-1. Hardened on 2026-04-17 by the 3-of-3 unanimous adjudication (Codex CLI architectural-fit, Gemini CLI runs 1 and 2 classical- defensibility at 6-0 branch win counts, Gemini DR T-2 threat model) that closed DEC-SRC-0003 on OPT-B. Acceptance criterion AC-4 (positive assertion that level_status is still populated when level is null) is added to complement the null-assertion clauses in AC-1 and AC-2.
+- Rule: The source engine MUST NOT compute or infer the level field of SourceMetadata from title tokens, series cues, publisher metadata, or any shallow bibliographic signal. The level field remains null unless an explicit owner_level_override is provided at intake. This invariant does NOT restrict the `level_status` field (CON-SRC-0004), which is a processing-state enum — not a pedagogical-level inference — and whose emission is governed by CON-SRC-0004 alone.
+
+### INV-SRC-0012 — Non-applicable genres require level null
+- Type: invariant
+- Layer: quality
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-2)
+- Rule: For genres where the reading-level concept does not apply — mushaf, hadith_collection, rijal_dictionary, and majmu — the source engine MUST serialize SourceMetadata.level as null regardless of any owner override attempt. Forcing a reading-level label onto these genres creates false scholarly authority because their organizing principle is transmission, reference, or compilation, not graduated pedagogical exposition.
