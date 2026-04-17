@@ -82,10 +82,10 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
    - `spec-domain-validator` (Gemini CLI, 2 runs merged) — Arabic scholarly accuracy of `mubtadiʾ / mutawassiṭ / muntahī` glosses, *malakah*-formation rationale, ALA-LC transliteration correctness
    - `spec-team-adversary` (CC subagent) — gaps, contradictions, edge cases introduced by level_status + WorkLevel enum
 2. **Execute Track B code fixes** while reviewer wave runs in parallel:
-   - Metadata plumbing composite-metadata-loss fix (CRITICAL from Gemini CLI source-commit review)
-   - PyMuPDF Arabic shaping fix in `tests/test_step_60_admission.py:155-163` (`_write_pdf` helper — add `arabic_reshaper.reshape(...)` + `bidi.algorithm.get_display(...)`)
-   - Deterministic fallback documentation and review per Gemini CLI finding
-   - Hadith taxonomy completeness fix per Gemini CLI R2 finding
+   - Metadata plumbing composite-metadata-loss fix (CRITICAL from Gemini CLI source-commit review) — **PENDING**
+   - ~~PyMuPDF Arabic shaping fix in `tests/test_step_60_admission.py:155-163`~~ — **DONE 2026-04-17 (commit 4c2e023c2)**. Track B investigation rejected the ACTIVE.md proposed `arabic_reshaper + bidi.get_display` fix as an empirical semantic no-op: PyMuPDF's Arial ToUnicode CMap produces visual-order presentation-form extraction regardless of whether input is pre-shaped, and tests already tolerate this via `pdf_text_layer_status in {"clean", "presentation_forms"}`. insert_htmlbox was also tested and produces WORSE extraction (Latin/Hebrew pollution from broken OpenType CMap). Resolution: docstring-only on both `_write_pdf` helpers documenting the semantics; no dependencies added. All 8 PDF tests pass unchanged.
+   - Deterministic fallback documentation and review per Gemini CLI finding — **PENDING**
+   - Hadith taxonomy completeness fix per Gemini CLI R2 finding — **PENDING (overlaps Phase 5a reviewer wave; defer amendment until wave returns)**
 3. **Execute Track C doc fix** — `engines/source/CLAUDE.md` stale "no production code exists yet" line.
 4. **Orthogonal amendments** deferred earlier: colophon-defense INV (CRITICAL from Gemini CLI source-commit review), REQ-SRC-0048 deferred-validation surface (R3 adversary BLOCKER), REQ-SRC-0030 genre expansion, INV-SRC-0012 refinement.
 5. **Then** close OQ-SRC-0005 via DR-2 on agent monitoring scope.
@@ -93,7 +93,7 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 
 ### Active DR dispatches
 
-- **DR-1 (level detection)** — adjudication complete 3-0 OPT-B + middle-path; Phase 5a executed. Phase 5a reviewer wave is the next active dispatch.
+- **DR-1 (level detection)** — adjudication complete 3-0 OPT-B + middle-path; Phase 5a executed. **Phase 5a reviewer wave IN FLIGHT** (2026-04-17): Codex CLI (structural), Gemini CLI runs A+B (scholarly accuracy, independent 2-run protocol), CC subagent `spec-team-adversary` (adversarial pre-mortem). All four dispatches passed through `/prompt-architect`. Log entries in `.kr/runtime/dispatch_log.jsonl`. Adversary output target: `.kr/runtime/adversary_phase5a_20260417.md`.
 - **DR-2 (agent monitoring scope)** — still deferred until reviewer wave closes + orthogonal amendments clear.
 
 ### Paused work
