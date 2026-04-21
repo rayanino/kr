@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1, 2, 3, 12, 13, 14, 15 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`, `f965aec7b`); **8 Phase 5b work items remain (4, 5, 6, 7, 8, 9, 10, 11)**
+Status: active — Phase 5b items 1, 2, 3, 12, 13, 14, 15 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`); **8 Phase 5b work items remain (4, 5, 6, 7, 8, 9, 10, 11)** plus 3 new follow-up items from the retroactive review (see "Retroactive review follow-ups" below)
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -215,6 +215,15 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 
 ## Session commits (2026-04-21, Phase 5b items 12 + 13 + 14)
 - `bf4354399` fix(source): Phase 5b 12-14 — INDEX drift, severity taxonomy, AC-7
+- `a4f2b2788` fix(source): Phase 5b 12-14 retroactive review — 2 BLOCKERs + 1 3-way AMEND
+
+## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
+
+The 3-evaluator retroactive review of `bf4354399` (Codex CLI + Gemini CLI 2 runs) surfaced items that were addressed immediately (see `a4f2b2788`) AND items deferred for later:
+
+16. Pre-existing REQ-SRC-0046 paper-reconciliation — `SRC-E-EVIDENCE-DROPPED` and `SRC-E-EVIDENCE-DROPPED-NESTED` are cited in the atom but absent from `contracts.py` `ErrorCode` enum. Predates Phase 5b 12-14; surfaced by Codex S6-DIM6A during retroactive review. Either add the codes to `ErrorCode` enum or realign REQ-SRC-0046 error_conditions to existing codes.
+17. Spec-linked tests for CON-SRC-0012 ACs (1-6) and REQ-SRC-0046 AC-7 — no `@pytest.mark.spec` tags exist for these new ACs. Codex S6-DIM6D. Test authoring with real-fixture data.
+18. Taxonomy expansion for scholarly nuances — both Gemini runs (AMEND DIM1) independently flagged that the fatal/blocking/warning three-tier collapses scholarly distinctions (tahqiq uncertainty, hamza-family ambiguity, agent-disagreement resolvability, owner-override rejection). Either expand CON-SRC-0012 with additional guidance, add compound-severity metadata payloads, or introduce a fourth severity tier. Substantive design decision — requires DR or additional reviewer wave before atom amendment.
 
 ## Relevant decisions
 - OPS-DEC-001 through OPS-DEC-006 (still in force)
