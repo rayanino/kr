@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1, 2, 3, 15 closed with test-run evidence 2026-04-17 (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `f965aec7b`); **11 Phase 5b work items remain**
+Status: active — Phase 5b items 1, 2, 3, 12, 13, 14, 15 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`, `f965aec7b`); **8 Phase 5b work items remain (4, 5, 6, 7, 8, 9, 10, 11)**
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -160,9 +160,9 @@ INDEX.yaml bumped to 2026-04-17, DEC-SRC-0003 status corrected, CON-SRC-0011 reg
 9. Fix Shamela happy-path SRC-E-EVIDENCE-DROPPED abort — either amend REQ-SRC-0037 to emit null-keys for absent apparatus, or downgrade REQ-SRC-0046 error to distinguish "upstream did not produce" from "packaging omitted".
 10. Add `level_provenance` stickiness rule in REQ-SRC-0047 so owner override is not silently overwritten by downstream writes.
 11. Add C7 multi-layer explicit interpretation clause to CON-SRC-0011 (scope: target_readership per Gemini B and Adversary consensus).
-12. Fix INDEX.yaml stale status (OQ-SRC-0001 → superseded; recount deferred/superseded).
-13. Add severity taxonomy definition (fatal = unrecoverable data corruption; blocking = recoverable rejection; warning = advisory).
-14. Add REQ-SRC-0046 AC-7 for depth-2 nested optional serialization (positions[0].death_date).
+12. ~~Fix INDEX.yaml stale status (OQ-SRC-0001 → superseded; recount deferred/superseded).~~ **DONE 2026-04-21**. OQ-SRC-0001 atom file already said `superseded` since 2026-04-16; INDEX.yaml still said `deferred`. Reconciled to `superseded`, bumped INDEX `updated` to 2026-04-21. validate_spec.py counts now match atom files: 103 confirmed, 1 deferred (OQ-SRC-0005 only), 5 superseded (OQ-SRC-0001/0003/0004/0006/0007) on 109 atoms pre-item-13.
+13. ~~Add severity taxonomy definition (fatal = unrecoverable data corruption; blocking = recoverable rejection; warning = advisory).~~ **DONE 2026-04-21**. Created `CON-SRC-0012` (topic: validation, layer: contracts, priority: high) in `engines/source/spec/20-contracts/constraints/CON-SRC-0012.yaml` with the three prescribed definitions. Six acceptance criteria: AC-1/2/3 accept correctly-labeled conditions (fatal for unrecoverable corruption, blocking for recoverable rejection, warning for advisory); AC-4/5/6 reject cross-category mismatches (correction-path → fatal mislabel, non-halting action → blocking mislabel, frozen-source mutation → warning mislabel). schema.json `/$defs/severity` extended with a `description` field cross-referencing CON-SRC-0012 so schema consumers find the semantic home. New topic `validation` registered. validate_spec.py 0 errors on 110 atoms (104 confirmed, 1 deferred, 5 superseded).
+14. ~~Add REQ-SRC-0046 AC-7 for depth-2 nested optional serialization (positions[0].death_date).~~ **DONE 2026-04-21**. AC-7 added to REQ-SRC-0046 mirroring AC-6's SRC-E-EVIDENCE-DROPPED-NESTED error-path pattern but targeting `muhaqiq_output.positions[0].death_date` — the list-item sub-field case that Pydantic `exclude_unset` can silently drop when traversing list elements (AC-6 covers the scalar direct-child case only). Closes Adversary ADV-011. `updated` bumped to 2026-04-21, amendment rationale appended to `source` field explaining the AC-6 vs AC-7 structural distinction. No code surface exists yet for list-item D-023 enforcement — implementation deferred to a later Phase 5b surface item. validate_spec.py 0 errors; pytest engines/source/tests/ 156 pass / 1 skip (unchanged baseline).
 15. ~~Write spec-linked tests that exercise `level_status`, the Arabic enum values, and the new error codes BEFORE declaring Phase 5b closure.~~ **DONE 2026-04-17 (commit `f965aec7b`)**. New `engines/source/tests/test_work_level_and_status.py` contains 22 passing tests + 1 documented skip, tagged `@pytest.mark.spec(atom_id, ac_id)` across CON-SRC-0011 AC-1..AC-6, CON-SRC-0004 invariants 1..4, ADV-012 stickiness (both directions), INV-SRC-0011 AC-1..AC-4, INV-SRC-0012 AC-2 (AC-1/AC-3/AC-4 skipped pending item 4 Genre enum expansion), REQ-SRC-0007 AC-3..AC-5. Item 15 required a small production-code change: `_resolve_level_fields` previously accepted override+non-applicable-genre silently (spec violation vs INV-SRC-0012); added `ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE = "SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE"` and corresponding `SourceEngineError` raise at override boundary. Gates: validate_spec.py 0 errors, pyright 0 errors across prod+new tests, pytest 156 passed / 1 skipped (up from 134).
 
 Phase 5b should end with a second reviewer wave to verify closure, with explicit test-run evidence this time (not just `validate_spec.py` passing).
@@ -212,6 +212,9 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 ## Session commits (2026-04-17, Phase 5b items 2 + 15)
 - `ec8d82ca4` fix(source): Phase 5b item 2 — Arabic WorkLevel enum in acceptance criteria
 - `f965aec7b` test(source): Phase 5b item 15 — spec-linked tests for level triple (156 pass)
+
+## Session commits (2026-04-21, Phase 5b items 12 + 13 + 14)
+- `bf4354399` fix(source): Phase 5b 12-14 — INDEX drift, severity taxonomy, AC-7
 
 ## Relevant decisions
 - OPS-DEC-001 through OPS-DEC-006 (still in force)
