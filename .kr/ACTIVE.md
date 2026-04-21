@@ -217,6 +217,9 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 - `bf4354399` fix(source): Phase 5b 12-14 — INDEX drift, severity taxonomy, AC-7
 - `a4f2b2788` fix(source): Phase 5b 12-14 retroactive review — 2 BLOCKERs + 1 3-way AMEND
 
+## Session commits (2026-04-21, Phase 5b item 16)
+- `a1fabdd54` fix(source): Phase 5b 16 — HANDOFF_EVIDENCE_DROPPED enum + atom rename (156 pass, 1 skip)
+
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
 The 3-evaluator retroactive review of `bf4354399` (Codex CLI + Gemini CLI 2 runs) surfaced items that were addressed immediately (see `a4f2b2788`) AND items deferred for later:
