@@ -10,6 +10,7 @@
 | CON-SRC-0006 | constraint | Per-book processing cost and time ceiling | confirmed | high |
 | CON-SRC-0007 | constraint | Source type extensibility | confirmed | high |
 | CON-SRC-0011 | constraint | WorkLevel enum — classical pedagogical-level vocabulary | confirmed | high |
+| CON-SRC-0012 | constraint | Error severity taxonomy | confirmed | high |
 
 ### CON-SRC-0001 — Shamela HTML and PDF are production formats
 - Type: constraint
@@ -90,3 +91,13 @@
 - Confidence: high
 - Source: Established on 2026-04-17 following the 3-of-3 unanimous OPT-B adjudication on DEC-SRC-0003. The enum values derive from Gemini CLI run 2 classical-defensibility review (R2 finding) which identified that the ChatGPT DR amendment set used `mutaqaddim` as the "advanced" level value — incorrect classical usage. Mutaqaddim (متقدم) denotes chronological priority (an earlier-generation scholar relative to a later one), NOT pedagogical advancement. The correct classical pedagogical ladder is mubtadiʾ (beginner) → mutawassiṭ (intermediate) → muntahī (terminal / advanced), documented in al-Zarnūjī's Taʿlīm al-Mutaʿallim, Ibn Khaldūn's Muqaddima Book VI (faṣl fī wajh al-ṣawāb fī taʿlīm al-ʿulūm), and the standard curriculum language of Dār al-Muṣṭafā and al- Qarawiyyīn ḥadīth tracks. See .kr/runtime/ adjudication_gemini_cli_run1_20260417.md (R2 terminology finding) and run2_20260417.md (independent confirmation).
 - Rule: The WorkLevel enum is the canonical vocabulary for the SourceMetadata.level field and any downstream field that stores an authoritative pedagogical-level assignment. It has exactly three permitted values: "mubtadiʾ" (beginner / pre-malakah student), "mutawassiṭ" (intermediate / foundational-malakah student), and "muntahī" (terminal / curriculum-completing student). No other string values are valid for a SourceMetadata .level assignment. The historiographic term "mutaqaddim" and its counterpart "mutaʾakhkhirūn" are REJECTED as WorkLevel values — they denote chronological / generational priority among scholars, not pedagogical level.
+
+### CON-SRC-0012 — Error severity taxonomy
+- Type: constraint
+- Layer: contracts
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Established on 2026-04-21 per Phase 5b item 13 closing Codex CLI's Phase 5a reviewer-wave finding S7 ("schema enum {fatal, blocking, warning} has no operational definition anywhere"). The JSON Schema at engines/source/spec/schema.json $defs/severity pins the three permitted values but provides no semantic guidance. With 75+ behavior.error_conditions severity assignments across the atom corpus (24 fatal, 21 blocking, 30 warning as of this atom's creation date), the absence of operational semantics means each atom author has been free to interpret the values differently, silently corrupting the pipeline's error-recovery contract. This atom fixes the semantics once and authoritatively.
+- Rule: Every behavior.error_conditions[].severity value in any source- engine spec atom carries a defined operational semantic. "fatal" means unrecoverable data corruption — the condition indicates that scholarly metadata or primary text has been damaged in a way that cannot be reconstructed from the inputs available to the pipeline, and no downstream engine may proceed with the affected record. "blocking" means recoverable rejection — the condition prevents the current operation from completing but a specific correction path exists (owner resubmits with a valid override, upstream re-emits missing evidence, transient dependency recovers). "warning" means advisory — the condition is logged and the operation continues; suitable for observability signals that must not halt the pipeline. These three values are mutually exclusive and collectively exhaustive for the severity enum.

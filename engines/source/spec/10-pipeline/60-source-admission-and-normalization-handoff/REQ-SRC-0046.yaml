@@ -24,8 +24,17 @@ source: >-
   corrected to include DEC-SRC-0003 and INV-SRC-0011 because the
   evidence-preservation contract is the mechanism that makes the
   downstream content-only level classification (OPT-B) possible.
+  Amended on 2026-04-21 per Phase 5b item 14 closing the Phase 5a
+  Adversary ADV-011 finding ("positions[0].death_date unexercised"):
+  AC-7 added to exercise depth-2 nested Optional serialization where
+  the Optional sub-field is nested inside a list item (specifically
+  muhaqiq_output.positions[0].death_date). AC-6 already covers depth-1
+  direct-child omission (muhaqiq_output.death_date); AC-7 closes the
+  structurally distinct list-item sub-field omission case that
+  Pydantic default serialization can silently drop when exclude_unset
+  traverses list elements.
 created: '2026-04-16'
-updated: '2026-04-17'
+updated: '2026-04-21'
 depends_on:
 - CON-SRC-0004
 - REQ-SRC-0007
@@ -156,4 +165,21 @@ acceptance_criteria:
     The packaging is aborted with SRC-E-EVIDENCE-DROPPED-NESTED
     identifying muhaqiq_output.death_date as the omitted sub-field and
     no partial bundle is emitted.
+  test_type: deterministic
+- id: AC-7
+  given: >-
+    A handoff packaging path where muhaqiq_output is populated with a
+    non-empty positions list and the first position element has its
+    `death_date` sub-field KEY absent (rather than set to null)
+    because the upstream deliberation did not populate death_date for
+    that position element — the depth-2 case where the Optional
+    sub-field is nested inside a list item rather than nested directly
+    as a scalar child of muhaqiq_output (AC-6 covers the direct-child
+    scalar; AC-7 covers the list-item field that Pydantic
+    exclude_unset can silently drop when iterating list elements)
+  when: handoff packaging executes
+  then: >-
+    The packaging is aborted with SRC-E-EVIDENCE-DROPPED-NESTED
+    identifying muhaqiq_output.positions[0].death_date as the omitted
+    sub-field and no partial bundle is emitted.
   test_type: deterministic

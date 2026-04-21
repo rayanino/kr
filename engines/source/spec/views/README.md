@@ -3,12 +3,12 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 109 |
+| Total atoms | 110 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
-| constraint | 8 |
+| constraint | 9 |
 | decision | 20 |
 | feedback | 16 |
 | invariant | 12 |
@@ -18,7 +18,7 @@
 ## By Status
 | Status | Count |
 | --- | --- |
-| confirmed | 103 |
+| confirmed | 104 |
 | deferred | 1 |
 | superseded | 5 |
 
@@ -34,6 +34,7 @@
 | identity | 5 |
 | metadata | 44 |
 | trust | 11 |
+| validation | 1 |
 
 ## Atom Index
 | ID | Type | Layer | Step | Title | Status | Priority | Topic | File |
@@ -46,6 +47,7 @@
 | CON-SRC-0006 | constraint | contracts | — | Per-book processing cost and time ceiling | confirmed | high | trust | 20-contracts/constraints/CON-SRC-0006.yaml |
 | CON-SRC-0007 | constraint | contracts | — | Source type extensibility | confirmed | high | acquisition | 20-contracts/constraints/CON-SRC-0007.yaml |
 | CON-SRC-0011 | constraint | contracts | — | WorkLevel enum — classical pedagogical-level vocabulary | confirmed | high | metadata | 20-contracts/constraints/CON-SRC-0011.yaml |
+| CON-SRC-0012 | constraint | contracts | — | Error severity taxonomy | confirmed | high | validation | 20-contracts/constraints/CON-SRC-0012.yaml |
 | DEC-SRC-0001 | decision | architecture | — | Owner hints are cross-validation, not primary data | confirmed | critical | acquisition | 30-architecture/decisions/DEC-SRC-0001.yaml |
 | DEC-SRC-0002 | decision | architecture | — | Science scope uses dynamic registry | confirmed | high | metadata | 30-architecture/decisions/DEC-SRC-0002.yaml |
 | DEC-SRC-0003 | decision | architecture | — | Level detection strategy | confirmed | medium | metadata | 30-architecture/decisions/DEC-SRC-0003.yaml |

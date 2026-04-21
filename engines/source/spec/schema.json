@@ -31,7 +31,8 @@
         "fatal",
         "blocking",
         "warning"
-      ]
+      ],
+      "description": "Operational semantics are defined in CON-SRC-0012 (topic: validation). Summary: fatal = unrecoverable data corruption (no downstream progression); blocking = recoverable rejection (correction path exists via owner resubmit or upstream re-emit); warning = advisory (logged, non-halting)."
     },
     "violationSeverity": {
       "type": "string",
