@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — **ALL 16 Phase 5b work items closed** (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, `41f60c385` item-11 C7 multi-layer target_readership scope clause, `d95a24ea0` item-10 ADV-012 stickiness postcondition + AC-6, `c2b3f28e0` item-8 DEC-SRC-0021 pre-Phase-5a migration strategy, item-9+19 bundled severity reclassification + AC-8 Shamela null-key contract pending commit). **Phase 5b closure reviewer wave is now the ONLY remaining step**. 11 follow-ups open: 17, 18 from 12-14 retroactive; 20 from item-16 (raise-site wiring); 21-26 from item-4 dispatch; 27 from item-5 dispatch; 28 LevelProvenance cleanup + 29 REQ-SRC-0048 test authoring from item-7; 30 migration-layer implementation from item-8; **31 edition_group_id/holding_id spec-vs-code drift from item-9 AC-8 test discovery — NEW**.
+Status: active — **ALL 16 Phase 5b work items closed** (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, `41f60c385` item-11 C7 multi-layer target_readership scope clause, `d95a24ea0` item-10 ADV-012 stickiness postcondition + AC-6, `c2b3f28e0` item-8 DEC-SRC-0021 pre-Phase-5a migration strategy, `b00bb8276` item-9+19 bundled severity reclassification + AC-8 Shamela null-key contract). **Phase 5b closure reviewer wave is now the ONLY remaining step**. 11 follow-ups open: 17, 18 from 12-14 retroactive; 20 from item-16 (raise-site wiring); 21-26 from item-4 dispatch; 27 from item-5 dispatch; 28 LevelProvenance cleanup + 29 REQ-SRC-0048 test authoring from item-7; 30 migration-layer implementation from item-8; **31 edition_group_id/holding_id spec-vs-code drift from item-9 AC-8 test discovery — NEW**.
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -247,8 +247,8 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 - `54bad325d` docs(source): ACTIVE.md — record Phase 5b item 8 commit hash c2b3f28e0
 
 ## Session commits (2026-04-23, Phase 5b item 9+19 bundled — severity + AC-8 Shamela null-key)
-- (pending) fix(source): Phase 5b 9+19 — severity fatal→blocking + AC-8 Shamela null-key contract (164 pass, 0 skip)
-- (pending) docs(source): ACTIVE.md — record Phase 5b item 9+19 commit hash
+- `b00bb8276` fix(source): Phase 5b 9+19 — severity fatal→blocking + AC-8 Shamela null-key contract (164 pass, 0 skip)
+- (pending) docs(source): ACTIVE.md — record Phase 5b item 9+19 commit hash b00bb8276
 
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
