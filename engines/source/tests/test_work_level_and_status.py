@@ -1,7 +1,7 @@
-"""Phase 5b item 15 — spec-linked closure evidence for level metadata.
+"""Phase 5b items 4 + 15 — spec-linked closure evidence for level metadata.
 
-Exercises the (level, level_status, level_provenance) triple across every
-atom that governs it:
+Exercises the (level, level_status, level_provenance, composite_work_type)
+contract across every atom that governs it:
 
 - CON-SRC-0011 AC-1..AC-6 — WorkLevel enum whitelist (mubtadiʾ /
   mutawassiṭ / muntahī accepted; mutaqaddim, English placeholders, and
@@ -9,15 +9,18 @@ atom that governs it:
 - CON-SRC-0004 invariants 1..4 + ADV-012 stickiness — the Pydantic
   ``model_validator`` on ``SourceMetadata.enforce_level_invariants``
   raises ``ValueError`` (wrapped by Pydantic into ``ValidationError``)
-  citing the specific invariant number.
+  citing the specific invariant number. Invariant 3 covers the
+  6-value Axis 1 genre set and the Axis 2 composite_work_type
+  signal per Phase 5b item 4 Option E-prime-final.
 - INV-SRC-0011 AC-1..AC-4 — source engine never infers level from
   shallow bibliographic signals; ``level_status`` is always populated
   even when level is null.
-- INV-SRC-0012 AC-2 — non-applicable genres (hadith_collection tested
-  here; mushaf / rijal_dictionary / majmu / biographical_dictionary /
-  fatwa_compilation / lexicon deferred to Phase 5b item 4 which will
-  expand the Genre enum) reject any owner_level_override with
-  ``SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE``.
+- INV-SRC-0012 AC-1..AC-4 — the 3-axis non-applicability gate:
+  AC-1 mushaf (Axis 1 genre), AC-2 hadith_collection (Axis 1 genre),
+  AC-3 composite_work_type="majmu" + leveled genre + override
+  (Axis 2 composite, override rejected), AC-4 composite_work_type=
+  "majmu" + leveled genre + no override (Axis 2 composite, level
+  null with level_status=non_applicable_reference).
 - REQ-SRC-0007 AC-3..AC-5 — handoff packaging preserves level and
   level_status across the source→normalization boundary (AC-1 and
   AC-2 are already covered in ``test_step_60_admission.py``).
@@ -108,12 +111,15 @@ def _base_deliberation_input(
     title_arabic: str = "كتاب الاختبار",
     genre: Genre | None = Genre.RISALAH,
     level: WorkLevel | None = None,
+    composite_work_type: str | None = None,
 ) -> MetadataDeliberationInput:
     """Build a minimal MetadataDeliberationInput for level-resolution tests.
 
     Leaves level_status / level_provenance as None so
-    ``_resolve_level_fields`` exercises the override + genre-inference
-    logic rather than the pass-through branch.
+    ``_resolve_level_fields`` exercises the override + 3-axis gate logic
+    rather than the pass-through branch. ``composite_work_type`` drives
+    Axis 2 (INV-SRC-0012) — pass ``"majmu"`` to fire it, leave as None
+    to skip.
     """
     return MetadataDeliberationInput(
         source_id=source_id,
@@ -134,6 +140,7 @@ def _base_deliberation_input(
         level=level,
         level_status=None,
         level_provenance=None,
+        composite_work_type=composite_work_type,  # type: ignore[arg-type]
         author_positions=[],
         owner_hint_payload={},
         verification_agents=["agent_a", "agent_b"],
@@ -264,9 +271,13 @@ def test_con_src_0004_invariant_2_non_assigned_requires_null_level() -> None:
 
 
 @pytest.mark.spec("CON-SRC-0004", "AC-5")
-def test_con_src_0004_invariant_3_non_applicable_requires_matching_genre() -> None:
-    """level_status=non_applicable_reference requires genre in the 7-value set."""
-    # Genre.RISALAH is not in NON_APPLICABLE_GENRE_VALUES — invariant 3 fires.
+def test_con_src_0004_invariant_3_non_applicable_requires_matching_axis() -> None:
+    """level_status=non_applicable_reference requires INV-SRC-0012 Axis 1 or 2.
+
+    Genre.RISALAH is not in the 6-value NON_APPLICABLE_GENRE_VALUES frozenset
+    (Axis 1 does not fire) AND composite_work_type is unset (Axis 2 does not
+    fire). Invariant 3 must reject.
+    """
     with pytest.raises(ValidationError, match="CON-SRC-0004 invariant 3"):
         _build_metadata(
             genre=Genre.RISALAH,
@@ -458,15 +469,111 @@ def test_inv_src_0012_non_applicable_override_rejects_every_work_level() -> None
         assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
 
 
-@pytest.mark.skip(
-    reason="Phase 5b item 4: mushaf / rijal_dictionary / majmu / "
-    "biographical_dictionary / fatwa_compilation / lexicon genres are in the "
-    "CON-SRC-0004 non-applicable frozenset but not yet in the Genre enum. "
-    "INV-SRC-0012 AC-1, AC-3, AC-4 become testable after Genre enum expansion."
-)
 @pytest.mark.spec("INV-SRC-0012", "AC-1")
 def test_inv_src_0012_ac1_mushaf_rejects_override() -> None:
-    """BLOCKED: Genre enum lacks 'mushaf' until Phase 5b item 4."""
+    """Phase 5b item 4 Option E-prime-final — mushaf + owner override → rejected.
+
+    Axis 1 of INV-SRC-0012 (genre-level non-applicability) fires: Genre.MUSHAF
+    is in the 6-value NON_APPLICABLE_GENRE_VALUES frozenset. Owner override
+    ``mubtadiʾ`` is a valid CON-SRC-0011 WorkLevel enum value — the rejection
+    is driven by genre non-applicability, not enum validation.
+    """
+    request = _base_deliberation_input(
+        title_arabic="المصحف الشريف",
+        genre=Genre.MUSHAF,
+        level=WorkLevel.MUBTADI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "mushaf" in message
+    assert "mubtadiʾ" in message
+    assert "Axis 1" in message
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-3")
+def test_inv_src_0012_ac3_composite_majmu_rejects_override() -> None:
+    """Phase 5b item 4 Option E-prime-final — majmu composite + override → rejected.
+
+    Axis 2 of INV-SRC-0012 (structural composite) fires alone: genre is
+    ``risalah`` (leveled, NOT in Axis 1), but composite_work_type=="majmu"
+    marks the work as a structural compilation (e.g. رسائل ابن رجب).
+    Owner override is rejected per the 3-axis gate. Constituent-rasāʾil
+    leveling is tracked as Phase 5b item 24.
+    """
+    request = _base_deliberation_input(
+        title_arabic="رسائل ابن رجب",
+        genre=Genre.RISALAH,
+        level=WorkLevel.MUTAWASSIT,
+        composite_work_type="majmu",
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "Axis 2" in message
+    assert "majmu" in message
+    assert "risalah" not in message or "composite_work_type" in message
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-4")
+def test_inv_src_0012_ac4_composite_majmu_no_override_sets_non_applicable() -> None:
+    """Phase 5b item 4 Option E-prime-final — majmu composite, no override.
+
+    Axis 2 fires alone with no owner override: level resolves to null and
+    level_status to non_applicable_reference even though Genre.FATAWA itself
+    is a leveled fann. Exemplar: مجموع فتاوى ابن تيمية — the composite
+    container has no single pedagogical level because it aggregates
+    independent fatwas. Individual-fatwa-level pedagogy tracked as
+    Phase 5b item 24.
+    """
+    request = _base_deliberation_input(
+        title_arabic="مجموع فتاوى ابن تيمية",
+        genre=Genre.FATAWA,
+        level=None,
+        composite_work_type="majmu",
+    )
+
+    level, level_status, provenance = _resolve_level_fields(request)
+
+    assert level is None
+    assert level_status is LevelStatus.NON_APPLICABLE_REFERENCE
+    assert provenance is None
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-4")
+def test_inv_src_0012_ac4_composite_survives_source_metadata_invariants() -> None:
+    """CON-SRC-0004 invariant 3 accepts Axis 2 (composite_work_type='majmu').
+
+    Regression guard for the 3-axis gate in
+    ``SourceMetadata.enforce_level_invariants``: a non_applicable_reference
+    status on a leveled Genre must survive validation when Axis 2 fires.
+    """
+    metadata = SourceMetadata(
+        source_id="src_majmu_test",
+        title_arabic="مجموع فتاوى ابن تيمية",
+        source_format=SourceFormat.SHAMELA_HTML,
+        structural_format=StructuralFormat.PROSE,
+        intake_timestamp="2026-04-23T00:00:00Z",
+        acquisition_path="manual",
+        frozen_path="library/sources/src_majmu_test/frozen",
+        frozen_hash="c" * 64,
+        frozen_file_hashes={"book.htm": "c" * 64},
+        status="source_engine_accepted",
+        genre=Genre.FATAWA,
+        level=None,
+        level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
+        level_provenance=None,
+        composite_work_type="majmu",
+    )
+
+    assert metadata.composite_work_type == "majmu"
+    assert metadata.level_status is LevelStatus.NON_APPLICABLE_REFERENCE
 
 
 # ---------------------------------------------------------------------------

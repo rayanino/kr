@@ -79,7 +79,7 @@
 | INV-SRC-0009 | invariant | quality | — | Zero knowledge loss in all source-engine output | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0009.yaml |
 | INV-SRC-0010 | invariant | quality | — | Holding-level completeness is computed, not asserted | confirmed | critical | dedup | 40-quality/invariants/INV-SRC-0010.yaml |
 | INV-SRC-0011 | invariant | quality | — | Source engine must not infer level from shallow metadata | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0011.yaml |
-| INV-SRC-0012 | invariant | quality | — | Non-applicable genres require level null | confirmed | high | metadata | 40-quality/invariants/INV-SRC-0012.yaml |
+| INV-SRC-0012 | invariant | quality | — | Non-applicable works require level null | confirmed | high | metadata | 40-quality/invariants/INV-SRC-0012.yaml |
 | OF-SRC-0001 | feedback | evidence | — | Collection unchanged for source intake | confirmed | high | acquisition | 60-evidence/owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | evidence | — | Drop-and-go intake with optional hints | confirmed | critical | acquisition | 60-evidence/owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | evidence | — | Minimize owner review load | confirmed | critical | trust | 60-evidence/owner-feedback/OF-SRC-0003.yaml |

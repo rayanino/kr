@@ -20,11 +20,22 @@ source: >-
   level emission; (b) level_status provenance is the source engine
   at admission time, with values pending_taxonomy or
   non_applicable_reference, extended by downstream engines to
-  assigned or unprocessable_error. See .kr/runtime/
-  adjudication_gemini_dr_20260417.md sections q5 and
-  final_recommendation.
+  assigned or unprocessable_error. Amended on 2026-04-23 (Phase 5b
+  item 4, Option E-prime-final) to reconcile the non-applicable
+  genre set to a six-value frozenset {mushaf, hadith_collection,
+  mashyakhah, thabat, barnamaj, fahrasah} and to cite the 3-axis
+  gate defined by INV-SRC-0012 (genre + composite_work_type +
+  deferred HadithSubgenre). Non-applicable fatwa_compilation /
+  lexicon / biographical_dictionary / rijal_dictionary / majmu
+  entries were removed as scholarly category errors per
+  2026-04-22 unanimous 2-run Gemini CLI BLOCKER_PRESENT findings;
+  AC-3 continues to assume Axis 1 firing (genre="mushaf") while
+  AC-4 covers the leveled-genre-no-override-no-composite default
+  (composite_work_type is assumed null unless set by REQ-SRC-0038).
+  See .kr/runtime/adjudication_gemini_dr_20260417.md sections q5
+  and final_recommendation, and follow-ups 21-26.
 created: '2026-04-14'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - REQ-SRC-0014
 - REQ-SRC-0004
@@ -56,13 +67,14 @@ rule:
     entry may include entity_type in {person, institution}.
     level_status is an enum with exactly four values: pending_taxonomy
     (admitted, level determination deferred to the taxonomy engine),
-    non_applicable_reference (admitted, genre signals the text has no
-    pedagogical level — the genre set is mushaf, hadith_collection,
-    rijal_dictionary, majmu, biographical_dictionary,
-    fatwa_compilation, lexicon), unprocessable_error (terminal state
-    where a downstream engine has concluded that level cannot be
-    assigned even with further work), and assigned (level is non-
-    null and has been authoritatively written by a downstream
+    non_applicable_reference (admitted, the work fires at least one
+    INV-SRC-0012 non-applicability axis — Axis 1 genre-level with the
+    six-value set {mushaf, hadith_collection, mashyakhah, thabat,
+    barnamaj, fahrasah}, Axis 2 composite_work_type == "majmu", or
+    the deferred Axis 3 HadithSubgenre carve-out), unprocessable_error
+    (terminal state where a downstream engine has concluded that level
+    cannot be assigned even with further work), and assigned (level is
+    non-null and has been authoritatively written by a downstream
     engine or by a valid owner_level_override per REQ-SRC-0047).
     The source engine at admission time emits ONLY pending_taxonomy
     or non_applicable_reference (plus assigned when an accepted
@@ -72,11 +84,12 @@ rule:
     (1) level_status == "assigned" IFF level is non-null; (2)
     level_status in {pending_taxonomy, non_applicable_reference,
     unprocessable_error} IMPLIES level is null; (3) level_status ==
-    "non_applicable_reference" IMPLIES genre is in the non-
-    applicable set above; (4) level_status is NEVER null and NEVER
-    inferred from shallow bibliographic signals (it is a processing-
-    state label, not a pedagogical-level inference governed by
-    INV-SRC-0011). Optional fields may appear as muhaqiq_output,
+    "non_applicable_reference" IMPLIES at least one INV-SRC-0012
+    axis fires (Axis 1 genre membership in the six-value set OR
+    Axis 2 composite_work_type == "majmu"); (4) level_status is
+    NEVER null and NEVER inferred from shallow bibliographic
+    signals (it is a processing-state label, not a pedagogical-
+    level inference governed by INV-SRC-0011). Optional fields may appear as muhaqiq_output,
     compiler_name, preparer_name, copyist_name, annotator_name,
     supervisor_name, death_date_hijri, level, edition_info,
     publisher, text_fidelity, hint_comparison_results,
@@ -131,23 +144,27 @@ acceptance_criteria:
   test_type: integration
 - id: AC-3
   given: >-
-    A source_engine_accepted source with genre="mushaf" and no
-    owner_level_override at intake
+    A source_engine_accepted source with genre="mushaf",
+    composite_work_type=null, and no owner_level_override at intake.
+    Axis 1 fires on the genre (mushaf is in the six-value
+    non-applicable set).
   when: source admission and handoff packaging complete
   then: >-
     SourceMetadata.level is null AND SourceMetadata.level_status ==
     "non_applicable_reference" (cross-field invariants 2 and 3 both
-    hold).
+    hold, Axis 1 cited).
   test_type: integration
 - id: AC-4
   given: >-
     A source_engine_accepted source with genre="sharh" (a leveled
-    genre NOT in the non-applicable set) and no owner_level_override
-    at intake
+    genre NOT in the Axis 1 non-applicable set), composite_work_type
+    =null (Axis 2 does not fire), and no owner_level_override at
+    intake.
   when: source admission and handoff packaging complete
   then: >-
     SourceMetadata.level is null AND SourceMetadata.level_status ==
-    "pending_taxonomy" (cross-field invariant 2 holds).
+    "pending_taxonomy" (cross-field invariant 2 holds; neither
+    INV-SRC-0012 axis fires so non_applicable_reference is wrong).
   test_type: integration
 - id: AC-5
   given: >-

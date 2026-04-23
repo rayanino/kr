@@ -1,7 +1,7 @@
 id: INV-SRC-0012
 type: invariant
 status: confirmed
-title: Non-applicable genres require level null
+title: Non-applicable works require level null
 topic: metadata
 layer: quality
 priority: high
@@ -12,49 +12,88 @@ source: >-
   dr-reports/dr-chatgpt-level-detection-20260416.yaml (SEC-2).
   Amended on 2026-04-17 (Phase 5b item 2) to rewrite AC-1 through
   AC-4 in the CON-SRC-0011 classical WorkLevel vocabulary (mubtadiʾ,
-  muntahī, mutawassiṭ, muntahī respectively). AC-4's "specialist"
-  placeholder has no fourth-tier equivalent in the three-tier
-  CON-SRC-0011 enum; "muntahī" is the semantic replacement preserving
-  the topmost-tier-override rejection intent. Rule statement,
-  rationale, implication, and violation_severity are unchanged. The
-  non-applicable genre set listed in the rule statement still lags
-  behind CON-SRC-0004's seven-value frozenset (four of seven values
-  are not yet in the Genre enum — see NON_APPLICABLE_GENRE_VALUES in
-  contracts.py); reconciliation is tracked as Phase 5b item 4.
+  muntahī, mutawassiṭ, muntahī respectively). Amended on 2026-04-23
+  (Phase 5b item 4, Option E-prime-final) to introduce the 3-axis
+  non-applicability gate after a 3-cycle pre-commit dispatch with 3
+  evaluators per cycle (Codex CLI structural + Gemini CLI 2
+  independent scholarly runs, all through /prompt-architect): the
+  prior A/B/C/D cycle blocked unanimously on classical-taxonomy
+  category errors (majmu is a structural composite not a fann;
+  biographical_dictionary is an English alias for tarajim / parent of
+  Genre.TABAQAT; rijal_dictionary is a nawʿ of tabaqat/tarikh/hadith);
+  the Option E cycle blocked unanimously on DIM4 archival-genre
+  regression (the reduced 2-value {mushaf, hadith_collection} set
+  left existing archival Genres MASHYAKHAH / THABAT / BARNAMAJ
+  silently level-applicable); the Option E-prime cycle returned
+  unanimous AMEND_REQUIRED adding FAHRASAH as convergent scholarly
+  guidance (same archival-reference class as mashyakhah / thabat /
+  barnamaj) with Codex PROCEED_WITH_AMENDMENTS confirming structural
+  soundness of the 6-value expansion. Axis 1 now enumerates six
+  Genre members; Axis 2 adds the composite_work_type == "majmu"
+  signal from IntakeDossier (REQ-SRC-0038); Axis 3 is deferred to
+  Phase 5b item 23 (HadithSubgenre ARBAIN pedagogical carve-out).
+  AC-1 becomes testable (Genre.MUSHAF is now pinned in contracts.py);
+  AC-3 and AC-4 are rewritten around the composite_work_type axis
+  using exemplars رسائل ابن رجب and مجموع فتاوى ابن تيمية per Codex
+  DIM4. See follow-up items 21 (FATAWA/MUJAM naming resolution), 22
+  (mawsūʿa/muʿjam/fihris non-applicable expansion), 23 (HadithSubgenre
+  ARBAIN carve-out), 24 (majmuʿ constituent-rasāʾil leveling
+  architecture), 25 (MUJAM hadith-science sub-classification,
+  PRELIMINARY Run-A-only), and 26 (TABAQAT non-applicability,
+  PRELIMINARY Run-A-only from E-prime).
 created: '2026-04-16'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - DEC-SRC-0003
 impacts:
 - level_metadata
 rationale: >-
   ChatGPT Deep Research dr-chatgpt-level-detection-20260416 (risk r5)
-  identified that mushaf copies, hadith collections, rijal dictionaries, and
-  purely archival majmu' compilations resist the classical pedagogical
-  trichotomy. (The original ChatGPT DR draft described the trichotomy as
-  mubtadi / mutawassit / mutaqaddim; Gemini CLI R2 review corrected
-  mutaqaddim to muntahī because mutaqaddim is a historiographic term for
-  an earlier-generation scholar, not a pedagogical tier, and CON-SRC-0011
-  now pins the canonical enum as mubtadiʾ → mutawassiṭ → muntahī.) These
-  non-applicable genres are organized around transmission, reference, or
-  compilation rather than graduated pedagogical exposition, so forcing
-  any CON-SRC-0011 level label onto them creates false scholarly authority
-  and misleads the owner about how to approach the text.
+  identified that mushaf copies, hadith collections, and purely archival
+  majmu' compilations resist the classical pedagogical trichotomy. (The
+  original ChatGPT DR draft described the trichotomy as mubtadi /
+  mutawassit / mutaqaddim; Gemini CLI R2 review corrected mutaqaddim to
+  muntahī because mutaqaddim is a historiographic term for an earlier-
+  generation scholar, not a pedagogical tier, and CON-SRC-0011 now pins
+  the canonical enum as mubtadiʾ → mutawassiṭ → muntahī.) The Phase 5b
+  item 4 pre-commit dispatch cycle (2026-04-22) refined non-applicability
+  along two orthogonal axes: the FANN (science/form) axis — mushaf
+  (revelation), hadith_collection (transmission), mashyakhah / thabat /
+  barnamaj / fahrasah (archival attestation of teachers / licenses /
+  curricula / catalogs) — and the STRUCTURE axis — composite works (majmuʿ)
+  whose organizing principle is aggregation, not pedagogy. Forcing any
+  CON-SRC-0011 level label onto a work that fires either axis creates
+  false scholarly authority and misleads the owner about how to approach
+  the text. The classical scholarly tradition (see al-Kattānī's
+  al-Risālah al-Mustaṭrafah on archival genres) treats mashyakhah,
+  thabat, barnamaj, and fahrasah as reference tools documenting
+  transmission rather than pedagogical works to be read in graduated
+  sequence.
 rule:
   statement: >-
-    For genres where the reading-level concept does not apply — mushaf,
-    hadith_collection, rijal_dictionary, and majmu — the source engine MUST
-    serialize SourceMetadata.level as null regardless of any owner override
-    attempt. Forcing a reading-level label onto these genres creates false
-    scholarly authority because their organizing principle is transmission,
-    reference, or compilation, not graduated pedagogical exposition.
+    For works where the reading-level concept does not apply, the source
+    engine MUST serialize SourceMetadata.level as null regardless of any
+    owner override attempt. Non-applicability fires along three axes, any
+    of which is sufficient: Axis 1 (fann-level) — the work's Genre is one
+    of the six non-applicable members {mushaf, hadith_collection,
+    mashyakhah, thabat, barnamaj, fahrasah}; Axis 2 (structural) — the
+    work's composite_work_type == "majmu" (a structural composite whose
+    container-level pedagogy does not apply even when the declared Genre
+    is otherwise leveled); Axis 3 (hadith-subgenre) — reserved for the
+    pedagogical carve-out of HadithSubgenre.ARBAIN from transmission-form
+    subgenres (MUSANNAF / MUSNAD / JAMI), deferred to Phase 5b item 23.
+    Forcing a reading-level label onto an Axis-1 or Axis-2 work creates
+    false scholarly authority because its organizing principle is
+    transmission, archival reference, or structural compilation, not
+    graduated pedagogical exposition.
   implication: >-
-    Violation means the library has attached a pedagogical-level label to a
-    text whose scholarly form does not support that dimension. A mushaf labeled
-    'beginner', a hadith_collection labeled 'advanced', a rijal_dictionary
-    labeled 'intermediate', or a majmu labeled 'specialist' misrepresents the
-    work's scholarly character and corrupts downstream synthesis, search, and
-    owner-facing displays.
+    Violation means the library has attached a pedagogical-level label to
+    a text whose scholarly form does not support that dimension. A mushaf
+    labeled 'beginner', a hadith_collection labeled 'advanced', a
+    mashyakhah / thabat / barnamaj / fahrasah labeled at any level, or a
+    مجموع (majmuʿ) container labeled as though its contained rasāʾil were
+    a single graduated work misrepresents the work's scholarly character
+    and corrupts downstream synthesis, search, and owner-facing displays.
   violation_severity: high
 acceptance_criteria:
 - id: AC-1
@@ -63,8 +102,8 @@ acceptance_criteria:
     owner_level_override="mubtadiʾ" (a valid CON-SRC-0011 WorkLevel
     enum value — the pre-malakah beginner tier). The override is
     well-formed per the enum whitelist, so the rejection below is
-    driven by the genre being in the non-applicable set, not by enum
-    validation.
+    driven by the genre being in the Axis 1 non-applicable set, not
+    by enum validation.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
   test_type: deterministic
@@ -80,26 +119,27 @@ acceptance_criteria:
   test_type: deterministic
 - id: AC-3
   given: >-
-    A source classified as SourceMetadata.genre="rijal_dictionary"
-    (for example a tabaqat-style narrator dictionary) submitted with
-    owner_level_override="mutawassiṭ" (a valid CON-SRC-0011 WorkLevel
-    enum value — the foundational-malakah intermediate tier).
+    A source whose intake dossier sets composite_work_type="majmu"
+    (for example "رسائل ابن رجب" — a majmuʿ of independent rasāʾil)
+    with SourceMetadata.genre="risalah" (a leveled genre NOT in
+    the Axis 1 non-applicable set) submitted with
+    owner_level_override="mutawassiṭ" (a valid CON-SRC-0011
+    WorkLevel enum value). Axis 2 (composite_work_type) is the sole
+    trigger of non-applicability here — Axis 1 does not fire on
+    risalah. Constituent-rasāʾil leveling is tracked as Phase 5b
+    item 24.
   when: the source engine emits SourceMetadata
-  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary with Axis 2 cited.
   test_type: deterministic
 - id: AC-4
   given: >-
     A source whose intake dossier sets composite_work_type="majmu"
     (for example "مجموع فتاوى ابن تيمية") with
-    SourceMetadata.genre="majmu" submitted with
-    owner_level_override="muntahī" (a valid CON-SRC-0011 WorkLevel
-    enum value). The earlier English placeholder for this AC was
-    "specialist" — a fourth pedagogical tier that does not exist in
-    the three-tier CON-SRC-0011 ladder (mubtadiʾ → mutawassiṭ →
-    muntahī). "muntahī" is chosen as the semantic substitute because
-    the AC's purpose is to verify non-applicable-genre rejection
-    under a topmost-tier override, and muntahī is the topmost tier
-    the enum admits.
+    SourceMetadata.genre="fatawa" (a leveled Genre NOT in the Axis 1
+    non-applicable set) and NO owner_level_override. Axis 2 fires
+    alone: the container is a structural composite even though
+    Genre.FATAWA itself is leveled. Individual-fatwa-level pedagogy
+    remains tracked as Phase 5b item 24.
   when: the source engine emits SourceMetadata
-  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary.
+  then: SourceMetadata.level is null AND SourceMetadata.level_status == "non_applicable_reference".
   test_type: deterministic

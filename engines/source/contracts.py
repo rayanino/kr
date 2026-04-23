@@ -159,6 +159,7 @@ class Genre(str, Enum):
     RIHLAH = "rihlah"
     USUL_AL_FIQH = "usul_al_fiqh"
     AMALI = "amali"
+    MUSHAF = "mushaf"
     THABAT = "thabat"
     BARNAMAJ = "barnamaj"
     MASHYAKHAH = "mashyakhah"
@@ -234,20 +235,34 @@ class LevelProvenance(str, Enum):
     SYNTHESIS_ENGINE = "synthesis_engine"
 
 
-# CON-SRC-0004 invariant 3 non-applicable genre set. Stored as strings, not
-# Genre enum members, because Phase 5b item 4 still has to reconcile 4-of-7
-# genres that are not yet in the Genre enum (finding ADV-001: mushaf,
-# rijal_dictionary, majmu, biographical_dictionary are unreachable; fatwa_compilation
-# and lexicon are name-mismatched against Genre.FATAWA / Genre.MUJAM).
+# INV-SRC-0012 Axis 1: genre-level non-applicability set (the fann of the
+# work has no classical pedagogical level). Phase 5b item 4 Option E-prime-final
+# reconciled this set to six values that are ALL existing Genre enum members.
+# Four values (mashyakhah, thabat, barnamaj, fahrasah) are archival/documentary
+# forms whose organizing principle is transmission attestation or cataloging,
+# not graduated pedagogical exposition. Two values (mushaf, hadith_collection)
+# are retained from the pre-Phase-5b-item-4 set.
+#
+# This axis handles genre-level non-applicability only. Composite-structure
+# non-applicability (a majmuʿ whose constituent rasāʾil carry leveled genres)
+# is enforced via Axis 2 (composite_work_type == "majmu") — see INV-SRC-0012
+# rule statement and SourceMetadata.enforce_level_invariants.
+#
+# Removed from the prior 7-value set per 2026-04-22 2-run Gemini CLI unanimous
+# scholarly findings:
+#   - rijal_dictionary, biographical_dictionary — English aliases / nawʿ of
+#     the existing Genre.TABAQAT (tarajim family); not fann-level themselves.
+#   - majmu — a structural composite (Axis 2), not a fann.
+#   - fatwa_compilation, lexicon — English aliases of the existing Genre.FATAWA
+#     and Genre.MUJAM which are canonical classical forms, not non-applicable.
 NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
     {
         "mushaf",
         "hadith_collection",
-        "rijal_dictionary",
-        "majmu",
-        "biographical_dictionary",
-        "fatwa_compilation",
-        "lexicon",
+        "mashyakhah",
+        "thabat",
+        "barnamaj",
+        "fahrasah",
     }
 )
 
@@ -830,6 +845,7 @@ class MetadataDeliberationInput(BaseModel):
     level: Optional[WorkLevel] = None
     level_status: Optional[LevelStatus] = None
     level_provenance: Optional[LevelProvenance] = None
+    composite_work_type: Optional[Literal["majmu", "possible"]] = None
     edition_info: Optional[dict[str, Any]] = None
     publisher: Optional[str] = None
     author_positions: list[AuthorOutputPosition] = Field(default_factory=list)
@@ -967,6 +983,7 @@ class SourceMetadata(BaseModel):
     level: Optional[WorkLevel] = None
     level_status: LevelStatus
     level_provenance: Optional[LevelProvenance] = None
+    composite_work_type: Optional[Literal["majmu", "possible"]] = None
     edition_info: Optional[dict[str, Any]] = None
     publisher: Optional[str] = None
     hint_comparison_results: list[HintComparisonResult] = Field(default_factory=list)
@@ -999,16 +1016,27 @@ class SourceMetadata(BaseModel):
                 f"'{self.level_status.value}' requires level to be null, "
                 f"got level='{self.level.value if isinstance(self.level, WorkLevel) else self.level}'"
             )
-        # CON-SRC-0004 invariant 3: non_applicable_reference IMPLIES genre in
-        # the seven-value non-applicable set.
+        # CON-SRC-0004 invariant 3 + INV-SRC-0012 3-axis gate:
+        # non_applicable_reference IMPLIES at least one non-applicability axis
+        # fires. Axis 1: genre.value is in the six-value
+        # NON_APPLICABLE_GENRE_VALUES frozenset. Axis 2: composite_work_type ==
+        # "majmu" (the work is a structural composite whose container-level
+        # pedagogy does not apply even if the declared genre is leveled — see
+        # INV-SRC-0012 AC-3/AC-4). Axis 3 (HadithSubgenre pedagogical carve-
+        # out) is deferred to Phase 5b item 23. An invariant-3 violation
+        # fires only when NEITHER Axis 1 NOR Axis 2 fires.
         if self.level_status == LevelStatus.NON_APPLICABLE_REFERENCE:
             genre_value = self.genre.value if self.genre is not None else None
-            if genre_value not in NON_APPLICABLE_GENRE_VALUES:
+            axis_1_fires = genre_value in NON_APPLICABLE_GENRE_VALUES
+            axis_2_fires = self.composite_work_type == "majmu"
+            if not (axis_1_fires or axis_2_fires):
                 raise ValueError(
                     "CON-SRC-0004 invariant 3 violation: level_status="
                     "'non_applicable_reference' requires genre in "
-                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)}, got genre="
-                    f"'{genre_value}'"
+                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)} (Axis 1) OR "
+                    "composite_work_type == 'majmu' (Axis 2) per "
+                    f"INV-SRC-0012; got genre='{genre_value}', "
+                    f"composite_work_type='{self.composite_work_type}'"
                 )
         # CON-SRC-0004 invariant 4 (level_status non-null) is enforced by the
         # field declaration: ``level_status: LevelStatus`` has no default.

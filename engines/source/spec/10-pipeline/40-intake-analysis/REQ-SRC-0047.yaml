@@ -20,8 +20,16 @@ source: >-
   entry structure enriched to include the raw override token, the
   validation verdict, and the enum-value whitelist that was applied;
   (d) integrates with the CON-SRC-0004 middle-path level_status field.
+  Amended on 2026-04-23 (Phase 5b item 4, Option E-prime-final) after
+  the 3-cycle pre-commit dispatch (A/B/C/D → E → E-prime; 2-run
+  Gemini CLI unanimous findings + Codex CLI per cycle): the
+  non-applicable rejection path now cites the INV-SRC-0012 3-axis
+  gate. Axis 1 lists the six-value genre set {mushaf, hadith_collection,
+  mashyakhah, thabat, barnamaj, fahrasah}; Axis 2 fires on
+  composite_work_type == "majmu" (REQ-SRC-0038); Axis 3 is deferred
+  to Phase 5b item 23. See follow-ups 21-26.
 created: '2026-04-16'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - DEC-SRC-0003
 - INV-SRC-0011
@@ -54,8 +62,8 @@ behavior:
   - owner_level_override, if present, is a string whose value MAY be one of the CON-SRC-0011 WorkLevel enum values (mubtadiʾ, mutawassiṭ, muntahī) — the enum-value whitelist is read from CON-SRC-0011 at validation time, not hard-coded at this atom.
   - The source's genre has been classified by metadata deliberation (REQ-SRC-0030) OR is still pending (override validation is deferred to the genre-resolved point when genre is not yet known at the intake surface).
   postconditions:
-  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules (pending_taxonomy for leveled genres, non_applicable_reference for non-applicable genres per INV-SRC-0012).
-  - When owner_level_override is present AND the value passes the CON-SRC-0011 enum whitelist AND the genre is not in the INV-SRC-0012 non-applicable set, SourceMetadata.level is populated with the exact enum value and level_status is set to "assigned".
+  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules — pending_taxonomy when no INV-SRC-0012 non-applicability axis fires, non_applicable_reference when at least one axis fires (Axis 1 genre ∈ {mushaf, hadith_collection, mashyakhah, thabat, barnamaj, fahrasah} OR Axis 2 composite_work_type == "majmu").
+  - When owner_level_override is present AND the value passes the CON-SRC-0011 enum whitelist AND NO INV-SRC-0012 non-applicability axis fires (Axis 1 genre not in the six-value set AND Axis 2 composite_work_type != "majmu"), SourceMetadata.level is populated with the exact enum value and level_status is set to "assigned".
   - An audit-trail entry is written with provenance="owner_override", the raw override token received at intake, the validation verdict (accepted | rejected_invalid | rejected_nonapplicable | rejected_empty), the CON-SRC-0011 whitelist that was applied (enumerated snapshot), and an ISO 8601 timestamp of when the override was evaluated.
   - The override value, when accepted, survives through source admission and normalization handoff packaging unchanged (per REQ-SRC-0007 AC-3).
   error_conditions:
@@ -65,8 +73,8 @@ behavior:
   - condition: owner_level_override is present and non-empty but the value is not one of the CON-SRC-0011 WorkLevel enum values.
     action: Reject the override with SRC-E-LEVEL-OVERRIDE-INVALID; SourceMetadata.level remains null; level_status is set per standard source-engine rules; intake_analysis continues.
     severity: blocking
-  - condition: owner_level_override is provided with a valid WorkLevel enum value on a source whose genre is one of the INV-SRC-0012 non-applicable set (mushaf, hadith_collection, rijal_dictionary, majmu, biographical_dictionary, fatwa_compilation, lexicon).
-    action: Reject the override with SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE; SourceMetadata.level remains null; level_status="non_applicable_reference"; intake_analysis continues.
+  - condition: owner_level_override is provided with a valid WorkLevel enum value on a source for which at least one INV-SRC-0012 non-applicability axis fires — Axis 1 (genre is one of {mushaf, hadith_collection, mashyakhah, thabat, barnamaj, fahrasah}) OR Axis 2 (composite_work_type == "majmu"). Axis 3 (HadithSubgenre carve-out) is deferred to Phase 5b item 23.
+    action: Reject the override with SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE; SourceMetadata.level remains null; level_status="non_applicable_reference"; intake_analysis continues. The error message MUST identify which axis fired so the audit trail captures the triggering signal.
     severity: blocking
 acceptance_criteria:
 - id: AC-1

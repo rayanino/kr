@@ -199,6 +199,34 @@ def run_metadata_deliberation(
     )
 
 
+def _non_applicability_axis(
+    deliberation_input: MetadataDeliberationInput,
+) -> Literal["genre", "composite"] | None:
+    """Return the triggering INV-SRC-0012 non-applicability axis, or None.
+
+    Axis 1 ("genre"): genre.value is in the six-value
+    ``NON_APPLICABLE_GENRE_VALUES`` frozenset — the work's fann (mushaf,
+    hadith_collection, mashyakhah, thabat, barnamaj, fahrasah) has no
+    classical pedagogical level because its organizing principle is
+    transmission attestation, cataloging, or documentary reference rather
+    than graduated exposition.
+
+    Axis 2 ("composite"): composite_work_type == "majmu" — the work is a
+    structural composite (e.g. مجموع فتاوى ابن تيمية) whose container-level
+    pedagogy does not apply even when the declared Genre is otherwise
+    leveled; constituent-rasāʾil leveling is tracked as Phase 5b item 24.
+
+    Axis 3 (HadithSubgenre pedagogical carve-out for ARBAIN etc.) is
+    deferred to Phase 5b item 23 — no wiring yet.
+    """
+    genre = deliberation_input.genre
+    if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
+        return "genre"
+    if deliberation_input.composite_work_type == "majmu":
+        return "composite"
+    return None
+
+
 def _resolve_level_fields(
     deliberation_input: MetadataDeliberationInput,
 ) -> tuple[WorkLevel | None, LevelStatus, LevelProvenance | None]:
@@ -211,31 +239,40 @@ def _resolve_level_fields(
         )
     # Owner override accepted upstream (REQ-SRC-0047 populated level).
     if deliberation_input.level is not None:
-        # INV-SRC-0012: non-applicable genres reject any level override. The
-        # text's scholarly form (mushaf / hadith_collection / rijal_dictionary /
-        # majmu / biographical_dictionary / fatwa_compilation / lexicon) is
-        # organized around transmission, reference, or compilation — not the
+        # INV-SRC-0012 3-axis gate: non-applicable works reject any level
+        # override regardless of which axis fires. The text's scholarly form
+        # (Axis 1 — mushaf / hadith_collection / mashyakhah / thabat /
+        # barnamaj / fahrasah) or its structural composite nature (Axis 2 —
+        # composite_work_type == "majmu") means it is organized around
+        # transmission, archival reference, or compilation rather than the
         # classical pedagogical ladder — so a level label corrupts it.
-        genre = deliberation_input.genre
-        if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
+        axis = _non_applicability_axis(deliberation_input)
+        if axis is not None:
+            genre = deliberation_input.genre
+            genre_value = genre.value if genre is not None else None
             raise SourceEngineError(
                 ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
                 f"owner_level_override='{deliberation_input.level.value}' "
-                f"rejected: genre='{genre.value}' is in the non-applicable set "
-                f"{sorted(NON_APPLICABLE_GENRE_VALUES)} per INV-SRC-0012; "
-                "these genres MUST serialize level as null regardless of any "
-                "override attempt",
+                f"rejected: INV-SRC-0012 Axis {'1' if axis == 'genre' else '2'} "
+                f"({axis}) fires — "
+                + (
+                    f"genre='{genre_value}' is in the non-applicable set "
+                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)}"
+                    if axis == "genre"
+                    else f"composite_work_type='{deliberation_input.composite_work_type}'"
+                )
+                + "; these works MUST serialize level as null regardless of "
+                "any override attempt",
             )
         return (
             deliberation_input.level,
             LevelStatus.ASSIGNED,
             LevelProvenance.OWNER_OVERRIDE,
         )
-    # Non-applicable genre — text has no pedagogical level (CON-SRC-0004 inv 3).
-    genre = deliberation_input.genre
-    if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
+    # No override: route by non-applicability axis (CON-SRC-0004 inv 3).
+    if _non_applicability_axis(deliberation_input) is not None:
         return (None, LevelStatus.NON_APPLICABLE_REFERENCE, None)
-    # Leveled genre (or genre not yet known) — defer to taxonomy.
+    # Leveled genre, no structural composite signal — defer to taxonomy.
     return (None, LevelStatus.PENDING_TAXONOMY, None)
 
 
@@ -270,6 +307,7 @@ def _build_source_metadata(
         level=level,
         level_status=level_status,
         level_provenance=level_provenance,
+        composite_work_type=deliberation_input.composite_work_type,
         edition_info=deliberation_input.edition_info,
         publisher=deliberation_input.publisher,
         page_count=None,
