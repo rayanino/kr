@@ -253,8 +253,8 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 - `a4218c2a2` docs(source): ACTIVE.md — record Phase 5b item 9+19 commit hash b00bb8276
 
 ## Session commits (2026-04-23, Phase 5b CLOSURE WAVE — 3-evaluator audit + 12 amendments)
-- (pending) fix(source): Phase 5b closure wave — Codex CAF-4/5/7/8 + Gemini 2-run DIM1/2/3/4/6 amendments (164 pass, 0 skip)
-- (pending) docs(source): ACTIVE.md — record closure-wave commit hash
+- `8cc9e8e55` fix(source): Phase 5b closure wave — 3-evaluator amendments (164 pass, 0 skip)
+- (pending) docs(source): ACTIVE.md — record closure-wave commit hash 8cc9e8e55
 
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
