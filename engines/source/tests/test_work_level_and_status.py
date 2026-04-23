@@ -3,9 +3,13 @@
 Exercises the (level, level_status, level_provenance, composite_work_type)
 contract across every atom that governs it:
 
-- CON-SRC-0011 AC-1..AC-6 — WorkLevel enum whitelist (mubtadiʾ /
+- CON-SRC-0011 AC-1..AC-7 — WorkLevel enum whitelist (mubtadiʾ /
   mutawassiṭ / muntahī accepted; mutaqaddim, English placeholders, and
-  other non-enum strings rejected).
+  other non-enum strings rejected). AC-7 adds the multi-layer scope
+  clause: for a composite work (matn + sharḥ, sharḥ + ḥāshiya),
+  SourceMetadata.level tracks the TARGET READERSHIP of the whole, not
+  the author's own rank or any contained layer's native level (Phase
+  5b item 11; Gemini B C7 + Adversary ADV-007).
 - CON-SRC-0004 invariants 1..4 + ADV-012 stickiness — the Pydantic
   ``model_validator`` on ``SourceMetadata.enforce_level_invariants``
   raises ``ValueError`` (wrapped by Pydantic into ``ValidationError``)
@@ -71,6 +75,7 @@ def _build_metadata(
     level: WorkLevel | None = None,
     level_status: LevelStatus = LevelStatus.PENDING_SYNTHESIS,
     level_provenance: LevelProvenance | None = None,
+    is_multi_layer: bool = False,
 ) -> SourceMetadata:
     """Construct a SourceMetadata with only the fields needed for level tests.
 
@@ -78,6 +83,8 @@ def _build_metadata(
     to satisfy ``enforce_level_invariants`` — single-field assignment on
     a constructed model trips ``validate_assignment``. Callers override
     the triple as needed; non-level fields stay at stable defaults.
+    ``is_multi_layer`` is exposed for CON-SRC-0011 AC-7 which exercises
+    the target-readership scope clause on a multi-layer work.
     """
     return SourceMetadata(
         source_id=source_id,
@@ -92,6 +99,7 @@ def _build_metadata(
         status="accepted",
         science_scope=["fiqh"],
         genre=genre,
+        is_multi_layer=is_multi_layer,
         text_fidelity=TextFidelity.HIGH,
         trust_tier=TrustTier.VERIFIED,
         trust_score=0.0,
@@ -241,6 +249,56 @@ def test_con_src_0011_ac6_null_level_accepted() -> None:
     assert metadata.level is None
     assert metadata.level_status is LevelStatus.PENDING_SYNTHESIS
     assert metadata.level_provenance is None
+
+
+@pytest.mark.spec("CON-SRC-0011", "AC-7")
+def test_con_src_0011_ac7_multi_layer_target_readership() -> None:
+    """Multi-layer work assigned level by TARGET READERSHIP, not author rank.
+
+    CON-SRC-0011 rule.statement multi-layer scope clause: for a sharḥ
+    composed by a muntahī to teach mubtadiʾ students (classical exemplar:
+    شرح الأصول الثلاثة of Ibn ʿUthaymīn — a major muntahī authoring a
+    foundational sharḥ for absolute beginners), SourceMetadata.level is
+    assigned to the TARGET READERSHIP of the composite work (mubtadiʾ),
+    NOT the author's own scholarly stature (muntahī). The enum validator
+    accepts the mubtadiʾ value; the scope interpretation governs
+    downstream consistency.
+
+    The converse assignment (level=muntahī on author-rank grounds for
+    the same multi-layer work) also passes enum-string validation but
+    is a scope-error violation of the rule.implication — asserted here
+    contrapositively via the positive case. Resolves Phase 5a adversary
+    finding ADV-007 via the target-readership interpretation confirmed
+    by Gemini CLI Run B C7 verdict (`.kr/runtime/
+    domain_validation_gemini_cli_run_B_20260417.md`:95-102).
+    """
+    # Positive path: mubtadiʾ target readership on a multi-layer work
+    # accepts, even though the outer-layer author is a muntahī.
+    metadata = _build_metadata(
+        level=WorkLevel.MUBTADI,
+        level_status=LevelStatus.ASSIGNED,
+        level_provenance=LevelProvenance.OWNER_OVERRIDE,
+        is_multi_layer=True,
+    )
+
+    assert metadata.level is WorkLevel.MUBTADI
+    assert metadata.is_multi_layer is True
+    # Right-half-ring hamza preserved byte-exactly under multi-layer scope.
+    assert "ʾ" in metadata.level.value
+
+    # Contrapositive: the same multi-layer shape with muntahī also
+    # passes enum validation — the enum validator is string-shape-only,
+    # which is why the rule.implication scope clause is load-bearing.
+    # Downstream writers (synthesis engine per DEC-SRC-0003) must
+    # apply the target-readership interpretation; the validator cannot
+    # catch a scope-error from string alone.
+    shadow = _build_metadata(
+        level=WorkLevel.MUNTAHI,
+        level_status=LevelStatus.ASSIGNED,
+        level_provenance=LevelProvenance.OWNER_OVERRIDE,
+        is_multi_layer=True,
+    )
+    assert shadow.level is WorkLevel.MUNTAHI  # enum accepts — scope-error is a downstream concern
 
 
 # ---------------------------------------------------------------------------

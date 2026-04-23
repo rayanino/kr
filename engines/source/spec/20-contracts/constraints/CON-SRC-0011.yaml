@@ -33,6 +33,31 @@ source: >-
   authorized having a level vocabulary at all; every atom that uses
   the enum (INV-SRC-0011, INV-SRC-0012, CON-SRC-0004, REQ-SRC-0047,
   REQ-SRC-0007) declares CON-SRC-0011 as an upstream producer.
+  Further amended 2026-04-23 (Phase 5b item 11) to add the C7 multi-layer
+  scope clause: the single scalar SourceMetadata.level, when populated
+  for a multi-layer work (matn + sharḥ, sharḥ + ḥāshiya, or deeper
+  nestings), refers to the TARGET READERSHIP of the composite work as
+  a whole — the pedagogical state of the student for whom the work is
+  intended — NOT the level of any contained layer, the author's own
+  scholarly stature, or the matn's intrinsic density. Per Gemini CLI
+  Run B C7 verdict CONFIRM (interpretation_measured: target_readership,
+  `.kr/runtime/domain_validation_gemini_cli_run_B_20260417.md`:95-102)
+  and Adversary finding ADV-007 (severity: HIGH; affected_atoms:
+  REQ-SRC-0046, CON-SRC-0011, CON-SRC-0004; `.kr/runtime/
+  adversary_phase5a_20260417.md`:242-252). Classical-defensibility
+  reasoning: all four madhāhib use the mubtadiʾ/mutawassiṭ/muntahī
+  terminology to describe the student-state at which the work is
+  pitched, not the author's own rank (al-Zarnūjī Taʿlīm al-Mutaʿallim
+  IV; Ibn Khaldūn Muqaddima VI, faṣl fī wajh al-ṣawāb fī taʿlīm al-
+  ʿulūm). The scope is the owner's own question — "what student can
+  read this?" — so the library ladder matches his actual progression.
+  A sharḥ authored by a muntahī but composed to teach mubtadiʾ students
+  is assigned level="mubtadiʾ"; a ḥāshiya composed for muntahī-level
+  Ḥanafī specialists is assigned level="muntahī" regardless of the
+  underlying matn's native level. This interpretation is strictly
+  stronger than the Adversary's proposed "outer author's work only"
+  alternative fix — it refuses the author-rank proxy in favor of the
+  pedagogical-fit question the owner actually asks of the library.
 created: '2026-04-17'
 updated: '2026-04-23'
 depends_on:
@@ -75,7 +100,16 @@ rule:
     .level assignment. The historiographic term "mutaqaddim" and its
     counterpart "mutaʾakhkhirūn" are REJECTED as WorkLevel values —
     they denote chronological / generational priority among scholars,
-    not pedagogical level.
+    not pedagogical level. For a multi-layer work (matn + sharḥ,
+    sharḥ + ḥāshiya, or deeper nestings), the single scalar
+    SourceMetadata.level refers to the TARGET READERSHIP of the
+    composite work as a whole — the pedagogical state of the student
+    for whom the work is intended — NOT the level of any contained
+    layer, the author's own scholarly stature, or the matn's intrinsic
+    density. A sharḥ composed by a muntahī to teach mubtadiʾ students
+    is assigned level="mubtadiʾ"; a ḥāshiya composed for muntahī-level
+    Ḥanafī specialists is assigned level="muntahī" regardless of the
+    underlying matn's native level.
   implication: >-
     Any SourceMetadata record whose level field contains a string
     not in {mubtadiʾ, mutawassiṭ, muntahī} (when level is non-null)
@@ -86,7 +120,18 @@ rule:
     particular, accepting "mutaqaddim" as a level value would silently
     teach the owner to conflate chronological earlier-scholar status
     with pedagogical beginner status — a T-2 knowledge-integrity
-    corruption vector.
+    corruption vector. Similarly, in a multi-layer work, populating
+    SourceMetadata.level from the author's scholarly rank, the matn's
+    intrinsic density, or any layer other than the composite work's
+    target readership is a scope-error violation of this contract:
+    the owner's downstream "what should I read next?" queries against
+    the library would return works whose pedagogical fit is misaligned
+    with his actual student state, corrupting the library's ability
+    to serve as a personal study ladder (T-2 corruption vector applied
+    at the scope-interpretation layer rather than the enum-string
+    layer). A sharḥ authored by a muntahī but composed for mubtadiʾ
+    students assigned level="muntahī" on author-rank grounds would
+    silently withhold the work from beginners it was written to serve.
   violation_severity: critical
 acceptance_criteria:
 - id: AC-1
@@ -136,4 +181,23 @@ acceptance_criteria:
     The record is accepted with respect to CON-SRC-0011 (null is a
     valid state; the WorkLevel enum only governs non-null level
     values).
+  test_type: deterministic
+- id: AC-7
+  given: >-
+    A SourceMetadata record for a multi-layer work (is_multi_layer=
+    true) whose outer-layer author is a muntahī-level scholar but
+    whose target readership is mubtadiʾ students (classical exemplar:
+    شرح الأصول الثلاثة of Ibn ʿUthaymīn — a major muntahī authoring a
+    foundational sharḥ for absolute beginners), with level="mubtadiʾ"
+  when: the enum validator inspects the record and the rule.statement
+    multi-layer scope clause is applied
+  then: >-
+    The record is accepted as valid with respect to CON-SRC-0011 and
+    the assignment is semantically correct — the target-readership
+    scope is the canonical interpretation for multi-layer works, so
+    the muntahī authorship of the outer sharḥ does NOT override the
+    mubtadiʾ target-readership assignment. The converse assignment
+    (level="muntahī" on author-rank grounds for the same work) would
+    be a scope-error violation even though it too passes enum-string
+    validation — exercised contrapositively in the accompanying test.
   test_type: deterministic
