@@ -28,6 +28,15 @@ contract across every atom that governs it:
 - REQ-SRC-0007 AC-3..AC-5 — handoff packaging preserves level and
   level_status across the source→normalization boundary (AC-1 and
   AC-2 are already covered in ``test_step_60_admission.py``).
+- REQ-SRC-0047 AC-6 — owner-override stickiness. Two adversary
+  attack paths (single-field level-clear, single-field
+  provenance-clear) are blocked by contracts.py
+  enforce_level_invariants under validate_assignment=True. The
+  level_provenance="owner_override" signal survives the handoff
+  JSON round-trip byte-exactly. The value-swap attack
+  (level change with provenance untouched) is the cross-engine
+  contract declared in REQ-SRC-0047.behavior.postconditions —
+  downstream engines must enforce (Phase 5b item 10).
 
 The tests are written as Phase 5b's closure evidence: each assertion
 demonstrates one normative rule firing on real Arabic fixture data or
@@ -734,3 +743,129 @@ def test_req_src_0007_ac5_invariant_violation_rejects_packaging() -> None:
             level_status=LevelStatus.PENDING_SYNTHESIS,
             level_provenance=LevelProvenance.OWNER_OVERRIDE,
         )
+
+
+# ---------------------------------------------------------------------------
+# REQ-SRC-0047 — owner override stickiness through the assignment surface
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.spec("REQ-SRC-0047", "AC-6")
+def test_req_src_0047_ac6_level_provenance_stickiness() -> None:
+    """ADV-012 stickiness blocks both single-field silent-overwrite paths.
+
+    REQ-SRC-0047 AC-6: a SourceMetadata produced by an accepted owner
+    override (level="mutawassiṭ", level_provenance="owner_override",
+    level_status="assigned") resists the two single-field silent-overwrite
+    attack paths enforced by contracts.py
+    ``SourceMetadata.enforce_level_invariants`` under
+    ``validate_assignment=True``:
+
+    (a) Clearing level alone while leaving level_provenance=OWNER_OVERRIDE.
+        This breaks the IFF pair-consistency invariant — the record would
+        claim "owner asserted nothing" while still flagged as owner-
+        provenanced. ValidationError.
+
+    (b) Clearing level_provenance alone while leaving level=mutawassiṭ.
+        This erases the owner-override signal, making the record
+        indistinguishable from a silently-derived classification.
+        ValidationError.
+
+    Note on layered defense: path (a) is actually caught by
+    CON-SRC-0004 invariant 1 (level_status=ASSIGNED IFF level non-null)
+    BEFORE ADV-012 stickiness runs in enforce_level_invariants, because
+    invariant 1 is ordered earlier in the validator. The resulting
+    ValidationError cites the invariant-1 message, not the ADV-012
+    message — stronger protection than expected. ADV-012 catches path
+    (b) directly since invariants 1/2 do not care about provenance.
+    Accepting either message keeps the test focused on the OUTCOME
+    (assignment rejected) rather than the specific fires-first layer.
+
+    Note on the scope limit: the IFF invariants catch pair-clearing
+    attacks but do NOT catch the value-swap attack
+    (level=mutawassiṭ → level=muntahī while provenance stays at
+    OWNER_OVERRIDE) because (muntahī, owner_override) is a structurally
+    valid pair. That enforcement is the cross-engine contract declared
+    in REQ-SRC-0047.behavior.postconditions — downstream engines MUST
+    inspect provenance and refuse silent replacement. The synthesis
+    engine spec (DEC-SRC-0003 synthesis-owns-level authority) will
+    carry that enforcement when built.
+    """
+    # Happy path: accepted owner override.
+    metadata = _build_metadata(
+        level=WorkLevel.MUTAWASSIT,
+        level_status=LevelStatus.ASSIGNED,
+        level_provenance=LevelProvenance.OWNER_OVERRIDE,
+    )
+    assert metadata.level is WorkLevel.MUTAWASSIT
+    assert metadata.level_provenance is LevelProvenance.OWNER_OVERRIDE
+
+    # Attack path (a): clear level alone. CON-SRC-0004 invariant 1
+    # fires first (level_status=ASSIGNED requires level non-null),
+    # with ADV-012 stickiness as the backstop. Either citation is
+    # acceptable — both confirm the record cannot be constructed
+    # without a paired reassignment.
+    with pytest.raises(
+        ValidationError, match="CON-SRC-0004 invariant 1|ADV-012 stickiness"
+    ):
+        metadata.level = None  # type: ignore[assignment]
+
+    # Fresh record (the failed assignment above may have left state
+    # touched; rebuild cleanly to isolate path (b)).
+    metadata = _build_metadata(
+        level=WorkLevel.MUTAWASSIT,
+        level_status=LevelStatus.ASSIGNED,
+        level_provenance=LevelProvenance.OWNER_OVERRIDE,
+    )
+
+    # Attack path (b): clear provenance alone. CON-SRC-0004 invariants
+    # 1/2 pass (level non-null + status=ASSIGNED is consistent), so
+    # ADV-012 stickiness is the sole defender here.
+    with pytest.raises(ValidationError, match="ADV-012 stickiness"):
+        metadata.level_provenance = None
+
+
+@pytest.mark.spec("REQ-SRC-0047", "AC-6")
+def test_req_src_0047_ac6_provenance_survives_handoff(
+    source_pipeline: SourcePipeline,
+) -> None:
+    """Owner-override provenance signal reaches downstream intact.
+
+    REQ-SRC-0047 AC-6 cross-engine contract surface: the
+    level_provenance="owner_override" signal survives the source→
+    normalization handoff byte-exactly per REQ-SRC-0007 AC-3, so
+    downstream engines can inspect it to detect the owner's assertion
+    and refuse silent overwrite. This test complements
+    test_req_src_0007_ac3_handoff_preserves_muntahi_override (which
+    asserts the level VALUE survives) by asserting the PROVENANCE
+    signal survives the serialization round-trip in the JSON surface
+    that downstream engines actually consume.
+    """
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "06_usul" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(
+        frozen.source_id, level_override=WorkLevel.MUTAWASSIT
+    )
+
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+
+    bundle = result.handoff_bundle
+    assert bundle is not None
+
+    # In-memory: provenance preserved.
+    assert bundle.source_metadata.level_provenance is LevelProvenance.OWNER_OVERRIDE
+
+    # Serialized: the "owner_override" string literal appears byte-exact
+    # in the JSON surface downstream engines will read.
+    dumped = bundle.source_metadata.model_dump(mode="json")
+    assert dumped["level"] == "mutawassiṭ"
+    assert dumped["level_provenance"] == "owner_override"
