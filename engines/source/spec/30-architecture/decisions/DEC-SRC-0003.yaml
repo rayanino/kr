@@ -20,13 +20,18 @@ source: >-
   high confidence. Gemini DR additionally proposed a middle-path
   `level_status` enumerator amendment to CON-SRC-0004 to close the
   null-conflation gap Claude DR correctly identified — that amendment is
-  adopted on 2026-04-17 and is orthogonal to this decision.
+  adopted on 2026-04-17 and is orthogonal to this decision. Amended
+  2026-04-23 (Phase 5b item 5) to remove REQ-SRC-0007 from depends_on —
+  the original listing caused a producer-consumer cycle (DEC authorizes
+  the downstream-owns-level architecture, REQ-SRC-0007 implements
+  handoff preservation within that architecture, so REQ-SRC-0007
+  consumes DEC, not the reverse). Cycle broken per Codex CAF-1 audit
+  finding.
 created: '2026-04-14'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - OF-SRC-0007
 - OQ-SRC-0001
-- REQ-SRC-0007
 impacts:
 - level_metadata
 - source_normalization_boundary

@@ -22,14 +22,21 @@ source: >-
   the standard curriculum language of Dār al-Muṣṭafā and al-
   Qarawiyyīn ḥadīth tracks. See .kr/runtime/
   adjudication_gemini_cli_run1_20260417.md (R2 terminology finding)
-  and run2_20260417.md (independent confirmation).
+  and run2_20260417.md (independent confirmation). Amended 2026-04-23
+  (Phase 5b item 5) to break 3 producer-consumer cycles: the original
+  depends_on list named INV-SRC-0011, CON-SRC-0004, and REQ-SRC-0047 —
+  all of which CONSUME this enum and themselves declare CON-SRC-0011
+  as a producer, creating cycles that break scoped atom injection per
+  Codex CAF-1. The corrected ordering is strictly producer-before-
+  consumer: CON-SRC-0011 defines the WorkLevel vocabulary, so it
+  depends only on the architectural decision (DEC-SRC-0003) that
+  authorized having a level vocabulary at all; every atom that uses
+  the enum (INV-SRC-0011, INV-SRC-0012, CON-SRC-0004, REQ-SRC-0047,
+  REQ-SRC-0007) declares CON-SRC-0011 as an upstream producer.
 created: '2026-04-17'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - DEC-SRC-0003
-- INV-SRC-0011
-- CON-SRC-0004
-- REQ-SRC-0047
 impacts:
 - level_metadata
 - owner_override_validation
