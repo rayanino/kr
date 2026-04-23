@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, `41f60c385` item-11 C7 multi-layer target_readership scope clause, `d95a24ea0` item-10 ADV-012 stickiness postcondition + AC-6, item-8 DEC-SRC-0021 pre-Phase-5a migration strategy pending commit). **1 Phase 5b work item remains (9)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26) plus 1 from item-5 dispatch (27) plus 2 from item-7 dispatch (28 LevelProvenance cleanup, 29 REQ-SRC-0048 test authoring) plus 1 from item-8 dispatch (30 migration-layer implementation + tests)
+Status: active — Phase 5b items 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, `41f60c385` item-11 C7 multi-layer target_readership scope clause, `d95a24ea0` item-10 ADV-012 stickiness postcondition + AC-6, `c2b3f28e0` item-8 DEC-SRC-0021 pre-Phase-5a migration strategy). **1 Phase 5b work item remains (9)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26) plus 1 from item-5 dispatch (27) plus 2 from item-7 dispatch (28 LevelProvenance cleanup, 29 REQ-SRC-0048 test authoring) plus 1 from item-8 dispatch (30 migration-layer implementation + tests)
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -243,8 +243,8 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 - `87fd16c88` docs(source): ACTIVE.md — record Phase 5b item 10 commit hash d95a24ea0
 
 ## Session commits (2026-04-23, Phase 5b item 8 — DEC-SRC-0021 pre-Phase-5a migration strategy)
-- (pending) feat(source): Phase 5b 8 — DEC-SRC-0021 default-on-read migration strategy (163 pass, 0 skip unchanged)
-- (pending) docs(source): ACTIVE.md — record Phase 5b item 8 commit hash
+- `c2b3f28e0` feat(source): Phase 5b 8 — DEC-SRC-0021 default-on-read migration strategy (163 pass, 0 skip unchanged)
+- (pending) docs(source): ACTIVE.md — record Phase 5b item 8 commit hash c2b3f28e0
 
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
