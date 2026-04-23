@@ -1,6 +1,6 @@
 schema_version: '1.0'
 engine: source
-updated: '2026-04-21'
+updated: '2026-04-23'
 atoms:
 - id: OF-SRC-0001
   type: feedback
@@ -758,6 +758,13 @@ atoms:
   topic: metadata
   priority: medium
   file: 10-pipeline/40-intake-analysis/REQ-SRC-0047.yaml
+- id: REQ-SRC-0048
+  type: requirement
+  status: confirmed
+  title: Deferred validation surface for owner_level_override
+  topic: metadata
+  priority: medium
+  file: 10-pipeline/40-intake-analysis/REQ-SRC-0048.yaml
 - id: CON-SRC-0011
   type: constraint
   status: confirmed

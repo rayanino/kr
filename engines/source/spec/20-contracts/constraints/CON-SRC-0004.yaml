@@ -18,8 +18,8 @@ source: >-
   path proposal, which closes the null-conflation gap that Claude
   DR correctly identified without adopting OPT-C's shallow-signal
   level emission; (b) level_status provenance is the source engine
-  at admission time, with values pending_taxonomy or
-  non_applicable_reference, extended by downstream engines to
+  at admission time, with values pending_synthesis or
+  non_applicable_reference, extended by the synthesis engine to
   assigned or unprocessable_error. Amended on 2026-04-23 (Phase 5b
   item 4, Option E-prime-final) to reconcile the non-applicable
   genre set to a six-value frozenset {mushaf, hadith_collection,
@@ -33,7 +33,42 @@ source: >-
   AC-4 covers the leveled-genre-no-override-no-composite default
   (composite_work_type is assumed null unless set by REQ-SRC-0038).
   See .kr/runtime/adjudication_gemini_dr_20260417.md sections q5
-  and final_recommendation, and follow-ups 21-26.
+  and final_recommendation, and follow-ups 21-26. Amended on
+  2026-04-23 (Phase 5b item 7, ownership story closure) for the
+  3-of-3 UNANIMOUS_OWN_SYNTHESIS HIGH-confidence verdict from Codex
+  CLI (gpt-5.4, architectural-fit axis) plus Gemini CLI 2-run
+  (gemini-3.1-pro-preview Run A and gemini-2.5-pro Run B,
+  classical-scholarly-defensibility axis) on the synthesis-vs-
+  taxonomy paper-reconciliation that Phase 5a reviewer wave flagged
+  (Codex CAF-2 + CC-adversary ADV-003). Implementation edits:
+  (a) enum value `pending_taxonomy` renamed to `pending_synthesis`
+  throughout (rule.statement, rule.implication, acceptance_criteria,
+  cross-field invariant 2, source-field narrative); (b) per Gemini
+  Run B unique catch, the generic wording "a downstream engine" in
+  rule.implication lines 74-78 (the `assigned` definition and
+  `unprocessable_error` definition) tightened to "the synthesis
+  engine" for single-writer discipline (Codex architectural test 1);
+  (c) "reserved for downstream engines" tightened to "reserved for
+  the synthesis engine"; (d) the 2026-04-17 source-narrative line
+  "extended by downstream engines to" tightened to "extended by the
+  synthesis engine to". Classical scholarly grounding (Gemini Run A
+  + Run B cross-confirmed): al-Fihrist of Ibn al-Nadīm and Kashf
+  al-Ẓunūn of Ḥājjī Khalīfa classify by fann + nawʿ but
+  systematically omit martaba — martaba is pedagogical not
+  bibliographic; Ibn Khaldūn's Muqaddima Book VI on taʿlīm al-
+  ʿulūm anchors martaba in content density and tadarruj; al-
+  Zarnūjī's Taʿlīm al-Mutaʿallim Chapter IV distinguishes reader-
+  level from text-level. Al-Kattānī's al-Risāla al-Mustaṭrafah
+  nawʿ-classification of ḥadīth books was considered by Gemini Run
+  B as an OWN_TAXONOMY counter-argument but weighed down by the
+  bibliographic-vs-pedagogical distinction. New Phase 5b follow-up
+  item 28 opened for the architectural unreachability of
+  LevelProvenance.TAXONOMY_ENGINE under OWN_SYNTHESIS (not in
+  3-evaluator reading list, deferred to a separate dispatch).
+  Reviewer outputs:
+  .kr/runtime/structural_audit_codex_cli_item7_retry_20260423.md,
+  .kr/runtime/domain_validation_gemini_cli_item7_run_A_20260423.md,
+  .kr/runtime/domain_validation_gemini_cli_item7_run_B_20260423.md.
 created: '2026-04-14'
 updated: '2026-04-23'
 depends_on:
@@ -65,24 +100,24 @@ rule:
     disputed / insufficient_evidence to avoid collision with
     REQ-SRC-0040 scholarly terminology); each author_output.positions
     entry may include entity_type in {person, institution}.
-    level_status is an enum with exactly four values: pending_taxonomy
-    (admitted, level determination deferred to the taxonomy engine),
+    level_status is an enum with exactly four values: pending_synthesis
+    (admitted, level determination deferred to the synthesis engine),
     non_applicable_reference (admitted, the work fires at least one
     INV-SRC-0012 non-applicability axis — Axis 1 genre-level with the
     six-value set {mushaf, hadith_collection, mashyakhah, thabat,
     barnamaj, fahrasah}, Axis 2 composite_work_type == "majmu", or
     the deferred Axis 3 HadithSubgenre carve-out), unprocessable_error
-    (terminal state where a downstream engine has concluded that level
+    (terminal state where the synthesis engine has concluded that level
     cannot be assigned even with further work), and assigned (level is
-    non-null and has been authoritatively written by a downstream
+    non-null and has been authoritatively written by the synthesis
     engine or by a valid owner_level_override per REQ-SRC-0047).
-    The source engine at admission time emits ONLY pending_taxonomy
+    The source engine at admission time emits ONLY pending_synthesis
     or non_applicable_reference (plus assigned when an accepted
     owner_level_override populated level at intake); the values
     unprocessable_error and assigned-from-downstream are reserved
-    for downstream engines. Cross-field invariants are mandatory:
+    for the synthesis engine. Cross-field invariants are mandatory:
     (1) level_status == "assigned" IFF level is non-null; (2)
-    level_status in {pending_taxonomy, non_applicable_reference,
+    level_status in {pending_synthesis, non_applicable_reference,
     unprocessable_error} IMPLIES level is null; (3) level_status ==
     "non_applicable_reference" IMPLIES at least one INV-SRC-0012
     axis fires (Axis 1 genre membership in the six-value set OR
@@ -129,7 +164,7 @@ acceptance_criteria:
     {agent_consensus, agent_disagreement, agent_no_evidence,
     co_authored}, author_output.positions is present, work_output is
     non-null, and level_status is non-null with a value in
-    {pending_taxonomy, non_applicable_reference, unprocessable_error,
+    {pending_synthesis, non_applicable_reference, unprocessable_error,
     assigned}.
   test_type: integration
 - id: AC-2
@@ -163,7 +198,7 @@ acceptance_criteria:
   when: source admission and handoff packaging complete
   then: >-
     SourceMetadata.level is null AND SourceMetadata.level_status ==
-    "pending_taxonomy" (cross-field invariant 2 holds; neither
+    "pending_synthesis" (cross-field invariant 2 holds; neither
     INV-SRC-0012 axis fires so non_applicable_reference is wrong).
   test_type: integration
 - id: AC-5
@@ -182,16 +217,16 @@ acceptance_criteria:
     source engine at admission time
   when: the contract validator inspects the emission
   then: >-
-    level_status is one of {pending_taxonomy,
+    level_status is one of {pending_synthesis,
     non_applicable_reference, assigned} — the source engine NEVER
     emits level_status == "unprocessable_error" at admission (that
-    value is reserved for downstream engines after attempted
+    value is reserved for the synthesis engine after attempted
     determination).
   test_type: integration
 - id: AC-7
   given: >-
     A malformed SourceMetadata record where level="mutawassiṭ" but
-    level_status="pending_taxonomy" (cross-field invariant 1
+    level_status="pending_synthesis" (cross-field invariant 1
     violation)
   when: the contract validator inspects the record
   then: >-

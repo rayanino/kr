@@ -64,7 +64,7 @@ def _accepted_metadata(
     # them one-by-one after the fact trips validate_assignment.
     if level_override is None:
         level = None
-        level_status = LevelStatus.PENDING_TAXONOMY
+        level_status = LevelStatus.PENDING_SYNTHESIS
         level_provenance: LevelProvenance | None = None
     else:
         level = level_override
@@ -366,7 +366,7 @@ def test_handoff_preserves_null_level(source_pipeline: SourcePipeline) -> None:
     dumped = bundle.source_metadata.model_dump(mode="json")
     assert "level" in dumped
     assert bundle.source_metadata.level is None
-    assert bundle.source_metadata.level_status is LevelStatus.PENDING_TAXONOMY
+    assert bundle.source_metadata.level_status is LevelStatus.PENDING_SYNTHESIS
     assert bundle.source_metadata.level_provenance is None
 
 

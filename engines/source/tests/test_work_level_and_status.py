@@ -69,7 +69,7 @@ def _build_metadata(
     source_id: str = "src_level_test",
     genre: Genre | None = Genre.RISALAH,
     level: WorkLevel | None = None,
-    level_status: LevelStatus = LevelStatus.PENDING_TAXONOMY,
+    level_status: LevelStatus = LevelStatus.PENDING_SYNTHESIS,
     level_provenance: LevelProvenance | None = None,
 ) -> SourceMetadata:
     """Construct a SourceMetadata with only the fields needed for level tests.
@@ -234,12 +234,12 @@ def test_con_src_0011_ac6_null_level_accepted() -> None:
     """Null level is accepted — the enum only governs non-null assignments."""
     metadata = _build_metadata(
         level=None,
-        level_status=LevelStatus.PENDING_TAXONOMY,
+        level_status=LevelStatus.PENDING_SYNTHESIS,
         level_provenance=None,
     )
 
     assert metadata.level is None
-    assert metadata.level_status is LevelStatus.PENDING_TAXONOMY
+    assert metadata.level_status is LevelStatus.PENDING_SYNTHESIS
     assert metadata.level_provenance is None
 
 
@@ -261,11 +261,11 @@ def test_con_src_0004_invariant_1_assigned_requires_level() -> None:
 
 @pytest.mark.spec("CON-SRC-0004", "AC-4")
 def test_con_src_0004_invariant_2_non_assigned_requires_null_level() -> None:
-    """level_status=pending_taxonomy with level populated violates invariant 2."""
+    """level_status=pending_synthesis with level populated violates invariant 2."""
     with pytest.raises(ValidationError, match="CON-SRC-0004 invariant 2"):
         _build_metadata(
             level=WorkLevel.MUBTADI,
-            level_status=LevelStatus.PENDING_TAXONOMY,
+            level_status=LevelStatus.PENDING_SYNTHESIS,
             level_provenance=LevelProvenance.OWNER_OVERRIDE,
         )
 
@@ -345,7 +345,7 @@ def test_adv_012_stickiness_null_level_forbids_provenance() -> None:
     with pytest.raises(ValidationError, match="ADV-012 stickiness"):
         _build_metadata(
             level=None,
-            level_status=LevelStatus.PENDING_TAXONOMY,
+            level_status=LevelStatus.PENDING_SYNTHESIS,
             level_provenance=LevelProvenance.TAXONOMY_ENGINE,
         )
 
@@ -367,7 +367,7 @@ def test_inv_src_0011_ac1_fiqh_fixture_yields_null_level() -> None:
     level, level_status, provenance = _resolve_level_fields(request)
 
     assert level is None
-    assert level_status is LevelStatus.PENDING_TAXONOMY
+    assert level_status is LevelStatus.PENDING_SYNTHESIS
     assert provenance is None
 
 
@@ -388,7 +388,7 @@ def test_inv_src_0011_ac2_mukhtasar_title_yields_null_level() -> None:
     level, level_status, provenance = _resolve_level_fields(request)
 
     assert level is None, "title token 'مختصر' must not populate level"
-    assert level_status is LevelStatus.PENDING_TAXONOMY
+    assert level_status is LevelStatus.PENDING_SYNTHESIS
     assert provenance is None
 
 
@@ -412,10 +412,10 @@ def test_inv_src_0011_ac3_owner_override_populates_level() -> None:
 @pytest.mark.spec("INV-SRC-0011", "AC-4")
 def test_inv_src_0011_ac4_null_level_still_populates_level_status() -> None:
     """Null level never implies null level_status — the middle-path guarantee."""
-    # Case 1: leveled genre (risalah) without override → pending_taxonomy.
+    # Case 1: leveled genre (risalah) without override → pending_synthesis.
     request = _base_deliberation_input(genre=Genre.RISALAH, level=None)
     _, status_pending, _ = _resolve_level_fields(request)
-    assert status_pending is LevelStatus.PENDING_TAXONOMY
+    assert status_pending is LevelStatus.PENDING_SYNTHESIS
 
     # Case 2: non-applicable genre → non_applicable_reference.
     request = _base_deliberation_input(genre=Genre.HADITH_COLLECTION, level=None)
@@ -660,7 +660,7 @@ def test_req_src_0007_ac4_handoff_serializes_non_applicable_reference(
 
 @pytest.mark.spec("REQ-SRC-0007", "AC-5")
 def test_req_src_0007_ac5_invariant_violation_rejects_packaging() -> None:
-    """level=mubtadiʾ + level_status=pending_taxonomy fails at SourceMetadata construction.
+    """level=mubtadiʾ + level_status=pending_synthesis fails at SourceMetadata construction.
 
     The spec wording describes this as "handoff packaging rejected with
     SRC-E-LEVEL-STATUS-INVARIANT-VIOLATION". In practice the Pydantic
@@ -673,6 +673,6 @@ def test_req_src_0007_ac5_invariant_violation_rejects_packaging() -> None:
     with pytest.raises(ValidationError, match="CON-SRC-0004 invariant 2"):
         _build_metadata(
             level=WorkLevel.MUBTADI,
-            level_status=LevelStatus.PENDING_TAXONOMY,
+            level_status=LevelStatus.PENDING_SYNTHESIS,
             level_provenance=LevelProvenance.OWNER_OVERRIDE,
         )

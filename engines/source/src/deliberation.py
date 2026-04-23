@@ -272,8 +272,8 @@ def _resolve_level_fields(
     # No override: route by non-applicability axis (CON-SRC-0004 inv 3).
     if _non_applicability_axis(deliberation_input) is not None:
         return (None, LevelStatus.NON_APPLICABLE_REFERENCE, None)
-    # Leveled genre, no structural composite signal — defer to taxonomy.
-    return (None, LevelStatus.PENDING_TAXONOMY, None)
+    # Leveled genre, no structural composite signal — defer to synthesis.
+    return (None, LevelStatus.PENDING_SYNTHESIS, None)
 
 
 def _build_source_metadata(

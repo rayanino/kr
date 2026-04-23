@@ -212,12 +212,16 @@ class WorkLevel(str, Enum):
 class LevelStatus(str, Enum):
     """Processing-state enum for SourceMetadata per CON-SRC-0004 middle-path.
 
-    The source engine emits only ``pending_taxonomy``, ``non_applicable_reference``,
-    or ``assigned``; ``unprocessable_error`` is reserved for downstream engines
+    The source engine emits only ``pending_synthesis``, ``non_applicable_reference``,
+    or ``assigned``; ``unprocessable_error`` is reserved for the synthesis engine
     after an attempted level determination concludes the text cannot be leveled.
+    Per DEC-SRC-0003 (re-confirmed 2026-04-23 Phase 5b item 7 by 3-of-3
+    UNANIMOUS_OWN_SYNTHESIS), synthesis is the authoritative owner of level
+    determination. The value name was renamed from ``pending_taxonomy`` to
+    ``pending_synthesis`` to match single-writer discipline.
     """
 
-    PENDING_TAXONOMY = "pending_taxonomy"
+    PENDING_SYNTHESIS = "pending_synthesis"
     NON_APPLICABLE_REFERENCE = "non_applicable_reference"
     UNPROCESSABLE_ERROR = "unprocessable_error"
     ASSIGNED = "assigned"

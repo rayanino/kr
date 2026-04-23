@@ -20,9 +20,19 @@ source: >-
   the earlier English placeholder "intermediate" which would fail the
   enum whitelist at REQ-SRC-0047 intake validation. Rule statement and
   implication are unchanged; the amendment is confined to the
-  acceptance criterion surface.
+  acceptance criterion surface. Amended on 2026-04-23 (Phase 5b
+  item 7, ownership story closure) after the 3-of-3 UNANIMOUS_OWN_
+  SYNTHESIS verdict (Codex CLI gpt-5.4 architectural-fit + Gemini
+  CLI 2-run gemini-3.1-pro-preview + gemini-2.5-pro classical-
+  scholarly) confirmed the rule.implication's existing naming of
+  "the synthesis engine's ownership of level classification" as
+  correct. The amendment is confined to AC-4's reference to the
+  level_status enum value `pending_taxonomy`, renamed to
+  `pending_synthesis` consistent with CON-SRC-0004's synchronized
+  rename. Rule statement, rule.implication, and AC-1 through AC-3
+  are semantically unchanged.
 created: '2026-04-16'
-updated: '2026-04-17'
+updated: '2026-04-23'
 depends_on:
 - DEC-SRC-0003
 - CON-SRC-0004
@@ -112,7 +122,7 @@ acceptance_criteria:
   when: the source engine emits the SourceMetadata record
   then: >-
     SourceMetadata.level_status is non-null and populated with a value
-    in {pending_taxonomy, non_applicable_reference} per CON-SRC-0004
+    in {pending_synthesis, non_applicable_reference} per CON-SRC-0004
     middle-path, confirming that level-field nullity does not imply
     metadata absence or processing failure — the prohibition on shallow-
     signal level inference does NOT extend to the processing-state

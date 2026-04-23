@@ -84,7 +84,7 @@ def _base_metadata() -> SourceMetadata:
         volume_count=None,
         page_count_physical=None,
         death_date_hijri=None,
-        level_status=LevelStatus.PENDING_TAXONOMY,
+        level_status=LevelStatus.PENDING_SYNTHESIS,
     )
 
 

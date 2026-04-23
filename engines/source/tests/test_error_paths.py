@@ -397,7 +397,7 @@ def _accepted_metadata(
             evidence_summary="test",
         ),
         level=None,
-        level_status=LevelStatus.PENDING_TAXONOMY,
+        level_status=LevelStatus.PENDING_SYNTHESIS,
         pdf_text_layer_status=pdf_text_layer_status,
         normalization_route=normalization_route,
         page_count=None,

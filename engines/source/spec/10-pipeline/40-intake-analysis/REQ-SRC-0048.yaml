@@ -1,0 +1,191 @@
+id: REQ-SRC-0048
+type: requirement
+status: confirmed
+title: Deferred validation surface for owner_level_override
+topic: metadata
+layer: pipeline
+step: intake_analysis
+priority: medium
+confidence: medium
+provenance: coworker_review
+source: >-
+  Initial formulation on 2026-04-23 (Phase 5b item 6), closing the
+  adversary finding ADV-005 from the Phase 5a 4-of-4 reviewer wave
+  which flagged that the deferred-validation surface was cited in
+  prior atoms but did not actually exist. The host spec (source
+  engine, not synthesis or a cross-engine contract) is determined by
+  the `REQ-SRC-*` atom-naming convention and by the item 7 3-of-3
+  UNANIMOUS_OWN_SYNTHESIS dispatch (Codex CLI + Gemini CLI 2-run)
+  `req_src_0048_scope_guidance` outputs: Gemini Run A argued
+  source-engine spec because "the source engine receives
+  owner_level_override at intake (REQ-SRC-0047) and asserts
+  level_status provenance at admission (CON-SRC-0004), so it
+  logically owns the queueing and validation state of that
+  override"; Codex argued cross-engine contract; Gemini Run B
+  argued synthesis spec. Source-engine spec wins on naming-
+  convention precedence and on the source-engine-owns-intake
+  single-writer principle. Content derives from the item 7
+  dispatch scope guidance rather than a separate atom-design
+  dispatch; future Phase 5b follow-up may harden with a focused
+  3-evaluator pre-commit review if the atom surface expands beyond
+  the initial intake-stage-only scope. Reviewer outputs informing
+  scope:
+  .kr/runtime/structural_audit_codex_cli_item7_retry_20260423.md
+  lines 126-127,
+  .kr/runtime/domain_validation_gemini_cli_item7_run_A_20260423.md
+  lines 24-25,
+  .kr/runtime/domain_validation_gemini_cli_item7_run_B_20260423.md
+  lines 143-144.
+created: '2026-04-23'
+updated: '2026-04-23'
+depends_on:
+- REQ-SRC-0047
+- REQ-SRC-0030
+- CON-SRC-0004
+- CON-SRC-0011
+- INV-SRC-0012
+- DEC-SRC-0003
+impacts:
+- level_metadata
+- level_status
+- intake_analysis
+rationale: >-
+  REQ-SRC-0047 specifies owner_level_override validation against
+  CON-SRC-0011 WorkLevel whitelist and INV-SRC-0012 non-applicability
+  axes. That validation assumes the source's genre is classified at
+  intake. In practice, the intake-stage genre classification
+  (REQ-SRC-0030) may complete AFTER the owner_level_override is
+  received — especially when metadata deliberation agents are still
+  running consensus, when the source has composite structure
+  requiring sub_work_inventory expansion (REQ-SRC-0038), or when the
+  agents return a genre_dispute rather than a consensus classification.
+  Without a deferred-validation surface, an override arriving before
+  genre resolution would either (a) force intake to block until genre
+  consensus, breaking the flow-through-progress discipline that
+  allowed invalid overrides to reject-but-continue in REQ-SRC-0047, or
+  (b) apply the override without INV-SRC-0012 axis validation,
+  potentially silently attaching a level value to a non-applicable
+  reference work (a T-2 Attribution Error per
+  reference/KNOWLEDGE_INTEGRITY.md). The deferred surface resolves
+  this by queuing the override at intake, emitting
+  level_status="pending_synthesis" on the interim SourceMetadata, and
+  re-running the REQ-SRC-0047 axis check once genre is known. When
+  agents disagree (genre_dispute), the override remains queued and
+  the tie-break authority defers to the synthesis engine per
+  DEC-SRC-0003 / CON-SRC-0004 OWN_SYNTHESIS assignment; the source
+  engine does NOT itself adjudicate disputed genre classifications
+  to apply or reject an override, because adjudication in the
+  presence of ambiguous bibliographic signals would be exactly the
+  shallow-metadata inference INV-SRC-0011 forbids.
+behavior:
+  trigger: >-
+    An owner_level_override is accepted at intake per REQ-SRC-0047
+    AC-1 (value is a valid CON-SRC-0011 WorkLevel enum member) but
+    the source's genre is not yet resolved — either because
+    metadata deliberation has not completed, or because agents
+    returned genre_dispute without consensus.
+  preconditions:
+  - owner_level_override passed the CON-SRC-0011 enum whitelist at intake (REQ-SRC-0047 AC-1 precondition).
+  - metadata deliberation (REQ-SRC-0030) has not emitted a final genre OR has emitted genre_dispute.
+  - The source's composite_work_type is either known (null or "majmu") or is pending sub_work_inventory expansion (REQ-SRC-0038).
+  postconditions:
+  - The override is queued in an intake-stage pending-override record keyed by source_id, carrying raw_token, CON-SRC-0011-validated value, an ISO 8601 queued_at timestamp, and the genre-resolution state observed at queueing.
+  - Interim SourceMetadata emits level=null and level_status="pending_synthesis" (the level is not populated from the queued override until axis validation resolves).
+  - When metadata deliberation subsequently resolves genre to a single classification AND no INV-SRC-0012 non-applicability axis fires (Axis 1 genre ∉ {mushaf, hadith_collection, mashyakhah, thabat, barnamaj, fahrasah} AND Axis 2 composite_work_type != "majmu"), the queued override is applied as if it had been validated at intake per REQ-SRC-0047 AC-1, SourceMetadata.level is populated with the override value, and SourceMetadata.level_status is updated to "assigned".
+  - When metadata deliberation resolves genre to a value where at least one INV-SRC-0012 axis fires, the queued override is rejected via the REQ-SRC-0047 AC-3 path (SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE), SourceMetadata.level remains null, and SourceMetadata.level_status is set to "non_applicable_reference".
+  - When metadata deliberation resolves with genre_dispute (agents disagree and consensus-pattern does not yield a single classification per D-041), the queued override remains queued, SourceMetadata.level_status stays "pending_synthesis", and an audit-trail entry records the dispute with each agent's proposed genre and confidence. Synthesis engine consumes the queued override and the dispute record during its authoritative level determination pass.
+  - An audit-trail entry is written at every state transition (queued, applied, rejected_nonapplicable, deferred_to_synthesis_on_dispute) with provenance="owner_override_deferred", the source_id, the genre-resolution state, and the ISO 8601 timestamp.
+  error_conditions:
+  - condition: The owner_level_override is queued but intake_analysis closes without genre ever resolving (upstream metadata deliberation timed out or failed permanently) AND no genre_dispute was recorded.
+    action: Emit SRC-E-OVERRIDE-QUEUE-ABANDONED; the queued override is not lost (persisted in the audit trail with the timeout reason), SourceMetadata.level remains null, SourceMetadata.level_status is set to "pending_synthesis" so the synthesis engine can consume the queued override record when it resumes level determination. Intake returns completeness_status="accepted_with_flags".
+    severity: blocking
+  - condition: The queued override and a genre_dispute record are both present, but no agent-proposed genre passes the CON-SRC-0011/INV-SRC-0012 cross-check (every disputed genre independently fires a non-applicability axis).
+    action: Emit SRC-E-OVERRIDE-QUEUE-UNANIMOUSLY-NONAPPLICABLE; the override is rejected (consistent with REQ-SRC-0047 AC-3 path) even though genre itself is disputed, because every dispute branch converges on non-applicability; SourceMetadata.level_status is set to "non_applicable_reference" with the disputed-but-convergent flag set in the audit trail.
+    severity: blocking
+  - condition: The override was queued at intake with queued_at timestamp T0 and a genre resolution has been received with a resolved_at timestamp T1 where (T1 - T0) exceeds the intake-stage override-staleness window (default 48 hours, configurable via source-engine intake parameters).
+    action: Emit SRC-W-OVERRIDE-QUEUE-STALE as a warning; the override is still applied/rejected per the resolved genre, but the audit trail marks the override as applied-after-stale-window, signaling to the owner-facing UI that the delay was atypical.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A source submitted with owner_level_override="mutawassiṭ" (a
+    valid CON-SRC-0011 value) where metadata deliberation has not
+    yet emitted a genre classification at the moment of intake.
+  when: intake_analysis processes the raw upload
+  then: >-
+    The override is queued with provenance="owner_override_deferred",
+    the interim SourceMetadata emits level=null and
+    level_status="pending_synthesis", an audit-trail entry records the
+    queuing event, and intake_analysis completes without blocking on
+    genre resolution.
+  test_type: integration
+- id: AC-2
+  given: >-
+    A source whose owner_level_override was queued per AC-1, when
+    metadata deliberation subsequently resolves genre="sharh" (a
+    leveled genre NOT in the Axis 1 non-applicable set) and
+    composite_work_type=null (Axis 2 does not fire).
+  when: genre resolution is received by the intake-stage override-queue handler
+  then: >-
+    The queued override is applied, SourceMetadata.level is updated
+    to "mutawassiṭ", SourceMetadata.level_status is updated to
+    "assigned", and an audit-trail entry records the applied-on-
+    resolution event with both the queued_at and resolved_at
+    timestamps.
+  test_type: integration
+- id: AC-3
+  given: >-
+    A source whose owner_level_override was queued per AC-1, when
+    metadata deliberation subsequently resolves genre="mushaf" (a
+    genre in the Axis 1 non-applicable set).
+  when: genre resolution is received by the intake-stage override-queue handler
+  then: >-
+    The queued override is rejected with SRC-E-LEVEL-OVERRIDE-
+    NONAPPLICABLE per REQ-SRC-0047 AC-3 path, SourceMetadata.level
+    remains null, SourceMetadata.level_status is updated to
+    "non_applicable_reference" with Axis 1 cited, and an audit-trail
+    entry records the rejected-on-resolution event.
+  test_type: integration
+- id: AC-4
+  given: >-
+    A source whose owner_level_override was queued per AC-1, when
+    metadata deliberation resolves with genre_dispute — two agents
+    propose "risalah" (leveled) and a third proposes "mushaf"
+    (non-applicable) with no consensus reached per D-041.
+  when: genre resolution is received by the intake-stage override-queue handler
+  then: >-
+    The queued override remains queued (not applied, not rejected),
+    SourceMetadata.level_status stays "pending_synthesis", the
+    audit-trail entry captures the genre_dispute with per-agent
+    proposed-genre and confidence, and the handoff payload to
+    normalization carries the queued-override record so the
+    synthesis engine can consume it during authoritative level
+    determination.
+  test_type: integration
+- id: AC-5
+  given: >-
+    A source submitted with owner_level_override="mubtadiʾ" where
+    metadata deliberation has ALREADY completed (genre="sharh",
+    composite_work_type=null) at the moment of intake — the
+    standard REQ-SRC-0047 path, not a deferred-validation case.
+  when: intake_analysis processes the raw upload
+  then: >-
+    The override flows through the REQ-SRC-0047 synchronous
+    validation path and the REQ-SRC-0048 deferred-queue surface is
+    bypassed — no pending-override record is created, no
+    "pending_synthesis" transition is emitted for this source, and
+    SourceMetadata emits level="mubtadiʾ" with
+    level_status="assigned" directly.
+  test_type: integration
+- id: AC-6
+  given: >-
+    A source whose owner_level_override was queued per AC-1, where
+    the intake-stage override-staleness window (48 hours default)
+    has elapsed before genre resolution is received.
+  when: genre resolution finally arrives after the staleness window
+  then: >-
+    The override is still applied/rejected per the resolved genre
+    following the standard AC-2/AC-3 paths, but SRC-W-OVERRIDE-
+    QUEUE-STALE is emitted as a warning and the audit-trail entry
+    marks the override as applied-after-stale-window.
+  test_type: deterministic

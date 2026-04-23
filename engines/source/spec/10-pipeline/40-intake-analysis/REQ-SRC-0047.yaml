@@ -14,7 +14,7 @@ source: >-
   adjudication (Codex CLI, Gemini CLI runs 1 and 2, Gemini DR): (a)
   error severity downgraded fatal → blocking per reviewer finding that
   an invalid override should reject the override but not terminate
-  intake (intake proceeds with level=null, level_status=pending_taxonomy);
+  intake (intake proceeds with level=null, level_status=pending_synthesis);
   (b) three distinct error conditions now distinguish absent vs empty
   vs invalid override values (previously conflated); (c) audit-trail
   entry structure enriched to include the raw override token, the
@@ -27,7 +27,16 @@ source: >-
   gate. Axis 1 lists the six-value genre set {mushaf, hadith_collection,
   mashyakhah, thabat, barnamaj, fahrasah}; Axis 2 fires on
   composite_work_type == "majmu" (REQ-SRC-0038); Axis 3 is deferred
-  to Phase 5b item 23. See follow-ups 21-26.
+  to Phase 5b item 23. See follow-ups 21-26. Amended on 2026-04-23
+  (Phase 5b item 7, ownership story closure) for the synchronized
+  `pending_taxonomy` → `pending_synthesis` rename across six
+  verbatim occurrences (rationale, postcondition, AC-2, AC-4, AC-5,
+  behavior.preconditions). The rename follows the 3-of-3
+  UNANIMOUS_OWN_SYNTHESIS verdict (Codex CLI gpt-5.4
+  architectural-fit + Gemini CLI 2-run gemini-3.1-pro-preview
+  + gemini-2.5-pro classical-scholarly) on CON-SRC-0004 enum.
+  Error codes, severity, behaviour, and acceptance criteria shape
+  unchanged.
 created: '2026-04-16'
 updated: '2026-04-23'
 depends_on:
@@ -53,7 +62,7 @@ rationale: >-
   WorkLevel enum value (CON-SRC-0011), or when the source's genre falls
   in the non-applicable set (INV-SRC-0012). In all rejection cases,
   intake continues with level=null and level_status set by the standard
-  source-engine rules (pending_taxonomy for leveled genres,
+  source-engine rules (pending_synthesis for leveled genres,
   non_applicable_reference for non-applicable genres), so an invalid
   override never aborts source admission.
 behavior:
@@ -62,7 +71,7 @@ behavior:
   - owner_level_override, if present, is a string whose value MAY be one of the CON-SRC-0011 WorkLevel enum values (mubtadiʾ, mutawassiṭ, muntahī) — the enum-value whitelist is read from CON-SRC-0011 at validation time, not hard-coded at this atom.
   - The source's genre has been classified by metadata deliberation (REQ-SRC-0030) OR is still pending (override validation is deferred to the genre-resolved point when genre is not yet known at the intake surface).
   postconditions:
-  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules — pending_taxonomy when no INV-SRC-0012 non-applicability axis fires, non_applicable_reference when at least one axis fires (Axis 1 genre ∈ {mushaf, hadith_collection, mashyakhah, thabat, barnamaj, fahrasah} OR Axis 2 composite_work_type == "majmu").
+  - When owner_level_override is absent (the field is not present on the intake payload), SourceMetadata.level remains null and level_status is set per standard source-engine rules — pending_synthesis when no INV-SRC-0012 non-applicability axis fires, non_applicable_reference when at least one axis fires (Axis 1 genre ∈ {mushaf, hadith_collection, mashyakhah, thabat, barnamaj, fahrasah} OR Axis 2 composite_work_type == "majmu").
   - When owner_level_override is present AND the value passes the CON-SRC-0011 enum whitelist AND NO INV-SRC-0012 non-applicability axis fires (Axis 1 genre not in the six-value set AND Axis 2 composite_work_type != "majmu"), SourceMetadata.level is populated with the exact enum value and level_status is set to "assigned".
   - An audit-trail entry is written with provenance="owner_override", the raw override token received at intake, the validation verdict (accepted | rejected_invalid | rejected_nonapplicable | rejected_empty), the CON-SRC-0011 whitelist that was applied (enumerated snapshot), and an ISO 8601 timestamp of when the override was evaluated.
   - The override value, when accepted, survives through source admission and normalization handoff packaging unchanged (per REQ-SRC-0007 AC-3).
@@ -99,7 +108,7 @@ acceptance_criteria:
   then: >-
     The override is rejected with SRC-E-LEVEL-OVERRIDE-INVALID,
     SourceMetadata.level remains null, SourceMetadata.level_status=
-    "pending_taxonomy", intake_analysis continues, and an audit-trail
+    "pending_synthesis", intake_analysis continues, and an audit-trail
     entry records raw_token="expert" and verdict="rejected_invalid".
   test_type: deterministic
 - id: AC-3
@@ -121,7 +130,7 @@ acceptance_criteria:
   then: >-
     The override is rejected with SRC-E-LEVEL-OVERRIDE-EMPTY,
     SourceMetadata.level remains null, SourceMetadata.level_status=
-    "pending_taxonomy" (or "non_applicable_reference" per genre), and
+    "pending_synthesis" (or "non_applicable_reference" per genre), and
     an audit-trail entry records verdict="rejected_empty".
   test_type: deterministic
 - id: AC-5
@@ -132,7 +141,7 @@ acceptance_criteria:
   then: >-
     No audit-trail entry is written for override evaluation,
     SourceMetadata.level remains null, SourceMetadata.level_status is
-    set per standard source-engine rules (pending_taxonomy for leveled
+    set per standard source-engine rules (pending_synthesis for leveled
     genres, non_applicable_reference for non-applicable genres), and
     intake_analysis completes without error.
   test_type: deterministic

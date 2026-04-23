@@ -3,7 +3,7 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 110 |
+| Total atoms | 111 |
 
 ## By Type
 | Type | Count |
@@ -13,12 +13,12 @@
 | feedback | 16 |
 | invariant | 12 |
 | question | 6 |
-| requirement | 47 |
+| requirement | 48 |
 
 ## By Status
 | Status | Count |
 | --- | --- |
-| confirmed | 104 |
+| confirmed | 105 |
 | deferred | 1 |
 | superseded | 5 |
 
@@ -32,7 +32,7 @@
 | freezing | 1 |
 | handoff | 12 |
 | identity | 5 |
-| metadata | 44 |
+| metadata | 45 |
 | trust | 11 |
 | validation | 1 |
 
@@ -149,3 +149,4 @@
 | REQ-SRC-0045 | requirement | pipeline | source_admission_and_normalization_handoff | Supersession signal emission on source admission | confirmed | high | dedup | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0045.yaml |
 | REQ-SRC-0046 | requirement | pipeline | source_admission_and_normalization_handoff | Evidence preservation for downstream level inference | confirmed | critical | handoff | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0046.yaml |
 | REQ-SRC-0047 | requirement | pipeline | intake_analysis | Owner override pathway for level at intake | confirmed | medium | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0047.yaml |
+| REQ-SRC-0048 | requirement | pipeline | intake_analysis | Deferred validation surface for owner_level_override | confirmed | medium | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0048.yaml |
