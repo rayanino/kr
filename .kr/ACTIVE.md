@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1, 2, 3, 4, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, item-4 commit pending). **6 Phase 5b work items remain (5, 6, 7, 8, 9, 10, 11)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26)
+Status: active — Phase 5b items 1, 2, 3, 4, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb` item-4 Option E-prime-final). **6 Phase 5b work items remain (5, 6, 7, 8, 9, 10, 11)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26)
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -224,7 +224,7 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 - (none) Pre-commit 3-evaluator dispatch on 4 drafted options surfaced unanimous scholarly BLOCKER_PRESENT from both Gemini runs on classical-taxonomy category errors. Item 4 re-scoped to Option E (MUSHAF-only + orthogonal gate redesign), requires fresh dispatch. Only ACTIVE.md + dispatch_log.jsonl updated.
 
 ## Session commits (2026-04-23, Phase 5b item 4 closure — Option E-prime-final)
-- (pending) fix(source): Phase 5b 4 — E-prime-final 6-value non-applicable set + 3-axis gate (160 pass, 0 skip)
+- `b651b20eb` fix(source): Phase 5b 4 — Option E-prime-final 3-axis non-applicability gate (160 pass, 0 skip)
 
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
