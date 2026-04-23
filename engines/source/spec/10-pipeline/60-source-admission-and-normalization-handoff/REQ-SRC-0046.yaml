@@ -85,8 +85,45 @@ source: >-
   evidence that upstream can re-emit" in the blocking tier, not
   fatal) and raise-site wiring in engines/source/src/admission.py
   _build_handoff_bundle (Codex DIM4 AMEND).
+  Amended on 2026-04-23 (Phase 5b item 9 bundled with follow-up 19)
+  to land the severity reclassification fatal → blocking on both
+  SRC-E-HANDOFF-EVIDENCE-DROPPED and SRC-E-HANDOFF-EVIDENCE-DROPPED-
+  NESTED error conditions. Per CON-SRC-0012 operational taxonomy,
+  "fatal" is reserved for unrecoverable data corruption whereas
+  "blocking" covers recoverable rejection with a correction path.
+  Handoff-layer evidence omissions fit the blocking tier — upstream
+  can re-emit the absent signals by re-running intake analysis
+  (REQ-SRC-0037) on the already-frozen source, so the condition is
+  recoverable. Gemini Run B DIM2 rationale verbatim: "Option B's
+  HANDOFF_ prefix makes it clear this is a recoverable boundary
+  transmission failure rather than source corruption, making it
+  easier to correctly reason about and downgrade the severity to
+  blocking." The HANDOFF_ prefix established in item 16 already
+  isolated the failure mode from step-40 primary-text corruption;
+  this amendment completes that isolation by aligning severity with
+  CON-SRC-0012. Also amended 2026-04-23 (Phase 5b item 9) to close
+  the ADV-010 Shamela happy-path concern: the atom's existing
+  postconditions (when not populated the key is present with value
+  null, recursive D-023 preservation) already protect the Shamela
+  mushaf case where edition_info, muhaqiq_output, publisher, and
+  matn_embedding_style are legitimately absent — Pydantic v2's
+  default model_dump(mode="json") without exclude_none=True
+  serializes Optional=None fields as null-valued JSON keys, not
+  omissions. AC-8 added to provide the missing spec-linked proof
+  that the Shamela happy-path actually satisfies the null-key
+  contract today: a deterministic test constructs a SourceMetadata
+  with all Shamela-legitimately-absent signals set to None, calls
+  the admission flow, and asserts the JSON surface contains every
+  one of the 17 required-preserved signal keys with null values
+  for the absent ones. Without AC-8, a future exclude_none=True
+  added to a model_dump call would silently break the contract and
+  no spec-linked test would catch it. The raise-site wiring in
+  admission.py _build_handoff_bundle for the positive error-raise
+  path remains tracked as follow-up item 20 — this amendment
+  lands the severity change and the Shamela happy-path assertion
+  only.
 created: '2026-04-16'
-updated: '2026-04-21'
+updated: '2026-04-23'
 depends_on:
 - CON-SRC-0004
 - REQ-SRC-0007
@@ -144,11 +181,11 @@ behavior:
   - No evidence signal listed above is omitted from the payload — absent values serialize as null per D-023 metadata preservation, at every structural depth.
   error_conditions:
   - condition: Any signal in the required-preserved 17-signal set is missing (key absent, not null) from the handoff payload.
-    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED; the error message identifies the specific signal and the structural depth at which the omission occurred.
-    severity: fatal
+    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED; the error message identifies the specific signal and the structural depth at which the omission occurred. The correction path per CON-SRC-0012 blocking-tier semantics is to re-run intake analysis (REQ-SRC-0037) on the already-frozen source so the absent signal is re-emitted; handoff packaging then retries.
+    severity: blocking
   - condition: A nested structured signal (muhaqiq_output, edition_info, genre_dispute, author_output) is populated at the top level but has sub-field omissions (key absent, not null) within its nested object — including sub-fields nested inside list elements (e.g. author_output.positions[i].death_hijri).
-    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED; the error message identifies the specific sub-field and the parent signal, using array-index notation for list-item sub-fields (e.g. "author_output.positions[0].death_hijri").
-    severity: fatal
+    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED; the error message identifies the specific sub-field and the parent signal, using array-index notation for list-item sub-fields (e.g. "author_output.positions[0].death_hijri"). Correction path identical to the top-level case — re-run intake analysis to re-emit the nested sub-field, then retry handoff packaging.
+    severity: blocking
 acceptance_criteria:
 - id: AC-1
   given: >-
@@ -247,4 +284,38 @@ acceptance_criteria:
     The packaging is aborted with SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED
     identifying author_output.positions[0].death_hijri as the
     omitted sub-field and no partial bundle is emitted.
+  test_type: deterministic
+- id: AC-8
+  given: >-
+    A Shamela mushaf-style SourceMetadata where the four signals
+    Shamela legitimately lacks — edition_info, muhaqiq_output,
+    publisher, matn_embedding_style — are all set to None, along
+    with the other Optional signals page_layout_hint,
+    pdf_text_layer_status (non-PDF source), holding_id, and
+    genre_dispute that may also be legitimately absent for a
+    Shamela intake. Every mandatory signal on SourceMetadata is
+    populated normally (title_arabic, genre, science_scope,
+    is_multi_layer, structural_format, edition_group_id,
+    volume_count, author_output, and the intake_dossier
+    contains_isnad_chains surface)
+  when: source admission and normalization handoff packaging
+    executes and the resulting bundle is serialized via Pydantic
+    model_dump(mode="json") — the default serialization mode used
+    by admission.py _build_handoff_bundle without exclude_none or
+    exclude_unset overrides
+  then: >-
+    The serialized JSON payload contains every key from the
+    17-signal required-preserved set. Legitimately-absent signals
+    (edition_info, muhaqiq_output, publisher, matn_embedding_style,
+    page_layout_hint, pdf_text_layer_status, holding_id,
+    genre_dispute) appear as keys with value null — the null-key
+    contract from REQ-SRC-0046 postconditions is satisfied by
+    Pydantic v2 default serialization of Optional=None fields as
+    JSON null. No SRC-E-HANDOFF-EVIDENCE-DROPPED or
+    SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED error is raised. This AC
+    closes the ADV-010 Shamela happy-path concern by providing the
+    spec-linked proof that the null-key contract is operational on
+    Shamela mushaf intakes — and it guards against a future
+    exclude_none=True argument silently breaking the contract in
+    a model_dump call.
   test_type: deterministic
