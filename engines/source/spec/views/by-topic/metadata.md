@@ -9,6 +9,7 @@
 | DEC-SRC-0007 | decision | Disputed metadata as multi-position evidence | confirmed | high |
 | DEC-SRC-0010 | decision | Source hints multi-layer routing and normalization confirms it | confirmed | medium |
 | DEC-SRC-0012 | decision | Multi-position metadata ordered by confidence | confirmed | high |
+| DEC-SRC-0021 | decision | Pre-Phase-5a SourceMetadata migration — default-on-read at load boundary | confirmed | high |
 | INV-SRC-0002 | invariant | Author attribution role separation is mandatory | confirmed | critical |
 | INV-SRC-0003 | invariant | Library never refuses knowledge | confirmed | critical |
 | INV-SRC-0006 | invariant | Isnad atomic preservation | confirmed | high |
@@ -122,6 +123,17 @@
 - Source: Resolves OQ-SRC-0006; builds on DEC-SRC-0007 and REQ-SRC-0012
 - Chosen option: OPT-B — Sort by confidence descending with primary marker
 - Decision rationale: Confidence ordering gives downstream engines a natural default (positions[0]) while preserving all scholarly positions. The owner's principle is truth-seeking — all positions stay, but the most-evidenced one is first.
+
+### DEC-SRC-0021 — Pre-Phase-5a SourceMetadata migration — default-on-read at load boundary
+- Type: decision
+- Layer: architecture
+- Step: n/a
+- Status: confirmed
+- Priority: high
+- Confidence: high
+- Source: Landed on 2026-04-23 (Phase 5b item 8) to resolve Phase 5a adversary finding ADV-013 (severity: HIGH; attack_vector: V5 T-2 corruption; affected_atoms: CON-SRC-0004, REQ-SRC-0007). ADV-013 verbatim description: "Pre-Phase-5a migration corruption. CON-SRC-0004 requires non-null level_status; REQ-SRC-0007 rejects serialization if missing. Legacy sources have no level_status. No atom specifies default-on-read, one-shot migration, or re-admission flow." See `.kr/runtime/adversary_phase5a_20260417.md`:309-316. This decision closes that gap by binding the migration strategy BEFORE any production sources enter the library, so the first admission event after Phase 5b closure operates against a defined policy rather than discovering one ad-hoc. The library is currently empty (no frozen sources admitted as of 2026-04-23); this decision is forward-looking and applies at the moment any SourceMetadata record is loaded whose persisted JSON lacks fields that Phase 5a introduced (level_status mandatory; level_provenance IFF-paired with level; composite_work_type; the 6-value Axis 1 genre set used by CON-SRC-0004 invariant 3).
+- Chosen option: OPT-B — Default-on-read at the load boundary with conservative defaults + human_gate routing for ambiguous cases
+- Decision rationale: Reversible, non-destructive, D-023-compatible, and safe under the empty-library state. The migration logic is concrete and testable: (i) missing level_status + level null + genre not in NON_APPLICABLE_GENRE_VALUES + composite_work_type != "majmu" ⇒ default level_status=pending_synthesis; (ii) missing level_status + level null + genre in NON_APPLICABLE_GENRE_VALUES (Axis 1) OR composite_work_type=="majmu" (Axis 2) ⇒ default level_status=non_applicable_reference; (iii) missing level_status + level non-null ⇒ ambiguous, raise SRC-E-LEGACY-RECORD-AMBIGUOUS-STATUS and route to human_gate (cannot safely default between assigned and non_applicable_reference without rerunning deliberation); (iv) missing level_provenance + level null ⇒ default level_provenance=null (IFF-consistent with ADV-012 stickiness); (v) missing level_provenance + level non-null ⇒ ambiguous, raise SRC-E-LEGACY-RECORD-AMBIGUOUS-PROVENANCE and route to human_gate (cannot distinguish owner_override from synthesis_engine without additional evidence — OPT-A's rejection-ground 2 at the record level). (vi) missing composite_work_type ⇒ default to None (the field was not present pre-Phase-5a; Axis 2 of INV-SRC-0012 cannot fire for a legacy record lacking the field, so default None is safe and preserves the 3-axis gate invariants). Every migration decision is audited; nothing is silently corrected. Aligns with Critical Rule 4 (errors fail loudly) because ambiguous cases become blocking load-boundary errors rather than silent defaults. Aligns with D-023 (persisted records unchanged) and with INV-SRC-0011 (source engine never infers level from shallow signals — the migration layer defaults level_status from level and genre, which are already-present fields, not inferred content).
 
 ### INV-SRC-0002 — Author attribution role separation is mandatory
 - Type: invariant

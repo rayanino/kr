@@ -1,0 +1,138 @@
+id: DEC-SRC-0021
+type: decision
+status: confirmed
+title: Pre-Phase-5a SourceMetadata migration — default-on-read at load boundary
+topic: metadata
+layer: architecture
+priority: high
+confidence: high
+provenance: deep_research
+source: >-
+  Landed on 2026-04-23 (Phase 5b item 8) to resolve Phase 5a adversary
+  finding ADV-013 (severity: HIGH; attack_vector: V5 T-2 corruption;
+  affected_atoms: CON-SRC-0004, REQ-SRC-0007). ADV-013 verbatim
+  description: "Pre-Phase-5a migration corruption. CON-SRC-0004 requires
+  non-null level_status; REQ-SRC-0007 rejects serialization if missing.
+  Legacy sources have no level_status. No atom specifies default-on-read,
+  one-shot migration, or re-admission flow." See
+  `.kr/runtime/adversary_phase5a_20260417.md`:309-316. This decision
+  closes that gap by binding the migration strategy BEFORE any
+  production sources enter the library, so the first admission event
+  after Phase 5b closure operates against a defined policy rather
+  than discovering one ad-hoc. The library is currently empty (no
+  frozen sources admitted as of 2026-04-23); this decision is
+  forward-looking and applies at the moment any SourceMetadata record
+  is loaded whose persisted JSON lacks fields that Phase 5a
+  introduced (level_status mandatory; level_provenance IFF-paired
+  with level; composite_work_type; the 6-value Axis 1 genre set used
+  by CON-SRC-0004 invariant 3).
+created: '2026-04-23'
+updated: '2026-04-23'
+depends_on:
+- CON-SRC-0004
+- CON-SRC-0011
+- DEC-SRC-0003
+- INV-SRC-0011
+- INV-SRC-0012
+- REQ-SRC-0007
+- REQ-SRC-0047
+impacts:
+- legacy_data_handling
+- load_boundary_deserialization
+- human_gate_routing
+- level_provenance_defaults
+- d023_metadata_preservation
+options:
+- id: OPT-A
+  label: One-shot migration script rewriting all persisted records in place
+  description: >-
+    At a scheduled maintenance window, iterate every persisted
+    SourceMetadata JSON artifact in the library, compute missing
+    fields (level_status, level_provenance, composite_work_type) per
+    a best-effort heuristic, and write the enriched record back to
+    disk, replacing the legacy file atomically. Downstream artifacts
+    referencing the old JSON are notified via a migration manifest.
+    After migration completes, all records carry the Phase 5a schema
+    and the load boundary requires no defaulting logic.
+  status: rejected
+  rejection_reason: >-
+    Three rejection grounds. (1) Destructive — rewrites persisted
+    records, violating the spirit of D-023 metadata preservation
+    (the owner-writable registry is append-only for metadata
+    provenance). (2) Guesswork — a legacy record with level non-null
+    but missing level_provenance cannot be disambiguated between
+    owner_override and synthesis_engine without additional evidence;
+    a one-shot script defaulting to either value is a T-2 corruption
+    vector (the ADV-012 stickiness concern). (3) Unnecessary — the
+    library is empty as of 2026-04-23, so there are zero records to
+    migrate today. If legacy records ever exist (e.g. via branch
+    rollback or external-corpus import), default-on-read gives
+    byte-preserving forward migration without rewriting. A one-shot
+    script imposes maintenance-window downtime for no upside.
+- id: OPT-B
+  label: Default-on-read at the load boundary with conservative defaults + human_gate routing for ambiguous cases
+  description: >-
+    Apply migration logic in-memory at every SourceMetadata load
+    boundary (Pydantic deserialization from persisted JSON,
+    RawUploadRecord reconstruction, registry-fetch paths). Persisted
+    records are NEVER rewritten as a side effect of load. Conservative
+    defaults apply for the unambiguous cases. Ambiguous cases
+    (insufficient evidence to safely default) raise a load-boundary
+    error that routes the record to human_gate for owner confirmation.
+    The migration layer emits a structured migration-event audit
+    entry for every legacy-record encounter (fields defaulted,
+    ambiguous-field list, human_gate routing decision), written to
+    the same audit-trail surface used by REQ-SRC-0047 owner-override
+    evaluation. Detailed rules per field shape (chosen_reason
+    below).
+  status: chosen
+  chosen_reason: >-
+    Reversible, non-destructive, D-023-compatible, and safe under
+    the empty-library state. The migration logic is concrete and
+    testable: (i) missing level_status + level null + genre not in
+    NON_APPLICABLE_GENRE_VALUES + composite_work_type != "majmu"
+    ⇒ default level_status=pending_synthesis; (ii) missing
+    level_status + level null + genre in NON_APPLICABLE_GENRE_VALUES
+    (Axis 1) OR composite_work_type=="majmu" (Axis 2) ⇒ default
+    level_status=non_applicable_reference; (iii) missing level_status
+    + level non-null ⇒ ambiguous, raise
+    SRC-E-LEGACY-RECORD-AMBIGUOUS-STATUS and route to human_gate
+    (cannot safely default between assigned and non_applicable_reference
+    without rerunning deliberation); (iv) missing level_provenance
+    + level null ⇒ default level_provenance=null (IFF-consistent
+    with ADV-012 stickiness); (v) missing level_provenance + level
+    non-null ⇒ ambiguous, raise
+    SRC-E-LEGACY-RECORD-AMBIGUOUS-PROVENANCE and route to human_gate
+    (cannot distinguish owner_override from synthesis_engine without
+    additional evidence — OPT-A's rejection-ground 2 at the record
+    level). (vi) missing composite_work_type ⇒ default to None
+    (the field was not present pre-Phase-5a; Axis 2 of INV-SRC-0012
+    cannot fire for a legacy record lacking the field, so default
+    None is safe and preserves the 3-axis gate invariants). Every
+    migration decision is audited; nothing is silently corrected.
+    Aligns with Critical Rule 4 (errors fail loudly) because
+    ambiguous cases become blocking load-boundary errors rather
+    than silent defaults. Aligns with D-023 (persisted records
+    unchanged) and with INV-SRC-0011 (source engine never infers
+    level from shallow signals — the migration layer defaults
+    level_status from level and genre, which are already-present
+    fields, not inferred content).
+- id: OPT-C
+  label: Reject legacy records at load boundary without any migration
+  description: >-
+    A SourceMetadata JSON artifact missing ANY Phase 5a field
+    (level_status, level_provenance, composite_work_type) is
+    rejected at load with SRC-E-LEGACY-RECORD-REJECTED. The owner
+    must re-admit the source through the current intake pathway,
+    producing a fresh Phase-5a-compliant record. Legacy JSON is
+    preserved on disk but unreadable by current code.
+  status: rejected
+  rejection_reason: >-
+    Fails forward compatibility in two ways. (1) Any future schema
+    migration (Phase 5c, 5d, etc.) requires the owner to re-admit
+    every legacy source, which scales badly as the library grows.
+    (2) Re-admission is a destructive substitute — the original
+    provenance (when the owner first asserted the source) is lost
+    or paper-over-reconstructed in the new admission timestamp.
+    OPT-B's default-on-read preserves that history because the
+    persisted JSON stays on disk unchanged.

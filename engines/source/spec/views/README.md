@@ -3,13 +3,13 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 111 |
+| Total atoms | 112 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
 | constraint | 9 |
-| decision | 20 |
+| decision | 21 |
 | feedback | 16 |
 | invariant | 12 |
 | question | 6 |
@@ -18,7 +18,7 @@
 ## By Status
 | Status | Count |
 | --- | --- |
-| confirmed | 105 |
+| confirmed | 106 |
 | deferred | 1 |
 | superseded | 5 |
 
@@ -32,7 +32,7 @@
 | freezing | 1 |
 | handoff | 12 |
 | identity | 5 |
-| metadata | 45 |
+| metadata | 46 |
 | trust | 11 |
 | validation | 1 |
 
@@ -68,6 +68,7 @@
 | DEC-SRC-0018 | decision | architecture | — | Sources are immutable; collection entries evolve | confirmed | critical | dedup | 30-architecture/decisions/DEC-SRC-0018.yaml |
 | DEC-SRC-0019 | decision | architecture | — | Mixed-edition volumes never silently produce a coherent edition holding | confirmed | critical | dedup | 30-architecture/decisions/DEC-SRC-0019.yaml |
 | DEC-SRC-0020 | decision | architecture | — | Supersession is pointer-based, not deletion-based | confirmed | critical | dedup | 30-architecture/decisions/DEC-SRC-0020.yaml |
+| DEC-SRC-0021 | decision | architecture | — | Pre-Phase-5a SourceMetadata migration — default-on-read at load boundary | confirmed | high | metadata | 30-architecture/decisions/DEC-SRC-0021.yaml |
 | INV-SRC-0001 | invariant | quality | — | Owner hints never bias inference | confirmed | critical | acquisition | 40-quality/invariants/INV-SRC-0001.yaml |
 | INV-SRC-0002 | invariant | quality | — | Author attribution role separation is mandatory | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0002.yaml |
 | INV-SRC-0003 | invariant | quality | — | Library never refuses knowledge | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0003.yaml |

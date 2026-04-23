@@ -1,6 +1,6 @@
 schema_version: '1.0'
 engine: source
-updated: '2026-04-23'
+updated: '2026-04-23'  # Phase 5b item 8 — DEC-SRC-0021 pre-Phase-5a migration strategy registered
 atoms:
 - id: OF-SRC-0001
   type: feedback
@@ -723,6 +723,13 @@ atoms:
   topic: dedup
   priority: critical
   file: 30-architecture/decisions/DEC-SRC-0020.yaml
+- id: DEC-SRC-0021
+  type: decision
+  status: confirmed
+  title: Pre-Phase-5a SourceMetadata migration — default-on-read at load boundary
+  topic: metadata
+  priority: high
+  file: 30-architecture/decisions/DEC-SRC-0021.yaml
 - id: INV-SRC-0010
   type: invariant
   status: confirmed
