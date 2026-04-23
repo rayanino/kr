@@ -8,8 +8,9 @@ priority: high
 confidence: high
 provenance: deep_research
 source: >-
-  Landed on 2026-04-23 (Phase 5b item 8) to resolve Phase 5a adversary
-  finding ADV-013 (severity: HIGH; attack_vector: V5 T-2 corruption;
+  Landed on 2026-04-23 (Phase 5b item 8) and amended same day by the
+  closure wave to add localization and owner-experience constraints.
+  Initial landing resolved Phase 5a adversary finding ADV-013 (severity: HIGH; attack_vector: V5 T-2 corruption;
   affected_atoms: CON-SRC-0004, REQ-SRC-0007). ADV-013 verbatim
   description: "Pre-Phase-5a migration corruption. CON-SRC-0004 requires
   non-null level_status; REQ-SRC-0007 rejects serialization if missing.
@@ -116,7 +117,29 @@ options:
     unchanged) and with INV-SRC-0011 (source engine never infers
     level from shallow signals — the migration layer defaults
     level_status from level and genre, which are already-present
-    fields, not inferred content).
+    fields, not inferred content). Closure-wave 2026-04-23
+    localization constraints (Run A DVF-3, Run B DVF-2, 2-of-2
+    Gemini convergent on DIM3/DIM6): (vii) Arabic localization of
+    "provenance" in error surfaces MUST use maṣdar al-taqyīm
+    (مصدر التقييم) — the metadata-origin sense — and MUST NOT use
+    sanad (سند), bayyina (بينة), or shahāda (شهادة), which carry
+    hadith-science and uṣūl al-fiqh evidentiary semantics whose
+    conflation with pipeline-provenance is a T-2 corruption
+    vector (cf. al-Khaṭīb al-Baghdādī al-Kifāyah fī ʿIlm al-
+    Riwāyah on transmission-term precision). (viii) the human_gate
+    routing for SRC-E-LEGACY-RECORD-AMBIGUOUS-STATUS and
+    SRC-E-LEGACY-RECORD-AMBIGUOUS-PROVENANCE MUST NOT expose
+    technical enum values or architecture strings (e.g. the literal
+    strings "owner_override" or "synthesis_engine") to the non-
+    technical owner. The owner-facing prompt MUST be framed as a
+    plain-language pedagogical question about the book itself — a
+    canonical example prompt: "هل سبق أن حدّدتَ درجةَ هذا الكتاب
+    بنفسك؟ (Did you previously assign this book's reading level
+    yourself, or was it categorized automatically?)" — referencing
+    the book title in context. The owner knows his own learning
+    history with the text (he placed it, or did not); he does not
+    know the provenance enum universe. Implementation of the
+    human_gate surface is scheduled under follow-up item 30.
 - id: OPT-C
   label: Reject legacy records at load boundary without any migration
   description: >-

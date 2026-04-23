@@ -58,6 +58,25 @@ source: >-
   stronger than the Adversary's proposed "outer author's work only"
   alternative fix — it refuses the author-rank proxy in favor of the
   pedagogical-fit question the owner actually asks of the library.
+  Closure-wave amendment 2026-04-23 (Codex CAF-5 + 2-of-2 Gemini
+  DIM1/DIM2 convergent): (a) replaced residual "taxonomy engine"
+  wording in rationale with "synthesis engine" per DEC-SRC-0003
+  synthesis-owns-level (closes Codex CAF-5); (b) anchored the
+  multi-layer scope clause in rule.statement to the classical Arabic
+  istiʿdād al-mutaʿallim (استعداد المتعلم) per Ibn Khaldūn Muqaddima
+  VI, with al-qāriʾ al-maqṣūd (القارئ المقصود) as equivalent gloss
+  (closes 2-of-2 Gemini DIM1 — Run A proposed istiʿdād, Run B
+  proposed al-qāriʾ al-maqṣūd; both kept, classical primacy to Ibn
+  Khaldūn's exact phrasing); (c) augmented AC-7 from a single
+  Hanbali exemplar (Ibn ʿUthaymīn) to a four-madhhab exemplar set
+  (Maḥallī Sharḥ al-Waraqāt for Shafiʿi, al-Shurunbulālī Nūr al-
+  Īḍāḥ for Hanafi, Zarrūq Sharḥ al-Risālah for Maliki, original
+  Ibn ʿUthaymīn retained for Hanbali), avoiding perceived madhhab
+  bias and demonstrating that the istiʿdād al-mutaʿallim scope rule
+  is universally institutionalized across the Sunni schools
+  (closes 2-of-2 Gemini DIM2 convergent finding). Reviewer outputs
+  at `.kr/runtime/closure_wave_codex_cli_20260423.md` and
+  `.kr/runtime/closure_wave_gemini_cli_run_{A,B}_20260423.md`.
 created: '2026-04-17'
 updated: '2026-04-23'
 depends_on:
@@ -70,7 +89,9 @@ rationale: >-
   The SourceMetadata.level field is populated from one of two
   sources: (a) an owner_level_override supplied at intake, validated
   by REQ-SRC-0047 against this enum; or (b) a downstream authoritative
-  write by the taxonomy engine after content analysis. Both pathways
+  write by the synthesis engine after content analysis, per DEC-SRC-0003
+  synthesis-owns-level (the earlier "taxonomy engine" wording was
+  retired in Phase 5b item 7 and re-ratified by the closure wave). Both pathways
   MUST use the same enum vocabulary, and that vocabulary MUST be
   classically defensible — the owner is a non-technical Muslim
   student building his personal scholarly library, and label
@@ -106,10 +127,16 @@ rule:
     composite work as a whole — the pedagogical state of the student
     for whom the work is intended — NOT the level of any contained
     layer, the author's own scholarly stature, or the matn's intrinsic
-    density. A sharḥ composed by a muntahī to teach mubtadiʾ students
-    is assigned level="mubtadiʾ"; a ḥāshiya composed for muntahī-level
-    Ḥanafī specialists is assigned level="muntahī" regardless of the
-    underlying matn's native level.
+    density. The classical Arabic anchor for this scope is
+    istiʿdād al-mutaʿallim (استعداد المتعلم) per Ibn Khaldūn
+    Muqaddima VI, faṣl fī wajh al-ṣawāb fī taʿlīm al-ʿulūm —
+    "wa-muraʿāt istiʿdād al-mutaʿallim wa-qabūlihi" — the readiness
+    and receptivity of the learner for whom the work is pitched;
+    al-qāriʾ al-maqṣūd (القارئ المقصود) is an acceptable
+    equivalent gloss. A sharḥ composed by a muntahī to teach mubtadiʾ
+    students is assigned level="mubtadiʾ"; a ḥāshiya composed for
+    muntahī-level Ḥanafī specialists is assigned level="muntahī"
+    regardless of the underlying matn's native level.
   implication: >-
     Any SourceMetadata record whose level field contains a string
     not in {mubtadiʾ, mutawassiṭ, muntahī} (when level is non-null)
@@ -186,18 +213,28 @@ acceptance_criteria:
   given: >-
     A SourceMetadata record for a multi-layer work (is_multi_layer=
     true) whose outer-layer author is a muntahī-level scholar but
-    whose target readership is mubtadiʾ students (classical exemplar:
-    شرح الأصول الثلاثة of Ibn ʿUthaymīn — a major muntahī authoring a
-    foundational sharḥ for absolute beginners), with level="mubtadiʾ"
+    whose target readership is mubtadiʾ students. Cross-madhhab
+    exemplars (any of the four Sunni schools illustrate the same
+    istiʿdād al-mutaʿallim scope rule): (Hanbali) شرح الأصول الثلاثة
+    of Ibn ʿUthaymīn — a muntahī authoring a foundational sharḥ for
+    absolute beginners; (Shafiʿi) شرح الورقات في أصول الفقه of Jalāl
+    al-Dīn al-Maḥallī — a muntahī's canonical commentary on the
+    mubtadiʾ-targeted al-Waraqāt; (Hanafi) نور الإيضاح ونجاة الأرواح
+    of al-Shurunbulālī — a late-era Hanafi muntahī's foundational
+    fiqh primer widely taught at the mubtadiʾ stage; (Maliki) شرح
+    الرسالة of Zarrūq on Ibn Abī Zayd al-Qayrawānī's mubtadiʾ-
+    targeted creed-and-fiqh risāla. Any of the four exemplars,
+    with level="mubtadiʾ", demonstrates the rule equivalently.
   when: the enum validator inspects the record and the rule.statement
     multi-layer scope clause is applied
   then: >-
     The record is accepted as valid with respect to CON-SRC-0011 and
     the assignment is semantically correct — the target-readership
-    scope is the canonical interpretation for multi-layer works, so
-    the muntahī authorship of the outer sharḥ does NOT override the
-    mubtadiʾ target-readership assignment. The converse assignment
-    (level="muntahī" on author-rank grounds for the same work) would
-    be a scope-error violation even though it too passes enum-string
-    validation — exercised contrapositively in the accompanying test.
+    (istiʿdād al-mutaʿallim) scope is the canonical interpretation
+    for multi-layer works, so the muntahī authorship of the outer
+    sharḥ does NOT override the mubtadiʾ target-readership
+    assignment. The converse assignment (level="muntahī" on author-
+    rank grounds for the same work) would be a scope-error violation
+    even though it too passes enum-string validation — exercised
+    contrapositively in the accompanying test.
   test_type: deterministic

@@ -62,8 +62,11 @@ rationale: >-
   pipeline stage. Separately, the source engine's `level_status`
   emission (CON-SRC-0004 middle-path) is NOT a level inference — it is
   a processing-state label that communicates whether level is pending
-  taxonomy determination or genre-identified as non-applicable, and its
-  emission is explicitly permitted by this invariant.
+  synthesis determination or genre-identified as non-applicable, and its
+  emission is explicitly permitted by this invariant. (Pre-2026-04-23
+  wording said "pending taxonomy determination" — retired in Phase 5b
+  item 7 when ownership migrated from taxonomy to synthesis per
+  DEC-SRC-0003, ratified again by the closure wave per Codex CAF-5.)
 rule:
   statement: >-
     The source engine MUST NOT compute or infer the level field of

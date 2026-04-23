@@ -122,6 +122,39 @@ source: >-
   path remains tracked as follow-up item 20 — this amendment
   lands the severity change and the Shamela happy-path assertion
   only.
+  Closure-wave amendment 2026-04-23 (Codex CAF-7 + CAF-8, Run A
+  DVF-4, closure of follow-up 31 on path a): (a) narrowed the
+  required-preserved signal set from 17 to 15 by removing the
+  edition_group_id and holding_id entries — those linkage IDs
+  live on the EditionGroup (contracts.py:880) and EditionHolding
+  (contracts.py:893) models and the NormalizationHandoffBundle
+  (contracts.py:1082) does not carry either model; admission
+  constructs the bundle BEFORE reconcile_holdings runs, so those
+  IDs are unpopulated at the surface this atom governs. Their
+  D-023 preservation is governed by DEC-SRC-0018 EditionHolding
+  and DEC-SRC-0020 supersession, not here. The previous 17-signal
+  wording was paper-reconciliation drift — surfaced by the AC-8
+  Shamela null-key test when the bundle JSON came back without
+  edition_group_id / holding_id keys. Follow-up 31 is CLOSED by
+  this amendment on the structurally-preferred path (a).
+  (b) Documented that the CON-SRC-0012 "blocking" severity
+  applies at the atom-semantics layer only for now — the runtime
+  ErrorSeverity enum at contracts.py:290-293 still carries only
+  {FATAL, WARNING, INFO}. Handoff-evidence conditions remain
+  exception-only at the code surface until follow-up 20 adds the
+  raise-site wiring in admission.py _build_handoff_bundle and
+  either extends the ErrorSeverity enum to include BLOCKING or
+  documents why the exception path suffices. Codex CAF-7 noted
+  this runtime-vs-atom gap; Phase 5b closes without addressing
+  it operationally because no raise-site exists yet. (c) Added
+  the Arabic-localization constraint for "blocking" —
+  إيقاف مؤقت (īqāf muʾaqqat) is the required translation of
+  the pipeline-pause semantics; رد (radd) is forbidden because
+  it carries hadith-science substantive-rejection meaning (cf.
+  Ibn al-Ṣalāḥ Muqaddima on inqiṭāʿ vs temporal delays). The
+  HANDOFF_ prefix + إيقاف مؤقت localization together preserve
+  the scholarly boundary between pipeline logistics and hadith-
+  science إعلال / جرح / تضعيف (Run A DVF-4 closure).
 created: '2026-04-16'
 updated: '2026-04-23'
 depends_on:
@@ -140,12 +173,15 @@ rationale: >-
   the exact signals the downstream (taxonomy / synthesis) engines need
   to classify reading level once content analysis runs. The source
   engine never infers level itself (DEC-SRC-0003, INV-SRC-0011), but
-  it owns the bibliographic evidence surface — edition_group_id,
-  edition_info, publisher, muhaqiq_output, page_layout_hint,
-  matn_embedding_style, pdf_text_layer_status, structural_format,
-  is_multi_layer, volume_count, holding_id, title_arabic, genre,
-  science_scope, and genre_dispute — plus the upstream dossier signal
-  contains_isnad_chains. Losing any of these signals at handoff strips
+  it owns the bibliographic evidence surface — edition_info,
+  publisher, muhaqiq_output, page_layout_hint, matn_embedding_style,
+  pdf_text_layer_status, structural_format, is_multi_layer,
+  volume_count, title_arabic, genre, science_scope, author_output,
+  and genre_dispute — plus the upstream dossier signal
+  contains_isnad_chains. (Edition-group and holding linkage IDs
+  live on distinct models EditionGroup and EditionHolding and are
+  governed by DEC-SRC-0018 / DEC-SRC-0020, not by this handoff-
+  surface contract — closure-wave narrowing 2026-04-23.) Losing any of these signals at handoff strips
   the downstream classifier of the evidence it needs, which forces
   either a weaker guess or a permanent level=null for sources where a
   content-based assessment was still possible. D-023 metadata
@@ -160,13 +196,12 @@ behavior:
   - The handoff packaging stage has read access to SourceMetadata and the intake_dossier.contains_isnad_chains field.
   postconditions:
   - D-023 metadata preservation — the governing rule — applies to every signal listed below AND recursively to every nested structured field within those signals. Absent top-level signals serialize as null-valued keys; absent sub-fields inside nested structures (e.g., muhaqiq_output.death_date, work_relationships[i].target_work_author) likewise serialize as null-valued keys, never omitted.
-  - The required-preserved signal set is {title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_group_id, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, holding_id, genre_dispute, author_output} on SourceMetadata and {contains_isnad_chains} on the intake_dossier surface — 17 signals total. Any change to this set must amend this atom's postconditions and acceptance_criteria in lock-step. author_output was added on 2026-04-21 per 3-way AMEND consensus (Codex CLI + Gemini CLI 2 runs) after the retroactive review of commit bf4354399 — author_output.positions is the canonical depth-2 list-item Optional structure in the classical tahqiq domain, so AC-7's list-item D-023 recursion test targets it rather than muhaqiq_output.positions (aspirational, see source field).
+  - The required-preserved signal set on SourceMetadata is {title_arabic, genre, science_scope, is_multi_layer, structural_format, edition_info, publisher, muhaqiq_output, page_layout_hint, matn_embedding_style, pdf_text_layer_status, volume_count, genre_dispute, author_output} — 14 signals — plus {contains_isnad_chains} on the intake_dossier surface, for 15 signals total on surfaces this atom governs. Any change to this set must amend this atom's postconditions and acceptance_criteria in lock-step. author_output was added on 2026-04-21 per 3-way AMEND consensus (Codex CLI + Gemini CLI 2 runs) after the retroactive review of commit bf4354399 — author_output.positions is the canonical depth-2 list-item Optional structure in the classical tahqiq domain, so AC-7's list-item D-023 recursion test targets it rather than muhaqiq_output.positions (aspirational, see source field). The edition_group_id and holding_id linkage signals — listed in earlier drafts of this atom — are NOT SourceMetadata fields in the current typed data model (contracts.py:880 EditionGroup.edition_group_id, contracts.py:893 EditionHolding.holding_id) and the NormalizationHandoffBundle (contracts.py:1082) does not carry EditionGroup or EditionHolding objects. Admission constructs the handoff bundle BEFORE reconcile_holdings runs, so those IDs are not yet populated at the surface this atom governs. Their D-023 preservation is delegated to the registry/reconciliation surface (DEC-SRC-0018 EditionHolding, DEC-SRC-0020 supersession). Closure-wave amendment 2026-04-23 (Codex CAF-8, follow-up 31 resolved on path a) narrowed the signal set from 17 to 15 to match the actual handoff surface; the previous 17-signal phrasing was paper-reconciliation drift surfaced by the AC-8 Shamela null-key test.
   - SourceMetadata.title_arabic is serialized in the handoff payload with the exact value populated upstream.
   - SourceMetadata.genre is serialized in the handoff payload with the exact value populated upstream.
   - SourceMetadata.science_scope is serialized in the handoff payload with the exact list populated upstream.
   - SourceMetadata.is_multi_layer is serialized in the handoff payload with the exact boolean populated upstream.
   - SourceMetadata.structural_format is serialized in the handoff payload with the exact value populated upstream.
-  - SourceMetadata.edition_group_id is serialized in the handoff payload; when not populated the key is present with value null.
   - SourceMetadata.edition_info is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (edition_label, edition_year, imprint_city, tahqiq_version) honors the same rule.
   - SourceMetadata.publisher is serialized in the handoff payload; when not populated the key is present with value null.
   - SourceMetadata.muhaqiq_output is serialized in the handoff payload with recursive D-023 preservation; when not populated the key is present with value null; when populated, each of its nested sub-fields (name, status, positions, death_date, attribution_confidence) honors the same rule.
@@ -174,14 +209,13 @@ behavior:
   - SourceMetadata.matn_embedding_style is serialized in the handoff payload; when not populated the key is present with value null.
   - SourceMetadata.pdf_text_layer_status is serialized in the handoff payload; when not populated (non-PDF source) the key is present with value null.
   - SourceMetadata.volume_count is serialized in the handoff payload with the exact value populated upstream.
-  - SourceMetadata.holding_id is serialized in the handoff payload; when not populated the key is present with value null.
   - SourceMetadata.genre_dispute is serialized in the handoff payload with recursive D-023 preservation; when not populated (no disputed secondary genre) the key is present with value null; when populated, each alternate-genre position (genre_candidate, supporting_evidence, confidence) honors the same rule.
   - SourceMetadata.author_output is serialized in the handoff payload with recursive D-023 preservation; author_output is a mandatory SourceMetadata field per CON-SRC-0004 so the top-level key is always present with a populated object; each entry in author_output.positions (AuthorOutputPosition per contracts.py:676-712) is a structured object whose Optional sub-fields (canonical_id, canonical_match_name, full_name_lineage, ism, kunya, death_hijri, death_hijri_verification, among others) honor the same recursive rule — absent sub-fields serialize as null-valued keys at the list-item level, never omitted. This is the depth-2 list-item D-023 recursion case exercised by AC-7.
   - intake_dossier.contains_isnad_chains is propagated into the normalization handoff bundle unchanged; when not populated the key is present with value null.
   - No evidence signal listed above is omitted from the payload — absent values serialize as null per D-023 metadata preservation, at every structural depth.
   error_conditions:
-  - condition: Any signal in the required-preserved 17-signal set is missing (key absent, not null) from the handoff payload.
-    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED; the error message identifies the specific signal and the structural depth at which the omission occurred. The correction path per CON-SRC-0012 blocking-tier semantics is to re-run intake analysis (REQ-SRC-0037) on the already-frozen source so the absent signal is re-emitted; handoff packaging then retries.
+  - condition: Any signal in the required-preserved 15-signal set (14 on SourceMetadata plus contains_isnad_chains on intake_dossier) is missing (key absent, not null) from the handoff payload.
+    action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED; the error message identifies the specific signal and the structural depth at which the omission occurred. The correction path per CON-SRC-0012 blocking-tier semantics is to re-run intake analysis (REQ-SRC-0037) on the already-frozen source so the absent signal is re-emitted; handoff packaging then retries. Arabic localization MUST use إيقاف مؤقت (īqāf muʾaqqat — temporary halt), NOT ردّ (radd) which implies substantive rejection in hadith-science terminology; the HANDOFF_ prefix and the إيقاف مؤقت localization together preserve the scholarly boundary between pipeline logistics and hadith-science إعلال / جرح / تضعيف (closure-wave Run A DVF-4, Ibn al-Ṣalāḥ Muqaddima).
     severity: blocking
   - condition: A nested structured signal (muhaqiq_output, edition_info, genre_dispute, author_output) is populated at the top level but has sub-field omissions (key absent, not null) within its nested object — including sub-fields nested inside list elements (e.g. author_output.positions[i].death_hijri).
     action: Abort handoff packaging with SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED; the error message identifies the specific sub-field and the parent signal, using array-index notation for list-item sub-fields (e.g. "author_output.positions[0].death_hijri"). Correction path identical to the top-level case — re-run intake analysis to re-emit the nested sub-field, then retry handoff packaging.
@@ -191,13 +225,13 @@ acceptance_criteria:
   given: >-
     A fully populated intake for tests/fixtures/shamela_real/06_usul/book.htm
     with title_arabic, genre, science_scope, is_multi_layer,
-    structural_format, edition_group_id, edition_info, publisher,
-    muhaqiq_output, page_layout_hint, matn_embedding_style,
-    pdf_text_layer_status, volume_count, holding_id, genre_dispute, and
+    structural_format, edition_info, publisher, muhaqiq_output,
+    page_layout_hint, matn_embedding_style, pdf_text_layer_status,
+    volume_count, genre_dispute, author_output, and
     intake_dossier.contains_isnad_chains all populated
   when: source admission and normalization handoff packaging executes
   then: >-
-    The serialized payload contains every signal from the 17-signal
+    The serialized payload contains every signal from the 15-signal
     required-preserved set with the exact values populated upstream,
     no signal is omitted, and every nested sub-field is either
     populated with its exact value or serialized as null.
@@ -290,14 +324,13 @@ acceptance_criteria:
     A Shamela mushaf-style SourceMetadata where the four signals
     Shamela legitimately lacks — edition_info, muhaqiq_output,
     publisher, matn_embedding_style — are all set to None, along
-    with the other Optional signals page_layout_hint,
-    pdf_text_layer_status (non-PDF source), holding_id, and
-    genre_dispute that may also be legitimately absent for a
-    Shamela intake. Every mandatory signal on SourceMetadata is
-    populated normally (title_arabic, genre, science_scope,
-    is_multi_layer, structural_format, edition_group_id,
-    volume_count, author_output, and the intake_dossier
-    contains_isnad_chains surface)
+    with the other Optional SourceMetadata signals page_layout_hint,
+    pdf_text_layer_status (non-PDF source), and genre_dispute that
+    may also be legitimately absent for a Shamela intake. Every
+    mandatory signal on SourceMetadata is populated normally
+    (title_arabic, genre, science_scope, is_multi_layer,
+    structural_format, volume_count, author_output, and the
+    intake_dossier contains_isnad_chains surface)
   when: source admission and normalization handoff packaging
     executes and the resulting bundle is serialized via Pydantic
     model_dump(mode="json") — the default serialization mode used
@@ -305,14 +338,20 @@ acceptance_criteria:
     exclude_unset overrides
   then: >-
     The serialized JSON payload contains every key from the
-    17-signal required-preserved set. Legitimately-absent signals
+    15-signal required-preserved set (14 SourceMetadata fields +
+    1 intake_dossier field). Legitimately-absent Optional signals
     (edition_info, muhaqiq_output, publisher, matn_embedding_style,
-    page_layout_hint, pdf_text_layer_status, holding_id,
-    genre_dispute) appear as keys with value null — the null-key
-    contract from REQ-SRC-0046 postconditions is satisfied by
-    Pydantic v2 default serialization of Optional=None fields as
-    JSON null. No SRC-E-HANDOFF-EVIDENCE-DROPPED or
-    SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED error is raised. This AC
+    page_layout_hint, pdf_text_layer_status) appear as keys with
+    value null; genre_dispute appears as an empty list. The
+    null-key contract from REQ-SRC-0046 postconditions is
+    satisfied by Pydantic v2 default serialization of Optional=
+    None fields as JSON null. No SRC-E-HANDOFF-EVIDENCE-DROPPED
+    or SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED error is raised.
+    (edition_group_id and holding_id are NOT asserted on the
+    SourceMetadata surface — they live on EditionGroup and
+    EditionHolding models governed by DEC-SRC-0018/DEC-SRC-0020;
+    the 17→15 signal-set narrowing per closure-wave 2026-04-23
+    Codex CAF-8 removes them from this atom's scope.) This AC
     closes the ADV-010 Shamela happy-path concern by providing the
     spec-linked proof that the null-key contract is operational on
     Shamela mushaf intakes — and it guards against a future

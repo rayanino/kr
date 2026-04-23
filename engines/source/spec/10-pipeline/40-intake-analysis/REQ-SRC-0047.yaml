@@ -53,7 +53,25 @@ source: >-
   level value that appears content-derived while it actually
   overrides an owner assertion, or vice versa. See Adversary
   ADV-012 verbatim at `.kr/runtime/adversary_phase5a_20260417
-  .md`:296-307.
+  .md`:296-307. Closure-wave amendment 2026-04-23 (Codex CAF-4
+  HIGH): narrowed the stickiness postcondition and AC-6 scope
+  to match what `enforce_level_invariants` in contracts.py
+  actually blocks — PAIR-CLEARING attacks (level-alone-null or
+  provenance-alone-null), NOT value-swap attacks where both
+  fields stay non-null. An earlier draft overstated the
+  guarantee by claiming the IFF invariant blocks value-swap
+  (e.g. mubtadiʾ→muntahī with provenance untouched); it does
+  not, because (muntahī, OWNER_OVERRIDE) is a structurally
+  valid pair under pair-consistency rules. Value-swap
+  protection is a cross-engine contract: the synthesis engine
+  per DEC-SRC-0003 synthesis-owns-level is required to refuse
+  silent overwrite on records with level_provenance=
+  OWNER_OVERRIDE, producing a structured disagreement entry
+  instead. Source engine's contribution is the IFF invariant
+  at the data-model layer plus byte-exact provenance
+  preservation through REQ-SRC-0007 handoff — the signal the
+  synthesis engine consumes. Reviewer output at
+  `.kr/runtime/closure_wave_codex_cli_20260423.md`.
 created: '2026-04-16'
 updated: '2026-04-23'
 depends_on:
@@ -98,10 +116,20 @@ behavior:
     data-model level, contracts.py SourceMetadata.enforce_level_invariants
     (a Pydantic model_validator running under validate_assignment=True)
     enforces the IFF-style pair-consistency invariant — level non-null
-    ↔ level_provenance non-null — so any single-field reassignment of
-    either element trips a ValidationError. This blocks the "replace
-    level, keep provenance untouched as owner_override but with a stale
-    value" mutation path at the single-field layer. At the cross-engine
+    ↔ level_provenance non-null — so any single-field reassignment
+    that BREAKS the pair (clearing level alone, clearing
+    level_provenance alone) trips a ValidationError. The invariant
+    does NOT block value-swap mutations where both elements stay
+    non-null (e.g. replacing level=mutawassiṭ with level=muntahī
+    while provenance remains OWNER_OVERRIDE) — that scenario
+    satisfies the IFF pair-consistency rule at the Pydantic layer,
+    so value-swap protection is not a single-engine invariant.
+    The Codex closure-wave finding (CAF-4, 2026-04-23) surfaced
+    this correctly: an earlier draft of this postcondition claimed
+    the invariant blocked value-swap, which overstated what the
+    code enforces. The accurate statement is that the invariant is
+    a pair-clearing defense only; value-swap is governed by the
+    cross-engine contract below. At the cross-engine
     contract level, any downstream actor with level-writing authority
     (the synthesis engine per DEC-SRC-0003 synthesis-owns-level) MUST
     inspect level_provenance on the received SourceMetadata record and,
@@ -196,11 +224,22 @@ acceptance_criteria:
     through the REQ-SRC-0047 AC-1 happy path —
     (level="mutawassiṭ", level_provenance="owner_override",
     level_status="assigned")
-  when: a subsequent actor attempts either of the two silent-overwrite
-    attack paths — (a) reassigning SourceMetadata.level alone to
-    "muntahī" without updating level_provenance, or (b) reassigning
-    SourceMetadata.level_provenance alone to "synthesis_engine"
-    without updating level
+  when: a subsequent actor attempts either of the two PAIR-CLEARING
+    attack paths that the IFF invariant catches — (a) clearing
+    SourceMetadata.level to null while leaving level_provenance set,
+    or (b) clearing SourceMetadata.level_provenance to null while
+    leaving level set. Pair-clearing breaks the level↔provenance
+    IFF invariant, so the validator rejects. (Value-swap attacks
+    that keep both fields non-null — e.g. level=mutawassiṭ→muntahī
+    while provenance stays OWNER_OVERRIDE — are NOT caught by this
+    validator because they preserve pair consistency; those are
+    governed by the cross-engine contract in behavior.postconditions
+    and are the synthesis engine's responsibility to refuse silently
+    per DEC-SRC-0003 synthesis-owns-level authority. The Codex
+    closure-wave finding CAF-4 surfaced this scope distinction —
+    AC-6 now faithfully describes what enforce_level_invariants
+    blocks, not what the cross-engine contract separately
+    prescribes.)
   then: >-
     Layered defense in contracts.py
     SourceMetadata.enforce_level_invariants (Pydantic model_validator

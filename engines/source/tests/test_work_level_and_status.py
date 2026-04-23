@@ -871,16 +871,14 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     # edition, no muhaqqiq, no PDF text layer, no disputed secondary
     # genre). The null-key contract must hold across all.
     #
-    # Note: REQ-SRC-0046.behavior.postconditions lists
-    # `edition_group_id` and `holding_id` in the 17-signal required-
-    # preserved set, but contracts.py defines these only on the
-    # separate EditionGroup and EditionHolding models (contracts.py:
-    # 880-895), NOT on SourceMetadata. This spec-vs-code drift is
-    # surfaced by AC-8's original 17-signal assertion and tracked
-    # as Phase 5b follow-up item 31. AC-8 asserts the null-key
-    # contract only for the 15 signals that are actually
-    # SourceMetadata fields; the 2 cross-model signals are out of
-    # scope for this test pending item 31 resolution.
+    # Note: Phase 5b follow-up 31 CLOSED 2026-04-23 via REQ-SRC-0046
+    # closure-wave amendment (Codex CAF-8, path a): the required-
+    # preserved signal set was narrowed from 17 to 15, removing
+    # edition_group_id and holding_id which live on separate
+    # EditionGroup (contracts.py:880) and EditionHolding
+    # (contracts.py:893) models — not SourceMetadata. AC-8 now
+    # asserts the null-key contract for the 15 signals that are
+    # authoritatively on the SourceMetadata/intake_dossier surface.
     deliberation_result.source_metadata = deliberation_result.source_metadata.model_copy(
         update={
             "edition_info": None,
@@ -941,17 +939,14 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     # omitted, not None on this field type).
     assert isinstance(dossier.contains_isnad_chains, bool)
 
-    # edition_group_id and holding_id are listed in REQ-SRC-0046's
-    # required-preserved set but contracts.py defines them on the
-    # separate EditionGroup (contracts.py:880) and EditionHolding
-    # (contracts.py:893) models rather than SourceMetadata. This
-    # spec-vs-code drift is Phase 5b follow-up item 31 — AC-8
-    # does NOT assert the null-key contract for these two signals
-    # pending that follow-up's resolution (either narrow the spec's
-    # signal set to 15 SourceMetadata fields + 2 cross-model
-    # references, or denormalize them onto SourceMetadata). Both
-    # paths are viable; the decision belongs to the Phase 5b
-    # closure reviewer wave, not this test.
+    # edition_group_id and holding_id are NOT on the SourceMetadata
+    # surface — they live on the separate EditionGroup
+    # (contracts.py:880) and EditionHolding (contracts.py:893)
+    # models, governed by DEC-SRC-0018 and DEC-SRC-0020. Follow-up
+    # 31 CLOSED 2026-04-23 by the closure-wave REQ-SRC-0046
+    # narrowing (Codex CAF-8 preferred path a): the 17-signal set
+    # became a 15-signal set, matching the actual handoff surface.
+    # AC-8 scope is therefore 15 signals, not 17.
 
 
 @pytest.mark.spec("REQ-SRC-0047", "AC-6")
