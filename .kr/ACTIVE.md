@@ -10,7 +10,7 @@ Never ask the owner engineering questions. Never wait for the owner to identify 
 
 # KR Active Frontier
 
-Status: active — Phase 5b items 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, item 11 C7 multi-layer scope clause pending commit). **3 Phase 5b work items remain (8, 9, 10)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26) plus 1 from item-5 dispatch (27) plus 2 from item-7 dispatch (28 LevelProvenance cleanup, 29 REQ-SRC-0048 test authoring)
+Status: active — Phase 5b items 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16 closed (commits `62647cb2b`, `ec8d82ca4`, `386685819`, `bf4354399`+`a4f2b2788` retroactive-review amendments, `f965aec7b`, `a1fabdd54`+`366463bcb` item-16, `b651b20eb`+`6ad0614eb` item-4 Option E-prime-final, `491e9f2ca` item-5 depends_on cycle break, `08cc94633` items 6+7 synthesis-owns-level + REQ-SRC-0048 deferred validation, `41f60c385` item-11 C7 multi-layer target_readership scope clause). **3 Phase 5b work items remain (8, 9, 10)** plus 3 follow-ups from 12-14 retroactive (17, 18 remain; 16 DONE) plus 2 from item-16 dispatch (19, 20) plus 6 from item-4 dispatch (21, 22, 23, 24, 25, 26) plus 1 from item-5 dispatch (27) plus 2 from item-7 dispatch (28 LevelProvenance cleanup, 29 REQ-SRC-0048 test authoring)
 
 ## ⟶ FRESH-SESSION START HERE (Phase 5b)
 
@@ -232,7 +232,11 @@ Phase 5b should end with a second reviewer wave to verify closure, with explicit
 
 ## Session commits (2026-04-23, Phase 5b items 6 + 7 — synthesis-owns-level + REQ-SRC-0048)
 - `08cc94633` fix(source): Phase 5b 6+7 — synthesis owns level (160 pass, 0 skip)
-- (pending) docs(source): ACTIVE.md — record Phase 5b items 6+7 commit hash 08cc94633
+- `48664c1ca` docs(source): ACTIVE.md — record Phase 5b items 6+7 commit hash 08cc94633
+
+## Session commits (2026-04-23, Phase 5b item 11 — C7 multi-layer scope clause)
+- `41f60c385` fix(source): Phase 5b 11 — C7 multi-layer target_readership scope (161 pass, 0 skip)
+- (pending) docs(source): ACTIVE.md — record Phase 5b item 11 commit hash 41f60c385
 
 ## Retroactive review follow-ups (new Phase 5b items discovered 2026-04-21)
 
