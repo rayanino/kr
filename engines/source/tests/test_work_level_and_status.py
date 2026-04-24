@@ -65,7 +65,10 @@ from engines.source.contracts import (
 )
 from engines.source.src.deliberation import _resolve_level_fields
 from engines.source.src.errors import SourceEngineError
-from engines.source.src.admission import admit_source_and_build_handoff
+from engines.source.src.admission import (
+    _validate_handoff_evidence,
+    admit_source_and_build_handoff,
+)
 from engines.source.src.pipeline import SourcePipeline
 from engines.source.tests.conftest import FIXTURES_ROOT
 from engines.source.tests.test_step_60_admission import (
@@ -846,12 +849,15 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     that adds exclude_none=True to a model_dump call and silently
     breaks the contract.
 
-    All 17 signals from REQ-SRC-0046.behavior.postconditions are
+    All 15 signals from REQ-SRC-0046.behavior.postconditions are
     asserted to appear as keys in the serialized JSON, with absent
     ones carrying null. The intake_dossier.contains_isnad_chains
     signal is verified on the NormalizationHandoffBundle surface
     (not SourceMetadata) since it lives on the dossier side of the
-    boundary.
+    boundary. Follow-up 31 closure-wave narrowed the required-
+    preserved set from 17 to 15 signals by removing the cross-model
+    linkage IDs (edition_group_id, holding_id) per 2026-04-23
+    Codex CAF-8 path (a).
 
     Also implicitly exercises the Phase 5b item 9+19 severity
     reclassification (fatal → blocking) by NOT triggering either
@@ -936,8 +942,18 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     # intake_dossier signal lives on the bundle, not SourceMetadata.
     # contains_isnad_chains must propagate forward — either True if
     # the Shamela fixture happens to carry isnad, or False (not
-    # omitted, not None on this field type).
+    # omitted, not None on this field type). Follow-up 20 (2026-04-24)
+    # added intake_dossier_contains_isnad_chains to the bundle per
+    # REQ-SRC-0046:214 propagation requirement; AC-8 now asserts the
+    # bundle-surface propagation in addition to the dossier-surface
+    # source.
     assert isinstance(dossier.contains_isnad_chains, bool)
+    bundle_dumped = bundle.model_dump(mode="json")
+    assert "intake_dossier_contains_isnad_chains" in bundle_dumped
+    assert (
+        bundle_dumped["intake_dossier_contains_isnad_chains"]
+        == dossier.contains_isnad_chains
+    )
 
     # edition_group_id and holding_id are NOT on the SourceMetadata
     # surface — they live on the separate EditionGroup
@@ -947,6 +963,121 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     # narrowing (Codex CAF-8 preferred path a): the 17-signal set
     # became a 15-signal set, matching the actual handoff surface.
     # AC-8 scope is therefore 15 signals, not 17.
+
+
+@pytest.mark.spec("REQ-SRC-0046", "AC-3")
+def test_req_src_0046_ac3_top_level_key_omission_aborts(
+    source_pipeline: SourcePipeline,
+) -> None:
+    """Top-level signal omission triggers SRC-E-HANDOFF-EVIDENCE-DROPPED.
+
+    REQ-SRC-0046 AC-3: when a required-preserved signal is missing (key
+    absent, not null) from the serialized handoff payload, packaging is
+    aborted with SRC-E-HANDOFF-EVIDENCE-DROPPED and no partial bundle is
+    emitted.
+
+    Test strategy per Codex structural Q4 recommendation (i) (follow-up
+    20 3-evaluator synthesis 2026-04-24): construct a valid bundle via
+    the production admission path, dump via model_dump(mode="json"),
+    delete a top-level required-preserved key from the dumped dict,
+    invoke the production validator directly. This exercises the
+    raise-site without constructing invalid Pydantic models that would
+    violate their own declared schema.
+
+    Signal chosen: edition_info (per REQ-SRC-0046 AC-3 given-clause).
+    Arabic detail-string vocabulary conforms to follow-up 20 scholarly
+    synthesis (إيقاف مؤقت; avoid forbidden tokens ردّ / إعلال / جرح /
+    تضعيف / إسقاط / إبطال / نقض / طعن).
+    """
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+    bundle = result.handoff_bundle
+    assert bundle is not None
+
+    tampered = bundle.model_dump(mode="json")
+    metadata_dict = tampered["source_metadata"]
+    assert isinstance(metadata_dict, dict)
+    assert "edition_info" in metadata_dict
+    del metadata_dict["edition_info"]
+
+    with pytest.raises(SourceEngineError) as exc_info:
+        _validate_handoff_evidence(tampered)
+    assert exc_info.value.error_code == ErrorCode.HANDOFF_EVIDENCE_DROPPED
+    assert "edition_info" in exc_info.value.detail
+    assert "إيقاف مؤقت" in exc_info.value.detail
+
+
+@pytest.mark.spec("REQ-SRC-0046", "AC-7")
+def test_req_src_0046_ac7_nested_list_item_key_omission_aborts(
+    source_pipeline: SourcePipeline,
+) -> None:
+    """Depth-2 list-item sub-field omission triggers -NESTED error.
+
+    REQ-SRC-0046 AC-7 (closure-wave path from 2026-04-21): when a
+    list-item Optional sub-field is missing (key absent, not null)
+    from a nested structure, packaging aborts with
+    SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED.
+
+    Path choice: author_output.positions[0].death_hijri.
+    AuthorOutputPosition at contracts.py:676-712 declares death_hijri
+    as Optional[int], making it the canonical depth-2 list-item
+    Optional field in the live contracts. This matches the 3-way AMEND
+    consensus (Codex CLI structural + Gemini CLI 2 scholarly runs
+    2026-04-21 + follow-up 20 3-evaluator re-confirmation 2026-04-24)
+    that author_output.positions[].death_hijri is both structurally
+    grounded and scholarly-grounded (multi-position attribution is
+    the canonical disputed-authorship shape in classical tahqiq).
+
+    The atom's AC-6 alternative (muhaqiq_output.death_date) is
+    deferred to follow-up 32 — the live MuhaqiqAssessment at
+    contracts.py:868-872 has no death_date sub-field, so the atom's
+    AC-6 as written cannot be spec-linked-tested against current
+    contracts.
+    """
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+    bundle = result.handoff_bundle
+    assert bundle is not None
+
+    tampered = bundle.model_dump(mode="json")
+    metadata_dict = tampered["source_metadata"]
+    assert isinstance(metadata_dict, dict)
+    author_output = metadata_dict["author_output"]
+    assert isinstance(author_output, dict)
+    positions = author_output["positions"]
+    assert isinstance(positions, list) and len(positions) >= 1
+    position_0 = positions[0]
+    assert isinstance(position_0, dict)
+    assert "death_hijri" in position_0
+    del position_0["death_hijri"]
+
+    with pytest.raises(SourceEngineError) as exc_info:
+        _validate_handoff_evidence(tampered)
+    assert exc_info.value.error_code == ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED
+    assert "author_output.positions[0].death_hijri" in exc_info.value.detail
+    assert "إيقاف مؤقت" in exc_info.value.detail
 
 
 @pytest.mark.spec("REQ-SRC-0047", "AC-6")

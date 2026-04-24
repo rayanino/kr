@@ -223,10 +223,10 @@ def _build_handoff_bundle(
     frozen: FrozenSource,
     disagreement_cases: list[DisagreementCaseRecord],
 ) -> NormalizationHandoffBundle:
-    """Build handoff per REQ-SRC-0025, REQ-SRC-0022, REQ-SRC-0007."""
+    """Build handoff per REQ-SRC-0025, REQ-SRC-0022, REQ-SRC-0007, REQ-SRC-0046."""
     _validate_pdf_handoff(source_metadata)
     _validate_level_field(source_metadata)
-    return NormalizationHandoffBundle(
+    bundle = NormalizationHandoffBundle(
         source_metadata=source_metadata,
         normalization_input=_build_normalization_input(source_metadata),
         frozen_member_manifest=frozen.frozen_member_manifest,
@@ -235,8 +235,11 @@ def _build_handoff_bundle(
         declared_vs_observed_counts=dossier.declared_vs_observed_counts,
         pdf_text_layer_status=dossier.pdf_text_layer_status,
         page_layout_hint=dossier.page_layout_hint,
+        intake_dossier_contains_isnad_chains=dossier.contains_isnad_chains,
         unresolved_disputes=_unresolved_disputes(disagreement_cases),
     )
+    _validate_handoff_evidence(bundle.model_dump(mode="json"))
+    return bundle
 
 
 def _build_normalization_input(source_metadata: SourceMetadata) -> NormalizationInput:
@@ -468,6 +471,76 @@ def _validate_level_field(source_metadata: SourceMetadata) -> None:
             ErrorCode.LEVEL_FIELD_MISSING,
             "handoff payload omits the level key",
         )
+
+
+_REQ_SRC_0046_SOURCE_METADATA_SIGNALS: tuple[str, ...] = (
+    "title_arabic",
+    "genre",
+    "science_scope",
+    "is_multi_layer",
+    "structural_format",
+    "edition_info",
+    "publisher",
+    "muhaqiq_output",
+    "page_layout_hint",
+    "matn_embedding_style",
+    "pdf_text_layer_status",
+    "volume_count",
+    "genre_dispute",
+    "author_output",
+)
+
+
+def _validate_handoff_evidence(bundle_dict: dict[str, object]) -> None:
+    """Guard per REQ-SRC-0046: 15-signal required-preserved contract.
+
+    Validates that every signal in the required-preserved set appears as a key
+    in the serialized handoff payload, even when the underlying value is None.
+    Absent keys raise SRC-E-HANDOFF-EVIDENCE-DROPPED at the top level or
+    SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED for sub-field omissions.
+
+    Detail strings follow the REQ-SRC-0046 closure-wave Arabic-localization
+    constraint: `إيقاف مؤقت` (īqāf muʾaqqat — temporary halt) per CON-SRC-0012
+    blocking tier. Forbidden vocabulary (ردّ / إعلال / جرح / تضعيف / إسقاط /
+    إبطال / نقض / طعن) is excluded because these tokens carry hadith-science
+    substantive-rejection semantics per Ibn al-Ṣalāḥ Muqaddima and al-Suyūṭī
+    Tadrīb al-Rāwī. Preferred tokens: غياب, فقدان, غائب, إعادة التشغيل.
+    """
+    metadata = bundle_dict.get("source_metadata")
+    if not isinstance(metadata, dict):
+        raise SourceEngineError(
+            ErrorCode.HANDOFF_EVIDENCE_DROPPED,
+            "إيقاف مؤقت: كائن source_metadata غائب من حزمة التسليم — أعد تشغيل تحليل الاستيعاب",
+        )
+    for signal in _REQ_SRC_0046_SOURCE_METADATA_SIGNALS:
+        if signal not in metadata:
+            detail = (
+                f'إيقاف مؤقت: الحقل المطلوب "{signal}" غائب من حزمة التسليم '
+                f"— أعد تشغيل تحليل الاستيعاب"
+            )
+            raise SourceEngineError(ErrorCode.HANDOFF_EVIDENCE_DROPPED, detail)
+    if "intake_dossier_contains_isnad_chains" not in bundle_dict:
+        raise SourceEngineError(
+            ErrorCode.HANDOFF_EVIDENCE_DROPPED,
+            'إيقاف مؤقت: الحقل "intake_dossier_contains_isnad_chains" غائب '
+            "من سطح حزمة التسليم — أعد تشغيل تحليل الاستيعاب",
+        )
+    author_output = metadata.get("author_output")
+    if isinstance(author_output, dict):
+        positions = author_output.get("positions")
+        if isinstance(positions, list):
+            for index, position in enumerate(positions):
+                if not isinstance(position, dict):
+                    continue
+                if "death_hijri" not in position:
+                    detail = (
+                        f'إيقاف مؤقت: الحقل الفرعي '
+                        f'"author_output.positions[{index}].death_hijri" '
+                        f"غائب داخل عنصر القائمة — أعد تشغيل تحليل الاستيعاب"
+                    )
+                    raise SourceEngineError(
+                        ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED, detail
+                    )
 
 
 def _validate_volume_count(dossier: IntakeDossier) -> None:

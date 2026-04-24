@@ -1094,4 +1094,5 @@ class NormalizationHandoffBundle(BaseModel):
     )
     pdf_text_layer_status: Optional[PdfTextLayerStatus] = None
     page_layout_hint: Optional[PageLayoutHint] = None
+    intake_dossier_contains_isnad_chains: Optional[bool] = None
     unresolved_disputes: list[dict[str, Any]] = Field(default_factory=list)
