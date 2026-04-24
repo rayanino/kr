@@ -335,6 +335,11 @@ class ErrorCode(str, Enum):
     LEVEL_OVERRIDE_NONAPPLICABLE = "SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE"
     HANDOFF_EVIDENCE_DROPPED = "SRC-E-HANDOFF-EVIDENCE-DROPPED"
     HANDOFF_EVIDENCE_DROPPED_NESTED = "SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED"
+    # Load-boundary legacy record migration — DEC-SRC-0021
+    LEGACY_RECORD_AMBIGUOUS_STATUS = "SRC-E-LEGACY-RECORD-AMBIGUOUS-STATUS"
+    LEGACY_RECORD_AMBIGUOUS_PROVENANCE = (
+        "SRC-E-LEGACY-RECORD-AMBIGUOUS-PROVENANCE"
+    )
     # Implementation-only (not spec-derived, used for internal guards)
     SOURCE_ID_MISMATCH = "SRC-E-SOURCE-ID-MISMATCH"
     DELIBERATION_NOT_PERSISTED = "SRC-E-DELIBERATION-NOT-PERSISTED"
@@ -942,6 +947,16 @@ class DisplayCard(BaseModel):
     partial_reasons: list[str] = Field(default_factory=list)
 
 
+class LegacyMigrationEvent(BaseModel):
+    decision_id: Literal["DEC-SRC-0021"] = "DEC-SRC-0021"
+    load_boundary: str
+    fields_defaulted: list[str] = Field(default_factory=list)
+    ambiguous_fields: list[str] = Field(default_factory=list)
+    human_gate_routed: bool = False
+    human_gate_checkpoint_id: Optional[str] = None
+    created_at: str
+
+
 class SourceMetadata(BaseModel):
     model_config = ConfigDict(validate_assignment=True, extra="allow")
 
@@ -1005,6 +1020,7 @@ class SourceMetadata(BaseModel):
     display_card: Optional[DisplayCard] = None
     work_relationships: list[WorkRelationship] = Field(default_factory=list)
     study_quality_risk_flags: list[str] = Field(default_factory=list)
+    legacy_migration_events: list[LegacyMigrationEvent] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def sync_compatibility_fields(self) -> "SourceMetadata":

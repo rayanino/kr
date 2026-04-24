@@ -21,6 +21,7 @@ from engines.source.contracts import (
     RawUploadRecord,
     SourceMetadata,
 )
+from engines.source.src.migration import migrate_persisted_source_payload
 
 
 ModelT = TypeVar("ModelT", bound=BaseModel)
@@ -263,7 +264,10 @@ class SourceStore:
         if not path.exists():
             return []
         raw = json.loads(path.read_text(encoding="utf-8"))
-        return [model_type.model_validate(item) for item in raw]
+        return [
+            model_type.model_validate(migrate_persisted_source_payload(model_type, item))
+            for item in raw
+        ]
 
     def _write_models(self, path: Path, records: Sequence[BaseModel]) -> None:
         payload = [record.model_dump(mode="json") for record in records]
