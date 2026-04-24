@@ -155,8 +155,113 @@ source: >-
   HANDOFF_ prefix + إيقاف مؤقت localization together preserve
   the scholarly boundary between pipeline logistics and hadith-
   science إعلال / جرح / تضعيف (Run A DVF-4 closure).
+  Follow-up 33 amendment 2026-04-24 (3-evaluator dispatch: Codex
+  CLI STRUCTURAL_AMEND + Gemini CLI Run A SCHOLARLY_AMEND +
+  arabic-reviewer CC agent SCHOLARLY_AMEND, all through
+  /prompt-architect). Two orthogonal amendments land here, neither
+  changing behavior nor acceptance_criteria — both are scholarly
+  additions to this rationale layer.
+  (i) Forbidden-token explicit enumeration. The constraint block
+  above (clause (c), lines 149-157) forbids رد (radd) explicitly
+  and names إعلال / جرح / تضعيف as the hadith-science category
+  whose boundary must be preserved. Both scholarly evaluators
+  converged on expanding the explicit forbidden-token list to ten
+  entries with per-token citation anchors: (1) ردّ (radd) —
+  substantive hadith rejection, Ibn al-Ṣalāḥ, Muqaddima fī ʿUlūm
+  al-Ḥadīth, Nawʿ 22-23 (al-matrūk / man tuqbal riwāyatuhu wa-man
+  turadd) in the Nūr al-Dīn ʿItr critical edition; (2) إعلال
+  (iʿlāl) — hidden-defect detection, al-Suyūṭī, Tadrīb al-Rāwī,
+  Nawʿ al-muʿallal (Nawʿ 12 in Nūr al-Dīn ʿItr; numbering varies
+  by edition); (3) جرح (jarḥ) — narrator disqualification,
+  al-ʿIrāqī, al-Taqyīd wa-al-Īḍāḥ, Nawʿ al-jarḥ wa-al-taʿdīl;
+  (4) تضعيف (taḍʿīf) — weak-grade assignment, Ibn al-Ṣalāḥ,
+  Muqaddima, Nawʿ 3 (maʿrifat al-ḥadīth al-ḍaʿīf); (5) إسقاط
+  (isqāṭ) — narrator omission in isnād manipulation (tadlīs
+  al-isnād), al-ʿIrāqī, al-Taqyīd wa-al-Īḍāḥ (Nawʿ on tadlīs);
+  also voiding-of-right semantics in fiqh usage (isqāṭ al-ḥaqq),
+  root س-ق-ط per Ibn Manẓūr Lisān al-ʿArab; (6) إبطال (ibṭāl) —
+  annulment of acts of worship or contracts in fiqh (ibṭāl
+  al-ṣalāh / ibṭāl al-ʿaqd), al-Nawawī, Rawḍat al-Ṭālibīn, Kitāb
+  al-Ṣalāh (Shafiʿī), with four-madhhab equivalents in Mukhtaṣar
+  Khalīl Kitāb al-Ṣalāh (Mālikī), al-Kāsānī Badāʾiʿ al-Ṣanāʾiʿ
+  Kitāb al-Ṣalāh (Ḥanafī), Ibn Qudāma al-Mughnī Kitāb al-Ṣalāh
+  (Ḥanbalī); permanent-nullity semantics inappropriate for a
+  recoverable pipeline halt; root ب-ط-ل; (7) نقض (naqḍ) —
+  textual and chain criticism as adversarial genre, al-Dāraquṭnī,
+  al-Ilzāmāt wa-al-Tatabbuʿ (the work itself exemplifies the
+  naqḍ genre); also invalidation of wuḍūʾ in fiqh (nawāqiḍ
+  al-wuḍūʾ); root ن-ق-ض per Ibn Manẓūr Lisān al-ʿArab;
+  (8) طعن (ṭaʿn) — disqualifying imputation against narrators
+  (degrees of ṭaʿn per Ibn al-Ṣalāḥ, Muqaddima, Nawʿ al-jarḥ),
+  the strongest adverse charge in narrator criticism;
+  (9) ترك (tark) — abandonment of a narrator's transmission,
+  Ibn al-Ṣalāḥ, Muqaddima, Nawʿ al-matrūk (a matrūk narrator's
+  hadith is abandoned from use); modern Arabic usage for
+  "dropping" would conflate with the hadith-science abandonment
+  register; (10) شذوذ (shudhūdh) — textual anomaly, Ibn
+  al-Ṣalāḥ, Muqaddima, Nawʿ al-shādhdh (a shādhdh hadith is one
+  where a reliable narrator contradicts more reliable narrators);
+  modern Arabic usage for "anomaly" would trigger the same
+  technical register. Preferred alternatives in Arabic detail
+  strings: غياب (ghiyāb — absence, maṣdar form), فقدان
+  (faqdān — loss), إعادة التشغيل (iʿādat al-tashghīl — re-running
+  the process). These descriptive / logistical terms carry no
+  technical hadith-science or fiqh adverse-finding semantics and
+  are madhhab-neutral across the four Sunni schools. The ism
+  al-fāʿil form غائب may carry minor register-activation risk in
+  Ḥanafī and Mālikī qaḍāʾ contexts (aqḍiyat al-ghāʾib; Mukhtaṣar
+  Khalīl Kitāb al-Mafqūd) and is best used only where surrounding
+  context unambiguously anchors the IT register; prefer the
+  maṣdar forms غياب / فقدان as primaries.
+  (ii) Per-signal threat-code mapping. The step-60 threat-model
+  claim at lines 68-69 of this source field ("step 60 omission
+  maps to T-2 Attribution Error and T-6 Metadata Poisoning") is
+  scholarly-correct at the primary-code level for attribution-
+  sensitive signals but understated when applied uniformly across
+  all 15 required-preserved signals. Per arabic-reviewer CC agent
+  Q3 full 15-row per-signal table and Gemini CLI Run A threat-
+  model expansion, only author_output carries T-2 as PRIMARY; the
+  other 14 signals map to T-6 primary with secondary codes per
+  signal: title_arabic T-6 primary with T-2 secondary; genre
+  T-6 / T-3; science_scope T-6 / T-3; is_multi_layer T-6 / T-2;
+  structural_format T-6 / T-4; edition_info T-6 / T-2; publisher
+  T-6 with no material secondary; muhaqiq_output T-6 / T-2;
+  page_layout_hint T-6 / T-4; matn_embedding_style T-6 / T-2;
+  pdf_text_layer_status T-6 / T-1; volume_count T-6 / T-4;
+  genre_dispute T-6 / T-2; author_output T-2 PRIMARY with T-6
+  secondary; contains_isnad_chains T-6 primary with T-4 secondary
+  (a contingent T-1 risk applies if downstream normalization
+  strips isnad-load-bearing diacritics in the absence of this
+  signal — advisory only, not part of the primary / secondary
+  classification per strict KNOWLEDGE_INTEGRITY.md reading that
+  scopes T-1 to character-level mutation). Scholarly rationale
+  per secondary axis: T-2 (Attribution Error) emerges as
+  secondary for signals that carry attribution-like semantics —
+  multi-layer boundaries, muhaqqiq editorial voice, matn
+  embedding style (which separates sharḥ author's voice from matn
+  author), edition-identifying metadata, and genre-dispute (which
+  can carry authorship disputes). T-3 (Taxonomic Misplacement)
+  emerges for the signals that govern taxonomy placement — genre
+  and science_scope. T-4 (Context Loss (Self-Containment
+  Failure)) emerges for structural-integrity signals whose loss
+  produces excerpts lacking self-containment — page layout,
+  structural format, volume completeness, and contains_isnad_chains
+  (isnāds are atomic scholarly units per INV-SRC-0006). T-1
+  (Silent Text Corruption) emerges when pdf_text_layer_status is
+  lost because the provenance of extracted text becomes
+  indeterminable. The author_output signal is the inversion
+  point: its primary threat is T-2 because attribution is the
+  highest-consequence editorial decision in classical scholarly
+  reception, with T-6 as secondary metadata poisoning if the
+  attribution record itself is corrupted. This mapping does not
+  change the behavior or error_conditions of this atom — both
+  error codes still fire on any signal omission regardless of
+  primary / secondary T-code classification. The per-signal
+  refinement serves downstream engines (taxonomy, synthesis) that
+  may wish to weight recovery priorities by the specific
+  threat-type a dropped signal manifests.
 created: '2026-04-16'
-updated: '2026-04-23'
+updated: '2026-04-24'
 depends_on:
 - CON-SRC-0004
 - REQ-SRC-0007
