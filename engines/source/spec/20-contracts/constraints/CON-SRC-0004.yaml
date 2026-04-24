@@ -69,8 +69,15 @@ source: >-
   .kr/runtime/structural_audit_codex_cli_item7_retry_20260423.md,
   .kr/runtime/domain_validation_gemini_cli_item7_run_A_20260423.md,
   .kr/runtime/domain_validation_gemini_cli_item7_run_B_20260423.md.
+  Follow-up 32 amendment on 2026-04-24 resolves atom-vs-contract
+  nested-shape drift for REQ-SRC-0046: genre_dispute is explicitly an
+  optional evidence-bearing list of alternate genre positions
+  (genre_candidate, supporting_evidence, confidence, source_agents),
+  ordered by descending confidence and preserved recursively at handoff.
+  muhaqiq_output remains the live MuhaqiqAssessment shape; edition_info
+  remains a flexible Optional[dict[str, Any]] surface.
 created: '2026-04-14'
-updated: '2026-04-23'
+updated: '2026-04-24'
 depends_on:
 - REQ-SRC-0014
 - REQ-SRC-0004
@@ -127,7 +134,9 @@ rule:
     level inference governed by INV-SRC-0011). Optional fields may appear as muhaqiq_output,
     compiler_name, preparer_name, copyist_name, annotator_name,
     supervisor_name, death_date_hijri, level, edition_info,
-    publisher, text_fidelity, hint_comparison_results,
+    publisher, genre_dispute (list of evidence-bearing alternate
+    genre positions with genre_candidate, supporting_evidence,
+    confidence, source_agents), text_fidelity, hint_comparison_results,
     attribution_confidence in {confirmed, disputed, anonymous,
     pseudepigraphic, collective}, work_relationships (list of typed
     links with relationship_type, target_work_title,

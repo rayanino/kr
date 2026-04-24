@@ -694,6 +694,15 @@ class WorkRelationship(BaseModel):
     confidence: Literal["high", "medium", "low"]
 
 
+class GenreDisputePosition(BaseModel):
+    """Evidence-bearing alternate genre position per DEC-SRC-0007/0012."""
+
+    genre_candidate: Genre
+    supporting_evidence: list[str] = Field(min_length=1)
+    confidence: float = Field(ge=0.0, le=1.0)
+    source_agents: list[str] = Field(min_length=1)
+
+
 class AuthorOutputPosition(BaseModel):
     position: str
     display_name: str
@@ -954,7 +963,7 @@ class SourceMetadata(BaseModel):
     genre: Optional[Genre] = None
     hadith_subgenre: Optional[HadithSubgenre] = None
     candidate_subgenres: list[HadithSubgenre] = Field(default_factory=list)
-    genre_dispute: list[str] = Field(default_factory=list)
+    genre_dispute: list[GenreDisputePosition] = Field(default_factory=list)
     authority_level: Optional[AuthorityLevel] = None
     is_multi_layer: bool = False
     multi_layer_evidence: list[str] = Field(default_factory=list)
@@ -1003,6 +1012,17 @@ class SourceMetadata(BaseModel):
             self.source_sha256 = self.frozen_hash
         if self.frozen_blob_path is None:
             self.frozen_blob_path = self.frozen_path
+        return self
+
+    @model_validator(mode="after")
+    def enforce_genre_dispute_ordering(self) -> "SourceMetadata":
+        for index, current_position in enumerate(self.genre_dispute[1:], start=1):
+            previous_position = self.genre_dispute[index - 1]
+            if current_position.confidence > previous_position.confidence:
+                raise ValueError(
+                    "DEC-SRC-0012 requires genre_dispute positions to be ordered "
+                    "by descending confidence"
+                )
         return self
 
     @model_validator(mode="after")

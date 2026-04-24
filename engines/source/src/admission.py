@@ -502,9 +502,9 @@ def _validate_handoff_evidence(bundle_dict: dict[str, object]) -> None:
     Detail strings follow the REQ-SRC-0046 closure-wave Arabic-localization
     constraint: `إيقاف مؤقت` (īqāf muʾaqqat — temporary halt) per CON-SRC-0012
     blocking tier. Forbidden vocabulary (ردّ / إعلال / جرح / تضعيف / إسقاط /
-    إبطال / نقض / طعن) is excluded because these tokens carry hadith-science
-    substantive-rejection semantics per Ibn al-Ṣalāḥ Muqaddima and al-Suyūṭī
-    Tadrīb al-Rāwī. Preferred tokens: غياب, فقدان, غائب, إعادة التشغيل.
+    إبطال / نقض / طعن / ترك / شذوذ) is excluded because these tokens carry
+    hadith-science or fiqh adverse-finding semantics. Preferred tokens: غياب,
+    فقدان, إعادة التشغيل.
     """
     metadata = bundle_dict.get("source_metadata")
     if not isinstance(metadata, dict):
@@ -525,6 +525,34 @@ def _validate_handoff_evidence(bundle_dict: dict[str, object]) -> None:
             'إيقاف مؤقت: الحقل "intake_dossier_contains_isnad_chains" غائب '
             "من سطح حزمة التسليم — أعد تشغيل تحليل الاستيعاب",
         )
+    muhaqiq_output = metadata.get("muhaqiq_output")
+    if isinstance(muhaqiq_output, dict) and "last_verified" not in muhaqiq_output:
+        raise SourceEngineError(
+            ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED,
+            'إيقاف مؤقت: الحقل الفرعي "muhaqiq_output.last_verified" '
+            "غائب من حزمة التسليم — أعد تشغيل تحليل الاستيعاب",
+        )
+    genre_dispute = metadata.get("genre_dispute")
+    if isinstance(genre_dispute, list):
+        for index, position in enumerate(genre_dispute):
+            if not isinstance(position, dict):
+                raise SourceEngineError(
+                    ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED,
+                    f'إيقاف مؤقت: عنصر "genre_dispute[{index}]" '
+                    "لا يحمل بنية موثقة — أعد تشغيل تحليل الاستيعاب",
+                )
+            for subfield in (
+                "genre_candidate",
+                "supporting_evidence",
+                "confidence",
+                "source_agents",
+            ):
+                if subfield not in position:
+                    raise SourceEngineError(
+                        ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED,
+                        f'إيقاف مؤقت: الحقل الفرعي "genre_dispute[{index}].{subfield}" '
+                        "غائب داخل عنصر القائمة — أعد تشغيل تحليل الاستيعاب",
+                    )
     author_output = metadata.get("author_output")
     if isinstance(author_output, dict):
         positions = author_output.get("positions")

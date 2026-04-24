@@ -53,9 +53,11 @@ from pydantic import ValidationError
 from engines.source.contracts import (
     ErrorCode,
     Genre,
+    GenreDisputePosition,
     LevelProvenance,
     LevelStatus,
     MetadataDeliberationInput,
+    MuhaqiqAssessment,
     SourceFormat,
     SourceMetadata,
     StructuralFormat,
@@ -395,6 +397,10 @@ def test_con_src_0004_invariant_4_level_status_mandatory() -> None:
             frozen_hash="a" * 64,
             frozen_file_hashes={"book.htm": "a" * 64},
             status="accepted",
+            page_count=None,
+            volume_count=None,
+            page_count_physical=None,
+            death_date_hijri=None,
         )
 
 
@@ -640,6 +646,10 @@ def test_inv_src_0012_ac4_composite_survives_source_metadata_invariants() -> Non
         level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
         level_provenance=None,
         composite_work_type="majmu",
+        page_count=None,
+        volume_count=None,
+        page_count_physical=None,
+        death_date_hijri=None,
     )
 
     assert metadata.composite_work_type == "majmu"
@@ -965,6 +975,76 @@ def test_req_src_0046_ac8_shamela_null_key_contract(
     # AC-8 scope is therefore 15 signals, not 17.
 
 
+@pytest.mark.spec("REQ-SRC-0046", "AC-4")
+def test_req_src_0046_ac4_genre_dispute_positions_preserved(
+    source_pipeline: SourcePipeline,
+) -> None:
+    """Evidence-bearing genre-dispute positions survive handoff intact."""
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    deliberation_result.source_metadata.genre_dispute = [
+        GenreDisputePosition(
+            genre_candidate=Genre.SHARH,
+            supporting_evidence=["في العنوان وصف صريح للكتاب بأنه شرح"],
+            confidence=0.84,
+            source_agents=["genre_agent_a", "genre_agent_b"],
+        ),
+        GenreDisputePosition(
+            genre_candidate=Genre.HASHIYAH,
+            supporting_evidence=["ترتيب الحواشي في النسخة يوهم بكونه حاشية"],
+            confidence=0.52,
+            source_agents=["genre_agent_c"],
+        ),
+    ]
+
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+    bundle = result.handoff_bundle
+    assert bundle is not None
+
+    dumped = bundle.source_metadata.model_dump(mode="json")
+    positions = dumped["genre_dispute"]
+    assert positions == [
+        {
+            "genre_candidate": "sharh",
+            "supporting_evidence": ["في العنوان وصف صريح للكتاب بأنه شرح"],
+            "confidence": 0.84,
+            "source_agents": ["genre_agent_a", "genre_agent_b"],
+        },
+        {
+            "genre_candidate": "hashiyah",
+            "supporting_evidence": ["ترتيب الحواشي في النسخة يوهم بكونه حاشية"],
+            "confidence": 0.52,
+            "source_agents": ["genre_agent_c"],
+        },
+    ]
+
+    tampered = bundle.model_dump(mode="json")
+    metadata_dict = tampered["source_metadata"]
+    assert isinstance(metadata_dict, dict)
+    genre_dispute = metadata_dict["genre_dispute"]
+    assert isinstance(genre_dispute, list)
+    first_position = genre_dispute[0]
+    assert isinstance(first_position, dict)
+    assert "source_agents" in first_position
+    del first_position["source_agents"]
+
+    with pytest.raises(SourceEngineError) as exc_info:
+        _validate_handoff_evidence(tampered)
+    assert exc_info.value.error_code == ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED
+    assert "genre_dispute[0].source_agents" in exc_info.value.detail
+    assert "إيقاف مؤقت" in exc_info.value.detail
+
+
 @pytest.mark.spec("REQ-SRC-0046", "AC-3")
 def test_req_src_0046_ac3_top_level_key_omission_aborts(
     source_pipeline: SourcePipeline,
@@ -1018,6 +1098,47 @@ def test_req_src_0046_ac3_top_level_key_omission_aborts(
     assert "إيقاف مؤقت" in exc_info.value.detail
 
 
+@pytest.mark.spec("REQ-SRC-0046", "AC-6")
+def test_req_src_0046_ac6_nested_muhaqiq_key_omission_aborts(
+    source_pipeline: SourcePipeline,
+) -> None:
+    """Direct child omission in live MuhaqiqAssessment triggers nested error."""
+    frozen = _frozen_from_pipeline(
+        source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"
+    )
+    source_pipeline.classify_container(frozen.source_id)
+    dossier = source_pipeline.intake_analysis(frozen.source_id)
+    deliberation_result = _accepted_deliberation_result(frozen.source_id)
+    deliberation_result.source_metadata.muhaqiq_output = MuhaqiqAssessment(
+        standing_level="trusted",
+        evidence_sources=["صفحة العنوان تذكر تحقيق دار ابن حزم"],
+        last_verified="2026-04-24",
+    )
+    result = admit_source_and_build_handoff(
+        store=source_pipeline.store,
+        frozen=frozen,
+        dossier=dossier,
+        deliberation_result=deliberation_result,
+        owner_acknowledged=True,
+    )
+    bundle = result.handoff_bundle
+    assert bundle is not None
+
+    tampered = bundle.model_dump(mode="json")
+    metadata_dict = tampered["source_metadata"]
+    assert isinstance(metadata_dict, dict)
+    muhaqiq_output = metadata_dict["muhaqiq_output"]
+    assert isinstance(muhaqiq_output, dict)
+    assert "last_verified" in muhaqiq_output
+    del muhaqiq_output["last_verified"]
+
+    with pytest.raises(SourceEngineError) as exc_info:
+        _validate_handoff_evidence(tampered)
+    assert exc_info.value.error_code == ErrorCode.HANDOFF_EVIDENCE_DROPPED_NESTED
+    assert "muhaqiq_output.last_verified" in exc_info.value.detail
+    assert "إيقاف مؤقت" in exc_info.value.detail
+
+
 @pytest.mark.spec("REQ-SRC-0046", "AC-7")
 def test_req_src_0046_ac7_nested_list_item_key_omission_aborts(
     source_pipeline: SourcePipeline,
@@ -1039,11 +1160,10 @@ def test_req_src_0046_ac7_nested_list_item_key_omission_aborts(
     grounded and scholarly-grounded (multi-position attribution is
     the canonical disputed-authorship shape in classical tahqiq).
 
-    The atom's AC-6 alternative (muhaqiq_output.death_date) is
-    deferred to follow-up 32 — the live MuhaqiqAssessment at
-    contracts.py:868-872 has no death_date sub-field, so the atom's
-    AC-6 as written cannot be spec-linked-tested against current
-    contracts.
+    AC-6 now covers the direct-child MuhaqiqAssessment path
+    muhaqiq_output.last_verified after follow-up 32. AC-7 stays on
+    author_output.positions[0].death_hijri because it is the depth-2
+    list-item case.
     """
     frozen = _frozen_from_pipeline(
         source_pipeline, FIXTURES_ROOT / "shamela_real" / "03_fiqh" / "book.htm"

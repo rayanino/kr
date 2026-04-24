@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import pytest
+from pydantic import ValidationError
+
 from engines.source.contracts import (
     AuthorityLevel,
     Genre,
+    GenreDisputePosition,
     InferredFieldConfidence,
     HadithSubgenre,
     LevelStatus,
@@ -115,7 +119,20 @@ def test_source_contracts_expose_additive_step_50_metadata_surfaces() -> None:
         level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
         hadith_subgenre=HadithSubgenre.JAMI,
         candidate_subgenres=[HadithSubgenre.SUNAN],
-        genre_dispute=["sharh", "hadith_collection"],
+        genre_dispute=[
+            GenreDisputePosition(
+                genre_candidate=Genre.SHARH,
+                supporting_evidence=["عنوان الكتاب يصرح بأنه شرح"],
+                confidence=0.82,
+                source_agents=["genre_agent_a", "genre_agent_b"],
+            ),
+            GenreDisputePosition(
+                genre_candidate=Genre.HADITH_COLLECTION,
+                supporting_evidence=["ترتيب الأبواب يذكر أحاديث مسندة"],
+                confidence=0.51,
+                source_agents=["genre_agent_c"],
+            ),
+        ],
         multi_layer_evidence=["genre_auto_hint"],
         matn_embedding_style="interlinear",
         work_relationships=[
@@ -138,6 +155,49 @@ def test_source_contracts_expose_additive_step_50_metadata_surfaces() -> None:
 
     assert metadata.hadith_subgenre is HadithSubgenre.JAMI
     assert metadata.candidate_subgenres == [HadithSubgenre.SUNAN]
+    assert metadata.genre_dispute[0].genre_candidate is Genre.SHARH
+    assert metadata.genre_dispute[0].supporting_evidence == ["عنوان الكتاب يصرح بأنه شرح"]
     assert metadata.multi_layer_evidence == ["genre_auto_hint"]
     assert metadata.work_relationships[0].relationship_type == "is_commentary_on"
     assert profile.profile_source is ScholarProfileSource.SCHOLAR_AUTHORITY
+
+
+def test_genre_dispute_positions_must_be_confidence_ordered() -> None:
+    with pytest.raises(ValidationError, match="DEC-SRC-0012"):
+        SourceMetadata(
+            source_id="src_test0003",
+            title_arabic="كتاب فيه خلاف في النوع",
+            source_format=SourceFormat.SHAMELA_HTML,
+            structural_format=StructuralFormat.PROSE,
+            intake_timestamp="2026-01-01T00:00:00Z",
+            acquisition_path="manual",
+            frozen_path="library/sources/src_test0003/frozen/",
+            frozen_hash="abc789",
+            frozen_file_hashes={"book.htm": "abc789"},
+            status="acquired",
+            science_scope=["fiqh"],
+            genre=Genre.SHARH,
+            is_multi_layer=True,
+            text_fidelity=TextFidelity.HIGH,
+            trust_tier=TrustTier.VERIFIED,
+            trust_score=0.7,
+            page_count=None,
+            volume_count=None,
+            page_count_physical=None,
+            death_date_hijri=None,
+            level_status=LevelStatus.PENDING_SYNTHESIS,
+            genre_dispute=[
+                GenreDisputePosition(
+                    genre_candidate=Genre.SHARH,
+                    supporting_evidence=["في المقدمة يسميه المؤلف شرحا"],
+                    confidence=0.45,
+                    source_agents=["genre_agent_a"],
+                ),
+                GenreDisputePosition(
+                    genre_candidate=Genre.HASHIYAH,
+                    supporting_evidence=["الحواشي محيطة بالمتن في النسخة"],
+                    confidence=0.76,
+                    source_agents=["genre_agent_b"],
+                ),
+            ],
+        )
