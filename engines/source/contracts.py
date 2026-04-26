@@ -239,6 +239,45 @@ class LevelProvenance(str, Enum):
     SYNTHESIS_ENGINE = "synthesis_engine"
 
 
+class OverrideQueueState(str, Enum):
+    """Lifecycle states of a queued ``owner_level_override`` per REQ-SRC-0048.
+
+    QUEUED — accepted at intake, awaiting genre resolution.
+    APPLIED — genre resolved to a leveled fann with no INV-SRC-0012 axis firing;
+        the override populated SourceMetadata.level under owner_override provenance.
+    REJECTED_NONAPPLICABLE — genre resolved to a member of the Axis 1 set OR
+        composite_work_type fired Axis 2; the override is rejected via the
+        REQ-SRC-0047 AC-3 path.
+    DEFERRED_TO_SYNTHESIS — genre returned with disagreement (genre_dispute
+        populated, no D-041 consensus); record stays queued and is carried
+        through the source→normalization handoff for synthesis engine
+        consumption per DEC-SRC-0003 synthesis-owns-level authority.
+    ABANDONED — intake closed without genre resolving and without a dispute
+        record; the queued record is preserved in the audit trail with
+        SRC-E-OVERRIDE-QUEUE-ABANDONED detail.
+    """
+
+    QUEUED = "queued"
+    APPLIED = "applied"
+    REJECTED_NONAPPLICABLE = "rejected_nonapplicable"
+    DEFERRED_TO_SYNTHESIS = "deferred_to_synthesis"
+    ABANDONED = "abandoned"
+
+
+class GenreResolutionState(str, Enum):
+    """Genre-resolution state observed at queueing or resolution time.
+
+    UNRESOLVED — metadata deliberation has not emitted a final genre yet.
+    RESOLVED — single classification consensus emitted.
+    DISPUTED — genre_dispute populated, no D-041 consensus; the dispute is
+        carried into the queued record for synthesis-engine adjudication.
+    """
+
+    UNRESOLVED = "unresolved"
+    RESOLVED = "resolved"
+    DISPUTED = "disputed"
+
+
 # INV-SRC-0012 Axis 1: genre-level non-applicability set (the fann of the
 # work has no classical pedagogical level). Phase 5b item 4 Option E-prime-final
 # reconciled this set to six values that are ALL existing Genre enum members.
@@ -312,6 +351,15 @@ class ErrorCode(str, Enum):
     NO_WORK_IDENTITY = "SRC-E-NO-WORK-IDENTITY"
     PDF_TEXT_EVIDENCE_MUTATED = "SRC-E-PDF-TEXT-EVIDENCE-MUTATED"
     PDF_TEXT_EVIDENCE_DROPPED = "SRC-E-PDF-TEXT-EVIDENCE-DROPPED"
+    # Step 40 — owner_level_override deferred-validation queue (REQ-SRC-0048).
+    # LEVEL_OVERRIDE_NONAPPLICABLE was previously parked under Step 60; relocated
+    # here per Codex follow-up-29 review (MED-6) because the override evaluation
+    # is intake-stage owned (REQ-SRC-0047 / REQ-SRC-0048).
+    LEVEL_OVERRIDE_NONAPPLICABLE = "SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE"
+    OVERRIDE_QUEUE_ABANDONED = "SRC-E-OVERRIDE-QUEUE-ABANDONED"
+    OVERRIDE_QUEUE_UNANIMOUSLY_NONAPPLICABLE = (
+        "SRC-E-OVERRIDE-QUEUE-UNANIMOUSLY-NONAPPLICABLE"
+    )
     # Step 50 — metadata_deliberation
     HINT_FIELD = "SRC-E-HINT-FIELD"
     TRUST_AGENT_COUNT = "SRC-E-TRUST-AGENT-COUNT"
@@ -332,7 +380,6 @@ class ErrorCode(str, Enum):
     PDF_ROUTE = "SRC-E-PDF-ROUTE"
     VOLUME_COUNT_MISSING = "SRC-E-VOLUME-COUNT-MISSING"
     LEVEL_FIELD_MISSING = "SRC-E-LEVEL-FIELD-MISSING"
-    LEVEL_OVERRIDE_NONAPPLICABLE = "SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE"
     HANDOFF_EVIDENCE_DROPPED = "SRC-E-HANDOFF-EVIDENCE-DROPPED"
     HANDOFF_EVIDENCE_DROPPED_NESTED = "SRC-E-HANDOFF-EVIDENCE-DROPPED-NESTED"
     # Load-boundary legacy record migration — DEC-SRC-0021
@@ -356,6 +403,8 @@ class WarningCode(str, Enum):
     MULTILAYER_NO_EVIDENCE = "SRC-W-MULTILAYER-NO-EVIDENCE"
     STRUCTURAL_FORMAT_DEFAULT = "SRC-W-STRUCTURAL-FORMAT-DEFAULT"
     NO_DATES_FOR_ROLE_CHECK = "SRC-W-NO-DATES-FOR-ROLE-CHECK"
+    # REQ-SRC-0048 — owner_level_override deferred-validation queue
+    OVERRIDE_QUEUE_STALE = "SRC-W-OVERRIDE-QUEUE-STALE"
 
 
 class HumanGateTrigger(str, Enum):
@@ -708,6 +757,60 @@ class GenreDisputePosition(BaseModel):
     source_agents: list[str] = Field(min_length=1)
 
 
+class OverrideQueueAuditEntry(BaseModel):
+    """One state-transition entry in the audit trail of a queued override.
+
+    Per REQ-SRC-0048 postconditions: audit-trail entries are written at every
+    state transition (queued, applied, rejected_nonapplicable,
+    deferred_to_synthesis_on_dispute, abandoned) with
+    ``provenance="owner_override_deferred"``, the source_id, the genre
+    resolution state, and an ISO 8601 timestamp.
+
+    Frozen ``provenance`` literal matches the spec atom verbatim. A
+    SPEC_AMENDMENT_REQUESTED tracker (Run B DIM2) considers
+    ``owner_override_pending_genre_resolution`` for future bayān precision;
+    no code change applied here.
+    """
+
+    model_config = ConfigDict(validate_assignment=True, extra="forbid")
+
+    transition: OverrideQueueState
+    timestamp: str
+    raw_token: str
+    validated_value: Optional[WorkLevel] = None
+    genre_resolution_state: GenreResolutionState
+    detail: Optional[str] = None
+    provenance: Literal["owner_override_deferred"] = "owner_override_deferred"
+
+
+class PendingLevelOverride(BaseModel):
+    """One ``owner_level_override`` waiting for genre resolution per REQ-SRC-0048.
+
+    The record is persisted across the source→normalization handoff when
+    state remains QUEUED or DEFERRED_TO_SYNTHESIS so the synthesis engine can
+    consume it during authoritative level determination per DEC-SRC-0003.
+
+    The ``dispute_snapshot`` field reuses ``GenreDisputePosition`` rather than
+    a lossy snapshot copy: per Codex follow-up-29 review (HIGH-2) and Gemini
+    Run B (DIM1), the synthesis engine acts as a muḥaqqiq/mujtahid and needs
+    full ``supporting_evidence`` to make a sound ḥukm. Stripping evidence at
+    queueing would force a T-2 corruption vector (authoritative judgment on
+    incomplete bayyinah).
+    """
+
+    model_config = ConfigDict(validate_assignment=True, extra="forbid")
+
+    source_id: str
+    raw_token: str
+    validated_value: WorkLevel
+    queued_at: str
+    genre_resolution_state_at_queueing: GenreResolutionState
+    state: OverrideQueueState = OverrideQueueState.QUEUED
+    audit_trail: list[OverrideQueueAuditEntry] = Field(default_factory=list)
+    resolved_at: Optional[str] = None
+    dispute_snapshot: list[GenreDisputePosition] = Field(default_factory=list)
+
+
 class AuthorOutputPosition(BaseModel):
     position: str
     display_name: str
@@ -877,6 +980,11 @@ class MetadataDeliberationResult(BaseModel):
     case_complexity_record: CaseComplexityRecord
     monitor_feedback: list[MonitorFeedbackRecord] = Field(default_factory=list)
     disagreement_cases: list[DisagreementCaseRecord] = Field(default_factory=list)
+    # REQ-SRC-0048: when an owner_level_override was accepted at intake but
+    # genre resolution was pending or disputed, the queued record is carried
+    # here so the synthesis engine can consume it during its authoritative
+    # level determination pass per DEC-SRC-0003.
+    pending_level_override: Optional[PendingLevelOverride] = None
 
 
 class MuhaqiqAssessment(BaseModel):
@@ -1132,3 +1240,7 @@ class NormalizationHandoffBundle(BaseModel):
     page_layout_hint: Optional[PageLayoutHint] = None
     intake_dossier_contains_isnad_chains: Optional[bool] = None
     unresolved_disputes: list[dict[str, Any]] = Field(default_factory=list)
+    # REQ-SRC-0048 AC-1/AC-4: persist the queued owner_level_override record
+    # across the source→normalization handoff so the synthesis engine can
+    # consume it during authoritative level determination per DEC-SRC-0003.
+    pending_level_override: Optional[PendingLevelOverride] = None
