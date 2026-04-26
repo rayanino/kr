@@ -854,10 +854,28 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
         ("طبقات رواة الحديث", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TABAQAT_RIJAL),
         ("شرح صحيح البخاري", ["hadith"], Genre.SHARH, HadithSubgenre.HADITH_COMMENTARY),
         ("جزء فيه من حديث الإمام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
+        # Phase 5b item 23 closure 2026-04-26: Codex CRITICAL DIM4 fix —
+        # bundle "مصنف" → MUSANNAF inference (al-Muṣannaf of ʿAbd al-Razzāq,
+        # al-Muṣannaf of Ibn Abī Shaybah; al-Kattānī, *al-Risālah al-
+        # Mustaṭrafah* p. 36 *Kutub al-Muṣannafāt*).
+        ("مصنف عبد الرزاق", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUSANNAF),
         ("مسند الإمام أحمد", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUSNAD),
         ("سنن أبي داود", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SUNAN),
         ("الجامع الصغير", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JAMI),
         ("المعجم الكبير للطبراني", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUJAM),
+        # Phase 5b item 23 closure 2026-04-26: Path A intentional non-
+        # classification per 3-of-3 evaluator wave. Riyāḍ al-Ṣāliḥīn
+        # (al-Nawawī, d. 676 AH) and Bulūgh al-Marām (Ibn Ḥajar, d. 852 AH)
+        # are famous pedagogical anthologies but classification under
+        # the existing HadithSubgenre enum is incomplete (al-Kattānī
+        # classifies them as *Kutub al-Aḥkām* / *Mukhtārāt*, both 2-of-2
+        # Gemini-recommended new enum values). New enum values AHKAM and
+        # MUKHTARAT are deferred to follow-up 34. Until then, these works
+        # return None subgenre — Path A (transmission-by-default) means
+        # owner overrides on them are wrongly rejected by INV-SRC-0012
+        # Axis 3. Documented limitation.
+        ("رياض الصالحين", ["hadith"], Genre.HADITH_COLLECTION, None),
+        ("بلوغ المرام", ["hadith"], Genre.HADITH_COLLECTION, None),
         ("أحاديث متفرقة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("حديث الجمعة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("كتاب الأذكار", ["hadith"], Genre.MATN, None),

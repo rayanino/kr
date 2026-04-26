@@ -310,6 +310,25 @@ NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
 )
 
 
+# INV-SRC-0012 Axis 3 (Phase 5b item 23 closure 2026-04-26): hadith-subgenre
+# carve-back set. When genre is Genre.HADITH_COLLECTION (which would otherwise
+# fire Axis 1), a hadith_subgenre value in this set CARVES BACK the Axis 1
+# firing — the work is treated as pedagogical, not transmission.
+#
+# Currently single-member: ARBAIN (al-Arbaʿīn al-Nawawī of al-Nawawī d. 676 AH,
+# and the broader arbaʿūniyyāt genre per al-Kattānī, *al-Risālah al-
+# Mustaṭrafah* p. 69-72). Other pedagogical hadith-subgenres deferred to
+# follow-up 34 (AHKAM + MUKHTARAT enum addition per 2-of-2 Gemini scholarly
+# consensus during the follow-up 23 dispatch wave).
+#
+# Default-None semantics (Path A — transmission-by-default): a None subgenre
+# on a hadith_collection does NOT fire the carve-back. Per the *iḥtiyāṭ* /
+# *tawaqquf* principle (Ibn Ḥajar, *Nuzhat al-Naẓar*; al-Suyūṭī, *Tadrīb al-
+# Rāwī* Nawʿ 23), silence defaults to the safer interpretation; explicit
+# positive evidence (subgenre IN this set) is required to flip to leveled.
+LEVELED_HADITH_SUBGENRES: frozenset[str] = frozenset({"arbain"})
+
+
 class ProcessingStatus(str, Enum):
     STAGING = "staging"
     ACQUIRED = "acquired"
@@ -1170,20 +1189,37 @@ class SourceMetadata(BaseModel):
         # NON_APPLICABLE_GENRE_VALUES frozenset. Axis 2: composite_work_type ==
         # "majmu" (the work is a structural composite whose container-level
         # pedagogy does not apply even if the declared genre is leveled — see
-        # INV-SRC-0012 AC-3/AC-4). Axis 3 (HadithSubgenre pedagogical carve-
-        # out) is deferred to Phase 5b item 23. An invariant-3 violation
-        # fires only when NEITHER Axis 1 NOR Axis 2 fires.
+        # INV-SRC-0012 AC-3/AC-4). Axis 3 (Phase 5b item 23 closure 2026-04-26):
+        # when genre is HADITH_COLLECTION, hadith_subgenre carves back Axis 1
+        # if it is in LEVELED_HADITH_SUBGENRES (currently {arbain}); a None
+        # subgenre does NOT carve back per Path A (transmission-by-default
+        # safeguard, *iḥtiyāṭ* / *tawaqquf* principle). An invariant-3
+        # violation fires only when NEITHER Axis 1 (post-carve-back) NOR
+        # Axis 2 fires.
         if self.level_status == LevelStatus.NON_APPLICABLE_REFERENCE:
             genre_value = self.genre.value if self.genre is not None else None
-            axis_1_fires = genre_value in NON_APPLICABLE_GENRE_VALUES
+            axis_1_raw = genre_value in NON_APPLICABLE_GENRE_VALUES
+            axis_3_carves_back = (
+                self.genre is Genre.HADITH_COLLECTION
+                and self.hadith_subgenre is not None
+                and self.hadith_subgenre.value in LEVELED_HADITH_SUBGENRES
+            )
+            axis_1_fires = axis_1_raw and not axis_3_carves_back
             axis_2_fires = self.composite_work_type == "majmu"
             if not (axis_1_fires or axis_2_fires):
+                hadith_subgenre_value = (
+                    self.hadith_subgenre.value
+                    if self.hadith_subgenre is not None
+                    else None
+                )
                 raise ValueError(
                     "CON-SRC-0004 invariant 3 violation: level_status="
                     "'non_applicable_reference' requires genre in "
-                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)} (Axis 1) OR "
-                    "composite_work_type == 'majmu' (Axis 2) per "
+                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)} (Axis 1, not "
+                    "carved back by INV-SRC-0012 Axis 3 hadith_subgenre) "
+                    "OR composite_work_type == 'majmu' (Axis 2) per "
                     f"INV-SRC-0012; got genre='{genre_value}', "
+                    f"hadith_subgenre='{hadith_subgenre_value}', "
                     f"composite_work_type='{self.composite_work_type}'"
                 )
         # CON-SRC-0004 invariant 4 (level_status non-null) is enforced by the

@@ -6,6 +6,7 @@ from typing import Any, Literal
 from uuid import uuid4
 
 from engines.source.contracts import (
+    LEVELED_HADITH_SUBGENRES,
     NON_APPLICABLE_GENRE_VALUES,
     AuthorityLevel,
     AuthorOutput,
@@ -201,29 +202,54 @@ def run_metadata_deliberation(
 
 def _non_applicability_axis(
     deliberation_input: MetadataDeliberationInput,
-) -> Literal["genre", "composite"] | None:
+) -> Literal["genre", "composite", "hadith_subgenre"] | None:
     """Return the triggering INV-SRC-0012 non-applicability axis, or None.
 
-    Axis 1 ("genre"): genre.value is in the six-value
-    ``NON_APPLICABLE_GENRE_VALUES`` frozenset — the work's fann (mushaf,
-    hadith_collection, mashyakhah, thabat, barnamaj, fahrasah) has no
-    classical pedagogical level because its organizing principle is
-    transmission attestation, cataloging, or documentary reference rather
-    than graduated exposition.
+    Branch order (most-specific first):
 
     Axis 2 ("composite"): composite_work_type == "majmu" — the work is a
     structural composite (e.g. مجموع فتاوى ابن تيمية) whose container-level
     pedagogy does not apply even when the declared Genre is otherwise
     leveled; constituent-rasāʾil leveling is tracked as Phase 5b item 24.
 
-    Axis 3 (HadithSubgenre pedagogical carve-out for ARBAIN etc.) is
-    deferred to Phase 5b item 23 — no wiring yet.
+    Axis 3 ("hadith_subgenre"): genre == HADITH_COLLECTION refines into
+    Axis 3. If the inferred hadith_subgenre is in
+    ``LEVELED_HADITH_SUBGENRES`` (currently {arbain}), Axis 3 carves back
+    the Axis 1 firing — the work is treated as a pedagogical 40-hadith
+    collection (al-Arbaʿīn al-Nawawī, etc.) and the level applies. Otherwise
+    Axis 3 fires (transmission collection — *kutub al-riwāyah*). Default
+    None subgenre fires Axis 3 per Path A (transmission-by-default,
+    *iḥtiyāṭ* / *tawaqquf* principle; 3-of-3 evaluator wave 2026-04-26).
+
+    Axis 1 ("genre"): genre.value is in the six-value
+    ``NON_APPLICABLE_GENRE_VALUES`` frozenset for a non-hadith_collection
+    member (mushaf, mashyakhah, thabat, barnamaj, fahrasah) — fann-level
+    archival/reference/revelation works whose organizing principle is
+    transmission attestation, cataloging, or documentary reference rather
+    than graduated exposition.
+
+    Phase 5b item 23 closure 2026-04-26: the function now infers
+    hadith_subgenre internally via ``_infer_hadith_subgenre`` (ARCH-B per
+    3-of-3 evaluator agreement). Double-inference (gate + later in
+    ``_build_source_metadata``) is accepted as a trivial pure-function
+    cost for keeping the function signature stable.
     """
-    genre = deliberation_input.genre
-    if genre is not None and genre.value in NON_APPLICABLE_GENRE_VALUES:
-        return "genre"
     if deliberation_input.composite_work_type == "majmu":
         return "composite"
+    genre = deliberation_input.genre
+    if genre is None:
+        return None
+    if genre is Genre.HADITH_COLLECTION:
+        subgenre = _infer_hadith_subgenre(
+            deliberation_input.science_scope,
+            deliberation_input.genre,
+            deliberation_input.title_arabic,
+        )
+        if subgenre is not None and subgenre.value in LEVELED_HADITH_SUBGENRES:
+            return None  # Axis 3 carve-back: ARBAIN is pedagogical
+        return "hadith_subgenre"
+    if genre.value in NON_APPLICABLE_GENRE_VALUES:
+        return "genre"
     return None
 
 
@@ -241,8 +267,9 @@ def _resolve_level_fields(
     if deliberation_input.level is not None:
         # INV-SRC-0012 3-axis gate: non-applicable works reject any level
         # override regardless of which axis fires. The text's scholarly form
-        # (Axis 1 — mushaf / hadith_collection / mashyakhah / thabat /
-        # barnamaj / fahrasah) or its structural composite nature (Axis 2 —
+        # (Axis 1 — mushaf / mashyakhah / thabat / barnamaj / fahrasah, or
+        # Axis 3 hadith_collection refinement to a transmission collection —
+        # *kutub al-riwāyah*) or its structural composite nature (Axis 2 —
         # composite_work_type == "majmu") means it is organized around
         # transmission, archival reference, or compilation rather than the
         # classical pedagogical ladder — so a level label corrupts it.
@@ -250,19 +277,33 @@ def _resolve_level_fields(
         if axis is not None:
             genre = deliberation_input.genre
             genre_value = genre.value if genre is not None else None
+            axis_number = {"genre": "1", "composite": "2", "hadith_subgenre": "3"}[axis]
+            if axis == "genre":
+                cause = (
+                    f"genre='{genre_value}' is in the non-applicable set "
+                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)}"
+                )
+            elif axis == "composite":
+                cause = f"composite_work_type='{deliberation_input.composite_work_type}'"
+            else:  # axis == "hadith_subgenre"
+                subgenre = _infer_hadith_subgenre(
+                    deliberation_input.science_scope,
+                    deliberation_input.genre,
+                    deliberation_input.title_arabic,
+                )
+                subgenre_value = subgenre.value if subgenre is not None else None
+                cause = (
+                    f"genre='hadith_collection' with hadith_subgenre="
+                    f"'{subgenre_value}' is a transmission collection "
+                    f"(كُتُب الرِّوَايَة); pedagogical carve-back set "
+                    f"{sorted(LEVELED_HADITH_SUBGENRES)} did not fire"
+                )
             raise SourceEngineError(
                 ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
                 f"owner_level_override='{deliberation_input.level.value}' "
-                f"rejected: INV-SRC-0012 Axis {'1' if axis == 'genre' else '2'} "
-                f"({axis}) fires — "
-                + (
-                    f"genre='{genre_value}' is in the non-applicable set "
-                    f"{sorted(NON_APPLICABLE_GENRE_VALUES)}"
-                    if axis == "genre"
-                    else f"composite_work_type='{deliberation_input.composite_work_type}'"
-                )
-                + "; these works MUST serialize level as null regardless of "
-                "any override attempt",
+                f"rejected: INV-SRC-0012 Axis {axis_number} ({axis}) fires — "
+                f"{cause}; these works MUST serialize level as null regardless "
+                "of any override attempt",
             )
         return (
             deliberation_input.level,
@@ -513,6 +554,8 @@ def _infer_hadith_subgenre(
         return HadithSubgenre.HADITH_COMMENTARY
     if "جزء" in title:
         return HadithSubgenre.JUZ
+    if "مصنف" in title:
+        return HadithSubgenre.MUSANNAF
     if "مسند" in title:
         return HadithSubgenre.MUSNAD
     if "سنن" in title:

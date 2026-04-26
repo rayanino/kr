@@ -42,6 +42,7 @@ from engines.source.contracts import (
     Genre,
     GenreDisputePosition,
     GenreResolutionState,
+    HadithSubgenre,
     LevelProvenance,
     LevelStatus,
     MetadataDeliberationResult,
@@ -364,6 +365,99 @@ def test_req_src_0048_ac3_reject_on_axis2_majmu_resolution() -> None:
     assert resolution.error_detail is not None
     assert "Axis 2" in resolution.error_detail
     assert "majmu" in resolution.error_detail
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-3")
+def test_req_src_0048_ac3_hadith_collection_arbain_applies() -> None:
+    """ARBAIN carve-back via the queue path: APPLIED outcome.
+
+    INV-SRC-0012 Axis 3 carve-back: hadith_collection + ARBAIN = pedagogical;
+    the queued owner_level_override is applied per Phase 5b item 23
+    closure 2026-04-26. The 3-of-3 evaluator wave confirmed this path
+    (al-Kattānī, *al-Risālah al-Mustaṭrafah* p. 69-72; Codex CRITICAL
+    DIM4 BLOCK on ARBAIN-overload — addressed by single-value carve-back set).
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(
+        raw_token="mubtadiʾ",
+        validated_value=WorkLevel.MUBTADI,
+        queued_at=queued_at,
+    )
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=Genre.HADITH_COLLECTION,
+        hadith_subgenre=HadithSubgenre.ARBAIN,
+        resolved_at=_later_iso(queued_at, hours=1),
+    )
+
+    assert resolution.outcome_state is OverrideQueueState.APPLIED
+    assert resolution.resolved_level is WorkLevel.MUBTADI
+    assert resolution.resolved_level_status is LevelStatus.ASSIGNED
+    assert resolution.resolved_level_provenance is LevelProvenance.OWNER_OVERRIDE
+    assert resolution.triggered_axis is None
+    assert resolution.error_code is None
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-3")
+def test_req_src_0048_ac3_hadith_collection_musnad_rejects_on_axis3() -> None:
+    """Transmission subgenre via the queue path: REJECTED with Axis 3 citation.
+
+    Musnad Aḥmad: hadith_subgenre=MUSNAD is in the transmission set;
+    the queue rejects the override and surfaces the Axis 3 citation
+    in the error_detail per Codex DIM5 amendment.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(
+        raw_token="muntahī",
+        validated_value=WorkLevel.MUNTAHI,
+        queued_at=queued_at,
+    )
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=Genre.HADITH_COLLECTION,
+        hadith_subgenre=HadithSubgenre.MUSNAD,
+        resolved_at=_later_iso(queued_at, hours=1),
+    )
+
+    assert resolution.outcome_state is OverrideQueueState.REJECTED_NONAPPLICABLE
+    assert resolution.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    assert resolution.triggered_axis == "hadith_subgenre"
+    assert resolution.error_detail is not None
+    assert "Axis 3" in resolution.error_detail
+    assert "musnad" in resolution.error_detail
+    assert "كُتُب الرِّوَايَة" in resolution.error_detail
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-3")
+def test_req_src_0048_ac3_hadith_collection_unknown_subgenre_rejects_on_axis3() -> None:
+    """Path A safeguard: hadith_subgenre=None on hadith_collection still fires Axis 3.
+
+    Default-None behavior per the *iḥtiyāṭ* / *tawaqquf* principle (3-of-3
+    evaluator wave; Ibn Ḥajar, *Nuzhat al-Naẓar*; al-Suyūṭī, *Tadrīb al-
+    Rāwī*): silence defaults to transmission-by-default. The queue must
+    reject the override even when no explicit subgenre is asserted.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(
+        raw_token="muntahī",
+        validated_value=WorkLevel.MUNTAHI,
+        queued_at=queued_at,
+    )
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=Genre.HADITH_COLLECTION,
+        hadith_subgenre=None,
+        resolved_at=_later_iso(queued_at, hours=1),
+    )
+
+    assert resolution.outcome_state is OverrideQueueState.REJECTED_NONAPPLICABLE
+    assert resolution.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    assert resolution.triggered_axis == "hadith_subgenre"
+    assert resolution.error_detail is not None
+    assert "Axis 3" in resolution.error_detail
 
 
 @pytest.mark.spec("REQ-SRC-0048", "AC-3")

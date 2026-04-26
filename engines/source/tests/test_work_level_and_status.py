@@ -54,6 +54,7 @@ from engines.source.contracts import (
     ErrorCode,
     Genre,
     GenreDisputePosition,
+    HadithSubgenre,
     LevelProvenance,
     LevelStatus,
     MetadataDeliberationInput,
@@ -511,7 +512,9 @@ def test_inv_src_0012_ac2_hadith_collection_rejects_override() -> None:
     04_hadith-style fixture classified as hadith_collection: the text is
     organized around transmission, not pedagogical graduation. Any
     level override must be rejected at the override boundary per
-    INV-SRC-0012.
+    INV-SRC-0012. Title صحيح البخاري infers hadith_subgenre=None
+    (no keyword match), and Path A (transmission-by-default) fires
+    Axis 3 — confirmed by 3-of-3 evaluator wave 2026-04-26.
     """
     request = _base_deliberation_input(
         title_arabic="صحيح البخاري",
@@ -524,6 +527,8 @@ def test_inv_src_0012_ac2_hadith_collection_rejects_override() -> None:
 
     assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
     message = str(excinfo.value)
+    assert "Axis 3" in message
+    assert "hadith_subgenre" in message
     assert "hadith_collection" in message
     assert "muntahī" in message
     assert "INV-SRC-0012" in message
@@ -531,7 +536,11 @@ def test_inv_src_0012_ac2_hadith_collection_rejects_override() -> None:
 
 @pytest.mark.spec("INV-SRC-0012", "AC-2")
 def test_inv_src_0012_non_applicable_override_rejects_every_work_level() -> None:
-    """All three CON-SRC-0011 WorkLevel values reject equally on non-applicable genre."""
+    """All three CON-SRC-0011 WorkLevel values reject equally on non-applicable genre.
+
+    Path A (transmission-by-default): hadith_subgenre=None on a
+    hadith_collection fires Axis 3 regardless of override level.
+    """
     for work_level in (WorkLevel.MUBTADI, WorkLevel.MUTAWASSIT, WorkLevel.MUNTAHI):
         request = _base_deliberation_input(
             title_arabic="صحيح البخاري",
@@ -543,6 +552,9 @@ def test_inv_src_0012_non_applicable_override_rejects_every_work_level() -> None
             _resolve_level_fields(request)
 
         assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+        message = str(excinfo.value)
+        assert "Axis 3" in message
+        assert "hadith_subgenre" in message
 
 
 @pytest.mark.spec("INV-SRC-0012", "AC-1")
@@ -657,6 +669,168 @@ def test_inv_src_0012_ac4_composite_survives_source_metadata_invariants() -> Non
 
 
 # ---------------------------------------------------------------------------
+# INV-SRC-0012 Axis 3 — HadithSubgenre carve-back (Phase 5b item 23 closure)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-5")
+def test_inv_src_0012_ac5_arbain_accepts_override() -> None:
+    """ARBAIN carve-back: hadith_collection + ARBAIN + override → ACCEPTED.
+
+    al-Arbaʿīn al-Nawawī of al-Nawawī (d. 676 AH) is a pedagogical
+    40-hadith collection introducing foundational Sunnah to beginners.
+    Title "الأربعين النووية" infers HadithSubgenre.ARBAIN via the
+    keyword "أربعين" in _infer_hadith_subgenre. Axis 3 carves back the
+    Axis 1 hadith_collection firing per INV-SRC-0012 line 82-84 and the
+    3-of-3 evaluator wave 2026-04-26 (al-Kattānī, *al-Risālah al-
+    Mustaṭrafah* p. 69-72; Ibn Ḥajar, *Nuzhat al-Naẓar*; al-Suyūṭī,
+    *Tadrīb al-Rāwī*).
+    """
+    request = _base_deliberation_input(
+        title_arabic="الأربعين النووية",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUBTADI,
+    )
+
+    level, status, provenance = _resolve_level_fields(request)
+
+    assert level is WorkLevel.MUBTADI
+    assert status is LevelStatus.ASSIGNED
+    assert provenance is LevelProvenance.OWNER_OVERRIDE
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-6")
+def test_inv_src_0012_ac6_musnad_rejects_override_axis_3_citation() -> None:
+    """Musnad Aḥmad: hadith_subgenre=MUSNAD fires Axis 3 with explicit citation.
+
+    Musnad Aḥmad ibn Ḥanbal is organized by Companion narrator
+    (ʿalā masānīd al-ṣaḥābah per al-Suyūṭī, *Tadrīb al-Rāwī*) — a
+    transmission collection, not pedagogical. Axis 3 (hadith_subgenre)
+    fires confirming Axis 1.
+    """
+    request = _base_deliberation_input(
+        title_arabic="مسند الإمام أحمد",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUNTAHI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "Axis 3" in message
+    assert "hadith_subgenre" in message
+    assert "musnad" in message
+    assert "كُتُب الرِّوَايَة" in message
+
+
+@pytest.mark.parametrize(
+    "title,expected_subgenre_value",
+    [
+        ("مسند الإمام أحمد", "musnad"),
+        ("الجامع الصغير", "jami"),
+        ("المستدرك على الصحيحين", "mustadrak"),
+        ("المستخرج لأبي عوانة", "mustakhraj"),
+        ("مصنف عبد الرزاق", "musannaf"),
+    ],
+)
+@pytest.mark.spec("INV-SRC-0012", "AC-6")
+def test_inv_src_0012_axis_3_transmission_subgenres_reject_override(
+    title: str, expected_subgenre_value: str
+) -> None:
+    """Each named transmission subgenre fires Axis 3 explicitly (parametrized).
+
+    Coverage of the 5-value transmission set established per the
+    user's follow-up 23 specification: {MUSANNAF, MUSNAD, JAMI,
+    MUSTADRAK, MUSTAKHRAJ}. The "مصنف" → MUSANNAF inference is bundled
+    into this work item (Codex CRITICAL DIM4 fix, 2026-04-26).
+    """
+    request = _base_deliberation_input(
+        title_arabic=title,
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUNTAHI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "Axis 3" in message
+    assert expected_subgenre_value in message
+
+
+@pytest.mark.spec("CON-SRC-0004", "AC-3")
+def test_con_src_0004_axis_3_carve_back_rejects_non_applicable_status() -> None:
+    """Invariant 3: ARBAIN carve-back forbids non_applicable_reference status.
+
+    A SourceMetadata with genre=HADITH_COLLECTION + hadith_subgenre=ARBAIN
+    has Axis 1 carved back by Axis 3, so level_status must NOT be
+    non_applicable_reference. Constructing such a model must fail
+    invariant 3 with a citation to INV-SRC-0012 / Axis 3.
+    """
+    with pytest.raises(ValidationError, match="invariant 3"):
+        SourceMetadata(
+            source_id="src_arbain_invariant3_test",
+            title_arabic="الأربعين النووية",
+            source_format=SourceFormat.SHAMELA_HTML,
+            structural_format=StructuralFormat.PROSE,
+            intake_timestamp="2026-04-26T00:00:00Z",
+            acquisition_path="manual",
+            frozen_path="library/sources/src_arbain_invariant3_test/frozen",
+            frozen_hash="d" * 64,
+            frozen_file_hashes={"book.htm": "d" * 64},
+            status="source_engine_accepted",
+            genre=Genre.HADITH_COLLECTION,
+            hadith_subgenre=HadithSubgenre.ARBAIN,
+            level=None,
+            level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
+            level_provenance=None,
+            page_count=None,
+            volume_count=None,
+            page_count_physical=None,
+            death_date_hijri=None,
+        )
+
+
+@pytest.mark.spec("CON-SRC-0004", "AC-3")
+def test_con_src_0004_axis_3_carve_back_accepts_assigned_status() -> None:
+    """Invariant 3: ARBAIN carve-back permits assigned level on hadith_collection.
+
+    Companion to the previous test: with the carve-back in effect,
+    level=MUBTADI + level_status=ASSIGNED + level_provenance=OWNER_OVERRIDE
+    is the legitimate validated state for a pedagogical 40-hadith
+    collection. Construction must succeed.
+    """
+    metadata = SourceMetadata(
+        source_id="src_arbain_assigned_test",
+        title_arabic="الأربعين النووية",
+        source_format=SourceFormat.SHAMELA_HTML,
+        structural_format=StructuralFormat.PROSE,
+        intake_timestamp="2026-04-26T00:00:00Z",
+        acquisition_path="manual",
+        frozen_path="library/sources/src_arbain_assigned_test/frozen",
+        frozen_hash="e" * 64,
+        frozen_file_hashes={"book.htm": "e" * 64},
+        status="source_engine_accepted",
+        genre=Genre.HADITH_COLLECTION,
+        hadith_subgenre=HadithSubgenre.ARBAIN,
+        level=WorkLevel.MUBTADI,
+        level_status=LevelStatus.ASSIGNED,
+        level_provenance=LevelProvenance.OWNER_OVERRIDE,
+        page_count=None,
+        volume_count=None,
+        page_count_physical=None,
+        death_date_hijri=None,
+    )
+
+    assert metadata.hadith_subgenre is HadithSubgenre.ARBAIN
+    assert metadata.level is WorkLevel.MUBTADI
+    assert metadata.level_status is LevelStatus.ASSIGNED
+
+
+# ---------------------------------------------------------------------------
 # REQ-SRC-0007 — handoff preservation across source→normalization boundary
 # ---------------------------------------------------------------------------
 
@@ -715,6 +889,7 @@ def test_req_src_0007_ac4_handoff_serializes_non_applicable_reference(
     deliberation_result.source_metadata = deliberation_result.source_metadata.model_copy(
         update={
             "genre": Genre.HADITH_COLLECTION,
+            "hadith_subgenre": None,
             "level": None,
             "level_status": LevelStatus.NON_APPLICABLE_REFERENCE,
             "level_provenance": None,
@@ -733,6 +908,7 @@ def test_req_src_0007_ac4_handoff_serializes_non_applicable_reference(
     assert bundle is not None
     dumped = bundle.source_metadata.model_dump(mode="json")
     assert "level" in dumped
+    assert dumped["hadith_subgenre"] is None
     assert dumped["level"] is None
     assert dumped["level_status"] == "non_applicable_reference"
     assert dumped["level_provenance"] is None

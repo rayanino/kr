@@ -49,11 +49,13 @@ from typing import Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
 from engines.source.contracts import (
+    LEVELED_HADITH_SUBGENRES,
     NON_APPLICABLE_GENRE_VALUES,
     ErrorCode,
     Genre,
     GenreDisputePosition,
     GenreResolutionState,
+    HadithSubgenre,
     LevelProvenance,
     LevelStatus,
     OverrideQueueAuditEntry,
@@ -92,7 +94,7 @@ class OverrideQueueResolution(BaseModel):
     warning_codes: list[WarningCode] = Field(default_factory=list)
     error_code: Optional[ErrorCode] = None
     error_detail: Optional[str] = None
-    triggered_axis: Optional[Literal["genre", "composite"]] = None
+    triggered_axis: Optional[Literal["genre", "composite", "hadith_subgenre"]] = None
     outcome_state: OverrideQueueState
 
 
@@ -144,6 +146,7 @@ def resolve_pending_level_override(
     *,
     resolved_genre: Optional[Genre],
     composite_work_type: Optional[Literal["majmu", "possible"]] = None,
+    hadith_subgenre: Optional[HadithSubgenre] = None,
     genre_dispute: Optional[list[GenreDisputePosition]] = None,
     resolved_at: Optional[str] = None,
     staleness_window_hours: int = DEFAULT_STALENESS_WINDOW_HOURS,
@@ -158,8 +161,11 @@ def resolve_pending_level_override(
        branch is leveled, DEFER to synthesis (level_status remains
        pending_synthesis, dispute snapshot preserved verbatim).
     2. ``resolved_genre`` is not None: apply the INV-SRC-0012 3-axis gate.
-       Axis 1 (genre in NON_APPLICABLE_GENRE_VALUES) or Axis 2
-       (composite_work_type=="majmu") → REJECT with
+       Axis 2 (composite_work_type=="majmu"), Axis 3 (genre==hadith_collection
+       refined by hadith_subgenre — carve-back if subgenre is in
+       LEVELED_HADITH_SUBGENRES, fires otherwise per Path A
+       transmission-by-default), or Axis 1 (other genre in
+       NON_APPLICABLE_GENRE_VALUES) → REJECT with
        SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE. Otherwise APPLY (level=
        record.validated_value, level_status="assigned",
        level_provenance="owner_override").
@@ -170,6 +176,13 @@ def resolve_pending_level_override(
     Stale warning is added to ``warning_codes`` whenever
     ``(resolved_at - queued_at)`` exceeds ``staleness_window_hours``,
     independent of which AC path fires.
+
+    Phase 5b item 23 closure 2026-04-26: ``hadith_subgenre`` parameter added
+    so the queue path consults Axis 3. The synchronous deliberation path
+    infers subgenre from title; the queue path receives it explicitly from
+    the caller (intake_analysis or pipeline-level metadata deliberation).
+    Default None preserves Path A semantics (transmission-by-default fires
+    Axis 3 on hadith_collection per *iḥtiyāṭ* / *tawaqquf*).
     """
     timestamp = resolved_at or _utc_now_iso()
     is_stale = _is_stale(record.queued_at, timestamp, staleness_window_hours)
@@ -192,6 +205,7 @@ def resolve_pending_level_override(
             record,
             resolved_genre=resolved_genre,
             composite_work_type=composite_work_type,
+            hadith_subgenre=hadith_subgenre,
             timestamp=timestamp,
             warning_codes=warning_codes,
         )
@@ -359,12 +373,90 @@ def _resolve_single_genre(
     *,
     resolved_genre: Genre,
     composite_work_type: Optional[Literal["majmu", "possible"]],
+    hadith_subgenre: Optional[HadithSubgenre],
     timestamp: str,
     warning_codes: list[WarningCode],
 ) -> OverrideQueueResolution:
-    """Resolve a record where a single genre consensus was reached."""
-    axis_1_fires = resolved_genre.value in NON_APPLICABLE_GENRE_VALUES
+    """Resolve a record where a single genre consensus was reached.
+
+    Branch order (most-specific first, matching deliberation.py
+    ``_non_applicability_axis``): Axis 2 composite → Axis 3 hadith_subgenre
+    (with carve-back) → Axis 1 other-genre. Axis 3 carves back when
+    hadith_subgenre is in LEVELED_HADITH_SUBGENRES (currently {arbain});
+    None subgenre fires Axis 3 per Path A (transmission-by-default,
+    *iḥtiyāṭ* / *tawaqquf*).
+    """
     axis_2_fires = composite_work_type == "majmu"
+    axis_3_carves_back = (
+        resolved_genre is Genre.HADITH_COLLECTION
+        and hadith_subgenre is not None
+        and hadith_subgenre.value in LEVELED_HADITH_SUBGENRES
+    )
+    axis_3_fires = (
+        resolved_genre is Genre.HADITH_COLLECTION and not axis_3_carves_back
+    )
+    axis_1_fires = (
+        resolved_genre.value in NON_APPLICABLE_GENRE_VALUES
+        and resolved_genre is not Genre.HADITH_COLLECTION
+    )
+
+    if axis_2_fires:
+        detail = (
+            f"owner_level_override='{record.validated_value.value}' rejected: "
+            f"INV-SRC-0012 Axis 2 (composite) fires — composite_work_type="
+            f"'{composite_work_type}' marks the work as a structural composite "
+            "whose container-level pedagogy does not apply"
+        )
+        rejected_record = _append_transition(
+            record,
+            new_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
+            timestamp=timestamp,
+            genre_resolution_state=GenreResolutionState.RESOLVED,
+            detail=detail,
+            resolved_at=timestamp,
+        )
+        return OverrideQueueResolution(
+            record=rejected_record,
+            resolved_level=None,
+            resolved_level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
+            resolved_level_provenance=None,
+            warning_codes=warning_codes,
+            error_code=ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
+            error_detail=detail,
+            triggered_axis="composite",
+            outcome_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
+        )
+
+    if axis_3_fires:
+        subgenre_value = (
+            hadith_subgenre.value if hadith_subgenre is not None else None
+        )
+        detail = (
+            f"owner_level_override='{record.validated_value.value}' rejected: "
+            f"INV-SRC-0012 Axis 3 (hadith_subgenre) fires — genre="
+            f"'hadith_collection' with hadith_subgenre='{subgenre_value}' is a "
+            f"transmission collection (كُتُب الرِّوَايَة); pedagogical carve-back set "
+            f"{sorted(LEVELED_HADITH_SUBGENRES)} did not fire"
+        )
+        rejected_record = _append_transition(
+            record,
+            new_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
+            timestamp=timestamp,
+            genre_resolution_state=GenreResolutionState.RESOLVED,
+            detail=detail,
+            resolved_at=timestamp,
+        )
+        return OverrideQueueResolution(
+            record=rejected_record,
+            resolved_level=None,
+            resolved_level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
+            resolved_level_provenance=None,
+            warning_codes=warning_codes,
+            error_code=ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
+            error_detail=detail,
+            triggered_axis="hadith_subgenre",
+            outcome_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
+        )
 
     if axis_1_fires:
         detail = (
@@ -391,33 +483,6 @@ def _resolve_single_genre(
             error_code=ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
             error_detail=detail,
             triggered_axis="genre",
-            outcome_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
-        )
-
-    if axis_2_fires:
-        detail = (
-            f"owner_level_override='{record.validated_value.value}' rejected: "
-            f"INV-SRC-0012 Axis 2 (composite) fires — composite_work_type="
-            f"'{composite_work_type}' marks the work as a structural composite "
-            "whose container-level pedagogy does not apply"
-        )
-        rejected_record = _append_transition(
-            record,
-            new_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
-            timestamp=timestamp,
-            genre_resolution_state=GenreResolutionState.RESOLVED,
-            detail=detail,
-            resolved_at=timestamp,
-        )
-        return OverrideQueueResolution(
-            record=rejected_record,
-            resolved_level=None,
-            resolved_level_status=LevelStatus.NON_APPLICABLE_REFERENCE,
-            resolved_level_provenance=None,
-            warning_codes=warning_codes,
-            error_code=ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE,
-            error_detail=detail,
-            triggered_axis="composite",
             outcome_state=OverrideQueueState.REJECTED_NONAPPLICABLE,
         )
 
