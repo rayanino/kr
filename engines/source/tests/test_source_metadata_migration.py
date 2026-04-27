@@ -37,6 +37,7 @@ def _legacy_source_metadata_payload(
     level_status: str | None = None,
     level_provenance: str | None = None,
     composite_work_type: str | None = None,
+    hadith_subgenre: str | None = None,
 ) -> dict[str, object]:
     """Build persisted legacy JSON with real Arabic fixture metadata."""
     payload: dict[str, object] = {
@@ -63,6 +64,8 @@ def _legacy_source_metadata_payload(
         payload["level_provenance"] = level_provenance
     if composite_work_type is not None:
         payload["composite_work_type"] = composite_work_type
+    if hadith_subgenre is not None:
+        payload["hadith_subgenre"] = hadith_subgenre
     return payload
 
 
@@ -145,6 +148,60 @@ def test_dec_src_0021_ii_missing_status_defaults_non_applicable(
     # Assert
     assert metadata.level is None
     assert metadata.level_status is LevelStatus.NON_APPLICABLE_REFERENCE
+    assert metadata.level_provenance is None
+
+
+@pytest.mark.spec("DEC-SRC-0021", "OPT-B-ii")
+@pytest.mark.parametrize(
+    ("subgenre_value", "subgenre_label"),
+    [("arbain", "ARBAIN"), ("ahkam", "AHKAM")],
+)
+def test_dec_src_0021_legacy_hadith_collection_leveled_subgenre_defaults_pending_synthesis(
+    tmp_path: Path,
+    subgenre_value: str,
+    subgenre_label: str,
+) -> None:
+    """Phase 5b follow-up 34 closure 2026-04-27 — DIM-6 AMEND fix coverage.
+
+    Codex CLI structural review returned DIM-6 AMEND_REQUIRED on the
+    pre-FU-34 ``_default_level_status`` helper: it consulted only
+    ``genre`` and ``composite_work_type`` and would default a legacy
+    ``hadith_collection`` payload carrying a leveled hadith_subgenre
+    (ARBAIN, AHKAM) to ``non_applicable_reference`` — wrongly
+    quarantining Bulūgh al-Marām and similar pedagogical aḥkām
+    anthologies on legacy load.
+
+    The fix (this test's regression coverage) makes the migration
+    helper Axis-3-aware: a legacy hadith_collection payload with a
+    ``hadith_subgenre`` value in ``LEVELED_HADITH_SUBGENRES`` defaults
+    to ``pending_synthesis`` (the synthesis engine then runs
+    authoritative level determination per DEC-SRC-0003).
+
+    Parametrized over ARBAIN (FU-23 carve-back member) and AHKAM
+    (FU-34 carve-back member) so the regression covers BOTH leveled
+    subgenres.
+    """
+    # Arrange
+    payload = _legacy_source_metadata_payload(
+        source_id=f"src_legacy_hadith_{subgenre_value}",
+        genre=Genre.HADITH_COLLECTION.value,
+        hadith_subgenre=subgenre_value,
+    )
+    store = _write_source_collection(tmp_path / "workspace", payload)
+
+    # Act
+    metadata = store.get_source_collection_record(
+        f"src_legacy_hadith_{subgenre_value}"
+    )
+
+    # Assert
+    assert metadata.level is None
+    assert metadata.level_status is LevelStatus.PENDING_SYNTHESIS, (
+        f"{subgenre_label} subgenre on legacy hadith_collection payload "
+        "must default to pending_synthesis (Axis 3 carve-back); the "
+        "pre-FU-34 default of non_applicable_reference would have "
+        "wrongly quarantined the work on legacy load."
+    )
     assert metadata.level_provenance is None
 
 

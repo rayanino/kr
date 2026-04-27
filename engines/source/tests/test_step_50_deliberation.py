@@ -863,19 +863,53 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
         ("سنن أبي داود", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SUNAN),
         ("الجامع الصغير", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JAMI),
         ("المعجم الكبير للطبراني", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUJAM),
-        # Phase 5b item 23 closure 2026-04-26: Path A intentional non-
-        # classification per 3-of-3 evaluator wave. Riyāḍ al-Ṣāliḥīn
-        # (al-Nawawī, d. 676 AH) and Bulūgh al-Marām (Ibn Ḥajar, d. 852 AH)
-        # are famous pedagogical anthologies but classification under
-        # the existing HadithSubgenre enum is incomplete (al-Kattānī
-        # classifies them as *Kutub al-Aḥkām* / *Mukhtārāt*, both 2-of-2
-        # Gemini-recommended new enum values). New enum values AHKAM and
-        # MUKHTARAT are deferred to follow-up 34. Until then, these works
-        # return None subgenre — Path A (transmission-by-default) means
-        # owner overrides on them are wrongly rejected by INV-SRC-0012
-        # Axis 3. Documented limitation.
+        # Phase 5b follow-up 34 closure 2026-04-27: AHKAM activated as
+        # leveled hadith_subgenre per 2-of-2 Gemini scholarly convergence
+        # at HIGH confidence (Run A AMEND_REQUIRED + Run B PROCEED, both
+        # demanding compound-keyword discipline). Bulūgh al-Marām now
+        # classifies as AHKAM via the compound rule "بلوغ" + "المرام";
+        # ʿUmdat al-Aḥkām, al-Muntaqā fī al-Aḥkām, al-Ilmām bi-Aḥādīth
+        # al-Aḥkām likewise classify as AHKAM via their respective
+        # compound rules. Bare "أحكام" matching is FORBIDDEN due to
+        # false-positive collisions with Aḥkām al-Qurʾān (al-Jaṣṣāṣ d.
+        # 370 AH — fiqh-tafsīr), al-Aḥkām al-Sulṭāniyyah (al-Māwardī
+        # d. 450 AH — siyāsah), al-Iḥkām fī Uṣūl al-Aḥkām (al-Āmidī
+        # d. 631 AH — Uṣūl al-Fiqh).
+        # MUKHTARAT was BLOCKED 2-of-2 HIGH by both Geminis on the basis
+        # that *Mukhtārāt* is a cross-cutting descriptor (al-Ḍiyāʾ
+        # al-Maqdisī's al-Aḥādīth al-Mukhtārah d. 643 AH is primary
+        # transmission with full isnāds despite the name). Riyāḍ
+        # al-Ṣāliḥīn therefore stays None subgenre — its correct
+        # classification (TARGHIB / pedagogical jāmiʿ-of-adab per Run A
+        # Q3c, MUKHTARAT-but-architecturally-jāmiʿ per Run B Q2b) is
+        # deferred to NEW follow-up 35 (TARGHIB + MUKHTASAR + SHAMAIL
+        # enum addition). Documented limitation: owner override on
+        # Riyāḍ al-Ṣāliḥīn remains wrongly rejected under Path A until
+        # FU-35 closure.
         ("رياض الصالحين", ["hadith"], Genre.HADITH_COLLECTION, None),
-        ("بلوغ المرام", ["hadith"], Genre.HADITH_COLLECTION, None),
+        ("بلوغ المرام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
+        # FU-34 new positive cases for AHKAM (one per compound rule):
+        ("بلوغ المرام من أدلة الأحكام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
+        ("عمدة الأحكام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
+        ("الإلمام بأحاديث الأحكام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
+        ("المنتقى في الأحكام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
+        # FU-34 false-positive guards for bare "أحكام":
+        # Aḥkām al-Qurʾān (al-Jaṣṣāṣ d. 370 AH) — fiqh-tafsīr; the
+        # pre-condition guard at _infer_hadith_subgenre exits early
+        # because science_scope does not contain "hadith" and the genre
+        # is not HADITH_COLLECTION.
+        ("أحكام القرآن", ["tafsir"], Genre.TAFSIR, None),
+        # al-Aḥkām al-Sulṭāniyyah (al-Māwardī d. 450 AH) — siyāsah;
+        # same pre-condition exit.
+        ("الأحكام السلطانية", ["fiqh"], Genre.MATN, None),
+        # FU-34 sharḥ-on-aḥkām-collection guard: Iḥkām al-Aḥkām Sharḥ
+        # ʿUmdat al-Aḥkām (Ibn Daqīq al-ʿĪd d. 702 AH) — even though the
+        # title contains "عمدة" + "الأحكام", the HADITH_COMMENTARY branch
+        # fires FIRST (genre=SHARH + science_scope=hadith) so the work
+        # is correctly classified as a sharḥ on a hadith collection,
+        # not as the primary AHKAM work. AHKAM compound rules are
+        # ordered AFTER HADITH_COMMENTARY for exactly this reason.
+        ("إحكام الأحكام شرح عمدة الأحكام", ["hadith"], Genre.SHARH, HadithSubgenre.HADITH_COMMENTARY),
         ("أحاديث متفرقة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("حديث الجمعة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("كتاب الأذكار", ["hadith"], Genre.MATN, None),

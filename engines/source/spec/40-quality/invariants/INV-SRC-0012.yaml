@@ -145,6 +145,53 @@ source: >-
   with internal pedagogical sequence are rare exceptions; the
   invariant correctly prioritizes the dominant architectural function.
   Open follow-ups remaining: 18, 21, 24, 27, 28, 34.
+  Amended on 2026-04-27 (Phase 5b follow-up 34 closure) to ACTIVATE
+  HadithSubgenre.AHKAM in the carve-back set, expanding LEVELED_HADITH_
+  SUBGENRES from {arbain} to {arbain, ahkam}. 3-evaluator wave (Codex
+  CLI structural + Gemini CLI 2 independent scholarly runs, all through
+  /prompt-architect with RISEN + Step-Back + CAI Critique-Revise hybrid):
+  2-of-2 Gemini scholarly convergence at HIGH confidence on ADD AHKAM
+  (Run A AMEND_REQUIRED + Run B PROCEED, both demanding compound-
+  keyword discipline) and on BLOCK MUKHTARAT (al-Ḍiyāʾ al-Maqdisī's
+  *al-Aḥādīth al-Mukhtārah* d. 643 AH is primary transmission with full
+  isnāds despite the name; *Mukhtārāt* is a cross-cutting descriptor not
+  a standalone subgenre per al-Kattānī's bibliographic taxonomy).
+  Codex CLI returned CRITICAL DIM5 BLOCK on the dispute-path latent gap
+  (GenreDisputePosition carried only genre_candidate, so disputed
+  hadith_collection works with leveled subgenres would auto-reject on
+  Axis 1 alone), resolved by widening GenreDisputePosition with
+  hadith_subgenre_candidate (contracts.py:820-826) and updating
+  _resolve_disputed (override_queue.py:295-345) to consult the carve-
+  back. DIM6 AMEND aligned migration._default_level_status with Axis 3
+  membership (legacy hadith_collection payloads with leveled subgenres
+  now default to pending_synthesis, not non_applicable_reference).
+  AHKAM inference is restricted to compound-keyword patterns per Run A's
+  S1.Q3 keyword-reliability ceiling and Run B's Q4a recommendation:
+  6 ordered compound rules (بلوغ + المرام / عمدة + الأحكام / الإلمام +
+  الأحكام / المنتقى + الأحكام / أدلة + الأحكام / أحاديث + الأحكام); bare
+  أحكام is FORBIDDEN due to false-positive collisions with Aḥkām
+  al-Qurʾān (al-Jaṣṣāṣ d. 370 AH — fiqh-tafsīr), al-Aḥkām al-Sulṭāniyyah
+  (al-Māwardī d. 450 AH — siyāsah), al-Iḥkām fī Uṣūl al-Aḥkām (al-Āmidī
+  d. 631 AH — Uṣūl al-Fiqh), and Iḥkām al-Aḥkām Sharḥ ʿUmdat al-Aḥkām
+  (Ibn Daqīq al-ʿĪd d. 702 AH — sharḥ, not primary aḥkām collection).
+  المحرر alone is also forbidden because it collides with al-Muḥarrar
+  fī al-Fiqh (Majd al-Dīn Ibn Taymiyyah). The AHKAM compound rules are
+  inserted AFTER the HADITH_COMMENTARY branch in _infer_hadith_subgenre
+  so that a sharḥ on an aḥkām collection (e.g., Iḥkām al-Aḥkām Sharḥ
+  ʿUmdat al-Aḥkām) is correctly tagged HADITH_COMMENTARY rather than
+  AHKAM. Constructive Gemini Run-B proposals to also add HadithSubgenre.
+  TARGHIB (Kutub al-Targhīb wa-l-Tarhīb per al-Kattānī p. 45),
+  HadithSubgenre.MUKHTASAR (Kutub al-Mukhtaṣarāt), and HadithSubgenre.
+  SHAMAIL (al-Shamāʾil al-Muḥammadiyyah of al-Tirmidhī d. 279 AH) were
+  deferred to NEW follow-up 35 — substantive contract-change scope
+  beyond FU-34's AHKAM + MUKHTARAT charter. New AC-10 (AHKAM positive
+  — Bulūgh al-Marām accepts owner override), AC-11 (AHKAM
+  scope-disambiguation negative — al-Muntaqā of Ibn al-Jārūd is
+  transmission-style despite aḥkām theme, no compound rule fires), and
+  AC-12 (AHKAM false-positive guard — al-Iḥkām fī Uṣūl al-Aḥkām of
+  al-Āmidī inferred as None subgenre because no compound matches "Uṣūl
+  al-Aḥkām" pattern) added. Open follow-ups remaining after FU-34
+  closure: 18, 24, 27, 28, 35 (NEW).
 created: '2026-04-16'
 updated: '2026-04-27'
 depends_on:
@@ -187,10 +234,22 @@ rule:
     is otherwise leveled); Axis 3 (hadith-subgenre) — when Axis 1 fires
     for Genre.HADITH_COLLECTION, attribution is refined by hadith_subgenre.
     Subgenres in the carve-back set LEVELED_HADITH_SUBGENRES (currently
-    {arbain}) reverse the Axis 1 firing — the work is treated as a
-    pedagogical 40-hadith collection (al-Arbaʿīn al-Nawawī of al-Nawawī
-    d. 676 AH; al-Kattānī, al-Risālah al-Mustaṭrafah p. 69-72 Kutub
-    al-Arbaʿīniyyāt) and the level applies. All other hadith subgenres
+    {arbain, ahkam}) reverse the Axis 1 firing — the work is treated as
+    a pedagogical hadith curriculum: ARBAIN covers al-Arbaʿīn al-Nawawī
+    of al-Nawawī (d. 676 AH) and the broader arbaʿūniyyāt genre per
+    al-Kattānī, al-Risālah al-Mustaṭrafah p. 69-72 Kutub al-Arbaʿīniyyāt;
+    AHKAM covers selected-hadith pedagogical anthologies of legal
+    evidences per al-Kattānī, al-Risālah al-Mustaṭrafah p. 41 Kutub
+    al-Aḥkām (Bulūgh al-Marām min Adillat al-Aḥkām of Ibn Ḥajar
+    d. 852 AH; ʿUmdat al-Aḥkām of ʿAbd al-Ghanī al-Maqdisī d. 600 AH;
+    al-Muntaqā fī al-Aḥkām of Majd al-Dīn Ibn Taymiyyah d. 652 AH;
+    al-Ilmām bi-Aḥādīth al-Aḥkām of Ibn Daqīq al-ʿĪd d. 702 AH).
+    AHKAM was activated by Phase 5b follow-up 34 (2026-04-27) after
+    2-of-2 cross-time independent Gemini scholarly convergence at HIGH
+    confidence and Codex CRITICAL DIM5 BLOCK resolution that widened
+    GenreDisputePosition with hadith_subgenre_candidate to enable
+    correct dispute-path adjudication. The level applies to AHKAM works.
+    All other hadith subgenres
     — including null subgenre per Path A (transmission-by-default,
     iḥtiyāṭ / tawaqquf principle, Ibn Ḥajar Nuzhat al-Naẓar Bāb
     al-Khabar al-Maqbūl) — confirm Axis 1 firing under Axis 3 (the work
@@ -342,4 +401,55 @@ acceptance_criteria:
     functions as a non-pedagogical reference architecture.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre) and naming "mawsuah" in the non-applicable set message.
+  test_type: deterministic
+- id: AC-10
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection"
+    with hadith_subgenre="ahkam" (e.g. بلوغ المرام من أدلة الأحكام /
+    Bulūgh al-Marām min Adillat al-Aḥkām of Ibn Ḥajar al-ʿAsqalānī
+    d. 852 AH — a pedagogical anthology of legal-evidence hadiths whose
+    muqaddimah explicitly declares the work was edited "so that the
+    beginner may memorize it and the advanced student may find it
+    indispensable"; al-Kattānī, al-Risālah al-Mustaṭrafah p. 41 Kutub
+    al-Aḥkām) submitted with owner_level_override="mubtadiʾ" (a valid
+    CON-SRC-0011 WorkLevel enum value — the pre-malakah beginner tier).
+    Axis 3 carves back Axis 1's hadith_collection firing because "ahkam"
+    is in the LEVELED_HADITH_SUBGENRES carve-back set after Phase 5b
+    follow-up 34 closure 2026-04-27.
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level == WorkLevel.MUBTADI AND SourceMetadata.level_status == "assigned" AND SourceMetadata.level_provenance == "owner_override". No SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised.
+  test_type: deterministic
+- id: AC-11
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection" with
+    title "المنتقى" by Ibn al-Jārūd (d. 306 AH). The keyword "المنتقى"
+    alone does not match any AHKAM compound rule (which require the
+    co-occurring substring "الأحكام"); per Run A's S1.Q3
+    keyword-reliability ceiling and Q1c's structural classification
+    of Ibn al-Jārūd's al-Muntaqā as a primary transmission text with
+    full isnāds (despite the aḥkām theme), the inference function
+    correctly returns hadith_subgenre=None. Submitted with
+    owner_level_override="mutawassiṭ", the override is rejected on
+    Axis 3 under Path A (transmission-by-default; iḥtiyāṭ / tawaqquf
+    principle, Ibn Ḥajar Nuzhat al-Naẓar Bāb al-Khabar al-Maqbūl).
+  when: the source engine emits SourceMetadata
+  then: hadith_subgenre is None AND SourceMetadata.level is null AND SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 3 (hadith_subgenre) and the Arabic anchor كُتُب الرِّوَايَة.
+  test_type: deterministic
+- id: AC-12
+  given: >-
+    A source classified as SourceMetadata.genre="matn" (NOT
+    hadith_collection) with science_scope=["usul"] and title "الإحكام
+    في أصول الأحكام" / al-Iḥkām fī Uṣūl al-Aḥkām of al-Āmidī (d. 631
+    AH) — a foundational Uṣūl al-Fiqh text whose title repeatedly
+    invokes the maṣdar "أحكام" but whose discipline is principles of
+    jurisprudence, not hadith. The pre-condition guard at
+    _infer_hadith_subgenre line ~537 ("hadith" not in science_scope and
+    genre != Genre.HADITH_COLLECTION → return None) ensures this work
+    never enters the AHKAM compound-keyword chain. Even if the science
+    were misclassified as "hadith", the AHKAM compound rules would not
+    fire because no compound matches "إحكام في أصول" — the rules require
+    co-occurrences with بلوغ + المرام, عمدة + الأحكام, الإلمام + الأحكام,
+    المنتقى + الأحكام, أدلة + الأحكام, or أحاديث + الأحكام.
+  when: the source engine processes the title through _infer_hadith_subgenre
+  then: hadith_subgenre is None — the false-positive collision with bare "أحكام" matching is structurally prevented by both the science-scope pre-condition guard and the compound-keyword discipline.
   test_type: deterministic

@@ -304,16 +304,35 @@ def _resolve_disputed(
     Two outcomes:
 
     - All proposed genres independently fire non-applicability (every
-      genre is in NON_APPLICABLE_GENRE_VALUES) → REJECT with
+      genre is in NON_APPLICABLE_GENRE_VALUES) AND no proposed
+      hadith_subgenre lies in LEVELED_HADITH_SUBGENRES → REJECT with
       SRC-E-OVERRIDE-QUEUE-UNANIMOUSLY-NONAPPLICABLE.
-    - At least one proposed genre is leveled → DEFER to synthesis
-      (level_status remains pending_synthesis, dispute snapshot
-      preserved). The synthesis engine adjudicates per DEC-SRC-0003.
+    - At least one proposed genre is leveled, OR at least one proposed
+      hadith_subgenre fires the Axis-3 carve-back (e.g., HADITH_COLLECTION
+      with ARBAIN or AHKAM subgenre) → DEFER to synthesis (level_status
+      remains pending_synthesis, dispute snapshot preserved). The
+      synthesis engine adjudicates per DEC-SRC-0003.
+
+    Phase 5b follow-up 34 (2026-04-27) closure: the Axis-3 carve-back
+    branch was added per Codex CRITICAL DIM5 BLOCK on the original
+    AHKAM addition draft. Without this branch, a disputed
+    hadith_collection work whose agents proposed a leveled subgenre
+    (ARBAIN or AHKAM) would be auto-rejected on Axis 1 alone, defeating
+    the carve-back's purpose. The widening of GenreDisputePosition with
+    ``hadith_subgenre_candidate`` (contracts.py) makes this branch
+    expressible.
     """
-    all_nonapplicable = all(
+    all_genres_nonapplicable = all(
         position.genre_candidate.value in NON_APPLICABLE_GENRE_VALUES
         for position in dispute
     )
+    any_subgenre_carve_back = any(
+        position.genre_candidate is Genre.HADITH_COLLECTION
+        and position.hadith_subgenre_candidate is not None
+        and position.hadith_subgenre_candidate.value in LEVELED_HADITH_SUBGENRES
+        for position in dispute
+    )
+    all_nonapplicable = all_genres_nonapplicable and not any_subgenre_carve_back
     if all_nonapplicable:
         detail = (
             "owner_level_override rejected: every proposed dispute genre fires "

@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from engines.source.contracts import (
     ErrorCode,
     HumanGateTrigger,
+    LEVELED_HADITH_SUBGENRES,
     LevelStatus,
     MetadataDeliberationResult,
     NON_APPLICABLE_GENRE_VALUES,
@@ -78,8 +79,29 @@ def _migrate_nested_source_metadata(payload: Mapping[str, object]) -> dict[str, 
 
 
 def _default_level_status(payload: Mapping[str, object]) -> LevelStatus:
+    """Default INV-SRC-0012 status for legacy payloads per DEC-SRC-0021.
+
+    Phase 5b follow-up 34 (2026-04-27) closure: Axis-3 carve-back is now
+    consulted before Axis 1 falls back to non_applicable_reference. A
+    legacy hadith_collection payload carrying a leveled hadith_subgenre
+    (ARBAIN, AHKAM) defaults to pending_synthesis so the synthesis engine
+    can run authoritative level determination per DEC-SRC-0003 — the
+    pre-closure default of non_applicable_reference would have wrongly
+    quarantined Bulūgh al-Marām (Ibn Ḥajar d. 852 AH) and similar
+    pedagogical aḥkām anthologies on legacy load.
+    """
     genre = payload.get("genre")
-    axis_1_fires = isinstance(genre, str) and genre in NON_APPLICABLE_GENRE_VALUES
+    hadith_subgenre = payload.get("hadith_subgenre")
+    axis_3_carves_back = (
+        genre == "hadith_collection"
+        and isinstance(hadith_subgenre, str)
+        and hadith_subgenre in LEVELED_HADITH_SUBGENRES
+    )
+    axis_1_fires = (
+        isinstance(genre, str)
+        and genre in NON_APPLICABLE_GENRE_VALUES
+        and not axis_3_carves_back
+    )
     axis_2_fires = payload.get("composite_work_type") == "majmu"
     if axis_1_fires or axis_2_fires:
         return LevelStatus.NON_APPLICABLE_REFERENCE

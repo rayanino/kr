@@ -183,6 +183,7 @@ class HadithSubgenre(str, Enum):
     MUSTADRAK = "mustadrak"
     MUSTAKHRAJ = "mustakhraj"
     ARBAIN = "arbain"
+    AHKAM = "ahkam"
     TAKHRIJ = "takhrij"
     ATRAF = "atraf"
     ILAL = "ilal"
@@ -365,18 +366,32 @@ NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
 # fire Axis 1), a hadith_subgenre value in this set CARVES BACK the Axis 1
 # firing — the work is treated as pedagogical, not transmission.
 #
-# Currently single-member: ARBAIN (al-Arbaʿīn al-Nawawī of al-Nawawī d. 676 AH,
-# and the broader arbaʿūniyyāt genre per al-Kattānī, *al-Risālah al-
-# Mustaṭrafah* p. 69-72). Other pedagogical hadith-subgenres deferred to
-# follow-up 34 (AHKAM + MUKHTARAT enum addition per 2-of-2 Gemini scholarly
-# consensus during the follow-up 23 dispatch wave).
+# Members:
+# - ARBAIN — al-Arbaʿīn al-Nawawī (al-Nawawī d. 676 AH) and the broader
+#   arbaʿūniyyāt genre per al-Kattānī, *al-Risālah al-Mustaṭrafah* p. 69-72.
+#   Activated 2026-04-26 (Phase 5b follow-up 23).
+# - AHKAM — selected-hadith pedagogical anthologies of legal evidences
+#   (Kutub al-Aḥkām per al-Kattānī, *al-Risālah al-Mustaṭrafah* p. 41), e.g.,
+#   Bulūgh al-Marām min Adillat al-Aḥkām (Ibn Ḥajar al-ʿAsqalānī d. 852 AH)
+#   and ʿUmdat al-Aḥkām (ʿAbd al-Ghanī al-Maqdisī d. 600 AH). Activated
+#   2026-04-27 (Phase 5b follow-up 34) after a 2-of-2 cross-time independent
+#   Gemini CLI scholarly convergence (Run A AMEND_REQUIRED + Run B PROCEED,
+#   both HIGH confidence) and a Codex CLI structural review (CRITICAL DIM5
+#   BLOCK on the dispute-path latent gap, resolved by widening
+#   GenreDisputePosition with hadith_subgenre_candidate). MUKHTARAT was
+#   independently BLOCKED by both Geminis at HIGH confidence on the basis
+#   that *Mukhtārāt* is a cross-cutting descriptor (al-Ḍiyāʾ al-Maqdisī's
+#   *al-Aḥādīth al-Mukhtārah* d. 643 AH is primary transmission with full
+#   chains despite the name). TARGHIB / MUKHTASAR / SHAMAIL constructive
+#   proposals from both Geminis were deferred to NEW follow-up 35 — out of
+#   FU-34 scope.
 #
 # Default-None semantics (Path A — transmission-by-default): a None subgenre
 # on a hadith_collection does NOT fire the carve-back. Per the *iḥtiyāṭ* /
 # *tawaqquf* principle (Ibn Ḥajar, *Nuzhat al-Naẓar*; al-Suyūṭī, *Tadrīb al-
 # Rāwī* Nawʿ 23), silence defaults to the safer interpretation; explicit
 # positive evidence (subgenre IN this set) is required to flip to leveled.
-LEVELED_HADITH_SUBGENRES: frozenset[str] = frozenset({"arbain"})
+LEVELED_HADITH_SUBGENRES: frozenset[str] = frozenset({"arbain", "ahkam"})
 
 
 class ProcessingStatus(str, Enum):
@@ -818,12 +833,25 @@ class WorkRelationship(BaseModel):
 
 
 class GenreDisputePosition(BaseModel):
-    """Evidence-bearing alternate genre position per DEC-SRC-0007/0012."""
+    """Evidence-bearing alternate genre position per DEC-SRC-0007/0012.
+
+    The optional ``hadith_subgenre_candidate`` field was added in Phase 5b
+    follow-up 34 (2026-04-27) to close the latent dispute-path gap that
+    Codex CRITICAL DIM5 BLOCK surfaced when AHKAM joined LEVELED_HADITH_
+    SUBGENRES. Without this field, ``_resolve_disputed`` could only inspect
+    ``genre_candidate.value`` and would auto-reject any disputed
+    ``hadith_collection`` work even when one or more agents proposed a
+    leveled hadith_subgenre carve-back candidate (e.g., ARBAIN, AHKAM).
+    Synthesis still acts as the muḥaqqiq/mujtahid; the dispute path now
+    preserves subgenre evidence so the override queue can defer rather
+    than reject.
+    """
 
     genre_candidate: Genre
     supporting_evidence: list[str] = Field(min_length=1)
     confidence: float = Field(ge=0.0, le=1.0)
     source_agents: list[str] = Field(min_length=1)
+    hadith_subgenre_candidate: Optional[HadithSubgenre] = None
 
 
 class OverrideQueueAuditEntry(BaseModel):

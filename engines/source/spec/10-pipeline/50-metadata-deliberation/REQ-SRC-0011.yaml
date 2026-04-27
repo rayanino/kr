@@ -20,7 +20,7 @@ impacts:
 behavior:
   trigger: A source is identified as hadith literature or adjacent hadith scholarship.
   preconditions:
-  - "hadith_subgenre uses the controlled vocabulary: musannaf, musnad, sunan, jami, juz, tabaqat_rijal, hadith_commentary, mujam, mustadrak, mustakhraj, arbain, takhrij, and atraf."
+  - "hadith_subgenre uses the controlled vocabulary: musannaf, musnad, sunan, jami, juz, tabaqat_rijal, hadith_commentary, mujam, mustadrak, mustakhraj, arbain, ahkam, takhrij, atraf, and ilal. The ahkam value was added in Phase 5b follow-up 34 (2026-04-27) for selected-hadith pedagogical anthologies of legal evidences (Kutub al-Aḥkām per al-Kattānī al-Risālah al-Mustaṭrafah p. 41, e.g., Bulūgh al-Marām of Ibn Ḥajar d. 852 AH, ʿUmdat al-Aḥkām of al-Maqdisī d. 600 AH); inference is restricted to compound title patterns (bare أحكام is forbidden because of false-positive collisions with Aḥkām al-Qurʾān of al-Jaṣṣāṣ d. 370 AH, al-Aḥkām al-Sulṭāniyyah of al-Māwardī d. 450 AH, and al-Iḥkām fī Uṣūl al-Aḥkām of al-Āmidī d. 631 AH)."
   - "hadith_subgenre applies when science_scope includes hadith regardless of genre. A sharh on a hadith collection gets genre=sharh AND hadith_subgenre=hadith_commentary. Genre and hadith_subgenre are orthogonal axes."
   - The source has enough metadata or content evidence to distinguish among the controlled values.
   postconditions:

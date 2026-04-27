@@ -913,6 +913,101 @@ def test_inv_src_0012_ac9_mawsuah_rejects_override() -> None:
     assert "INV-SRC-0012" in message
 
 
+# ---------------------------------------------------------------------------
+# INV-SRC-0012 Axis 3 — AHKAM carve-back (Phase 5b follow-up 34 closure)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-10")
+def test_inv_src_0012_ac10_ahkam_accepts_override() -> None:
+    """AHKAM carve-back: hadith_collection + AHKAM + override → ACCEPTED.
+
+    Bulūgh al-Marām min Adillat al-Aḥkām of Ibn Ḥajar al-ʿAsqalānī
+    (d. 852 AH) is a pedagogical anthology of legal-evidence hadiths
+    whose muqaddimah explicitly declares the work was edited "so that
+    the beginner may memorize it and the advanced student may find it
+    indispensable." Title "بلوغ المرام" infers HadithSubgenre.AHKAM via
+    the compound rule "بلوغ" + "المرام" in _infer_hadith_subgenre. Axis
+    3 carves back the Axis 1 hadith_collection firing per INV-SRC-0012
+    rule.statement (post-FU-34 closure 2026-04-27), the carve-back set
+    expanded from {arbain} to {arbain, ahkam} per 2-of-2 Gemini
+    scholarly convergence at HIGH confidence (al-Kattānī, *al-Risālah
+    al-Mustaṭrafah* p. 41 *Kutub al-Aḥkām*).
+    """
+    request = _base_deliberation_input(
+        title_arabic="بلوغ المرام",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUBTADI,
+    )
+
+    level, status, provenance = _resolve_level_fields(request)
+
+    assert level is WorkLevel.MUBTADI
+    assert status is LevelStatus.ASSIGNED
+    assert provenance is LevelProvenance.OWNER_OVERRIDE
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-11")
+def test_inv_src_0012_ac11_muntaqa_ibn_al_jarud_rejects_override_axis_3() -> None:
+    """al-Muntaqā by Ibn al-Jārūd (d. 306 AH): bare "المنتقى" → None subgenre.
+
+    Despite the aḥkām theme of Ibn al-Jārūd's *al-Muntaqā*, the work is
+    structurally a primary transmission text with full isnāds (Run A
+    Q1c/Q3a). The compound rule "المنتقى" + "الأحكام" requires BOTH
+    substrings, and the bare title "المنتقى" alone matches no AHKAM
+    rule. The inference function therefore returns None subgenre,
+    which under Path A (transmission-by-default; iḥtiyāṭ / tawaqquf
+    principle, Ibn Ḥajar *Nuzhat al-Naẓar* Bāb al-Khabar al-Maqbūl)
+    fires Axis 3 to confirm the Axis 1 hadith_collection firing with
+    the كُتُب الرِّوَايَة anchor.
+    """
+    request = _base_deliberation_input(
+        title_arabic="المنتقى",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUTAWASSIT,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "Axis 3" in message
+    assert "hadith_subgenre" in message
+    assert "كُتُب الرِّوَايَة" in message
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-12")
+def test_inv_src_0012_ac12_ihkam_fi_usul_inferred_none() -> None:
+    """al-Iḥkām fī Uṣūl al-Aḥkām (al-Āmidī d. 631 AH) → None subgenre.
+
+    Foundational Uṣūl al-Fiqh text whose title repeatedly invokes the
+    maṣdar "أحكام" but whose discipline is principles of jurisprudence,
+    not hadith. The bare-أحكام false-positive guard works at TWO
+    layers: (1) the pre-condition guard at _infer_hadith_subgenre line
+    ~537 exits early because science_scope does not contain "hadith"
+    and genre is not HADITH_COLLECTION; (2) even if science_scope were
+    misclassified to include "hadith", the AHKAM compound rules
+    require co-occurring substrings (بلوغ + المرام, عمدة + الأحكام,
+    الإلمام + الأحكام, المنتقى + الأحكام, أدلة + الأحكام, or أحاديث +
+    الأحكام) — none match "إحكام في أصول الأحكام".
+    """
+    from engines.source.src.deliberation import _infer_hadith_subgenre
+
+    # Layer 1: pre-condition guard fires (no "hadith" in science_scope)
+    result_usul = _infer_hadith_subgenre(
+        ["usul"], Genre.MATN, "الإحكام في أصول الأحكام"
+    )
+    assert result_usul is None
+
+    # Layer 2: even with hadith science_scope, no AHKAM compound matches
+    # "إحكام في أصول الأحكام" — the compound discipline holds.
+    result_hadith_misclassified = _infer_hadith_subgenre(
+        ["hadith"], Genre.MATN, "الإحكام في أصول الأحكام"
+    )
+    assert result_hadith_misclassified is None
+
+
 @pytest.mark.spec("CON-SRC-0004", "AC-3")
 def test_con_src_0004_axis_3_carve_back_rejects_non_applicable_status() -> None:
     """Invariant 3: ARBAIN carve-back forbids non_applicable_reference status.
@@ -1341,18 +1436,25 @@ def test_req_src_0046_ac4_genre_dispute_positions_preserved(
 
     dumped = bundle.source_metadata.model_dump(mode="json")
     positions = dumped["genre_dispute"]
+    # Phase 5b follow-up 34 closure 2026-04-27: GenreDisputePosition gained
+    # an optional ``hadith_subgenre_candidate`` field per Codex CRITICAL DIM5
+    # BLOCK fix, so the serialized dict now includes ``hadith_subgenre_candidate:
+    # None`` for non-hadith genre positions. The non-hadith disputes
+    # (sharh / hashiyah) still serialize a None value for that field.
     assert positions == [
         {
             "genre_candidate": "sharh",
             "supporting_evidence": ["في العنوان وصف صريح للكتاب بأنه شرح"],
             "confidence": 0.84,
             "source_agents": ["genre_agent_a", "genre_agent_b"],
+            "hadith_subgenre_candidate": None,
         },
         {
             "genre_candidate": "hashiyah",
             "supporting_evidence": ["ترتيب الحواشي في النسخة يوهم بكونه حاشية"],
             "confidence": 0.52,
             "source_agents": ["genre_agent_c"],
+            "hadith_subgenre_candidate": None,
         },
     ]
 

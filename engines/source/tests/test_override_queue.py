@@ -400,6 +400,40 @@ def test_req_src_0048_ac3_hadith_collection_arbain_applies() -> None:
 
 
 @pytest.mark.spec("REQ-SRC-0048", "AC-3")
+def test_req_src_0048_ac3_hadith_collection_ahkam_applies() -> None:
+    """AHKAM carve-back via the queue path: APPLIED outcome.
+
+    Phase 5b follow-up 34 closure 2026-04-27: HadithSubgenre.AHKAM
+    joined LEVELED_HADITH_SUBGENRES per 2-of-2 Gemini scholarly
+    convergence at HIGH confidence. Bulūgh al-Marām min Adillat
+    al-Aḥkām (Ibn Ḥajar d. 852 AH; al-Kattānī, *al-Risālah al-
+    Mustaṭrafah* p. 41 *Kutub al-Aḥkām*) is the pinnacle of curated
+    Shafi'i hadith-fiqh pedagogical syllabus — chains stripped to
+    support memorization. The queue path applies the override.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(
+        raw_token="mubtadiʾ",
+        validated_value=WorkLevel.MUBTADI,
+        queued_at=queued_at,
+    )
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=Genre.HADITH_COLLECTION,
+        hadith_subgenre=HadithSubgenre.AHKAM,
+        resolved_at=_later_iso(queued_at, hours=1),
+    )
+
+    assert resolution.outcome_state is OverrideQueueState.APPLIED
+    assert resolution.resolved_level is WorkLevel.MUBTADI
+    assert resolution.resolved_level_status is LevelStatus.ASSIGNED
+    assert resolution.resolved_level_provenance is LevelProvenance.OWNER_OVERRIDE
+    assert resolution.triggered_axis is None
+    assert resolution.error_code is None
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-3")
 def test_req_src_0048_ac3_hadith_collection_musnad_rejects_on_axis3() -> None:
     """Transmission subgenre via the queue path: REJECTED with Axis 3 citation.
 
@@ -785,6 +819,68 @@ def test_req_src_0048_unanimously_nonapplicable_dispute_rejects() -> None:
     # remain even though the source engine rejected — the audit chain must
     # carry every evaluator's bayyinah).
     assert resolution.record.dispute_snapshot == convergent_dispute
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-4")
+def test_req_src_0048_ac4_disputed_hadith_collection_ahkam_carve_back_defers() -> None:
+    """Phase 5b follow-up 34 closure 2026-04-27 — DIM-5 BLOCK fix coverage.
+
+    Codex CLI structural review returned CRITICAL DIM5 BLOCK on the
+    original FU-34 draft: ``_resolve_disputed`` checked only
+    ``position.genre_candidate.value in NON_APPLICABLE_GENRE_VALUES``
+    and would auto-reject any disputed hadith_collection work even when
+    one or more agents proposed a leveled hadith_subgenre carve-back
+    candidate. The fix (this test's regression coverage) widens
+    GenreDisputePosition with ``hadith_subgenre_candidate: Optional[
+    HadithSubgenre]`` and updates ``_resolve_disputed`` to consult the
+    Axis 3 carve-back before rejection.
+
+    Scenario: agents disagree on genre — agent_a proposes hadith_collection
+    with hadith_subgenre=AHKAM (Bulūgh al-Marām); agent_b proposes
+    mawsuah (the modern encyclopedia genre, also non-applicable). Under
+    the pre-FU-34 dispute path, this would auto-reject because both
+    genres fire Axis 1 non-applicability. Post-FU-34, the Axis 3
+    carve-back fires because at least one position has
+    HADITH_COLLECTION + AHKAM, so the resolution defers to synthesis
+    rather than rejecting.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(queued_at=queued_at)
+    dispute = [
+        GenreDisputePosition(
+            genre_candidate=Genre.HADITH_COLLECTION,
+            hadith_subgenre_candidate=HadithSubgenre.AHKAM,
+            supporting_evidence=["العنوان: بلوغ المرام من أدلة الأحكام"],
+            confidence=0.65,
+            source_agents=["agent_a"],
+        ),
+        GenreDisputePosition(
+            genre_candidate=Genre.MAWSUAH,
+            supporting_evidence=["العنوان: الموسوعة"],
+            confidence=0.35,
+            source_agents=["agent_b"],
+        ),
+    ]
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=None,
+        genre_dispute=dispute,
+        resolved_at=_later_iso(queued_at, hours=2),
+    )
+
+    # The Axis 3 carve-back kicks the resolution into the deferred-to-
+    # synthesis branch rather than the unanimously-nonapplicable reject.
+    assert resolution.outcome_state is OverrideQueueState.DEFERRED_TO_SYNTHESIS
+    assert resolution.error_code is None
+    assert resolution.resolved_level_status is LevelStatus.PENDING_SYNTHESIS
+    # The dispute snapshot is preserved including the hadith_subgenre_candidate
+    # for synthesis adjudication.
+    assert resolution.record.dispute_snapshot == dispute
+    assert (
+        resolution.record.dispute_snapshot[0].hadith_subgenre_candidate
+        is HadithSubgenre.AHKAM
+    )
 
 
 @pytest.mark.spec("REQ-SRC-0048", "error_conditions")

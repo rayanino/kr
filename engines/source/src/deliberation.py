@@ -552,6 +552,37 @@ def _infer_hadith_subgenre(
         return HadithSubgenre.TABAQAT_RIJAL
     if genre == Genre.SHARH and "hadith" in science_scope:
         return HadithSubgenre.HADITH_COMMENTARY
+    # Phase 5b follow-up 34 closure 2026-04-27: AHKAM compound-keyword
+    # inference rules for selected-hadith pedagogical anthologies of legal
+    # evidences (Kutub al-Aḥkām per al-Kattānī, *al-Risālah al-Mustaṭrafah*
+    # p. 41). 2-of-2 Gemini scholarly convergence (Run A AMEND_REQUIRED HIGH
+    # + Run B PROCEED HIGH, both demanding compound-keyword discipline):
+    # bare "أحكام" matching is FORBIDDEN due to false-positive collisions
+    # with Aḥkām al-Qurʾān (al-Jaṣṣāṣ d. 370 AH — fiqh-tafsīr), al-Aḥkām
+    # al-Sulṭāniyyah (al-Māwardī d. 450 AH — siyāsah), Aḥkām al-Nisāʾ (Ibn
+    # al-Jawzī d. 597 AH — thematic fiqh), and al-Iḥkām fī Uṣūl al-Aḥkām
+    # (al-Āmidī d. 631 AH — Uṣūl al-Fiqh). All AHKAM rules are compound
+    # (two substrings required) and ordered by canonical specificity.
+    # Inserted AFTER HADITH_COMMENTARY so a sharh on an aḥkām collection
+    # (e.g., Iḥkām al-Aḥkām Sharḥ ʿUmdat al-Aḥkām of Ibn Daqīq al-ʿĪd
+    # d. 702 AH, genre=SHARH + science_scope=hadith) is correctly tagged
+    # HADITH_COMMENTARY rather than AHKAM. "المحرر" alone is ALSO forbidden
+    # because it collides with al-Muḥarrar fī al-Fiqh (Majd al-Dīn Ibn
+    # Taymiyyah) per Run A's structural warning; al-Muḥarrar fī al-Ḥadīth
+    # (Ibn ʿAbd al-Hādī d. 744 AH) is recognized as canonical AHKAM only
+    # via owner_metadata override, not via title inference.
+    if "بلوغ" in title and "المرام" in title:
+        return HadithSubgenre.AHKAM
+    if "عمدة" in title and "الأحكام" in title:
+        return HadithSubgenre.AHKAM
+    if "الإلمام" in title and "الأحكام" in title:
+        return HadithSubgenre.AHKAM
+    if "المنتقى" in title and "الأحكام" in title:
+        return HadithSubgenre.AHKAM
+    if "أدلة" in title and "الأحكام" in title:
+        return HadithSubgenre.AHKAM
+    if "أحاديث" in title and "الأحكام" in title:
+        return HadithSubgenre.AHKAM
     if "جزء" in title:
         return HadithSubgenre.JUZ
     if "مصنف" in title:
