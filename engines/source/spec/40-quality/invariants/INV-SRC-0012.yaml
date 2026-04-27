@@ -106,8 +106,45 @@ source: >-
   metadata. Documented latent gap: GenreDisputePosition carries no
   hadith-subgenre candidate; future need for subgenre-level dispute
   adjudication would require widening that contract — captured for
-  potential future follow-up if/when the need surfaces. Open follow-
-  ups remaining: 18, 21, 22, 24, 27, 28, 34.
+  potential future follow-up if/when the need surfaces.
+  Amended on 2026-04-27 (Phase 5b follow-up 22 closure) to EXTEND
+  NON_APPLICABLE_GENRE_VALUES from eight values to nine by adding
+  ``mawsuah``, after a focused single-evaluator dispatch wave (Gemini
+  CLI Run-B-style scholarly with anti-priming protocol — Step-1 first-
+  principles commitment locked before Step-2 confrontation with prior
+  runs — through /prompt-architect). 2-of-2 cross-time independent
+  Gemini scholarly convergence: original Run-A item-4 DIM4 (2026-04-21)
+  verdict CONFIRM = ADD, plus FU-22 paired-confirmation Run B
+  (2026-04-27) verdict ADD high. Original Run-B AMEND (2026-04-21,
+  raising classical-vs-modern anachronism risk on retroactive
+  application of the modern term to classical works) explicitly
+  reconciled: the structural fact that ``_infer_genre`` (deliberation.py
+  :496-504) has no keyword trigger for "موسوعة" — the deterministic
+  classifier never assigns Genre.MAWSUAH from a title; it can only
+  enter the system through deliberate owner_metadata override or a
+  future agent-layer classifier, where the assignment is deliberate
+  precisely because the work *functions* as an encyclopedia. The
+  modern Arabic loan موسوعة (mawsūʿa, 19th–20th-century calque of
+  European *encyclopedia*) names comprehensive reference works
+  arranged alphabetically or thematically for lookup, not sequential
+  reading; classical functional analogues (Ibn al-Athīr's al-Nihāyah
+  fī Gharīb al-Ḥadīth d. 606 AH; Ḥājī Khalīfa's Kashf al-Ẓunūn
+  d. 1067 AH; Ibn al-Nadīm's al-Fihrist d. ~385 AH) share the same
+  static-repository architecture. Governing inclusion principle
+  (distilled from FU-25/26 Run-B verdicts): "a genre belongs in
+  NON_APPLICABLE_GENRE_VALUES when its organizing architecture
+  operates as a static repository of attestation, indexing, or
+  archival documentation rather than a graduated didactic curriculum."
+  Mawsūʿa satisfies all three branches — attestation (jāmiʿ-scale
+  comprehensive compilation: al-Ṭabarī's Jāmiʿ al-Bayān, Ibn Rajab's
+  Jāmiʿ al-ʿUlūm wa-l-Ḥikam), indexing (alphabetical organization),
+  archival documentation (al-Khaṭīb al-Baghdādī's Tārīkh Baghdād).
+  New AC-9 (MAWSUAH positive — al-Mawsūʿa al-Fiqhiyya al-Kuwaytiyya
+  rejects owner override on Genre.MAWSUAH Axis 1) added. Documented
+  limitation: hybrid works titled "موسوعة الناشئة" (youth encyclopedia)
+  with internal pedagogical sequence are rare exceptions; the
+  invariant correctly prioritizes the dominant architectural function.
+  Open follow-ups remaining: 18, 21, 24, 27, 28, 34.
 created: '2026-04-16'
 updated: '2026-04-27'
 depends_on:
@@ -142,8 +179,9 @@ rule:
     engine MUST serialize SourceMetadata.level as null regardless of any
     owner override attempt. Non-applicability fires along three axes, any
     of which is sufficient: Axis 1 (fann-level) — the work's Genre is one
-    of the six non-applicable members {mushaf, hadith_collection,
-    mashyakhah, thabat, barnamaj, fahrasah}; Axis 2 (structural) — the
+    of the nine non-applicable members {mushaf, hadith_collection,
+    mashyakhah, thabat, barnamaj, fahrasah, mujam, tabaqat, mawsuah};
+    Axis 2 (structural) — the
     work's composite_work_type == "majmu" (a structural composite whose
     container-level pedagogy does not apply even when the declared Genre
     is otherwise leveled); Axis 3 (hadith-subgenre) — when Axis 1 fires
@@ -278,4 +316,30 @@ acceptance_criteria:
     Run-B) and Codex CLI structural verification.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre) and naming "tabaqat" in the non-applicable set message.
+  test_type: deterministic
+- id: AC-9
+  given: >-
+    A source classified as SourceMetadata.genre="mawsuah" (e.g.
+    الموسوعة الفقهية الكويتية / al-Mawsūʿa al-Fiqhiyya al-Kuwaytiyya —
+    a modern alphabetical-thematic encyclopedia of Islamic fiqh
+    compiled 1980s+ by the Kuwaiti Ministry of Awqāf; OR classical
+    functional analogues such as al-Nihāyah fī Gharīb al-Ḥadīth of
+    Ibn al-Athīr d. 606 AH — alphabetical reference architecture per
+    Ḥājī Khalīfa, *Kashf al-Ẓunūn*) submitted with
+    owner_level_override="mubtadiʾ" (a valid CON-SRC-0011 WorkLevel
+    enum value). Axis 1 fires alone — the override is rejected
+    because the genre is in the 9-value non-applicable set. Phase 5b
+    follow-up 22 closure 2026-04-27 added "mawsuah" to the set after
+    2-of-2 cross-time independent Gemini scholarly convergence
+    (original Run-A item-4 DIM4 2026-04-21 CONFIRM = ADD plus FU-22
+    paired-confirmation Run B 2026-04-27 ADD high with anti-priming
+    protocol). Original Run-B AMEND (2026-04-21, anachronism risk)
+    explicitly reconciled by the structural fact that ``_infer_genre``
+    (deliberation.py:496-504) has no keyword trigger for "موسوعة";
+    the deterministic classifier never assigns Genre.MAWSUAH from a
+    title, so any assignment is deliberate (owner override or future
+    agent-layer classifier) and chosen precisely because the work
+    functions as a non-pedagogical reference architecture.
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre) and naming "mawsuah" in the non-applicable set message.
   test_type: deterministic

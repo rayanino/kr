@@ -854,6 +854,65 @@ def test_inv_src_0012_ac8_tabaqat_rejects_override() -> None:
     assert "INV-SRC-0012" in message
 
 
+@pytest.mark.spec("INV-SRC-0012", "AC-9")
+def test_inv_src_0012_ac9_mawsuah_rejects_override() -> None:
+    """Phase 5b follow-up 22 closure 2026-04-27 — Genre.MAWSUAH + override → rejected.
+
+    Axis 1 of INV-SRC-0012 fires: Genre.MAWSUAH is in the 9-value
+    NON_APPLICABLE_GENRE_VALUES frozenset (Phase 5b follow-up 22 closure
+    adds ``mawsuah``). The modern Arabic loan موسوعة (mawsūʿa, "encyclopaedia")
+    is a 19th–20th-century calque of European *encyclopedia* used to denote
+    comprehensive reference works arranged alphabetically or thematically
+    for lookup, not sequential reading. Modern exemplars include
+    al-Mawsūʿa al-Fiqhiyya al-Kuwaytiyya (1980s+), al-Mawsūʿa al-Maysarah,
+    al-Mawsūʿa al-ʿArabiyya. Their classical functional analogues —
+    Ibn al-Athīr's al-Nihāyah fī Gharīb al-Ḥadīth (alphabetical dictionary
+    of rare hadith terms; d. 606 AH), Ḥājī Khalīfa's Kashf al-Ẓunūn
+    (bio-bibliographical catalog; d. 1067 AH), Ibn al-Nadīm's al-Fihrist
+    (foundational archival/indexing work; d. ~385 AH) — share the same
+    architectural property: static repositories of attestation, indexing,
+    or archival documentation, not graduated didactic curricula.
+
+    Anachronism resolution (the 2026-04-21 Run-B objection): Run B raised
+    the concern that retroactively applying ``mawsūʿa`` to classical works
+    risks anachronism. This concern is neutralized by the structural fact
+    that ``_infer_genre`` (deliberation.py:496-504) has no keyword trigger
+    for "موسوعة" — the deterministic classifier never assigns Genre.MAWSUAH
+    from a title. Genre.MAWSUAH only enters the system through deliberate
+    owner_metadata override or a future agent-layer classifier; in either
+    case, the assignment is deliberate precisely because the work *functions*
+    as an encyclopedia, so the functional classification is correct even
+    if the lexical label is modern.
+
+    Confirmed 2026-04-27 by 2-of-2 cross-time independent Gemini scholarly
+    convergence: original Run-A item-4 DIM4 (2026-04-21) verdict CONFIRM,
+    plus FU-22 paired-confirmation Run B (2026-04-27) verdict ADD high
+    with anti-priming protocol (Step-1 first-principles commitment before
+    Step-2 confrontation with prior runs). Original Run-B AMEND (2026-04-21)
+    explicitly reconciled by structural-fact analysis. Governing principle
+    check (FU-25/26 inclusion criterion): mawsūʿa satisfies all three
+    branches — attestation, indexing, archival documentation.
+
+    Owner override ``mubtadiʾ`` is a valid CON-SRC-0011 WorkLevel — the
+    rejection is driven by genre non-applicability, not enum validation.
+    """
+    request = _base_deliberation_input(
+        title_arabic="الموسوعة الفقهية الكويتية",
+        genre=Genre.MAWSUAH,
+        level=WorkLevel.MUBTADI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "mawsuah" in message
+    assert "mubtadiʾ" in message
+    assert "Axis 1" in message
+    assert "INV-SRC-0012" in message
+
+
 @pytest.mark.spec("CON-SRC-0004", "AC-3")
 def test_con_src_0004_axis_3_carve_back_rejects_non_applicable_status() -> None:
     """Invariant 3: ARBAIN carve-back forbids non_applicable_reference status.

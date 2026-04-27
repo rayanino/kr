@@ -305,6 +305,34 @@ class GenreResolutionState(str, Enum):
 # candidate — a subgenre-only fix would be structurally inadequate on the
 # dispute path.
 #
+# Phase 5b follow-up 22 closure 2026-04-27: extended to nine values by adding
+# ``mawsuah``. 2-of-2 cross-time independent Gemini scholarly convergence
+# (original Run-A item-4 DIM4 2026-04-21 verdict CONFIRM; FU-22 paired-
+# confirmation Run B 2026-04-27 verdict ADD high with anti-priming protocol —
+# Step-1 first-principles commitment locked before Step-2 confrontation with
+# prior runs). Original Run-B AMEND (2026-04-21, anachronism risk for
+# retroactive application to classical works) explicitly reconciled by the
+# structural fact that ``_infer_genre`` (deliberation.py:496-504) has no
+# keyword trigger for "موسوعة" — the deterministic classifier never assigns
+# Genre.MAWSUAH from a title; it can only enter the system through deliberate
+# owner_metadata override or a future agent-layer classifier, where the
+# assignment is deliberate precisely because the work *functions* as an
+# encyclopedia. The modern Arabic loan موسوعة (mawsūʿa, 19th–20th-century
+# calque of European *encyclopedia*) names comprehensive reference works
+# arranged alphabetically or thematically for lookup, not sequential reading
+# (al-Mawsūʿa al-Fiqhiyya al-Kuwaytiyya 1980s+; al-Mawsūʿa al-Maysarah).
+# Classical functional analogues — Ibn al-Athīr's al-Nihāyah fī Gharīb
+# al-Ḥadīth (alphabetical reference dictionary; d. 606 AH), Ḥājī Khalīfa's
+# Kashf al-Ẓunūn (bio-bibliographical catalog; d. 1067 AH), Ibn al-Nadīm's
+# al-Fihrist (foundational archival/indexing work; d. ~385 AH) — share the
+# static-repository architecture. Governing inclusion principle (FU-25/26):
+# mawsūʿa satisfies all three branches — attestation (jāmiʿ/muṣannaf scale),
+# indexing (alphabetical organization), archival documentation (bibliographic
+# and historical archives). Documented limitation: hybrid works titled
+# "موسوعة الناشئة" (youth encyclopedia) with internal pedagogical sequence
+# are rare exceptions; the invariant correctly prioritizes the dominant
+# architectural function.
+#
 # This axis handles genre-level non-applicability only. Composite-structure
 # non-applicability (a majmuʿ whose constituent rasāʾil carry leveled genres)
 # is enforced via Axis 2 (composite_work_type == "majmu") — see INV-SRC-0012
@@ -327,6 +355,7 @@ NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
         "fahrasah",
         "mujam",
         "tabaqat",
+        "mawsuah",
     }
 )
 
