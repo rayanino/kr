@@ -761,6 +761,99 @@ def test_inv_src_0012_axis_3_transmission_subgenres_reject_override(
     assert expected_subgenre_value in message
 
 
+@pytest.mark.spec("INV-SRC-0012", "AC-7")
+def test_inv_src_0012_ac7_mujam_rejects_override() -> None:
+    """Phase 5b follow-up 25 closure 2026-04-27 — Genre.MUJAM + override → rejected.
+
+    Axis 1 of INV-SRC-0012 fires: Genre.MUJAM is in the 8-value
+    NON_APPLICABLE_GENRE_VALUES frozenset (Phase 5b follow-up 25
+    closure adds ``mujam`` and ``tabaqat``). The classical معجم genre
+    spans linguistic lexicons (al-Qāmūs al-Muḥīṭ of al-Fīrūzābādī d. 817 AH;
+    Lisān al-ʿArab of Ibn Manẓūr d. 711 AH) and hadith muʿjam works
+    organized by shuyūkh (al-Muʿjam al-Kabīr / al-Awsaṭ / al-Ṣaghīr of
+    al-Ṭabarānī d. 360 AH; Muʿjam al-Shuyūkh of al-Dhahabī, Ibn ʿAsākir).
+    Per al-Kattānī, *al-Risālah al-Mustaṭrafah*, "Kutub al-Maʿājim"
+    section, both senses share the same architectural property:
+    non-linear alphabetical-index reference repositories whose primary
+    use is consultation, not graduated pedagogical reading. Owner
+    override ``mubtadiʾ`` is a valid CON-SRC-0011 WorkLevel — the
+    rejection is driven by genre non-applicability, not enum validation.
+
+    Confirmed 2026-04-27 by 2-of-2 Gemini scholarly convergence
+    (Run-A item4e + Run-B paired-FU dispatch) plus Codex CLI
+    structural verification of zero test ripple and dispute-path
+    coverage adequacy.
+
+    Note on double-classification: ``_infer_genre`` returns Genre.MUJAM
+    for "المعجم الكبير للطبراني" while ``_infer_hadith_subgenre`` would
+    return HadithSubgenre.MUJAM for the same title under hadith scope.
+    Under Axis 1 firing on Genre.MUJAM, the redundant subgenre is
+    harmless — the resolution branch order in ``_non_applicability_axis``
+    fires Axis 1 before Axis 3 for non-hadith_collection genres.
+    """
+    request = _base_deliberation_input(
+        title_arabic="المعجم الكبير للطبراني",
+        genre=Genre.MUJAM,
+        level=WorkLevel.MUBTADI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "mujam" in message
+    assert "mubtadiʾ" in message
+    assert "Axis 1" in message
+    assert "INV-SRC-0012" in message
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-8")
+def test_inv_src_0012_ac8_tabaqat_rejects_override() -> None:
+    """Phase 5b follow-up 26 closure 2026-04-27 — Genre.TABAQAT + override → rejected.
+
+    Axis 1 of INV-SRC-0012 fires: Genre.TABAQAT is in the 8-value
+    NON_APPLICABLE_GENRE_VALUES frozenset. Classical ṭabaqāt works
+    (Ibn Saʿd's al-Ṭabaqāt al-Kubrā d. 230 AH; al-Subkī's Ṭabaqāt
+    al-Shāfiʿiyyah al-Kubrā d. 771 AH; Ibn Quṭlūbughā's Tāj al-Tarājim;
+    al-Dhahabī's Tadhkirat al-Ḥuffāẓ; Ibn al-Jazarī's Ghāyat al-Nihāyah
+    fī Ṭabaqāt al-Qurrāʾ) operate as biographical-historical reference
+    architecture organized stratigraphically by generation. Per
+    al-Suyūṭī, *Tadrīb al-Rāwī*, Nawʿ 61 (*Maʿrifat al-Ṭabaqāt*),
+    knowing the ṭabaqāt is an auxiliary critical tool (an *āla*) for
+    establishing contemporary overlap between narrators to rule out
+    tadlīs or inqiṭāʿ — it is consulted to extract discrete biographical
+    data, not read sequentially as a pedagogical curriculum.
+
+    Confirmed 2026-04-27 by 2-of-2 Gemini scholarly convergence
+    (Run-A item4eprime + Run-B paired-FU dispatch — full convergence,
+    no architectural disagreement) plus Codex CLI structural
+    verification.
+
+    Owner override ``muntahī`` is a valid CON-SRC-0011 WorkLevel —
+    the rejection is driven by genre non-applicability, not enum
+    validation. T-3 Taxonomic Misplacement risk: ṭabaqāt are heavily
+    used for rijal chain analysis and knowledge-graph construction;
+    silently labeling them with pedagogical levels actively pollutes
+    the semantic metadata required for rigorous historical verification.
+    """
+    request = _base_deliberation_input(
+        title_arabic="الطبقات الكبرى لابن سعد",
+        genre=Genre.TABAQAT,
+        level=WorkLevel.MUNTAHI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    assert "tabaqat" in message
+    assert "muntahī" in message
+    assert "Axis 1" in message
+    assert "INV-SRC-0012" in message
+
+
 @pytest.mark.spec("CON-SRC-0004", "AC-3")
 def test_con_src_0004_axis_3_carve_back_rejects_non_applicable_status() -> None:
     """Invariant 3: ARBAIN carve-back forbids non_applicable_reference status.

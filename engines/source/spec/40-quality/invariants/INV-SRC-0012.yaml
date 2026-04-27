@@ -61,13 +61,55 @@ source: >-
   bundled (Codex CRITICAL DIM4 fix). See follow-up items 21
   (FATAWA/MUJAM naming resolution), 22 (mawsūʿa/muʿjam/fihris
   non-applicable expansion), 24 (majmuʿ constituent-rasāʾil leveling
-  architecture), 25 (MUJAM hadith-science sub-classification,
-  PRELIMINARY Run-A-only), 26 (TABAQAT non-applicability,
-  PRELIMINARY Run-A-only from E-prime), and 34 (HadithSubgenre.AHKAM
-  + MUKHTARAT enum addition for selected-hadith pedagogical
-  anthologies).
+  architecture), and 34 (HadithSubgenre.AHKAM + MUKHTARAT enum
+  addition for selected-hadith pedagogical anthologies).
+  Amended on 2026-04-27 (Phase 5b follow-ups 25 + 26 paired closure)
+  to EXTEND NON_APPLICABLE_GENRE_VALUES from six values to eight by
+  adding ``mujam`` and ``tabaqat``, after a paired-PRELIMINARY-
+  confirmation dispatch wave (Gemini CLI Run B scholarly + Codex CLI
+  structural, both through /prompt-architect). Run B scholarly
+  verdicts: FU-25 AMEND HIGH (Option A genre-level — disagreed with
+  Run-A item4e's Option B sub-genre-only carve-out, on the basis that
+  BOTH linguistic lexicons AND hadith muʿjam works share the same
+  non-linear alphabetical-index reference architecture); FU-26
+  CONFIRM HIGH (Option α genre-level — full convergence with Run-A
+  item4eprime). Run B governing principle (own-words): a genre belongs
+  in NON_APPLICABLE_GENRE_VALUES when its organizing architecture
+  operates as a static repository of attestation, indexing, or
+  archival documentation rather than a graduated didactic curriculum.
+  Codex CLI structural reasoning (executable Python probes of
+  ``_infer_genre`` outputs, ripgrep across all source-engine tests
+  and fixtures, direct read of GenreDisputePosition contract):
+  zero existing test ripple (no fixtures or override tests assert
+  Genre.MUJAM or Genre.TABAQAT behavior); double-classification of
+  hadith-muʿjam and hadith-ṭabaqāt titles is real but harmless
+  because Axis 1 fires before Axis 3 for non-hadith_collection
+  genres in ``_non_applicability_axis``; **Option B/β subgenre-only
+  carve-out is structurally inadequate on the dispute path** because
+  GenreDisputePosition (contracts.py:770) carries only
+  ``genre_candidate``, not a hadith-subgenre candidate, so the
+  override-queue's unanimous-nonapplicable branch can only adjudicate
+  via ``genre_candidate ∈ NON_APPLICABLE_GENRE_VALUES``. The genre-
+  level fix (Option A + Option α) was therefore the only
+  architecturally complete path. Classical anchors: al-Kattānī,
+  *al-Risālah al-Mustaṭrafah*, "Kutub al-Maʿājim" section (~p. 110+
+  in Dār al-Bashāʾir ed.); al-Suyūṭī, *Tadrīb al-Rāwī*, Nawʿ 61
+  (*Maʿrifat al-Ṭabaqāt*); Ibn Khallikān, *Wafayāt al-Aʿyān*,
+  author's introduction; Ibn al-Nadīm, *al-Fihrist*. New AC-7
+  (MUJAM positive — al-Muʿjam al-Kabīr li-l-Ṭabarānī rejects owner
+  override on Genre.MUJAM Axis 1) and AC-8 (TABAQAT positive — al-
+  Ṭabaqāt al-Kubrā li-Ibn Saʿd rejects owner override on
+  Genre.TABAQAT Axis 1) added. Documented limitation: hadith-muʿjam
+  and hadith-ṭabaqāt titles double-classify (Genre.MUJAM/TABAQAT +
+  HadithSubgenre.MUJAM/TABAQAT_RIJAL fire simultaneously); under the
+  Axis 1 firing on the genre, the redundant subgenre is harmless
+  metadata. Documented latent gap: GenreDisputePosition carries no
+  hadith-subgenre candidate; future need for subgenre-level dispute
+  adjudication would require widening that contract — captured for
+  potential future follow-up if/when the need surfaces. Open follow-
+  ups remaining: 18, 21, 22, 24, 27, 28, 34.
 created: '2026-04-16'
-updated: '2026-04-26'
+updated: '2026-04-27'
 depends_on:
 - DEC-SRC-0003
 impacts:
@@ -200,4 +242,40 @@ acceptance_criteria:
     al-riwāyah, transmission collection.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 3 (hadith_subgenre) and the Arabic anchor كُتُب الرِّوَايَة.
+  test_type: deterministic
+- id: AC-7
+  given: >-
+    A source classified as SourceMetadata.genre="mujam" (e.g.
+    المعجم الكبير للطبراني / al-Muʿjam al-Kabīr of al-Ṭabarānī d. 360 AH;
+    OR al-Qāmūs al-Muḥīṭ of al-Fīrūzābādī d. 817 AH — both senses of
+    معجم are non-linear alphabetical-index reference architectures
+    per al-Kattānī, al-Risālah al-Mustaṭrafah, "Kutub al-Maʿājim")
+    submitted with owner_level_override="mubtadiʾ" (a valid CON-SRC-0011
+    WorkLevel enum value). Axis 1 fires alone — the override is
+    rejected because the genre is in the 8-value non-applicable set.
+    Phase 5b follow-up 25 closure 2026-04-27 added "mujam" to the
+    set after 2-of-2 Gemini scholarly convergence and Codex CLI
+    structural verification that Option B/β (subgenre-only carve-out)
+    is inadequate on the dispute path because GenreDisputePosition
+    carries only genre_candidate.
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre) and naming "mujam" in the non-applicable set message.
+  test_type: deterministic
+- id: AC-8
+  given: >-
+    A source classified as SourceMetadata.genre="tabaqat" (e.g.
+    الطبقات الكبرى لابن سعد / al-Ṭabaqāt al-Kubrā of Ibn Saʿd d. 230 AH;
+    OR طبقات الشافعية الكبرى للسبكي / Ṭabaqāt al-Shāfiʿiyyah al-Kubrā
+    of al-Subkī d. 771 AH — biographical-historical reference
+    architecture organized stratigraphically by generation;
+    an *āla* tool for chain criticism per al-Suyūṭī, Tadrīb al-Rāwī,
+    Nawʿ 61 *Maʿrifat al-Ṭabaqāt*) submitted with
+    owner_level_override="muntahī" (a valid CON-SRC-0011 WorkLevel
+    enum value — the terminal / curriculum-completing tier). Axis 1
+    fires alone. Phase 5b follow-up 26 closure 2026-04-27 added
+    "tabaqat" to the set after 2-of-2 Gemini scholarly full
+    convergence (no architectural disagreement between Run-A and
+    Run-B) and Codex CLI structural verification.
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre) and naming "tabaqat" in the non-applicable set message.
   test_type: deterministic

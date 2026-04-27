@@ -286,6 +286,25 @@ class GenreResolutionState(str, Enum):
 # not graduated pedagogical exposition. Two values (mushaf, hadith_collection)
 # are retained from the pre-Phase-5b-item-4 set.
 #
+# Phase 5b follow-ups 25 + 26 closure 2026-04-27: extended to eight values by
+# adding ``mujam`` and ``tabaqat``. 2-of-2 Gemini scholarly convergence (Run-A
+# item4e on MUJAM hadith-science usage; Run-A item4eprime + Run-B paired-FU
+# dispatch on TABAQAT and MUJAM both via genre-level gate) plus Codex CLI
+# structural reasoning. The classical معجم spans linguistic lexicons (al-Qāmūs
+# al-Muḥīṭ, Lisān al-ʿArab) AND hadith muʿjam works organized by shuyūkh
+# (al-Muʿjam al-Kabīr li-l-Ṭabarānī) — both are non-linear alphabetical-index
+# reference repositories whose primary use is consultation, not graduated
+# pedagogical reading (al-Kattānī, *al-Risālah al-Mustaṭrafah*, "Kutub al-
+# Maʿājim"). Classical طبقات works (Ibn Saʿd, al-Subkī, al-Dhahabī, Ibn al-
+# Jazarī) are biographical-historical reference architecture — an *āla* tool
+# for chain criticism (al-Suyūṭī, *Tadrīb al-Rāwī*, Nawʿ 61: *Maʿrifat
+# al-Ṭabaqāt*), consulted to extract discrete biographical data, not read
+# sequentially. The genre-level gate was preferred over a HadithSubgenre carve-
+# out because the override-queue dispute path (GenreDisputePosition at
+# contracts.py:770) only carries ``genre_candidate``, not a hadith-subgenre
+# candidate — a subgenre-only fix would be structurally inadequate on the
+# dispute path.
+#
 # This axis handles genre-level non-applicability only. Composite-structure
 # non-applicability (a majmuʿ whose constituent rasāʾil carry leveled genres)
 # is enforced via Axis 2 (composite_work_type == "majmu") — see INV-SRC-0012
@@ -306,6 +325,8 @@ NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
         "thabat",
         "barnamaj",
         "fahrasah",
+        "mujam",
+        "tabaqat",
     }
 )
 
