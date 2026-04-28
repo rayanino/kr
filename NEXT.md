@@ -6,14 +6,18 @@
 **Authority:** shared — both Claude Code and Codex CLI commit directly per `ACTIVE_AUTHORITY.md`
 **Canonical engine state:** `engines/source/CLAUDE.md`
 
-The source engine build is active. Spec frozen 2026-04-15 (104 atoms, 97 confirmed, 3 deferred). Tracer bullet through steps 10–60 implemented. **115 source tests pass, 0 fail. Pyright clean on all source files.**
+The source engine build is active. Spec frozen 2026-04-15 (104 atoms; closure waves brought the count to 112 atoms, 106 confirmed). Tracer bullet through steps 10–60 implemented. **274 source tests + 21 normalization boundary tests = 295 pass / 0 fail. Pyright clean on all touched files. validate_spec 0 errors / 112 atoms.**
 
-**Recent build activity:**
-- `6efbfee45` test(source): drop unused dossier bindings in pipeline admission tests (CC, 2026-04-16)
-- `91d22de85` feat(source): add composite intake and deterministic metadata fallbacks (Codex, 2026-04-16)
-- `e0326c3e1` fix(source): harden scholar matching and deliberation persistence
-- `efc023ad9` test(source): harden error taxonomy + deterministic test coverage (106 pass)
-- `744a1c3cd` feat(source): build source pipeline and harden step-50 handoff
+**Recent build activity (2026-04-28):**
+- `_pending_` feat(source,normalization): close follow-up 24 (constituent-level placeholder surface, 295 pass; conftest.level_status fix unblocks 15 cross-engine boundary tests)
+- `3ef4500f0` docs(source): close follow-up 35 in active frontier; open follow-up 36
+- `824fef574` feat(source): close follow-up 35 (TARGHIB+SHAMAIL enum, MUKHTASAR BLOCKED, 254 pass)
+- `90091c0a3` docs(source): close follow-up 34 in active frontier; open follow-up 35
+- `db8fb3250` feat(source): close follow-up 34 (AHKAM enum addition, MUKHTARAT BLOCKED, 234 pass)
+
+**Open follow-ups:** 18, 27, 28, 36, **37 (NEW from FU-24 closure)**.
+
+**FU-37 SCOPE:** Constituent-level owner-override-entrance widening (REQ-SRC-0047/REQ-SRC-0048 keyspace expansion to per-constituent keying) + arabic-reviewer Agent retroactive validation that failed in FU-24 dispatch (Anthropic billing extra-usage cap + 600s stream watchdog stall). PREREQUISITE for FU-37 implementation: arabic-reviewer Agent CONVERGES with Geminis' (a+b) HIGH verdict on cross-provider Anthropic-side check. Quota resets 14:50 GMT+2 today; persistent agent ID `ad3512b78f5fb8f68`.
 
 **Pipeline steps implemented:** upload_receipt → freeze_and_manifest → container_classification → intake_analysis → metadata_deliberation → source_admission_and_normalization_handoff.
 
