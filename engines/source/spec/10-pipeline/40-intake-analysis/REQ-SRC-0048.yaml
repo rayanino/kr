@@ -36,8 +36,36 @@ source: >-
   lines 24-25,
   .kr/runtime/domain_validation_gemini_cli_item7_run_B_20260423.md
   lines 143-144.
+  Amended on 2026-04-28 (Phase 5b follow-up 37 closure) to WIDEN the
+  queue keyspace from ``source_id`` alone to the composite
+  ``(source_id, constituent_idx)`` tuple via the new optional
+  ``PendingLevelOverride.constituent_idx: Optional[int] =
+  Field(default=None, ge=0)`` field. ``constituent_idx == None``
+  preserves source-level (container) override semantics for backward
+  compatibility and for non-composite sources; an integer keys the
+  override against ``SourceMetadata.sub_work_inventory[constituent_idx]``
+  for *majmūʿ* sources. Per-constituent overrides accepted at intake
+  via REQ-SRC-0047 AC-7 (FU-37 entrance widening) are persisted as
+  zero-or-more queued records on the new
+  ``MetadataDeliberationResult.pending_constituent_level_overrides:
+  list[PendingLevelOverride]`` field — distinct from the singular
+  ``pending_level_override`` (per-source) so container-level and
+  per-constituent overrides never conflate during synthesis-engine
+  consumption. Per the 4-of-4 cross-provider scholarly+structural
+  convergence on (a+b) HIGH (Codex CLI structural + Gemini Run A/B
+  scholarly + arabic-reviewer Anthropic Agent), per-constituent
+  overrides at intake are ALWAYS QUEUED (deferred to synthesis)
+  because constituent-level genre is unknown at the source-engine
+  stage; synthesis acquires constituent metadata later and
+  applies/rejects per the standard INV-SRC-0012 3-axis gate via
+  ``resolve_pending_level_override``. Source engine NEVER WRITES
+  per-constituent level (DEC-SRC-0003). The arabic-reviewer Agent
+  (this closure) surfaced the structural CRITICAL gap CRIT-AR-1 —
+  PendingLevelOverride was per-source-keyed and could not persist
+  per-constituent intent without ambiguity. New AC-7 below covers the
+  per-constituent queue persistence path.
 created: '2026-04-23'
-updated: '2026-04-23'
+updated: '2026-04-28'
 depends_on:
 - REQ-SRC-0047
 - REQ-SRC-0030
@@ -189,3 +217,34 @@ acceptance_criteria:
     QUEUE-STALE is emitted as a warning and the audit-trail entry
     marks the override as applied-after-stale-window.
   test_type: deterministic
+- id: AC-7
+  given: >-
+    A composite *majmūʿ* source (composite_work_type == "majmu") with
+    ``IntakeDossier.sub_work_inventory`` of length N submitted with
+    per-constituent owner overrides via
+    ``MetadataDeliberationInput.owner_constituent_level_overrides ==
+    {0: WorkLevel.MUBTADI, 2: WorkLevel.MUNTAHI}``. Per Phase 5b
+    follow-up 37 closure 2026-04-28, the queue keyspace widens from
+    ``source_id`` alone to the composite ``(source_id, constituent_idx)``
+    tuple via the new optional
+    ``PendingLevelOverride.constituent_idx: Optional[int] =
+    Field(default=None, ge=0)`` field.
+  when: metadata deliberation processes the composite source
+  then: >-
+    ``MetadataDeliberationResult.pending_constituent_level_overrides``
+    contains exactly 2 PendingLevelOverride records — one per non-empty
+    key in the entrance dict — sorted ascending by ``constituent_idx``.
+    Each record carries ``state=QUEUED``,
+    ``genre_resolution_state_at_queueing=UNRESOLVED`` (constituent
+    genre unknown at intake), and ``constituent_idx`` matching the
+    entrance key (0 and 2 respectively). The singular per-source
+    ``MetadataDeliberationResult.pending_level_override`` is None
+    (no source-level override was supplied). Container-level
+    SourceMetadata.level remains null and SourceMetadata.level_status
+    == "non_applicable_reference" (Axis 2 fires unchanged on the
+    container). The first audit-trail entry on each queued record
+    records the QUEUED transition with provenance=
+    "owner_override_deferred", matching the per-source AC-1 audit
+    contract. arabic-reviewer Agent CRIT-AR-1 (PendingLevelOverride
+    keyspace expansion) is closed by this AC.
+  test_type: integration

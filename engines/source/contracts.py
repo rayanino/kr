@@ -504,6 +504,16 @@ class ErrorCode(str, Enum):
     OVERRIDE_QUEUE_UNANIMOUSLY_NONAPPLICABLE = (
         "SRC-E-OVERRIDE-QUEUE-UNANIMOUSLY-NONAPPLICABLE"
     )
+    # Phase 5b follow-up 37 (2026-04-28) — per-constituent owner-override
+    # entrance widening. Raised when the intake-boundary validation finds a
+    # per-constituent override key that is structurally invalid: either the
+    # source is not a majmūʿ (composite_work_type != "majmu" — per-constituent
+    # keying is meaningless on non-composite sources where the source-level
+    # entrance is correct), or the constituent_idx is out of range for the
+    # source's sub_work_inventory. Per REQ-SRC-0047 AC-7 added by FU-37.
+    LEVEL_OVERRIDE_CONSTITUENT_INVALID = (
+        "SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID"
+    )
     # Step 50 — metadata_deliberation
     HINT_FIELD = "SRC-E-HINT-FIELD"
     TRUST_AGENT_COUNT = "SRC-E-TRUST-AGENT-COUNT"
@@ -964,6 +974,16 @@ class GenreDisputePosition(BaseModel):
     Synthesis still acts as the muḥaqqiq/mujtahid; the dispute path now
     preserves subgenre evidence so the override queue can defer rather
     than reject.
+
+    The optional ``constituent_idx`` field was added in Phase 5b follow-up
+    37 (2026-04-28) to close the arabic-reviewer Agent's CRIT-AR-2
+    structural finding: dispute snapshots persisted on
+    ``PendingLevelOverride.dispute_snapshot`` for per-constituent overrides
+    on majmūʿ sources need a constituent identifier so synthesis can
+    distinguish "this dispute applies to constituent idx 3" from "this
+    dispute applies to the container." Default ``None`` preserves
+    container-level dispute semantics for legacy records and per-source
+    overrides.
     """
 
     genre_candidate: Genre
@@ -971,6 +991,7 @@ class GenreDisputePosition(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
     source_agents: list[str] = Field(min_length=1)
     hadith_subgenre_candidate: Optional[HadithSubgenre] = None
+    constituent_idx: Optional[int] = Field(default=None, ge=0)
 
 
 class OverrideQueueAuditEntry(BaseModel):
@@ -1012,6 +1033,30 @@ class PendingLevelOverride(BaseModel):
     full ``supporting_evidence`` to make a sound ḥukm. Stripping evidence at
     queueing would force a T-2 corruption vector (authoritative judgment on
     incomplete bayyinah).
+
+    Phase 5b follow-up 37 (2026-04-28) widens the keyspace from ``source_id``
+    alone to the composite ``(source_id, constituent_idx)``. The
+    ``constituent_idx`` field is ``None`` for container-level overrides
+    (current semantics, preserved for backward compatibility and for
+    non-composite sources) and an integer for per-constituent overrides
+    targeting a specific entry in ``SourceMetadata.sub_work_inventory``.
+    Per the 4-of-4 cross-provider scholarly convergence on (a+b) HIGH —
+    Codex CLI structural + Gemini Run A/B + arabic-reviewer Anthropic Agent
+    — al-Zarnūjī's *tawaqquf* principle (*Taʿlīm al-Mutaʿallim* Ch. IV) is
+    applied per-text, so a *majmūʿ* container that binds *al-ʿUbūdiyyah*
+    (mubtadiʾ-accessible) and *Maʿārij al-Wuṣūl* (muntahī) must be able to
+    record the owner's per-constituent override. arabic-reviewer Agent
+    surfaced this as CRIT-AR-1 — a per-source-keyed contract cannot
+    persist constituent-targeted overrides without ambiguity.
+
+    Per-constituent overrides at intake are ALWAYS queued (deferred to
+    synthesis) because constituent-level genre is not classified at the
+    source-engine intake stage; synthesis acquires constituent metadata
+    later and applies/rejects per the standard INV-SRC-0012 3-axis gate
+    via ``resolve_pending_level_override``. Source engine NEVER WRITES
+    per-constituent level (DEC-SRC-0003 — synthesis owns level writes);
+    it only RECORDS the per-constituent intent and propagates the queued
+    record forward.
     """
 
     model_config = ConfigDict(validate_assignment=True, extra="forbid")
@@ -1025,6 +1070,7 @@ class PendingLevelOverride(BaseModel):
     audit_trail: list[OverrideQueueAuditEntry] = Field(default_factory=list)
     resolved_at: Optional[str] = None
     dispute_snapshot: list[GenreDisputePosition] = Field(default_factory=list)
+    constituent_idx: Optional[int] = Field(default=None, ge=0)
 
 
 class AuthorOutputPosition(BaseModel):
@@ -1189,6 +1235,27 @@ class MetadataDeliberationInput(BaseModel):
     owner_hint_payload: dict[str, Any] = Field(default_factory=dict)
     verification_agents: list[str] = Field(default_factory=list)
     research_source_types: list[str] = Field(default_factory=list)
+    # Phase 5b follow-up 37 (2026-04-28): per-constituent owner-override
+    # entrance for majmūʿ sources. Keyed by ``constituent_idx`` matching
+    # the corresponding ``IntakeDossier.sub_work_inventory[i]`` entry; value
+    # is the CON-SRC-0011-validated WorkLevel the owner asserts for that
+    # specific constituent. Per-constituent overrides are ALWAYS QUEUED at
+    # intake (deferred to synthesis) because constituent-level genre is not
+    # classified at the source-engine stage — synthesis acquires constituent
+    # metadata later and applies/rejects via the standard INV-SRC-0012
+    # 3-axis gate. Source engine NEVER WRITES per-constituent level
+    # (DEC-SRC-0003 — synthesis owns level writes); the entrance only
+    # records the owner's intent and queues it for synthesis.
+    #
+    # Validation rule (enforced by the orchestrator, not on this contract):
+    # this field MAY be non-empty only when ``composite_work_type == "majmu"``.
+    # For non-composite sources, container-level override on
+    # ``MetadataDeliberationInput.level`` is the correct entrance; per-
+    # constituent keys on a non-composite source raise SRC-E-LEVEL-OVERRIDE-
+    # CONSTITUENT-INVALID at the intake boundary.
+    owner_constituent_level_overrides: dict[int, WorkLevel] = Field(
+        default_factory=dict
+    )
 
 
 class MetadataDeliberationResult(BaseModel):
@@ -1201,6 +1268,17 @@ class MetadataDeliberationResult(BaseModel):
     # here so the synthesis engine can consume it during its authoritative
     # level determination pass per DEC-SRC-0003.
     pending_level_override: Optional[PendingLevelOverride] = None
+    # Phase 5b follow-up 37 (2026-04-28): zero-or-more queued per-constituent
+    # owner-override records keyed by ``PendingLevelOverride.constituent_idx``.
+    # Each entry is ALWAYS in state QUEUED at source-engine emission because
+    # constituent genre is unknown at intake; synthesis applies/rejects via
+    # the standard INV-SRC-0012 3-axis gate per DEC-SRC-0003. Distinct from
+    # ``pending_level_override`` (singular, source-level) so that container-
+    # level and per-constituent overrides never conflate during synthesis-
+    # engine consumption.
+    pending_constituent_level_overrides: list[PendingLevelOverride] = Field(
+        default_factory=list
+    )
 
 
 class MuhaqiqAssessment(BaseModel):

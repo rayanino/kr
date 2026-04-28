@@ -243,6 +243,49 @@ source: >-
   FU-37. New AC-FU24-A added below capturing the constituent
   placeholder semantics. Open follow-ups remaining after FU-24
   closure: 18, 27, 28, 36, 37 (NEW).
+  Amended on 2026-04-28 (Phase 5b follow-up 37 closure) to CLOSE
+  the FU-24 deferred owner-override-entrance promise via the (a+b)
+  hybrid-resolution path validated by 4-of-4 cross-provider
+  scholarly+structural convergence at HIGH confidence (Codex CLI
+  structural + Gemini Run A/B + arabic-reviewer Anthropic Agent).
+  arabic-reviewer's NOVEL classical anchor al-Suyūṭī *Tadrīb al-Rāwī*
+  Muqaddimah on *iʿtibār* discipline (preserve raw evidence at
+  finest granularity to enable sound *ḥukm*) — independent of either
+  Gemini and not in the sealed prior-evaluator block — closed the
+  cross-provider Anthropic-side scholarly check that FU-24 had to
+  defer due to Anthropic billing cap + 600s stream stall.
+  arabic-reviewer's structural cross-provider check surfaced TWO
+  new CRITICAL findings: CRIT-AR-1 (PendingLevelOverride was
+  per-source-keyed and could not persist per-constituent intent
+  without ambiguity) and CRIT-AR-2 (GenreDisputePosition lacked
+  constituent identifier for per-constituent dispute snapshots).
+  Both addressed by contract widening:
+  ``PendingLevelOverride.constituent_idx: Optional[int] =
+  Field(default=None, ge=0)`` and ``GenreDisputePosition.constituent_idx:
+  Optional[int] = Field(default=None, ge=0)``. Plus the entrance
+  widening: ``MetadataDeliberationInput.owner_constituent_level_overrides:
+  dict[int, WorkLevel]`` accepts per-constituent owner intent for
+  *majmūʿ* sources; ``deliberation._queue_constituent_overrides``
+  validates ``constituent_idx`` is non-negative and in range of
+  ``sub_work_inventory`` and the source is composite_work_type ==
+  "majmu" (raises SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID otherwise).
+  Per-constituent overrides at intake are ALWAYS QUEUED (deferred
+  to synthesis) because constituent-level genre is unknown at the
+  source-engine stage; synthesis applies/rejects via the standard
+  INV-SRC-0012 3-axis gate per DEC-SRC-0003. Container Axis 2 firing
+  on ``composite_work_type=="majmu"`` REMAINS UNCHANGED — per-
+  constituent intent does NOT override container non-applicability;
+  both states coexist via the new
+  ``MetadataDeliberationResult.pending_constituent_level_overrides:
+  list[PendingLevelOverride]`` field. Methodology gap disclosure:
+  the arabic-reviewer wrapper at
+  ``.kr/runtime/_followup_37_arabic_reviewer_wrapper_optimized.md``
+  contained the sealed prior-evaluator block in-file, so file-read
+  sequence independence is technically compromised; analytical
+  independence is supported by novel anchor + novel structural
+  findings + novel framing. New ACs AC-FU37-1 through AC-FU37-9
+  added below. Open follow-ups remaining after FU-37 closure:
+  18, 27, 28, 36.
 created: '2026-04-16'
 updated: '2026-04-28'
 depends_on:
@@ -655,4 +698,175 @@ acceptance_criteria:
     (engines/normalization/src/dispatcher.py:74) without requiring
     normalization-engine code widening (Codex CRIT-1 MOOT under this
     architectural choice).
+  test_type: deterministic
+- id: AC-FU37-1
+  given: >-
+    A ``PendingLevelOverride`` constructed without a ``constituent_idx``
+    field, or with a non-negative integer ``constituent_idx`` value.
+    Phase 5b follow-up 37 closure 2026-04-28 widens the keyspace from
+    ``source_id`` alone to the composite ``(source_id, constituent_idx)``
+    tuple via the new optional field
+    ``constituent_idx: Optional[int] = Field(default=None, ge=0)``.
+    Default ``None`` preserves source-level (container) override
+    semantics for backward compatibility and for non-composite sources;
+    an integer keys the override against
+    ``SourceMetadata.sub_work_inventory[constituent_idx]`` for *majmūʿ*
+    sources. arabic-reviewer Agent CRIT-AR-1 (per-source-keyed contract
+    cannot persist constituent-targeted overrides without ambiguity)
+    is closed by this widening.
+  when: the contract is validated under Pydantic
+  then: >-
+    Default ``constituent_idx=None`` is accepted; non-negative integers
+    (0, 1, 2, …) are accepted; negative integers are REJECTED with a
+    Pydantic ValidationError citing the ``ge=0`` constraint. Pair-
+    consistency with state/audit_trail is preserved (no new IFF
+    invariant added — the field is purely additive metadata).
+  test_type: deterministic
+- id: AC-FU37-2
+  given: >-
+    A ``GenreDisputePosition`` constructed without a ``constituent_idx``
+    field, or with a non-negative integer ``constituent_idx`` value.
+    Phase 5b follow-up 37 closure 2026-04-28 adds the new optional field
+    ``constituent_idx: Optional[int] = Field(default=None, ge=0)``.
+    Default ``None`` preserves container-level dispute semantics for
+    legacy records and per-source overrides; an integer enables
+    per-constituent dispute snapshots in
+    ``PendingLevelOverride.dispute_snapshot`` for per-constituent
+    overrides on majmūʿ sources. arabic-reviewer Agent CRIT-AR-2
+    (dispute snapshots ambiguous for per-constituent overrides) is
+    closed by this widening.
+  when: the contract is validated under Pydantic
+  then: >-
+    Default ``constituent_idx=None`` is accepted; non-negative integers
+    are accepted; negative integers are REJECTED with a Pydantic
+    ValidationError citing the ``ge=0`` constraint.
+  test_type: deterministic
+- id: AC-FU37-3
+  given: >-
+    A call to ``override_queue.create_pending_level_override`` with
+    or without the new optional ``constituent_idx`` keyword parameter.
+    Phase 5b follow-up 37 closure 2026-04-28 adds the parameter to
+    the factory function so per-constituent overrides can be queued
+    via the same code path as per-source overrides.
+  when: the factory function is invoked
+  then: >-
+    Default omission produces a record with ``constituent_idx=None``
+    (container-level semantics). Explicit non-negative integer keys
+    the record against the corresponding
+    ``SubWorkInventoryEntry``. The audit_trail's first QUEUED
+    transition is recorded identically regardless of constituent
+    keying — provenance="owner_override_deferred" per REQ-SRC-0048
+    AC-1.
+  test_type: deterministic
+- id: AC-FU37-4
+  given: >-
+    A ``MetadataDeliberationInput`` constructed with or without the
+    new ``owner_constituent_level_overrides: dict[int, WorkLevel]``
+    field. Phase 5b follow-up 37 closure 2026-04-28 adds this field
+    as the per-constituent owner-override entrance for *majmūʿ*
+    sources, complementing the existing per-source ``level`` field.
+  when: the contract is validated under Pydantic
+  then: >-
+    Default ``owner_constituent_level_overrides == {}`` is accepted;
+    a dict mapping non-negative integer constituent_idx keys to
+    ``WorkLevel`` enum values is accepted. Validation that keys are
+    in range of ``sub_work_inventory`` and that the source is
+    composite_work_type == "majmu" is enforced by the orchestrator
+    helper ``_queue_constituent_overrides``, NOT by this contract
+    (the contract intentionally accepts any non-negative integer
+    key so legacy migration is permissive at the data-model layer).
+  test_type: deterministic
+- id: AC-FU37-5
+  given: >-
+    A ``MetadataDeliberationResult`` constructed without the new
+    ``pending_constituent_level_overrides: list[PendingLevelOverride]``
+    field. Phase 5b follow-up 37 closure 2026-04-28 adds this field
+    as the per-constituent queue propagation surface, distinct from
+    the singular per-source ``pending_level_override``.
+  when: the contract is validated under Pydantic
+  then: >-
+    Default ``pending_constituent_level_overrides == []`` is accepted.
+    The field carries zero-or-more queued PendingLevelOverride records,
+    each in ``state=QUEUED`` with ``constituent_idx`` set, propagating
+    the per-constituent override intent forward to synthesis per
+    DEC-SRC-0003.
+  test_type: deterministic
+- id: AC-FU37-6
+  given: >-
+    A composite *majmūʿ* source with sub_work_inventory of length N=3
+    and ``MetadataDeliberationInput.owner_constituent_level_overrides
+    == {2: WorkLevel.MUNTAHI, 0: WorkLevel.MUBTADI}`` (insertion order
+    irrelevant; keys 0 and 2 within range). Phase 5b follow-up 37
+    closure 2026-04-28 introduces the orchestrator helper
+    ``deliberation._queue_constituent_overrides``.
+  when: the helper is invoked during ``run_metadata_deliberation``
+  then: >-
+    The helper returns a list of exactly 2 PendingLevelOverride
+    records, sorted ascending by ``constituent_idx`` (idx=0 first,
+    idx=2 second). Each record has ``state=QUEUED``,
+    ``genre_resolution_state_at_queueing=UNRESOLVED``, and matching
+    constituent_idx. The list is propagated onto
+    ``MetadataDeliberationResult.pending_constituent_level_overrides``
+    by the orchestrator. Empty input returns ``[]``.
+  test_type: deterministic
+- id: AC-FU37-7
+  given: >-
+    EITHER a non-composite source (composite_work_type == None) with
+    ``MetadataDeliberationInput.owner_constituent_level_overrides ==
+    {0: WorkLevel.MUBTADI}`` (per-constituent keying on a source whose
+    sub_work_inventory is empty), OR a composite *majmūʿ* source with
+    sub_work_inventory of length N=3 and an entry with
+    ``constituent_idx=7`` in the override dict (out of range).
+  when: >-
+    ``_queue_constituent_overrides`` is invoked
+  then: >-
+    EITHER case raises ``SourceEngineError`` with
+    ``error_code=SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID`` and a
+    structured ``detail`` message naming the rejected condition
+    (composite_work_type != "majmu" / out-of-range constituent_idx).
+    Source admission is NOT silently mis-routed; per Critical Rule 4
+    (errors fail loudly), the structured rejection at the intake
+    boundary is the correct behavior.
+  test_type: deterministic
+- id: AC-FU37-8
+  given: >-
+    A composite *majmūʿ* source with container-level Axis 2 firing
+    (composite_work_type == "majmu" → SourceMetadata.level=null,
+    SourceMetadata.level_status=non_applicable_reference) AND
+    ``owner_constituent_level_overrides`` containing one or more
+    valid per-constituent overrides.
+  when: >-
+    ``_queue_constituent_overrides`` is invoked
+  then: >-
+    Container-level state is preserved (SourceMetadata.level remains
+    null, SourceMetadata.level_status remains
+    "non_applicable_reference", SourceMetadata.composite_work_type
+    remains "majmu") — per-constituent intent does NOT override
+    container non-applicability. The queued per-constituent records
+    coexist with the container's NON_APPLICABLE_REFERENCE state via
+    the dual-field architecture (singular per-source
+    ``pending_level_override`` for container intent — None here —
+    plus list ``pending_constituent_level_overrides`` for
+    per-constituent intent). This is the regression guard for the
+    FU-24 (a-lite) commitment that container Axis 2 firing remains
+    architecturally independent of the per-constituent placeholder
+    surface.
+  test_type: deterministic
+- id: AC-FU37-9
+  given: >-
+    A ``PendingLevelOverride`` with ``constituent_idx=2`` and a
+    ``dispute_snapshot`` containing two ``GenreDisputePosition``
+    entries: one with ``constituent_idx=2`` (per-constituent dispute
+    targeting the same constituent as the override) and one with
+    ``constituent_idx=None`` (container-level dispute providing
+    background context).
+  when: the record is validated and round-tripped through Pydantic
+  then: >-
+    The constituent_idx values on the override record AND on each
+    dispute snapshot entry are preserved verbatim through the
+    contract layer. arabic-reviewer Agent CRIT-AR-2 (dispute
+    snapshots ambiguous for per-constituent overrides) is closed
+    — synthesis can now distinguish "this dispute applies to
+    constituent idx 2" from "this dispute applies to the container"
+    without ambiguity.
   test_type: deterministic

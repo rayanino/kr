@@ -173,6 +173,32 @@ options:
     documented in the audit trail, not silent. Constituent-level
     owner override at intake is tracked as Phase 5b item 37
     (NOT in scope for legacy migration here).
+    Phase 5b follow-up 37 closure 2026-04-28 adds two further
+    rules for per-constituent override-entrance widening:
+    (vii.d) legacy ``PendingLevelOverride`` payloads pre-FU-37
+    have no ``constituent_idx`` field. Pydantic field-default
+    semantics handle this transparently — no explicit migration
+    logic required because the new field is optional with a
+    safe default (``None`` = container-level intent, the legacy
+    semantics). Loading a legacy JSON record into the new
+    Pydantic model yields ``constituent_idx=None`` automatically;
+    no audit-trail entry is needed because the default is
+    unambiguous and matches the pre-FU-37 contract (every
+    persisted record was implicitly source-level / container-
+    level keyed). Same Pydantic-default treatment applies to
+    every nested PendingLevelOverride carried on
+    ``MetadataDeliberationResult.pending_level_override`` and
+    ``NormalizationHandoffBundle.pending_level_override``.
+    (vii.e) legacy ``GenreDisputePosition`` payloads pre-FU-37
+    similarly have no ``constituent_idx`` field. The same
+    Pydantic field-default semantics apply: loading yields
+    ``constituent_idx=None`` (container-level dispute, the
+    legacy semantics). Applies to dispute_snapshot entries on
+    every nested PendingLevelOverride record. arabic-reviewer
+    Agent CRIT-AR-1 and CRIT-AR-2 structural findings closed by
+    these contract widenings are forward-compatible with all
+    legacy records — no rewrites, no human_gate routing, no
+    ambiguous_fields flagging. The widening is purely additive.
 - id: OPT-C
   label: Reject legacy records at load boundary without any migration
   description: >-

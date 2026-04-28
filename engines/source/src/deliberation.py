@@ -17,6 +17,7 @@ from engines.source.contracts import (
     FailureAnalysis,
     FrozenSource,
     Genre,
+    GenreResolutionState,
     HadithSubgenre,
     HintComparisonResult,
     HintInvestigation,
@@ -32,6 +33,7 @@ from engines.source.contracts import (
     MonitorSuggestedPolicyUpdate,
     MonitorUncertaintyFlags,
     PdfTextLayerStatus,
+    PendingLevelOverride,
     SourceMetadata,
     StructuralFormat,
     TrustDecision,
@@ -41,6 +43,7 @@ from engines.source.contracts import (
     WorkOutputPosition,
 )
 from engines.source.src.errors import SourceEngineError
+from engines.source.src.override_queue import create_pending_level_override
 
 
 _FAST_TRACK_GENRES = {"matn", "sharh", "hadith_collection", "tafsir", "tabaqat", "fatawa"}
@@ -192,12 +195,88 @@ def run_metadata_deliberation(
             author_output=author_output,
         )
     ]
+    pending_constituent_overrides = _queue_constituent_overrides(
+        deliberation_input,
+        metadata,
+    )
     return MetadataDeliberationResult(
         source_metadata=metadata,
         case_complexity_record=case_record,
         monitor_feedback=monitor_feedback,
         disagreement_cases=disagreement_cases,
+        pending_constituent_level_overrides=pending_constituent_overrides,
     )
+
+
+def _queue_constituent_overrides(
+    deliberation_input: MetadataDeliberationInput,
+    metadata: SourceMetadata,
+) -> list[PendingLevelOverride]:
+    """Queue per-constituent owner overrides per REQ-SRC-0047 FU-37 entrance.
+
+    Phase 5b follow-up 37 (2026-04-28) closure: the entrance widening from
+    per-source ``owner_level_override`` to per-constituent keying lands here.
+    Per the 4-of-4 cross-provider scholarly verdict (Codex CLI structural +
+    Gemini Run A/B + arabic-reviewer Anthropic Agent) on (a+b) HIGH at
+    independent classical anchors (al-Zarnūjī *Taʿlīm al-Mutaʿallim* Ch. IV
+    *tawaqquf*; al-Suyūṭī *Tadrīb al-Rāwī* Muqaddimah *iʿtibār*), per-text
+    *martaba* assessment must be expressible at the constituent level for
+    *majmūʿ* sources whose constituents span the pedagogical spectrum
+    (e.g. *Majmūʿ Fatāwā Ibn Taymiyyah* binding *al-ʿUbūdiyyah* mubtadiʾ-
+    accessible with *Maʿārij al-Wuṣūl* muntahī).
+
+    Per-constituent overrides are ALWAYS queued at intake (deferred to
+    synthesis) because constituent genre is not classified at the source-
+    engine stage; synthesis acquires constituent metadata later and
+    applies/rejects per the standard INV-SRC-0012 3-axis gate via
+    ``resolve_pending_level_override``. Source engine NEVER WRITES per-
+    constituent level (DEC-SRC-0003 — synthesis owns level writes); it only
+    RECORDS the per-constituent intent and propagates the queued record
+    forward.
+
+    Validation rules (REQ-SRC-0047 AC-7 added by FU-37 closure):
+    - Per-constituent keys are valid ONLY when the source is a *majmūʿ*
+      (``metadata.composite_work_type == "majmu"``). Per-constituent keying
+      on a non-composite source raises SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID.
+    - ``constituent_idx`` must be in range of ``metadata.sub_work_inventory``
+      (i.e., ``0 <= constituent_idx < len(sub_work_inventory)``). Out-of-range
+      indices raise SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID.
+    """
+    overrides_map = deliberation_input.owner_constituent_level_overrides
+    if not overrides_map:
+        return []
+
+    if metadata.composite_work_type != "majmu":
+        raise SourceEngineError(
+            ErrorCode.LEVEL_OVERRIDE_CONSTITUENT_INVALID,
+            f"owner_constituent_level_overrides rejected: source "
+            f"composite_work_type='{metadata.composite_work_type}' is not "
+            "'majmu' — per-constituent keying is valid only for majmūʿ sources; "
+            "container-level entrance via owner_level_override should be used "
+            "for non-composite sources",
+        )
+
+    inventory_size = len(metadata.sub_work_inventory)
+    queued: list[PendingLevelOverride] = []
+    for constituent_idx, level in overrides_map.items():
+        if constituent_idx < 0 or constituent_idx >= inventory_size:
+            raise SourceEngineError(
+                ErrorCode.LEVEL_OVERRIDE_CONSTITUENT_INVALID,
+                f"owner_constituent_level_overrides rejected: "
+                f"constituent_idx={constituent_idx} is out of range for "
+                f"sub_work_inventory (length={inventory_size})",
+            )
+        record = create_pending_level_override(
+            source_id=metadata.source_id,
+            raw_token=level.value,
+            validated_value=level,
+            genre_resolution_state=GenreResolutionState.UNRESOLVED,
+            constituent_idx=constituent_idx,
+        )
+        queued.append(record)
+
+    queued.sort(key=lambda r: r.constituent_idx if r.constituent_idx is not None else -1)
+    return queued
 
 
 def _non_applicability_axis(

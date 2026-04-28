@@ -1604,6 +1604,11 @@ def test_req_src_0046_ac4_genre_dispute_positions_preserved(
     # BLOCK fix, so the serialized dict now includes ``hadith_subgenre_candidate:
     # None`` for non-hadith genre positions. The non-hadith disputes
     # (sharh / hashiyah) still serialize a None value for that field.
+    # Phase 5b follow-up 37 closure 2026-04-28: GenreDisputePosition gained
+    # an optional ``constituent_idx`` field per arabic-reviewer CRIT-AR-2 fix
+    # for per-constituent dispute snapshots on majmūʿ sources. The serialized
+    # dict now includes ``constituent_idx: None`` for container-level dispute
+    # positions (the case here — sharh / hashiyah on a non-composite source).
     assert positions == [
         {
             "genre_candidate": "sharh",
@@ -1611,6 +1616,7 @@ def test_req_src_0046_ac4_genre_dispute_positions_preserved(
             "confidence": 0.84,
             "source_agents": ["genre_agent_a", "genre_agent_b"],
             "hadith_subgenre_candidate": None,
+            "constituent_idx": None,
         },
         {
             "genre_candidate": "hashiyah",
@@ -1618,6 +1624,7 @@ def test_req_src_0046_ac4_genre_dispute_positions_preserved(
             "confidence": 0.52,
             "source_agents": ["genre_agent_c"],
             "hadith_subgenre_candidate": None,
+            "constituent_idx": None,
         },
     ]
 

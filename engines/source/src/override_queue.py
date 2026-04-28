@@ -110,14 +110,27 @@ def create_pending_level_override(
     validated_value: WorkLevel,
     genre_resolution_state: GenreResolutionState,
     queued_at: Optional[str] = None,
+    constituent_idx: Optional[int] = None,
 ) -> PendingLevelOverride:
     """Build a ``PendingLevelOverride`` in the QUEUED state with one audit entry.
 
-    Per REQ-SRC-0048 AC-1: the queue record is keyed by source_id, carries
-    ``raw_token``, the CON-SRC-0011-validated WorkLevel value, an ISO 8601
-    ``queued_at`` timestamp, and the genre-resolution state observed at
-    queueing. The first audit-trail entry records the QUEUED transition with
+    Per REQ-SRC-0048 AC-1: the queue record is keyed by source_id (per-source
+    overrides) or by the composite ``(source_id, constituent_idx)`` tuple
+    (per-constituent overrides on majmūʿ sources, REQ-SRC-0048 AC-7 added
+    by FU-37 closure 2026-04-28), carries ``raw_token``, the
+    CON-SRC-0011-validated WorkLevel value, an ISO 8601 ``queued_at``
+    timestamp, and the genre-resolution state observed at queueing. The
+    first audit-trail entry records the QUEUED transition with
     provenance="owner_override_deferred".
+
+    Phase 5b follow-up 37 (2026-04-28) adds the ``constituent_idx`` parameter.
+    Default ``None`` preserves source-level (container) override semantics for
+    backward compatibility; an integer keys the override against
+    ``SourceMetadata.sub_work_inventory[constituent_idx]``. Caller (typically
+    the deliberation orchestrator) is responsible for validating that
+    ``constituent_idx`` is in-range for the source's inventory and that the
+    source is a majmūʿ — these are intake-boundary checks, not contract
+    invariants.
     """
     timestamp = queued_at or _utc_now_iso()
     audit_entry = OverrideQueueAuditEntry(
@@ -138,6 +151,7 @@ def create_pending_level_override(
         audit_trail=[audit_entry],
         resolved_at=None,
         dispute_snapshot=[],
+        constituent_idx=constituent_idx,
     )
 
 

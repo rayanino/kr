@@ -72,8 +72,53 @@ source: >-
   preservation through REQ-SRC-0007 handoff — the signal the
   synthesis engine consumes. Reviewer output at
   `.kr/runtime/closure_wave_codex_cli_20260423.md`.
+  Amended on 2026-04-28 (Phase 5b follow-up 37 closure) to WIDEN
+  the owner-override entrance from per-source ``owner_level_override``
+  (a single ``Optional[WorkLevel]``) to ALSO accept per-constituent
+  keying via ``MetadataDeliberationInput.owner_constituent_level_overrides:
+  dict[int, WorkLevel]`` for *majmūʿ* sources whose constituents span
+  the pedagogical spectrum (e.g. *Majmūʿ Fatāwā Ibn Taymiyyah* binding
+  *al-ʿUbūdiyyah* mubtadiʾ-accessible with *Maʿārij al-Wuṣūl* muntahī).
+  4-of-4 cross-provider scholarly+structural convergence at HIGH
+  confidence: Codex CLI structural (a-lite) ISOMORPHIC + Gemini Run A
+  scholarly (a+b) HIGH + Gemini Run B scholarly INDEPENDENT (a+b) HIGH
+  + arabic-reviewer Anthropic Agent (a+b) HIGH with NOVEL classical
+  anchor al-Suyūṭī *Tadrīb al-Rāwī* Muqaddimah on *iʿtibār* discipline
+  (genuinely independent — not in either Gemini's verdict or the
+  sealed prior-evaluator block). Classical justification (al-Zarnūjī
+  *Taʿlīm al-Mutaʿallim* Ch. IV pp. 58-66): *tawaqquf* is applied
+  per-text, so an owner-override system that only accepts
+  container-level overrides cannot express "I have read
+  *al-ʿUbūdiyyah* (accessible) but *Maʿārij al-Wuṣūl* (advanced) is
+  beyond me, both being in *Majmūʿ Fatāwā Ibn Taymiyyah*".
+  Per-constituent overrides at intake are ALWAYS QUEUED (deferred to
+  synthesis) because constituent-level genre is not classified at the
+  source-engine intake stage; synthesis acquires constituent metadata
+  later and applies/rejects via the standard INV-SRC-0012 3-axis gate
+  per DEC-SRC-0003. Source engine NEVER WRITES per-constituent level
+  (DEC-SRC-0003 — synthesis owns level writes); the entrance only
+  RECORDS the per-constituent intent and PROPAGATES the queued record
+  forward via ``MetadataDeliberationResult.pending_constituent_level_overrides:
+  list[PendingLevelOverride]``. Two new structural CRITICAL findings
+  from arabic-reviewer closed in this widening: CRIT-AR-1
+  (PendingLevelOverride was per-source-keyed; now carries optional
+  ``constituent_idx: Optional[int] = Field(default=None, ge=0)``);
+  CRIT-AR-2 (GenreDisputePosition lacked constituent identifier; now
+  carries optional ``constituent_idx`` for per-constituent dispute
+  snapshots in PendingLevelOverride.dispute_snapshot). Methodology
+  gap disclosure: the arabic-reviewer wrapper at
+  ``.kr/runtime/_followup_37_arabic_reviewer_wrapper_optimized.md``
+  contained the sealed prior-evaluator block in-file, so file-read
+  sequence independence is technically compromised; analytical
+  independence is supported by the novel al-Suyūṭī anchor + novel
+  structural findings + novel framing ("rasm al-wirāqah vs pedagogical
+  fact"). New error code SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID
+  added at contracts.py for intake-boundary rejection of
+  per-constituent keying on non-composite sources or out-of-range
+  ``constituent_idx``. New AC-7 added below. Open follow-ups remaining
+  after FU-37 closure: 18, 27, 28, 36.
 created: '2026-04-16'
-updated: '2026-04-23'
+updated: '2026-04-28'
 depends_on:
 - DEC-SRC-0003
 - INV-SRC-0011
@@ -262,4 +307,41 @@ acceptance_criteria:
     the (level, level_provenance) pair is preserved byte-exactly
     through the REQ-SRC-0007 handoff JSON surface so downstream
     engines receive the provenance signal intact.
+  test_type: deterministic
+- id: AC-7
+  given: >-
+    A composite *majmūʿ* source (composite_work_type == "majmu") with
+    ``IntakeDossier.sub_work_inventory`` of length N detected at intake
+    (e.g. مجموع رسائل ابن رجب with N constituent rasāʾil) submitted with
+    per-constituent owner overrides via
+    ``MetadataDeliberationInput.owner_constituent_level_overrides ==
+    {0: WorkLevel.MUBTADI, 2: WorkLevel.MUNTAHI}`` (the owner asserts
+    constituent idx 0 is mubtadiʾ and constituent idx 2 is muntahī;
+    constituent idx 1 receives no override). Per Phase 5b follow-up 37
+    closure 2026-04-28, the owner-override entrance is widened to per-
+    constituent keying for majmūʿ sources whose constituents span the
+    pedagogical spectrum. Per-constituent overrides at intake are ALWAYS
+    QUEUED (deferred to synthesis) because constituent-level genre is
+    not classified at the source-engine stage; source engine NEVER
+    writes per-constituent level (DEC-SRC-0003). The orchestrator
+    helper ``_queue_constituent_overrides`` validates that
+    ``constituent_idx`` is non-negative and in range of
+    ``sub_work_inventory``, and that the source is composite_work_type
+    == "majmu" (per-constituent keying on non-composite sources raises
+    SRC-E-LEVEL-OVERRIDE-CONSTITUENT-INVALID).
+  when: metadata deliberation processes the composite source
+  then: >-
+    ``MetadataDeliberationResult.pending_constituent_level_overrides``
+    contains exactly 2 PendingLevelOverride records, sorted by
+    ``constituent_idx`` ascending: idx=0 with validated_value=MUBTADI,
+    state=QUEUED, raw_token="mubtadiʾ"; idx=2 with validated_value=
+    MUNTAHI, state=QUEUED, raw_token="muntahī". Container-level
+    SourceMetadata.level remains null and SourceMetadata.level_status
+    == "non_applicable_reference" (Axis 2 fires unchanged on the
+    container — per-constituent intent does NOT override container
+    non-applicability). Each queued record carries
+    genre_resolution_state_at_queueing=UNRESOLVED because constituent
+    genre is unknown at intake; synthesis acquires constituent metadata
+    later and applies/rejects per the standard INV-SRC-0012 3-axis gate
+    via ``resolve_pending_level_override``.
   test_type: deterministic
