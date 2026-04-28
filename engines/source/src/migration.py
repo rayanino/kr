@@ -64,8 +64,26 @@ def migrate_source_metadata_payload(payload: Mapping[str, object]) -> dict[str, 
         migrated["composite_work_type"] = None
         defaulted.append("composite_work_type")
 
+    # DEC-SRC-0021 rule (vii) — Phase 5b follow-up 24 (2026-04-28):
+    # legacy SourceMetadata records pre-date the constituent-level placeholder
+    # surface (FU-24 (a-lite) closure). Default sub_work_inventory to [] when
+    # missing so legacy load survives. For legacy ``composite_work_type=="majmu"``
+    # records that lack inventory, the empty default is LOSSY (the original
+    # IntakeDossier.sub_work_inventory was never persisted on SourceMetadata
+    # before FU-24); flag in ambiguous_fields so the audit trail records it,
+    # but DO NOT route to human_gate — the system functions without the
+    # inventory surface (re-intake recovers it). Constituent-level owner
+    # override at intake is tracked as Phase 5b item 37 and is NOT in scope
+    # for legacy migration here.
+    ambiguous: list[str] = []
+    if "sub_work_inventory" not in migrated:
+        migrated["sub_work_inventory"] = []
+        defaulted.append("sub_work_inventory")
+        if migrated.get("composite_work_type") == "majmu":
+            ambiguous.append("sub_work_inventory")
+
     if defaulted:
-        _append_migration_event(migrated, defaulted)
+        _append_migration_event(migrated, defaulted, ambiguous_fields=ambiguous)
 
     return migrated
 
@@ -111,6 +129,7 @@ def _default_level_status(payload: Mapping[str, object]) -> LevelStatus:
 def _append_migration_event(
     payload: dict[str, object],
     fields_defaulted: list[str],
+    ambiguous_fields: list[str] | None = None,
 ) -> None:
     existing_events = payload.get("legacy_migration_events")
     events = existing_events if isinstance(existing_events, list) else []
@@ -119,7 +138,7 @@ def _append_migration_event(
             "decision_id": "DEC-SRC-0021",
             "load_boundary": "SourceStore._load_models",
             "fields_defaulted": fields_defaulted,
-            "ambiguous_fields": [],
+            "ambiguous_fields": list(ambiguous_fields) if ambiguous_fields else [],
             "human_gate_routed": False,
             "human_gate_checkpoint_id": None,
             "created_at": datetime.now(timezone.utc).isoformat(),

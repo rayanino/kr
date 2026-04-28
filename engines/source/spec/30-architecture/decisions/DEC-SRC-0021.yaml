@@ -28,7 +28,7 @@ source: >-
   with level; composite_work_type; the 6-value Axis 1 genre set used
   by CON-SRC-0004 invariant 3).
 created: '2026-04-23'
-updated: '2026-04-23'
+updated: '2026-04-28'
 depends_on:
 - CON-SRC-0004
 - CON-SRC-0011
@@ -140,6 +140,39 @@ options:
     history with the text (he placed it, or did not); he does not
     know the provenance enum universe. Implementation of the
     human_gate surface is scheduled under follow-up item 30.
+    Phase 5b follow-up 24 (a-lite) closure 2026-04-28 adds
+    constituent-level migration rules:
+    (vii.a) missing ``sub_work_inventory`` ⇒ default to empty list
+    ``[]`` and log ``legacy_migration_event`` with
+    ``fields_defaulted=["sub_work_inventory"]``. The empty default
+    is the natural state for non-composite legacy records (which
+    have no constituent inventory by design).
+    (vii.b) within an existing ``sub_work_inventory`` list, any
+    entry lacking the new placeholder fields (``level``,
+    ``level_status``, ``level_provenance``) inherits the Pydantic
+    defaults (``None``, ``PENDING_SYNTHESIS``, ``None``) via
+    Pydantic field-default semantics — no migration logic
+    required because the new fields are optional with safe defaults.
+    The per-constituent IFF pair-consistency invariant (level non-
+    null IFF level_status == "assigned" IFF level_provenance non-
+    null) enforces that the placeholder triple is structurally
+    sound at construction time.
+    (vii.c) when a legacy record carries
+    ``composite_work_type == "majmu"`` AND the sub_work_inventory
+    default fires (i.e., sub_work_inventory was missing in the
+    persisted JSON), append "sub_work_inventory" to the migration
+    event's ``ambiguous_fields`` list. The default IS LOSSY for
+    majmuʿ records — pre-FU-24 SourceMetadata schema had no
+    sub_work_inventory field, so legacy majmu records lack the
+    carrier; the original IntakeDossier inventory is gone if not
+    independently persisted. The empty default audit-flagged as
+    ambiguous is the documented record so re-intake can surface
+    the constituent inventory if/when needed. NO human_gate
+    routing for vii.c — the system functions without the
+    inventory; re-intake recovers it; the lossy default is
+    documented in the audit trail, not silent. Constituent-level
+    owner override at intake is tracked as Phase 5b item 37
+    (NOT in scope for legacy migration here).
 - id: OPT-C
   label: Reject legacy records at load boundary without any migration
   description: >-

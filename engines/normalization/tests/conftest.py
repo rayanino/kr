@@ -102,6 +102,15 @@ def _make_source_metadata(**overrides: Any) -> SourceMetadata:
         "frozen_path": "library/sources/src_test0001/frozen/",
         "frozen_hash": "abc123",
         "frozen_file_hashes": {"test.htm": "abc123"},
+        # Phase 5b follow-up 24 (2026-04-28): closes pre-existing baseline
+        # gap. ``level_status`` became required on SourceMetadata at FU-23
+        # closure (2026-04-26) but this conftest was not updated; cross-engine
+        # boundary tests have failed on baseline since then. Fixed as
+        # adjacent-broken-code per CLAUDE.md override. The fixture's genre
+        # is "sharh" (leveled, not in NON_APPLICABLE_GENRE_VALUES) and
+        # composite_work_type is None — INV-SRC-0012 axis 1/2/3 do not
+        # fire, so the correct default is PENDING_SYNTHESIS.
+        "level_status": "pending_synthesis",
     }
     defaults.update(overrides)
     return SourceMetadata(**defaults)

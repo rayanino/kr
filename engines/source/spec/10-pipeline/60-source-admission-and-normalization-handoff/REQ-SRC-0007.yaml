@@ -30,8 +30,25 @@ source: >-
   rename across the level_status enum (four verbatim occurrences in
   preconditions, AC-2, AC-5). Behaviour unchanged; rename follows
   the 3-of-3 UNANIMOUS_OWN_SYNTHESIS verdict on CON-SRC-0004.
+  Amended on 2026-04-28 (Phase 5b follow-up 24 (a-lite) closure) to
+  EXTEND the handoff preservation contract to include the
+  per-constituent placeholder surface ``SourceMetadata.sub_work_inventory``
+  added by FU-24. Each ``SubWorkInventoryEntry`` carries its own
+  ``(level, level_status, level_provenance)`` placeholder triple
+  (defaults: ``(None, PENDING_SYNTHESIS, None)``); the handoff
+  preservation contract extends pair-wise to each entry — the
+  per-constituent IFF pair-consistency invariant (level non-null IFF
+  level_status == "assigned" IFF level_provenance non-null) is
+  enforced at the contract level via SubWorkInventoryEntry's
+  model_validator. The constituent surface flows through the
+  source→normalization handoff via the dispatcher's existing
+  ``model_copy(deep=True)`` of ``bundle.source_metadata``
+  (engines/normalization/src/dispatcher.py:74) without requiring
+  cross-engine widening (Codex CRIT-1 MOOT under this architectural
+  choice). Constituent-level owner override at intake is OUT OF
+  SCOPE for FU-24 — tracked as Phase 5b item 37.
 created: '2026-04-14'
-updated: '2026-04-23'
+updated: '2026-04-28'
 depends_on:
 - OF-SRC-0007
 - CON-SRC-0004

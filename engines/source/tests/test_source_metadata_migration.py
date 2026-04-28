@@ -106,11 +106,15 @@ def test_dec_src_0021_i_missing_status_defaults_pending_synthesis(
     assert metadata.level_status is LevelStatus.PENDING_SYNTHESIS
     assert metadata.level_provenance is None
     assert metadata.composite_work_type is None
+    assert metadata.sub_work_inventory == []
     assert metadata.legacy_migration_events[0].fields_defaulted == [
         "level_status",
         "level_provenance",
         "composite_work_type",
+        "sub_work_inventory",
     ]
+    # Non-majmu legacy record: empty sub_work_inventory default is unambiguous.
+    assert metadata.legacy_migration_events[0].ambiguous_fields == []
 
 
 @pytest.mark.spec("DEC-SRC-0021", "OPT-B-ii")
@@ -248,6 +252,7 @@ def test_dec_src_0021_iv_missing_provenance_with_null_level_defaults_null(
     assert metadata.legacy_migration_events[0].fields_defaulted == [
         "level_provenance",
         "composite_work_type",
+        "sub_work_inventory",
     ]
 
 
@@ -303,4 +308,5 @@ def test_dec_src_0021_vi_missing_composite_work_type_defaults_none(
     assert metadata.legacy_migration_events[0].fields_defaulted == [
         "level_provenance",
         "composite_work_type",
+        "sub_work_inventory",
     ]

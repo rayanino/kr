@@ -391,6 +391,17 @@ def _populate_deterministic_metadata(
             if flag not in metadata.study_quality_risk_flags
         )
 
+    # Phase 5b follow-up 24 (2026-04-28): propagate IntakeDossier.sub_work_inventory
+    # onto SourceMetadata so the constituent placeholder surface (level /
+    # level_status / level_provenance per SubWorkInventoryEntry) flows through
+    # the source→normalization handoff via the existing dispatcher
+    # ``model_copy(deep=True)`` of ``source_metadata`` (D-023). Source engine
+    # never writes constituent level (DEC-SRC-0003); entries arrive with the
+    # placeholder triple (None, PENDING_SYNTHESIS, None) and synthesis writes
+    # later. Owner-override-entrance widening to per-constituent keying is
+    # tracked as Phase 5b item 37.
+    metadata.sub_work_inventory = list(dossier.sub_work_inventory)
+
 
 def _validate_dossier_complete(dossier: IntakeDossier) -> None:
     """Guard per REQ-SRC-0028: dossier must be complete for deliberation."""

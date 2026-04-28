@@ -778,11 +778,70 @@ class PdfTextEvidence(BaseModel):
 
 
 class SubWorkInventoryEntry(BaseModel):
+    """One detected constituent within a composite (majmūʿ) source.
+
+    Phase 5b follow-up 24 (2026-04-28) closure: the placeholder ``level``,
+    ``level_status``, and ``level_provenance`` fields surface a per-constituent
+    pedagogical-level slot at intake so the synthesis engine can populate
+    authoritative level determination later per DEC-SRC-0003 (synthesis owns
+    level writes; source engine never infers level from shallow signals per
+    INV-SRC-0011). The source engine emits each entry with the default triple
+    ``(level=None, level_status=PENDING_SYNTHESIS, level_provenance=None)``;
+    the IFF pair-consistency invariant mirrors SourceMetadata invariants 1–2
+    so the constituent surface is structurally consistent with the container.
+
+    Owner-override-entrance widening to per-constituent keying is OUT OF
+    SCOPE for FU-24 (tracked as Phase 5b item 37). The (a-lite) placeholder
+    surface bounds FU-24 to the boundary widening; FU-37 carries the
+    REQ-SRC-0047/REQ-SRC-0048 entrance and keyspace expansion.
+    """
+
     sub_title: str
     volume_number: Optional[int] = Field(None, ge=1)
     page_start: Optional[int] = Field(None, ge=1)
     page_end: Optional[int] = Field(None, ge=1)
     detection_method: Literal["toc_entry", "volume_boundary", "structural_signal"]
+    level: Optional[WorkLevel] = None
+    level_status: LevelStatus = LevelStatus.PENDING_SYNTHESIS
+    level_provenance: Optional[LevelProvenance] = None
+
+    @model_validator(mode="after")
+    def enforce_constituent_level_pair_consistency(self) -> "SubWorkInventoryEntry":
+        """Constituent IFF pair-consistency: mirrors SourceMetadata invariants 1-2.
+
+        Synthesis writes level on a per-constituent basis under DEC-SRC-0003.
+        ASSIGNED status requires level + level_provenance to both be set; any
+        non-ASSIGNED status (PENDING_SYNTHESIS / NON_APPLICABLE_REFERENCE /
+        UNPROCESSABLE_ERROR) requires both to be null. Constituent-level
+        non-applicability (axis-firing) is NOT modeled at the source engine
+        for FU-24 (a-lite) — only the placeholder pair-consistency is.
+        """
+        if self.level_status == LevelStatus.ASSIGNED:
+            if self.level is None:
+                raise ValueError(
+                    "SubWorkInventoryEntry pair-consistency violation: "
+                    "level_status='assigned' requires level to be non-null"
+                )
+            if self.level_provenance is None:
+                raise ValueError(
+                    "SubWorkInventoryEntry pair-consistency violation: "
+                    "level_status='assigned' requires level_provenance to be non-null"
+                )
+        else:
+            if self.level is not None:
+                raise ValueError(
+                    "SubWorkInventoryEntry pair-consistency violation: "
+                    f"level_status='{self.level_status.value}' requires level to "
+                    f"be null, got level='{self.level.value}'"
+                )
+            if self.level_provenance is not None:
+                raise ValueError(
+                    "SubWorkInventoryEntry pair-consistency violation: "
+                    f"level_status='{self.level_status.value}' requires "
+                    "level_provenance to be null, got level_provenance="
+                    f"'{self.level_provenance.value}'"
+                )
+        return self
 
 
 class HoldingCompletenessDelta(BaseModel):
@@ -1277,6 +1336,7 @@ class SourceMetadata(BaseModel):
     level_status: LevelStatus
     level_provenance: Optional[LevelProvenance] = None
     composite_work_type: Optional[Literal["majmu", "possible"]] = None
+    sub_work_inventory: list[SubWorkInventoryEntry] = Field(default_factory=list)
     edition_info: Optional[dict[str, Any]] = None
     publisher: Optional[str] = None
     hint_comparison_results: list[HintComparisonResult] = Field(default_factory=list)

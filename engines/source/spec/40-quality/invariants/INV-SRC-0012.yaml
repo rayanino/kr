@@ -192,8 +192,59 @@ source: >-
   al-Āmidī inferred as None subgenre because no compound matches "Uṣūl
   al-Aḥkām" pattern) added. Open follow-ups remaining after FU-34
   closure: 18, 24, 27, 28, 35 (NEW).
+  Amended on 2026-04-28 (Phase 5b follow-up 24 (a-lite) closure) to
+  CLOSE the AC-3 / AC-4 deferred-promise ("Constituent-rasāʾil leveling
+  is tracked as Phase 5b item 24" / "Individual-fatwa-level pedagogy
+  remains tracked as Phase 5b item 24") via the hybrid-resolution path:
+  the SubWorkInventoryEntry contract is widened with a per-constituent
+  placeholder triple (level: Optional[WorkLevel] = None, level_status:
+  LevelStatus = PENDING_SYNTHESIS, level_provenance: Optional[
+  LevelProvenance] = None) plus a pair-consistency model_validator
+  mirroring SourceMetadata invariants 1-2; ``IntakeDossier.sub_work_
+  inventory`` propagates onto ``SourceMetadata.sub_work_inventory`` via
+  ``_populate_deterministic_metadata`` so the constituent placeholder
+  surface flows through the source→normalization handoff via the
+  existing dispatcher ``model_copy(deep=True)`` (D-023). Container
+  Axis 2 firing on ``composite_work_type=="majmu"`` REMAINS UNCHANGED;
+  the placeholder surface is independent of the container's non-
+  applicability gate. Source engine never WRITES per-constituent level
+  (DEC-SRC-0003 — synthesis owns level writes). 4-evaluator dispatch
+  wave was launched for FU-24 (Codex CLI structural + Gemini Run A
+  scholarly + Gemini Run B scholarly + arabic-reviewer Anthropic Agent,
+  all through /prompt-architect with RISEN + Step-Back + CAI Critique-
+  Revise hybrid framework). Codex (a-lite) ISOMORPHIC at source-model
+  level + NEW at first cross-engine boundary. Gemini Run A and Run B
+  both recommended (a+b) HIGH at 2-of-2 cross-time independent scholarly
+  convergence (classical anchors: al-Kattānī al-Risālah al-Mustaṭrafah
+  on majmūʿāt + rasāʾil; Ibn Khaldūn Muqaddima Book VI on tadarruj /
+  pedagogical progression; al-Zarnūjī Taʿlīm al-Mutaʿallim Ch. IV on
+  tawaqquf in text selection). The arabic-reviewer Agent dispatch
+  FAILED twice (Anthropic billing extra-usage cap + 600s stream
+  watchdog stall); CC main-thread substituted with the structural
+  cross-provider DIM-AR2 check (codebase fact-finding, objectively
+  verifiable) and a non-independent scholarly framework alignment
+  (with full disclosure of prior Gemini exposure). The substantive
+  scholarly verdict (a+b) is converged 3-of-4 at HIGH but the cross-
+  provider Anthropic-side check is methodologically incomplete.
+  Hybrid-resolution chosen: implement (a-lite) NOW (boundary widening
+  + placeholder surface; minimum scope; CRIT-1 cross-engine ripple
+  MOOT because ``sub_work_inventory`` rides ``SourceMetadata`` through
+  the dispatcher's existing ``model_copy(deep=True)``; CRIT-2 keyspace
+  explosion MOOT because intake override stays single-keyed at source
+  level; CRIT-3 legacy migration addressed via DEC-SRC-0021 rule
+  (vii.a/b/c)) and OPEN NEW follow-up 37 to track the constituent-
+  level owner-override-entrance widening (REQ-SRC-0047 entrance
+  signature widened to per-constituent keying + PendingLevelOverride
+  keyspace from source_id to (source_id, constituent_idx)) plus the
+  arabic-reviewer Agent retroactive validation that failed this
+  session. The Geminis' BLOCK on (a-lite) ("decisively incomplete")
+  is honored by FU-37 carrying the obligation forward, NOT by silent
+  denial. Owner UX gap is documented as known limitation pending
+  FU-37. New AC-FU24-A added below capturing the constituent
+  placeholder semantics. Open follow-ups remaining after FU-24
+  closure: 18, 27, 28, 36, 37 (NEW).
 created: '2026-04-16'
-updated: '2026-04-27'
+updated: '2026-04-28'
 depends_on:
 - DEC-SRC-0003
 impacts:
@@ -334,8 +385,16 @@ acceptance_criteria:
     owner_level_override="mutawassiṭ" (a valid CON-SRC-0011
     WorkLevel enum value). Axis 2 (composite_work_type) is the sole
     trigger of non-applicability here — Axis 1 does not fire on
-    risalah. Constituent-rasāʾil leveling is tracked as Phase 5b
-    item 24.
+    risalah. Constituent-rasāʾil leveling is now provided by the
+    SubWorkInventoryEntry per-constituent placeholder triple per
+    Phase 5b follow-up 24 (a-lite) closure 2026-04-28; the container
+    still fires Axis 2 (no container-level *martaba* under classical
+    bibliographic discipline; Ibn al-Nadīm *al-Fihrist* and Ḥājī
+    Khalīfa *Kashf al-Ẓunūn* omit *martaba* from majmūʿāt entries),
+    while each constituent carries its own level_status default
+    PENDING_SYNTHESIS for synthesis to write later (DEC-SRC-0003).
+    Constituent-level owner override at intake is tracked as
+    follow-up 37.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null and SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary with Axis 2 cited.
   test_type: deterministic
@@ -347,7 +406,10 @@ acceptance_criteria:
     non-applicable set) and NO owner_level_override. Axis 2 fires
     alone: the container is a structural composite even though
     Genre.FATAWA itself is leveled. Individual-fatwa-level pedagogy
-    remains tracked as Phase 5b item 24.
+    is now provided by the SubWorkInventoryEntry per-constituent
+    placeholder triple per Phase 5b follow-up 24 (a-lite) closure
+    2026-04-28; constituent-level owner override at intake is tracked
+    as follow-up 37.
   when: the source engine emits SourceMetadata
   then: SourceMetadata.level is null AND SourceMetadata.level_status == "non_applicable_reference".
   test_type: deterministic
@@ -556,4 +618,41 @@ acceptance_criteria:
     absent.
   when: the source engine processes the title through _infer_hadith_subgenre
   then: hadith_subgenre is None — false-positive collisions are structurally prevented by both the science-scope pre-condition guard and the compound-keyword discipline.
+  test_type: deterministic
+- id: AC-FU24-A
+  given: >-
+    A composite source detected at intake (composite_work_type == "majmu")
+    with a non-empty IntakeDossier.sub_work_inventory listing N constituent
+    rasāʾil / fatāwā discovered via toc_entry / volume_boundary /
+    structural_signal. Phase 5b follow-up 24 (a-lite) closure 2026-04-28
+    widened ``SubWorkInventoryEntry`` with per-constituent placeholder
+    triple (level: Optional[WorkLevel] = None, level_status:
+    LevelStatus = PENDING_SYNTHESIS, level_provenance: Optional[
+    LevelProvenance] = None) plus pair-consistency model_validator
+    enforcing: ``level non-null IFF level_status==ASSIGNED IFF
+    level_provenance non-null``. Source engine NEVER writes
+    per-constituent level (DEC-SRC-0003 — synthesis-only); each entry
+    arrives with the placeholder triple (None, PENDING_SYNTHESIS, None)
+    at intake. Container-level Axis 2 firing on
+    ``composite_work_type=="majmu"`` REMAINS UNCHANGED — the placeholder
+    surface is independent of the container's non-applicability gate.
+    Owner-override-entrance widening to per-constituent keying is
+    OUT OF SCOPE for FU-24 (tracked as Phase 5b item 37).
+  when: >-
+    the source engine processes the composite source through metadata
+    deliberation and ``_populate_deterministic_metadata`` propagates
+    ``IntakeDossier.sub_work_inventory`` onto
+    ``SourceMetadata.sub_work_inventory``
+  then: >-
+    SourceMetadata.sub_work_inventory has length N AND each entry
+    carries (level=None, level_status=PENDING_SYNTHESIS,
+    level_provenance=None) AND container-level firing is unchanged
+    (SourceMetadata.level is null AND SourceMetadata.level_status ==
+    "non_applicable_reference" AND SourceMetadata.composite_work_type ==
+    "majmu") AND the constituent placeholder surface flows through
+    the source→normalization handoff via the dispatcher's existing
+    ``model_copy(deep=True)`` of ``bundle.source_metadata``
+    (engines/normalization/src/dispatcher.py:74) without requiring
+    normalization-engine code widening (Codex CRIT-1 MOOT under this
+    architectural choice).
   test_type: deterministic
