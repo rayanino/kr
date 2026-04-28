@@ -184,6 +184,8 @@ class HadithSubgenre(str, Enum):
     MUSTAKHRAJ = "mustakhraj"
     ARBAIN = "arbain"
     AHKAM = "ahkam"
+    TARGHIB = "targhib"
+    SHAMAIL = "shamail"
     TAKHRIJ = "takhrij"
     ATRAF = "atraf"
     ILAL = "ilal"
@@ -386,12 +388,70 @@ NON_APPLICABLE_GENRE_VALUES: frozenset[str] = frozenset(
 #   proposals from both Geminis were deferred to NEW follow-up 35 — out of
 #   FU-34 scope.
 #
+# Phase 5b follow-up 35 closure 2026-04-28: extended carve-back set to three
+# values by adding "targhib". 4-of-4 cross-provider evaluator convergence
+# (Codex CLI structural ISOMORPHIC + Gemini Run A scholarly + Gemini Run B
+# scholarly + arabic-reviewer Anthropic scholarly, all through
+# /prompt-architect with anti-priming Step-1/Step-2 protocol). 3-of-3 cross-
+# provider scholarly verdict at HIGH confidence:
+# - TARGHIB ADD enum + ADD carve-back (Kutub al-Targhīb wa-l-Tarhīb per
+#   al-Kattānī, *al-Risālah al-Mustaṭrafah* p. 45). Canonical anchor
+#   *al-Targhīb wa-l-Tarhīb* of al-Mundhirī (d. 656 AH) — explicit
+#   pedagogical *gharaḍ* in *muqaddimah*; satisfies the compound criterion
+#   for pedagogical-by-design (chain-treatment OR thematic-pedagogical-
+#   organization OR explicit pedagogical *muqaddimah* — at least one
+#   sufficient under the compound rule). Compound inference rule:
+#   "ترغيب" + "ترهيب". *Riyāḍ al-Ṣāliḥīn* of al-Nawawī (d. 676 AH)
+#   classifies under TARGHIB via the dedicated compound rule
+#   "رياض" + "الصالحين", closing the FU-34 documented limitation.
+# - SHAMAIL ADD enum but EXCLUDE from this carve-back set (al-Kattānī
+#   recognizes *Kutub al-Shamāʾil*; Ḥājī Khalīfa *Kashf al-Ẓunūn* 2/1043
+#   lists shamāʾil as a distinct *fann*). Canonical anchor
+#   *al-Shamāʾil al-Muḥammadiyyah* of al-Tirmidhī (d. 279 AH) PRESERVES
+#   full transmission chains (cited *isnād* from "Bāb Mā Jāʾa fī Khātam
+#   al-Nubuwwah": حدثنا قتيبة بن سعيد، قال: حدثنا حاتم بن إسماعيل، عن
+#   الجعد بن عبد الرحمن، قال: سمعت السائب بن يزيد يقول...). Per the S1.Q4
+#   precautionary framework (*iḥtiyāṭ*/*tawaqquf*), chain-preservation in
+#   the canonical anchor blocks carve-back even though the work is
+#   thematically curated. arabic-reviewer's compound BLOCK criterion
+#   adds two more sub-factors: absence of pedagogical *muqaddimah* and
+#   comprehensive (not graduated) organization. SHAMAIL therefore enters
+#   the enum (so the inference correctly tags al-Tirmidhī's *al-Shamāʾil*)
+#   but Axis 3 carve-back does NOT fire — owner override on a SHAMAIL
+#   hadith_collection is REJECTED under Axis 1.
+# - MUKHTASAR BLOCKED entirely (NOT added to enum). 3-of-3 scholarly
+#   verdict: cross-cutting structural descriptor, not a standalone hadith
+#   subgenre. Ḥājī Khalīfa lists *mukhtaṣarāt* under their source works'
+#   entries as derivatives, not in a dedicated chapter heading; a
+#   *mukhtaṣar* of *ṣaḥīḥ* is still *ṣaḥīḥ* hadith, *mukhtaṣar* of fiqh
+#   is fiqh, etc. — the genre is INHERITED from the source. arabic-
+#   reviewer's structural cross-provider check additionally surfaced
+#   that KR already encodes mukhtaṣar at the **Genre** level
+#   (`Genre.MUKHTASAR = "mukhtasar"` at contracts.py:145, with keywords
+#   مختصر/خلاصة/تهذيب/تقريب/ملخص/وجيز in `_GENRE_KEYWORDS` at
+#   deliberation.py:55). Adding `HadithSubgenre.MUKHTASAR` would create
+#   semantic redundancy across two enum dimensions; furthermore the
+#   `_infer_hadith_subgenre` pre-condition early-exit at
+#   deliberation.py:537 would render any HadithSubgenre.MUKHTASAR rule
+#   unreachable for any work classified as `Genre.MUKHTASAR`. The
+#   MUKHTASAR BLOCK is thus triply verified: scholarly (cross-cutting
+#   descriptor), structural (genre-level redundancy), and implementation
+#   (rule unreachable under existing pre-condition guard).
+# - Documented limitation (FU-36 candidate): chain-stripped abridgements
+#   like *Mukhtaṣar Ṣaḥīḥ Muslim* of al-Mundhirī (d. 656 AH) and
+#   *al-Tajrīd al-Ṣarīḥ* of al-Zabīdī (d. 893 AH) fall through to None
+#   subgenre; owner override on these works is currently rejected under
+#   Path A. Future architectural fix may add an orthogonal
+#   `is_abridgement` property on SourceMetadata (Run A Q8h MEDIUM
+#   recommendation) plus possible ADHKAR HadithSubgenre value (arabic-
+#   reviewer Q8h LOW). Both deferred to NEW follow-up 36.
+#
 # Default-None semantics (Path A — transmission-by-default): a None subgenre
 # on a hadith_collection does NOT fire the carve-back. Per the *iḥtiyāṭ* /
 # *tawaqquf* principle (Ibn Ḥajar, *Nuzhat al-Naẓar*; al-Suyūṭī, *Tadrīb al-
 # Rāwī* Nawʿ 23), silence defaults to the safer interpretation; explicit
 # positive evidence (subgenre IN this set) is required to flip to leveled.
-LEVELED_HADITH_SUBGENRES: frozenset[str] = frozenset({"arbain", "ahkam"})
+LEVELED_HADITH_SUBGENRES: frozenset[str] = frozenset({"arbain", "ahkam", "targhib"})
 
 
 class ProcessingStatus(str, Enum):

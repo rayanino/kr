@@ -883,6 +883,109 @@ def test_req_src_0048_ac4_disputed_hadith_collection_ahkam_carve_back_defers() -
     )
 
 
+@pytest.mark.spec("REQ-SRC-0048", "AC-4")
+def test_req_src_0048_ac4_disputed_hadith_collection_targhib_carve_back_defers() -> None:
+    """Phase 5b follow-up 35 closure 2026-04-28 — TARGHIB dispute-path coverage.
+
+    Mirrors the FU-34 AHKAM dispute-path regression test (above) for the
+    TARGHIB carve-back addition. After FU-35 closure, LEVELED_HADITH_
+    SUBGENRES = {arbain, ahkam, targhib}. A disputed hadith_collection
+    work where one agent proposes HadithSubgenre.TARGHIB must trigger
+    the Axis 3 carve-back (deferring to synthesis) rather than the
+    unanimously-nonapplicable rejection path.
+
+    Scenario: agents disagree on genre — agent_a proposes hadith_collection
+    with hadith_subgenre=TARGHIB (al-Targhīb wa-l-Tarhīb of al-Mundhirī);
+    agent_b proposes tabaqat (also non-applicable per Axis 1). The Axis 3
+    carve-back fires because agent_a's position has HADITH_COLLECTION +
+    TARGHIB ∈ LEVELED_HADITH_SUBGENRES, so the resolution defers to
+    synthesis.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(queued_at=queued_at)
+    dispute = [
+        GenreDisputePosition(
+            genre_candidate=Genre.HADITH_COLLECTION,
+            hadith_subgenre_candidate=HadithSubgenre.TARGHIB,
+            supporting_evidence=["العنوان: الترغيب والترهيب للمنذري"],
+            confidence=0.7,
+            source_agents=["agent_a"],
+        ),
+        GenreDisputePosition(
+            genre_candidate=Genre.TABAQAT,
+            supporting_evidence=["العنوان: طبقات الفقهاء"],
+            confidence=0.3,
+            source_agents=["agent_b"],
+        ),
+    ]
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=None,
+        genre_dispute=dispute,
+        resolved_at=_later_iso(queued_at, hours=2),
+    )
+
+    assert resolution.outcome_state is OverrideQueueState.DEFERRED_TO_SYNTHESIS
+    assert resolution.error_code is None
+    assert resolution.resolved_level_status is LevelStatus.PENDING_SYNTHESIS
+    assert resolution.record.dispute_snapshot == dispute
+    assert (
+        resolution.record.dispute_snapshot[0].hadith_subgenre_candidate
+        is HadithSubgenre.TARGHIB
+    )
+
+
+@pytest.mark.spec("REQ-SRC-0048", "AC-4")
+def test_req_src_0048_ac4_disputed_hadith_collection_shamail_does_not_carve_back() -> None:
+    """Phase 5b follow-up 35 closure 2026-04-28 — SHAMAIL exclusion dispute-path coverage.
+
+    Inverse of the TARGHIB test above: SHAMAIL is enum-recognized but
+    EXCLUDED from LEVELED_HADITH_SUBGENRES (chain-preservation in
+    al-Tirmidhī's *al-Shamāʾil al-Muḥammadiyyah* per FU-35 scholarly
+    BLOCK). A disputed hadith_collection where ALL positions have
+    non-applicable axes — including a HadithSubgenre.SHAMAIL position
+    that does NOT trigger the Axis 3 carve-back because shamail ∉
+    LEVELED_HADITH_SUBGENRES — must reject as unanimously-nonapplicable
+    rather than deferring to synthesis.
+
+    Scenario: agent_a proposes hadith_collection with
+    hadith_subgenre=SHAMAIL (al-Shamāʾil al-Muḥammadiyyah); agent_b
+    proposes mushaf. Both genres fire Axis 1; SHAMAIL does NOT carve
+    back (excluded from LEVELED_HADITH_SUBGENRES). Resolution path:
+    REJECTED_NONAPPLICABLE.
+    """
+    queued_at = _utc_iso()
+    record = _build_pending_override(queued_at=queued_at)
+    dispute = [
+        GenreDisputePosition(
+            genre_candidate=Genre.HADITH_COLLECTION,
+            hadith_subgenre_candidate=HadithSubgenre.SHAMAIL,
+            supporting_evidence=["العنوان: الشمائل المحمدية للترمذي"],
+            confidence=0.6,
+            source_agents=["agent_a"],
+        ),
+        GenreDisputePosition(
+            genre_candidate=Genre.MUSHAF,
+            supporting_evidence=["العنوان: المصحف الشريف"],
+            confidence=0.4,
+            source_agents=["agent_b"],
+        ),
+    ]
+
+    resolution = resolve_pending_level_override(
+        record,
+        resolved_genre=None,
+        genre_dispute=dispute,
+        resolved_at=_later_iso(queued_at, hours=2),
+    )
+
+    # SHAMAIL is enum-recognized but excluded from carve-back set —
+    # all positions are non-applicable so the override is rejected.
+    assert resolution.outcome_state is OverrideQueueState.REJECTED_NONAPPLICABLE
+    assert resolution.error_code is ErrorCode.OVERRIDE_QUEUE_UNANIMOUSLY_NONAPPLICABLE
+
+
 @pytest.mark.spec("REQ-SRC-0048", "error_conditions")
 def test_req_src_0048_abandoned_on_intake_close() -> None:
     """Intake closes without genre resolving → ABANDONED state.

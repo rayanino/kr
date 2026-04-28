@@ -977,6 +977,169 @@ def test_inv_src_0012_ac11_muntaqa_ibn_al_jarud_rejects_override_axis_3() -> Non
     assert "كُتُب الرِّوَايَة" in message
 
 
+@pytest.mark.spec("INV-SRC-0012", "AC-13")
+def test_inv_src_0012_ac13_targhib_accepts_override() -> None:
+    """TARGHIB carve-back: hadith_collection + TARGHIB + override → ACCEPTED.
+
+    al-Targhīb wa-l-Tarhīb of al-Mundhirī (d. 656 AH) is the canonical
+    *Kitāb al-Targhīb wa-l-Tarhīb* per al-Kattānī, *al-Risālah
+    al-Mustaṭrafah* p. 45 *Kutub al-Targhīb wa-l-Tarhīb*. Title contains
+    both ترغيب AND ترهيب so the compound rule fires at
+    _infer_hadith_subgenre line ~600 and assigns
+    HadithSubgenre.TARGHIB. Axis 3 carves back the Axis 1
+    hadith_collection firing per INV-SRC-0012 rule.statement (post-FU-35
+    closure 2026-04-28), the carve-back set expanded from
+    {arbain, ahkam} to {arbain, ahkam, targhib} per 4-of-4 cross-
+    provider evaluator convergence (3-of-3 cross-provider scholarly
+    HIGH).
+    """
+    request = _base_deliberation_input(
+        title_arabic="الترغيب والترهيب للمنذري",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUBTADI,
+    )
+
+    level, status, provenance = _resolve_level_fields(request)
+
+    assert level is WorkLevel.MUBTADI
+    assert status is LevelStatus.ASSIGNED
+    assert provenance is LevelProvenance.OWNER_OVERRIDE
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-14")
+def test_inv_src_0012_ac14_riyad_al_salihin_accepts_override_via_targhib() -> None:
+    """Riyāḍ al-Ṣāliḥīn → TARGHIB → carve-back: closes FU-34 documented limitation.
+
+    *Riyāḍ al-Ṣāliḥīn min Kalām Sayyid al-Mursalīn* of al-Nawawī
+    (d. 676 AH) — every chapter is a *targhīb* into a virtue or a
+    *tarhīb* from a vice. al-Nawawī's *muqaddimah* uses the targhīb/
+    tarhīb framework explicitly; chains stripped (matn-only) for
+    pedagogical accessibility — strong pedagogical-by-design signal
+    under al-Suyūṭī's *Tadrīb al-Rāwī* compound criterion. Title
+    "رياض الصالحين" matches the dedicated compound rule
+    "رياض" + "الصالحين" at _infer_hadith_subgenre, assigning
+    HadithSubgenre.TARGHIB. Axis 3 carves back the Axis 1
+    hadith_collection firing — the FU-34 documented limitation
+    (Riyāḍ al-Ṣāliḥīn returning None subgenre and being wrongly
+    rejected for owner override) is now CLOSED.
+    """
+    request = _base_deliberation_input(
+        title_arabic="رياض الصالحين",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUTAWASSIT,
+    )
+
+    level, status, provenance = _resolve_level_fields(request)
+
+    assert level is WorkLevel.MUTAWASSIT
+    assert status is LevelStatus.ASSIGNED
+    assert provenance is LevelProvenance.OWNER_OVERRIDE
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-15")
+def test_inv_src_0012_ac15_shamail_excluded_from_carve_back() -> None:
+    """SHAMAIL enum-only: al-Shamāʾil → SHAMAIL but Axis 3 carve-back BLOCKED.
+
+    *al-Shamāʾil al-Muḥammadiyyah* of al-Tirmidhī (d. 279 AH) is the
+    canonical anchor of the SHAMAIL subgenre (Ḥājī Khalīfa, *Kashf
+    al-Ẓunūn* 2/1043 lists shamāʾil as a distinct *fann*). Title
+    "الشمائل المحمدية" matches the compound rule "شمائل" +
+    ("محمدية" or "النبي" or "المصطفى" or "الرسول") at
+    _infer_hadith_subgenre and the inference function correctly
+    assigns HadithSubgenre.SHAMAIL. HOWEVER, "shamail" is NOT in
+    LEVELED_HADITH_SUBGENRES (currently {arbain, ahkam, targhib})
+    because al-Tirmidhī's *al-Shamāʾil* PRESERVES full transmission
+    chains — a sample isnād from "Bāb Mā Jāʾa fī Khātam al-Nubuwwah"
+    (حدثنا قتيبة بن سعيد، قال: حدثنا حاتم بن إسماعيل، عن الجعد بن
+    عبد الرحمن، قال: سمعت السائب بن يزيد يقول...) demonstrates
+    transmission-by-default architecture. Per the S1.Q4 precautionary
+    framework plus arabic-reviewer's compound BLOCK criterion (chain-
+    preservation + absence of pedagogical *muqaddimah* + comprehensive-
+    not-graduated organization), Axis 3 carve-back does NOT fire and
+    the owner override is REJECTED under Axis 1.
+    """
+    # Phase 1: verify inference correctly tags SHAMAIL.
+    from engines.source.src.deliberation import _infer_hadith_subgenre
+
+    inferred = _infer_hadith_subgenre(
+        ["hadith"], Genre.HADITH_COLLECTION, "الشمائل المحمدية"
+    )
+    assert inferred is HadithSubgenre.SHAMAIL
+
+    # Phase 2: verify owner override is REJECTED at the level boundary —
+    # SHAMAIL is enum-recognized but excluded from carve-back set.
+    request = _base_deliberation_input(
+        title_arabic="الشمائل المحمدية",
+        genre=Genre.HADITH_COLLECTION,
+        level=WorkLevel.MUNTAHI,
+    )
+
+    with pytest.raises(SourceEngineError) as excinfo:
+        _resolve_level_fields(request)
+
+    assert excinfo.value.error_code is ErrorCode.LEVEL_OVERRIDE_NONAPPLICABLE
+    message = str(excinfo.value)
+    # Axis 3 cited because hadith_subgenre is non-null but not in carve-back set.
+    assert "Axis 3" in message
+    assert "hadith_subgenre" in message
+    assert "كُتُب الرِّوَايَة" in message
+
+
+@pytest.mark.spec("INV-SRC-0012", "AC-16")
+def test_inv_src_0012_ac16_targhib_shamail_false_positive_guards() -> None:
+    """TARGHIB and SHAMAIL false-positive guards: bare maṣdar → None subgenre.
+
+    The compound-keyword discipline plus the science-scope pre-condition
+    guard at _infer_hadith_subgenre line ~537 prevent false-positive
+    triggering for non-hadith works whose titles share Arabic roots with
+    the TARGHIB or SHAMAIL canonical anchors. This test exercises three
+    representative collisions:
+
+    1. taṣawwuf devotional (root ت-ر-غ-ب without ترهيب): "ترغيب القلوب
+       في الذكر" — bare ترغيب with no co-occurring ترهيب; pre-condition
+       guard exits early because science_scope=["tasawwuf"] and genre is
+       not HADITH_COLLECTION.
+    2. taṣawwuf hagiography (root ش-م-ل without Prophet-token):
+       "شمائل الأولياء" — bare شمائل without محمدية/النبي/المصطفى/الرسول;
+       pre-condition guard exits early because science_scope=
+       ["tasawwuf"] and genre is not HADITH_COLLECTION.
+    3. biographical ش-م-ل: "شمائل الخلفاء الراشدين" — same pattern but
+       under tarikh science.
+
+    Even if science_scope were misclassified to include "hadith", the
+    compound rules require co-occurring substrings (ترغيب + ترهيب;
+    رياض + الصالحين; شمائل + (محمدية or النبي or المصطفى or الرسول))
+    so bare-token matching would still not fire.
+    """
+    from engines.source.src.deliberation import _infer_hadith_subgenre
+
+    # Layer 1: pre-condition guard fires (no "hadith" in science_scope)
+    assert (
+        _infer_hadith_subgenre(["tasawwuf"], Genre.MATN, "ترغيب القلوب في الذكر")
+        is None
+    )
+    assert _infer_hadith_subgenre(["tasawwuf"], Genre.MATN, "شمائل الأولياء") is None
+    assert (
+        _infer_hadith_subgenre(["tarikh"], Genre.MATN, "شمائل الخلفاء الراشدين")
+        is None
+    )
+
+    # Layer 2: even with hadith science_scope, no compound rule matches
+    # bare-token titles — compound discipline holds.
+    assert (
+        _infer_hadith_subgenre(
+            ["hadith"], Genre.HADITH_COLLECTION, "ترغيب القلوب في الذكر"
+        )
+        is None
+    )
+    assert (
+        _infer_hadith_subgenre(
+            ["hadith"], Genre.HADITH_COLLECTION, "شمائل الأولياء"
+        )
+        is None
+    )
+
+
 @pytest.mark.spec("INV-SRC-0012", "AC-12")
 def test_inv_src_0012_ac12_ihkam_fi_usul_inferred_none() -> None:
     """al-Iḥkām fī Uṣūl al-Aḥkām (al-Āmidī d. 631 AH) → None subgenre.

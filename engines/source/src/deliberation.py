@@ -583,6 +583,72 @@ def _infer_hadith_subgenre(
         return HadithSubgenre.AHKAM
     if "أحاديث" in title and "الأحكام" in title:
         return HadithSubgenre.AHKAM
+    # Phase 5b follow-up 35 closure 2026-04-28: TARGHIB + SHAMAIL compound-
+    # keyword inference rules. 4-of-4 cross-provider evaluator convergence
+    # (Codex CLI structural ISOMORPHIC + Gemini Run A scholarly + Gemini Run
+    # B scholarly via gemini-2.5-pro after gemini-3.1-pro-preview capacity-
+    # exhausted + arabic-reviewer Anthropic scholarly cross-provider, all
+    # through /prompt-architect with anti-priming Step-1/Step-2 protocol).
+    # 3-of-3 cross-provider scholarly verdict at HIGH confidence on every
+    # cell of the 6-cell decision matrix.
+    #
+    # TARGHIB rules: Kutub al-Targhīb wa-l-Tarhīb (al-Kattānī, *al-Risālah
+    # al-Mustaṭrafah* p. 45). Canonical anchor *al-Targhīb wa-l-Tarhīb* of
+    # al-Mundhirī (d. 656 AH) — explicit pedagogical *gharaḍ* in
+    # *muqaddimah*. Compound rule MANDATORY because bare "ترغيب" collides
+    # with non-hadith taṣawwuf works, sermon collections, and *naṣīḥah*
+    # literature (al-Targhīb fī al-Duʿāʾ adab/devotional; bāb al-targhīb in
+    # fiqh chapter headings).
+    if "ترغيب" in title and "ترهيب" in title:
+        return HadithSubgenre.TARGHIB
+    # Riyāḍ al-Ṣāliḥīn of al-Nawawī (d. 676 AH) — classified as TARGHIB per
+    # 3-of-3 cross-provider scholarly verdict (every chapter is a *targhīb*
+    # into a virtue or *tarhīb* from a vice; al-Nawawī's *muqaddimah* uses
+    # the *targhīb*/*tarhīb* framework explicitly; chains stripped). Closes
+    # the FU-34 documented limitation. Compound rule REQUIRED because bare
+    # "رياض" collides with pious literature (رياض الجنة, رياض النفوس,
+    # رياض الأخيار).
+    if "رياض" in title and "الصالحين" in title:
+        return HadithSubgenre.TARGHIB
+    # SHAMAIL rules: prophetic-character-curation subgenre (Ḥājī Khalīfa,
+    # *Kashf al-Ẓunūn* 2/1043). Canonical anchor *al-Shamāʾil al-
+    # Muḥammadiyyah* of al-Tirmidhī (d. 279 AH). NOTE: SHAMAIL is added to
+    # the enum but EXCLUDED from LEVELED_HADITH_SUBGENRES (chain-
+    # preservation in canonical anchor — Run A cited *isnād* "حدثنا قتيبة
+    # بن سعيد، قال: حدثنا حاتم بن إسماعيل، عن الجعد بن عبد الرحمن، قال:
+    # سمعت السائب بن يزيد يقول..."; arabic-reviewer's compound BLOCK
+    # criterion adds absence of pedagogical *muqaddimah* and comprehensive-
+    # not-graduated organization). The inference correctly tags
+    # *al-Shamāʾil* as SHAMAIL, but owner override on a SHAMAIL
+    # hadith_collection is REJECTED under Axis 1. Compound rule REQUIRED
+    # because bare "شمائل" collides with taṣawwuf *shamāʾil al-awliyāʾ* and
+    # biographical *shamāʾil* of caliphs/scholars.
+    if "شمائل" in title and (
+        "محمدية" in title
+        or "النبي" in title
+        or "المصطفى" in title
+        or "الرسول" in title
+    ):
+        return HadithSubgenre.SHAMAIL
+    # MUKHTASAR was BLOCKED (NOT added to enum). 3-of-3 cross-provider
+    # scholarly verdict at HIGH: *mukhtaṣar* is a cross-cutting structural
+    # descriptor, not a standalone hadith subgenre. Ḥājī Khalīfa lists
+    # *mukhtaṣarāt* under their source works' entries as derivatives, not
+    # in a dedicated chapter heading. The arabic-reviewer's structural
+    # cross-provider check additionally surfaced that KR already encodes
+    # mukhtaṣar at the **Genre** level (`Genre.MUKHTASAR` at
+    # contracts.py:145, mapped from keywords مختصر/خلاصة/تهذيب/تقريب/ملخص/
+    # وجيز in `_GENRE_KEYWORDS` above at line 55). Adding
+    # `HadithSubgenre.MUKHTASAR` would create semantic redundancy; the
+    # pre-condition early-exit at line 537 would also render any rule
+    # unreachable for `Genre.MUKHTASAR` works. Codex DIM-3 ordering
+    # hazard for MUKHTASAR vs MUSNAD/SUNAN/JAMI is therefore MOOT.
+    # Documented limitation (FU-36 candidate): chain-stripped abridgements
+    # like *Mukhtaṣar Ṣaḥīḥ Muslim* of al-Mundhirī fall through to None
+    # subgenre; future architectural fix may add an orthogonal
+    # `is_abridgement` property on SourceMetadata (Run A Q8h MEDIUM
+    # recommendation) plus a possible ADHKAR HadithSubgenre value
+    # (arabic-reviewer Q8h LOW for al-Adhkar of al-Nawawi tradition).
     if "جزء" in title:
         return HadithSubgenre.JUZ
     if "مصنف" in title:

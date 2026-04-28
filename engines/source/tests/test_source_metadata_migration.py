@@ -154,7 +154,7 @@ def test_dec_src_0021_ii_missing_status_defaults_non_applicable(
 @pytest.mark.spec("DEC-SRC-0021", "OPT-B-ii")
 @pytest.mark.parametrize(
     ("subgenre_value", "subgenre_label"),
-    [("arbain", "ARBAIN"), ("ahkam", "AHKAM")],
+    [("arbain", "ARBAIN"), ("ahkam", "AHKAM"), ("targhib", "TARGHIB")],
 )
 def test_dec_src_0021_legacy_hadith_collection_leveled_subgenre_defaults_pending_synthesis(
     tmp_path: Path,

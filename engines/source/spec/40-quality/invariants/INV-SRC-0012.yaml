@@ -234,22 +234,58 @@ rule:
     is otherwise leveled); Axis 3 (hadith-subgenre) — when Axis 1 fires
     for Genre.HADITH_COLLECTION, attribution is refined by hadith_subgenre.
     Subgenres in the carve-back set LEVELED_HADITH_SUBGENRES (currently
-    {arbain, ahkam}) reverse the Axis 1 firing — the work is treated as
-    a pedagogical hadith curriculum: ARBAIN covers al-Arbaʿīn al-Nawawī
-    of al-Nawawī (d. 676 AH) and the broader arbaʿūniyyāt genre per
-    al-Kattānī, al-Risālah al-Mustaṭrafah p. 69-72 Kutub al-Arbaʿīniyyāt;
-    AHKAM covers selected-hadith pedagogical anthologies of legal
-    evidences per al-Kattānī, al-Risālah al-Mustaṭrafah p. 41 Kutub
-    al-Aḥkām (Bulūgh al-Marām min Adillat al-Aḥkām of Ibn Ḥajar
-    d. 852 AH; ʿUmdat al-Aḥkām of ʿAbd al-Ghanī al-Maqdisī d. 600 AH;
-    al-Muntaqā fī al-Aḥkām of Majd al-Dīn Ibn Taymiyyah d. 652 AH;
-    al-Ilmām bi-Aḥādīth al-Aḥkām of Ibn Daqīq al-ʿĪd d. 702 AH).
-    AHKAM was activated by Phase 5b follow-up 34 (2026-04-27) after
-    2-of-2 cross-time independent Gemini scholarly convergence at HIGH
-    confidence and Codex CRITICAL DIM5 BLOCK resolution that widened
-    GenreDisputePosition with hadith_subgenre_candidate to enable
-    correct dispute-path adjudication. The level applies to AHKAM works.
-    All other hadith subgenres
+    {arbain, ahkam, targhib}) reverse the Axis 1 firing — the work is
+    treated as a pedagogical hadith curriculum: ARBAIN covers al-Arbaʿīn
+    al-Nawawī of al-Nawawī (d. 676 AH) and the broader arbaʿūniyyāt
+    genre per al-Kattānī, al-Risālah al-Mustaṭrafah p. 69-72 Kutub
+    al-Arbaʿīniyyāt; AHKAM covers selected-hadith pedagogical
+    anthologies of legal evidences per al-Kattānī, al-Risālah
+    al-Mustaṭrafah p. 41 Kutub al-Aḥkām (Bulūgh al-Marām min Adillat
+    al-Aḥkām of Ibn Ḥajar d. 852 AH; ʿUmdat al-Aḥkām of ʿAbd al-Ghanī
+    al-Maqdisī d. 600 AH; al-Muntaqā fī al-Aḥkām of Majd al-Dīn Ibn
+    Taymiyyah d. 652 AH; al-Ilmām bi-Aḥādīth al-Aḥkām of Ibn Daqīq
+    al-ʿĪd d. 702 AH); TARGHIB covers Kutub al-Targhīb wa-l-Tarhīb per
+    al-Kattānī, al-Risālah al-Mustaṭrafah p. 45 (canonical anchor
+    al-Targhīb wa-l-Tarhīb of al-Mundhirī d. 656 AH) plus Riyāḍ
+    al-Ṣāliḥīn of al-Nawawī d. 676 AH classified under TARGHIB via
+    the dedicated compound rule "رياض" + "الصالحين" closing the FU-34
+    documented limitation. AHKAM was activated by Phase 5b follow-up
+    34 (2026-04-27) after 2-of-2 cross-time independent Gemini
+    scholarly convergence at HIGH confidence and Codex CRITICAL DIM5
+    BLOCK resolution that widened GenreDisputePosition with
+    hadith_subgenre_candidate to enable correct dispute-path
+    adjudication. TARGHIB was activated by Phase 5b follow-up 35
+    (2026-04-28) after 4-of-4 cross-provider evaluator convergence
+    (Codex CLI structural ISOMORPHIC + Gemini Run A scholarly + Gemini
+    Run B scholarly + arabic-reviewer Anthropic scholarly cross-
+    provider, all through /prompt-architect with anti-priming Step-1/
+    Step-2 protocol; 3-of-3 cross-provider scholarly verdict at HIGH
+    confidence on every cell). The level applies to AHKAM and TARGHIB
+    works. SHAMAIL is enum-recognized (Ḥājī Khalīfa, Kashf al-Ẓunūn
+    2/1043 lists shamāʾil as a distinct fann; al-Kattānī recognizes
+    Kutub al-Shamāʾil) but EXCLUDED from LEVELED_HADITH_SUBGENRES
+    because its canonical anchor al-Shamāʾil al-Muḥammadiyyah of
+    al-Tirmidhī (d. 279 AH) PRESERVES full transmission chains
+    (cited isnād from "Bāb Mā Jāʾa fī Khātam al-Nubuwwah":
+    حدثنا قتيبة بن سعيد، قال: حدثنا حاتم بن إسماعيل، عن الجعد بن
+    عبد الرحمن، قال: سمعت السائب بن يزيد يقول...). Per the iḥtiyāṭ
+    precautionary framework plus arabic-reviewer's compound BLOCK
+    criterion (chain-preservation + absence of pedagogical muqaddimah
+    + comprehensive-not-graduated organization), SHAMAIL hadith_
+    collection works are correctly tagged but Axis 3 carve-back does
+    NOT fire — owner override is REJECTED under Axis 1. MUKHTASAR
+    was BLOCKED entirely (NOT added to enum) per 3-of-3 cross-provider
+    scholarly verdict at HIGH: cross-cutting structural descriptor not
+    a standalone hadith subgenre (Ḥājī Khalīfa lists mukhtaṣarāt under
+    source works as derivatives, not in a dedicated chapter); the
+    arabic-reviewer's structural cross-provider check additionally
+    surfaced that KR already encodes mukhtaṣar at the Genre level
+    (Genre.MUKHTASAR at contracts.py:145, mapped from keywords
+    مختصر/خلاصة/تهذيب/تقريب/ملخص/وجيز in deliberation.py:55) — adding
+    HadithSubgenre.MUKHTASAR would create semantic redundancy and the
+    pre-condition early-exit at deliberation.py:537 would render any
+    HadithSubgenre.MUKHTASAR rule unreachable for Genre.MUKHTASAR
+    works. All other hadith subgenres
     — including null subgenre per Path A (transmission-by-default,
     iḥtiyāṭ / tawaqquf principle, Ibn Ḥajar Nuzhat al-Naẓar Bāb
     al-Khabar al-Maqbūl) — confirm Axis 1 firing under Axis 3 (the work
@@ -452,4 +488,72 @@ acceptance_criteria:
     المنتقى + الأحكام, أدلة + الأحكام, or أحاديث + الأحكام.
   when: the source engine processes the title through _infer_hadith_subgenre
   then: hadith_subgenre is None — the false-positive collision with bare "أحكام" matching is structurally prevented by both the science-scope pre-condition guard and the compound-keyword discipline.
+  test_type: deterministic
+- id: AC-13
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection" with
+    hadith_subgenre="targhib" (e.g. الترغيب والترهيب of al-Mundhirī
+    d. 656 AH — the canonical *Kitāb al-Targhīb wa-l-Tarhīb* per
+    al-Kattānī, *al-Risālah al-Mustaṭrafah* p. 45 *Kutub al-Targhīb
+    wa-l-Tarhīb*; al-Mundhirī's *muqaddimah* explicitly states the
+    pedagogical *gharaḍ* of motivating piety and warning against vice
+    through thematically arranged hadith) submitted with
+    owner_level_override="mubtadiʾ". Axis 3 carves back Axis 1's
+    hadith_collection firing because "targhib" is in the
+    LEVELED_HADITH_SUBGENRES carve-back set after Phase 5b follow-up
+    35 closure 2026-04-28.
+  when: the source engine emits SourceMetadata
+  then: SourceMetadata.level == WorkLevel.MUBTADI AND SourceMetadata.level_status == "assigned" AND SourceMetadata.level_provenance == "owner_override". No SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised.
+  test_type: deterministic
+- id: AC-14
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection" with
+    title "رياض الصالحين" of al-Nawawī (d. 676 AH). The compound rule
+    "رياض" + "الصالحين" fires at _infer_hadith_subgenre and the inference
+    function correctly assigns hadith_subgenre=HadithSubgenre.TARGHIB,
+    closing the FU-34 documented limitation that this work was wrongly
+    rejected for owner override under Path A. al-Nawawī's *muqaddimah*
+    uses the *targhīb*/*tarhīb* framework explicitly and chains are
+    stripped (matn-only) — a strong pedagogical-by-design signal under
+    al-Suyūṭī's *Tadrīb al-Rāwī* compound criterion. Submitted with
+    owner_level_override="mutawassiṭ".
+  when: the source engine emits SourceMetadata
+  then: hadith_subgenre == HadithSubgenre.TARGHIB AND SourceMetadata.level == WorkLevel.MUTAWASSIT AND SourceMetadata.level_status == "assigned" AND SourceMetadata.level_provenance == "owner_override". No SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised.
+  test_type: deterministic
+- id: AC-15
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection" with
+    title "الشمائل المحمدية" of al-Tirmidhī (d. 279 AH). The compound
+    rule "شمائل" + ("محمدية" or "النبي" or "المصطفى" or "الرسول") fires
+    at _infer_hadith_subgenre and the inference function correctly
+    assigns hadith_subgenre=HadithSubgenre.SHAMAIL. However, "shamail"
+    is NOT in LEVELED_HADITH_SUBGENRES because al-Tirmidhī's *al-Shamāʾil*
+    PRESERVES full transmission chains (cited *isnād* from "Bāb Mā Jāʾa
+    fī Khātam al-Nubuwwah": حدثنا قتيبة بن سعيد، قال: حدثنا حاتم بن
+    إسماعيل، عن الجعد بن عبد الرحمن، قال: سمعت السائب بن يزيد يقول...). Per
+    the S1.Q4 precautionary framework plus arabic-reviewer's compound
+    BLOCK criterion (chain-preservation + absence of pedagogical
+    *muqaddimah* + comprehensive-not-graduated organization), chain-
+    preservation in the canonical anchor blocks carve-back even though
+    the work is thematically curated. Submitted with
+    owner_level_override="muntahī".
+  when: the source engine emits SourceMetadata
+  then: hadith_subgenre == HadithSubgenre.SHAMAIL AND SourceMetadata.level is null AND SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override boundary, citing Axis 1 (genre=hadith_collection); the SHAMAIL subgenre is recognized but excluded from the carve-back set.
+  test_type: deterministic
+- id: AC-16
+  given: >-
+    A non-hadith taṣawwuf or sermon work whose title contains the bare
+    maṣdar "ترغيب" or "شمائل" without the required compound disambiguator
+    (e.g., "ترغيب القلوب في الذكر" — taṣawwuf devotional, science_scope
+    ["tasawwuf"], genre MATN; "شمائل الأولياء" — taṣawwuf hagiography,
+    science_scope ["tasawwuf"], genre MATN). The pre-condition guard at
+    _infer_hadith_subgenre line ~537 ("hadith" not in science_scope and
+    genre != Genre.HADITH_COLLECTION → return None) ensures these works
+    never enter the TARGHIB or SHAMAIL compound-keyword chain. Even if
+    the science were misclassified as "hadith", the compound rules would
+    not fire because the required co-occurrences (ترغيب + ترهيب;
+    رياض + الصالحين; شمائل + (محمدية or النبي or المصطفى or الرسول)) are
+    absent.
+  when: the source engine processes the title through _infer_hadith_subgenre
+  then: hadith_subgenre is None — false-positive collisions are structurally prevented by both the science-scope pre-condition guard and the compound-keyword discipline.
   test_type: deterministic

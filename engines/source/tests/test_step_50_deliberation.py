@@ -865,28 +865,43 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
         ("المعجم الكبير للطبراني", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.MUJAM),
         # Phase 5b follow-up 34 closure 2026-04-27: AHKAM activated as
         # leveled hadith_subgenre per 2-of-2 Gemini scholarly convergence
-        # at HIGH confidence (Run A AMEND_REQUIRED + Run B PROCEED, both
-        # demanding compound-keyword discipline). Bulūgh al-Marām now
-        # classifies as AHKAM via the compound rule "بلوغ" + "المرام";
-        # ʿUmdat al-Aḥkām, al-Muntaqā fī al-Aḥkām, al-Ilmām bi-Aḥādīth
-        # al-Aḥkām likewise classify as AHKAM via their respective
-        # compound rules. Bare "أحكام" matching is FORBIDDEN due to
-        # false-positive collisions with Aḥkām al-Qurʾān (al-Jaṣṣāṣ d.
-        # 370 AH — fiqh-tafsīr), al-Aḥkām al-Sulṭāniyyah (al-Māwardī
-        # d. 450 AH — siyāsah), al-Iḥkām fī Uṣūl al-Aḥkām (al-Āmidī
-        # d. 631 AH — Uṣūl al-Fiqh).
-        # MUKHTARAT was BLOCKED 2-of-2 HIGH by both Geminis on the basis
-        # that *Mukhtārāt* is a cross-cutting descriptor (al-Ḍiyāʾ
-        # al-Maqdisī's al-Aḥādīth al-Mukhtārah d. 643 AH is primary
-        # transmission with full isnāds despite the name). Riyāḍ
-        # al-Ṣāliḥīn therefore stays None subgenre — its correct
-        # classification (TARGHIB / pedagogical jāmiʿ-of-adab per Run A
-        # Q3c, MUKHTARAT-but-architecturally-jāmiʿ per Run B Q2b) is
-        # deferred to NEW follow-up 35 (TARGHIB + MUKHTASAR + SHAMAIL
-        # enum addition). Documented limitation: owner override on
-        # Riyāḍ al-Ṣāliḥīn remains wrongly rejected under Path A until
-        # FU-35 closure.
-        ("رياض الصالحين", ["hadith"], Genre.HADITH_COLLECTION, None),
+        # at HIGH confidence. Bulūgh al-Marām classifies as AHKAM via the
+        # compound rule "بلوغ" + "المرام"; ʿUmdat al-Aḥkām, al-Muntaqā fī
+        # al-Aḥkām, al-Ilmām bi-Aḥādīth al-Aḥkām likewise classify via
+        # their compound rules. Bare "أحكام" matching is FORBIDDEN due
+        # to false-positive collisions (Aḥkām al-Qurʾān, al-Aḥkām
+        # al-Sulṭāniyyah, al-Iḥkām fī Uṣūl al-Aḥkām).
+        #
+        # Phase 5b follow-up 35 closure 2026-04-28: TARGHIB + SHAMAIL
+        # added per 4-of-4 cross-provider evaluator convergence (Codex
+        # structural ISOMORPHIC + Gemini Run A + Gemini Run B both on
+        # gemini-2.5-pro after gemini-3.1-pro-preview capacity-exhausted
+        # + arabic-reviewer Anthropic cross-provider). 3-of-3 cross-
+        # provider scholarly verdict at HIGH on every cell.
+        # - TARGHIB enum + carve-back PROCEED: al-Mundhirī's al-Targhīb
+        #   wa-l-Tarhīb anchor (al-Kattānī al-Risālah al-Mustaṭrafah p. 45);
+        #   compound rule "ترغيب" + "ترهيب".
+        # - Riyāḍ al-Ṣāliḥīn classifies as TARGHIB via the dedicated
+        #   compound rule "رياض" + "الصالحين", closing the FU-34
+        #   documented limitation (owner override now correctly accepted).
+        # - SHAMAIL enum PROCEED but carve-back BLOCK: al-Tirmidhī's
+        #   al-Shamāʾil al-Muḥammadiyyah preserves full chains (cited
+        #   isnād "حدثنا قتيبة بن سعيد..."); enum-recognition allows
+        #   correct tagging but Axis 3 carve-back does NOT fire — owner
+        #   override on a SHAMAIL hadith_collection is rejected under
+        #   Axis 1. Compound rule "شمائل" + (محمدية|النبي|المصطفى|الرسول).
+        # - MUKHTASAR BLOCKED entirely (NOT added to enum): cross-cutting
+        #   structural descriptor not standalone subgenre; KR already
+        #   encodes mukhtaṣar at the Genre level (Genre.MUKHTASAR);
+        #   _infer_hadith_subgenre pre-condition early-exit at line 537
+        #   would render any HadithSubgenre.MUKHTASAR rule unreachable.
+        # Bare "ترغيب", bare "شمائل", and bare "مختصر" matching are all
+        # FORBIDDEN due to false-positive collisions. Documented
+        # limitation (FU-36 candidate): chain-stripped abridgements like
+        # Mukhtaṣar Ṣaḥīḥ Muslim of al-Mundhirī fall through to None
+        # subgenre; orthogonal is_abridgement property may be added in
+        # a future architectural fix.
+        ("رياض الصالحين", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TARGHIB),
         ("بلوغ المرام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
         # FU-34 new positive cases for AHKAM (one per compound rule):
         ("بلوغ المرام من أدلة الأحكام", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.AHKAM),
@@ -910,6 +925,53 @@ def test_metadata_deliberation_flags_incomplete_research_in_monitor_feedback(
         # not as the primary AHKAM work. AHKAM compound rules are
         # ordered AFTER HADITH_COMMENTARY for exactly this reason.
         ("إحكام الأحكام شرح عمدة الأحكام", ["hadith"], Genre.SHARH, HadithSubgenre.HADITH_COMMENTARY),
+        # FU-35 new positive cases for TARGHIB:
+        ("الترغيب والترهيب للمنذري", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TARGHIB),
+        ("الترغيب والترهيب", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.TARGHIB),
+        # FU-35 new positive cases for SHAMAIL (compound rule):
+        ("الشمائل المحمدية", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SHAMAIL),
+        ("شمائل النبي", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SHAMAIL),
+        ("شمائل المصطفى", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.SHAMAIL),
+        # FU-35 false-positive guards for bare ترغيب (without ترهيب):
+        # taṣawwuf works titled with the root ت-ر-غ-ب alone (e.g., "ترغيب
+        # القلوب") fall through the compound rule because both substrings
+        # are required.
+        ("ترغيب القلوب في الذكر", ["tasawwuf"], Genre.MATN, None),
+        # FU-35 false-positive guards for bare شمائل (without compound):
+        # taṣawwuf "شمائل الأولياء" or biographical "شمائل الخلفاء" fall
+        # through because the compound requires Prophet-specific tokens.
+        ("شمائل الأولياء", ["tasawwuf"], Genre.MATN, None),
+        ("شمائل الخلفاء الراشدين", ["tarikh"], Genre.MATN, None),
+        # FU-35 MUKHTASAR-blocked guards: chain-stripped abridgements of
+        # canonical hadith collections fall through to None because
+        # MUKHTASAR was NOT added to the HadithSubgenre enum (cross-
+        # cutting descriptor; KR already encodes mukhtaṣar at the Genre
+        # level via Genre.MUKHTASAR). This is a documented limitation
+        # (FU-36 candidate); orthogonal is_abridgement property may
+        # close it in a future architectural fix.
+        ("مختصر صحيح مسلم للمنذري", ["hadith"], Genre.HADITH_COLLECTION, None),
+        # al-Tajrīd al-Ṣarīḥ (al-Zabīdī d. 893 AH) is a Mukhtaṣar of
+        # al-Bukhārī's al-Jāmiʿ al-Ṣaḥīḥ. Since MUKHTASAR is not a
+        # HadithSubgenre, the genre is inherited from the source work
+        # (per arabic-reviewer's principle "mukhtaṣar of a jāmiʿ is still
+        # a jāmiʿ"). The title contains "الجامع" so the existing JAMI
+        # rule fires correctly. This is a CORRECT classification under
+        # the FU-35 MUKHTASAR-BLOCK design — the work inherits the
+        # source genre rather than receiving a separate MUKHTASAR tag.
+        ("التجريد الصريح لأحاديث الجامع الصحيح", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JAMI),
+        # FU-35 MUKHTASAR cross-science guards: non-hadith mukhtaṣar
+        # works never enter the inference function due to the science-
+        # scope guard (verified for taṣawwuf and Maliki fiqh examples).
+        ("مختصر الإحياء", ["tasawwuf"], Genre.MATN, None),
+        ("مختصر خليل", ["fiqh"], Genre.MATN, None),
+        # FU-35 sharḥ-on-shamāʾil guard: even though "شمائل" + "محمدية"
+        # would otherwise fire SHAMAIL, the HADITH_COMMENTARY branch at
+        # _infer_hadith_subgenre fires FIRST (genre=SHARH +
+        # science_scope=hadith) so a sharḥ on al-Shamāʾil is correctly
+        # classified as a sharḥ on a hadith collection, not as the
+        # primary SHAMAIL work — mirroring the FU-34 sharḥ-on-AHKAM
+        # ordering convention.
+        ("شرح الشمائل المحمدية", ["hadith"], Genre.SHARH, HadithSubgenre.HADITH_COMMENTARY),
         ("أحاديث متفرقة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("حديث الجمعة", ["hadith"], Genre.HADITH_COLLECTION, HadithSubgenre.JUZ),
         ("كتاب الأذكار", ["hadith"], Genre.MATN, None),
