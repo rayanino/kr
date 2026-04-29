@@ -51,7 +51,6 @@ from engines.source.contracts import (
         (WorkLevel.MUTAWASSIT, LevelStatus.ASSIGNED, LevelProvenance.SYNTHESIS_ENGINE),
         (WorkLevel.MUNTAHI, LevelStatus.ASSIGNED, LevelProvenance.SYNTHESIS_ENGINE),
         (WorkLevel.MUNTAHI, LevelStatus.ASSIGNED, LevelProvenance.OWNER_OVERRIDE),
-        (WorkLevel.MUTAWASSIT, LevelStatus.ASSIGNED, LevelProvenance.TAXONOMY_ENGINE),
         # Synthesis post-attempt non-applicable / unprocessable states
         (None, LevelStatus.NON_APPLICABLE_REFERENCE, None),
         (None, LevelStatus.UNPROCESSABLE_ERROR, None),

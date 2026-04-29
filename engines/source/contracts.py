@@ -271,10 +271,27 @@ class LevelProvenance(str, Enum):
 
     Populated IFF ``level`` is non-null. Prevents a downstream engine from
     silently overwriting an owner-asserted level.
+
+    Phase 5b follow-up 28 closure 2026-04-29: ``TAXONOMY_ENGINE`` value
+    REMOVED. Per the closed DEC-SRC-0003 OWN_SYNTHESIS adjudication
+    (Phase 5b item 7, 2026-04-23, 3-of-3 UNANIMOUS_OWN_SYNTHESIS HIGH
+    from Codex CLI gpt-5.4 + Gemini Run A gemini-3.1-pro-preview + Gemini
+    Run B gemini-2.5-pro), the synthesis engine is the sole writer of
+    ``level``. The taxonomy engine never owns level writes — that
+    architectural option was definitively rejected. Structural trace
+    via ripgrep confirmed ``LevelProvenance.TAXONOMY_ENGINE`` was
+    referenced ONLY in test fixtures (test_followup_24_constituent_
+    placeholder.py:54 and test_work_level_and_status.py:426), NEVER
+    written by production code in any engine. Removing the dead enum
+    surface eliminates a T-1 corruption vector (a future code path
+    accidentally using TAXONOMY_ENGINE provenance for a synthesis-
+    owned write would silently violate DEC-SRC-0003 single-writer
+    discipline). Migration: legacy records with the obsolete value
+    are not expected because no production code ever wrote it; tests
+    updated to use OWNER_OVERRIDE / SYNTHESIS_ENGINE per role.
     """
 
     OWNER_OVERRIDE = "owner_override"
-    TAXONOMY_ENGINE = "taxonomy_engine"
     SYNTHESIS_ENGINE = "synthesis_engine"
 
 

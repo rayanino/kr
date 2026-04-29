@@ -419,11 +419,15 @@ def test_adv_012_stickiness_level_requires_provenance() -> None:
 @pytest.mark.spec("CON-SRC-0011", "AC-6")
 def test_adv_012_stickiness_null_level_forbids_provenance() -> None:
     """ADV-012: null level with non-null provenance violates stickiness."""
+    # Phase 5b follow-up 28 closure 2026-04-29: changed LevelProvenance.
+    # TAXONOMY_ENGINE → SYNTHESIS_ENGINE after the TAXONOMY_ENGINE enum
+    # value was removed (dead surface — never written by production code
+    # per the closed DEC-SRC-0003 OWN_SYNTHESIS adjudication).
     with pytest.raises(ValidationError, match="ADV-012 stickiness"):
         _build_metadata(
             level=None,
             level_status=LevelStatus.PENDING_SYNTHESIS,
-            level_provenance=LevelProvenance.TAXONOMY_ENGINE,
+            level_provenance=LevelProvenance.SYNTHESIS_ENGINE,
         )
 
 

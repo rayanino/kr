@@ -61,10 +61,15 @@ source: >-
   level from text-level. Al-Kattānī's al-Risāla al-Mustaṭrafah
   nawʿ-classification of ḥadīth books was considered by Gemini Run
   B as an OWN_TAXONOMY counter-argument but weighed down by the
-  bibliographic-vs-pedagogical distinction. New Phase 5b follow-up
-  item 28 opened for the architectural unreachability of
-  LevelProvenance.TAXONOMY_ENGINE under OWN_SYNTHESIS (not in
-  3-evaluator reading list, deferred to a separate dispatch).
+  bibliographic-vs-pedagogical distinction. Phase 5b follow-up item
+  28 (architectural unreachability of LevelProvenance.TAXONOMY_ENGINE
+  under OWN_SYNTHESIS) was CLOSED on 2026-04-29 by REMOVING the
+  TAXONOMY_ENGINE enum value: structural ripgrep trace confirmed it
+  was referenced ONLY in test fixtures, never written by production
+  code in any engine; removal eliminates a T-1 corruption vector
+  (future code path accidentally using TAXONOMY_ENGINE provenance
+  would silently violate DEC-SRC-0003 single-writer discipline).
+  LevelProvenance now contains only OWNER_OVERRIDE and SYNTHESIS_ENGINE.
   Reviewer outputs:
   .kr/runtime/structural_audit_codex_cli_item7_retry_20260423.md,
   .kr/runtime/domain_validation_gemini_cli_item7_run_A_20260423.md,
@@ -77,7 +82,7 @@ source: >-
   muhaqiq_output remains the live MuhaqiqAssessment shape; edition_info
   remains a flexible Optional[dict[str, Any]] surface.
 created: '2026-04-14'
-updated: '2026-04-24'
+updated: '2026-04-29'
 depends_on:
 - REQ-SRC-0014
 - REQ-SRC-0004
