@@ -9,11 +9,10 @@ confidence: high
 provenance: owner_interview
 source: Derived from OF-SRC-0009; amended per both coworker reviews
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-29'
 depends_on:
 - OF-SRC-0009
 - OQ-SRC-0003
-- OQ-SRC-0005
 impacts:
 - trust_resolution
 - agent_orchestration

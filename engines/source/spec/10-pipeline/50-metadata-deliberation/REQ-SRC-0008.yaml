@@ -10,12 +10,11 @@ confidence: high
 provenance: owner_interview
 source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-29'
 depends_on:
 - OF-SRC-0009
 - DEC-SRC-0004
 - DEC-SRC-0013
-- OQ-SRC-0005
 impacts:
 - trust_resolution
 - monitor_feedback

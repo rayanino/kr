@@ -10,12 +10,11 @@ confidence: high
 provenance: owner_interview
 source: Derived from owner correction on 2026-04-14. Narrowed to source-work identification and collection matching after contract-architect review found 4 sub-analyses in one atom is untestable. Completeness analysis moved to REQ-SRC-0036, integrity analysis moved to REQ-SRC-0037.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-29'
 depends_on:
 - REQ-SRC-0018
 - REQ-SRC-0017
 - REQ-SRC-0020
-- REQ-SRC-0021
 impacts:
 - intake_dossier
 - work_identity

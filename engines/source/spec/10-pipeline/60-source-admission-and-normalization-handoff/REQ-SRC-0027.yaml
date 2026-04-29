@@ -10,10 +10,9 @@ confidence: high
 provenance: owner_interview
 source: Derived from owner guidance on 2026-04-14 that any uncertainty materially affecting study quality should trigger a human gate before official admission or downstream work proceeds.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-29'
 depends_on:
 - REQ-SRC-0019
-- REQ-SRC-0025
 - DEC-SRC-0016
 impacts:
 - owner_submission_risk_gate

@@ -9,10 +9,8 @@ confidence: high
 provenance: owner_interview
 source: Derived from owner guidance on 2026-04-14 that uploaded artifacts must not pollute the official source collection before source-engine acceptance.
 created: '2026-04-14'
-updated: '2026-04-14'
-depends_on:
-- REQ-SRC-0001
-- REQ-SRC-0025
+updated: '2026-04-29'
+depends_on: []
 impacts:
 - registry_model
 - source_admission

@@ -10,9 +10,8 @@ confidence: high
 provenance: coworker_review
 source: Added from domain-validator-review.yaml; amended per adversary-review.yaml ADV-006 and Claude DR spec audit 2026-04-15 which identified إعداد as a distinct role (neither author nor editor).
 created: '2026-04-14'
-updated: '2026-04-14'
-depends_on:
-- REQ-SRC-0004
+updated: '2026-04-29'
+depends_on: []
 impacts:
 - author_attribution
 - colophon_parsing
