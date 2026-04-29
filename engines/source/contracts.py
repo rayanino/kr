@@ -172,6 +172,40 @@ class Genre(str, Enum):
 
 
 class HadithSubgenre(str, Enum):
+    """Hadith-collection subgenre classifier.
+
+    Phase 5b follow-up 36 closure 2026-04-29 added ``ADHKAR`` and ``ADAB``
+    after a 4-evaluator cross-provider dispatch (Codex CLI gpt-5.4 +
+    Gemini Run A/B gemini-2.5-pro + arabic-reviewer Anthropic Agent, all
+    through /prompt-architect with CAI Critique-Revise + Step-Back +
+    TIDD-EC hybrid framework). 3-of-3 cross-provider scholarly convergence
+    on ADD-EXCLUDED for both values: the works tag correctly at subgenre
+    level but Axis 3 carve-back BLOCKS — owner override is REJECTED under
+    Axis 1 (chain-preservation in canonical anchors per the SHAMAIL
+    precedent).
+
+    NAMING-COLLISION DISAMBIGUATION (FU-36 CRIT-FU36-1, surfaced
+    independently by both Codex and arabic-reviewer): ``HadithSubgenre.ADAB``
+    has the same string value ``"adab"`` as ``Genre.ADAB`` (line 158).
+    These are TWO DIFFERENT DIMENSIONS:
+
+    - ``Genre.ADAB`` = a work whose primary classification is adab
+      literature (e.g., al-Mubarrad's *al-Kāmil*; al-Jāḥiẓ's *al-Bayān
+      wa-l-Tabyīn*). ``science_scope`` would include adab; the work is
+      NOT a hadith collection.
+    - ``HadithSubgenre.ADAB`` = a hadith collection whose thematic focus
+      is adab/akhlaq topics (e.g., al-Bukhārī's *al-Adab al-Mufrad*;
+      al-Khaṭīb al-Baghdādī's *al-Jāmiʿ li-Akhlāq al-Rāwī*; Ibn Ḥibbān's
+      *Rawḍat al-ʿUqalāʾ*). ``genre`` is ``HADITH_COLLECTION``;
+      ``hadith_subgenre`` is ``ADAB``.
+
+    Display layers MUST disambiguate by enum-class context. JSON
+    serialization outputs ``"adab"`` for both; deserialization without
+    type context is ambiguous and forbidden. Any code comparing string
+    values against literal ``"adab"`` outside type-checked context is
+    a T-1 corruption vector.
+    """
+
     MUSANNAF = "musannaf"
     MUSNAD = "musnad"
     SUNAN = "sunan"
@@ -186,6 +220,8 @@ class HadithSubgenre(str, Enum):
     AHKAM = "ahkam"
     TARGHIB = "targhib"
     SHAMAIL = "shamail"
+    ADHKAR = "adhkar"
+    ADAB = "adab"
     TAKHRIJ = "takhrij"
     ATRAF = "atraf"
     ILAL = "ilal"

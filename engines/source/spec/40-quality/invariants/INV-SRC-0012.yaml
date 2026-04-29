@@ -286,8 +286,71 @@ source: >-
   findings + novel framing. New ACs AC-FU37-1 through AC-FU37-9
   added below. Open follow-ups remaining after FU-37 closure:
   18, 27, 28, 36.
+  Amended on 2026-04-29 (Phase 5b follow-up 36 closure) after a
+  4-evaluator cross-provider dispatch (Codex CLI gpt-5.4 + Gemini
+  Run A/B gemini-2.5-pro + arabic-reviewer Anthropic Agent, all
+  through /prompt-architect with CAI Critique-Revise + Step-Back +
+  TIDD-EC hybrid framework — same framework vindicated by FU-37).
+  The FU-37 sealed-block-in-separate-file rectification was applied
+  for the first time and SUCCEEDED for Codex and arabic-reviewer
+  (full Read-tool-call file-read sequence verified); Geminis used
+  cat-via-shell because .kr/ is gitignored, producing a slightly
+  weaker but still observable file-read sequence in their tool-call
+  log. Q-B (HadithSubgenre.ADHKAR) and Q-C (HadithSubgenre.ADAB)
+  PROCEED at 3-of-4 cross-provider convergence — both values added
+  to the enum and EXCLUDED from LEVELED_HADITH_SUBGENRES per the
+  SHAMAIL precedent (chain-preservation in canonical anchors:
+  Ibn al-Sunnī's *ʿAmal al-Yawm wa-l-Laylah* d. 364 AH for ADHKAR;
+  al-Bukhārī's *al-Adab al-Mufrad* d. 256 AH for ADAB). Q-A
+  (is_abridgement orthogonal property) BLOCKED at 2-of-4 cross-
+  provider convergence (Codex + arabic-reviewer): all enumerated
+  PROCEED paths failed to wire into the level gate
+  (_non_applicability_axis / enforce_level_invariants) or the
+  dispute path (_resolve_disputed) — architecturally incomplete;
+  Geminis recommended PROCEED but DIVERGED between path-2
+  (per-constituent) and path-3 (genre migration), weakening the
+  cross-time independent signal. Per .claude/rules/no-single-
+  model-conclusion.md no path achieved 4-of-4 HIGH; the 2-of-4
+  BLOCK position prevails on Q-A. Documented limitations added
+  below (L-FU36-1, L-FU36-2). Novel anchors surfaced this
+  dispatch: Ibn al-Nadīm's *al-Fihrist* d. ~385 AH (organizes
+  mukhtaṣarāt under source works — earliest Islamic bibliography
+  to make this choice); al-Khaṭīb al-Baghdādī's *al-Jāmiʿ
+  li-Akhlāq al-Rāwī wa-Ādāb al-Sāmiʿ* d. 463 AH (riwāyah-class vs
+  taʿlīm-class distinction explaining ADHKAR's non-uniform chain
+  treatment); al-Suyūṭī's *Tadrīb al-Rāwī* Muqaddimah on *aqsām
+  al-kutub al-muṣannafah* (al-Adab al-Mufrad classified in *aʿmāl
+  wa-l-ādāb* sub-category of *muṣannaf*, NOT *jāmiʿ* —
+  definitively refuting Q-C path-2 KEEP-AS-JAMI-VIA-NEW-KEYWORD
+  which all 4 evaluators unanimously rejected). CRITICAL naming-
+  collision finding (CRIT-FU36-1, surfaced independently by both
+  Codex and arabic-reviewer): HadithSubgenre.ADAB has the same
+  string value "adab" as Genre.ADAB at contracts.py:158; display
+  layers MUST disambiguate by enum-class context — JSON
+  serialization outputs "adab" for both and deserialization
+  without type context is ambiguous (T-1 risk). New ACs AC-FU36-1
+  through AC-FU36-5 added below covering ADHKAR positive
+  (al-Nawawī's *al-Adhkār*) + ADHKAR exclusion (Ibn al-Sunnī's
+  *ʿAmal al-Yawm wa-l-Laylah* tagged correctly but Axis-1
+  rejection) + ADAB positive (al-Bukhārī's *al-Adab al-Mufrad*
+  tagged correctly but Axis-1 rejection) + Q-C path-2 unanimously-
+  rejected JAMI-via-keyword regression guard + ADHKAR/ADAB false-
+  positive guards via science-scope pre-condition + compound-
+  keyword discipline. Documented limitations: L-FU36-1
+  (_extract_target narrowness — `_infer_work_relationships` at
+  deliberation.py:817 uses ("مختصر",) as the sole target-extraction
+  marker, so works classified as Genre.MUKHTASAR via
+  خلاصة/تهذيب/تقريب/ملخص/وجيز keywords get Genre.MUKHTASAR but
+  NOT the is_abridgement_of WorkRelationship — surfaced by
+  arabic-reviewer DIM-AR2 AR2-QA-1); L-FU36-2 (gate-semantics gap
+  for hadith abridgement owner-override rejection — would require
+  future architectural path-5 with dual-surface metadata + explicit
+  INV-SRC-0012 wiring + GenreDisputePosition abridgement_candidate
+  field analogous to FU-34's hadith_subgenre_candidate; surfaced
+  by Codex DIM-CDX3 + arabic-reviewer DIM-AR2 convergent finding).
+  Open follow-ups remaining after FU-36 closure: 18, 27, 28.
 created: '2026-04-16'
-updated: '2026-04-28'
+updated: '2026-04-29'
 depends_on:
 - DEC-SRC-0003
 impacts:
@@ -869,4 +932,132 @@ acceptance_criteria:
     — synthesis can now distinguish "this dispute applies to
     constituent idx 2" from "this dispute applies to the container"
     without ambiguity.
+  test_type: deterministic
+- id: AC-FU36-1
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection"
+    with title "الأذكار" (the canonical work of al-Nawawī d. 676 AH).
+    The compound-rule discipline of Phase 5b follow-up 36 closure
+    2026-04-29 forbids bare "أذكار" matching due to false-positive
+    collisions with non-hadith taṣawwuf works, sermon collections,
+    and fiqh chapter headings (the existing test at
+    test_step_50_deliberation.py:977 asserts "كتاب الأذكار" -> None).
+    Therefore the bare title "الأذكار" returns None subgenre under
+    the compound-rule discipline. Submitted with
+    owner_level_override="mubtadiʾ".
+  when: the source engine emits SourceMetadata
+  then: >-
+    hadith_subgenre is None AND SourceMetadata.level is null AND
+    SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the override
+    boundary, citing Axis 3 (hadith_subgenre) and the Arabic anchor
+    كُتُب الرِّوَايَة under Path A iḥtiyāṭ default.
+  test_type: deterministic
+- id: AC-FU36-2
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection"
+    with title "عمل اليوم والليلة" (Ibn al-Sunnī d. 364 AH —
+    transmission-style with full chains; canonical anchor of the
+    *aʿmāl al-yawm wa-l-laylah* genre per al-Kattānī, *al-Risālah
+    al-Mustaṭrafah* p. 119-120). The compound rule "عمل" + ("اليوم"
+    or "الليلة") fires at _infer_hadith_subgenre and the inference
+    function correctly assigns hadith_subgenre=HadithSubgenre.ADHKAR.
+    However, "adhkar" is NOT in LEVELED_HADITH_SUBGENRES because
+    canonical anchors include chain-preserving works (Ibn al-Sunnī
+    is *riwāyah*-class per al-Khaṭīb al-Baghdādī's *al-Jāmiʿ
+    li-Akhlāq al-Rāwī wa-Ādāb al-Sāmiʿ* novel anchor — riwāyah/
+    taʿlīm distinction). Per the SHAMAIL precedent (chain-
+    preservation in canonical anchor → EXCLUDED from carve-back),
+    ADHKAR enters the enum but Axis-3 carve-back does NOT fire.
+    Submitted with owner_level_override="muntahī".
+  when: the source engine emits SourceMetadata
+  then: >-
+    hadith_subgenre == HadithSubgenre.ADHKAR AND SourceMetadata.level
+    is null AND SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the
+    override boundary, citing Axis 1 (genre=hadith_collection); the
+    ADHKAR subgenre is recognized but excluded from the carve-back
+    set.
+  test_type: deterministic
+- id: AC-FU36-3
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection"
+    with title "الأدب المفرد" (al-Bukhārī d. 256 AH — canonical
+    anchor of the *aʿmāl wa-l-ādāb* sub-category of *muṣannaf* per
+    al-Suyūṭī, *Tadrīb al-Rāwī* Muqaddimah on *aqsām al-kutub
+    al-muṣannafah*; novel anchor surfaced by arabic-reviewer DIM-AR1
+    not cited by either Gemini in FU-35). The compound rule "الأدب"
+    + "المفرد" fires at _infer_hadith_subgenre and the inference
+    function correctly assigns hadith_subgenre=HadithSubgenre.ADAB.
+    "adab" is NOT in LEVELED_HADITH_SUBGENRES because al-Bukhārī's
+    *al-Adab al-Mufrad* preserves full transmission chains. Per the
+    SHAMAIL precedent, ADAB enters the enum but Axis-3 carve-back
+    does NOT fire. Submitted with owner_level_override="mutawassiṭ".
+    NAMING-COLLISION DISAMBIGUATION (CRIT-FU36-1, surfaced
+    independently by both Codex and arabic-reviewer):
+    HadithSubgenre.ADAB has the same string value "adab" as
+    Genre.ADAB at contracts.py:158; these are two different
+    dimensions and display layers must disambiguate by enum-class
+    context.
+  when: the source engine emits SourceMetadata
+  then: >-
+    hadith_subgenre == HadithSubgenre.ADAB AND SourceMetadata.level
+    is null AND SRC-E-LEVEL-OVERRIDE-NONAPPLICABLE is raised at the
+    override boundary, citing Axis 1 (genre=hadith_collection); the
+    ADAB subgenre is recognized but excluded from the carve-back
+    set. AND the inference is reachable for Genre.HADITH_COLLECTION
+    works (no early-exit at deliberation.py:627 for science_scope
+    containing "hadith" or genre=Genre.HADITH_COLLECTION) — distinct
+    from Genre.ADAB which is unreachable via title-keyword inference
+    because Genre.ADAB is not in _GENRE_KEYWORDS.
+  test_type: deterministic
+- id: AC-FU36-4
+  given: >-
+    A source classified as SourceMetadata.genre="hadith_collection"
+    with title "الأدب المفرد" of al-Bukhārī. Phase 5b follow-up 36
+    closure 2026-04-29: all 4 cross-provider evaluators (Codex CLI
+    gpt-5.4 + Gemini Run A/B gemini-2.5-pro + arabic-reviewer
+    Anthropic Agent) UNANIMOUSLY REJECTED Q-C path-2 (KEEP-AS-JAMI-
+    VIA-NEW-KEYWORD) because *al-Adab al-Mufrad* is NOT a *jāmiʿ*
+    by classical taxonomy. Per al-Suyūṭī, *Tadrīb al-Rāwī*
+    Muqaddimah, a *jāmiʿ* must cover all eight traditional Islamic
+    subjects; *al-Adab al-Mufrad* is a *muṣannaf* in the *aʿmāl
+    wa-l-ādāb* sub-category, bounded to the adab/akhlaq domain.
+    Assigning HadithSubgenre.JAMI to this work would introduce a
+    T-4 scope distortion (incorrect genre classification under the
+    inheritance principle). The closure correctly tags the work as
+    HadithSubgenre.ADAB (path-1), NOT JAMI (path-2 rejected).
+  when: the source engine processes the title through _infer_hadith_subgenre
+  then: >-
+    hadith_subgenre == HadithSubgenre.ADAB (NOT HadithSubgenre.JAMI)
+    — the path-1 ADAB compound rule "الأدب" + "المفرد" fires
+    correctly, and the path-2 JAMI-via-keyword path is structurally
+    blocked because no JAMI keyword is added for al-Adab al-Mufrad's
+    title (its title contains neither "جامع" nor any JAMI inheritance
+    keyword).
+  test_type: deterministic
+- id: AC-FU36-5
+  given: >-
+    A non-hadith taṣawwuf or adab-literature work whose title
+    contains the bare maṣdars "أذكار" or "ذكر" or "دعاء" (e.g.,
+    "ذكر الله في القلب" — taṣawwuf devotional, science_scope
+    ["tasawwuf"], genre MATN; "كتاب الأذكار" — fiqh chapter
+    fragment misclassified, the existing test fixture at
+    test_step_50_deliberation.py:977 asserts None subgenre on this
+    title; "الأدب الكبير" — adab-literature work by Ibn al-Muqaffaʿ,
+    science_scope ["adab"], Genre.ADAB or Genre.MATN). The pre-
+    condition guard at _infer_hadith_subgenre line 627 ("hadith"
+    not in science_scope and genre != Genre.HADITH_COLLECTION
+    → return None) ensures these works never enter the ADHKAR or
+    ADAB compound-keyword chain. Even if science were misclassified
+    as "hadith", the compound rules would not fire because the
+    required co-occurrences (عمل + (اليوم|الليلة); الحصن + الحصين;
+    كلم + طيب; أذكار + (الصباح|المساء|اليوم|الليلة|السفر|النوم);
+    الأدب + المفرد; روضة + العقلاء; الجامع + لأخلاق) are absent.
+  when: the source engine processes the title through _infer_hadith_subgenre
+  then: >-
+    hadith_subgenre is None — false-positive collisions are
+    structurally prevented by both the science-scope pre-condition
+    guard and the compound-keyword discipline. Bare "أذكار" /
+    "ذكر" / "دعاء" / "الأدب" / "أدب" are FORBIDDEN as standalone
+    inference triggers per the FU-36 closure compound-keyword
+    discipline.
   test_type: deterministic

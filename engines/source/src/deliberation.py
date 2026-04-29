@@ -739,6 +739,69 @@ def _infer_hadith_subgenre(
     # `is_abridgement` property on SourceMetadata (Run A Q8h MEDIUM
     # recommendation) plus a possible ADHKAR HadithSubgenre value
     # (arabic-reviewer Q8h LOW for al-Adhkar of al-Nawawi tradition).
+    # Phase 5b follow-up 36 closure 2026-04-29: ADHKAR and ADAB compound-
+    # keyword inference rules. 4-evaluator cross-provider dispatch (Codex
+    # CLI gpt-5.4 + Gemini Run A/B gemini-2.5-pro + arabic-reviewer
+    # Anthropic Agent, all through /prompt-architect with CAI Critique-
+    # Revise + Step-Back + TIDD-EC hybrid framework — same framework
+    # vindicated by FU-37). 3-of-3 cross-provider scholarly convergence on
+    # ADD-EXCLUDED for both Q-B (ADHKAR) and Q-C (ADAB).
+    #
+    # Inserted AFTER HADITH_COMMENTARY (line 643-644) and BEFORE generic
+    # catch-alls (line 762-769) per Codex DIM-CDX4 ordering hazard
+    # finding: a sharḥ on al-Adhkār or al-Adab al-Mufrad must be tagged
+    # HADITH_COMMENTARY rather than ADHKAR/ADAB. Generic catch-alls
+    # (مسند/سنن/جامع/معجم/جزء) must remain LAST so مختصر-style and
+    # transmission-style works fall through correctly.
+    #
+    # ADHKAR rules: invocational-formula thematic anthologies (al-Nawawī's
+    # *al-Adhkār* d. 676 AH; al-Jazarī's *al-Ḥiṣn al-Ḥaṣīn* d. 833 AH;
+    # Ibn al-Sunnī's *ʿAmal al-Yawm wa-l-Laylah* d. 364 AH; Ibn Taymiyyah's
+    # *al-Kalim al-Ṭayyib* d. 728 AH). EXCLUDED from LEVELED_HADITH_
+    # SUBGENRES per the compound BLOCK criterion: Ibn al-Sunnī's founding-
+    # ancestor canonical text PRESERVES full isnāds (a riwāyah-class
+    # transmission work per al-Khaṭīb al-Baghdādī's *al-Jāmiʿ li-Akhlāq
+    # al-Rāwī wa-Ādāb al-Sāmiʿ* riwāyah/taʿlīm distinction — novel anchor
+    # surfaced by arabic-reviewer DIM-AR1, not cited by either Gemini).
+    # Bare "أذكار", "ذكر", "دعاء" are FORBIDDEN due to false-positive
+    # collisions with non-hadith taṣawwuf works, sermon collections, and
+    # fiqh chapter headings (`باب الأذكار`); the existing test fixture at
+    # test_step_50_deliberation.py:977 asserts `كتاب الأذكار -> None`
+    # which the compound-rule discipline preserves.
+    if "عمل" in title and ("اليوم" in title or "الليلة" in title):
+        return HadithSubgenre.ADHKAR
+    if "الحصن" in title and "الحصين" in title:
+        return HadithSubgenre.ADHKAR
+    if "كلم" in title and "طيب" in title:
+        return HadithSubgenre.ADHKAR
+    if "أذكار" in title and any(
+        occasion in title
+        for occasion in ("الصباح", "المساء", "اليوم", "الليلة", "السفر", "النوم")
+    ):
+        return HadithSubgenre.ADHKAR
+    # ADAB rules: thematic-curated transmission collections on adab/akhlaq
+    # topics (al-Bukhārī's *al-Adab al-Mufrad* d. 256 AH — canonical anchor;
+    # Ibn Ḥibbān's *Rawḍat al-ʿUqalāʾ* d. 354 AH; al-Khaṭīb al-Baghdādī's
+    # *al-Jāmiʿ li-Akhlāq al-Rāwī wa-Ādāb al-Sāmiʿ* d. 463 AH; al-Bayhaqī's
+    # *al-Ādāb* d. 458 AH). EXCLUDED from LEVELED_HADITH_SUBGENRES:
+    # canonical anchors PRESERVE full chains. Per al-Suyūṭī, *Tadrīb al-
+    # Rāwī* Muqaddimah (novel anchor surfaced by arabic-reviewer DIM-AR1,
+    # not cited by either Gemini), al-Adab al-Mufrad is *muṣannaf*-class
+    # in the *aʿmāl wa-l-ādāb* sub-category — NOT a *jāmiʿ* — so path-2
+    # JAMI-via-keyword is unanimously REJECTED across all 4 evaluators.
+    # The al-Khaṭīb compound rule is placed BEFORE the generic "جامع"
+    # catch-all (line 762-769) so that *al-Jāmiʿ li-Akhlāq al-Rāwī* is
+    # correctly tagged ADAB rather than JAMI.
+    # Bare "الأدب" / "أدب" are FORBIDDEN due to false-positive collisions
+    # with adab-literature works (Genre.ADAB at contracts.py:158 — same
+    # string value "adab" but different enum dimension; see HadithSubgenre
+    # docstring for naming-collision disambiguation).
+    if "الأدب" in title and "المفرد" in title:
+        return HadithSubgenre.ADAB
+    if "روضة" in title and "العقلاء" in title:
+        return HadithSubgenre.ADAB
+    if "الجامع" in title and "لأخلاق" in title:
+        return HadithSubgenre.ADAB
     if "جزء" in title:
         return HadithSubgenre.JUZ
     if "مصنف" in title:
