@@ -35,9 +35,10 @@ The source engine build is active. Spec frozen 2026-04-15 (104 atoms; closure wa
 **Pipeline steps implemented:** upload_receipt → freeze_and_manifest → container_classification → intake_analysis → metadata_deliberation → source_admission_and_normalization_handoff.
 
 **What's needed next (priority order):**
-1. **Close the 3 deferred SPEC atoms** — DEC-SRC-0003 (level detection strategy), OQ-SRC-0001 (level detection ownership), OQ-SRC-0005 (agent monitoring scope). Dispatch DR on each; session-start hook reports dispatch counter at 194h overdue.
-2. **Plan Phase 5 (agent layer)** — per memory `source_engine_build_session.md`, agent-based scholar matching needs a DR question drafted and relayed. Run through `/prompt-architect` before dispatch.
-3. **Prune MCP inventory** — current load is ≥9 servers against the ≤5 cap in `context-management.md`. Remove duplicates (`plugin_context7` vs `claude_ai_Context7`), resolve `memory` vs `claude-mem` overlap, drop `Google_Drive` and reassess `exa` vs `tavily`. Reclaims context budget for SPEC rules, Arabic handling, D-023 semantics.
+1. **Close the 1 remaining deferred SPEC atom** — OQ-SRC-0005 (agent monitoring scope). DEC-SRC-0003 was closed Phase 5b item 7 (2026-04-23, OWN_SYNTHESIS adjudication 3-of-3 UNANIMOUS HIGH); OQ-SRC-0001 was superseded. validate_spec reports `deferred=1` (OQ-SRC-0005 only). FU-27 closure already removed OQ-SRC-0005 from DEC-SRC-0004.depends_on and REQ-SRC-0008.depends_on (Cycles 1+2), so the question is now a leaf in the dependency graph and can be resolved in isolation.
+2. **Close FU-18** — only remaining open follow-up: taxonomy expansion for scholarly-nuance dispute-tier severity beyond fatal/blocking/warning. Substantive — would benefit from a fresh 4-evaluator dispatch wave (similar scope to FU-36) per `.claude/rules/no-single-model-conclusion.md`. Recommend fresh session.
+3. **Plan Phase 5 (agent layer)** — per memory `source_engine_build_session.md`, agent-based scholar matching needs a DR question drafted and relayed. Run through `/prompt-architect` before dispatch.
+4. **Prune MCP inventory** — current load is ≥9 servers against the ≤5 cap in `context-management.md`. Remove duplicates (`plugin_context7` vs `claude_ai_Context7`), resolve `memory` vs `claude-mem` overlap, drop `Google_Drive` and reassess `exa` vs `tavily`. Reclaims context budget for SPEC rules, Arabic handling, D-023 semantics.
 
 **Paused work (preserved checkpoints):**
 - **Excerpting:** frozen at 1008 pass, 0 fail, 4 xfail. Budget EUR 36.70 / 100.00. Checkpoint: `reference/handoffs/excerpting_pause_checkpoint_2026-04-08.md`. Do not resume until source engine reaches Phase 5 readiness.
