@@ -1,6 +1,6 @@
 schema_version: '1.0'
 engine: source
-updated: '2026-04-23'  # Phase 5b item 8 — DEC-SRC-0021 pre-Phase-5a migration strategy registered
+updated: '2026-04-29'  # OQ-SRC-0005 superseded in place; source-local monitor scope ratified
 atoms:
 - id: OF-SRC-0001
   type: feedback
@@ -522,7 +522,7 @@ atoms:
   file: 50-questions/OQ-SRC-0004.yaml
 - id: OQ-SRC-0005
   type: question
-  status: deferred
+  status: superseded
   title: Agent monitoring scope
   topic: agent_ergonomics
   priority: medium

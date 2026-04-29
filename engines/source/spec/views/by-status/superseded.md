@@ -5,6 +5,7 @@
 | OQ-SRC-0001 | question | Level detection ownership | superseded | medium |
 | OQ-SRC-0003 | question | Agent-team architecture design | superseded | critical |
 | OQ-SRC-0004 | question | Formal replacement for human_gate | superseded | high |
+| OQ-SRC-0005 | question | Agent monitoring scope | superseded | medium |
 | OQ-SRC-0006 | question | Ordering and display semantics for multi-position metadata | superseded | high |
 | OQ-SRC-0007 | question | Specialized research source inventory | superseded | medium |
 
@@ -46,6 +47,19 @@
   - OPT-A: Agent-gate module (likely)
   - OPT-B: Confidence threshold resolver (possible)
   - OPT-C: Supervisor veto (possible)
+
+### OQ-SRC-0005 — Agent monitoring scope
+- Type: question
+- Layer: questions
+- Step: n/a
+- Status: superseded
+- Priority: medium
+- Confidence: high
+- Source: Resolved 2026-04-29 by Codex CLI structural adjudication against confirmed source-engine-local monitor atoms DEC-SRC-0004, DEC-SRC-0013, REQ-SRC-0008, REQ-SRC-0028, and REQ-SRC-0029; original question derived from OF-SRC-0009 and previously narrowed per contract-architect-review.yaml.
+- Candidates:
+  - OPT-A: Source-engine monitors (possible)
+  - OPT-B: Pipeline-wide monitors (likely)
+  - OPT-C: Per-book monitors (unlikely)
 
 ### OQ-SRC-0006 — Ordering and display semantics for multi-position metadata
 - Type: question

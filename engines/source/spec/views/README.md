@@ -19,8 +19,7 @@
 | Status | Count |
 | --- | --- |
 | confirmed | 106 |
-| deferred | 1 |
-| superseded | 5 |
+| superseded | 6 |
 
 ## By Topic
 | Topic | Count |
@@ -100,7 +99,7 @@
 | OQ-SRC-0001 | question | questions | — | Level detection ownership | superseded | medium | metadata | 50-questions/OQ-SRC-0001.yaml |
 | OQ-SRC-0003 | question | questions | — | Agent-team architecture design | superseded | critical | agent_ergonomics | 50-questions/OQ-SRC-0003.yaml |
 | OQ-SRC-0004 | question | questions | — | Formal replacement for human_gate | superseded | high | consensus | 50-questions/OQ-SRC-0004.yaml |
-| OQ-SRC-0005 | question | questions | — | Agent monitoring scope | deferred | medium | agent_ergonomics | 50-questions/OQ-SRC-0005.yaml |
+| OQ-SRC-0005 | question | questions | — | Agent monitoring scope | superseded | medium | agent_ergonomics | 50-questions/OQ-SRC-0005.yaml |
 | OQ-SRC-0006 | question | questions | — | Ordering and display semantics for multi-position metadata | superseded | high | metadata | 50-questions/OQ-SRC-0006.yaml |
 | OQ-SRC-0007 | question | questions | — | Specialized research source inventory | superseded | medium | agent_ergonomics | 50-questions/OQ-SRC-0007.yaml |
 | REQ-SRC-0001 | requirement | pipeline | upload_receipt | Upload receipt and raw submission registration | confirmed | critical | acquisition | 10-pipeline/10-upload-receipt/REQ-SRC-0001.yaml |

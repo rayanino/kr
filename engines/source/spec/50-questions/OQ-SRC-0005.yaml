@@ -1,15 +1,19 @@
 id: OQ-SRC-0005
 type: question
-status: deferred
+status: superseded
 title: Agent monitoring scope
 topic: agent_ergonomics
 layer: questions
 priority: medium
-confidence: medium
-provenance: owner_interview
-source: Derived from OF-SRC-0009; narrowed per contract-architect-review.yaml
+confidence: high
+provenance: coworker_review
+source: >-
+  Resolved 2026-04-29 by Codex CLI structural adjudication against confirmed
+  source-engine-local monitor atoms DEC-SRC-0004, DEC-SRC-0013, REQ-SRC-0008,
+  REQ-SRC-0028, and REQ-SRC-0029; original question derived from OF-SRC-0009
+  and previously narrowed per contract-architect-review.yaml.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-29'
 depends_on:
 - OF-SRC-0009
 - DEC-SRC-0004
@@ -17,6 +21,19 @@ depends_on:
 impacts:
 - monitor_feedback
 - runtime_coverage
+rationale: >-
+  Superseded in place. The confirmed source-engine atoms already ratify OPT-A:
+  monitor_feedback is emitted inside the source engine's
+  metadata_deliberation step, attached to deliberation-cell completion and all
+  routing paths, including fast_track (REQ-SRC-0008, REQ-SRC-0028,
+  REQ-SRC-0029), within the trust workflow stabilized by DEC-SRC-0004 and the
+  deliberation-cell architecture formalized by DEC-SRC-0013. No confirmed atom
+  defines pipeline-wide monitor infrastructure or per-book monitor ownership
+  outside that step. This amendment introduces no new normative behavior; it
+  only closes the deferred question by recording the already-confirmed
+  source-engine-local monitor scope. The candidate set below is preserved as
+  historical record of alternatives considered before the de facto state was
+  ratified.
 candidates:
 - id: OPT-A
   label: Source-engine monitors
