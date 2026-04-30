@@ -579,6 +579,12 @@ class ErrorCode(str, Enum):
     HONORIFIC_ONLY_NAME = "SRC-E-HONORIFIC-ONLY-NAME"
     WORK_OUTPUT_MISSING = "SRC-E-WORK-OUTPUT-MISSING"
     WORK_EVIDENCE = "SRC-E-WORK-EVIDENCE"
+    # Step 50 — Phase 5 scholar-matching (REQ-SRC-0049 + REQ-SRC-0042 amendment +
+    # CON-SRC-0008 + INV-SRC-0017). SRC-E-HONORIFIC-ONLY-NAME above is REUSED
+    # for the under-spec-fragment case per ChatGPT DR finding; not duplicated.
+    SCHOLAR_NO_MATCH = "SRC-E-SCHOLAR-NO-MATCH"
+    REGISTRY_SNAPSHOT_DRIFT = "SRC-E-REGISTRY-SNAPSHOT-DRIFT"
+    RUNTIME_EXTERNAL = "SRC-E-RUNTIME-EXTERNAL"
     # Step 60 — source_admission_and_normalization_handoff
     PREMATURE_ADMISSION = "SRC-E-PREMATURE-ADMISSION"
     INVALID_ADMISSION = "SRC-E-INVALID-ADMISSION"
