@@ -44,21 +44,21 @@ Tracked limitations discovered during build. Not bugs (code matches its current 
 
 ---
 
-## Cross-cutting note: Phase 5 architectural decision will likely obsolete L-SCH-001 through L-SCH-004
+## Cross-cutting note: Phase 5 IMPLEMENTATION will resolve L-SCH-001 through L-SCH-004
 
-**Status as of 2026-04-29:** Phase 5 cross-provider DR has returned both per-DR digests. Stage 3 cross-provider synthesis is pending in a fresh session (per `memory/phase5_dr_chatgpt_digest_20260429.md` Stage 3 trigger). Both DRs converged on OPT-4 (2-stage deterministic-then-LLM consensus). When Stage 3 + Stage 4 produce SPEC atom amendments, the matching-algorithm rewrite will likely:
+**Status as of 2026-04-30 (post-Stage-4 closure at commit `e91c142cc`):** Stage 4 atom set has LANDED. The 12 new atoms (REQ-SRC-0049 through 0053; CON-SRC-0008/0009; INV-SRC-0013 through 0017) + 6 amendments to existing atoms (REQ-SRC-0008/0028/0035/0042/0043; DEC-SRC-0013) + shared/scholar_authority/SPEC.md amendments at §4.A.2 + §6 + §7 are MERGED. Codex CLI structural review CONFIRM_HIGH at HIGH confidence (round 2 of 2). Phase 5 implementation phase is now the ACTIVE next sub-frontier (per NEXT.md priority 1). The compute_scholar_match_score rewrite per OPT-4 (2-stage deterministic-then-LLM consensus) will:
 - Replace `compute_scholar_match_score` with a Stage-1 deterministic narrowing function + Stage-2 verifier scoring
 - Re-weight signals based on Stage 3's adjudication of work-title-as-deterministic-index (ChatGPT DR pivot) vs work-title-as-Stage-2-scoring (Claude DR + existing)
 - Adopt teacher-student-overlap as either a Stage-1 narrowing channel or a Stage-2 scoring signal (per ChatGPT DR §3b line 117 — `teacher_student_network_match` as 1 of 9 sub-scores)
 - Calibrate against a 50-scholar gold seed per SPEC §10 line 460
 - Possibly add work-title-to-canonical-id index (ChatGPT DR §3a Stage 5 + §3d line 191)
 
-When Stage 4 lands, this KNOWN_LIMITATIONS.md should be re-evaluated:
-- L-SCH-001 (missing teacher-student): likely RESOLVED by Phase 5 implementation
-- L-SCH-002 (weight drift): likely RESOLVED by Phase 5 calibration; the new weights must be CONSTRAINT_REGISTRY.md-backed
-- L-SCH-003 (docstring section reference): likely RESOLVED by code rewrite (new docstrings reference new SPEC structure)
-- L-SCH-004 (uncalibrated weights): likely RESOLVED by gold-seed calibration
+Stage 4 has now landed. This KNOWN_LIMITATIONS.md should be re-evaluated when Phase 5 implementation completes:
+- L-SCH-001 (missing teacher-student): expected RESOLVED by Phase 5 implementation (REQ-SRC-0051 + REQ-SRC-0052 + INV-SRC-0013 ≥2-non-name floor effectively require teacher-student-overlap as a corroborating signal class)
+- L-SCH-002 (weight drift): expected RESOLVED by Phase 5 calibration; the new weights must be CONSTRAINT_REGISTRY.md-backed per `.claude/rules/constraint-origin-trace.md`
+- L-SCH-003 (docstring section reference): expected RESOLVED by code rewrite (new docstrings will reference Phase 5 atoms REQ-SRC-0051/0052/0053 + CON-SRC-0008/0009 + INV-SRC-0013 through 0017 instead of legacy §4.A.5)
+- L-SCH-004 (uncalibrated weights): expected RESOLVED by gold-seed calibration per SPEC §10 line 460 (50-scholar gold seed)
 
-The fix point for all four limitations is therefore "Phase 5 Stage 4 implementation," not a standalone fix session.
+The fix point for all four limitations is therefore "Phase 5 implementation phase," now teed up immediately following the Stage 4 closure.
 
-**Why document now if Phase 5 will obsolete:** Visibility insurance. If Phase 5 implementation forgets to address one of these (e.g., implements OPT-4 but reuses the existing 4-signal weighted-average for Stage-2 scoring), this file ensures the gap is caught at Phase 5 review time. Without this file, the drift would be invisible and likely re-introduced.
+**Why document still:** Visibility insurance. If Phase 5 implementation skips addressing one of these (e.g., implements OPT-4 but reuses the existing 4-signal weighted-average for Stage-2 scoring), this file ensures the gap is caught at Phase 5 implementation review time. Without this file, the drift would be invisible and likely re-introduced. After Phase 5 implementation lands, each limitation should be checked off and this file updated.
