@@ -1,0 +1,287 @@
+id: REQ-SRC-0053
+type: requirement
+status: confirmed
+title: Scholar disagreement routing with compound 4-condition threshold
+topic: consensus
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §2.4
+  (Pivot (d) compound 4-condition threshold adjudication) +
+  §5.2 (renumbered from ChatGPT DR's stale REQ-SRC-0048 to
+  REQ-SRC-0053 per repo verification — slot 0048 already taken
+  by "Deferred validation surface for owner_level_override").
+  Cross-provider DR sources: Claude DR §6 (single threshold
+  0.95) + ChatGPT DR §6 (compound 4-condition: mean ≥ 0.92 AND
+  each ≥ 0.90 AND no rival within 0.07 AND ≥2 corroborating
+  attributes beyond fragment). Synthesis adopts ChatGPT DR's
+  compound rule per knowledge-integrity primacy: strictly more
+  conservative in adversarial cases; rival-margin guard
+  closes a class of false-definitive errors that the flat
+  threshold would miss. 4-evaluator wave: 3-of-4 cross-
+  provider HIGH on Pivot (d) + 1 AMEND with partition fix
+  (Codex Stage-3 Defect 1 — threshold partition gap
+  [0.05, 0.07)). Codex Defect 1 reconciliation applied: the
+  disputed routing margin is widened to 0.07 so the
+  definitive / disputed / insufficient_evidence predicates
+  partition cleanly without the [0.05, 0.07) gap — Codex's
+  recommended fix path (cleaner: extend disputed routing to
+  "competing within 0.07 OR mean ∈ [0.75, 0.92)" per
+  closure §3.1 Defect 1).
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- REQ-SRC-0052
+- INV-SRC-0013
+- INV-SRC-0015
+impacts:
+- scholar_authority
+- scholar_match_cell_terminal
+- consensus_protocol
+- threshold_governance
+rationale: >-
+  The match cell's terminal — definitive vs disputed vs
+  insufficient_evidence — is the user-facing decision. A
+  flat single-threshold rule (Claude DR's 0.95) misses
+  important adversarial cases: (a) one strong verifier can
+  carry a weak verifier across the line if only the mean
+  is checked (the "each ≥ 0.90" guard prevents this); (b)
+  two distinct candidates both scoring > 0.90 is the
+  textbook ambiguous case classical methodology requires
+  to be flagged disputed (the "no rival within 0.07"
+  guard captures this); (c) any candidate without ≥2 non-
+  name corroboration violates classical methodology (the
+  ≥2-non-name floor from INV-SRC-0013 is the binding
+  constraint regardless of confidence numbers). The
+  compound threshold encodes all four guards as an AND
+  predicate; auditability is preserved because each
+  predicate logs its result individually (per
+  INV-SRC-0015 provenance completeness). Codex Stage-3
+  Defect 1 (threshold partition gap [0.05, 0.07))
+  identified that ChatGPT DR's draft used 0.07 for
+  definitive's no-rival guard but 0.05 for disputed's
+  competing-within-rival guard, leaving cases with rival
+  gap in [0.05, 0.07) silently under-specified. The
+  reconciliation widens disputed routing to 0.07 so the
+  predicates partition cleanly. Stage-4 Codex re-review
+  (2026-04-30) found a residual partition gap: the
+  convergent-identity-but-both_pass=false case (AC-2:
+  mean ≥ 0.92 with one verifier < 0.90, no close rival,
+  floor met) was not covered by any disputed sub-
+  predicate. Stage-4 closure adds disputed condition
+  (e) explicitly covering this case, restoring
+  exhaustiveness.
+behavior:
+  trigger: >-
+    Stage-2 verifier consensus (REQ-SRC-0052) has emitted
+    final round outputs (round-0 if converged at round-0;
+    round-1 otherwise); the orchestrator runs terminal
+    routing.
+  preconditions:
+  - >-
+    REQ-SRC-0052 has produced verifier outputs from at
+    least one round; INV-SRC-0016 chosen_id-closure has
+    been applied to all outputs (no F-4 hallucinations
+    pending).
+  - >-
+    The CON-SRC-0009 evidence packet's candidate_set is
+    available for the corroboration-count predicate.
+  - >-
+    The dossier_context (in CON-SRC-0009) is available
+    for the ≥2-non-name floor evaluation against the
+    eligible attribute set from INV-SRC-0013.
+  postconditions:
+  - >-
+    DEFINITIVE predicate (compound 4-condition AND) —
+    all 4 conditions MUST be true: (a) both verifiers'
+    final-round chosen_id is the same (convergent
+    identity); (b) mean confidence ≥ 0.92; (c) each
+    verifier's confidence ≥ 0.90; (d) no rival
+    candidate within 0.07 of leader confidence; AND
+    (e) the ≥2-non-name floor from INV-SRC-0013 is
+    satisfied (corroboration_count ≥ 2 on eligible
+    attributes). If ALL 5 conditions met → terminal =
+    DEFINITIVE, canonical_scholar_id = chosen_id,
+    confidence = mean, positions = empty.
+  - >-
+    DISPUTED predicate — ANY ONE of the following: (a)
+    convergent identity but mean ∈ [0.75, 0.92); OR
+    (b) verifiers diverge after round-1 (different
+    chosen_ids at round-1 final); OR (c) competing
+    candidates within 0.07 of leader (per Codex Defect
+    1 reconciliation: widened from 0.05 to 0.07 so the
+    [0.05, 0.07) partition gap closes; this matches
+    definitive's no-rival guard at exactly the same
+    threshold for clean partitioning); OR (d) ≥2-non-
+    name floor not met for any candidate even if
+    confidence numbers would otherwise pass; OR (e)
+    convergent identity at round-1 (same chosen_id)
+    but at least one verifier's confidence < 0.90
+    (both_pass=false) — even when mean ≥ 0.92, no
+    rival within 0.07, and ≥2-non-name floor met
+    (Stage-4 Codex re-review closure: previously the
+    partition left this case in a routing gap because
+    (a) excludes mean ≥ 0.92, (b) excludes
+    convergence, (c) requires close rival, and (d)
+    requires floor unmet — none covered the
+    convergent-but-both_pass=false case that AC-2
+    below exercises). If any condition true → terminal
+    = DISPUTED, positions[] populated with all
+    candidates that cleared the disputed floor (ranked
+    by mean confidence descending).
+  - >-
+    INSUFFICIENT_EVIDENCE predicate — ANY ONE of the
+    following: (a) no candidate scores ≥ 0.70 across
+    both verifiers; OR (b) ambiguity remains after
+    round cap (round-1 finalized as disputed but no
+    candidate cleared the disputed-floor of mean
+    0.75). If any condition true → terminal =
+    INSUFFICIENT_EVIDENCE, canonical_scholar_id = null,
+    positions = empty.
+  - >-
+    The 3 predicates are MUTUALLY EXCLUSIVE and JOINTLY
+    EXHAUSTIVE — every match-cell run terminates in
+    exactly one of the 3 states (per Codex Defect 1
+    reconciliation: the partition is exhaustive after
+    widening disputed to 0.07 AND adding the
+    convergent-identity-but-both_pass=false branch (e)
+    to disputed at Stage-4 closure).
+  - >-
+    provenance.threshold_audit records all 4 compound-
+    threshold predicates' results (mean_passes,
+    both_pass, no_rival_close, corroboration_count_ge_2)
+    plus the numeric backing values (mean_confidence,
+    leader_confidence, rival_confidence,
+    corroboration_count) per INV-SRC-0015.
+  error_conditions:
+  - condition: >-
+      The verifier output disagreement after round-1
+      cannot be cleanly classified — mean_confidence is
+      computable but corroboration_count cannot be
+      computed (e.g., dossier_context is empty).
+    action: >-
+      Default to DISPUTED terminal (the safer side of
+      the partition). positions[] populates with
+      whatever candidates have ≥0.70 individual
+      confidence. Log the missing-corroboration
+      condition for audit. Do NOT default to definitive.
+    severity: warning
+  - condition: >-
+      Multiple candidates ALL satisfy the compound 4-
+      condition predicate (theoretically a corner case
+      where 2 candidates have identical confidence
+      numbers and disjoint corroborating attributes).
+    action: >-
+      Default to DISPUTED terminal (definitive requires
+      a single chosen_id; if multiple candidates pass
+      definitive, the case is by definition disputed
+      because the "convergent identity" condition fails
+      via interpretive ambiguity). positions[]
+      populates with all qualifying candidates.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    Round-1 final: both verifiers converge on
+    chosen_id=sch_00042, confidences (0.95, 0.93). Mean
+    = 0.94 ≥ 0.92, both ≥ 0.90, no rival within 0.07,
+    ≥2 non-name attributes intersect.
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DEFINITIVE. canonical_scholar_id=sch_00042.
+    confidence=0.94. positions=empty. threshold_audit
+    records all 4 predicates true with backing values.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    Round-1 final: both verifiers converge on
+    chosen_id=sch_00042, confidences (0.99, 0.89).
+    Mean = 0.94 ≥ 0.92, but each ≥ 0.90 FAILS (0.89
+    < 0.90).
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DISPUTED. The "each ≥ 0.90" guard
+    prevents one strong verifier from carrying a weak
+    one. positions[] populated. threshold_audit
+    records both_pass=false (the binding failure)
+    along with the other 3 predicate values.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    Round-1 final: both verifiers converge on
+    sch_00042 with confidences (0.95, 0.95) but a
+    rival candidate sch_00115 has aggregated
+    confidence 0.91. Rival gap = 0.04 < 0.07.
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DISPUTED. The "no rival within 0.07"
+    guard fires (gap 0.04 < 0.07). positions[]
+    populated with both sch_00042 (leader) and
+    sch_00115 (rival). threshold_audit records
+    no_rival_close=false with rival gap 0.04 numeric
+    backing. This AC documents the textbook
+    ambiguous case classical methodology flags as
+    disputed.
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    Round-1 final: confidences satisfy all numeric
+    predicates (mean 0.95, each ≥ 0.94, no rival within
+    0.07) but only 1 non-name attribute intersects
+    between dossier and registry (INV-SRC-0013
+    floor unmet).
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DISPUTED. INV-SRC-0013 ≥2-non-name
+    floor is the binding constraint regardless of
+    confidence values. positions[] populated.
+    threshold_audit records corroboration_count_ge_2=
+    false with corroboration_count=1 numeric backing.
+  test_type: deterministic
+- id: AC-5
+  given: >-
+    Round-1 final with rival gap exactly = 0.06 (in
+    the previously-under-specified [0.05, 0.07)
+    range identified by Codex Stage-3 Defect 1).
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DISPUTED. The widened disputed-routing
+    margin (0.07 per Codex Defect 1 reconciliation)
+    captures this case cleanly. The previously
+    under-specified gap [0.05, 0.07) is now closed:
+    rival gaps in this range route to disputed (as
+    the synthesis intended). threshold_audit records
+    no_rival_close=false with rival gap 0.06 backing.
+  test_type: deterministic
+- id: AC-6
+  given: >-
+    Round-1 final: no candidate has confidence ≥ 0.70
+    across both verifiers (max individual confidence
+    is 0.65).
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = INSUFFICIENT_EVIDENCE. canonical_scholar_id=
+    null. positions=empty. threshold_audit records
+    which predicate failed (no candidate ≥ 0.70 floor)
+    with full backing values. The case is preserved
+    for future re-attribution against a richer
+    registry release.
+  test_type: deterministic
+- id: AC-7
+  given: >-
+    Round-1 final: verifiers diverge — verifier A
+    chose sch_00042 at 0.88; verifier B chose sch_00115
+    at 0.86. Adversarial round-1 did not collapse
+    the disagreement.
+  when: REQ-SRC-0053 routing runs
+  then: >-
+    Terminal = DISPUTED. The "verifiers diverge after
+    round-1" condition fires. positions[] populated
+    with both candidates. canonical_scholar_id is the
+    leading id (sch_00042 by 0.88 vs 0.86 +
+    aggregated rival score). threshold_audit records
+    the specific failure (verifier_disagreement=true).
+  test_type: deterministic

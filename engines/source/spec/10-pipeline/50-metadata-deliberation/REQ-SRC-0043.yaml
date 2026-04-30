@@ -8,17 +8,41 @@ step: metadata_deliberation
 priority: high
 confidence: high
 provenance: coworker_review
-source: "Adversary-attribution review ADV-ATT-008 finding that no atom specifies how a newly discovered author enters the scholar_authority registry."
+source: >-
+  Adversary-attribution review ADV-ATT-008 finding that no
+  atom specifies how a newly discovered author enters the
+  scholar_authority registry. Phase 5 amendment 2026-04-30
+  (scholar-matching DR synthesis §5.4): CLARIFY provisional
+  registration is permitted ONLY after the match cell
+  concludes "new scholar" (CON-SRC-0008.disambiguation_state =
+  insufficient_evidence with no candidate clearing the floor
+  AND the synthesis verifiers converged that this is a new
+  identity), NOT during unresolved ambiguity. A disputed
+  match-call result (disambiguation_state=disputed) DOES
+  NOT trigger provisional creation — the case is preserved
+  for re-attribution against a richer registry release per
+  INV-SRC-0017 explicit-replay rule. Provisional → confirmed
+  promotion: when a second distinct book by the same
+  provisional scholar enters the pipeline AND independent
+  corroborating evidence accumulates (≥2-non-name floor met
+  per INV-SRC-0013 across the two sources combined). Aligns
+  with knowledge-integrity primacy and Owner Principle 3
+  (zero-tolerance for attribution errors).
 created: '2026-04-15'
-updated: '2026-04-15'
+updated: '2026-04-30'
 depends_on:
 - REQ-SRC-0004
 - REQ-SRC-0015
 - INV-SRC-0007
+- CON-SRC-0008
+- INV-SRC-0013
+- INV-SRC-0017
+- REQ-SRC-0053
 impacts:
 - scholar_authority
 - trust_evaluation
 - registry_growth
+- provisional_lifecycle
 rationale: >-
   The pipeline processes books by authors who may not yet exist in
   scholar_authority. Without a defined registration path, these authors
@@ -26,14 +50,16 @@ rationale: >-
   ad-hoc entries with no status tracking. This atom defines the
   provisional-to-confirmed lifecycle for new scholar entries.
 behavior:
-  trigger: Attribution identifies an author not present in scholar_authority.
+  trigger: Attribution identifies an author not present in scholar_authority AND the match cell (REQ-SRC-0049 through REQ-SRC-0053) has finalized the case as new-scholar (insufficient_evidence with no candidate clearing the floor + verifier convergence on "new identity" interpretation).
   preconditions:
   - "author_output has a canonical identity (display_name and at least one of death_hijri or nisba_tokens) that does not match any existing scholar_authority entry by canonical_id or name+death_hijri lookup."
+  - "Phase 5 amendment 2026-04-30: the scholar_match_cell (REQ-SRC-0049 through REQ-SRC-0053) has emitted a CON-SRC-0008 ScholarMatchResult with disambiguation_state=insufficient_evidence. The disputed terminal does NOT permit provisional registration (preserves the case for explicit replay per INV-SRC-0017 against a future registry release that may resolve the ambiguity)."
   postconditions:
   - "A provisional scholar_authority entry is created with status=provisional, containing: canonical_id (auto-assigned), display_name, full_name_lineage (best available from source evidence), death_hijri (if known, otherwise null), primary_science (inferred from source science_scope), authority_level=unknown, and source_book_ids listing the book that triggered creation."
-  - "Provisional entries are usable by downstream processing (REQ-SRC-0042 scholar profile lookup returns them) but are flagged in trust evaluation: trust fast-track (REQ-SRC-0015) is NOT eligible for sources attributed to provisional scholars."
-  - "When a second distinct book by the same provisional scholar enters the pipeline and its evidence is consistent with the existing entry (display_name overlap and death_hijri match or both null), the entry is promoted to status=confirmed and authority_level is re-evaluated from unknown."
+  - "Provisional entries are usable by downstream processing (REQ-SRC-0042 scholar profile lookup returns them) but are flagged in trust evaluation: trust fast-track (REQ-SRC-0015) is NOT eligible for sources attributed to provisional scholars (per REQ-SRC-0028 Phase 5 amendment partial_fragment_author_identity routing)."
+  - "When a second distinct book by the same provisional scholar enters the pipeline and its evidence is consistent with the existing entry (display_name overlap and death_hijri match or both null) AND the combined evidence across the two sources satisfies INV-SRC-0013 ≥2-non-name floor, the entry is promoted to status=confirmed and authority_level is re-evaluated from unknown. Promotion without ≥2-non-name floor satisfaction is NOT permitted (Phase 5 amendment 2026-04-30)."
   - "The entry records evidence_sources as an array of objects each containing book_id, evidence_type (metadata_card, title_page, colophon, agent_inference), and the raw evidence string."
+  - "Phase 5 amendment 2026-04-30: a disputed match-call result (CON-SRC-0008.disambiguation_state=disputed) does NOT trigger provisional creation. The disputed case is preserved with positions[] populated for future re-attribution per INV-SRC-0017 explicit-replay rule; if a later registry release resolves the ambiguity, the disputed result is replayed."
   error_conditions:
   - condition: "The new scholar's display_name matches an existing scholar_authority entry but death_hijri differs by more than 50 years or one is null and the other is populated."
     action: "Create a separate entry with a unique canonical_id. Add a disambiguation_note to both entries referencing the other. Log the near-collision for future human review."

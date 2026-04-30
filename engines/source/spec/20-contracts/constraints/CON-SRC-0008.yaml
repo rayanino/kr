@@ -1,0 +1,214 @@
+id: CON-SRC-0008
+type: constraint
+status: confirmed
+title: ScholarMatchResult contract — match-call output with dual state surface
+topic: metadata
+layer: contracts
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.1
+  immediately-usable atom (CON-SRC-0008 verified clean against
+  engines/source/spec/INDEX.yaml — slot not previously taken).
+  ChatGPT DR §3d originated the result shape; cross-provider
+  2-of-2 ratification on the 3-state output. Synthesis §3.1
+  ChatGPT DR analytical advantage absorbed: 5-state
+  ScholarAuthorityRecord.status preservation
+  (engines/source/contracts.py:688-694 retains its existing
+  lifecycle unchanged). Codex Stage-3 Defect 3 (3-state vs
+  5-state surface contradiction) fix: this contract carries
+  BOTH state surfaces — disambiguation_state (3-state, this
+  match call) and record_status (5-state, lifecycle of the
+  referenced record). Codex Stage-3 Defect 2 (provenance
+  naming): registry_release_version is the canonical name
+  (snapshot_version is FORBIDDEN as a field name). Synthesis
+  §3.2 ChatGPT DR analytical advantage absorbed: teacher-
+  student fields and teacher_student_network_match scoring
+  signal preserved. Synthesis §4.1 common-gap preserved:
+  career_phases interaction via matched_phase.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- DEC-SRC-0013
+- CON-SRC-0009
+- REQ-SRC-0042
+impacts:
+- scholar_authority
+- scholar_match_cell_output
+- display_card
+- audit_trail
+rationale: >-
+  The match call must produce a contract that simultaneously
+  answers two distinct questions: (1) "what is the result of
+  THIS attribution call?" (3-state: definitive / disputed /
+  insufficient_evidence) and (2) "what is the lifecycle status
+  of the referenced registry record?" (5-state: provisional /
+  confirmed / merged_into / split_disputed / deprecated). The
+  Codex Stage-3 Defect 3 finding identified that the synthesis
+  §3.1 promised "the result reports both states" but the field
+  list as drafted exposed only the 3-state. This contract
+  closes the gap: BOTH states are first-class fields on the
+  result. The orthogonality matters semantically — a match call
+  may yield disambiguation_state=definitive against a record
+  whose record_status=provisional (the match is conclusive but
+  the registry record is still being enriched); flattening the
+  two would silently drop information either way. The contract
+  also enforces ChatGPT DR's existing-error-code citation
+  discipline — every disambiguation_state value cites its
+  corresponding closure-surface failure mode (F-1 through F-7)
+  for audit traceability.
+rule:
+  statement: >-
+    The ScholarMatchResult contract has the following required
+    fields: (1) canonical_scholar_id — Optional[str]; populated
+    when disambiguation_state=definitive, populated with the
+    leading-confidence chosen_id when disambiguation_state=
+    disputed (the lower-confidence positions are in
+    positions[]), null when disambiguation_state=
+    insufficient_evidence. (2) confidence — float in [0.0, 1.0];
+    the mean confidence across the two Stage-2 verifiers for
+    the chosen_id (or null if insufficient_evidence). (3)
+    disambiguation_state — Literal["definitive", "disputed",
+    "insufficient_evidence"]; the 3-state output of THIS match
+    call. (4) record_status — Optional[Literal["provisional",
+    "confirmed", "merged_into", "split_disputed",
+    "deprecated"]]; the 5-state lifecycle status of the
+    canonical_scholar_id record at the time the match call ran
+    (sourced from ScholarAuthorityRecord.status at
+    engines/source/contracts.py:688-694). Null when
+    canonical_scholar_id is null. NOT a required match-call
+    decision; this is the orthogonal record-lifecycle surface.
+    (5) evidence_sources — list[CitationRef]; non-empty when
+    disambiguation_state ∈ {definitive, disputed} per
+    INV-SRC-0015 provenance-completeness invariant. Each
+    CitationRef carries source_book_id, evidence_type
+    (metadata_card / title_page / colophon / agent_inference /
+    work_title_match / teacher_student_link / external_anchor),
+    and the raw evidence string. (6) positions — list[Position];
+    populated iff disambiguation_state=disputed. Each Position
+    carries canonical_id, confidence (per-verifier and
+    aggregated), score_breakdown (the 9 sub-scores per ChatGPT
+    DR §3b: name_match, death_date_proximity,
+    school_affiliation_overlap, work_title_match,
+    teacher_student_network_match, geographic_origin_match,
+    century_active_match, primary_science_match,
+    secondary_sciences_overlap), why_not_other_candidate
+    (qualitative), cited_evidence (list[CitationRef]). (7)
+    provenance — ScholarMatchProvenance object containing:
+    stage_1_score_breakdown (Stage-1 channel contributions per
+    candidate from REQ-SRC-0051), stage_2_verifier_record (
+    verifier_a_id, verifier_b_id, verifier_a_seed,
+    verifier_b_seed, verifier_a_prompt_template_hash,
+    verifier_b_prompt_template_hash, round_count [1 or 2]),
+    threshold_audit (4 predicate values from REQ-SRC-0053
+    compound threshold: mean_passes [bool], both_pass [bool],
+    no_rival_close [bool], corroboration_count_ge_2 [bool] —
+    plus the actual mean confidence, leader confidence, rival
+    confidence, and corroboration_count integer for full
+    auditability), registry_release_version (str; the pinned
+    snapshot from REQ-SRC-0049 — the canonical field name;
+    snapshot_version is FORBIDDEN per Codex Stage-3 Defect 2),
+    matched_phase (Optional[CareerPhaseRef]; populated when the
+    dossier signals a specific career phase per
+    shared/scholar_authority/SPEC.md §4.A.7). The contract is
+    immutable post-emission.
+  implication: >-
+    Any ScholarMatchResult that omits required fields, that
+    populates positions[] when disambiguation_state ≠ disputed,
+    that uses snapshot_version instead of
+    registry_release_version, that flattens the two state
+    surfaces (omits record_status), or that lacks
+    threshold_audit when disambiguation_state=definitive
+    violates this contract. Audit reproducibility breaks if
+    threshold_audit is missing (the 4 predicates are the
+    transparency surface for the definitive verdict). State
+    flattening silently drops information about the registry
+    record's lifecycle — a definitive match against a
+    provisional record signals the call should be reconsidered
+    when the record promotes to confirmed; without the
+    record_status field, this signal is invisible.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A match call resolves to disambiguation_state=definitive
+    with canonical_scholar_id=sch_00042 (Ibn Ḥajar al-ʿAsqalānī)
+    and the registry record at sch_00042 has status=confirmed.
+  when: ScholarMatchResult is emitted
+  then: >-
+    canonical_scholar_id="sch_00042"; confidence (mean of
+    Stage-2 verifiers) is populated; disambiguation_state=
+    "definitive"; record_status="confirmed"; evidence_sources
+    is non-empty; positions is empty (definitive does not
+    populate positions); provenance.threshold_audit shows
+    all 4 compound-threshold predicates as true with their
+    numeric backing values; provenance.registry_release_
+    version is set; matched_phase is null (al-ʿAsqalānī
+    has no career phases modeled).
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A match call resolves to disambiguation_state=disputed
+    after round-1 fails to converge; two candidates remain
+    competing within 0.07 of leader (per REQ-SRC-0053
+    disputed routing).
+  when: ScholarMatchResult is emitted
+  then: >-
+    canonical_scholar_id is the leading-confidence id (top of
+    positions[0]); disambiguation_state="disputed";
+    record_status reflects the leading id's record lifecycle;
+    positions[] has length ≥ 2 with full 9-feature
+    score_breakdown per position; each Position has cited_
+    evidence non-empty; provenance.threshold_audit shows
+    which predicate failed (mean_passes, both_pass,
+    no_rival_close, or corroboration_count_ge_2 — at least
+    one is false).
+  test_type: integration
+- id: AC-3
+  given: >-
+    A match call resolves to disambiguation_state=
+    insufficient_evidence (no candidate ≥0.70 or ≥2-non-name
+    floor unmet for any candidate).
+  when: ScholarMatchResult is emitted
+  then: >-
+    canonical_scholar_id is null; confidence is null;
+    disambiguation_state="insufficient_evidence";
+    record_status is null; evidence_sources may be empty
+    (no positive identification); positions is empty;
+    provenance.threshold_audit shows the failure path
+    (which predicate was the binding constraint) with full
+    numeric backing values for audit.
+  test_type: integration
+- id: AC-4
+  given: >-
+    A match call against fragment "أحمد بن حنبل" resolves
+    definitively against a registry record whose
+    record_status=provisional (the registry has only one
+    book attributing material to this scholar so far per
+    REQ-SRC-0043 lifecycle).
+  when: ScholarMatchResult is emitted
+  then: >-
+    disambiguation_state="definitive"; record_status=
+    "provisional". The two state surfaces are independently
+    correct: the match is conclusive but the registry
+    record is still in the early lifecycle. The result is
+    valid; downstream consumers (REQ-SRC-0035 display
+    card) may surface BOTH states (e.g., "أحمد بن حنبل —
+    أمير المؤمنين في الحديث (provisional record)").
+  test_type: integration
+- id: AC-5
+  given: >-
+    A ScholarMatchResult attempt that uses field name
+    "snapshot_version" instead of "registry_release_version"
+    in provenance.
+  when: the contract validator inspects the result
+  then: >-
+    The result is REJECTED. Codex Stage-3 Defect 2 fix is
+    enforced: the canonical name is registry_release_
+    version. snapshot_version is FORBIDDEN at the contract
+    layer to prevent naming drift. Validator emits a clear
+    error identifying the forbidden field name and pointing
+    to REQ-SRC-0049 + INV-SRC-0017 + this contract for the
+    canonical name.
+  test_type: deterministic

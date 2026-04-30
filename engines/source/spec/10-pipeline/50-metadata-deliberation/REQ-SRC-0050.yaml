@@ -1,0 +1,195 @@
+id: REQ-SRC-0050
+type: requirement
+status: confirmed
+title: Scholar fragment normalization and 5-component parsing
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.2
+  (renumbered from ChatGPT DR's stale REQ-SRC-0045 to
+  REQ-SRC-0050 per repo verification — slot 0045 already taken
+  by "Supersession signal emission on source admission"). 5-
+  component name parsing per
+  .claude/rules/arabic-scholarly-conventions.md (ism / kunyah /
+  nasab_chain / laqab / nisba_list). Honorific strip-from-match-
+  key per existing shared/scholar_authority/src/name_matching.py
+  honorific list (referenced by INV-SRC-0014 strict-ordering
+  invariant). Compound-name preservation (عبد + divine
+  attribute = single semantic unit) per
+  arabic-scholarly-conventions.md compound-name rule.
+  Cross-provider 2-of-2 ratified: F-5 (compound name split)
+  closure surface per synthesis §1.4. Primary text immutability
+  per Critical Rule 2 — match keys are derived; primary
+  display strings are byte-identical to the source.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- REQ-SRC-0014
+- REQ-SRC-0015
+- INV-SRC-0014
+impacts:
+- scholar_authority
+- author_attribution
+- match_key_construction
+- match_call_input_packet
+rationale: >-
+  Scholar fragments arrive in many shapes — full name with
+  honorific (الإمام البخاري), single token (سيبويه), kunyah
+  only (أبو حنيفة), partial nasab chain (ابن قدامة), or
+  ambiguous combinations. Downstream candidate generation
+  (REQ-SRC-0051) requires a stable, canonical decomposition
+  into the 5 classical name components plus a derived
+  match key. Without this normalization layer, candidate
+  generation would have to handle fragment-shape variation
+  inside its candidate-side trigram and channel logic,
+  multiplying the failure modes. The 5-component
+  decomposition is also the substrate that
+  arabic-scholarly-conventions.md uses to express
+  attribution rules — encoding it as a structured spec
+  surface enables the match cell to reference the correct
+  component (e.g., "the kunyah is الإمام البخاري" is
+  detectable as honorific-prefixed kunyah, distinct from
+  "the ism is الإمام البخاري" which would be a category
+  error).
+behavior:
+  trigger: >-
+    The match-call orchestrator receives a scholar fragment
+    from author attribution (REQ-SRC-0004 / REQ-SRC-0014),
+    excerpting-engine quoted-scholar resolution, or
+    REQ-SRC-0042 scholar profile lookup.
+  preconditions:
+  - >-
+    The fragment text is in Arabic (UTF-8 encoded). Latin
+    transliteration is rejected at this boundary; if a
+    caller provides transliteration, the fragment is
+    rejected with SRC-E-FRAGMENT-NOT-ARABIC.
+  - >-
+    The fragment text has been validated against
+    .claude/rules/input-sanitization.md (encoding correct,
+    no mixed-encoding artifacts).
+  postconditions:
+  - >-
+    The fragment is decomposed into the 5 classical name
+    components: ism (given name), kunyah (teknonym such as
+    أبو X / أم X), nasab_chain (patronymic chain such as
+    ابن X بن Y), laqab (epithet such as قطب الدين), and
+    nisba_list (relational adjectives such as البصري,
+    الدمشقي, الأشعري). Each component may be null or
+    empty; any-null-result is permitted.
+  - >-
+    Compound-name units are preserved as single tokens —
+    عبد + divine attribute (عبد الله, عبد الرحمن,
+    عبد الرحيم, عبد الرزاق, عبد العزيز, عبد الكريم,
+    عبد المجيد, عبد الجبار, عبد القادر, عبد الستار,
+    etc.) MUST NOT be split at whitespace into separate
+    tokens. The compound is a single semantic unit per
+    arabic-scholarly-conventions.md.
+  - >-
+    The display_fragment (the original fragment with
+    honorifics PRESERVED for display) is stored
+    byte-identical to the input per Critical Rule 2.
+  - >-
+    The match_key (derived for candidate-generation
+    lookup) is constructed per INV-SRC-0014 three-stage
+    ordering: (1) invisible-Unicode strip, (2) honorific
+    normalization, (3) match-key construction. The
+    match_key is a derived field; primary text is never
+    modified.
+  - >-
+    parsed_components, display_fragment, and match_key
+    are emitted as a structured packet feeding into
+    REQ-SRC-0051 deterministic candidate generation and
+    CON-SRC-0009 evidence packet construction.
+  error_conditions:
+  - condition: >-
+      The fragment text is not Arabic (Latin transliteration,
+      empty string, mixed-encoding artifact).
+    action: >-
+      Reject the fragment with SRC-E-FRAGMENT-NOT-ARABIC
+      (new code). The match call cannot proceed without a
+      well-formed Arabic fragment. Caller is informed.
+    severity: blocking
+  - condition: >-
+      The fragment normalizes to a match_key that contains
+      ONLY honorifics after the three-stage strip (the
+      caller provided an honorific-shell with no name
+      token).
+    action: >-
+      Abort the match call with SRC-E-HONORIFIC-ONLY-NAME
+      (existing code from contracts.py:579). This satisfies
+      the F-6 closure surface per synthesis §1.4.
+    severity: blocking
+  - condition: >-
+      Compound-name decomposition fails (the parser splits
+      عبد + divine attribute into separate tokens).
+    action: >-
+      Reject the parser output with
+      SRC-E-COMPOUND-NAME-SPLIT (new code; F-5 closure
+      surface per synthesis §1.4). The match call cannot
+      proceed because attribution to the wrong scholar is
+      a critical risk if the compound is mis-tokenized.
+      The fragment is re-tokenized with the
+      compound-name lexicon enforced, and the match call
+      restarts from this step.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    Fragment "الإمام البخاري" (full honorific + nisba).
+  when: REQ-SRC-0050 normalization runs
+  then: >-
+    parsed_components.nisba_list = ["البخاري"];
+    parsed_components.ism = null; parsed_components.kunyah
+    = null. display_fragment = "الإمام البخاري"
+    (byte-identical preserved). match_key = "البخاري"
+    (honorific stripped per INV-SRC-0014). No error.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    Fragment "عبد الله بن المبارك" (compound name + nasab).
+  when: REQ-SRC-0050 normalization runs
+  then: >-
+    parsed_components.ism = "عبد الله" (compound preserved
+    as single semantic unit, NOT split into "عبد" and
+    "الله"); parsed_components.nasab_chain = ["ابن
+    المبارك"]. The compound rule is enforced. No
+    SRC-E-COMPOUND-NAME-SPLIT error.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    Fragment "أبو حنيفة النعمان بن ثابت الكوفي" (kunyah +
+    ism + nasab + nisba).
+  when: REQ-SRC-0050 normalization runs
+  then: >-
+    parsed_components.kunyah = "أبو حنيفة";
+    parsed_components.ism = "النعمان";
+    parsed_components.nasab_chain = ["بن ثابت"];
+    parsed_components.nisba_list = ["الكوفي"]. All four
+    components populated; laqab = null. match_key
+    contains all four (no honorifics to strip).
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    Fragment "الشيخ" only (honorific-shell input from a
+    miscalled lookup).
+  when: REQ-SRC-0050 normalization runs
+  then: >-
+    Stage-1 bidi-strip (no marks) → Stage-2 honorific-strip
+    removes الشيخ → match_key is empty. Match call aborts
+    with SRC-E-HONORIFIC-ONLY-NAME per F-6 closure
+    surface.
+  test_type: deterministic
+- id: AC-5
+  given: >-
+    Fragment "Sibawayh" (Latin transliteration provided to
+    a match-call boundary that requires Arabic).
+  when: REQ-SRC-0050 normalization runs
+  then: >-
+    The fragment is rejected with
+    SRC-E-FRAGMENT-NOT-ARABIC. Caller receives the error
+    and the match call does not proceed.
+  test_type: deterministic

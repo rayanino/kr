@@ -1,0 +1,300 @@
+id: REQ-SRC-0051
+type: requirement
+status: confirmed
+title: Deterministic scholar candidate generation with work-title channel
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §2.1
+  (Pivot (a) work-title-as-deterministic-index ADOPT WITH GUARDS)
+  + §5.2 (renumbered from ChatGPT DR's stale REQ-SRC-0046 to
+  REQ-SRC-0051 per repo verification — slot 0046 already taken
+  by "Evidence preservation for downstream level inference").
+  4-evaluator wave: 3-of-4 cross-provider HIGH on Pivot (a) +
+  arabic-reviewer AMEND with operationalization fix (list-size
+  guard N=3). Stage-4 absorbs all 4 substantive arabic-reviewer
+  inputs landing on this atom: (1) Defect 5 list-size guard,
+  (2) Novel Finding 2 work-title normalization function spec
+  (allowed/forbidden), (3) Novel Finding 3 compound-title
+  decomposition (شرح + base / حاشية + base), and (4) reference
+  to INV-SRC-0014 strict-ordering for the match-key honorific
+  exclusion. Cross-provider 2-of-2 on K cap (8 standard / 12
+  degraded). Compound-name preservation per REQ-SRC-0050 + F-5
+  closure surface per synthesis §1.4.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- REQ-SRC-0049
+- REQ-SRC-0050
+- INV-SRC-0014
+impacts:
+- scholar_authority
+- scholar_match_cell_stage_1
+- candidate_universe
+- evidence_packet_input
+rationale: >-
+  Stage-1 of the scholar match cell (per DEC-SRC-0013
+  scholar_match_cell pattern) narrows the registry universe to
+  a manageable candidate set BEFORE Stage-2 LLM verifiers run.
+  Deterministic narrowing has three benefits: (1) it isolates
+  Critical Rule 13 (no runtime external) — the channels
+  operate exclusively on the locked snapshot from REQ-SRC-0049;
+  (2) it produces an auditable provenance trail (per-candidate
+  inclusion reason logged); (3) it bounds verifier cost by
+  feeding a fixed-size candidate_set to Stage-2.
+  The synthesis §2.1 adjudication promotes work-title-to-
+  canonical-id joins to a Stage-1 channel — a high-information
+  signal exploited without LLM cost. Empirical work-title
+  polysemy is guarded per arabic-reviewer Stage-3 finding:
+  common Arabic title tokens (مختصر, شرح, تهذيب) may resolve
+  to >50 canonical_ids in a populated registry, making the
+  channel functionally indistinguishable from a broad name-
+  component funnel without a list-size guard. The compound-
+  title decomposition rule (شرح صحيح مسلم → narrow on both
+  al-Nawawi as sharh author AND Muslim ibn al-Hajjaj as base-
+  work author) preserves both legitimate disambiguations.
+behavior:
+  trigger: >-
+    The match-call orchestrator enters Stage-1 candidate
+    generation for a normalized fragment from REQ-SRC-0050.
+  preconditions:
+  - >-
+    The scholar registry snapshot is locked per REQ-SRC-0049
+    (registry_release_version is pinned).
+  - >-
+    The fragment is normalized per REQ-SRC-0050 (5-component
+    parse + display_fragment + match_key all present).
+  - >-
+    The match-key construction has applied INV-SRC-0014
+    three-stage strict-ordering (invisible-Unicode strip →
+    honorific normalization → match-key build).
+  - >-
+    Side indexes are locally materialized: (a) name-trigram
+    index over canonical_name_ar + known_as + name_variants,
+    (b) work-title-to-canonical-id index per the work-title
+    channel below, (c) component-wise approximate index over
+    the 5 parsed components.
+  postconditions:
+  - >-
+    EXACT (deterministic) channels are queried first against
+    the locked snapshot: canonical_id direct lookup,
+    canonical_name_ar normalized exact, known_as[] exact,
+    kunya exact, death_date_hijri exact, nisba[] exact,
+    AND the work-title channel below.
+  - >-
+    Work-title channel — known_work_title_normalized →
+    list[canonical_id]. The channel applies normalization
+    ONLY to the match-key index (never to stored titles per
+    Critical Rule 2): ALLOWED diacritic strip + alef-variant
+    normalization (ا → آ / إ / أ unified for matching key
+    only); FORBIDDEN taa-marbuta normalization (preserves
+    الهداية vs الهدايه distinction critical to Hanafi
+    sources), FORBIDDEN Persian / Urdu / Kurdish character
+    normalization (پ U+067E, چ U+0686, گ U+06AF, ژ U+0698
+    are PRESERVED for non-Arab work titles such as گيلاني
+    works), FORBIDDEN ALL forms of Unicode NFC / NFD / NFKC /
+    NFKD normalization on the stored title.
+  - >-
+    Work-title list-size guard — if known_work_title_normalized
+    resolves to a list of size > N (default N = 3, calibrated
+    at implementation time per the implementation-phase
+    calibration corpus), the channel reverts to Stage-2
+    scoring signal only and DOES NOT contribute to Stage-1
+    deterministic narrowing. Sizes 1 - 3 promote to Stage-1
+    deterministic narrowing per the synthesis-ratified
+    channel design. Empty lists (size 0) make no contribution.
+  - >-
+    Compound-title decomposition — work titles matching
+    "شرح + [base title]" or "حاشية + [base title]" or
+    "تهذيب + [base title]" or "مختصر + [base title]"
+    decompose: extract base title as a SEPARATE Stage-1
+    narrowing channel for the base-work author, in addition
+    to the channel for the compound-work author. Example:
+    "شرح صحيح مسلم" → narrows on {al-Nawawi as sharh
+    author} ∪ {Muslim ibn al-Hajjaj as base-work author}.
+    Both channels feed into candidate_set; round-2 verifier
+    selection (REQ-SRC-0052 + REQ-SRC-0053) decides which
+    is the correct attribution for the dossier in question.
+  - >-
+    FUZZY channels run if exact channels surface fewer than
+    K candidates: full-name trigram similarity over
+    name_variants, component-wise approximate (Jaro-Winkler
+    on ism / nasab / nisba), work-title fuzzy via trigram on
+    normalized title.
+  - >-
+    K cap — candidate_set is capped at K = 8 for standard
+    cases and K = 12 for degraded cases (per the case
+    complexity assessment from REQ-SRC-0028). The cap is
+    applied AFTER all channel contributions are merged and
+    de-duplicated.
+  - >-
+    Compound-name preservation per REQ-SRC-0050 — the
+    pre-retrieval tokenization MUST preserve compound names
+    (عبد + divine attribute = single semantic unit). This
+    closes F-5 (compound name split) per synthesis §1.4.
+  - >-
+    Honorifics MUST NOT appear in match keys per
+    INV-SRC-0014 (the match-key construction has already
+    applied this exclusion in REQ-SRC-0050; this atom does
+    not re-apply, but consumes the exclusion-applied
+    match_key).
+  - >-
+    The output candidate_set feeds CON-SRC-0009 evidence
+    packet construction; each candidate carries
+    canonical_id, canonical_name_ar, score_breakdown
+    (per-channel contributions), and
+    provenance_for_inclusion (which Stage-1 channel
+    surfaced the candidate).
+  error_conditions:
+  - condition: >-
+      Stage-1 candidate generation produces an empty
+      candidate_set (no exact or fuzzy channel surfaces any
+      candidate from the locked snapshot).
+    action: >-
+      The match call short-circuits to insufficient_evidence
+      terminal at REQ-SRC-0053. F-1 (no match found) closure
+      surface per synthesis §1.4. Existing error code
+      SRC-E-NO-WORK-IDENTITY is NOT used (that's for source-
+      work identification, not scholar identification); a
+      new code SRC-E-SCHOLAR-NO-MATCH is reserved for this
+      condition (creation deferred to Phase 5
+      implementation; current spec routes to insufficient_
+      evidence terminal directly).
+    severity: warning
+  - condition: >-
+      Work-title channel returns size > N (default 3) for the
+      fragment's known_work_title_normalized, AND no other
+      Stage-1 channel surfaces a candidate.
+    action: >-
+      Stage-1 produces an empty candidate_set; the case
+      routes to insufficient_evidence per the prior error
+      condition. Work-title is preserved as a Stage-2
+      scoring signal (so a Stage-2 verifier MAY reason
+      about it on a populated candidate_set from another
+      channel) but does NOT itself populate candidates.
+    severity: warning
+  - condition: >-
+      Compound-title decomposition fails (the parser
+      identifies "شرح + X" but cannot extract X as a
+      base title).
+    action: >-
+      Log the decomposition failure for audit. The
+      compound title contributes only as a single
+      work-title channel input (no base-title second
+      channel). Stage-1 continues with this degraded
+      contribution.
+    severity: warning
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    Fragment "الكاساني" with dossier_context indicating
+    primary_science=fiqh, school_affiliations[fiqh]=hanafi,
+    attributed_works=["بدائع الصنائع"], century_active_hijri≈6.
+    Registry contains al-Kāsānī al-Ḥanafī (death 587 H) with
+    canonical_name_ar="علاء الدين الكاساني" and known_works
+    including "بدائع الصنائع".
+  when: REQ-SRC-0051 Stage-1 candidate generation runs
+  then: >-
+    Work-title channel resolves "بدائع الصنائع" to the single
+    canonical_id of al-Kāsānī (list size = 1, ≤ N=3, promoted
+    to Stage-1 deterministic narrowing). nisba channel matches
+    الكاساني. candidate_set top-1 is al-Kāsānī with
+    score_breakdown showing both work-title-channel +
+    nisba-channel contributions, provenance_for_inclusion
+    listing both channels.
+  test_type: integration
+- id: AC-2
+  given: >-
+    Fragment "الحنفي" with dossier_context indicating
+    attributed_works=["مختصر"]. Registry contains 7 distinct
+    Ḥanafī scholars whose known_works include the title
+    "مختصر" (a polysemic work-title token).
+  when: REQ-SRC-0051 Stage-1 candidate generation runs
+  then: >-
+    Work-title channel resolves "مختصر" to a list of size 7
+    > N=3. The channel REVERTS to Stage-2 scoring signal
+    only and does NOT contribute to Stage-1 deterministic
+    narrowing. nisba channel matches الحنفي broadly
+    (returns many candidates). The K cap (= 8) applies
+    after channel merge. The work-title is preserved in
+    the dossier_context for Stage-2 verifier reasoning but
+    is not in the deterministic narrowing path.
+  test_type: integration
+- id: AC-3
+  given: >-
+    Fragment "الإمام النووي" with dossier_context
+    attributed_works=["شرح صحيح مسلم"], primary_science=hadith.
+    Registry contains both al-Nawawī (death 676 H, sharh
+    author) and Muslim ibn al-Hajjāj (death 261 H, base-work
+    author).
+  when: REQ-SRC-0051 Stage-1 candidate generation runs with
+    compound-title decomposition
+  then: >-
+    Compound-title decomposition extracts "شرح + صحيح مسلم"
+    → both channels fire. Sharh-author channel surfaces
+    al-Nawawī (matched by both nisba=النووي and sharh-
+    author-of-صحيح-مسلم). Base-work-author channel
+    surfaces Muslim ibn al-Hajjāj. Both candidates appear
+    in candidate_set. Stage-2 verifiers (REQ-SRC-0052)
+    will resolve which is the correct attribution given
+    other dossier signals (e.g., primary_science=hadith
+    matches both; century_active_hijri ≈ 7 matches
+    al-Nawawī, ≈ 3 matches Muslim).
+  test_type: integration
+- id: AC-4
+  given: >-
+    Fragment "الكيلاني" with stored title "الفتوحات الغيبية"
+    by Persian Hanafi scholar Gīlānī (the Persian چ in title).
+    Registry has the title with U+06AF گ preserved in
+    canonical title.
+  when: REQ-SRC-0051 Stage-1 work-title normalization runs
+  then: >-
+    The match-key normalization preserves the Persian گ
+    U+06AF — does NOT collapse it to ك U+0643. The
+    work-title channel correctly matches the registry's
+    Persian-character-preserved title. taa-marbuta is
+    also preserved (الفتوحات stays الفتوحات, not
+    الفتوحاه). The candidate_set surfaces Gīlānī. The
+    FORBIDDEN normalizations are not applied.
+  test_type: integration
+- id: AC-5
+  given: >-
+    Fragment "أبو حنيفة" with no work-title context (just
+    a kunyah). Registry has 12 distinct scholars carrying
+    the kunyah أبو حنيفة across history.
+  when: REQ-SRC-0051 Stage-1 candidate generation runs
+  then: >-
+    Kunyah-channel surfaces all 12. K cap = 8 applies
+    (standard case complexity); top 8 by name-trigram
+    similarity to fragment are kept. Stage-1 produces
+    candidate_set of size 8. None of the 8 has been
+    deterministically narrowed by work-title (no work-
+    title in dossier); ≥2-non-name floor (per
+    INV-SRC-0013) will be the binding constraint at
+    Stage-2. The K cap is auditable in
+    provenance_for_inclusion (which 8 of the 12 made
+    it through, ranked by similarity).
+  test_type: integration
+- id: AC-6
+  given: >-
+    Fragment "محمد" with NO dossier_context (single ism,
+    no other signals). Registry has thousands of
+    canonical_ids whose canonical_name_ar starts with
+    محمد.
+  when: REQ-SRC-0051 Stage-1 candidate generation runs
+  then: >-
+    No exact channel surfaces a deterministic narrow
+    (single-token ism is not a deterministic key).
+    Fuzzy channels would return thousands; the K cap
+    truncates to 8 standard. INV-SRC-0013 ≥2-non-name
+    floor will reject definitive at REQ-SRC-0053
+    routing — none of the 8 will satisfy ≥2 non-name
+    intersections without a richer dossier. Result
+    routes to insufficient_evidence terminal. This AC
+    documents the correctness of K-cap-then-floor
+    routing for under-spec fragments.
+  test_type: integration

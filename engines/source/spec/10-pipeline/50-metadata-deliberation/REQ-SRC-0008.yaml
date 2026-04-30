@@ -8,16 +8,33 @@ step: metadata_deliberation
 priority: critical
 confidence: high
 provenance: owner_interview
-source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array.
+source: >-
+  Derived from OF-SRC-0009; amended per both coworker reviews,
+  adversary-review.yaml ADV-003, and ChatGPT DR on agent-team
+  architecture (2026-04-14) which recommends extending
+  trust_decision to support disputed status with positions
+  array. Phase 5 amendment 2026-04-30 (scholar-matching DR
+  synthesis §5.4 + §2.3 Pivot (c) HYBRID adjudication):
+  specialize verifier-cell rules for scholar-matching cell —
+  round-cap = 2; round-0 no-peeking + different prompts;
+  round-1 adversarial scaffold ONLY if round-0 diverges; no
+  new candidates in round-1 (per CON-SRC-0009 immutability +
+  INV-SRC-0016 chosen_id closure). Tighten:
+  trust_decision.positions per-position carries cited_evidence
+  (list[CitationRef]) for scholar-matching deliberations.
 created: '2026-04-14'
-updated: '2026-04-29'
+updated: '2026-04-30'
 depends_on:
 - OF-SRC-0009
 - DEC-SRC-0004
 - DEC-SRC-0013
+- CON-SRC-0008
+- CON-SRC-0009
+- INV-SRC-0016
 impacts:
 - trust_resolution
 - monitor_feedback
+- scholar_match_cell
 behavior:
   trigger: The engine must emit a trust_decision for a source or metadata claim.
   preconditions:
@@ -32,6 +49,7 @@ behavior:
   - trust_decision.decision=disputed is set when independent trust verifiers produce evidence-backed competing trust assessments that do not converge after the disagreement protocol. In this case trust_decision.positions preserves both assessments with evidence and confidence, ordered by confidence descending.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
   - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
+  - "Scholar-matching cell specialization (Phase 5 amendment 2026-04-30): when this trust evaluation operates as the scholar_match_cell pattern (per DEC-SRC-0013 amendment), the verifier independence rules are specialized: (a) round-cap = 2 (no rounds beyond round-1); (b) round-0 uses no-peeking + different reasoning prompts (functional independence); (c) round-1 uses adversarial scaffold (one verifier defends round-0 leader, the other attacks) ONLY if round-0 diverges; (d) round-1 cannot introduce new candidates — chosen_id MUST remain in CON-SRC-0009.candidate_set per INV-SRC-0016 closure invariant; (e) trust_decision.positions per-position MUST carry cited_evidence (list[CitationRef]) bound to the source_book_ids referenced in scholar_authority.evidence_sources."
   error_conditions:
   - condition: Fewer than two independent verification agents are available.
     action: Abort trust finalization with SRC-E-TRUST-AGENT-COUNT.

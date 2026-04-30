@@ -1,0 +1,149 @@
+id: INV-SRC-0016
+type: invariant
+status: confirmed
+title: Verifier chosen_id closure — F-4 hallucination prevention
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.3
+  (Claude DR INV-SRC-NEW-1 renumbered to INV-SRC-0016 per repo
+  verification — slot 0016 verified clean against
+  engines/source/spec/INDEX.yaml). F-4 (LLM hallucinates non-
+  existent scholar) closure surface per synthesis §1.4 failure-
+  mode catalog. Cross-provider 2-of-2 ratification: Claude DR
+  §10 + ChatGPT DR §10 both identify F-4 as a critical failure
+  mode requiring verifier-output validation. The invariant is
+  the structural barrier preventing a hallucinated scholar
+  identity from finalizing a case.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- INV-SRC-0009
+- CON-SRC-0009
+impacts:
+- scholar_authority
+- scholar_match_cell_stage_2
+- verifier_output_validation
+- f4_hallucination_closure
+rationale: >-
+  Stage-2 verifiers (REQ-SRC-0052) reason over a locked
+  CON-SRC-0009 evidence packet. The packet's candidate_set
+  defines the universe of permitted final identities for the
+  match call. If a verifier's output names a chosen_id NOT in
+  candidate_set — for example, a scholar the LLM "remembered"
+  from training data — that identity is by construction a
+  hallucination relative to the deterministic Stage-1
+  narrowing. Without a hard closure rule, an LLM hallucination
+  could survive into the finalized result, producing a
+  knowledge-integrity catastrophe (T-2 corruption: false
+  attribution of authoritative weight to a non-existent or
+  non-validated identity). The closure invariant forces every
+  verifier output to validate against candidate_set before any
+  routing decision (REQ-SRC-0053) reads the verdict. This is
+  the F-4 closure surface from synthesis §1.4 — the invariant
+  IS the failure-mode mitigation, not just a quality marker.
+rule:
+  statement: >-
+    Every verifier output (round-0 or round-1) MUST select
+    chosen_id from CON-SRC-0009.candidate_set. The orchestrator
+    validates this closure on every verifier output before any
+    routing decision (REQ-SRC-0053) reads the verdict. An
+    output whose chosen_id is not present in candidate_set is
+    REJECTED, marked as F-4 hallucination in the audit log,
+    and the verifier's output is treated as a STRUCTURAL
+    DISAGREEMENT — escalates the case to disputed terminal
+    with positions[] populated from the LEGITIMATE (in-packet)
+    candidates only. The hallucinated identity is logged for
+    audit (Critical Rule 13 — all data is future training
+    material) but is NEVER finalized as canonical_scholar_id.
+    The closure rule applies to BOTH round-0 and round-1
+    outputs; round-1 cannot introduce a new candidate (the
+    packet is immutable per CON-SRC-0009).
+  implication: >-
+    Any match-cell run that allows a verifier-named scholar
+    not in the locked candidate_set to populate
+    canonical_scholar_id violates this invariant. The
+    consequence is a definitive verdict against a
+    hallucinated identity — the highest-severity knowledge-
+    integrity failure (T-2 corruption: false confidence in
+    metadata that has no deterministic provenance). The
+    invariant requires that the orchestrator runs the
+    closure check BEFORE any routing decision; performing
+    the check AFTER the routing decision (e.g., stripping
+    the hallucinated id post-hoc but preserving the
+    routing) is also a violation, because the routing logic
+    has already been corrupted by the false signal.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A round-0 verifier output names chosen_id="sch_99999"
+    against a CON-SRC-0009 packet whose candidate_set
+    contains canonical_ids {sch_00042, sch_00115,
+    sch_00321} only.
+  when: the orchestrator validates the verifier output
+  then: >-
+    The output is REJECTED. F-4 hallucination is logged
+    with verifier_id, prompt_template_hash, hallucinated_id,
+    and the legitimate candidate_set for audit. The
+    verifier's output is treated as a structural
+    disagreement — the case routes to disputed terminal
+    with positions[] populated from the legitimate
+    candidates only. canonical_scholar_id is set to the
+    leading-confidence LEGITIMATE candidate (or null if
+    no legitimate candidate clears the disputed floor).
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A round-1 adversarial-scaffold verifier output names
+    chosen_id="sch_88888" against a CON-SRC-0009 packet
+    whose candidate_set has not changed from round-0.
+  when: the orchestrator validates the round-1 output
+  then: >-
+    The output is REJECTED per the same closure rule.
+    Round-1 cannot introduce new candidates. The case
+    escalates to disputed terminal even though round-1
+    is supposed to be the disagreement-resolution
+    round — a hallucinated identity is not a legitimate
+    resolution. F-4 is logged with the round-1 context
+    (which verifier, which adversarial role) for audit.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    Two round-0 verifiers both name chosen_id="sch_77777"
+    (a hallucinated id agreed-upon across both verifiers,
+    e.g., a famous scholar the LLMs remember from
+    training but whom Stage-1 deterministic narrowing did
+    not surface).
+  when: the orchestrator validates both outputs
+  then: >-
+    BOTH outputs are REJECTED per the closure rule.
+    Convergence on a hallucinated id is NOT definitive
+    convergence — it's a coordinated F-4. Both verifiers'
+    outputs are logged for audit; the case escalates to
+    disputed (or insufficient_evidence if no legitimate
+    candidate clears the floor). This AC explicitly
+    rejects "agreement on hallucination" as a definitive
+    pathway.
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    A verifier's output proposes a hallucinated chosen_id
+    AND the orchestrator strips the hallucinated id post-
+    hoc but uses the verifier's confidence values for
+    routing.
+  when: the closure check is run AFTER routing (incorrect
+    ordering)
+  then: >-
+    The behavior VIOLATES this invariant — even though
+    the final canonical_scholar_id is null, the routing
+    decision was contaminated by the false signal. The
+    correct behavior is closure-FIRST: validate every
+    verifier output before any routing logic reads it.
+    This AC documents the wrong behavior contrapositively
+    to make the ordering enforceable; implementations that
+    validate post-routing fail this AC.
+  test_type: deterministic

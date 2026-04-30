@@ -1,0 +1,155 @@
+id: INV-SRC-0017
+type: invariant
+status: confirmed
+title: Registry snapshot version pin — F-7 cross-time-inconsistency closure
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.3
+  (Claude DR INV-SRC-NEW-3 renumbered to INV-SRC-0017 per repo
+  verification — slot 0017 verified clean against
+  engines/source/spec/INDEX.yaml). F-7 (cross-time
+  inconsistency — registry mid-pipeline drift) closure surface
+  per synthesis §1.4 failure-mode catalog. Cross-provider 2-of-2
+  ratification: Claude DR §10 + ChatGPT DR §10 both identify F-7
+  as a critical failure mode requiring snapshot pin discipline.
+  Codex Stage-3 Defect 2 fix applied: registry_release_version
+  is the canonical name applied uniformly across REQ-SRC-0049
+  + CON-SRC-0008 + INV-SRC-0015 + this invariant.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- REQ-SRC-0049
+- CON-SRC-0008
+impacts:
+- scholar_authority
+- match_call_orchestration
+- audit_trail
+- f7_drift_closure
+rationale: >-
+  Scholar registries change across pipeline runs — new
+  records, enrichments, merges. A match-call must operate
+  against a STABLE registry view; otherwise its candidate
+  set + verifier reasoning + threshold predicates may
+  reference state that mutates mid-call, producing
+  unrepeatable verdicts. Worse: a definitive verdict
+  emitted under registry release r1 may NO LONGER be
+  defensible under release r2 (a record might have been
+  merged or split, or a new corroborating record might
+  collapse the ambiguity), but the result still reads as
+  "definitive" without explicit replay. The pin invariant
+  forces every result to declare its release version so
+  any future re-attribution against a newer release is
+  EXPLICIT REPLAY, not silent drift. The pin also enables
+  reproducible bug investigation: a result that turns out
+  to be wrong can be re-attributed against its original
+  snapshot to verify whether the error was in the data
+  (registry incomplete at release time) or in the logic
+  (match cell misbehaved at release time).
+rule:
+  statement: >-
+    The pipeline MUST be pinned to
+    provenance.registry_release_version at intake. Every
+    CON-SRC-0008 ScholarMatchResult MUST record the pinned
+    registry_release_version (per INV-SRC-0015).
+    Re-attribution after a registry release bump is EXPLICIT
+    REPLAY, not silent re-resolution: a match call that
+    re-runs against a newer release MUST emit a NEW
+    CON-SRC-0008 with the newer registry_release_version,
+    and MUST log the prior result-id + the prior
+    registry_release_version pair in revision_history (per Critical Rule
+    13: all data is future training material; provenance
+    of the prior verdict is preserved). Any case where
+    the registry snapshot drifts mid-pipeline (e.g.,
+    orchestrator restart loads a different release;
+    concurrent registry update mutates the snapshot)
+    aborts finalization, discards verifier outputs from
+    the in-flight case, and restarts candidate generation
+    against the new snapshot per REQ-SRC-0049 error path.
+    The pinned name is registry_release_version
+    canonically (snapshot_version is FORBIDDEN per Codex
+    Stage-3 Defect 2).
+  implication: >-
+    Any pipeline run that finalizes a match call against
+    a registry release different from the one pinned at
+    intake violates this invariant. The consequence is
+    silent cross-time inconsistency (T-2 corruption: the
+    audit log says "definitive against r1" but the
+    deciding evidence came from r2 — un-reproducible).
+    Re-attribution without explicit replay also
+    corrupts the historical record: a prior definitive
+    verdict that was correct at r1 may be silently
+    overwritten if the new run does not preserve the
+    prior result-id + release pair in revision_history.
+    This invariant is the F-7 closure surface — without
+    it, the architecture's snapshot-isolation discipline
+    is enforced only at the orchestrator implementation
+    layer; with it, the discipline is enforced at the
+    contract layer, surviving implementation changes.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A match call locks registry_release_version=
+    "2026-04-15.r1" at intake and finalizes successfully
+    without drift.
+  when: the result is emitted
+  then: >-
+    CON-SRC-0008.provenance.registry_release_version=
+    "2026-04-15.r1". The audit trail records the pinned
+    version. No revision_history entry needed (this is
+    the first attribution).
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A new pipeline run re-attributes the same fragment
+    against a newer registry release "2026-04-29.r1"
+    after the original result was emitted at
+    "2026-04-15.r1".
+  when: the new attribution finalizes
+  then: >-
+    A NEW CON-SRC-0008 is emitted with
+    registry_release_version="2026-04-29.r1". The new
+    result's revision_history records the prior
+    result_id and its registry_release_version pair
+    ("2026-04-15.r1"). The new result may have a
+    different disambiguation_state (if the registry
+    has changed substantively), or the same one — either
+    way, the prior verdict is preserved in
+    revision_history per Critical Rule 13.
+  test_type: integration
+- id: AC-3
+  given: >-
+    A match call locks registry_release_version=
+    "2026-04-15.r1" at intake. Mid-case, the
+    orchestrator restarts (process crash, container
+    cycle) and on resume only "2026-04-15.r2" is
+    available.
+  when: the orchestrator attempts to finalize the case
+  then: >-
+    Snapshot drift is detected (loaded version differs
+    from pinned version). REQ-SRC-0049 error path
+    triggers: case finalization aborts, in-flight
+    verifier outputs are discarded (retained as audit
+    evidence per Critical Rule 13), case restarts from
+    candidate generation against "2026-04-15.r2" — this
+    is EXPLICIT REPLAY. Final result emits with
+    registry_release_version="2026-04-15.r2".
+  test_type: integration
+- id: AC-4
+  given: >-
+    An attempt to emit a CON-SRC-0008 result with
+    provenance.snapshot_version (forbidden field name)
+    instead of provenance.registry_release_version.
+  when: the contract validator inspects the result
+  then: >-
+    The result is REJECTED. Three layers (REQ-SRC-0049
+    locking, CON-SRC-0008 contract, INV-SRC-0015
+    completeness, AND this invariant) jointly enforce
+    the canonical name. snapshot_version is forbidden
+    everywhere it could appear. The validator emits a
+    clear error.
+  test_type: deterministic

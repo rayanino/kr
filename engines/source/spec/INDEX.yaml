@@ -1,6 +1,6 @@
 schema_version: '1.0'
 engine: source
-updated: '2026-04-29'  # OQ-SRC-0005 superseded in place; source-local monitor scope ratified
+updated: '2026-04-30'  # Phase 5 scholar-matching DR Stage-4 atom set (12 new + 6 amendments)
 atoms:
 - id: OF-SRC-0001
   type: feedback
@@ -786,3 +786,92 @@ atoms:
   topic: validation
   priority: high
   file: 20-contracts/constraints/CON-SRC-0012.yaml
+# --- Phase 5 scholar-matching DR Stage-4 atoms (2026-04-30) ---
+# Cross-provider DR synthesis (Claude DR + ChatGPT DR) + 4-evaluator wave
+# (Codex CLI / arabic-reviewer / Gemini Run A / Gemini Run B): 3-of-4 RATIFY_HIGH
+# + 1 AMEND_REQUIRED LOW (architecture-level cross-provider HIGH = 3-of-4).
+# OPT-4 architecture (2-stage deterministic-then-LLM consensus). PATH A applies.
+- id: INV-SRC-0013
+  type: invariant
+  status: confirmed
+  title: No definitive scholar match from under-specified fragment (≥2 non-name floor)
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0013.yaml
+- id: INV-SRC-0014
+  type: invariant
+  status: confirmed
+  title: Matching-key honorific exclusion with bidi-strip ordering
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0014.yaml
+- id: REQ-SRC-0049
+  type: requirement
+  status: confirmed
+  title: Scholar registry snapshot locking for match-call duration
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0049.yaml
+- id: REQ-SRC-0050
+  type: requirement
+  status: confirmed
+  title: Scholar fragment normalization and 5-component parsing
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0050.yaml
+- id: CON-SRC-0009
+  type: constraint
+  status: confirmed
+  title: Scholar evidence packet contract — immutable case bundle
+  topic: metadata
+  priority: critical
+  file: 20-contracts/constraints/CON-SRC-0009.yaml
+- id: REQ-SRC-0051
+  type: requirement
+  status: confirmed
+  title: Deterministic scholar candidate generation with work-title channel
+  topic: metadata
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0051.yaml
+- id: CON-SRC-0008
+  type: constraint
+  status: confirmed
+  title: ScholarMatchResult contract — match-call output with dual state surface
+  topic: metadata
+  priority: critical
+  file: 20-contracts/constraints/CON-SRC-0008.yaml
+- id: INV-SRC-0016
+  type: invariant
+  status: confirmed
+  title: Verifier chosen_id closure — F-4 hallucination prevention
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0016.yaml
+- id: REQ-SRC-0052
+  type: requirement
+  status: confirmed
+  title: Scholar match verification cell with hybrid round-0 / round-1 protocol
+  topic: consensus
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0052.yaml
+- id: INV-SRC-0015
+  type: invariant
+  status: confirmed
+  title: Scholar-match provenance completeness on every emitted result
+  topic: validation
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0015.yaml
+- id: INV-SRC-0017
+  type: invariant
+  status: confirmed
+  title: Registry snapshot version pin — F-7 cross-time-inconsistency closure
+  topic: metadata
+  priority: critical
+  file: 40-quality/invariants/INV-SRC-0017.yaml
+- id: REQ-SRC-0053
+  type: requirement
+  status: confirmed
+  title: Scholar disagreement routing with compound 4-condition threshold
+  topic: consensus
+  priority: critical
+  file: 10-pipeline/50-metadata-deliberation/REQ-SRC-0053.yaml

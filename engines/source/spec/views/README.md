@@ -3,22 +3,22 @@
 ## Summary
 | Metric | Value |
 | --- | --- |
-| Total atoms | 112 |
+| Total atoms | 124 |
 
 ## By Type
 | Type | Count |
 | --- | --- |
-| constraint | 9 |
+| constraint | 11 |
 | decision | 21 |
 | feedback | 16 |
-| invariant | 12 |
+| invariant | 17 |
 | question | 6 |
-| requirement | 48 |
+| requirement | 53 |
 
 ## By Status
 | Status | Count |
 | --- | --- |
-| confirmed | 106 |
+| confirmed | 118 |
 | superseded | 6 |
 
 ## By Topic
@@ -26,14 +26,14 @@
 | --- | --- |
 | acquisition | 13 |
 | agent_ergonomics | 10 |
-| consensus | 7 |
+| consensus | 9 |
 | dedup | 6 |
 | freezing | 1 |
 | handoff | 12 |
 | identity | 5 |
-| metadata | 46 |
+| metadata | 55 |
 | trust | 11 |
-| validation | 1 |
+| validation | 2 |
 
 ## Atom Index
 | ID | Type | Layer | Step | Title | Status | Priority | Topic | File |
@@ -45,6 +45,8 @@
 | CON-SRC-0005 | constraint | contracts | — | Normalization handoff bundle includes a bridge input contract | confirmed | high | handoff | 20-contracts/constraints/CON-SRC-0005.yaml |
 | CON-SRC-0006 | constraint | contracts | — | Per-book processing cost and time ceiling | confirmed | high | trust | 20-contracts/constraints/CON-SRC-0006.yaml |
 | CON-SRC-0007 | constraint | contracts | — | Source type extensibility | confirmed | high | acquisition | 20-contracts/constraints/CON-SRC-0007.yaml |
+| CON-SRC-0008 | constraint | contracts | — | ScholarMatchResult contract — match-call output with dual state surface | confirmed | critical | metadata | 20-contracts/constraints/CON-SRC-0008.yaml |
+| CON-SRC-0009 | constraint | contracts | — | Scholar evidence packet contract — immutable case bundle | confirmed | critical | metadata | 20-contracts/constraints/CON-SRC-0009.yaml |
 | CON-SRC-0011 | constraint | contracts | — | WorkLevel enum — classical pedagogical-level vocabulary | confirmed | high | metadata | 20-contracts/constraints/CON-SRC-0011.yaml |
 | CON-SRC-0012 | constraint | contracts | — | Error severity taxonomy | confirmed | high | validation | 20-contracts/constraints/CON-SRC-0012.yaml |
 | DEC-SRC-0001 | decision | architecture | — | Owner hints are cross-validation, not primary data | confirmed | critical | acquisition | 30-architecture/decisions/DEC-SRC-0001.yaml |
@@ -80,6 +82,11 @@
 | INV-SRC-0010 | invariant | quality | — | Holding-level completeness is computed, not asserted | confirmed | critical | dedup | 40-quality/invariants/INV-SRC-0010.yaml |
 | INV-SRC-0011 | invariant | quality | — | Source engine must not infer level from shallow metadata | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0011.yaml |
 | INV-SRC-0012 | invariant | quality | — | Non-applicable works require level null | confirmed | high | metadata | 40-quality/invariants/INV-SRC-0012.yaml |
+| INV-SRC-0013 | invariant | quality | — | No definitive scholar match from under-specified fragment (≥2 non-name floor) | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0013.yaml |
+| INV-SRC-0014 | invariant | quality | — | Matching-key honorific exclusion with bidi-strip ordering | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0014.yaml |
+| INV-SRC-0015 | invariant | quality | — | Scholar-match provenance completeness on every emitted result | confirmed | critical | validation | 40-quality/invariants/INV-SRC-0015.yaml |
+| INV-SRC-0016 | invariant | quality | — | Verifier chosen_id closure — F-4 hallucination prevention | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0016.yaml |
+| INV-SRC-0017 | invariant | quality | — | Registry snapshot version pin — F-7 cross-time-inconsistency closure | confirmed | critical | metadata | 40-quality/invariants/INV-SRC-0017.yaml |
 | OF-SRC-0001 | feedback | evidence | — | Collection unchanged for source intake | confirmed | high | acquisition | 60-evidence/owner-feedback/OF-SRC-0001.yaml |
 | OF-SRC-0002 | feedback | evidence | — | Drop-and-go intake with optional hints | confirmed | critical | acquisition | 60-evidence/owner-feedback/OF-SRC-0002.yaml |
 | OF-SRC-0003 | feedback | evidence | — | Minimize owner review load | confirmed | critical | trust | 60-evidence/owner-feedback/OF-SRC-0003.yaml |
@@ -150,3 +157,8 @@
 | REQ-SRC-0046 | requirement | pipeline | source_admission_and_normalization_handoff | Evidence preservation for downstream level inference | confirmed | critical | handoff | 10-pipeline/60-source-admission-and-normalization-handoff/REQ-SRC-0046.yaml |
 | REQ-SRC-0047 | requirement | pipeline | intake_analysis | Owner override pathway for level at intake | confirmed | medium | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0047.yaml |
 | REQ-SRC-0048 | requirement | pipeline | intake_analysis | Deferred validation surface for owner_level_override | confirmed | medium | metadata | 10-pipeline/40-intake-analysis/REQ-SRC-0048.yaml |
+| REQ-SRC-0049 | requirement | pipeline | metadata_deliberation | Scholar registry snapshot locking for match-call duration | confirmed | critical | metadata | 10-pipeline/50-metadata-deliberation/REQ-SRC-0049.yaml |
+| REQ-SRC-0050 | requirement | pipeline | metadata_deliberation | Scholar fragment normalization and 5-component parsing | confirmed | critical | metadata | 10-pipeline/50-metadata-deliberation/REQ-SRC-0050.yaml |
+| REQ-SRC-0051 | requirement | pipeline | metadata_deliberation | Deterministic scholar candidate generation with work-title channel | confirmed | critical | metadata | 10-pipeline/50-metadata-deliberation/REQ-SRC-0051.yaml |
+| REQ-SRC-0052 | requirement | pipeline | metadata_deliberation | Scholar match verification cell with hybrid round-0 / round-1 protocol | confirmed | critical | consensus | 10-pipeline/50-metadata-deliberation/REQ-SRC-0052.yaml |
+| REQ-SRC-0053 | requirement | pipeline | metadata_deliberation | Scholar disagreement routing with compound 4-condition threshold | confirmed | critical | consensus | 10-pipeline/50-metadata-deliberation/REQ-SRC-0053.yaml |

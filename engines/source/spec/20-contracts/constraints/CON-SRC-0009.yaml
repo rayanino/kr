@@ -1,0 +1,149 @@
+id: CON-SRC-0009
+type: constraint
+status: confirmed
+title: Scholar evidence packet contract — immutable case bundle
+topic: metadata
+layer: contracts
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.1 (third
+  immediately-usable atom; numbering CON-SRC-0009 verified clean
+  against engines/source/spec/INDEX.yaml — slot not previously
+  taken). ChatGPT DR §3d originated the evidence-packet shape;
+  cross-provider 2-of-2 ratification on packet-locked verifier
+  reasoning per synthesis §1.1 OPT-4 architecture. F-4
+  (LLM hallucinates non-existent scholar) closure surface per
+  synthesis §1.4: verifiers MUST reason over a frozen candidate
+  set; INV-SRC-0016 enforces the chosen_id-closure invariant
+  against this contract. Round-1 cannot mutate the packet (no
+  new candidates introduced) — synthesis §2.3 Pivot (c)
+  adjudication.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- DEC-SRC-0013
+- REQ-SRC-0049
+impacts:
+- scholar_authority
+- scholar_match_cell_input
+- verifier_reasoning_surface
+- audit_trail
+rationale: >-
+  The match cell (DEC-SRC-0013 deliberation-cell pattern,
+  specialized in this Stage-4 amendment as scholar_match_cell)
+  requires verifiers to reason over a STABLE evidence base.
+  Without a packet contract, verifier prompts could be assembled
+  ad hoc per call, producing irreproducible reasoning, divergent
+  candidate sets across the two verifiers, and no audit surface
+  for what was considered. The packet locks all evidence at
+  Stage-1 (deterministic candidate generation per REQ-SRC-0051)
+  and feeds the locked bundle to Stage-2 (≥2 verifier consensus
+  per REQ-SRC-0052) round-0 and (if needed) round-1. This
+  isolation is also what enables the F-4 hallucination closure:
+  verifier outputs are validated against the packet's
+  candidate_set; any chosen_id outside the set is rejected as
+  hallucination.
+rule:
+  statement: >-
+    The ScholarEvidencePacket contract defines an immutable
+    bundle locked at the end of Stage-1 deterministic candidate
+    generation (REQ-SRC-0051). Required fields: (1)
+    normalized_fragment — the 5-component parse from
+    REQ-SRC-0050 (ism, kunyah, nasab_chain, laqab, nisba_list);
+    (2) display_fragment — byte-identical-to-source preserved
+    string per Critical Rule 2; (3) match_key — derived match
+    string per INV-SRC-0014 strict-ordering; (4) parsed_components
+    — the structured 5-tuple from REQ-SRC-0050; (5)
+    dossier_context — the upstream context bundle (genre,
+    primary_science, century_active_hijri estimates,
+    school_affiliations[science] hints, attributed_works
+    referenced in the source, geographic signals, work-title
+    extracts from the source); (6) candidate_set —
+    list[ScholarCandidate], the Stage-1 narrowed candidate
+    universe (K cap = 8 standard / 12 degraded per
+    REQ-SRC-0051); each ScholarCandidate carries canonical_id,
+    canonical_name_ar, score_breakdown (per-channel
+    contributions), and provenance_for_inclusion (which
+    Stage-1 channel surfaced this candidate); (7) source_snippets
+    — relevant excerpt strings from the source providing the
+    fragment context (max 2 KB per snippet, max 5 snippets);
+    (8) registry_release_version — the pinned snapshot
+    identifier per REQ-SRC-0049 (named registry_release_version
+    canonically; snapshot_version is FORBIDDEN as a field name
+    per Codex Stage-3 Defect 2). The packet is IMMUTABLE for
+    the case duration: round-0 verifiers and round-1 verifiers
+    receive the SAME packet; round-1 cannot introduce new
+    candidates (any chosen_id must already be in candidate_set
+    per INV-SRC-0016).
+  implication: >-
+    Any match-cell run that mutates the packet between
+    round-0 and round-1, or that surfaces a candidate not in
+    candidate_set as a final chosen_id, violates this
+    contract. Mutation breaks audit reproducibility; surfacing
+    a non-packet candidate breaks F-4 hallucination closure
+    (per INV-SRC-0016). Both are critical
+    knowledge-integrity violations: a verifier could
+    "discover" a hallucinated scholar mid-deliberation and
+    have no structural barrier preventing the case from
+    finalizing on that hallucinated identity. The packet
+    contract is the structural barrier.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A Stage-1 candidate generation completes for a fragment
+    "البخاري" with K=4 candidates returned (within K cap = 8
+    standard).
+  when: ScholarEvidencePacket is constructed and locked
+  then: >-
+    The packet contains all 8 required fields populated:
+    normalized_fragment, display_fragment, match_key,
+    parsed_components, dossier_context, candidate_set
+    (length 4), source_snippets, registry_release_version.
+    No optional or undocumented fields. The packet's
+    registry_release_version matches the case's pinned
+    REQ-SRC-0049 snapshot.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A locked ScholarEvidencePacket is fed to round-0
+    verifiers; round-0 produces disagreement; round-1 is
+    triggered.
+  when: round-1 verifiers receive their input
+  then: >-
+    Round-1 verifiers receive THE SAME packet
+    byte-identically (no field mutated, no candidate added,
+    no candidate removed). Verifier prompts may differ
+    (per REQ-SRC-0052 round-1 adversarial scaffold) but
+    the evidence packet is invariant.
+  test_type: integration
+- id: AC-3
+  given: >-
+    A round-1 verifier output names a chosen_id not
+    present in the locked packet's candidate_set (e.g.,
+    a scholar the model "remembered" from training data).
+  when: the orchestrator validates verifier output
+  then: >-
+    The chosen_id is rejected per INV-SRC-0016 chosen_id-
+    closure invariant. The verifier's output is treated as
+    a structural disagreement → escalates to disputed
+    terminal with positions[] populated from the
+    legitimate (in-packet) candidates only. Hallucinated
+    identity is logged for audit but never finalized.
+  test_type: integration
+- id: AC-4
+  given: >-
+    A ScholarEvidencePacket attempt with a candidate_set
+    field named "snapshot_version" instead of
+    "registry_release_version".
+  when: the contract validator inspects the packet
+  then: >-
+    The packet is REJECTED. Codex Stage-3 Defect 2 fix
+    is enforced: the canonical name is
+    registry_release_version. snapshot_version is
+    FORBIDDEN at the contract layer to prevent
+    naming drift. Validator emits a clear error
+    identifying the forbidden field name.
+  test_type: deterministic

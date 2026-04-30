@@ -8,18 +8,40 @@ step: metadata_deliberation
 priority: high
 confidence: high
 provenance: deep_research
-source: "Owner interview 2026-04-14 + Gemini DR on display metadata design (2026-04-14). The DR grounds the source card (بطاقة المصدر) in the Islamic scholarly tradition: the Eight Heads (الرؤوس الثمانية) of classical muqaddimat and the Ten Principles (المبادئ العشرة) of foundational sciences."
+source: >-
+  Owner interview 2026-04-14 + Gemini DR on display metadata
+  design (2026-04-14). The DR grounds the source card
+  (بطاقة المصدر) in the Islamic scholarly tradition: the
+  Eight Heads (الرؤوس الثمانية) of classical muqaddimat and
+  the Ten Principles (المبادئ العشرة) of foundational
+  sciences. Phase 5 amendment 2026-04-30 (scholar-matching
+  DR synthesis §5.4): TIGHTEN dispute_panel semantics —
+  scholar-dependent display fields (display_name, full_name_
+  lineage, scholarly_title, madhab, attributed_works,
+  era_description, scholarly_standing) MUST be bound to
+  CON-SRC-0008.scholar_match_result evidence (not free-
+  floating LLM synthesis). When CON-SRC-0008
+  .disambiguation_state = disputed, display ALL positions
+  side-by-side with score_breakdown (9 sub-scores from
+  CON-SRC-0008.positions) + cited_evidence; the display
+  layer MUST NOT silently pick a single id from positions[]
+  to populate scalar fields like scholarly_title. When
+  disambiguation_state = insufficient_evidence, the scholar-
+  dependent fields are null with explicit reason in
+  display_card.partial_reasons.
 created: '2026-04-14'
-updated: '2026-04-15'
+updated: '2026-04-30'
 depends_on:
 - REQ-SRC-0004
 - REQ-SRC-0026
 - REQ-SRC-0030
 - INV-SRC-0009
+- CON-SRC-0008
 impacts:
 - teaching_unit_context
 - reader_experience
 - progressive_disclosure
+- scholar_match_consumer
 rationale: >-
   The source card (بطاقة المصدر) is the digital realization of the classical
   scholarly introduction — what a teacher would tell students before reading a text.
@@ -36,6 +58,7 @@ behavior:
   - source_metadata fields (title_arabic, is_multi_layer, structural_format) are populated.
   - "madhab and scholarly_title are populated from the scholar_authority registry when a matching author entry exists. When no registry entry exists, madhab and scholarly_title are populated from agent research evidence (multi-model consensus required per D-041). When neither source provides the data, the field is null with a reason recorded in display_card.partial_reasons."
   postconditions:
+  - "Phase 5 amendment 2026-04-30: scholar-dependent display fields (display_name, full_name_lineage, scholarly_title, madhab, attributed_works, era_description, scholarly_standing) are bound to CON-SRC-0008.scholar_match_result evidence. If CON-SRC-0008.disambiguation_state=definitive: scalar fields (display_name, scholarly_title, madhab) are populated from the registry record at canonical_scholar_id (display_card.scholar_match_state='definitive'). If disambiguation_state=disputed: dispute_panel is REQUIRED, lists ALL positions[] side-by-side with each position's display_name, scholarly_title, madhab, score_breakdown (9 sub-scores), and cited_evidence; scalar scholar-dependent fields display the leading position with explicit '(disputed — see panel)' annotation; the display MUST NOT silently pick a single id from positions[]. If disambiguation_state=insufficient_evidence: scholar-dependent fields are null with display_card.partial_reasons explicitly recording 'scholar match insufficient evidence' (display_card.scholar_match_state='insufficient_evidence')."
   - "source_metadata.display_card is written with 13 structured fields organized in two progressive disclosure tiers."
   - "Quick-Glance tier (always visible): display_name (الاسم الشائع — the name the scholar is best known by), scholarly_title (اللقب العلمي — highest consensus-agreed honorific as a visual badge), death_date_display (سنة الوفاة — Hijri primary with Gregorian secondary), madhab (المذهب — methodological school tag), book_title (عنوان الكتاب), science_and_genre (التصنيف العلمي — with educational tooltips on technical terms), author_blurb_short (نبذة مختصرة — 1-2 sentence truncated blurb), and layer_tree_short (شجرة الكتاب — visual nesting for multi-layer works showing where the reader is)."
   - "Deep-Dive tier (expanded on interaction): full_name_lineage (البطاقة الشخصية الكاملة — ism, nasab, kunya, laqab, nisba unabridged), author_blurb_full (نبذة عن المؤلف — dynamically tailored to scholar type per Gemini DR), book_significance (أهمية الكتاب / الثمرة — why the author wrote it, what gap it fills, its rank), edition_metadata (بيانات الطبعة — muhaqqiq, publisher, year, city), dispute_panel (مؤشر التوثيق — visible only when authorship or attribution is disputed, showing all positions with evidence), and verification_sources (مصادر التوثيق — which databases and catalogs verified the metadata)."

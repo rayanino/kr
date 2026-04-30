@@ -1,0 +1,276 @@
+id: REQ-SRC-0052
+type: requirement
+status: confirmed
+title: Scholar match verification cell with hybrid round-0 / round-1 protocol
+topic: consensus
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §2.3
+  (Pivot (c) verifier-independence mechanism HYBRID
+  adjudication) + §5.2 (renumbered from ChatGPT DR's stale
+  REQ-SRC-0047 to REQ-SRC-0052 per repo verification — slot
+  0047 already taken by "Owner override pathway for level at
+  intake"). Cross-provider 2-of-2 contributing pivots:
+  Claude DR §6 (adversarial scaffold) + ChatGPT DR §6
+  (functional independence with no-peeking + different
+  prompts). Synthesis adopts HYBRID — ChatGPT DR's no-peeking
+  as round-0 baseline; Claude DR's adversarial scaffold ONLY
+  in round-1 disagreement-resolution. 4-evaluator wave: 4-of-4
+  UNANIMOUS HIGH on Pivot (c). Round cap = 2; both DRs
+  converge. NO new candidates introduced in round-1 (Claude
+  DR § + ChatGPT DR §5 Stage 10 both, ChatGPT DR's
+  more conservative framing adopted: "no new candidate may be
+  introduced unless it already existed in the frozen packet").
+  This atom specializes DEC-SRC-0013's deliberation-cell
+  pattern as scholar_match_cell.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- DEC-SRC-0013
+- REQ-SRC-0008
+- CON-SRC-0009
+- REQ-SRC-0051
+- INV-SRC-0016
+impacts:
+- scholar_authority
+- scholar_match_cell_stage_2
+- verifier_orchestration
+- consensus_protocol
+rationale: >-
+  Stage-2 of the scholar match cell is the LLM verification
+  layer — two independent verifiers reason over the locked
+  CON-SRC-0009 evidence packet and produce ranked positions.
+  The hybrid round-0 / round-1 protocol balances two
+  competing pressures: (1) round-0 must be genuinely
+  independent (no shared scratch work) so that convergence
+  is a real signal, not a coordination artifact; (2)
+  round-1 (only when round-0 disagrees) benefits from
+  focused contrast (one defends, one attacks) to surface
+  why a position is wrong, not just to add another
+  independent reasoning pass. The hybrid uses no-peeking +
+  different prompts at round-0 for genuine independence,
+  and adversarial scaffold at round-1 for focused
+  disagreement-resolution. This pattern matches the
+  classical-anchor mapping (al-Khaṭīb's al-Mukmil): when
+  external markers do not collapse the ambiguity, the
+  resolution requires explicit weighing of why each
+  position fails — adversarial framing makes the weighing
+  auditable.
+behavior:
+  trigger: >-
+    A locked CON-SRC-0009 evidence packet has been emitted
+    by Stage-1 (REQ-SRC-0051 deterministic candidate
+    generation); the orchestrator initiates Stage-2
+    verifier consensus.
+  preconditions:
+  - >-
+    The CON-SRC-0009 evidence packet is fully populated
+    (all 8 required fields per the contract).
+  - >-
+    Two independent verifiers are available. Verifier
+    diversity requirements: at minimum prompt-and-role
+    diversity (different reasoning prompts); model-family
+    diversity (e.g., Anthropic + OpenAI) is preferred per
+    Critical Rule 7 (D-041 multi-model consensus) but not
+    structurally enforced at this atom — the implementation-
+    phase choice is made under D-041 governance.
+  - >-
+    The orchestrator has the verifier prompt templates
+    (round-0 templates for verifier A and verifier B with
+    different reasoning instructions; round-1 templates
+    for the adversarial scaffold).
+  postconditions:
+  - >-
+    Round-0 — Two verifiers receive the SAME CON-SRC-0009
+    packet (byte-identical input). Each verifier executes
+    its own round-0 prompt template (different reasoning
+    instructions but identical evidence). NO-PEEKING:
+    neither verifier sees the other's output before
+    forming its own round-0 verdict. Each verifier returns
+    a ranked positions list with chosen_id, confidence,
+    score_breakdown (9 sub-scores per ChatGPT DR §3b), and
+    cited_evidence per position.
+  - >-
+    INV-SRC-0016 chosen_id-closure check runs on EVERY
+    round-0 verifier output BEFORE any routing or
+    convergence check reads the output. F-4 hallucinations
+    are rejected up-front per the closure invariant.
+  - >-
+    Convergence check at round-0 (deterministic, no LLM
+    involvement) — convergence requires: (a) both
+    verifiers' top-ranked chosen_id is the same, (b) mean
+    confidence ≥ 0.92, (c) each verifier's confidence ≥
+    0.90, (d) no rival candidate within 0.07 of leader
+    confidence (per REQ-SRC-0053 compound threshold), and
+    (e) ≥2 non-name attributes intersect per INV-SRC-0013
+    floor. If ALL conditions met → DEFINITIVE terminal
+    (REQ-SRC-0053 routing reads this as definitive). If
+    any condition fails AND verifiers' top chosen_id is
+    the same → fall through to round-1 (treated as
+    disagreement on confidence shape rather than identity);
+    if verifiers' top chosen_id differs → round-1 triggered.
+  - >-
+    Round-1 (only on round-0 non-convergence; otherwise
+    skipped) — adversarial scaffold: verifier A receives
+    a prompt template where it DEFENDS its round-0 leader
+    against the round-0 alternative; verifier B receives
+    a prompt template where it ATTACKS A's round-0 leader
+    AND DEFENDS B's round-0 leader. The CON-SRC-0009
+    evidence packet is UNCHANGED (immutable per the
+    contract). NO new candidates may be introduced —
+    chosen_id MUST remain in candidate_set per
+    INV-SRC-0016. Each verifier returns updated ranked
+    positions.
+  - >-
+    INV-SRC-0016 chosen_id-closure check runs on EVERY
+    round-1 verifier output (same closure as round-0).
+  - >-
+    Final convergence check at round-1 (deterministic,
+    same compound threshold as round-0). If converged
+    → DEFINITIVE per REQ-SRC-0053; if competing within
+    0.07 of leader → DISPUTED per REQ-SRC-0053; if
+    neither candidate clears 0.70 → INSUFFICIENT_EVIDENCE
+    per REQ-SRC-0053.
+  - >-
+    Round cap = 2 (no rounds beyond round-1; case
+    finalizes with whatever terminal applies after
+    round-1).
+  - >-
+    The provenance trail per CON-SRC-0008 records:
+    verifier_a_id, verifier_b_id, round_count (1 if
+    round-0 converged; 2 if round-1 ran), prompt
+    template hashes for each round each verifier, all
+    score_breakdowns, all cited_evidence references.
+  error_conditions:
+  - condition: >-
+      Fewer than 2 independent verifiers are available
+      (one model unavailable, both calls fail to return).
+    action: >-
+      Abort the match call with SRC-E-TRUST-AGENT-COUNT
+      (existing code from contracts.py:572 — the same
+      code REQ-SRC-0008 emits for the trust evaluation
+      cell when verifier count is insufficient). The
+      case routes to disputed terminal with whatever
+      positions are available from the single returned
+      verifier (or insufficient_evidence if no verifiers
+      returned).
+    severity: blocking
+  - condition: >-
+      A verifier output names a chosen_id not in
+      CON-SRC-0009.candidate_set (F-4 hallucination
+      attempt at round-0 or round-1).
+    action: >-
+      Apply INV-SRC-0016 closure: REJECT the verifier
+      output, log F-4 with full audit context (verifier
+      id, prompt template hash, hallucinated id),
+      treat as structural disagreement, route to
+      disputed terminal with legitimate positions only.
+      No new code is created here; the closure
+      invariant governs.
+    severity: blocking
+  - condition: >-
+      Round-1 verifier introduces a candidate not in
+      candidate_set (a more subtle violation than F-4 —
+      the verifier may technically attempt to "expand"
+      the candidate universe via reasoning rather than
+      naming a famous-but-absent scholar).
+    action: >-
+      Apply INV-SRC-0016 closure unchanged — the rule
+      is identical for round-0 and round-1: chosen_id
+      MUST be in candidate_set. The "expansion" attempt
+      is a new-candidate violation; the verifier output
+      is REJECTED. Audit log records the attempted
+      expansion.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A locked CON-SRC-0009 packet for fragment "البخاري"
+    with K=4 candidates. Both verifiers run round-0 and
+    independently return chosen_id=sch_00042 with
+    confidence 0.96 (verifier A) and 0.94 (verifier B);
+    no rival within 0.07 of leader; ≥2-non-name floor
+    satisfied (primary_science=hadith + attributed_works
+    intersect).
+  when: round-0 convergence check runs
+  then: >-
+    All 5 conditions met (same chosen_id, mean 0.95 ≥
+    0.92, each ≥ 0.90, no rival within 0.07, ≥2 non-name).
+    Round-0 converges to DEFINITIVE. Round-1 is NOT
+    triggered. provenance.round_count=1. CON-SRC-0008
+    emits with disambiguation_state=definitive.
+  test_type: integration
+- id: AC-2
+  given: >-
+    A locked CON-SRC-0009 packet where round-0 verifiers
+    return DIFFERENT chosen_ids (verifier A:
+    sch_00042 with 0.88; verifier B: sch_00115 with 0.85).
+  when: round-0 convergence check runs
+  then: >-
+    Conditions fail (different chosen_id). Round-1 is
+    triggered. Verifier A receives "defend sch_00042"
+    prompt; verifier B receives "attack sch_00042 +
+    defend sch_00115" prompt. Both reason on the
+    UNCHANGED CON-SRC-0009 packet. INV-SRC-0016 closure
+    runs on both round-1 outputs.
+  test_type: integration
+- id: AC-3
+  given: >-
+    Round-1 verifiers return: verifier A reaffirms
+    sch_00042 at 0.93 (defended successfully); verifier B
+    revises to sch_00042 at 0.91 (attacker conceded).
+    Mean = 0.92 ≥ 0.92, each ≥ 0.90, no rival within 0.07,
+    ≥2-non-name satisfied.
+  when: final convergence check at round-1 runs
+  then: >-
+    All compound-threshold conditions met. Definitive
+    terminal at REQ-SRC-0053. provenance.round_count=2.
+    The audit trail shows the round-1 adversarial
+    resolution with full prompt template hashes for
+    both rounds, both verifiers.
+  test_type: integration
+- id: AC-4
+  given: >-
+    Round-1 verifiers continue to disagree: verifier A
+    defends sch_00042 at 0.85; verifier B defends
+    sch_00115 at 0.83. Competing within 0.07 (gap = 0.02).
+  when: final convergence check at round-1 runs
+  then: >-
+    Disputed routing per REQ-SRC-0053 (competing within
+    0.07). CON-SRC-0008 emits with disambiguation_state=
+    disputed; positions[] populated with both candidates'
+    score_breakdowns and cited_evidence; canonical_scholar_id
+    is the leading id (top of positions). provenance
+    .round_count=2. Round cap = 2 holds; no round-2.
+  test_type: integration
+- id: AC-5
+  given: >-
+    Verifier A returns chosen_id="sch_99999" (NOT in
+    candidate_set — F-4 hallucination at round-0).
+  when: orchestrator runs INV-SRC-0016 closure check
+  then: >-
+    Verifier A output is REJECTED (per INV-SRC-0016).
+    Logged as F-4. The case proceeds with verifier B's
+    output only; if verifier B legitimately converged
+    on an in-packet candidate, the case is treated as
+    structural disagreement (one valid + one rejected)
+    → disputed terminal with positions populated from
+    legitimate candidates only.
+  test_type: integration
+- id: AC-6
+  given: >-
+    Only 1 verifier is available (the second model is
+    rate-limited; both retries fail).
+  when: REQ-SRC-0052 attempts to run
+  then: >-
+    Match call aborts with SRC-E-TRUST-AGENT-COUNT
+    (existing code, contracts.py:572). The case routes
+    to disputed (with the single verifier's positions if
+    any) or insufficient_evidence (if no verifier
+    returned). Reuses the existing error code per
+    ChatGPT DR existing-error-citation discipline.
+  test_type: deterministic

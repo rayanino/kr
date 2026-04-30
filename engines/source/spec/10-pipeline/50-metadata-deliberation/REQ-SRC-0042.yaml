@@ -8,17 +8,41 @@ step: metadata_deliberation
 priority: high
 confidence: high
 provenance: coworker_review
-source: "Contract-attribution review finding that REQ-SRC-0035 display card depends on madhab, scholarly_title, and full_name_lineage as deterministic fields, but no atom produces them. This atom fills that gap."
+source: >-
+  Contract-attribution review finding that REQ-SRC-0035
+  display card depends on madhab, scholarly_title, and
+  full_name_lineage as deterministic fields, but no atom
+  produces them. This atom fills that gap. Phase 5
+  amendment 2026-04-30 (scholar-matching DR synthesis §1.2
+  hot-path-forbids-runtime-external + §5.4 LOAD-BEARING
+  amendment): tier-2 RUNTIME lookup of "structured databases
+  (OpenITI metadata, Shamela author records, Dorar.net API)"
+  is REMOVED — runtime external sources are forbidden in
+  the scholar-matching hot path. Replacement: build-time-only
+  enrichment lane explicitly authorizing OpenITI (offline
+  metadata, evidence-only future-training-restricted),
+  Wikidata SPARQL (opportunistic), LLM inference (sparse-
+  record bootstrapping with provenance flag). All build-time
+  external use produces records with data_provenance carrying
+  source, enrichment_phase=build_time, license, and
+  training_use_permitted (bool). Cross-provider 2-of-2
+  ratification: Claude DR §7 + ChatGPT DR §7. F-3 (external
+  source unavailable build-time) closure surface per synthesis
+  §1.4. This amendment is LOAD-BEARING because it changes the
+  runtime architecture of REQ-SRC-0042's third lookup tier.
 created: '2026-04-15'
-updated: '2026-04-15'
+updated: '2026-04-30'
 depends_on:
 - REQ-SRC-0004
 - REQ-SRC-0013
 - REQ-SRC-0035
+- REQ-SRC-0049
+- CON-SRC-0008
 impacts:
 - display_card
 - scholar_profile
 - teaching_unit_context
+- scholar_authority_enrichment_lane
 rationale: >-
   REQ-SRC-0035 declares nine deterministic display card fields (display_name,
   full_name_lineage, death_date_display, madhab, etc.) but no upstream atom
@@ -31,9 +55,10 @@ behavior:
   - "author_output.positions has at least one entry with a canonical identity (display_name and at least one of death_hijri or nisba_tokens populated)."
   postconditions:
   - "For each author position, a scholar_profile record is retrieved or synthesized containing: full_name_lineage (ism, nasab, kunya, laqab, nisba in the longest unabridged form available), scholarly_title (highest consensus-agreed honorific), madhab (legal or theological school), primary_science (main field of scholarship), era_description (century or generation label)."
-  - "Deterministic lookup order: (1) scholar_authority registry match by canonical_id or name+death_hijri, (2) structured databases (OpenITI metadata, Shamela author records, Dorar.net API), (3) agent synthesis from textual evidence in the source itself."
-  - "When scholar_authority has a matching entry, all available fields are extracted deterministically without LLM involvement."
-  - "When no registry match exists and no structured database match is found, agent synthesis produces the profile from available evidence in author_output.positions and source text. Agent-synthesized profiles are tagged with profile_source=agent_synthesis."
+  - "Deterministic lookup order (Phase 5 amendment 2026-04-30): (1) scholar_authority registry match by canonical_id or name+death_hijri (operates against the locked registry snapshot per REQ-SRC-0049, registry_release_version pinned per case); (2) [REMOVED — runtime external lookup is FORBIDDEN per synthesis §1.2 hot-path-forbids-runtime-external; OpenITI / Shamela / Dorar.net data is now sourced ONLY at registry-build time per the build-time enrichment lane below]; (3) agent synthesis from textual evidence in the source itself, operating on the locked snapshot — verifiers reason over a CON-SRC-0009 evidence packet per REQ-SRC-0052."
+  - "Build-time enrichment lane (Phase 5 amendment 2026-04-30): the registry build phase MAY use OpenITI metadata (offline TSV, evidence-only future-training-restricted per Critical Rule 13 OpenITI license review), Wikidata SPARQL (opportunistic enrichment for cross-language identifiers + corroborating dates), LLM inference (sparse-record bootstrapping for under-populated scholar entries). All build-time external use produces records carrying data_provenance with source (string), enrichment_phase='build_time' (constant), license (string per source), and training_use_permitted (bool — owner-decision per Critical Rule 13). Build-time enrichment is performed BEFORE registry release; the resulting snapshot is what REQ-SRC-0049 locks for runtime cases."
+  - "When scholar_authority has a matching entry, all available fields are extracted deterministically without LLM involvement (operating against the locked snapshot)."
+  - "When no registry match exists, agent synthesis produces the profile from available evidence in author_output.positions and source text via the REQ-SRC-0052 verifier cell (NOT from runtime external calls). Agent-synthesized profiles are tagged with profile_source=agent_synthesis. The registry MAY register a provisional entry per REQ-SRC-0043 (subject to the provisional-only-after-no-match rule from the REQ-SRC-0043 Phase 5 amendment) if the synthesis converges on 'new scholar' rather than 'unresolved ambiguity'."
   - "death_gregorian is computed from death_hijri using standard Hijri-Gregorian conversion at display-card generation time (REQ-SRC-0035), not stored as a separate authoritative field in scholar_profile."
   - "scholar_profile is attached to the corresponding author_output.positions entry and consumed by REQ-SRC-0035 for display_card generation."
   error_conditions:

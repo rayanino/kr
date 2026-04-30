@@ -1,0 +1,168 @@
+id: INV-SRC-0015
+type: invariant
+status: confirmed
+title: Scholar-match provenance completeness on every emitted result
+topic: validation
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.3
+  (renumbered from ChatGPT DR's stale INV-SRC-0012 to
+  INV-SRC-0015 per repo verification — slot 0012 already taken
+  by "Non-applicable genres require level null"). Aligns with
+  D-023 metadata-pass-through invariant (Critical Rule 6) and
+  Critical Rule 3 (every claim is traceable). Codex Stage-3
+  Defect 2 fix applied: registry_release_version is the
+  canonical name (snapshot_version is FORBIDDEN). Cross-
+  provider 2-of-2 ratification on provenance discipline:
+  Claude DR §3d + ChatGPT DR §3d both require structured
+  provenance on every match-call result.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- INV-SRC-0009
+- CON-SRC-0008
+impacts:
+- scholar_authority
+- scholar_match_cell_output
+- audit_trail
+- d023_metadata_flow
+rationale: >-
+  Critical Rule 3 (every claim is traceable) and Critical
+  Rule 6 (D-023 metadata flows forward, never deleted)
+  jointly require that every emitted ScholarMatchResult
+  carries the provenance needed to reproduce the match
+  decision. Without a hard completeness invariant, an
+  implementation could elide provenance fields under
+  "performance" pressure, breaking audit reproducibility.
+  The four mandatory provenance shapes (evidence_sources
+  non-empty for non-insufficient_evidence terminals;
+  registry_release_version pinned per case;
+  threshold_audit recording all 4 compound-threshold
+  predicates with their numeric backing values; full
+  Stage-1 + Stage-2 verifier records) close the audit
+  surface so every match decision can be re-examined
+  against its original snapshot, prompt templates, and
+  evidence base.
+rule:
+  statement: >-
+    Every CON-SRC-0008 ScholarMatchResult emitted by the
+    scholar match cell MUST satisfy four completeness
+    predicates: (1) evidence_sources is non-empty when
+    disambiguation_state ∈ {definitive, disputed}; (2)
+    provenance.registry_release_version is non-null and
+    matches the case-pinned snapshot from REQ-SRC-0049
+    (the canonical field name; snapshot_version is
+    FORBIDDEN per Codex Stage-3 Defect 2); (3)
+    provenance.threshold_audit records all 4 compound-
+    threshold predicates from REQ-SRC-0053 (mean_passes
+    [bool], both_pass [bool], no_rival_close [bool],
+    corroboration_count_ge_2 [bool]) along with their
+    numeric backing values (mean_confidence [float],
+    leader_confidence [float], rival_confidence [float],
+    corroboration_count [int]); (4) provenance.stage_2
+    _verifier_record contains verifier_a_id, verifier_b_id,
+    prompt_template_hashes, seeds, and round_count for
+    EVERY result regardless of disambiguation_state.
+    Insufficient_evidence terminals MAY have empty
+    evidence_sources (no positive identification surfaced)
+    but MUST still satisfy predicates (2), (3), and (4)
+    so the audit trail records WHY the case fell to
+    insufficient_evidence (which compound-threshold
+    predicate failed; what verifier setup ran).
+  implication: >-
+    Any ScholarMatchResult that omits evidence_sources for
+    a definitive or disputed verdict, that uses
+    snapshot_version instead of registry_release_version,
+    that lacks any of the 4 compound-threshold predicate
+    records, or that omits the verifier record violates
+    this invariant. The audit reproducibility surface is
+    broken — a future investigator cannot determine WHY
+    the case finalized as it did. This is a D-023
+    metadata-flow violation (Critical Rule 6) and a
+    Critical Rule 3 violation (claim not traceable).
+    Implementations that elide provenance under
+    performance pressure must be REJECTED at code review.
+    The completeness check runs at result-emission time;
+    incomplete results are not permitted to reach
+    downstream consumers (REQ-SRC-0035 display card,
+    library training corpus).
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A match cell completes with disambiguation_state=
+    definitive and emits a CON-SRC-0008 result.
+  when: the completeness validator inspects the result
+  then: >-
+    All 4 predicates satisfied: evidence_sources is non-
+    empty (cited evidence per Stage-2 verifier outputs);
+    provenance.registry_release_version is the case-
+    pinned value; provenance.threshold_audit records all
+    4 predicates as true with full numeric backing;
+    provenance.stage_2_verifier_record fully populated
+    with both verifier ids, prompt template hashes,
+    seeds, round_count. Result passes the validator.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A match cell completes with disambiguation_state=
+    insufficient_evidence (no candidate cleared the
+    floor).
+  when: the completeness validator inspects the result
+  then: >-
+    evidence_sources MAY be empty (no positive
+    identification). registry_release_version IS pinned.
+    threshold_audit records WHICH predicate failed (e.g.,
+    mean_passes=false because mean_confidence=0.62 < 0.92,
+    or corroboration_count_ge_2=false because count=1)
+    with full numeric backing. Stage_2_verifier_record
+    fully populated with the verifiers that ran (even
+    though no terminal identification was reached). Result
+    passes the validator.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    A match cell attempts to emit a result with
+    provenance.snapshot_version set (the forbidden field
+    name) instead of registry_release_version.
+  when: the completeness validator inspects the result
+  then: >-
+    The result is REJECTED. Codex Stage-3 Defect 2 fix
+    is enforced: snapshot_version is FORBIDDEN at the
+    contract layer (CON-SRC-0008), at the locking
+    requirement (REQ-SRC-0049), AND at the completeness
+    invariant (this atom). The validator emits a clear
+    error pointing to the canonical name
+    registry_release_version (the canonical Phase 5 field
+    naming).
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    A match cell emits a definitive result with
+    threshold_audit recording only 3 of the 4 predicates
+    (e.g., mean_passes / both_pass / no_rival_close
+    populated but corroboration_count_ge_2 absent).
+  when: the completeness validator inspects the result
+  then: >-
+    The result is REJECTED. All 4 predicates MUST be
+    recorded for definitive verdicts. The validator
+    emits an error identifying the missing predicate.
+    The case must be re-emitted with complete audit.
+  test_type: deterministic
+- id: AC-5
+  given: >-
+    A match cell emits a disputed result with empty
+    evidence_sources (the implementation produced
+    positions[] with cited_evidence at the position
+    level but failed to aggregate at the result level).
+  when: the completeness validator inspects the result
+  then: >-
+    The result is REJECTED. Predicate (1) requires
+    evidence_sources non-empty for definitive AND
+    disputed terminals. The implementation MUST
+    aggregate from positions[]→cited_evidence to the
+    result-level evidence_sources during emission.
+  test_type: deterministic

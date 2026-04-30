@@ -1,0 +1,156 @@
+id: INV-SRC-0014
+type: invariant
+status: confirmed
+title: Matching-key honorific exclusion with bidi-strip ordering
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §5.3
+  (renumbered from ChatGPT DR's stale INV-SRC-0011 to INV-SRC-0014
+  per repo verification — slot 0011 already taken by "Source
+  engine must not infer level from shallow metadata").
+  arabic-reviewer Stage-3 wave Novel Finding 1 (bidi-mark
+  contamination ordering, T-1 → T-2 risk path): existing
+  name_matching.py honorific list (28 single + 8 multi at
+  shared/scholar_authority/src/name_matching.py:33-99) does NOT
+  address invisible Unicode bidi marks (U+200E, U+200F,
+  U+202A-202E) in honorifics extracted from Shamela HTML; when
+  an honorific like "الشيخ" carries an embedded bidi mark, the
+  stripping regex may fail to match, leaving the honorific in the
+  match key. 4-evaluator wave: PARTIAL_ALIGN on Pivot (a) but
+  SURFACED finding accepted as Stage-4 input. Existing error code
+  SRC-E-HONORIFIC-ONLY-NAME (contracts.py:579) cited in F-6
+  closure surface (synthesis §1.4).
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- INV-SRC-0009
+- DEC-SRC-0017
+impacts:
+- scholar_authority
+- match_key_construction
+- name_matching
+- shamela_html_intake
+rationale: >-
+  Honorifics (الشيخ, الإمام, الحافظ, العلامة, شيخ الإسلام,
+  حجة الإسلام, القاضي, etc.) are scholarly status markers, not
+  identifying name components. Including them in the match key
+  produces false negatives: a fragment "الإمام البخاري" should
+  match the registry record canonical_name_ar="محمد بن إسماعيل
+  البخاري" via the البخاري token, but a naive match key
+  containing الإمام would not. Existing name_matching.py
+  implements honorific stripping for plain Arabic; the
+  arabic-reviewer Stage-3 wave surfaced a T-1 corruption vector:
+  Shamela HTML exports embed invisible Unicode bidi marks
+  (U+200E / U+200F / U+202A-202E) inside honorific tokens, and
+  the existing stripping regex matches the literal Arabic
+  character sequence — it does NOT match a sequence containing
+  embedded bidi marks. If the strip pass runs BEFORE the bidi
+  pass, a contaminated الـ‎شيخ (with U+200E between ال and شيخ)
+  is left untouched, leaks into the match key, and produces a
+  false negative in candidate generation. The strict strip
+  ordering closes this T-1 risk path before it can corrupt
+  candidate sets.
+rule:
+  statement: >-
+    Match-key construction MUST apply normalization in this
+    exact order: (1) invisible-Unicode strip per
+    .claude/rules/input-sanitization.md targeting U+200E,
+    U+200F, U+202A through U+202E, U+200B, U+200C, U+200D
+    (with the carve-outs noted in input-sanitization.md for
+    Persian/Urdu/Kurdish source markers), U+FEFF, U+2060,
+    U+00AD; THEN (2) honorific normalization using the existing
+    name_matching.py honorific list (28 single tokens at
+    _SINGLE_HONORIFICS plus 8 multi-token honorifics at
+    _MULTI_HONORIFICS); THEN (3) match-key construction. The
+    ordering is non-commutative — applying (2) before (1) leaks
+    bidi-contaminated honorifics into the match key. Honorifics
+    are EXCLUDED from match keys but PRESERVED in display
+    fields. If stripping leaves an empty match key (the
+    fragment was honorific-shell only), the match call aborts
+    with existing error code SRC-E-HONORIFIC-ONLY-NAME
+    (contracts.py:579) — this is the F-6 closure surface from
+    synthesis §1.4.
+  implication: >-
+    Any match-key construction that applies honorific
+    normalization before invisible-Unicode strip violates this
+    invariant. Bidi-contaminated honorifics leak into match
+    keys, producing false negatives in candidate generation
+    (T-1 corruption vector — invisible-character contamination
+    masking surface that should match). The downstream
+    consequence is a definitive verdict against the WRONG
+    candidate, or an insufficient_evidence verdict on a case
+    that should have resolved — both T-2 corruption vectors
+    (knowledge-integrity loss). The strict ordering is a hard
+    invariant, not a performance optimization; reordering
+    breaks correctness even when the input fragment is
+    bidi-clean (because the production path must be correct
+    for ALL inputs, not just the clean ones).
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A clean fragment "الإمام البخاري" (no bidi marks) entering
+    match-key construction.
+  when: the three-stage ordering executes (bidi-strip →
+    honorific-normalize → match-key)
+  then: >-
+    Stage 1 produces "الإمام البخاري" unchanged (no bidi marks
+    to strip). Stage 2 strips الإمام (single honorific in
+    _SINGLE_HONORIFICS), producing "البخاري". Stage 3 builds
+    match key on "البخاري" only. Honorific الإمام is preserved
+    in the display field, not the match key.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A bidi-contaminated fragment "الإمام‎البخاري" (U+200E
+    LTR mark between honorific and name token) entering
+    match-key construction.
+  when: the three-stage ordering executes (bidi-strip →
+    honorific-normalize → match-key)
+  then: >-
+    Stage 1 strips U+200E producing "الإمام البخاري". Stage 2
+    strips الإمام producing "البخاري". Stage 3 builds match key
+    on "البخاري". The contamination is logged with byte offset
+    per .claude/rules/input-sanitization.md audit-trail
+    requirement. Match candidate set is identical to AC-1
+    (correctness preserved across contamination).
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    A fragment containing only an honorific shell (e.g.,
+    "الإمام" with no name token after stripping).
+  when: the three-stage ordering executes
+  then: >-
+    Stage 1 (no bidi marks) → Stage 2 strips الإمام →
+    match key is empty after honorific exclusion. Match call
+    aborts with error_code=SRC-E-HONORIFIC-ONLY-NAME
+    (contracts.py:579). This satisfies the F-6 closure
+    surface from synthesis §1.4 (existing error code
+    preferred over new code per ChatGPT DR error-code
+    citation discipline).
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    A fragment with reversed strip ordering attempted —
+    honorific-normalize at Stage 1, bidi-strip at Stage 2 —
+    against the bidi-contaminated input
+    "الإمام‎البخاري".
+  when: the WRONG ordering executes
+  then: >-
+    Stage 1 honorific-normalize: regex pattern for الإمام does
+    NOT match "الإمام‎" (literal char sequence
+    differs because of embedded U+200E); honorific is NOT
+    stripped. Stage 2 bidi-strip: produces "الإمام البخاري"
+    BUT the match-key construction has already occurred on
+    the contaminated form. The match key contains الإمام →
+    candidate set lookup misses البخاري → false negative.
+    This AC documents the WRONG behavior to make the strict
+    ordering enforceable — implementations using this ordering
+    fail this AC contrapositively (the invariant requires the
+    correct ordering of AC-1 / AC-2 / AC-3, not the wrong
+    ordering of AC-4).
+  test_type: deterministic

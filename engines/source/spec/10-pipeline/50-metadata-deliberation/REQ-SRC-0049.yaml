@@ -1,0 +1,204 @@
+id: REQ-SRC-0049
+type: requirement
+status: confirmed
+title: Scholar registry snapshot locking for match-call duration
+topic: metadata
+layer: pipeline
+step: metadata_deliberation
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §1.2
+  (hot-path-forbids-runtime-external) + §5.1 immediately-usable
+  atom. Cross-provider 2-of-2 ratified: Claude DR §7 ("External
+  sources are USED ONLY at registry-build time. This isolates
+  Critical Rule 13 compliance to a one-time vetted ingestion
+  stage.") + ChatGPT DR §7 ("the chosen runtime architecture
+  should use no live external source in the attribution hot
+  path. The hot path should run on a locked internal registry
+  snapshot plus locally materialized side indexes.").
+  4-evaluator wave: 4-of-4 cross-provider HIGH on hot-path
+  isolation. F-7 (cross-time inconsistency — registry
+  mid-pipeline drift) closure surface per synthesis §1.4
+  failure-mode catalog. Codex Stage-3 Defect 2 (provenance
+  naming): registry_release_version is the canonical name
+  applied uniformly; snapshot_version is FORBIDDEN as a field
+  name (case_packet_lock_id is reserved for the orthogonal
+  per-call lock concept if needed).
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- DEC-SRC-0013
+- REQ-SRC-0042
+impacts:
+- scholar_authority
+- match_call_orchestration
+- registry_versioning
+- audit_trail
+rationale: >-
+  Scholar registries evolve across pipeline runs (new records
+  added, existing records enriched, merges performed). A
+  match-call must operate against a STABLE view of the
+  registry — otherwise its candidate set and verifier
+  reasoning may reference state that changes mid-call,
+  producing unrepeatable results and corrupting the audit
+  trail. The classical-anchor mapping: al-Khaṭīb's "external
+  markers must collapse the ambiguity" requires the markers
+  to be FIXED during evaluation; if the markers can change
+  mid-call, the evaluation is unreliable. The synthesis-ratified
+  isolation forbids ANY runtime external lookup (Brill EI,
+  Usul.ai API, Dorar.net API) — those are build-time-only
+  enrichment lanes per the REQ-SRC-0042 amendment in this same
+  Stage-4 pass. The locked snapshot pattern also enables
+  deterministic reproduction: any case can be re-attributed
+  against its original snapshot for audit, bug-fix, or training
+  purposes.
+behavior:
+  trigger: >-
+    The match-call orchestrator initiates a scholar
+    identification case (triggered by REQ-SRC-0042 scholar
+    profile lookup, REQ-SRC-0014 copyist-vs-author
+    disambiguation, or excerpting-engine quoted-scholar
+    resolution).
+  preconditions:
+  - >-
+    The internal scholar registry has at least one tagged
+    release version (registry_release_version is a
+    monotonically increasing identifier).
+  - >-
+    The match-call orchestrator has acquired a case-scoped
+    handle for the upcoming match work.
+  - >-
+    All side indexes (work-title-to-canonical-id from
+    REQ-SRC-0051, teacher-student graph from
+    shared/scholar_authority/SPEC.md §4.A.6, OpenITI
+    metadata index per REQ-SRC-0042 build-time enrichment
+    lane) are locally materialized prior to the call.
+  postconditions:
+  - >-
+    A versioned snapshot of the internal scholar registry
+    plus all locally-materialized side indexes is loaded
+    and pinned for the case duration. The pinned identifier
+    is registry_release_version.
+  - >-
+    No write or merge operation against the registry is
+    permitted to mutate the snapshot during the case.
+    Concurrent registry updates are routed to the next
+    release version, not the locked snapshot.
+  - >-
+    No external network call (Brill EI, Usul.ai API,
+    Dorar.net API, Wikidata SPARQL endpoint, OpenITI
+    GitHub, LLM enrichment endpoints) is permitted during
+    the case — all enrichment data must already be present
+    in the locked snapshot from build-time enrichment per
+    REQ-SRC-0042 amendment.
+  - >-
+    The locked snapshot's registry_release_version is
+    written to provenance.registry_release_version on
+    every CON-SRC-0008 ScholarMatchResult emitted by the
+    case (per INV-SRC-0017 snapshot-pin invariant).
+  - >-
+    Any snapshot drift detected mid-pipeline (e.g.,
+    orchestrator restart with a different release loaded)
+    aborts finalization, discards verifier outputs from
+    the case, and restarts from candidate generation
+    against the new snapshot. This is EXPLICIT REPLAY,
+    not silent re-resolution.
+  error_conditions:
+  - condition: >-
+      registry_release_version is null at case initialization
+      (no tagged release exists in the internal registry).
+    action: >-
+      Abort the match call with SRC-E-REGISTRY-SNAPSHOT-DRIFT
+      (new code; case cannot proceed without a pinnable
+      release). Caller is informed that the registry has not
+      been published; downstream re-attribution will run
+      after the registry produces its first tagged release.
+    severity: blocking
+  - condition: >-
+      Mid-case snapshot drift is detected (the loaded
+      registry_release_version does not match the value
+      pinned at case start).
+    action: >-
+      Abort finalization, discard verifier outputs from this
+      case, log SRC-E-REGISTRY-SNAPSHOT-DRIFT, restart
+      candidate generation from REQ-SRC-0051 against the
+      new snapshot. Partial verifier outputs from the
+      drifted run are retained as audit evidence (Critical
+      Rule 13 — all data is future training material) but
+      not used for the new case.
+    severity: blocking
+  - condition: >-
+      A runtime external call is attempted during the case
+      (e.g., a verifier prompt template invokes an HTTP
+      fetcher).
+    action: >-
+      Reject the external call with SRC-E-RUNTIME-EXTERNAL
+      (new code), abort the verifier, and route the case
+      to disputed terminal with positions[] populated from
+      whatever evidence has been gathered locally. Log the
+      attempted external call for audit.
+    severity: blocking
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    The internal scholar registry has registry_release_version
+    "2026-04-15.r1" and a match-call is initiated for a
+    fragment "البخاري" with deep dossier context.
+  when: the orchestrator locks the snapshot and runs the case
+  then: >-
+    The case operates against registry_release_version
+    "2026-04-15.r1" exclusively. All CON-SRC-0008
+    ScholarMatchResult outputs from this case carry
+    provenance.registry_release_version = "2026-04-15.r1".
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A match-call is in flight against
+    registry_release_version "2026-04-15.r1" and a
+    concurrent registry update produces release
+    "2026-04-15.r2" before the case finalizes.
+  when: the orchestrator detects the available release
+    change at finalization time
+  then: >-
+    The in-flight case continues to operate against
+    "2026-04-15.r1"; no mid-case drift occurs (the case
+    is properly isolated). The new release "2026-04-15.r2"
+    is available to the NEXT case.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    A match-call has loaded
+    registry_release_version "2026-04-15.r1" and the
+    orchestrator restarts (process crash, container
+    restart) before finalization. On resume, only
+    "2026-04-15.r2" is available.
+  when: the orchestrator attempts to finalize the case on
+    the new snapshot
+  then: >-
+    Snapshot drift is detected (loaded version
+    "2026-04-15.r2" ≠ pinned version "2026-04-15.r1").
+    Finalization aborts with
+    SRC-E-REGISTRY-SNAPSHOT-DRIFT. Verifier outputs from
+    the original case are retained as audit evidence but
+    not used. Candidate generation restarts against
+    "2026-04-15.r2" — EXPLICIT REPLAY. Provenance.
+    registry_release_version on the restarted case is
+    "2026-04-15.r2".
+  test_type: integration
+- id: AC-4
+  given: >-
+    A match-call is locked against
+    registry_release_version "2026-04-15.r1" and a
+    verifier prompt template attempts a runtime external
+    fetch (e.g., "fetch the latest Wikidata QID for this
+    scholar").
+  when: the orchestrator intercepts the external call
+  then: >-
+    The external call is rejected with
+    SRC-E-RUNTIME-EXTERNAL. The verifier is aborted. The
+    case routes to disputed terminal with positions[]
+    populated from local evidence only. The attempted
+    external call is logged for audit.
+  test_type: integration

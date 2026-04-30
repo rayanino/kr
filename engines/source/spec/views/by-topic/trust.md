@@ -126,7 +126,7 @@
 - Status: confirmed
 - Priority: critical
 - Confidence: high
-- Source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array.
+- Source: Derived from OF-SRC-0009; amended per both coworker reviews, adversary-review.yaml ADV-003, and ChatGPT DR on agent-team architecture (2026-04-14) which recommends extending trust_decision to support disputed status with positions array. Phase 5 amendment 2026-04-30 (scholar-matching DR synthesis §5.4 + §2.3 Pivot (c) HYBRID adjudication): specialize verifier-cell rules for scholar-matching cell — round-cap = 2; round-0 no-peeking + different prompts; round-1 adversarial scaffold ONLY if round-0 diverges; no new candidates in round-1 (per CON-SRC-0009 immutability + INV-SRC-0016 chosen_id closure). Tighten: trust_decision.positions per-position carries cited_evidence (list[CitationRef]) for scholar-matching deliberations.
 - Trigger: The engine must emit a trust_decision for a source or metadata claim.
 - Postconditions:
   - trust_decision contains decision, trust_path, supporting_agents, and evidence_summary fields.
@@ -134,6 +134,7 @@
   - trust_decision.decision=disputed is set when independent trust verifiers produce evidence-backed competing trust assessments that do not converge after the disagreement protocol. In this case trust_decision.positions preserves both assessments with evidence and confidence, ordered by confidence descending.
   - Every run writes monitor_feedback records even when the case follows the fast_track path.
   - Books meeting all fast_track predicates may use trust_path=fast_track instead of full_deliberation.
+  - Scholar-matching cell specialization (Phase 5 amendment 2026-04-30): when this trust evaluation operates as the scholar_match_cell pattern (per DEC-SRC-0013 amendment), the verifier independence rules are specialized: (a) round-cap = 2 (no rounds beyond round-1); (b) round-0 uses no-peeking + different reasoning prompts (functional independence); (c) round-1 uses adversarial scaffold (one verifier defends round-0 leader, the other attacks) ONLY if round-0 diverges; (d) round-1 cannot introduce new candidates — chosen_id MUST remain in CON-SRC-0009.candidate_set per INV-SRC-0016 closure invariant; (e) trust_decision.positions per-position MUST carry cited_evidence (list[CitationRef]) bound to the source_book_ids referenced in scholar_authority.evidence_sources.
 - Acceptance criteria:
   - AC-1 [integration] Given tests/fixtures/shamela_real/05_tafsir/book.htm with definitive author attribution, scholar_authority[author_canonical_id].authority_level="primary", and author_death_hijri=774; When trust evaluation executes; Then trust_decision.trust_path="fast_track" and trust_decision.decision="verified"..
   - AC-2 [integration] Given tests/fixtures/shamela_real/03_fiqh/book.htm; When trust evaluation executes; Then trust_decision includes decision, trust_path, supporting_agents, and evidence_summary, and at least one monitor_feedback record is written..

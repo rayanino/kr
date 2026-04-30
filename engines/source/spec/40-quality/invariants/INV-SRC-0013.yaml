@@ -1,0 +1,157 @@
+id: INV-SRC-0013
+type: invariant
+status: confirmed
+title: No definitive scholar match from under-specified fragment (≥2 non-name floor)
+topic: metadata
+layer: quality
+priority: critical
+confidence: high
+provenance: deep_research
+source: >-
+  Phase 5 scholar-matching DR synthesis (2026-04-30) §2.2 — Pivot (b)
+  operationalization adjudication. Cross-provider 2-of-2 concept
+  convergence on ≥2-corroborating-attribute floor (Claude DR §6 +
+  ChatGPT DR §6). Synthesis adopts Claude DR's STRICTER
+  ≥2-NON-NAME formulation per knowledge-integrity primacy and
+  Owner Principle 3 (zero-tolerance for attribution errors).
+  4-evaluator wave (Codex CLI / arabic-reviewer / Gemini Run A /
+  Gemini Run B): 4-of-4 UNANIMOUS HIGH on Pivot (b). Classical
+  anchor: al-Khaṭīb al-Baghdādī, al-Mukmil fī Bayān al-Mahmal —
+  "external markers needed" maps directly to non-name
+  corroboration; al-Khaṭīb's external markers (city of audition,
+  dating of samāʿ, immediate teacher) are EXPLICITLY non-name
+  signals. Name expansion (longer nasab chain, additional nisba)
+  is the SAME KIND of signal as the fragment, not an external
+  marker.
+created: '2026-04-30'
+updated: '2026-04-30'
+depends_on:
+- OF-SRC-0004
+- DEC-SRC-0006
+- INV-SRC-0007
+impacts:
+- scholar_authority
+- author_attribution
+- match_terminal_routing
+- deliberation_thresholds
+rationale: >-
+  Arabic scholarly names are pervasively ambiguous: a single ism
+  (محمد), a single kunyah (أبو حنيفة), or even a single full
+  nasab chain may map to dozens of distinct historical scholars.
+  Classical rijāl methodology (al-Khaṭīb's al-Mukmil) requires
+  "external markers" — non-name signals from outside the name
+  itself — to collapse the ambiguity. Name-component expansion
+  (registry-side longer nasab, additional nisba) is structurally
+  the SAME kind of signal as the input fragment and cannot serve
+  as the external marker. Without a hard ≥2-non-name floor, the
+  match cell would be permitted to emit `definitive` from
+  fragments that classical methodology declares insufficient,
+  silently corrupting attribution (T-2 corruption vector). This
+  invariant encodes Owner Principle 3 (zero-tolerance for
+  attribution errors) as a hard predicate auditable on every
+  match-call result.
+rule:
+  statement: >-
+    A scholar match-call result with disambiguation_state =
+    "definitive" is permitted only when ≥2 non-name attributes
+    intersect between dossier-side context and registry-side
+    record. Eligible non-name attributes are exactly:
+    century_active_hijri, school_affiliations[science],
+    primary_science, secondary_sciences, attributed_works,
+    region_origin, region_active, teacher_student_link.
+    Name expansion (nasab, nisba, kunyah, laqab) is NOT
+    corroboration for the ≥2 floor; name expansion remains
+    eligible as Stage-2 scoring evidence but does not unlock
+    the definitive terminal. The check is binary and
+    auditable: "did the matched record share ≥2 non-name
+    attributes with the dossier? yes/no" — recorded in
+    provenance.threshold_audit.corroboration_count_ge_2.
+  implication: >-
+    Any match-call result emitting disambiguation_state =
+    "definitive" without ≥2 corroborating non-name attributes
+    intersecting between dossier and registry violates this
+    invariant. Such a result silently corrupts attribution —
+    the owner sees a confident assignment grounded in
+    insufficient evidence; classical methodology declares
+    this insufficient. Violations are T-2 corruption vector
+    (false confidence in metadata). REQ-SRC-0053 disagreement
+    routing MUST consult this invariant as a hard precondition
+    for the definitive terminal; any candidate that fails the
+    ≥2-non-name floor MUST be routed to disputed (with
+    positions[] populated) or insufficient_evidence regardless
+    of verifier confidence values.
+  violation_severity: critical
+acceptance_criteria:
+- id: AC-1
+  given: >-
+    A match-call against fragment "أبو حنيفة" (kunyah only) where
+    the dossier provides century_active_hijri=2 and
+    primary_science=fiqh. Registry contains a candidate matching
+    on kunyah + century + science (3 non-name attributes
+    intersect: century_active_hijri, primary_science,
+    school_affiliations[fiqh]).
+  when: REQ-SRC-0053 disagreement routing evaluates the candidate
+  then: >-
+    The ≥2-non-name floor is satisfied (3 non-name attributes
+    intersect; ≥2 ✓). Definitive terminal is permitted subject
+    to the other compound-threshold predicates from
+    REQ-SRC-0053. provenance.threshold_audit
+    .corroboration_count_ge_2 = true. Eligible attributes
+    enumerated in audit log.
+  test_type: deterministic
+- id: AC-2
+  given: >-
+    A match-call against fragment "أبو حنيفة" (kunyah only) where
+    the dossier provides only century_active_hijri=2 (1 non-name
+    attribute). Registry contains a candidate matching on kunyah
+    + century with no school, no science, no work, no region
+    overlap.
+  when: REQ-SRC-0053 disagreement routing evaluates the candidate
+  then: >-
+    The ≥2-non-name floor is NOT satisfied (only 1 non-name
+    attribute intersects). Definitive terminal is REJECTED.
+    Result is routed to disputed (with positions[] populated)
+    or insufficient_evidence depending on confidence values
+    from REQ-SRC-0053. provenance.threshold_audit
+    .corroboration_count_ge_2 = false.
+  test_type: deterministic
+- id: AC-3
+  given: >-
+    A match-call against fragment "محمد" (single ism) where the
+    dossier provides only nisba="البخاري". Registry contains a
+    candidate whose canonical_name_ar is
+    "محمد بن إسماعيل البخاري" with full nasab + 1 nisba
+    expansion (matches nisba and ism). No non-name attributes
+    intersect (no century, no school, no work, no region).
+  when: REQ-SRC-0053 disagreement routing evaluates the candidate
+  then: >-
+    The ≥2-non-name floor is NOT satisfied. Name expansion
+    (full nasab + nisba expansion) is NOT eligible
+    corroboration. Definitive terminal is REJECTED.
+    Result is routed to insufficient_evidence (no candidate
+    clears the floor regardless of name-similarity score).
+    provenance.threshold_audit.corroboration_count_ge_2 =
+    false; audit log explicitly records that name-expansion
+    was found but excluded from the corroboration count.
+  test_type: deterministic
+- id: AC-4
+  given: >-
+    A match-call against fragment "ابن حجر" (kunyah/nasab
+    fragment) where the dossier provides
+    primary_science=hadith. Registry contains two candidates:
+    Ibn Ḥajar al-ʿAsqalānī (hadith scholar; matches primary
+    science + has matching attributed_works "فتح الباري") and
+    Ibn Ḥajar al-Haytamī (Shāfiʿī fiqh scholar; matches none
+    of the dossier's non-name attributes).
+  when: REQ-SRC-0053 disagreement routing evaluates both
+    candidates
+  then: >-
+    Only al-ʿAsqalānī satisfies the ≥2-non-name floor (2
+    non-name attributes intersect: primary_science +
+    attributed_works). Definitive terminal is permitted for
+    al-ʿAsqalānī subject to compound-threshold predicates.
+    al-Haytamī fails the ≥2-non-name floor and is excluded
+    from definitive consideration; he may appear in disputed
+    positions[] only if his other signals reach the disputed
+    floor per REQ-SRC-0053.
+  test_type: integration

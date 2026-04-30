@@ -7,9 +7,29 @@ layer: architecture
 priority: critical
 confidence: high
 provenance: deep_research
-source: ChatGPT DR report on agent-team architecture (2026-04-14). Resolves OQ-SRC-0003. The DR evaluated fixed roles, dynamic composition, and hierarchical escalation, recommending dynamic composition with fixed minimums under a deterministic orchestrator.
+source: >-
+  ChatGPT DR report on agent-team architecture (2026-04-14).
+  Resolves OQ-SRC-0003. The DR evaluated fixed roles, dynamic
+  composition, and hierarchical escalation, recommending
+  dynamic composition with fixed minimums under a
+  deterministic orchestrator. Phase 5 amendment 2026-04-30
+  (scholar-matching DR synthesis §5.4): add scholar_match_cell
+  as a NAMED deliberation-cell pattern. Stage-1 (deterministic
+  narrowing per REQ-SRC-0051) is the orchestrator role;
+  Stage-2 (≥2 verifier consensus per REQ-SRC-0052) is the
+  verifier-cell role. Round-cap and disagreement protocol
+  per REQ-SRC-0008 Phase 5 amendment + REQ-SRC-0053. Cross-
+  references: CON-SRC-0008 (output contract), CON-SRC-0009
+  (evidence packet contract), REQ-SRC-0049 (snapshot
+  locking), INV-SRC-0013 (≥2-non-name floor), INV-SRC-0014
+  (matching-key honorific exclusion), INV-SRC-0015
+  (provenance completeness), INV-SRC-0016 (chosen_id
+  closure), INV-SRC-0017 (snapshot version pin). The
+  scholar_match_cell is the second NAMED instance of the
+  generic deliberation-cell pattern (the first is the
+  trust evaluation cell from REQ-SRC-0008).
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-30'
 depends_on:
 - OQ-SRC-0003
 - OF-SRC-0009
@@ -19,6 +39,7 @@ impacts:
 - agent_orchestration
 - trust_workflow
 - metadata_deliberation
+- scholar_match_cell
 options:
 - id: OPT-A
   label: LLM supervisor agent
@@ -27,9 +48,40 @@ options:
   rejection_reason: Single point of failure. The supervisor's content judgments would override the independence of verification agents. The spec explicitly rejects supervisor-veto architecture.
 - id: OPT-B
   label: Deterministic orchestrator with deliberation cells
-  description: A non-LLM workflow executor orchestrates deliberation cells. Each cell handles one metadata field or trust evaluation. The orchestrator enforces spec rules (agent counts, round limits, evidence shapes) but makes no content decisions. Agent team composition is dynamic based on case complexity, with fixed minimums (2 independent verification reasoners for high-impact fields).
+  description: >-
+    A non-LLM workflow executor orchestrates deliberation
+    cells. Each cell handles one metadata field or trust
+    evaluation. The orchestrator enforces spec rules (agent
+    counts, round limits, evidence shapes) but makes no
+    content decisions. Agent team composition is dynamic
+    based on case complexity, with fixed minimums (2
+    independent verification reasoners for high-impact
+    fields). Phase 5 amendment 2026-04-30: NAMED cell
+    patterns include (a) trust_evaluation_cell (REQ-SRC-0008
+    — generic trust shape) and (b) scholar_match_cell
+    (REQ-SRC-0049 through REQ-SRC-0053 — specialized for
+    scholar identity disambiguation under OPT-4 architecture
+    from Phase 5 cross-provider DR synthesis). Each named
+    cell pattern inherits the deterministic-orchestrator
+    structure but specializes round protocols, threshold
+    shapes, and closure invariants for its domain.
   status: chosen
-  chosen_reason: Smallest system that enforces independence, produces evidence-traceable outputs, guarantees bounded disagreement loops, supports fast-track without bypassing logging, and produces always-valid output shapes. Deterministic orchestration avoids the LLM supervisor single-point-of-failure problem while maintaining the agent team's deliberative power.
+  chosen_reason: >-
+    Smallest system that enforces independence, produces
+    evidence-traceable outputs, guarantees bounded
+    disagreement loops, supports fast-track without
+    bypassing logging, and produces always-valid output
+    shapes. Deterministic orchestration avoids the LLM
+    supervisor single-point-of-failure problem while
+    maintaining the agent team's deliberative power. Phase
+    5 amendment 2026-04-30: the cell pattern is now
+    explicitly EXTENSIBLE — scholar_match_cell is the
+    second named instance, demonstrating that the pattern
+    accommodates domain specialization (compound 4-condition
+    threshold per REQ-SRC-0053; hybrid round-0 / round-1
+    protocol per REQ-SRC-0052; F-4 hallucination closure
+    per INV-SRC-0016) without architectural changes to
+    DEC-SRC-0013's orchestrator core.
 - id: OPT-C
   label: Fully dynamic agent composition
   description: No fixed roles at all. Agents are assembled ad hoc per case.

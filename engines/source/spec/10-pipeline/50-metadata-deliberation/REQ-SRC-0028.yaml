@@ -8,18 +8,35 @@ step: metadata_deliberation
 priority: critical
 confidence: high
 provenance: deep_research
-source: ChatGPT DR report on agent-team architecture (2026-04-14). Defines three routing paths based on case complexity signals. The source engine classifies PDF text quality but does NOT perform OCR — degraded-evidence path means limited internal evidence requiring heavier external research, not OCR processing.
+source: >-
+  ChatGPT DR report on agent-team architecture (2026-04-14).
+  Defines three routing paths based on case complexity
+  signals. The source engine classifies PDF text quality but
+  does NOT perform OCR — degraded-evidence path means limited
+  internal evidence requiring heavier external research, not
+  OCR processing. Phase 5 amendment 2026-04-30 (scholar-
+  matching DR synthesis §5.4): add partial_fragment_author_
+  identity as a routing signal that FORCES standard path (not
+  fast_track) even when a provisional scholar exists in
+  scholar_authority. Provisional scholars under unresolved
+  ambiguity MUST run the full match cell (REQ-SRC-0049
+  through REQ-SRC-0053) regardless of other fast_track
+  predicates. This aligns with INV-SRC-0013 ≥2-non-name floor
+  and the no-definitive-from-under-spec rule.
 created: '2026-04-14'
-updated: '2026-04-14'
+updated: '2026-04-30'
 depends_on:
 - DEC-SRC-0013
 - REQ-SRC-0008
 - REQ-SRC-0019
 - REQ-SRC-0021
+- INV-SRC-0013
+- REQ-SRC-0049
 impacts:
 - agent_routing
 - research_dispatch
 - trust_workflow
+- scholar_match_routing
 behavior:
   trigger: The orchestrator begins metadata deliberation for a source candidate.
   preconditions:
@@ -28,7 +45,8 @@ behavior:
   - case_complexity is assessed from cheap deterministic signals before any LLM agent is invoked.
   postconditions:
   - case_complexity is set to one of fast_track, standard, or degraded_evidence.
-  - "fast_track requires all of: scholar_authority[author_canonical_id].authority_level >= primary, genre in {matn, sharh, hadith_collection, tafsir}, author_death_hijri is not null."
+  - "fast_track requires all of: scholar_authority[author_canonical_id].authority_level >= primary, genre in {matn, sharh, hadith_collection, tafsir}, author_death_hijri is not null, AND partial_fragment_author_identity is false (Phase 5 amendment 2026-04-30 — fast_track is BLOCKED when the dossier signals an under-specified scholar fragment whose match cell has not yet finalized)."
+  - "partial_fragment_author_identity is true when the dossier carries an author fragment that REQ-SRC-0050 normalizes into ≤1 non-name attribute, or when scholar_authority lookup returns a provisional record (status=provisional per ScholarAuthorityRecord.status) for the canonical_id, or when the dossier-level INV-SRC-0013 ≥2-non-name floor is unmet. Such cases MUST use trust_path=full_deliberation regardless of other fast_track predicates."
   - "degraded_evidence is set when intake_dossier.source_format=pdf and intake_dossier.pdf_text_layer_status in {absent, corrupt}, or when intake_dossier.integrity_status=suspicious."
   - standard is the default when neither fast_track nor degraded_evidence applies.
   - fast_track path uses 2 independent verification reasoners, optional minimal research, and monitor. Research depth is reduced but verification independence is not.
