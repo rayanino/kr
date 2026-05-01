@@ -585,6 +585,15 @@ class ErrorCode(str, Enum):
     SCHOLAR_NO_MATCH = "SRC-E-SCHOLAR-NO-MATCH"
     REGISTRY_SNAPSHOT_DRIFT = "SRC-E-REGISTRY-SNAPSHOT-DRIFT"
     RUNTIME_EXTERNAL = "SRC-E-RUNTIME-EXTERNAL"
+    # Step 50 — Phase 5 Session 2 fragment normalization (REQ-SRC-0050).
+    # FRAGMENT_NOT_ARABIC raises at the match-call boundary when a caller
+    # supplies Latin transliteration / empty / mixed-encoding artifact;
+    # COMPOUND_NAME_SPLIT raises if the parser splits "عبد + divine attribute"
+    # at whitespace (F-5 closure surface per synthesis §1.4). The existing
+    # HONORIFIC_ONLY_NAME above is REUSED for the empty-after-honorific-strip
+    # path per INV-SRC-0014 AC-3 + REQ-SRC-0050 AC-4.
+    FRAGMENT_NOT_ARABIC = "SRC-E-FRAGMENT-NOT-ARABIC"
+    COMPOUND_NAME_SPLIT = "SRC-E-COMPOUND-NAME-SPLIT"
     # Step 60 — source_admission_and_normalization_handoff
     PREMATURE_ADMISSION = "SRC-E-PREMATURE-ADMISSION"
     INVALID_ADMISSION = "SRC-E-INVALID-ADMISSION"

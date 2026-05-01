@@ -89,6 +89,19 @@ behavior:
     tokens. The compound is a single semantic unit per
     arabic-scholarly-conventions.md.
   - >-
+    Connector-token preservation in nasab_chain: each
+    nasab_chain entry preserves the input connector form
+    byte-faithfully — a fragment containing "بن X" emits
+    nasab_chain=["بن X"]; a fragment containing "ابن X"
+    emits nasab_chain=["ابن X"]. The parser does NOT
+    canonicalize between بن (chain-internal short form)
+    and ابن (standalone long form) because the connector
+    distinction can carry attribution information for some
+    classical naming conventions. Downstream comparison
+    against registry records performs connector-equivalence
+    matching at the comparison layer, not at the
+    parsed_components storage layer.
+  - >-
     The display_fragment (the original fragment with
     honorifics PRESERVED for display) is stored
     byte-identical to the input per Critical Rule 2.
@@ -150,14 +163,18 @@ acceptance_criteria:
   test_type: deterministic
 - id: AC-2
   given: >-
-    Fragment "عبد الله بن المبارك" (compound name + nasab).
+    Fragment "عبد الله بن المبارك" (compound name + nasab,
+    short connector form بن).
   when: REQ-SRC-0050 normalization runs
   then: >-
     parsed_components.ism = "عبد الله" (compound preserved
     as single semantic unit, NOT split into "عبد" and
-    "الله"); parsed_components.nasab_chain = ["ابن
-    المبارك"]. The compound rule is enforced. No
-    SRC-E-COMPOUND-NAME-SPLIT error.
+    "الله"); parsed_components.nasab_chain = ["بن المبارك"]
+    (connector form preserved byte-faithfully per the
+    connector-preservation postcondition; same rule as AC-3
+    where input بن also surfaces as بن in the chain). The
+    compound rule is enforced. No SRC-E-COMPOUND-NAME-SPLIT
+    error.
   test_type: deterministic
 - id: AC-3
   given: >-
