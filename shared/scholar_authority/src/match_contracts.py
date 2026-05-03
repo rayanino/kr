@@ -232,6 +232,116 @@ class RevisionHistoryEntry(BaseModel):
     revised_at: str = Field(min_length=1)
 
 
+# ---------------------------------------------------------------------------
+# Stage-2 verifier emission types — Session 3 contract surface (REQ-SRC-0052)
+# ---------------------------------------------------------------------------
+
+
+class ScoredCandidate(BaseModel):
+    """One ranked candidate within a VerifierEmission per REQ-SRC-0052.
+
+    The Stage-2 verifier scores ALL candidates in the locked CON-SRC-0009
+    evidence packet. Each scored entry carries the candidate's id, its
+    confidence in [0, 1], the 9-feature score_breakdown per ChatGPT DR §3b,
+    and the cited_evidence supporting this candidate.
+
+    Distinct from CON-SRC-0008.Position which is the RESULT-LEVEL aggregated
+    shape (per_verifier_confidence, why_not_other_candidate, etc.). A
+    ScoredCandidate is the per-verifier per-candidate intermediate emitted
+    BEFORE aggregation across both verifiers.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    canonical_id: str = Field(min_length=1)
+    confidence: float = Field(ge=0.0, le=1.0)
+    score_breakdown: ScoreBreakdown
+    cited_evidence: list[CitationRef] = Field(min_length=1)
+
+
+class VerifierEmission(BaseModel):
+    """One verifier's output for one round per REQ-SRC-0052.
+
+    Round-0 emissions are produced under no-peeking (each verifier reasons
+    over the locked packet without seeing the other's output). Round-1
+    emissions are produced under the adversarial scaffold (each verifier
+    sees the OTHER's round-0 emission). Validated by INV-SRC-0016 closure
+    before any routing decision reads the verdict.
+
+    Audit semantics (Critical Rule 13 — all data is future training material):
+    every emission is preserved, including emissions where INV-SRC-0016
+    closure rejected the chosen_id (``f4_rejected=True``). The hallucinated
+    chosen_id survives in ``chosen_id`` for audit; the routing path uses the
+    legitimate in-packet candidates only.
+
+    Confidence semantics: ``.confidence`` is a derived property (NOT a
+    stored field) returning ``positions[chosen_id].confidence``. If
+    chosen_id is not in positions (f4_rejected with hallucinated id NOT
+    scored), the derived confidence is 0.0. Single-source-of-truth: the
+    confidence value lives in ``positions``; the property prevents
+    construction-time inconsistency.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    verifier_id: str = Field(min_length=1)
+    round_index: Literal[0, 1]
+    chosen_id: str = Field(min_length=1)
+    positions: list[ScoredCandidate] = Field(min_length=1)
+    reasoning: str = ""
+    prompt_template_hash: str = Field(min_length=1)
+    f4_rejected: bool = False
+
+    @model_validator(mode="after")
+    def _validate_emission_integrity(self) -> "VerifierEmission":
+        """Validate per-emission integrity: ``positions[]`` canonical_ids are unique.
+
+        Each candidate appears at most once in positions[] so that
+        ``per_candidate_confidences`` and ``confidence`` derive
+        unambiguously. The validator does NOT require chosen_id to appear
+        in positions: an LLM may name a chosen_id without including it in
+        its own ranked positions list (the closure-relevant case from
+        INV-SRC-0016 AC-1 where the verifier hallucinates an id and the
+        orchestrator must still process the emission to mark it
+        ``f4_rejected``). The ``.confidence`` property returns 0.0 in that
+        case; downstream predicate evaluators treat ``f4_rejected``
+        emissions as "no signal" regardless.
+        """
+        ids = [p.canonical_id for p in self.positions]
+        if len(ids) != len(set(ids)):
+            raise ValueError(
+                "VerifierEmission.positions[] contains duplicate canonical_ids; "
+                f"each candidate must appear at most once (canonical_ids={ids})"
+            )
+        return self
+
+    @property
+    def confidence(self) -> float:
+        """Derived: confidence the verifier gave to chosen_id.
+
+        Returns ``positions[chosen_id].confidence`` if chosen_id is ranked,
+        else 0.0. The 0.0 fallback applies to f4_rejected emissions where the
+        LLM hallucinated an id without including it in its own ranked
+        positions. Downstream predicate evaluators MUST treat f4_rejected
+        emissions as "no signal" regardless of this property's value.
+        """
+        for position in self.positions:
+            if position.canonical_id == self.chosen_id:
+                return position.confidence
+        return 0.0
+
+    @property
+    def per_candidate_confidences(self) -> dict[str, float]:
+        """Derived: map of canonical_id → confidence from positions[].
+
+        Convenience accessor for downstream predicate evaluation. Uniqueness
+        of canonical_ids in positions[] is enforced by
+        ``_validate_emission_integrity``; the dict comprehension is
+        unambiguous.
+        """
+        return {p.canonical_id: p.confidence for p in self.positions}
+
+
 class ScholarMatchProvenance(BaseModel):
     """Full audit surface for one match call.
 
@@ -618,4 +728,6 @@ __all__ = [
     "ScholarCandidate",
     "DossierContext",
     "ScholarEvidencePacket",
+    "ScoredCandidate",
+    "VerifierEmission",
 ]
