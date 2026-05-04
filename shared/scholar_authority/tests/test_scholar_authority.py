@@ -13,6 +13,7 @@ import pytest
 
 from engines.source.contracts import ScholarAuthorityRecord
 from shared.scholar_authority.src.scholar_authority import (
+    MatchCandidate,
     compute_scholar_match_score,
     lookup,
     register,
@@ -328,7 +329,7 @@ class TestNameOnlyCap:
             canonical_name_ar="النووي",
         )
         score = compute_scholar_match_score(
-            "النووي", None, None, None, record
+            MatchCandidate(name="النووي"), record
         )
         assert score <= 0.65
 
@@ -339,6 +340,144 @@ class TestNameOnlyCap:
             death_date_hijri=676,
         )
         score = compute_scholar_match_score(
-            "النووي", 676, None, None, record
+            MatchCandidate(name="النووي", death_date_hijri=676), record
         )
         assert score >= 0.85
+
+
+class TestPhase5SpecAlignment:
+    """SPEC §4.A.2 5-signal weighted-average alignment tests.
+
+    Closes L-SCH-001 / L-SCH-002 / L-SCH-003 in
+    ``shared/scholar_authority/KNOWN_LIMITATIONS.md``.
+    """
+
+    def test_teacher_student_signal_active(self) -> None:
+        """L-SCH-001 closure: teacher-student overlap is the 5th signal at weight 0.10.
+
+        Two records with identical name + identical death date but ONLY
+        differing in teacher-student overlap should differ by ~0.10 in
+        composite score. Builds two records identical except for teachers,
+        then computes scores for a candidate that overlaps with one but
+        not the other.
+        """
+        record_with_overlap = _make_record(
+            canonical_name_ar="النووي",
+            death_date_hijri=676,
+            teachers=["sch_00050"],  # candidate's teacher
+        )
+        record_no_overlap = _make_record(
+            canonical_name_ar="النووي",
+            death_date_hijri=676,
+            teachers=["sch_99999"],  # different teacher
+        )
+        candidate = MatchCandidate(
+            name="النووي",
+            death_date_hijri=676,
+            teachers=["sch_00050"],
+        )
+        score_with = compute_scholar_match_score(candidate, record_with_overlap)
+        score_without = compute_scholar_match_score(candidate, record_no_overlap)
+        assert score_with > score_without, (
+            "Teacher overlap must increase the composite score (L-SCH-001)"
+        )
+
+    def test_nisba_bonus_applied_on_intersection(self) -> None:
+        """SPEC §4.A.2 line 125: nisba intersection grants +0.10 bonus on name signal.
+
+        The bonus only has observable effect when name_sim is less than 1.0
+        (otherwise the +0.10 is absorbed by the 1.0 cap). Use a partial-
+        name candidate against full-name records that differ only in
+        nisba, so the bonus has room to make a difference.
+        """
+        record_matching_nisba = _make_record(
+            canonical_name_ar="أحمد بن علي بن حجر العسقلاني",
+            nisba=["العسقلاني"],
+            death_date_hijri=852,
+        )
+        record_non_matching_nisba = _make_record(
+            canonical_name_ar="أحمد بن علي بن حجر العسقلاني",
+            nisba=["الهيتمي"],  # different nisba
+            death_date_hijri=852,
+        )
+        candidate = MatchCandidate(
+            name="ابن حجر",  # partial name → name_sim < 1.0, bonus visible
+            nisba=["العسقلاني"],
+            death_date_hijri=852,
+        )
+        score_match = compute_scholar_match_score(candidate, record_matching_nisba)
+        score_no_match = compute_scholar_match_score(candidate, record_non_matching_nisba)
+        assert score_match > score_no_match, (
+            "Nisba intersection must boost the name signal (SPEC §4.A.2 line 125)"
+        )
+
+    def test_five_signals_all_active_full_weight_set(self) -> None:
+        """L-SCH-002 closure: all 5 signals present with SPEC §4.A.2 weights.
+
+        With all 5 signals at maximum (perfect name match + exact date +
+        matching school + matching work + teacher overlap + nisba match),
+        the composite score must reach 1.00 (within float tolerance) when
+        the nisba bonus is also applied.
+        """
+        record = _make_record(
+            canonical_name_ar="النووي",
+            nisba=["النووي"],
+            death_date_hijri=676,
+            school_affiliations={"fiqh": "shafii"},
+            known_works=["المجموع شرح المهذب"],
+            teachers=["sch_00050"],
+        )
+        candidate = MatchCandidate(
+            name="النووي",
+            death_date_hijri=676,
+            school="shafii",
+            known_work="المجموع شرح المهذب",
+            nisba=["النووي"],
+            teachers=["sch_00050"],
+        )
+        score = compute_scholar_match_score(candidate, record)
+        # All 5 signals at 1.0 (with nisba bonus capped at 1.0) → composite 1.0.
+        assert score >= 0.99, (
+            f"All-perfect 5-signal candidate must score ≈1.0; got {score}"
+        )
+
+    def test_teacher_student_signal_missing_redistributes(self) -> None:
+        """When teacher-student data is absent on either side, its 0.10 weight redistributes.
+
+        Verifies SPEC §4.A.2 weight-redistribution rule: a missing signal's
+        weight is distributed proportionally to the available signals.
+        With only name + death_date (no school/works/teachers), the
+        composite score should still normalize cleanly.
+        """
+        record = _make_record(
+            canonical_name_ar="النووي",
+            death_date_hijri=676,
+        )
+        candidate = MatchCandidate(name="النووي", death_date_hijri=676)
+        score = compute_scholar_match_score(candidate, record)
+        # Two perfect signals → weighted average must equal 1.0 after redistribution.
+        assert score == pytest.approx(1.0, abs=1e-9), (
+            f"Two-signal perfect match should redistribute to 1.0; got {score}"
+        )
+
+    def test_legacy_lookup_path_does_not_break(self) -> None:
+        """Regression: lookup() with a populated registry uses MatchCandidate internally.
+
+        The legacy ``lookup()`` interface (positional args, no teachers/
+        students/nisba) must continue to work after the rewrite by
+        constructing an empty-teachers/empty-nisba MatchCandidate.
+        """
+        from pathlib import Path
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            reg_path = Path(tmp) / "scholars.json"
+            register(_make_record(
+                canonical_name_ar="النووي",
+                death_date_hijri=676,
+            ), registry_path=reg_path)
+            result = lookup(
+                "النووي", death_date_hijri=676, registry_path=reg_path
+            )
+            assert result.found
+            assert result.match_score >= 0.85

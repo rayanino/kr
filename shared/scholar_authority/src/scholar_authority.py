@@ -1,4 +1,4 @@
-"""Scholar Authority Registry — SPEC §4.A.5
+"""Scholar Authority Registry — SPEC §4.A.2 (matching) + §4.A.1 (creation).
 
 Stores every scholar encountered in the library. Provides identity matching
 (is this the same person?), record creation with sequential IDs, progressive
@@ -9,6 +9,19 @@ Locking: filelock on library/registries/scholars.json.lock
 ID format: sch_{5_digit_sequence} — monotonically increasing.
 
 The source engine creates records; other engines enrich them via update().
+
+Phase 5 architecture note (DEC-SRC-0013):
+The Phase 5 OPT-4 architecture (`shared/scholar_authority/src/scholar_match
+_cell.py`) is the production path forward for source-engine matching. It uses
+Stage-1 deterministic narrowing (REQ-SRC-0051) + Stage-2 verifier consensus
+(REQ-SRC-0052) + compound 4-condition threshold (REQ-SRC-0053) and emits a
+``CON-SRC-0008`` ``ScholarMatchResult`` Pydantic from
+``shared.scholar_authority.src.match_contracts``. The legacy
+``compute_scholar_match_score`` + ``lookup`` weighted-average path documented
+in this module is preserved for non-source-engine callers (excerpting-engine
+quoted-scholar resolution, registry self-validation sweeps); both paths will
+operate in parallel during Phase 5 rollout per ``shared/scholar_authority/
+SPEC.md`` §4.A.2 Phase 5 amendment.
 """
 
 from __future__ import annotations
@@ -22,6 +35,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from filelock import FileLock
+from pydantic import BaseModel, ConfigDict, Field
 
 from engines.source.contracts import MetadataHistoryEntry, ScholarAuthorityRecord
 from shared.scholar_authority.src.name_matching import normalized_name_similarity
@@ -29,9 +43,29 @@ from shared.scholar_authority.src.name_matching import normalized_name_similarit
 
 @dataclass
 class ScholarMatchResult:
-    """Result of looking up a scholar in the registry.
+    """Legacy single-threshold match result (SPEC §4.A.2 Phase 5 amendment notes).
 
-    SPEC §4.A.5 scoring thresholds:
+    DEPRECATION NOTICE — Phase 5 architectural change (2026-04-30):
+    The Phase 5 OPT-4 architecture replaces this dataclass with the
+    Pydantic ``ScholarMatchResult`` at
+    ``shared.scholar_authority.src.match_contracts.ScholarMatchResult``
+    (CON-SRC-0008). The new contract carries a dual state surface
+    (3-state ``disambiguation_state`` + 5-state ``record_status``), full
+    Stage-1 + Stage-2 provenance, and the 4 compound-threshold predicates
+    per REQ-SRC-0053 + INV-SRC-0015.
+
+    This legacy dataclass is preserved during the Phase 5 rollout because
+    the legacy ``lookup()`` path still produces it for backward compatibility
+    (excerpting-engine quoted-scholar resolution + the existing
+    ``shared/scholar_authority/tests`` suite). It will be retired once
+    ``lookup()`` is rewired to the new architecture in a follow-up session.
+
+    Naming-collision note: the new Pydantic ``ScholarMatchResult`` lives in
+    a different module (``match_contracts``); explicit imports keep the two
+    distinguishable. New Phase 5 code MUST import from ``match_contracts``;
+    legacy code in this module imports the dataclass at the local scope.
+
+    Legacy thresholds (SPEC §4.A.2 single-threshold path):
     - match_score >= 0.85 → action = "auto_link"
     - 0.50 <= match_score < 0.85 → action = "human_gate"
     - match_score < 0.50 → action = "new_record"
@@ -41,6 +75,44 @@ class ScholarMatchResult:
     match_score: float
     match_detail: str
     action: str  # "auto_link" | "human_gate" | "new_record"
+
+
+class MatchCandidate(BaseModel):
+    """Candidate-side input for ``compute_scholar_match_score`` (SPEC §4.A.2).
+
+    Bundles every candidate-side signal the SPEC §4.A.2 5-signal weighted-
+    average needs into a single Pydantic input. Adopted in Phase 5
+    Session 4 (DEC-SRC-0013 implementation phase) to satisfy the
+    ``.claude/rules/python-code.md`` ≤5-parameter rule when adding the
+    teacher-student-overlap signal (L-SCH-001 closure).
+
+    Field semantics:
+      - ``name`` — the candidate's Arabic name as encountered in the source
+      - ``death_date_hijri`` — Hijri year (signal 2 input)
+      - ``school`` — single school string (signal 3 input; legacy lookup
+        path passes one string; the SPEC's per-science form is reserved
+        for the Phase 5 forward path through scholar_match_cell)
+      - ``known_work`` — single work title (signal 4 input; legacy lookup
+        path passes one string; ``known_works`` list shape is reserved
+        for the Phase 5 forward path)
+      - ``nisba`` — list of nisbas; intersection with existing record's
+        nisba list grants the +0.10 component-wise nisba bonus on the
+        name signal (SPEC §4.A.2 line 125)
+      - ``teachers`` — list of teacher canonical_ids or name strings
+        (signal 5 input — L-SCH-001 closure)
+      - ``students`` — list of student canonical_ids or name strings
+        (signal 5 input — L-SCH-001 closure)
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str = Field(min_length=1)
+    death_date_hijri: Optional[int] = None
+    school: Optional[str] = None
+    known_work: Optional[str] = None
+    nisba: list[str] = Field(default_factory=list)
+    teachers: list[str] = Field(default_factory=list)
+    students: list[str] = Field(default_factory=list)
 
 
 @dataclass
@@ -164,61 +236,109 @@ def _compute_record_completeness(record: ScholarAuthorityRecord) -> float:
 
 
 def compute_scholar_match_score(
-    candidate_name: str,
-    candidate_death_date: Optional[int],
-    candidate_school: Optional[str],
-    candidate_known_work: Optional[str],
+    candidate: MatchCandidate,
     existing_record: ScholarAuthorityRecord,
 ) -> float:
     """Compute composite match score between a candidate and an existing record.
 
-    SPEC §4.A.5 weighted average of available signals:
-    - Name match:   weight 0.50
-    - Death date:   weight 0.30
-    - School:       weight 0.10
-    - Known works:  weight 0.10
+    SPEC §4.A.2 5-signal weighted-average of available signals:
+    - Name similarity:        weight 0.35 (+0.10 nisba bonus on intersection)
+    - Death date proximity:   weight 0.25
+    - School affiliations:    weight 0.15
+    - Known works overlap:    weight 0.15
+    - Teacher-student overlap: weight 0.10
 
-    Only signals with data on BOTH sides contribute to the weighted average.
-    If only name has data, score is capped at 0.65 (below auto_link threshold).
+    Phase 5 alignment notes (closes ``shared/scholar_authority/KNOWN_LIMITATIONS.md``
+    L-SCH-001 / L-SCH-002 / L-SCH-003):
+
+      - L-SCH-001 closed: 5th signal (teacher-student overlap) added per
+        SPEC §4.A.2 line 133-134. ``candidate.teachers`` and
+        ``candidate.students`` (canonical_id or name strings) are checked
+        for intersection against the existing record's ``teachers`` and
+        ``students`` arrays.
+      - L-SCH-002 closed: weights realigned from the legacy 0.50 / 0.30 /
+        0.10 / 0.10 to SPEC §4.A.2's 0.35 / 0.25 / 0.15 / 0.15 / 0.10
+        (sum = 1.00 across 5 signals).
+      - L-SCH-003 closed: docstring section reference updated from
+        §4.A.5 (External Enrichment Sources) to §4.A.2 (Record Matching
+        and Disambiguation) — the matching algorithm's actual SPEC home.
+
+    Nisba bonus (SPEC §4.A.2 line 125): when the candidate's ``nisba`` list
+    intersects the existing record's ``nisba`` list, the name signal score
+    receives a +0.10 bonus capped at 1.0. Nisbas are strong identity
+    signals because most scholars have only 1-3 nisbas in active use.
+
+    Weight redistribution: when a signal is unavailable (missing data on
+    either side), its weight is distributed proportionally to the
+    available signals. The composite score is always normalized to
+    0.0–1.0 regardless of how many signals are available.
+
+    Name-only cap: if only the name signal is available (all other
+    signals missing), the maximum achievable score is capped at 0.65 —
+    below the auto-match threshold — to prevent auto-matching on name
+    alone. Many scholars share names; nisbas + dates + schools are
+    needed to disambiguate.
+
+    L-SCH-004 calibration note: the weights 0.35 / 0.25 / 0.15 / 0.15 /
+    0.10 are the SPEC §4.A.2 declared values but are NOT yet calibrated
+    against an empirical gold seed (per ``.claude/rules/constraint-
+    origin-trace.md`` "round numbers are suspect until calibrated"). The
+    50-scholar gold seed work in Session 4+ closes L-SCH-004 by backing
+    these weights with calibration data documented in
+    ``CONSTRAINT_REGISTRY.md``.
     """
     signals: list[tuple[float, float]] = []  # (weight, score)
 
-    # 1. Name similarity — compare against all name variants
+    # Signal 1 — Name similarity over all name variants.
     all_names = [existing_record.canonical_name_ar]
     all_names.extend(existing_record.known_as)
     all_names.extend(existing_record.name_variants)
-
     best_name_sim = 0.0
     for name in all_names:
-        sim = normalized_name_similarity(candidate_name, name)
+        sim = normalized_name_similarity(candidate.name, name)
         best_name_sim = max(best_name_sim, sim)
 
-    signals.append((0.50, best_name_sim))
+    # Nisba bonus per SPEC §4.A.2 line 125 — applied to the name signal,
+    # capped at 1.0. Component-wise nisba intersection is a strong
+    # identity signal because most scholars have only 1-3 active nisbas.
+    if candidate.nisba and existing_record.nisba:
+        if set(candidate.nisba) & set(existing_record.nisba):
+            best_name_sim = min(1.0, best_name_sim + 0.10)
+    signals.append((0.35, best_name_sim))
 
-    # 2. Death date proximity
-    if candidate_death_date is not None and existing_record.death_date_hijri is not None:
-        diff = abs(candidate_death_date - existing_record.death_date_hijri)
+    # Signal 2 — Death date proximity.
+    if candidate.death_date_hijri is not None and existing_record.death_date_hijri is not None:
+        diff = abs(candidate.death_date_hijri - existing_record.death_date_hijri)
         date_score = max(0.0, 1.0 - diff / 50.0)
-        signals.append((0.30, date_score))
+        signals.append((0.25, date_score))
 
-    # 3. School match
-    if candidate_school is not None and existing_record.school_affiliations:
+    # Signal 3 — School affiliation match.
+    if candidate.school is not None and existing_record.school_affiliations:
         school_values = [
             v for v in existing_record.school_affiliations.values()
             if v is not None
         ]
-        school_score = 1.0 if candidate_school in school_values else 0.0
-        signals.append((0.10, school_score))
+        school_score = 1.0 if candidate.school in school_values else 0.0
+        signals.append((0.15, school_score))
 
-    # 4. Known works match
-    if candidate_known_work is not None and existing_record.known_works:
+    # Signal 4 — Known works match.
+    if candidate.known_work is not None and existing_record.known_works:
         work_score = 0.0
         for work_id in existing_record.known_works:
-            sim = normalized_name_similarity(candidate_known_work, work_id)
+            sim = normalized_name_similarity(candidate.known_work, work_id)
             if sim > 0.80:
                 work_score = 1.0
                 break
-        signals.append((0.10, work_score))
+        signals.append((0.15, work_score))
+
+    # Signal 5 — Teacher-student overlap (L-SCH-001 closure).
+    # Any single overlap (in teachers OR students, by canonical_id or name
+    # string) scores 1.0 per SPEC §4.A.2 line 133-134.
+    candidate_relations = set(candidate.teachers) | set(candidate.students)
+    record_relations = set(existing_record.teachers) | set(existing_record.students)
+    if candidate_relations and record_relations:
+        teacher_student_score = 1.0 if candidate_relations & record_relations else 0.0
+        signals.append((0.10, teacher_student_score))
 
     if not signals:
         return 0.0
@@ -227,7 +347,7 @@ def compute_scholar_match_score(
     weighted_sum = sum(w * s for w, s in signals)
     score = weighted_sum / total_weight
 
-    # Cap at 0.65 when only name signal has data — prevents auto-linking on name alone
+    # Name-only cap: prevent auto-matching on name alone.
     if len(signals) == 1:
         score = min(score, 0.65)
 
@@ -242,12 +362,28 @@ def lookup(
     *,
     registry_path: Path = Path("library/registries/scholars.json"),
 ) -> ScholarMatchResult:
-    """Look up a scholar in the registry using composite scoring.
+    """Look up a scholar in the registry using composite scoring (SPEC §4.A.2).
 
-    SPEC §4.A.5 thresholds:
+    DEPRECATION NOTICE — Phase 5 architectural change (DEC-SRC-0013):
+    This is the LEGACY single-threshold matching path. New source-engine
+    callers should use ``shared.scholar_authority.src.scholar_match_cell.
+    scholar_match_cell`` which produces a ``CON-SRC-0008``
+    ``ScholarMatchResult`` Pydantic with the dual state surface
+    (3-state ``disambiguation_state`` + 5-state ``record_status``) and
+    full Stage-1 + Stage-2 provenance per INV-SRC-0015. The legacy
+    path is preserved during Phase 5 rollout for non-source-engine
+    callers (excerpting-engine quoted-scholar resolution, registry
+    self-validation sweeps).
+
+    SPEC §4.A.2 single-threshold legacy path:
     - >= 0.85: auto_link (confident match)
     - 0.50-0.85: human_gate (possible match, needs owner confirmation)
     - < 0.50: new_record (no match found)
+
+    Internally constructs a ``MatchCandidate`` from the positional
+    arguments and delegates to ``compute_scholar_match_score``. Legacy
+    callers do not pass teachers/students/nisba; the 5-signal
+    weighted-average redistributes the missing weights per SPEC §4.A.2.
     """
     registry = _load_registry(registry_path)
 
@@ -260,15 +396,20 @@ def lookup(
             action="new_record",
         )
 
+    candidate = MatchCandidate(
+        name=name,
+        death_date_hijri=death_date_hijri,
+        school=school,
+        known_work=known_work_title,
+    )
+
     best_score = 0.0
     best_record: Optional[ScholarAuthorityRecord] = None
     best_id = ""
 
     for cid, data in registry.items():
         record = ScholarAuthorityRecord.model_validate(data)
-        score = compute_scholar_match_score(
-            name, death_date_hijri, school, known_work_title, record
-        )
+        score = compute_scholar_match_score(candidate, record)
         if score > best_score:
             best_score = score
             best_record = record
