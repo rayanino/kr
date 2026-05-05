@@ -1,0 +1,1782 @@
+{
+  "version": "2026-05-05.r1",
+  "purpose": "50-scholar gold baseline per shared/scholar_authority/SPEC.md §10 line 460. Backs the calibration of compute_scholar_match_score 5-signal weighted-average + scholar_match_cell terminal routing per Phase 5 OPT-4 architecture (DEC-SRC-0013). Closes shared/scholar_authority/KNOWN_LIMITATIONS.md L-SCH-004. Each entry pairs an authoritative ScholarAuthorityRecord-shaped block with a calibration block that drives the per-scholar test scenarios.",
+  "biographical_sources_consulted": [
+    "Siyar Aʿlām al-Nubalāʾ — al-Dhahabī (ت 748)",
+    "Wafayāt al-Aʿyān — Ibn Khallikān (ت 681)",
+    "Ṭabaqāt al-Shāfiʿīyya al-Kubrā — Tāj al-Dīn al-Subkī (ت 771)",
+    "al-Aʿlām — al-Ziriklī (1976)",
+    "Hadiyat al-ʿĀrifīn — al-Bābānī (1955)",
+    "al-Bidāya wa-l-Nihāya — Ibn Kathīr (ت 774)",
+    "Ṭabaqāt al-Ḥanābila — Ibn Abī Yaʿlā (ت 526) + Dhayl Ibn Rajab (ت 795)",
+    "al-Ansāb — al-Samʿānī (ت 562)",
+    "al-Fihrist — Ibn al-Nadīm (ت 385)",
+    "Tārīkh Baghdād — al-Khaṭīb al-Baghdādī (ت 463)",
+    "al-Wāfī bi-l-Wafayāt — al-Ṣafadī (ت 764)",
+    "Bughyat al-Wuʿāt — al-Suyūṭī (ت 911)"
+  ],
+  "trap_pairs": [
+    {"pair_label": "Ibn Taymiyya — al-Jadd (Majd al-Dīn) vs Taqī al-Dīn", "members": ["sch_00041", "sch_00042"], "discriminating_signals": ["century_active_hijri", "attributed_works"]},
+    {"pair_label": "Ibn Ḥajar — al-ʿAsqalānī vs al-Haytamī",            "members": ["sch_00043", "sch_00044"], "discriminating_signals": ["primary_science", "century_active_hijri", "attributed_works"]},
+    {"pair_label": "Ibn Qudāma — Muwaffaq al-Dīn vs Shams al-Dīn",      "members": ["sch_00045", "sch_00046"], "discriminating_signals": ["attributed_works"]},
+    {"pair_label": "Ibn Rushd — al-Jadd vs al-Ḥafīd",                   "members": ["sch_00047", "sch_00048"], "discriminating_signals": ["attributed_works"]},
+    {"pair_label": "al-Subkī — Taqī al-Dīn vs Tāj al-Dīn",              "members": ["sch_00049", "sch_00050"], "discriminating_signals": ["attributed_works"]}
+  ],
+  "default_last_updated": "2026-05-05T00:00:00+00:00",
+  "scholars": [
+    {
+      "record": {
+        "canonical_id": "sch_00001",
+        "canonical_name_ar": "عمرو بن عثمان بن قنبر سيبويه",
+        "status": "confirmed",
+        "known_as": ["سيبويه", "إمام النحاة"],
+        "name_variants": ["سيبويه البصري", "أبو بشر سيبويه"],
+        "kunya": "أبو بشر",
+        "laqab": ["سيبويه"],
+        "nisba": ["البصري", "الفارسي"],
+        "death_date_hijri": 180,
+        "death_date_approximate": true,
+        "era_century_hijri": 2,
+        "geographic_origin": "البيضاء",
+        "geographic_active": ["البصرة", "بغداد"],
+        "school_affiliations": {"nahw": "basran"},
+        "primary_science": "nahw",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الكتاب"],
+        "scholarly_standing": "إمام النحاة وأول من صنف كتابا جامعا في النحو",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "سيبويه",
+        "canonical_dossier": {
+          "primary_science": "nahw",
+          "century_active_hijri_estimates": [2],
+          "school_affiliation_hints": {"nahw": "basran"},
+          "attributed_works": ["الكتاب"],
+          "geographic_signals": ["البصرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Wafayāt al-Aʿyān 3/463 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00002",
+        "canonical_name_ar": "يحيى بن شرف بن مري النووي",
+        "status": "confirmed",
+        "known_as": ["النووي", "محيي الدين النووي"],
+        "name_variants": ["الإمام النووي", "أبو زكريا النووي"],
+        "kunya": "أبو زكريا",
+        "laqab": ["محيي الدين"],
+        "nisba": ["النووي", "الدمشقي", "الحوراني"],
+        "death_date_hijri": 676,
+        "era_century_hijri": 7,
+        "geographic_origin": "نوى",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "hadith": "ahl_hadith"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المجموع شرح المهذب", "روضة الطالبين", "المنهاج شرح صحيح مسلم", "رياض الصالحين", "الأذكار"],
+        "scholarly_standing": "محرر المذهب الشافعي وأحد الحفاظ",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "النووي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["المجموع شرح المهذب", "رياض الصالحين"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Ṭabaqāt al-Shāfiʿīyya al-Kubrā 8/395 — al-Subkī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00003",
+        "canonical_name_ar": "محمد بن إسماعيل بن إبراهيم البخاري",
+        "status": "confirmed",
+        "known_as": ["البخاري", "الإمام البخاري"],
+        "name_variants": ["محمد بن إسماعيل", "أبو عبد الله البخاري"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["أمير المؤمنين في الحديث"],
+        "nisba": ["البخاري", "الجعفي"],
+        "death_date_hijri": 256,
+        "era_century_hijri": 3,
+        "geographic_origin": "بخارى",
+        "geographic_active": ["بخارى", "بغداد", "نيسابور", "خرتنك"],
+        "school_affiliations": {"hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00008"],
+        "students": ["sch_00004", "sch_00035"],
+        "known_works": ["الجامع الصحيح", "التاريخ الكبير", "الأدب المفرد", "خلق أفعال العباد"],
+        "scholarly_standing": "أمير المؤمنين في الحديث",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "البخاري",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"hadith": "ahl_hadith"},
+          "attributed_works": ["الجامع الصحيح"],
+          "geographic_signals": ["بخارى"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 12/391 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00004",
+        "canonical_name_ar": "مسلم بن الحجاج بن مسلم القشيري النيسابوري",
+        "status": "confirmed",
+        "known_as": ["مسلم", "الإمام مسلم"],
+        "name_variants": ["مسلم بن الحجاج", "أبو الحسين مسلم"],
+        "kunya": "أبو الحسين",
+        "laqab": [],
+        "nisba": ["النيسابوري", "القشيري"],
+        "death_date_hijri": 261,
+        "era_century_hijri": 3,
+        "geographic_origin": "نيسابور",
+        "geographic_active": ["نيسابور", "بغداد"],
+        "school_affiliations": {"hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00003", "sch_00008"],
+        "students": [],
+        "known_works": ["صحيح مسلم", "الكنى والأسماء", "الطبقات", "المنفردات والوحدان"],
+        "scholarly_standing": "أحد أئمة الحديث وصاحب الصحيح",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "مسلم",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"hadith": "ahl_hadith"},
+          "attributed_works": ["صحيح مسلم"],
+          "geographic_signals": ["نيسابور"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 12/557 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00005",
+        "canonical_name_ar": "النعمان بن ثابت بن زوطى الكوفي",
+        "status": "confirmed",
+        "known_as": ["أبو حنيفة", "الإمام الأعظم"],
+        "name_variants": ["النعمان بن ثابت", "أبو حنيفة النعمان"],
+        "kunya": "أبو حنيفة",
+        "laqab": ["الإمام الأعظم"],
+        "nisba": ["الكوفي", "التيمي"],
+        "death_date_hijri": 150,
+        "era_century_hijri": 2,
+        "geographic_origin": "الكوفة",
+        "geographic_active": ["الكوفة", "بغداد"],
+        "school_affiliations": {"fiqh": "hanafi"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الفقه الأكبر", "العالم والمتعلم", "مسند أبي حنيفة"],
+        "scholarly_standing": "إمام أهل الرأي ومؤسس المذهب الحنفي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "أبو حنيفة",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [2],
+          "school_affiliation_hints": {"fiqh": "hanafi"},
+          "attributed_works": ["الفقه الأكبر"],
+          "geographic_signals": ["الكوفة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tārīkh Baghdād 13/323 — al-Khaṭīb al-Baghdādī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00006",
+        "canonical_name_ar": "محمد بن إدريس بن العباس الشافعي",
+        "status": "confirmed",
+        "known_as": ["الشافعي", "الإمام الشافعي"],
+        "name_variants": ["محمد بن إدريس", "أبو عبد الله الشافعي"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["ناصر الحديث"],
+        "nisba": ["الشافعي", "المطلبي", "القرشي"],
+        "death_date_hijri": 204,
+        "era_century_hijri": 3,
+        "geographic_origin": "غزة",
+        "geographic_active": ["مكة", "بغداد", "مصر"],
+        "school_affiliations": {"fiqh": "shafii"},
+        "primary_science": "fiqh",
+        "teachers": ["sch_00007"],
+        "students": ["sch_00008"],
+        "known_works": ["الأم", "الرسالة", "اختلاف الحديث", "أحكام القرآن"],
+        "scholarly_standing": "ناصر السنة ومؤسس المذهب الشافعي ومدوّن أصول الفقه",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الشافعي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["الأم", "الرسالة"],
+          "geographic_signals": ["مصر"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 10/5 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00007",
+        "canonical_name_ar": "مالك بن أنس بن مالك الأصبحي",
+        "status": "confirmed",
+        "known_as": ["مالك", "الإمام مالك", "إمام دار الهجرة"],
+        "name_variants": ["مالك بن أنس", "أبو عبد الله مالك"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["إمام دار الهجرة"],
+        "nisba": ["المدني", "الأصبحي"],
+        "death_date_hijri": 179,
+        "era_century_hijri": 2,
+        "geographic_origin": "المدينة",
+        "geographic_active": ["المدينة"],
+        "school_affiliations": {"fiqh": "maliki", "hadith": "ahl_hadith"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": ["sch_00006"],
+        "known_works": ["الموطأ", "المدونة الكبرى", "رسالة مالك إلى الليث بن سعد"],
+        "scholarly_standing": "إمام دار الهجرة ومؤسس المذهب المالكي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "مالك بن أنس",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [2],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["الموطأ"],
+          "geographic_signals": ["المدينة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 8/48 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00008",
+        "canonical_name_ar": "أحمد بن محمد بن حنبل الشيباني",
+        "status": "confirmed",
+        "known_as": ["أحمد بن حنبل", "الإمام أحمد"],
+        "name_variants": ["أحمد بن حنبل", "أبو عبد الله أحمد بن حنبل"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["إمام أهل السنة"],
+        "nisba": ["الشيباني", "البغدادي", "المروزي"],
+        "death_date_hijri": 241,
+        "era_century_hijri": 3,
+        "geographic_origin": "بغداد",
+        "geographic_active": ["بغداد"],
+        "school_affiliations": {"fiqh": "hanbali", "hadith": "ahl_hadith", "aqida": "athari"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00006"],
+        "students": ["sch_00003", "sch_00004", "sch_00038"],
+        "known_works": ["المسند", "أصول السنة", "الرد على الزنادقة والجهمية", "العلل ومعرفة الرجال"],
+        "scholarly_standing": "إمام أهل السنة ومؤسس المذهب الحنبلي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "أحمد بن حنبل",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["المسند"],
+          "geographic_signals": ["بغداد"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 11/177 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00009",
+        "canonical_name_ar": "محمد بن محمد بن محمد الغزالي الطوسي",
+        "status": "confirmed",
+        "known_as": ["الغزالي", "أبو حامد الغزالي", "حجة الإسلام"],
+        "name_variants": ["أبو حامد محمد الغزالي", "الإمام الغزالي"],
+        "kunya": "أبو حامد",
+        "laqab": ["حجة الإسلام", "زين الدين"],
+        "nisba": ["الغزالي", "الطوسي", "النيسابوري"],
+        "death_date_hijri": 505,
+        "era_century_hijri": 6,
+        "geographic_origin": "طوس",
+        "geographic_active": ["طوس", "نيسابور", "بغداد", "دمشق", "بيت المقدس"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari", "tasawwuf": "sunni"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["إحياء علوم الدين", "المستصفى من علم الأصول", "تهافت الفلاسفة", "المنقذ من الضلال", "بداية الهداية"],
+        "scholarly_standing": "حجة الإسلام والمجدد على رأس المئة الخامسة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الغزالي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["إحياء علوم الدين", "المستصفى من علم الأصول"],
+          "geographic_signals": ["طوس"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Ṭabaqāt al-Shāfiʿīyya al-Kubrā 6/191 — al-Subkī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00010",
+        "canonical_name_ar": "محمد بن عبد الله بن مالك الطائي الجياني",
+        "status": "confirmed",
+        "known_as": ["ابن مالك", "ابن مالك الأندلسي"],
+        "name_variants": ["محمد بن عبد الله بن مالك", "جمال الدين ابن مالك"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["جمال الدين"],
+        "nisba": ["الطائي", "الجياني", "الأندلسي", "الدمشقي"],
+        "death_date_hijri": 672,
+        "era_century_hijri": 7,
+        "geographic_origin": "جيان",
+        "geographic_active": ["جيان", "دمشق", "حلب"],
+        "school_affiliations": {"fiqh": "shafii", "nahw": "andalusi"},
+        "primary_science": "nahw",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الألفية", "تسهيل الفوائد", "شرح الكافية الشافية", "لامية الأفعال"],
+        "scholarly_standing": "إمام النحو في عصره وصاحب الألفية المشهورة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن مالك",
+        "canonical_dossier": {
+          "primary_science": "nahw",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["الألفية", "تسهيل الفوائد"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Bughyat al-Wuʿāt 1/130 — al-Suyūṭī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00011",
+        "canonical_name_ar": "محمد بن أبي بكر بن أيوب بن سعد الزرعي الدمشقي",
+        "status": "confirmed",
+        "known_as": ["ابن القيم", "ابن قيم الجوزية"],
+        "name_variants": ["محمد بن أبي بكر ابن قيم الجوزية", "شمس الدين ابن القيم"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["شمس الدين"],
+        "nisba": ["الزرعي", "الدمشقي", "الحنبلي"],
+        "death_date_hijri": 751,
+        "era_century_hijri": 8,
+        "geographic_origin": "دمشق",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "hanbali", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": ["sch_00042"],
+        "students": [],
+        "known_works": ["زاد المعاد", "إعلام الموقعين", "مدارج السالكين", "الداء والدواء", "الطرق الحكمية"],
+        "scholarly_standing": "تلميذ ابن تيمية البارز ومحقق المذهب الحنبلي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن القيم",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["زاد المعاد", "إعلام الموقعين"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Bidāya wa-l-Nihāya 14/270 — Ibn Kathīr"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00012",
+        "canonical_name_ar": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+        "status": "confirmed",
+        "known_as": ["السيوطي", "جلال الدين السيوطي"],
+        "name_variants": ["عبد الرحمن السيوطي", "ابن الكتب"],
+        "kunya": "أبو الفضل",
+        "laqab": ["جلال الدين"],
+        "nisba": ["السيوطي", "الخضيري", "الشافعي", "المصري"],
+        "death_date_hijri": 911,
+        "era_century_hijri": 10,
+        "geographic_origin": "أسيوط",
+        "geographic_active": ["القاهرة"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari", "hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الإتقان في علوم القرآن", "تدريب الراوي", "الجامع الكبير", "همع الهوامع", "بغية الوعاة", "الأشباه والنظائر"],
+        "scholarly_standing": "حافظ متفنن صاحب التصانيف المشهورة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "السيوطي",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [10],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["الإتقان في علوم القرآن", "تدريب الراوي"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Hadiyat al-ʿĀrifīn 1/534 — al-Bābānī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00013",
+        "canonical_name_ar": "محمد بن أحمد بن عثمان شمس الدين الذهبي",
+        "status": "confirmed",
+        "known_as": ["الذهبي", "شمس الدين الذهبي"],
+        "name_variants": ["محمد بن أحمد الذهبي", "الإمام الذهبي"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["شمس الدين"],
+        "nisba": ["الذهبي", "الدمشقي", "التركماني"],
+        "death_date_hijri": 748,
+        "era_century_hijri": 8,
+        "geographic_origin": "دمشق",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "hadith": "ahl_hadith", "aqida": "athari"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00042"],
+        "students": [],
+        "known_works": ["سير أعلام النبلاء", "تاريخ الإسلام", "ميزان الاعتدال", "تذكرة الحفاظ", "الكاشف"],
+        "scholarly_standing": "حافظ المؤرخين ومؤرخ الحفاظ",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الذهبي",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["سير أعلام النبلاء", "تاريخ الإسلام"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Wāfī bi-l-Wafayāt 2/114 — al-Ṣafadī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00014",
+        "canonical_name_ar": "أبو بكر بن مسعود بن أحمد علاء الدين الكاساني",
+        "status": "confirmed",
+        "known_as": ["الكاساني", "علاء الدين الكاساني", "ملك العلماء"],
+        "name_variants": ["أبو بكر الكاساني", "صاحب البدائع"],
+        "kunya": "أبو بكر",
+        "laqab": ["علاء الدين", "ملك العلماء"],
+        "nisba": ["الكاساني", "الحنفي"],
+        "death_date_hijri": 587,
+        "era_century_hijri": 6,
+        "geographic_origin": "كاسان",
+        "geographic_active": ["حلب", "قونية"],
+        "school_affiliations": {"fiqh": "hanafi"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["بدائع الصنائع في ترتيب الشرائع"],
+        "scholarly_standing": "ملك العلماء وأحد أئمة الحنفية",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الكاساني",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"fiqh": "hanafi"},
+          "attributed_works": ["بدائع الصنائع في ترتيب الشرائع"],
+          "geographic_signals": ["حلب"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Aʿlām 2/70 — al-Ziriklī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00015",
+        "canonical_name_ar": "محمد أمين بن عمر بن عبد العزيز ابن عابدين",
+        "status": "confirmed",
+        "known_as": ["ابن عابدين", "محمد أمين ابن عابدين"],
+        "name_variants": ["السيد محمد أمين ابن عابدين"],
+        "kunya": "أبو الفضل",
+        "laqab": ["خاتمة المحققين"],
+        "nisba": ["الدمشقي", "الحنفي"],
+        "death_date_hijri": 1252,
+        "era_century_hijri": 13,
+        "geographic_origin": "دمشق",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "hanafi"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["رد المحتار على الدر المختار", "العقود الدرية", "نسمات الأسحار"],
+        "scholarly_standing": "خاتمة محققي المذهب الحنفي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن عابدين",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [13],
+          "school_affiliation_hints": {"fiqh": "hanafi"},
+          "attributed_works": ["رد المحتار على الدر المختار"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Aʿlām 6/42 — al-Ziriklī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00016",
+        "canonical_name_ar": "محمد بن جرير بن يزيد الطبري",
+        "status": "confirmed",
+        "known_as": ["الطبري", "ابن جرير", "أبو جعفر الطبري"],
+        "name_variants": ["محمد بن جرير الطبري", "إمام المفسرين"],
+        "kunya": "أبو جعفر",
+        "laqab": ["إمام المفسرين"],
+        "nisba": ["الطبري", "الآملي", "البغدادي"],
+        "death_date_hijri": 310,
+        "era_century_hijri": 4,
+        "geographic_origin": "آمل طبرستان",
+        "geographic_active": ["بغداد"],
+        "school_affiliations": {"fiqh": "jariri"},
+        "primary_science": "tafsir",
+        "teachers": [],
+        "students": [],
+        "known_works": ["جامع البيان عن تأويل آي القرآن", "تاريخ الرسل والملوك", "تهذيب الآثار", "اختلاف الفقهاء"],
+        "scholarly_standing": "إمام المفسرين والمؤرخين وصاحب المذهب الجريري",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الطبري",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [4],
+          "school_affiliation_hints": {"fiqh": "jariri"},
+          "attributed_works": ["جامع البيان عن تأويل آي القرآن", "تاريخ الرسل والملوك"],
+          "geographic_signals": ["بغداد"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tārīkh Baghdād 2/162 — al-Khaṭīb al-Baghdādī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00017",
+        "canonical_name_ar": "إسماعيل بن عمر بن كثير القرشي الدمشقي",
+        "status": "confirmed",
+        "known_as": ["ابن كثير", "إسماعيل بن كثير", "أبو الفداء ابن كثير"],
+        "name_variants": ["عماد الدين ابن كثير"],
+        "kunya": "أبو الفداء",
+        "laqab": ["عماد الدين"],
+        "nisba": ["الدمشقي", "البصروي", "القرشي", "الشافعي"],
+        "death_date_hijri": 774,
+        "era_century_hijri": 8,
+        "geographic_origin": "بصرى",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "athari"},
+        "primary_science": "tafsir",
+        "teachers": ["sch_00042", "sch_00013"],
+        "students": [],
+        "known_works": ["تفسير القرآن العظيم", "البداية والنهاية", "السيرة النبوية", "اختصار علوم الحديث"],
+        "scholarly_standing": "حافظ مفسر مؤرخ من تلامذة ابن تيمية والذهبي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن كثير",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["تفسير القرآن العظيم", "البداية والنهاية"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Inbāʾ al-Ghumr bi-Anbāʾ al-ʿUmr 1/45 — Ibn Ḥajar al-ʿAsqalānī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00018",
+        "canonical_name_ar": "محمد بن أحمد بن أبي بكر القرطبي",
+        "status": "confirmed",
+        "known_as": ["القرطبي", "محمد بن أحمد القرطبي", "أبو عبد الله القرطبي"],
+        "name_variants": ["شمس الدين القرطبي", "صاحب الجامع لأحكام القرآن"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["شمس الدين"],
+        "nisba": ["القرطبي", "الأنصاري", "الخزرجي", "الأندلسي"],
+        "death_date_hijri": 671,
+        "era_century_hijri": 7,
+        "geographic_origin": "قرطبة",
+        "geographic_active": ["الأندلس", "مصر"],
+        "school_affiliations": {"fiqh": "maliki"},
+        "primary_science": "tafsir",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الجامع لأحكام القرآن", "التذكرة بأحوال الموتى وأمور الآخرة", "الأسنى في شرح أسماء الله الحسنى"],
+        "scholarly_standing": "إمام المفسرين المالكيين",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "القرطبي",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["الجامع لأحكام القرآن"],
+          "geographic_signals": ["مصر"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Dībāj al-Mudhahhab 2/308 — Ibn Farḥūn"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00019",
+        "canonical_name_ar": "محمود بن عمر بن محمد جار الله الزمخشري",
+        "status": "confirmed",
+        "known_as": ["الزمخشري", "جار الله الزمخشري"],
+        "name_variants": ["أبو القاسم الزمخشري", "صاحب الكشاف"],
+        "kunya": "أبو القاسم",
+        "laqab": ["جار الله", "فخر خوارزم"],
+        "nisba": ["الزمخشري", "الخوارزمي"],
+        "death_date_hijri": 538,
+        "era_century_hijri": 6,
+        "geographic_origin": "زمخشر",
+        "geographic_active": ["مكة", "خوارزم"],
+        "school_affiliations": {"fiqh": "hanafi", "aqida": "mutazili", "nahw": "general"},
+        "primary_science": "tafsir",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الكشاف عن حقائق غوامض التنزيل", "أساس البلاغة", "المفصل في صنعة الإعراب", "ربيع الأبرار"],
+        "scholarly_standing": "إمام المعتزلة في عصره وصاحب الكشاف",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الزمخشري",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"aqida": "mutazili"},
+          "attributed_works": ["الكشاف عن حقائق غوامض التنزيل", "أساس البلاغة"],
+          "geographic_signals": ["خوارزم"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Wafayāt al-Aʿyān 5/168 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00020",
+        "canonical_name_ar": "محمد بن عمر بن الحسين فخر الدين الرازي",
+        "status": "confirmed",
+        "known_as": ["الرازي", "فخر الدين الرازي", "ابن الخطيب"],
+        "name_variants": ["الإمام الرازي", "أبو عبد الله محمد الرازي"],
+        "kunya": "أبو عبد الله",
+        "laqab": ["فخر الدين", "شيخ الإسلام"],
+        "nisba": ["الرازي", "الطبرستاني", "الهروي"],
+        "death_date_hijri": 606,
+        "era_century_hijri": 7,
+        "geographic_origin": "الري",
+        "geographic_active": ["الري", "خوارزم", "هراة"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari"},
+        "primary_science": "tafsir",
+        "teachers": [],
+        "students": [],
+        "known_works": ["مفاتيح الغيب", "المحصول في أصول الفقه", "نهاية العقول في دراية الأصول", "أساس التقديس", "المباحث المشرقية"],
+        "scholarly_standing": "شيخ الإسلام الرازي وعلم الكلام والمتكلمين الأشاعرة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "فخر الدين الرازي",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "shafii", "aqida": "ashari"},
+          "attributed_works": ["مفاتيح الغيب", "المحصول في أصول الفقه"],
+          "geographic_signals": ["هراة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Wafayāt al-Aʿyān 4/248 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00021",
+        "canonical_name_ar": "الحسين بن عبد الله بن سينا أبو علي ابن سينا",
+        "status": "confirmed",
+        "known_as": ["ابن سينا", "أبو علي ابن سينا", "الشيخ الرئيس"],
+        "name_variants": ["الحسين بن عبد الله بن الحسن بن علي بن سينا"],
+        "kunya": "أبو علي",
+        "laqab": ["الشيخ الرئيس"],
+        "nisba": ["البخاري"],
+        "death_date_hijri": 428,
+        "era_century_hijri": 5,
+        "geographic_origin": "أفشنة",
+        "geographic_active": ["بخارى", "جرجان", "الري", "همذان", "أصفهان"],
+        "school_affiliations": {},
+        "primary_science": "philosophy",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الشفاء", "القانون في الطب", "النجاة", "الإشارات والتنبيهات", "الأرجوزة في الطب"],
+        "scholarly_standing": "الشيخ الرئيس وفيلسوف العصر وطبيبه",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن سينا",
+        "canonical_dossier": {
+          "primary_science": "philosophy",
+          "century_active_hijri_estimates": [5],
+          "school_affiliation_hints": {},
+          "attributed_works": ["الشفاء", "القانون في الطب"],
+          "geographic_signals": ["أصفهان", "همذان"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "ʿUyūn al-Anbāʾ fī Ṭabaqāt al-Aṭibbāʾ — Ibn Abī Uṣaybiʿa"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00022",
+        "canonical_name_ar": "محمد بن محمد بن طرخان بن أوزلغ أبو نصر الفارابي",
+        "status": "confirmed",
+        "known_as": ["الفارابي", "أبو نصر الفارابي", "المعلم الثاني"],
+        "name_variants": ["أبو نصر الفارابي"],
+        "kunya": "أبو نصر",
+        "laqab": ["المعلم الثاني"],
+        "nisba": ["الفارابي", "التركي"],
+        "death_date_hijri": 339,
+        "era_century_hijri": 4,
+        "geographic_origin": "فاراب",
+        "geographic_active": ["بغداد", "حلب", "دمشق"],
+        "school_affiliations": {},
+        "primary_science": "philosophy",
+        "teachers": [],
+        "students": [],
+        "known_works": ["إحصاء العلوم", "آراء أهل المدينة الفاضلة", "الجمع بين رأيي الحكيمين", "الحروف"],
+        "scholarly_standing": "المعلم الثاني بعد أرسطو في فلسفة المسلمين",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الفارابي",
+        "canonical_dossier": {
+          "primary_science": "philosophy",
+          "century_active_hijri_estimates": [4],
+          "school_affiliation_hints": {},
+          "attributed_works": ["إحصاء العلوم", "آراء أهل المدينة الفاضلة"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Wafayāt al-Aʿyān 5/153 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00023",
+        "canonical_name_ar": "يعقوب بن إسحاق الكندي أبو يوسف",
+        "status": "confirmed",
+        "known_as": ["الكندي", "أبو يوسف الكندي", "فيلسوف العرب"],
+        "name_variants": ["يعقوب بن إسحاق بن الصباح الكندي"],
+        "kunya": "أبو يوسف",
+        "laqab": ["فيلسوف العرب"],
+        "nisba": ["الكندي"],
+        "death_date_hijri": 256,
+        "death_date_approximate": true,
+        "era_century_hijri": 3,
+        "geographic_origin": "الكوفة",
+        "geographic_active": ["البصرة", "بغداد"],
+        "school_affiliations": {},
+        "primary_science": "philosophy",
+        "teachers": [],
+        "students": [],
+        "known_works": ["رسالة في العقل", "في الفلسفة الأولى", "في الموسيقى الكبير"],
+        "scholarly_standing": "فيلسوف العرب وأول من أدخل الفلسفة في تراث العرب",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الكندي",
+        "canonical_dossier": {
+          "primary_science": "philosophy",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {},
+          "attributed_works": ["في الفلسفة الأولى", "رسالة في العقل"],
+          "geographic_signals": ["بغداد"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Fihrist 1/255 — Ibn al-Nadīm"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00024",
+        "canonical_name_ar": "عبد الرحمن بن محمد بن محمد بن خلدون الحضرمي",
+        "status": "confirmed",
+        "known_as": ["ابن خلدون", "عبد الرحمن ابن خلدون", "ولي الدين ابن خلدون"],
+        "name_variants": ["أبو زيد ابن خلدون"],
+        "kunya": "أبو زيد",
+        "laqab": ["ولي الدين"],
+        "nisba": ["الحضرمي", "الإشبيلي", "التونسي", "المالكي"],
+        "death_date_hijri": 808,
+        "era_century_hijri": 9,
+        "geographic_origin": "تونس",
+        "geographic_active": ["تونس", "فاس", "غرناطة", "تلمسان", "القاهرة"],
+        "school_affiliations": {"fiqh": "maliki"},
+        "primary_science": "history",
+        "teachers": [],
+        "students": [],
+        "known_works": ["العبر وديوان المبتدأ والخبر (تاريخ ابن خلدون)", "المقدمة", "التعريف بابن خلدون ورحلته غربا وشرقا", "شفاء السائل لتهذيب المسائل"],
+        "scholarly_standing": "مؤسس علم الاجتماع ومؤرخ ذو منهج فلسفي",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن خلدون",
+        "canonical_dossier": {
+          "primary_science": "history",
+          "century_active_hijri_estimates": [9],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["المقدمة", "العبر وديوان المبتدأ والخبر (تاريخ ابن خلدون)"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Ḍawʾ al-Lāmiʿ 4/145 — al-Sakhāwī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00025",
+        "canonical_name_ar": "محمد بن محمد بن محمد بن علي شمس الدين ابن الجزري",
+        "status": "confirmed",
+        "known_as": ["ابن الجزري", "شمس الدين ابن الجزري"],
+        "name_variants": ["محمد بن محمد ابن الجزري"],
+        "kunya": "أبو الخير",
+        "laqab": ["شمس الدين"],
+        "nisba": ["الجزري", "الدمشقي", "الشيرازي", "الشافعي"],
+        "death_date_hijri": 833,
+        "era_century_hijri": 9,
+        "geographic_origin": "دمشق",
+        "geographic_active": ["دمشق", "القاهرة", "بروسة", "شيراز"],
+        "school_affiliations": {"fiqh": "shafii"},
+        "primary_science": "qiraat",
+        "teachers": [],
+        "students": [],
+        "known_works": ["النشر في القراءات العشر", "غاية النهاية في طبقات القراء", "طيبة النشر في القراءات العشر", "الحصن الحصين"],
+        "scholarly_standing": "إمام القراء في عصره ومحرر القراءات العشر",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن الجزري",
+        "canonical_dossier": {
+          "primary_science": "qiraat",
+          "century_active_hijri_estimates": [9],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["النشر في القراءات العشر", "طيبة النشر في القراءات العشر"],
+          "geographic_signals": ["شيراز"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Ḍawʾ al-Lāmiʿ 9/255 — al-Sakhāwī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00026",
+        "canonical_name_ar": "محمد بن أحمد بن أبي سهل شمس الأئمة السرخسي",
+        "status": "confirmed",
+        "known_as": ["السرخسي", "شمس الأئمة السرخسي"],
+        "name_variants": ["محمد بن أحمد السرخسي", "صاحب المبسوط"],
+        "kunya": "أبو بكر",
+        "laqab": ["شمس الأئمة"],
+        "nisba": ["السرخسي", "الحنفي"],
+        "death_date_hijri": 483,
+        "era_century_hijri": 5,
+        "geographic_origin": "سرخس",
+        "geographic_active": ["سرخس", "أوزجند"],
+        "school_affiliations": {"fiqh": "hanafi"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المبسوط", "أصول السرخسي", "شرح السير الكبير"],
+        "scholarly_standing": "شمس الأئمة وأحد محرري المذهب الحنفي وصاحب المبسوط",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "السرخسي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [5],
+          "school_affiliation_hints": {"fiqh": "hanafi"},
+          "attributed_works": ["المبسوط", "أصول السرخسي"],
+          "geographic_signals": ["سرخس"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Jawāhir al-Muḍiyya 3/78 — al-Qurashī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00027",
+        "canonical_name_ar": "عبد العزيز بن عبد السلام بن أبي القاسم السلمي",
+        "status": "confirmed",
+        "known_as": ["العز بن عبد السلام", "سلطان العلماء", "العز السلمي"],
+        "name_variants": ["عز الدين بن عبد السلام", "أبو محمد العز"],
+        "kunya": "أبو محمد",
+        "laqab": ["عز الدين", "سلطان العلماء"],
+        "nisba": ["السلمي", "الدمشقي", "المصري", "الشافعي"],
+        "death_date_hijri": 660,
+        "era_century_hijri": 7,
+        "geographic_origin": "دمشق",
+        "geographic_active": ["دمشق", "القاهرة"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["قواعد الأحكام في مصالح الأنام", "الفوائد في اختصار المقاصد", "الإمام في بيان أدلة الأحكام"],
+        "scholarly_standing": "سلطان العلماء ومحقق المذهب الشافعي وصاحب القواعد",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "العز بن عبد السلام",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["قواعد الأحكام في مصالح الأنام"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Ṭabaqāt al-Shāfiʿīyya al-Kubrā 8/209 — al-Subkī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00028",
+        "canonical_name_ar": "عياض بن موسى بن عياض اليحصبي السبتي",
+        "status": "confirmed",
+        "known_as": ["القاضي عياض", "عياض اليحصبي"],
+        "name_variants": ["أبو الفضل القاضي عياض"],
+        "kunya": "أبو الفضل",
+        "laqab": ["القاضي"],
+        "nisba": ["اليحصبي", "السبتي", "الأندلسي", "المالكي"],
+        "death_date_hijri": 544,
+        "era_century_hijri": 6,
+        "geographic_origin": "سبتة",
+        "geographic_active": ["سبتة", "غرناطة", "مراكش"],
+        "school_affiliations": {"fiqh": "maliki", "hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الشفا بتعريف حقوق المصطفى", "إكمال المعلم بفوائد مسلم", "ترتيب المدارك وتقريب المسالك", "مشارق الأنوار على صحاح الآثار"],
+        "scholarly_standing": "إمام المالكية في وقته وأديبهم وحافظهم",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "القاضي عياض",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["الشفا بتعريف حقوق المصطفى", "إكمال المعلم بفوائد مسلم"],
+          "geographic_signals": ["سبتة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Wafayāt al-Aʿyān 3/483 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00029",
+        "canonical_name_ar": "علي بن أحمد بن سعيد بن حزم الأندلسي",
+        "status": "confirmed",
+        "known_as": ["ابن حزم", "ابن حزم الظاهري"],
+        "name_variants": ["أبو محمد ابن حزم", "علي بن أحمد بن حزم"],
+        "kunya": "أبو محمد",
+        "laqab": [],
+        "nisba": ["الأندلسي", "القرطبي", "الظاهري"],
+        "death_date_hijri": 456,
+        "era_century_hijri": 5,
+        "geographic_origin": "قرطبة",
+        "geographic_active": ["قرطبة", "إشبيلية", "ميورقة"],
+        "school_affiliations": {"fiqh": "zahiri", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المحلى بالآثار", "الإحكام في أصول الأحكام", "الفصل في الملل والأهواء والنحل", "طوق الحمامة", "جمهرة أنساب العرب"],
+        "scholarly_standing": "إمام الظاهرية في الأندلس ومنظر مذهبهم وأديب رفيع المنزلة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن حزم",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [5],
+          "school_affiliation_hints": {"fiqh": "zahiri"},
+          "attributed_works": ["المحلى بالآثار", "الإحكام في أصول الأحكام"],
+          "geographic_signals": ["قرطبة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Siyar Aʿlām al-Nubalāʾ 18/184 — al-Dhahabī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00030",
+        "canonical_name_ar": "محمد بن يعقوب الفيروزآبادي مجد الدين",
+        "status": "confirmed",
+        "known_as": ["الفيروزآبادي", "مجد الدين الفيروزآبادي", "صاحب القاموس"],
+        "name_variants": ["محمد بن يعقوب الفيروزآبادي"],
+        "kunya": "أبو طاهر",
+        "laqab": ["مجد الدين"],
+        "nisba": ["الفيروزآبادي", "الشيرازي", "الشافعي"],
+        "death_date_hijri": 817,
+        "era_century_hijri": 9,
+        "geographic_origin": "كازرون",
+        "geographic_active": ["شيراز", "بغداد", "دمشق", "القاهرة", "زبيد"],
+        "school_affiliations": {"fiqh": "shafii"},
+        "primary_science": "lugha",
+        "teachers": [],
+        "students": [],
+        "known_works": ["القاموس المحيط", "بصائر ذوي التمييز في لطائف الكتاب العزيز", "تنوير المقباس من تفسير ابن عباس"],
+        "scholarly_standing": "إمام اللغة في عصره وصاحب القاموس",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الفيروزآبادي",
+        "canonical_dossier": {
+          "primary_science": "lugha",
+          "century_active_hijri_estimates": [9],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["القاموس المحيط"],
+          "geographic_signals": ["زبيد"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Bughyat al-Wuʿāt 1/273 — al-Suyūṭī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00031",
+        "canonical_name_ar": "محمد بن مكرم بن علي ابن منظور الأنصاري الإفريقي",
+        "status": "confirmed",
+        "known_as": ["ابن منظور", "صاحب لسان العرب"],
+        "name_variants": ["جمال الدين ابن منظور", "أبو الفضل ابن منظور"],
+        "kunya": "أبو الفضل",
+        "laqab": ["جمال الدين"],
+        "nisba": ["الأنصاري", "الإفريقي", "المصري", "الخزرجي"],
+        "death_date_hijri": 711,
+        "era_century_hijri": 8,
+        "geographic_origin": "القاهرة",
+        "geographic_active": ["القاهرة", "طرابلس الغرب"],
+        "school_affiliations": {"fiqh": "maliki"},
+        "primary_science": "lugha",
+        "teachers": [],
+        "students": [],
+        "known_works": ["لسان العرب", "مختصر تاريخ دمشق لابن عساكر", "نثار الأزهار في الليل والنهار"],
+        "scholarly_standing": "صاحب لسان العرب وأحد أعلام اللغة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن منظور",
+        "canonical_dossier": {
+          "primary_science": "lugha",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["لسان العرب"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Wāfī bi-l-Wafayāt 5/53 — al-Ṣafadī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00032",
+        "canonical_name_ar": "إسماعيل بن حماد الجوهري الفارابي",
+        "status": "confirmed",
+        "known_as": ["الجوهري", "إسماعيل الجوهري", "صاحب الصحاح"],
+        "name_variants": ["أبو نصر الجوهري"],
+        "kunya": "أبو نصر",
+        "laqab": [],
+        "nisba": ["الفارابي", "الجوهري", "التركي"],
+        "death_date_hijri": 393,
+        "death_date_approximate": true,
+        "era_century_hijri": 4,
+        "geographic_origin": "فاراب",
+        "geographic_active": ["نيسابور", "بغداد"],
+        "school_affiliations": {},
+        "primary_science": "lugha",
+        "teachers": [],
+        "students": [],
+        "known_works": ["الصحاح تاج اللغة وصحاح العربية", "العروض", "المقدمة في النحو"],
+        "scholarly_standing": "أحد أئمة اللغة وصاحب الصحاح",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الجوهري",
+        "canonical_dossier": {
+          "primary_science": "lugha",
+          "century_active_hijri_estimates": [4],
+          "school_affiliation_hints": {},
+          "attributed_works": ["الصحاح تاج اللغة وصحاح العربية"],
+          "geographic_signals": ["نيسابور"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Yatīmat al-Dahr 4/406 — al-Thaʿālibī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00033",
+        "canonical_name_ar": "الحسين بن محمد بن المفضل الراغب الأصفهاني",
+        "status": "confirmed",
+        "known_as": ["الراغب الأصفهاني", "الراغب", "أبو القاسم الأصفهاني"],
+        "name_variants": ["أبو القاسم الراغب الأصفهاني"],
+        "kunya": "أبو القاسم",
+        "laqab": ["الراغب"],
+        "nisba": ["الأصفهاني"],
+        "death_date_hijri": 502,
+        "death_date_approximate": true,
+        "era_century_hijri": 6,
+        "geographic_origin": "أصفهان",
+        "geographic_active": ["أصفهان", "بغداد"],
+        "school_affiliations": {},
+        "primary_science": "lugha",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المفردات في غريب القرآن", "محاضرات الأدباء ومحاورات الشعراء والبلغاء", "الذريعة إلى مكارم الشريعة", "تحقيق البيان عن وجوه القرآن"],
+        "scholarly_standing": "إمام في اللغة والأدب والتفسير وأحد الأعلام",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الراغب الأصفهاني",
+        "canonical_dossier": {
+          "primary_science": "lugha",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {},
+          "attributed_works": ["المفردات في غريب القرآن", "الذريعة إلى مكارم الشريعة"],
+          "geographic_signals": ["أصفهان"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "al-Aʿlām 2/255 — al-Ziriklī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00034",
+        "canonical_name_ar": "أحمد بن الحسين بن علي البيهقي",
+        "status": "confirmed",
+        "known_as": ["البيهقي", "أبو بكر البيهقي"],
+        "name_variants": ["أحمد بن الحسين البيهقي", "الإمام البيهقي"],
+        "kunya": "أبو بكر",
+        "laqab": [],
+        "nisba": ["البيهقي", "الخسروجردي", "النيسابوري", "الشافعي"],
+        "death_date_hijri": 458,
+        "era_century_hijri": 5,
+        "geographic_origin": "خسروجرد",
+        "geographic_active": ["نيسابور", "بغداد"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari", "hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["السنن الكبرى", "السنن الصغرى", "شعب الإيمان", "دلائل النبوة", "الأسماء والصفات", "معرفة السنن والآثار"],
+        "scholarly_standing": "حافظ المذهب الشافعي ومحدث خراسان",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "البيهقي",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [5],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["السنن الكبرى", "شعب الإيمان"],
+          "geographic_signals": ["نيسابور"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Ṭabaqāt al-Shāfiʿīyya al-Kubrā 4/8 — al-Subkī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00035",
+        "canonical_name_ar": "محمد بن عيسى بن سورة الترمذي",
+        "status": "confirmed",
+        "known_as": ["الترمذي", "أبو عيسى الترمذي"],
+        "name_variants": ["محمد بن عيسى الترمذي"],
+        "kunya": "أبو عيسى",
+        "laqab": [],
+        "nisba": ["الترمذي", "السلمي", "الضرير"],
+        "death_date_hijri": 279,
+        "era_century_hijri": 3,
+        "geographic_origin": "ترمذ",
+        "geographic_active": ["ترمذ", "بخارى", "نيسابور"],
+        "school_affiliations": {"hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00003"],
+        "students": [],
+        "known_works": ["الجامع الكبير (سنن الترمذي)", "الشمائل المحمدية", "العلل الكبير", "العلل الصغير"],
+        "scholarly_standing": "أحد أئمة الحديث الستة وصاحب الجامع",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الترمذي",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"hadith": "ahl_hadith"},
+          "attributed_works": ["الجامع الكبير (سنن الترمذي)", "الشمائل المحمدية"],
+          "geographic_signals": ["ترمذ"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tahdhīb al-Kamāl 26/250 — al-Mizzī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00036",
+        "canonical_name_ar": "أحمد بن شعيب بن علي النسائي",
+        "status": "confirmed",
+        "known_as": ["النسائي", "أبو عبد الرحمن النسائي"],
+        "name_variants": ["أحمد بن شعيب النسائي"],
+        "kunya": "أبو عبد الرحمن",
+        "laqab": [],
+        "nisba": ["النسائي", "الخراساني", "الشافعي"],
+        "death_date_hijri": 303,
+        "era_century_hijri": 4,
+        "geographic_origin": "نسا",
+        "geographic_active": ["نسا", "مصر", "دمشق", "الرملة", "مكة"],
+        "school_affiliations": {"fiqh": "shafii", "hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["السنن الكبرى", "السنن الصغرى (المجتبى)", "خصائص علي", "عمل اليوم والليلة"],
+        "scholarly_standing": "أحد أصحاب السنن الستة ومحرر علم الحديث",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "النسائي",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [4],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["السنن الصغرى (المجتبى)", "السنن الكبرى"],
+          "geographic_signals": ["مصر"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tahdhīb al-Kamāl 1/328 — al-Mizzī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00037",
+        "canonical_name_ar": "محمد بن يزيد بن ماجه القزويني",
+        "status": "confirmed",
+        "known_as": ["ابن ماجه", "أبو عبد الله ابن ماجه"],
+        "name_variants": ["محمد بن يزيد ابن ماجه"],
+        "kunya": "أبو عبد الله",
+        "laqab": [],
+        "nisba": ["القزويني", "الربعي"],
+        "death_date_hijri": 273,
+        "era_century_hijri": 3,
+        "geographic_origin": "قزوين",
+        "geographic_active": ["قزوين", "البصرة", "بغداد", "الكوفة", "مكة", "مصر"],
+        "school_affiliations": {"hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["سنن ابن ماجه", "التفسير", "تاريخ قزوين"],
+        "scholarly_standing": "أحد أصحاب السنن الستة وحافظ قزوين",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن ماجه",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"hadith": "ahl_hadith"},
+          "attributed_works": ["سنن ابن ماجه"],
+          "geographic_signals": ["قزوين"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tahdhīb al-Kamāl 27/40 — al-Mizzī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00038",
+        "canonical_name_ar": "سليمان بن الأشعث بن إسحاق السجستاني",
+        "status": "confirmed",
+        "known_as": ["أبو داود", "أبو داود السجستاني"],
+        "name_variants": ["سليمان بن الأشعث أبو داود"],
+        "kunya": "أبو داود",
+        "laqab": [],
+        "nisba": ["السجستاني", "الأزدي"],
+        "death_date_hijri": 275,
+        "era_century_hijri": 3,
+        "geographic_origin": "سجستان",
+        "geographic_active": ["البصرة", "بغداد", "طرسوس"],
+        "school_affiliations": {"fiqh": "hanbali", "hadith": "ahl_hadith"},
+        "primary_science": "hadith",
+        "teachers": ["sch_00008"],
+        "students": [],
+        "known_works": ["سنن أبي داود", "المراسيل", "الزهد", "مسائل الإمام أحمد"],
+        "scholarly_standing": "إمام أهل الحديث في زمانه وأحد أصحاب السنن الستة",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "أبو داود السجستاني",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [3],
+          "school_affiliation_hints": {"hadith": "ahl_hadith"},
+          "attributed_works": ["سنن أبي داود", "المراسيل"],
+          "geographic_signals": ["البصرة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tahdhīb al-Kamāl 11/355 — al-Mizzī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00039",
+        "canonical_name_ar": "محمد بن إسحاق بن يسار المطلبي",
+        "status": "confirmed",
+        "known_as": ["ابن إسحاق", "محمد بن إسحاق"],
+        "name_variants": ["أبو بكر ابن إسحاق", "صاحب السيرة"],
+        "kunya": "أبو بكر",
+        "laqab": [],
+        "nisba": ["المطلبي", "المدني", "العراقي"],
+        "death_date_hijri": 151,
+        "era_century_hijri": 2,
+        "geographic_origin": "المدينة",
+        "geographic_active": ["المدينة", "بغداد", "الإسكندرية", "الكوفة", "الجزيرة"],
+        "school_affiliations": {},
+        "primary_science": "sira",
+        "teachers": [],
+        "students": [],
+        "known_works": ["السيرة النبوية (المغازي)"],
+        "scholarly_standing": "إمام أهل المغازي والسير وراوي سيرة ابن هشام عنه",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن إسحاق",
+        "canonical_dossier": {
+          "primary_science": "sira",
+          "century_active_hijri_estimates": [2],
+          "school_affiliation_hints": {},
+          "attributed_works": ["السيرة النبوية (المغازي)"],
+          "geographic_signals": ["المدينة"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Tārīkh Baghdād 1/214 — al-Khaṭīb al-Baghdādī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00040",
+        "canonical_name_ar": "علي بن أحمد بن محمد الواحدي النيسابوري",
+        "status": "confirmed",
+        "known_as": ["الواحدي", "أبو الحسن الواحدي"],
+        "name_variants": ["علي بن أحمد الواحدي"],
+        "kunya": "أبو الحسن",
+        "laqab": [],
+        "nisba": ["الواحدي", "النيسابوري", "الشافعي"],
+        "death_date_hijri": 468,
+        "era_century_hijri": 5,
+        "geographic_origin": "نيسابور",
+        "geographic_active": ["نيسابور"],
+        "school_affiliations": {"fiqh": "shafii"},
+        "primary_science": "tafsir",
+        "teachers": [],
+        "students": [],
+        "known_works": ["أسباب نزول القرآن", "الوسيط في تفسير القرآن المجيد", "الوجيز في تفسير الكتاب العزيز", "البسيط في تفسير القرآن"],
+        "scholarly_standing": "إمام في التفسير وأسباب النزول وعلم القرآن",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "الواحدي",
+        "canonical_dossier": {
+          "primary_science": "tafsir",
+          "century_active_hijri_estimates": [5],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["أسباب نزول القرآن", "الوسيط في تفسير القرآن المجيد"],
+          "geographic_signals": ["نيسابور"]
+        },
+        "trap_pair_canonical_id": null,
+        "biographical_source": "Ṭabaqāt al-Shāfiʿīyya al-Kubrā 5/240 — al-Subkī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00041",
+        "canonical_name_ar": "عبد السلام بن عبد الله بن أبي القاسم ابن تيمية الحراني",
+        "status": "confirmed",
+        "known_as": ["مجد الدين ابن تيمية", "ابن تيمية الجد", "صاحب المنتقى"],
+        "name_variants": ["مجد الدين أبو البركات ابن تيمية", "عبد السلام ابن تيمية"],
+        "kunya": "أبو البركات",
+        "laqab": ["مجد الدين"],
+        "nisba": ["الحراني", "الحنبلي"],
+        "death_date_hijri": 652,
+        "era_century_hijri": 7,
+        "geographic_origin": "حران",
+        "geographic_active": ["حران", "بغداد"],
+        "school_affiliations": {"fiqh": "hanbali", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المنتقى من أخبار المصطفى", "المحرر في الفقه على مذهب الإمام أحمد بن حنبل", "المسودة في أصول الفقه (شارك في تأليفها مع أبيه وحفيده)"],
+        "scholarly_standing": "أحد أئمة الحنابلة وجد شيخ الإسلام تقي الدين ابن تيمية",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن تيمية",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["المنتقى من أخبار المصطفى", "المحرر في الفقه على مذهب الإمام أحمد بن حنبل"],
+          "geographic_signals": ["حران"]
+        },
+        "trap_pair_canonical_id": "sch_00042",
+        "biographical_source": "Dhayl Ṭabaqāt al-Ḥanābila 4/48 — Ibn Rajab"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00042",
+        "canonical_name_ar": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية الحراني",
+        "status": "confirmed",
+        "known_as": ["ابن تيمية", "تقي الدين ابن تيمية", "شيخ الإسلام ابن تيمية"],
+        "name_variants": ["تقي الدين أبو العباس أحمد ابن تيمية", "شيخ الإسلام تقي الدين"],
+        "kunya": "أبو العباس",
+        "laqab": ["تقي الدين", "شيخ الإسلام"],
+        "nisba": ["الحراني", "الدمشقي", "الحنبلي"],
+        "death_date_hijri": 728,
+        "era_century_hijri": 8,
+        "geographic_origin": "حران",
+        "geographic_active": ["حران", "دمشق", "القاهرة", "الإسكندرية"],
+        "school_affiliations": {"fiqh": "hanbali", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": ["sch_00011", "sch_00013", "sch_00017"],
+        "known_works": ["مجموع الفتاوى", "العقيدة الواسطية", "درء تعارض العقل والنقل", "منهاج السنة النبوية", "اقتضاء الصراط المستقيم", "الإيمان", "الجواب الصحيح لمن بدل دين المسيح"],
+        "scholarly_standing": "شيخ الإسلام والمجدد على رأس المئة الثامنة عند جماعة من أهل العلم",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن تيمية",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["مجموع الفتاوى", "العقيدة الواسطية", "درء تعارض العقل والنقل"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": "sch_00041",
+        "biographical_source": "al-Bidāya wa-l-Nihāya 14/135 — Ibn Kathīr"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00043",
+        "canonical_name_ar": "أحمد بن علي بن محمد بن حجر العسقلاني",
+        "status": "confirmed",
+        "known_as": ["ابن حجر العسقلاني", "ابن حجر", "الحافظ ابن حجر"],
+        "name_variants": ["شهاب الدين أحمد بن حجر العسقلاني", "أبو الفضل ابن حجر"],
+        "kunya": "أبو الفضل",
+        "laqab": ["شهاب الدين", "الحافظ"],
+        "nisba": ["العسقلاني", "المصري", "الكناني", "الشافعي"],
+        "death_date_hijri": 852,
+        "era_century_hijri": 9,
+        "geographic_origin": "عسقلان",
+        "geographic_active": ["القاهرة", "مكة", "دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "hadith": "ahl_hadith", "aqida": "ashari"},
+        "primary_science": "hadith",
+        "teachers": [],
+        "students": [],
+        "known_works": ["فتح الباري شرح صحيح البخاري", "الإصابة في تمييز الصحابة", "تقريب التهذيب", "تهذيب التهذيب", "بلوغ المرام من أدلة الأحكام", "نخبة الفكر", "لسان الميزان"],
+        "scholarly_standing": "أمير المؤمنين في الحديث في عصره وحافظ زمانه",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن حجر",
+        "canonical_dossier": {
+          "primary_science": "hadith",
+          "century_active_hijri_estimates": [9],
+          "school_affiliation_hints": {"fiqh": "shafii", "hadith": "ahl_hadith"},
+          "attributed_works": ["فتح الباري شرح صحيح البخاري", "الإصابة في تمييز الصحابة"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": "sch_00044",
+        "biographical_source": "al-Ḍawʾ al-Lāmiʿ 2/36 — al-Sakhāwī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00044",
+        "canonical_name_ar": "أحمد بن محمد بن علي بن حجر الهيتمي",
+        "status": "confirmed",
+        "known_as": ["ابن حجر الهيتمي", "ابن حجر المكي", "أحمد بن حجر الهيتمي"],
+        "name_variants": ["شهاب الدين أحمد بن حجر الهيتمي", "أبو العباس ابن حجر الهيتمي"],
+        "kunya": "أبو العباس",
+        "laqab": ["شهاب الدين"],
+        "nisba": ["الهيتمي", "السعدي", "الأنصاري", "المكي", "الشافعي"],
+        "death_date_hijri": 974,
+        "era_century_hijri": 10,
+        "geographic_origin": "محلة أبي الهيتم بمصر",
+        "geographic_active": ["القاهرة", "مكة"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["تحفة المحتاج بشرح المنهاج", "الفتاوى الكبرى الفقهية", "الزواجر عن اقتراف الكبائر", "الصواعق المحرقة على أهل الرفض والضلال والزندقة"],
+        "scholarly_standing": "محقق متأخر من فقهاء الشافعية وله عناية بالرد على المخالفين",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن حجر",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [10],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["تحفة المحتاج بشرح المنهاج", "الفتاوى الكبرى الفقهية"],
+          "geographic_signals": ["مكة"]
+        },
+        "trap_pair_canonical_id": "sch_00043",
+        "biographical_source": "al-Nūr al-Sāfir ʿan Akhbār al-Qarn al-ʿĀshir 1/258 — al-ʿAydarūsī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00045",
+        "canonical_name_ar": "عبد الله بن أحمد بن محمد ابن قدامة المقدسي",
+        "status": "confirmed",
+        "known_as": ["ابن قدامة", "موفق الدين ابن قدامة", "صاحب المغني"],
+        "name_variants": ["موفق الدين أبو محمد عبد الله ابن قدامة المقدسي"],
+        "kunya": "أبو محمد",
+        "laqab": ["موفق الدين"],
+        "nisba": ["المقدسي", "الجماعيلي", "الدمشقي", "الصالحي", "الحنبلي"],
+        "death_date_hijri": 620,
+        "era_century_hijri": 7,
+        "geographic_origin": "جماعيل",
+        "geographic_active": ["دمشق", "بغداد", "القدس"],
+        "school_affiliations": {"fiqh": "hanbali", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المغني شرح مختصر الخرقي", "الكافي في فقه الإمام أحمد", "العمدة في الفقه", "روضة الناظر وجنة المناظر", "لمعة الاعتقاد"],
+        "scholarly_standing": "إمام المذهب الحنبلي في زمانه وأحد فقهاء الإسلام الكبار",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن قدامة",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["المغني شرح مختصر الخرقي", "الكافي في فقه الإمام أحمد", "روضة الناظر وجنة المناظر"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": "sch_00046",
+        "biographical_source": "Dhayl Ṭabaqāt al-Ḥanābila 3/281 — Ibn Rajab"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00046",
+        "canonical_name_ar": "عبد الرحمن بن محمد بن أحمد ابن قدامة المقدسي",
+        "status": "confirmed",
+        "known_as": ["ابن قدامة", "شمس الدين ابن قدامة", "صاحب الشرح الكبير"],
+        "name_variants": ["شمس الدين أبو الفرج ابن قدامة المقدسي"],
+        "kunya": "أبو الفرج",
+        "laqab": ["شمس الدين"],
+        "nisba": ["المقدسي", "الجماعيلي", "الدمشقي", "الصالحي", "الحنبلي"],
+        "death_date_hijri": 682,
+        "era_century_hijri": 7,
+        "geographic_origin": "جماعيل",
+        "geographic_active": ["دمشق"],
+        "school_affiliations": {"fiqh": "hanbali", "aqida": "athari"},
+        "primary_science": "fiqh",
+        "teachers": ["sch_00045"],
+        "students": [],
+        "known_works": ["الشرح الكبير على متن المقنع", "الواضح في أصول الفقه", "نظم الزوائد على المقنع"],
+        "scholarly_standing": "ابن أخي موفق الدين وشارح المقنع وأحد أئمة الحنابلة المتأخرين",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن قدامة",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [7],
+          "school_affiliation_hints": {"fiqh": "hanbali"},
+          "attributed_works": ["الشرح الكبير على متن المقنع"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": "sch_00045",
+        "biographical_source": "Dhayl Ṭabaqāt al-Ḥanābila 4/170 — Ibn Rajab"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00047",
+        "canonical_name_ar": "محمد بن أحمد بن أحمد بن رشد القرطبي",
+        "status": "confirmed",
+        "known_as": ["ابن رشد", "ابن رشد الجد", "القاضي ابن رشد"],
+        "name_variants": ["أبو الوليد محمد بن أحمد ابن رشد الجد"],
+        "kunya": "أبو الوليد",
+        "laqab": [],
+        "nisba": ["القرطبي", "الأندلسي", "المالكي"],
+        "death_date_hijri": 520,
+        "era_century_hijri": 6,
+        "geographic_origin": "قرطبة",
+        "geographic_active": ["قرطبة"],
+        "school_affiliations": {"fiqh": "maliki"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": [],
+        "known_works": ["المقدمات الممهدات", "البيان والتحصيل والشرح والتوجيه والتعليل لمسائل المستخرجة", "فتاوى ابن رشد"],
+        "scholarly_standing": "إمام المالكية بقرطبة وقاضي الجماعة وجد ابن رشد الفيلسوف",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن رشد",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["المقدمات الممهدات", "البيان والتحصيل والشرح والتوجيه والتعليل لمسائل المستخرجة"],
+          "geographic_signals": ["قرطبة"]
+        },
+        "trap_pair_canonical_id": "sch_00048",
+        "biographical_source": "al-Dībāj al-Mudhahhab 2/248 — Ibn Farḥūn"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00048",
+        "canonical_name_ar": "محمد بن أحمد بن محمد بن أحمد بن رشد القرطبي",
+        "status": "confirmed",
+        "known_as": ["ابن رشد", "ابن رشد الحفيد", "الفيلسوف ابن رشد"],
+        "name_variants": ["أبو الوليد محمد بن أحمد ابن رشد الحفيد", "ابن رشد الفيلسوف"],
+        "kunya": "أبو الوليد",
+        "laqab": [],
+        "nisba": ["القرطبي", "الأندلسي", "المالكي"],
+        "death_date_hijri": 595,
+        "era_century_hijri": 6,
+        "geographic_origin": "قرطبة",
+        "geographic_active": ["قرطبة", "مراكش"],
+        "school_affiliations": {"fiqh": "maliki"},
+        "primary_science": "philosophy",
+        "teachers": [],
+        "students": [],
+        "known_works": ["بداية المجتهد ونهاية المقتصد", "تهافت التهافت", "فصل المقال فيما بين الشريعة والحكمة من الاتصال", "الكليات في الطب", "تلخيص ما بعد الطبيعة"],
+        "scholarly_standing": "فيلسوف المالكية وقاضي قرطبة والشارح الأكبر لأرسطو",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "ابن رشد",
+        "canonical_dossier": {
+          "primary_science": "philosophy",
+          "century_active_hijri_estimates": [6],
+          "school_affiliation_hints": {"fiqh": "maliki"},
+          "attributed_works": ["بداية المجتهد ونهاية المقتصد", "تهافت التهافت", "فصل المقال فيما بين الشريعة والحكمة من الاتصال"],
+          "geographic_signals": ["مراكش"]
+        },
+        "trap_pair_canonical_id": "sch_00047",
+        "biographical_source": "Wafayāt al-Aʿyān 4/320 — Ibn Khallikān"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00049",
+        "canonical_name_ar": "علي بن عبد الكافي بن علي تقي الدين السبكي",
+        "status": "confirmed",
+        "known_as": ["تقي الدين السبكي", "السبكي الكبير", "أبو الحسن السبكي"],
+        "name_variants": ["تقي الدين أبو الحسن علي السبكي"],
+        "kunya": "أبو الحسن",
+        "laqab": ["تقي الدين", "شيخ الإسلام"],
+        "nisba": ["السبكي", "الأنصاري", "الخزرجي", "المصري", "الشافعي"],
+        "death_date_hijri": 756,
+        "era_century_hijri": 8,
+        "geographic_origin": "سبك العبيد بمصر",
+        "geographic_active": ["القاهرة", "دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari"},
+        "primary_science": "fiqh",
+        "teachers": [],
+        "students": ["sch_00050"],
+        "known_works": ["الإبهاج في شرح المنهاج للبيضاوي", "تكملة المجموع شرح المهذب", "السيف المسلول على من سب الرسول", "فتاوى السبكي", "الدر النظيم في مناقب القرآن العظيم"],
+        "scholarly_standing": "شيخ الإسلام السبكي قاضي قضاة الشام ومجدد الشافعية في القرن الثامن",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "السبكي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["الإبهاج في شرح المنهاج للبيضاوي", "السيف المسلول على من سب الرسول", "فتاوى السبكي"],
+          "geographic_signals": ["دمشق"]
+        },
+        "trap_pair_canonical_id": "sch_00050",
+        "biographical_source": "al-Durar al-Kāmina 3/63 — Ibn Ḥajar al-ʿAsqalānī"
+      }
+    },
+    {
+      "record": {
+        "canonical_id": "sch_00050",
+        "canonical_name_ar": "عبد الوهاب بن علي بن عبد الكافي تاج الدين السبكي",
+        "status": "confirmed",
+        "known_as": ["تاج الدين السبكي", "ابن السبكي", "أبو نصر السبكي"],
+        "name_variants": ["تاج الدين أبو نصر عبد الوهاب السبكي"],
+        "kunya": "أبو نصر",
+        "laqab": ["تاج الدين"],
+        "nisba": ["السبكي", "الأنصاري", "الخزرجي", "المصري", "الشافعي"],
+        "death_date_hijri": 771,
+        "era_century_hijri": 8,
+        "geographic_origin": "القاهرة",
+        "geographic_active": ["القاهرة", "دمشق"],
+        "school_affiliations": {"fiqh": "shafii", "aqida": "ashari"},
+        "primary_science": "fiqh",
+        "teachers": ["sch_00049"],
+        "students": [],
+        "known_works": ["طبقات الشافعية الكبرى", "جمع الجوامع في أصول الفقه", "معيد النعم ومبيد النقم", "الأشباه والنظائر"],
+        "scholarly_standing": "ابن تقي الدين السبكي ومحرر طبقات الشافعية وصاحب جمع الجوامع",
+        "last_updated": "2026-05-05T00:00:00+00:00"
+      },
+      "calibration": {
+        "name_fragment": "السبكي",
+        "canonical_dossier": {
+          "primary_science": "fiqh",
+          "century_active_hijri_estimates": [8],
+          "school_affiliation_hints": {"fiqh": "shafii"},
+          "attributed_works": ["طبقات الشافعية الكبرى", "جمع الجوامع في أصول الفقه", "معيد النعم ومبيد النقم"],
+          "geographic_signals": ["القاهرة"]
+        },
+        "trap_pair_canonical_id": "sch_00049",
+        "biographical_source": "al-Durar al-Kāmina 2/425 — Ibn Ḥajar al-ʿAsqalānī"
+      }
+    }
+  ]
+}
