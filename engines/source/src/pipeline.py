@@ -8,7 +8,7 @@ import shutil
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 from uuid import uuid4
 
 from bs4 import BeautifulSoup
@@ -52,6 +52,9 @@ from engines.source.src.deliberation import run_metadata_deliberation
 from engines.source.src.errors import SourceEngineError
 from engines.source.src.pdf_inspection import PdfInspectionResult, inspect_pdf
 from engines.source.src.store import SourceStore
+from shared.scholar_authority.src.scholar_match_cell import (
+    ScholarMatchCellOrchestration,
+)
 
 
 _ISNAD_PATTERN = re.compile(
@@ -63,8 +66,26 @@ logger = logging.getLogger(__name__)
 
 
 class SourcePipeline:
-    def __init__(self, workspace_root: Path) -> None:
+    def __init__(
+        self,
+        workspace_root: Path,
+        *,
+        scholar_match_orchestration: Optional[ScholarMatchCellOrchestration] = None,
+    ) -> None:
+        """Source-engine pipeline.
+
+        Args:
+          workspace_root: directory hosting the persistence stores.
+          scholar_match_orchestration: optional Phase 5 orchestration
+            bundle (DEC-SRC-0013). When provided, ``metadata_deliberation``
+            invokes ``scholar_match_cell`` per AuthorOutputPosition to
+            bind canonical scholar ids per REQ-SRC-0008 amendment. When
+            None, deliberation falls back to legacy behavior (positions
+            keep ``canonical_id=None``) — useful for tests not yet
+            wired to Phase 5.
+        """
         self.store = SourceStore(workspace_root)
+        self.scholar_match_orchestration = scholar_match_orchestration
 
     def upload_receipt(
         self,
@@ -148,6 +169,7 @@ class SourcePipeline:
             frozen=frozen,
             dossier=dossier,
             deliberation_input=deliberation_input,
+            scholar_match_orchestration=self.scholar_match_orchestration,
         )
         self.store.save_deliberation_result(result)
         self.store.save_case_complexity_record(result.case_complexity_record)

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import logging
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 from uuid import uuid4
 
 from engines.source.contracts import (
@@ -21,6 +21,7 @@ from engines.source.contracts import (
     HadithSubgenre,
     HintComparisonResult,
     HintInvestigation,
+    HumanGateCheckpoint,
     IntakeDossier,
     IntegrityStatus,
     LevelProvenance,
@@ -34,6 +35,9 @@ from engines.source.contracts import (
     MonitorUncertaintyFlags,
     PdfTextLayerStatus,
     PendingLevelOverride,
+    ProvisionalScholarRegistration,
+    ScholarMatchHold,
+    ScholarMatchResult,
     SourceMetadata,
     StructuralFormat,
     TrustDecision,
@@ -44,6 +48,10 @@ from engines.source.contracts import (
 )
 from engines.source.src.errors import SourceEngineError
 from engines.source.src.override_queue import create_pending_level_override
+from engines.source.src.scholar_match_integration import resolve_scholar_identities
+from shared.scholar_authority.src.scholar_match_cell import (
+    ScholarMatchCellOrchestration,
+)
 
 
 _FAST_TRACK_GENRES = {"matn", "sharh", "hadith_collection", "tafsir", "tabaqat", "fatawa"}
@@ -152,8 +160,20 @@ def run_metadata_deliberation(
     frozen: FrozenSource,
     dossier: IntakeDossier,
     deliberation_input: MetadataDeliberationInput,
+    *,
+    scholar_match_orchestration: Optional[ScholarMatchCellOrchestration] = None,
 ) -> MetadataDeliberationResult:
-    """Orchestrate step 50 per REQ-SRC-0028, REQ-SRC-0004, REQ-SRC-0026."""
+    """Orchestrate step 50 per REQ-SRC-0028, REQ-SRC-0004, REQ-SRC-0026.
+
+    Phase 5 Session 5 (2026-05-05): when ``scholar_match_orchestration``
+    is non-None, the deliberation invokes ``scholar_match_cell`` per
+    ``AuthorOutputPosition`` after author resolution to bind canonical
+    scholar ids (DEFINITIVE), emit AUTHOR_DISAMBIGUATION human gates
+    (DISPUTED), or trigger REQ-SRC-0043 / INV-SRC-0017 routing
+    (INSUFFICIENT_EVIDENCE). When None, the legacy behavior (positions
+    keep canonical_id=None) is preserved for tests not yet wired to the
+    Phase 5 orchestrator.
+    """
     case_id = _new_case_id()
     if deliberation_input.source_id != source_id:
         raise SourceEngineError(
@@ -167,6 +187,27 @@ def run_metadata_deliberation(
         source_id, deliberation_input.author_positions, case_id,
         verification_agents=deliberation_input.verification_agents,
     )
+    # Phase 5 Session 5 (2026-05-05): scholar identity resolution per
+    # DEC-SRC-0013 + REQ-SRC-0008 + REQ-SRC-0043 amendments.
+    scholar_match_results: list[ScholarMatchResult] = []
+    human_gate_checkpoints: list[HumanGateCheckpoint] = []
+    provisional_scholar_registrations: list[ProvisionalScholarRegistration] = []
+    scholar_match_holds: list[ScholarMatchHold] = []
+    if scholar_match_orchestration is not None:
+        (
+            author_output,
+            scholar_match_results,
+            human_gate_checkpoints,
+            provisional_scholar_registrations,
+            scholar_match_holds,
+        ) = resolve_scholar_identities(
+            source_id=source_id,
+            case_id=case_id,
+            author_output=author_output,
+            intake_dossier=dossier,
+            deliberation_input=deliberation_input,
+            orchestration=scholar_match_orchestration,
+        )
     metadata.author_output = author_output
     metadata = compare_owner_hints(metadata, deliberation_input.owner_hint_payload)
     metadata.trust_decision = evaluate_trust_decision(
@@ -205,6 +246,10 @@ def run_metadata_deliberation(
         monitor_feedback=monitor_feedback,
         disagreement_cases=disagreement_cases,
         pending_constituent_level_overrides=pending_constituent_overrides,
+        scholar_match_results=scholar_match_results,
+        human_gate_checkpoints=human_gate_checkpoints,
+        provisional_scholar_registrations=provisional_scholar_registrations,
+        scholar_match_holds=scholar_match_holds,
     )
 
 

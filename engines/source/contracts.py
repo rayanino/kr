@@ -5,6 +5,8 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from shared.scholar_authority.src.match_contracts import ScholarMatchResult
+
 
 class SourceFormat(str, Enum):
     SHAMELA_HTML = "shamela_html"
@@ -1177,6 +1179,12 @@ class AuthorOutput(BaseModel):
     anonymous_evidence: Optional[str] = None
     attributed_author: Optional[str] = None
     false_attribution_evidence: list[str] = Field(default_factory=list)
+    # Phase 5 Session 5 (2026-05-05): set True when ANY position's
+    # scholar_match_cell verdict is DISPUTED. Per REQ-SRC-0008 Phase 5
+    # amendment 2026-04-30, downstream pipeline must hold the case for
+    # owner resolution at the AUTHOR_DISAMBIGUATION human gate before
+    # admission completes.
+    disambiguation_pending: bool = False
 
 
 class WorkOutputPosition(BaseModel):
@@ -1326,6 +1334,53 @@ class MetadataDeliberationInput(BaseModel):
     )
 
 
+class ProvisionalScholarRegistration(BaseModel):
+    """Phase 5 Session 5: registration request emitted when scholar_match_cell
+    yields INSUFFICIENT_EVIDENCE with empty stage_1_score_breakdown.
+
+    Per REQ-SRC-0043 Phase 5 amendment 2026-04-30: triggered ONLY when the
+    match cell finalizes the case as new-scholar (Stage-1 found zero
+    candidates → no candidate cleared the floor + verifier convergence on
+    "new identity" interpretation). The request carries the data needed
+    by the source-engine handoff to register a new ``status=provisional``
+    ScholarAuthorityRecord during normalization.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    position_index: int = Field(ge=0)
+    display_name: str = Field(min_length=1)
+    full_name_lineage: Optional[str] = None
+    death_hijri: Optional[int] = Field(default=None, ge=0)
+    nisba_tokens: list[str] = Field(default_factory=list)
+    primary_science: Optional[str] = None
+    evidence: list[str] = Field(default_factory=list)
+    source_book_id: str = Field(min_length=1)
+    triggering_match_result_id: str = Field(min_length=1)
+
+
+class ScholarMatchHold(BaseModel):
+    """Phase 5 Session 5: hold record per INV-SRC-0017 explicit-replay protocol.
+
+    Created when scholar_match_cell yields INSUFFICIENT_EVIDENCE with a
+    non-empty stage_1_score_breakdown — i.e., Stage-1 surfaced plausible
+    candidates but the verifier cell either could not run (REQ-SRC-0052
+    AC-6 verifier unavailable) or ran without any candidate clearing the
+    compound thresholds (REQ-SRC-0053 below floor). Both sub-cases are
+    held for explicit replay against a future registry release per
+    INV-SRC-0017 because we cannot conservatively assert a new identity
+    when Stage-1 surfaced plausible candidates.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    position_index: int = Field(ge=0)
+    display_name: str = Field(min_length=1)
+    triggering_match_result_id: str = Field(min_length=1)
+    stage_1_candidate_ids: list[str] = Field(default_factory=list)
+    registry_release_version: str = Field(min_length=1)
+
+
 class MetadataDeliberationResult(BaseModel):
     source_metadata: SourceMetadata
     case_complexity_record: CaseComplexityRecord
@@ -1347,6 +1402,22 @@ class MetadataDeliberationResult(BaseModel):
     pending_constituent_level_overrides: list[PendingLevelOverride] = Field(
         default_factory=list
     )
+    # Phase 5 Session 5 (2026-05-05): scholar_match_cell integration audit trail.
+    # ``scholar_match_results`` carries the per-position match verdicts
+    # (CON-SRC-0008 ScholarMatchResult records, one per AuthorOutputPosition
+    # that triggered a match call). ``human_gate_checkpoints`` are
+    # AUTHOR_DISAMBIGUATION emissions for DISPUTED match outcomes.
+    # ``provisional_scholar_registrations`` carries REQ-SRC-0043 NEW IDENTITY
+    # requests; ``scholar_match_holds`` carries INV-SRC-0017 explicit-replay
+    # records. All four flow alongside ``source_metadata.author_output``
+    # which has its positions' ``canonical_id`` fields populated for
+    # DEFINITIVE outcomes.
+    scholar_match_results: list[ScholarMatchResult] = Field(default_factory=list)
+    human_gate_checkpoints: list[HumanGateCheckpoint] = Field(default_factory=list)
+    provisional_scholar_registrations: list[ProvisionalScholarRegistration] = Field(
+        default_factory=list
+    )
+    scholar_match_holds: list[ScholarMatchHold] = Field(default_factory=list)
 
 
 class MuhaqiqAssessment(BaseModel):
