@@ -1,15 +1,15 @@
 # Source Engine — محرك المصادر
 
-**Phase:** Specification FROZEN — Ready for Build
-**Branch:** `clean-start`
+**Phase:** IMPLEMENTATION — Phase 5 architectural rollout COMPLETE through 6 sessions (1, 2, 3, 4, 4.5, 5)
+**Branch:** `main`
 
 ## Current State
 
-The source engine spec is **frozen** (Session 3, 2026-04-15). 104 atoms, 97 confirmed, 3 deferred, 0 proposed. No production code exists yet. The previous implementation was archived to `reference/archive/v1/source_engine/` (reference-only, non-authoritative).
+The source engine is in active implementation. Spec frozen 2026-04-15 (Session 3); closure waves brought the count to **124 atoms, 118 confirmed, 6 superseded, 0 deferred** — every SPEC atom is now resolved. Tracer bullet through pipeline steps 10–60 implemented and committed. The previous implementation was archived to `reference/archive/v1/source_engine/` (reference-only, non-authoritative per D-019).
 
-**Spec status:** 104 YAML atoms validated against `spec/schema.json`. Freeze gate complete across all 7 areas: vision, vocabulary, pipeline (steps 10-60), contracts, architecture, quality, questions. Contract architect review completed with all CRITICAL and HIGH findings resolved.
+**Spec status:** 124 YAML atoms validated against `spec/schema.json` (0 errors). Freeze gate complete across all 7 areas: vision, vocabulary, pipeline (steps 10–60), contracts, architecture, quality, questions. Contract architect review completed with all CRITICAL and HIGH findings resolved. 6 superseded atoms record decisions replaced by later atoms; 0 deferred atoms remain.
 
-**3 deferred atoms (non-blocking):** DEC-SRC-0003 (level detection strategy), OQ-SRC-0001 (level detection ownership), OQ-SRC-0005 (agent monitoring scope). These can be resolved during build as design decisions emerge.
+**Phase 5 closure (2026-05-05):** `scholar_match_cell` (DEC-SRC-0013) wired into Step 50 metadata_deliberation per REQ-SRC-0008 + REQ-SRC-0043 amendments. Production verifier dispatch implemented in `engines/source/src/verifier_dispatch.py` (gated by `KR_LLM_TESTS=1` env var; routes via OpenRouter only per 2026-05-06 owner directive). 50-scholar gold seed at `tests/fixtures/scholar_gold_seed_50.json` calibrates the 5-signal weighted-average + 6 REQ-SRC-0053 thresholds. **Tests: 1207 pass / 14 skip / 0 fail.** ALL 4 L-SCH limitations RESOLVED. Phase 5 series fully published to `origin/main` at commits `fcdb03a32` → `86e762e41`.
 
 ## Authoritative Files
 
@@ -81,7 +81,7 @@ Three guarantees that prevent spec drift during build phase:
 
 ## Build Phase
 
-The spec is frozen and ready for implementation. No production code exists yet.
+Tracer bullet through all 6 pipeline steps (10–60) implemented; Phase 5 architectural rollout complete. Active build front is hardening (test coverage gaps, real-LLM smoke validation, registry seeding) — not greenfield engine work.
 
 **Pipeline steps in order:** upload_receipt → freeze_and_manifest → container_classification → intake_analysis → metadata_deliberation → source_admission_and_normalization_handoff
 
@@ -89,7 +89,6 @@ The spec is frozen and ready for implementation. No production code exists yet.
 - Each atom's `behavior` field defines trigger/preconditions/postconditions/error_conditions — implement these directly.
 - Each atom's `acceptance_criteria` define the test cases in given/when/then format — implement as pytest with `@pytest.mark.spec("REQ-SRC-XXXX", "AC-N")`.
 - `depends_on` in each atom defines what must be implemented first.
-- Start with steps 10-20 (upload receipt + freeze) as a tracer bullet — they're the simplest and validate the build infrastructure.
 - Read `spec/views/by-step/` for human-readable summaries per pipeline step.
 
 **Code layout:** `engines/source/src/` for implementation, `engines/source/tests/` for tests, `engines/source/contracts.py` for Pydantic data models.

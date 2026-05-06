@@ -14,7 +14,9 @@ Based on Step 2 Phase 3 testing (2026-03-09):
 | Model | Provider | Role |
 |-------|----------|------|
 | **Command A** | Cohere (via OpenRouter) | Model A — fast, 100% parse, strong Arabic |
-| **Opus 4.6** | Anthropic (direct API) | Model B — highest accuracy, 100% parse |
+| **Opus 4.6** | Anthropic (via OpenRouter) | Model B — highest accuracy, 100% parse |
+
+**Provider routing rule (2026-05-06):** All KR LLM calls MUST route via OpenRouter. Never call OpenAI or Anthropic native APIs directly, even when those API keys are set in the environment. Use `openrouter/<provider>/<model>` model IDs unconditionally. See `memory/feedback_llm_provider_routing.md`.
 
 **Metrics:** 92.3% "at least one right", 15.4% complementarity, 76.9% both right.
 
@@ -47,8 +49,8 @@ CONSENSUS_MODELS = [
         "api_key_env": "OPENROUTER_API_KEY",
     },
     {
-        "provider_model": "anthropic/claude-opus-4-6",
-        "api_key_env": "ANTHROPIC_API_KEY",
+        "provider_model": "openrouter/anthropic/claude-opus-4.6",
+        "api_key_env": "OPENROUTER_API_KEY",
     },
 ]
 
@@ -191,9 +193,10 @@ async def infer_with_consensus(
 
 ```bash
 # .env file (gitignored)
-ANTHROPIC_API_KEY=sk-ant-api03-...
 OPENROUTER_API_KEY=sk-or-v1-...
 ```
+
+`ANTHROPIC_API_KEY` and `OPENAI_API_KEY` are NOT required and MUST NOT be used by KR pipeline code, even if present in the environment. Owner directive 2026-05-06: all model access goes through OpenRouter for unified billing and provisioning.
 
 ## Cost Estimate
 

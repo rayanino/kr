@@ -3,9 +3,15 @@
 Implements the LLM-call boundary per REQ-SRC-0052 + D-041 + INV-SRC-0016
 using LiteLLM + Instructor schema-locked emission per
 ``.claude/skills/consensus-pattern/SKILL.md``. Each VerifierSpec carries a
-``model_id`` (e.g., ``"anthropic/claude-opus-4-6"``,
-``"openrouter/cohere/command-a"``); the production callable dispatches to
-the named provider.
+``model_id`` routed via OpenRouter (e.g.,
+``"openrouter/cohere/command-a"``, ``"openrouter/anthropic/claude-opus-4.6"``);
+the production callable dispatches via ``instructor.from_provider`` which
+uses LiteLLM under the hood for OpenRouter routing.
+
+**Provider routing (owner directive 2026-05-06):** All KR LLM calls route
+through OpenRouter only. Native Anthropic / OpenAI APIs are FORBIDDEN even
+when those API keys are set in the environment. See
+``memory/feedback_llm_provider_routing.md``.
 
 Boundary contract (frozen by Session 3):
 
