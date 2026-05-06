@@ -13,10 +13,12 @@ Based on Step 2 Phase 3 testing (2026-03-09):
 
 | Model | Provider | Role |
 |-------|----------|------|
-| **Command A** | Cohere (via OpenRouter) | Model A — fast, 100% parse, strong Arabic |
+| **Command R+ (08-2024)** | Cohere (via OpenRouter) | Model A — strong Arabic, supports Instructor tool-use mode |
 | **Opus 4.6** | Anthropic (via OpenRouter) | Model B — highest accuracy, 100% parse |
 
 **Provider routing rule (2026-05-06):** All KR LLM calls MUST route via OpenRouter. Never call OpenAI or Anthropic native APIs directly, even when those API keys are set in the environment. Use `openrouter/<provider>/<model>` model IDs unconditionally. See `memory/feedback_llm_provider_routing.md`.
+
+**Model A selection note (2026-05-06):** `openrouter/cohere/command-a` was the original Step 2 Phase 3 (2026-03-09) Model A choice but is empirically NOT routable through OpenRouter with Instructor's default tool-use mode — OpenRouter returns `404 No endpoints found that support tool use`. `openrouter/cohere/command-r-plus-08-2024` is the current Model A: confirmed working with Instructor schema-locked output via OpenRouter (Phase 5 Session 6 smoke test 2026-05-06). If a future Cohere model surfaces with tool-use support on OpenRouter, the Model A choice can be re-evaluated. Alternative path for `command-a` would be Instructor JSON mode (not currently wired in `verifier_dispatch.py`).
 
 **Metrics:** 92.3% "at least one right", 15.4% complementarity, 76.9% both right.
 
@@ -45,7 +47,7 @@ T = TypeVar("T", bound=BaseModel)
 # Model configuration — "provider_model" values are passed to from_provider()
 CONSENSUS_MODELS = [
     {
-        "provider_model": "openrouter/cohere/command-a",
+        "provider_model": "openrouter/cohere/command-r-plus-08-2024",
         "api_key_env": "OPENROUTER_API_KEY",
     },
     {

@@ -498,7 +498,16 @@ def _dispatch_with_retries(
             # CoroutineType / sync-client overload disambiguation. The
             # behavioral contract is enforced by the response_model and the
             # downstream VerifierEmission validators.
-            client = instructor.from_provider(spec.model_id)  # type: ignore[arg-type]
+            #
+            # Mode = JSON for cross-provider compatibility per Phase 5 Session 6
+            # smoke test 2026-05-06: the default TOOLS mode (function calling)
+            # is rejected by some OpenRouter routes (cohere/command-a returns
+            # 404 "no endpoints support tool use"; cohere/command-r-plus
+            # rejects $ref in nested Pydantic schemas). JSON mode uses
+            # prompt-based schema enforcement which is universally supported.
+            client = instructor.from_provider(  # type: ignore[arg-type]
+                spec.model_id, mode=instructor.Mode.JSON
+            )
             # ``client.create`` is dynamically typed; the ChatCompletionMessageParam
             # vs dict[str, str] mismatch is a known pyright limitation when
             # composing instructor with provider-specific message shapes.

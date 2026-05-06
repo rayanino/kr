@@ -144,11 +144,11 @@ def _build_smoke_registry() -> Registry:
 
 
 _PRODUCTION_VERIFIER_A = VerifierSpec(
-    verifier_id="session6_smoke_verifier_a_command_a",
-    model_id="openrouter/cohere/command-a",
+    verifier_id="session6_smoke_verifier_a_command_r_plus",
+    model_id="openrouter/cohere/command-r-plus-08-2024",
     seed=20260506,
-    round_0_prompt_template_hash="r0_session6_smoke_command_a",
-    round_1_prompt_template_hash="r1_session6_smoke_command_a",
+    round_0_prompt_template_hash="r0_session6_smoke_command_r_plus",
+    round_1_prompt_template_hash="r1_session6_smoke_command_r_plus",
 )
 _PRODUCTION_VERIFIER_B = VerifierSpec(
     verifier_id="session6_smoke_verifier_b_opus_4_6",
