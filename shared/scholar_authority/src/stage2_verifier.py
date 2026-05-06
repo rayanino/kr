@@ -76,7 +76,10 @@ class VerifierSpec(BaseModel):
 
       - ``verifier_id`` — opaque identity (e.g. "verifier_a" / "anthropic_opus")
       - ``model_id`` — provider-qualified model identifier consumed by
-        Session 4's LiteLLM dispatch (e.g. "anthropic/claude-opus-4-6")
+        the LiteLLM dispatch (e.g. "openrouter/anthropic/claude-opus-4.6"
+        or "openrouter/cohere/command-a"). All KR LLM calls route via
+        OpenRouter only per owner directive 2026-05-06; native Anthropic
+        / OpenAI APIs are FORBIDDEN even when those keys are present.
       - ``seed`` — deterministic seed surfaced to the LLM provider when
         supported; recorded in VerifierRecord for reproducibility
       - ``round_0_prompt_template_hash`` / ``round_1_prompt_template_hash``

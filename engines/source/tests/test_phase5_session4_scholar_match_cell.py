@@ -162,7 +162,7 @@ def strong_score_breakdown() -> ScoreBreakdown:
 def spec_a() -> VerifierSpec:
     return VerifierSpec(
         verifier_id="verifier_a",
-        model_id="anthropic/claude-opus-4-6",
+        model_id="openrouter/anthropic/claude-opus-4.6",
         seed=42,
         round_0_prompt_template_hash="r0_a_hash",
         round_1_prompt_template_hash="r1_a_hash",

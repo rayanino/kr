@@ -267,7 +267,7 @@ def _make_calibration_stub(registry: Registry):
 
 _VERIFIER_A_SPEC: VerifierSpec = VerifierSpec(
     verifier_id="cal_verifier_a",
-    model_id="anthropic/claude-opus-4-6",
+    model_id="openrouter/anthropic/claude-opus-4.6",
     seed=20260505,
     round_0_prompt_template_hash="r0_a_session45_calibration",
     round_1_prompt_template_hash="r1_a_session45_calibration",

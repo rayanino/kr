@@ -282,7 +282,7 @@ def _make_alignment_stub(registry: Registry):
 
 _VERIFIER_A = VerifierSpec(
     verifier_id="session5_test_verifier_a",
-    model_id="anthropic/claude-opus-4-6",
+    model_id="openrouter/anthropic/claude-opus-4.6",
     seed=20260505,
     round_0_prompt_template_hash="r0_a_session5_test",
     round_1_prompt_template_hash="r1_a_session5_test",
