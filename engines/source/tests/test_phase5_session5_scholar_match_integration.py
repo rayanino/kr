@@ -31,6 +31,7 @@ from engines.source.contracts import (
     AuthorityLevel,
     AuthorOutputPosition,
     Genre,
+    HumanGateTrigger,
     MetadataDeliberationInput,
     ScholarAuthorityRecord,
     SourceFormat,
@@ -55,7 +56,7 @@ from shared.scholar_authority.src.scholar_match_cell import (
     ScholarMatchCellOrchestration,
 )
 from shared.scholar_authority.src.stage1_narrowing import Registry
-from shared.scholar_authority.src.stage2_verifier import VerifierSpec
+from shared.scholar_authority.src.stage2_verifier import VerifierCallable, VerifierSpec
 
 
 # ---------------------------------------------------------------------------
@@ -305,6 +306,122 @@ def test_orchestration() -> ScholarMatchCellOrchestration:
         verifier_a_spec=_VERIFIER_A,
         verifier_b_spec=_VERIFIER_B,
         call_verifier=stub,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Session 7 — DISPUTED-path stub variant (equal-score forced disputed)
+# ---------------------------------------------------------------------------
+
+
+def _make_equal_score_stub(
+    target_ids: tuple[str, str], confidence: float = 0.95
+) -> VerifierCallable:
+    """VerifierCallable that scores the two ``target_ids`` IDENTICALLY.
+
+    Forces REQ-SRC-0053 condition (e) — convergent identity but
+    no_rival_close=False — by stamping the same confidence on both
+    designated candidates regardless of the dossier alignment count.
+    Both verifiers (A and B) using this stub produce IDENTICAL output,
+    converging on ``min(target_ids)`` after canonical_id-sort tiebreak.
+
+    Other candidates that may have been produced by Stage-1 narrowing
+    (e.g., the al-Bukhārī record co-narrowed by a fragment that also
+    overlaps his known_as set) are deliberately NOT scored, so they
+    cannot become the leader or rival in Stage-2.
+
+    The 9-feature score_breakdown is set to all-``confidence`` so that
+    HumanGateCheckpoint.alternatives surfaces non-zero per-feature
+    breakdown values to the owner — a more truthful test fixture than
+    the alignment-stub's mostly-zero breakdown.
+    """
+    scored_breakdown = ScoreBreakdown(
+        name_match=confidence,
+        death_date_proximity=confidence,
+        school_affiliation_overlap=confidence,
+        work_title_match=confidence,
+        teacher_student_network_match=confidence,
+        geographic_origin_match=confidence,
+        century_active_match=confidence,
+        primary_science_match=confidence,
+        secondary_sciences_overlap=confidence,
+    )
+    cited_evidence = [
+        CitationRef(
+            source_book_id="bk_session7_disputed_stub",
+            evidence_type="title_page",
+            raw_evidence="session 7 disputed stub evidence",
+        )
+    ]
+
+    def stub(
+        spec: VerifierSpec,
+        packet: ScholarEvidencePacket,
+        round_idx: Literal[0, 1],
+        own_round_0: Optional[VerifierEmission],
+        other_round_0: Optional[VerifierEmission],
+    ) -> VerifierEmission:
+        scored: list[ScoredCandidate] = []
+        for candidate in packet.candidate_set:
+            if candidate.canonical_id in target_ids:
+                scored.append(
+                    ScoredCandidate(
+                        canonical_id=candidate.canonical_id,
+                        confidence=confidence,
+                        score_breakdown=scored_breakdown,
+                        cited_evidence=list(cited_evidence),
+                    )
+                )
+        if len(scored) < 2:
+            raise RuntimeError(
+                f"_make_equal_score_stub requires Stage-1 to produce at least "
+                f"2 candidates from target_ids={target_ids!r}; "
+                f"got candidate_set canonical_ids="
+                f"{[c.canonical_id for c in packet.candidate_set]!r}"
+            )
+        scored.sort(key=lambda sc: sc.canonical_id)
+        chosen = scored[0]
+        prompt_hash = (
+            spec.round_0_prompt_template_hash
+            if round_idx == 0
+            else spec.round_1_prompt_template_hash
+        )
+        return VerifierEmission(
+            verifier_id=spec.verifier_id,
+            round_index=round_idx,
+            chosen_id=chosen.canonical_id,
+            positions=scored,
+            reasoning="session 7 stub: equal-score forced disputed",
+            prompt_template_hash=prompt_hash,
+        )
+
+    return stub
+
+
+@pytest.fixture
+def disputed_orchestration() -> ScholarMatchCellOrchestration:
+    """Orchestration with the equal-score stub forcing DISPUTED on the
+    Ibn Ḥajar trap pair (sch_00200 al-ʿAsqalānī vs sch_00201 al-Haytamī).
+
+    Used by the Phase 5 Session 7 DISPUTED-path integration tests.
+    """
+    registry = _build_test_registry()
+    stub = _make_equal_score_stub(target_ids=("sch_00200", "sch_00201"))
+    return build_orchestration_for_pipeline(
+        registry=registry,
+        verifier_a_spec=_VERIFIER_A,
+        verifier_b_spec=_VERIFIER_B,
+        call_verifier=stub,
+    )
+
+
+@pytest.fixture
+def disputed_session5_pipeline(
+    tmp_path: Path, disputed_orchestration: ScholarMatchCellOrchestration
+) -> SourcePipeline:
+    return SourcePipeline(
+        workspace_root=tmp_path / "source_workspace_session7_disputed",
+        scholar_match_orchestration=disputed_orchestration,
     )
 
 
@@ -646,3 +763,230 @@ def test_metadata_deliberation_result_carries_audit_trail(
     # And per-result, the registry_release_version is preserved on the audit
     sm = result.scholar_match_results[0]
     assert sm.provenance.registry_release_version == _TEST_RELEASE_VERSION
+
+
+# ---------------------------------------------------------------------------
+# Phase 5 Session 7 — DISPUTED-path end-to-end coverage
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.spec("DEC-SRC-0013", "REQ-SRC-0008", "CON-SRC-0008", "AC-2", "REQ-SRC-0053")
+def test_disputed_match_emits_author_disambiguation_checkpoint(
+    disputed_session5_pipeline: SourcePipeline,
+) -> None:
+    """End-to-end DISPUTED via REQ-SRC-0053 condition (e) — convergent identity
+    but no_rival_close=False — using the equal-score stub on the Ibn Ḥajar
+    trap pair (sch_00200 al-ʿAsqalānī vs sch_00201 al-Haytamī).
+
+    Validates the full DISPUTED routing chain through ``run_metadata_deliberation``:
+
+      1. ``scholar_match_cell`` produces ``disambiguation_state == "disputed"``
+         with ≥2 positions (the trap pair both at confidence 0.95).
+      2. ``resolve_scholar_identities`` emits a ``HumanGateCheckpoint`` with
+         ``trigger == HumanGateTrigger.AUTHOR_DISAMBIGUATION``.
+      3. The checkpoint's ``alternatives`` surface BOTH disputed canonical_ids
+         so the owner has the complete decision surface at gate review time.
+      4. ``AuthorOutput.disambiguation_pending`` is set to True; the position's
+         canonical_id stays None (DEFINITIVE binding is suppressed pending
+         owner resolution).
+      5. The provenance still pins ``registry_release_version`` per INV-SRC-0017.
+
+    Real Arabic fixtures only — fragment ``ابن حجر`` with dossier signals
+    aligned to al-ʿAsqalānī (primary_science=hadith, century=9, work
+    ``فتح الباري``) so corroboration_count_ge_2 is True; the no_rival_close
+    predicate is the SOLE failing predicate per condition (e).
+    """
+    source_id = _ingest_fixture(
+        disputed_session5_pipeline, "shamela_real/05_tafsir/book.htm"
+    )
+    positions = [
+        AuthorOutputPosition(
+            position="ابن حجر",
+            display_name="ابن حجر",
+            evidence=["title_page: شرح صحيح البخاري المسمى فتح الباري لابن حجر"],
+            confidence=0.95,
+            source_agent="agent_a",
+        ),
+        AuthorOutputPosition(
+            position="ابن حجر",
+            display_name="ابن حجر",
+            evidence=["metadata_card: ابن حجر"],
+            confidence=0.90,
+            source_agent="agent_b",
+        ),
+    ]
+    deliberation_input = _make_deliberation_input(
+        source_id=source_id,
+        title_arabic="فتح الباري",
+        science_scope=["hadith"],
+        genre=Genre.SHARH,
+        author_death_hijri=852,
+        author_positions=positions,
+        authority_level=AuthorityLevel.PRIMARY,
+    )
+    result = disputed_session5_pipeline.metadata_deliberation(
+        source_id, deliberation_input
+    )
+
+    # variant-name collapse logic merges 2 positions w/ same display into 1
+    # match call; we should see ≥1 scholar_match_result, all DISPUTED
+    assert len(result.scholar_match_results) >= 1
+    sm = result.scholar_match_results[0]
+    assert sm.disambiguation_state == "disputed", (
+        f"Expected disputed; got {sm.disambiguation_state!r}. "
+        f"threshold_audit={sm.provenance.threshold_audit!r}"
+    )
+    # REQ-SRC-0053 condition (e): leader_confidence high, but rival within margin
+    audit = sm.provenance.threshold_audit
+    assert audit.mean_passes is True
+    assert audit.both_pass is True
+    assert audit.no_rival_close is False, (
+        "Equal-score stub MUST trigger no_rival_close=False"
+    )
+    assert audit.corroboration_count_ge_2 is True, (
+        "Dossier (primary_science=hadith, century=9, work=فتح الباري) MUST "
+        "produce corroboration_count ≥ 2 against sch_00200 (al-ʿAsqalānī)"
+    )
+    # CON-SRC-0008 AC-2: disputed result MUST have ≥2 positions
+    assert len(sm.positions) >= 2
+    disputed_ids = {pos.canonical_id for pos in sm.positions}
+    assert disputed_ids == {"sch_00200", "sch_00201"}, (
+        f"Equal-score stub targets these two; got {disputed_ids!r}"
+    )
+
+    # AuthorOutput must carry disambiguation_pending=True; positions' canonical
+    # ids stay None until owner resolution at the human gate
+    author_output = result.source_metadata.author_output
+    assert author_output is not None
+    assert author_output.disambiguation_pending is True
+    for pos in author_output.positions:
+        assert pos.canonical_id is None, (
+            "DISPUTED positions MUST NOT bind canonical_id pending owner resolution"
+        )
+
+    # Exactly one AUTHOR_DISAMBIGUATION checkpoint with both candidates surfaced
+    auth_dis_checkpoints = [
+        cp
+        for cp in result.human_gate_checkpoints
+        if cp.trigger == HumanGateTrigger.AUTHOR_DISAMBIGUATION
+    ]
+    assert len(auth_dis_checkpoints) >= 1, (
+        f"Expected ≥1 AUTHOR_DISAMBIGUATION checkpoint; got "
+        f"{[cp.trigger for cp in result.human_gate_checkpoints]!r}"
+    )
+    checkpoint = auth_dis_checkpoints[0]
+    assert "author_output.canonical_id" in checkpoint.fields_to_review
+    assert checkpoint.alternatives is not None
+    alternative_ids = {
+        alt["canonical_scholar_id"] for alt in checkpoint.alternatives
+    }
+    assert alternative_ids == {"sch_00200", "sch_00201"}, (
+        f"Checkpoint alternatives MUST surface both disputed canonical_ids; "
+        f"got {alternative_ids!r}"
+    )
+    # Each alternative carries cited_evidence so the owner sees provenance
+    for alt in checkpoint.alternatives:
+        assert isinstance(alt["cited_evidence"], list)
+        assert len(alt["cited_evidence"]) >= 1
+
+    # Provenance is fully populated even on the disputed terminal
+    assert sm.provenance.registry_release_version == _TEST_RELEASE_VERSION
+    # REQ-SRC-0052 round-0 convergence requires ALL 5 predicates of
+    # is_definitive to pass (chosen_id agreement + 4 numerical predicates).
+    # Equal-score rivals fail no_rival_close in round 0, so the protocol
+    # routes to round-1 adversarial scaffold per the hybrid protocol —
+    # round_count=2 is the correct audit trail (matches the prompt-template
+    # hash in the verifier_record being the round-1 hash, not round-0).
+    assert sm.provenance.stage_2_verifier_record.round_count == 2, (
+        "Equal-score rivals trigger round-1 because no_rival_close fails "
+        "round-0 convergence; final round_count=2 audits the round-1 emissions."
+    )
+
+    # No provisional registration, no hold (those are INSUFFICIENT branches)
+    assert result.provisional_scholar_registrations == []
+    assert result.scholar_match_holds == []
+
+
+@pytest.mark.spec("DEC-SRC-0013", "REQ-SRC-0053")
+def test_disputed_leader_is_alphabetically_first_canonical_id_with_equal_scores(
+    disputed_session5_pipeline: SourcePipeline,
+) -> None:
+    """Asymmetric-validator-pattern lens (Sessions 1+3+4 generalized defect class):
+    when two candidates score identically, leader/rival assignment MUST be
+    deterministic — the alphabetically-first canonical_id becomes the leader.
+
+    Locks in the equal-score stub's tie-break rule (canonical_id ascending)
+    so that future stub refactors cannot silently flip leader/rival roles
+    in DISPUTED outcomes. The leader_canonical_scholar_id surfaces in the
+    checkpoint's current_values, so a flip would change what the owner
+    sees as the "primary candidate" — a knowledge-integrity adjacent risk.
+    """
+    source_id = _ingest_fixture(
+        disputed_session5_pipeline, "shamela_real/05_tafsir/book.htm"
+    )
+    # Both positions share the same display_name ("ابن حجر") to mirror
+    # the expected behavior on a real input where two agents independently
+    # propose the same fragment; AUTHOR_AGENT_COUNT requires ≥2 distinct
+    # source_agents so the verification policy is satisfied.
+    positions = [
+        AuthorOutputPosition(
+            position="ابن حجر",
+            display_name="ابن حجر",
+            evidence=["title_page: ابن حجر"],
+            confidence=0.95,
+            source_agent="agent_a",
+        ),
+        AuthorOutputPosition(
+            position="ابن حجر",
+            display_name="ابن حجر",
+            evidence=["metadata_card: ابن حجر"],
+            confidence=0.92,
+            source_agent="agent_b",
+        ),
+    ]
+    deliberation_input = _make_deliberation_input(
+        source_id=source_id,
+        title_arabic="فتح الباري",
+        science_scope=["hadith"],
+        genre=Genre.SHARH,
+        author_death_hijri=852,
+        author_positions=positions,
+        authority_level=AuthorityLevel.PRIMARY,
+    )
+    result = disputed_session5_pipeline.metadata_deliberation(
+        source_id, deliberation_input
+    )
+
+    # Every match call MUST yield the same deterministic leader
+    assert all(sm.disambiguation_state == "disputed" for sm in result.scholar_match_results)
+    for sm in result.scholar_match_results:
+        # sch_00200 < sch_00201 lexicographically → sch_00200 is the leader
+        assert sm.canonical_scholar_id == "sch_00200", (
+            f"Tie-break must be canonical_id ascending; got "
+            f"{sm.canonical_scholar_id!r}"
+        )
+        # Positions ordered by aggregated confidence desc; tie-break on canonical_id
+        # The leader (positions[0]) is sch_00200; rival (positions[1]) is sch_00201
+        assert sm.positions[0].canonical_id == "sch_00200"
+        assert sm.positions[1].canonical_id == "sch_00201"
+        # Both at the equal score (confirms the stub's invariant)
+        assert sm.positions[0].confidence == sm.positions[1].confidence
+
+    # Every AUTHOR_DISAMBIGUATION checkpoint surfaces the same deterministic
+    # leader so the owner sees a stable "primary candidate" across runs.
+    auth_dis_checkpoints = [
+        cp
+        for cp in result.human_gate_checkpoints
+        if cp.trigger == HumanGateTrigger.AUTHOR_DISAMBIGUATION
+    ]
+    assert len(auth_dis_checkpoints) >= 1
+    for checkpoint in auth_dis_checkpoints:
+        assert (
+            checkpoint.current_values["leader_canonical_scholar_id"]
+            == "sch_00200"
+        ), (
+            "Determinism contract: leader_canonical_scholar_id MUST be the "
+            "alphabetically-first canonical_id when verifier confidences tie. "
+            "A flip would non-deterministically rotate which scholar the owner "
+            "sees as the primary candidate at the human gate."
+        )

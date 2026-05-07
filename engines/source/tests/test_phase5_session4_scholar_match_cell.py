@@ -45,6 +45,7 @@ from shared.scholar_authority.src.match_contracts import (
     ScoreBreakdown,
     ScoredCandidate,
     VerifierEmission,
+    VerifierRecord,
 )
 from shared.scholar_authority.src.scholar_match_cell import (
     ScholarMatchCellOrchestration,
@@ -310,7 +311,7 @@ def test_empty_candidate_set_routes_to_insufficient_evidence(
     assert record.verifier_b_id == "verifier_b"
     assert record.verifier_a_seed == 42
     assert record.verifier_b_seed == 43
-    assert record.round_count == 1
+    assert record.round_count == 0  # Session 7: zero-invocation path; no verifier ran
 
 
 @pytest.mark.spec("DEC-SRC-0013", "REQ-SRC-0052", "AC-6")
@@ -360,7 +361,7 @@ def test_verifier_unavailable_routes_to_insufficient_evidence(
     assert not audit.mean_passes
     assert not audit.corroboration_count_ge_2
     assert audit.mean_confidence == 0.0
-    assert result.provenance.stage_2_verifier_record.round_count == 1
+    assert result.provenance.stage_2_verifier_record.round_count == 0  # Session 7: zero-invocation
 
 
 @pytest.mark.spec("DEC-SRC-0013", "INV-SRC-0017")
@@ -508,7 +509,8 @@ def test_asymmetric_validator_audit_degenerate_paths_share_discipline(
       - Path B: populated registry + always-failing verifier → unavailable path
 
     What MUST match: threshold_audit (all-False / 0.0); verifier_record
-    (round_count=1, ids/seeds/hashes from specs); audit-trail completeness.
+    (round_count=0 per Session 7 RoundCount Literal[0, 1, 2] cleanup,
+    ids/seeds/hashes from specs); audit-trail completeness.
 
     What MAY differ: stage_1_score_breakdown (empty for path A; populated for
     path B); registry_release_version (must be the snapshot's value in both).
@@ -580,6 +582,32 @@ def test_asymmetric_validator_audit_degenerate_paths_share_discipline(
     # so the stage-1 surface is non-empty. The asymmetry is correct.
     assert result_a.provenance.stage_1_score_breakdown == {}
     assert result_b.provenance.stage_1_score_breakdown != {}
+
+
+@pytest.mark.spec("DEC-SRC-0013", "CON-SRC-0008")
+def test_round_count_literal_accepts_zero() -> None:
+    """RoundCount Literal[0, 1, 2] accepts 0 for the zero-invocation degenerate path.
+
+    Phase 5 Session 7 cleanup (2026-05-07): RoundCount was widened from
+    Literal[1, 2] to Literal[0, 1, 2] so degenerate verifier_records can
+    record round_count=0 byte-faithfully (no verifier ran) instead of the
+    prior "round_count=1 with all-False threshold_audit" floor workaround.
+
+    This defensive test exercises Pydantic validation directly against
+    each value of the Literal so that any future narrowing of the type
+    immediately surfaces a test failure.
+    """
+    for round_count_value in (0, 1, 2):
+        record = VerifierRecord(
+            verifier_a_id="verifier_a",
+            verifier_b_id="verifier_b",
+            verifier_a_seed=42,
+            verifier_b_seed=43,
+            verifier_a_prompt_template_hash="r0_a_hash",
+            verifier_b_prompt_template_hash="r0_b_hash",
+            round_count=round_count_value,  # type: ignore[arg-type]
+        )
+        assert record.round_count == round_count_value
 
 
 @pytest.mark.spec("DEC-SRC-0013")

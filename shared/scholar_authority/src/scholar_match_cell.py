@@ -212,10 +212,10 @@ def _build_no_candidates_insufficient_evidence(
     populated with the verifiers the orchestrator HAD AVAILABLE plus a
     threshold_audit recording WHY the case fell to insufficient_evidence.
 
-    Round_count = 1 is the minimum-truthful value per the ``Literal[1, 2]``
-    type. The threshold_audit (all ``False``, all ``0.0``) carries the
-    actual "no verifier ran" signal — round_count is the floor, not the
-    count.
+    Round_count = 0 is the truthful value for this zero-invocation
+    degenerate path (post Phase 5 Session 7 RoundCount Literal[0, 1, 2]
+    cleanup). The threshold_audit's all-False / all-0.0 shape carries
+    the matching "no verifier ran" signal alongside the counter.
     """
     threshold_audit = _build_zero_threshold_audit()
     verifier_record = _build_zero_invocation_verifier_record(orchestration)
@@ -286,10 +286,11 @@ def _build_zero_invocation_verifier_record(
     """Build a VerifierRecord for the no-invocation degenerate paths.
 
     Records the verifier specs the orchestrator HAD AVAILABLE so the
-    audit trail names which verifiers WOULD HAVE RUN. round_count=1 is
-    the minimum value allowed by the ``Literal[1, 2]`` type; the
-    accompanying threshold_audit's all-False / all-0.0 shape carries the
-    actual "no rounds ran" signal.
+    audit trail names which verifiers WOULD HAVE RUN. ``round_count=0``
+    encodes the truthful "no rounds ran" signal directly per the
+    ``RoundCount = Literal[0, 1, 2]`` contract (Session 7 cleanup);
+    the accompanying threshold_audit's all-False / all-0.0 shape
+    corroborates it.
 
     Both prompt_template_hashes record the round-0 hash from the spec
     (the round that WOULD have run first if the verifier had been
@@ -308,7 +309,7 @@ def _build_zero_invocation_verifier_record(
         verifier_b_prompt_template_hash=(
             orchestration.verifier_b_spec.round_0_prompt_template_hash
         ),
-        round_count=1,
+        round_count=0,
     )
 
 

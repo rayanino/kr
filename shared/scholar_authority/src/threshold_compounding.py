@@ -367,6 +367,13 @@ def _select_final_emissions(
 
     round_count == 1 → final = round_index 0 emissions.
     round_count == 2 → final = round_index 1 emissions.
+    round_count == 0 → degenerate "no verifier ran" path; this function
+        is NEVER called for round_count == 0 because
+        ``compound_threshold_decision`` is bypassed by the cell's
+        zero-invocation short-circuit (no_candidates /
+        verifier_unavailable). If somehow reached, the empty emissions
+        would raise ValueError below — which is the correct semantics
+        (no emissions to select).
     """
     target_round = 1 if verifier_record.round_count == 2 else 0
     a_emission: Optional[VerifierEmission] = None
@@ -521,7 +528,15 @@ def _build_positions_for_disputed(
                 cited_evidence=cited_evidence,
             )
         )
-    positions.sort(key=lambda p: p.confidence, reverse=True)
+    # Sort by aggregated confidence DESC, with canonical_id ASC as a
+    # deterministic tiebreaker. Ties matter: the equal-score-rivals case
+    # (REQ-SRC-0053 condition (e)) produces identical confidences, and
+    # without an explicit tiebreaker the candidate union (set-typed in
+    # _collect_candidate_ids_for_disputed) iterates in PYTHONHASHSEED-
+    # dependent order — a non-deterministic leader assignment that would
+    # randomize the HumanGateCheckpoint's "leader_canonical_scholar_id"
+    # current_value across runs and break replay reproducibility.
+    positions.sort(key=lambda p: (-p.confidence, p.canonical_id))
     return positions
 
 

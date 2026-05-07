@@ -72,11 +72,20 @@ EvidenceType = Literal[
     "external_anchor",
 ]
 
-# RoundCount uses Literal[1, 2] to bind to the round-cap-2 protocol of
-# REQ-SRC-0052. Round 0 (functional) and round 1 (adversarial-on-disagreement)
-# happen within a single match-call; this field records HOW MANY rounds ran,
-# not WHICH round emitted the verdict.
-RoundCount = Literal[1, 2]
+# RoundCount binds to the round-cap-2 protocol of REQ-SRC-0052. Round 0
+# (functional) and round 1 (adversarial-on-disagreement) happen within a
+# single match-call; this field records HOW MANY rounds ran, not WHICH
+# round emitted the verdict.
+#
+# Value 0 is reserved for the zero-invocation degenerate paths
+# (no_candidates / verifier_unavailable) where ``scholar_match_cell``
+# short-circuits before invoking any verifier; the accompanying
+# threshold_audit (all-False booleans / all-0.0 numerics) carries the
+# matching "no rounds ran" signal alongside this counter. Phase 5 Session 7
+# (2026-05-07) extended Literal[1, 2] to Literal[0, 1, 2] so degenerate
+# paths can be recorded byte-faithfully rather than via the prior
+# "round_count=1 with all-False threshold_audit" floor workaround.
+RoundCount = Literal[0, 1, 2]
 
 
 _FORBIDDEN_FIELD_ERROR = (
