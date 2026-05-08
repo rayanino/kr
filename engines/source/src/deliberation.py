@@ -78,7 +78,22 @@ def assess_case_complexity(
     genre: str | None,
     author_death_hijri: int | None,
     authority_level: str | None,
+    *,
+    partial_fragment_author_identity: bool = False,
 ) -> CaseComplexityRecord:
+    """Assess case complexity for routing per REQ-SRC-0028.
+
+    Phase 5 Session 9 (2026-05-08) per REQ-SRC-0028 Phase 5 amendment
+    2026-04-30: ``partial_fragment_author_identity`` is True when the
+    dossier carries an author fragment that has not yet finalized
+    against ``scholar_authority`` — specifically when the match cell
+    has emitted a ``ProvisionalScholarRegistration`` (Stage-1 found
+    zero registry candidates → "new identity" interpretation per
+    REQ-SRC-0043). When True, ``fast_track`` is BLOCKED regardless of
+    other fast-track predicates because INV-SRC-0013 ≥2-non-name floor
+    is unmet for a not-yet-confirmed scholar. The case routes to
+    ``standard`` instead so the full deliberation path applies.
+    """
     genre_value = _enum_value(genre)
     authority_value = _enum_value(authority_level)
     if dossier.integrity_status == IntegrityStatus.SUSPICIOUS or dossier.pdf_text_layer_status in {
@@ -90,15 +105,22 @@ def assess_case_complexity(
             signals={
                 "pdf_text_layer_status": _enum_value(dossier.pdf_text_layer_status),
                 "integrity_status": _enum_value(dossier.integrity_status),
+                "partial_fragment_author_identity": partial_fragment_author_identity,
             },
         )
-    if authority_value in _FAST_TRACK_AUTHORITIES and genre_value in _FAST_TRACK_GENRES and author_death_hijri is not None:
+    if (
+        not partial_fragment_author_identity
+        and authority_value in _FAST_TRACK_AUTHORITIES
+        and genre_value in _FAST_TRACK_GENRES
+        and author_death_hijri is not None
+    ):
         return CaseComplexityRecord(
             case_complexity="fast_track",
             signals={
                 "authority_level": authority_value,
                 "genre": genre_value,
                 "author_death_hijri": author_death_hijri,
+                "partial_fragment_author_identity": False,
             },
         )
     return CaseComplexityRecord(
@@ -107,6 +129,7 @@ def assess_case_complexity(
             "authority_level": authority_value,
             "genre": genre_value,
             "author_death_hijri": author_death_hijri,
+            "partial_fragment_author_identity": partial_fragment_author_identity,
         },
     )
 
@@ -141,11 +164,28 @@ def evaluate_trust_decision(
     author_death_hijri: int | None,
     authority_level: str | None,
     verification_agents: list[str],
+    *,
+    partial_fragment_author_identity: bool = False,
 ) -> TrustDecision:
+    """Evaluate the trust decision for the source per REQ-SRC-0028.
+
+    Phase 5 Session 9 (2026-05-08): ``partial_fragment_author_identity``
+    is threaded through to ``assess_case_complexity`` so that a source
+    with NEW IDENTITY emissions (REQ-SRC-0043) is routed to
+    ``trust_path=full_deliberation`` even when other fast-track
+    predicates would otherwise apply. See ``assess_case_complexity``
+    docstring for the full Phase 5 amendment 2026-04-30 semantics.
+    """
     distinct_agents = sorted(set(verification_agents))
     if len(distinct_agents) < 2:
         raise SourceEngineError(ErrorCode.TRUST_AGENT_COUNT, "trust evaluation requires 2 agents")
-    complexity = assess_case_complexity(dossier, genre, author_death_hijri, authority_level)
+    complexity = assess_case_complexity(
+        dossier,
+        genre,
+        author_death_hijri,
+        authority_level,
+        partial_fragment_author_identity=partial_fragment_author_identity,
+    )
     decision = "needs_review" if dossier.study_quality_risk_flags else "verified"
     return TrustDecision(
         decision=decision,
@@ -210,12 +250,23 @@ def run_metadata_deliberation(
         )
     metadata.author_output = author_output
     metadata = compare_owner_hints(metadata, deliberation_input.owner_hint_payload)
+    # Phase 5 Session 9 (2026-05-08) per REQ-SRC-0028 Phase 5 amendment
+    # 2026-04-30 + REQ-SRC-0043 AC-1: when scholar_match_cell emitted at
+    # least one ProvisionalScholarRegistration (NEW IDENTITY routing),
+    # the source carries an under-specified scholar fragment whose
+    # match cell has not yet finalized against scholar_authority. The
+    # fast-track gate must be BLOCKED so the source routes to
+    # full_deliberation per REQ-SRC-0028's partial_fragment_author_
+    # identity predicate. The same signal forces case_complexity to
+    # NOT-fast_track via assess_case_complexity below.
+    partial_fragment_author_identity = bool(provisional_scholar_registrations)
     metadata.trust_decision = evaluate_trust_decision(
         dossier=dossier,
         genre=_enum_value(metadata.genre),
         author_death_hijri=deliberation_input.author_death_hijri,
         authority_level=_enum_value(deliberation_input.authority_level),
         verification_agents=deliberation_input.verification_agents,
+        partial_fragment_author_identity=partial_fragment_author_identity,
     )
     metadata.work_output = deliberation_input.work_output or _fallback_work_output(dossier)
     _validate_work_output(metadata.work_output)
@@ -226,6 +277,7 @@ def run_metadata_deliberation(
         genre=_enum_value(metadata.genre),
         author_death_hijri=deliberation_input.author_death_hijri,
         authority_level=_enum_value(deliberation_input.authority_level),
+        partial_fragment_author_identity=partial_fragment_author_identity,
     )
     case_record = _case_record(source_id, complexity, case_id)
     monitor_feedback = [

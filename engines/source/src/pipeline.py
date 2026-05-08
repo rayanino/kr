@@ -184,7 +184,18 @@ class SourcePipeline:
         source_id: str,
         deliberation_result: MetadataDeliberationResult,
         owner_acknowledged: bool,
+        *,
+        scholar_registry_path: Optional[Path] = None,
     ) -> SourceAdmissionResult:
+        """Run Step 60 source admission + normalization handoff.
+
+        Phase 5 Session 9 (2026-05-08) per REQ-SRC-0043 AC-1: forwards
+        ``scholar_registry_path`` to ``admit_source_and_build_handoff``
+        so callers (especially tests) can redirect provisional scholar
+        registration to an isolated registry. Defaults to
+        ``library/registries/scholars.json`` via the underlying
+        consumer when not specified.
+        """
         self._validate_persisted_deliberation_result(source_id, deliberation_result)
         frozen = self.store.get_frozen_source(source_id)
         dossier = self.store.get_intake_dossier(source_id)
@@ -194,10 +205,10 @@ class SourcePipeline:
             dossier=dossier,
             deliberation_result=deliberation_result,
             owner_acknowledged=owner_acknowledged,
+            scholar_registry_path=scholar_registry_path,
         )
         self.store.save_edition_groups(result.edition_groups)
         self.store.save_edition_holdings(result.edition_holdings)
-        return result
         return result
 
     def _validate_persisted_deliberation_result(

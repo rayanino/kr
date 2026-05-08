@@ -730,6 +730,14 @@ class ScholarAuthorityRecord(BaseModel):
     students: list[str] = Field(default_factory=list)
     known_works: list[str] = Field(default_factory=list)
     primary_science: Optional[str] = None
+    # Phase 5 Session 9 (2026-05-08) per REQ-SRC-0043 AC-1 + REQ-SRC-0028
+    # Phase 5 amendment 2026-04-30: scholar authority level on the record.
+    # Defaults to UNKNOWN so new provisional entries created via the source-
+    # engine admission step (REQ-SRC-0043) are correctly identified as below
+    # the fast-track threshold. The fast-track gate in
+    # ``assess_case_complexity`` consults this field via the
+    # ``partial_fragment_author_identity`` signal at deliberation time.
+    authority_level: AuthorityLevel = Field(default=AuthorityLevel.UNKNOWN)
     source_book_ids: list[str] = Field(default_factory=list)
     scholarly_standing: Optional[str] = None
     methodology_notes: Optional[str] = None

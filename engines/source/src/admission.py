@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import logging
-from typing import Literal, cast
+from pathlib import Path
+from typing import Literal, Optional, cast
 from uuid import uuid4
 
 from engines.source.contracts import (
@@ -23,11 +24,13 @@ from engines.source.contracts import (
     PdfTextLayerStatus,
     RawUploadRecord,
     RawUploadStatus,
+    ScholarAuthorityRecord,
     SourceFormat,
     SourceMetadata,
     VolumeHolding,
 )
 from engines.source.src.errors import SourceEngineError
+from engines.source.src.scholar_admission import register_provisional_scholars
 from engines.source.src.store import SourceStore
 
 
@@ -42,6 +45,14 @@ class SourceAdmissionResult:
     owner_submission_risk_case: OwnerSubmissionRiskCase | None
     edition_groups: list[EditionGroup]
     edition_holdings: list[EditionHolding]
+    # Phase 5 Session 9 (2026-05-08) per REQ-SRC-0043 AC-1: status=provisional
+    # ScholarAuthorityRecords created in this admission pass via the
+    # ``register_provisional_scholars`` consumer. Empty when the source did
+    # not trigger any NEW IDENTITY emissions (Stage-1 found ≥1 candidate
+    # for every position OR ``scholar_match_orchestration`` was None).
+    provisional_scholars_registered: list[ScholarAuthorityRecord] = field(
+        default_factory=list
+    )
 
 
 def admit_source_and_build_handoff(
@@ -52,7 +63,26 @@ def admit_source_and_build_handoff(
     owner_acknowledged: bool,
     edition_groups: list[EditionGroup] | None = None,
     edition_holdings: list[EditionHolding] | None = None,
+    *,
+    scholar_registry_path: Optional[Path] = None,
 ) -> SourceAdmissionResult:
+    """Admit the source and build the normalization handoff bundle.
+
+    Phase 5 Session 9 (2026-05-08) — REQ-SRC-0043 AC-1: when
+    ``deliberation_result.provisional_scholar_registrations`` is non-empty,
+    invokes ``register_provisional_scholars`` to write
+    ``status=provisional`` entries to the scholar registry
+    (default: ``library/registries/scholars.json``). The
+    ``scholar_registry_path`` keyword argument allows tests and
+    out-of-tree deployments to redirect to an isolated registry. If the
+    deliberation produced no NEW IDENTITY emissions, the registry is
+    untouched (the consumer short-circuits on empty input).
+
+    Risk-gate-blocked sources (``risk_case is not None``) skip
+    registration entirely — registry mutations are deferred until the
+    owner acknowledges the gate. Provisional scholar admission is a
+    side-effect of source admission and inherits the same gate.
+    """
     _validate_deliberation_source_identity(frozen, deliberation_result)
     raw_upload = store.get_raw_upload(frozen.submission_id or "")
     risk_case = _risk_case_for_dossier(frozen.source_id, dossier, owner_acknowledged)
@@ -60,13 +90,30 @@ def admit_source_and_build_handoff(
         raw_upload.status = RawUploadStatus.AWAITING_OWNER_ACK
         store.update_raw_upload(raw_upload)
         store.save_risk_case(risk_case)
-        return SourceAdmissionResult(raw_upload, [], None, risk_case, edition_groups or [], edition_holdings or [])
+        return SourceAdmissionResult(
+            raw_upload_record=raw_upload,
+            source_collection_records=[],
+            handoff_bundle=None,
+            owner_submission_risk_case=risk_case,
+            edition_groups=edition_groups or [],
+            edition_holdings=edition_holdings or [],
+        )
     finalized = _finalize_metadata(deliberation_result.source_metadata, frozen, dossier)
     bundle = _build_handoff_bundle(
         source_metadata=finalized,
         dossier=dossier,
         frozen=frozen,
         disagreement_cases=deliberation_result.disagreement_cases,
+    )
+    # REQ-SRC-0043 AC-1: register status=provisional scholars for NEW
+    # IDENTITY match-cell emissions before persisting source collection
+    # state. Failures here propagate as exceptions per Critical Rule 4
+    # (errors fail loudly) — a registry write failure must NOT silently
+    # admit a source whose attribution depends on a not-yet-recorded
+    # provisional scholar.
+    provisional_registered = register_provisional_scholars(
+        deliberation_result.provisional_scholar_registrations,
+        registry_path=scholar_registry_path,
     )
     raw_upload.status = RawUploadStatus.SOURCE_ENGINE_ACCEPTED
     store.update_raw_upload(raw_upload)
@@ -80,7 +127,15 @@ def admit_source_and_build_handoff(
         edition_holdings=edition_holdings or [],
     )
     apply_supersession(groups, holdings, finalized, dossier.completeness_status)
-    return SourceAdmissionResult(raw_upload, [finalized], bundle, None, groups, holdings)
+    return SourceAdmissionResult(
+        raw_upload_record=raw_upload,
+        source_collection_records=[finalized],
+        handoff_bundle=bundle,
+        owner_submission_risk_case=None,
+        edition_groups=groups,
+        edition_holdings=holdings,
+        provisional_scholars_registered=provisional_registered,
+    )
 
 
 def reconcile_holdings(
