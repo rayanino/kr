@@ -644,8 +644,17 @@ def compute_layer_attribution(
             "This violates I-AC-2 (every character attributed to a layer)."
         )
 
-    # Sort by coverage descending
-    coverages.sort(key=lambda x: x[1], reverse=True)
+    # Sort by coverage descending; secondary sort by layer.start ASC
+    # breaks coverage ties deterministically. Without the tiebreak, two
+    # layers with identical coverage_pct would have their ordering decided
+    # by upstream text_layers list order — which is plausibly safe today
+    # but introduces a latent determinism trap (cf. Session 7 generalized
+    # defect class: `_build_positions_for_disputed` PYTHONHASHSEED bug at
+    # shared/scholar_authority/src/threshold_compounding.py).
+    # F-DET-3 commits to determinism in its name ("F-DET" = field
+    # deterministic) — the tiebreak makes that contract hold under all
+    # input orderings.
+    coverages.sort(key=lambda x: (-x[1], x[0].start))
     top_layer, top_coverage = coverages[0]
 
     # LA-4: Any layer has 100% coverage (most specific case, checked first)

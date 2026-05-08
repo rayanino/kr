@@ -146,7 +146,19 @@ def route_excerpt(
         - confidence: Top score, or None if no candidates
         - tie_detected: True if top 2 within TIE_THRESHOLD and both ≥ STAGING_THRESHOLD
     """
-    sorted_rankings = sorted(ranking.rankings, key=lambda r: r.score, reverse=True)
+    # Phase 5 Session 10 (2026-05-08) determinism fix per Session 7 pattern:
+    # secondary sort key on leaf_path ascending breaks score ties
+    # deterministically. Without this, two leaves at identical scores
+    # would have their ordering decided by LLM output order — which
+    # varies across runs even at temperature=0 (Instructor JSON parse
+    # of Pydantic list[LeafScore] preserves but does not canonicalize
+    # input order). leaf_path is the canonical string identifier for
+    # LeafScore (PlacementRanking.rankings: list[LeafScore]; each
+    # LeafScore has unique leaf_path within a tree per SPEC §4.A.2).
+    sorted_rankings = sorted(
+        ranking.rankings,
+        key=lambda r: (-r.score, r.leaf_path),
+    )
     top = sorted_rankings[0]
     top_score = top.score
     top_path = top.leaf_path
@@ -279,8 +291,11 @@ def place_excerpt(
 
     if route == PlacementRoute.UNPLACED:
         # Include top 3 candidates for diagnostics
+        # Phase 5 Session 10 (2026-05-08): secondary sort by leaf_path
+        # ASC matches the determinism fix at route_excerpt above so
+        # diagnostics ordering is reproducible across runs.
         sorted_rankings = sorted(
-            ranking.rankings, key=lambda r: r.score, reverse=True
+            ranking.rankings, key=lambda r: (-r.score, r.leaf_path)
         )
         best_3 = [
             {"leaf_path": r.leaf_path, "score": r.score, "reasoning": r.reasoning}
