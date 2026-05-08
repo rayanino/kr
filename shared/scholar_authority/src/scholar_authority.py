@@ -147,6 +147,25 @@ _BIOGRAPHICAL_FIELDS: list[str] = [
 _LOCK_TIMEOUT = 30  # seconds
 
 
+def _json_default(obj: Any) -> Any:
+    """JSON encoder fallback for Pydantic BaseModel values in revision_history.
+
+    Phase 5 Session 11 (2026-05-08) adjacent fix: ``update()`` previously
+    crashed with ``TypeError: Object of type X is not JSON serializable``
+    when ``updates`` carried a list-of-Pydantic-BaseModel field (e.g.,
+    ``evidence_sources: list[ScholarEvidenceSource]``). The
+    ``revision_history`` append calls ``json.dumps(value)`` to record old
+    and new values; without a ``default=`` handler, BaseModel values fail.
+    Latent bug — not exercised by any pre-Session-11 caller — surfaced
+    when REQ-SRC-0043 AC-2 promotion began passing ``evidence_sources``
+    through ``update()``. Fix applied per System Prompt Override "Fix
+    adjacent broken code."
+    """
+    if isinstance(obj, BaseModel):
+        return obj.model_dump(mode="json")
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
 def _load_registry(path: Path) -> dict[str, dict]:
     """Load scholars.json from disk. Returns empty dict if file doesn't exist."""
     if not path.exists():
@@ -620,8 +639,14 @@ def update(
             if old_value != new_value:
                 record.revision_history.append(MetadataHistoryEntry(
                     field=field_name,
-                    old_value=json.dumps(old_value, ensure_ascii=False) if old_value is not None else None,
-                    new_value=json.dumps(new_value, ensure_ascii=False),
+                    old_value=(
+                        json.dumps(old_value, ensure_ascii=False, default=_json_default)
+                        if old_value is not None
+                        else None
+                    ),
+                    new_value=json.dumps(
+                        new_value, ensure_ascii=False, default=_json_default
+                    ),
                     changed_by=f"{requesting_engine}:{source_id}",
                     timestamp=now,
                 ))

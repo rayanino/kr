@@ -53,6 +53,26 @@ class SourceAdmissionResult:
     provisional_scholars_registered: list[ScholarAuthorityRecord] = field(
         default_factory=list
     )
+    # Phase 5 Session 11 (2026-05-08) per REQ-SRC-0043 AC-2: existing
+    # provisional ScholarAuthorityRecord entries promoted to
+    # status=confirmed in this admission pass. Records reflect the
+    # post-update state (status=confirmed, extended source_book_ids,
+    # re-evaluated authority_level). Empty when no AC-2 happy-path
+    # promotions fired.
+    provisional_scholars_promoted: list[ScholarAuthorityRecord] = field(
+        default_factory=list
+    )
+    # Phase 5 Session 11 (2026-05-08) per REQ-SRC-0043 AC-3 (and AC-2
+    # floor-not-met fallback): pairs ``(existing_post_update, new_record)``
+    # where a new entry was created alongside an existing display_name-
+    # matching entry, with cross-references applied via
+    # ``ScholarAuthorityRecord.disambiguation_notes``. The new entries
+    # are also present in ``provisional_scholars_registered``; this list
+    # provides the typed pairing for downstream consumers (audit log,
+    # human-review escalation, registry-integrity sweeps).
+    near_collision_disambiguations: list[
+        tuple[ScholarAuthorityRecord, ScholarAuthorityRecord]
+    ] = field(default_factory=list)
 
 
 def admit_source_and_build_handoff(
@@ -105,13 +125,18 @@ def admit_source_and_build_handoff(
         frozen=frozen,
         disagreement_cases=deliberation_result.disagreement_cases,
     )
-    # REQ-SRC-0043 AC-1: register status=provisional scholars for NEW
-    # IDENTITY match-cell emissions before persisting source collection
-    # state. Failures here propagate as exceptions per Critical Rule 4
-    # (errors fail loudly) — a registry write failure must NOT silently
-    # admit a source whose attribution depends on a not-yet-recorded
-    # provisional scholar.
-    provisional_registered = register_provisional_scholars(
+    # REQ-SRC-0043 AC-1/AC-2/AC-3: register / promote / disambiguate
+    # provisional scholars for NEW IDENTITY (and second-source) match-cell
+    # emissions before persisting source collection state. Failures here
+    # propagate as exceptions per Critical Rule 4 (errors fail loudly) — a
+    # registry write failure must NOT silently admit a source whose
+    # attribution depends on a not-yet-recorded provisional scholar.
+    # Phase 5 Session 11 (2026-05-08): the consumer now returns a
+    # ProvisionalRegistrationOutcome with three lists (registered, promoted,
+    # near_collision_disambiguations); admission unpacks them into the
+    # corresponding SourceAdmissionResult fields. ADDITIVE per D-023 — no
+    # upstream metadata field dropped.
+    provisional_outcome = register_provisional_scholars(
         deliberation_result.provisional_scholar_registrations,
         registry_path=scholar_registry_path,
     )
@@ -134,7 +159,11 @@ def admit_source_and_build_handoff(
         owner_submission_risk_case=None,
         edition_groups=groups,
         edition_holdings=holdings,
-        provisional_scholars_registered=provisional_registered,
+        provisional_scholars_registered=provisional_outcome.registered,
+        provisional_scholars_promoted=provisional_outcome.promoted,
+        near_collision_disambiguations=(
+            provisional_outcome.near_collision_disambiguations
+        ),
     )
 
 

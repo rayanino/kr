@@ -413,18 +413,20 @@ def test_register_provisional_scholars_assigns_sequential_ids(
     sch_NNNNN ids assigned by the underlying register() helper.
 
     Locks a contract that callers can rely on registration order to
-    derive id ordering — useful for AC-2 promotion logic in Session 10
+    derive id ordering — useful for AC-2 promotion logic in Session 11
     that must look up "the most recently registered provisional entry"
     by id sequence."""
     registry_path = _isolated_registry_path(tmp_path)
-    registered = register_provisional_scholars(
+    outcome = register_provisional_scholars(
         [_SHATHRI_REGISTRATION, _TURKI_REGISTRATION],
         registry_path=registry_path,
     )
 
-    assert len(registered) == 2
-    first_num = int(registered[0].canonical_id[4:])
-    second_num = int(registered[1].canonical_id[4:])
+    assert len(outcome.registered) == 2
+    assert outcome.promoted == []
+    assert outcome.near_collision_disambiguations == []
+    first_num = int(outcome.registered[0].canonical_id[4:])
+    second_num = int(outcome.registered[1].canonical_id[4:])
     assert second_num == first_num + 1
 
 
@@ -438,24 +440,30 @@ def test_register_provisional_scholars_preserves_existing_entries(
     many sources; a write-truncate bug would silently delete the entire
     library catalog of identified scholars."""
     registry_path = _isolated_registry_path(tmp_path)
-    first = register_provisional_scholars(
+    first_outcome = register_provisional_scholars(
         [_SHATHRI_REGISTRATION],
         registry_path=registry_path,
     )
-    second = register_provisional_scholars(
+    second_outcome = register_provisional_scholars(
         [_TURKI_REGISTRATION],
         registry_path=registry_path,
     )
 
-    assert len(first) == 1
-    assert len(second) == 1
-    assert first[0].canonical_id != second[0].canonical_id
+    assert len(first_outcome.registered) == 1
+    assert len(second_outcome.registered) == 1
+    assert first_outcome.promoted == []
+    assert second_outcome.promoted == []
+    assert first_outcome.near_collision_disambiguations == []
+    assert second_outcome.near_collision_disambiguations == []
+    first_record = first_outcome.registered[0]
+    second_record = second_outcome.registered[0]
+    assert first_record.canonical_id != second_record.canonical_id
 
     raw = json.loads(registry_path.read_text(encoding="utf-8"))
-    assert first[0].canonical_id in raw
-    assert second[0].canonical_id in raw
-    assert raw[first[0].canonical_id]["canonical_name_ar"] == "سعد بن ناصر الشثري"
-    assert raw[second[0].canonical_id]["canonical_name_ar"] == (
+    assert first_record.canonical_id in raw
+    assert second_record.canonical_id in raw
+    assert raw[first_record.canonical_id]["canonical_name_ar"] == "سعد بن ناصر الشثري"
+    assert raw[second_record.canonical_id]["canonical_name_ar"] == (
         "عبد الله بن عبد المحسن التركي"
     )
 
@@ -509,9 +517,12 @@ def test_register_provisional_scholars_preserves_arabic_byte_faithful(
         triggering_match_result_id="smr_taysir",
     )
     registry_path = _isolated_registry_path(tmp_path)
-    [registered] = register_provisional_scholars(
+    outcome = register_provisional_scholars(
         [arabic_with_diacritics], registry_path=registry_path
     )
+    [registered] = outcome.registered
+    assert outcome.promoted == []
+    assert outcome.near_collision_disambiguations == []
 
     # In-memory record preserves bytes exactly.
     assert registered.canonical_name_ar == "عبد الرحمن بن ناصر السعدي"
@@ -546,9 +557,12 @@ def test_register_provisional_scholars_unknown_evidence_types_become_agent_infer
         triggering_match_result_id="smr_arbitrary",
     )
     registry_path = _isolated_registry_path(tmp_path)
-    [registered] = register_provisional_scholars(
+    outcome = register_provisional_scholars(
         [arbitrary_evidence], registry_path=registry_path
     )
+    [registered] = outcome.registered
+    assert outcome.promoted == []
+    assert outcome.near_collision_disambiguations == []
 
     by_raw = {ev.raw_evidence: ev for ev in registered.evidence_sources}
     assert by_raw["some_unrecognized_tag"].evidence_type == "agent_inference"
@@ -560,12 +574,15 @@ def test_register_provisional_scholars_unknown_evidence_types_become_agent_infer
 def test_register_provisional_scholars_empty_input_is_no_op(
     tmp_path: Path,
 ) -> None:
-    """Empty registrations list returns empty list and does NOT create
-    the registry file. Locks the contract relied on by
+    """Empty registrations list returns an empty outcome and does NOT
+    create the registry file. Locks the contract relied on by
     test_ac1_no_registrations_leaves_registry_untouched at the
     higher-level admission test."""
     registry_path = _isolated_registry_path(tmp_path)
-    assert register_provisional_scholars([], registry_path=registry_path) == []
+    outcome = register_provisional_scholars([], registry_path=registry_path)
+    assert outcome.registered == []
+    assert outcome.promoted == []
+    assert outcome.near_collision_disambiguations == []
     assert not registry_path.exists()
 
 
