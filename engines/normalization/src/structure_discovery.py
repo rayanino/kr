@@ -301,7 +301,7 @@ def _tier1_html_tagged(
     doc_pos = 0
 
     for page in pages:
-        for span_idx, raw_text in enumerate(page.title_spans):
+        for raw_text in page.title_spans:
             # Strip leading ZWNJ (U+200C) — Session 2 decoded &#8204; entities
             text = raw_text.lstrip("\u200c").strip()
             if not text:
@@ -361,7 +361,7 @@ def _tier1_5_toc_parse(
 
         page_had_entries = False
         lines = page.primary_text.split("\n")
-        for line_i, raw_line in enumerate(lines):
+        for raw_line in lines:
             line = raw_line.strip()
             if not line:
                 continue
@@ -1125,7 +1125,11 @@ def _build_page_markers(
         by_page.setdefault(c.unit_index, []).append(c)
 
     for unit_idx, page_cands in by_page.items():
-        first = min(page_cands, key=lambda c: c.document_position)
+        # Tuple-key tiebreak: volume HeadingCandidates default document_position=0
+        # (line 86) and collide with Tier 1's first candidate; heading_text is the
+        # secondary total-order field. See .claude/rules/single-key-sort-audit.md
+        # (Sessions 5+7+10 PYTHONHASHSEED determinism pattern).
+        first = min(page_cands, key=lambda c: (c.document_position, c.heading_text))
         markers[unit_idx] = StructuralMarkers(
             heading_detected=True,
             heading_text=first.heading_text,
